@@ -31,6 +31,8 @@ let v = "Hello";
 
 Contains an Executable set of expressions.
 
+Read [Functions](./Functions.md) for more information.
+
 ```js
 //Default way of defining a function
 function F()

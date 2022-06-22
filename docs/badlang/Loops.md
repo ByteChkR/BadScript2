@@ -1,5 +1,11 @@
 # Loops
 
+## while
+
+## for
+
+## foreach
+
 ___
 
 ## Links
