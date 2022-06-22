@@ -1,0 +1,26 @@
+var class_bad_runtime_api =
+[
+    [ "BadRuntimeApi", "class_bad_runtime_api.html#a892bd09b77798de11bb7b2bb9f1b832a", null ],
+    [ "CompileSource", "class_bad_runtime_api.html#a6221a3621d254f9c4cba0c6c37309ffa", null ],
+    [ "Evaluate", "class_bad_runtime_api.html#a94e8e1df5686ff7a5ce3d816f91cc970", null ],
+    [ "Export", "class_bad_runtime_api.html#a41fe18f788f1bfe64004aa47607dabac", null ],
+    [ "GetArguments", "class_bad_runtime_api.html#aadd98db92e4e9f127176befc916169c6", null ],
+    [ "GetExtensionNames", "class_bad_runtime_api.html#a20509345eb78952d94e02b94aeb736f5", null ],
+    [ "GetGlobalExtensionNames", "class_bad_runtime_api.html#a565139a36371736e8054e01fd0a935c1", null ],
+    [ "GetTimeNow", "class_bad_runtime_api.html#a9e3fa9f3c8fe1ceb8d2f86694f1b917b", null ],
+    [ "HasPackage", "class_bad_runtime_api.html#ac40aef64404e4b5f34177cce348bec98", null ],
+    [ "Import", "class_bad_runtime_api.html#a42f535586c373c297835b1a3f3f4c501", null ],
+    [ "Load", "class_bad_runtime_api.html#ae93bc7c4ddf3dd20e9712bdc378c3ca3", null ],
+    [ "MakeNative", "class_bad_runtime_api.html#a6ffc5fea94734482b48fa4a04b34d3fb", null ],
+    [ "Native_IsArray", "class_bad_runtime_api.html#a3259b01ce66dce55ce3efd5f6c91b61d", null ],
+    [ "Native_IsBoolean", "class_bad_runtime_api.html#a3339d7af5c6a8b20f209e22a39cd2ea6", null ],
+    [ "Native_IsEnumerable", "class_bad_runtime_api.html#a0dcec53e66120d8eaee1c0323ea1d07f", null ],
+    [ "Native_IsEnumerator", "class_bad_runtime_api.html#aa1ab0dc2ff4d7d62f295e9f27f34ff53", null ],
+    [ "Native_IsFunction", "class_bad_runtime_api.html#add453baee8f48613789ff1b2eb87f804", null ],
+    [ "Native_IsNative", "class_bad_runtime_api.html#ab8df59a7a2ef8fc6af1cc6ded37e0ce8", null ],
+    [ "Native_IsNumber", "class_bad_runtime_api.html#a5dcedae1e2743324ed18b86e9f69bf46", null ],
+    [ "Native_IsString", "class_bad_runtime_api.html#abaf1bd022c7c28eb0d33d24bae2c7185", null ],
+    [ "Native_IsTable", "class_bad_runtime_api.html#aeb4a63e080e77f708e8dd1e7202974c4", null ],
+    [ "m_Exports", "class_bad_runtime_api.html#a82bbf1e5947e1b3df07bb465950d0e5e", null ],
+    [ "StartupArguments", "class_bad_runtime_api.html#a0b64d363c6be5abf4711890b7181ea52", null ]
+];

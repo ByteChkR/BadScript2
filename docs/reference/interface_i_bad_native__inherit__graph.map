@@ -1,0 +1,12 @@
+<map id="IBadNative" name="IBadNative">
+<area shape="rect" id="node1" title=" " alt="" coords="342,80,425,107"/>
+<area shape="rect" id="node3" href="$class_bad_native.html" title=" " alt="" coords="5,155,116,181"/>
+<area shape="rect" id="node4" href="$class_bad_object_1_1_bad_null_object.html" title=" " alt="" coords="141,155,311,181"/>
+<area shape="rect" id="node5" href="$interface_i_bad_boolean.html" title=" " alt="" coords="336,155,431,181"/>
+<area shape="rect" id="node7" href="$interface_i_bad_number.html" title=" " alt="" coords="455,155,549,181"/>
+<area shape="rect" id="node9" href="$interface_i_bad_string.html" title=" " alt="" coords="573,155,655,181"/>
+<area shape="rect" id="node2" title=" " alt="" coords="299,5,467,32"/>
+<area shape="rect" id="node6" href="$class_bad_boolean.html" title=" " alt="" coords="337,229,429,256"/>
+<area shape="rect" id="node8" href="$class_bad_number.html" title=" " alt="" coords="457,229,547,256"/>
+<area shape="rect" id="node10" href="$class_bad_string.html" title=" " alt="" coords="575,229,653,256"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="BadInteropExtension" name="BadInteropExtension">
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,148,209"/>
+<area shape="rect" id="node2" href="$class_bad_array_extension.html" title=" " alt="" coords="225,5,359,32"/>
+<area shape="rect" id="node3" href="$class_bad_function_extension.html" title=" " alt="" coords="215,56,369,83"/>
+<area shape="rect" id="node4" href="$class_bad_object_extension.html" title=" " alt="" coords="221,107,363,133"/>
+<area shape="rect" id="node5" href="$class_bad_scope_extension.html" title=" " alt="" coords="222,157,362,184"/>
+<area shape="rect" id="node6" href="$class_bad_script_debugger_extension.html" title=" " alt="" coords="196,208,388,235"/>
+<area shape="rect" id="node7" href="$class_bad_string_extension.html" title=" " alt="" coords="223,259,361,285"/>
+<area shape="rect" id="node8" href="$class_bad_table_extension.html" title=" " alt="" coords="225,309,359,336"/>
+<area shape="rect" id="node9" href="$class_bad_type_system_extension.html" title=" " alt="" coords="204,360,380,387"/>
+</map>

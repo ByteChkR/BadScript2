@@ -1,0 +1,9 @@
+<map id="BadInteropFunction" name="BadInteropFunction">
+<area shape="rect" id="node1" title=" " alt="" coords="162,353,297,380"/>
+<area shape="rect" id="node2" href="$class_bad_function.html" title=" " alt="" coords="182,277,277,304"/>
+<area shape="rect" id="node3" href="$class_bad_object.html" title=" " alt="" coords="5,179,88,206"/>
+<area shape="rect" id="node4" href="$class_bad_word_token.html" title=" " alt="" coords="174,179,285,206"/>
+<area shape="rect" id="node5" href="$class_bad_token.html" title=" " alt="" coords="189,95,269,121"/>
+<area shape="rect" id="node6" href="$class_bad_source_position.html" title=" " alt="" coords="163,5,296,32"/>
+<area shape="rect" id="node7" href="$class_bad_function_parameter.html" title=" " alt="" coords="309,179,464,206"/>
+</map>

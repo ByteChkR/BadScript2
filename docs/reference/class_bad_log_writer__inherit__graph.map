@@ -1,0 +1,7 @@
+<map id="BadLogWriter" name="BadLogWriter">
+<area shape="rect" id="node1" title=" " alt="" coords="113,80,214,107"/>
+<area shape="rect" id="node3" href="$class_bad_console_log_writer.html" title=" " alt="" coords="5,155,153,181"/>
+<area shape="rect" id="node4" href="$class_bad_stream_log_writer.html" title=" " alt="" coords="177,155,320,181"/>
+<area shape="rect" id="node2" title=" " alt="" coords="119,5,208,32"/>
+<area shape="rect" id="node5" href="$class_bad_file_log_writer.html" title=" " alt="" coords="187,229,310,256"/>
+</map>

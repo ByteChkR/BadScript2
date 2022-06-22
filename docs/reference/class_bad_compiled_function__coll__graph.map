@@ -1,0 +1,12 @@
+<map id="BadCompiledFunction" name="BadCompiledFunction">
+<area shape="rect" id="node1" title=" " alt="" coords="200,383,349,409"/>
+<area shape="rect" id="node2" href="$class_bad_function.html" title=" " alt="" coords="310,293,405,320"/>
+<area shape="rect" id="node3" href="$class_bad_object.html" title=" " alt="" coords="139,14,221,41"/>
+<area shape="rect" id="node9" href="$class_bad_scope.html" title=" " alt="" coords="5,203,88,229"/>
+<area shape="rect" id="node10" href="$class_bad_table.html" title=" " alt="" coords="38,112,114,139"/>
+<area shape="rect" id="node4" href="$class_bad_word_token.html" title=" " alt="" coords="405,203,515,229"/>
+<area shape="rect" id="node5" href="$class_bad_token.html" title=" " alt="" coords="415,112,495,139"/>
+<area shape="rect" id="node6" href="$class_bad_source_position.html" title=" " alt="" coords="443,14,576,41"/>
+<area shape="rect" id="node7" href="$class_bad_function_parameter.html" title=" " alt="" coords="175,203,329,229"/>
+<area shape="rect" id="node8" href="$class_bad_compiler_result.html" title=" " alt="" coords="9,293,143,320"/>
+</map>

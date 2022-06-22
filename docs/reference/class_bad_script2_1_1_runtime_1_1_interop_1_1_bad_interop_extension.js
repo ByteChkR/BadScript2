@@ -1,0 +1,25 @@
+var class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension =
+[
+    [ "AddExtension< T >", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#acae5ce14e2a6c70072da330f82a37fa1", null ],
+    [ "AddExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a721b96dc1b7b60feb442703eda7baa4c", null ],
+    [ "GetExtensionNames", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a149441f7a50d34b533468d7e4cdf06b7", null ],
+    [ "GetExtensionNames", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a25b78b39dbe340d778f1dadaabf898c1", null ],
+    [ "GetObject", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a51cd63a0d9a857e5e1137a0995935c2a", null ],
+    [ "GetObject< T >", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a1187e1513d3e93805c02e96ba3779945", null ],
+    [ "GetObjectReference", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a18bd21ea46121a62d19cf2cb69f06798", null ],
+    [ "GetTypeExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a54e1e5f81ab8f82c85c95c462f75ba77", null ],
+    [ "HasGlobalExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#aa51bfde726363057b720c71c24dee06b", null ],
+    [ "HasObject", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#abf5d8f105978df9b1a32779a080335c5", null ],
+    [ "HasObject< T >", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#ae56a8d7fc4b0ad43172823f846f04a94", null ],
+    [ "HasTypeExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a914697057aed695f133d4f5349e114ec", null ],
+    [ "Initialize", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a4e08c2a03de9404efba4db0661df0b03", null ],
+    [ "RegisterGlobal", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a6fcad1457282b5693596c20e5b720847", null ],
+    [ "RegisterGlobal", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a2b27771f2bf22fa4611712a13164529c", null ],
+    [ "RegisterObject", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a49e4273bf30ed417d148f59d99973994", null ],
+    [ "RegisterObject", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a8392bf3da8ec7587c7302c26b5a1e84a", null ],
+    [ "RegisterObject< T >", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a6f2fb4a2828a85ee82c845fad6d48b45", null ],
+    [ "s_ActiveExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a31a6ae2d104afdd5462ae56be6bb5ace", null ],
+    [ "s_GlobalExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#aac8dfaf2069dd11cb967354a40743d5b", null ],
+    [ "s_ObjectExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#af73f09c0136013f9caa935644693987a", null ],
+    [ "s_StaticExtensionCache", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a50930cd5c883e3bacf8f2b8c829f8239", null ]
+];
