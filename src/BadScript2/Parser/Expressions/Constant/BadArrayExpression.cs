@@ -3,39 +3,40 @@ using BadScript2.Optimizations;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Constant;
-
-public class BadArrayExpression : BadExpression
+namespace BadScript2.Parser.Expressions.Constant
 {
-    public readonly BadExpression[] InitExpressions;
-
-    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(false, false, position)
+    public class BadArrayExpression : BadExpression
     {
-        InitExpressions = initExpressions;
-    }
+        public readonly BadExpression[] InitExpressions;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < InitExpressions.Length; i++)
+        public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(false, false, position)
         {
-            InitExpressions[i] = BadExpressionOptimizer.Optimize(InitExpressions[i]);
+            InitExpressions = initExpressions;
         }
-    }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        List<BadObject> array = new List<BadObject>();
-        foreach (BadExpression expression in InitExpressions)
+        public override void Optimize()
         {
-            BadObject o = BadObject.Null;
-            foreach (BadObject obj in expression.Execute(context))
+            for (int i = 0; i < InitExpressions.Length; i++)
             {
-                o = obj;
+                InitExpressions[i] = BadExpressionOptimizer.Optimize(InitExpressions[i]);
+            }
+        }
+
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            List<BadObject> array = new List<BadObject>();
+            foreach (BadExpression expression in InitExpressions)
+            {
+                BadObject o = BadObject.Null;
+                foreach (BadObject obj in expression.Execute(context))
+                {
+                    o = obj;
+                }
+
+                array.Add(o);
             }
 
-            array.Add(o);
+            yield return new BadArray(array);
         }
-
-        yield return new BadArray(array);
     }
 }

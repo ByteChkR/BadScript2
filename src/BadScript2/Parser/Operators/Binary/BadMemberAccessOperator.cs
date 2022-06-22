@@ -3,16 +3,17 @@ using BadScript2.Parser.Expressions.Access;
 using BadScript2.Reader;
 using BadScript2.Reader.Token;
 
-namespace BadScript2.Parser.Operators.Binary;
-
-public class BadMemberAccessOperator : BadBinaryOperator
+namespace BadScript2.Parser.Operators.Binary
 {
-    public BadMemberAccessOperator() : base(2, ".") { }
-
-    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    public class BadMemberAccessOperator : BadBinaryOperator
     {
-        BadWordToken right = parser.Reader.ParseWord();
+        public BadMemberAccessOperator() : base(2, ".") { }
 
-        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition));
+        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+        {
+            BadWordToken right = parser.Reader.ParseWord();
+
+            return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition));
+        }
     }
 }

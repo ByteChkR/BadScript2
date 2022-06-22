@@ -1,16 +1,17 @@
 using BadScript2.Parser.Expressions.Binary.Math;
 
-namespace BadScript2.Runtime.Compiler.Expression.Binary.Math;
-
-public class BadSubtractExpressionCompiler : BadExpressionCompiler<BadSubtractExpression>
+namespace BadScript2.Runtime.Compiler.Expression.Binary.Math
 {
-    public override int Compile(BadSubtractExpression expr, BadCompilerResult result)
+    public class BadSubtractExpressionCompiler : BadExpressionCompiler<BadSubtractExpression>
     {
-        int start = BadCompiler.CompileExpression(expr.Left, result);
-        BadCompiler.CompileExpression(expr.Right, result);
+        public override int Compile(BadSubtractExpression expr, BadCompilerResult result)
+        {
+            int start = BadCompiler.CompileExpression(expr.Left, result);
+            BadCompiler.CompileExpression(expr.Right, result);
 
-        result.Emit(new BadInstruction(BadOpCode.Sub, expr.Position));
+            result.Emit(new BadInstruction(BadOpCode.Sub, expr.Position));
 
-        return start;
+            return start;
+        }
     }
 }

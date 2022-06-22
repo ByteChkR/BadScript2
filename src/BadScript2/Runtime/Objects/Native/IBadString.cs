@@ -1,6 +1,7 @@
-namespace BadScript2.Runtime.Objects.Native;
-
-public interface IBadString : IBadNative
+namespace BadScript2.Runtime.Objects.Native
 {
-    new string Value { get; }
+    public interface IBadString : IBadNative
+    {
+        new string Value { get; }
+    }
 }

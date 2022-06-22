@@ -1,61 +1,62 @@
-namespace BadScript2.Interop.Common;
-
-public class BadTaskRunner
+namespace BadScript2.Interop.Common
 {
-    private readonly List<BadTask> m_TaskList = new List<BadTask>();
-
-    public BadTask? Current { get; private set; }
-    public bool IsIdle => m_TaskList.Count == 0;
-
-    public void RunStep()
+    public class BadTaskRunner
     {
-        for (int i = m_TaskList.Count - 1; i >= 0; i--)
+        private readonly List<BadTask> m_TaskList = new List<BadTask>();
+
+        public BadTask? Current { get; private set; }
+        public bool IsIdle => m_TaskList.Count == 0;
+
+        public void RunStep()
         {
-            BadTask t = m_TaskList[i];
-            Current = t;
-            if (t.IsPaused)
+            for (int i = m_TaskList.Count - 1; i >= 0; i--)
             {
-                continue;
-            }
-
-            if (!t.IsFinished)
-            {
-                for (int j = 0; j < BadTaskRunnerSettings.Instance.TaskIterationTime; j++)
+                BadTask t = m_TaskList[i];
+                Current = t;
+                if (t.IsPaused)
                 {
-                    if (t.IsPaused)
-                    {
-                        break;
-                    }
+                    continue;
+                }
 
-                    if (t.IsFinished || !t.Enumerator.MoveNext())
+                if (!t.IsFinished)
+                {
+                    for (int j = 0; j < BadTaskRunnerSettings.Instance.TaskIterationTime; j++)
                     {
-                        t.Stop();
+                        if (t.IsPaused)
+                        {
+                            break;
+                        }
 
-                        break;
+                        if (t.IsFinished || !t.Enumerator.MoveNext())
+                        {
+                            t.Stop();
+
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (t.IsFinished)
-            {
-                m_TaskList.Remove(t);
-                t.ContinuationTasks.ForEach(
-                    x =>
-                    {
-                        m_TaskList.Add(x);
-                        x.Start();
-                    }
-                );
+                if (t.IsFinished)
+                {
+                    m_TaskList.Remove(t);
+                    t.ContinuationTasks.ForEach(
+                        x =>
+                        {
+                            m_TaskList.Add(x);
+                            x.Start();
+                        }
+                    );
+                }
             }
         }
-    }
 
-    public void AddTask(BadTask task, bool runImmediately = false)
-    {
-        m_TaskList.Add(task);
-        if (runImmediately)
+        public void AddTask(BadTask task, bool runImmediately = false)
         {
-            task.Start();
+            m_TaskList.Add(task);
+            if (runImmediately)
+            {
+                task.Start();
+            }
         }
     }
 }

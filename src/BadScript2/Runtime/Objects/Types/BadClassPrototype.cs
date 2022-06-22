@@ -1,47 +1,48 @@
 using BadScript2.Runtime.Error;
 
-namespace BadScript2.Runtime.Objects.Types;
-
-public abstract class BadClassPrototype : BadObject
+namespace BadScript2.Runtime.Objects.Types
 {
-    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>(
-        "Class",
-        (_, _) => throw new BadRuntimeException("Classes cannot be extended")
-    );
-
-    protected readonly BadClassPrototype? BaseClass;
-    public readonly string Name;
-
-    protected BadClassPrototype(string name, BadClassPrototype? baseClass)
+    public abstract class BadClassPrototype : BadObject
     {
-        Name = name;
-        BaseClass = baseClass;
-    }
+        public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>(
+            "Class",
+            (_, _) => throw new BadRuntimeException("Classes cannot be extended")
+        );
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return Prototype;
-    }
+        protected readonly BadClassPrototype? BaseClass;
+        public readonly string Name;
 
-    public abstract IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true);
-
-    public virtual bool IsAssignableFrom(BadObject obj)
-    {
-        if (obj == Null)
+        protected BadClassPrototype(string name, BadClassPrototype? baseClass)
         {
-            return true;
+            Name = name;
+            BaseClass = baseClass;
         }
 
-        if (obj is BadClass cls)
+        public override BadClassPrototype GetPrototype()
         {
-            return cls.InheritsFrom(this);
+            return Prototype;
         }
 
-        return false;
-    }
+        public abstract IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true);
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return $"prototype {Name}";
+        public virtual bool IsAssignableFrom(BadObject obj)
+        {
+            if (obj == Null)
+            {
+                return true;
+            }
+
+            if (obj is BadClass cls)
+            {
+                return cls.InheritsFrom(this);
+            }
+
+            return false;
+        }
+
+        public override string ToSafeString(List<BadObject> done)
+        {
+            return $"prototype {Name}";
+        }
     }
 }

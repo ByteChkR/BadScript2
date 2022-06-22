@@ -1,18 +1,19 @@
-namespace BadScript2.Console;
-
-public static class BadConsoleDirectories
+namespace BadScript2.Console
 {
-    public static string DataDirectory
+    public static class BadConsoleDirectories
     {
-        get
+        public static string DataDirectory
         {
-            string s = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+            get
+            {
+                string s = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
 
-            Directory.CreateDirectory(s);
+                Directory.CreateDirectory(s);
 
-            return s;
+                return s;
+            }
         }
-    }
 
-    public static string LogFile => Path.Combine(DataDirectory, "logs.log");
+        public static string LogFile => Path.Combine(DataDirectory, "logs.log");
+    }
 }

@@ -1,14 +1,15 @@
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Runtime.Objects.Native;
-
-public class BadString : BadNative<string>, IBadString
+namespace BadScript2.Runtime.Objects.Native
 {
-    public BadString(string value) : base(value) { }
-    string IBadString.Value => Value;
-
-    public override BadClassPrototype GetPrototype()
+    public class BadString : BadNative<string>, IBadString
     {
-        return BadNativeClassBuilder.GetNative("string");
+        public BadString(string value) : base(value) { }
+        string IBadString.Value => Value;
+
+        public override BadClassPrototype GetPrototype()
+        {
+            return BadNativeClassBuilder.GetNative("string");
+        }
     }
 }

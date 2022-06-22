@@ -5,58 +5,59 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
-namespace BadScript2.Parser.Expressions;
-
-public abstract class BadExpression
+namespace BadScript2.Parser.Expressions
 {
-    protected BadExpression(bool isConstant, bool isLValue, BadSourcePosition position)
+    public abstract class BadExpression
     {
-        IsConstant = isConstant;
-        IsLValue = isLValue;
-        Position = position;
-    }
-
-    public bool IsConstant { get; }
-    public bool IsLValue { get; }
-
-    public BadSourcePosition Position { get; }
-
-    public virtual void Optimize() { }
-
-    protected abstract IEnumerable<BadObject> InnerExecute(BadExecutionContext context);
-
-    public IEnumerable<BadObject> Execute(BadExecutionContext context)
-    {
-        if (BadDebugger.IsAttached)
+        protected BadExpression(bool isConstant, bool isLValue, BadSourcePosition position)
         {
-            BadDebugger.Step(new BadDebuggerStep(context, Position, this));
+            IsConstant = isConstant;
+            IsLValue = isLValue;
+            Position = position;
         }
 
-        foreach (BadObject o in InnerExecute(context))
+        public bool IsConstant { get; }
+        public bool IsLValue { get; }
+
+        public BadSourcePosition Position { get; }
+
+        public virtual void Optimize() { }
+
+        protected abstract IEnumerable<BadObject> InnerExecute(BadExecutionContext context);
+
+        public IEnumerable<BadObject> Execute(BadExecutionContext context)
         {
-            yield return o;
+            if (BadDebugger.IsAttached)
+            {
+                BadDebugger.Step(new BadDebuggerStep(context, Position, this));
+            }
+
+            foreach (BadObject o in InnerExecute(context))
+            {
+                yield return o;
+            }
         }
-    }
 
-    public IEnumerable<BadObject> ExecuteOperatorOverride(
-        BadObject left,
-        BadObject right,
-        BadExecutionContext context,
-        string name)
-    {
-        BadFunction? func = left.GetProperty(name).Dereference() as BadFunction;
-
-        if (func == null)
+        public IEnumerable<BadObject> ExecuteOperatorOverride(
+            BadObject left,
+            BadObject right,
+            BadExecutionContext context,
+            string name)
         {
-            throw new BadRuntimeException(
-                $"{left.GetType().Name} has no {name} property",
-                Position
-            );
-        }
+            BadFunction? func = left.GetProperty(name).Dereference() as BadFunction;
 
-        foreach (BadObject o in func.Invoke(new[] { right }, context))
-        {
-            yield return o;
+            if (func == null)
+            {
+                throw new BadRuntimeException(
+                    $"{left.GetType().Name} has no {name} property",
+                    Position
+                );
+            }
+
+            foreach (BadObject o in func.Invoke(new[] { right }, context))
+            {
+                yield return o;
+            }
         }
     }
 }

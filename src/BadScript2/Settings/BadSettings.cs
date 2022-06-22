@@ -2,278 +2,279 @@ using System.Text;
 
 using Newtonsoft.Json.Linq;
 
-namespace BadScript2.Settings;
-
-public class BadSettings
+namespace BadScript2.Settings
 {
-    private readonly Dictionary<Type, object> m_ObjectCache = new Dictionary<Type, object>();
-    private readonly Dictionary<string, BadSettings> m_Properties;
-
-    private JToken? m_Value;
-
-    public BadSettings()
+    public class BadSettings
     {
-        m_Value = null;
-        m_Properties = new Dictionary<string, BadSettings>();
-    }
+        private readonly Dictionary<Type, object> m_ObjectCache = new Dictionary<Type, object>();
+        private readonly Dictionary<string, BadSettings> m_Properties;
 
-    public BadSettings(JToken? value)
-    {
-        m_Value = value;
-        m_Properties = new Dictionary<string, BadSettings>();
-    }
+        private JToken? m_Value;
 
-    public BadSettings(Dictionary<string, BadSettings> properties)
-    {
-        m_Value = null;
-        m_Properties = properties;
-    }
-
-    public IEnumerable<string> PropertyNames => m_Properties.Keys;
-
-    public JToken? GetValue()
-    {
-        return m_Value;
-    }
-
-    public T? GetValue<T>()
-    {
-        if (m_Value == null)
+        public BadSettings()
         {
-            return default;
+            m_Value = null;
+            m_Properties = new Dictionary<string, BadSettings>();
         }
 
-        Type t = typeof(T);
-        if (m_ObjectCache.ContainsKey(t))
+        public BadSettings(JToken? value)
         {
-            return (T)m_ObjectCache[t];
+            m_Value = value;
+            m_Properties = new Dictionary<string, BadSettings>();
         }
 
-        T? v = m_Value.ToObject<T>();
-        if (v != null)
+        public BadSettings(Dictionary<string, BadSettings> properties)
         {
-            m_ObjectCache[typeof(T)] = v;
+            m_Value = null;
+            m_Properties = properties;
+        }
+
+        public IEnumerable<string> PropertyNames => m_Properties.Keys;
+
+        public JToken? GetValue()
+        {
+            return m_Value;
+        }
+
+        public T? GetValue<T>()
+        {
+            if (m_Value == null)
+            {
+                return default;
+            }
+
+            Type t = typeof(T);
+            if (m_ObjectCache.ContainsKey(t))
+            {
+                return (T)m_ObjectCache[t];
+            }
+
+            T? v = m_Value.ToObject<T>();
+            if (v != null)
+            {
+                m_ObjectCache[typeof(T)] = v;
+            }
+
+
+            return v;
+        }
+
+        public bool HasValue()
+        {
+            return m_Value != null;
+        }
+
+        private bool HasValue<T>()
+        {
+            if (m_Value?.Type == JTokenType.Array && !typeof(T).IsArray)
+            {
+                return false;
+            }
+
+            return m_Value != null && m_Value.ToObject<T>() != null;
+        }
+
+        public void SetValue(JToken? value)
+        {
+            m_ObjectCache.Clear();
+            m_Value = value;
+        }
+
+        private void SetValue(object? value)
+        {
+            SetValue(value == null ? JValue.CreateNull() : JToken.FromObject(value));
+        }
+
+        public bool HasProperty(string propertyName)
+        {
+            return m_Properties.ContainsKey(propertyName);
+        }
+
+        public BadSettings GetProperty(string propertyName)
+        {
+            return m_Properties[propertyName];
+        }
+
+        public void SetProperty(string propertyName, BadSettings value)
+        {
+            m_Properties[propertyName] = value;
+        }
+
+        public void RemoveProperty(string propertyName)
+        {
+            m_Properties.Remove(propertyName);
         }
 
 
-        return v;
-    }
-
-    public bool HasValue()
-    {
-        return m_Value != null;
-    }
-
-    private bool HasValue<T>()
-    {
-        if (m_Value?.Type == JTokenType.Array && !typeof(T).IsArray)
+        public void Populate(params BadSettings[] settings)
         {
-            return false;
-        }
+            if (m_Value is JArray arr)
+            {
+                foreach (BadSettings setting in settings)
+                {
+                    if (!setting.HasValue())
+                    {
+                        continue;
+                    }
 
-        return m_Value != null && m_Value.ToObject<T>() != null;
-    }
+                    if (setting.GetValue() is JArray arr2)
+                    {
+                        foreach (JToken jToken in arr2)
+                        {
+                            arr.Add(jToken);
+                        }
+                    }
+                    else
+                    {
+                        arr.Add(setting.GetValue() ?? JValue.CreateNull());
+                    }
+                }
+            }
 
-    public void SetValue(JToken? value)
-    {
-        m_ObjectCache.Clear();
-        m_Value = value;
-    }
-
-    private void SetValue(object? value)
-    {
-        SetValue(value == null ? JValue.CreateNull() : JToken.FromObject(value));
-    }
-
-    public bool HasProperty(string propertyName)
-    {
-        return m_Properties.ContainsKey(propertyName);
-    }
-
-    public BadSettings GetProperty(string propertyName)
-    {
-        return m_Properties[propertyName];
-    }
-
-    public void SetProperty(string propertyName, BadSettings value)
-    {
-        m_Properties[propertyName] = value;
-    }
-
-    public void RemoveProperty(string propertyName)
-    {
-        m_Properties.Remove(propertyName);
-    }
-
-
-    public void Populate(params BadSettings[] settings)
-    {
-        if (m_Value is JArray arr)
-        {
             foreach (BadSettings setting in settings)
             {
-                if (!setting.HasValue())
+                foreach (string propertyName in setting.PropertyNames)
                 {
-                    continue;
-                }
-
-                if (setting.GetValue() is JArray arr2)
-                {
-                    foreach (JToken jToken in arr2)
+                    if (HasProperty(propertyName))
                     {
-                        arr.Add(jToken);
+                        GetProperty(propertyName).Populate(setting.GetProperty(propertyName));
+                    }
+                    else
+                    {
+                        SetProperty(propertyName, setting.GetProperty(propertyName));
                     }
                 }
-                else
-                {
-                    arr.Add(setting.GetValue() ?? JValue.CreateNull());
-                }
             }
         }
 
-        foreach (BadSettings setting in settings)
+        public T? FindProperty<T>(string propertyName) where T : class
         {
-            foreach (string propertyName in setting.PropertyNames)
+            BadSettings? settings = FindProperty(propertyName);
+
+            return settings?.GetValue<T>();
+        }
+
+        public BadSettings FindOrCreateProperty(string propertyPath)
+        {
+            string[] path = propertyPath.Split('.');
+            BadSettings current = this;
+            foreach (string s in path)
             {
-                if (HasProperty(propertyName))
+                if (!current.HasProperty(s))
                 {
-                    GetProperty(propertyName).Populate(setting.GetProperty(propertyName));
+                    BadSettings se = new BadSettings();
+                    current.SetProperty(s, se);
+                    current = se;
                 }
                 else
                 {
-                    SetProperty(propertyName, setting.GetProperty(propertyName));
+                    current = current.GetProperty(s);
                 }
             }
+
+            return current;
         }
-    }
 
-    public T? FindProperty<T>(string propertyName) where T : class
-    {
-        BadSettings? settings = FindProperty(propertyName);
-
-        return settings?.GetValue<T>();
-    }
-
-    public BadSettings FindOrCreateProperty(string propertyPath)
-    {
-        string[] path = propertyPath.Split('.');
-        BadSettings current = this;
-        foreach (string s in path)
+        public BadSettings? FindProperty(string propertyPath)
         {
-            if (!current.HasProperty(s))
+            string[] path = propertyPath.Split('.');
+            BadSettings current = this;
+            foreach (string s in path)
             {
-                BadSettings se = new BadSettings();
-                current.SetProperty(s, se);
-                current = se;
-            }
-            else
-            {
+                if (!current.HasProperty(s))
+                {
+                    return null;
+                }
+
                 current = current.GetProperty(s);
             }
+
+            return current;
         }
 
-        return current;
-    }
-
-    public BadSettings? FindProperty(string propertyPath)
-    {
-        string[] path = propertyPath.Split('.');
-        BadSettings current = this;
-        foreach (string s in path)
+        public override string ToString()
         {
-            if (!current.HasProperty(s))
+            if (HasValue())
             {
-                return null;
+                return GetValue()?.ToString() ?? "NULL";
             }
 
-            current = current.GetProperty(s);
-        }
+            StringBuilder sb = new StringBuilder();
 
-        return current;
-    }
-
-    public override string ToString()
-    {
-        if (HasValue())
-        {
-            return GetValue()?.ToString() ?? "NULL";
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.AppendLine("{");
-        foreach (string propertyName in PropertyNames)
-        {
-            BadSettings s = GetProperty(propertyName);
-            string str = s.ToString().Replace("\n", "\n\t");
-            sb.AppendLine($"  {propertyName}: {str}");
-        }
-
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
-
-    private static string ResolveEnvironmentVariables(BadSettings root, BadSettings parent, string str)
-    {
-        for (int i = 0; i < str.Length; i++)
-        {
-            if (str[i] == '$' && i + 1 < str.Length && str[i + 1] == '(')
+            sb.AppendLine("{");
+            foreach (string propertyName in PropertyNames)
             {
-                int end = str.IndexOf(')', i + 2);
-                if (end == -1)
-                {
-                    throw new Exception("Unclosed environment variable");
-                }
+                BadSettings s = GetProperty(propertyName);
+                string str = s.ToString().Replace("\n", "\n\t");
+                sb.AppendLine($"  {propertyName}: {str}");
+            }
 
-                string envVar = str.Substring(i + 2, end - i - 2);
+            sb.AppendLine("}");
 
-                string? env = root.FindProperty<string>(envVar);
-                if (env == null)
+            return sb.ToString();
+        }
+
+        private static string ResolveEnvironmentVariables(BadSettings root, BadSettings parent, string str)
+        {
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == '$' && i + 1 < str.Length && str[i + 1] == '(')
                 {
-                    env = parent.FindProperty<string>(envVar);
+                    int end = str.IndexOf(')', i + 2);
+                    if (end == -1)
+                    {
+                        throw new Exception("Unclosed environment variable");
+                    }
+
+                    string envVar = str.Substring(i + 2, end - i - 2);
+
+                    string? env = root.FindProperty<string>(envVar);
                     if (env == null)
                     {
-                        throw new Exception($"Environment variable '{envVar}' not found");
+                        env = parent.FindProperty<string>(envVar);
+                        if (env == null)
+                        {
+                            throw new Exception($"Environment variable '{envVar}' not found");
+                        }
                     }
+
+                    str = str.Replace(str.Substring(i, end - i + 1), env);
+                    i--;
+                }
+            }
+
+            return str;
+        }
+
+        public static void ResolveEnvironmentVariables(BadSettings root)
+        {
+            ResolveEnvironmentVariables(root, root, root);
+        }
+
+        public static void ResolveEnvironmentVariables(BadSettings root, BadSettings settings, BadSettings parent)
+        {
+            if (settings.HasValue<string>())
+            {
+                string value = settings.GetValue<string>()!;
+
+                settings.SetValue(ResolveEnvironmentVariables(root, parent, value));
+            }
+            else if (settings.HasValue<string[]>())
+            {
+                string[] value = settings.GetValue<string[]>()!;
+
+                for (int i = 0; i < value.Length; i++)
+                {
+                    value[i] = ResolveEnvironmentVariables(root, parent, value[i]);
                 }
 
-                str = str.Replace(str.Substring(i, end - i + 1), env);
-                i--;
+                settings.SetValue(value);
             }
-        }
 
-        return str;
-    }
-
-    public static void ResolveEnvironmentVariables(BadSettings root)
-    {
-        ResolveEnvironmentVariables(root, root, root);
-    }
-
-    public static void ResolveEnvironmentVariables(BadSettings root, BadSettings settings, BadSettings parent)
-    {
-        if (settings.HasValue<string>())
-        {
-            string value = settings.GetValue<string>()!;
-
-            settings.SetValue(ResolveEnvironmentVariables(root, parent, value));
-        }
-        else if (settings.HasValue<string[]>())
-        {
-            string[] value = settings.GetValue<string[]>()!;
-
-            for (int i = 0; i < value.Length; i++)
+            foreach (string propertyName in settings.PropertyNames)
             {
-                value[i] = ResolveEnvironmentVariables(root, parent, value[i]);
+                ResolveEnvironmentVariables(root, settings.GetProperty(propertyName), settings);
             }
-
-            settings.SetValue(value);
-        }
-
-        foreach (string propertyName in settings.PropertyNames)
-        {
-            ResolveEnvironmentVariables(root, settings.GetProperty(propertyName), settings);
         }
     }
 }

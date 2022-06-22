@@ -2,41 +2,42 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Interactive;
-
-public class BadInteractiveConsoleApi : BadInteropApi
+namespace BadScript2.Interactive
 {
-    private readonly BadInteractiveConsole m_Console;
-
-    public BadInteractiveConsoleApi(BadInteractiveConsole console) : base("Interactive")
+    public class BadInteractiveConsoleApi : BadInteropApi
     {
-        m_Console = console;
-    }
+        private readonly BadInteractiveConsole m_Console;
 
-    public override void Load(BadTable target)
-    {
-        target.SetFunction("Reset", m_Console.Reset);
-        target.SetFunction<string>("Run", m_Console.Run);
-        target.SetFunction<string>("Load", m_Console.Load);
-        target.SetFunction<string>("RunIsolated", m_Console.RunIsolated);
-        target.SetFunction<string>("LoadIsolated", m_Console.LoadIsolated);
-        target.SetFunction("GetScope", GetScope);
-        target.SetFunction<bool>("SetCatchError", SetCatchError);
-        target.SetFunction<bool>("SetPreParse", SetPreParse);
-    }
+        public BadInteractiveConsoleApi(BadInteractiveConsole console) : base("Interactive")
+        {
+            m_Console = console;
+        }
 
-    private void SetCatchError(bool enable)
-    {
-        m_Console.CatchErrors = enable;
-    }
+        public override void Load(BadTable target)
+        {
+            target.SetFunction("Reset", m_Console.Reset);
+            target.SetFunction<string>("Run", m_Console.Run);
+            target.SetFunction<string>("Load", m_Console.Load);
+            target.SetFunction<string>("RunIsolated", m_Console.RunIsolated);
+            target.SetFunction<string>("LoadIsolated", m_Console.LoadIsolated);
+            target.SetFunction("GetScope", GetScope);
+            target.SetFunction<bool>("SetCatchError", SetCatchError);
+            target.SetFunction<bool>("SetPreParse", SetPreParse);
+        }
 
-    private void SetPreParse(bool enable)
-    {
-        m_Console.PreParse = enable;
-    }
+        private void SetCatchError(bool enable)
+        {
+            m_Console.CatchErrors = enable;
+        }
 
-    private BadObject GetScope()
-    {
-        return m_Console.CurrentScope ?? BadObject.Null;
+        private void SetPreParse(bool enable)
+        {
+            m_Console.PreParse = enable;
+        }
+
+        private BadObject GetScope()
+        {
+            return m_Console.CurrentScope ?? BadObject.Null;
+        }
     }
 }

@@ -1,34 +1,35 @@
-namespace BadScript2.Common.Logging.Writer;
-
-public class BadConsoleLogWriter : BadLogWriter
+namespace BadScript2.Common.Logging.Writer
 {
-    protected override void Write(BadLog log)
+    public class BadConsoleLogWriter : BadLogWriter
     {
-        ConsoleColor fg = Console.ForegroundColor;
-        ConsoleColor bg = Console.BackgroundColor;
-        switch (log.Type)
+        protected override void Write(BadLog log)
         {
-            case BadLogType.Log:
-                Console.ForegroundColor = BadLoggerSettings.Instance.LogForegroundColor;
-                Console.BackgroundColor = BadLoggerSettings.Instance.LogBackgroundColor;
+            ConsoleColor fg = Console.ForegroundColor;
+            ConsoleColor bg = Console.BackgroundColor;
+            switch (log.Type)
+            {
+                case BadLogType.Log:
+                    Console.ForegroundColor = BadLoggerSettings.Instance.LogForegroundColor;
+                    Console.BackgroundColor = BadLoggerSettings.Instance.LogBackgroundColor;
 
-                break;
-            case BadLogType.Warning:
-                Console.ForegroundColor = BadLoggerSettings.Instance.WarnForegroundColor;
-                Console.BackgroundColor = BadLoggerSettings.Instance.WarnBackgroundColor;
+                    break;
+                case BadLogType.Warning:
+                    Console.ForegroundColor = BadLoggerSettings.Instance.WarnForegroundColor;
+                    Console.BackgroundColor = BadLoggerSettings.Instance.WarnBackgroundColor;
 
-                break;
-            case BadLogType.Error:
-                Console.ForegroundColor = BadLoggerSettings.Instance.ErrorForegroundColor;
-                Console.BackgroundColor = BadLoggerSettings.Instance.ErrorBackgroundColor;
+                    break;
+                case BadLogType.Error:
+                    Console.ForegroundColor = BadLoggerSettings.Instance.ErrorForegroundColor;
+                    Console.BackgroundColor = BadLoggerSettings.Instance.ErrorBackgroundColor;
 
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            Console.WriteLine(log);
+            Console.ForegroundColor = fg;
+            Console.BackgroundColor = bg;
         }
-
-        Console.WriteLine(log);
-        Console.ForegroundColor = fg;
-        Console.BackgroundColor = bg;
     }
 }

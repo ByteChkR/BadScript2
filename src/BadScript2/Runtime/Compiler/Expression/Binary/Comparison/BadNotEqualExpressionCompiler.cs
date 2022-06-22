@@ -1,15 +1,16 @@
 using BadScript2.Parser.Expressions.Binary.Comparison;
 
-namespace BadScript2.Runtime.Compiler.Expression.Binary.Comparison;
-
-public class BadNotEqualExpressionCompiler : BadExpressionCompiler<BadInequalityExpression>
+namespace BadScript2.Runtime.Compiler.Expression.Binary.Comparison
 {
-    public override int Compile(BadInequalityExpression expr, BadCompilerResult result)
+    public class BadNotEqualExpressionCompiler : BadExpressionCompiler<BadInequalityExpression>
     {
-        int start = BadCompiler.CompileExpression(expr.Left, result);
-        BadCompiler.CompileExpression(expr.Right, result);
-        result.Emit(new BadInstruction(BadOpCode.NotEqual, expr.Position));
+        public override int Compile(BadInequalityExpression expr, BadCompilerResult result)
+        {
+            int start = BadCompiler.CompileExpression(expr.Left, result);
+            BadCompiler.CompileExpression(expr.Right, result);
+            result.Emit(new BadInstruction(BadOpCode.NotEqual, expr.Position));
 
-        return start;
+            return start;
+        }
     }
 }

@@ -1,45 +1,46 @@
-namespace BadScript2.Console.Systems;
-
-public abstract class BadConsoleSystem
+namespace BadScript2.Console.Systems
 {
-    public abstract string Name { get; }
-
-    public abstract int Run(object? settings);
-
-    public abstract object? Parse(string[] args);
-}
-
-public abstract class BadConsoleSystem<T> : BadConsoleSystem
-{
-    public override int Run(object? settings)
+    public abstract class BadConsoleSystem
     {
-        if (settings is T t)
-        {
-            return Run(t);
-        }
+        public abstract string Name { get; }
 
-        if (settings is null)
-        {
-            System.Console.WriteLine("No settings provided.");
-        }
-        else
-        {
-            System.Console.WriteLine("Invalid settings type");
-        }
+        public abstract int Run(object? settings);
 
-        return -1;
+        public abstract object? Parse(string[] args);
     }
 
-    public override object? Parse(string[] args)
+    public abstract class BadConsoleSystem<T> : BadConsoleSystem
     {
-        T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
-        if (t is null)
+        public override int Run(object? settings)
         {
-            return null;
+            if (settings is T t)
+            {
+                return Run(t);
+            }
+
+            if (settings is null)
+            {
+                System.Console.WriteLine("No settings provided.");
+            }
+            else
+            {
+                System.Console.WriteLine("Invalid settings type");
+            }
+
+            return -1;
         }
 
-        return t;
-    }
+        public override object? Parse(string[] args)
+        {
+            T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
+            if (t is null)
+            {
+                return null;
+            }
 
-    protected abstract int Run(T settings);
+            return t;
+        }
+
+        protected abstract int Run(T settings);
+    }
 }

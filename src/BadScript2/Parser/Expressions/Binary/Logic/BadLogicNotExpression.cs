@@ -4,40 +4,41 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Logic;
-
-public class BadLogicNotExpression : BadExpression
+namespace BadScript2.Parser.Expressions.Binary.Logic
 {
-    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant, false, position)
+    public class BadLogicNotExpression : BadExpression
     {
-        Right = right;
-    }
-
-    public BadExpression Right { get; }
-
-    public static BadObject Not(BadObject left, BadSourcePosition pos)
-    {
-        if (left is IBadBoolean rBool)
+        public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant, false, position)
         {
-            return rBool.Value ? BadObject.False : BadObject.True;
+            Right = right;
         }
 
-        throw new BadRuntimeException(
-            $"Cannot apply '!' to object '{left}'",
-            pos
-        );
-    }
+        public BadExpression Right { get; }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject r = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
+        public static BadObject Not(BadObject left, BadSourcePosition pos)
         {
-            r = o;
+            if (left is IBadBoolean rBool)
+            {
+                return rBool.Value ? BadObject.False : BadObject.True;
+            }
+
+            throw new BadRuntimeException(
+                $"Cannot apply '!' to object '{left}'",
+                pos
+            );
         }
 
-        r = r.Dereference();
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            BadObject r = BadObject.Null;
+            foreach (BadObject o in Right.Execute(context))
+            {
+                r = o;
+            }
 
-        yield return Not(r, Position);
+            r = r.Dereference();
+
+            yield return Not(r, Position);
+        }
     }
 }

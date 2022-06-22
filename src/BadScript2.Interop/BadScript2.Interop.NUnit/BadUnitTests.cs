@@ -5,58 +5,59 @@ using BadScript2.Settings;
 
 using NUnit.Framework;
 
-namespace BadScript2.Interop.NUnit;
-
-public class BadUnitTests
+namespace BadScript2.Interop.NUnit
 {
-    private static BadUnitTestContext? s_Context;
-
-    private static string TestDirectory =>
-        BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Test.TestDirectory") ??
-        throw new BadRuntimeException("Test directory not found");
-
-    private static BadUnitTestContext Context
+    public class BadUnitTests
     {
-        get
+        private static BadUnitTestContext? s_Context;
+
+        private static string TestDirectory =>
+            BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Test.TestDirectory") ??
+            throw new BadRuntimeException("Test directory not found");
+
+        private static BadUnitTestContext Context
         {
-            if (s_Context != null)
+            get
             {
+                if (s_Context != null)
+                {
+                    return s_Context;
+                }
+
+                Directory.CreateDirectory(TestDirectory);
+                BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
+
+                string[] files = Directory.GetFiles(TestDirectory, $"*.{BadRuntimeSettings.Instance.FileExtension}", SearchOption.AllDirectories);
+                Console.WriteLine($"Loading Files...({files.Length})");
+                builder.Register(files);
+
+                s_Context = builder.CreateContext();
+
                 return s_Context;
             }
-
-            Directory.CreateDirectory(TestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
-
-            string[] files = Directory.GetFiles(TestDirectory, $"*.{BadRuntimeSettings.Instance.FileExtension}", SearchOption.AllDirectories);
-            Console.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(files);
-
-            s_Context = builder.CreateContext();
-
-            return s_Context;
         }
-    }
 
-    [SetUp]
-    public void Setup()
-    {
-        Context.Setup();
-    }
+        [SetUp]
+        public void Setup()
+        {
+            Context.Setup();
+        }
 
-    public static BadNUnitTestCase[] GetTestCases()
-    {
-        return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
-    }
+        public static BadNUnitTestCase[] GetTestCases()
+        {
+            return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
+        }
 
-    [TestCaseSource(nameof(GetTestCases))]
-    public void Test(BadNUnitTestCase testCase)
-    {
-        Context.Run(testCase);
-    }
+        [TestCaseSource(nameof(GetTestCases))]
+        public void Test(BadNUnitTestCase testCase)
+        {
+            Context.Run(testCase);
+        }
 
-    [TearDown]
-    public void TearDown()
-    {
-        Context.Teardown();
+        [TearDown]
+        public void TearDown()
+        {
+            Context.Teardown();
+        }
     }
 }

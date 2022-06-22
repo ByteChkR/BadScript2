@@ -4,69 +4,70 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Logic;
-
-public class BadLogicOrExpression : BadBinaryExpression
+namespace BadScript2.Parser.Expressions.Binary.Logic
 {
-    public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    public class BadLogicOrExpression : BadBinaryExpression
     {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
+        public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+            left,
+            right,
+            position
+        ) { }
+
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
         {
-            left = o;
-
-            yield return o;
-        }
-
-        left = left.Dereference();
-
-        if (left is IBadBoolean lBool)
-        {
-            if (lBool.Value)
+            BadObject left = BadObject.Null;
+            foreach (BadObject o in Left.Execute(context))
             {
-                yield return BadObject.True;
-
-                yield break;
-            }
-
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
+                left = o;
 
                 yield return o;
             }
 
-            right = right.Dereference();
+            left = left.Dereference();
 
-            if (right is IBadBoolean rBool)
+            if (left is IBadBoolean lBool)
             {
-                if (rBool.Value)
+                if (lBool.Value)
                 {
                     yield return BadObject.True;
-                }
-                else
-                {
-                    yield return BadObject.False;
+
+                    yield break;
                 }
 
-                yield break;
+                BadObject right = BadObject.Null;
+                foreach (BadObject o in Right.Execute(context))
+                {
+                    right = o;
+
+                    yield return o;
+                }
+
+                right = right.Dereference();
+
+                if (right is IBadBoolean rBool)
+                {
+                    if (rBool.Value)
+                    {
+                        yield return BadObject.True;
+                    }
+                    else
+                    {
+                        yield return BadObject.False;
+                    }
+
+                    yield break;
+                }
+
+                throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
             }
 
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
+            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
         }
 
-        throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
-    }
-
-    protected override string GetSymbol()
-    {
-        return "||";
+        protected override string GetSymbol()
+        {
+            return "||";
+        }
     }
 }

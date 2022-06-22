@@ -4,46 +4,47 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
-
-public class BadPreIncrementExpression : BadExpression
+namespace BadScript2.Parser.Expressions.Binary.Math.Atomic
 {
-    public readonly BadExpression Right;
-
-    public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(
-        right.IsConstant,
-        false,
-        position
-    )
+    public class BadPreIncrementExpression : BadExpression
     {
-        Right = right;
-    }
+        public readonly BadExpression Right;
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
+        public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(
+            right.IsConstant,
+            false,
+            position
+        )
         {
-            right = o;
-
-            yield return o;
+            Right = right;
         }
 
-        if (right is not BadObjectReference rightRef)
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
         {
-            throw new BadRuntimeException("Right side of ++ must be a reference", Position);
+            BadObject right = BadObject.Null;
+            foreach (BadObject o in Right.Execute(context))
+            {
+                right = o;
+
+                yield return o;
+            }
+
+            if (right is not BadObjectReference rightRef)
+            {
+                throw new BadRuntimeException("Right side of ++ must be a reference", Position);
+            }
+
+            right = right.Dereference();
+
+            if (right is not IBadNumber leftNumber)
+            {
+                throw new BadRuntimeException("Right side of ++ must be a number", Position);
+            }
+
+            BadObject r = leftNumber.Value + 1;
+            rightRef.Set(r);
+
+            yield return r;
         }
-
-        right = right.Dereference();
-
-        if (right is not IBadNumber leftNumber)
-        {
-            throw new BadRuntimeException("Right side of ++ must be a number", Position);
-        }
-
-        BadObject r = leftNumber.Value + 1;
-        rightRef.Set(r);
-
-        yield return r;
     }
 }

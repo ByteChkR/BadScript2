@@ -4,49 +4,50 @@ using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Variables;
-
-public class BadFormattedStringExpression : BadStringExpression
+namespace BadScript2.Parser.Expressions.Variables
 {
-    private readonly BadExpression[] m_Expressions;
-
-    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
-        str,
-        position
-    )
+    public class BadFormattedStringExpression : BadStringExpression
     {
-        m_Expressions = exprs;
-    }
+        private readonly BadExpression[] m_Expressions;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_Expressions.Length; i++)
+        public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
+            str,
+            position
+        )
         {
-            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+            m_Expressions = exprs;
         }
-    }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        List<BadObject> objs = new List<BadObject>();
-        foreach (BadExpression expr in m_Expressions)
+        public override void Optimize()
         {
-            BadObject obj = BadObject.Null;
-            foreach (BadObject o in expr.Execute(context))
+            for (int i = 0; i < m_Expressions.Length; i++)
             {
-                if (context.Scope.IsError)
+                m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+            }
+        }
+
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            List<BadObject> objs = new List<BadObject>();
+            foreach (BadExpression expr in m_Expressions)
+            {
+                BadObject obj = BadObject.Null;
+                foreach (BadObject o in expr.Execute(context))
                 {
-                    yield break;
+                    if (context.Scope.IsError)
+                    {
+                        yield break;
+                    }
+
+                    obj = o;
+
+                    yield return o;
                 }
 
-                obj = o;
-
-                yield return o;
+                objs.Add(obj.Dereference());
             }
 
-            objs.Add(obj.Dereference());
+            yield return string.Format(Value, objs.Cast<object?>().ToArray());
         }
-
-        yield return string.Format(Value, objs.Cast<object?>().ToArray());
     }
 }

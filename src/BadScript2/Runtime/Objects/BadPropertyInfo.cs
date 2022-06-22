@@ -1,15 +1,16 @@
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Runtime.Objects;
-
-public class BadPropertyInfo
+namespace BadScript2.Runtime.Objects
 {
-    public bool IsReadOnly;
-    public BadClassPrototype? Type;
-
-    public BadPropertyInfo(BadClassPrototype? type = null, bool isReadOnly = false)
+    public class BadPropertyInfo
     {
-        Type = type;
-        IsReadOnly = isReadOnly;
+        public bool IsReadOnly;
+        public BadClassPrototype? Type;
+
+        public BadPropertyInfo(BadClassPrototype? type = null, bool isReadOnly = false)
+        {
+            Type = type;
+            IsReadOnly = isReadOnly;
+        }
     }
 }

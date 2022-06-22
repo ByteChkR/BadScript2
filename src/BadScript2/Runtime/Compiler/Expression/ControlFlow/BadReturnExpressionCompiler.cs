@@ -1,24 +1,25 @@
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime.Compiler.Expression.ControlFlow;
-
-public class BadReturnExpressionCompiler : BadExpressionCompiler<BadReturnExpression>
+namespace BadScript2.Runtime.Compiler.Expression.ControlFlow
 {
-    public override int Compile(BadReturnExpression expr, BadCompilerResult result)
+    public class BadReturnExpressionCompiler : BadExpressionCompiler<BadReturnExpression>
     {
-        int start;
-        if (expr.Right != null)
+        public override int Compile(BadReturnExpression expr, BadCompilerResult result)
         {
-            start = BadCompiler.CompileExpression(expr.Right, result);
-        }
-        else
-        {
-            start = result.Emit(new BadInstruction(BadOpCode.Push, expr.Position, BadObject.Null));
-        }
+            int start;
+            if (expr.Right != null)
+            {
+                start = BadCompiler.CompileExpression(expr.Right, result);
+            }
+            else
+            {
+                start = result.Emit(new BadInstruction(BadOpCode.Push, expr.Position, BadObject.Null));
+            }
 
-        result.Emit(new BadInstruction(BadOpCode.Return, expr.Position));
+            result.Emit(new BadInstruction(BadOpCode.Return, expr.Position));
 
-        return start;
+            return start;
+        }
     }
 }

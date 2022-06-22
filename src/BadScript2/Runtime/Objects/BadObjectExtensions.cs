@@ -1,14 +1,15 @@
-namespace BadScript2.Runtime.Objects;
-
-public static class BadObjectExtensions
+namespace BadScript2.Runtime.Objects
 {
-    public static BadObject Dereference(this BadObject obj)
+    public static class BadObjectExtensions
     {
-        while (obj is BadObjectReference r)
+        public static BadObject Dereference(this BadObject obj)
         {
-            obj = r.Resolve();
-        }
+            while (obj is BadObjectReference r)
+            {
+                obj = r.Resolve();
+            }
 
-        return obj;
+            return obj;
+        }
     }
 }

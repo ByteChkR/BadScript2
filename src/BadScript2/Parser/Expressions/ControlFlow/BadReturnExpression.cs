@@ -3,55 +3,56 @@ using BadScript2.Optimizations;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.ControlFlow;
-
-public class BadReturnExpression : BadExpression
+namespace BadScript2.Parser.Expressions.ControlFlow
 {
-    public BadReturnExpression(BadExpression? right, BadSourcePosition position) : base(
-        false,
-        false,
-        position
-    )
+    public class BadReturnExpression : BadExpression
     {
-        Right = right;
-    }
-
-    public BadExpression? Right { get; private set; }
-
-    public override void Optimize()
-    {
-        if (Right != null)
+        public BadReturnExpression(BadExpression? right, BadSourcePosition position) : base(
+            false,
+            false,
+            position
+        )
         {
-            Right = BadExpressionOptimizer.Optimize(Right);
+            Right = right;
         }
-    }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject value = BadObject.Null;
-        if (Right == null)
+        public BadExpression? Right { get; private set; }
+
+        public override void Optimize()
         {
+            if (Right != null)
+            {
+                Right = BadExpressionOptimizer.Optimize(Right);
+            }
+        }
+
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            BadObject value = BadObject.Null;
+            if (Right == null)
+            {
+                yield return value;
+
+                yield break;
+            }
+
+            foreach (BadObject obj in Right.Execute(context))
+            {
+                value = obj;
+
+                yield return obj;
+            }
+
+            value = value.Dereference();
+
+            context.Scope.SetReturnValue(value);
+
             yield return value;
-
-            yield break;
         }
 
-        foreach (BadObject obj in Right.Execute(context))
+        public override string ToString()
         {
-            value = obj;
-
-            yield return obj;
+            return "return " + Right ?? "";
         }
-
-        value = value.Dereference();
-
-        context.Scope.SetReturnValue(value);
-
-        yield return value;
-    }
-
-    public override string ToString()
-    {
-        return "return " + Right ?? "";
     }
 }

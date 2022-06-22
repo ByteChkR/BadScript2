@@ -1,13 +1,14 @@
-namespace BadScript2.Parser.Operators;
-
-public abstract class BadOperator
+namespace BadScript2.Parser.Operators
 {
-    protected BadOperator(int precedence, string symbol)
+    public abstract class BadOperator
     {
-        Precedence = precedence;
-        Symbol = symbol;
-    }
+        protected BadOperator(int precedence, string symbol)
+        {
+            Precedence = precedence;
+            Symbol = symbol;
+        }
 
-    public int Precedence { get; }
-    public string Symbol { get; }
+        public int Precedence { get; }
+        public string Symbol { get; }
+    }
 }

@@ -5,96 +5,97 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Block.Loop;
-
-public class BadForExpression : BadExpression
+namespace BadScript2.Parser.Expressions.Block.Loop
 {
-    public readonly BadExpression[] Body;
-
-    public BadForExpression(
-        BadExpression varDef,
-        BadExpression condition,
-        BadExpression varIncrement,
-        BadExpression[] body,
-        BadSourcePosition position) : base(false, false, position)
+    public class BadForExpression : BadExpression
     {
-        VarDef = varDef;
-        Condition = condition;
-        VarIncrement = varIncrement;
-        Body = body;
-    }
+        public readonly BadExpression[] Body;
 
-    public BadExpression Condition { get; private set; }
-    public BadExpression VarDef { get; private set; }
-    public BadExpression VarIncrement { get; private set; }
-
-    public override void Optimize()
-    {
-        Condition = BadExpressionOptimizer.Optimize(Condition);
-        VarDef = BadExpressionOptimizer.Optimize(VarDef);
-        VarIncrement = BadExpressionOptimizer.Optimize(VarIncrement);
-        for (int i = 0; i < Body.Length; i++)
+        public BadForExpression(
+            BadExpression varDef,
+            BadExpression condition,
+            BadExpression varIncrement,
+            BadExpression[] body,
+            BadSourcePosition position) : base(false, false, position)
         {
-            Body[i] = BadExpressionOptimizer.Optimize(Body[i]);
-        }
-    }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadExecutionContext loopCtx = new BadExecutionContext(context.Scope.CreateChild("ForLoop", context.Scope));
-
-        foreach (BadObject o in VarDef.Execute(loopCtx))
-        {
-            yield return o;
+            VarDef = varDef;
+            Condition = condition;
+            VarIncrement = varIncrement;
+            Body = body;
         }
 
+        public BadExpression Condition { get; private set; }
+        public BadExpression VarDef { get; private set; }
+        public BadExpression VarIncrement { get; private set; }
 
-        BadObject cond = BadObject.Null;
-        foreach (BadObject o in Condition.Execute(loopCtx))
+        public override void Optimize()
         {
-            cond = o;
-
-            yield return o;
+            Condition = BadExpressionOptimizer.Optimize(Condition);
+            VarDef = BadExpressionOptimizer.Optimize(VarDef);
+            VarIncrement = BadExpressionOptimizer.Optimize(VarIncrement);
+            for (int i = 0; i < Body.Length; i++)
+            {
+                Body[i] = BadExpressionOptimizer.Optimize(Body[i]);
+            }
         }
 
-        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-                           throw new BadRuntimeException("While Condition is not a boolean", Position);
-
-        while (bRet.Value)
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
         {
-            BadExecutionContext loopContext = new BadExecutionContext(
-                loopCtx.Scope.CreateChild(
-                    "InnerForLoop",
-                    loopCtx.Scope,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
-            foreach (BadObject o in loopContext.Execute(Body))
+            BadExecutionContext loopCtx = new BadExecutionContext(context.Scope.CreateChild("ForLoop", context.Scope));
+
+            foreach (BadObject o in VarDef.Execute(loopCtx))
             {
                 yield return o;
             }
 
-            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-            {
-                break;
-            }
 
-            foreach (BadObject o in VarIncrement.Execute(loopContext))
-            {
-                yield return o;
-            }
-
-            foreach (BadObject o in Condition.Execute(loopContext))
+            BadObject cond = BadObject.Null;
+            foreach (BadObject o in Condition.Execute(loopCtx))
             {
                 cond = o;
 
                 yield return o;
             }
 
-            bRet = cond.Dereference() as IBadBoolean ??
-                   throw new BadRuntimeException("While Condition is not a boolean", Position);
-        }
+            IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+                               throw new BadRuntimeException("While Condition is not a boolean", Position);
 
-        yield return BadObject.Null;
+            while (bRet.Value)
+            {
+                BadExecutionContext loopContext = new BadExecutionContext(
+                    loopCtx.Scope.CreateChild(
+                        "InnerForLoop",
+                        loopCtx.Scope,
+                        BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                    )
+                );
+                foreach (BadObject o in loopContext.Execute(Body))
+                {
+                    yield return o;
+                }
+
+                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+                {
+                    break;
+                }
+
+                foreach (BadObject o in VarIncrement.Execute(loopContext))
+                {
+                    yield return o;
+                }
+
+                foreach (BadObject o in Condition.Execute(loopContext))
+                {
+                    cond = o;
+
+                    yield return o;
+                }
+
+                bRet = cond.Dereference() as IBadBoolean ??
+                       throw new BadRuntimeException("While Condition is not a boolean", Position);
+            }
+
+            yield return BadObject.Null;
+        }
     }
 }

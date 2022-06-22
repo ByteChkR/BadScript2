@@ -4,36 +4,37 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
-namespace BadScript2.Console.Debugging.Scriptable;
-
-public class BadScriptDebuggerApi : BadInteropApi
+namespace BadScript2.Console.Debugging.Scriptable
 {
-    private readonly BadScriptDebugger m_Debugger;
-
-    public BadScriptDebuggerApi(BadScriptDebugger debugger) : base("Debugger")
+    public class BadScriptDebuggerApi : BadInteropApi
     {
-        m_Debugger = debugger;
-    }
+        private readonly BadScriptDebugger m_Debugger;
 
-    public void RegisterStep(BadExecutionContext context, BadFunction func)
-    {
-        m_Debugger.OnStep += s =>
+        public BadScriptDebuggerApi(BadScriptDebugger debugger) : base("Debugger")
         {
-            foreach (BadObject o in func.Invoke(new[] { BadObject.Wrap(s) }, context)) { }
-        };
-    }
+            m_Debugger = debugger;
+        }
 
-    public void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)
-    {
-        m_Debugger.OnFileLoaded += s =>
+        public void RegisterStep(BadExecutionContext context, BadFunction func)
         {
-            foreach (BadObject o in func.Invoke(new BadObject[] { s }, context)) { }
-        };
-    }
+            m_Debugger.OnStep += s =>
+            {
+                foreach (BadObject o in func.Invoke(new[] { BadObject.Wrap(s) }, context)) { }
+            };
+        }
 
-    public override void Load(BadTable target)
-    {
-        target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
-        target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);
+        public void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)
+        {
+            m_Debugger.OnFileLoaded += s =>
+            {
+                foreach (BadObject o in func.Invoke(new BadObject[] { s }, context)) { }
+            };
+        }
+
+        public override void Load(BadTable target)
+        {
+            target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
+            target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);
+        }
     }
 }

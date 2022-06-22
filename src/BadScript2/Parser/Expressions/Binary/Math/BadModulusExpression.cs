@@ -4,52 +4,53 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Math;
-
-public class BadModulusExpression : BadBinaryExpression
+namespace BadScript2.Parser.Expressions.Binary.Math
 {
-    public BadModulusExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
-
-    protected override string GetSymbol()
+    public class BadModulusExpression : BadBinaryExpression
     {
-        return "%";
-    }
+        public BadModulusExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+            left,
+            right,
+            position
+        ) { }
 
-    public static BadObject Mod(BadObject left, BadObject right, BadSourcePosition pos)
-    {
-        if (left is IBadNumber lNum && right is IBadNumber rNum)
+        protected override string GetSymbol()
         {
-            return BadObject.Wrap(lNum.Value % rNum.Value);
+            return "%";
         }
 
-        throw new BadRuntimeException($"Can not apply operator '%' to {left} and {right}", pos);
-    }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
+        public static BadObject Mod(BadObject left, BadObject right, BadSourcePosition pos)
         {
-            left = o;
+            if (left is IBadNumber lNum && right is IBadNumber rNum)
+            {
+                return BadObject.Wrap(lNum.Value % rNum.Value);
+            }
 
-            yield return o;
+            throw new BadRuntimeException($"Can not apply operator '%' to {left} and {right}", pos);
         }
 
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
         {
-            right = o;
+            BadObject left = BadObject.Null;
+            foreach (BadObject o in Left.Execute(context))
+            {
+                left = o;
 
-            yield return o;
+                yield return o;
+            }
+
+            left = left.Dereference();
+            BadObject right = BadObject.Null;
+            foreach (BadObject o in Right.Execute(context))
+            {
+                right = o;
+
+                yield return o;
+            }
+
+            right = right.Dereference();
+
+            yield return Mod(left, right, Position);
         }
-
-        right = right.Dereference();
-
-        yield return Mod(left, right, Position);
     }
 }

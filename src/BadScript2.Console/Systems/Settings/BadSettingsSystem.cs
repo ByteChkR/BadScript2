@@ -1,18 +1,19 @@
 using BadScript2.Settings;
 
-namespace BadScript2.Console.Systems.Settings;
-
-public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
+namespace BadScript2.Console.Systems.Settings
 {
-    public override string Name => "settings";
-
-    protected override int Run(BadSettingsSystemSettings settings)
+    public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
     {
-        BadSettings? setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
-        System.Console.WriteLine(
-            setting?.ToString() ?? "null"
-        );
+        public override string Name => "settings";
 
-        return -1;
+        protected override int Run(BadSettingsSystemSettings settings)
+        {
+            BadSettings? setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
+            System.Console.WriteLine(
+                setting?.ToString() ?? "null"
+            );
+
+            return -1;
+        }
     }
 }

@@ -1,16 +1,17 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math;
 
-namespace BadScript2.Parser.Operators.Binary.Math;
-
-public class BadAddOperator : BadBinaryOperator
+namespace BadScript2.Parser.Operators.Binary.Math
 {
-    public BadAddOperator() : base(6, "+") { }
-
-    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    public class BadAddOperator : BadBinaryOperator
     {
-        BadExpression right = parser.ParseExpression(null, Precedence);
+        public BadAddOperator() : base(6, "+") { }
 
-        return new BadAddExpression(left, right, left.Position.Combine(right.Position));
+        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+        {
+            BadExpression right = parser.ParseExpression(null, Precedence);
+
+            return new BadAddExpression(left, right, left.Position.Combine(right.Position));
+        }
     }
 }

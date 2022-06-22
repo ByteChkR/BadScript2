@@ -4,81 +4,82 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Math;
-
-public class BadAddExpression : BadBinaryExpression
+namespace BadScript2.Parser.Expressions.Binary.Math
 {
-    public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
-
-    protected override string GetSymbol()
+    public class BadAddExpression : BadBinaryExpression
     {
-        return "+";
-    }
+        public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+            left,
+            right,
+            position
+        ) { }
 
-    public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
-    {
-        if (left is IBadString lStr)
+        protected override string GetSymbol()
         {
-            if (right is IBadNative rNative)
+            return "+";
+        }
+
+        public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
+        {
+            if (left is IBadString lStr)
             {
-                return BadObject.Wrap(lStr.Value + rNative.Value);
+                if (right is IBadNative rNative)
+                {
+                    return BadObject.Wrap(lStr.Value + rNative.Value);
+                }
+
+                return BadObject.Wrap(lStr.Value + right);
             }
 
-            return BadObject.Wrap(lStr.Value + right);
-        }
-
-        if (left is IBadNumber lNum)
-        {
-            if (right is IBadString rStr)
+            if (left is IBadNumber lNum)
             {
-                return BadObject.Wrap(lNum.Value + rStr.Value);
+                if (right is IBadString rStr)
+                {
+                    return BadObject.Wrap(lNum.Value + rStr.Value);
+                }
+
+                if (right is IBadNumber rNum)
+                {
+                    return BadObject.Wrap(lNum.Value + rNum.Value);
+                }
+            }
+            else if (left is IBadBoolean lBool)
+            {
+                if (right is IBadString rStr)
+                {
+                    return BadObject.Wrap(lBool.Value + rStr.Value);
+                }
+            }
+            else if (right is IBadString rStr)
+            {
+                return BadObject.Wrap(left + rStr.Value);
             }
 
-            if (right is IBadNumber rNum)
+            throw new BadRuntimeException($"Can not apply operator '+' to {left} and {right}", pos);
+        }
+
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            BadObject left = BadObject.Null;
+            foreach (BadObject o in Left.Execute(context))
             {
-                return BadObject.Wrap(lNum.Value + rNum.Value);
+                left = o;
+
+                yield return o;
             }
-        }
-        else if (left is IBadBoolean lBool)
-        {
-            if (right is IBadString rStr)
+
+            left = left.Dereference();
+            BadObject right = BadObject.Null;
+            foreach (BadObject o in Right.Execute(context))
             {
-                return BadObject.Wrap(lBool.Value + rStr.Value);
+                right = o;
+
+                yield return o;
             }
+
+            right = right.Dereference();
+
+            yield return Add(left, right, Position);
         }
-        else if (right is IBadString rStr)
-        {
-            return BadObject.Wrap(left + rStr.Value);
-        }
-
-        throw new BadRuntimeException($"Can not apply operator '+' to {left} and {right}", pos);
-    }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
-
-            yield return o;
-        }
-
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
-
-            yield return o;
-        }
-
-        right = right.Dereference();
-
-        yield return Add(left, right, Position);
     }
 }

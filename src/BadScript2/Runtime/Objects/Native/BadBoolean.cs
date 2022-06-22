@@ -1,14 +1,15 @@
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Runtime.Objects.Native;
-
-public class BadBoolean : BadNative<bool>, IBadBoolean
+namespace BadScript2.Runtime.Objects.Native
 {
-    public BadBoolean(bool value) : base(value) { }
-    bool IBadBoolean.Value => Value;
-
-    public override BadClassPrototype GetPrototype()
+    public class BadBoolean : BadNative<bool>, IBadBoolean
     {
-        return BadNativeClassBuilder.GetNative("bool");
+        public BadBoolean(bool value) : base(value) { }
+        bool IBadBoolean.Value => Value;
+
+        public override BadClassPrototype GetPrototype()
+        {
+            return BadNativeClassBuilder.GetNative("bool");
+        }
     }
 }

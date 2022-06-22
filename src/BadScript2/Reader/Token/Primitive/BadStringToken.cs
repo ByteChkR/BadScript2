@@ -1,15 +1,16 @@
 using BadScript2.Common;
 
-namespace BadScript2.Reader.Token.Primitive;
-
-public class BadStringToken : BadPrimitiveToken
+namespace BadScript2.Reader.Token.Primitive
 {
-    public BadStringToken(string str, BadSourcePosition position) : base(position)
+    public class BadStringToken : BadPrimitiveToken
     {
-        Value = str;
+        public BadStringToken(string str, BadSourcePosition position) : base(position)
+        {
+            Value = str;
+        }
+
+        public override BadPrimitiveType Type => BadPrimitiveType.String;
+
+        public string Value { get; }
     }
-
-    public override BadPrimitiveType Type => BadPrimitiveType.String;
-
-    public string Value { get; }
 }

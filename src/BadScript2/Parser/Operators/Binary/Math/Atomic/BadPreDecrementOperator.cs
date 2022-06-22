@@ -1,17 +1,18 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
-namespace BadScript2.Parser.Operators.Binary.Math.Atomic;
-
-public class BadPreDecrementOperator : BadUnaryPrefixOperator
+namespace BadScript2.Parser.Operators.Binary.Math.Atomic
 {
-    public BadPreDecrementOperator() : base(2, "--") { }
-
-
-    public override BadExpression Parse(BadSourceParser parser)
+    public class BadPreDecrementOperator : BadUnaryPrefixOperator
     {
-        BadExpression right = parser.ParseExpression(null, Precedence);
+        public BadPreDecrementOperator() : base(2, "--") { }
 
-        return new BadPreDecrementExpression(right, right.Position);
+
+        public override BadExpression Parse(BadSourceParser parser)
+        {
+            BadExpression right = parser.ParseExpression(null, Precedence);
+
+            return new BadPreDecrementExpression(right, right.Position);
+        }
     }
 }

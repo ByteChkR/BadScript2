@@ -1,22 +1,23 @@
-namespace BadScript2.Common.Logging.Writer;
-
-public abstract class BadStreamLogWriter : BadLogWriter
+namespace BadScript2.Common.Logging.Writer
 {
-    private readonly StreamWriter m_Stream;
-
-    public BadStreamLogWriter(Stream stream)
+    public abstract class BadStreamLogWriter : BadLogWriter
     {
-        m_Stream = new StreamWriter(stream);
-    }
+        private readonly StreamWriter m_Stream;
 
-    public override void Dispose()
-    {
-        base.Dispose();
-        m_Stream.Dispose();
-    }
+        public BadStreamLogWriter(Stream stream)
+        {
+            m_Stream = new StreamWriter(stream);
+        }
 
-    protected override void Write(BadLog log)
-    {
-        m_Stream.WriteLine(log);
+        public override void Dispose()
+        {
+            base.Dispose();
+            m_Stream.Dispose();
+        }
+
+        protected override void Write(BadLog log)
+        {
+            m_Stream.WriteLine(log);
+        }
     }
 }

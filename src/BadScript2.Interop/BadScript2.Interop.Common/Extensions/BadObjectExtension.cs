@@ -1,25 +1,26 @@
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 
-namespace BadScript2.Interop.Common.Extensions;
-
-public class BadObjectExtension : BadInteropExtension
+namespace BadScript2.Interop.Common.Extensions
 {
-    protected override void AddExtensions()
+    public class BadObjectExtension : BadInteropExtension
     {
-        RegisterGlobal(
-            "ToString",
-            o => new BadDynamicInteropFunction(
+        protected override void AddExtensions()
+        {
+            RegisterGlobal(
                 "ToString",
-                _ => o.ToString()!
-            )
-        );
-        RegisterGlobal(
-            "GetType",
-            o => new BadDynamicInteropFunction(
+                o => new BadDynamicInteropFunction(
+                    "ToString",
+                    _ => o.ToString()!
+                )
+            );
+            RegisterGlobal(
                 "GetType",
-                _ => o.GetPrototype()
-            )
-        );
+                o => new BadDynamicInteropFunction(
+                    "GetType",
+                    _ => o.GetPrototype()
+                )
+            );
+        }
     }
 }

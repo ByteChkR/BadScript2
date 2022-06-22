@@ -12,56 +12,57 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
 
-namespace BadScript2.Console;
-
-internal class BadProgram
+namespace BadScript2.Console
 {
-    public const string SETTINGS_FILE = "Settings.json";
-
-    private static void LoadSettings()
+    internal class BadProgram
     {
-        BadLogger.Log("Loading Settings...", "Settings");
-        BadSettings consoleSettings = new BadSettings();
-        string rootDir = AppDomain.CurrentDomain.BaseDirectory;
-        rootDir = rootDir.Remove(rootDir.Length - 1, 1);
+        public const string SETTINGS_FILE = "Settings.json";
 
-        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
-        consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
-        BadSettings root = new BadSettings();
-        root.SetProperty("Console", consoleSettings);
-        BadSettingsReader settingsReader = new BadSettingsReader(
-            root,
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SETTINGS_FILE)
-        );
+        private static void LoadSettings()
+        {
+            BadLogger.Log("Loading Settings...", "Settings");
+            BadSettings consoleSettings = new BadSettings();
+            string rootDir = AppDomain.CurrentDomain.BaseDirectory;
+            rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
-        BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
-        BadLogger.Log("Settings loaded!", "Settings");
-    }
+            consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
+            consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
+            BadSettings root = new BadSettings();
+            root.SetProperty("Console", consoleSettings);
+            BadSettingsReader settingsReader = new BadSettingsReader(
+                root,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SETTINGS_FILE)
+            );
 
-    private static int Main(string[] args)
-    {
-        using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
-        using BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
-        cWriter.Register();
+            BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
+            BadLogger.Log("Settings loaded!", "Settings");
+        }
 
-        lWriter.Register();
+        private static int Main(string[] args)
+        {
+            using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
+            using BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
+            cWriter.Register();
 
-        LoadSettings();
-        BadNativeClassBuilder.AddNative(BadTask.Prototype);
-        BadCommonInterop.AddExtensions();
-        BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
+            lWriter.Register();
+
+            LoadSettings();
+            BadNativeClassBuilder.AddNative(BadTask.Prototype);
+            BadCommonInterop.AddExtensions();
+            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
         
-        BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-        BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
+            BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
+            BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
+            BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
 
 
-        BadConsoleRunner runner = new BadConsoleRunner(
-            new BadTestSystem(),
-            new BadRunSystem(),
-            new BadSettingsSystem()
-        );
+            BadConsoleRunner runner = new BadConsoleRunner(
+                new BadTestSystem(),
+                new BadRunSystem(),
+                new BadSettingsSystem()
+            );
 
-        return runner.Run(args);
+            return runner.Run(args);
+        }
     }
 }

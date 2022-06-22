@@ -3,23 +3,24 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
-namespace BadScript2.Interop.NUnit;
-
-public class BadNUnitConsoleApi : BadInteropApi
+namespace BadScript2.Interop.NUnit
 {
-    private readonly BadUnitTestContextBuilder m_Console;
-
-    public BadNUnitConsoleApi(BadUnitTestContextBuilder console) : base("NUnit")
+    public class BadNUnitConsoleApi : BadInteropApi
     {
-        m_Console = console;
-    }
+        private readonly BadUnitTestContextBuilder m_Console;
 
-    public override void Load(BadTable target)
-    {
-        target.SetFunction<string>("Load", s => m_Console.Register(s));
-        target.SetFunction("Reset", m_Console.Reset);
-        target.SetFunction<BadFunction, BadObject>("AddTest", m_Console.AddTest);
-        target.SetFunction<BadFunction>("AddSetup", m_Console.AddSetup);
-        target.SetFunction<BadFunction>("AddTeardown", m_Console.AddTeardown);
+        public BadNUnitConsoleApi(BadUnitTestContextBuilder console) : base("NUnit")
+        {
+            m_Console = console;
+        }
+
+        public override void Load(BadTable target)
+        {
+            target.SetFunction<string>("Load", s => m_Console.Register(s));
+            target.SetFunction("Reset", m_Console.Reset);
+            target.SetFunction<BadFunction, BadObject>("AddTest", m_Console.AddTest);
+            target.SetFunction<BadFunction>("AddSetup", m_Console.AddSetup);
+            target.SetFunction<BadFunction>("AddTeardown", m_Console.AddTeardown);
+        }
     }
 }
