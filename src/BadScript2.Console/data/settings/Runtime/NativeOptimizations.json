@@ -1,0 +1,9 @@
+{
+  "Runtime": {
+    "NativeOptimizations": {
+      "UseStringCaching": true,
+      "UseConstantExpressionOptimization": true,
+      "UseStaticExtensionCaching": true
+    }
+  }
+}

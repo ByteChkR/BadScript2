@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj" />
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_MathAdd()
+{
+	Assert.AreEqual(1 + 2, 3, "1 + 2 == 3");
+	Assert.AreEqual(1 + 0.2, 1.2, "1 + 0.2 == 1.2");
+	Assert.AreEqual(-2 + 5, 3, "-2 + 5 = 3");
+
+	Assert.AreEqual("A" + "B", "AB", "\"A\" + \"B\" == \"AB\"");
+	Assert.AreEqual("A" +  1, "A1", "\"A\" + 1 == \"A1\"");
+	Assert.AreEqual("A" +  true, "ATrue", "\"A\" + True == \"ATrue\"");
+}
+
+NUnit.AddTest(Test_MathAdd, "Operator '+' tests");

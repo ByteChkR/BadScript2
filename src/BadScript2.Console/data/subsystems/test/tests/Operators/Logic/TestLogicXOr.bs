@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_LogicXOr()
+{
+	Assert.IsFalse(true ^ true, "true ^ true");
+	Assert.IsTrue(false ^ true, "false ^ true");
+	Assert.IsTrue(true ^ false, "true ^ false");
+	Assert.IsFalse(false ^ false, "false ^ false");
+}
+
+NUnit.AddTest(Test_LogicXOr, "Operator '^' tests");

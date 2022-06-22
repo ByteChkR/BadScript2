@@ -1,0 +1,55 @@
+
+#import Package from Runtime
+#import Assert from Package
+
+function CheckSignature(a!, b!)
+{
+	Assert.IsFunction(a);
+	Assert.IsFunction(b);
+	if(a.Parameters.Length != b.Parameters.Length)
+	{
+		throw $"Parameters of {a} and {b} do not match";
+	}
+}
+
+
+class Event
+{
+	let _CallList;
+	let _CallPrototype;
+	function Event(callProto!)
+	{
+		Assert.IsFunction(callProto);
+		_CallList = [];
+		_CallPrototype = callProto;
+	}
+
+	function Remove(func!)
+	{
+		_CallList.Remove(func);
+	}
+
+	function Add(func!)
+	{
+		CheckSignature(_CallPrototype, func);
+		_CallList.Add(func);
+	}
+
+	function Invoke(args*)
+	{
+		foreach(func in _CallList)
+		{
+			func.Invoke(args);
+		}
+	}
+
+
+	function op_AddAssign(func!) => Add(func);
+	function op_SubtractAssign(func!) => Remove(func);
+	function op_Invoke(args*) => Invoke(args);
+
+}
+
+
+
+Runtime.Export("Events", {Event: Event});

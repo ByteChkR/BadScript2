@@ -1,0 +1,9 @@
+{
+  "Subsystems": {
+    "Run": {
+      "RootDirectory": "$(Console.SubsystemDirectory)/run",
+      "LibraryDirectory": "$(RootDirectory)/libs",
+      "StartupDirectory": "$(RootDirectory)/startup"
+    }
+  }
+}

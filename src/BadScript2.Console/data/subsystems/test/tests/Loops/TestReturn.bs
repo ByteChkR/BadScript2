@@ -1,0 +1,17 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Return()
+{
+	let i = 0;
+	let s = 0;
+	while(true)
+	{
+		s += i;
+		i++;
+		if(i >= 5) => return s;
+	}
+}
+
+NUnit.AddTest(function() => Assert.AreEqual(Test_Return(), 10, "Test_Return() == 10"), "Return inside loop tests");

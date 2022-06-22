@@ -1,0 +1,32 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TryCatchThrow()
+{
+	let pass;
+	try
+	{
+		pass = true;
+	}
+	catch(e)
+	{
+		pass = false;
+	}
+
+	Assert.IsTrue(pass, "Empty Try Catch");
+
+	try
+	{
+		throw "Test";
+		pass = false;
+	}
+	catch(e)
+	{
+		pass = e.ErrorObject == "Test";
+	}
+	Assert.IsTrue(pass, "Try Catch");
+
+}
+
+NUnit.AddTest(Test_TryCatchThrow, "try/catch/throw tests");

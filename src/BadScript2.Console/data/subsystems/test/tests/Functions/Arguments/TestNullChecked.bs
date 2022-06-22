@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+function F(x!) {}
+function G(x, y!) {}
+function H(x!, y!) {}
+
+function Test_NullCheckedArguments()
+{
+	F(true);
+	G(true, true);
+	H(true, true);
+}
+
+NUnit.AddTest(Test_NullCheckedArguments, "NullChecked Function Argument Tests");

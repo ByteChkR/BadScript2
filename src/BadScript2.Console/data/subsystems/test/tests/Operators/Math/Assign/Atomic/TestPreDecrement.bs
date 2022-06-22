@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_PreDecrement()
+{
+	let a = 1;
+	Assert.Zero(--a, "--1 == 0");
+}
+
+NUnit.AddTest(Test_PreDecrement, "Operator 'pre_--' tests");

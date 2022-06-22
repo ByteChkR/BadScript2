@@ -1,0 +1,41 @@
+
+Console.WriteLine("Loading Package Handler");
+
+let libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
+
+function FindFile(packageName!)
+{
+	let files = IO.Directory.GetFiles(libDir, "*.bs", true);
+	foreach(file in files)
+	{
+		let name = IO.Path.GetFileNameWithoutExtension(file);
+		if(name == packageName)
+		{
+			return file;
+		}
+	}
+
+	return null;
+}
+
+function Import(str!)
+{
+	if(!Runtime.HasPackage(str))
+	{
+		let file = FindFile(str);
+		Console.WriteLine($"Loading package '{str}' from '{file}'");
+		if(file == null)
+		{
+			throw $"Can not find Package with name '{str}'";
+		}
+		//Run file
+
+		let src = IO.File.ReadAllText(file);
+		Runtime.Evaluate(src, file);
+	}
+
+	return Runtime.Import(str);
+}
+
+
+Runtime.Export("Package", {Import: Import});

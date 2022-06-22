@@ -1,0 +1,19 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Continue()
+{
+	let s = 0;
+	for(let i = 0; i < 5; i++)
+	{
+		if(i == 4)
+		{
+			continue;
+		}
+		s += i;
+	}
+	return s;
+}
+
+NUnit.AddTest(function() => Assert.AreEqual(Test_Continue(), 6, "Test_Continue() == 6"), "continue inside loop tests");

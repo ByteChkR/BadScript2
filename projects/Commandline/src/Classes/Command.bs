@@ -1,0 +1,30 @@
+
+
+class Command
+{
+	let Table ResultTable;
+	function Command(Table resultTable)
+	{
+		ResultTable = resultTable;
+	}
+
+	function HasKey(string name)
+	{
+		return ResultTable.Keys.Contains(name);
+	}
+
+	function HasValues(string name)
+	{
+		return HasKey(name) && ResultTable[name].Length != 0;
+	}
+
+	function GetValues(string name)
+	{
+		if(!HasKey(name))
+		{
+			throw $"Can not find setting {name}";
+		}
+		return ResultTable[name];
+	}
+}
+

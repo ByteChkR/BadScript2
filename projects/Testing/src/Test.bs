@@ -1,0 +1,35 @@
+
+function Double(num n) => n * 2;
+function And(bool a, bool b) => a && b;
+function Or(bool a, bool b) => a || b;
+function IsEven(num n) => n % 2 == 0;
+function IsOdd(num n) => n % 2 != 0;
+function Sum(num n)
+{
+	let i = 1;
+	let sum = 0;
+	function MakeSum()
+	{
+		sum = sum + i;
+		i = i + 1;
+	}
+	while(i <= n)
+	{
+		MakeSum();
+	}
+
+	return sum;
+}
+
+
+
+Runtime.Export("Test", {
+		Double: Double,
+		And: And,
+		Or: Or,
+		IsEven: IsEven,
+		IsOdd: IsOdd,
+		Sum: Sum
+	});
+
+

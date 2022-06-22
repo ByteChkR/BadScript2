@@ -1,0 +1,57 @@
+using BadScript2.Common;
+using BadScript2.Optimizations;
+using BadScript2.Runtime;
+using BadScript2.Runtime.Objects;
+
+namespace BadScript2.Parser.Expressions.ControlFlow;
+
+public class BadReturnExpression : BadExpression
+{
+    public BadReturnExpression(BadExpression? right, BadSourcePosition position) : base(
+        false,
+        false,
+        position
+    )
+    {
+        Right = right;
+    }
+
+    public BadExpression? Right { get; private set; }
+
+    public override void Optimize()
+    {
+        if (Right != null)
+        {
+            Right = BadExpressionOptimizer.Optimize(Right);
+        }
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject value = BadObject.Null;
+        if (Right == null)
+        {
+            yield return value;
+
+            yield break;
+        }
+
+        foreach (BadObject obj in Right.Execute(context))
+        {
+            value = obj;
+
+            yield return obj;
+        }
+
+        value = value.Dereference();
+
+        context.Scope.SetReturnValue(value);
+
+        yield return value;
+    }
+
+    public override string ToString()
+    {
+        return "return " + Right ?? "";
+    }
+}
