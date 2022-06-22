@@ -64,3 +64,13 @@ function F()
 ```
 
 The Definition closest to the usage is hiding the other definitions.
+
+___
+
+## Links
+
+[Home](https://bytechkr.github.io/BadScript2/)
+
+[Getting Started](https://bytechkr.github.io/BadScript2/GettingStarted.html)
+
+[C# Documentation](https://bytechkr.github.io/BadScript2/reference/index.html)

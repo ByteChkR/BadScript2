@@ -21,3 +21,13 @@
 	- [Constructors](./badlang/typesystem/Constructors.md)
 	- [Operator Overrides](./badlang/typesystem/OperatorOverrides.md)
 - [Error Handling](./badlang/ErrorHandling.md)
+
+___
+
+## Links
+
+[Home](https://bytechkr.github.io/BadScript2/)
+
+[Getting Started](https://bytechkr.github.io/BadScript2/GettingStarted.html)
+
+[C# Documentation](https://bytechkr.github.io/BadScript2/reference/index.html)

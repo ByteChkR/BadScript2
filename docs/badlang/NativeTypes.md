@@ -2,7 +2,7 @@
 
 BadScript2 comes with base types that are implemented in the host language(C#)
 
-## `bool`
+## bool
 
 Contains a Boolean Value. Either `true` or `false`
 
@@ -11,7 +11,7 @@ let v = true;
 ```
 
 
-## `num`
+## num
 
 Contains a Numeric Value.
 
@@ -19,7 +19,7 @@ Contains a Numeric Value.
 let v = 0.46;
 ```
 
-## `string`
+## string
 
 Contains Immutable String Literals.
 
@@ -27,7 +27,7 @@ Contains Immutable String Literals.
 let v = "Hello";
 ```
 
-## `Function`
+## Function
 
 Contains an Executable set of expressions.
 
@@ -80,3 +80,14 @@ v.Key = "Val"; //Assign element at key "Key"
 v["Key"] = "Val"; //Assign element at key "Key"
 
 ```
+
+
+___
+
+## Links
+
+[Home](https://bytechkr.github.io/BadScript2/)
+
+[Getting Started](https://bytechkr.github.io/BadScript2/GettingStarted.html)
+
+[C# Documentation](https://bytechkr.github.io/BadScript2/reference/index.html)
