@@ -10,6 +10,7 @@ function SaveToFile(output)
 	function SaveToFile(src)
 	{			
 		Console.WriteLine($"Output: {output}")
+		IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(output)));
 		IO.File.WriteAllText(output, src);
 		return src;
 	}
@@ -42,7 +43,8 @@ function SaveToOutput(project)
 	function SaveToOutput(src)
 	{
 		let buildInfo = project.GetSetting("BuildInfo");
-		Console.WriteLine($"Output: {buildInfo.OutputFile}")
+		Console.WriteLine($"Output: {buildInfo.OutputFile}");
+		IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(buildInfo.OutputFile)));
 		IO.File.WriteAllText(buildInfo.OutputFile, src);
 		return src;
 	}
