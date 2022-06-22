@@ -1,3 +1,1 @@
-# BadScript2
-
-## Further Reading
+# Further Reading
