@@ -4,7 +4,6 @@
 
 ## Basics
 - [The Commandline](./basics/Commandline.md)
-- [Executing Scripts](./basics/ExecutingScripts.md)
 
 ## Language Reference
 - [Variables](./badlang/Variables.md)
