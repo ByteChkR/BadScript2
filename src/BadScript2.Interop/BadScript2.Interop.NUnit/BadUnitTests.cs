@@ -27,7 +27,7 @@ public class BadUnitTests
             Directory.CreateDirectory(TestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
 
-            string[] files = Directory.GetFiles(TestDirectory, $"*.{BadRuntimeSettings.Instance.DefaultExtension}", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(TestDirectory, $"*.{BadRuntimeSettings.Instance.FileExtension}", SearchOption.AllDirectories);
             Console.WriteLine($"Loading Files...({files.Length})");
             builder.Register(files);
 

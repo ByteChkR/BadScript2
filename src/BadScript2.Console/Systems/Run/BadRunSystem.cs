@@ -83,7 +83,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         
         BadExecutionContextOptions options = CreateOptions();
         BadRuntimeApi.StartupArguments = settings.Args;
-        IEnumerable<string> files = Directory.GetFiles(StartupDirectory, $"*.{BadRuntimeSettings.Instance.DefaultExtension}", SearchOption.AllDirectories)
+        IEnumerable<string> files = Directory.GetFiles(StartupDirectory, $"*.{BadRuntimeSettings.Instance.FileExtension}", SearchOption.AllDirectories)
             .Concat(settings.Files);
         if (settings.Interactive)
         {
