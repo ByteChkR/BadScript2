@@ -1,0 +1,19 @@
+language: csharp
+mono: none
+sudo: required
+dist: xenial
+
+matrix:
+  include:
+    - dotnet: 6.0
+      env:
+        - SOLUTION="src/BadScript2.sln"
+        - BUILDCONFIG="Release"
+
+#Restore the Submodules and the Project
+install:
+  #Restore Projects
+  - dotnet restore src/
+
+script:
+  - dotnet build $SOLUTION -c $BUILDCONFIG
