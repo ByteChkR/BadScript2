@@ -16,13 +16,24 @@ Currently it is only possible to build the project from source. Binaries will be
 
 #### Building from Source
 
+Tested on:
+- Windows 10 64-bit
+- Debian 11 (Bullseye)
+
 Requirements:
 - git
 - net6.0 SDK
 - Powershell 6.0 or greater
 
-1. Clone this Repository `git clone https://github.com/ByteChkR/BadScript2`
-2. Run `build.ps1` located inside the repository folder
+1. Open a Powershell Session
+	- On Windows: `powershell`
+	- On Linux: `pwsh`
+2. Clone this Repository `git clone https://github.com/ByteChkR/BadScript2`
+3. Change Directory to `./BadScript2`
+3. Run `./build.ps1`
+
+> use `build.ps1 -config Release` to build with optimizations.
+> use `build.ps1 -writeLog` to get debug logs
 
 `build.ps1` compiles the language project and builds all common libraries for the runtime.
 The Compiled output will be generated in `./build`.
@@ -35,7 +46,7 @@ Console.WriteLine("Hello World!");
 
 Run the script with the command
 ```
-./path/to/bs.exe run -f helloworld.bs
+./path/to/bs[.exe] run -f helloworld.bs
 ```
 
 Output:
