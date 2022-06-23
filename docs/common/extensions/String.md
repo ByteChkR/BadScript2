@@ -1,8 +1,4 @@
-# Common API Reference
-
-- [Console API](./Console.md)
-- [Math API](./Math.md)
-- [Runtime API](./Runtime.md)
+# String Extension Reference
 
 ___
 
