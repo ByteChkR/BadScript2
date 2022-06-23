@@ -9,100 +9,99 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Parser.Expressions.Function
+namespace BadScript2.Parser.Expressions.Function;
+
+public class BadFunctionExpression : BadExpression
 {
-    public class BadFunctionExpression : BadExpression
+    private readonly List<BadExpression> m_Body;
+    private readonly List<BadFunctionParameter> m_Parameters;
+    private readonly BadExpression? m_TypeExpr;
+
+    public BadFunctionExpression(
+        BadWordToken? name,
+        List<BadFunctionParameter> parameter,
+        List<BadExpression> block,
+        BadSourcePosition position,
+        BadExpression? typeExpr = null) :
+        base(false, false, position)
     {
-        private readonly List<BadExpression> m_Body;
-        private readonly List<BadFunctionParameter> m_Parameters;
-        private readonly BadExpression? m_TypeExpr;
+        Name = name;
+        m_Parameters = parameter;
+        m_Body = block;
+        m_TypeExpr = typeExpr;
+    }
 
-        public BadFunctionExpression(
-            BadWordToken? name,
-            List<BadFunctionParameter> parameter,
-            List<BadExpression> block,
-            BadSourcePosition position,
-            BadExpression? typeExpr = null) :
-            base(false, false, position)
+    public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
+    public IEnumerable<BadExpression> Body => m_Body;
+    public BadWordToken? Name { get; }
+
+    public override void Optimize()
+    {
+        for (int i = 0; i < m_Body.Count; i++)
         {
-            Name = name;
-            m_Parameters = parameter;
-            m_Body = block;
-            m_TypeExpr = typeExpr;
+            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+        }
+    }
+
+    public string GetHeader()
+    {
+        return
+            $"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
+    }
+
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder(GetHeader());
+        sb.AppendLine();
+        sb.AppendLine("{");
+        foreach (BadExpression expression in Body)
+        {
+            sb.AppendLine($"\t{expression}");
         }
 
-        public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
-        public IEnumerable<BadExpression> Body => m_Body;
-        public BadWordToken? Name { get; }
+        sb.AppendLine("}");
 
-        public override void Optimize()
+        return sb.ToString();
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadClassPrototype? type = null;
+        if (m_TypeExpr != null)
         {
-            for (int i = 0; i < m_Body.Count; i++)
+            BadObject obj = BadObject.Null;
+            foreach (BadObject o in m_TypeExpr.Execute(context))
             {
-                m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
-            }
-        }
-
-        public string GetHeader()
-        {
-            return
-                $"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
-        }
-
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder(GetHeader());
-            sb.AppendLine();
-            sb.AppendLine("{");
-            foreach (BadExpression expression in Body)
-            {
-                sb.AppendLine($"\t{expression}");
-            }
-
-            sb.AppendLine("}");
-
-            return sb.ToString();
-        }
-
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-        {
-            BadClassPrototype? type = null;
-            if (m_TypeExpr != null)
-            {
-                BadObject obj = BadObject.Null;
-                foreach (BadObject o in m_TypeExpr.Execute(context))
-                {
-                    obj = o;
-                }
-
-                obj = obj.Dereference();
-
-                if (obj is not BadClassPrototype proto)
-                {
-                    throw new BadRuntimeException(
-                        $"Expected class prototype, but got {obj.GetType().Name}",
-                        Position
-                    );
-                }
-
-                type = proto;
+                obj = o;
             }
 
-            BadExpressionFunction f = new BadExpressionFunction(
-                context.Scope,
-                Name,
-                m_Body,
-                m_Parameters.Select(x => x.Initialize(context)).ToArray(),
-                Position
-            );
+            obj = obj.Dereference();
 
-            if (Name != null)
+            if (obj is not BadClassPrototype proto)
             {
-                context.Scope.DefineVariable(BadObject.Wrap(Name.Text), f);
+                throw new BadRuntimeException(
+                    $"Expected class prototype, but got {obj.GetType().Name}",
+                    Position
+                );
             }
 
-            yield return f;
+            type = proto;
         }
+
+        BadExpressionFunction f = new BadExpressionFunction(
+            context.Scope,
+            Name,
+            m_Body,
+            m_Parameters.Select(x => x.Initialize(context)).ToArray(),
+            Position
+        );
+
+        if (Name != null)
+        {
+            context.Scope.DefineVariable(BadObject.Wrap(Name.Text), f);
+        }
+
+        yield return f;
     }
 }

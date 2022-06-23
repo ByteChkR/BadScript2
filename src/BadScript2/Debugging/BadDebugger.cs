@@ -1,33 +1,34 @@
 using BadScript2.Common.Logging;
 using BadScript2.Runtime.Error;
 
-namespace BadScript2.Debugging
+namespace BadScript2.Debugging;
+
+public static class BadDebugger
 {
-    public static class BadDebugger
+    private static IBadDebugger? s_Debugger;
+    public static bool IsAttached { get; private set; }
+
+    public static void Attach(IBadDebugger debugger)
     {
-        private static IBadDebugger? s_Debugger = null;
-        public static bool IsAttached { get; private set; }
-
-        public static void Attach(IBadDebugger debugger)
+        if (IsAttached)
         {
-            if (IsAttached)
-            {
-                throw new BadRuntimeException("Already a Debugger Attached");
-            }
-
-            IsAttached = true;
-            s_Debugger = debugger;
-            BadLogger.Warn($"Debugger '{debugger}' is Attached");
+            throw new BadRuntimeException("Already a Debugger Attached");
         }
 
-        public static void Detach()
-        {
-            BadLogger.Warn($"Debugger '{s_Debugger}' is Detached");
-            IsAttached = false;
-            s_Debugger = null;
-        }
+        IsAttached = true;
+        s_Debugger = debugger;
+        BadLogger.Warn($"Debugger '{debugger}' is Attached");
+    }
 
-        internal static void Step(BadDebuggerStep step) => s_Debugger?.Step(step);
+    public static void Detach()
+    {
+        BadLogger.Warn($"Debugger '{s_Debugger}' is Detached");
+        IsAttached = false;
+        s_Debugger = null;
+    }
 
+    internal static void Step(BadDebuggerStep step)
+    {
+        s_Debugger?.Step(step);
     }
 }

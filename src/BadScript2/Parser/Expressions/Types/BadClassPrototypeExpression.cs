@@ -5,59 +5,58 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Parser.Expressions.Types
+namespace BadScript2.Parser.Expressions.Types;
+
+public class BadClassPrototypeExpression : BadExpression
 {
-    public class BadClassPrototypeExpression : BadExpression
+    public readonly BadExpression? BaseClass;
+    public readonly BadExpression[] Body;
+    public readonly string Name;
+
+    public BadClassPrototypeExpression(
+        string name,
+        BadExpression[] body,
+        BadExpression? baseClass,
+        BadSourcePosition position) : base(false, false, position)
     {
-        public readonly BadExpression? BaseClass;
-        public readonly BadExpression[] Body;
-        public readonly string Name;
+        Name = name;
+        Body = body;
+        BaseClass = baseClass;
+    }
 
-        public BadClassPrototypeExpression(
-            string name,
-            BadExpression[] body,
-            BadExpression? baseClass,
-            BadSourcePosition position) : base(false, false, position)
+    public override void Optimize()
+    {
+        for (int i = 0; i < Body.Length; i++)
         {
-            Name = name;
-            Body = body;
-            BaseClass = baseClass;
+            Body[i] = BadExpressionOptimizer.Optimize(Body[i]);
         }
+    }
 
-        public override void Optimize()
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadClassPrototype? basePrototype = null;
+        if (BaseClass != null)
         {
-            for (int i = 0; i < Body.Length; i++)
+            BadObject obj = BadObject.Null;
+            foreach (BadObject o in BaseClass.Execute(context))
             {
-                Body[i] = BadExpressionOptimizer.Optimize(Body[i]);
-            }
-        }
+                obj = o;
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-        {
-            BadClassPrototype? basePrototype = null;
-            if (BaseClass != null)
-            {
-                BadObject obj = BadObject.Null;
-                foreach (BadObject o in BaseClass.Execute(context))
-                {
-                    obj = o;
-
-                    yield return o;
-                }
-
-                obj = obj.Dereference();
-                if (obj is not BadClassPrototype cls)
-                {
-                    throw new BadRuntimeException("Base class must be a class prototype", Position);
-                }
-
-                basePrototype = cls;
+                yield return o;
             }
 
-            BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, Body, basePrototype);
-            context.Scope.DefineVariable(Name, p);
+            obj = obj.Dereference();
+            if (obj is not BadClassPrototype cls)
+            {
+                throw new BadRuntimeException("Base class must be a class prototype", Position);
+            }
 
-            yield return p;
+            basePrototype = cls;
         }
+
+        BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, Body, basePrototype);
+        context.Scope.DefineVariable(Name, p);
+
+        yield return p;
     }
 }

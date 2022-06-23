@@ -1,16 +1,15 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
-namespace BadScript2.Parser.Operators.Binary.Math.Atomic
+namespace BadScript2.Parser.Operators.Binary.Math.Atomic;
+
+public class BadPostDecrementOperator : BadBinaryOperator
 {
-    public class BadPostDecrementOperator : BadBinaryOperator
+    public BadPostDecrementOperator() : base(2, "--") { }
+
+
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
-        public BadPostDecrementOperator() : base(2, "--") { }
-
-
-        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-        {
-            return new BadPostDecrementExpression(left, left.Position);
-        }
+        return new BadPostDecrementExpression(left, left.Position);
     }
 }

@@ -1,30 +1,29 @@
-namespace BadScript2.Common.Logging.Writer
+namespace BadScript2.Common.Logging.Writer;
+
+public abstract class BadLogWriter : IDisposable
 {
-    public abstract class BadLogWriter : IDisposable
+    public virtual void Dispose()
     {
-        public virtual void Dispose()
-        {
-            Unregister();
-        }
+        Unregister();
+    }
 
-        protected abstract void Write(BadLog log);
+    protected abstract void Write(BadLog log);
 
-        private void InnerWrite(BadLog log)
+    private void InnerWrite(BadLog log)
+    {
+        if (BadLogWriterSettings.Instance.Mask.Contains(log.Mask))
         {
-            if (BadLogWriterSettings.Instance.Mask.Contains(log.Mask))
-            {
-                Write(log);
-            }
+            Write(log);
         }
+    }
 
-        public void Register()
-        {
-            BadLogger.OnLog += InnerWrite;
-        }
+    public void Register()
+    {
+        BadLogger.OnLog += InnerWrite;
+    }
 
-        public void Unregister()
-        {
-            BadLogger.OnLog -= InnerWrite;
-        }
+    public void Unregister()
+    {
+        BadLogger.OnLog -= InnerWrite;
     }
 }

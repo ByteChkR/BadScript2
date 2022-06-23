@@ -4,137 +4,136 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Runtime.Objects
+namespace BadScript2.Runtime.Objects;
+
+public class BadTable : BadObject
 {
-    public class BadTable : BadObject
+    public readonly Dictionary<BadObject, BadObject> InnerTable;
+    public readonly Dictionary<BadObject, BadPropertyInfo> PropertyInfos;
+
+    public BadTable()
     {
-        public readonly Dictionary<BadObject, BadObject> InnerTable;
-        public readonly Dictionary<BadObject, BadPropertyInfo> PropertyInfos;
+        InnerTable = new Dictionary<BadObject, BadObject>();
+        PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
+    }
 
-        public BadTable()
+    public BadTable(Dictionary<BadObject, BadObject> table)
+    {
+        InnerTable = table;
+        PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
+        foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
         {
-            InnerTable = new Dictionary<BadObject, BadObject>();
-            PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
+            PropertyInfos[kvp.Key] = new BadPropertyInfo();
+        }
+    }
+
+    public override BadClassPrototype GetPrototype()
+    {
+        return BadNativeClassBuilder.GetNative("Table");
+    }
+
+    public BadPropertyInfo GetPropertyInfo(BadObject propName)
+    {
+        return PropertyInfos[propName];
+    }
+
+    public void RemoveKey(BadObject key)
+    {
+        PropertyInfos.Remove(key);
+        InnerTable.Remove(key);
+    }
+
+    public override bool HasProperty(BadObject propName)
+    {
+        return InnerTable.ContainsKey(propName) || BadInteropExtension.HasObject<BadTable>(propName);
+    }
+
+    public override BadObjectReference GetProperty(BadObject propName)
+    {
+        if (BadInteropExtension.HasObject<BadTable>(propName) && !InnerTable.ContainsKey(propName))
+        {
+            return BadInteropExtension.GetObjectReference(GetType(), propName, this);
         }
 
-        public BadTable(Dictionary<BadObject, BadObject> table)
-        {
-            InnerTable = table;
-            PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
-            foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
+        return BadObjectReference.Make(
+            $"BadTable.{propName}",
+            () => InnerTable[propName],
+            (o, t) =>
             {
-                PropertyInfos[kvp.Key] = new BadPropertyInfo();
-            }
-        }
-
-        public override BadClassPrototype GetPrototype()
-        {
-            return BadNativeClassBuilder.GetNative("Table");
-        }
-
-        public BadPropertyInfo GetPropertyInfo(BadObject propName)
-        {
-            return PropertyInfos[propName];
-        }
-
-        public void RemoveKey(BadObject key)
-        {
-            PropertyInfos.Remove(key);
-            InnerTable.Remove(key);
-        }
-
-        public override bool HasProperty(BadObject propName)
-        {
-            return InnerTable.ContainsKey(propName) || BadInteropExtension.HasObject<BadTable>(propName);
-        }
-
-        public override BadObjectReference GetProperty(BadObject propName)
-        {
-            if (BadInteropExtension.HasObject<BadTable>(propName) && !InnerTable.ContainsKey(propName))
-            {
-                return BadInteropExtension.GetObjectReference(GetType(), propName, this);
-            }
-
-            return BadObjectReference.Make(
-                $"BadTable.{propName}",
-                () => InnerTable[propName],
-                (o, t) =>
+                if (InnerTable.ContainsKey(propName))
                 {
-                    if (InnerTable.ContainsKey(propName))
+                    BadPropertyInfo info = GetPropertyInfo(propName);
+                    if (InnerTable[propName] != Null && info.IsReadOnly)
                     {
-                        BadPropertyInfo info = GetPropertyInfo(propName);
-                        if (InnerTable[propName] != Null && info.IsReadOnly)
-                        {
-                            throw new BadRuntimeException($"{propName} is read-only");
-                        }
-
-                        if (info.Type != null && !info.Type.IsAssignableFrom(o))
-                        {
-                            throw new BadRuntimeException(
-                                $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
-                            );
-                        }
-                    }
-                    else
-                    {
-                        PropertyInfos[propName] = t ?? new BadPropertyInfo();
-                        if (t?.Type != null && !t.Type.IsAssignableFrom(o))
-                        {
-                            throw new BadRuntimeException(
-                                $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{t.Type.Name}'"
-                            );
-                        }
+                        throw new BadRuntimeException($"{propName} is read-only");
                     }
 
-                    InnerTable[propName] = o;
+                    if (info.Type != null && !info.Type.IsAssignableFrom(o))
+                    {
+                        throw new BadRuntimeException(
+                            $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
+                        );
+                    }
                 }
-            );
-        }
+                else
+                {
+                    PropertyInfos[propName] = t ?? new BadPropertyInfo();
+                    if (t?.Type != null && !t.Type.IsAssignableFrom(o))
+                    {
+                        throw new BadRuntimeException(
+                            $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{t.Type.Name}'"
+                        );
+                    }
+                }
+
+                InnerTable[propName] = o;
+            }
+        );
+    }
 
 
-        public override string ToSafeString(List<BadObject> done)
+    public override string ToSafeString(List<BadObject> done)
+    {
+        done.Add(this);
+        StringBuilder sb = new StringBuilder();
+        sb.Append("{");
+        sb.AppendLine();
+        foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
         {
-            done.Add(this);
-            StringBuilder sb = new StringBuilder();
-            sb.Append("{");
-            sb.AppendLine();
-            foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
+            if (kvp.Key is BadScope || kvp.Value is BadScope)
             {
-                if (kvp.Key is BadScope || kvp.Value is BadScope)
-                {
-                    sb.AppendLine("RECURSION_PROTECT");
+                sb.AppendLine("RECURSION_PROTECT");
 
-                    continue;
-                }
-
-                string kStr = "{...}";
-                if (!done.Contains(kvp.Key))
-                {
-                    kStr = kvp.Key.ToSafeString(done)!.Trim();
-                }
-
-                string vStr = "{...}";
-                if (!done.Contains(kvp.Value))
-                {
-                    vStr = kvp.Value.ToSafeString(done)!.Trim();
-                }
-
-                if (kStr.Contains("\n"))
-                {
-                    kStr = kStr.Replace("\n", "\n\t");
-                }
-
-                if (vStr.Contains("\n"))
-                {
-                    vStr = vStr.Replace("\n", "\n\t");
-                }
-
-                sb.AppendLine($"\t{kStr}: {vStr}");
+                continue;
             }
 
-            sb.AppendLine("}");
+            string kStr = "{...}";
+            if (!done.Contains(kvp.Key))
+            {
+                kStr = kvp.Key.ToSafeString(done)!.Trim();
+            }
 
-            return sb.ToString();
+            string vStr = "{...}";
+            if (!done.Contains(kvp.Value))
+            {
+                vStr = kvp.Value.ToSafeString(done)!.Trim();
+            }
+
+            if (kStr.Contains("\n"))
+            {
+                kStr = kStr.Replace("\n", "\n\t");
+            }
+
+            if (vStr.Contains("\n"))
+            {
+                vStr = vStr.Replace("\n", "\n\t");
+            }
+
+            sb.AppendLine($"\t{kStr}: {vStr}");
         }
+
+        sb.AppendLine("}");
+
+        return sb.ToString();
     }
 }

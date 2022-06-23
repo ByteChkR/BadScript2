@@ -5,113 +5,112 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
-namespace BadScript2.Parser.Expressions.Function
+namespace BadScript2.Parser.Expressions.Function;
+
+public class BadInvocationExpression : BadExpression
 {
-    public class BadInvocationExpression : BadExpression
+    public readonly BadExpression[] Arguments;
+
+    public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
+        false,
+        false,
+        position
+    )
     {
-        public readonly BadExpression[] Arguments;
+        Left = left;
+        Arguments = args;
+    }
 
-        public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
-            false,
-            false,
-            position
-        )
+    public BadExpression Left { get; }
+
+    public override void Optimize()
+    {
+        for (int i = 0; i < Arguments.Length; i++)
         {
-            Left = left;
-            Arguments = args;
+            Arguments[i] = BadExpressionOptimizer.Optimize(Arguments[i]);
         }
+    }
 
-        public BadExpression Left { get; }
-
-        public override void Optimize()
+    public IEnumerable<BadObject> GetArgs(BadExecutionContext context, List<BadObject> args)
+    {
+        foreach (BadExpression argExpr in Arguments)
         {
-            for (int i = 0; i < Arguments.Length; i++)
+            BadObject argObj = BadObject.Null;
+            foreach (BadObject arg in argExpr.Execute(context))
             {
-                Arguments[i] = BadExpressionOptimizer.Optimize(Arguments[i]);
-            }
-        }
+                argObj = arg;
 
-        public IEnumerable<BadObject> GetArgs(BadExecutionContext context, List<BadObject> args)
-        {
-            foreach (BadExpression argExpr in Arguments)
-            {
-                BadObject argObj = BadObject.Null;
-                foreach (BadObject arg in argExpr.Execute(context))
+                if (context.Scope.IsError)
                 {
-                    argObj = arg;
-
-                    if (context.Scope.IsError)
-                    {
-                        yield break;
-                    }
-
-                    yield return arg;
+                    yield break;
                 }
 
-                args.Add(argObj.Dereference());
+                yield return arg;
             }
+
+            args.Add(argObj.Dereference());
+        }
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
+
+            yield return o;
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        if (context.Scope.IsError)
         {
-            BadObject left = BadObject.Null;
-            foreach (BadObject o in Left.Execute(context))
-            {
-                left = o;
+            yield break;
+        }
 
+        left = left.Dereference();
+
+        List<BadObject> args = new List<BadObject>();
+        foreach (BadObject o in GetArgs(context, args))
+        {
+            yield return o;
+        }
+
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
+
+        if (left is BadFunction func)
+        {
+            foreach (BadObject o in func.Invoke(args.ToArray(), context))
+            {
                 yield return o;
             }
-
-            if (context.Scope.IsError)
+        }
+        else if (left.HasProperty(BadStaticKeys.InvocationOperatorName))
+        {
+            BadFunction? invocationOp =
+                left.GetProperty(BadStaticKeys.InvocationOperatorName).Dereference() as BadFunction;
+            if (invocationOp == null)
             {
-                yield break;
+                throw new BadRuntimeException("Function Invocation Operator is not a function", Position);
             }
 
-            left = left.Dereference();
-
-            List<BadObject> args = new List<BadObject>();
-            foreach (BadObject o in GetArgs(context, args))
+            BadObject r = BadObject.Null;
+            foreach (BadObject o in invocationOp.Invoke(args.ToArray(), context))
             {
                 yield return o;
+                r = o;
             }
 
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
-            if (left is BadFunction func)
-            {
-                foreach (BadObject o in func.Invoke(args.ToArray(), context))
-                {
-                    yield return o;
-                }
-            }
-            else if (left.HasProperty(BadStaticKeys.InvocationOperatorName))
-            {
-                BadFunction? invocationOp =
-                    left.GetProperty(BadStaticKeys.InvocationOperatorName).Dereference() as BadFunction;
-                if (invocationOp == null)
-                {
-                    throw new BadRuntimeException("Function Invocation Operator is not a function", Position);
-                }
-
-                BadObject r = BadObject.Null;
-                foreach (BadObject o in invocationOp.Invoke(args.ToArray(), context))
-                {
-                    yield return o;
-                    r = o;
-                }
-
-                yield return r.Dereference();
-            }
-            else
-            {
-                throw new BadRuntimeException(
-                    "Cannot invoke non-function object",
-                    Position
-                );
-            }
+            yield return r.Dereference();
+        }
+        else
+        {
+            throw new BadRuntimeException(
+                "Cannot invoke non-function object",
+                Position
+            );
         }
     }
 }

@@ -1,10 +1,9 @@
 using BadScript2.Parser.Expressions;
 
-namespace BadScript2.Runtime.Compiler.Expression
+namespace BadScript2.Runtime.Compiler.Expression;
+
+public interface IBadExpressionCompiler
 {
-    public interface IBadExpressionCompiler
-    {
-        bool CanCompile(BadExpression expression);
-        int Compile(BadExpression expression, BadCompilerResult result);
-    }
+    bool CanCompile(BadExpression expression);
+    int Compile(BadExpression expression, BadCompilerResult result);
 }

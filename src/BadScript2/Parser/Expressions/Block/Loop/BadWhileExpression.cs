@@ -7,52 +7,81 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Block.Loop
+namespace BadScript2.Parser.Expressions.Block.Loop;
+
+public class BadWhileExpression : BadExpression
 {
-    public class BadWhileExpression : BadExpression
+    private readonly List<BadExpression> m_Body;
+
+    public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
+        false,
+        false,
+        position
+    )
     {
-        private readonly List<BadExpression> m_Body;
+        Condition = condition;
+        m_Body = block;
+    }
 
-        public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
-            false,
-            false,
-            position
-        )
+    public BadExpression Condition { get; private set; }
+    public IEnumerable<BadExpression> Body => m_Body;
+
+    public override void Optimize()
+    {
+        Condition = BadExpressionOptimizer.Optimize(Condition);
+        for (int i = 0; i < m_Body.Count; i++)
         {
-            Condition = condition;
-            m_Body = block;
+            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+        }
+    }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder($"while ({Condition})");
+        sb.AppendLine();
+        sb.AppendLine("{");
+        foreach (BadExpression expression in Body)
+        {
+            sb.AppendLine($"\t{expression}");
         }
 
-        public BadExpression Condition { get; private set; }
-        public IEnumerable<BadExpression> Body => m_Body;
+        sb.AppendLine("}");
 
-        public override void Optimize()
+        return sb.ToString();
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject cond = BadObject.Null;
+        foreach (BadObject o in Condition.Execute(context))
         {
-            Condition = BadExpressionOptimizer.Optimize(Condition);
-            for (int i = 0; i < m_Body.Count; i++)
+            cond = o;
+
+            yield return o;
+        }
+
+        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+                           throw new BadRuntimeException("While Condition is not a boolean", Position);
+
+        while (bRet.Value)
+        {
+            BadExecutionContext loopContext = new BadExecutionContext(
+                context.Scope.CreateChild(
+                    "WhileLoop",
+                    context.Scope,
+                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                )
+            );
+            foreach (BadObject o in loopContext.Execute(m_Body))
             {
-                m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+                yield return o;
             }
-        }
 
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder($"while ({Condition})");
-            sb.AppendLine();
-            sb.AppendLine("{");
-            foreach (BadExpression expression in Body)
+            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
             {
-                sb.AppendLine($"\t{expression}");
+                break;
             }
 
-            sb.AppendLine("}");
-
-            return sb.ToString();
-        }
-
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-        {
-            BadObject cond = BadObject.Null;
             foreach (BadObject o in Condition.Execute(context))
             {
                 cond = o;
@@ -60,40 +89,10 @@ namespace BadScript2.Parser.Expressions.Block.Loop
                 yield return o;
             }
 
-            IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-                               throw new BadRuntimeException("While Condition is not a boolean", Position);
-
-            while (bRet.Value)
-            {
-                BadExecutionContext loopContext = new BadExecutionContext(
-                    context.Scope.CreateChild(
-                        "WhileLoop",
-                        context.Scope,
-                        BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                    )
-                );
-                foreach (BadObject o in loopContext.Execute(m_Body))
-                {
-                    yield return o;
-                }
-
-                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-                {
-                    break;
-                }
-
-                foreach (BadObject o in Condition.Execute(context))
-                {
-                    cond = o;
-
-                    yield return o;
-                }
-
-                bRet = cond.Dereference() as IBadBoolean ??
-                       throw new BadRuntimeException("While Condition is not a boolean", Position);
-            }
-
-            yield return BadObject.Null;
+            bRet = cond.Dereference() as IBadBoolean ??
+                   throw new BadRuntimeException("While Condition is not a boolean", Position);
         }
+
+        yield return BadObject.Null;
     }
 }

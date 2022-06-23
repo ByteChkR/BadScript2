@@ -1,7 +1,7 @@
 {
-	"Runtime": {
-		"Debugger": {
-			"Path": "$(Subsystems.Run.RootDirectory)/Debugger.bs"
-		}
-	}
+  "Runtime": {
+    "Debugger": {
+      "Path": "$(Subsystems.Run.RootDirectory)/Debugger.bs"
+    }
+  }
 }

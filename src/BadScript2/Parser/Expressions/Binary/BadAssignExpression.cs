@@ -4,78 +4,77 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Binary
+namespace BadScript2.Parser.Expressions.Binary;
+
+public class BadAssignExpression : BadExpression
 {
-    public class BadAssignExpression : BadExpression
+    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        false,
+        true,
+        position
+    )
     {
-        public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-            false,
-            true,
-            position
-        )
+        Left = left;
+        Right = right;
+        if (!Left.IsLValue)
         {
-            Left = left;
-            Right = right;
-            if (!Left.IsLValue)
-            {
-                throw new BadParserException($"Left side of assignment must be an lvalue: {left}", position);
-            }
+            throw new BadParserException($"Left side of assignment must be an lvalue: {left}", position);
+        }
+    }
+
+    public BadExpression Left { get; private set; }
+    public BadExpression Right { get; private set; }
+
+    public override void Optimize()
+    {
+        Left = BadExpressionOptimizer.Optimize(Left);
+        Right = BadExpressionOptimizer.Optimize(Right);
+    }
+
+    public override string ToString()
+    {
+        return $"({Left} = {Right})";
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
+
+            yield return o;
         }
 
-        public BadExpression Left { get; private set; }
-        public BadExpression Right { get; private set; }
-
-        public override void Optimize()
+        if (context.Scope.IsError)
         {
-            Left = BadExpressionOptimizer.Optimize(Left);
-            Right = BadExpressionOptimizer.Optimize(Right);
+            yield break;
         }
 
-        public override string ToString()
+        BadObject right = BadObject.Null;
+        foreach (BadObject o in Right.Execute(context))
         {
-            return $"({Left} = {Right})";
+            right = o;
+
+            yield return o;
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        if (context.Scope.IsError)
         {
-            BadObject left = BadObject.Null;
-            foreach (BadObject o in Left.Execute(context))
-            {
-                left = o;
-
-                yield return o;
-            }
-
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
-
-                yield return o;
-            }
-
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
-            right = right.Dereference();
-
-            if (left is BadObjectReference reference)
-            {
-                reference.Set(right);
-            }
-            else
-            {
-                throw new BadRuntimeException($"Left handside of {this} is not a reference", Position);
-            }
-
-            yield return left;
+            yield break;
         }
+
+        right = right.Dereference();
+
+        if (left is BadObjectReference reference)
+        {
+            reference.Set(right);
+        }
+        else
+        {
+            throw new BadRuntimeException($"Left handside of {this} is not a reference", Position);
+        }
+
+        yield return left;
     }
 }

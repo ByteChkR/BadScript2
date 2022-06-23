@@ -1,50 +1,49 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime
+namespace BadScript2.Runtime;
+
+public class BadExecutionContext
 {
-    public class BadExecutionContext
+    public readonly BadScope Scope;
+
+    public BadExecutionContext(BadScope scope)
     {
-        public BadExecutionContext(BadScope scope)
+        Scope = scope;
+    }
+
+    public static BadExecutionContext Create()
+    {
+        return new BadExecutionContext(new BadScope("<root>"));
+    }
+
+
+    public BadObject? Run(IEnumerable<BadExpression> expressions)
+    {
+        foreach (BadObject o in Execute(expressions)) { }
+
+        if (Scope.ReturnValue != null)
         {
-            Scope = scope;
+            return Scope.ReturnValue;
         }
 
-        public readonly BadScope Scope;
+        return null;
+    }
 
-        public static BadExecutionContext Create()
+    public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
+    {
+        foreach (BadExpression expression in expressions)
         {
-            return new BadExecutionContext(new BadScope("<root>"));
-        }
-
-
-        public BadObject? Run(IEnumerable<BadExpression> expressions)
-        {
-            foreach (BadObject o in Execute(expressions)) { }
-
-            if (Scope.ReturnValue != null)
+            foreach (BadObject o in expression.Execute(this))
             {
-                return Scope.ReturnValue;
-            }
+                yield return o;
 
-            return null;
-        }
-
-        public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
-        {
-            foreach (BadExpression expression in expressions)
-            {
-                foreach (BadObject o in expression.Execute(this))
+                if (Scope.ReturnValue != null ||
+                    Scope.IsBreak ||
+                    Scope.IsContinue ||
+                    Scope.IsError)
                 {
-                    yield return o;
-
-                    if (Scope.ReturnValue != null ||
-                        Scope.IsBreak ||
-                        Scope.IsContinue ||
-                        Scope.IsError)
-                    {
-                        yield break;
-                    }
+                    yield break;
                 }
             }
         }

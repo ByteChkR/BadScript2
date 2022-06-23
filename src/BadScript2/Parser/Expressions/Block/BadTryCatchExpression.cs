@@ -3,58 +3,57 @@ using BadScript2.Optimizations;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Block
+namespace BadScript2.Parser.Expressions.Block;
+
+public class BadTryCatchExpression : BadExpression
 {
-    public class BadTryCatchExpression : BadExpression
+    private readonly BadExpression[] m_CatchExpressions;
+    private readonly string m_ErrorName;
+    private readonly BadExpression[] m_Expressions;
+
+    public BadTryCatchExpression(
+        BadSourcePosition position,
+        BadExpression[] expressions,
+        BadExpression[] catchExpressions,
+        string errorName) : base(false, false, position)
     {
-        private readonly BadExpression[] m_CatchExpressions;
-        private readonly string m_ErrorName;
-        private readonly BadExpression[] m_Expressions;
+        m_Expressions = expressions;
+        m_CatchExpressions = catchExpressions;
+        m_ErrorName = errorName;
+    }
 
-        public BadTryCatchExpression(
-            BadSourcePosition position,
-            BadExpression[] expressions,
-            BadExpression[] catchExpressions,
-            string errorName) : base(false, false, position)
+    public override void Optimize()
+    {
+        for (int i = 0; i < m_CatchExpressions.Length; i++)
         {
-            m_Expressions = expressions;
-            m_CatchExpressions = catchExpressions;
-            m_ErrorName = errorName;
+            m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
         }
 
-        public override void Optimize()
+        for (int i = 0; i < m_Expressions.Length; i++)
         {
-            for (int i = 0; i < m_CatchExpressions.Length; i++)
-            {
-                m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
-            }
+            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+        }
+    }
 
-            for (int i = 0; i < m_Expressions.Length; i++)
-            {
-                m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
-            }
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadExecutionContext tryContext = new BadExecutionContext(
+            context.Scope.CreateChild("TryBlock", context.Scope, BadScopeFlags.CaptureThrow)
+        );
+        foreach (BadObject o in tryContext.Execute(m_Expressions))
+        {
+            yield return o;
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        if (tryContext.Scope.Error != null)
         {
-            BadExecutionContext tryContext = new BadExecutionContext(
-                context.Scope.CreateChild("TryBlock", context.Scope, BadScopeFlags.CaptureThrow)
+            BadExecutionContext catchContext = new BadExecutionContext(
+                context.Scope.CreateChild("CatchBlock", context.Scope)
             );
-            foreach (BadObject o in tryContext.Execute(m_Expressions))
+            catchContext.Scope.DefineVariable(m_ErrorName, tryContext.Scope.Error);
+            foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
             {
                 yield return o;
-            }
-
-            if (tryContext.Scope.Error != null)
-            {
-                BadExecutionContext catchContext = new BadExecutionContext(
-                    context.Scope.CreateChild("CatchBlock", context.Scope)
-                );
-                catchContext.Scope.DefineVariable(m_ErrorName, tryContext.Scope.Error);
-                foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
-                {
-                    yield return o;
-                }
             }
         }
     }

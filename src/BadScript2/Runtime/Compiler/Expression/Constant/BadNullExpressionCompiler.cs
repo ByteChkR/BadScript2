@@ -1,13 +1,12 @@
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime.Compiler.Expression.Constant
+namespace BadScript2.Runtime.Compiler.Expression.Constant;
+
+public class BadNullExpressionCompiler : BadExpressionCompiler<BadNullExpression>
 {
-    public class BadNullExpressionCompiler : BadExpressionCompiler<BadNullExpression>
+    public override int Compile(BadNullExpression expr, BadCompilerResult result)
     {
-        public override int Compile(BadNullExpression expr, BadCompilerResult result)
-        {
-            return result.Emit(new BadInstruction(BadOpCode.Push, expr.Position, BadObject.Null));
-        }
+        return result.Emit(new BadInstruction(BadOpCode.Push, expr.Position, BadObject.Null));
     }
 }

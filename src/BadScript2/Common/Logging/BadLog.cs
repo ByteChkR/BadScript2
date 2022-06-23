@@ -1,37 +1,36 @@
-namespace BadScript2.Common.Logging
+namespace BadScript2.Common.Logging;
+
+public struct BadLog
 {
-    public struct BadLog
+    public readonly string Message;
+    public readonly BadLogMask Mask;
+    public readonly BadLogType Type;
+    public readonly BadSourcePosition? Position;
+
+    public BadLog(
+        string message,
+        BadLogMask? mask = null,
+        BadSourcePosition? position = null,
+        BadLogType type = BadLogType.Log)
     {
-        public readonly string Message;
-        public readonly BadLogMask Mask;
-        public readonly BadLogType Type;
-        public readonly BadSourcePosition? Position;
+        Message = message;
+        Type = type;
+        Position = position;
+        Mask = mask ?? BadLogMask.Default;
+    }
 
-        public BadLog(
-            string message,
-            BadLogMask? mask = null,
-            BadSourcePosition? position = null,
-            BadLogType type = BadLogType.Log)
+    public static implicit operator BadLog(string message)
+    {
+        return new BadLog(message);
+    }
+
+    public override string ToString()
+    {
+        if (Position != null)
         {
-            Message = message;
-            Type = type;
-            Position = position;
-            Mask = mask ?? BadLogMask.Default;
+            return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
         }
 
-        public static implicit operator BadLog(string message)
-        {
-            return new BadLog(message);
-        }
-
-        public override string ToString()
-        {
-            if (Position != null)
-            {
-                return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
-            }
-
-            return $"[{Type}][{Mask}] {Message}";
-        }
+        return $"[{Type}][{Mask}] {Message}";
     }
 }

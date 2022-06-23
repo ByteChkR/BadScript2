@@ -1,9 +1,8 @@
 using BadScript2.Common;
 
-namespace BadScript2.Reader.Token
+namespace BadScript2.Reader.Token;
+
+public class BadSymbolToken : BadToken
 {
-    public class BadSymbolToken : BadToken
-    {
-        public BadSymbolToken(BadSourcePosition position) : base(position) { }
-    }
+    public BadSymbolToken(BadSourcePosition position) : base(position) { }
 }

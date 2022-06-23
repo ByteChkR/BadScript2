@@ -3,176 +3,175 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Interop.Common.Extensions
+namespace BadScript2.Interop.Common.Extensions;
+
+public class BadArrayExtension : BadInteropExtension
 {
-    public class BadArrayExtension : BadInteropExtension
+    protected override void AddExtensions()
     {
-        protected override void AddExtensions()
-        {
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "Add",
+            a => new BadDynamicInteropFunction<BadObject>(
                 "Add",
-                a => new BadDynamicInteropFunction<BadObject>(
-                    "Add",
-                    (_, o) => Add(a, o),
-                    "elem"
-                )
-            );
+                (_, o) => Add(a, o),
+                "elem"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "AddRange",
+            a => new BadDynamicInteropFunction<BadArray>(
                 "AddRange",
-                a => new BadDynamicInteropFunction<BadArray>(
-                    "AddRange",
-                    (ctx, elems) =>
-                    {
-                        a.InnerArray.AddRange(elems.InnerArray);
+                (ctx, elems) =>
+                {
+                    a.InnerArray.AddRange(elems.InnerArray);
 
-                        return BadObject.Null;
-                    },
-                    "elems"
-                )
-            );
+                    return BadObject.Null;
+                },
+                "elems"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "Insert",
+            a => new BadDynamicInteropFunction<decimal, BadObject>(
                 "Insert",
-                a => new BadDynamicInteropFunction<decimal, BadObject>(
-                    "Insert",
-                    (_, i, o) => Insert(a, i, o),
-                    "elem"
-                )
-            );
+                (_, i, o) => Insert(a, i, o),
+                "elem"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "InsertRange",
+            a => new BadDynamicInteropFunction<decimal, BadArray>(
                 "InsertRange",
-                a => new BadDynamicInteropFunction<decimal, BadArray>(
-                    "InsertRange",
-                    (ctx, num, elems) =>
-                    {
-                        a.InnerArray.InsertRange((int)num, elems.InnerArray);
+                (ctx, num, elems) =>
+                {
+                    a.InnerArray.InsertRange((int)num, elems.InnerArray);
 
-                        return BadObject.Null;
-                    },
-                    "index",
-                    "elems"
-                )
-            );
+                    return BadObject.Null;
+                },
+                "index",
+                "elems"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "Remove",
+            a => new BadDynamicInteropFunction<BadObject>(
                 "Remove",
-                a => new BadDynamicInteropFunction<BadObject>(
-                    "Remove",
-                    (_, o) => Remove(a, o),
-                    "elem"
-                )
-            );
+                (_, o) => Remove(a, o),
+                "elem"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "Contains",
+            a => new BadDynamicInteropFunction<BadObject>(
                 "Contains",
-                a => new BadDynamicInteropFunction<BadObject>(
-                    "Contains",
-                    (_, o) => Contains(a, o),
-                    "elem"
-                )
-            );
+                (_, o) => Contains(a, o),
+                "elem"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "RemoveAt",
+            a => new BadDynamicInteropFunction<decimal>(
                 "RemoveAt",
-                a => new BadDynamicInteropFunction<decimal>(
-                    "RemoveAt",
-                    (_, o) => RemoveAt(a, o),
-                    "index"
-                )
-            );
+                (_, o) => RemoveAt(a, o),
+                "index"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "Get",
+            a => new BadDynamicInteropFunction<decimal>(
                 "Get",
-                a => new BadDynamicInteropFunction<decimal>(
-                    "Get",
-                    (_, o) => Get(a, o),
-                    "index"
-                )
-            );
+                (_, o) => Get(a, o),
+                "index"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "Set",
+            a => new BadDynamicInteropFunction<decimal, BadObject>(
                 "Set",
-                a => new BadDynamicInteropFunction<decimal, BadObject>(
-                    "Set",
-                    (_, i, v) => Set(a, i, v),
-                    "index"
-                )
-            );
+                (_, i, v) => Set(a, i, v),
+                "index"
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            "GetEnumerator",
+            a => new BadDynamicInteropFunction(
                 "GetEnumerator",
-                a => new BadDynamicInteropFunction(
-                    "GetEnumerator",
-                    _ => GetEnumerator(a)
-                )
-            );
+                _ => GetEnumerator(a)
+            )
+        );
 
-            RegisterObject<BadArray>(
+        RegisterObject<BadArray>(
+            BadStaticKeys.ArrayAccessOperatorName,
+            a => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessOperatorName,
-                a => new BadDynamicInteropFunction<decimal>(
-                    BadStaticKeys.ArrayAccessOperatorName,
-                    (_, i) => BadObjectReference.Make($"{a}[{i}]", () => Get(a, i), (v, t) => Set(a, i, v)),
-                    "index"
-                )
-            );
+                (_, i) => BadObjectReference.Make($"{a}[{i}]", () => Get(a, i), (v, t) => Set(a, i, v)),
+                "index"
+            )
+        );
 
-            RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
-        }
+        RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
+    }
 
-        private BadObject GetEnumerator(BadArray array)
-        {
-            return new BadInteropEnumerator(array.InnerArray.GetEnumerator());
-        }
+    private BadObject GetEnumerator(BadArray array)
+    {
+        return new BadInteropEnumerator(array.InnerArray.GetEnumerator());
+    }
 
-        private BadObject Add(BadArray arg, BadObject obj)
-        {
-            arg.InnerArray.Add(obj);
+    private BadObject Add(BadArray arg, BadObject obj)
+    {
+        arg.InnerArray.Add(obj);
 
-            return BadObject.Null;
-        }
+        return BadObject.Null;
+    }
 
-        private BadObject Insert(BadArray arg, decimal index, BadObject obj)
-        {
-            arg.InnerArray.Insert((int)index, obj);
+    private BadObject Insert(BadArray arg, decimal index, BadObject obj)
+    {
+        arg.InnerArray.Insert((int)index, obj);
 
-            return BadObject.Null;
-        }
+        return BadObject.Null;
+    }
 
-        private BadObject Contains(BadArray arg, BadObject obj)
-        {
-            return arg.InnerArray.Contains(obj);
-        }
+    private BadObject Contains(BadArray arg, BadObject obj)
+    {
+        return arg.InnerArray.Contains(obj);
+    }
 
-        private BadObject Remove(BadArray arg, BadObject obj)
-        {
-            arg.InnerArray.Remove(obj);
+    private BadObject Remove(BadArray arg, BadObject obj)
+    {
+        arg.InnerArray.Remove(obj);
 
-            return BadObject.Null;
-        }
+        return BadObject.Null;
+    }
 
-        private BadObject RemoveAt(BadArray arg, decimal obj)
-        {
-            int index = (int)obj;
-            arg.InnerArray.RemoveAt(index);
+    private BadObject RemoveAt(BadArray arg, decimal obj)
+    {
+        int index = (int)obj;
+        arg.InnerArray.RemoveAt(index);
 
-            return BadObject.Null;
-        }
+        return BadObject.Null;
+    }
 
-        private BadObject Get(BadArray arg, decimal obj)
-        {
-            int index = (int)obj;
+    private BadObject Get(BadArray arg, decimal obj)
+    {
+        int index = (int)obj;
 
-            return arg.InnerArray[index];
-        }
+        return arg.InnerArray[index];
+    }
 
-        private BadObject Set(BadArray arg, decimal obj, BadObject value)
-        {
-            int index = (int)obj;
-            arg.InnerArray[index] = value;
+    private BadObject Set(BadArray arg, decimal obj, BadObject value)
+    {
+        int index = (int)obj;
+        arg.InnerArray[index] = value;
 
-            return BadObject.Null;
-        }
+        return BadObject.Null;
     }
 }

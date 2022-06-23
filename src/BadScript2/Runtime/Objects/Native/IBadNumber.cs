@@ -1,7 +1,6 @@
-namespace BadScript2.Runtime.Objects.Native
+namespace BadScript2.Runtime.Objects.Native;
+
+public interface IBadNumber : IBadNative
 {
-    public interface IBadNumber : IBadNative
-    {
-        new decimal Value { get; }
-    }
+    new decimal Value { get; }
 }

@@ -1,9 +1,8 @@
-namespace BadScript2.Common.Logging
+namespace BadScript2.Common.Logging;
+
+public enum BadLogType
 {
-    public enum BadLogType
-    {
-        Log,
-        Warning,
-        Error,
-    }
+    Log,
+    Warning,
+    Error,
 }

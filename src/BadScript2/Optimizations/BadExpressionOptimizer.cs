@@ -3,31 +3,30 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Optimizations
+namespace BadScript2.Optimizations;
+
+public static class BadExpressionOptimizer
 {
-    public static class BadExpressionOptimizer
+    public static BadExpression Optimize(BadExpression expr)
     {
-        public static BadExpression Optimize(BadExpression expr)
+        if (expr is not IBadNativeExpression && expr.IsConstant)
         {
-            if (expr is not IBadNativeExpression && expr.IsConstant)
-            {
-                BadLogger.Log($"Optimizing Expression: '{expr}'", "Runtime");
-                BadObject obj = expr.Execute(null!).Last();
+            BadLogger.Log($"Optimizing Expression: '{expr}'", "Runtime");
+            BadObject obj = expr.Execute(null!).Last();
 
-                return new BadConstantExpression(expr.Position, obj);
-            }
-
-            expr.Optimize();
-
-            return expr;
+            return new BadConstantExpression(expr.Position, obj);
         }
 
-        public static IEnumerable<BadExpression> Optimize(IEnumerable<BadExpression> exprs)
+        expr.Optimize();
+
+        return expr;
+    }
+
+    public static IEnumerable<BadExpression> Optimize(IEnumerable<BadExpression> exprs)
+    {
+        foreach (BadExpression expression in exprs)
         {
-            foreach (BadExpression expression in exprs)
-            {
-                yield return Optimize(expression);
-            }
+            yield return Optimize(expression);
         }
     }
 }

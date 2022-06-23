@@ -3,47 +3,46 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Interop.Common.Apis
+namespace BadScript2.Interop.Common.Apis;
+
+public class BadConsoleApi : BadInteropApi
 {
-    public class BadConsoleApi : BadInteropApi
+    public BadConsoleApi() : base("Console") { }
+
+    public override void Load(BadTable target)
     {
-        public BadConsoleApi() : base("Console") { }
+        target.SetFunction<BadObject>("WriteLine", WriteLine);
+        target.SetFunction<BadObject>("Write", Write);
+        target.SetFunction("Clear", Clear);
+        target.SetFunction("ReadLine", () => Console.ReadLine());
+    }
 
-        public override void Load(BadTable target)
+    private void Write(BadObject obj)
+    {
+        if (obj is IBadString str)
         {
-            target.SetFunction<BadObject>("WriteLine", WriteLine);
-            target.SetFunction<BadObject>("Write", Write);
-            target.SetFunction("Clear", Clear);
-            target.SetFunction("ReadLine", () => Console.ReadLine());
+            Console.Write(str.Value);
         }
+        else
+        {
+            Console.Write(obj);
+        }
+    }
 
-        private void Write(BadObject obj)
+    private void WriteLine(BadObject obj)
+    {
+        if (obj is IBadString str)
         {
-            if (obj is IBadString str)
-            {
-                Console.Write(str.Value);
-            }
-            else
-            {
-                Console.Write(obj);
-            }
+            Console.WriteLine(str.Value);
         }
+        else
+        {
+            Console.WriteLine(obj);
+        }
+    }
 
-        private void WriteLine(BadObject obj)
-        {
-            if (obj is IBadString str)
-            {
-                Console.WriteLine(str.Value);
-            }
-            else
-            {
-                Console.WriteLine(obj);
-            }
-        }
-
-        public void Clear()
-        {
-            Console.Clear();
-        }
+    public void Clear()
+    {
+        Console.Clear();
     }
 }

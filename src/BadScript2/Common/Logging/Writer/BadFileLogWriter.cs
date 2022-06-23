@@ -1,7 +1,6 @@
-namespace BadScript2.Common.Logging.Writer
+namespace BadScript2.Common.Logging.Writer;
+
+public class BadFileLogWriter : BadStreamLogWriter
 {
-    public class BadFileLogWriter : BadStreamLogWriter
-    {
-        public BadFileLogWriter(string file) : base(File.OpenWrite(file)) { }
-    }
+    public BadFileLogWriter(string file) : base(File.OpenWrite(file)) { }
 }

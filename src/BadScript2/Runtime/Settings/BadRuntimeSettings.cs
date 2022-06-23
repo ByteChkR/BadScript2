@@ -1,15 +1,14 @@
 using BadScript2.Settings;
 
-namespace BadScript2.Runtime.Settings
+namespace BadScript2.Runtime.Settings;
+
+public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 {
-    public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
-    {
+    private BadSettings? m_FileExtensionObj;
+    public BadRuntimeSettings() : base("Runtime") { }
 
-        private BadSettings? m_FileExtensionObj;
+    private BadSettings? FileExtensionObj =>
+        m_FileExtensionObj ??= Settings?.GetProperty(nameof(FileExtension));
 
-        private BadSettings? FileExtensionObj =>
-            m_FileExtensionObj ??= Settings?.GetProperty(nameof(FileExtension));
-        public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
-        public BadRuntimeSettings() : base("Runtime") { }
-    }
+    public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
 }

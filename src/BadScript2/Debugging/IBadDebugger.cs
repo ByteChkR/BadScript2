@@ -1,7 +1,6 @@
-namespace BadScript2.Debugging
+namespace BadScript2.Debugging;
+
+public interface IBadDebugger
 {
-    public interface IBadDebugger
-    {
-        void Step(BadDebuggerStep step);
-    }
+    void Step(BadDebuggerStep step);
 }

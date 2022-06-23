@@ -1,7 +1,6 @@
-namespace BadScript2.Runtime.Objects.Native
+namespace BadScript2.Runtime.Objects.Native;
+
+public interface IBadBoolean : IBadNative
 {
-    public interface IBadBoolean : IBadNative
-    {
-        new bool Value { get; }
-    }
+    new bool Value { get; }
 }

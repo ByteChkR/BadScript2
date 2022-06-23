@@ -1,7 +1,12 @@
 {
-	"Logging": {
-		"Writer": {
-			"Mask": ["Settings", "Runtime", "Benchmark", "Debugger"]
-		}
-	}
+  "Logging": {
+    "Writer": {
+      "Mask": [
+        "Settings",
+        "Runtime",
+        "Benchmark",
+        "Debugger"
+      ]
+    }
+  }
 }

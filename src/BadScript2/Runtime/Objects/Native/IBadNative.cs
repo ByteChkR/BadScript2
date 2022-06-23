@@ -1,8 +1,7 @@
-namespace BadScript2.Runtime.Objects.Native
+namespace BadScript2.Runtime.Objects.Native;
+
+public interface IBadNative : IEquatable<IBadNative>
 {
-    public interface IBadNative : IEquatable<IBadNative>
-    {
-        object Value { get; }
-        Type Type { get; }
-    }
+    object Value { get; }
+    Type Type { get; }
 }

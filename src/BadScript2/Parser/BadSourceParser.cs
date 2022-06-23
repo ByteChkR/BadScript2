@@ -328,7 +328,7 @@ public class BadSourceParser
                 Reader.Eat(BadStaticKeys.RefKey);
                 Reader.SkipNonToken();
             }
-            
+
             if (Reader.IsWordChar())
             {
                 Reader.SetPosition(pos.Index);

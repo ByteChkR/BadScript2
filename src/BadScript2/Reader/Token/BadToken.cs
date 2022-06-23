@@ -1,21 +1,20 @@
 using BadScript2.Common;
 
-namespace BadScript2.Reader.Token
+namespace BadScript2.Reader.Token;
+
+public abstract class BadToken
 {
-    public abstract class BadToken
+    public readonly BadSourcePosition SourcePosition;
+
+    protected BadToken(BadSourcePosition position)
     {
-        public readonly BadSourcePosition SourcePosition;
+        SourcePosition = position;
+    }
 
-        protected BadToken(BadSourcePosition position)
-        {
-            SourcePosition = position;
-        }
+    public string Text => SourcePosition.Text;
 
-        public string Text => SourcePosition.Text;
-
-        public override string ToString()
-        {
-            return Text;
-        }
+    public override string ToString()
+    {
+        return Text;
     }
 }

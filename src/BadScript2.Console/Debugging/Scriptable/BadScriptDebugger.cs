@@ -5,55 +5,54 @@ using BadScript2.Parser.Operators;
 using BadScript2.Reader;
 using BadScript2.Runtime;
 
-namespace BadScript2.Console.Debugging.Scriptable
+namespace BadScript2.Console.Debugging.Scriptable;
+
+public class BadScriptDebugger : IBadDebugger
 {
-    public class BadScriptDebugger : IBadDebugger
+    private readonly Dictionary<string, int> m_LineNumbers = new Dictionary<string, int>();
+    private readonly BadExecutionContextOptions m_Options;
+    private readonly List<string> m_SeenFiles = new List<string>();
+
+    public BadScriptDebugger(BadExecutionContextOptions options)
     {
-        private readonly BadExecutionContextOptions m_Options;
-        private readonly List<string> m_SeenFiles = new List<string>();
-        private readonly Dictionary<string, int> m_LineNumbers = new Dictionary<string, int>();
+        m_Options = options;
+        m_Options.Apis.Add(new BadScriptDebuggerApi(this));
 
-        public BadScriptDebugger(BadExecutionContextOptions options)
+        if (BadScriptDebuggerSettings.Instance.DebuggerPath == null)
         {
-            m_Options = options;
-            m_Options.Apis.Add(new BadScriptDebuggerApi(this));
-
-            if (BadScriptDebuggerSettings.Instance.DebuggerPath == null)
-            {
-                BadLogger.Warn("Debugger path not set, debugger will not be available", "Debugger");
-            }
-            else
-            {
-                BadExecutionContext ctx = m_Options.Build();
-                ctx.Run(
-                    new BadSourceParser(
-                        BadSourceReader.FromFile(BadScriptDebuggerSettings.Instance.DebuggerPath),
-                        new BadOperatorTable()
-                    ).Parse()
-                );
-            }
+            BadLogger.Warn("Debugger path not set, debugger will not be available", "Debugger");
         }
-
-        public void Step(BadDebuggerStep step)
+        else
         {
-            step.GetSourceView(out int _, out int lineInSource);
-
-            if (m_LineNumbers.ContainsKey(step.Position.Source) && lineInSource == m_LineNumbers[step.Position.Source])
-            {
-                return;
-            }
-
-            m_LineNumbers[step.Position.Source] = lineInSource;
-            if (!m_SeenFiles.Contains(step.Position.FileName ?? ""))
-            {
-                m_SeenFiles.Add(step.Position.FileName ?? "");
-                OnFileLoaded?.Invoke(step.Position.FileName ?? "");
-            }
-
-            OnStep?.Invoke(step);
+            BadExecutionContext ctx = m_Options.Build();
+            ctx.Run(
+                new BadSourceParser(
+                    BadSourceReader.FromFile(BadScriptDebuggerSettings.Instance.DebuggerPath),
+                    new BadOperatorTable()
+                ).Parse()
+            );
         }
-
-        public event Action<BadDebuggerStep>? OnStep;
-        public event Action<string>? OnFileLoaded;
     }
+
+    public void Step(BadDebuggerStep step)
+    {
+        step.GetSourceView(out int _, out int lineInSource);
+
+        if (m_LineNumbers.ContainsKey(step.Position.Source) && lineInSource == m_LineNumbers[step.Position.Source])
+        {
+            return;
+        }
+
+        m_LineNumbers[step.Position.Source] = lineInSource;
+        if (!m_SeenFiles.Contains(step.Position.FileName ?? ""))
+        {
+            m_SeenFiles.Add(step.Position.FileName ?? "");
+            OnFileLoaded?.Invoke(step.Position.FileName ?? "");
+        }
+
+        OnStep?.Invoke(step);
+    }
+
+    public event Action<BadDebuggerStep>? OnStep;
+    public event Action<string>? OnFileLoaded;
 }

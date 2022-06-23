@@ -3,66 +3,65 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Interop.Common.Extensions
+namespace BadScript2.Interop.Common.Extensions;
+
+public class BadTableExtension : BadInteropExtension
 {
-    public class BadTableExtension : BadInteropExtension
+    protected override void AddExtensions()
     {
-        protected override void AddExtensions()
-        {
-            RegisterObject<BadTable>(
+        RegisterObject<BadTable>(
+            "RemoveKey",
+            o => new BadDynamicInteropFunction<BadObject>(
                 "RemoveKey",
-                o => new BadDynamicInteropFunction<BadObject>(
-                    "RemoveKey",
-                    (_, k) => RemoveKey(o, k),
-                    "key"
-                )
-            );
+                (_, k) => RemoveKey(o, k),
+                "key"
+            )
+        );
 
-            RegisterObject<BadTable>(
+        RegisterObject<BadTable>(
+            "MakeReadOnly",
+            table => new BadDynamicInteropFunction(
                 "MakeReadOnly",
-                table => new BadDynamicInteropFunction(
-                    "MakeReadOnly",
-                    _ =>
+                _ =>
+                {
+                    foreach (BadObject key in table.InnerTable.Keys)
                     {
-                        foreach (BadObject key in table.InnerTable.Keys)
-                        {
-                            table.PropertyInfos[key].IsReadOnly = true;
-                        }
-
-                        return BadObject.Null;
+                        table.PropertyInfos[key].IsReadOnly = true;
                     }
-                )
-            );
 
-            RegisterObject<BadTable>(
+                    return BadObject.Null;
+                }
+            )
+        );
+
+        RegisterObject<BadTable>(
+            BadStaticKeys.ArrayAccessOperatorName,
+            t => new BadDynamicInteropFunction<BadObject>(
                 BadStaticKeys.ArrayAccessOperatorName,
-                t => new BadDynamicInteropFunction<BadObject>(
-                    BadStaticKeys.ArrayAccessOperatorName,
-                    (_, o) => t.GetProperty(o),
-                    "key"
-                )
-            );
+                (_, o) => t.GetProperty(o),
+                "key"
+            )
+        );
 
-            RegisterObject<BadTable>("Keys", Keys);
-            RegisterObject<BadTable>("Values", Values);
-            RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
-        }
+        RegisterObject<BadTable>("Keys", Keys);
+        RegisterObject<BadTable>("Values", Values);
+        RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
+    }
 
-        private static BadObject RemoveKey(BadTable table, BadObject key)
-        {
-            table.RemoveKey(key);
+    private static BadObject RemoveKey(BadTable table, BadObject key)
+    {
+        table.RemoveKey(key);
 
-            return BadObject.Null;
-        }
+        return BadObject.Null;
+    }
 
-        private static BadObject Keys(BadTable table)
-        {
-            return new BadArray(table.InnerTable.Keys.ToList());
-        }
+    private static BadObject Keys(BadTable table)
+    {
+        return new BadArray(table.InnerTable.Keys.ToList());
+    }
 
-        private static BadObject Values(BadTable table)
-        {
-            return new BadArray(table.InnerTable.Values.ToList());
-        }
+    private static BadObject Values(BadTable table)
+    {
+        return new BadArray(table.InnerTable.Values.ToList());
     }
 }
