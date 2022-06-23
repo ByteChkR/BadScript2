@@ -10,7 +10,6 @@ matrix:
         - SOLUTION="src/BadScript2.sln"
         - BUILDCONFIG="Release"
 
-#Restore the Submodules and the Project
 install:
   #Restore Projects
   - dotnet restore src/
