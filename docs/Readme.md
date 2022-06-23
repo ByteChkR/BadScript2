@@ -33,6 +33,7 @@ Requirements:
 3. Run `./build.ps1`
 
 > use `build.ps1 -config Release` to build with optimizations.
+
 > use `build.ps1 -writeLog` to get debug logs
 
 `build.ps1` compiles the language project and builds all common libraries for the runtime.
