@@ -12,12 +12,10 @@ public abstract class BadExpression
     protected BadExpression(bool isConstant, bool isLValue, BadSourcePosition position)
     {
         IsConstant = isConstant;
-        IsLValue = isLValue;
         Position = position;
     }
 
     public bool IsConstant { get; }
-    public bool IsLValue { get; }
 
     public BadSourcePosition Position { get; }
 

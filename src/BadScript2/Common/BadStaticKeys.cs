@@ -19,7 +19,7 @@ public static class BadStaticKeys
     public static readonly string ClassKey = "class";
     public static readonly string While = "while";
     public static readonly string ReturnKey = "return";
-    public static readonly string RefKey = "return";
+    public static readonly string RefKey = "ref";
     public static readonly string BreakKey = "break";
     public static readonly string ContinueKey = "continue";
     public static readonly string ThrowKey = "throw";

@@ -320,15 +320,6 @@ public class BadSourceParser
         if (Reader.Is(BadStaticKeys.ReturnKey))
         {
             BadSourcePosition pos = Reader.Eat(BadStaticKeys.ReturnKey);
-            Reader.SkipNonToken();
-            bool isRef = false;
-            if (Reader.Is(BadStaticKeys.RefKey))
-            {
-                isRef = true;
-                Reader.Eat(BadStaticKeys.RefKey);
-                Reader.SkipNonToken();
-            }
-
             if (Reader.IsWordChar())
             {
                 Reader.SetPosition(pos.Index);
@@ -336,9 +327,17 @@ public class BadSourceParser
             else
             {
                 Reader.SkipNonToken();
+                bool isRef = false;
                 if (Reader.Is(';'))
                 {
-                    return new BadReturnExpression(null, pos, isRef);
+                    return new BadReturnExpression(null, pos, false);
+                }
+                
+                if (Reader.Is(BadStaticKeys.RefKey))
+                {
+                    isRef = true;
+                    Reader.Eat(BadStaticKeys.RefKey);
+                    Reader.SkipNonToken();
                 }
 
                 BadExpression expr = ParseExpression();

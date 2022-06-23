@@ -16,10 +16,6 @@ public class BadAssignExpression : BadExpression
     {
         Left = left;
         Right = right;
-        if (!Left.IsLValue)
-        {
-            throw new BadParserException($"Left side of assignment must be an lvalue: {left}", position);
-        }
     }
 
     public BadExpression Left { get; private set; }
