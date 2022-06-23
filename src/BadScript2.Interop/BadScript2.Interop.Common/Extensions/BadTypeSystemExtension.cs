@@ -27,11 +27,34 @@ namespace BadScript2.Interop.Common.Extensions
                     (ctx, o) => IsAssignableFrom(ctx, o, proto)
                 )
             );
+            RegisterObject<BadClassPrototype>(
+                "IsBaseClassOf",
+                proto => new BadDynamicInteropFunction<BadClassPrototype>(
+                    "IsBaseClassOf",
+                    (ctx, super) => IsBaseClassOf(ctx, proto, super)
+                )
+            );
+            
+            RegisterObject<BadClassPrototype>(
+                "IsSuperClassOf",
+                proto => new BadDynamicInteropFunction<BadClassPrototype>(
+                    "IsSuperClassOf",
+                    (ctx, super) => IsBaseClassOf(ctx, super, proto)
+                )
+            );
         }
 
         private static BadObject IsAssignableFrom(BadExecutionContext ctx, BadObject obj, BadClassPrototype proto)
         {
             return proto.IsAssignableFrom(obj);
+        }
+
+        private static BadObject IsBaseClassOf(
+            BadExecutionContext ctx,
+            BadClassPrototype proto,
+            BadClassPrototype super)
+        {
+            return super.IsSuperClassOf(proto);
         }
 
         private static BadObject IsInstanceOf(BadExecutionContext ctx, BadClassPrototype proto, BadObject obj)
