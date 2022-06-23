@@ -19,7 +19,7 @@ Currently it is only possible to build the project from source. Binaries will be
 Requirements:
 - git
 - net6.0 SDK
-- Powershell
+- Powershell 6.0 or greater
 
 1. Clone this Repository `git clone https://github.com/ByteChkR/BadScript2`
 2. Run `build.ps1` located inside the repository folder
