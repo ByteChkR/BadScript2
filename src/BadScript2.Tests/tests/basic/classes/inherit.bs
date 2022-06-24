@@ -1,0 +1,62 @@
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	class C 
+	{
+		let Pass;
+		function C(pass)
+		{
+			Pass = pass;
+		}
+	}
+	class D : C 
+	{
+		function D(pass)
+		{
+			base.C(pass);
+		}
+	}
+	let d = new D(true);
+	Assert.IsTrue(d.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(Test, "Class Definition + Inherit + Create + Constructor + BaseConstructor: default");
+
+
+
+
+function TestTypesafe()
+{
+	class C 
+	{
+		let bool Pass;
+		function C(bool pass)
+		{
+			Pass = pass;
+		}
+	}
+	class D : C 
+	{
+		function D(bool pass)
+		{
+			base.C(pass);
+		}
+	}
+	let D d = new D(true);
+	Assert.IsTrue(d.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestTypesafe, "Class Definition + Inherit + Create + Constructor + BaseConstructor: typesafe");
+
+function TestInstance()
+{
+	class C {}
+	class D : C {}
+	let d = new D();
+	Assert.IsTrue(d.IsInstanceOf(C), "Class instance is not instance of its base class");
+	Assert.IsTrue(d.IsInstanceOf(D), "Class instance is not instance of itself");
+}
+
+NUnit.AddTest(TestInstance, "Class Definition + Inherit + Create + Instance test");

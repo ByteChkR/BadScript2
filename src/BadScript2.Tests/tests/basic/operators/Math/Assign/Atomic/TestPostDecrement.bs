@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_PostDecrement()
+{
+	let a = 1;
+	Assert.NotZero(a--, "1-- != 0");
+}
+
+NUnit.AddTest(Test_PostDecrement, "Operator 'post_--' tests");

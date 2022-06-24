@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_For()
+{
+	let s = 0;
+	for(let i = 0; i < 5; i++)
+	{
+		s += i;
+	}
+
+	Assert.AreEqual(s, 10, "s == 10");
+}
+
+NUnit.AddTest(Test_For, "Operator 'for' tests");

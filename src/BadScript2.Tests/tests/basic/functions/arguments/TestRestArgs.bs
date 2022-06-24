@@ -1,0 +1,14 @@
+
+let Assert = NUnit.Assert;
+
+function F(args*)
+{
+	Assert.AreEqual(args.Length, 4, "args.Length == 4");	
+}
+
+function Test_RestArgs()
+{
+	F(true, 1, "2", null);
+}
+
+NUnit.AddTest(Test_RestArgs, "Rest Function Argument Tests");

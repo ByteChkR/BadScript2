@@ -1,0 +1,27 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ForEach()
+{
+	let a = [0, 1, 2, 3, 4];
+	let s = 0;
+	foreach(e in a)
+	{
+		s += e;
+	}
+
+	Assert.AreEqual(s, 10, "s == 10");
+
+	a = {A: 5, B: 5}
+	s = 0;
+	foreach(k in a.Keys)
+	{
+		s += a[k];
+	}
+
+	Assert.AreEqual(s, 10, "s == 10");
+
+}
+
+NUnit.AddTest(Test_ForEach, "Operator 'foreach' tests");

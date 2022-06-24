@@ -1,3 +1,4 @@
+using BadScript2.Common.Logging;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
@@ -5,6 +6,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.NUnit;
 
@@ -83,6 +85,11 @@ public class BadUnitTestContextBuilder
             }
 
             api.Load(target);
+        }
+        
+        foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
+        {
+            context.Scope.DefineVariable(type.Name, type);
         }
     }
 

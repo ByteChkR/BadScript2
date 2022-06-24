@@ -1,0 +1,49 @@
+let Assert = NUnit.Assert;
+
+function Test()
+{
+	function Func()
+	{
+		Assert.Pass("Function Called!");
+	}
+
+	Func();
+}
+
+NUnit.AddTest(Test, "Function Definition + Call: default");
+
+
+function TestSingleLine()
+{
+	function Func() => Assert.Pass("Function Called!");
+
+	Func();
+}
+
+NUnit.AddTest(TestSingleLine, "Single Line Function Definition + Call: default");
+
+
+function TestArg()
+{
+	function Func(x)
+	{
+		if(!x)
+		{
+			Assert.Fail("Parameter does not have the correct value");
+		}
+	}
+
+	Func(true);
+}
+
+NUnit.AddTest(TestArg, "Function Definition + Call: argument");
+
+
+function TestArgSingleLine()
+{
+	function Func(x) => x;
+
+	Assert.IsTrue(Func(true), "Function did not return the correct value");
+}
+
+NUnit.AddTest(TestArg, "Single Line Function Definition + Call: argument");

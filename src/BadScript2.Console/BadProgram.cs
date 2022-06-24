@@ -7,6 +7,7 @@ using BadScript2.Console.Systems.Test;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
+using BadScript2.Interop.Net;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
@@ -50,10 +51,12 @@ internal class BadProgram
         BadNativeClassBuilder.AddNative(BadTask.Prototype);
         BadCommonInterop.AddExtensions();
         BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
+        BadInteropExtension.AddExtension<BadNetInteropExtensions>();
 
         BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
         BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
         BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
+        BadExecutionContextOptions.Default.Apis.Add(new BadNetApi());
 
 
         BadConsoleRunner runner = new BadConsoleRunner(
