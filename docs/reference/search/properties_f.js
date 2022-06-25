@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['unaryprefixsymbols_0',['UnaryPrefixSymbols',['../class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator_table.html#a917de902ea017bf2684926f95924a04d',1,'BadScript2::Parser::Operators::BadOperatorTable']]],
-  ['useconstantexpressionoptimization_1',['UseConstantExpressionOptimization',['../class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ad14dc41dab01e6a9ded5a026cf648cee',1,'BadScript2::Runtime::Settings::BadNativeOptimizationSettings']]],
-  ['useconstantexpressionoptimizationobj_2',['UseConstantExpressionOptimizationObj',['../class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a6dac6f4b44d3c99d08744c7af6c35930',1,'BadScript2::Runtime::Settings::BadNativeOptimizationSettings']]],
-  ['usestaticextensioncaching_3',['UseStaticExtensionCaching',['../class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a774cca918346bf0b4ecd1efb19bd1776',1,'BadScript2::Runtime::Settings::BadNativeOptimizationSettings']]],
-  ['usestaticextensioncachingobj_4',['UseStaticExtensionCachingObj',['../class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a96e4c5630cc93c5f745537b50b9037f4',1,'BadScript2::Runtime::Settings::BadNativeOptimizationSettings']]],
-  ['usestringcaching_5',['UseStringCaching',['../class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ad7ecfc44eee53ad4efd21492f39f39ac',1,'BadScript2::Runtime::Settings::BadNativeOptimizationSettings']]],
-  ['usestringcachingobj_6',['UseStringCachingObj',['../class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a50a2e3477c49785aa2d017fc49792779',1,'BadScript2::Runtime::Settings::BadNativeOptimizationSettings']]]
+  ['unaryprefixsymbols_0',['UnaryPrefixSymbols',['../class_bad_operator_table.html#a28e88015402c314cabae3cd6f7a569bc',1,'BadOperatorTable']]],
+  ['useconstantexpressionoptimization_1',['UseConstantExpressionOptimization',['../class_bad_native_optimization_settings.html#ad07a3a1a724acb7a180a4d0ebc913139',1,'BadNativeOptimizationSettings']]],
+  ['useconstantexpressionoptimizationobj_2',['UseConstantExpressionOptimizationObj',['../class_bad_native_optimization_settings.html#addaac59a27f8b088645533b35e061328',1,'BadNativeOptimizationSettings']]],
+  ['usestaticextensioncaching_3',['UseStaticExtensionCaching',['../class_bad_native_optimization_settings.html#a16466157604c21e2e9f3a190cc85c466',1,'BadNativeOptimizationSettings']]],
+  ['usestaticextensioncachingobj_4',['UseStaticExtensionCachingObj',['../class_bad_native_optimization_settings.html#a18600b86e13b6a0e671d47fe8bfd5245',1,'BadNativeOptimizationSettings']]],
+  ['usestringcaching_5',['UseStringCaching',['../class_bad_native_optimization_settings.html#a4e03d0efd78c147b83aeb370f853e285',1,'BadNativeOptimizationSettings']]],
+  ['usestringcachingobj_6',['UseStringCachingObj',['../class_bad_native_optimization_settings.html#a8e62fb2e5e23a2c56cbc140e9c5a2300',1,'BadNativeOptimizationSettings']]]
 ];

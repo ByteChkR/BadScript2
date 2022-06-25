@@ -85,183 +85,179 @@ $(document).ready(function(){initNavTree('_bad_json_8cs_source.html',''); initRe
   <div class="headertitle"><div class="title">BadJson.cs</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_bad_json_8cs.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span><a class="code hl_namespace" href="namespace_bad_script2_1_1_runtime_1_1_objects.html">BadScript2.Runtime.Objects</a>;</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">using </span><a class="code hl_namespace" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_native.html">BadScript2.Runtime.Objects.Native</a>;</div>
+<a href="_bad_json_8cs.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">using </span>BadScript2.Runtime.Objects;</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">using </span>BadScript2.Runtime.Objects.Native;</div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using </span>Newtonsoft.Json.Linq;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="namespace_bad_script2_1_1_interop_1_1_json.html">    6</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_bad_script2_1_1_interop_1_1_json.html">BadScript2.Interop.Json</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html">    8</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class </span><a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html">BadJson</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a9a456829938335d25304b8d4b694ea18">   10</a></span>        <span class="keyword">private</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a9a456829938335d25304b8d4b694ea18">ConvertArray</a>(JArray array)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            List&lt;BadObject&gt; a = <span class="keyword">new</span> List&lt;BadObject&gt;();</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <span class="keywordflow">foreach</span> (JToken? node <span class="keywordflow">in</span> array)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                <span class="keywordflow">if</span> (node == <span class="keyword">null</span>)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                }</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>BadScript2.Interop.Json;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="class_bad_json.html">    8</a></span><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class </span><a class="code hl_class" href="class_bad_json.html">BadJson</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_bad_json.html#a909abb0300010fc97cef26f96d9211e2">   10</a></span>    <span class="keyword">private</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_array.html">BadArray</a> <a class="code hl_function" href="class_bad_json.html#a909abb0300010fc97cef26f96d9211e2">ConvertArray</a>(JArray array)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        List&lt;BadObject&gt; a = <span class="keyword">new</span> List&lt;BadObject&gt;();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordflow">foreach</span> (JToken? node <span class="keywordflow">in</span> array)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="keywordflow">if</span> (node == <span class="keyword">null</span>)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            }</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                a.Add(<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(node));</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            a.Add(<a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(node));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        }</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(a);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_array.html">BadArray</a>(a);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abc0972ee8fc6e0314bee893c0241ba76">   26</a></span>        <span class="keyword">private</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abc0972ee8fc6e0314bee893c0241ba76">ConvertObject</a>(JObject obj)</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            Dictionary&lt;BadObject, BadObject&gt; t = <span class="keyword">new</span> Dictionary&lt;BadObject, BadObject&gt;();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">foreach</span> (KeyValuePair&lt;string, JToken?&gt; keyValuePair <span class="keywordflow">in</span> obj)</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                t.Add(keyValuePair.Key, keyValuePair.Value == <span class="keyword">null</span> ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a> : <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(keyValuePair.Value));</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_bad_json.html#a5f145888e8754ddf30e2378777dc01c0">   26</a></span>    <span class="keyword">private</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_table.html">BadTable</a> <a class="code hl_function" href="class_bad_json.html#a5f145888e8754ddf30e2378777dc01c0">ConvertObject</a>(JObject obj)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        Dictionary&lt;BadObject, BadObject&gt; t = <span class="keyword">new</span> Dictionary&lt;BadObject, BadObject&gt;();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">foreach</span> (KeyValuePair&lt;string, JToken?&gt; keyValuePair <span class="keywordflow">in</span> obj)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            t.Add(keyValuePair.Key, keyValuePair.Value == <span class="keyword">null</span> ? <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a> : <a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(keyValuePair.Value));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>(t);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_table.html">BadTable</a>(t);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">   37</a></span>        <span class="keyword">public</span> <span class="keyword">static</span> JToken <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> value)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">if</span> (value is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> s)</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> JValue(s.Value);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">   37</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> JToken <a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a> value)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">if</span> (value is <a class="code hl_interface" href="interface_i_bad_string.html">IBadString</a> s)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> JValue(s.Value);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">if</span> (value is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html">IBadNumber</a> n)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> JValue(n.Value);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span> (value is <a class="code hl_interface" href="interface_i_bad_number.html">IBadNumber</a> n)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> JValue(n.Value);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">if</span> (value is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> b)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> JValue(b.Value);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">if</span> (value is <a class="code hl_interface" href="interface_i_bad_boolean.html">IBadBoolean</a> b)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> JValue(b.Value);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">if</span> (value == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <span class="keywordflow">return</span> JValue.CreateNull();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> (value == <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">return</span> JValue.CreateNull();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordflow">if</span> (value is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a> a)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a9a456829938335d25304b8d4b694ea18">ConvertArray</a>(a);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span> (value is <a class="code hl_class" href="class_bad_array.html">BadArray</a> a)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_json.html#a909abb0300010fc97cef26f96d9211e2">ConvertArray</a>(a);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">if</span> (value is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> t)</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aabcf95691adc2c025109ae3d0b313b13">ConvertTable</a>(t);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span> (value is <a class="code hl_class" href="class_bad_table.html">BadTable</a> t)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_json.html#aeda28f904636535416d77ea0d5c27e17">ConvertTable</a>(t);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Unsupported value type: &quot;</span> + value.GetType());</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Unsupported value type: &quot;</span> + value.GetType());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aabcf95691adc2c025109ae3d0b313b13">   72</a></span>        <span class="keyword">private</span> <span class="keyword">static</span> JObject <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aabcf95691adc2c025109ae3d0b313b13">ConvertTable</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table)</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            JObject obj = <span class="keyword">new</span> JObject();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">foreach</span> (KeyValuePair&lt;BadObject, BadObject&gt; keyValuePair <span class="keywordflow">in</span> table.InnerTable)</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keywordflow">if</span> (keyValuePair.Key is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> key)</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Key is not a string&quot;</span>);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_bad_json.html#aeda28f904636535416d77ea0d5c27e17">   72</a></span>    <span class="keyword">private</span> <span class="keyword">static</span> JObject <a class="code hl_function" href="class_bad_json.html#aeda28f904636535416d77ea0d5c27e17">ConvertTable</a>(<a class="code hl_class" href="class_bad_table.html">BadTable</a> table)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        JObject obj = <span class="keyword">new</span> JObject();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">foreach</span> (KeyValuePair&lt;BadObject, BadObject&gt; keyValuePair <span class="keywordflow">in</span> table.InnerTable)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">if</span> (keyValuePair.Key is not <a class="code hl_interface" href="interface_i_bad_string.html">IBadString</a> key)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Key is not a string&quot;</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            }</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                obj.Add(key.Value, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(keyValuePair.Value));</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            obj.Add(key.Value, <a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(keyValuePair.Value));</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        }</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="keywordflow">return</span> obj;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> obj;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#af199d539fd78651c80e702c5ecc0a999">   88</a></span>        <span class="keyword">private</span> <span class="keyword">static</span> JArray <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#af199d539fd78651c80e702c5ecc0a999">ConvertArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a> value)</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            JArray array = <span class="keyword">new</span> JArray();</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> node <span class="keywordflow">in</span> value.InnerArray)</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                array.Add(<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(node));</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="class_bad_json.html#ae791e5aa551be81121c22a811c620d09">   88</a></span>    <span class="keyword">private</span> <span class="keyword">static</span> JArray <a class="code hl_function" href="class_bad_json.html#ae791e5aa551be81121c22a811c620d09">ConvertArray</a>(<a class="code hl_class" href="class_bad_array.html">BadArray</a> value)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        JArray array = <span class="keyword">new</span> JArray();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> node <span class="keywordflow">in</span> value.InnerArray)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            array.Add(<a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(node));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        }</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">return</span> array;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> array;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aa4b52032bf19799170958a04705a4918">   99</a></span>        <span class="keyword">private</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aa4b52032bf19799170958a04705a4918">ConvertValue</a>(JValue value)</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">switch</span> (value.Type)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keywordflow">case</span> JTokenType.Integer:</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="keywordflow">return</span> (decimal)(long)value.Value!;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">case</span> JTokenType.Float:</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    return (decimal)(double)value.Value!;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">case</span> JTokenType.String:</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                    return (<span class="keywordtype">string</span>)value.Value!;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                <span class="keywordflow">case</span> JTokenType.Boolean:</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    <span class="keywordflow">return</span> (<span class="keywordtype">bool</span>)value.Value!;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordflow">case</span> JTokenType.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>:</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Unsupported Json type: &quot;</span> + value.Type);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="class_bad_json.html#a063b9945698c0ec212f58d96dba9ef18">   99</a></span>    <span class="keyword">private</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a> <a class="code hl_function" href="class_bad_json.html#a063b9945698c0ec212f58d96dba9ef18">ConvertValue</a>(JValue value)</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">switch</span> (value.Type)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keywordflow">case</span> JTokenType.Integer:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordflow">return</span> (decimal)(long)value.Value!;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">case</span> JTokenType.Float:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                return (decimal)(double)value.Value!;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">case</span> JTokenType.String:</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                return (<span class="keywordtype">string</span>)value.Value!;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">case</span> JTokenType.Boolean:</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                <span class="keywordflow">return</span> (<span class="keywordtype">bool</span>)value.Value!;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keywordflow">case</span> JTokenType.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>:</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Unsupported Json type: &quot;</span> + value.Type);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abe2fbc92645559ce8ef39fdbd3ff994d">  118</a></span>        <span class="keyword">public</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abe2fbc92645559ce8ef39fdbd3ff994d">ConvertNode</a>(JToken? node)</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">if</span> (node is <span class="keyword">null</span>)</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="class_bad_json.html#a4c44c48dc86f7d708df400d2cee39262">  118</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a> <a class="code hl_function" href="class_bad_json.html#a4c44c48dc86f7d708df400d2cee39262">ConvertNode</a>(JToken? node)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">if</span> (node is <span class="keyword">null</span>)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">if</span> (node is JArray a)</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a9a456829938335d25304b8d4b694ea18">ConvertArray</a>(a);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">if</span> (node is JArray a)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_json.html#a909abb0300010fc97cef26f96d9211e2">ConvertArray</a>(a);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keywordflow">if</span> (node is JObject o)</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            {</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abc0972ee8fc6e0314bee893c0241ba76">ConvertObject</a>(o);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">if</span> (node is JObject o)</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_json.html#a5f145888e8754ddf30e2378777dc01c0">ConvertObject</a>(o);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        }</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keywordflow">if</span> (node is JValue v)</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aa4b52032bf19799170958a04705a4918">ConvertValue</a>(v);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">if</span> (node is JValue v)</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_json.html#a063b9945698c0ec212f58d96dba9ef18">ConvertValue</a>(v);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        }</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Unsupported node type: &quot;</span> + node.GetType());</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Unsupported node type: &quot;</span> + node.GetType());</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a543a320f48c3dc9061ceaab3c46565e8">  143</a></span>        <span class="keyword">public</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a543a320f48c3dc9061ceaab3c46565e8">FromJson</a>(<span class="keywordtype">string</span> s)</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        {</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            JToken o = JToken.Parse(s);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="class_bad_json.html#a842c0e72c48ddc7eb70d5e2f34a793f8">  143</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a> <a class="code hl_function" href="class_bad_json.html#a842c0e72c48ddc7eb70d5e2f34a793f8">FromJson</a>(<span class="keywordtype">string</span> s)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        JToken o = JToken.Parse(s);</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(o);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(o);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a5d5a6d29391d974c9b7ca7ac39ee89fa">  150</a></span>        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">string</span> <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a5d5a6d29391d974c9b7ca7ac39ee89fa">ToJson</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o)</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        {</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            JToken token = <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">ConvertNode</a>(o);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="class_bad_json.html#abc5cbc4d84e4f80f920c6d204d3cdb8b">  150</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">string</span> <a class="code hl_function" href="class_bad_json.html#abc5cbc4d84e4f80f920c6d204d3cdb8b">ToJson</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a> o)</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        JToken token = <a class="code hl_function" href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">ConvertNode</a>(o);</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keywordflow">return</span> token.ToString();</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        }</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html">BadScript2.Interop.Json.BadJson</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00008">BadJson.cs:9</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_a4054756901abd2635ffa231df842757a"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a4054756901abd2635ffa231df842757a">BadScript2.Interop.Json.BadJson.ConvertNode</a></div><div class="ttdeci">static JToken ConvertNode(BadObject value)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00037">BadJson.cs:37</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_a543a320f48c3dc9061ceaab3c46565e8"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a543a320f48c3dc9061ceaab3c46565e8">BadScript2.Interop.Json.BadJson.FromJson</a></div><div class="ttdeci">static BadObject FromJson(string s)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00143">BadJson.cs:143</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_a5d5a6d29391d974c9b7ca7ac39ee89fa"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a5d5a6d29391d974c9b7ca7ac39ee89fa">BadScript2.Interop.Json.BadJson.ToJson</a></div><div class="ttdeci">static string ToJson(BadObject o)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00150">BadJson.cs:150</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_a9a456829938335d25304b8d4b694ea18"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#a9a456829938335d25304b8d4b694ea18">BadScript2.Interop.Json.BadJson.ConvertArray</a></div><div class="ttdeci">static BadArray ConvertArray(JArray array)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00010">BadJson.cs:10</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_aa4b52032bf19799170958a04705a4918"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aa4b52032bf19799170958a04705a4918">BadScript2.Interop.Json.BadJson.ConvertValue</a></div><div class="ttdeci">static BadObject ConvertValue(JValue value)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00099">BadJson.cs:99</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_aabcf95691adc2c025109ae3d0b313b13"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#aabcf95691adc2c025109ae3d0b313b13">BadScript2.Interop.Json.BadJson.ConvertTable</a></div><div class="ttdeci">static JObject ConvertTable(BadTable table)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00072">BadJson.cs:72</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_abc0972ee8fc6e0314bee893c0241ba76"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abc0972ee8fc6e0314bee893c0241ba76">BadScript2.Interop.Json.BadJson.ConvertObject</a></div><div class="ttdeci">static BadTable ConvertObject(JObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00026">BadJson.cs:26</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_abe2fbc92645559ce8ef39fdbd3ff994d"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#abe2fbc92645559ce8ef39fdbd3ff994d">BadScript2.Interop.Json.BadJson.ConvertNode</a></div><div class="ttdeci">static BadObject ConvertNode(JToken? node)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00118">BadJson.cs:118</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_html_af199d539fd78651c80e702c5ecc0a999"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html#af199d539fd78651c80e702c5ecc0a999">BadScript2.Interop.Json.BadJson.ConvertArray</a></div><div class="ttdeci">static JArray ConvertArray(BadArray value)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00088">BadJson.cs:88</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadScript2.Runtime.Objects.BadArray</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_array_8cs_source.html#l00007">BadArray.cs:8</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_ac71bfcf96e046f575f0bd000c876c307"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">BadScript2.Runtime.Objects.BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadScript2.Runtime.Objects.BadTable</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_table_8cs_source.html#l00009">BadTable.cs:10</a></div></div>
-<div class="ttc" id="ainterface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean_html"><div class="ttname"><a href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">BadScript2.Runtime.Objects.Native.IBadBoolean</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_boolean_8cs_source.html#l00003">IBadBoolean.cs:4</a></div></div>
-<div class="ttc" id="ainterface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number_html"><div class="ttname"><a href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html">BadScript2.Runtime.Objects.Native.IBadNumber</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_number_8cs_source.html#l00003">IBadNumber.cs:4</a></div></div>
-<div class="ttc" id="ainterface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string_html"><div class="ttname"><a href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">BadScript2.Runtime.Objects.Native.IBadString</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_string_8cs_source.html#l00003">IBadString.cs:4</a></div></div>
-<div class="ttc" id="anamespace_bad_script2_1_1_interop_1_1_json_html"><div class="ttname"><a href="namespace_bad_script2_1_1_interop_1_1_json.html">BadScript2.Interop.Json</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00006">BadJson.cs:7</a></div></div>
-<div class="ttc" id="anamespace_bad_script2_1_1_runtime_1_1_objects_1_1_native_html"><div class="ttname"><a href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_native.html">BadScript2.Runtime.Objects.Native</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_boolean_8cs_source.html#l00003">BadBoolean.cs:4</a></div></div>
-<div class="ttc" id="anamespace_bad_script2_1_1_runtime_1_1_objects_html"><div class="ttname"><a href="namespace_bad_script2_1_1_runtime_1_1_objects.html">BadScript2.Runtime.Objects</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_array_8cs_source.html#l00005">BadArray.cs:6</a></div></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">return</span> token.ToString();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>}</div>
+<div class="ttc" id="aclass_bad_array_html"><div class="ttname"><a href="class_bad_array.html">BadArray</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_array_8cs_source.html#l00007">BadArray.cs:8</a></div></div>
+<div class="ttc" id="aclass_bad_json_html"><div class="ttname"><a href="class_bad_json.html">BadJson</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00008">BadJson.cs:9</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_a063b9945698c0ec212f58d96dba9ef18"><div class="ttname"><a href="class_bad_json.html#a063b9945698c0ec212f58d96dba9ef18">BadJson.ConvertValue</a></div><div class="ttdeci">static BadObject ConvertValue(JValue value)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00099">BadJson.cs:99</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_a4c44c48dc86f7d708df400d2cee39262"><div class="ttname"><a href="class_bad_json.html#a4c44c48dc86f7d708df400d2cee39262">BadJson.ConvertNode</a></div><div class="ttdeci">static BadObject ConvertNode(JToken? node)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00118">BadJson.cs:118</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_a5f145888e8754ddf30e2378777dc01c0"><div class="ttname"><a href="class_bad_json.html#a5f145888e8754ddf30e2378777dc01c0">BadJson.ConvertObject</a></div><div class="ttdeci">static BadTable ConvertObject(JObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00026">BadJson.cs:26</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_a7277c51822025967d8aeccfd506eff5b"><div class="ttname"><a href="class_bad_json.html#a7277c51822025967d8aeccfd506eff5b">BadJson.ConvertNode</a></div><div class="ttdeci">static JToken ConvertNode(BadObject value)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00037">BadJson.cs:37</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_a842c0e72c48ddc7eb70d5e2f34a793f8"><div class="ttname"><a href="class_bad_json.html#a842c0e72c48ddc7eb70d5e2f34a793f8">BadJson.FromJson</a></div><div class="ttdeci">static BadObject FromJson(string s)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00143">BadJson.cs:143</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_a909abb0300010fc97cef26f96d9211e2"><div class="ttname"><a href="class_bad_json.html#a909abb0300010fc97cef26f96d9211e2">BadJson.ConvertArray</a></div><div class="ttdeci">static BadArray ConvertArray(JArray array)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00010">BadJson.cs:10</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_abc5cbc4d84e4f80f920c6d204d3cdb8b"><div class="ttname"><a href="class_bad_json.html#abc5cbc4d84e4f80f920c6d204d3cdb8b">BadJson.ToJson</a></div><div class="ttdeci">static string ToJson(BadObject o)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00150">BadJson.cs:150</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_ae791e5aa551be81121c22a811c620d09"><div class="ttname"><a href="class_bad_json.html#ae791e5aa551be81121c22a811c620d09">BadJson.ConvertArray</a></div><div class="ttdeci">static JArray ConvertArray(BadArray value)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00088">BadJson.cs:88</a></div></div>
+<div class="ttc" id="aclass_bad_json_html_aeda28f904636535416d77ea0d5c27e17"><div class="ttname"><a href="class_bad_json.html#aeda28f904636535416d77ea0d5c27e17">BadJson.ConvertTable</a></div><div class="ttdeci">static JObject ConvertTable(BadTable table)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_json_8cs_source.html#l00072">BadJson.cs:72</a></div></div>
+<div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
+<div class="ttc" id="aclass_bad_object_html_ab22a8e268d88e53b3f9a3ef02e83a410"><div class="ttname"><a href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
+<div class="ttc" id="aclass_bad_table_html"><div class="ttname"><a href="class_bad_table.html">BadTable</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_table_8cs_source.html#l00009">BadTable.cs:10</a></div></div>
+<div class="ttc" id="ainterface_i_bad_boolean_html"><div class="ttname"><a href="interface_i_bad_boolean.html">IBadBoolean</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_boolean_8cs_source.html#l00003">IBadBoolean.cs:4</a></div></div>
+<div class="ttc" id="ainterface_i_bad_number_html"><div class="ttname"><a href="interface_i_bad_number.html">IBadNumber</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_number_8cs_source.html#l00003">IBadNumber.cs:4</a></div></div>
+<div class="ttc" id="ainterface_i_bad_string_html"><div class="ttname"><a href="interface_i_bad_string.html">IBadString</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_string_8cs_source.html#l00003">IBadString.cs:4</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

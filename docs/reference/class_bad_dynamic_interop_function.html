@@ -1123,9 +1123,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   60</span>    {</div>
 <div class="line"><span class="lineno">   61</span>        <a class="code hl_function" href="class_bad_function.html#afbf72b299722093fb74831f81ac76fed">CheckParameters</a>(args);</div>
 <div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(caller, args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T&gt;());</div>
+<div class="line"><span class="lineno">   63</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(caller, args[0].Dereference().Unwrap&lt;T&gt;());</div>
 <div class="line"><span class="lineno">   64</span>    }</div>
-<div class="ttc" id="a_bad_op_code_8cs_html_a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc"><div class="ttname"><a href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">BadOpCode.Dereference</a></div><div class="ttdeci">@ Dereference</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1171,8 +1170,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   99</span> </div>
 <div class="line"><span class="lineno">  100</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  101</span>            caller,</div>
-<div class="line"><span class="lineno">  102</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  103</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;()</div>
+<div class="line"><span class="lineno">  102</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  103</span>            args[1].Dereference().Unwrap&lt;T2&gt;()</div>
 <div class="line"><span class="lineno">  104</span>        );</div>
 <div class="line"><span class="lineno">  105</span>    }</div>
 </div><!-- fragment -->
@@ -1220,9 +1219,9 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  141</span> </div>
 <div class="line"><span class="lineno">  142</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  143</span>            caller,</div>
-<div class="line"><span class="lineno">  144</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  145</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  146</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;()</div>
+<div class="line"><span class="lineno">  144</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  145</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  146</span>            args[2].Dereference().Unwrap&lt;T3&gt;()</div>
 <div class="line"><span class="lineno">  147</span>        );</div>
 <div class="line"><span class="lineno">  148</span>    }</div>
 </div><!-- fragment -->
@@ -1270,10 +1269,10 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  186</span> </div>
 <div class="line"><span class="lineno">  187</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  188</span>            caller,</div>
-<div class="line"><span class="lineno">  189</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  190</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  191</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  192</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;()</div>
+<div class="line"><span class="lineno">  189</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  190</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  191</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  192</span>            args[3].Dereference().Unwrap&lt;T4&gt;()</div>
 <div class="line"><span class="lineno">  193</span>        );</div>
 <div class="line"><span class="lineno">  194</span>    }</div>
 </div><!-- fragment -->
@@ -1321,11 +1320,11 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  233</span> </div>
 <div class="line"><span class="lineno">  234</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  235</span>            caller,</div>
-<div class="line"><span class="lineno">  236</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  237</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  238</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  239</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  240</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;()</div>
+<div class="line"><span class="lineno">  236</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  237</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  238</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  239</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  240</span>            args[4].Dereference().Unwrap&lt;T5&gt;()</div>
 <div class="line"><span class="lineno">  241</span>        );</div>
 <div class="line"><span class="lineno">  242</span>    }</div>
 </div><!-- fragment -->
@@ -1373,12 +1372,12 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  282</span> </div>
 <div class="line"><span class="lineno">  283</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  284</span>            caller,</div>
-<div class="line"><span class="lineno">  285</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  286</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  287</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  288</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  289</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  290</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;()</div>
+<div class="line"><span class="lineno">  285</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  286</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  287</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  288</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  289</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  290</span>            args[5].Dereference().Unwrap&lt;T6&gt;()</div>
 <div class="line"><span class="lineno">  291</span>        );</div>
 <div class="line"><span class="lineno">  292</span>    }</div>
 </div><!-- fragment -->
@@ -1426,13 +1425,13 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  333</span> </div>
 <div class="line"><span class="lineno">  334</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  335</span>            caller,</div>
-<div class="line"><span class="lineno">  336</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  337</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  338</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  339</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  340</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  341</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  342</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;()</div>
+<div class="line"><span class="lineno">  336</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  337</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  338</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  339</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  340</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  341</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  342</span>            args[6].Dereference().Unwrap&lt;T7&gt;()</div>
 <div class="line"><span class="lineno">  343</span>        );</div>
 <div class="line"><span class="lineno">  344</span>    }</div>
 </div><!-- fragment -->
@@ -1480,14 +1479,14 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  386</span> </div>
 <div class="line"><span class="lineno">  387</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  388</span>            caller,</div>
-<div class="line"><span class="lineno">  389</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  390</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  391</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  392</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  393</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  394</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  395</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  396</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;()</div>
+<div class="line"><span class="lineno">  389</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  390</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  391</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  392</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  393</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  394</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  395</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  396</span>            args[7].Dereference().Unwrap&lt;T8&gt;()</div>
 <div class="line"><span class="lineno">  397</span>        );</div>
 <div class="line"><span class="lineno">  398</span>    }</div>
 </div><!-- fragment -->
@@ -1535,15 +1534,15 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  441</span> </div>
 <div class="line"><span class="lineno">  442</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  443</span>            caller,</div>
-<div class="line"><span class="lineno">  444</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  445</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  446</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  447</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  448</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  449</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  450</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  451</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  452</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;()</div>
+<div class="line"><span class="lineno">  444</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  445</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  446</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  447</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  448</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  449</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  450</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  451</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  452</span>            args[8].Dereference().Unwrap&lt;T9&gt;()</div>
 <div class="line"><span class="lineno">  453</span>        );</div>
 <div class="line"><span class="lineno">  454</span>    }</div>
 </div><!-- fragment -->
@@ -1591,16 +1590,16 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  498</span> </div>
 <div class="line"><span class="lineno">  499</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  500</span>            caller,</div>
-<div class="line"><span class="lineno">  501</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  502</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  503</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  504</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  505</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  506</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  507</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  508</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  509</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;(),</div>
-<div class="line"><span class="lineno">  510</span>            args[9].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T10&gt;()</div>
+<div class="line"><span class="lineno">  501</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  502</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  503</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  504</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  505</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  506</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  507</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  508</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  509</span>            args[8].Dereference().Unwrap&lt;T9&gt;(),</div>
+<div class="line"><span class="lineno">  510</span>            args[9].Dereference().Unwrap&lt;T10&gt;()</div>
 <div class="line"><span class="lineno">  511</span>        );</div>
 <div class="line"><span class="lineno">  512</span>    }</div>
 </div><!-- fragment -->
@@ -1648,17 +1647,17 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  557</span> </div>
 <div class="line"><span class="lineno">  558</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  559</span>            caller,</div>
-<div class="line"><span class="lineno">  560</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  561</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  562</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  563</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  564</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  565</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  566</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  567</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  568</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;(),</div>
-<div class="line"><span class="lineno">  569</span>            args[9].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T10&gt;(),</div>
-<div class="line"><span class="lineno">  570</span>            args[10].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T11&gt;()</div>
+<div class="line"><span class="lineno">  560</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  561</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  562</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  563</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  564</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  565</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  566</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  567</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  568</span>            args[8].Dereference().Unwrap&lt;T9&gt;(),</div>
+<div class="line"><span class="lineno">  569</span>            args[9].Dereference().Unwrap&lt;T10&gt;(),</div>
+<div class="line"><span class="lineno">  570</span>            args[10].Dereference().Unwrap&lt;T11&gt;()</div>
 <div class="line"><span class="lineno">  571</span>        );</div>
 <div class="line"><span class="lineno">  572</span>    }</div>
 </div><!-- fragment -->
@@ -1706,18 +1705,18 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  618</span> </div>
 <div class="line"><span class="lineno">  619</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  620</span>            caller,</div>
-<div class="line"><span class="lineno">  621</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  622</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  623</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  624</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  625</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  626</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  627</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  628</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  629</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;(),</div>
-<div class="line"><span class="lineno">  630</span>            args[9].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T10&gt;(),</div>
-<div class="line"><span class="lineno">  631</span>            args[10].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T11&gt;(),</div>
-<div class="line"><span class="lineno">  632</span>            args[11].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T12&gt;()</div>
+<div class="line"><span class="lineno">  621</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  622</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  623</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  624</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  625</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  626</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  627</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  628</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  629</span>            args[8].Dereference().Unwrap&lt;T9&gt;(),</div>
+<div class="line"><span class="lineno">  630</span>            args[9].Dereference().Unwrap&lt;T10&gt;(),</div>
+<div class="line"><span class="lineno">  631</span>            args[10].Dereference().Unwrap&lt;T11&gt;(),</div>
+<div class="line"><span class="lineno">  632</span>            args[11].Dereference().Unwrap&lt;T12&gt;()</div>
 <div class="line"><span class="lineno">  633</span>        );</div>
 <div class="line"><span class="lineno">  634</span>    }</div>
 </div><!-- fragment -->
@@ -1765,19 +1764,19 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  682</span> </div>
 <div class="line"><span class="lineno">  683</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  684</span>            caller,</div>
-<div class="line"><span class="lineno">  685</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  686</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  687</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  688</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  689</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  690</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  691</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  692</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  693</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;(),</div>
-<div class="line"><span class="lineno">  694</span>            args[9].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T10&gt;(),</div>
-<div class="line"><span class="lineno">  695</span>            args[10].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T11&gt;(),</div>
-<div class="line"><span class="lineno">  696</span>            args[11].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T12&gt;(),</div>
-<div class="line"><span class="lineno">  697</span>            args[12].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T13&gt;()</div>
+<div class="line"><span class="lineno">  685</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  686</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  687</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  688</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  689</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  690</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  691</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  692</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  693</span>            args[8].Dereference().Unwrap&lt;T9&gt;(),</div>
+<div class="line"><span class="lineno">  694</span>            args[9].Dereference().Unwrap&lt;T10&gt;(),</div>
+<div class="line"><span class="lineno">  695</span>            args[10].Dereference().Unwrap&lt;T11&gt;(),</div>
+<div class="line"><span class="lineno">  696</span>            args[11].Dereference().Unwrap&lt;T12&gt;(),</div>
+<div class="line"><span class="lineno">  697</span>            args[12].Dereference().Unwrap&lt;T13&gt;()</div>
 <div class="line"><span class="lineno">  698</span>        );</div>
 <div class="line"><span class="lineno">  699</span>    }</div>
 </div><!-- fragment -->
@@ -1825,20 +1824,20 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  748</span> </div>
 <div class="line"><span class="lineno">  749</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  750</span>            caller,</div>
-<div class="line"><span class="lineno">  751</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  752</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  753</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  754</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  755</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  756</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  757</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  758</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  759</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;(),</div>
-<div class="line"><span class="lineno">  760</span>            args[9].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T10&gt;(),</div>
-<div class="line"><span class="lineno">  761</span>            args[10].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T11&gt;(),</div>
-<div class="line"><span class="lineno">  762</span>            args[11].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T12&gt;(),</div>
-<div class="line"><span class="lineno">  763</span>            args[12].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T13&gt;(),</div>
-<div class="line"><span class="lineno">  764</span>            args[13].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T14&gt;()</div>
+<div class="line"><span class="lineno">  751</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  752</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  753</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  754</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  755</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  756</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  757</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  758</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  759</span>            args[8].Dereference().Unwrap&lt;T9&gt;(),</div>
+<div class="line"><span class="lineno">  760</span>            args[9].Dereference().Unwrap&lt;T10&gt;(),</div>
+<div class="line"><span class="lineno">  761</span>            args[10].Dereference().Unwrap&lt;T11&gt;(),</div>
+<div class="line"><span class="lineno">  762</span>            args[11].Dereference().Unwrap&lt;T12&gt;(),</div>
+<div class="line"><span class="lineno">  763</span>            args[12].Dereference().Unwrap&lt;T13&gt;(),</div>
+<div class="line"><span class="lineno">  764</span>            args[13].Dereference().Unwrap&lt;T14&gt;()</div>
 <div class="line"><span class="lineno">  765</span>        );</div>
 <div class="line"><span class="lineno">  766</span>    }</div>
 </div><!-- fragment -->
@@ -1886,21 +1885,21 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  817</span> </div>
 <div class="line"><span class="lineno">  818</span>        yield <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_dynamic_interop_function.html#a7d5d0ef62933953669d1de70c30baa1b">m_Func</a>.Invoke(</div>
 <div class="line"><span class="lineno">  819</span>            caller,</div>
-<div class="line"><span class="lineno">  820</span>            args[0].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T1&gt;(),</div>
-<div class="line"><span class="lineno">  821</span>            args[1].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T2&gt;(),</div>
-<div class="line"><span class="lineno">  822</span>            args[2].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T3&gt;(),</div>
-<div class="line"><span class="lineno">  823</span>            args[3].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T4&gt;(),</div>
-<div class="line"><span class="lineno">  824</span>            args[4].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T5&gt;(),</div>
-<div class="line"><span class="lineno">  825</span>            args[5].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T6&gt;(),</div>
-<div class="line"><span class="lineno">  826</span>            args[6].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T7&gt;(),</div>
-<div class="line"><span class="lineno">  827</span>            args[7].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T8&gt;(),</div>
-<div class="line"><span class="lineno">  828</span>            args[8].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T9&gt;(),</div>
-<div class="line"><span class="lineno">  829</span>            args[9].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T10&gt;(),</div>
-<div class="line"><span class="lineno">  830</span>            args[10].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T11&gt;(),</div>
-<div class="line"><span class="lineno">  831</span>            args[11].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T12&gt;(),</div>
-<div class="line"><span class="lineno">  832</span>            args[12].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T13&gt;(),</div>
-<div class="line"><span class="lineno">  833</span>            args[13].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T14&gt;(),</div>
-<div class="line"><span class="lineno">  834</span>            args[14].<a class="code hl_enumvalue" href="_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba106e561b2e17ce87f3ff681efa40f1dc">Dereference</a>().Unwrap&lt;T15&gt;()</div>
+<div class="line"><span class="lineno">  820</span>            args[0].Dereference().Unwrap&lt;T1&gt;(),</div>
+<div class="line"><span class="lineno">  821</span>            args[1].Dereference().Unwrap&lt;T2&gt;(),</div>
+<div class="line"><span class="lineno">  822</span>            args[2].Dereference().Unwrap&lt;T3&gt;(),</div>
+<div class="line"><span class="lineno">  823</span>            args[3].Dereference().Unwrap&lt;T4&gt;(),</div>
+<div class="line"><span class="lineno">  824</span>            args[4].Dereference().Unwrap&lt;T5&gt;(),</div>
+<div class="line"><span class="lineno">  825</span>            args[5].Dereference().Unwrap&lt;T6&gt;(),</div>
+<div class="line"><span class="lineno">  826</span>            args[6].Dereference().Unwrap&lt;T7&gt;(),</div>
+<div class="line"><span class="lineno">  827</span>            args[7].Dereference().Unwrap&lt;T8&gt;(),</div>
+<div class="line"><span class="lineno">  828</span>            args[8].Dereference().Unwrap&lt;T9&gt;(),</div>
+<div class="line"><span class="lineno">  829</span>            args[9].Dereference().Unwrap&lt;T10&gt;(),</div>
+<div class="line"><span class="lineno">  830</span>            args[10].Dereference().Unwrap&lt;T11&gt;(),</div>
+<div class="line"><span class="lineno">  831</span>            args[11].Dereference().Unwrap&lt;T12&gt;(),</div>
+<div class="line"><span class="lineno">  832</span>            args[12].Dereference().Unwrap&lt;T13&gt;(),</div>
+<div class="line"><span class="lineno">  833</span>            args[13].Dereference().Unwrap&lt;T14&gt;(),</div>
+<div class="line"><span class="lineno">  834</span>            args[14].Dereference().Unwrap&lt;T15&gt;()</div>
 <div class="line"><span class="lineno">  835</span>        );</div>
 <div class="line"><span class="lineno">  836</span>    }</div>
 </div><!-- fragment -->

@@ -1,7 +1,6 @@
 var class_bad_runtime_api =
 [
     [ "BadRuntimeApi", "class_bad_runtime_api.html#a892bd09b77798de11bb7b2bb9f1b832a", null ],
-    [ "CompileSource", "class_bad_runtime_api.html#a6221a3621d254f9c4cba0c6c37309ffa", null ],
     [ "Evaluate", "class_bad_runtime_api.html#a94e8e1df5686ff7a5ce3d816f91cc970", null ],
     [ "Export", "class_bad_runtime_api.html#a41fe18f788f1bfe64004aa47607dabac", null ],
     [ "GetArguments", "class_bad_runtime_api.html#aadd98db92e4e9f127176befc916169c6", null ],

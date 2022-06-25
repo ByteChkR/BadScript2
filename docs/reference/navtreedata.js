@@ -25,13 +25,6 @@
 var NAVTREE =
 [
   [ "BadScript2 Reference Documentation", "index.html", [
-    [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ],
-      [ "Package Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
-      ] ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -45,7 +38,11 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+      [ "File List", "files.html", "files_dup" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Enumerations", "globals_enum.html", null ]
+      ] ]
     ] ]
   ] ]
 ];
@@ -53,22 +50,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_bad_add_assign_expression_8cs.html",
-"_bad_logic_x_or_expression_compiler_8cs.html",
-"_bad_string_expression_8cs_source.html",
-"class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#ab6cb1ef2fb27f65175e11884dca0fa17",
-"class_bad_script2_1_1_interactive_1_1_bad_interactive_console.html#a511a135679251e05b9a19c9c74b02f4a",
-"class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_type_system_extension.html#ab06030e8b7e71d333ce5b18be8840bac",
-"class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a8738448633eeb318dddbd7ac5080811e",
-"class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_divide_assign_expression.html#aa68a7e430696d7aca6f1e8cc77dad5c6",
-"class_bad_script2_1_1_parser_1_1_expressions_1_1_control_flow_1_1_bad_break_expression.html#a1e38caefe4d9231a3b656e54ea1ac8f8",
-"class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_x_or_operator.html#a251a757528f6bed2a1beeed00a723290",
-"class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_null_token.html#a6c8d45b37576ef5a1bd53a9f0f0e1a74",
-"class_bad_script2_1_1_runtime_1_1_compiler_1_1_bad_virtual_machine.html#abb69395d3f815f93ea33749bf25ad7ad",
-"class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html",
-"class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html#a8bccdffae802b96509b049f461bd0c4b",
-"class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html#aa9fabb7d572e1b5330c3b62b083e3f2d",
-"class_bad_script2_1_1_settings_1_1_bad_settings.html",
-"interface_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_i_bad_expression_compiler.html#adcd359c8ef179b68fec463b687e54502"
+"_bad_null_checked_member_access_operator_8cs.html",
+"class_bad_array_access_expression.html#a3bf4a7f2e29774dc0b677be707d30fde",
+"class_bad_dynamic_interop_function.html#a6564a94d8d898a0cc545a3cf4eddafad",
+"class_bad_interop_function.html",
+"class_bad_native.html#a1e189ba20dd7eefeee3de5aa4db27a17",
+"class_bad_runtime_api.html#abaf1bd022c7c28eb0d33d24bae2c7185",
+"class_bad_static_keys.html#a7561c9f9bee968bd99bb5b7c80bfe5b6",
+"dir_3a4ce9057239b30b99db63fb7a6ff043.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

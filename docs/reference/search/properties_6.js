@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hasrootsettings_0',['HasRootSettings',['../class_bad_script2_1_1_settings_1_1_bad_settings_provider.html#aeea6f24c808f3537c40ec070ea482d96',1,'BadScript2::Settings::BadSettingsProvider']]]
+  ['hasrootsettings_0',['HasRootSettings',['../class_bad_settings_provider.html#a68d6aa34f2844341a1f630933464fd5f',1,'BadSettingsProvider']]]
 ];

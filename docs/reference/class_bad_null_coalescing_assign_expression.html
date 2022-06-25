@@ -154,8 +154,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header properties_class_bad_expression"><td colspan="2" onclick="javascript:toggleInherit('properties_class_bad_expression')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_bad_expression.html">BadExpression</a></td></tr>
 <tr class="memitem:a6d0858f51d1c107e9bb399c58e08b9e7 inherit properties_class_bad_expression"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a6d0858f51d1c107e9bb399c58e08b9e7">IsConstant</a><code> [get]</code></td></tr>
 <tr class="separator:a6d0858f51d1c107e9bb399c58e08b9e7 inherit properties_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceeba8e660c495ac92c8c9c32f08e8cf inherit properties_class_bad_expression"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#aceeba8e660c495ac92c8c9c32f08e8cf">IsLValue</a><code> [get]</code></td></tr>
-<tr class="separator:aceeba8e660c495ac92c8c9c32f08e8cf inherit properties_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44da2276f2f993a61e57b1bb167b3f35 inherit properties_class_bad_expression"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_source_position.html">BadSourcePosition</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a><code> [get]</code></td></tr>
 <tr class="separator:a44da2276f2f993a61e57b1bb167b3f35 inherit properties_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -196,11 +194,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html">BadNullCoalescingAssignExpression.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>                                                                                                                  : base(</div>
-<div class="line"><span class="lineno">   12</span>        left,</div>
-<div class="line"><span class="lineno">   13</span>        right,</div>
-<div class="line"><span class="lineno">   14</span>        position</div>
-<div class="line"><span class="lineno">   15</span>    ) { }</div>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>                                    : base(</div>
+<div class="line"><span class="lineno">   15</span>        left,</div>
+<div class="line"><span class="lineno">   16</span>        right,</div>
+<div class="line"><span class="lineno">   17</span>        position</div>
+<div class="line"><span class="lineno">   18</span>    ) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -230,10 +228,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_binary_expression.html#aca04bc339e0928bc18a12396b85d367e">BadBinaryExpression</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html#l00053">53</a> of file <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html">BadNullCoalescingAssignExpression.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   54</span>    {</div>
-<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> NotImplementedException();</div>
-<div class="line"><span class="lineno">   56</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html#l00056">56</a> of file <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html">BadNullCoalescingAssignExpression.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> NotImplementedException();</div>
+<div class="line"><span class="lineno">   59</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -263,44 +261,44 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_expression.html#ac7d2f4be2eab4bbbd5f95be6f5ba6a9c">BadExpression</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html#l00018">18</a> of file <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html">BadNullCoalescingAssignExpression.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
-<div class="line"><span class="lineno">   20</span>        <a class="code hl_class" href="class_bad_object.html">BadObject</a> left = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
-<div class="line"><span class="lineno">   21</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_property" href="class_bad_binary_expression.html#ab5205ecbca3ff78c1da6ec072f705f41">Left</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
-<div class="line"><span class="lineno">   22</span>        {</div>
-<div class="line"><span class="lineno">   23</span>            left = o;</div>
-<div class="line"><span class="lineno">   24</span>        }</div>
-<div class="line"><span class="lineno">   25</span> </div>
-<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">if</span> (left is not <a class="code hl_class" href="class_bad_object_reference.html">BadObjectReference</a> leftRef)</div>
-<div class="line"><span class="lineno">   27</span>        {</div>
-<div class="line"><span class="lineno">   28</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Left side of null coalescing assignment must be a reference&quot;</span>, <a class="code hl_property" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a>);</div>
-<div class="line"><span class="lineno">   29</span>        }</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>        left = left.Dereference();</div>
-<div class="line"><span class="lineno">   32</span> </div>
-<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">if</span> (left == <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
-<div class="line"><span class="lineno">   34</span>        {</div>
-<div class="line"><span class="lineno">   35</span>            <a class="code hl_class" href="class_bad_object.html">BadObject</a> rVal = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
-<div class="line"><span class="lineno">   36</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_property" href="class_bad_binary_expression.html#a4c21b29a0855cd34f05b37c5cd14886d">Right</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
-<div class="line"><span class="lineno">   37</span>            {</div>
-<div class="line"><span class="lineno">   38</span>                yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">   39</span>                rVal = o;</div>
-<div class="line"><span class="lineno">   40</span>            }</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>            rVal = rVal.Dereference();</div>
-<div class="line"><span class="lineno">   43</span>            leftRef.Set(rVal);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html#l00021">21</a> of file <a class="el" href="_bad_null_coalescing_assign_expression_8cs_source.html">BadNullCoalescingAssignExpression.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>    {</div>
+<div class="line"><span class="lineno">   23</span>        <a class="code hl_class" href="class_bad_object.html">BadObject</a> left = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
+<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_property" href="class_bad_binary_expression.html#ab5205ecbca3ff78c1da6ec072f705f41">Left</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
+<div class="line"><span class="lineno">   25</span>        {</div>
+<div class="line"><span class="lineno">   26</span>            left = o;</div>
+<div class="line"><span class="lineno">   27</span>        }</div>
+<div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">if</span> (left is not <a class="code hl_class" href="class_bad_object_reference.html">BadObjectReference</a> leftRef)</div>
+<div class="line"><span class="lineno">   30</span>        {</div>
+<div class="line"><span class="lineno">   31</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Left side of null coalescing assignment must be a reference&quot;</span>, <a class="code hl_property" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a>);</div>
+<div class="line"><span class="lineno">   32</span>        }</div>
+<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   34</span>        left = left.Dereference();</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (left == <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
+<div class="line"><span class="lineno">   37</span>        {</div>
+<div class="line"><span class="lineno">   38</span>            <a class="code hl_class" href="class_bad_object.html">BadObject</a> rVal = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
+<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_property" href="class_bad_binary_expression.html#a4c21b29a0855cd34f05b37c5cd14886d">Right</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
+<div class="line"><span class="lineno">   40</span>            {</div>
+<div class="line"><span class="lineno">   41</span>                yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">   42</span>                rVal = o;</div>
+<div class="line"><span class="lineno">   43</span>            }</div>
 <div class="line"><span class="lineno">   44</span> </div>
-<div class="line"><span class="lineno">   45</span>            yield <span class="keywordflow">return</span> rVal;</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   48</span>        {</div>
-<div class="line"><span class="lineno">   49</span>            yield <span class="keywordflow">return</span> left;</div>
-<div class="line"><span class="lineno">   50</span>        }</div>
-<div class="line"><span class="lineno">   51</span>    }</div>
+<div class="line"><span class="lineno">   45</span>            rVal = rVal.Dereference();</div>
+<div class="line"><span class="lineno">   46</span>            leftRef.Set(rVal);</div>
+<div class="line"><span class="lineno">   47</span> </div>
+<div class="line"><span class="lineno">   48</span>            yield <span class="keywordflow">return</span> rVal;</div>
+<div class="line"><span class="lineno">   49</span>        }</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   51</span>        {</div>
+<div class="line"><span class="lineno">   52</span>            yield <span class="keywordflow">return</span> left;</div>
+<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   54</span>    }</div>
 <div class="ttc" id="aclass_bad_binary_expression_html_a4c21b29a0855cd34f05b37c5cd14886d"><div class="ttname"><a href="class_bad_binary_expression.html#a4c21b29a0855cd34f05b37c5cd14886d">BadBinaryExpression.Right</a></div><div class="ttdeci">BadExpression Right</div><div class="ttdef"><b>Definition:</b> <a href="_bad_binary_expression_8cs_source.html#l00019">BadBinaryExpression.cs:19</a></div></div>
 <div class="ttc" id="aclass_bad_binary_expression_html_ab5205ecbca3ff78c1da6ec072f705f41"><div class="ttname"><a href="class_bad_binary_expression.html#ab5205ecbca3ff78c1da6ec072f705f41">BadBinaryExpression.Left</a></div><div class="ttdeci">BadExpression Left</div><div class="ttdef"><b>Definition:</b> <a href="_bad_binary_expression_8cs_source.html#l00018">BadBinaryExpression.cs:18</a></div></div>
-<div class="ttc" id="aclass_bad_expression_html_a44da2276f2f993a61e57b1bb167b3f35"><div class="ttname"><a href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">BadExpression.Position</a></div><div class="ttdeci">BadSourcePosition Position</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00022">BadExpression.cs:22</a></div></div>
-<div class="ttc" id="aclass_bad_expression_html_a831d6482e068fdbb08cc7a04e2c72b60"><div class="ttname"><a href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">BadExpression.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(BadExecutionContext context)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00028">BadExpression.cs:28</a></div></div>
+<div class="ttc" id="aclass_bad_expression_html_a44da2276f2f993a61e57b1bb167b3f35"><div class="ttname"><a href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">BadExpression.Position</a></div><div class="ttdeci">BadSourcePosition Position</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00020">BadExpression.cs:20</a></div></div>
+<div class="ttc" id="aclass_bad_expression_html_a831d6482e068fdbb08cc7a04e2c72b60"><div class="ttname"><a href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">BadExpression.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(BadExecutionContext context)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00026">BadExpression.cs:26</a></div></div>
 <div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_object_html_ab22a8e268d88e53b3f9a3ef02e83a410"><div class="ttname"><a href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_object_reference_html"><div class="ttname"><a href="class_bad_object_reference.html">BadObjectReference</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_reference_8cs_source.html#l00006">BadObjectReference.cs:7</a></div></div>

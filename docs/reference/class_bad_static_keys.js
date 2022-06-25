@@ -28,6 +28,7 @@ var class_bad_static_keys =
     [ "NewLine", "class_bad_static_keys.html#ad9cbdafba2f401f5b54f1a1e7d76539d", null ],
     [ "Null", "class_bad_static_keys.html#a1a22534fc74bf25a482016b55027f436", null ],
     [ "Quote", "class_bad_static_keys.html#a222be28dfc3ba22198aa9033117b15e4", null ],
+    [ "RefKey", "class_bad_static_keys.html#a83177c376e38572c660b8e30bbee2b02", null ],
     [ "ReturnKey", "class_bad_static_keys.html#a32ee65f45c0262e8810885a8663fce29", null ],
     [ "SingleLineComment", "class_bad_static_keys.html#a2dfecc4aa01d1ae1d5dd6324d0db87ff", null ],
     [ "StatementEndKey", "class_bad_static_keys.html#a77ad68a517a4b0e0d5a58d7439505214", null ],

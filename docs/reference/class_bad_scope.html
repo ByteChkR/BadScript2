@@ -651,7 +651,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">  188</span>        {</div>
 <div class="line"><span class="lineno">  189</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_scope.html#af39473f26a400c7cea9789a7c2639ec8">m_ScopeVariables</a>.<a class="code hl_function" href="class_bad_table.html#abd019ae47d1bfcc60dd857e72ab6c796">GetProperty</a>(name);</div>
 <div class="line"><span class="lineno">  190</span>        }</div>
-<div class="line"><span class="lineno">  191</span>        </div>
+<div class="line"><span class="lineno">  191</span> </div>
 <div class="line"><span class="lineno">  192</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a> == <span class="keyword">null</span>)</div>
 <div class="line"><span class="lineno">  193</span>        {</div>
 <div class="line"><span class="lineno">  194</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Variable &#39;{name}&#39; is not defined&quot;</span>);</div>
@@ -963,17 +963,17 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_scope_8cs_source.html#l00200">200</a> of file <a class="el" href="_bad_scope_8cs_source.html">BadScope.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  201</span>    {</div>
-<div class="line"><span class="lineno">  202</span> </div>
-<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="class_bad_scope.html#a6efaa73c1b5718ec5452349f12e7dc03">HasLocal</a>(name))</div>
-<div class="line"><span class="lineno">  204</span>        {</div>
-<div class="line"><span class="lineno">  205</span>            <a class="code hl_variable" href="class_bad_scope.html#af39473f26a400c7cea9789a7c2639ec8">m_ScopeVariables</a>.<a class="code hl_function" href="class_bad_table.html#abd019ae47d1bfcc60dd857e72ab6c796">GetProperty</a>(name).<a class="code hl_function" href="class_bad_object_reference.html#a6c4a635b108decdcad313bd0578447b9">Set</a>(value);</div>
-<div class="line"><span class="lineno">  206</span>        }</div>
-<div class="line"><span class="lineno">  207</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  208</span>        {</div>
-<div class="line"><span class="lineno">  209</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a> == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  210</span>            {</div>
-<div class="line"><span class="lineno">  211</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Variable &#39;{name}&#39; is not defined&quot;</span>);</div>
-<div class="line"><span class="lineno">  212</span>            }</div>
+<div class="line"><span class="lineno">  202</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="class_bad_scope.html#a6efaa73c1b5718ec5452349f12e7dc03">HasLocal</a>(name))</div>
+<div class="line"><span class="lineno">  203</span>        {</div>
+<div class="line"><span class="lineno">  204</span>            <a class="code hl_variable" href="class_bad_scope.html#af39473f26a400c7cea9789a7c2639ec8">m_ScopeVariables</a>.<a class="code hl_function" href="class_bad_table.html#abd019ae47d1bfcc60dd857e72ab6c796">GetProperty</a>(name).<a class="code hl_function" href="class_bad_object_reference.html#a6c4a635b108decdcad313bd0578447b9">Set</a>(value);</div>
+<div class="line"><span class="lineno">  205</span>        }</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  207</span>        {</div>
+<div class="line"><span class="lineno">  208</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a> == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  209</span>            {</div>
+<div class="line"><span class="lineno">  210</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Variable &#39;{name}&#39; is not defined&quot;</span>);</div>
+<div class="line"><span class="lineno">  211</span>            }</div>
+<div class="line"><span class="lineno">  212</span> </div>
 <div class="line"><span class="lineno">  213</span>            <a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a>!.<a class="code hl_function" href="class_bad_scope.html#a724a0ff0649ffd588259579c9a9b9fc8">SetVariable</a>(name, value);</div>
 <div class="line"><span class="lineno">  214</span>        }</div>
 <div class="line"><span class="lineno">  215</span>    }</div>

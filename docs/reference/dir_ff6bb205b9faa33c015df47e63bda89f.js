@@ -8,5 +8,6 @@ var dir_ff6bb205b9faa33c015df47e63bda89f =
     [ "BadNullCheckedMemberAccessOperator.cs", "_bad_null_checked_member_access_operator_8cs.html", "_bad_null_checked_member_access_operator_8cs" ],
     [ "BadNullCoalescingAssignOperator.cs", "_bad_null_coalescing_assign_operator_8cs.html", "_bad_null_coalescing_assign_operator_8cs" ],
     [ "BadNullCoalescingOperator.cs", "_bad_null_coalescing_operator_8cs.html", "_bad_null_coalescing_operator_8cs" ],
+    [ "BadRangeOperator.cs", "_bad_range_operator_8cs.html", "_bad_range_operator_8cs" ],
     [ "BadTernaryOperator.cs", "_bad_ternary_operator_8cs.html", "_bad_ternary_operator_8cs" ]
 ];

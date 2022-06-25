@@ -1,7 +1,7 @@
 <map id="BadOperator" name="BadOperator">
-<area shape="rect" id="node1" title=" " alt="" coords="5,1179,100,1205"/>
-<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title=" " alt="" coords="163,765,295,792"/>
-<area shape="rect" id="node33" href="$class_bad_unary_prefix_operator.html" title=" " alt="" coords="148,1567,311,1593"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,1229,100,1256"/>
+<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title=" " alt="" coords="163,791,295,817"/>
+<area shape="rect" id="node34" href="$class_bad_unary_prefix_operator.html" title=" " alt="" coords="148,1617,311,1644"/>
 <area shape="rect" id="node3" href="$class_bad_add_assign_operator.html" title=" " alt="" coords="390,5,549,32"/>
 <area shape="rect" id="node4" href="$class_bad_add_operator.html" title=" " alt="" coords="410,56,529,83"/>
 <area shape="rect" id="node5" href="$class_bad_assign_operator.html" title=" " alt="" coords="402,107,537,133"/>
@@ -29,10 +29,11 @@
 <area shape="rect" id="node27" href="$class_bad_null_coalescing_operator.html" title=" " alt="" coords="379,1237,560,1264"/>
 <area shape="rect" id="node28" href="$class_bad_post_decrement_operator.html" title=" " alt="" coords="377,1288,562,1315"/>
 <area shape="rect" id="node29" href="$class_bad_post_increment_operator.html" title=" " alt="" coords="380,1339,559,1365"/>
-<area shape="rect" id="node30" href="$class_bad_subtract_assign_operator.html" title=" " alt="" coords="377,1389,561,1416"/>
-<area shape="rect" id="node31" href="$class_bad_subtract_operator.html" title=" " alt="" coords="397,1440,541,1467"/>
-<area shape="rect" id="node32" href="$class_bad_ternary_operator.html" title=" " alt="" coords="400,1491,539,1517"/>
-<area shape="rect" id="node34" href="$class_bad_logic_not_operator.html" title=" " alt="" coords="396,1541,543,1568"/>
-<area shape="rect" id="node35" href="$class_bad_pre_decrement_operator.html" title=" " alt="" coords="380,1592,559,1619"/>
-<area shape="rect" id="node36" href="$class_bad_pre_increment_operator.html" title=" " alt="" coords="383,1643,555,1669"/>
+<area shape="rect" id="node30" href="$class_bad_range_operator.html" title=" " alt="" coords="403,1389,535,1416"/>
+<area shape="rect" id="node31" href="$class_bad_subtract_assign_operator.html" title=" " alt="" coords="377,1440,561,1467"/>
+<area shape="rect" id="node32" href="$class_bad_subtract_operator.html" title=" " alt="" coords="397,1491,541,1517"/>
+<area shape="rect" id="node33" href="$class_bad_ternary_operator.html" title=" " alt="" coords="400,1541,539,1568"/>
+<area shape="rect" id="node35" href="$class_bad_logic_not_operator.html" title=" " alt="" coords="396,1592,543,1619"/>
+<area shape="rect" id="node36" href="$class_bad_pre_decrement_operator.html" title=" " alt="" coords="380,1643,559,1669"/>
+<area shape="rect" id="node37" href="$class_bad_pre_increment_operator.html" title=" " alt="" coords="383,1693,555,1720"/>
 </map>

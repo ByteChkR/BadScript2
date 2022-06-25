@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['greaterthan_0',['GreaterThan',['../namespace_bad_script2_1_1_runtime_1_1_compiler.html#a191b53b1cac34c2651ec6fa5b65e9d7eaf6d044fe1f01fb0c956b80099e2a3072',1,'BadScript2::Runtime::Compiler']]],
-  ['greaterthanorequal_1',['GreaterThanOrEqual',['../namespace_bad_script2_1_1_runtime_1_1_compiler.html#a191b53b1cac34c2651ec6fa5b65e9d7ea25c44812e9d75f685d2a0b815dea1ebe',1,'BadScript2::Runtime::Compiler']]]
+  ['none_0',['None',['../_bad_scope_flags_8cs.html#aa74719b6a994ca97e13e3fd4ae0795efa6adf97f83acf6453d4a6a4b1070f3754',1,'BadScopeFlags.cs']]],
+  ['null_1',['Null',['../_bad_primitive_type_8cs.html#a0be5500e0e1e098c7462e73f9d3b5642abbb93ef26e3c101ff11cdd21cab08a94',1,'BadPrimitiveType.cs']]],
+  ['number_2',['Number',['../_bad_primitive_type_8cs.html#a0be5500e0e1e098c7462e73f9d3b5642ab2ee912b91d69b435159c7c3f6df7f5f',1,'BadPrimitiveType.cs']]]
 ];

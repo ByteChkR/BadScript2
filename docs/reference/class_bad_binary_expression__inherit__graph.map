@@ -1,5 +1,5 @@
 <map id="BadBinaryExpression" name="BadBinaryExpression">
-<area shape="rect" id="node1" title=" " alt="" coords="164,588,311,615"/>
+<area shape="rect" id="node1" title=" " alt="" coords="164,613,311,640"/>
 <area shape="rect" id="node3" href="$class_bad_add_assign_expression.html" title=" " alt="" coords="390,5,563,32"/>
 <area shape="rect" id="node4" href="$class_bad_add_expression.html" title=" " alt="" coords="410,56,543,83"/>
 <area shape="rect" id="node5" href="$class_bad_divide_assign_expression.html" title=" " alt="" coords="385,107,569,133"/>
@@ -22,7 +22,8 @@
 <area shape="rect" id="node22" href="$class_bad_multiply_expression.html" title=" " alt="" coords="399,968,554,995"/>
 <area shape="rect" id="node23" href="$class_bad_null_coalescing_assign_expression.html" title=" " alt="" coords="359,1019,595,1045"/>
 <area shape="rect" id="node24" href="$class_bad_null_coalescing_expression.html" title=" " alt="" coords="379,1069,575,1096"/>
-<area shape="rect" id="node25" href="$class_bad_subtract_assign_expression.html" title=" " alt="" coords="377,1120,576,1147"/>
-<area shape="rect" id="node26" href="$class_bad_subtract_expression.html" title=" " alt="" coords="397,1171,556,1197"/>
-<area shape="rect" id="node2" href="$class_bad_expression.html" title=" " alt="" coords="5,588,116,615"/>
+<area shape="rect" id="node25" href="$class_bad_range_expression.html" title=" " alt="" coords="403,1120,550,1147"/>
+<area shape="rect" id="node26" href="$class_bad_subtract_assign_expression.html" title=" " alt="" coords="377,1171,576,1197"/>
+<area shape="rect" id="node27" href="$class_bad_subtract_expression.html" title=" " alt="" coords="397,1221,556,1248"/>
+<area shape="rect" id="node2" href="$class_bad_expression.html" title=" " alt="" coords="5,613,116,640"/>
 </map>
