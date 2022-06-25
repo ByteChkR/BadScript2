@@ -7,6 +7,7 @@ using BadScript2.Interop.NUnit;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;

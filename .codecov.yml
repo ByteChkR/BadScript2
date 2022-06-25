@@ -29,3 +29,4 @@ ignore:
   - "src/BadScript2.Interop"
   - "src/BadScript2.Interactive"
   - "src/BadScript2.Console"
+  - "src/BadScript2/Runtime/Interop/Functions"

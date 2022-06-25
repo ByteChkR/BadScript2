@@ -212,6 +212,9 @@
         <None Update="tests\basic\operators\Math\Assign\TestAssignModulo.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\operators\Custom\TestArrayAccessRef.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
