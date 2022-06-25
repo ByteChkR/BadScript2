@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	let name = "Tim";
+	
+	Assert.AreEqual("Hello Tim!", $"Hello {name}!", "Formatted String is invalid");
+}
+
+NUnit.AddTest(Test, "Formatted String test");

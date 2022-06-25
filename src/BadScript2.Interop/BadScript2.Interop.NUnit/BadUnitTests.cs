@@ -33,7 +33,7 @@ public class BadUnitTests
                 SearchOption.AllDirectories
             );
             Console.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(files);
+            builder.Register(false, files);
 
             s_Context = builder.CreateContext();
 

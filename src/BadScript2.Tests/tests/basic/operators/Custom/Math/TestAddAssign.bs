@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	let i = 0;
+	let a = {
+		op_AddAssign: function(right) => i = i + right
+	}
+
+	a += 1
+	Assert.AreEqual(i, 1, "a += 1");
+}
+
+NUnit.AddTest(Test, "Custom Operator '+=' tests");

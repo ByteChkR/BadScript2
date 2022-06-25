@@ -16,6 +16,7 @@ namespace BadScript2.Tests;
 public class BadUnitTests
 {
     private static BadUnitTestContext? s_Context;
+    private static BadUnitTestContext? s_OptimizedContext;
 
     private static string TestDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "tests");
 
@@ -46,11 +47,46 @@ public class BadUnitTests
                 SearchOption.AllDirectories
             );
             System.Console.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(files);
+            builder.Register(false, files);
 
             s_Context = builder.CreateContext();
 
             return s_Context;
+        }
+    }
+
+    private static BadUnitTestContext OptimizedContext
+    {
+        get
+        {
+            if (s_OptimizedContext != null)
+            {
+                return s_OptimizedContext;
+            }
+
+            BadSettingsProvider.SetRootSettings(new BadSettings());
+            BadNativeClassBuilder.AddNative(BadTask.Prototype);
+            BadCommonInterop.AddExtensions();
+            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
+
+            BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
+            BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
+            BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
+
+            Directory.CreateDirectory(TestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
+
+            string[] files = Directory.GetFiles(
+                TestDirectory,
+                $"*.{BadRuntimeSettings.Instance.FileExtension}",
+                SearchOption.AllDirectories
+            );
+            System.Console.WriteLine($"Loading Files...({files.Length})");
+            builder.Register(true, files);
+
+            s_OptimizedContext = builder.CreateContext();
+
+            return s_OptimizedContext;
         }
     }
 
@@ -65,11 +101,23 @@ public class BadUnitTests
         return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
     }
 
+    public static BadNUnitTestCase[] GetOptimizedTestCases()
+    {
+        return OptimizedContext?.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
+    }
+
     [TestCaseSource(nameof(GetTestCases))]
     public void Test(BadNUnitTestCase testCase)
     {
         Context.Run(testCase);
     }
+
+    [TestCaseSource(nameof(GetOptimizedTestCases))]
+    public void TestOptimized(BadNUnitTestCase testCase)
+    {
+        OptimizedContext.Run(testCase);
+    }
+
 
     [TearDown]
     public void TearDown()

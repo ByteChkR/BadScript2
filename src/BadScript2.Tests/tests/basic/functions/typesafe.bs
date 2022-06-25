@@ -19,7 +19,7 @@ NUnit.AddTest(TestArg, "Function Definition + Call: typesafe argument");
 
 function TestArgSingleLine()
 {
-	function Func(bool x) => x;
+	function bool Func(bool x) => x;
 
 	Assert.IsTrue(Func(true), "Function did not return the correct value");
 }

@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	let i = 10;
+	let a = {
+		op_DivideAssign: function(right) => i = i / right
+	}
+
+	a /= 10
+	Assert.AreEqual(i, 1, "a /= 10");
+}
+
+NUnit.AddTest(Test, "Custom Operator '/=' tests");

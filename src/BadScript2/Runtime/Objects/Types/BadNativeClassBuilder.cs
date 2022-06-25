@@ -29,6 +29,11 @@ public static class BadNativeClassBuilder
 
     public static void AddNative(BadClassPrototype native)
     {
+        if (s_NativeTypes.Any(x => x.Name == native.Name))
+        {
+            return;
+        }
+
         s_NativeTypes?.Add(native);
     }
 

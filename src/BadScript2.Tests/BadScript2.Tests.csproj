@@ -9,17 +9,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
-        <PackageReference Include="NUnit" Version="3.13.3"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
-        <PackageReference Include="NUnit.Analyzers" Version="3.3.0"/>
-        <PackageReference Include="coverlet.collector" Version="3.1.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
+        <PackageReference Include="coverlet.collector" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console.csproj"/>
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj"/>
-        <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
+        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj" />
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -172,6 +172,45 @@
         </None>
         <None Update="tests\basic\operators\Math\TestAdd.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestAddAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestDivideAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestModuloAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestMultiplyAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestSubtractAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\FormatString.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestForeachRange.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\Assign\TestLogicAndAssign.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\Assign\TestLogicOrAssign.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\Assign\TestLogicXOrAssign.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\TestModulo.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestNullCoalescingAssign.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\TestAssignModulo.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

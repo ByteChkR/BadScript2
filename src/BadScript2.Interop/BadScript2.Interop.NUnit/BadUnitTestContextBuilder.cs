@@ -1,3 +1,4 @@
+using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
@@ -25,11 +26,11 @@ public class BadUnitTestContextBuilder
 
     public BadUnitTestContextBuilder(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
 
-    public void Register(params string[] files)
+    public void Register(bool optimize, params string[] files)
     {
         foreach (string file in files)
         {
-            SetupStage(file);
+            SetupStage(file, optimize);
         }
     }
 
@@ -92,10 +93,15 @@ public class BadUnitTestContextBuilder
         }
     }
 
-    private void SetupStage(string file)
+    private void SetupStage(string file, bool optimize = false)
     {
         //Load expressions
         IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, File.ReadAllText(file)).Parse();
+
+        if (optimize)
+        {
+            expressions = BadExpressionOptimizer.Optimize(expressions);
+        }
 
         //Create Context
         BadExecutionContext context = BadExecutionContext.Create();
