@@ -28,8 +28,11 @@ The `BadTask` object has the following properties:
 ```
 
 > The Task Object is one of the additional Native Types and can be created in two ways.
+
 > `let task = Concurrent.Create(function() {});`
+
 > or by calling the constructor
+
 > `let task = new Task("nameoftask", function() {});`
 
 ## Awaiting Tasks
