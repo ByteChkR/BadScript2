@@ -1,4 +1,3 @@
-using BadScript2.Common.Logging;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -158,7 +157,7 @@ public class BadRuntimeApi : BadInteropApi
     {
         return m_Exports[name];
     }
-    
+
     private BadObject Evaluate(BadObject str, BadObject fileObj)
     {
         if (str is not IBadString src)

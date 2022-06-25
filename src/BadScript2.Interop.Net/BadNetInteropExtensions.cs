@@ -1,10 +1,7 @@
-﻿using BadScript2.Interop.Common;
-using BadScript2.Interop.Common.Task;
-using BadScript2.Runtime;
+﻿using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Interop.Net;
 
@@ -32,14 +29,14 @@ public class BadNetInteropExtensions : BadInteropExtension
             "ReadAsString",
             c => new BadDynamicInteropFunction(
                 "ReadAsString",
-                (ctx) => Content_ReadAsString( c)
+                ctx => Content_ReadAsString(c)
             )
         );
         RegisterObject<HttpContent>(
             "ReadAsArray",
             c => new BadDynamicInteropFunction(
                 "ReadAsArray",
-                (ctx) => Content_ReadAsArray(c)
+                ctx => Content_ReadAsArray(c)
             )
         );
     }
@@ -51,7 +48,7 @@ public class BadNetInteropExtensions : BadInteropExtension
         return new BadTask(BadNetApi.WaitForTask(task), "HttpContent.ReadAsString");
     }
 
-    private BadTask Content_ReadAsArray( HttpContent content)
+    private BadTask Content_ReadAsArray(HttpContent content)
     {
         Task<byte[]> task = content.ReadAsByteArrayAsync();
 

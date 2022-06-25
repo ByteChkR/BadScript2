@@ -4,7 +4,6 @@ using BadScript2.Common.Logging;
 using BadScript2.Console.Debugging.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interactive;
-using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
@@ -20,7 +19,6 @@ namespace BadScript2.Console.Systems.Run;
 
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
-
     private string StartupDirectory
     {
         get
@@ -120,7 +118,10 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 exprs = BadExpressionOptimizer.Optimize(exprs);
             }
 
-            BadTaskRunner.Instance.AddTask(new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"), true);
+            BadTaskRunner.Instance.AddTask(
+                new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"),
+                true
+            );
             while (!BadTaskRunner.Instance.IsIdle)
             {
                 BadTaskRunner.Instance.RunStep();

@@ -15,7 +15,7 @@ public class BadInteropFunction : BadFunction
     {
         m_Func = (_, args) => func(args);
     }
-    
+
     public BadInteropFunction(
         BadWordToken? name,
         Func<BadExecutionContext, BadObject[], BadObject> func,

@@ -10,7 +10,10 @@ public class BadTaskExtensions : BadInteropExtension
 {
     protected override void AddExtensions()
     {
-        RegisterObject<BadFunction>("AsTask", func => new BadInteropFunction("AsTask", (ctx, args) => AsTask(ctx,func, args), func.Parameters));
+        RegisterObject<BadFunction>(
+            "AsTask",
+            func => new BadInteropFunction("AsTask", (ctx, args) => AsTask(ctx, func, args), func.Parameters)
+        );
     }
 
     private BadObject AsTask(BadExecutionContext ctx, BadFunction func, BadObject[] args)

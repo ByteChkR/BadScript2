@@ -36,7 +36,7 @@ public class BadUnitTests
             BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
             BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
             BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
-            
+
             Directory.CreateDirectory(TestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
 

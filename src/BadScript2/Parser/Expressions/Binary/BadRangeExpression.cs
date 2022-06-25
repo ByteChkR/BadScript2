@@ -9,7 +9,12 @@ namespace BadScript2.Parser.Expressions.Binary;
 
 public class BadRangeExpression : BadBinaryExpression
 {
-    public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left, right, position) { }
+    public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        left,
+        right,
+        position
+    ) { }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -17,12 +22,14 @@ public class BadRangeExpression : BadBinaryExpression
         foreach (BadObject o in Left.Execute(context))
         {
             left = o;
+
             yield return o;
         }
 
         foreach (BadObject o in Right.Execute(context))
         {
             right = o;
+
             yield return o;
         }
 
@@ -33,18 +40,18 @@ public class BadRangeExpression : BadBinaryExpression
         {
             throw new BadRuntimeException("Left side of range operator is not a number", Position);
         }
+
         if (right is not IBadNumber rNum)
         {
             throw new BadRuntimeException("Right side of range operator is not a number", Position);
         }
-        
+
         if (lNum.Value > rNum.Value)
         {
             throw new BadRuntimeException("Left side of range operator is greater than right side", Position);
         }
 
         yield return new BadInteropEnumerator(Range(lNum.Value, rNum.Value).GetEnumerator());
-
     }
 
     public static IEnumerable<BadObject> Range(decimal from, decimal to)

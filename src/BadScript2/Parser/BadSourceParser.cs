@@ -332,7 +332,7 @@ public class BadSourceParser
                 {
                     return new BadReturnExpression(null, pos, false);
                 }
-                
+
                 if (Reader.Is(BadStaticKeys.RefKey))
                 {
                     isRef = true;

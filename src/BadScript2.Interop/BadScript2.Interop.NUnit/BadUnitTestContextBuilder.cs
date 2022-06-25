@@ -1,4 +1,3 @@
-using BadScript2.Common.Logging;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
@@ -86,7 +85,7 @@ public class BadUnitTestContextBuilder
 
             api.Load(target);
         }
-        
+
         foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
         {
             context.Scope.DefineVariable(type.Name, type);

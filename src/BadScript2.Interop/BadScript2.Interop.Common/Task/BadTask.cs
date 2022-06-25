@@ -36,10 +36,11 @@ public class BadTask : BadObject
     );
 
     public readonly List<BadTask> ContinuationTasks = new List<BadTask>();
-    public readonly BadRunnable Runnable;
 
     private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
         new Dictionary<BadObject, BadObjectReference>();
+
+    public readonly BadRunnable Runnable;
 
 
     public BadTask(BadRunnable runnable, string name)
@@ -111,11 +112,12 @@ public class BadTask : BadObject
         }
 
         IsPaused = false;
-
     }
+
     private BadObject Resume(BadExecutionContext arg)
     {
         Resume();
+
         return Null;
     }
 
@@ -133,6 +135,7 @@ public class BadTask : BadObject
 
         IsPaused = true;
     }
+
     private BadObject Pause(BadExecutionContext arg)
     {
         Pause();

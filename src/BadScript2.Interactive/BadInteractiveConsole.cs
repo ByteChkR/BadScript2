@@ -1,4 +1,3 @@
-using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
 using BadScript2.Parser;

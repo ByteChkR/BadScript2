@@ -6,8 +6,26 @@ namespace BadScript2.Interop.Common.Task;
 
 public abstract class BadRunnable
 {
-    
-    
+    public abstract IEnumerator<BadObject> Enumerator { get; }
+
+    public abstract BadObject GetReturn();
+
+
+    public static BadRunnable Create(IEnumerable<BadObject> e)
+    {
+        return Create(e.GetEnumerator());
+    }
+
+    public static BadRunnable Create(IEnumerator<BadObject> e)
+    {
+        return new BadRunnableImpl(e);
+    }
+
+    public static BadRunnable Create(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
+    {
+        return new BadFunctionRunnable(func, ctx, args);
+    }
+
 
     private class BadRunnableImpl : BadRunnable
     {
@@ -16,26 +34,30 @@ public abstract class BadRunnable
             Enumerator = enumerator;
         }
 
+        public override IEnumerator<BadObject> Enumerator { get; }
+
         public override BadObject GetReturn()
         {
             return BadObject.Null;
         }
-
-        public override IEnumerator<BadObject> Enumerator { get; }
     }
 
     private class BadFunctionRunnable : BadRunnable
     {
         private BadObject m_ReturnValue = BadObject.Null;
-        public override IEnumerator<BadObject> Enumerator { get; }
 
         public BadFunctionRunnable(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
         {
             Enumerator = RunnableFunction(func, ctx, args).GetEnumerator();
         }
 
+        public override IEnumerator<BadObject> Enumerator { get; }
 
-        private IEnumerable<BadObject> RunnableFunction(BadFunction func, BadExecutionContext ctx,params BadObject[] args)
+
+        private IEnumerable<BadObject> RunnableFunction(
+            BadFunction func,
+            BadExecutionContext ctx,
+            params BadObject[] args)
         {
             BadObject obj = BadObject.Null;
             foreach (BadObject o in func.Invoke(args, ctx))
@@ -46,24 +68,11 @@ public abstract class BadRunnable
             }
 
             m_ReturnValue = obj.Dereference();
-
         }
-        
+
         public override BadObject GetReturn()
         {
             return m_ReturnValue;
         }
     }
-
-    public abstract BadObject GetReturn();
-    public abstract IEnumerator<BadObject> Enumerator { get; }
-
-
-    public static BadRunnable Create(IEnumerable<BadObject> e) => Create(e.GetEnumerator());
-    public static BadRunnable Create(IEnumerator<BadObject> e) => new BadRunnableImpl(e);
-    public static BadRunnable Create(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
-    {
-        return new BadFunctionRunnable(func, ctx, args);
-    }
-    
 }

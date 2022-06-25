@@ -9,16 +9,19 @@ namespace BadScript2.Interop.Common.Task;
 public class BadAwaitExpression : BadExpression
 {
     public readonly BadExpression TaskExpr;
+
     public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, false, position)
     {
         TaskExpr = expr;
     }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject obj = BadObject.Null;
         foreach (BadObject o in TaskExpr.Execute(context))
         {
             obj = o;
+
             yield return o;
         }
 
@@ -28,13 +31,14 @@ public class BadAwaitExpression : BadExpression
         {
             throw new BadRuntimeException("await can only be used on a task", Position);
         }
-        
+
         if (task.IsFinished)
         {
             yield return task.Runnable.GetReturn();
+
             yield break;
         }
-        
+
         //Run Task
         //Add current to continuation
         task.ContinuationTasks.Add(
@@ -45,10 +49,9 @@ public class BadAwaitExpression : BadExpression
         {
             BadTaskRunner.Instance.AddTask(task);
         }
-        
+
         yield return BadObject.Null; //Should pause Here
 
         yield return task.Runnable.GetReturn();
-
     }
 }

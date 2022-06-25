@@ -10,8 +10,6 @@ namespace BadScript2.Parser.Operators;
 
 public class BadOperatorTable
 {
-    private BadOperatorTable(){}
-    private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>();
     private readonly List<BadBinaryOperator> m_Operators = new List<BadBinaryOperator>
     {
         new BadPostIncrementOperator(),
@@ -54,29 +52,34 @@ public class BadOperatorTable
         new BadPreIncrementOperator(),
     };
 
-    public BadValueParser? GetValueParser(BadSourceParser parser) =>
-        m_ValueParsers.FirstOrDefault(x => x.IsValue(parser));
-    
-    public void AddValueParser(BadValueParser parser)
-    {
-        m_ValueParsers.Add(parser);
-    }
-    
-    public void AddOperator(BadBinaryOperator op)
-    {
-        m_Operators.Add(op);
-    }
-    
-    public void AddUnaryPrefixOperator(BadUnaryPrefixOperator op)
-    {
-        m_UnaryPrefixOperators.Add(op);
-    }
+    private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>();
+    private BadOperatorTable() { }
 
     public static BadOperatorTable Instance { get; } = new BadOperatorTable();
 
     public IEnumerable<string> BinarySymbols => m_Operators.Select(x => x.Symbol);
 
     public IEnumerable<string> UnaryPrefixSymbols => m_UnaryPrefixOperators.Select(x => x.Symbol);
+
+    public BadValueParser? GetValueParser(BadSourceParser parser)
+    {
+        return m_ValueParsers.FirstOrDefault(x => x.IsValue(parser));
+    }
+
+    public void AddValueParser(BadValueParser parser)
+    {
+        m_ValueParsers.Add(parser);
+    }
+
+    public void AddOperator(BadBinaryOperator op)
+    {
+        m_Operators.Add(op);
+    }
+
+    public void AddUnaryPrefixOperator(BadUnaryPrefixOperator op)
+    {
+        m_UnaryPrefixOperators.Add(op);
+    }
 
     public BadBinaryOperator? FindBinaryOperator(string symbol)
     {
