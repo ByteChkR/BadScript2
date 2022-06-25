@@ -1,4 +1,5 @@
 using BadScript2.Interop.Common;
+using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -95,7 +96,7 @@ public class BadInteractiveConsole
         }
 
 
-        m_Runner.AddTask(new BadTask(m_Context.Execute(exprs).GetEnumerator(), "Main"), true);
+        m_Runner.AddTask(new BadTask(BadRunnable.Create(m_Context.Execute(exprs)), "Main"), true);
         if (CatchErrors)
         {
             try

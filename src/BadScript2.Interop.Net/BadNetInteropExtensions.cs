@@ -1,4 +1,5 @@
 ﻿using BadScript2.Interop.Common;
+using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -29,40 +30,35 @@ public class BadNetInteropExtensions : BadInteropExtension
 
         RegisterObject<HttpContent>(
             "ReadAsString",
-            c => new BadDynamicInteropFunction<BadFunction>(
+            c => new BadDynamicInteropFunction(
                 "ReadAsString",
-                (ctx, func) => Content_ReadAsString(ctx, c, func)
+                (ctx) => Content_ReadAsString( c)
             )
         );
         RegisterObject<HttpContent>(
             "ReadAsArray",
-            c => new BadDynamicInteropFunction<BadFunction>(
+            c => new BadDynamicInteropFunction(
                 "ReadAsArray",
-                (ctx, func) => Content_ReadAsArray(ctx, c, func)
+                (ctx) => Content_ReadAsArray(c)
             )
         );
-
-        //HttpResponseHeaders
     }
 
-    private BadTask Content_ReadAsString(BadExecutionContext context, HttpContent content, BadFunction onComplete)
+    private BadTask Content_ReadAsString(HttpContent content)
     {
         Task<string> task = content.ReadAsStringAsync();
 
-        return new BadTask(BadNetApi.WaitForTask(context, task, onComplete), "HttpContent.ReadAsString");
+        return new BadTask(BadNetApi.WaitForTask(task), "HttpContent.ReadAsString");
     }
 
-    private BadTask Content_ReadAsArray(BadExecutionContext context, HttpContent content, BadFunction onComplete)
+    private BadTask Content_ReadAsArray( HttpContent content)
     {
         Task<byte[]> task = content.ReadAsByteArrayAsync();
 
         return new BadTask(
             BadNetApi.WaitForTask(
                 task,
-                o => onComplete.Invoke(
-                    new BadObject[] { new BadArray(o.Select(x => (BadObject)(decimal)x).ToList()) },
-                    context
-                )
+                o => new BadArray(o.Select(x => (BadObject)(decimal)x).ToList())
             ),
             "HttpContent.ReadAsArray"
         );

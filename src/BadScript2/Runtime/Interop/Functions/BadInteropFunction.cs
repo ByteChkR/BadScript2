@@ -6,11 +6,19 @@ namespace BadScript2.Runtime.Interop.Functions;
 
 public class BadInteropFunction : BadFunction
 {
-    private readonly Func<BadObject[], BadObject> m_Func;
+    private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;
 
     public BadInteropFunction(
         BadWordToken? name,
         Func<BadObject[], BadObject> func,
+        params BadFunctionParameter[] parameters) : base(name, parameters)
+    {
+        m_Func = (_, args) => func(args);
+    }
+    
+    public BadInteropFunction(
+        BadWordToken? name,
+        Func<BadExecutionContext, BadObject[], BadObject> func,
         params BadFunctionParameter[] parameters) : base(name, parameters)
     {
         m_Func = func;
@@ -33,7 +41,7 @@ public class BadInteropFunction : BadFunction
     {
         CheckParameters(args);
 
-        yield return m_Func.Invoke(args);
+        yield return m_Func.Invoke(caller, args);
     }
 
     public override string ToSafeString(List<BadObject> done)

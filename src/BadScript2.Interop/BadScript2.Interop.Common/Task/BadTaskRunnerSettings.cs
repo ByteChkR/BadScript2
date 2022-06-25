@@ -1,6 +1,6 @@
 using BadScript2.Settings;
 
-namespace BadScript2.Interop.Common;
+namespace BadScript2.Interop.Common.Task;
 
 public class BadTaskRunnerSettings : BadSettingsProvider<BadTaskRunnerSettings>
 {

@@ -1,8 +1,16 @@
-namespace BadScript2.Interop.Common;
+using BadScript2.Parser.Operators;
+
+namespace BadScript2.Interop.Common.Task;
 
 public class BadTaskRunner
 {
+    public static readonly BadTaskRunner Instance = new BadTaskRunner();
     private readonly List<BadTask> m_TaskList = new List<BadTask>();
+
+    private BadTaskRunner()
+    {
+        BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
+    }
 
     public BadTask? Current { get; private set; }
     public bool IsIdle => m_TaskList.Count == 0;
@@ -27,7 +35,7 @@ public class BadTaskRunner
                         break;
                     }
 
-                    if (t.IsFinished || !t.Enumerator.MoveNext())
+                    if (t.IsFinished || !t.Runnable.Enumerator.MoveNext())
                     {
                         t.Stop();
 
@@ -42,8 +50,15 @@ public class BadTaskRunner
                 t.ContinuationTasks.ForEach(
                     x =>
                     {
-                        m_TaskList.Add(x);
-                        x.Start();
+                        if (m_TaskList.Contains(x))
+                        {
+                            x.Resume();
+                        }
+                        else
+                        {
+                            m_TaskList.Add(x);
+                            x.Start();
+                        }
                     }
                 );
             }

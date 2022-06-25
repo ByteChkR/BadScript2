@@ -28,7 +28,7 @@ public class BadScriptDebugger : IBadDebugger
             ctx.Run(
                 new BadSourceParser(
                     BadSourceReader.FromFile(BadScriptDebuggerSettings.Instance.DebuggerPath),
-                    new BadOperatorTable()
+                    BadOperatorTable.Instance
                 ).Parse()
             );
         }

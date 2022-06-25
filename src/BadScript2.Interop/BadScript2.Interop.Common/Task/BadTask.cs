@@ -8,7 +8,7 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Interop.Common;
+namespace BadScript2.Interop.Common.Task;
 
 public class BadTask : BadObject
 {
@@ -31,20 +31,21 @@ public class BadTask : BadObject
                 throw new BadRuntimeException("Task constructor takes a function as second argument");
             }
 
-            return new BadTask(f.Invoke(Array.Empty<BadObject>(), ctx).GetEnumerator(), name.Value);
+            return new BadTask(BadRunnable.Create(f, ctx), name.Value);
         }
     );
 
     public readonly List<BadTask> ContinuationTasks = new List<BadTask>();
-    public readonly IEnumerator<BadObject> Enumerator;
+    public readonly BadRunnable Runnable;
 
     private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
         new Dictionary<BadObject, BadObjectReference>();
 
-    public BadTask(IEnumerator<BadObject> enumerator, string name)
+
+    public BadTask(BadRunnable runnable, string name)
     {
         Name = name;
-        Enumerator = enumerator;
+        Runnable = runnable;
         m_Properties.Add(
             "Name",
             BadObjectReference.Make("Task.Name", () => Name, (o, t) => Name = o is IBadString s ? s.Value : Name)
@@ -80,7 +81,7 @@ public class BadTask : BadObject
         IsRunning = !(IsFinished = true);
     }
 
-    private BadObject Cancel(BadExecutionContext arg)
+    public void Cancel()
     {
         if (!IsRunning)
         {
@@ -88,28 +89,16 @@ public class BadTask : BadObject
         }
 
         IsFinished = true;
-
-        return Null;
     }
 
-    private BadObject Resume(BadExecutionContext arg)
+    private BadObject Cancel(BadExecutionContext arg)
     {
-        if (!IsRunning)
-        {
-            throw new BadRuntimeException("Task is not running");
-        }
-
-        if (IsPaused)
-        {
-            throw new BadRuntimeException("Task is already running");
-        }
-
-        IsPaused = true;
+        Cancel();
 
         return Null;
     }
 
-    private BadObject Pause(BadExecutionContext arg)
+    public void Resume()
     {
         if (!IsRunning)
         {
@@ -122,6 +111,31 @@ public class BadTask : BadObject
         }
 
         IsPaused = false;
+
+    }
+    private BadObject Resume(BadExecutionContext arg)
+    {
+        Resume();
+        return Null;
+    }
+
+    public void Pause()
+    {
+        if (!IsRunning)
+        {
+            throw new BadRuntimeException("Task is not running");
+        }
+
+        if (IsPaused)
+        {
+            throw new BadRuntimeException("Task is already paused");
+        }
+
+        IsPaused = true;
+    }
+    private BadObject Pause(BadExecutionContext arg)
+    {
+        Pause();
 
         return Null;
     }
@@ -138,9 +152,9 @@ public class BadTask : BadObject
         return Null;
     }
 
-    public static BadObject Create(BadFunction f, BadExecutionContext caller, string? name)
+    public static BadObject Create(BadFunction f, BadExecutionContext caller, string? name, params BadObject[] args)
     {
-        return new BadTask(f.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator(), name ?? f.ToString());
+        return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());
     }
 
     public override BadObjectReference GetProperty(BadObject propName)

@@ -10,6 +10,8 @@ namespace BadScript2.Parser.Operators;
 
 public class BadOperatorTable
 {
+    private BadOperatorTable(){}
+    private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>();
     private readonly List<BadBinaryOperator> m_Operators = new List<BadBinaryOperator>
     {
         new BadPostIncrementOperator(),
@@ -19,6 +21,7 @@ public class BadOperatorTable
         new BadSubtractAssignOperator(),
         new BadMultiplyAssignOperator(),
         new BadDivideAssignOperator(),
+        new BadRangeOperator(),
         new BadMemberAccessOperator(),
         new BadEqualityOperator(),
         new BadInequalityOperator(),
@@ -51,7 +54,25 @@ public class BadOperatorTable
         new BadPreIncrementOperator(),
     };
 
-    public static BadOperatorTable Default { get; } = new BadOperatorTable();
+    public BadValueParser? GetValueParser(BadSourceParser parser) =>
+        m_ValueParsers.FirstOrDefault(x => x.IsValue(parser));
+    
+    public void AddValueParser(BadValueParser parser)
+    {
+        m_ValueParsers.Add(parser);
+    }
+    
+    public void AddOperator(BadBinaryOperator op)
+    {
+        m_Operators.Add(op);
+    }
+    
+    public void AddUnaryPrefixOperator(BadUnaryPrefixOperator op)
+    {
+        m_UnaryPrefixOperators.Add(op);
+    }
+
+    public static BadOperatorTable Instance { get; } = new BadOperatorTable();
 
     public IEnumerable<string> BinarySymbols => m_Operators.Select(x => x.Symbol);
 

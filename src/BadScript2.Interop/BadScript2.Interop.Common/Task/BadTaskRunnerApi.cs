@@ -4,7 +4,7 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
-namespace BadScript2.Interop.Common;
+namespace BadScript2.Interop.Common.Task;
 
 public class BadTaskRunnerApi : BadInteropApi
 {

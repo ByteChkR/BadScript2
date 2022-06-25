@@ -6,6 +6,7 @@ using BadScript2.Debugging;
 using BadScript2.Interactive;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Apis;
+using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -19,7 +20,6 @@ namespace BadScript2.Console.Systems.Run;
 
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
-    private readonly BadTaskRunner m_Runner = new BadTaskRunner();
 
     private string StartupDirectory
     {
@@ -41,7 +41,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
     private int RunInteractive(BadExecutionContextOptions options, IEnumerable<string> files)
     {
-        BadInteractiveConsole console = new BadInteractiveConsole(options, m_Runner, files);
+        BadInteractiveConsole console = new BadInteractiveConsole(options, BadTaskRunner.Instance, files);
         while (true)
         {
             System.Console.Write(">");
@@ -59,7 +59,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     private BadExecutionContextOptions CreateOptions()
     {
         BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
-        options.Apis.Add(new BadTaskRunnerApi(m_Runner));
+        options.Apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
         return options;
     }
@@ -120,10 +120,10 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 exprs = BadExpressionOptimizer.Optimize(exprs);
             }
 
-            m_Runner.AddTask(new BadTask(Run(context, context.Execute(exprs)).GetEnumerator(), "Main"), true);
-            while (!m_Runner.IsIdle)
+            BadTaskRunner.Instance.AddTask(new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"), true);
+            while (!BadTaskRunner.Instance.IsIdle)
             {
-                m_Runner.RunStep();
+                BadTaskRunner.Instance.RunStep();
             }
         }
 

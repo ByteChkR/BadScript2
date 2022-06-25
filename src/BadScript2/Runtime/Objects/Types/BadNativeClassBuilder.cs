@@ -51,7 +51,7 @@ public static class BadNativeClassBuilder
 
     private static BadClassPrototype CreateNativeType(string name, string file)
     {
-        BadSourceParser parser = new BadSourceParser(BadSourceReader.FromFile(file), BadOperatorTable.Default);
+        BadSourceParser parser = new BadSourceParser(BadSourceReader.FromFile(file), BadOperatorTable.Instance);
         BadExecutionContext ctx = new BadExecutionContext(
             new BadScope("<root>", null, BadScopeFlags.AllowThrow | BadScopeFlags.Returnable)
         );

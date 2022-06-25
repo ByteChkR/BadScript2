@@ -5,6 +5,7 @@ using BadScript2.Console.Systems.Run;
 using BadScript2.Console.Systems.Settings;
 using BadScript2.Console.Systems.Test;
 using BadScript2.Interop.Common;
+using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.Net;

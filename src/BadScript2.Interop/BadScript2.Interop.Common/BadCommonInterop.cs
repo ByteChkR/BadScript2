@@ -1,5 +1,6 @@
 using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Extensions;
+using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Interop;
 
 namespace BadScript2.Interop.Common;
@@ -24,5 +25,6 @@ public class BadCommonInterop
         BadInteropExtension.AddExtension<BadArrayExtension>();
         BadInteropExtension.AddExtension<BadFunctionExtension>();
         BadInteropExtension.AddExtension<BadTypeSystemExtension>();
+        BadInteropExtension.AddExtension<BadTaskExtensions>();
     }
 }

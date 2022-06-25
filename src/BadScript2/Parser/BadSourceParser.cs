@@ -35,7 +35,7 @@ public class BadSourceParser
 
     public static BadSourceParser Create(string fileName, string source)
     {
-        return new BadSourceParser(new BadSourceReader(fileName, source), BadOperatorTable.Default);
+        return new BadSourceParser(new BadSourceReader(fileName, source), BadOperatorTable.Instance);
     }
 
     private BadExpression? ParsePrefix(int precedence)
@@ -415,6 +415,12 @@ public class BadSourceParser
             BadNumberToken token = Reader.ParseNumber();
 
             return new BadNumberExpression(decimal.Parse(token.Text), token.SourcePosition);
+        }
+
+        BadValueParser? valueParser = m_Operators.GetValueParser(this);
+        if (valueParser != null)
+        {
+            return valueParser.ParseValue(this);
         }
 
         Reader.SkipNonToken();
