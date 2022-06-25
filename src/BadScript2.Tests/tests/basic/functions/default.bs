@@ -47,3 +47,15 @@ function TestArgSingleLine()
 }
 
 NUnit.AddTest(TestArg, "Single Line Function Definition + Call: argument");
+
+function TestReturn()
+{
+	function Func()
+	{
+		return;
+		Assert.Fail("Function did not return!");
+	}
+
+	Func();
+}
+NUnit.AddTest(TestReturn, "Test Return null");

@@ -14,7 +14,7 @@ elseif ($IsMacOS) {
     $bs = "$pwd/build/bs"
 }
 else {
-    write-host "Could not determine OS Version. Exiting.."
+    write-output "Could not determine OS Version. Exiting.."
     exit
 }
 

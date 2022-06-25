@@ -215,6 +215,12 @@
         <None Update="tests\basic\operators\Custom\TestArrayAccessRef.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\IfBranches.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\PrecedenceOverride.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
