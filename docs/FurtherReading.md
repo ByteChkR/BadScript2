@@ -1,6 +1,5 @@
 # Further Reading
 
-- [Compiling Scripts](./advanced/Compiling.md)
 - [Extending the Runtime](./advanced/Extending.md)
 - [Embedding BadScript2](./advanced/Embedding.md)
 

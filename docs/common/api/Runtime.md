@@ -24,10 +24,6 @@ The `Runtime` api has the following Properties:
         GetExtensionNames: function GetExtensionNames(BadObject)
         GetGlobalExtensionNames: function GetGlobalExtensionNames()
         GetTimeNow: function GetTimeNow()
-        Compiler: {
-                CompileFunction: function CompileFunction(BadExpressionFunction)
-                CompileSource: function CompileSource(src, file?, optimize?)
-        }
 }
 ```
 ___

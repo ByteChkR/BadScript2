@@ -3,7 +3,6 @@ using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
-using BadScript2.Runtime.Compiler;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -110,26 +109,6 @@ public class BadRuntimeApi : BadInteropApi
         target.SetFunction<BadObject>("GetExtensionNames", GetExtensionNames);
         target.SetFunction("GetGlobalExtensionNames", GetGlobalExtensionNames);
         target.SetFunction("GetTimeNow", GetTimeNow);
-
-
-        BadTable compiler = new BadTable();
-
-        compiler.SetFunction<BadExpressionFunction>("CompileFunction", BadCompiler.Compile);
-        compiler.SetProperty(
-            "CompileSource",
-            new BadInteropFunction(
-                "CompileSource",
-                args => CompileSource(
-                    args[0],
-                    args.Length == 1 ? BadObject.Null : args[1]
-                ),
-                "src",
-                new BadFunctionParameter("file", true, false, false),
-                new BadFunctionParameter("optimize", true, false, false)
-            )
-        );
-
-        target.SetProperty("Compiler", compiler);
     }
 
 
@@ -179,39 +158,7 @@ public class BadRuntimeApi : BadInteropApi
     {
         return m_Exports[name];
     }
-
-
-    private static BadObject CompileSource(BadObject str, BadObject fileObj)
-    {
-        if (str is not IBadString src)
-        {
-            throw new BadRuntimeException($"Evaluate: Argument 'src' is not a string {str}");
-        }
-
-        string file = "<eval>";
-        if (fileObj is IBadString fileStr)
-        {
-            file = fileStr.Value;
-        }
-        else if (fileObj != BadObject.Null)
-        {
-            throw new BadRuntimeException("Evaluate: Argument 'fileObj' is not a string");
-        }
-
-        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization;
-
-        BadExecutionContext ctx = BadExecutionContextOptions.Default.Build();
-        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
-        if (optimize)
-        {
-            exprs = BadExpressionOptimizer.Optimize(exprs);
-        }
-
-        BadLogger.Log($"Compiling file {file}", "Runtime");
-
-        return BadCompiler.Compile(exprs, ctx.Scope);
-    }
-
+    
     private BadObject Evaluate(BadObject str, BadObject fileObj)
     {
         if (str is not IBadString src)
