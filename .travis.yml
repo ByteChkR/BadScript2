@@ -16,3 +16,7 @@ install:
 
 script:
   - dotnet build $SOLUTION -c $BUILDCONFIG
+
+after_script:
+  - dotnet test $SOLUTION --collect:"XPlat Code Coverage" -c $BUILDCONFIG
+  - bash <(curl -s https://codecov.io/bash) #Uploading the coverage report to Codecov.

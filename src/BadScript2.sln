@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Json", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Tests", "BadScript2.Tests\BadScript2.Tests.csproj", "{5DDE7892-A3CE-4AA3-8975-3EDA4E5A4832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Net", "BadScript2.Interop.Net\BadScript2.Interop.Net.csproj", "{13C9846D-6B95-4BF4-9735-FB35F14EA4F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Net", "BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj", "{13C9846D-6B95-4BF4-9735-FB35F14EA4F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

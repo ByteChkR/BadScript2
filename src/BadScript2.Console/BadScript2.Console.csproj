@@ -11,7 +11,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\BadScript2.Interactive\BadScript2.Interactive.csproj"/>
-        <ProjectReference Include="..\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj"/>
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj"/>
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj"/>
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj"/>
