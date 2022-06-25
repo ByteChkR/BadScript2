@@ -3,6 +3,7 @@
 - [Console API](./Console.md)
 - [Math API](./Math.md)
 - [Runtime API](./Runtime.md)
+- [Concurrent API](./Concurrent.md)
 
 ___
 
