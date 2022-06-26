@@ -5,9 +5,11 @@ namespace BadScript2.Console;
 internal class BadConsoleRunner
 {
     private readonly BadConsoleSystem[] m_Systems;
+    private readonly BadConsoleSystem m_Default;
 
-    public BadConsoleRunner(params BadConsoleSystem[] systems)
+    public BadConsoleRunner(BadConsoleSystem @default, params BadConsoleSystem[] systems)
     {
+        m_Default = @default;
         m_Systems = systems;
     }
 
@@ -33,9 +35,7 @@ internal class BadConsoleRunner
 
         if (system == null)
         {
-            System.Console.WriteLine("Unknown command");
-
-            return -1;
+            return m_Default.Run(m_Default.Parse(args));
         }
 
         return system.Run(system.Parse(args.Skip(1).ToArray()));

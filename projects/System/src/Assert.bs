@@ -1,0 +1,53 @@
+
+let Native = Runtime.Native;
+
+function IsString(obj)
+{
+	if(obj == null || !Native.IsString(obj)) => throw "Expected String";
+}
+
+function IsBoolean(obj)
+{
+	if(obj == null || !Native.IsBoolean(obj)) => throw "Expected Boolean";
+}
+
+function IsNumber(obj)
+{
+	if(obj == null || !Native.IsNumber(obj)) => throw "Expected Number";
+}
+
+function IsArray(obj)
+{
+	if(obj == null || !Native.IsArray(obj)) => throw "Expected Array";
+}
+
+function IsTable(obj)
+{
+	if(obj == null || !Native.IsTable(obj)) => throw "Expected Table";
+}
+
+function IsFunction(obj)
+{
+	if(obj == null || !Native.IsFunction(obj)) => throw "Expected Function";
+}
+
+function IsEnumerable(obj)
+{
+	if(obj == null || !Native.IsEnumerable(obj)) => throw "Expected Enumerable";
+}
+
+function IsEnumerator(obj)
+{
+	if(obj == null || !Native.IsEnumerator(obj)) => throw "Expected Enumerator";
+}
+
+const Assert = {
+	IsString: IsString,
+	IsBoolean: IsBoolean,
+	IsNumber: IsNumber,
+	IsArray: IsArray,
+	IsTable: IsTable,
+	IsFunction: IsFunction,
+	IsEnumerator: IsEnumerator,
+	IsEnumerable: IsEnumerable
+}

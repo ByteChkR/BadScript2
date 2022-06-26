@@ -35,6 +35,7 @@ public class BadReturnExpression : BadExpression
         if (Right == null)
         {
             context.Scope.SetReturnValue(value);
+
             yield return value;
 
             yield break;

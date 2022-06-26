@@ -1,8 +1,10 @@
 
 
 #import Package from Runtime
-#import Assert from Package
-#import Logging from Package
+#import System from Package
+const Assert = System.Assert;
+const Logging = System.Logging;
+const SourceReader = System.SourceReader;
 
 class ProjectLogger : Logging.TagLogger
 {

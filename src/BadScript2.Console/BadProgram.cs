@@ -61,6 +61,7 @@ internal class BadProgram
 
 
         BadConsoleRunner runner = new BadConsoleRunner(
+            new BadDefaultRunSystem(),
             new BadTestSystem(),
             new BadRunSystem(),
             new BadSettingsSystem()

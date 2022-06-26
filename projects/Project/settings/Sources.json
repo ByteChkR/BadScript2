@@ -1,3 +1,4 @@
 [
-	"./src/Project.bs"
+	"./src/Project.bs",
+	"./src/ProjectUtils.bs"
 ]
