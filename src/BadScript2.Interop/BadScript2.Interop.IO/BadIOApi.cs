@@ -1,4 +1,5 @@
-﻿using BadScript2.Runtime.Interop;
+﻿using BadScript2.Interop.Common.Task;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
@@ -99,6 +100,14 @@ public class BadIOApi : BadInteropApi
             s => File.ReadAllText(s)
         );
         t.SetFunction<string>(
+            "ReadAllTextAsync",
+            s => new BadTask(BadTaskUtils.WaitForTask(File.ReadAllTextAsync(s)), "File.ReadAllTextAsync")
+        );
+        t.SetFunction<string, string>(
+            "WriteAllTextAsync",
+            (file, str) => new BadTask(BadTaskUtils.WaitForTask(File.WriteAllTextAsync(file, str)), "File.WriteAllTextAsync")
+        );
+        t.SetFunction<string>(
             "Exists",
             s => File.Exists(s)
         );
@@ -118,6 +127,19 @@ public class BadIOApi : BadInteropApi
 
                 return BadObject.Null;
             }
+        );
+
+        t.SetFunction<string>(
+            "ReadAllLinesAsync",
+            s => new BadTask(BadTaskUtils.WaitForTask(File.ReadAllLinesAsync(s)), "File.ReadAllLinesAsync")
+        );
+        
+        t.SetFunction<string, BadArray>(
+            "WriteAllLinesAsync",
+            (file, str) => new BadTask(
+                BadTaskUtils.WaitForTask(File.WriteAllLinesAsync(file, str.InnerArray.Select(x => x.ToString()))),
+                "File.WriteAllLinesAsync"
+            )
         );
 
         return t;

@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
+        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
     </ItemGroup>
 
 </Project>

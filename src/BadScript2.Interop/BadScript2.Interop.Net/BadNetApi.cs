@@ -14,85 +14,21 @@ public class BadNetApi : BadInteropApi
     public override void Load(BadTable target)
     {
         target.SetFunction<string>("Get", Get);
+        target.SetFunction<string, string>("Post", Post);
     }
 
-    public static BadInteropRunnable WaitForTask<T>(Task<T> t, Func<T, BadObject> onComplete)
+
+    private BadTask Post(BadExecutionContext context, string url, string content)
     {
-        BadInteropRunnable? runnable = null;
-
-        IEnumerator<BadObject> InnerWaitForTask()
-        {
-            while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
-            {
-                yield return BadObject.Null;
-            }
-
-            if (t.IsCompletedSuccessfully)
-            {
-                runnable!.SetReturn(onComplete(t.Result));
-            }
-            else
-            {
-                throw new BadRuntimeException("Task Failed");
-            }
-        }
-
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
+        HttpClient cl = new HttpClient();
+        return new BadTask(BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))), "Net.Post");
     }
-
-    public static BadInteropRunnable WaitForTask<T>(Task<T> t)
-    {
-        BadInteropRunnable? runnable = null;
-
-        IEnumerator<BadObject> InnerWaitForTask()
-        {
-            while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
-            {
-                yield return BadObject.Null;
-            }
-
-            if (t.IsCompletedSuccessfully)
-            {
-                runnable!.SetReturn(BadObject.Wrap(t.Result));
-            }
-            else
-            {
-                throw new BadRuntimeException("Task Failed");
-            }
-        }
-
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
-    }
-
-    // public static IEnumerator<BadObject> WaitForTask<T>(BadExecutionContext caller, Task<T> t, BadFunction onComplete)
-    // {
-    //     while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
-    //     {
-    //         yield return BadObject.Null;
-    //     }
-    //
-    //     if (t.IsCompletedSuccessfully)
-    //     {
-    //         foreach (BadObject o in onComplete.Invoke(new[] { BadObject.Wrap(t.Result) }, caller))
-    //         {
-    //             yield return o;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         throw new BadRuntimeException("Task Failed");
-    //     }
-    // }
-
+    
     private BadTask Get(BadExecutionContext context, string url)
     {
         HttpClient cl = new HttpClient();
         Task<HttpResponseMessage>? task = cl.GetAsync(url);
 
-        return new BadTask(WaitForTask(task), $"Net.Get(\"{url}\")");
+        return new BadTask( BadTaskUtils.WaitForTask(task), $"Net.Get(\"{url}\")");
     }
 }

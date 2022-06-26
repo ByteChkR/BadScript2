@@ -45,7 +45,7 @@ public class BadNetInteropExtensions : BadInteropExtension
     {
         Task<string> task = content.ReadAsStringAsync();
 
-        return new BadTask(BadNetApi.WaitForTask(task), "HttpContent.ReadAsString");
+        return new BadTask(BadTaskUtils.WaitForTask(task), "HttpContent.ReadAsString");
     }
 
     private BadTask Content_ReadAsArray(HttpContent content)
@@ -53,7 +53,7 @@ public class BadNetInteropExtensions : BadInteropExtension
         Task<byte[]> task = content.ReadAsByteArrayAsync();
 
         return new BadTask(
-            BadNetApi.WaitForTask(
+            BadTaskUtils.WaitForTask(
                 task,
                 o => new BadArray(o.Select(x => (BadObject)(decimal)x).ToList())
             ),
