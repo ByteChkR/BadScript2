@@ -19,9 +19,9 @@ else {
 }
 
 function Build-Language {
-    cd src
-    dotnet publish -o ../build -c $config --os $os
-    cd ..
+    cd src/BadScript2.Console
+    dotnet publish -o ../../build -c $config --os $os
+    cd ../..
     cp _copy_to_build/* build/
 }
 
