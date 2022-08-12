@@ -98,7 +98,7 @@ public static class BadSourceReaderExtensions
         if (!reader.IsWordStart())
         {
             throw new BadSourceReaderException(
-                $"Expected word start character but got '{(reader.IsEOF() ? "EOF" : reader.GetCurrentChar())}'",
+                $"Expected word start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
                 reader.MakeSourcePosition(1)
             );
         }
@@ -118,7 +118,7 @@ public static class BadSourceReaderExtensions
         if (!reader.IsNumberStart())
         {
             throw new BadSourceReaderException(
-                $"Expected number start character but got '{(reader.IsEOF() ? "EOF" : reader.GetCurrentChar())}'",
+                $"Expected number start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
                 reader.MakeSourcePosition(1)
             );
         }
@@ -126,7 +126,7 @@ public static class BadSourceReaderExtensions
         int start = reader.CurrentIndex;
         reader.MoveNext();
         bool hasDecimal = false;
-        while (reader.IsDigit() || (!hasDecimal && reader.Is(BadStaticKeys.DecimalSeparator)))
+        while (reader.IsDigit() || !hasDecimal && reader.Is(BadStaticKeys.DecimalSeparator))
         {
             if (reader.Is(BadStaticKeys.DecimalSeparator))
             {
@@ -157,7 +157,7 @@ public static class BadSourceReaderExtensions
         }
 
         throw new BadSourceReaderException(
-            $"Expected boolean but got '{(reader.IsEOF() ? "EOF" : reader.GetCurrentChar())}'",
+            $"Expected boolean but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
             reader.MakeSourcePosition(1)
         );
     }
@@ -193,7 +193,7 @@ public static class BadSourceReaderExtensions
         if (!reader.IsStringQuote())
         {
             throw new BadSourceReaderException(
-                $"Expected string start character but got '{(reader.IsEOF() ? "EOF" : reader.GetCurrentChar())}'",
+                $"Expected string start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
                 reader.MakeSourcePosition(1)
             );
         }
@@ -204,7 +204,7 @@ public static class BadSourceReaderExtensions
         StringBuilder sb = new StringBuilder("\"");
         while (!reader.IsStringQuote())
         {
-            if (reader.IsNewLine() || reader.IsEOF())
+            if (reader.IsNewLine() || reader.IsEof())
             {
                 throw new BadSourceReaderException(
                     "String not terminated",

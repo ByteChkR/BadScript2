@@ -1,0 +1,80 @@
+@inject IJSRuntime JS
+
+<div style="height: 100%; width: 100%;">
+    <MonacoEditor CssClass="code-input" ConstructionOptions="EditorConstructionOptions"/>
+</div>
+
+<style>
+    .code-input {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
+@code {
+
+    [Parameter]
+    public EventCallback<CodeEditor> OnEditorInitialized { get; set; } = EventCallback<CodeEditor>.Empty;
+
+    private MonacoEditor? m_Editor;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        JS.InvokeVoidAsync("AddBadScriptLanguage");
+        OnEditorInitialized.InvokeAsync(this);
+    }
+
+    public async Task<string> GetValue()
+    {
+        TextModel? model = await m_Editor!.GetModel();
+        return await model.GetValue(EndOfLinePreference.TextDefined, null);
+    }
+
+
+    public async void Open(string text, string language)
+    {
+        TextModel? model = await m_Editor!.GetModel();
+        MonacoEditor.SetModelLanguage(model, language);
+        await model.SetValue(text);
+    }
+
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
+    {
+        string value = "";
+
+        m_Editor = editor;
+        return new StandaloneEditorConstructionOptions
+        {
+            AutoIndent = true,
+            AutomaticLayout = true,
+            Theme = "vs-dark",
+            TabSize = 4,
+            WordBasedSuggestions = true,
+            AcceptSuggestionOnCommitCharacter = true,
+            CodeLens = true,
+            CursorSmoothCaretAnimation = true,
+            Folding = true,
+            FoldingHighlight = true,
+            FormatOnPaste = true,
+            Hover = new EditorHoverOptions
+            {
+                Enabled = true,
+            },
+            InlineHints = new EditorInlineHintsOptions
+            {
+                Enabled = true,
+            },
+            Lightbulb = new EditorLightbulbOptions
+            {
+                Enabled = true,
+            },
+            Links = true,
+            ScrollBeyondLastLine = false,
+            SmoothScrolling = true,
+            Language = "badscript",
+            Value = value,
+        };
+    }
+
+}

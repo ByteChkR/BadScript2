@@ -221,7 +221,7 @@ public class BadScope : BadObject
 
     public bool HasVariable(BadObject name)
     {
-        return HasLocal(name) || (Parent != null && Parent.HasVariable(name));
+        return HasLocal(name) || Parent != null && Parent.HasVariable(name);
     }
 
     public override BadObjectReference GetProperty(BadObject propName)

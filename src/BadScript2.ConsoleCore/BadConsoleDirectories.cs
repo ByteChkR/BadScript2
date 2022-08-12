@@ -1,3 +1,5 @@
+using BadScript2.IO;
+
 namespace BadScript2.Console;
 
 public static class BadConsoleDirectories
@@ -6,9 +8,9 @@ public static class BadConsoleDirectories
     {
         get
         {
-            string s = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+            string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
 
-            Directory.CreateDirectory(s);
+            BadFileSystem.Instance.CreateDirectory(s);
 
             return s;
         }

@@ -56,7 +56,7 @@ public static class BadTaskUtils
 
         return runnable;
     }
-    
+
     public static BadInteropRunnable WaitForTask<T>(Task<T> t)
     {
         BadInteropRunnable? runnable = null;
@@ -82,5 +82,4 @@ public static class BadTaskUtils
 
         return runnable;
     }
-
 }

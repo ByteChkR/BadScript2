@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj" />
         <ProjectReference Include="..\BadScript2.Interactive\BadScript2.Interactive.csproj" />
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj" />
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
@@ -19,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommandLineParser" Version="2.9.1" />
         <PackageReference Include="NUnit.ConsoleRunner" Version="3.15.0" />
         <PackageReference Include="NUnitLite" Version="3.13.3" />
     </ItemGroup>
@@ -386,7 +386,7 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\subsystems\run\libs\System.bs">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

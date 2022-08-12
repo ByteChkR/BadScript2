@@ -1,3 +1,4 @@
+using BadScript2.IO;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -96,7 +97,7 @@ public class BadUnitTestContextBuilder
     private void SetupStage(string file, bool optimize = false)
     {
         //Load expressions
-        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, File.ReadAllText(file)).Parse();
+        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
 
         if (optimize)
         {

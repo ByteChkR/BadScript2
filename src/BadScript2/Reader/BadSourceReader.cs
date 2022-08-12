@@ -1,4 +1,5 @@
 ﻿using BadScript2.Common;
+using BadScript2.IO;
 
 namespace BadScript2.Reader;
 
@@ -24,10 +25,10 @@ public class BadSourceReader
 
     public static BadSourceReader FromFile(string fileName)
     {
-        return new BadSourceReader(fileName, File.ReadAllText(fileName));
+        return new BadSourceReader(fileName, BadFileSystem.ReadAllText(fileName));
     }
 
-    public bool IsEOF(int offset = 0)
+    public bool IsEof(int offset = 0)
     {
         return CurrentIndex + offset >= m_Source.Length && CurrentIndex + offset >= 0;
     }
@@ -44,7 +45,7 @@ public class BadSourceReader
 
     public char GetCurrentChar(int offset = 0)
     {
-        return IsEOF(offset) ? '\0' : m_Source[CurrentIndex + offset];
+        return IsEof(offset) ? '\0' : m_Source[CurrentIndex + offset];
     }
 
     public void MoveNext()
@@ -96,7 +97,7 @@ public class BadSourceReader
         if (!Is(c))
         {
             throw new BadSourceReaderException(
-                $"Expected '{c}' but got '{(IsEOF() ? "EOF" : GetCurrentChar())}'",
+                $"Expected '{c}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
                 MakeSourcePosition(1)
             );
         }
@@ -116,7 +117,7 @@ public class BadSourceReader
         }
 
         throw new BadSourceReaderException(
-            $"Expected '{string.Join("' or '", c)}' but got '{(IsEOF() ? "EOF" : GetCurrentChar())}'",
+            $"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
             MakeSourcePosition(1)
         );
     }
@@ -129,7 +130,7 @@ public class BadSourceReader
             if (!Is(s[i]))
             {
                 throw new BadSourceReaderException(
-                    $"Expected '{s}' but got '{(IsEOF() ? "EOF" : GetCurrentChar())}'",
+                    $"Expected '{s}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
                     MakeSourcePosition(start, i)
                 );
             }
@@ -146,7 +147,7 @@ public class BadSourceReader
         if (str == null)
         {
             throw new BadSourceReaderException(
-                $"Expected '{string.Join("' or '", s)}' but got '{(IsEOF() ? "EOF" : GetCurrentChar())}'",
+                $"Expected '{string.Join("' or '", s)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
                 MakeSourcePosition(1)
             );
         }
@@ -156,7 +157,7 @@ public class BadSourceReader
 
     public void Seek(char c)
     {
-        while (!IsEOF() && GetCurrentChar() != c)
+        while (!IsEof() && GetCurrentChar() != c)
         {
             MoveNext();
         }
@@ -164,7 +165,7 @@ public class BadSourceReader
 
     public void Seek(string s)
     {
-        while (!IsEOF() && !Is(s))
+        while (!IsEof() && !Is(s))
         {
             MoveNext();
         }
@@ -172,7 +173,7 @@ public class BadSourceReader
 
     public void Seek(params char[] c)
     {
-        while (!IsEOF() && !Is(c))
+        while (!IsEof() && !Is(c))
         {
             MoveNext();
         }
@@ -180,7 +181,7 @@ public class BadSourceReader
 
     public void Seek(params string[] s)
     {
-        while (!IsEOF() && !Is(s))
+        while (!IsEof() && !Is(s))
         {
             MoveNext();
         }

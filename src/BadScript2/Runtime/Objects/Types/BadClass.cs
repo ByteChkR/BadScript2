@@ -24,7 +24,7 @@ public class BadClass : BadObject
 
     public bool InheritsFrom(BadClassPrototype proto)
     {
-        return Prototype == proto || (m_BaseClass != null && m_BaseClass.InheritsFrom(proto));
+        return Prototype == proto || m_BaseClass != null && m_BaseClass.InheritsFrom(proto);
     }
 
     public void SetThis()

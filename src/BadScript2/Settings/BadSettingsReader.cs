@@ -1,4 +1,5 @@
 using BadScript2.Common.Logging;
+using BadScript2.IO;
 
 using Newtonsoft.Json.Linq;
 
@@ -41,7 +42,7 @@ public class BadSettingsReader
 
     private JToken ReadJsonFile(string fileName)
     {
-        string json = File.ReadAllText(fileName);
+        string json = BadFileSystem.ReadAllText(fileName);
         JToken token = JToken.Parse(json);
 
         return token;
@@ -87,11 +88,11 @@ public class BadSettingsReader
                     bool allDirs = include.Contains("**");
                     string[] parts = include.Split('*', StringSplitOptions.RemoveEmptyEntries);
                     string path = parts[0];
-                    string pattern = parts[1];
-                    string[] files = Directory.GetFiles(
+                    string extension = parts[1];
+                    IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
                         path,
-                        $"*{pattern}",
-                        allDirs ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
+                        extension,
+                        allDirs
                     );
                     setting.AddRange(
                         files.Select(

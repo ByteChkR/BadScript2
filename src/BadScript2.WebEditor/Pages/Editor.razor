@@ -1,0 +1,215 @@
+@page "/"
+@inject IJSRuntime JSRuntime
+@using BadScript2.IO.Virtual
+@using BadScript2.Optimizations
+@using BadScript2.Parser
+@using BadScript2.Parser.Expressions
+@using BadScript2.Runtime
+@using BadScript2.Runtime.Objects
+@using BadScript2.Runtime.Settings
+@using BadScript2.IO
+@using BadScript2.Interop.Common.Apis
+@using BadScript2.Interop.Common.Task
+@using BadScript2.Console.Systems.Run
+
+<div class="editor-content">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <button onclick="@Open">Open</button>
+            <button onclick="@Save">Save</button>
+        </div>
+        <FileSystemView SelectedNodeChanged="@SelectedNodeChanged" FileSystem="@FileSystem"></FileSystemView>
+        
+    </div>
+    <div class="editor-container">
+        <CodeEditor OnEditorInitialized="EditorInit"></CodeEditor>
+    </div>
+    <div class="logout">
+        <textarea style="width: 100%; height: 100%; resize: none; background-color: #0e0e0e; color: white;" readonly>@ConsoleOutput</textarea>
+    </div>
+</div>
+<div style="height: 200px; width: 100%; min-width: 1000px">
+    <SimpleConsole OnFileSystemChanged="@FileSystemChanged" OnRunFile="@RunFile"></SimpleConsole>
+</div>
+<style>
+
+    .editor-content {
+        display: flex;
+        flex-direction: row;
+        height: calc(100% - 200px);
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+    
+    
+    button, input {
+        background-color: #1e1e1e;
+        transition: background-color 0.2s ease-in-out;
+        color: white;
+    }
+        
+    button:hover, input:hover {
+        background-color: #0e0e0e;
+    }
+    
+    
+    .sidebar-header {
+        padding-bottom: 15px;
+    }
+    
+    
+    .editor-container {
+        flex: 1;
+        height: 100%;
+        width: calc(100% - 600px);
+        min-width: 400px;
+    }
+
+    .sidebar {
+        width: 300px;
+        height: 100%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        background-color: #0e0e0e;
+    }
+    
+    .logout {
+        width: 300px;
+        height: 100%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        background-color: #0e0e0e;
+    }
+    
+    .sidebar > .tree-view {
+        overflow-y: auto;
+        height: calc(100% - 75px);
+    }
+</style>
+
+@code {
+
+    
+    
+    
+    
+    private string ConsoleOutput = "";
+    private string NewFileText = "NewFile.bs";
+
+    
+    private CodeEditor? m_Editor;
+    private BadVirtualNode? SelectedNode { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        BadConsoleApi.AllowInput = false;
+        BadConsoleApi.OnClear += () => ConsoleOutput = "";
+        BadConsoleApi.OnWrite += s => ConsoleOutput += s;
+        BadConsoleApi.OnWriteLine += s => ConsoleOutput += s + "\n";
+        RunStartup();
+    }
+
+    private void FileSystemChanged()
+    {
+        FileSystemView.Reload();
+    }
+
+    private void SelectedNodeChanged(BadVirtualNode? node)
+    {
+        SelectedNode = node;
+    }
+
+    private BadVirtualFileSystem FileSystem => (BadFileSystem.Instance as BadVirtualFileSystem)!;
+
+    private BadVirtualFile? m_OpenFile;
+
+    public void Open()
+    {
+        if (SelectedNode is BadVirtualFile file)
+        {
+            m_OpenFile = file;
+            string lang = "badscript";
+            if (!file.Name.EndsWith(".bs")) lang = Path.GetExtension(file.Name).Remove(0, 1);
+            m_Editor!.Open(BadFileSystem.ReadAllText(file.AbsolutePath), lang);
+        }
+    }
+
+    public async void Save()
+    {
+        if (m_OpenFile != null)
+        {
+            string path = m_OpenFile.AbsolutePath;
+            string content = await m_Editor!.GetValue();
+            BadFileSystem.WriteAllText(path, content);
+        }
+    }
+
+
+    
+    private void EditorInit(CodeEditor editor)
+    {
+        Console.WriteLine("Editor initialized");
+        m_Editor = editor;
+    }
+
+    private async void RunStartup()
+    {
+        BadRunSystem sys = new BadRunSystem();
+        BadRunSystemSettings settings = new BadRunSystemSettings();
+        settings.Files = Enumerable.Empty<string>();
+        sys.Run(settings);
+    }
+
+    private async void RunFile(string file)
+    {
+        ConsoleOutput = "";
+        try
+        {
+            BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
+            BadExecutionContext context = CreateOptions().Build();
+
+            IEnumerable<BadExpression> exprs = parser.Parse();
+            if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
+            {
+                exprs = BadExpressionOptimizer.Optimize(exprs);
+            }
+
+            BadTaskRunner.Instance.AddTask(
+                new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"),
+                true
+                );
+            while (!BadTaskRunner.Instance.IsIdle)
+            {
+                BadTaskRunner.Instance.RunStep();
+            }
+            
+        }
+        catch (Exception e)
+        {
+            ConsoleOutput = e.ToString();
+        }
+    }
+
+
+    private BadExecutionContextOptions CreateOptions()
+    {
+        BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
+        options.Apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+
+        return options;
+    }
+
+    private IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> exprs)
+    {
+        foreach (BadObject o in exprs)
+        {
+            yield return o;
+        }
+
+        if (context.Scope.IsError)
+        {
+            Console.WriteLine("Error: " + context.Scope.Error);
+        }
+    }
+    } 

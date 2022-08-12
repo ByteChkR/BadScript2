@@ -1,4 +1,5 @@
 using BadScript2.Interop.Common.Task;
+using BadScript2.IO;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -61,7 +62,7 @@ public class BadInteractiveConsole
         BadExecutionContext ctx = m_Context;
         Reset();
         BadExecutionContext current = m_Context;
-        BadSourceParser parser = BadSourceParser.Create(file, File.ReadAllText(file));
+        BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
         Run(parser.Parse());
 
         m_Context = ctx;
@@ -71,8 +72,43 @@ public class BadInteractiveConsole
 
     public void Load(string file)
     {
-        BadSourceParser parser = BadSourceParser.Create(file, File.ReadAllText(file));
+        BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
         Run(parser.Parse());
+    }
+
+    private IEnumerable<object?> RunRoutine(IEnumerable<BadExpression> expressions)
+    {
+        IEnumerable<BadExpression> exprs = expressions;
+
+        if (PreParse)
+        {
+            exprs = expressions.ToArray();
+        }
+
+        if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
+        {
+            exprs = BadExpressionOptimizer.Optimize(exprs);
+        }
+
+        if (m_Context == null)
+        {
+            throw new BadRuntimeException("Context is not initialized");
+        }
+
+
+        m_Runner.AddTask(new BadTask(BadRunnable.Create(m_Context.Execute(exprs)), "Main"), true);
+        while (!m_Runner.IsIdle)
+        {
+            m_Runner.RunStep();
+
+            yield return null;
+        }
+
+        if (m_Context.Scope.Error != null)
+        {
+            Console.WriteLine("Error: " + m_Context.Scope.Error);
+            m_Context.Scope.UnsetError();
+        }
     }
 
     private void Run(IEnumerable<BadExpression> expressions)
@@ -123,6 +159,25 @@ public class BadInteractiveConsole
             Console.WriteLine("Error: " + m_Context.Scope.Error);
             m_Context.Scope.UnsetError();
         }
+    }
+
+    public IEnumerable<object?> RunIsolatedRoutine(string code)
+    {
+        if (m_Context == null)
+        {
+            throw new BadRuntimeException("Context is not initialized");
+        }
+
+        BadExecutionContext ctx = m_Context;
+        Reset();
+        BadExecutionContext current = m_Context;
+        BadSourceParser parser = BadSourceParser.Create("<stdin>", code);
+        foreach (object? o in RunRoutine(parser.Parse()))
+        {
+            yield return o;
+        }
+
+        m_Context = ctx;
     }
 
     public BadObject RunIsolated(string code)

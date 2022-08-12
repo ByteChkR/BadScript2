@@ -2,10 +2,10 @@ using BadScript2.Console.Systems;
 
 namespace BadScript2.Console;
 
-internal class BadConsoleRunner
+public class BadConsoleRunner
 {
-    private readonly BadConsoleSystem[] m_Systems;
     private readonly BadConsoleSystem m_Default;
+    private readonly BadConsoleSystem[] m_Systems;
 
     public BadConsoleRunner(BadConsoleSystem @default, params BadConsoleSystem[] systems)
     {

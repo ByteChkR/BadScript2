@@ -1,0 +1,155 @@
+@using BadScript2.IO
+@using BadScript2.WebEditor.Shared.Commandline
+@inject IJSRuntime JSRuntime
+@inject HttpClient HttpClient
+
+<div class="console-container">
+    <InputFile id="import-upload-input" OnChange="@InputFileUpload" hidden="">Import</InputFile>
+    <textarea id="simple-console-output" class="console-output" readonly>@ConsoleHistory</textarea>
+    <span class="console-input-container">
+        <input onkeyup="@ConsoleKeyUp" class="console-input" @bind="@ConsoleInput"/>
+        <button class="console-send" onclick="@SendCommand">Send</button>
+    </span>
+</div>
+<style>
+
+    .console-input-container {
+        display: flex;
+    }
+    .console-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .console-input {
+        width: calc(100% - 100px);
+        padding: 0;
+        margin: 0;
+        border: 1px solid white;
+    }
+    
+    .console-send {
+        width: 100px;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .console-output {
+        width: 100%;
+        flex-grow: 1;
+        overflow-y: auto;
+        font-size: 12px;
+        resize: none;
+    }
+    
+    button, input, textarea {
+        background-color: #1e1e1e;
+        transition: background-color 0.2s ease-in-out;
+        color: white;
+    }
+        
+    button:hover, input:hover {
+        background-color: #0e0e0e;
+    }
+</style>
+
+@code {
+
+    [Parameter]
+    public EventCallback<string> OnRunFile { get; set; } = EventCallback<string>.Empty;
+    [Parameter]
+    public EventCallback OnFileSystemChanged { get; set; } = EventCallback.Empty;
+
+    private string ConsoleHistory { get; set; } = "";
+    private string ConsoleInput { get; set; } = "";
+    private List<ConsoleCommand> Commands { get; set; } = new List<ConsoleCommand>();
+
+    private async void InputFileUpload(InputFileChangeEventArgs e)
+    {
+        using Stream s = e.File.OpenReadStream();
+        byte[] data = new byte[e.File.Size];
+        await s.ReadAsync(data, 0, (int)e.File.Size);
+        ImportZipData(data);
+    }
+
+    private void UploadFile()
+    {
+        JSRuntime.InvokeVoidAsync("ClickElement", "import-upload-input");
+    }
+
+
+    private void ConsoleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            Console.WriteLine($"Send Command: {ConsoleInput}");
+            SendCommand();
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Commands.Add(new HelpCommand(() => Commands));
+        Commands.Add(new ChangeDirectoryCommand());
+        Commands.Add(new RunCommand(f => OnRunFile.InvokeAsync(f)));
+        Commands.Add(new NewFileCommand());
+        Commands.Add(new DeleteFileCommand());
+        Commands.Add(new DeleteDirectoryCommand());
+        Commands.Add(new ExportCommand(DownloadFile));
+        Commands.Add(new ImportCommand(ImportZip, UploadFile));
+    }
+
+    private void SendCommand()
+    {
+        ConsoleHistory += ConsoleInput + "\n";
+        string cmd = ConsoleInput;
+        ConsoleInput = "";
+        string[] parts = cmd.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 0)
+            return;
+        ConsoleCommand? command = Commands.FirstOrDefault(x => x.Name == parts[0] || x.Aliases.Contains(parts[0]));
+        if (command == null)
+        {
+            ConsoleHistory += $"Command not found{parts[0]}\n";
+            return;
+        }
+
+        ConsoleHistory += command.Execute(cmd.Remove(0, parts[0].Length).Trim()) + "\n";
+
+        StateHasChanged();
+        JSRuntime.InvokeVoidAsync("SimpleConsoleScrollToBottom", "simple-console-output");
+    }
+
+    private async void ImportZipData(byte[] data)
+    {
+        MemoryStream v = new MemoryStream(data);
+        BadFileSystem.Instance.ImportZip(v);
+        await OnFileSystemChanged.InvokeAsync();
+    }
+
+    private async void ImportZip(string url)
+    {
+        ImportZipData(await HttpClient.GetByteArrayAsync(url));
+    }
+
+    private async void DownloadFile(string name, byte[] data)
+    {
+        string contentType = "application/octet-stream";
+
+    // Check if the IJSRuntime is the WebAssembly implementation of the JSRuntime
+        if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJSRuntime)
+        {
+            webAssemblyJSRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", name, contentType, data);
+        }
+        else
+        {
+    // Fall back to the slow method if not in WebAssembly
+            await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", name, contentType, data);
+        }
+    }
+
+}

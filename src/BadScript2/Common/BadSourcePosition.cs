@@ -1,3 +1,5 @@
+using BadScript2.IO;
+
 namespace BadScript2.Common;
 
 public class BadSourcePosition
@@ -19,7 +21,7 @@ public class BadSourcePosition
 
     private BadSourcePosition(string fileName, int index, int length) : this(
         fileName,
-        File.ReadAllText(fileName),
+        BadFileSystem.ReadAllText(fileName),
         index,
         length
     ) { }

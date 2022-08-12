@@ -1,4 +1,5 @@
 using BadScript2.Interop.Common;
+using BadScript2.IO;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;
@@ -24,14 +25,15 @@ public class BadUnitTests
                 return s_Context;
             }
 
-            Directory.CreateDirectory(TestDirectory);
+            BadFileSystem.Instance.CreateDirectory(TestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
 
-            string[] files = Directory.GetFiles(
-                TestDirectory,
-                $"*.{BadRuntimeSettings.Instance.FileExtension}",
-                SearchOption.AllDirectories
-            );
+            string[] files = BadFileSystem.Instance.GetFiles(
+                    TestDirectory,
+                    $".{BadRuntimeSettings.Instance.FileExtension}",
+                    true
+                )
+                .ToArray();
             Console.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, files);
 

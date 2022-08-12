@@ -4,6 +4,7 @@ using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.NUnit;
+using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -38,14 +39,15 @@ public class BadUnitTests
             BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
             BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
 
-            Directory.CreateDirectory(TestDirectory);
+            BadFileSystem.Instance.CreateDirectory(TestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
 
-            string[] files = Directory.GetFiles(
-                TestDirectory,
-                $"*.{BadRuntimeSettings.Instance.FileExtension}",
-                SearchOption.AllDirectories
-            );
+            string[] files = BadFileSystem.Instance.GetFiles(
+                    TestDirectory,
+                    $".{BadRuntimeSettings.Instance.FileExtension}",
+                    true
+                )
+                .ToArray();
             System.Console.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, files);
 
@@ -73,14 +75,15 @@ public class BadUnitTests
             BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
             BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
 
-            Directory.CreateDirectory(TestDirectory);
+            BadFileSystem.Instance.CreateDirectory(TestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
 
-            string[] files = Directory.GetFiles(
-                TestDirectory,
-                $"*.{BadRuntimeSettings.Instance.FileExtension}",
-                SearchOption.AllDirectories
-            );
+            string[] files = BadFileSystem.Instance.GetFiles(
+                    TestDirectory,
+                    $".{BadRuntimeSettings.Instance.FileExtension}",
+                    true
+                )
+                .ToArray();
             System.Console.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, files);
 

@@ -39,8 +39,8 @@ public class BadInteropEnumerator : BadObject
 
     public override bool HasProperty(BadObject propName)
     {
-        return (propName is IBadString str &&
-                (str.Value == "MoveNext" || str.Value == "GetCurrent")) ||
+        return propName is IBadString str &&
+               (str.Value == "MoveNext" || str.Value == "GetCurrent") ||
                base.HasProperty(propName);
     }
 

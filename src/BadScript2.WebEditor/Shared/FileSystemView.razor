@@ -1,0 +1,61 @@
+@using BadScript2.IO.Virtual
+
+<TreeView Nodes="Items"
+          GetChildNodes="@(item => item.Children)"
+          HasChildNodes="@(item => item.HasChildren)"
+          @bind-SelectedNode="SelectedNode"
+          @bind-ExpandedNodes="ExpandedNodes">
+    <NodeContent>@GetName(context)</NodeContent>
+</TreeView>
+
+<style>
+    .tree-view-title,
+    .tree-view-icon {
+         color: white;
+    }
+</style>
+
+@code {
+
+
+    private static event Action? m_OnReload;
+    public static void Reload()
+    {
+        m_OnReload?.Invoke();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        m_OnReload += StateHasChanged;
+    }
+
+    private string GetName(BadVirtualNode node)
+    {
+        return node is BadVirtualRoot ? "/" : node.Name;
+    }
+
+    [Parameter]
+    public BadVirtualFileSystem FileSystem { get; set; }
+
+    private BadVirtualNode? m_SelectedNode;
+
+    [Parameter]
+    public BadVirtualNode? SelectedNode
+    {
+        get => m_SelectedNode;
+        set
+        {
+            m_SelectedNode = value;
+            SelectedNodeChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<BadVirtualNode> SelectedNodeChanged { get; set; }
+
+
+    public IList<BadVirtualNode> ExpandedNodes { get; set; } = new List<BadVirtualNode>();
+
+    public IEnumerable<BadVirtualNode> Items => FileSystem.GetRoot().Children;
+}

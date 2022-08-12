@@ -173,7 +173,7 @@ public class BadSettingsObject : BadObject
     public override bool HasProperty(BadObject propName)
     {
         return m_PropertyReferences.ContainsKey(propName) ||
-               (propName is IBadString str && m_Settings.HasProperty(str.Value)) ||
+               propName is IBadString str && m_Settings.HasProperty(str.Value) ||
                base.HasProperty(propName);
     }
 

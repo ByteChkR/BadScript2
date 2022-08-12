@@ -125,7 +125,7 @@ class Project
 				const parts = file.Split("*");
 				const dir = parts[0];
 				const ext = parts[1];
-				sourceFiles.InsertRange(i, IO.Directory.GetFiles(dir, $"*{ext}", false));
+				sourceFiles.InsertRange(i, IO.Directory.GetFiles(dir, ext, false));
 			}
 		}
 		Console.WriteLine($"Expanded Source Files: {sourceFiles}");

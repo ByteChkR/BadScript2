@@ -7,17 +7,23 @@ namespace BadScript2.Interop.Common.Apis;
 
 public class BadConsoleApi : BadInteropApi
 {
+    public static Action<BadObject> OnWrite = Write;
+    public static Action<BadObject> OnWriteLine = WriteLine;
+    public static Action OnClear = Clear;
+    public static Func<string> OnReadLine = ReadLine;
     public BadConsoleApi() : base("Console") { }
+
+    public static bool AllowInput { get; set; } = true;
 
     public override void Load(BadTable target)
     {
-        target.SetFunction<BadObject>("WriteLine", WriteLine);
-        target.SetFunction<BadObject>("Write", Write);
-        target.SetFunction("Clear", Clear);
-        target.SetFunction("ReadLine", () => Console.ReadLine());
+        target.SetFunction("WriteLine", OnWriteLine);
+        target.SetFunction("Write", OnWrite);
+        target.SetFunction("Clear", OnClear);
+        target.SetFunction("ReadLine", () => OnReadLine());
     }
 
-    private void Write(BadObject obj)
+    private static void Write(BadObject obj)
     {
         if (obj is IBadString str)
         {
@@ -29,7 +35,7 @@ public class BadConsoleApi : BadInteropApi
         }
     }
 
-    private void WriteLine(BadObject obj)
+    private static void WriteLine(BadObject obj)
     {
         if (obj is IBadString str)
         {
@@ -41,8 +47,18 @@ public class BadConsoleApi : BadInteropApi
         }
     }
 
-    public void Clear()
+    public static void Clear()
     {
         Console.Clear();
+    }
+
+    public static string ReadLine()
+    {
+        if (!AllowInput)
+        {
+            throw new Exception("Input is not allowed");
+        }
+
+        return Console.ReadLine() ?? "";
     }
 }

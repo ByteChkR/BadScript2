@@ -477,7 +477,7 @@ public class BadSourceParser
     {
         left ??= ParseValue(precedence);
 
-        while (!Reader.IsEOF())
+        while (!Reader.IsEof())
         {
             Reader.SkipNonToken();
             if (Reader.Is(BadStaticKeys.StatementEndKey))
@@ -592,7 +592,7 @@ public class BadSourceParser
         if (!Reader.Is(BadStaticKeys.FormatStringKey))
         {
             throw new BadSourceReaderException(
-                $"Expected string start character but got '{(Reader.IsEOF() ? "EOF" : Reader.GetCurrentChar())}'",
+                $"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
                 Reader.MakeSourcePosition(1)
             );
         }
@@ -604,7 +604,7 @@ public class BadSourceParser
         List<BadExpression> args = new List<BadExpression>();
         while (!Reader.IsStringQuote())
         {
-            if (Reader.IsNewLine() || Reader.IsEOF())
+            if (Reader.IsNewLine() || Reader.IsEof())
             {
                 throw new BadSourceReaderException(
                     "String not terminated",
@@ -1048,7 +1048,7 @@ public class BadSourceParser
     {
         BadLogger.Log($"Parsing File: {Reader.FileName}", "SourceParser");
         Reader.SkipNonToken();
-        while (!Reader.IsEOF())
+        while (!Reader.IsEof())
         {
             Reader.SkipNonToken();
             BadExpression expr = ParseExpression();

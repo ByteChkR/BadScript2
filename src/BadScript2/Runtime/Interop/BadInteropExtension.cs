@@ -137,7 +137,7 @@ public abstract class BadInteropExtension
 
     public static bool HasObject(Type t, BadObject propName)
     {
-        return HasGlobalExtensions(propName) || (HasTypeExtensions(t) && GetTypeExtensions(t).ContainsKey(propName));
+        return HasGlobalExtensions(propName) || HasTypeExtensions(t) && GetTypeExtensions(t).ContainsKey(propName);
     }
 
     public static bool HasObject<T>(BadObject propName)

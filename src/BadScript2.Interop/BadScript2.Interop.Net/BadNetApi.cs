@@ -1,6 +1,5 @@
 using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime;
-using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
@@ -21,14 +20,15 @@ public class BadNetApi : BadInteropApi
     private BadTask Post(BadExecutionContext context, string url, string content)
     {
         HttpClient cl = new HttpClient();
+
         return new BadTask(BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))), $"Net.Post(\"{url}\")");
     }
-    
+
     private BadTask Get(BadExecutionContext context, string url)
     {
         HttpClient cl = new HttpClient();
         Task<HttpResponseMessage>? task = cl.GetAsync(url);
 
-        return new BadTask( BadTaskUtils.WaitForTask(task), $"Net.Get(\"{url}\")");
+        return new BadTask(BadTaskUtils.WaitForTask(task), $"Net.Get(\"{url}\")");
     }
 }

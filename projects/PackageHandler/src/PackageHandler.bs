@@ -5,7 +5,7 @@ let libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsys
 
 function FindFile(packageName!)
 {
-	let files = IO.Directory.GetFiles(libDir, "*.bs", true);
+	let files = IO.Directory.GetFiles(libDir, ".bs", true);
 	foreach(file in files)
 	{
 		let name = IO.Path.GetFileNameWithoutExtension(file);

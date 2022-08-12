@@ -6,6 +6,7 @@ using BadScript2.Debugging;
 using BadScript2.Interactive;
 using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Task;
+using BadScript2.IO;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -29,7 +30,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
             }
 
-            Directory.CreateDirectory(s);
+            BadFileSystem.Instance.CreateDirectory(s);
 
             return s;
         }
@@ -80,10 +81,10 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     {
         BadExecutionContextOptions options = CreateOptions();
         BadRuntimeApi.StartupArguments = settings.Args;
-        IEnumerable<string> files = Directory.GetFiles(
+        IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
                 StartupDirectory,
-                $"*.{BadRuntimeSettings.Instance.FileExtension}",
-                SearchOption.AllDirectories
+                $".{BadRuntimeSettings.Instance.FileExtension}",
+                true
             )
             .Concat(settings.Files);
         if (settings.Interactive)
@@ -109,7 +110,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         foreach (string file in files)
         {
-            BadSourceParser parser = BadSourceParser.Create(file, File.ReadAllText(file));
+            BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
             BadExecutionContext context = options.Build();
 
             IEnumerable<BadExpression> exprs = parser.Parse();
