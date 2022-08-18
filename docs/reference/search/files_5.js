@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['testconsole_2eassemblyinfo_2ecs_0',['TestConsole.AssemblyInfo.cs',['../_debug_2net6_80_2_test_console_8_assembly_info_8cs.html',1,'(Global Namespace)'],['../_release_2net6_80_2_test_console_8_assembly_info_8cs.html',1,'(Global Namespace)']]],
-  ['testconsole_2eglobalusings_2eg_2ecs_1',['TestConsole.GlobalUsings.g.cs',['../_debug_2net6_80_2_test_console_8_global_usings_8g_8cs.html',1,'(Global Namespace)'],['../_release_2net6_80_2_test_console_8_global_usings_8g_8cs.html',1,'(Global Namespace)']]]
+  ['ibadboolean_2ecs_0',['IBadBoolean.cs',['../_i_bad_boolean_8cs.html',1,'']]],
+  ['ibaddebugger_2ecs_1',['IBadDebugger.cs',['../_i_bad_debugger_8cs.html',1,'']]],
+  ['ibadnative_2ecs_2',['IBadNative.cs',['../_i_bad_native_8cs.html',1,'']]],
+  ['ibadnativeexpression_2ecs_3',['IBadNativeExpression.cs',['../_i_bad_native_expression_8cs.html',1,'']]],
+  ['ibadnumber_2ecs_4',['IBadNumber.cs',['../_i_bad_number_8cs.html',1,'']]],
+  ['ibadstring_2ecs_5',['IBadString.cs',['../_i_bad_string_8cs.html',1,'']]],
+  ['ifilesystem_2ecs_6',['IFileSystem.cs',['../_i_file_system_8cs.html',1,'']]],
+  ['importcommand_2ecs_7',['ImportCommand.cs',['../_import_command_8cs.html',1,'']]]
 ];

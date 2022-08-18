@@ -1,4 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_bad_expression_compiler.html" title=" " alt="" coords="5,5,236,61"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_logic_1_1_bad_logic_or_expression_compiler.html" title=" " alt="" coords="284,5,505,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,95,57"/>
+<area shape="rect" id="node2" href="$class_bad_log_writer.html" title=" " alt="" coords="143,31,244,57"/>
+<area shape="rect" id="node3" href="$class_bad_console_log_writer.html" title=" " alt="" coords="292,5,440,32"/>
+<area shape="rect" id="node4" href="$class_bad_stream_log_writer.html" title=" " alt="" coords="295,56,437,83"/>
+<area shape="rect" id="node5" href="$class_bad_file_log_writer.html" title=" " alt="" coords="488,56,611,83"/>
 </map>

@@ -125,7 +125,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00007">7</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a46af73e58ba6eed5652f2012506c3149" name="a46af73e58ba6eed5652f2012506c3149"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46af73e58ba6eed5652f2012506c3149">&#9670;&nbsp;</a></span>BadSettingsReader()</h2>
@@ -153,13 +153,13 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>    {</div>
-<div class="line"><span class="lineno">   15</span>        <a class="code hl_variable" href="class_bad_settings_reader.html#a0752607fd1e50ae44e5773aa70eac631">m_SourceFiles</a> = sourceFiles;</div>
-<div class="line"><span class="lineno">   16</span>        <a class="code hl_variable" href="class_bad_settings_reader.html#a7f5514f3f01c917885af32bbd5504246">m_RootSettings</a> = rootSettings;</div>
-<div class="line"><span class="lineno">   17</span>    }</div>
-<div class="ttc" id="aclass_bad_settings_reader_html_a0752607fd1e50ae44e5773aa70eac631"><div class="ttname"><a href="class_bad_settings_reader.html#a0752607fd1e50ae44e5773aa70eac631">BadSettingsReader.m_SourceFiles</a></div><div class="ttdeci">readonly string[] m_SourceFiles</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00011">BadSettingsReader.cs:11</a></div></div>
-<div class="ttc" id="aclass_bad_settings_reader_html_a7f5514f3f01c917885af32bbd5504246"><div class="ttname"><a href="class_bad_settings_reader.html#a7f5514f3f01c917885af32bbd5504246">BadSettingsReader.m_RootSettings</a></div><div class="ttdeci">readonly BadSettings m_RootSettings</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00009">BadSettingsReader.cs:9</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   15</span>    {</div>
+<div class="line"><span class="lineno">   16</span>        <a class="code hl_variable" href="class_bad_settings_reader.html#a0752607fd1e50ae44e5773aa70eac631">m_SourceFiles</a> = sourceFiles;</div>
+<div class="line"><span class="lineno">   17</span>        <a class="code hl_variable" href="class_bad_settings_reader.html#a7f5514f3f01c917885af32bbd5504246">m_RootSettings</a> = rootSettings;</div>
+<div class="line"><span class="lineno">   18</span>    }</div>
+<div class="ttc" id="aclass_bad_settings_reader_html_a0752607fd1e50ae44e5773aa70eac631"><div class="ttname"><a href="class_bad_settings_reader.html#a0752607fd1e50ae44e5773aa70eac631">BadSettingsReader.m_SourceFiles</a></div><div class="ttdeci">readonly string[] m_SourceFiles</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00012">BadSettingsReader.cs:12</a></div></div>
+<div class="ttc" id="aclass_bad_settings_reader_html_a7f5514f3f01c917885af32bbd5504246"><div class="ttname"><a href="class_bad_settings_reader.html#a7f5514f3f01c917885af32bbd5504246">BadSettingsReader.m_RootSettings</a></div><div class="ttdeci">readonly BadSettings m_RootSettings</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00010">BadSettingsReader.cs:10</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -188,24 +188,24 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00050">50</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   51</span>    {</div>
-<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> (token is { Type: JTokenType.Object })</div>
-<div class="line"><span class="lineno">   53</span>        {</div>
-<div class="line"><span class="lineno">   54</span>            Dictionary&lt;string, BadSettings&gt; settings = <span class="keyword">new</span> Dictionary&lt;string, BadSettings&gt;();</div>
-<div class="line"><span class="lineno">   55</span>            JObject obj = (JObject)token;</div>
-<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">foreach</span> (KeyValuePair&lt;string, JToken?&gt; keyValuePair <span class="keywordflow">in</span> obj)</div>
-<div class="line"><span class="lineno">   57</span>            {</div>
-<div class="line"><span class="lineno">   58</span>                settings.Add(keyValuePair.Key, <a class="code hl_function" href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">CreateSettings</a>(keyValuePair.Value));</div>
-<div class="line"><span class="lineno">   59</span>            }</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>(settings);</div>
-<div class="line"><span class="lineno">   62</span>        }</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>(token);</div>
-<div class="line"><span class="lineno">   65</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00051">51</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>    {</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">if</span> (token is { Type: JTokenType.Object })</div>
+<div class="line"><span class="lineno">   54</span>        {</div>
+<div class="line"><span class="lineno">   55</span>            Dictionary&lt;string, BadSettings&gt; settings = <span class="keyword">new</span> Dictionary&lt;string, BadSettings&gt;();</div>
+<div class="line"><span class="lineno">   56</span>            JObject obj = (JObject)token;</div>
+<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">foreach</span> (KeyValuePair&lt;string, JToken?&gt; keyValuePair <span class="keywordflow">in</span> obj)</div>
+<div class="line"><span class="lineno">   58</span>            {</div>
+<div class="line"><span class="lineno">   59</span>                settings.Add(keyValuePair.Key, <a class="code hl_function" href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">CreateSettings</a>(keyValuePair.Value));</div>
+<div class="line"><span class="lineno">   60</span>            }</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>(settings);</div>
+<div class="line"><span class="lineno">   63</span>        }</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>(token);</div>
+<div class="line"><span class="lineno">   66</span>    }</div>
 <div class="ttc" id="aclass_bad_settings_html"><div class="ttname"><a href="class_bad_settings.html">BadSettings</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_8cs_source.html#l00007">BadSettings.cs:8</a></div></div>
-<div class="ttc" id="aclass_bad_settings_reader_html_afa6d3c9222bcee14e0c2db5ba426dccb"><div class="ttname"><a href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">BadSettingsReader.CreateSettings</a></div><div class="ttdeci">BadSettings CreateSettings(JToken? token)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00050">BadSettingsReader.cs:50</a></div></div>
+<div class="ttc" id="aclass_bad_settings_reader_html_afa6d3c9222bcee14e0c2db5ba426dccb"><div class="ttname"><a href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">BadSettingsReader.CreateSettings</a></div><div class="ttdeci">BadSettings CreateSettings(JToken? token)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00051">BadSettingsReader.cs:51</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -233,65 +233,67 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00068">68</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
-<div class="line"><span class="lineno">   70</span>        <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Processing Dynamic Includes&quot;</span>, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
-<div class="line"><span class="lineno">   71</span>        <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>? elems = settings.<a class="code hl_function" href="class_bad_settings.html#a0240361616121c05c6656203046c8782">FindProperty</a>(<span class="stringliteral">&quot;SettingsBuilder.Include&quot;</span>);</div>
-<div class="line"><span class="lineno">   72</span>        <span class="keywordtype">string</span>[]? includes = elems?.<a class="code hl_function" href="class_bad_settings.html#a96e7dcfa43771f397eb5c523f9e3fb88">GetValue</a>&lt;<span class="keywordtype">string</span>[]&gt;();</div>
-<div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">if</span> (includes == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   75</span>        {</div>
-<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        elems?.<a class="code hl_function" href="class_bad_settings.html#a782f8def3928d25f32814d83985f14ec">SetValue</a>(<span class="keyword">null</span>);</div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">do</span></div>
-<div class="line"><span class="lineno">   81</span>        {</div>
-<div class="line"><span class="lineno">   82</span>            List&lt;BadSettings&gt; setting = <span class="keyword">new</span> List&lt;BadSettings&gt;();</div>
-<div class="line"><span class="lineno">   83</span>            <span class="keywordflow">foreach</span> (<span class="keywordtype">string</span> include <span class="keywordflow">in</span> includes)</div>
-<div class="line"><span class="lineno">   84</span>            {</div>
-<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">if</span> (include.Contains(<span class="charliteral">&#39;*&#39;</span>))</div>
-<div class="line"><span class="lineno">   86</span>                {</div>
-<div class="line"><span class="lineno">   87</span>                    <span class="keywordtype">bool</span> allDirs = include.Contains(<span class="stringliteral">&quot;**&quot;</span>);</div>
-<div class="line"><span class="lineno">   88</span>                    <span class="keywordtype">string</span>[] parts = include.Split(<span class="charliteral">&#39;*&#39;</span>, StringSplitOptions.RemoveEmptyEntries);</div>
-<div class="line"><span class="lineno">   89</span>                    <span class="keywordtype">string</span> path = parts[0];</div>
-<div class="line"><span class="lineno">   90</span>                    <span class="keywordtype">string</span> pattern = parts[1];</div>
-<div class="line"><span class="lineno">   91</span>                    <span class="keywordtype">string</span>[] files = Directory.GetFiles(</div>
-<div class="line"><span class="lineno">   92</span>                        path,</div>
-<div class="line"><span class="lineno">   93</span>                        $<span class="stringliteral">&quot;*{pattern}&quot;</span>,</div>
-<div class="line"><span class="lineno">   94</span>                        allDirs ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly</div>
-<div class="line"><span class="lineno">   95</span>                    );</div>
-<div class="line"><span class="lineno">   96</span>                    setting.AddRange(</div>
-<div class="line"><span class="lineno">   97</span>                        files.Select(</div>
-<div class="line"><span class="lineno">   98</span>                            f =&gt;</div>
-<div class="line"><span class="lineno">   99</span>                            {</div>
-<div class="line"><span class="lineno">  100</span>                                BadLogger.Log(<span class="stringliteral">&quot;Reading settings from file: &quot;</span> + f, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
-<div class="line"><span class="lineno">  101</span> </div>
-<div class="line"><span class="lineno">  102</span>                                return CreateSettings(ReadJsonFile(f));</div>
-<div class="line"><span class="lineno">  103</span>                            }</div>
-<div class="line"><span class="lineno">  104</span>                        )</div>
-<div class="line"><span class="lineno">  105</span>                    );</div>
-<div class="line"><span class="lineno">  106</span>                }</div>
-<div class="line"><span class="lineno">  107</span>                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  108</span>                {</div>
-<div class="line"><span class="lineno">  109</span>                    <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Reading settings from file: &quot;</span> + include, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
-<div class="line"><span class="lineno">  110</span>                    setting.Add(<a class="code hl_function" href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">CreateSettings</a>(<a class="code hl_function" href="class_bad_settings_reader.html#ab4f2246e663ebee1aa3e14f01ae2ad3e">ReadJsonFile</a>(include)));</div>
-<div class="line"><span class="lineno">  111</span>                }</div>
-<div class="line"><span class="lineno">  112</span>            }</div>
-<div class="line"><span class="lineno">  113</span> </div>
-<div class="line"><span class="lineno">  114</span>            settings.<a class="code hl_function" href="class_bad_settings.html#af2976eeb3d08eb54e30564075331c525">Populate</a>(setting.ToArray());</div>
-<div class="line"><span class="lineno">  115</span> </div>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00069">69</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   70</span>    {</div>
+<div class="line"><span class="lineno">   71</span>        <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Processing Dynamic Includes&quot;</span>, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
+<div class="line"><span class="lineno">   72</span>        <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>? elems = settings.<a class="code hl_function" href="class_bad_settings.html#a0240361616121c05c6656203046c8782">FindProperty</a>(<span class="stringliteral">&quot;SettingsBuilder.Include&quot;</span>);</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordtype">string</span>[]? includes = elems?.<a class="code hl_function" href="class_bad_settings.html#a96e7dcfa43771f397eb5c523f9e3fb88">GetValue</a>&lt;<span class="keywordtype">string</span>[]&gt;();</div>
+<div class="line"><span class="lineno">   74</span> </div>
+<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">if</span> (includes == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   76</span>        {</div>
+<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   78</span>        }</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>        elems?.<a class="code hl_function" href="class_bad_settings.html#a782f8def3928d25f32814d83985f14ec">SetValue</a>(<span class="keyword">null</span>);</div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">do</span></div>
+<div class="line"><span class="lineno">   82</span>        {</div>
+<div class="line"><span class="lineno">   83</span>            List&lt;BadSettings&gt; setting = <span class="keyword">new</span> List&lt;BadSettings&gt;();</div>
+<div class="line"><span class="lineno">   84</span>            <span class="keywordflow">foreach</span> (<span class="keywordtype">string</span> include <span class="keywordflow">in</span> includes)</div>
+<div class="line"><span class="lineno">   85</span>            {</div>
+<div class="line"><span class="lineno">   86</span>                <span class="keywordflow">if</span> (include.Contains(<span class="charliteral">&#39;*&#39;</span>))</div>
+<div class="line"><span class="lineno">   87</span>                {</div>
+<div class="line"><span class="lineno">   88</span>                    <span class="keywordtype">bool</span> allDirs = include.Contains(<span class="stringliteral">&quot;**&quot;</span>);</div>
+<div class="line"><span class="lineno">   89</span>                    <span class="keywordtype">string</span>[] parts = include.Split(<span class="charliteral">&#39;*&#39;</span>, StringSplitOptions.RemoveEmptyEntries);</div>
+<div class="line"><span class="lineno">   90</span>                    <span class="keywordtype">string</span> path = parts[0];</div>
+<div class="line"><span class="lineno">   91</span>                    <span class="keywordtype">string</span> extension = parts[1];</div>
+<div class="line"><span class="lineno">   92</span>                    IEnumerable&lt;string&gt; files = <a class="code hl_class" href="class_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_file_system.html#a20750605ce2e22df7e10a68650044501">Instance</a>.<a class="code hl_function" href="interface_i_file_system.html#a0f97b9c76242aff9d539215b321a74eb">GetFiles</a>(</div>
+<div class="line"><span class="lineno">   93</span>                        path,</div>
+<div class="line"><span class="lineno">   94</span>                        extension,</div>
+<div class="line"><span class="lineno">   95</span>                        allDirs</div>
+<div class="line"><span class="lineno">   96</span>                    );</div>
+<div class="line"><span class="lineno">   97</span>                    setting.AddRange(</div>
+<div class="line"><span class="lineno">   98</span>                        files.Select(</div>
+<div class="line"><span class="lineno">   99</span>                            f =&gt;</div>
+<div class="line"><span class="lineno">  100</span>                            {</div>
+<div class="line"><span class="lineno">  101</span>                                BadLogger.Log(<span class="stringliteral">&quot;Reading settings from file: &quot;</span> + f, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>                                return CreateSettings(ReadJsonFile(f));</div>
+<div class="line"><span class="lineno">  104</span>                            }</div>
+<div class="line"><span class="lineno">  105</span>                        )</div>
+<div class="line"><span class="lineno">  106</span>                    );</div>
+<div class="line"><span class="lineno">  107</span>                }</div>
+<div class="line"><span class="lineno">  108</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  109</span>                {</div>
+<div class="line"><span class="lineno">  110</span>                    <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Reading settings from file: &quot;</span> + include, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
+<div class="line"><span class="lineno">  111</span>                    setting.Add(<a class="code hl_function" href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">CreateSettings</a>(<a class="code hl_function" href="class_bad_settings_reader.html#ab4f2246e663ebee1aa3e14f01ae2ad3e">ReadJsonFile</a>(include)));</div>
+<div class="line"><span class="lineno">  112</span>                }</div>
+<div class="line"><span class="lineno">  113</span>            }</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>            settings.<a class="code hl_function" href="class_bad_settings.html#af2976eeb3d08eb54e30564075331c525">Populate</a>(setting.ToArray());</div>
 <div class="line"><span class="lineno">  116</span> </div>
-<div class="line"><span class="lineno">  117</span>            <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Resolving environment variables&quot;</span>, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
-<div class="line"><span class="lineno">  118</span>            <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>.<a class="code hl_function" href="class_bad_settings.html#ab916db2dee90fef19f45d5b36a22b9db">ResolveEnvironmentVariables</a>(settings);</div>
-<div class="line"><span class="lineno">  119</span> </div>
-<div class="line"><span class="lineno">  120</span>            elems = settings.<a class="code hl_function" href="class_bad_settings.html#a0240361616121c05c6656203046c8782">FindProperty</a>(<span class="stringliteral">&quot;SettingsBuilder.Include&quot;</span>);</div>
-<div class="line"><span class="lineno">  121</span>            includes = elems?.<a class="code hl_function" href="class_bad_settings.html#a96e7dcfa43771f397eb5c523f9e3fb88">GetValue</a>&lt;<span class="keywordtype">string</span>[]&gt;();</div>
-<div class="line"><span class="lineno">  122</span>        }</div>
-<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">while</span> (includes != <span class="keyword">null</span>);</div>
-<div class="line"><span class="lineno">  124</span> </div>
-<div class="line"><span class="lineno">  125</span>        settings.<a class="code hl_function" href="class_bad_settings.html#af29c905ea76a1880862df9c7830bc2d6">RemoveProperty</a>(<span class="stringliteral">&quot;SettingsBuilder&quot;</span>);</div>
-<div class="line"><span class="lineno">  126</span>    }</div>
+<div class="line"><span class="lineno">  117</span> </div>
+<div class="line"><span class="lineno">  118</span>            <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Resolving environment variables&quot;</span>, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
+<div class="line"><span class="lineno">  119</span>            <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>.<a class="code hl_function" href="class_bad_settings.html#ab916db2dee90fef19f45d5b36a22b9db">ResolveEnvironmentVariables</a>(settings);</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>            elems = settings.<a class="code hl_function" href="class_bad_settings.html#a0240361616121c05c6656203046c8782">FindProperty</a>(<span class="stringliteral">&quot;SettingsBuilder.Include&quot;</span>);</div>
+<div class="line"><span class="lineno">  122</span>            includes = elems?.<a class="code hl_function" href="class_bad_settings.html#a96e7dcfa43771f397eb5c523f9e3fb88">GetValue</a>&lt;<span class="keywordtype">string</span>[]&gt;();</div>
+<div class="line"><span class="lineno">  123</span>        }</div>
+<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">while</span> (includes != <span class="keyword">null</span>);</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>        settings.<a class="code hl_function" href="class_bad_settings.html#af29c905ea76a1880862df9c7830bc2d6">RemoveProperty</a>(<span class="stringliteral">&quot;SettingsBuilder&quot;</span>);</div>
+<div class="line"><span class="lineno">  127</span>    }</div>
+<div class="ttc" id="aclass_bad_file_system_html"><div class="ttname"><a href="class_bad_file_system.html">BadFileSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00003">BadFileSystem.cs:4</a></div></div>
+<div class="ttc" id="aclass_bad_file_system_html_a20750605ce2e22df7e10a68650044501"><div class="ttname"><a href="class_bad_file_system.html#a20750605ce2e22df7e10a68650044501">BadFileSystem.Instance</a></div><div class="ttdeci">static IFileSystem Instance</div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00006">BadFileSystem.cs:6</a></div></div>
 <div class="ttc" id="aclass_bad_logger_html"><div class="ttname"><a href="class_bad_logger.html">BadLogger</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_logger_8cs_source.html#l00003">BadLogger.cs:4</a></div></div>
 <div class="ttc" id="aclass_bad_logger_html_a4d434d0ef9effe8a7fe98e0a1ccfe688"><div class="ttname"><a href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">BadLogger.Log</a></div><div class="ttdeci">static void Log(string message)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_logger_8cs_source.html#l00012">BadLogger.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_settings_html_a0240361616121c05c6656203046c8782"><div class="ttname"><a href="class_bad_settings.html#a0240361616121c05c6656203046c8782">BadSettings.FindProperty</a></div><div class="ttdeci">BadSettings? FindProperty(string propertyPath)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_8cs_source.html#l00178">BadSettings.cs:178</a></div></div>
@@ -300,7 +302,8 @@ Private Attributes</h2></td></tr>
 <div class="ttc" id="aclass_bad_settings_html_ab916db2dee90fef19f45d5b36a22b9db"><div class="ttname"><a href="class_bad_settings.html#ab916db2dee90fef19f45d5b36a22b9db">BadSettings.ResolveEnvironmentVariables</a></div><div class="ttdeci">static string ResolveEnvironmentVariables(BadSettings root, BadSettings parent, string str)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_8cs_source.html#l00217">BadSettings.cs:217</a></div></div>
 <div class="ttc" id="aclass_bad_settings_html_af2976eeb3d08eb54e30564075331c525"><div class="ttname"><a href="class_bad_settings.html#af2976eeb3d08eb54e30564075331c525">BadSettings.Populate</a></div><div class="ttdeci">void Populate(params BadSettings[] settings)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_8cs_source.html#l00109">BadSettings.cs:109</a></div></div>
 <div class="ttc" id="aclass_bad_settings_html_af29c905ea76a1880862df9c7830bc2d6"><div class="ttname"><a href="class_bad_settings.html#af29c905ea76a1880862df9c7830bc2d6">BadSettings.RemoveProperty</a></div><div class="ttdeci">void RemoveProperty(string propertyName)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_8cs_source.html#l00103">BadSettings.cs:103</a></div></div>
-<div class="ttc" id="aclass_bad_settings_reader_html_ab4f2246e663ebee1aa3e14f01ae2ad3e"><div class="ttname"><a href="class_bad_settings_reader.html#ab4f2246e663ebee1aa3e14f01ae2ad3e">BadSettingsReader.ReadJsonFile</a></div><div class="ttdeci">JToken ReadJsonFile(string fileName)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00042">BadSettingsReader.cs:42</a></div></div>
+<div class="ttc" id="aclass_bad_settings_reader_html_ab4f2246e663ebee1aa3e14f01ae2ad3e"><div class="ttname"><a href="class_bad_settings_reader.html#ab4f2246e663ebee1aa3e14f01ae2ad3e">BadSettingsReader.ReadJsonFile</a></div><div class="ttdeci">JToken ReadJsonFile(string fileName)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00043">BadSettingsReader.cs:43</a></div></div>
+<div class="ttc" id="ainterface_i_file_system_html_a0f97b9c76242aff9d539215b321a74eb"><div class="ttname"><a href="interface_i_file_system.html#a0f97b9c76242aff9d539215b321a74eb">IFileSystem.GetFiles</a></div><div class="ttdeci">IEnumerable&lt; string &gt; GetFiles(string path, string extension, bool recursive)</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -328,13 +331,14 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00042">42</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordtype">string</span> json = File.ReadAllText(fileName);</div>
-<div class="line"><span class="lineno">   45</span>        JToken token = JToken.Parse(json);</div>
-<div class="line"><span class="lineno">   46</span> </div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">return</span> token;</div>
-<div class="line"><span class="lineno">   48</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00043">43</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>    {</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordtype">string</span> json = <a class="code hl_class" href="class_bad_file_system.html">BadFileSystem</a>.<a class="code hl_function" href="class_bad_file_system.html#aa5b7b306e8cc8efa3ecf4691630350c1">ReadAllText</a>(fileName);</div>
+<div class="line"><span class="lineno">   46</span>        JToken token = JToken.Parse(json);</div>
+<div class="line"><span class="lineno">   47</span> </div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> token;</div>
+<div class="line"><span class="lineno">   49</span>    }</div>
+<div class="ttc" id="aclass_bad_file_system_html_aa5b7b306e8cc8efa3ecf4691630350c1"><div class="ttname"><a href="class_bad_file_system.html#aa5b7b306e8cc8efa3ecf4691630350c1">BadFileSystem.ReadAllText</a></div><div class="ttdeci">static string ReadAllText(string path)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00020">BadFileSystem.cs:20</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -353,29 +357,29 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00019">19</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>    {</div>
-<div class="line"><span class="lineno">   21</span>        List&lt;BadSettings&gt; settings = <span class="keyword">new</span> List&lt;BadSettings&gt; { <a class="code hl_variable" href="class_bad_settings_reader.html#a7f5514f3f01c917885af32bbd5504246">m_RootSettings</a> };</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>        Queue&lt;string&gt; files = <span class="keyword">new</span> Queue&lt;string&gt;(<a class="code hl_variable" href="class_bad_settings_reader.html#a0752607fd1e50ae44e5773aa70eac631">m_SourceFiles</a>);</div>
-<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">while</span> (files.Count != 0)</div>
-<div class="line"><span class="lineno">   25</span>        {</div>
-<div class="line"><span class="lineno">   26</span>            <span class="keywordtype">string</span> file = files.Dequeue();</div>
-<div class="line"><span class="lineno">   27</span>            <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Reading settings from file: &quot;</span> + file, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
-<div class="line"><span class="lineno">   28</span>            settings.Add(<a class="code hl_function" href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">CreateSettings</a>(<a class="code hl_function" href="class_bad_settings_reader.html#ab4f2246e663ebee1aa3e14f01ae2ad3e">ReadJsonFile</a>(file)));</div>
-<div class="line"><span class="lineno">   29</span>        }</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>        <a class="code hl_class" href="class_bad_settings.html">BadSettings</a> s = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>();</div>
-<div class="line"><span class="lineno">   32</span>        s.<a class="code hl_function" href="class_bad_settings.html#af2976eeb3d08eb54e30564075331c525">Populate</a>(settings.ToArray());</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>        <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Resolving environment variables&quot;</span>, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
-<div class="line"><span class="lineno">   35</span>        <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>.<a class="code hl_function" href="class_bad_settings.html#ab916db2dee90fef19f45d5b36a22b9db">ResolveEnvironmentVariables</a>(s);</div>
-<div class="line"><span class="lineno">   36</span> </div>
-<div class="line"><span class="lineno">   37</span>        <a class="code hl_function" href="class_bad_settings_reader.html#a11643b1678920d334dddff223e76a41d">ReadDynamicSettings</a>(s);</div>
-<div class="line"><span class="lineno">   38</span> </div>
-<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">return</span> s;</div>
-<div class="line"><span class="lineno">   40</span>    }</div>
-<div class="ttc" id="aclass_bad_settings_reader_html_a11643b1678920d334dddff223e76a41d"><div class="ttname"><a href="class_bad_settings_reader.html#a11643b1678920d334dddff223e76a41d">BadSettingsReader.ReadDynamicSettings</a></div><div class="ttdeci">void ReadDynamicSettings(BadSettings settings)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00068">BadSettingsReader.cs:68</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00020">20</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>    {</div>
+<div class="line"><span class="lineno">   22</span>        List&lt;BadSettings&gt; settings = <span class="keyword">new</span> List&lt;BadSettings&gt; { <a class="code hl_variable" href="class_bad_settings_reader.html#a7f5514f3f01c917885af32bbd5504246">m_RootSettings</a> };</div>
+<div class="line"><span class="lineno">   23</span> </div>
+<div class="line"><span class="lineno">   24</span>        Queue&lt;string&gt; files = <span class="keyword">new</span> Queue&lt;string&gt;(<a class="code hl_variable" href="class_bad_settings_reader.html#a0752607fd1e50ae44e5773aa70eac631">m_SourceFiles</a>);</div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">while</span> (files.Count != 0)</div>
+<div class="line"><span class="lineno">   26</span>        {</div>
+<div class="line"><span class="lineno">   27</span>            <span class="keywordtype">string</span> file = files.Dequeue();</div>
+<div class="line"><span class="lineno">   28</span>            <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Reading settings from file: &quot;</span> + file, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
+<div class="line"><span class="lineno">   29</span>            settings.Add(<a class="code hl_function" href="class_bad_settings_reader.html#afa6d3c9222bcee14e0c2db5ba426dccb">CreateSettings</a>(<a class="code hl_function" href="class_bad_settings_reader.html#ab4f2246e663ebee1aa3e14f01ae2ad3e">ReadJsonFile</a>(file)));</div>
+<div class="line"><span class="lineno">   30</span>        }</div>
+<div class="line"><span class="lineno">   31</span> </div>
+<div class="line"><span class="lineno">   32</span>        <a class="code hl_class" href="class_bad_settings.html">BadSettings</a> s = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>();</div>
+<div class="line"><span class="lineno">   33</span>        s.<a class="code hl_function" href="class_bad_settings.html#af2976eeb3d08eb54e30564075331c525">Populate</a>(settings.ToArray());</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>        <a class="code hl_class" href="class_bad_logger.html">BadLogger</a>.<a class="code hl_function" href="class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688">Log</a>(<span class="stringliteral">&quot;Resolving environment variables&quot;</span>, <span class="stringliteral">&quot;SettingsReader&quot;</span>);</div>
+<div class="line"><span class="lineno">   36</span>        <a class="code hl_class" href="class_bad_settings.html">BadSettings</a>.<a class="code hl_function" href="class_bad_settings.html#ab916db2dee90fef19f45d5b36a22b9db">ResolveEnvironmentVariables</a>(s);</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span>        <a class="code hl_function" href="class_bad_settings_reader.html#a11643b1678920d334dddff223e76a41d">ReadDynamicSettings</a>(s);</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> s;</div>
+<div class="line"><span class="lineno">   41</span>    }</div>
+<div class="ttc" id="aclass_bad_settings_reader_html_a11643b1678920d334dddff223e76a41d"><div class="ttname"><a href="class_bad_settings_reader.html#a11643b1678920d334dddff223e76a41d">BadSettingsReader.ReadDynamicSettings</a></div><div class="ttdeci">void ReadDynamicSettings(BadSettings settings)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_settings_reader_8cs_source.html#l00069">BadSettingsReader.cs:69</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -400,7 +404,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
 
 </div>
 </div>
@@ -424,7 +428,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
 
 </div>
 </div>

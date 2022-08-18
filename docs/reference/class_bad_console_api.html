@@ -84,7 +84,9 @@ $(document).ready(function(){initNavTree('class_bad_console_api.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="class_bad_console_api-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">BadConsoleApi Class Reference</div></div>
 </div><!--header-->
@@ -114,26 +116,44 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3ff9d2429619bba762335a38cf520b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa82ac3ff3735c5204ac289e20c153e8e"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#aa82ac3ff3735c5204ac289e20c153e8e">Load</a> (<a class="el" href="class_bad_table.html">BadTable</a> target)</td></tr>
 <tr class="separator:aa82ac3ff3735c5204ac289e20c153e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3dd43a9784f1b5e741480dd9be225ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#ad3dd43a9784f1b5e741480dd9be225ca">Clear</a> ()</td></tr>
-<tr class="separator:ad3dd43a9784f1b5e741480dd9be225ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe96305a2cf6a3ef4ea23708d1682ddc"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_interop_api.html#afe96305a2cf6a3ef4ea23708d1682ddc">Load</a> (<a class="el" href="class_bad_table.html">BadTable</a> target)</td></tr>
 <tr class="separator:afe96305a2cf6a3ef4ea23708d1682ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a5151db440751990a347253533c448156"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a5151db440751990a347253533c448156">Write</a> (<a class="el" href="class_bad_object.html">BadObject</a> obj)</td></tr>
-<tr class="separator:a5151db440751990a347253533c448156"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd96a7b8e54d780ed6f5b8de438eed01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#abd96a7b8e54d780ed6f5b8de438eed01">WriteLine</a> (<a class="el" href="class_bad_object.html">BadObject</a> obj)</td></tr>
-<tr class="separator:abd96a7b8e54d780ed6f5b8de438eed01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a33405d44b327ee0613d2c22f93500f31"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a33405d44b327ee0613d2c22f93500f31">Clear</a> ()</td></tr>
+<tr class="separator:a33405d44b327ee0613d2c22f93500f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb91b3461b8c2a698fb8e575d7fbe344"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#acb91b3461b8c2a698fb8e575d7fbe344">ReadLine</a> ()</td></tr>
+<tr class="separator:acb91b3461b8c2a698fb8e575d7fbe344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a291321e84c432d8838a673c62dc833d2"><td class="memItemLeft" align="right" valign="top">static Action&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a291321e84c432d8838a673c62dc833d2">OnWrite</a> = <a class="el" href="class_bad_console_api.html#ac2ca1044bf0016886549bf77136ca69c">Write</a><code> [get, set]</code></td></tr>
+<tr class="separator:a291321e84c432d8838a673c62dc833d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cd1cad7e5e416815f157a85da297795"><td class="memItemLeft" align="right" valign="top">static Action&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a5cd1cad7e5e416815f157a85da297795">OnWriteLine</a> = <a class="el" href="class_bad_console_api.html#a01b12033ae5b75c97ecb466a028abce7">WriteLine</a><code> [get, set]</code></td></tr>
+<tr class="separator:a5cd1cad7e5e416815f157a85da297795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32b4abaea072f890c4ea1675aed036e3"><td class="memItemLeft" align="right" valign="top">static Action&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a32b4abaea072f890c4ea1675aed036e3">OnClear</a> = <a class="el" href="class_bad_console_api.html#a33405d44b327ee0613d2c22f93500f31">Clear</a><code> [get, set]</code></td></tr>
+<tr class="separator:a32b4abaea072f890c4ea1675aed036e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf427b2ab71d20dfee91aa0a77ba76ab"><td class="memItemLeft" align="right" valign="top">static Func&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#abf427b2ab71d20dfee91aa0a77ba76ab">OnReadLine</a> = <a class="el" href="class_bad_console_api.html#acb91b3461b8c2a698fb8e575d7fbe344">ReadLine</a><code> [get, set]</code></td></tr>
+<tr class="separator:abf427b2ab71d20dfee91aa0a77ba76ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37682d0662546a9229c3e04135924580"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a37682d0662546a9229c3e04135924580">AllowInput</a> = true<code> [get, set]</code></td></tr>
+<tr class="separator:a37682d0662546a9229c3e04135924580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_class_bad_interop_api"><td colspan="2" onclick="javascript:toggleInherit('properties_class_bad_interop_api')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_bad_interop_api.html">BadInteropApi</a></td></tr>
+<tr class="memitem:a1fbfefa512efd5f6103fb58b88cf889f inherit properties_class_bad_interop_api"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_interop_api.html#a1fbfefa512efd5f6103fb58b88cf889f">Name</a><code> [get]</code></td></tr>
+<tr class="separator:a1fbfefa512efd5f6103fb58b88cf889f inherit properties_class_bad_interop_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:ac2ca1044bf0016886549bf77136ca69c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#ac2ca1044bf0016886549bf77136ca69c">Write</a> (<a class="el" href="class_bad_object.html">BadObject</a> obj)</td></tr>
+<tr class="separator:ac2ca1044bf0016886549bf77136ca69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01b12033ae5b75c97ecb466a028abce7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_console_api.html#a01b12033ae5b75c97ecb466a028abce7">WriteLine</a> (<a class="el" href="class_bad_object.html">BadObject</a> obj)</td></tr>
+<tr class="separator:a01b12033ae5b75c97ecb466a028abce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_class_bad_interop_api"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_bad_interop_api')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_bad_interop_api.html">BadInteropApi</a></td></tr>
 <tr class="memitem:a055f3b00883f9791de6b8a7bef64590f inherit pro_methods_class_bad_interop_api"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_interop_api.html#a055f3b00883f9791de6b8a7bef64590f">BadInteropApi</a> (string name)</td></tr>
 <tr class="separator:a055f3b00883f9791de6b8a7bef64590f inherit pro_methods_class_bad_interop_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header properties_class_bad_interop_api"><td colspan="2" onclick="javascript:toggleInherit('properties_class_bad_interop_api')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_bad_interop_api.html">BadInteropApi</a></td></tr>
-<tr class="memitem:a1fbfefa512efd5f6103fb58b88cf889f inherit properties_class_bad_interop_api"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_interop_api.html#a1fbfefa512efd5f6103fb58b88cf889f">Name</a><code> [get]</code></td></tr>
-<tr class="separator:a1fbfefa512efd5f6103fb58b88cf889f inherit properties_class_bad_interop_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -160,25 +180,33 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad3dd43a9784f1b5e741480dd9be225ca" name="ad3dd43a9784f1b5e741480dd9be225ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3dd43a9784f1b5e741480dd9be225ca">&#9670;&nbsp;</a></span>Clear()</h2>
+<a id="a33405d44b327ee0613d2c22f93500f31" name="a33405d44b327ee0613d2c22f93500f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33405d44b327ee0613d2c22f93500f31">&#9670;&nbsp;</a></span>Clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void BadConsoleApi.Clear </td>
+          <td class="memname">static void BadConsoleApi.Clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00044">44</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   45</span>    {</div>
-<div class="line"><span class="lineno">   46</span>        Console.Clear();</div>
-<div class="line"><span class="lineno">   47</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00050">50</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>    {</div>
+<div class="line"><span class="lineno">   52</span>        Console.Clear();</div>
+<div class="line"><span class="lineno">   53</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -208,22 +236,22 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_interop_api.html#afe96305a2cf6a3ef4ea23708d1682ddc">BadInteropApi</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   13</span>    {</div>
-<div class="line"><span class="lineno">   14</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;WriteLine&quot;</span>, <a class="code hl_function" href="class_bad_console_api.html#abd96a7b8e54d780ed6f5b8de438eed01">WriteLine</a>);</div>
-<div class="line"><span class="lineno">   15</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;Write&quot;</span>, <a class="code hl_function" href="class_bad_console_api.html#a5151db440751990a347253533c448156">Write</a>);</div>
-<div class="line"><span class="lineno">   16</span>        target.SetFunction(<span class="stringliteral">&quot;Clear&quot;</span>, <a class="code hl_function" href="class_bad_console_api.html#ad3dd43a9784f1b5e741480dd9be225ca">Clear</a>);</div>
-<div class="line"><span class="lineno">   17</span>        target.SetFunction(<span class="stringliteral">&quot;ReadLine&quot;</span>, () =&gt; Console.ReadLine());</div>
-<div class="line"><span class="lineno">   18</span>    }</div>
-<div class="ttc" id="aclass_bad_console_api_html_a5151db440751990a347253533c448156"><div class="ttname"><a href="class_bad_console_api.html#a5151db440751990a347253533c448156">BadConsoleApi.Write</a></div><div class="ttdeci">void Write(BadObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00020">BadConsoleApi.cs:20</a></div></div>
-<div class="ttc" id="aclass_bad_console_api_html_abd96a7b8e54d780ed6f5b8de438eed01"><div class="ttname"><a href="class_bad_console_api.html#abd96a7b8e54d780ed6f5b8de438eed01">BadConsoleApi.WriteLine</a></div><div class="ttdeci">void WriteLine(BadObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00032">BadConsoleApi.cs:32</a></div></div>
-<div class="ttc" id="aclass_bad_console_api_html_ad3dd43a9784f1b5e741480dd9be225ca"><div class="ttname"><a href="class_bad_console_api.html#ad3dd43a9784f1b5e741480dd9be225ca">BadConsoleApi.Clear</a></div><div class="ttdeci">void Clear()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00044">BadConsoleApi.cs:44</a></div></div>
-<div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00018">18</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
+<div class="line"><span class="lineno">   20</span>        target.SetFunction(<span class="stringliteral">&quot;WriteLine&quot;</span>, <a class="code hl_property" href="class_bad_console_api.html#a5cd1cad7e5e416815f157a85da297795">OnWriteLine</a>);</div>
+<div class="line"><span class="lineno">   21</span>        target.SetFunction(<span class="stringliteral">&quot;Write&quot;</span>, <a class="code hl_property" href="class_bad_console_api.html#a291321e84c432d8838a673c62dc833d2">OnWrite</a>);</div>
+<div class="line"><span class="lineno">   22</span>        target.SetFunction(<span class="stringliteral">&quot;Clear&quot;</span>, <a class="code hl_property" href="class_bad_console_api.html#a32b4abaea072f890c4ea1675aed036e3">OnClear</a>);</div>
+<div class="line"><span class="lineno">   23</span>        target.SetFunction(<span class="stringliteral">&quot;ReadLine&quot;</span>, () =&gt; <a class="code hl_property" href="class_bad_console_api.html#abf427b2ab71d20dfee91aa0a77ba76ab">OnReadLine</a>());</div>
+<div class="line"><span class="lineno">   24</span>    }</div>
+<div class="ttc" id="aclass_bad_console_api_html_a291321e84c432d8838a673c62dc833d2"><div class="ttname"><a href="class_bad_console_api.html#a291321e84c432d8838a673c62dc833d2">BadConsoleApi.OnWrite</a></div><div class="ttdeci">static Action&lt; BadObject &gt; OnWrite</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00011">BadConsoleApi.cs:11</a></div></div>
+<div class="ttc" id="aclass_bad_console_api_html_a32b4abaea072f890c4ea1675aed036e3"><div class="ttname"><a href="class_bad_console_api.html#a32b4abaea072f890c4ea1675aed036e3">BadConsoleApi.OnClear</a></div><div class="ttdeci">static Action OnClear</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00013">BadConsoleApi.cs:13</a></div></div>
+<div class="ttc" id="aclass_bad_console_api_html_a5cd1cad7e5e416815f157a85da297795"><div class="ttname"><a href="class_bad_console_api.html#a5cd1cad7e5e416815f157a85da297795">BadConsoleApi.OnWriteLine</a></div><div class="ttdeci">static Action&lt; BadObject &gt; OnWriteLine</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00012">BadConsoleApi.cs:12</a></div></div>
+<div class="ttc" id="aclass_bad_console_api_html_abf427b2ab71d20dfee91aa0a77ba76ab"><div class="ttname"><a href="class_bad_console_api.html#abf427b2ab71d20dfee91aa0a77ba76ab">BadConsoleApi.OnReadLine</a></div><div class="ttdeci">static Func&lt; string &gt; OnReadLine</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00014">BadConsoleApi.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a5151db440751990a347253533c448156" name="a5151db440751990a347253533c448156"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5151db440751990a347253533c448156">&#9670;&nbsp;</a></span>Write()</h2>
+<a id="acb91b3461b8c2a698fb8e575d7fbe344" name="acb91b3461b8c2a698fb8e575d7fbe344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb91b3461b8c2a698fb8e575d7fbe344">&#9670;&nbsp;</a></span>ReadLine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +260,43 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void BadConsoleApi.Write </td>
+          <td class="memname">static string BadConsoleApi.ReadLine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00055">55</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>    {</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">if</span> (!<a class="code hl_property" href="class_bad_console_api.html#a37682d0662546a9229c3e04135924580">AllowInput</a>)</div>
+<div class="line"><span class="lineno">   58</span>        {</div>
+<div class="line"><span class="lineno">   59</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Input is not allowed&quot;</span>);</div>
+<div class="line"><span class="lineno">   60</span>        }</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> Console.ReadLine() ?? <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><span class="lineno">   63</span>    }</div>
+<div class="ttc" id="aclass_bad_console_api_html_a37682d0662546a9229c3e04135924580"><div class="ttname"><a href="class_bad_console_api.html#a37682d0662546a9229c3e04135924580">BadConsoleApi.AllowInput</a></div><div class="ttdeci">static bool AllowInput</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00016">BadConsoleApi.cs:16</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac2ca1044bf0016886549bf77136ca69c" name="ac2ca1044bf0016886549bf77136ca69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2ca1044bf0016886549bf77136ca69c">&#9670;&nbsp;</a></span>Write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void BadConsoleApi.Write </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_bad_object.html">BadObject</a>&#160;</td>
           <td class="paramname"><em>obj</em></td><td>)</td>
@@ -241,28 +305,28 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00020">20</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   21</span>    {</div>
-<div class="line"><span class="lineno">   22</span>        <span class="keywordflow">if</span> (obj is <a class="code hl_interface" href="interface_i_bad_string.html">IBadString</a> str)</div>
-<div class="line"><span class="lineno">   23</span>        {</div>
-<div class="line"><span class="lineno">   24</span>            Console.Write(str.Value);</div>
-<div class="line"><span class="lineno">   25</span>        }</div>
-<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   27</span>        {</div>
-<div class="line"><span class="lineno">   28</span>            Console.Write(obj);</div>
-<div class="line"><span class="lineno">   29</span>        }</div>
-<div class="line"><span class="lineno">   30</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00026">26</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>    {</div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">if</span> (obj is <a class="code hl_interface" href="interface_i_bad_string.html">IBadString</a> str)</div>
+<div class="line"><span class="lineno">   29</span>        {</div>
+<div class="line"><span class="lineno">   30</span>            Console.Write(str.Value);</div>
+<div class="line"><span class="lineno">   31</span>        }</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   33</span>        {</div>
+<div class="line"><span class="lineno">   34</span>            Console.Write(obj);</div>
+<div class="line"><span class="lineno">   35</span>        }</div>
+<div class="line"><span class="lineno">   36</span>    }</div>
 <div class="ttc" id="ainterface_i_bad_string_html"><div class="ttname"><a href="interface_i_bad_string.html">IBadString</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_bad_string_8cs_source.html#l00003">IBadString.cs:4</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="abd96a7b8e54d780ed6f5b8de438eed01" name="abd96a7b8e54d780ed6f5b8de438eed01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd96a7b8e54d780ed6f5b8de438eed01">&#9670;&nbsp;</a></span>WriteLine()</h2>
+<a id="a01b12033ae5b75c97ecb466a028abce7" name="a01b12033ae5b75c97ecb466a028abce7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01b12033ae5b75c97ecb466a028abce7">&#9670;&nbsp;</a></span>WriteLine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +335,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void BadConsoleApi.WriteLine </td>
+          <td class="memname">static void BadConsoleApi.WriteLine </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_bad_object.html">BadObject</a>&#160;</td>
           <td class="paramname"><em>obj</em></td><td>)</td>
@@ -280,22 +344,152 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00032">32</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>    {</div>
-<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> (obj is <a class="code hl_interface" href="interface_i_bad_string.html">IBadString</a> str)</div>
-<div class="line"><span class="lineno">   35</span>        {</div>
-<div class="line"><span class="lineno">   36</span>            Console.WriteLine(str.Value);</div>
-<div class="line"><span class="lineno">   37</span>        }</div>
-<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   39</span>        {</div>
-<div class="line"><span class="lineno">   40</span>            Console.WriteLine(obj);</div>
-<div class="line"><span class="lineno">   41</span>        }</div>
-<div class="line"><span class="lineno">   42</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00038">38</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>    {</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">if</span> (obj is <a class="code hl_interface" href="interface_i_bad_string.html">IBadString</a> str)</div>
+<div class="line"><span class="lineno">   41</span>        {</div>
+<div class="line"><span class="lineno">   42</span>            Console.WriteLine(str.Value);</div>
+<div class="line"><span class="lineno">   43</span>        }</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   45</span>        {</div>
+<div class="line"><span class="lineno">   46</span>            Console.WriteLine(obj);</div>
+<div class="line"><span class="lineno">   47</span>        }</div>
+<div class="line"><span class="lineno">   48</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a37682d0662546a9229c3e04135924580" name="a37682d0662546a9229c3e04135924580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37682d0662546a9229c3e04135924580">&#9670;&nbsp;</a></span>AllowInput</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BadConsoleApi.AllowInput = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; } = <span class="keyword">true</span>;</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a32b4abaea072f890c4ea1675aed036e3" name="a32b4abaea072f890c4ea1675aed036e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32b4abaea072f890c4ea1675aed036e3">&#9670;&nbsp;</a></span>OnClear</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Action BadConsoleApi.OnClear = <a class="el" href="class_bad_console_api.html#a33405d44b327ee0613d2c22f93500f31">Clear</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   13</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; } = <a class="code hl_function" href="class_bad_console_api.html#a33405d44b327ee0613d2c22f93500f31">Clear</a>;</div>
+<div class="ttc" id="aclass_bad_console_api_html_a33405d44b327ee0613d2c22f93500f31"><div class="ttname"><a href="class_bad_console_api.html#a33405d44b327ee0613d2c22f93500f31">BadConsoleApi.Clear</a></div><div class="ttdeci">static void Clear()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00050">BadConsoleApi.cs:50</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abf427b2ab71d20dfee91aa0a77ba76ab" name="abf427b2ab71d20dfee91aa0a77ba76ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf427b2ab71d20dfee91aa0a77ba76ab">&#9670;&nbsp;</a></span>OnReadLine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Func&lt;string&gt; BadConsoleApi.OnReadLine = <a class="el" href="class_bad_console_api.html#acb91b3461b8c2a698fb8e575d7fbe344">ReadLine</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; } = <a class="code hl_function" href="class_bad_console_api.html#acb91b3461b8c2a698fb8e575d7fbe344">ReadLine</a>;</div>
+<div class="ttc" id="aclass_bad_console_api_html_acb91b3461b8c2a698fb8e575d7fbe344"><div class="ttname"><a href="class_bad_console_api.html#acb91b3461b8c2a698fb8e575d7fbe344">BadConsoleApi.ReadLine</a></div><div class="ttdeci">static string ReadLine()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00055">BadConsoleApi.cs:55</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a291321e84c432d8838a673c62dc833d2" name="a291321e84c432d8838a673c62dc833d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291321e84c432d8838a673c62dc833d2">&#9670;&nbsp;</a></span>OnWrite</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Action&lt;<a class="el" href="class_bad_object.html">BadObject</a>&gt; BadConsoleApi.OnWrite = <a class="el" href="class_bad_console_api.html#ac2ca1044bf0016886549bf77136ca69c">Write</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   11</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; } = <a class="code hl_function" href="class_bad_console_api.html#ac2ca1044bf0016886549bf77136ca69c">Write</a>;</div>
+<div class="ttc" id="aclass_bad_console_api_html_ac2ca1044bf0016886549bf77136ca69c"><div class="ttname"><a href="class_bad_console_api.html#ac2ca1044bf0016886549bf77136ca69c">BadConsoleApi.Write</a></div><div class="ttdeci">static void Write(BadObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00026">BadConsoleApi.cs:26</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5cd1cad7e5e416815f157a85da297795" name="a5cd1cad7e5e416815f157a85da297795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cd1cad7e5e416815f157a85da297795">&#9670;&nbsp;</a></span>OnWriteLine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Action&lt;<a class="el" href="class_bad_object.html">BadObject</a>&gt; BadConsoleApi.OnWriteLine = <a class="el" href="class_bad_console_api.html#a01b12033ae5b75c97ecb466a028abce7">WriteLine</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_console_api_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_console_api_8cs_source.html">BadConsoleApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; } = <a class="code hl_function" href="class_bad_console_api.html#a01b12033ae5b75c97ecb466a028abce7">WriteLine</a>;</div>
+<div class="ttc" id="aclass_bad_console_api_html_a01b12033ae5b75c97ecb466a028abce7"><div class="ttname"><a href="class_bad_console_api.html#a01b12033ae5b75c97ecb466a028abce7">BadConsoleApi.WriteLine</a></div><div class="ttdeci">static void WriteLine(BadObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_api_8cs_source.html#l00038">BadConsoleApi.cs:38</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

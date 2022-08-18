@@ -1,4 +1,0 @@
-var _bad_logic_assign_or_expression_compiler_8cs =
-[
-    [ "BadScript2.Runtime.Compiler.Expression.Binary.Logic.Assign.BadLogicAssignOrExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_logic_1_1_assign_1_1_bada2a0b65a2fb43500db79a426df8f1c3.html", "class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_logic_1_1_assign_1_1_bada2a0b65a2fb43500db79a426df8f1c3" ]
-];

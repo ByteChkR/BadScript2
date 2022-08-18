@@ -1,7 +1,0 @@
-<map id="BadScript2.Common.Logging.Writer.BadLogWriter" name="BadScript2.Common.Logging.Writer.BadLogWriter">
-<area shape="rect" id="node1" title=" " alt="" coords="143,39,337,80"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_console_log_writer.html" title=" " alt="" coords="385,5,580,47"/>
-<area shape="rect" id="node4" href="$class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_stream_log_writer.html" title=" " alt="" coords="385,71,580,112"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,46,95,73"/>
-<area shape="rect" id="node5" href="$class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_file_log_writer.html" title=" " alt="" coords="628,71,823,112"/>
-</map>

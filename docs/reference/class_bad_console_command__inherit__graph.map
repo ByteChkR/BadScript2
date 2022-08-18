@@ -1,0 +1,11 @@
+<map id="BadConsoleCommand" name="BadConsoleCommand">
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,156,209"/>
+<area shape="rect" id="node2" href="$class_bad_change_directory_command.html" title=" " alt="" coords="204,5,404,32"/>
+<area shape="rect" id="node3" href="$class_bad_delete_directory_command.html" title=" " alt="" coords="207,56,401,83"/>
+<area shape="rect" id="node4" href="$class_bad_delete_file_command.html" title=" " alt="" coords="223,107,385,133"/>
+<area shape="rect" id="node5" href="$class_bad_export_command.html" title=" " alt="" coords="233,157,375,184"/>
+<area shape="rect" id="node6" href="$class_bad_help_command.html" title=" " alt="" coords="239,208,369,235"/>
+<area shape="rect" id="node7" href="$class_bad_import_command.html" title=" " alt="" coords="234,259,374,285"/>
+<area shape="rect" id="node8" href="$class_bad_new_file_command.html" title=" " alt="" coords="229,309,379,336"/>
+<area shape="rect" id="node9" href="$class_bad_run_command.html" title=" " alt="" coords="241,360,367,387"/>
+</map>

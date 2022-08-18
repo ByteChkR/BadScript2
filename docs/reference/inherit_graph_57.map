@@ -1,4 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_bad_expression_compiler.html" title=" " alt="" coords="5,5,236,61"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_logic_1_1_assign_1_1_ba1f00925f68c883574e1d256a342807e3.html" title=" " alt="" coords="284,5,539,61"/>
+<area shape="rect" id="node1" href="$class_bad_virtual_node.html" title=" " alt="" coords="5,31,117,57"/>
+<area shape="rect" id="node2" href="$class_bad_virtual_directory.html" title=" " alt="" coords="165,5,300,32"/>
+<area shape="rect" id="node4" href="$class_bad_virtual_file.html" title=" " alt="" coords="181,56,284,83"/>
+<area shape="rect" id="node3" href="$class_bad_virtual_root.html" title=" " alt="" coords="348,5,457,32"/>
 </map>

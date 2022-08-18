@@ -198,24 +198,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_execution_context_8cs_source.html#l00033">33</a> of file <a class="el" href="_bad_execution_context_8cs_source.html">BadExecutionContext.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   34</span>    {</div>
-<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_expression.html">BadExpression</a> expression <span class="keywordflow">in</span> expressions)</div>
-<div class="line"><span class="lineno">   36</span>        {</div>
-<div class="line"><span class="lineno">   37</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> expression.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(<span class="keyword">this</span>))</div>
-<div class="line"><span class="lineno">   38</span>            {</div>
-<div class="line"><span class="lineno">   39</span>                yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a91f01156ce85fe88983248909e8d3f73">ReturnValue</a> != <span class="keyword">null</span> ||</div>
-<div class="line"><span class="lineno">   42</span>                    <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#abbd0eb3fafd6257c5467a62f476cdc86">IsBreak</a> ||</div>
-<div class="line"><span class="lineno">   43</span>                    <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#ac98d67e75107fbd42cb8ec32180f758b">IsContinue</a> ||</div>
-<div class="line"><span class="lineno">   44</span>                    <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a40b864590e67c49e2558c27fa2e778e1">IsError</a>)</div>
-<div class="line"><span class="lineno">   45</span>                {</div>
-<div class="line"><span class="lineno">   46</span>                    yield <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   47</span>                }</div>
-<div class="line"><span class="lineno">   48</span>            }</div>
-<div class="line"><span class="lineno">   49</span>        }</div>
-<div class="line"><span class="lineno">   50</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_execution_context_8cs_source.html#l00036">36</a> of file <a class="el" href="_bad_execution_context_8cs_source.html">BadExecutionContext.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>    {</div>
+<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_expression.html">BadExpression</a> expression <span class="keywordflow">in</span> expressions)</div>
+<div class="line"><span class="lineno">   39</span>        {</div>
+<div class="line"><span class="lineno">   40</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> expression.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(<span class="keyword">this</span>))</div>
+<div class="line"><span class="lineno">   41</span>            {</div>
+<div class="line"><span class="lineno">   42</span>                yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a91f01156ce85fe88983248909e8d3f73">ReturnValue</a> != <span class="keyword">null</span> ||</div>
+<div class="line"><span class="lineno">   45</span>                    <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#abbd0eb3fafd6257c5467a62f476cdc86">IsBreak</a> ||</div>
+<div class="line"><span class="lineno">   46</span>                    <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#ac98d67e75107fbd42cb8ec32180f758b">IsContinue</a> ||</div>
+<div class="line"><span class="lineno">   47</span>                    <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a40b864590e67c49e2558c27fa2e778e1">IsError</a>)</div>
+<div class="line"><span class="lineno">   48</span>                {</div>
+<div class="line"><span class="lineno">   49</span>                    yield <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   50</span>                }</div>
+<div class="line"><span class="lineno">   51</span>            }</div>
+<div class="line"><span class="lineno">   52</span>        }</div>
+<div class="line"><span class="lineno">   53</span>    }</div>
 <div class="ttc" id="aclass_bad_expression_html"><div class="ttname"><a href="class_bad_expression.html">BadExpression</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00010">BadExpression.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_expression_html_a831d6482e068fdbb08cc7a04e2c72b60"><div class="ttname"><a href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">BadExpression.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(BadExecutionContext context)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00026">BadExpression.cs:26</a></div></div>
 <div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
@@ -244,16 +244,19 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_execution_context_8cs_source.html#l00021">21</a> of file <a class="el" href="_bad_execution_context_8cs_source.html">BadExecutionContext.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   22</span>    {</div>
-<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_function" href="class_bad_execution_context.html#aabeef9f9a6819d8171da7693d92ecae0">Execute</a>(expressions)) { }</div>
-<div class="line"><span class="lineno">   24</span> </div>
-<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a91f01156ce85fe88983248909e8d3f73">ReturnValue</a> != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   26</span>        {</div>
-<div class="line"><span class="lineno">   27</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a91f01156ce85fe88983248909e8d3f73">ReturnValue</a>;</div>
-<div class="line"><span class="lineno">   28</span>        }</div>
-<div class="line"><span class="lineno">   29</span> </div>
-<div class="line"><span class="lineno">   30</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   31</span>    }</div>
-<div class="ttc" id="aclass_bad_execution_context_html_aabeef9f9a6819d8171da7693d92ecae0"><div class="ttname"><a href="class_bad_execution_context.html#aabeef9f9a6819d8171da7693d92ecae0">BadExecutionContext.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(IEnumerable&lt; BadExpression &gt; expressions)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_execution_context_8cs_source.html#l00033">BadExecutionContext.cs:33</a></div></div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_function" href="class_bad_execution_context.html#aabeef9f9a6819d8171da7693d92ecae0">Execute</a>(expressions))</div>
+<div class="line"><span class="lineno">   24</span>        {</div>
+<div class="line"><span class="lineno">   25</span>            <span class="comment">//Execute</span></div>
+<div class="line"><span class="lineno">   26</span>        }</div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a91f01156ce85fe88983248909e8d3f73">ReturnValue</a> != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   29</span>        {</div>
+<div class="line"><span class="lineno">   30</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a91f01156ce85fe88983248909e8d3f73">ReturnValue</a>;</div>
+<div class="line"><span class="lineno">   31</span>        }</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   34</span>    }</div>
+<div class="ttc" id="aclass_bad_execution_context_html_aabeef9f9a6819d8171da7693d92ecae0"><div class="ttname"><a href="class_bad_execution_context.html#aabeef9f9a6819d8171da7693d92ecae0">BadExecutionContext.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(IEnumerable&lt; BadExpression &gt; expressions)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_execution_context_8cs_source.html#l00036">BadExecutionContext.cs:36</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

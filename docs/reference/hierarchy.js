@@ -1,9 +1,22 @@
 var hierarchy =
 [
     [ "BadCommonInterop", "class_bad_common_interop.html", null ],
+    [ "BadConsoleCommand", "class_bad_console_command.html", [
+      [ "BadChangeDirectoryCommand", "class_bad_change_directory_command.html", null ],
+      [ "BadDeleteDirectoryCommand", "class_bad_delete_directory_command.html", null ],
+      [ "BadDeleteFileCommand", "class_bad_delete_file_command.html", null ],
+      [ "BadExportCommand", "class_bad_export_command.html", null ],
+      [ "BadHelpCommand", "class_bad_help_command.html", null ],
+      [ "BadImportCommand", "class_bad_import_command.html", null ],
+      [ "BadNewFileCommand", "class_bad_new_file_command.html", null ],
+      [ "BadRunCommand", "class_bad_run_command.html", null ]
+    ] ],
     [ "BadConsoleDirectories", "class_bad_console_directories.html", null ],
+    [ "BadConsoleRunner", "class_bad_console_runner.html", null ],
     [ "BadConsoleSystem< BadRunSystemSettings >", "class_bad_console_system.html", [
-      [ "BadRunSystem", "class_bad_run_system.html", null ]
+      [ "BadRunSystem", "class_bad_run_system.html", [
+        [ "BadDefaultRunSystem", "class_bad_default_run_system.html", null ]
+      ] ]
     ] ],
     [ "BadConsoleSystem< BadSettingsSystemSettings >", "class_bad_console_system.html", [
       [ "BadSettingsSystem", "class_bad_settings_system.html", null ]
@@ -12,7 +25,6 @@ var hierarchy =
       [ "BadTestSystem", "class_bad_test_system.html", null ]
     ] ],
     [ "BadDebugger", "class_bad_debugger.html", null ],
-    [ "BadDebuggerStep", "struct_bad_debugger_step.html", null ],
     [ "BadDynamicFunctionExtensions", "class_bad_dynamic_function_extensions.html", null ],
     [ "BadExecutionContext", "class_bad_execution_context.html", null ],
     [ "BadExecutionContextOptions", "class_bad_execution_context_options.html", null ],
@@ -29,6 +41,7 @@ var hierarchy =
         ] ]
       ] ],
       [ "BadArrayAccessExpression", "class_bad_array_access_expression.html", null ],
+      [ "BadArrayAccessReverseExpression", "class_bad_array_access_reverse_expression.html", null ],
       [ "BadArrayExpression", "class_bad_array_expression.html", null ],
       [ "BadAssignExpression", "class_bad_assign_expression.html", null ],
       [ "BadAwaitExpression", "class_bad_await_expression.html", null ],
@@ -88,6 +101,8 @@ var hierarchy =
       [ "BadWhileExpression", "class_bad_while_expression.html", null ]
     ] ],
     [ "BadExpressionOptimizer", "class_bad_expression_optimizer.html", null ],
+    [ "BadFileSystem", "class_bad_file_system.html", null ],
+    [ "BadFileSystemHelper", "class_bad_file_system_helper.html", null ],
     [ "BadFunctionParameter", "class_bad_function_parameter.html", null ],
     [ "BadInteractiveConsole", "class_bad_interactive_console.html", null ],
     [ "BadInteropApi", "class_bad_interop_api.html", [
@@ -116,8 +131,8 @@ var hierarchy =
       [ "BadTypeSystemExtension", "class_bad_type_system_extension.html", null ]
     ] ],
     [ "BadInteropHelper", "class_bad_interop_helper.html", null ],
+    [ "BadJsInterop", "class_bad_js_interop.html", null ],
     [ "BadJson", "class_bad_json.html", null ],
-    [ "BadLog", "struct_bad_log.html", null ],
     [ "BadLogger", "class_bad_logger.html", null ],
     [ "BadLogMask", "class_bad_log_mask.html", null ],
     [ "BadNative< bool >", "class_bad_native.html", [
@@ -250,6 +265,7 @@ var hierarchy =
     [ "BadSourceReaderExtensions", "class_bad_source_reader_extensions.html", null ],
     [ "BadStaticKeys", "class_bad_static_keys.html", null ],
     [ "BadTaskRunner", "class_bad_task_runner.html", null ],
+    [ "BadTaskUtils", "class_bad_task_utils.html", null ],
     [ "BadTestSystemSettings", "class_bad_test_system_settings.html", null ],
     [ "BadToken", "class_bad_token.html", [
       [ "BadPrimitiveToken", "class_bad_primitive_token.html", [
@@ -267,6 +283,13 @@ var hierarchy =
     [ "BadValueParser", "class_bad_value_parser.html", [
       [ "BadAwaitValueParser", "class_bad_await_value_parser.html", null ]
     ] ],
+    [ "BadVirtualNode", "class_bad_virtual_node.html", [
+      [ "BadVirtualDirectory", "class_bad_virtual_directory.html", [
+        [ "BadVirtualRoot", "class_bad_virtual_root.html", null ]
+      ] ],
+      [ "BadVirtualFile", "class_bad_virtual_file.html", null ]
+    ] ],
+    [ "BadVirtualPathReader", "class_bad_virtual_path_reader.html", null ],
     [ "Exception", null, [
       [ "BadParseException", "class_bad_parse_exception.html", [
         [ "BadParserException", "class_bad_parser_exception.html", null ],
@@ -296,6 +319,8 @@ var hierarchy =
       ] ]
     ] ],
     [ "IEquatable", null, [
+      [ "BadDebuggerStep", "struct_bad_debugger_step.html", null ],
+      [ "BadLog", "struct_bad_log.html", null ],
       [ "IBadNative", "interface_i_bad_native.html", [
         [ "BadNative< T >", "class_bad_native.html", null ],
         [ "BadObject.BadNullObject", "class_bad_object_1_1_bad_null_object.html", null ],
@@ -309,5 +334,9 @@ var hierarchy =
           [ "BadString", "class_bad_string.html", null ]
         ] ]
       ] ]
+    ] ],
+    [ "IFileSystem", "interface_i_file_system.html", [
+      [ "BadSystemFileSystem", "class_bad_system_file_system.html", null ],
+      [ "BadVirtualFileSystem", "class_bad_virtual_file_system.html", null ]
     ] ]
 ];

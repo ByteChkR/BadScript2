@@ -1,5 +1,0 @@
-var namespace_bad_script2_1_1_parser_1_1_expressions_1_1_function =
-[
-    [ "BadFunctionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression" ],
-    [ "BadInvocationExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_invocation_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_invocation_expression" ]
-];

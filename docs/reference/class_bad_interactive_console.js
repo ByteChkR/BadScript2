@@ -8,6 +8,8 @@ var class_bad_interactive_console =
     [ "Run", "class_bad_interactive_console.html#acbf0a2d07f133d9df2693bee3ce118a9", null ],
     [ "Run", "class_bad_interactive_console.html#ad220d9929a1a80496ba17f3723077fa4", null ],
     [ "RunIsolated", "class_bad_interactive_console.html#af46592663932ac8ce63780a9520000fd", null ],
+    [ "RunIsolatedRoutine", "class_bad_interactive_console.html#a27574db5fc9687c43dbe288b39f69c81", null ],
+    [ "RunRoutine", "class_bad_interactive_console.html#a70ed1955a113ee07ae91baa4f04771bc", null ],
     [ "m_Api", "class_bad_interactive_console.html#af282f14300d5a1e9d878d10e3a7d67e7", null ],
     [ "m_Context", "class_bad_interactive_console.html#a79ea65e9687010dd7116bc745717ea81", null ],
     [ "m_Options", "class_bad_interactive_console.html#a1047ccfe97da6d4cc9613a146d14a472", null ],

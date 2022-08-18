@@ -125,8 +125,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a19a72d1a791bb3b438d94cfef5345f0d inherit pub_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a831d6482e068fdbb08cc7a04e2c72b60 inherit pub_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a> (<a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context)</td></tr>
 <tr class="separator:a831d6482e068fdbb08cc7a04e2c72b60 inherit pub_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4814a6ced2dfba5df13a110177524ab7 inherit pub_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a4814a6ced2dfba5df13a110177524ab7">ExecuteOperatorOverride</a> (<a class="el" href="class_bad_object.html">BadObject</a> left, <a class="el" href="class_bad_object.html">BadObject</a> right, <a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context, string name)</td></tr>
-<tr class="separator:a4814a6ced2dfba5df13a110177524ab7 inherit pub_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -137,6 +135,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a11a571b66df211c017f6809b66f193c6 inherit pro_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7d2f4be2eab4bbbd5f95be6f5ba6a9c inherit pro_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">abstract IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#ac7d2f4be2eab4bbbd5f95be6f5ba6a9c">InnerExecute</a> (<a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context)</td></tr>
 <tr class="separator:ac7d2f4be2eab4bbbd5f95be6f5ba6a9c inherit pro_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4814a6ced2dfba5df13a110177524ab7 inherit pro_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a4814a6ced2dfba5df13a110177524ab7">ExecuteOperatorOverride</a> (<a class="el" href="class_bad_object.html">BadObject</a> left, <a class="el" href="class_bad_object.html">BadObject</a> right, <a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context, string name)</td></tr>
+<tr class="separator:a4814a6ced2dfba5df13a110177524ab7 inherit pro_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
@@ -277,43 +277,40 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_function_expression_8cs_source.html#l00068">68</a> of file <a class="el" href="_bad_function_expression_8cs_source.html">BadFunctionExpression.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
-<div class="line"><span class="lineno">   70</span>        <a class="code hl_class" href="class_bad_class_prototype.html">BadClassPrototype</a>? type = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_function_expression.html#ab8b4a6cf262600bdc37b96d822ec18b4">m_TypeExpr</a> != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   72</span>        {</div>
-<div class="line"><span class="lineno">   73</span>            <a class="code hl_class" href="class_bad_object.html">BadObject</a> obj = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
-<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_variable" href="class_bad_function_expression.html#ab8b4a6cf262600bdc37b96d822ec18b4">m_TypeExpr</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
-<div class="line"><span class="lineno">   75</span>            {</div>
-<div class="line"><span class="lineno">   76</span>                obj = o;</div>
-<div class="line"><span class="lineno">   77</span>            }</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>            obj = obj.Dereference();</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">if</span> (obj is not <a class="code hl_class" href="class_bad_class_prototype.html">BadClassPrototype</a> proto)</div>
-<div class="line"><span class="lineno">   82</span>            {</div>
-<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">   84</span>                    $<span class="stringliteral">&quot;Expected class prototype, but got {obj.GetType().Name}&quot;</span>,</div>
-<div class="line"><span class="lineno">   85</span>                    <a class="code hl_property" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a></div>
-<div class="line"><span class="lineno">   86</span>                );</div>
-<div class="line"><span class="lineno">   87</span>            }</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_function_expression.html#ab8b4a6cf262600bdc37b96d822ec18b4">m_TypeExpr</a> != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   71</span>        {</div>
+<div class="line"><span class="lineno">   72</span>            <a class="code hl_class" href="class_bad_object.html">BadObject</a> obj = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_variable" href="class_bad_function_expression.html#ab8b4a6cf262600bdc37b96d822ec18b4">m_TypeExpr</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
+<div class="line"><span class="lineno">   74</span>            {</div>
+<div class="line"><span class="lineno">   75</span>                obj = o;</div>
+<div class="line"><span class="lineno">   76</span>            }</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>            obj = obj.Dereference();</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">if</span> (obj is not <a class="code hl_class" href="class_bad_class_prototype.html">BadClassPrototype</a> proto)</div>
+<div class="line"><span class="lineno">   81</span>            {</div>
+<div class="line"><span class="lineno">   82</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">   83</span>                    $<span class="stringliteral">&quot;Expected class prototype, but got {obj.GetType().Name}&quot;</span>,</div>
+<div class="line"><span class="lineno">   84</span>                    <a class="code hl_property" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a></div>
+<div class="line"><span class="lineno">   85</span>                );</div>
+<div class="line"><span class="lineno">   86</span>            }</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
 <div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>            type = proto;</div>
-<div class="line"><span class="lineno">   90</span>        }</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>        <a class="code hl_class" href="class_bad_expression_function.html">BadExpressionFunction</a> f = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_expression_function.html">BadExpressionFunction</a>(</div>
-<div class="line"><span class="lineno">   93</span>            context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>,</div>
-<div class="line"><span class="lineno">   94</span>            <a class="code hl_property" href="class_bad_function_expression.html#a51c0859fe038e28be2cce96bd19c83d8">Name</a>,</div>
-<div class="line"><span class="lineno">   95</span>            <a class="code hl_variable" href="class_bad_function_expression.html#a3f5ed6cc2d82bf377408e0712e45090b">m_Body</a>,</div>
-<div class="line"><span class="lineno">   96</span>            <a class="code hl_variable" href="class_bad_function_expression.html#a3a9571c3608515524c5d0686295a9fa9">m_Parameters</a>.Select(x =&gt; x.Initialize(context)).ToArray(),</div>
-<div class="line"><span class="lineno">   97</span>            <a class="code hl_property" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a></div>
-<div class="line"><span class="lineno">   98</span>        );</div>
-<div class="line"><span class="lineno">   99</span> </div>
-<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_function_expression.html#a51c0859fe038e28be2cce96bd19c83d8">Name</a> != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  101</span>        {</div>
-<div class="line"><span class="lineno">  102</span>            context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a>.Wrap(<a class="code hl_property" href="class_bad_function_expression.html#a51c0859fe038e28be2cce96bd19c83d8">Name</a>.<a class="code hl_property" href="class_bad_token.html#a352a86cdcca5a2414be15d181c0d71f7">Text</a>), f);</div>
-<div class="line"><span class="lineno">  103</span>        }</div>
-<div class="line"><span class="lineno">  104</span> </div>
-<div class="line"><span class="lineno">  105</span>        yield <span class="keywordflow">return</span> f;</div>
-<div class="line"><span class="lineno">  106</span>    }</div>
+<div class="line"><span class="lineno">   89</span>        <a class="code hl_class" href="class_bad_expression_function.html">BadExpressionFunction</a> f = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_expression_function.html">BadExpressionFunction</a>(</div>
+<div class="line"><span class="lineno">   90</span>            context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>,</div>
+<div class="line"><span class="lineno">   91</span>            <a class="code hl_property" href="class_bad_function_expression.html#a51c0859fe038e28be2cce96bd19c83d8">Name</a>,</div>
+<div class="line"><span class="lineno">   92</span>            <a class="code hl_variable" href="class_bad_function_expression.html#a3f5ed6cc2d82bf377408e0712e45090b">m_Body</a>,</div>
+<div class="line"><span class="lineno">   93</span>            <a class="code hl_variable" href="class_bad_function_expression.html#a3a9571c3608515524c5d0686295a9fa9">m_Parameters</a>.Select(x =&gt; x.Initialize(context)).ToArray(),</div>
+<div class="line"><span class="lineno">   94</span>            <a class="code hl_property" href="class_bad_expression.html#a44da2276f2f993a61e57b1bb167b3f35">Position</a></div>
+<div class="line"><span class="lineno">   95</span>        );</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_function_expression.html#a51c0859fe038e28be2cce96bd19c83d8">Name</a> != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   98</span>        {</div>
+<div class="line"><span class="lineno">   99</span>            context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a>.Wrap(<a class="code hl_property" href="class_bad_function_expression.html#a51c0859fe038e28be2cce96bd19c83d8">Name</a>.<a class="code hl_property" href="class_bad_token.html#a352a86cdcca5a2414be15d181c0d71f7">Text</a>), f);</div>
+<div class="line"><span class="lineno">  100</span>        }</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>        yield <span class="keywordflow">return</span> f;</div>
+<div class="line"><span class="lineno">  103</span>    }</div>
 <div class="ttc" id="aclass_bad_class_prototype_html"><div class="ttname"><a href="class_bad_class_prototype.html">BadClassPrototype</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_class_prototype_8cs_source.html#l00005">BadClassPrototype.cs:6</a></div></div>
 <div class="ttc" id="aclass_bad_execution_context_html_a24730d4805860affe8171e203b4e96eb"><div class="ttname"><a href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">BadExecutionContext.Scope</a></div><div class="ttdeci">readonly BadScope Scope</div><div class="ttdef"><b>Definition:</b> <a href="_bad_execution_context_8cs_source.html#l00008">BadExecutionContext.cs:8</a></div></div>
 <div class="ttc" id="aclass_bad_expression_function_html"><div class="ttname"><a href="class_bad_expression_function.html">BadExpressionFunction</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_function_8cs_source.html#l00007">BadExpressionFunction.cs:8</a></div></div>
@@ -488,7 +485,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -512,7 +509,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -537,7 +534,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

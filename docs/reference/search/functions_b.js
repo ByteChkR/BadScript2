@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['make_0',['Make',['../class_bad_object_reference.html#aef7534604b0926805122dd3a07cb4a18',1,'BadObjectReference']]],
-  ['makeassert_1',['MakeAssert',['../class_bad_n_unit_api.html#a125582e734cca932a4182d8dfccbfeec',1,'BadNUnitApi']]],
-  ['makenative_2',['MakeNative',['../class_bad_runtime_api.html#a6ffc5fea94734482b48fa4a04b34d3fb',1,'BadRuntimeApi']]],
-  ['makesourceposition_3',['MakeSourcePosition',['../class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1',1,'BadSourceReader.MakeSourcePosition(int length)'],['../class_bad_source_reader.html#a2a08de48ffe17151d7fc552b7b3302b8',1,'BadSourceReader.MakeSourcePosition(int index, int length)']]],
-  ['makeword_4',['MakeWord',['../class_bad_word_token.html#a2529656926b36f0d289fc4a76286b08f',1,'BadWordToken']]],
-  ['mod_5',['Mod',['../class_bad_modulus_expression.html#afc8daf56f75ee6762c4f968d3529ad70',1,'BadModulusExpression']]],
-  ['movenext_6',['MoveNext',['../class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27',1,'BadSourceReader']]],
-  ['mul_7',['Mul',['../class_bad_multiply_expression.html#a5d7d7d1c775d8a3e0717299d46500c20',1,'BadMultiplyExpression']]]
+  ['last_0',['Last',['../class_bad_source_reader_extensions.html#afabaac4ef5f0f018442eb49a8ec60fc4',1,'BadSourceReaderExtensions']]],
+  ['lessorequal_1',['LessOrEqual',['../class_bad_less_or_equal_expression.html#a228519f1a2d2ce70b1798320e83ebdf4',1,'BadLessOrEqualExpression']]],
+  ['lessthan_2',['LessThan',['../class_bad_less_than_expression.html#afffea347673f90aa38597d0177819513',1,'BadLessThanExpression']]],
+  ['load_3',['Load',['../class_bad_script_debugger_api.html#acc4cd03e3f1132dcb37c15d4a0446e34',1,'BadScriptDebuggerApi.Load()'],['../class_bad_interactive_console.html#aea5e4c561ef4d0be54b480d083303dc2',1,'BadInteractiveConsole.Load()'],['../class_bad_interactive_console_api.html#a3a7afc573fa760d76ffeacd33dae5663',1,'BadInteractiveConsoleApi.Load()'],['../class_bad_console_api.html#aa82ac3ff3735c5204ac289e20c153e8e',1,'BadConsoleApi.Load()'],['../class_bad_math_api.html#a025ebda132aaed70db71e3e30f326822',1,'BadMathApi.Load()'],['../class_bad_runtime_api.html#ae93bc7c4ddf3dd20e9712bdc378c3ca3',1,'BadRuntimeApi.Load()'],['../class_bad_task_runner_api.html#aab88a3d5c3075bb0827342a430a5757b',1,'BadTaskRunnerApi.Load()'],['../class_bad_i_o_api.html#ae6e97d60bdb33c63f43ee734b7842c7d',1,'BadIOApi.Load()'],['../class_bad_json_api.html#ab37860e4b4332684024a15ca6bd5358a',1,'BadJsonApi.Load()'],['../class_bad_net_api.html#ac7d4f1f6ab4de8f91deabbe38fae3442',1,'BadNetApi.Load()'],['../class_bad_n_unit_api.html#a2f99fa073a2531687e83fc437564daab',1,'BadNUnitApi.Load()'],['../class_bad_n_unit_console_api.html#a2b27b2b0fb2dc589fb8063f5375cf415',1,'BadNUnitConsoleApi.Load()'],['../class_bad_interop_api.html#afe96305a2cf6a3ef4ea23708d1682ddc',1,'BadInteropApi.Load()']]],
+  ['loadapis_4',['LoadApis',['../class_bad_unit_test_context_builder.html#aefc42bf246d7dda8392f552e2eb6211f',1,'BadUnitTestContextBuilder']]],
+  ['loadisolated_5',['LoadIsolated',['../class_bad_interactive_console.html#aef3442d410a995a159e7553c610242af',1,'BadInteractiveConsole']]],
+  ['loadsettings_6',['LoadSettings',['../_bad_script2_8_web_editor_2_program_8cs.html#a0e1cde38ca0bc4f89f0d7990835e6cd4',1,'Program.cs']]],
+  ['loadzip_7',['LoadZip',['../_bad_script2_8_web_editor_2_program_8cs.html#ae50ed34011a055f3fd17d9196fb86991',1,'Program.cs']]],
+  ['log_8',['Log',['../class_bad_logger.html#a4d434d0ef9effe8a7fe98e0a1ccfe688',1,'BadLogger.Log(string message)'],['../class_bad_logger.html#a276ad572383169f793b1bd1e3cae656f',1,'BadLogger.Log(string message, BadLogMask mask)'],['../class_bad_logger.html#a60d2060e6f0a2f374e981c4dfb912011',1,'BadLogger.Log(string message, BadLogMask mask, BadSourcePosition position)']]]
 ];

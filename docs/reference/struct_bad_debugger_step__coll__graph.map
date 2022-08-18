@@ -1,8 +1,9 @@
 <map id="BadDebuggerStep" name="BadDebuggerStep">
-<area shape="rect" id="node1" title=" " alt="" coords="99,369,225,396"/>
-<area shape="rect" id="node2" href="$class_bad_execution_context.html" title=" " alt="" coords="5,280,153,307"/>
-<area shape="rect" id="node3" href="$class_bad_scope.html" title=" " alt="" coords="38,189,121,216"/>
-<area shape="rect" id="node4" href="$class_bad_object.html" title=" " alt="" coords="33,14,115,41"/>
-<area shape="rect" id="node5" href="$class_bad_table.html" title=" " alt="" coords="96,99,172,125"/>
-<area shape="rect" id="node6" href="$class_bad_source_position.html" title=" " alt="" coords="178,280,311,307"/>
+<area shape="rect" id="node1" title=" " alt="" coords="252,369,379,396"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,280,217,307"/>
+<area shape="rect" id="node3" href="$class_bad_execution_context.html" title=" " alt="" coords="241,280,389,307"/>
+<area shape="rect" id="node4" href="$class_bad_scope.html" title=" " alt="" coords="274,189,357,216"/>
+<area shape="rect" id="node5" href="$class_bad_object.html" title=" " alt="" coords="269,14,351,41"/>
+<area shape="rect" id="node6" href="$class_bad_table.html" title=" " alt="" coords="332,99,408,125"/>
+<area shape="rect" id="node7" href="$class_bad_source_position.html" title=" " alt="" coords="414,280,547,307"/>
 </map>

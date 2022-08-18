@@ -98,7 +98,7 @@ Properties</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_console_directories_8cs_source.html#l00003">3</a> of file <a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_console_directories_8cs_source.html#l00005">5</a> of file <a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a>.</p>
 </div><h2 class="groupheader">Property Documentation</h2>
 <a id="a6f57fa3ede422a5f4f4e9885b933b13a" name="a6f57fa3ede422a5f4f4e9885b933b13a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f57fa3ede422a5f4f4e9885b933b13a">&#9670;&nbsp;</a></span>DataDirectory</h2>
@@ -120,17 +120,21 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_directories_8cs_source.html#l00005">5</a> of file <a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    6</span>    {</div>
-<div class="line"><span class="lineno">    7</span>        <span class="keyword">get</span></div>
-<div class="line"><span class="lineno">    8</span>        {</div>
-<div class="line"><span class="lineno">    9</span>            <span class="keywordtype">string</span> s = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, <span class="stringliteral">&quot;data&quot;</span>);</div>
-<div class="line"><span class="lineno">   10</span> </div>
-<div class="line"><span class="lineno">   11</span>            Directory.CreateDirectory(s);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_console_directories_8cs_source.html#l00007">7</a> of file <a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    8</span>    {</div>
+<div class="line"><span class="lineno">    9</span>        <span class="keyword">get</span></div>
+<div class="line"><span class="lineno">   10</span>        {</div>
+<div class="line"><span class="lineno">   11</span>            <span class="keywordtype">string</span> s = Path.Combine(<a class="code hl_class" href="class_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_file_system.html#a20750605ce2e22df7e10a68650044501">Instance</a>.<a class="code hl_function" href="interface_i_file_system.html#aea168526e01c8b8bb32a8698aa608cf0">GetStartupDirectory</a>(), <span class="stringliteral">&quot;data&quot;</span>);</div>
 <div class="line"><span class="lineno">   12</span> </div>
-<div class="line"><span class="lineno">   13</span>            <span class="keywordflow">return</span> s;</div>
-<div class="line"><span class="lineno">   14</span>        }</div>
-<div class="line"><span class="lineno">   15</span>    }</div>
+<div class="line"><span class="lineno">   13</span>            <a class="code hl_class" href="class_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_file_system.html#a20750605ce2e22df7e10a68650044501">Instance</a>.<a class="code hl_function" href="interface_i_file_system.html#a68fb04c200afeb6898ce93ab5921da10">CreateDirectory</a>(s);</div>
+<div class="line"><span class="lineno">   14</span> </div>
+<div class="line"><span class="lineno">   15</span>            <span class="keywordflow">return</span> s;</div>
+<div class="line"><span class="lineno">   16</span>        }</div>
+<div class="line"><span class="lineno">   17</span>    }</div>
+<div class="ttc" id="aclass_bad_file_system_html"><div class="ttname"><a href="class_bad_file_system.html">BadFileSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00003">BadFileSystem.cs:4</a></div></div>
+<div class="ttc" id="aclass_bad_file_system_html_a20750605ce2e22df7e10a68650044501"><div class="ttname"><a href="class_bad_file_system.html#a20750605ce2e22df7e10a68650044501">BadFileSystem.Instance</a></div><div class="ttdeci">static IFileSystem Instance</div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00006">BadFileSystem.cs:6</a></div></div>
+<div class="ttc" id="ainterface_i_file_system_html_a68fb04c200afeb6898ce93ab5921da10"><div class="ttname"><a href="interface_i_file_system.html#a68fb04c200afeb6898ce93ab5921da10">IFileSystem.CreateDirectory</a></div><div class="ttdeci">void CreateDirectory(string path, bool recursive=false)</div></div>
+<div class="ttc" id="ainterface_i_file_system_html_aea168526e01c8b8bb32a8698aa608cf0"><div class="ttname"><a href="interface_i_file_system.html#aea168526e01c8b8bb32a8698aa608cf0">IFileSystem.GetStartupDirectory</a></div><div class="ttdeci">string GetStartupDirectory()</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -154,12 +158,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_directories_8cs_source.html#l00017">17</a> of file <a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_console_directories_8cs_source.html#l00019">19</a> of file <a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/BadScript2.Console/<a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a></li>
+<li>src/BadScript2.ConsoleCore/<a class="el" href="_bad_console_directories_8cs_source.html">BadConsoleDirectories.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

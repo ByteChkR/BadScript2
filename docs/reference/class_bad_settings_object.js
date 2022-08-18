@@ -1,7 +1,7 @@
 var class_bad_settings_object =
 [
     [ "BadSettingsObject", "class_bad_settings_object.html#af28eebc7f65c66cc93e2c1abcff6c1cd", null ],
-    [ "CreateObj", "class_bad_settings_object.html#acf6a6551d60f98a8ea25c0ab28f9d1a0", null ],
+    [ "CreateObj", "class_bad_settings_object.html#a86d88cde7adc5a3794928b4596647c3e", null ],
     [ "GetProperty", "class_bad_settings_object.html#a7ff44e673a1337d0f8fd98eff184a984", null ],
     [ "GetPrototype", "class_bad_settings_object.html#aa54ddea8153540cb068aab2856d8c007", null ],
     [ "HasProperty", "class_bad_settings_object.html#a398019b5436e03feff52d5e3509d171b", null ],

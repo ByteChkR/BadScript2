@@ -1,7 +1,0 @@
-var namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary =
-[
-    [ "Comparison", "namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_comparison.html", "namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_comparison" ],
-    [ "Logic", "namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_logic.html", "namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_logic" ],
-    [ "Math", "namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_math.html", "namespace_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_math" ],
-    [ "BadAssignExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_bad_assign_expression_compiler.html", "class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_binary_1_1_bad_assign_expression_compiler" ]
-];

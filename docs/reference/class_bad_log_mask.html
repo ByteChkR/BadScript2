@@ -85,10 +85,10 @@ $(document).ready(function(){initNavTree('class_bad_log_mask.html',''); initResi
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_bad_log_mask-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">BadLogMask Class Reference</div></div>
@@ -131,11 +131,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a437e18e613d010ccede3a0af65cfa21b"><td class="memItemLeft" align="right" valign="top">static implicit&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_log_mask.html#a437e18e613d010ccede3a0af65cfa21b">operator string</a> (<a class="el" href="class_bad_log_mask.html">BadLogMask</a> mask)</td></tr>
 <tr class="separator:a437e18e613d010ccede3a0af65cfa21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a293b89e57881e9d70d9b5c05849e879e"><td class="memItemLeft" align="right" valign="top">readonly ulong&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_log_mask.html#a293b89e57881e9d70d9b5c05849e879e">Mask</a></td></tr>
-<tr class="separator:a293b89e57881e9d70d9b5c05849e879e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a014688e1166d78f7207c58151ea1427f"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="class_bad_log_mask.html">BadLogMask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_log_mask.html#a014688e1166d78f7207c58151ea1427f">None</a> = new <a class="el" href="class_bad_log_mask.html">BadLogMask</a>(0)</td></tr>
@@ -154,6 +149,11 @@ Private Member Functions</h2></td></tr>
 Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a318f20dcc2023cc755976223b8e8925a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_log_mask.html#a318f20dcc2023cc755976223b8e8925a">IsPowerOfTwo</a> (ulong number)</td></tr>
 <tr class="separator:a318f20dcc2023cc755976223b8e8925a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a293b89e57881e9d70d9b5c05849e879e"><td class="memItemLeft" align="right" valign="top">readonly ulong&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_log_mask.html#a293b89e57881e9d70d9b5c05849e879e">Mask</a></td></tr>
+<tr class="separator:a293b89e57881e9d70d9b5c05849e879e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -672,11 +672,19 @@ Static Private Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">readonly ulong BadLogMask.Mask</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_bad_log_mask_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_log_mask_8cs_source.html">BadLogMask.cs</a>.</p>

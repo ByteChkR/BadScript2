@@ -1,3 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_bad_log.html" title=" " alt="" coords="5,5,72,32"/>
+<area shape="rect" id="node1" href="$class_bad_interop_extension.html" title=" " alt="" coords="5,233,148,260"/>
+<area shape="rect" id="node2" href="$class_bad_array_extension.html" title=" " alt="" coords="225,5,359,32"/>
+<area shape="rect" id="node3" href="$class_bad_function_extension.html" title=" " alt="" coords="215,56,369,83"/>
+<area shape="rect" id="node4" href="$class_bad_net_interop_extensions.html" title=" " alt="" coords="207,107,377,133"/>
+<area shape="rect" id="node5" href="$class_bad_object_extension.html" title=" " alt="" coords="221,157,363,184"/>
+<area shape="rect" id="node6" href="$class_bad_scope_extension.html" title=" " alt="" coords="222,208,362,235"/>
+<area shape="rect" id="node7" href="$class_bad_script_debugger_extension.html" title=" " alt="" coords="196,259,388,285"/>
+<area shape="rect" id="node8" href="$class_bad_string_extension.html" title=" " alt="" coords="223,309,361,336"/>
+<area shape="rect" id="node9" href="$class_bad_table_extension.html" title=" " alt="" coords="225,360,359,387"/>
+<area shape="rect" id="node10" href="$class_bad_task_extensions.html" title=" " alt="" coords="223,411,361,437"/>
+<area shape="rect" id="node11" href="$class_bad_type_system_extension.html" title=" " alt="" coords="204,461,380,488"/>
 </map>

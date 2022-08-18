@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BadScript2 Reference Documentation: src/BadScript2.Console/Systems/BadConsoleSystem.cs Source File</title>
+<title>BadScript2 Reference Documentation: src/BadScript2.ConsoleCore/Systems/BadConsoleSystem.cs Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,7 +85,7 @@ $(document).ready(function(){initNavTree('_bad_console_system_8cs_source.html','
   <div class="headertitle"><div class="title">BadConsoleSystem.cs</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_bad_console_system_8cs.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">namespace </span>BadScript2.Console.Systems;</div>
+<a href="_bad_console_system_8cs.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">namespace </span>BadScript2.ConsoleCore.Systems;</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class </span><a class="code hl_class" href="class_bad_console_system.html">BadConsoleSystem</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
@@ -102,16 +102,16 @@ $(document).ready(function(){initNavTree('_bad_console_system_8cs_source.html','
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">if</span> (settings is T t)</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_console_system.html#ae5e82dbcc9ea2b736101da1f31407b73">Run</a>(t);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_console_runner.html#a511cf7cd8a09d73a4f22ba9438be0f7f">Run</a>(t);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        }</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">if</span> (settings is <span class="keyword">null</span>)</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            System.Console.WriteLine(<span class="stringliteral">&quot;No settings provided.&quot;</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            Console.WriteLine(<span class="stringliteral">&quot;No settings provided.&quot;</span>);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            System.Console.WriteLine(<span class="stringliteral">&quot;Invalid settings type&quot;</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            Console.WriteLine(<span class="stringliteral">&quot;Invalid settings type&quot;</span>);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> -1;</div>
@@ -130,6 +130,7 @@ $(document).ready(function(){initNavTree('_bad_console_system_8cs_source.html','
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_bad_console_system.html#aca95ea10b598a805cc28658bed08e63a">   44</a></span>    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keywordtype">int</span> <a class="code hl_function" href="class_bad_console_system.html#aca95ea10b598a805cc28658bed08e63a">Run</a>(T settings);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="ttc" id="aclass_bad_console_runner_html_a511cf7cd8a09d73a4f22ba9438be0f7f"><div class="ttname"><a href="class_bad_console_runner.html#a511cf7cd8a09d73a4f22ba9438be0f7f">BadConsoleRunner.Run</a></div><div class="ttdeci">int Run(string[] args)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_runner_8cs_source.html#l00016">BadConsoleRunner.cs:16</a></div></div>
 <div class="ttc" id="aclass_bad_console_system_html"><div class="ttname"><a href="class_bad_console_system.html">BadConsoleSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_system_8cs_source.html#l00012">BadConsoleSystem.cs:13</a></div></div>
 <div class="ttc" id="aclass_bad_console_system_html_a418b43db2bd5574e71013abc3bca9b84"><div class="ttname"><a href="class_bad_console_system.html#a418b43db2bd5574e71013abc3bca9b84">BadConsoleSystem.Parse</a></div><div class="ttdeci">override? object Parse(string[] args)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_system_8cs_source.html#l00033">BadConsoleSystem.cs:33</a></div></div>
 <div class="ttc" id="aclass_bad_console_system_html_aa50a1a0d705a458368c3e24d32026008"><div class="ttname"><a href="class_bad_console_system.html#aa50a1a0d705a458368c3e24d32026008">BadConsoleSystem.Run</a></div><div class="ttdeci">override int Run(object? settings)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_system_8cs_source.html#l00014">BadConsoleSystem.cs:14</a></div></div>
@@ -137,13 +138,13 @@ $(document).ready(function(){initNavTree('_bad_console_system_8cs_source.html','
 <div class="ttc" id="aclass_bad_console_system_html_ae5e82dbcc9ea2b736101da1f31407b73"><div class="ttname"><a href="class_bad_console_system.html#ae5e82dbcc9ea2b736101da1f31407b73">BadConsoleSystem.Run</a></div><div class="ttdeci">abstract int Run(object? settings)</div></div>
 <div class="ttc" id="aclass_bad_console_system_html_aee8ba37fa537376b723a794514f5cb6b"><div class="ttname"><a href="class_bad_console_system.html#aee8ba37fa537376b723a794514f5cb6b">BadConsoleSystem.Parse</a></div><div class="ttdeci">abstract ? object Parse(string[] args)</div></div>
 <div class="ttc" id="aclass_bad_constant_expression_html_aa5d4deba120b458cea88ec9cbae0b0b7"><div class="ttname"><a href="class_bad_constant_expression.html#aa5d4deba120b458cea88ec9cbae0b0b7">BadConstantExpression.Value</a></div><div class="ttdeci">BadObject Value</div><div class="ttdef"><b>Definition:</b> <a href="_bad_constant_expression_8cs_source.html#l00014">BadConstantExpression.cs:14</a></div></div>
-<div class="ttc" id="aclass_bad_run_system_html_a9d12b3d1b82f666e8b495125cf3f5cb9"><div class="ttname"><a href="class_bad_run_system.html#a9d12b3d1b82f666e8b495125cf3f5cb9">BadRunSystem.Name</a></div><div class="ttdeci">override string Name</div><div class="ttdef"><b>Definition:</b> <a href="_bad_run_system_8cs_source.html#l00038">BadRunSystem.cs:38</a></div></div>
+<div class="ttc" id="aclass_bad_run_system_html_a9d12b3d1b82f666e8b495125cf3f5cb9"><div class="ttname"><a href="class_bad_run_system.html#a9d12b3d1b82f666e8b495125cf3f5cb9">BadRunSystem.Name</a></div><div class="ttdeci">override string Name</div><div class="ttdef"><b>Definition:</b> <a href="_bad_run_system_8cs_source.html#l00039">BadRunSystem.cs:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_5a4dd81883b8a7ebb14c54f346ab5cc3.html">BadScript2.Console</a></li><li class="navelem"><a class="el" href="dir_fb04179a6169216226f704d3d66a23bc.html">Systems</a></li><li class="navelem"><a class="el" href="_bad_console_system_8cs.html">BadConsoleSystem.cs</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_37c03971f1cf4645ed2337b59c42d9d8.html">BadScript2.ConsoleCore</a></li><li class="navelem"><a class="el" href="dir_af9d4493d50cd53fd694edb561506d0f.html">Systems</a></li><li class="navelem"><a class="el" href="_bad_console_system_8cs.html">BadConsoleSystem.cs</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>

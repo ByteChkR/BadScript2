@@ -1,6 +1,8 @@
 var class_bad_dynamic_interop_function =
 [
     [ "BadDynamicInteropFunction", "class_bad_dynamic_interop_function.html#aafba34f3c2d4432e9d53d3f6eb6f277b", null ],
+    [ "BadDynamicInteropFunction", "class_bad_dynamic_interop_function.html#a0df314d6958b217a8f9fa7e93f0d0c9a", null ],
+    [ "BadDynamicInteropFunction", "class_bad_dynamic_interop_function.html#a511d22c96cd83875cf9d2d1925bc7e61", null ],
     [ "BadDynamicInteropFunction", "class_bad_dynamic_interop_function.html#af761432c790367dfa2afc6dda926d440", null ],
     [ "BadDynamicInteropFunction", "class_bad_dynamic_interop_function.html#a3bb44bd17278d6127145e9469131b829", null ],
     [ "BadDynamicInteropFunction", "class_bad_dynamic_interop_function.html#a3b68d95fe1978ced8a7e41821069e9f3", null ],

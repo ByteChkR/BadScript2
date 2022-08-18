@@ -1,7 +1,0 @@
-<map id="BadVirtualMachine" name="BadVirtualMachine">
-<area shape="rect" id="node1" title=" " alt="" coords="7,369,137,396"/>
-<area shape="rect" id="node2" href="$class_bad_compiler_result.html" title=" " alt="" coords="5,280,139,307"/>
-<area shape="rect" id="node3" href="$class_bad_scope.html" title=" " alt="" coords="31,189,113,216"/>
-<area shape="rect" id="node4" href="$class_bad_object.html" title=" " alt="" coords="25,14,108,41"/>
-<area shape="rect" id="node5" href="$class_bad_table.html" title=" " alt="" coords="89,99,165,125"/>
-</map>

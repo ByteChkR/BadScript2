@@ -25,6 +25,10 @@
 var NAVTREE =
 [
   [ "BadScript2 Reference Documentation", "index.html", [
+    [ "<a href=\"http://useiconic.com/open\" >Open Iconic v1.1.1</a>", "md_src__bad_script2__web_bin__release_net6_0_publish_wwwroot_css_open_iconic__r_e_a_d_m_e.html", null ],
+    [ "<a href=\"http://useiconic.com/open\" >Open Iconic v1.1.1</a>", "md_src__bad_script2__web_wwwroot_css_open_iconic__r_e_a_d_m_e.html", null ],
+    [ "<a href=\"http://useiconic.com/open\" >Open Iconic v1.1.1</a>", "md_src__bad_script2__web_editor_bin__release_net6_0_publish_wwwroot_css_open_iconic__r_e_a_d_m_e.html", null ],
+    [ "<a href=\"http://useiconic.com/open\" >Open Iconic v1.1.1</a>", "md_src__bad_script2__web_editor_wwwroot_css_open_iconic__r_e_a_d_m_e.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -41,6 +45,8 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
+        [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Enumerations", "globals_enum.html", null ]
       ] ]
     ] ]
@@ -50,14 +56,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_bad_add_assign_expression_8cs.html",
-"_bad_null_checked_member_access_operator_8cs.html",
-"class_bad_array_access_expression.html#a3bf4a7f2e29774dc0b677be707d30fde",
-"class_bad_dynamic_interop_function.html#a6564a94d8d898a0cc545a3cf4eddafad",
-"class_bad_interop_function.html",
-"class_bad_native.html#a1e189ba20dd7eefeee3de5aa4db27a17",
-"class_bad_runtime_api.html#abaf1bd022c7c28eb0d33d24bae2c7185",
-"class_bad_static_keys.html#a7561c9f9bee968bd99bb5b7c80bfe5b6",
-"dir_3a4ce9057239b30b99db63fb7a6ff043.html"
+"_bad_native_optimization_settings_8cs.html",
+"_bad_virtual_file_8cs_source.html",
+"class_bad_delete_file_command.html#aab5a19ff1402ee567d80fea7008d9d42",
+"class_bad_function.html#a210412ffdc6dbb9d6d3969cb7b230713",
+"class_bad_logger_settings.html#a475835e85169285c7939e93328fcff0f",
+"class_bad_object.html#af24886d5abab140bf6855563f6833939",
+"class_bad_settings.html#ab4cc7e810064ba6d1b6d64525e5b601f",
+"class_bad_table_extension.html#ae856c8b771b2fddeb3451de14d4b1864",
+"dir_37c03971f1cf4645ed2337b59c42d9d8.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

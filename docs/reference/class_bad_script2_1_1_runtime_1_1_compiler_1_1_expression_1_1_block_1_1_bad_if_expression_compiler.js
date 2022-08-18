@@ -1,4 +1,0 @@
-var class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_block_1_1_bad_if_expression_compiler =
-[
-    [ "Compile", "class_bad_script2_1_1_runtime_1_1_compiler_1_1_expression_1_1_block_1_1_bad_if_expression_compiler.html#a2d12bd990ba4c6dc4d9ced6ab9ada266", null ]
-];

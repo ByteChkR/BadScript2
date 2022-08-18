@@ -13,7 +13,7 @@ var class_bad_source_reader =
     [ "Is", "class_bad_source_reader.html#a9222a3f5b19006b949a353d0b7c4a010", null ],
     [ "Is", "class_bad_source_reader.html#adaabf48737099e74d969977b07e9f2ef", null ],
     [ "Is", "class_bad_source_reader.html#a461227b6bd9086df9269e6a18c4f672b", null ],
-    [ "IsEOF", "class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3", null ],
+    [ "IsEof", "class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be", null ],
     [ "MakeSourcePosition", "class_bad_source_reader.html#a2a08de48ffe17151d7fc552b7b3302b8", null ],
     [ "MakeSourcePosition", "class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1", null ],
     [ "MoveNext", "class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27", null ],

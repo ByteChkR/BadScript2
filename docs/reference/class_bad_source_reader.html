@@ -99,8 +99,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae858a60ae2d6ee1d7baec054761df347"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8bd35f60ecb8b5b1cecdaa768a2eb9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_source_reader.html#ad8bd35f60ecb8b5b1cecdaa768a2eb9e">SetPosition</a> (int index)</td></tr>
 <tr class="separator:ad8bd35f60ecb8b5b1cecdaa768a2eb9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91d0c891c01f84c9018703b7952656b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">IsEOF</a> (int offset=0)</td></tr>
-<tr class="separator:a91d0c891c01f84c9018703b7952656b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78919c1278ae86e26a09b3946899e1be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">IsEof</a> (int offset=0)</td></tr>
+<tr class="separator:a78919c1278ae86e26a09b3946899e1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8df62892596c40a13cf889a32abe44b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_source_position.html">BadSourcePosition</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1">MakeSourcePosition</a> (int length)</td></tr>
 <tr class="separator:a8df62892596c40a13cf889a32abe44b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a08de48ffe17151d7fc552b7b3302b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_source_position.html">BadSourcePosition</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_source_reader.html#a2a08de48ffe17151d7fc552b7b3302b8">MakeSourcePosition</a> (int index, int length)</td></tr>
@@ -166,7 +166,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00005">5</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00006">6</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae858a60ae2d6ee1d7baec054761df347" name="ae858a60ae2d6ee1d7baec054761df347"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae858a60ae2d6ee1d7baec054761df347">&#9670;&nbsp;</a></span>BadSourceReader()</h2>
@@ -194,14 +194,13 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        <a class="code hl_variable" href="class_bad_source_reader.html#ab617f678c88b0449c07670655ffe8237">FileName</a> = fileName;</div>
-<div class="line"><span class="lineno">   13</span>        <a class="code hl_variable" href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">m_Source</a> = source;</div>
-<div class="line"><span class="lineno">   14</span>        Action a = () =&gt; { };</div>
+<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>    {</div>
+<div class="line"><span class="lineno">   13</span>        <a class="code hl_variable" href="class_bad_source_reader.html#ab617f678c88b0449c07670655ffe8237">FileName</a> = fileName;</div>
+<div class="line"><span class="lineno">   14</span>        <a class="code hl_variable" href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">m_Source</a> = source;</div>
 <div class="line"><span class="lineno">   15</span>    }</div>
-<div class="ttc" id="aclass_bad_source_reader_html_ab617f678c88b0449c07670655ffe8237"><div class="ttname"><a href="class_bad_source_reader.html#ab617f678c88b0449c07670655ffe8237">BadSourceReader.FileName</a></div><div class="ttdeci">readonly string FileName</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00007">BadSourceReader.cs:7</a></div></div>
-<div class="ttc" id="aclass_bad_source_reader_html_aca85013e147fa2ea3344ebdfe482a6e1"><div class="ttname"><a href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">BadSourceReader.m_Source</a></div><div class="ttdeci">readonly string m_Source</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00008">BadSourceReader.cs:8</a></div></div>
+<div class="ttc" id="aclass_bad_source_reader_html_ab617f678c88b0449c07670655ffe8237"><div class="ttname"><a href="class_bad_source_reader.html#ab617f678c88b0449c07670655ffe8237">BadSourceReader.FileName</a></div><div class="ttdeci">readonly string FileName</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00008">BadSourceReader.cs:8</a></div></div>
+<div class="ttc" id="aclass_bad_source_reader_html_aca85013e147fa2ea3344ebdfe482a6e1"><div class="ttname"><a href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">BadSourceReader.m_Source</a></div><div class="ttdeci">readonly string m_Source</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00009">BadSourceReader.cs:9</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -227,7 +226,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   96</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(c))</div>
 <div class="line"><span class="lineno">   97</span>        {</div>
 <div class="line"><span class="lineno">   98</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_source_reader_exception.html">BadSourceReaderException</a>(</div>
-<div class="line"><span class="lineno">   99</span>                $<span class="stringliteral">&quot;Expected &#39;{c}&#39; but got &#39;{(IsEOF() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
+<div class="line"><span class="lineno">   99</span>                $<span class="stringliteral">&quot;Expected &#39;{c}&#39; but got &#39;{(IsEof() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
 <div class="line"><span class="lineno">  100</span>                <a class="code hl_function" href="class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1">MakeSourcePosition</a>(1)</div>
 <div class="line"><span class="lineno">  101</span>            );</div>
 <div class="line"><span class="lineno">  102</span>        }</div>
@@ -269,7 +268,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  116</span>        }</div>
 <div class="line"><span class="lineno">  117</span> </div>
 <div class="line"><span class="lineno">  118</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_source_reader_exception.html">BadSourceReaderException</a>(</div>
-<div class="line"><span class="lineno">  119</span>            $<span class="stringliteral">&quot;Expected &#39;{string.Join(&quot;</span><span class="stringliteral">&#39; or &#39;</span><span class="stringliteral">&quot;, c)}&#39; but got &#39;{(IsEOF() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
+<div class="line"><span class="lineno">  119</span>            $<span class="stringliteral">&quot;Expected &#39;{string.Join(&quot;</span><span class="stringliteral">&#39; or &#39;</span><span class="stringliteral">&quot;, c)}&#39; but got &#39;{(IsEof() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
 <div class="line"><span class="lineno">  120</span>            <a class="code hl_function" href="class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1">MakeSourcePosition</a>(1)</div>
 <div class="line"><span class="lineno">  121</span>        );</div>
 <div class="line"><span class="lineno">  122</span>    }</div>
@@ -298,7 +297,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  146</span>        <span class="keywordflow">if</span> (str == <span class="keyword">null</span>)</div>
 <div class="line"><span class="lineno">  147</span>        {</div>
 <div class="line"><span class="lineno">  148</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_source_reader_exception.html">BadSourceReaderException</a>(</div>
-<div class="line"><span class="lineno">  149</span>                $<span class="stringliteral">&quot;Expected &#39;{string.Join(&quot;</span><span class="stringliteral">&#39; or &#39;</span><span class="stringliteral">&quot;, s)}&#39; but got &#39;{(IsEOF() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
+<div class="line"><span class="lineno">  149</span>                $<span class="stringliteral">&quot;Expected &#39;{string.Join(&quot;</span><span class="stringliteral">&#39; or &#39;</span><span class="stringliteral">&quot;, s)}&#39; but got &#39;{(IsEof() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
 <div class="line"><span class="lineno">  150</span>                <a class="code hl_function" href="class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1">MakeSourcePosition</a>(1)</div>
 <div class="line"><span class="lineno">  151</span>            );</div>
 <div class="line"><span class="lineno">  152</span>        }</div>
@@ -333,7 +332,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  129</span>            <span class="keywordflow">if</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(s[i]))</div>
 <div class="line"><span class="lineno">  130</span>            {</div>
 <div class="line"><span class="lineno">  131</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_source_reader_exception.html">BadSourceReaderException</a>(</div>
-<div class="line"><span class="lineno">  132</span>                    $<span class="stringliteral">&quot;Expected &#39;{s}&#39; but got &#39;{(IsEOF() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
+<div class="line"><span class="lineno">  132</span>                    $<span class="stringliteral">&quot;Expected &#39;{s}&#39; but got &#39;{(IsEof() ? &quot;</span>EOF<span class="stringliteral">&quot; : GetCurrentChar())}&#39;&quot;</span>,</div>
 <div class="line"><span class="lineno">  133</span>                    <a class="code hl_function" href="class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1">MakeSourcePosition</a>(start, i)</div>
 <div class="line"><span class="lineno">  134</span>                );</div>
 <div class="line"><span class="lineno">  135</span>            }</div>
@@ -373,9 +372,11 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00025">25</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   26</span>    {</div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_source_reader.html#ae858a60ae2d6ee1d7baec054761df347">BadSourceReader</a>(fileName, File.ReadAllText(fileName));</div>
+<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_source_reader.html#ae858a60ae2d6ee1d7baec054761df347">BadSourceReader</a>(fileName, <a class="code hl_class" href="class_bad_file_system.html">BadFileSystem</a>.<a class="code hl_function" href="class_bad_file_system.html#aa5b7b306e8cc8efa3ecf4691630350c1">ReadAllText</a>(fileName));</div>
 <div class="line"><span class="lineno">   28</span>    }</div>
-<div class="ttc" id="aclass_bad_source_reader_html_ae858a60ae2d6ee1d7baec054761df347"><div class="ttname"><a href="class_bad_source_reader.html#ae858a60ae2d6ee1d7baec054761df347">BadSourceReader.BadSourceReader</a></div><div class="ttdeci">BadSourceReader(string fileName, string source)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00010">BadSourceReader.cs:10</a></div></div>
+<div class="ttc" id="aclass_bad_file_system_html"><div class="ttname"><a href="class_bad_file_system.html">BadFileSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00003">BadFileSystem.cs:4</a></div></div>
+<div class="ttc" id="aclass_bad_file_system_html_aa5b7b306e8cc8efa3ecf4691630350c1"><div class="ttname"><a href="class_bad_file_system.html#aa5b7b306e8cc8efa3ecf4691630350c1">BadFileSystem.ReadAllText</a></div><div class="ttdeci">static string ReadAllText(string path)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00020">BadFileSystem.cs:20</a></div></div>
+<div class="ttc" id="aclass_bad_source_reader_html_ae858a60ae2d6ee1d7baec054761df347"><div class="ttname"><a href="class_bad_source_reader.html#ae858a60ae2d6ee1d7baec054761df347">BadSourceReader.BadSourceReader</a></div><div class="ttdeci">BadSourceReader(string fileName, string source)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00011">BadSourceReader.cs:11</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -397,9 +398,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00045">45</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   46</span>    {</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">IsEOF</a>(offset) ? <span class="charliteral">&#39;\0&#39;</span> : <a class="code hl_variable" href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">m_Source</a>[<a class="code hl_property" href="class_bad_source_reader.html#a7a24211d89c8bd3183a9cb2f0295a84a">CurrentIndex</a> + offset];</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">IsEof</a>(offset) ? <span class="charliteral">&#39;\0&#39;</span> : <a class="code hl_variable" href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">m_Source</a>[<a class="code hl_property" href="class_bad_source_reader.html#a7a24211d89c8bd3183a9cb2f0295a84a">CurrentIndex</a> + offset];</div>
 <div class="line"><span class="lineno">   48</span>    }</div>
-<div class="ttc" id="aclass_bad_source_reader_html_a91d0c891c01f84c9018703b7952656b3"><div class="ttname"><a href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">BadSourceReader.IsEOF</a></div><div class="ttdeci">bool IsEOF(int offset=0)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00030">BadSourceReader.cs:30</a></div></div>
+<div class="ttc" id="aclass_bad_source_reader_html_a78919c1278ae86e26a09b3946899e1be"><div class="ttname"><a href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">BadSourceReader.IsEof</a></div><div class="ttdeci">bool IsEof(int offset=0)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_reader_8cs_source.html#l00030">BadSourceReader.cs:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -590,14 +591,14 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a91d0c891c01f84c9018703b7952656b3" name="a91d0c891c01f84c9018703b7952656b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91d0c891c01f84c9018703b7952656b3">&#9670;&nbsp;</a></span>IsEOF()</h2>
+<a id="a78919c1278ae86e26a09b3946899e1be" name="a78919c1278ae86e26a09b3946899e1be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78919c1278ae86e26a09b3946899e1be">&#9670;&nbsp;</a></span>IsEof()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool BadSourceReader.IsEOF </td>
+          <td class="memname">bool BadSourceReader.IsEof </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>offset</em> = <code>0</code></td><td>)</td>
@@ -643,8 +644,8 @@ Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   41</span>    {</div>
 <div class="line"><span class="lineno">   42</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_source_position.html">BadSourcePosition</a>.<a class="code hl_function" href="class_bad_source_position.html#a423945f6f118f629f3315a4f9ae0d92c">Create</a>(<a class="code hl_variable" href="class_bad_source_reader.html#ab617f678c88b0449c07670655ffe8237">FileName</a>, <a class="code hl_variable" href="class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1">m_Source</a>, index, length);</div>
 <div class="line"><span class="lineno">   43</span>    }</div>
-<div class="ttc" id="aclass_bad_source_position_html"><div class="ttname"><a href="class_bad_source_position.html">BadSourcePosition</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_position_8cs_source.html#l00003">BadSourcePosition.cs:4</a></div></div>
-<div class="ttc" id="aclass_bad_source_position_html_a423945f6f118f629f3315a4f9ae0d92c"><div class="ttname"><a href="class_bad_source_position.html#a423945f6f118f629f3315a4f9ae0d92c">BadSourcePosition.Create</a></div><div class="ttdeci">static BadSourcePosition Create(string fileName, string source, int index, int length)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_position_8cs_source.html#l00034">BadSourcePosition.cs:34</a></div></div>
+<div class="ttc" id="aclass_bad_source_position_html"><div class="ttname"><a href="class_bad_source_position.html">BadSourcePosition</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_position_8cs_source.html#l00005">BadSourcePosition.cs:6</a></div></div>
+<div class="ttc" id="aclass_bad_source_position_html_a423945f6f118f629f3315a4f9ae0d92c"><div class="ttname"><a href="class_bad_source_position.html#a423945f6f118f629f3315a4f9ae0d92c">BadSourcePosition.Create</a></div><div class="ttdeci">static BadSourcePosition Create(string fileName, string source, int index, int length)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_position_8cs_source.html#l00036">BadSourcePosition.cs:36</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -711,7 +712,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00157">157</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  158</span>    {</div>
-<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">IsEOF</a>() &amp;&amp; <a class="code hl_function" href="class_bad_source_reader.html#a7de7ad142b4e7f722285805e4590340e">GetCurrentChar</a>() != c)</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">IsEof</a>() &amp;&amp; <a class="code hl_function" href="class_bad_source_reader.html#a7de7ad142b4e7f722285805e4590340e">GetCurrentChar</a>() != c)</div>
 <div class="line"><span class="lineno">  160</span>        {</div>
 <div class="line"><span class="lineno">  161</span>            <a class="code hl_function" href="class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27">MoveNext</a>();</div>
 <div class="line"><span class="lineno">  162</span>        }</div>
@@ -737,7 +738,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00173">173</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  174</span>    {</div>
-<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">IsEOF</a>() &amp;&amp; !<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(c))</div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">IsEof</a>() &amp;&amp; !<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(c))</div>
 <div class="line"><span class="lineno">  176</span>        {</div>
 <div class="line"><span class="lineno">  177</span>            <a class="code hl_function" href="class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27">MoveNext</a>();</div>
 <div class="line"><span class="lineno">  178</span>        }</div>
@@ -763,7 +764,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00181">181</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  182</span>    {</div>
-<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">IsEOF</a>() &amp;&amp; !<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(s))</div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">IsEof</a>() &amp;&amp; !<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(s))</div>
 <div class="line"><span class="lineno">  184</span>        {</div>
 <div class="line"><span class="lineno">  185</span>            <a class="code hl_function" href="class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27">MoveNext</a>();</div>
 <div class="line"><span class="lineno">  186</span>        }</div>
@@ -789,7 +790,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00165">165</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  166</span>    {</div>
-<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a91d0c891c01f84c9018703b7952656b3">IsEOF</a>() &amp;&amp; !<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(s))</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">while</span> (!<a class="code hl_function" href="class_bad_source_reader.html#a78919c1278ae86e26a09b3946899e1be">IsEof</a>() &amp;&amp; !<a class="code hl_function" href="class_bad_source_reader.html#a12c1728e6c3d0641d19d1a4664774d57">Is</a>(s))</div>
 <div class="line"><span class="lineno">  168</span>        {</div>
 <div class="line"><span class="lineno">  169</span>            <a class="code hl_function" href="class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27">MoveNext</a>();</div>
 <div class="line"><span class="lineno">  170</span>        }</div>
@@ -896,7 +897,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00007">7</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 
 </div>
 </div>
@@ -920,7 +921,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_source_reader_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_source_reader_8cs_source.html">BadSourceReader.cs</a>.</p>
 
 </div>
 </div>

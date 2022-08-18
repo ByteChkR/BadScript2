@@ -173,6 +173,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implemented in <a class="el" href="class_bad_default_run_system.html#a0b0cacfccf060f83b69caea316c7327c">BadDefaultRunSystem</a>.</p>
+
 </div>
 </div>
 <a id="a418b43db2bd5574e71013abc3bca9b84" name="a418b43db2bd5574e71013abc3bca9b84"></a>
@@ -251,21 +253,21 @@ Properties</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   15</span>    {</div>
 <div class="line"><span class="lineno">   16</span>        <span class="keywordflow">if</span> (settings is T t)</div>
 <div class="line"><span class="lineno">   17</span>        {</div>
-<div class="line"><span class="lineno">   18</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_console_system.html#ae5e82dbcc9ea2b736101da1f31407b73">Run</a>(t);</div>
+<div class="line"><span class="lineno">   18</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_console_runner.html#a511cf7cd8a09d73a4f22ba9438be0f7f">Run</a>(t);</div>
 <div class="line"><span class="lineno">   19</span>        }</div>
 <div class="line"><span class="lineno">   20</span> </div>
 <div class="line"><span class="lineno">   21</span>        <span class="keywordflow">if</span> (settings is <span class="keyword">null</span>)</div>
 <div class="line"><span class="lineno">   22</span>        {</div>
-<div class="line"><span class="lineno">   23</span>            System.Console.WriteLine(<span class="stringliteral">&quot;No settings provided.&quot;</span>);</div>
+<div class="line"><span class="lineno">   23</span>            Console.WriteLine(<span class="stringliteral">&quot;No settings provided.&quot;</span>);</div>
 <div class="line"><span class="lineno">   24</span>        }</div>
 <div class="line"><span class="lineno">   25</span>        <span class="keywordflow">else</span></div>
 <div class="line"><span class="lineno">   26</span>        {</div>
-<div class="line"><span class="lineno">   27</span>            System.Console.WriteLine(<span class="stringliteral">&quot;Invalid settings type&quot;</span>);</div>
+<div class="line"><span class="lineno">   27</span>            Console.WriteLine(<span class="stringliteral">&quot;Invalid settings type&quot;</span>);</div>
 <div class="line"><span class="lineno">   28</span>        }</div>
 <div class="line"><span class="lineno">   29</span> </div>
 <div class="line"><span class="lineno">   30</span>        <span class="keywordflow">return</span> -1;</div>
 <div class="line"><span class="lineno">   31</span>    }</div>
-<div class="ttc" id="aclass_bad_console_system_html_ae5e82dbcc9ea2b736101da1f31407b73"><div class="ttname"><a href="class_bad_console_system.html#ae5e82dbcc9ea2b736101da1f31407b73">BadConsoleSystem.Run</a></div><div class="ttdeci">abstract int Run(object? settings)</div></div>
+<div class="ttc" id="aclass_bad_console_runner_html_a511cf7cd8a09d73a4f22ba9438be0f7f"><div class="ttname"><a href="class_bad_console_runner.html#a511cf7cd8a09d73a4f22ba9438be0f7f">BadConsoleRunner.Run</a></div><div class="ttdeci">int Run(string[] args)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_console_runner_8cs_source.html#l00016">BadConsoleRunner.cs:16</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -322,7 +324,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/BadScript2.Console/Systems/<a class="el" href="_bad_console_system_8cs_source.html">BadConsoleSystem.cs</a></li>
+<li>src/BadScript2.ConsoleCore/Systems/<a class="el" href="_bad_console_system_8cs_source.html">BadConsoleSystem.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -84,8 +84,8 @@ $(document).ready(function(){initNavTree('class_bad_variable_definition_expressi
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_bad_variable_definition_expression-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">BadVariableDefinitionExpression Class Reference</div></div>
 </div><!--header-->
@@ -106,8 +106,8 @@ Collaboration diagram for BadVariableDefinitionExpression:</div>
 <div class="center"><img src="class_bad_variable_definition_expression__coll__graph.png" border="0" usemap="#a_bad_variable_definition_expression_coll__map" alt="Collaboration graph"/></div>
 <map name="a_bad_variable_definition_expression_coll__map" id="a_bad_variable_definition_expression_coll__map">
 <area shape="rect" title=" " alt="" coords="5,157,216,184"/>
-<area shape="rect" href="class_bad_variable_expression.html" title=" " alt="" coords="175,81,332,108"/>
-<area shape="rect" href="class_bad_expression.html" title=" " alt="" coords="14,5,125,32"/>
+<area shape="rect" href="class_bad_variable_expression.html" title=" " alt="" coords="188,81,345,108"/>
+<area shape="rect" href="class_bad_expression.html" title=" " alt="" coords="9,5,119,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -127,15 +127,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a19a72d1a791bb3b438d94cfef5345f0d inherit pub_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a831d6482e068fdbb08cc7a04e2c72b60 inherit pub_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a> (<a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context)</td></tr>
 <tr class="separator:a831d6482e068fdbb08cc7a04e2c72b60 inherit pub_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4814a6ced2dfba5df13a110177524ab7 inherit pub_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a4814a6ced2dfba5df13a110177524ab7">ExecuteOperatorOverride</a> (<a class="el" href="class_bad_object.html">BadObject</a> left, <a class="el" href="class_bad_object.html">BadObject</a> right, <a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context, string name)</td></tr>
-<tr class="separator:a4814a6ced2dfba5df13a110177524ab7 inherit pub_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ab68db13cdceffcf8cab5c21153b8fcb4"><td class="memItemLeft" align="right" valign="top">readonly bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_variable_definition_expression.html#ab68db13cdceffcf8cab5c21153b8fcb4">IsReadOnly</a></td></tr>
-<tr class="separator:ab68db13cdceffcf8cab5c21153b8fcb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad39dc7c678175db99b5a7e8dc1de25bb"><td class="memItemLeft" align="right" valign="top">readonly? <a class="el" href="class_bad_expression.html">BadExpression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_variable_definition_expression.html#ad39dc7c678175db99b5a7e8dc1de25bb">TypeExpression</a></td></tr>
-<tr class="separator:ad39dc7c678175db99b5a7e8dc1de25bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -149,6 +140,15 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a11a571b66df211c017f6809b66f193c6 inherit pro_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7d2f4be2eab4bbbd5f95be6f5ba6a9c inherit pro_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">abstract IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#ac7d2f4be2eab4bbbd5f95be6f5ba6a9c">InnerExecute</a> (<a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context)</td></tr>
 <tr class="separator:ac7d2f4be2eab4bbbd5f95be6f5ba6a9c inherit pro_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4814a6ced2dfba5df13a110177524ab7 inherit pro_methods_class_bad_expression"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_expression.html#a4814a6ced2dfba5df13a110177524ab7">ExecuteOperatorOverride</a> (<a class="el" href="class_bad_object.html">BadObject</a> left, <a class="el" href="class_bad_object.html">BadObject</a> right, <a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context, string name)</td></tr>
+<tr class="separator:a4814a6ced2dfba5df13a110177524ab7 inherit pro_methods_class_bad_expression"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3e640373d1b41686ee92a43e0948ebfd"><td class="memItemLeft" align="right" valign="top">readonly bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_variable_definition_expression.html#a3e640373d1b41686ee92a43e0948ebfd">m_IsReadOnly</a></td></tr>
+<tr class="separator:a3e640373d1b41686ee92a43e0948ebfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e7b664d617bc6227bb5f2db5c6d2fed"><td class="memItemLeft" align="right" valign="top">readonly? <a class="el" href="class_bad_expression.html">BadExpression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_variable_definition_expression.html#a1e7b664d617bc6227bb5f2db5c6d2fed">m_TypeExpression</a></td></tr>
+<tr class="separator:a1e7b664d617bc6227bb5f2db5c6d2fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -209,11 +209,11 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   21</span>        position</div>
 <div class="line"><span class="lineno">   22</span>    )</div>
 <div class="line"><span class="lineno">   23</span>    {</div>
-<div class="line"><span class="lineno">   24</span>        <a class="code hl_variable" href="class_bad_variable_definition_expression.html#ab68db13cdceffcf8cab5c21153b8fcb4">IsReadOnly</a> = isReadOnly;</div>
-<div class="line"><span class="lineno">   25</span>        <a class="code hl_variable" href="class_bad_variable_definition_expression.html#ad39dc7c678175db99b5a7e8dc1de25bb">TypeExpression</a> = typeExpression;</div>
+<div class="line"><span class="lineno">   24</span>        <a class="code hl_variable" href="class_bad_variable_definition_expression.html#a3e640373d1b41686ee92a43e0948ebfd">m_IsReadOnly</a> = isReadOnly;</div>
+<div class="line"><span class="lineno">   25</span>        <a class="code hl_variable" href="class_bad_variable_definition_expression.html#a1e7b664d617bc6227bb5f2db5c6d2fed">m_TypeExpression</a> = typeExpression;</div>
 <div class="line"><span class="lineno">   26</span>    }</div>
-<div class="ttc" id="aclass_bad_variable_definition_expression_html_ab68db13cdceffcf8cab5c21153b8fcb4"><div class="ttname"><a href="class_bad_variable_definition_expression.html#ab68db13cdceffcf8cab5c21153b8fcb4">BadVariableDefinitionExpression.IsReadOnly</a></div><div class="ttdeci">readonly bool IsReadOnly</div><div class="ttdef"><b>Definition:</b> <a href="_bad_variable_definition_expression_8cs_source.html#l00011">BadVariableDefinitionExpression.cs:11</a></div></div>
-<div class="ttc" id="aclass_bad_variable_definition_expression_html_ad39dc7c678175db99b5a7e8dc1de25bb"><div class="ttname"><a href="class_bad_variable_definition_expression.html#ad39dc7c678175db99b5a7e8dc1de25bb">BadVariableDefinitionExpression.TypeExpression</a></div><div class="ttdeci">readonly? BadExpression TypeExpression</div><div class="ttdef"><b>Definition:</b> <a href="_bad_variable_definition_expression_8cs_source.html#l00012">BadVariableDefinitionExpression.cs:12</a></div></div>
+<div class="ttc" id="aclass_bad_variable_definition_expression_html_a1e7b664d617bc6227bb5f2db5c6d2fed"><div class="ttname"><a href="class_bad_variable_definition_expression.html#a1e7b664d617bc6227bb5f2db5c6d2fed">BadVariableDefinitionExpression.m_TypeExpression</a></div><div class="ttdeci">readonly? BadExpression m_TypeExpression</div><div class="ttdef"><b>Definition:</b> <a href="_bad_variable_definition_expression_8cs_source.html#l00012">BadVariableDefinitionExpression.cs:12</a></div></div>
+<div class="ttc" id="aclass_bad_variable_definition_expression_html_a3e640373d1b41686ee92a43e0948ebfd"><div class="ttname"><a href="class_bad_variable_definition_expression.html#a3e640373d1b41686ee92a43e0948ebfd">BadVariableDefinitionExpression.m_IsReadOnly</a></div><div class="ttdeci">readonly bool m_IsReadOnly</div><div class="ttdef"><b>Definition:</b> <a href="_bad_variable_definition_expression_8cs_source.html#l00011">BadVariableDefinitionExpression.cs:11</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -247,10 +247,10 @@ Additional Inherited Members</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="_bad_variable_definition_expression_8cs_source.html#l00033">33</a> of file <a class="el" href="_bad_variable_definition_expression_8cs_source.html">BadVariableDefinitionExpression.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   34</span>    {</div>
 <div class="line"><span class="lineno">   35</span>        <a class="code hl_class" href="class_bad_class_prototype.html">BadClassPrototype</a>? type = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_variable_definition_expression.html#ad39dc7c678175db99b5a7e8dc1de25bb">TypeExpression</a> != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_variable_definition_expression.html#a1e7b664d617bc6227bb5f2db5c6d2fed">m_TypeExpression</a> != <span class="keyword">null</span>)</div>
 <div class="line"><span class="lineno">   37</span>        {</div>
 <div class="line"><span class="lineno">   38</span>            <a class="code hl_class" href="class_bad_object.html">BadObject</a> obj = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
-<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_variable" href="class_bad_variable_definition_expression.html#ad39dc7c678175db99b5a7e8dc1de25bb">TypeExpression</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
+<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_variable" href="class_bad_variable_definition_expression.html#a1e7b664d617bc6227bb5f2db5c6d2fed">m_TypeExpression</a>.<a class="code hl_function" href="class_bad_expression.html#a831d6482e068fdbb08cc7a04e2c72b60">Execute</a>(context))</div>
 <div class="line"><span class="lineno">   40</span>            {</div>
 <div class="line"><span class="lineno">   41</span>                obj = o;</div>
 <div class="line"><span class="lineno">   42</span> </div>
@@ -272,7 +272,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   58</span>            type = proto;</div>
 <div class="line"><span class="lineno">   59</span>        }</div>
 <div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a>.Wrap(<a class="code hl_property" href="class_bad_variable_expression.html#abed63fab5de4e0b29b3b5cf9407eeadc">Name</a>), <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(type, <a class="code hl_variable" href="class_bad_variable_definition_expression.html#ab68db13cdceffcf8cab5c21153b8fcb4">IsReadOnly</a>));</div>
+<div class="line"><span class="lineno">   61</span>        context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a>.Wrap(<a class="code hl_property" href="class_bad_variable_expression.html#abed63fab5de4e0b29b3b5cf9407eeadc">Name</a>), <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(type, <a class="code hl_variable" href="class_bad_variable_definition_expression.html#a3e640373d1b41686ee92a43e0948ebfd">m_IsReadOnly</a>));</div>
 <div class="line"><span class="lineno">   62</span> </div>
 <div class="line"><span class="lineno">   63</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> base.InnerExecute(context))</div>
 <div class="line"><span class="lineno">   64</span>        {</div>
@@ -316,32 +316,48 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab68db13cdceffcf8cab5c21153b8fcb4" name="ab68db13cdceffcf8cab5c21153b8fcb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab68db13cdceffcf8cab5c21153b8fcb4">&#9670;&nbsp;</a></span>IsReadOnly</h2>
+<a id="a3e640373d1b41686ee92a43e0948ebfd" name="a3e640373d1b41686ee92a43e0948ebfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e640373d1b41686ee92a43e0948ebfd">&#9670;&nbsp;</a></span>m_IsReadOnly</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly bool BadVariableDefinitionExpression.IsReadOnly</td>
+          <td class="memname">readonly bool BadVariableDefinitionExpression.m_IsReadOnly</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_bad_variable_definition_expression_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_variable_definition_expression_8cs_source.html">BadVariableDefinitionExpression.cs</a>.</p>
 
 </div>
 </div>
-<a id="ad39dc7c678175db99b5a7e8dc1de25bb" name="ad39dc7c678175db99b5a7e8dc1de25bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad39dc7c678175db99b5a7e8dc1de25bb">&#9670;&nbsp;</a></span>TypeExpression</h2>
+<a id="a1e7b664d617bc6227bb5f2db5c6d2fed" name="a1e7b664d617bc6227bb5f2db5c6d2fed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e7b664d617bc6227bb5f2db5c6d2fed">&#9670;&nbsp;</a></span>m_TypeExpression</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly? <a class="el" href="class_bad_expression.html">BadExpression</a> BadVariableDefinitionExpression.TypeExpression</td>
+          <td class="memname">readonly? <a class="el" href="class_bad_expression.html">BadExpression</a> BadVariableDefinitionExpression.m_TypeExpression</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_bad_variable_definition_expression_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_variable_definition_expression_8cs_source.html">BadVariableDefinitionExpression.cs</a>.</p>

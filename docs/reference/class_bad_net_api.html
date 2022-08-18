@@ -84,7 +84,6 @@ $(document).ready(function(){initNavTree('class_bad_net_api.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_bad_net_api-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">BadNetApi Class Reference</div></div>
@@ -118,17 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afe96305a2cf6a3ef4ea23708d1682ddc"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_interop_api.html#afe96305a2cf6a3ef4ea23708d1682ddc">Load</a> (<a class="el" href="class_bad_table.html">BadTable</a> target)</td></tr>
 <tr class="separator:afe96305a2cf6a3ef4ea23708d1682ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a64ab4caa95ca497720902c4bd7c15eaf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bad_interop_runnable.html">BadInteropRunnable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_net_api.html#a64ab4caa95ca497720902c4bd7c15eaf">WaitForTask&lt; T &gt;</a> (Task&lt; T &gt; t, Func&lt; T, <a class="el" href="class_bad_object.html">BadObject</a> &gt; onComplete)</td></tr>
-<tr class="separator:a64ab4caa95ca497720902c4bd7c15eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32d3f3669fdb50f99555d7d35f6d9522"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bad_interop_runnable.html">BadInteropRunnable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_net_api.html#a32d3f3669fdb50f99555d7d35f6d9522">WaitForTask&lt; T &gt;</a> (Task&lt; T &gt; t)</td></tr>
-<tr class="separator:a32d3f3669fdb50f99555d7d35f6d9522"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:ac3cce9ee58dfc6d40011a7f85c63aa4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_task.html">BadTask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_net_api.html#ac3cce9ee58dfc6d40011a7f85c63aa4f">Get</a> (<a class="el" href="class_bad_execution_context.html">BadExecutionContext</a> context, string url)</td></tr>
-<tr class="separator:ac3cce9ee58dfc6d40011a7f85c63aa4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89579b12efed10732ff28d3502a5c74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_task.html">BadTask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_net_api.html#ab89579b12efed10732ff28d3502a5c74">Post</a> (string url, string content)</td></tr>
+<tr class="separator:ab89579b12efed10732ff28d3502a5c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97cdd7b6b08f29304403bea295d67478"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_task.html">BadTask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_net_api.html#a97cdd7b6b08f29304403bea295d67478">Get</a> (string url)</td></tr>
+<tr class="separator:a97cdd7b6b08f29304403bea295d67478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -141,7 +135,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6e251fb8aec985856ea6943694666291" name="a6e251fb8aec985856ea6943694666291"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e251fb8aec985856ea6943694666291">&#9670;&nbsp;</a></span>BadNetApi()</h2>
@@ -158,14 +152,14 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   12</span>: base(<span class="stringliteral">&quot;Net&quot;</span>) { }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   10</span>: base(<span class="stringliteral">&quot;Net&quot;</span>) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac3cce9ee58dfc6d40011a7f85c63aa4f" name="ac3cce9ee58dfc6d40011a7f85c63aa4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3cce9ee58dfc6d40011a7f85c63aa4f">&#9670;&nbsp;</a></span>Get()</h2>
+<a id="a97cdd7b6b08f29304403bea295d67478" name="a97cdd7b6b08f29304403bea295d67478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97cdd7b6b08f29304403bea295d67478">&#9670;&nbsp;</a></span>Get()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,19 +170,9 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_bad_task.html">BadTask</a> BadNetApi.Get </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_bad_execution_context.html">BadExecutionContext</a>&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>url</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>url</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -198,14 +182,16 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00091">91</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   92</span>    {</div>
-<div class="line"><span class="lineno">   93</span>        HttpClient cl = <span class="keyword">new</span> HttpClient();</div>
-<div class="line"><span class="lineno">   94</span>        Task&lt;HttpResponseMessage&gt;? task = cl.GetAsync(url);</div>
-<div class="line"><span class="lineno">   95</span> </div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_task.html">BadTask</a>(WaitForTask(task), $<span class="stringliteral">&quot;Net.Get(\&quot;{url}\&quot;)&quot;</span>);</div>
-<div class="line"><span class="lineno">   97</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00026">26</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>    {</div>
+<div class="line"><span class="lineno">   28</span>        HttpClient cl = <span class="keyword">new</span> HttpClient();</div>
+<div class="line"><span class="lineno">   29</span>        Task&lt;HttpResponseMessage&gt;? task = cl.GetAsync(url);</div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_task.html">BadTask</a>(<a class="code hl_class" href="class_bad_task_utils.html">BadTaskUtils</a>.<a class="code hl_function" href="class_bad_task_utils.html#a2fa8457a1e56bb20a4a19bd4ffd444e3">WaitForTask</a>(task), $<span class="stringliteral">&quot;Net.Get(\&quot;{url}\&quot;)&quot;</span>);</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
 <div class="ttc" id="aclass_bad_task_html"><div class="ttname"><a href="class_bad_task.html">BadTask</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_task_8cs_source.html#l00013">BadTask.cs:14</a></div></div>
+<div class="ttc" id="aclass_bad_task_utils_html"><div class="ttname"><a href="class_bad_task_utils.html">BadTaskUtils</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_task_utils_8cs_source.html#l00006">BadTaskUtils.cs:7</a></div></div>
+<div class="ttc" id="aclass_bad_task_utils_html_a2fa8457a1e56bb20a4a19bd4ffd444e3"><div class="ttname"><a href="class_bad_task_utils.html#a2fa8457a1e56bb20a4a19bd4ffd444e3">BadTaskUtils.WaitForTask</a></div><div class="ttdeci">static BadInteropRunnable WaitForTask(System.Threading.Tasks.Task t)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_task_utils_8cs_source.html#l00034">BadTaskUtils.cs:34</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,16 +221,18 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_interop_api.html#afe96305a2cf6a3ef4ea23708d1682ddc">BadInteropApi</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   15</span>    {</div>
-<div class="line"><span class="lineno">   16</span>        target.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;Get&quot;</span>, <a class="code hl_function" href="class_bad_net_api.html#ac3cce9ee58dfc6d40011a7f85c63aa4f">Get</a>);</div>
-<div class="line"><span class="lineno">   17</span>    }</div>
-<div class="ttc" id="aclass_bad_net_api_html_ac3cce9ee58dfc6d40011a7f85c63aa4f"><div class="ttname"><a href="class_bad_net_api.html#ac3cce9ee58dfc6d40011a7f85c63aa4f">BadNetApi.Get</a></div><div class="ttdeci">BadTask Get(BadExecutionContext context, string url)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_net_api_8cs_source.html#l00091">BadNetApi.cs:91</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   13</span>    {</div>
+<div class="line"><span class="lineno">   14</span>        target.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;Get&quot;</span>, <a class="code hl_function" href="class_bad_net_api.html#a97cdd7b6b08f29304403bea295d67478">Get</a>);</div>
+<div class="line"><span class="lineno">   15</span>        target.SetFunction&lt;string, <span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;Post&quot;</span>, <a class="code hl_function" href="class_bad_net_api.html#ab89579b12efed10732ff28d3502a5c74">Post</a>);</div>
+<div class="line"><span class="lineno">   16</span>    }</div>
+<div class="ttc" id="aclass_bad_net_api_html_a97cdd7b6b08f29304403bea295d67478"><div class="ttname"><a href="class_bad_net_api.html#a97cdd7b6b08f29304403bea295d67478">BadNetApi.Get</a></div><div class="ttdeci">BadTask Get(string url)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_net_api_8cs_source.html#l00026">BadNetApi.cs:26</a></div></div>
+<div class="ttc" id="aclass_bad_net_api_html_ab89579b12efed10732ff28d3502a5c74"><div class="ttname"><a href="class_bad_net_api.html#ab89579b12efed10732ff28d3502a5c74">BadNetApi.Post</a></div><div class="ttdeci">BadTask Post(string url, string content)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_net_api_8cs_source.html#l00019">BadNetApi.cs:19</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a32d3f3669fdb50f99555d7d35f6d9522" name="a32d3f3669fdb50f99555d7d35f6d9522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32d3f3669fdb50f99555d7d35f6d9522">&#9670;&nbsp;</a></span>WaitForTask&lt; T &gt;() <span class="overload">[1/2]</span></h2>
+<a id="ab89579b12efed10732ff28d3502a5c74" name="ab89579b12efed10732ff28d3502a5c74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89579b12efed10732ff28d3502a5c74">&#9670;&nbsp;</a></span>Post()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,73 +241,16 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_bad_interop_runnable.html">BadInteropRunnable</a> BadNetApi.WaitForTask&lt; T &gt; </td>
+          <td class="memname"><a class="el" href="class_bad_task.html">BadTask</a> BadNetApi.Post </td>
           <td>(</td>
-          <td class="paramtype">Task&lt; T &gt;&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00045">45</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   46</span>    {</div>
-<div class="line"><span class="lineno">   47</span>        <a class="code hl_class" href="class_bad_interop_runnable.html">BadInteropRunnable</a>? runnable = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>        IEnumerator&lt;BadObject&gt; InnerWaitForTask()</div>
-<div class="line"><span class="lineno">   50</span>        {</div>
-<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">while</span> (!t.IsCanceled &amp;&amp; !t.IsCompleted &amp;&amp; !t.IsFaulted)</div>
-<div class="line"><span class="lineno">   52</span>            {</div>
-<div class="line"><span class="lineno">   53</span>                yield <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
-<div class="line"><span class="lineno">   54</span>            }</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>            <span class="keywordflow">if</span> (t.IsCompletedSuccessfully)</div>
-<div class="line"><span class="lineno">   57</span>            {</div>
-<div class="line"><span class="lineno">   58</span>                runnable!.<a class="code hl_function" href="class_bad_interop_runnable.html#ae91a4c704db272ad9ab64f3f297bba23">SetReturn</a>(<a class="code hl_class" href="class_bad_object.html">BadObject</a>.Wrap(t.Result));</div>
-<div class="line"><span class="lineno">   59</span>            }</div>
-<div class="line"><span class="lineno">   60</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   61</span>            {</div>
-<div class="line"><span class="lineno">   62</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Task Failed&quot;</span>);</div>
-<div class="line"><span class="lineno">   63</span>            }</div>
-<div class="line"><span class="lineno">   64</span>        }</div>
-<div class="line"><span class="lineno">   65</span> </div>
-<div class="line"><span class="lineno">   66</span>        runnable = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_interop_runnable.html">BadInteropRunnable</a>(InnerWaitForTask());</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">return</span> runnable;</div>
-<div class="line"><span class="lineno">   69</span>    }</div>
-<div class="ttc" id="aclass_bad_interop_runnable_html"><div class="ttname"><a href="class_bad_interop_runnable.html">BadInteropRunnable</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_interop_runnable_8cs_source.html#l00005">BadInteropRunnable.cs:6</a></div></div>
-<div class="ttc" id="aclass_bad_interop_runnable_html_ae91a4c704db272ad9ab64f3f297bba23"><div class="ttname"><a href="class_bad_interop_runnable.html#ae91a4c704db272ad9ab64f3f297bba23">BadInteropRunnable.SetReturn</a></div><div class="ttdeci">void SetReturn(BadObject obj)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_interop_runnable_8cs_source.html#l00016">BadInteropRunnable.cs:16</a></div></div>
-<div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
-<div class="ttc" id="aclass_bad_object_html_ab22a8e268d88e53b3f9a3ef02e83a410"><div class="ttname"><a href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
-<div class="ttc" id="aclass_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_runtime_exception.html">BadRuntimeException</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_runtime_exception_8cs_source.html#l00005">BadRuntimeException.cs:6</a></div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a64ab4caa95ca497720902c4bd7c15eaf" name="a64ab4caa95ca497720902c4bd7c15eaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64ab4caa95ca497720902c4bd7c15eaf">&#9670;&nbsp;</a></span>WaitForTask&lt; T &gt;() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="class_bad_interop_runnable.html">BadInteropRunnable</a> BadNetApi.WaitForTask&lt; T &gt; </td>
-          <td>(</td>
-          <td class="paramtype">Task&lt; T &gt;&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>url</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Func&lt; T, <a class="el" href="class_bad_object.html">BadObject</a> &gt;&#160;</td>
-          <td class="paramname"><em>onComplete</em>&#160;</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>content</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -329,36 +260,17 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_bad_net_api_8cs_source.html#l00019">19</a> of file <a class="el" href="_bad_net_api_8cs_source.html">BadNetApi.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   20</span>    {</div>
-<div class="line"><span class="lineno">   21</span>        <a class="code hl_class" href="class_bad_interop_runnable.html">BadInteropRunnable</a>? runnable = <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   21</span>        HttpClient cl = <span class="keyword">new</span> HttpClient();</div>
 <div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>        IEnumerator&lt;BadObject&gt; InnerWaitForTask()</div>
-<div class="line"><span class="lineno">   24</span>        {</div>
-<div class="line"><span class="lineno">   25</span>            <span class="keywordflow">while</span> (!t.IsCanceled &amp;&amp; !t.IsCompleted &amp;&amp; !t.IsFaulted)</div>
-<div class="line"><span class="lineno">   26</span>            {</div>
-<div class="line"><span class="lineno">   27</span>                yield <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
-<div class="line"><span class="lineno">   28</span>            }</div>
-<div class="line"><span class="lineno">   29</span> </div>
-<div class="line"><span class="lineno">   30</span>            <span class="keywordflow">if</span> (t.IsCompletedSuccessfully)</div>
-<div class="line"><span class="lineno">   31</span>            {</div>
-<div class="line"><span class="lineno">   32</span>                runnable!.<a class="code hl_function" href="class_bad_interop_runnable.html#ae91a4c704db272ad9ab64f3f297bba23">SetReturn</a>(onComplete(t.Result));</div>
-<div class="line"><span class="lineno">   33</span>            }</div>
-<div class="line"><span class="lineno">   34</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   35</span>            {</div>
-<div class="line"><span class="lineno">   36</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Task Failed&quot;</span>);</div>
-<div class="line"><span class="lineno">   37</span>            }</div>
-<div class="line"><span class="lineno">   38</span>        }</div>
-<div class="line"><span class="lineno">   39</span> </div>
-<div class="line"><span class="lineno">   40</span>        runnable = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_interop_runnable.html">BadInteropRunnable</a>(InnerWaitForTask());</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">return</span> runnable;</div>
-<div class="line"><span class="lineno">   43</span>    }</div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_task.html">BadTask</a>(<a class="code hl_class" href="class_bad_task_utils.html">BadTaskUtils</a>.<a class="code hl_function" href="class_bad_task_utils.html#a2fa8457a1e56bb20a4a19bd4ffd444e3">WaitForTask</a>(cl.PostAsync(url, <span class="keyword">new</span> StringContent(content))), $<span class="stringliteral">&quot;Net.Post(\&quot;{url}\&quot;)&quot;</span>);</div>
+<div class="line"><span class="lineno">   24</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

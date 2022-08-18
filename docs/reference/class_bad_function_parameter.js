@@ -1,7 +1,7 @@
 var class_bad_function_parameter =
 [
-    [ "BadFunctionParameter", "class_bad_function_parameter.html#a7adbb9d1191a45155166831ecf26136e", null ],
-    [ "BadFunctionParameter", "class_bad_function_parameter.html#a1c1b1bca9b98bb4a088451041e60bf31", null ],
+    [ "BadFunctionParameter", "class_bad_function_parameter.html#a1ea312ffb59def66c7ad646878084055", null ],
+    [ "BadFunctionParameter", "class_bad_function_parameter.html#a05144cb12a9062e80f6e7ece52e0aae6", null ],
     [ "Initialize", "class_bad_function_parameter.html#a058591ff57682f9c519f11c54ac915af", null ],
     [ "operator BadFunctionParameter", "class_bad_function_parameter.html#a0942a5e69505df1a2d7fadf4841a20f0", null ],
     [ "ToString", "class_bad_function_parameter.html#a2b941905fa33e4594422505fb975de05", null ],

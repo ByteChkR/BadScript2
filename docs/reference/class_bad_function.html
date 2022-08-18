@@ -258,69 +258,69 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00056">56</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
-<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="class_bad_function.html#ad9e5af59de626c807aaecdf9d5e4f50d">Parameters</a>.Length; i++)</div>
-<div class="line"><span class="lineno">   59</span>        {</div>
-<div class="line"><span class="lineno">   60</span>            <a class="code hl_class" href="class_bad_function_parameter.html">BadFunctionParameter</a> parameter = <a class="code hl_variable" href="class_bad_function.html#ad9e5af59de626c807aaecdf9d5e4f50d">Parameters</a>[i];</div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a05ceff16d5610b30627cb8064a9f15a1">IsRestArgs</a>)</div>
-<div class="line"><span class="lineno">   62</span>            {</div>
-<div class="line"><span class="lineno">   63</span>                context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(</div>
-<div class="line"><span class="lineno">   64</span>                    parameter.<a class="code hl_property" href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">Name</a>,</div>
-<div class="line"><span class="lineno">   65</span>                    <span class="keyword">new</span> <a class="code hl_class" href="class_bad_array.html">BadArray</a>(args.Skip(i).ToList()),</div>
-<div class="line"><span class="lineno">   66</span>                    <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(<a class="code hl_class" href="class_bad_native_class_builder.html">BadNativeClassBuilder</a>.<a class="code hl_function" href="class_bad_native_class_builder.html#acb938aefba0ce378b9f4fb8ecf196669">GetNative</a>(<span class="stringliteral">&quot;Array&quot;</span>))</div>
-<div class="line"><span class="lineno">   67</span>                );</div>
-<div class="line"><span class="lineno">   68</span>            }</div>
-<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (args.Length &lt;= i)</div>
-<div class="line"><span class="lineno">   70</span>            {</div>
-<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#add35ea99c7ed4a9a0392f9e9c0012041">IsOptional</a>)</div>
-<div class="line"><span class="lineno">   72</span>                {</div>
-<div class="line"><span class="lineno">   73</span>                    context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">Name</a>, <a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a86e385d9297f09e05dcaab372fd02b1b">Type</a>));</div>
-<div class="line"><span class="lineno">   74</span>                }</div>
-<div class="line"><span class="lineno">   75</span>                <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   76</span>                {</div>
-<div class="line"><span class="lineno">   77</span>                    <span class="keywordflow">if</span> (position != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   78</span>                    {</div>
-<div class="line"><span class="lineno">   79</span>                        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">   80</span>                            $<span class="stringliteral">&quot;Wrong number of parameters for &#39;{this}&#39;. Expected Argument for &#39;{parameter}&#39;&quot;</span>,</div>
-<div class="line"><span class="lineno">   81</span>                            position</div>
-<div class="line"><span class="lineno">   82</span>                        );</div>
-<div class="line"><span class="lineno">   83</span>                    }</div>
-<div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">   86</span>                        $<span class="stringliteral">&quot;Wrong number of parameters for &#39;{this}&#39;. Expected Argument for &#39;{parameter}&#39;&quot;</span></div>
-<div class="line"><span class="lineno">   87</span>                    );</div>
-<div class="line"><span class="lineno">   88</span>                }</div>
-<div class="line"><span class="lineno">   89</span>            }</div>
-<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   91</span>            {</div>
-<div class="line"><span class="lineno">   92</span>                <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a23f5f56fa1110c615a4280cc92c02a8a">IsNullChecked</a> &amp;&amp; args[i] == <a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
-<div class="line"><span class="lineno">   93</span>                {</div>
-<div class="line"><span class="lineno">   94</span>                    <span class="keywordflow">if</span> (position != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   95</span>                    {</div>
-<div class="line"><span class="lineno">   96</span>                        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">   97</span>                            $<span class="stringliteral">&quot;Null value not allowed for &#39;{this}&#39; parameter &#39;{parameter}&#39;&quot;</span>,</div>
-<div class="line"><span class="lineno">   98</span>                            position</div>
-<div class="line"><span class="lineno">   99</span>                        );</div>
-<div class="line"><span class="lineno">  100</span>                    }</div>
-<div class="line"><span class="lineno">  101</span> </div>
-<div class="line"><span class="lineno">  102</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">  103</span>                        $<span class="stringliteral">&quot;Null value not allowed for &#39;{this}&#39; parameter &#39;{parameter}&#39;&quot;</span></div>
-<div class="line"><span class="lineno">  104</span>                    );</div>
-<div class="line"><span class="lineno">  105</span>                }</div>
-<div class="line"><span class="lineno">  106</span> </div>
-<div class="line"><span class="lineno">  107</span>                context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">Name</a>, args[i], <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a86e385d9297f09e05dcaab372fd02b1b">Type</a>));</div>
-<div class="line"><span class="lineno">  108</span>            }</div>
-<div class="line"><span class="lineno">  109</span>        }</div>
-<div class="line"><span class="lineno">  110</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00059">59</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>    {</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="class_bad_function.html#ad9e5af59de626c807aaecdf9d5e4f50d">Parameters</a>.Length; i++)</div>
+<div class="line"><span class="lineno">   62</span>        {</div>
+<div class="line"><span class="lineno">   63</span>            <a class="code hl_class" href="class_bad_function_parameter.html">BadFunctionParameter</a> parameter = <a class="code hl_variable" href="class_bad_function.html#ad9e5af59de626c807aaecdf9d5e4f50d">Parameters</a>[i];</div>
+<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a05ceff16d5610b30627cb8064a9f15a1">IsRestArgs</a>)</div>
+<div class="line"><span class="lineno">   65</span>            {</div>
+<div class="line"><span class="lineno">   66</span>                context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(</div>
+<div class="line"><span class="lineno">   67</span>                    parameter.<a class="code hl_property" href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">Name</a>,</div>
+<div class="line"><span class="lineno">   68</span>                    <span class="keyword">new</span> <a class="code hl_class" href="class_bad_array.html">BadArray</a>(args.Skip(i).ToList()),</div>
+<div class="line"><span class="lineno">   69</span>                    <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(<a class="code hl_class" href="class_bad_native_class_builder.html">BadNativeClassBuilder</a>.<a class="code hl_function" href="class_bad_native_class_builder.html#acb938aefba0ce378b9f4fb8ecf196669">GetNative</a>(<span class="stringliteral">&quot;Array&quot;</span>))</div>
+<div class="line"><span class="lineno">   70</span>                );</div>
+<div class="line"><span class="lineno">   71</span>            }</div>
+<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (args.Length &lt;= i)</div>
+<div class="line"><span class="lineno">   73</span>            {</div>
+<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#add35ea99c7ed4a9a0392f9e9c0012041">IsOptional</a>)</div>
+<div class="line"><span class="lineno">   75</span>                {</div>
+<div class="line"><span class="lineno">   76</span>                    context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">Name</a>, <a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a86e385d9297f09e05dcaab372fd02b1b">Type</a>));</div>
+<div class="line"><span class="lineno">   77</span>                }</div>
+<div class="line"><span class="lineno">   78</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   79</span>                {</div>
+<div class="line"><span class="lineno">   80</span>                    <span class="keywordflow">if</span> (position != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   81</span>                    {</div>
+<div class="line"><span class="lineno">   82</span>                        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">   83</span>                            $<span class="stringliteral">&quot;Wrong number of parameters for &#39;{this}&#39;. Expected Argument for &#39;{parameter}&#39;&quot;</span>,</div>
+<div class="line"><span class="lineno">   84</span>                            position</div>
+<div class="line"><span class="lineno">   85</span>                        );</div>
+<div class="line"><span class="lineno">   86</span>                    }</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">   89</span>                        $<span class="stringliteral">&quot;Wrong number of parameters for &#39;{this}&#39;. Expected Argument for &#39;{parameter}&#39;&quot;</span></div>
+<div class="line"><span class="lineno">   90</span>                    );</div>
+<div class="line"><span class="lineno">   91</span>                }</div>
+<div class="line"><span class="lineno">   92</span>            }</div>
+<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   94</span>            {</div>
+<div class="line"><span class="lineno">   95</span>                <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a23f5f56fa1110c615a4280cc92c02a8a">IsNullChecked</a> &amp;&amp; args[i] == <a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
+<div class="line"><span class="lineno">   96</span>                {</div>
+<div class="line"><span class="lineno">   97</span>                    <span class="keywordflow">if</span> (position != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   98</span>                    {</div>
+<div class="line"><span class="lineno">   99</span>                        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">  100</span>                            $<span class="stringliteral">&quot;Null value not allowed for &#39;{this}&#39; parameter &#39;{parameter}&#39;&quot;</span>,</div>
+<div class="line"><span class="lineno">  101</span>                            position</div>
+<div class="line"><span class="lineno">  102</span>                        );</div>
+<div class="line"><span class="lineno">  103</span>                    }</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">  106</span>                        $<span class="stringliteral">&quot;Null value not allowed for &#39;{this}&#39; parameter &#39;{parameter}&#39;&quot;</span></div>
+<div class="line"><span class="lineno">  107</span>                    );</div>
+<div class="line"><span class="lineno">  108</span>                }</div>
+<div class="line"><span class="lineno">  109</span> </div>
+<div class="line"><span class="lineno">  110</span>                context.<a class="code hl_variable" href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">Scope</a>.<a class="code hl_function" href="class_bad_scope.html#a1b0e505786279e15f6d79722106247b8">DefineVariable</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">Name</a>, args[i], <span class="keyword">new</span> <a class="code hl_class" href="class_bad_property_info.html">BadPropertyInfo</a>(parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a86e385d9297f09e05dcaab372fd02b1b">Type</a>));</div>
+<div class="line"><span class="lineno">  111</span>            }</div>
+<div class="line"><span class="lineno">  112</span>        }</div>
+<div class="line"><span class="lineno">  113</span>    }</div>
 <div class="ttc" id="aclass_bad_array_html"><div class="ttname"><a href="class_bad_array.html">BadArray</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_array_8cs_source.html#l00007">BadArray.cs:8</a></div></div>
 <div class="ttc" id="aclass_bad_execution_context_html_a24730d4805860affe8171e203b4e96eb"><div class="ttname"><a href="class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb">BadExecutionContext.Scope</a></div><div class="ttdeci">readonly BadScope Scope</div><div class="ttdef"><b>Definition:</b> <a href="_bad_execution_context_8cs_source.html#l00008">BadExecutionContext.cs:8</a></div></div>
 <div class="ttc" id="aclass_bad_function_parameter_html"><div class="ttname"><a href="class_bad_function_parameter.html">BadFunctionParameter</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00007">BadFunctionParameter.cs:8</a></div></div>
-<div class="ttc" id="aclass_bad_function_parameter_html_a05ceff16d5610b30627cb8064a9f15a1"><div class="ttname"><a href="class_bad_function_parameter.html#a05ceff16d5610b30627cb8064a9f15a1">BadFunctionParameter.IsRestArgs</a></div><div class="ttdeci">bool IsRestArgs</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00045">BadFunctionParameter.cs:45</a></div></div>
-<div class="ttc" id="aclass_bad_function_parameter_html_a23f5f56fa1110c615a4280cc92c02a8a"><div class="ttname"><a href="class_bad_function_parameter.html#a23f5f56fa1110c615a4280cc92c02a8a">BadFunctionParameter.IsNullChecked</a></div><div class="ttdeci">bool IsNullChecked</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00044">BadFunctionParameter.cs:44</a></div></div>
-<div class="ttc" id="aclass_bad_function_parameter_html_a86e385d9297f09e05dcaab372fd02b1b"><div class="ttname"><a href="class_bad_function_parameter.html#a86e385d9297f09e05dcaab372fd02b1b">BadFunctionParameter.Type</a></div><div class="ttdeci">BadClassPrototype? Type</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00039">BadFunctionParameter.cs:39</a></div></div>
-<div class="ttc" id="aclass_bad_function_parameter_html_aafa36a62502e96720880c80899f1ff8c"><div class="ttname"><a href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">BadFunctionParameter.Name</a></div><div class="ttdeci">string Name</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00042">BadFunctionParameter.cs:42</a></div></div>
-<div class="ttc" id="aclass_bad_function_parameter_html_add35ea99c7ed4a9a0392f9e9c0012041"><div class="ttname"><a href="class_bad_function_parameter.html#add35ea99c7ed4a9a0392f9e9c0012041">BadFunctionParameter.IsOptional</a></div><div class="ttdeci">bool IsOptional</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00043">BadFunctionParameter.cs:43</a></div></div>
+<div class="ttc" id="aclass_bad_function_parameter_html_a05ceff16d5610b30627cb8064a9f15a1"><div class="ttname"><a href="class_bad_function_parameter.html#a05ceff16d5610b30627cb8064a9f15a1">BadFunctionParameter.IsRestArgs</a></div><div class="ttdeci">bool IsRestArgs</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00044">BadFunctionParameter.cs:44</a></div></div>
+<div class="ttc" id="aclass_bad_function_parameter_html_a23f5f56fa1110c615a4280cc92c02a8a"><div class="ttname"><a href="class_bad_function_parameter.html#a23f5f56fa1110c615a4280cc92c02a8a">BadFunctionParameter.IsNullChecked</a></div><div class="ttdeci">bool IsNullChecked</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00043">BadFunctionParameter.cs:43</a></div></div>
+<div class="ttc" id="aclass_bad_function_parameter_html_a86e385d9297f09e05dcaab372fd02b1b"><div class="ttname"><a href="class_bad_function_parameter.html#a86e385d9297f09e05dcaab372fd02b1b">BadFunctionParameter.Type</a></div><div class="ttdeci">BadClassPrototype? Type</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00038">BadFunctionParameter.cs:38</a></div></div>
+<div class="ttc" id="aclass_bad_function_parameter_html_aafa36a62502e96720880c80899f1ff8c"><div class="ttname"><a href="class_bad_function_parameter.html#aafa36a62502e96720880c80899f1ff8c">BadFunctionParameter.Name</a></div><div class="ttdeci">string Name</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00041">BadFunctionParameter.cs:41</a></div></div>
+<div class="ttc" id="aclass_bad_function_parameter_html_add35ea99c7ed4a9a0392f9e9c0012041"><div class="ttname"><a href="class_bad_function_parameter.html#add35ea99c7ed4a9a0392f9e9c0012041">BadFunctionParameter.IsOptional</a></div><div class="ttdeci">bool IsOptional</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_parameter_8cs_source.html#l00042">BadFunctionParameter.cs:42</a></div></div>
 <div class="ttc" id="aclass_bad_native_class_builder_html"><div class="ttname"><a href="class_bad_native_class_builder.html">BadNativeClassBuilder</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_native_class_builder_8cs_source.html#l00010">BadNativeClassBuilder.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_native_class_builder_html_acb938aefba0ce378b9f4fb8ecf196669"><div class="ttname"><a href="class_bad_native_class_builder.html#acb938aefba0ce378b9f4fb8ecf196669">BadNativeClassBuilder.GetNative</a></div><div class="ttdeci">static BadClassPrototype GetNative(string name)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_native_class_builder_8cs_source.html#l00024">BadNativeClassBuilder.cs:24</a></div></div>
 <div class="ttc" id="aclass_bad_object_html_ab22a8e268d88e53b3f9a3ef02e83a410"><div class="ttname"><a href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
@@ -392,27 +392,30 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   31</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="class_bad_function.html#ad9e5af59de626c807aaecdf9d5e4f50d">Parameters</a>.Length; i++)</div>
 <div class="line"><span class="lineno">   32</span>        {</div>
 <div class="line"><span class="lineno">   33</span>            <a class="code hl_class" href="class_bad_function_parameter.html">BadFunctionParameter</a> parameter = <a class="code hl_variable" href="class_bad_function.html#ad9e5af59de626c807aaecdf9d5e4f50d">Parameters</a>[i];</div>
-<div class="line"><span class="lineno">   34</span>            <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a05ceff16d5610b30627cb8064a9f15a1">IsRestArgs</a>) { }</div>
-<div class="line"><span class="lineno">   35</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (args.Length &lt;= i)</div>
-<div class="line"><span class="lineno">   36</span>            {</div>
-<div class="line"><span class="lineno">   37</span>                <span class="keywordflow">if</span> (!parameter.<a class="code hl_property" href="class_bad_function_parameter.html#add35ea99c7ed4a9a0392f9e9c0012041">IsOptional</a>)</div>
-<div class="line"><span class="lineno">   38</span>                {</div>
-<div class="line"><span class="lineno">   39</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">   40</span>                        $<span class="stringliteral">&quot;Wrong number of parameters for &#39;{this}&#39;. Expected Argument for &#39;{parameter}&#39;&quot;</span></div>
-<div class="line"><span class="lineno">   41</span>                    );</div>
-<div class="line"><span class="lineno">   42</span>                }</div>
-<div class="line"><span class="lineno">   43</span>            }</div>
-<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   45</span>            {</div>
-<div class="line"><span class="lineno">   46</span>                <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a23f5f56fa1110c615a4280cc92c02a8a">IsNullChecked</a> &amp;&amp; args[i] == <a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
-<div class="line"><span class="lineno">   47</span>                {</div>
-<div class="line"><span class="lineno">   48</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
-<div class="line"><span class="lineno">   49</span>                        $<span class="stringliteral">&quot;Null value not allowed for &#39;{this}&#39; parameter &#39;{parameter}&#39;&quot;</span></div>
-<div class="line"><span class="lineno">   50</span>                    );</div>
-<div class="line"><span class="lineno">   51</span>                }</div>
-<div class="line"><span class="lineno">   52</span>            }</div>
-<div class="line"><span class="lineno">   53</span>        }</div>
-<div class="line"><span class="lineno">   54</span>    }</div>
+<div class="line"><span class="lineno">   34</span>            <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a05ceff16d5610b30627cb8064a9f15a1">IsRestArgs</a>)</div>
+<div class="line"><span class="lineno">   35</span>            {</div>
+<div class="line"><span class="lineno">   36</span>                <span class="comment">//Do Nothing</span></div>
+<div class="line"><span class="lineno">   37</span>            }</div>
+<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (args.Length &lt;= i)</div>
+<div class="line"><span class="lineno">   39</span>            {</div>
+<div class="line"><span class="lineno">   40</span>                <span class="keywordflow">if</span> (!parameter.<a class="code hl_property" href="class_bad_function_parameter.html#add35ea99c7ed4a9a0392f9e9c0012041">IsOptional</a>)</div>
+<div class="line"><span class="lineno">   41</span>                {</div>
+<div class="line"><span class="lineno">   42</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">   43</span>                        $<span class="stringliteral">&quot;Wrong number of parameters for &#39;{this}&#39;. Expected Argument for &#39;{parameter}&#39;&quot;</span></div>
+<div class="line"><span class="lineno">   44</span>                    );</div>
+<div class="line"><span class="lineno">   45</span>                }</div>
+<div class="line"><span class="lineno">   46</span>            }</div>
+<div class="line"><span class="lineno">   47</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   48</span>            {</div>
+<div class="line"><span class="lineno">   49</span>                <span class="keywordflow">if</span> (parameter.<a class="code hl_property" href="class_bad_function_parameter.html#a23f5f56fa1110c615a4280cc92c02a8a">IsNullChecked</a> &amp;&amp; args[i] == <a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>)</div>
+<div class="line"><span class="lineno">   50</span>                {</div>
+<div class="line"><span class="lineno">   51</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(</div>
+<div class="line"><span class="lineno">   52</span>                        $<span class="stringliteral">&quot;Null value not allowed for &#39;{this}&#39; parameter &#39;{parameter}&#39;&quot;</span></div>
+<div class="line"><span class="lineno">   53</span>                    );</div>
+<div class="line"><span class="lineno">   54</span>                }</div>
+<div class="line"><span class="lineno">   55</span>            }</div>
+<div class="line"><span class="lineno">   56</span>        }</div>
+<div class="line"><span class="lineno">   57</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -431,11 +434,11 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00124">124</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  125</span>    {</div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">return</span></div>
-<div class="line"><span class="lineno">  127</span>            $<span class="stringliteral">&quot;{BadStaticKeys.FunctionKey} {Name?.ToString() ?? &quot;</span>&lt;anonymous&gt;<span class="stringliteral">&quot;}({string.Join(&quot;</span>, <span class="stringliteral">&quot;, Parameters.Cast&lt;object&gt;())})&quot;</span>;</div>
-<div class="line"><span class="lineno">  128</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00127">127</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  128</span>    {</div>
+<div class="line"><span class="lineno">  129</span>        <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  130</span>            $<span class="stringliteral">&quot;{BadStaticKeys.FunctionKey} {Name?.ToString() ?? &quot;</span>&lt;anonymous&gt;<span class="stringliteral">&quot;}({string.Join(&quot;</span>, <span class="stringliteral">&quot;, Parameters.Cast&lt;object&gt;())})&quot;</span>;</div>
+<div class="line"><span class="lineno">  131</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -497,13 +500,13 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00113">113</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  114</span>    {</div>
-<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_function" href="class_bad_function.html#a59af31f36644dbf088e31e39c30eab09">InvokeBlock</a>(args, caller))</div>
-<div class="line"><span class="lineno">  116</span>        {</div>
-<div class="line"><span class="lineno">  117</span>            yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">  118</span>        }</div>
-<div class="line"><span class="lineno">  119</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00116">116</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  117</span>    {</div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> <a class="code hl_function" href="class_bad_function.html#a59af31f36644dbf088e31e39c30eab09">InvokeBlock</a>(args, caller))</div>
+<div class="line"><span class="lineno">  119</span>        {</div>
+<div class="line"><span class="lineno">  120</span>            yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  121</span>        }</div>
+<div class="line"><span class="lineno">  122</span>    }</div>
 <div class="ttc" id="aclass_bad_function_html_a59af31f36644dbf088e31e39c30eab09"><div class="ttname"><a href="class_bad_function.html#a59af31f36644dbf088e31e39c30eab09">BadFunction.InvokeBlock</a></div><div class="ttdeci">abstract IEnumerable&lt; BadObject &gt; InvokeBlock(BadObject[] args, BadExecutionContext caller)</div></div>
 <div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
 </div><!-- fragment -->
@@ -573,11 +576,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_object.html#af24886d5abab140bf6855563f6833939">BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00130">130</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  131</span>    {</div>
-<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_function.html#a41d023181fbb0b6efc819f67a561054c">GetHeader</a>();</div>
-<div class="line"><span class="lineno">  133</span>    }</div>
-<div class="ttc" id="aclass_bad_function_html_a41d023181fbb0b6efc819f67a561054c"><div class="ttname"><a href="class_bad_function.html#a41d023181fbb0b6efc819f67a561054c">BadFunction.GetHeader</a></div><div class="ttdeci">string GetHeader()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_8cs_source.html#l00124">BadFunction.cs:124</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_function_8cs_source.html#l00133">133</a> of file <a class="el" href="_bad_function_8cs_source.html">BadFunction.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  134</span>    {</div>
+<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_function.html#a41d023181fbb0b6efc819f67a561054c">GetHeader</a>();</div>
+<div class="line"><span class="lineno">  136</span>    }</div>
+<div class="ttc" id="aclass_bad_function_html_a41d023181fbb0b6efc819f67a561054c"><div class="ttname"><a href="class_bad_function.html#a41d023181fbb0b6efc819f67a561054c">BadFunction.GetHeader</a></div><div class="ttdeci">string GetHeader()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_8cs_source.html#l00127">BadFunction.cs:127</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

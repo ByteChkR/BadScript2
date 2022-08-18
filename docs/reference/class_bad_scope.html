@@ -169,8 +169,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ad238e3ed15d9b9b89ab0651e339e334a"><td class="memItemLeft" align="right" valign="top">readonly? <a class="el" href="class_bad_scope.html">BadScope</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_scope.html#ad238e3ed15d9b9b89ab0651e339e334a">Caller</a></td></tr>
-<tr class="separator:ad238e3ed15d9b9b89ab0651e339e334a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5837b16796bd5daafbf3f785cc14cb25"><td class="memItemLeft" align="right" valign="top">readonly string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_scope.html#a5837b16796bd5daafbf3f785cc14cb25">Name</a></td></tr>
 <tr class="separator:a5837b16796bd5daafbf3f785cc14cb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16e07dfaa9b3ab5942384185964b7d47"><td class="memItemLeft" align="right" valign="top">readonly? <a class="el" href="class_bad_scope.html">BadScope</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a></td></tr>
@@ -207,6 +205,8 @@ Static Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:ad238e3ed15d9b9b89ab0651e339e334a"><td class="memItemLeft" align="right" valign="top">readonly? <a class="el" href="class_bad_scope.html">BadScope</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_scope.html#ad238e3ed15d9b9b89ab0651e339e334a">Caller</a></td></tr>
+<tr class="separator:ad238e3ed15d9b9b89ab0651e339e334a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af39473f26a400c7cea9789a7c2639ec8"><td class="memItemLeft" align="right" valign="top">readonly <a class="el" href="class_bad_table.html">BadTable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_scope.html#af39473f26a400c7cea9789a7c2639ec8">m_ScopeVariables</a> = new <a class="el" href="class_bad_table.html">BadTable</a>()</td></tr>
 <tr class="separator:af39473f26a400c7cea9789a7c2639ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -532,7 +532,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   49</span>    {</div>
 <div class="line"><span class="lineno">   50</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_native_class_prototype.html">BadNativeClassPrototype&lt;BadScope&gt;</a>(</div>
 <div class="line"><span class="lineno">   51</span>            <span class="stringliteral">&quot;Scope&quot;</span>,</div>
-<div class="line"><span class="lineno">   52</span>            (ctx, args) =&gt; <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Cannot call constructor on a scope&quot;</span>)</div>
+<div class="line"><span class="lineno">   52</span>            (_, _) =&gt; <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Cannot call constructor on a scope&quot;</span>)</div>
 <div class="line"><span class="lineno">   53</span>        );</div>
 <div class="line"><span class="lineno">   54</span>    }</div>
 <div class="ttc" id="aclass_bad_native_class_prototype_html"><div class="ttname"><a href="class_bad_native_class_prototype.html">BadNativeClassPrototype</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_native_class_prototype_8cs_source.html#l00025">BadNativeClassPrototype.cs:27</a></div></div>
@@ -737,7 +737,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_scope_8cs_source.html#l00222">222</a> of file <a class="el" href="_bad_scope_8cs_source.html">BadScope.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  223</span>    {</div>
-<div class="line"><span class="lineno">  224</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_scope.html#a6efaa73c1b5718ec5452349f12e7dc03">HasLocal</a>(name) || (<a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a> != <span class="keyword">null</span> &amp;&amp; <a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a>.<a class="code hl_function" href="class_bad_scope.html#afe9f975aa937676b700117ce5c58a592">HasVariable</a>(name));</div>
+<div class="line"><span class="lineno">  224</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_scope.html#a6efaa73c1b5718ec5452349f12e7dc03">HasLocal</a>(name) || <a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a> != <span class="keyword">null</span> &amp;&amp; <a class="code hl_variable" href="class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47">Parent</a>.<a class="code hl_function" href="class_bad_scope.html#afe9f975aa937676b700117ce5c58a592">HasVariable</a>(name);</div>
 <div class="line"><span class="lineno">  225</span>    }</div>
 </div><!-- fragment -->
 </div>
@@ -1051,11 +1051,19 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">readonly? <a class="el" href="class_bad_scope.html">BadScope</a> BadScope.Caller</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_bad_scope_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_scope_8cs_source.html">BadScope.cs</a>.</p>

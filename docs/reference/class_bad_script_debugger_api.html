@@ -194,14 +194,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_interop_api.html#afe96305a2cf6a3ef4ea23708d1682ddc">BadInteropApi</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script_debugger_api_8cs_source.html#l00034">34</a> of file <a class="el" href="_bad_script_debugger_api_8cs_source.html">BadScriptDebuggerApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   35</span>    {</div>
-<div class="line"><span class="lineno">   36</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_function.html">BadFunction</a>&gt;(<span class="stringliteral">&quot;RegisterStep&quot;</span>, <a class="code hl_function" href="class_bad_script_debugger_api.html#ab03ba23d7ccbac0c0ceb8766e1e113c8">RegisterStep</a>);</div>
-<div class="line"><span class="lineno">   37</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_function.html">BadFunction</a>&gt;(<span class="stringliteral">&quot;RegisterOnFileLoaded&quot;</span>, <a class="code hl_function" href="class_bad_script_debugger_api.html#af988a9200e58924d8096b8fd98d4f68e">RegisterOnFileLoaded</a>);</div>
-<div class="line"><span class="lineno">   38</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script_debugger_api_8cs_source.html#l00040">40</a> of file <a class="el" href="_bad_script_debugger_api_8cs_source.html">BadScriptDebuggerApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   41</span>    {</div>
+<div class="line"><span class="lineno">   42</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_function.html">BadFunction</a>&gt;(<span class="stringliteral">&quot;RegisterStep&quot;</span>, <a class="code hl_function" href="class_bad_script_debugger_api.html#ab03ba23d7ccbac0c0ceb8766e1e113c8">RegisterStep</a>);</div>
+<div class="line"><span class="lineno">   43</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_function.html">BadFunction</a>&gt;(<span class="stringliteral">&quot;RegisterOnFileLoaded&quot;</span>, <a class="code hl_function" href="class_bad_script_debugger_api.html#af988a9200e58924d8096b8fd98d4f68e">RegisterOnFileLoaded</a>);</div>
+<div class="line"><span class="lineno">   44</span>    }</div>
 <div class="ttc" id="aclass_bad_function_html"><div class="ttname"><a href="class_bad_function.html">BadFunction</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_8cs_source.html#l00008">BadFunction.cs:9</a></div></div>
 <div class="ttc" id="aclass_bad_script_debugger_api_html_ab03ba23d7ccbac0c0ceb8766e1e113c8"><div class="ttname"><a href="class_bad_script_debugger_api.html#ab03ba23d7ccbac0c0ceb8766e1e113c8">BadScriptDebuggerApi.RegisterStep</a></div><div class="ttdeci">void RegisterStep(BadExecutionContext context, BadFunction func)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_script_debugger_api_8cs_source.html#l00018">BadScriptDebuggerApi.cs:18</a></div></div>
-<div class="ttc" id="aclass_bad_script_debugger_api_html_af988a9200e58924d8096b8fd98d4f68e"><div class="ttname"><a href="class_bad_script_debugger_api.html#af988a9200e58924d8096b8fd98d4f68e">BadScriptDebuggerApi.RegisterOnFileLoaded</a></div><div class="ttdeci">void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_script_debugger_api_8cs_source.html#l00026">BadScriptDebuggerApi.cs:26</a></div></div>
+<div class="ttc" id="aclass_bad_script_debugger_api_html_af988a9200e58924d8096b8fd98d4f68e"><div class="ttname"><a href="class_bad_script_debugger_api.html#af988a9200e58924d8096b8fd98d4f68e">BadScriptDebuggerApi.RegisterOnFileLoaded</a></div><div class="ttdeci">void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_script_debugger_api_8cs_source.html#l00029">BadScriptDebuggerApi.cs:29</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -231,14 +231,17 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script_debugger_api_8cs_source.html#l00026">26</a> of file <a class="el" href="_bad_script_debugger_api_8cs_source.html">BadScriptDebuggerApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   27</span>    {</div>
-<div class="line"><span class="lineno">   28</span>        m_Debugger.OnFileLoaded += s =&gt;</div>
-<div class="line"><span class="lineno">   29</span>        {</div>
-<div class="line"><span class="lineno">   30</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_function.html#a5789ebbac7810ab49ffddfaeba358415">Invoke</a>(<span class="keyword">new</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a>[] { s }, context)) { }</div>
-<div class="line"><span class="lineno">   31</span>        };</div>
-<div class="line"><span class="lineno">   32</span>    }</div>
-<div class="ttc" id="aclass_bad_function_html_a5789ebbac7810ab49ffddfaeba358415"><div class="ttname"><a href="class_bad_function.html#a5789ebbac7810ab49ffddfaeba358415">BadFunction.Invoke</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Invoke(BadObject[] args, BadExecutionContext caller)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_8cs_source.html#l00113">BadFunction.cs:113</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_script_debugger_api_8cs_source.html#l00029">29</a> of file <a class="el" href="_bad_script_debugger_api_8cs_source.html">BadScriptDebuggerApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>    {</div>
+<div class="line"><span class="lineno">   31</span>        m_Debugger.OnFileLoaded += s =&gt;</div>
+<div class="line"><span class="lineno">   32</span>        {</div>
+<div class="line"><span class="lineno">   33</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> _ <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_function.html#a5789ebbac7810ab49ffddfaeba358415">Invoke</a>(<span class="keyword">new</span> <a class="code hl_class" href="class_bad_object.html">BadObject</a>[] { s }, context))</div>
+<div class="line"><span class="lineno">   34</span>            {</div>
+<div class="line"><span class="lineno">   35</span>                <span class="comment">//Execute</span></div>
+<div class="line"><span class="lineno">   36</span>            }</div>
+<div class="line"><span class="lineno">   37</span>        };</div>
+<div class="line"><span class="lineno">   38</span>    }</div>
+<div class="ttc" id="aclass_bad_function_html_a5789ebbac7810ab49ffddfaeba358415"><div class="ttname"><a href="class_bad_function.html#a5789ebbac7810ab49ffddfaeba358415">BadFunction.Invoke</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Invoke(BadObject[] args, BadExecutionContext caller)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_function_8cs_source.html#l00116">BadFunction.cs:116</a></div></div>
 <div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -273,9 +276,12 @@ Additional Inherited Members</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
 <div class="line"><span class="lineno">   20</span>        m_Debugger.OnStep += s =&gt;</div>
 <div class="line"><span class="lineno">   21</span>        {</div>
-<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_function.html#a5789ebbac7810ab49ffddfaeba358415">Invoke</a>(<span class="keyword">new</span>[] { BadObject.Wrap(s) }, context)) { }</div>
-<div class="line"><span class="lineno">   23</span>        };</div>
-<div class="line"><span class="lineno">   24</span>    }</div>
+<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> _ <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_function.html#a5789ebbac7810ab49ffddfaeba358415">Invoke</a>(<span class="keyword">new</span>[] { BadObject.Wrap(s) }, context))</div>
+<div class="line"><span class="lineno">   23</span>            {</div>
+<div class="line"><span class="lineno">   24</span>                <span class="comment">//Execute</span></div>
+<div class="line"><span class="lineno">   25</span>            }</div>
+<div class="line"><span class="lineno">   26</span>        };</div>
+<div class="line"><span class="lineno">   27</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -305,7 +311,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/BadScript2.Console/Debugging/Scriptable/<a class="el" href="_bad_script_debugger_api_8cs_source.html">BadScriptDebuggerApi.cs</a></li>
+<li>src/BadScript2.ConsoleCore/Debugging/Scriptable/<a class="el" href="_bad_script_debugger_api_8cs_source.html">BadScriptDebuggerApi.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,8 +1,0 @@
-<map id="BadScript2.Runtime.Compiler.BadVirtualMachine" name="BadScript2.Runtime.Compiler.BadVirtualMachine">
-<area shape="rect" id="node1" title=" " alt="" coords="8,517,205,559"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_compiler_1_1_bad_compiler_result.html" title=" " alt="" coords="8,413,205,455"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_bad_scope.html" title=" " alt="" coords="5,323,208,349"/>
-<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="60,141,143,168"/>
-<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title=" " alt="" coords="123,217,314,259"/>
-<area shape="rect" id="node5" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="6,7,197,48"/>
-</map>

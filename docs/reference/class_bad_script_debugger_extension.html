@@ -194,7 +194,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   27</span>            <span class="stringliteral">&quot;Evaluate&quot;</span>,</div>
 <div class="line"><span class="lineno">   28</span>            step =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(</div>
 <div class="line"><span class="lineno">   29</span>                <span class="stringliteral">&quot;Evaluate&quot;</span>,</div>
-<div class="line"><span class="lineno">   30</span>                (ctx, s) =&gt;</div>
+<div class="line"><span class="lineno">   30</span>                (_, s) =&gt;</div>
 <div class="line"><span class="lineno">   31</span>                {</div>
 <div class="line"><span class="lineno">   32</span>                    <a class="code hl_class" href="class_bad_object.html">BadObject</a> obj = <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>;</div>
 <div class="line"><span class="lineno">   33</span>                    <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> step.Context.Execute(<a class="code hl_class" href="class_bad_source_parser.html">BadSourceParser</a>.<a class="code hl_function" href="class_bad_source_parser.html#a6e60adb7a773827f0f6699e8d3bd174c">Create</a>(<span class="stringliteral">&quot;&lt;debugger&gt;&quot;</span>, s).<a class="code hl_function" href="class_bad_source_parser.html#adf0f1ae19bd4494702831b5953591c30">Parse</a>()))</div>
@@ -212,17 +212,17 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   45</span>        RegisterObject&lt;BadSourcePosition&gt;(<span class="stringliteral">&quot;FileName&quot;</span>, pos =&gt; pos.FileName ?? <a class="code hl_class" href="class_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">Null</a>);</div>
 <div class="line"><span class="lineno">   46</span>        RegisterObject&lt;BadSourcePosition&gt;(<span class="stringliteral">&quot;Source&quot;</span>, pos =&gt; pos.Source);</div>
 <div class="line"><span class="lineno">   47</span>    }</div>
-<div class="ttc" id="aclass_bad_dynamic_interop_function_html"><div class="ttname"><a href="class_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_dynamic_interop_function_8cs_source.html#l00798">BadDynamicInteropFunction.cs:799</a></div></div>
+<div class="ttc" id="aclass_bad_dynamic_interop_function_html"><div class="ttname"><a href="class_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_dynamic_interop_function_8cs_source.html#l00830">BadDynamicInteropFunction.cs:831</a></div></div>
 <div class="ttc" id="aclass_bad_object_html"><div class="ttname"><a href="class_bad_object.html">BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_object_html_ab22a8e268d88e53b3f9a3ef02e83a410"><div class="ttname"><a href="class_bad_object.html#ab22a8e268d88e53b3f9a3ef02e83a410">BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_source_parser_html"><div class="ttname"><a href="class_bad_source_parser.html">BadSourceParser</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_parser_8cs_source.html#l00024">BadSourceParser.cs:25</a></div></div>
 <div class="ttc" id="aclass_bad_source_parser_html_a6e60adb7a773827f0f6699e8d3bd174c"><div class="ttname"><a href="class_bad_source_parser.html#a6e60adb7a773827f0f6699e8d3bd174c">BadSourceParser.Create</a></div><div class="ttdeci">static BadSourceParser Create(string fileName, string source)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_parser_8cs_source.html#l00036">BadSourceParser.cs:36</a></div></div>
-<div class="ttc" id="aclass_bad_source_parser_html_adf0f1ae19bd4494702831b5953591c30"><div class="ttname"><a href="class_bad_source_parser.html#adf0f1ae19bd4494702831b5953591c30">BadSourceParser.Parse</a></div><div class="ttdeci">IEnumerable&lt; BadExpression &gt; Parse()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_parser_8cs_source.html#l01047">BadSourceParser.cs:1047</a></div></div>
+<div class="ttc" id="aclass_bad_source_parser_html_adf0f1ae19bd4494702831b5953591c30"><div class="ttname"><a href="class_bad_source_parser.html#adf0f1ae19bd4494702831b5953591c30">BadSourceParser.Parse</a></div><div class="ttdeci">IEnumerable&lt; BadExpression &gt; Parse()</div><div class="ttdef"><b>Definition:</b> <a href="_bad_source_parser_8cs_source.html#l01061">BadSourceParser.cs:1061</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/BadScript2.Console/Debugging/Scriptable/<a class="el" href="_bad_script_debugger_extension_8cs_source.html">BadScriptDebuggerExtension.cs</a></li>
+<li>src/BadScript2.ConsoleCore/Debugging/Scriptable/<a class="el" href="_bad_script_debugger_extension_8cs_source.html">BadScriptDebuggerExtension.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

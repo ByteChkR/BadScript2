@@ -1,9 +1,0 @@
-<map id="BadScript2.Debugging.BadDebuggerStep" name="BadScript2.Debugging.BadDebuggerStep">
-<area shape="rect" id="node1" title=" " alt="" coords="149,517,327,559"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_bad_execution_context.html" title=" " alt="" coords="5,413,228,455"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_bad_scope.html" title=" " alt="" coords="15,323,218,349"/>
-<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="70,141,153,168"/>
-<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title=" " alt="" coords="133,217,324,259"/>
-<area shape="rect" id="node5" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="16,7,207,48"/>
-<area shape="rect" id="node7" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title=" " alt="" coords="253,413,463,455"/>
-</map>

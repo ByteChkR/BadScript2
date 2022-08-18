@@ -2,6 +2,7 @@ var class_bad_static_keys =
 [
     [ "AddAssignOperatorName", "class_bad_static_keys.html#ae63a5bd994c6f164f1aa3e8a857ea224", null ],
     [ "ArrayAccessOperatorName", "class_bad_static_keys.html#aacfcf97ed2491d03d7ab9ed991112638", null ],
+    [ "ArrayAccessReverseOperatorName", "class_bad_static_keys.html#a4dd1635540f3935d976dc7e21544b682", null ],
     [ "BlockEndKey", "class_bad_static_keys.html#a2446e5d219af9923d0f4eea447d67056", null ],
     [ "BreakKey", "class_bad_static_keys.html#ae18ebc6e2045b5d1868dc32570be9faf", null ],
     [ "CatchKey", "class_bad_static_keys.html#a529656f2a0874bb6c91b6d2ed87a4a36", null ],

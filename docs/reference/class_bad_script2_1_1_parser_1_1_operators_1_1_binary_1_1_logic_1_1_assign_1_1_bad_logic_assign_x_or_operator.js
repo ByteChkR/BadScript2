@@ -1,5 +1,0 @@
-var class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_x_or_operator =
-[
-    [ "BadLogicAssignXOrOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_x_or_operator.html#a07a650a25df1b2bc6be9826cc2dc0b87", null ],
-    [ "Parse", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_x_or_operator.html#a251a757528f6bed2a1beeed00a723290", null ]
-];
