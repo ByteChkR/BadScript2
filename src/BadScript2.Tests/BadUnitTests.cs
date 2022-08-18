@@ -1,4 +1,4 @@
-using BadScript2.Console.Debugging.Scriptable;
+using BadScript2.ConsoleCore.Debugging.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.IO;

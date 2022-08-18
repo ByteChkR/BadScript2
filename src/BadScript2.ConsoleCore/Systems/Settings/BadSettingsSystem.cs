@@ -1,6 +1,6 @@
 using BadScript2.Settings;
 
-namespace BadScript2.Console.Systems.Settings;
+namespace BadScript2.ConsoleCore.Systems.Settings;
 
 public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 {
@@ -9,7 +9,7 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
     protected override int Run(BadSettingsSystemSettings settings)
     {
         BadSettings? setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
-        System.Console.WriteLine(
+        Console.WriteLine(
             setting?.ToString() ?? "null"
         );
 

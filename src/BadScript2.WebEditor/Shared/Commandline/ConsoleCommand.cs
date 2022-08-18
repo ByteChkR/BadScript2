@@ -1,5 +1,3 @@
-using Microsoft.JSInterop;
-
 namespace BadScript2.WebEditor.Shared.Commandline;
 
 public abstract class ConsoleCommand

@@ -7,12 +7,12 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser.Expressions.Access;
 
-public class BadArrayAccessExpression : BadExpression
+public class BadArrayAccessReverseExpression : BadExpression
 {
     public readonly BadExpression[] Arguments;
     public readonly bool NullChecked;
 
-    public BadArrayAccessExpression(
+    public BadArrayAccessReverseExpression(
         BadExpression left,
         BadExpression[] args,
         BadSourcePosition position,
@@ -72,12 +72,12 @@ public class BadArrayAccessExpression : BadExpression
             args.Add(argObj);
         }
 
-        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
+        if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName))
         {
-            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessOperatorName).Dereference() as BadFunction;
+            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName).Dereference() as BadFunction;
             if (func == null)
             {
-                throw new BadRuntimeException("Array access operator is not a function", Position);
+                throw new BadRuntimeException("Array access reverse operator is not a function", Position);
             }
 
             BadObject r = BadObject.Null;
@@ -91,7 +91,7 @@ public class BadArrayAccessExpression : BadExpression
         }
         else
         {
-            throw new BadRuntimeException("Array access operator is not defined", Position);
+            throw new BadRuntimeException("Array access reverse operator is not defined", Position);
         }
     }
 }

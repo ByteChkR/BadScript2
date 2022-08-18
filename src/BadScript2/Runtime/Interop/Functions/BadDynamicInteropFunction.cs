@@ -18,6 +18,7 @@ public class BadDynamicInteropFunction : BadFunction
     {
         m_Func = func;
     }
+
     public BadDynamicInteropFunction(
         BadWordToken? name,
         Action<BadExecutionContext> func,
@@ -26,12 +27,14 @@ public class BadDynamicInteropFunction : BadFunction
         parameters
     )
     {
-        m_Func = (context) =>
+        m_Func = context =>
         {
             func(context);
+
             return Null;
         };
     }
+
     public BadDynamicInteropFunction(
         BadWordToken? name,
         Action func,
@@ -40,9 +43,10 @@ public class BadDynamicInteropFunction : BadFunction
         parameters
     )
     {
-        m_Func = (_) =>
+        m_Func = _ =>
         {
             func();
+
             return Null;
         };
     }

@@ -1,8 +1,6 @@
 using BadScript2.Common.Logging;
-using BadScript2.Common.Logging.Writer;
-using BadScript2.Console;
+using BadScript2.ConsoleCore;
 using BadScript2.Interop.Common;
-using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
@@ -23,7 +21,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
-BadLogger.OnLog += l=> Console.WriteLine(l);
+BadLogger.OnLog += l => Console.WriteLine(l);
 HttpClient client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
 
 async Task LoadZip()
@@ -39,8 +37,6 @@ async Task LoadZip()
 }
 
 
-
-
 BadFileSystem.SetFileSystem(new BadVirtualFileSystem());
 
 await LoadZip();
@@ -52,6 +48,7 @@ const string SETTINGS_FILE = "Settings.json";
 
 
 BadSettingsProvider.SetRootSettings(new BadSettings());
+
 static void LoadSettings()
 {
     BadLogger.Log("Loading Settings...", "Settings");
@@ -71,9 +68,11 @@ static void LoadSettings()
     BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
     BadLogger.Log("Settings loaded!", "Settings");
 }
+
 LoadSettings();
 BadNativeClassBuilder.AddNative(BadTask.Prototype);
 BadCommonInterop.AddExtensions();
+
 //BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
 BadInteropExtension.AddExtension<BadNetInteropExtensions>();
 

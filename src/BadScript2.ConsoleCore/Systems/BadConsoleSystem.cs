@@ -1,4 +1,4 @@
-namespace BadScript2.Console.Systems;
+namespace BadScript2.ConsoleCore.Systems;
 
 public abstract class BadConsoleSystem
 {
@@ -20,11 +20,11 @@ public abstract class BadConsoleSystem<T> : BadConsoleSystem
 
         if (settings is null)
         {
-            System.Console.WriteLine("No settings provided.");
+            Console.WriteLine("No settings provided.");
         }
         else
         {
-            System.Console.WriteLine("Invalid settings type");
+            Console.WriteLine("Invalid settings type");
         }
 
         return -1;

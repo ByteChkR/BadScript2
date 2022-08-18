@@ -1,9 +1,10 @@
 ﻿using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
-using BadScript2.Console.Debugging.Scriptable;
-using BadScript2.Console.Systems.Run;
-using BadScript2.Console.Systems.Settings;
-using BadScript2.Console.Systems.Test;
+using BadScript2.ConsoleCore;
+using BadScript2.ConsoleCore.Debugging.Scriptable;
+using BadScript2.ConsoleCore.Systems.Run;
+using BadScript2.ConsoleCore.Systems.Settings;
+using BadScript2.ConsoleCore.Systems.Test;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.IO;
@@ -43,13 +44,12 @@ internal class BadProgram
 
     private static int Main(string[] args)
     {
-        
         using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
         cWriter.Register();
         BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
         lWriter.Register();
 
-        
+
         LoadSettings();
         BadNativeClassBuilder.AddNative(BadTask.Prototype);
         BadCommonInterop.AddExtensions();

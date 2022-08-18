@@ -84,7 +84,6 @@ public class BadFunctionExpression : BadExpression
                     Position
                 );
             }
-
         }
 
         BadExpressionFunction f = new BadExpressionFunction(

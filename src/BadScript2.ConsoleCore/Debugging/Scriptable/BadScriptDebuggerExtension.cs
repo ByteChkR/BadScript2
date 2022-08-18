@@ -5,7 +5,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Console.Debugging.Scriptable;
+namespace BadScript2.ConsoleCore.Debugging.Scriptable;
 
 public class BadScriptDebuggerExtension : BadInteropExtension
 {

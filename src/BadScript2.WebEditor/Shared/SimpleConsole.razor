@@ -9,7 +9,7 @@
     <span style="height: 30px;" class="console-input-container">
         <input onkeyup="@ConsoleKeyUp" class="console-input" @bind="@ConsoleInput"/>
         <button class="console-send" onclick="@SendCommand">Send</button>
-        <button class="console-hide" onclick="@ToggleConsoleOutput">@(m_HideConsoleOutput?"Show":"Hide")</button>
+        <button class="console-hide" onclick="@ToggleConsoleOutput">@(m_HideConsoleOutput ? "Show" : "Hide")</button>
     </span>
 </div>
 <style>
@@ -58,9 +58,10 @@
 
 @code {
 
-    
+
     [Parameter]
     public EventCallback<int> OnSizeChangedEvent { get; set; } = EventCallback<int>.Empty;
+
     private bool m_HideConsoleOutput;
 
     private void ToggleConsoleOutput()
@@ -69,8 +70,10 @@
         OnSizeChangedEvent.InvokeAsync(m_HideConsoleOutput ? 30 : 200);
         StateHasChanged();
     }
+
     [Parameter]
     public EventCallback<string> OnRunFile { get; set; } = EventCallback<string>.Empty;
+
     [Parameter]
     public EventCallback OnFileSystemChanged { get; set; } = EventCallback.Empty;
 
@@ -147,6 +150,6 @@
         ImportZipData(await HttpClient.GetByteArrayAsync(url));
     }
 
-    
+
 
 }

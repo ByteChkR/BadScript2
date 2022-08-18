@@ -9,7 +9,7 @@
 @using BadScript2.Runtime.Settings
 @using BadScript2.Interop.Common.Apis
 @using BadScript2.Interop.Common.Task
-@using BadScript2.Console.Systems.Run
+@using BadScript2.ConsoleCore.Systems.Run
 @inject IJSRuntime JSRuntime
 @inject HttpClient HttpClient
 
@@ -76,11 +76,11 @@
                 {
                     <TabPanel Name="home">
                         <p class="home-text">
-                        Create a new File and start coding!
-                        <br/>
-                        OR
-                        <br/>
-                        Import a prebuilt project and go explore!
+                            Create a new File and start coding!
+                            <br/>
+                            OR
+                            <br/>
+                            Import a prebuilt project and go explore!
                         </p>
                     </TabPanel>
                 }
@@ -265,8 +265,6 @@
     }
 
 
-
-
     private void OnSizeChanged(int size)
     {
         m_ConsoleHeight = size;
@@ -284,7 +282,7 @@
         m_OpenFiles.Remove(file);
         if (m_Tabs?.SelectedTab == file)
         {
-            m_Tabs.SelectedTab = m_OpenFiles.Count > 0 ? m_OpenFiles.Keys.First() : "home";
+            m_Tabs.SelectTab(m_OpenFiles.Count > 0 ? m_OpenFiles.Keys.First() : "home");
         }
     }
 
@@ -332,7 +330,6 @@
         BadConsoleApi.OnWrite += s => m_ConsoleOutput += s;
         BadConsoleApi.OnWriteLine += s => m_ConsoleOutput += s + "\n";
         RunStartup();
-
     }
 
     private void FileSystemChanged()
@@ -356,7 +353,7 @@
         editor.Open(BadFileSystem.ReadAllText(file), lang);
         m_OpenFiles[file] = editor;
 
-        m_Tabs!.SelectedTab = file;
+        m_Tabs!.SelectTab(file);
     }
 
 

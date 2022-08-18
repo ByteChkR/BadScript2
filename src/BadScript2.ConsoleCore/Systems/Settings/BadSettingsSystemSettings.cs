@@ -1,6 +1,6 @@
 using CommandLine;
 
-namespace BadScript2.Console.Systems.Settings;
+namespace BadScript2.ConsoleCore.Systems.Settings;
 
 public class BadSettingsSystemSettings
 {

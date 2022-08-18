@@ -29,7 +29,7 @@ public class BadMathApi : BadInteropApi
         target.SetFunction<decimal>("Exp", x => (decimal)Math.Exp((double)x));
         target.SetFunction<decimal>("Floor", x => (decimal)Math.Floor((double)x));
         target.SetFunction<decimal>("Log", x => (decimal)Math.Log((double)x));
-        target.SetFunction<decimal>("Log10", (x) => (decimal)Math.Log10((double)x));
+        target.SetFunction<decimal>("Log10", x => (decimal)Math.Log10((double)x));
         target.SetFunction<decimal, decimal>("Max", (x, y) => (decimal)Math.Max((double)x, (double)y));
         target.SetFunction<decimal, decimal>("Min", (x, y) => (decimal)Math.Min((double)x, (double)y));
         target.SetFunction<decimal, decimal>("Pow", (x, y) => (decimal)Math.Pow((double)x, (double)y));

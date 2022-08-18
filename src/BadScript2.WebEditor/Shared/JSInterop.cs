@@ -4,11 +4,11 @@ namespace BadScript2.WebEditor.Shared;
 
 public static class JSInterop
 {
-
     public static async void ClickElement(this IJSRuntime runtime, string name)
     {
         await runtime.InvokeVoidAsync("ClickElement", name);
     }
+
     public static async void DownloadFile(this IJSRuntime runtime, string name, byte[] data)
     {
         string contentType = "application/octet-stream";

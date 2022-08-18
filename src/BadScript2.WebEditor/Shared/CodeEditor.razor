@@ -25,7 +25,7 @@
     {
         base.OnInitialized();
         JS.InvokeVoidAsync("AddBadScriptLanguage");
-        
+
         OnEditorInitialized.InvokeAsync(this);
     }
 
@@ -51,17 +51,16 @@
 
     private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
     {
-
         string value = "";
-        
+
         if (m_Text != null)
         {
             value = m_Text;
             m_Text = null;
         }
-        
+
         string language = "badscript";
-        if(m_Language!=null)
+        if (m_Language != null)
         {
             language = m_Language;
             m_Language = null;

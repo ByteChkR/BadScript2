@@ -56,7 +56,7 @@ public class BadTask : BadObject
         m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", () => IsPaused));
         m_Properties.Add("IsRunning", BadObjectReference.Make("Task.IsRunning", () => IsRunning));
 
-        BadFunction continueFunc = new BadDynamicInteropFunction<BadTask>("ContinueWith", (_, t)=>ContinueWith(t));
+        BadFunction continueFunc = new BadDynamicInteropFunction<BadTask>("ContinueWith", (_, t) => ContinueWith(t));
         BadFunction pauseFunc = new BadDynamicInteropFunction("Pause", Pause);
         BadFunction resumeFunc = new BadDynamicInteropFunction("Resume", Resume);
         BadFunction cancelFunc = new BadDynamicInteropFunction("Cancel", Cancel);
@@ -92,7 +92,6 @@ public class BadTask : BadObject
         IsFinished = true;
     }
 
-    
 
     public void Resume()
     {
@@ -109,7 +108,6 @@ public class BadTask : BadObject
         IsPaused = false;
     }
 
-    
 
     public void Pause()
     {
@@ -126,7 +124,6 @@ public class BadTask : BadObject
         IsPaused = true;
     }
 
- 
 
     private BadObject ContinueWith(BadTask task)
     {

@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -13,7 +12,7 @@ namespace BadScript2.Interop.Json;
 public class BadSettingsObject : BadObject
 {
     public static readonly BadClassPrototype Prototype =
-        new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args )=> CreateObj(args));
+        new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args) => CreateObj(args));
 
     private readonly Dictionary<BadObject, BadObject> m_Properties;
     private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;

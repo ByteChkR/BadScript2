@@ -1,6 +1,6 @@
 using BadScript2.IO;
 
-namespace BadScript2.Console;
+namespace BadScript2.ConsoleCore;
 
 public static class BadConsoleDirectories
 {

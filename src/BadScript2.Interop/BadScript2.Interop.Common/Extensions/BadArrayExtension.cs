@@ -121,7 +121,7 @@ public class BadArrayExtension : BadInteropExtension
             BadStaticKeys.ArrayAccessReverseOperatorName,
             a => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessReverseOperatorName,
-                (_, i) => BadObjectReference.Make($"{a}[^{i}]", () => Get(a, a.InnerArray.Count-i), (v, _) => Set(a, a.InnerArray.Count-i, v)),
+                (_, i) => BadObjectReference.Make($"{a}[^{i}]", () => Get(a, a.InnerArray.Count - i), (v, _) => Set(a, a.InnerArray.Count - i, v)),
                 "index"
             )
         );

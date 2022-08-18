@@ -2,7 +2,7 @@ namespace BadScript2.WebEditor.Shared.Commandline;
 
 public class RunCommand : ConsoleCommand
 {
-    private readonly Action<string>  m_RunScript;
+    private readonly Action<string> m_RunScript;
 
     public RunCommand(Action<string> commandFunc) : base(
         "run",

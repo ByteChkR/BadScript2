@@ -1,7 +1,7 @@
 using System.Diagnostics;
 
 using BadScript2.Common.Logging;
-using BadScript2.Console.Debugging.Scriptable;
+using BadScript2.ConsoleCore.Debugging.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interactive;
 using BadScript2.Interop.Common.Apis;
@@ -16,7 +16,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;
 
-namespace BadScript2.Console.Systems.Run;
+namespace BadScript2.ConsoleCore.Systems.Run;
 
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
@@ -43,8 +43,8 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         BadInteractiveConsole console = new BadInteractiveConsole(options, BadTaskRunner.Instance, files);
         while (true)
         {
-            System.Console.Write(">");
-            string cmd = System.Console.ReadLine()!;
+            Console.Write(">");
+            string cmd = Console.ReadLine()!;
 
             if (cmd == "exit")
             {
@@ -73,7 +73,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         if (context.Scope.IsError)
         {
-            System.Console.WriteLine("Error: " + context.Scope.Error);
+            Console.WriteLine("Error: " + context.Scope.Error);
         }
     }
 

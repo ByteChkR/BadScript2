@@ -14,6 +14,7 @@ public class NewFileCommand : ConsoleCommand
     public override string Execute(string args)
     {
         BadFileSystem.WriteAllText(args, "");
+
         return $"File '{BadFileSystem.Instance.GetFullPath(args)}' created";
     }
 }

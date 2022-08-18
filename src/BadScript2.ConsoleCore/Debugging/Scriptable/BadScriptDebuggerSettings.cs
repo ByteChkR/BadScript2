@@ -1,6 +1,6 @@
 using BadScript2.Settings;
 
-namespace BadScript2.Console.Debugging.Scriptable;
+namespace BadScript2.ConsoleCore.Debugging.Scriptable;
 
 public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSettings>
 {

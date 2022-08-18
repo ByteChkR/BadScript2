@@ -7,22 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Blazorise.Bootstrap" Version="1.0.6" />
-        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.6" />
-        <PackageReference Include="Blazorise.TreeView" Version="1.0.6" />
-        <PackageReference Include="BlazorMonaco" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all" />
+        <PackageReference Include="Blazorise.Bootstrap" Version="1.0.6"/>
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.6"/>
+        <PackageReference Include="Blazorise.TreeView" Version="1.0.6"/>
+        <PackageReference Include="BlazorMonaco" Version="2.1.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj" />
-        <ProjectReference Include="..\BadScript2.Interactive\BadScript2.Interactive.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj" />
-        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interactive\BadScript2.Interactive.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj"/>
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
 
 </Project>

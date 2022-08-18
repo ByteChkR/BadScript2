@@ -1,5 +1,4 @@
 @using BadScript2.IO.Virtual
-
 <TreeView Nodes="Items"
           GetChildNodes="@(item => item?.Children ?? Enumerable.Empty<BadVirtualNode>())"
           HasChildNodes="@(item => item?.HasChildren ?? false)"
@@ -19,6 +18,7 @@
 
 
     private static event Action? m_OnReload;
+
     public static void Reload()
     {
         m_OnReload?.Invoke();

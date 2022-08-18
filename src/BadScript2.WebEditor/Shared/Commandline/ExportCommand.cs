@@ -4,7 +4,7 @@ namespace BadScript2.WebEditor.Shared.Commandline;
 
 public class ExportCommand : ConsoleCommand
 {
-    private Action<string, byte[]> m_OnDownloadFile;
+    private readonly Action<string, byte[]> m_OnDownloadFile;
 
     public ExportCommand(Action<string, byte[]> onDownloadFile) : base(
         "export",
@@ -15,6 +15,7 @@ public class ExportCommand : ConsoleCommand
     {
         m_OnDownloadFile = onDownloadFile;
     }
+
     public override string Execute(string args)
     {
         MemoryStream ms = new MemoryStream();

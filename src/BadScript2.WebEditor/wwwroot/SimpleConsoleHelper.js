@@ -1,8 +1,7 @@
-async function ScrollToBottom(elemId)
-{
+async function ScrollToBottom(elemId) {
     setTimeout(() => {
         let elem = document.getElementById(elemId);
-        elem.scrollTop = elem.scrollHeight;  
+        elem.scrollTop = elem.scrollHeight;
     }, 100);
 }
 
@@ -13,7 +12,7 @@ function BlazorDownloadFileFast(name, contentType, content) {
     const contentArray = Blazor.platform.toUint8Array(content);
 
     // Create the URL
-    const file = new File([contentArray], nameStr, { type: contentTypeStr });
+    const file = new File([contentArray], nameStr, {type: contentTypeStr});
     const exportUrl = URL.createObjectURL(file);
 
     // Create the <a> element and click on it
@@ -29,12 +28,13 @@ function BlazorDownloadFileFast(name, contentType, content) {
     URL.revokeObjectURL(exportUrl);
     a.remove();
 }
+
 function BlazorDownloadFile(filename, contentType, content) {
     // Blazor marshall byte[] to a base64 string, so we first need to convert the string (content) to a Uint8Array to create the File
     const data = base64DecToArr(content);
 
     // Create the URL
-    const file = new File([data], filename, { type: contentType });
+    const file = new File([data], filename, {type: contentType});
     const exportUrl = URL.createObjectURL(file);
 
     // Create the <a> element and click on it

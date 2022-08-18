@@ -5,7 +5,7 @@ using BadScript2.Parser.Operators;
 using BadScript2.Reader;
 using BadScript2.Runtime;
 
-namespace BadScript2.Console.Debugging.Scriptable;
+namespace BadScript2.ConsoleCore.Debugging.Scriptable;
 
 public class BadScriptDebugger : IBadDebugger
 {

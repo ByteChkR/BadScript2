@@ -1,3 +1,3 @@
-namespace BadScript2.Console.Systems.Test;
+namespace BadScript2.ConsoleCore.Systems.Test;
 
 public class BadTestSystemSettings { }

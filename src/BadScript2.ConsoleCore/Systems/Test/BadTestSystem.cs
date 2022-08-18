@@ -2,7 +2,7 @@ using BadScript2.Interop.NUnit;
 
 using NUnitLite;
 
-namespace BadScript2.Console.Systems.Test;
+namespace BadScript2.ConsoleCore.Systems.Test;
 
 public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
 {
@@ -18,7 +18,7 @@ public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
         }
         catch (Exception e)
         {
-            System.Console.WriteLine(e);
+            Console.WriteLine(e);
 
             return e.HResult;
         }

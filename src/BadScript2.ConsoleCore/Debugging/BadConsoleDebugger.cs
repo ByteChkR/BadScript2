@@ -1,6 +1,6 @@
 using BadScript2.Debugging;
 
-namespace BadScript2.Console.Debugging;
+namespace BadScript2.ConsoleCore.Debugging;
 
 public class BadConsoleDebugger : IBadDebugger
 {
@@ -24,13 +24,13 @@ public class BadConsoleDebugger : IBadDebugger
             return;
         }
 
-        System.Console.WriteLine(view);
-        System.Console.WriteLine("Press any key to continue");
+        Console.WriteLine(view);
+        Console.WriteLine("Press any key to continue");
 
         bool exit = false;
         do
         {
-            string cmd = System.Console.ReadLine()!;
+            string cmd = Console.ReadLine()!;
             if (cmd.StartsWith("ignore-file"))
             {
                 string file = cmd.Remove(0, "ignore-file".Length).Trim();
@@ -41,7 +41,7 @@ public class BadConsoleDebugger : IBadDebugger
 
             if (cmd.StartsWith("file"))
             {
-                System.Console.WriteLine(stepInfo.Position.FileName ?? "NULL");
+                Console.WriteLine(stepInfo.Position.FileName ?? "NULL");
 
                 continue;
             }

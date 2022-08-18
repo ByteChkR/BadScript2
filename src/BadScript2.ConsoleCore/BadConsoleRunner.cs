@@ -1,6 +1,6 @@
-using BadScript2.Console.Systems;
+using BadScript2.ConsoleCore.Systems;
 
-namespace BadScript2.Console;
+namespace BadScript2.ConsoleCore;
 
 public class BadConsoleRunner
 {
@@ -17,17 +17,17 @@ public class BadConsoleRunner
     {
         while (args.Length == 0)
         {
-            System.Console.WriteLine("No command specified.");
-            System.Console.WriteLine("Usage: bs <system> [args]");
-            System.Console.WriteLine("Available systems:");
+            Console.WriteLine("No command specified.");
+            Console.WriteLine("Usage: bs <system> [args]");
+            Console.WriteLine("Available systems:");
             foreach (BadConsoleSystem sys in m_Systems)
             {
-                System.Console.WriteLine($"\t{sys.Name}");
+                Console.WriteLine($"\t{sys.Name}");
             }
 
-            System.Console.Write("Input start arguments: ");
+            Console.Write("Input start arguments: ");
 
-            args = System.Console.ReadLine()!.Split(' ');
+            args = Console.ReadLine()!.Split(' ');
         }
 
         string name = args[0];
