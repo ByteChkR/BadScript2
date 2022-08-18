@@ -1,8 +1,8 @@
 # Common Extension Reference
 
+- [Global Extensions](./Global.md)
 - [Array Extensions](./Array.md)
 - [Function Extensions](./Function.md)
-- [Object Extensions](./Object.md)
 - [Scope Extensions](./Scope.md)
 - [String Extensions](./String.md)
 - [Table Extensions](./Table.md)
