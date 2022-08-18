@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayAccess()
+{
+	let a = [1, 2, 3];
+
+	Assert.AreEqual(a[^1], 3, "a[2] == 3");
+
+}
+
+NUnit.AddTest(Test_ArrayAccess, "Operator '[^]' tests");

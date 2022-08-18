@@ -388,6 +388,12 @@
         <None Update="data\subsystems\run\libs\System.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="data\subsystems\test\tests\Operators\Access\TestArrayReverseAccess.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\test\tests\Operators\Custom\TestArrayAccessReverse.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

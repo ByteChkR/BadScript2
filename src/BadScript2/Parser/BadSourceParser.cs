@@ -499,6 +499,13 @@ public class BadSourceParser
                 }
 
                 Reader.SkipNonToken();
+                bool isReverse = false;
+                if (Reader.Is('^'))
+                {
+                    Reader.Eat('^');
+                    isReverse = true;
+                }
+
                 List<BadExpression> indices = new List<BadExpression>();
                 if (!Reader.Is(']'))
                 {
@@ -523,7 +530,14 @@ public class BadSourceParser
 
                 BadSourcePosition end = Reader.Eat(']');
                 Reader.SkipNonToken();
-                left = new BadArrayAccessExpression(left, indices.ToArray(), left.Position.Combine(end), isNullChecked);
+                if (isReverse)
+                {
+                    left = new BadArrayAccessReverseExpression(left, indices.ToArray(), left.Position.Combine(end), isNullChecked);
+                }
+                else
+                {
+                    left = new BadArrayAccessExpression(left, indices.ToArray(), left.Position.Combine(end), isNullChecked);
+                }
 
                 continue;
             }

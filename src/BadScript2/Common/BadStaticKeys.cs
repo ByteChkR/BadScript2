@@ -37,6 +37,7 @@ public static class BadStaticKeys
 
 
     public static readonly string ArrayAccessOperatorName = "op_ArrayAccess";
+    public static readonly string ArrayAccessReverseOperatorName = "op_ArrayAccessReverse";
     public static readonly string InvocationOperatorName = "op_Invoke";
     public static readonly string AddAssignOperatorName = "op_AddAssign";
     public static readonly string SubtractAssignOperatorName = "op_SubtractAssign";

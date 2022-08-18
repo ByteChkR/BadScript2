@@ -117,6 +117,14 @@ public class BadArrayExtension : BadInteropExtension
                 "index"
             )
         );
+        RegisterObject<BadArray>(
+            BadStaticKeys.ArrayAccessReverseOperatorName,
+            a => new BadDynamicInteropFunction<decimal>(
+                BadStaticKeys.ArrayAccessReverseOperatorName,
+                (_, i) => BadObjectReference.Make($"{a}[^{i}]", () => Get(a, a.InnerArray.Count-i), (v, t) => Set(a, a.InnerArray.Count-i, v)),
+                "index"
+            )
+        );
 
         RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
     }
