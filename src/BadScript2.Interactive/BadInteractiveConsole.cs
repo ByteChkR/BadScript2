@@ -31,8 +31,8 @@ public class BadInteractiveConsole
 
     public BadScope? CurrentScope => m_Context?.Scope;
 
-    public bool CatchErrors { get; set; } = false;
-    public bool PreParse { get; set; } = false;
+    public bool CatchErrors { get; set; }
+    public bool PreParse { get; set; }
 
     private BadExecutionContext CreateContext()
     {

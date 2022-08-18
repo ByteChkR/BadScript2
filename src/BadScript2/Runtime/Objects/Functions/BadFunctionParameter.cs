@@ -10,17 +10,16 @@ public class BadFunctionParameter
         string name,
         bool isOptional,
         bool isNullChecked,
-        bool isRestArgs,
-        BadExpression? typeExpr = null)
+        bool isRestArgs)
     {
         Name = name;
         IsOptional = isOptional;
         IsNullChecked = isNullChecked;
         IsRestArgs = isRestArgs;
-        TypeExpr = typeExpr;
+        TypeExpr = null;
     }
 
-    private BadFunctionParameter(
+    public BadFunctionParameter(
         string name,
         bool isOptional,
         bool isNullChecked,

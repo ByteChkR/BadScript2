@@ -31,7 +31,10 @@ public abstract class BadFunction : BadObject
         for (int i = 0; i < Parameters.Length; i++)
         {
             BadFunctionParameter parameter = Parameters[i];
-            if (parameter.IsRestArgs) { }
+            if (parameter.IsRestArgs)
+            {
+                //Do Nothing
+            }
             else if (args.Length <= i)
             {
                 if (!parameter.IsOptional)

@@ -15,7 +15,7 @@ public class BadTypeSystemExtension : BadInteropExtension
             "IsInstanceOf",
             obj => new BadDynamicInteropFunction<BadClassPrototype>(
                 "IsInstanceOf",
-                (ctx, proto) => IsInstanceOf(ctx, proto, obj),
+                (_, proto) => IsInstanceOf(proto, obj),
                 new BadFunctionParameter("prototype", false, true, false)
             )
         );
@@ -24,14 +24,14 @@ public class BadTypeSystemExtension : BadInteropExtension
             "IsAssignableFrom",
             proto => new BadDynamicInteropFunction<BadObject>(
                 "IsAssignableFrom",
-                (ctx, o) => IsAssignableFrom(ctx, o, proto)
+                (_, o) => IsAssignableFrom(o, proto)
             )
         );
         RegisterObject<BadClassPrototype>(
             "IsBaseClassOf",
             proto => new BadDynamicInteropFunction<BadClassPrototype>(
                 "IsBaseClassOf",
-                (ctx, super) => IsBaseClassOf(ctx, proto, super)
+                (_, super) => IsBaseClassOf(proto, super)
             )
         );
 
@@ -39,25 +39,24 @@ public class BadTypeSystemExtension : BadInteropExtension
             "IsSuperClassOf",
             proto => new BadDynamicInteropFunction<BadClassPrototype>(
                 "IsSuperClassOf",
-                (ctx, super) => IsBaseClassOf(ctx, super, proto)
+                (_, super) => IsBaseClassOf(super, proto)
             )
         );
     }
 
-    private static BadObject IsAssignableFrom(BadExecutionContext ctx, BadObject obj, BadClassPrototype proto)
+    private static BadObject IsAssignableFrom(BadObject obj, BadClassPrototype proto)
     {
         return proto.IsAssignableFrom(obj);
     }
 
     private static BadObject IsBaseClassOf(
-        BadExecutionContext ctx,
         BadClassPrototype proto,
         BadClassPrototype super)
     {
         return super.IsSuperClassOf(proto);
     }
 
-    private static BadObject IsInstanceOf(BadExecutionContext ctx, BadClassPrototype proto, BadObject obj)
+    private static BadObject IsInstanceOf(BadClassPrototype proto, BadObject obj)
     {
         return proto.IsAssignableFrom(obj);
     }

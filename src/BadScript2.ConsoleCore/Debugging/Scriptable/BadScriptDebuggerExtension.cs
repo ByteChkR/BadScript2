@@ -27,7 +27,7 @@ public class BadScriptDebuggerExtension : BadInteropExtension
             "Evaluate",
             step => new BadDynamicInteropFunction<string>(
                 "Evaluate",
-                (ctx, s) =>
+                (_, s) =>
                 {
                     BadObject obj = BadObject.Null;
                     foreach (BadObject o in step.Context.Execute(BadSourceParser.Create("<debugger>", s).Parse()))

@@ -13,7 +13,7 @@ namespace BadScript2.Interop.Json;
 public class BadSettingsObject : BadObject
 {
     public static readonly BadClassPrototype Prototype =
-        new BadNativeClassPrototype<BadSettingsObject>("BadSettings", CreateObj);
+        new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args )=> CreateObj(args));
 
     private readonly Dictionary<BadObject, BadObject> m_Properties;
     private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;
@@ -150,7 +150,7 @@ public class BadSettingsObject : BadObject
         return Prototype;
     }
 
-    private static BadObject CreateObj(BadExecutionContext ctx, BadObject[] args)
+    private static BadObject CreateObj(BadObject[] args)
     {
         if (args.Length == 1)
         {

@@ -71,7 +71,7 @@ public class BadClass : BadObject
             return BadObjectReference.Make(
                 $"{Name}.{propName}",
                 () => m_Table.InnerTable[propName],
-                (o, t) =>
+                (o, _) =>
                 {
                     if (m_Table.InnerTable.ContainsKey(propName))
                     {

@@ -4,7 +4,7 @@ public abstract class BadNativeClassPrototype : BadClassPrototype
 {
     private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;
 
-    public BadNativeClassPrototype(
+    protected BadNativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, null)
     {

@@ -27,8 +27,8 @@ public static class BadDebugger
         s_Debugger = null;
     }
 
-    internal static void Step(BadDebuggerStep step)
+    internal static void Step(BadDebuggerStep stepInfo)
     {
-        s_Debugger?.Step(step);
+        s_Debugger?.Step(stepInfo);
     }
 }

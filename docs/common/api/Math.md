@@ -23,7 +23,7 @@ The `Math` api has the following Properties:
         Exp: function Exp(Decimal)
         Floor: function Floor(Decimal)
         Log: function Log(Decimal)
-        Log10: function Log10(Decimal, Decimal)
+        Log10: function Log10(Decimal)
         Max: function Max(Decimal, Decimal)
         Min: function Min(Decimal, Decimal)
         Pow: function Pow(Decimal, Decimal)

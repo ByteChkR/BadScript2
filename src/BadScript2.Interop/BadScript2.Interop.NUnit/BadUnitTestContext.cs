@@ -22,7 +22,10 @@ public class BadUnitTestContext
 
     private static void Run(IEnumerable<BadObject> enumerable)
     {
-        foreach (BadObject _ in enumerable) { }
+        foreach (BadObject _ in enumerable)
+        {
+            //Execute
+        }
     }
 
     public void Setup()

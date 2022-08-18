@@ -20,7 +20,10 @@ public class BadExecutionContext
 
     public BadObject? Run(IEnumerable<BadExpression> expressions)
     {
-        foreach (BadObject o in Execute(expressions)) { }
+        foreach (BadObject o in Execute(expressions))
+        {
+            //Execute
+        }
 
         if (Scope.ReturnValue != null)
         {

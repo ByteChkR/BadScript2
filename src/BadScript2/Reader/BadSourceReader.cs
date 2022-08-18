@@ -12,7 +12,6 @@ public class BadSourceReader
     {
         FileName = fileName;
         m_Source = source;
-        Action a = () => { };
     }
 
     public int CurrentIndex { get; private set; }

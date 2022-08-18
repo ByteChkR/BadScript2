@@ -15,13 +15,13 @@ public class BadIOApi : BadInteropApi
     {
         BadTable t = new BadTable();
 
-        t.SetFunction<string>("GetFileName", (ctx, s) => Path.GetFileName(s));
-        t.SetFunction<string>("GetFileNameWithoutExtension", (ctx, s) => Path.GetFileNameWithoutExtension(s));
-        t.SetFunction<string>("GetDirectoryName", (ctx, s) => Path.GetDirectoryName(s) ?? BadObject.Null);
-        t.SetFunction<string>("GetExtension", (ctx, s) => Path.GetExtension(s));
-        t.SetFunction<string>("GetFullPath", (ctx, s) => BadFileSystem.Instance.GetFullPath(s));
-        t.SetFunction<string>("GetStartupPath", (ctx, s) => BadFileSystem.Instance.GetStartupDirectory());
-        t.SetFunction<string, string>("ChangeExtension", (ctx, s, ext) => Path.ChangeExtension(s, ext));
+        t.SetFunction<string>("GetFileName", (_, s) => Path.GetFileName(s));
+        t.SetFunction<string>("GetFileNameWithoutExtension", (_, s) => Path.GetFileNameWithoutExtension(s));
+        t.SetFunction<string>("GetDirectoryName", (_, s) => Path.GetDirectoryName(s) ?? BadObject.Null);
+        t.SetFunction<string>("GetExtension", (_, s) => Path.GetExtension(s));
+        t.SetFunction<string>("GetFullPath", (_, s) => BadFileSystem.Instance.GetFullPath(s));
+        t.SetFunction<string>("GetStartupPath", (_, _) => BadFileSystem.Instance.GetStartupDirectory());
+        t.SetFunction<string, string>("ChangeExtension", (_, s, ext) => Path.ChangeExtension(s, ext));
         t.SetProperty(
             "Combine",
             new BadInteropFunction("Combine", Combine, new BadFunctionParameter("parts", false, false, true))
@@ -41,7 +41,7 @@ public class BadIOApi : BadInteropApi
 
         t.SetFunction<string>(
             "CreateDirectory",
-            (ctx, s) =>
+            (_, s) =>
             {
                 BadFileSystem.Instance.CreateDirectory(s);
 
@@ -67,7 +67,7 @@ public class BadIOApi : BadInteropApi
 
         t.SetFunction<string, bool>(
             "GetDirectories",
-            (ctx, s, b) => new BadArray(
+            (_, s, b) => new BadArray(
                 BadFileSystem.Instance.GetDirectories(s, b)
                     .Select(x => (BadObject)x)
                     .ToList()
@@ -76,7 +76,7 @@ public class BadIOApi : BadInteropApi
 
         t.SetFunction<string, string, bool>(
             "GetFiles",
-            (ctx, s, p, b) => new BadArray(
+            (_, s, p, b) => new BadArray(
                 BadFileSystem.Instance.GetFiles(s, p, b)
                     .Select(x => (BadObject)x)
                     .ToList()

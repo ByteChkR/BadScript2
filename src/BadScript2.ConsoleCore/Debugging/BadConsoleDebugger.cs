@@ -8,18 +8,18 @@ public class BadConsoleDebugger : IBadDebugger
     private int m_LastLine = -1;
     private string? m_LastSource;
 
-    public void Step(BadDebuggerStep step)
+    public void Step(BadDebuggerStep stepInfo)
     {
-        string view = step.GetSourceView(out int _, out int lineInSource);
+        string view = stepInfo.GetSourceView(out int _, out int lineInSource);
 
-        if (m_LastSource == step.Position.Source && lineInSource == m_LastLine)
+        if (m_LastSource == stepInfo.Position.Source && lineInSource == m_LastLine)
         {
             return;
         }
 
         m_LastLine = lineInSource;
-        m_LastSource = step.Position.Source;
-        if (step.Position.FileName != null && s_IgnoredFiles.Contains(step.Position.FileName))
+        m_LastSource = stepInfo.Position.Source;
+        if (stepInfo.Position.FileName != null && s_IgnoredFiles.Contains(stepInfo.Position.FileName))
         {
             return;
         }
@@ -41,7 +41,7 @@ public class BadConsoleDebugger : IBadDebugger
 
             if (cmd.StartsWith("file"))
             {
-                System.Console.WriteLine(step.Position.FileName ?? "NULL");
+                System.Console.WriteLine(stepInfo.Position.FileName ?? "NULL");
 
                 continue;
             }

@@ -7,10 +7,10 @@ namespace BadScript2.Interop.Common.Apis;
 
 public class BadConsoleApi : BadInteropApi
 {
-    public static Action<BadObject> OnWrite = Write;
-    public static Action<BadObject> OnWriteLine = WriteLine;
-    public static Action OnClear = Clear;
-    public static Func<string> OnReadLine = ReadLine;
+    public static Action<BadObject> OnWrite { get; set; } = Write;
+    public static Action<BadObject> OnWriteLine { get; set; }  = WriteLine;
+    public static Action OnClear { get; set; }  = Clear;
+    public static Func<string> OnReadLine { get; set; }  = ReadLine;
     public BadConsoleApi() : base("Console") { }
 
     public static bool AllowInput { get; set; } = true;

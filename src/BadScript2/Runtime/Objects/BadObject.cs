@@ -46,7 +46,7 @@ public abstract class BadObject
             return new BadString(s);
         }
 
-        if (obj == null)
+        if (Equals(obj, default(T)))
         {
             return Null;
         }

@@ -5,7 +5,7 @@ using BadScript2.Runtime.Interop;
 
 namespace BadScript2.Interop.Common;
 
-public class BadCommonInterop
+public static class BadCommonInterop
 {
     private static readonly BadInteropApi[] s_CommonApis =
     {

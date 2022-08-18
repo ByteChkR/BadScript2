@@ -29,14 +29,14 @@ public class BadNetInteropExtensions : BadInteropExtension
             "ReadAsString",
             c => new BadDynamicInteropFunction(
                 "ReadAsString",
-                ctx => Content_ReadAsString(c)
+                _ => Content_ReadAsString(c)
             )
         );
         RegisterObject<HttpContent>(
             "ReadAsArray",
             c => new BadDynamicInteropFunction(
                 "ReadAsArray",
-                ctx => Content_ReadAsArray(c)
+                _ => Content_ReadAsArray(c)
             )
         );
     }

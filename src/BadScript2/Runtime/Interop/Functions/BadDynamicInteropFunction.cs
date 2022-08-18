@@ -18,6 +18,34 @@ public class BadDynamicInteropFunction : BadFunction
     {
         m_Func = func;
     }
+    public BadDynamicInteropFunction(
+        BadWordToken? name,
+        Action<BadExecutionContext> func,
+        params BadFunctionParameter[] parameters) : base(
+        name,
+        parameters
+    )
+    {
+        m_Func = (context) =>
+        {
+            func(context);
+            return Null;
+        };
+    }
+    public BadDynamicInteropFunction(
+        BadWordToken? name,
+        Action func,
+        params BadFunctionParameter[] parameters) : base(
+        name,
+        parameters
+    )
+    {
+        m_Func = (_) =>
+        {
+            func();
+            return Null;
+        };
+    }
 
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {

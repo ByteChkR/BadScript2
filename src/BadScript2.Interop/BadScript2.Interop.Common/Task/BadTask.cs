@@ -49,14 +49,14 @@ public class BadTask : BadObject
         Runnable = runnable;
         m_Properties.Add(
             "Name",
-            BadObjectReference.Make("Task.Name", () => Name, (o, t) => Name = o is IBadString s ? s.Value : Name)
+            BadObjectReference.Make("Task.Name", () => Name, (o, _) => Name = o is IBadString s ? s.Value : Name)
         );
         m_Properties.Add("IsCompleted", BadObjectReference.Make("Task.IsCompleted", () => IsFinished));
         m_Properties.Add("IsInactive", BadObjectReference.Make("Task.IsInactive", () => IsInactive));
         m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", () => IsPaused));
         m_Properties.Add("IsRunning", BadObjectReference.Make("Task.IsRunning", () => IsRunning));
 
-        BadFunction continueFunc = new BadDynamicInteropFunction<BadTask>("ContinueWith", ContinueWith);
+        BadFunction continueFunc = new BadDynamicInteropFunction<BadTask>("ContinueWith", (_, t)=>ContinueWith(t));
         BadFunction pauseFunc = new BadDynamicInteropFunction("Pause", Pause);
         BadFunction resumeFunc = new BadDynamicInteropFunction("Resume", Resume);
         BadFunction cancelFunc = new BadDynamicInteropFunction("Cancel", Cancel);
@@ -92,12 +92,7 @@ public class BadTask : BadObject
         IsFinished = true;
     }
 
-    private BadObject Cancel(BadExecutionContext arg)
-    {
-        Cancel();
-
-        return Null;
-    }
+    
 
     public void Resume()
     {
@@ -114,12 +109,7 @@ public class BadTask : BadObject
         IsPaused = false;
     }
 
-    private BadObject Resume(BadExecutionContext arg)
-    {
-        Resume();
-
-        return Null;
-    }
+    
 
     public void Pause()
     {
@@ -136,14 +126,9 @@ public class BadTask : BadObject
         IsPaused = true;
     }
 
-    private BadObject Pause(BadExecutionContext arg)
-    {
-        Pause();
+ 
 
-        return Null;
-    }
-
-    private BadObject ContinueWith(BadExecutionContext caller, BadTask task)
+    private BadObject ContinueWith(BadTask task)
     {
         if (IsFinished)
         {

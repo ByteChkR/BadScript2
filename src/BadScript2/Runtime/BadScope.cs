@@ -49,7 +49,7 @@ public class BadScope : BadObject
     {
         return new BadNativeClassPrototype<BadScope>(
             "Scope",
-            (ctx, args) => throw new BadRuntimeException("Cannot call constructor on a scope")
+            (_, _) => throw new BadRuntimeException("Cannot call constructor on a scope")
         );
     }
 

@@ -17,14 +17,14 @@ public class BadNetApi : BadInteropApi
     }
 
 
-    private BadTask Post(BadExecutionContext context, string url, string content)
+    private BadTask Post(string url, string content)
     {
         HttpClient cl = new HttpClient();
 
         return new BadTask(BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))), $"Net.Post(\"{url}\")");
     }
 
-    private BadTask Get(BadExecutionContext context, string url)
+    private BadTask Get(string url)
     {
         HttpClient cl = new HttpClient();
         Task<HttpResponseMessage>? task = cl.GetAsync(url);

@@ -2,12 +2,12 @@ namespace BadScript2.Common;
 
 public abstract class BadParseException : Exception
 {
-    public BadParseException(string message, BadSourcePosition position) : base(GetMessage(message, position))
+    protected BadParseException(string message, BadSourcePosition position) : base(GetMessage(message, position))
     {
         Position = position;
     }
 
-    public BadParseException(string message, BadSourcePosition position, Exception inner) : base(
+    protected BadParseException(string message, BadSourcePosition position, Exception inner) : base(
         GetMessage(message, position),
         inner
     )

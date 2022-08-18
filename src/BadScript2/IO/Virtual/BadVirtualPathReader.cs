@@ -1,6 +1,6 @@
 namespace BadScript2.IO.Virtual;
 
-public class BadVirtualPathReader
+public static class BadVirtualPathReader
 {
     public static string JoinPath(IEnumerable<string> parts)
     {

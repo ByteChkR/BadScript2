@@ -44,7 +44,7 @@ public static class BadNativeClassBuilder
     {
         return new BadNativeClassPrototype<T>(
             name,
-            (c, a) => constructor(a)
+            (_, a) => constructor(a)
         );
     }
 

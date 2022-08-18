@@ -22,7 +22,7 @@ public class BadArrayExtension : BadInteropExtension
             "AddRange",
             a => new BadDynamicInteropFunction<BadArray>(
                 "AddRange",
-                (ctx, elems) =>
+                (_, elems) =>
                 {
                     a.InnerArray.AddRange(elems.InnerArray);
 
@@ -45,7 +45,7 @@ public class BadArrayExtension : BadInteropExtension
             "InsertRange",
             a => new BadDynamicInteropFunction<decimal, BadArray>(
                 "InsertRange",
-                (ctx, num, elems) =>
+                (_, num, elems) =>
                 {
                     a.InnerArray.InsertRange((int)num, elems.InnerArray);
 
@@ -113,7 +113,7 @@ public class BadArrayExtension : BadInteropExtension
             BadStaticKeys.ArrayAccessOperatorName,
             a => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessOperatorName,
-                (_, i) => BadObjectReference.Make($"{a}[{i}]", () => Get(a, i), (v, t) => Set(a, i, v)),
+                (_, i) => BadObjectReference.Make($"{a}[{i}]", () => Get(a, i), (v, _) => Set(a, i, v)),
                 "index"
             )
         );
@@ -121,7 +121,7 @@ public class BadArrayExtension : BadInteropExtension
             BadStaticKeys.ArrayAccessReverseOperatorName,
             a => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessReverseOperatorName,
-                (_, i) => BadObjectReference.Make($"{a}[^{i}]", () => Get(a, a.InnerArray.Count-i), (v, t) => Set(a, a.InnerArray.Count-i, v)),
+                (_, i) => BadObjectReference.Make($"{a}[^{i}]", () => Get(a, a.InnerArray.Count-i), (v, _) => Set(a, a.InnerArray.Count-i, v)),
                 "index"
             )
         );

@@ -66,13 +66,11 @@ public class BadSourcePosition
     public string GetPositionInfo()
     {
         int line = 1;
-        int lineStart = 0;
         for (int i = 0; i < Index; i++)
         {
             if (Source[i] == '\n')
             {
                 line++;
-                lineStart = i;
             }
         }
 

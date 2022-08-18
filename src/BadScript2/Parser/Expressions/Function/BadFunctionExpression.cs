@@ -67,7 +67,6 @@ public class BadFunctionExpression : BadExpression
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        BadClassPrototype? type = null;
         if (m_TypeExpr != null)
         {
             BadObject obj = BadObject.Null;
@@ -86,7 +85,6 @@ public class BadFunctionExpression : BadExpression
                 );
             }
 
-            type = proto;
         }
 
         BadExpressionFunction f = new BadExpressionFunction(

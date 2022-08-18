@@ -34,23 +34,23 @@ public class BadScriptDebugger : IBadDebugger
         }
     }
 
-    public void Step(BadDebuggerStep step)
+    public void Step(BadDebuggerStep stepInfo)
     {
-        step.GetSourceView(out int _, out int lineInSource);
+        stepInfo.GetSourceView(out int _, out int lineInSource);
 
-        if (m_LineNumbers.ContainsKey(step.Position.Source) && lineInSource == m_LineNumbers[step.Position.Source])
+        if (m_LineNumbers.ContainsKey(stepInfo.Position.Source) && lineInSource == m_LineNumbers[stepInfo.Position.Source])
         {
             return;
         }
 
-        m_LineNumbers[step.Position.Source] = lineInSource;
-        if (!m_SeenFiles.Contains(step.Position.FileName ?? ""))
+        m_LineNumbers[stepInfo.Position.Source] = lineInSource;
+        if (!m_SeenFiles.Contains(stepInfo.Position.FileName ?? ""))
         {
-            m_SeenFiles.Add(step.Position.FileName ?? "");
-            OnFileLoaded?.Invoke(step.Position.FileName ?? "");
+            m_SeenFiles.Add(stepInfo.Position.FileName ?? "");
+            OnFileLoaded?.Invoke(stepInfo.Position.FileName ?? "");
         }
 
-        OnStep?.Invoke(step);
+        OnStep?.Invoke(stepInfo);
     }
 
     public event Action<BadDebuggerStep>? OnStep;

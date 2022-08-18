@@ -43,23 +43,13 @@ internal class BadProgram
 
     private static int Main(string[] args)
     {
-        //BadFileSystem.SetFileSystem(new BadVirtualFileSystem());
-
-
+        
         using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
         cWriter.Register();
         BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
         lWriter.Register();
 
-        // using (Stream s = File.OpenRead("C:\\Users\\Tim\\Documents\\LanguageProjects\\BadScript2\\FS.zip"))
-        // {
-        //     Action<BadLog> onLog = l => System.Console.WriteLine(l.ToString());
-        //     BadLogger.OnLog += onLog;
-        //     BadFileSystem.Instance.ImportZip(s);
-        //     BadLogger.OnLog -= onLog;
-        //     BadFileSystem.Instance.SetCurrentDirectory("projects/System");
-        // }
-
+        
         LoadSettings();
         BadNativeClassBuilder.AddNative(BadTask.Prototype);
         BadCommonInterop.AddExtensions();
@@ -82,12 +72,6 @@ internal class BadProgram
         int r = runner.Run(args);
         lWriter.Dispose();
 
-        // using (MemoryStream s = new MemoryStream())
-        // {
-        //     BadFileSystem.Instance.ExportZip(s);
-        //     s.Position = 0;
-        //     File.WriteAllBytes("C:\\Users\\Tim\\Documents\\LanguageProjects\\BadScript2\\FS_out.zip",s.ToArray());
-        // }
 
         return r;
     }

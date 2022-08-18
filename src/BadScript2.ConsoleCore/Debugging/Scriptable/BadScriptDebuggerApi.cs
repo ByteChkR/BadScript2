@@ -19,7 +19,10 @@ public class BadScriptDebuggerApi : BadInteropApi
     {
         m_Debugger.OnStep += s =>
         {
-            foreach (BadObject o in func.Invoke(new[] { BadObject.Wrap(s) }, context)) { }
+            foreach (BadObject _ in func.Invoke(new[] { BadObject.Wrap(s) }, context))
+            {
+                //Execute
+            }
         };
     }
 
@@ -27,7 +30,10 @@ public class BadScriptDebuggerApi : BadInteropApi
     {
         m_Debugger.OnFileLoaded += s =>
         {
-            foreach (BadObject o in func.Invoke(new BadObject[] { s }, context)) { }
+            foreach (BadObject _ in func.Invoke(new BadObject[] { s }, context))
+            {
+                //Execute
+            }
         };
     }
 
