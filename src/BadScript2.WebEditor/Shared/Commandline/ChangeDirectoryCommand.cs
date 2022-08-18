@@ -2,9 +2,9 @@ using BadScript2.IO;
 
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class ChangeDirectoryCommand : ConsoleCommand
+public class BadChangeDirectoryCommand : BadConsoleCommand
 {
-    public ChangeDirectoryCommand() : base(
+    public BadChangeDirectoryCommand() : base(
         "cd",
         "Changes the Current Working Directory",
         Array.Empty<string>(),

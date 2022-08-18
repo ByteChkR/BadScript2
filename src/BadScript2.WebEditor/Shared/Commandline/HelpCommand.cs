@@ -2,11 +2,11 @@ using System.Text;
 
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class HelpCommand : ConsoleCommand
+public class BadHelpCommand : BadConsoleCommand
 {
-    private readonly Func<IEnumerable<ConsoleCommand>> m_GetCommands;
+    private readonly Func<IEnumerable<BadConsoleCommand>> m_GetCommands;
 
-    public HelpCommand(Func<IEnumerable<ConsoleCommand>> commandFunc) : base(
+    public BadHelpCommand(Func<IEnumerable<BadConsoleCommand>> commandFunc) : base(
         "help",
         "Lists all commands including their description",
         new[] { "h", "?" },
@@ -19,7 +19,7 @@ public class HelpCommand : ConsoleCommand
     public override string Execute(string args)
     {
         StringBuilder sb = new StringBuilder("Available Commands:\n");
-        foreach (ConsoleCommand cmd in m_GetCommands())
+        foreach (BadConsoleCommand cmd in m_GetCommands())
         {
             if (string.IsNullOrEmpty(args) || cmd.Name.StartsWith(args) || cmd.Aliases.Any(x => x.StartsWith(args)))
             {

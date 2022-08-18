@@ -10,7 +10,7 @@
 @using BadScript2.Interop.Common.Apis
 @using BadScript2.Interop.Common.Task
 @using BadScript2.ConsoleCore.Systems.Run
-@inject IJSRuntime JSRuntime
+@inject IJSRuntime JsRuntime
 @inject HttpClient HttpClient
 
 <Modal Class="import-modal" @ref="@m_ImportModal">
@@ -274,7 +274,7 @@
     {
         MemoryStream ms = new MemoryStream();
         BadFileSystem.Instance.ExportZip(ms);
-        JSRuntime.DownloadFile("Export.zip", ms.ToArray());
+        JsRuntime.DownloadFile("Export.zip", ms.ToArray());
     }
 
     private void CloseFile(string file)
@@ -447,7 +447,7 @@
 
     private void UploadFile()
     {
-        JSRuntime.ClickElement("import-modal-upload-input");
+        JsRuntime.ClickElement("import-modal-upload-input");
     }
 
 

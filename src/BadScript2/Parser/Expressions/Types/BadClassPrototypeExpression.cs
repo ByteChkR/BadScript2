@@ -9,9 +9,9 @@ namespace BadScript2.Parser.Expressions.Types;
 
 public class BadClassPrototypeExpression : BadExpression
 {
-    public readonly BadExpression? BaseClass;
-    public readonly BadExpression[] Body;
-    public readonly string Name;
+    private readonly BadExpression? m_BaseClass;
+    private readonly BadExpression[] m_Body;
+    private readonly string m_Name;
 
     public BadClassPrototypeExpression(
         string name,
@@ -19,26 +19,26 @@ public class BadClassPrototypeExpression : BadExpression
         BadExpression? baseClass,
         BadSourcePosition position) : base(false, false, position)
     {
-        Name = name;
-        Body = body;
-        BaseClass = baseClass;
+        m_Name = name;
+        m_Body = body;
+        m_BaseClass = baseClass;
     }
 
     public override void Optimize()
     {
-        for (int i = 0; i < Body.Length; i++)
+        for (int i = 0; i < m_Body.Length; i++)
         {
-            Body[i] = BadExpressionOptimizer.Optimize(Body[i]);
+            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
         }
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadClassPrototype? basePrototype = null;
-        if (BaseClass != null)
+        if (m_BaseClass != null)
         {
             BadObject obj = BadObject.Null;
-            foreach (BadObject o in BaseClass.Execute(context))
+            foreach (BadObject o in m_BaseClass.Execute(context))
             {
                 obj = o;
 
@@ -54,8 +54,8 @@ public class BadClassPrototypeExpression : BadExpression
             basePrototype = cls;
         }
 
-        BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, Body, basePrototype);
-        context.Scope.DefineVariable(Name, p);
+        BadClassPrototype p = new BadExpressionClassPrototype(m_Name, context.Scope, m_Body, basePrototype);
+        context.Scope.DefineVariable(m_Name, p);
 
         yield return p;
     }

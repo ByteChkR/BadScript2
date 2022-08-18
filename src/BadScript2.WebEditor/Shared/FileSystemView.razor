@@ -17,17 +17,17 @@
 @code {
 
 
-    private static event Action? m_OnReload;
+    private static event Action? OnReload;
 
     public static void Reload()
     {
-        m_OnReload?.Invoke();
+        OnReload?.Invoke();
     }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        m_OnReload += StateHasChanged;
+        OnReload += StateHasChanged;
     }
 
     private string GetName(BadVirtualNode? node)

@@ -1,6 +1,6 @@
 @using BadScript2.IO
 @using BadScript2.WebEditor.Shared.Commandline
-@inject IJSRuntime JSRuntime
+@inject IJSRuntime JsRuntime
 @inject HttpClient HttpClient
 
 <div style="height: 100%" class="console-container">
@@ -79,7 +79,7 @@
 
     private string ConsoleHistory { get; set; } = "";
     private string ConsoleInput { get; set; } = "";
-    private List<ConsoleCommand> Commands { get; set; } = new List<ConsoleCommand>();
+    private List<BadConsoleCommand> Commands { get; set; } = new List<BadConsoleCommand>();
 
     private async void InputFileUpload(InputFileChangeEventArgs e)
     {
@@ -91,7 +91,7 @@
 
     private void UploadFile()
     {
-        JSRuntime.ClickElement("import-upload-input");
+        JsRuntime.ClickElement("import-upload-input");
     }
 
 
@@ -107,14 +107,14 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Commands.Add(new HelpCommand(() => Commands));
-        Commands.Add(new ChangeDirectoryCommand());
-        Commands.Add(new RunCommand(f => OnRunFile.InvokeAsync(f)));
-        Commands.Add(new NewFileCommand());
-        Commands.Add(new DeleteFileCommand());
-        Commands.Add(new DeleteDirectoryCommand());
-        Commands.Add(new ExportCommand(JSRuntime.DownloadFile));
-        Commands.Add(new ImportCommand(ImportZip, UploadFile));
+        Commands.Add(new BadHelpCommand(() => Commands));
+        Commands.Add(new BadChangeDirectoryCommand());
+        Commands.Add(new BadRunCommand(f => OnRunFile.InvokeAsync(f)));
+        Commands.Add(new BadNewFileCommand());
+        Commands.Add(new BadDeleteFileCommand());
+        Commands.Add(new BadDeleteDirectoryCommand());
+        Commands.Add(new BadExportCommand(JsRuntime.DownloadFile));
+        Commands.Add(new BadImportCommand(ImportZip, UploadFile));
     }
 
     private void SendCommand()
@@ -125,7 +125,7 @@
         string[] parts = cmd.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (parts.Length == 0)
             return;
-        ConsoleCommand? command = Commands.FirstOrDefault(x => x.Name == parts[0] || x.Aliases.Contains(parts[0]));
+        BadConsoleCommand? command = Commands.FirstOrDefault(x => x.Name == parts[0] || x.Aliases.Contains(parts[0]));
         if (command == null)
         {
             ConsoleHistory += $"Command not found{parts[0]}\n";
@@ -135,7 +135,7 @@
         ConsoleHistory += command.Execute(cmd.Remove(0, parts[0].Length).Trim()) + "\n";
 
         StateHasChanged();
-        JSRuntime.InvokeVoidAsync("SimpleConsoleScrollToBottom", "simple-console-output");
+        JsRuntime.InvokeVoidAsync("SimpleConsoleScrollToBottom", "simple-console-output");
     }
 
     private async void ImportZipData(byte[] data)

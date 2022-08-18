@@ -17,9 +17,9 @@ public class BadLogicNotExpression : BadExpression
         Right = right;
     }
 
-    public BadExpression Right { get; }
+    private BadExpression Right { get; }
 
-    public static BadObject Not(BadObject left, BadSourcePosition pos)
+    private static BadObject Not(BadObject left, BadSourcePosition pos)
     {
         if (left is IBadBoolean rBool)
         {

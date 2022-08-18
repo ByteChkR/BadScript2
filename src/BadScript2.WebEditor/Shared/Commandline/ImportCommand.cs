@@ -1,11 +1,11 @@
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class ImportCommand : ConsoleCommand
+public class BadImportCommand : BadConsoleCommand
 {
     private readonly Action<string> m_Import;
     private readonly Action m_UploadFile;
 
-    public ImportCommand(Action<string> importFunc, Action uploadFile) : base(
+    public BadImportCommand(Action<string> importFunc, Action uploadFile) : base(
         "import",
         "Imports a Zip File into the Project. Prebuilt Images: (images/bootstrap/RootFS.zip, images/Minimal.zip, images/EmptyProject.zip, images/CoreProjects.zip)",
         Array.Empty<string>(),

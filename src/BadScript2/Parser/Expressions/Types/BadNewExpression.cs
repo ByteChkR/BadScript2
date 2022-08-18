@@ -10,16 +10,16 @@ namespace BadScript2.Parser.Expressions.Types;
 
 public class BadNewExpression : BadExpression
 {
-    public readonly BadInvocationExpression Right;
+    private readonly BadInvocationExpression m_Right;
 
     public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, false, position)
     {
-        Right = right;
+        m_Right = right;
     }
 
     public override void Optimize()
     {
-        Right.Optimize();
+        m_Right.Optimize();
     }
 
     public static IEnumerable<BadObject> CreateObject(
@@ -79,7 +79,7 @@ public class BadNewExpression : BadExpression
         BadObject obj = BadObject.Null;
 
         //Get Type from Right
-        foreach (BadObject o in Right.Left.Execute(context))
+        foreach (BadObject o in m_Right.Left.Execute(context))
         {
             obj = o;
 
@@ -94,7 +94,7 @@ public class BadNewExpression : BadExpression
         }
 
         List<BadObject> args = new List<BadObject>();
-        foreach (BadObject o in Right.GetArgs(context, args))
+        foreach (BadObject o in m_Right.GetArgs(context, args))
         {
             yield return o;
         }

@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 
 public class BadForExpression : BadExpression
 {
-    public readonly BadExpression[] Body;
+    private readonly BadExpression[] m_Body;
 
     public BadForExpression(
         BadExpression varDef,
@@ -21,21 +21,21 @@ public class BadForExpression : BadExpression
         VarDef = varDef;
         Condition = condition;
         VarIncrement = varIncrement;
-        Body = body;
+        m_Body = body;
     }
 
-    public BadExpression Condition { get; private set; }
-    public BadExpression VarDef { get; private set; }
-    public BadExpression VarIncrement { get; private set; }
+    private BadExpression Condition { get; set; }
+    private BadExpression VarDef { get; set; }
+    private BadExpression VarIncrement { get; set; }
 
     public override void Optimize()
     {
         Condition = BadExpressionOptimizer.Optimize(Condition);
         VarDef = BadExpressionOptimizer.Optimize(VarDef);
         VarIncrement = BadExpressionOptimizer.Optimize(VarIncrement);
-        for (int i = 0; i < Body.Length; i++)
+        for (int i = 0; i < m_Body.Length; i++)
         {
-            Body[i] = BadExpressionOptimizer.Optimize(Body[i]);
+            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
         }
     }
 
@@ -69,7 +69,7 @@ public class BadForExpression : BadExpression
                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
                 )
             );
-            foreach (BadObject o in loopContext.Execute(Body))
+            foreach (BadObject o in loopContext.Execute(m_Body))
             {
                 yield return o;
             }

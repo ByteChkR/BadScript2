@@ -19,7 +19,7 @@ public class BadModulusExpression : BadBinaryExpression
         return "%";
     }
 
-    public static BadObject Mod(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject Mod(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadNumber lNum && right is IBadNumber rNum)
         {

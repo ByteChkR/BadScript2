@@ -14,7 +14,7 @@ public class BadLogicXOrExpression : BadBinaryExpression
         position
     ) { }
 
-    public static BadObject XOr(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject XOr(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadBoolean lBool && right is IBadBoolean rBool)
         {

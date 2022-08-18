@@ -8,8 +8,8 @@ namespace BadScript2.Parser.Expressions.Variables;
 
 public class BadVariableDefinitionExpression : BadVariableExpression
 {
-    public readonly bool IsReadOnly;
-    public readonly BadExpression? TypeExpression;
+    private readonly bool m_IsReadOnly;
+    private readonly BadExpression? m_TypeExpression;
 
 
     public BadVariableDefinitionExpression(
@@ -21,8 +21,8 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         position
     )
     {
-        IsReadOnly = isReadOnly;
-        TypeExpression = typeExpression;
+        m_IsReadOnly = isReadOnly;
+        m_TypeExpression = typeExpression;
     }
 
     public override string ToString()
@@ -33,10 +33,10 @@ public class BadVariableDefinitionExpression : BadVariableExpression
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadClassPrototype? type = null;
-        if (TypeExpression != null)
+        if (m_TypeExpression != null)
         {
             BadObject obj = BadObject.Null;
-            foreach (BadObject o in TypeExpression.Execute(context))
+            foreach (BadObject o in m_TypeExpression.Execute(context))
             {
                 obj = o;
 
@@ -58,7 +58,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
             type = proto;
         }
 
-        context.Scope.DefineVariable(BadObject.Wrap(Name), BadObject.Null, new BadPropertyInfo(type, IsReadOnly));
+        context.Scope.DefineVariable(BadObject.Wrap(Name), BadObject.Null, new BadPropertyInfo(type, m_IsReadOnly));
 
         foreach (BadObject o in base.InnerExecute(context))
         {

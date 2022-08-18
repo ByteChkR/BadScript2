@@ -20,9 +20,9 @@ public class BadTernaryExpression : BadExpression
         FalseRet = falseRet;
     }
 
-    public BadExpression FalseRet { get; private set; }
-    public BadExpression Left { get; private set; }
-    public BadExpression TrueRet { get; private set; }
+    private BadExpression FalseRet { get; set; }
+    private BadExpression Left { get; set; }
+    private BadExpression TrueRet { get; set; }
 
     public override void Optimize()
     {

@@ -12,7 +12,7 @@ public class BadEqualityExpression : BadBinaryExpression
         position
     ) { }
 
-    public static BadObject Equal(BadObject left, BadObject right)
+    private static BadObject Equal(BadObject left, BadObject right)
     {
         if (left.Equals(right))
         {

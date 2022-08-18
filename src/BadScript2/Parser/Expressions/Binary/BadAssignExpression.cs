@@ -18,8 +18,8 @@ public class BadAssignExpression : BadExpression
         Right = right;
     }
 
-    public BadExpression Left { get; private set; }
-    public BadExpression Right { get; private set; }
+    private BadExpression Left { get; set; }
+    private BadExpression Right { get; set; }
 
     public override void Optimize()
     {

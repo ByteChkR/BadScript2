@@ -19,7 +19,7 @@ public class BadSubtractExpression : BadBinaryExpression
         return "-";
     }
 
-    public static BadObject Sub(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject Sub(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadNumber lNum)
         {

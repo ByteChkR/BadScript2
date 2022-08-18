@@ -15,8 +15,8 @@ public abstract class BadBinaryExpression : BadExpression
         Right = right;
     }
 
-    public BadExpression Left { get; private set; }
-    public BadExpression Right { get; private set; }
+    protected BadExpression Left { get; private set; }
+    protected BadExpression Right { get; private set; }
 
     public override void Optimize()
     {

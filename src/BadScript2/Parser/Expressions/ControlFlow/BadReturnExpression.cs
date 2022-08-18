@@ -17,9 +17,9 @@ public class BadReturnExpression : BadExpression
         IsRefReturn = isRefReturn;
     }
 
-    public bool IsRefReturn { get; }
+    private bool IsRefReturn { get; }
 
-    public BadExpression? Right { get; private set; }
+    private BadExpression? Right { get; set; }
 
     public override void Optimize()
     {

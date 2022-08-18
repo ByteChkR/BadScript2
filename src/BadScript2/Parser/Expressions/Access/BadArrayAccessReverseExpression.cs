@@ -9,8 +9,8 @@ namespace BadScript2.Parser.Expressions.Access;
 
 public class BadArrayAccessReverseExpression : BadExpression
 {
-    public readonly BadExpression[] Arguments;
-    public readonly bool NullChecked;
+    private readonly BadExpression[] m_Arguments;
+    private readonly bool m_NullChecked;
 
     public BadArrayAccessReverseExpression(
         BadExpression left,
@@ -23,19 +23,19 @@ public class BadArrayAccessReverseExpression : BadExpression
     )
     {
         Left = left;
-        Arguments = args;
-        NullChecked = nullChecked;
+        m_Arguments = args;
+        m_NullChecked = nullChecked;
     }
 
-    public BadExpression Left { get; private set; }
+    private BadExpression Left { get; set; }
 
     public override void Optimize()
     {
         Left = BadExpressionOptimizer.Optimize(Left);
 
-        for (int i = 0; i < Arguments.Length; i++)
+        for (int i = 0; i < m_Arguments.Length; i++)
         {
-            Arguments[i] = BadExpressionOptimizer.Optimize(Arguments[i]);
+            m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
         }
     }
 
@@ -51,7 +51,7 @@ public class BadArrayAccessReverseExpression : BadExpression
 
         left = left.Dereference();
 
-        if (NullChecked && left == BadObject.Null)
+        if (m_NullChecked && left == BadObject.Null)
         {
             yield return left;
 
@@ -59,7 +59,7 @@ public class BadArrayAccessReverseExpression : BadExpression
         }
 
         List<BadObject> args = new List<BadObject>();
-        foreach (BadExpression argExpr in Arguments)
+        foreach (BadExpression argExpr in m_Arguments)
         {
             BadObject argObj = BadObject.Null;
             foreach (BadObject arg in argExpr.Execute(context))

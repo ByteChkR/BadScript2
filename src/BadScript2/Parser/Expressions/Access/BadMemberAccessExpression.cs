@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 public class BadMemberAccessExpression : BadExpression
 {
-    public readonly bool NullChecked;
+    private readonly bool m_NullChecked;
 
     public BadMemberAccessExpression(
         BadExpression left,
@@ -22,11 +22,11 @@ public class BadMemberAccessExpression : BadExpression
     {
         Left = left;
         Right = right;
-        NullChecked = nullChecked;
+        m_NullChecked = nullChecked;
     }
 
-    public BadExpression Left { get; private set; }
-    public BadWordToken Right { get; }
+    private BadExpression Left { get; set; }
+    private BadWordToken Right { get; }
 
     public override void Optimize()
     {
@@ -45,7 +45,7 @@ public class BadMemberAccessExpression : BadExpression
 
         left = left.Dereference();
 
-        if (NullChecked && left.Equals(BadObject.Null))
+        if (m_NullChecked && left.Equals(BadObject.Null))
         {
             yield return BadObject.Null;
         }
@@ -58,6 +58,6 @@ public class BadMemberAccessExpression : BadExpression
 
     public override string ToString()
     {
-        return $"({Left}{(NullChecked ? "?" : "")}.{Right})";
+        return $"({Left}{(m_NullChecked ? "?" : "")}.{Right})";
     }
 }

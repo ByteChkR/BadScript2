@@ -14,7 +14,7 @@ public class BadGreaterThanExpression : BadBinaryExpression
         position
     ) { }
 
-    public static BadObject GreaterThan(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject GreaterThan(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadNumber lNum)
         {
@@ -34,7 +34,6 @@ public class BadGreaterThanExpression : BadBinaryExpression
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        bool hasReturn = false;
         BadObject left = BadObject.Null;
         foreach (BadObject o in Left.Execute(context))
         {
@@ -54,27 +53,8 @@ public class BadGreaterThanExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        if (left is IBadNumber lNum)
-        {
-            if (right is IBadNumber rNum)
-            {
-                hasReturn = true;
-
-                if (lNum.Value > rNum.Value)
-                {
-                    yield return BadObject.True;
-                }
-                else
-                {
-                    yield return BadObject.False;
-                }
-            }
-        }
-
-        if (!hasReturn)
-        {
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
-        }
+        
+        yield return GreaterThan(left, right, Position);
     }
 
     protected override string GetSymbol()

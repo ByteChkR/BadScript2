@@ -19,7 +19,7 @@ public class BadAddExpression : BadBinaryExpression
         return "+";
     }
 
-    public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadString lStr)
         {

@@ -41,7 +41,7 @@ BadFileSystem.SetFileSystem(new BadVirtualFileSystem());
 
 await LoadZip();
 
-const string SETTINGS_FILE = "Settings.json";
+const string settingsFile = "Settings.json";
 
 // using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
 // cWriter.Register();
@@ -62,7 +62,7 @@ static void LoadSettings()
     root.SetProperty("Console", consoleSettings);
     BadSettingsReader settingsReader = new BadSettingsReader(
         root,
-        Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE)
+        Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), settingsFile)
     );
 
     BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());

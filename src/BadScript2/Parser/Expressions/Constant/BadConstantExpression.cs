@@ -11,7 +11,7 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
         Value = value;
     }
 
-    public BadObject Value { get; }
+    private BadObject Value { get; }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {

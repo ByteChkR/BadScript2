@@ -9,40 +9,40 @@ namespace BadScript2.Parser.Expressions.Block;
 
 public class BadIfExpression : BadExpression
 {
-    public readonly Dictionary<BadExpression, BadExpression[]> ConditionalBranches;
-    public readonly BadExpression[]? ElseBranch;
+    private readonly Dictionary<BadExpression, BadExpression[]> m_ConditionalBranches;
+    private readonly BadExpression[]? m_ElseBranch;
 
     public BadIfExpression(
         Dictionary<BadExpression, BadExpression[]> branches,
         BadExpression[]? elseBranch,
         BadSourcePosition position) : base(false, false, position)
     {
-        ConditionalBranches = branches;
-        ElseBranch = elseBranch;
+        m_ConditionalBranches = branches;
+        m_ElseBranch = elseBranch;
     }
 
     public override void Optimize()
     {
-        KeyValuePair<BadExpression, BadExpression[]>[] branches = ConditionalBranches.ToArray();
-        ConditionalBranches.Clear();
+        KeyValuePair<BadExpression, BadExpression[]>[] branches = m_ConditionalBranches.ToArray();
+        m_ConditionalBranches.Clear();
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in branches)
         {
-            ConditionalBranches[BadExpressionOptimizer.Optimize(branch.Key)] =
+            m_ConditionalBranches[BadExpressionOptimizer.Optimize(branch.Key)] =
                 BadExpressionOptimizer.Optimize(branch.Value).ToArray();
         }
 
-        if (ElseBranch != null)
+        if (m_ElseBranch != null)
         {
-            for (int i = 0; i < ElseBranch.Length; i++)
+            for (int i = 0; i < m_ElseBranch.Length; i++)
             {
-                ElseBranch[i] = BadExpressionOptimizer.Optimize(ElseBranch[i]);
+                m_ElseBranch[i] = BadExpressionOptimizer.Optimize(m_ElseBranch[i]);
             }
         }
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        foreach (KeyValuePair<BadExpression, BadExpression[]> keyValuePair in ConditionalBranches)
+        foreach (KeyValuePair<BadExpression, BadExpression[]> keyValuePair in m_ConditionalBranches)
         {
             BadObject conditionResult = BadObject.Null;
             foreach (BadObject o in keyValuePair.Key.Execute(context))
@@ -76,7 +76,7 @@ public class BadIfExpression : BadExpression
             }
         }
 
-        if (ElseBranch is not null)
+        if (m_ElseBranch is not null)
         {
             BadExecutionContext elseContext = new BadExecutionContext(
                 context.Scope.CreateChild(
@@ -84,7 +84,7 @@ public class BadIfExpression : BadExpression
                     context.Scope
                 )
             );
-            foreach (BadObject o in elseContext.Execute(ElseBranch))
+            foreach (BadObject o in elseContext.Execute(m_ElseBranch))
             {
                 yield return o;
             }

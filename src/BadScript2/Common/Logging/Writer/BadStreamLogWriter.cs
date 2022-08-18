@@ -4,7 +4,7 @@ public abstract class BadStreamLogWriter : BadLogWriter
 {
     private readonly StreamWriter m_Stream;
 
-    public BadStreamLogWriter(Stream stream)
+    protected BadStreamLogWriter(Stream stream)
     {
         m_Stream = new StreamWriter(stream);
     }

@@ -2,7 +2,7 @@ using Microsoft.JSInterop;
 
 namespace BadScript2.WebEditor.Shared;
 
-public static class JSInterop
+public static class BadJsInterop
 {
     public static async void ClickElement(this IJSRuntime runtime, string name)
     {
@@ -14,9 +14,9 @@ public static class JSInterop
         string contentType = "application/octet-stream";
 
         // Check if the IJSRuntime is the WebAssembly implementation of the JSRuntime
-        if (runtime is IJSUnmarshalledRuntime webAssemblyJSRuntime)
+        if (runtime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
         {
-            webAssemblyJSRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", name, contentType, data);
+            webAssemblyJsRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", name, contentType, data);
         }
         else
         {

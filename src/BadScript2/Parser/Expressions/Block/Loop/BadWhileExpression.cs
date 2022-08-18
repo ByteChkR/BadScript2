@@ -23,8 +23,8 @@ public class BadWhileExpression : BadExpression
         m_Body = block;
     }
 
-    public BadExpression Condition { get; private set; }
-    public IEnumerable<BadExpression> Body => m_Body;
+    private BadExpression Condition { get; set; }
+    
 
     public override void Optimize()
     {
@@ -40,7 +40,7 @@ public class BadWhileExpression : BadExpression
         StringBuilder sb = new StringBuilder($"while ({Condition})");
         sb.AppendLine();
         sb.AppendLine("{");
-        foreach (BadExpression expression in Body)
+        foreach (BadExpression expression in m_Body)
         {
             sb.AppendLine($"\t{expression}");
         }

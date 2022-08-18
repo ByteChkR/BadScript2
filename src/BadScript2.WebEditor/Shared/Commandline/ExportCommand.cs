@@ -2,11 +2,11 @@ using BadScript2.IO;
 
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class ExportCommand : ConsoleCommand
+public class BadExportCommand : BadConsoleCommand
 {
     private readonly Action<string, byte[]> m_OnDownloadFile;
 
-    public ExportCommand(Action<string, byte[]> onDownloadFile) : base(
+    public BadExportCommand(Action<string, byte[]> onDownloadFile) : base(
         "export",
         "Exports the Project",
         Array.Empty<string>(),

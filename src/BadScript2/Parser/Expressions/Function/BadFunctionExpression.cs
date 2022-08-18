@@ -31,9 +31,9 @@ public class BadFunctionExpression : BadExpression
         m_TypeExpr = typeExpr;
     }
 
-    public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
-    public IEnumerable<BadExpression> Body => m_Body;
-    public BadWordToken? Name { get; }
+    private IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
+    private IEnumerable<BadExpression> Body => m_Body;
+    private BadWordToken? Name { get; }
 
     public override void Optimize()
     {

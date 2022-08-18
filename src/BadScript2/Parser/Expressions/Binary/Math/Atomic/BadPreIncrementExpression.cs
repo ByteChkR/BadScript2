@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
 public class BadPreIncrementExpression : BadExpression
 {
-    public readonly BadExpression Right;
+    private readonly BadExpression m_Right;
 
     public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(
         right.IsConstant,
@@ -16,13 +16,13 @@ public class BadPreIncrementExpression : BadExpression
         position
     )
     {
-        Right = right;
+        m_Right = right;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
+        foreach (BadObject o in m_Right.Execute(context))
         {
             right = o;
 

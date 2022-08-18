@@ -2,9 +2,9 @@ using BadScript2.IO;
 
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class DeleteDirectoryCommand : ConsoleCommand
+public class BadDeleteDirectoryCommand : BadConsoleCommand
 {
-    public DeleteDirectoryCommand() : base(
+    public BadDeleteDirectoryCommand() : base(
         "deletedir",
         "Deletes a Directory at the specified path",
         new[] { "deldir", "rmdir" },

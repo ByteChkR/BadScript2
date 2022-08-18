@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions.Function;
 
 public class BadInvocationExpression : BadExpression
 {
-    public readonly BadExpression[] Arguments;
+    private readonly BadExpression[] m_Arguments;
 
     public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
         false,
@@ -18,22 +18,22 @@ public class BadInvocationExpression : BadExpression
     )
     {
         Left = left;
-        Arguments = args;
+        m_Arguments = args;
     }
 
     public BadExpression Left { get; }
 
     public override void Optimize()
     {
-        for (int i = 0; i < Arguments.Length; i++)
+        for (int i = 0; i < m_Arguments.Length; i++)
         {
-            Arguments[i] = BadExpressionOptimizer.Optimize(Arguments[i]);
+            m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
         }
     }
 
     public IEnumerable<BadObject> GetArgs(BadExecutionContext context, List<BadObject> args)
     {
-        foreach (BadExpression argExpr in Arguments)
+        foreach (BadExpression argExpr in m_Arguments)
         {
             BadObject argObj = BadObject.Null;
             foreach (BadObject arg in argExpr.Execute(context))

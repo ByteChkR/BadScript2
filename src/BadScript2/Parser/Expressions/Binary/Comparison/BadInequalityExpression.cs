@@ -12,7 +12,7 @@ public class BadInequalityExpression : BadBinaryExpression
         position
     ) { }
 
-    public static BadObject NotEqual(BadObject left, BadObject right)
+    private static BadObject NotEqual(BadObject left, BadObject right)
     {
         if (!left.Equals(right))
         {

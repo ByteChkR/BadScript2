@@ -7,7 +7,7 @@ namespace BadScript2.Parser.Expressions.Constant;
 
 public class BadArrayExpression : BadExpression
 {
-    public readonly BadExpression[] InitExpressions;
+    private readonly BadExpression[] m_InitExpressions;
 
     public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
         false,
@@ -15,21 +15,21 @@ public class BadArrayExpression : BadExpression
         position
     )
     {
-        InitExpressions = initExpressions;
+        m_InitExpressions = initExpressions;
     }
 
     public override void Optimize()
     {
-        for (int i = 0; i < InitExpressions.Length; i++)
+        for (int i = 0; i < m_InitExpressions.Length; i++)
         {
-            InitExpressions[i] = BadExpressionOptimizer.Optimize(InitExpressions[i]);
+            m_InitExpressions[i] = BadExpressionOptimizer.Optimize(m_InitExpressions[i]);
         }
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         List<BadObject> array = new List<BadObject>();
-        foreach (BadExpression expression in InitExpressions)
+        foreach (BadExpression expression in m_InitExpressions)
         {
             BadObject o = BadObject.Null;
             foreach (BadObject obj in expression.Execute(context))

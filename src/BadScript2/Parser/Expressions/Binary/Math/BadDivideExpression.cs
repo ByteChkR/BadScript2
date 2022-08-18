@@ -19,7 +19,7 @@ public class BadDivideExpression : BadBinaryExpression
         return "/";
     }
 
-    public static BadObject Div(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject Div(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadNumber lNum)
         {

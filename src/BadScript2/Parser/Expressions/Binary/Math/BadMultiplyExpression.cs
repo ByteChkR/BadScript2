@@ -19,7 +19,7 @@ public class BadMultiplyExpression : BadBinaryExpression
         return "*";
     }
 
-    public static BadObject Mul(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject Mul(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadNumber lNum)
         {

@@ -2,9 +2,9 @@ using BadScript2.IO;
 
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class NewFileCommand : ConsoleCommand
+public class BadNewFileCommand : BadConsoleCommand
 {
-    public NewFileCommand() : base(
+    public BadNewFileCommand() : base(
         "new",
         "Creates a new file at the specified path",
         Array.Empty<string>(),

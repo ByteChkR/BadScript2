@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Constant;
 
 public class BadTableExpression : BadExpression
 {
-    public readonly Dictionary<BadWordToken, BadExpression> Table;
+    private readonly Dictionary<BadWordToken, BadExpression> m_Table;
 
     public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
         false,
@@ -16,23 +16,23 @@ public class BadTableExpression : BadExpression
         position
     )
     {
-        Table = table;
+        m_Table = table;
     }
 
     public override void Optimize()
     {
-        KeyValuePair<BadWordToken, BadExpression>[] branches = Table.ToArray();
-        Table.Clear();
+        KeyValuePair<BadWordToken, BadExpression>[] branches = m_Table.ToArray();
+        m_Table.Clear();
         foreach (KeyValuePair<BadWordToken, BadExpression> branch in branches)
         {
-            Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
+            m_Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
         }
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();
-        foreach (KeyValuePair<BadWordToken, BadExpression> entry in Table)
+        foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
         {
             BadObject key = BadObject.Wrap(entry.Key.Text);
 

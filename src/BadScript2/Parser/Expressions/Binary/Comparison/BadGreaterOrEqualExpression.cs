@@ -14,7 +14,7 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
         position
     ) { }
 
-    public static BadObject GreaterOrEqual(BadObject left, BadObject right, BadSourcePosition pos)
+    private static BadObject GreaterOrEqual(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadNumber lNum && right is IBadNumber rNum)
         {

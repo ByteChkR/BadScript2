@@ -36,7 +36,7 @@ public abstract class BadExpression
         }
     }
 
-    public IEnumerable<BadObject> ExecuteOperatorOverride(
+    protected IEnumerable<BadObject> ExecuteOperatorOverride(
         BadObject left,
         BadObject right,
         BadExecutionContext context,

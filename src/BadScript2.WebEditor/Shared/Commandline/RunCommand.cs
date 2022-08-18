@@ -1,10 +1,10 @@
 namespace BadScript2.WebEditor.Shared.Commandline;
 
-public class RunCommand : ConsoleCommand
+public class BadRunCommand : BadConsoleCommand
 {
     private readonly Action<string> m_RunScript;
 
-    public RunCommand(Action<string> commandFunc) : base(
+    public BadRunCommand(Action<string> commandFunc) : base(
         "run",
         "Runs the specifies BadScript File",
         new[] { "exec", "r" },

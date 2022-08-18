@@ -1,4 +1,4 @@
-@inject IJSRuntime JS
+@inject IJSRuntime Js
 
 <div style="height: 100%; width: 100%;">
     <MonacoEditor CssClass="code-input" ConstructionOptions="EditorConstructionOptions"/>
@@ -24,7 +24,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        JS.InvokeVoidAsync("AddBadScriptLanguage");
+        Js.InvokeVoidAsync("AddBadScriptLanguage");
 
         OnEditorInitialized.InvokeAsync(this);
     }

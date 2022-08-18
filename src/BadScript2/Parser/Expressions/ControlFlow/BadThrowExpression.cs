@@ -16,7 +16,7 @@ public class BadThrowExpression : BadExpression
         Right = right;
     }
 
-    public BadExpression Right { get; private set; }
+    private BadExpression Right { get; set; }
 
     public override void Optimize()
     {
