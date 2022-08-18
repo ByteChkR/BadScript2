@@ -170,7 +170,6 @@ public class BadInteractiveConsole
 
         BadExecutionContext ctx = m_Context;
         Reset();
-        BadExecutionContext current = m_Context;
         BadSourceParser parser = BadSourceParser.Create("<stdin>", code);
         foreach (object? o in RunRoutine(parser.Parse()))
         {

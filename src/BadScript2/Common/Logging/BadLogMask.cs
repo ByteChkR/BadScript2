@@ -10,7 +10,7 @@ public class BadLogMask
     public static readonly BadLogMask Default = new BadLogMask(1);
 
 
-    public readonly ulong Mask;
+    private readonly ulong Mask;
 
     private BadLogMask(ulong mask)
     {

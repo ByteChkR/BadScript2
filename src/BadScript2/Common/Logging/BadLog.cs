@@ -1,6 +1,6 @@
 namespace BadScript2.Common.Logging;
 
-public struct BadLog
+public struct BadLog : IEquatable<BadLog>
 {
     public readonly string Message;
     public readonly BadLogMask Mask;
@@ -32,5 +32,30 @@ public struct BadLog
         }
 
         return $"[{Type}][{Mask}] {Message}";
+    }
+
+    public bool Equals(BadLog other)
+    {
+        return Message == other.Message && Mask.Equals(other.Mask) && Type == other.Type;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is BadLog other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Message, Mask, (int)Type);
+    }
+
+    public static bool operator ==(BadLog left, BadLog right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(BadLog left, BadLog right)
+    {
+        return !left.Equals(right);
     }
 }

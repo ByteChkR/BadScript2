@@ -24,7 +24,7 @@ public class BadFunctionParameter
         bool isOptional,
         bool isNullChecked,
         bool isRestArgs,
-        BadExpression? typeExpr = null,
+        BadExpression? typeExpr,
         BadClassPrototype? type = null)
     {
         Name = name;

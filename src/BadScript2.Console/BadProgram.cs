@@ -18,9 +18,9 @@ using BadScript2.Settings;
 
 namespace BadScript2.Console;
 
-internal class BadProgram
+internal static class BadProgram
 {
-    public const string SETTINGS_FILE = "Settings.json";
+    private const string SETTINGS_FILE = "Settings.json";
 
     private static void LoadSettings()
     {

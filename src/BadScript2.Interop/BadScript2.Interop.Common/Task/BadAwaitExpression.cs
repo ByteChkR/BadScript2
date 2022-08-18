@@ -8,7 +8,7 @@ namespace BadScript2.Interop.Common.Task;
 
 public class BadAwaitExpression : BadExpression
 {
-    public readonly BadExpression TaskExpr;
+    private readonly BadExpression TaskExpr;
 
     public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, false, position)
     {

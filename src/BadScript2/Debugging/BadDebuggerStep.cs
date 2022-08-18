@@ -5,7 +5,7 @@ using BadScript2.Runtime;
 
 namespace BadScript2.Debugging;
 
-public readonly struct BadDebuggerStep
+public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 {
     public readonly object? StepSource;
     public readonly BadExecutionContext Context;
@@ -75,5 +75,30 @@ public readonly struct BadDebuggerStep
         }
 
         return lns.ToArray();
+    }
+
+    public bool Equals(BadDebuggerStep other)
+    {
+        return Equals(StepSource, other.StepSource) && Context.Equals(other.Context) && Position.Equals(other.Position);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is BadDebuggerStep other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(StepSource, Context, Position);
+    }
+
+    public static bool operator ==(BadDebuggerStep left, BadDebuggerStep right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(BadDebuggerStep left, BadDebuggerStep right)
+    {
+        return !left.Equals(right);
     }
 }

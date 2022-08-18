@@ -6,7 +6,7 @@ namespace BadScript2.Runtime;
 
 public class BadScope : BadObject
 {
-    public readonly BadScope? Caller;
+    private readonly BadScope? Caller;
 
     private readonly BadTable m_ScopeVariables = new BadTable();
 
