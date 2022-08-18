@@ -18,10 +18,14 @@
 
     private MonacoEditor? m_Editor;
 
+    private string? m_Text;
+    private string? m_Language;
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         JS.InvokeVoidAsync("AddBadScriptLanguage");
+        
         OnEditorInitialized.InvokeAsync(this);
     }
 
@@ -34,14 +38,34 @@
 
     public async void Open(string text, string language)
     {
+        if (m_Editor == null)
+        {
+            m_Text = text;
+            m_Language = language;
+            return;
+        }
         TextModel? model = await m_Editor!.GetModel();
-        MonacoEditor.SetModelLanguage(model, language);
+        await MonacoEditorBase.SetModelLanguage(model, language);
         await model.SetValue(text);
     }
 
     private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
     {
+
         string value = "";
+        
+        if (m_Text != null)
+        {
+            value = m_Text;
+            m_Text = null;
+        }
+        
+        string language = "badscript";
+        if(m_Language!=null)
+        {
+            language = m_Language;
+            m_Language = null;
+        }
 
         m_Editor = editor;
         return new StandaloneEditorConstructionOptions
@@ -72,7 +96,7 @@
             Links = true,
             ScrollBeyondLastLine = false,
             SmoothScrolling = true,
-            Language = "badscript",
+            Language = language,
             Value = value,
         };
     }

@@ -3,12 +3,13 @@
 @inject IJSRuntime JSRuntime
 @inject HttpClient HttpClient
 
-<div class="console-container">
+<div style="height: 100%" class="console-container">
     <InputFile id="import-upload-input" OnChange="@InputFileUpload" hidden="">Import</InputFile>
-    <textarea id="simple-console-output" class="console-output" readonly>@ConsoleHistory</textarea>
-    <span class="console-input-container">
+    <textarea hidden="@m_HideConsoleOutput" id="simple-console-output" class="console-output" readonly>@ConsoleHistory</textarea>
+    <span style="height: 30px;" class="console-input-container">
         <input onkeyup="@ConsoleKeyUp" class="console-input" @bind="@ConsoleInput"/>
         <button class="console-send" onclick="@SendCommand">Send</button>
+        <button class="console-hide" onclick="@ToggleConsoleOutput">@(m_HideConsoleOutput?"Show":"Hide")</button>
     </span>
 </div>
 <style>
@@ -18,13 +19,12 @@
     }
     .console-container {
         width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: column;
     }
     
     .console-input {
-        width: calc(100% - 100px);
+        flex-grow: 1;
         padding: 0;
         margin: 0;
         border: 1px solid white;
@@ -58,6 +58,17 @@
 
 @code {
 
+    
+    [Parameter]
+    public EventCallback<int> OnSizeChangedEvent { get; set; } = EventCallback<int>.Empty;
+    private bool m_HideConsoleOutput;
+
+    private void ToggleConsoleOutput()
+    {
+        m_HideConsoleOutput = !m_HideConsoleOutput;
+        OnSizeChangedEvent.InvokeAsync(m_HideConsoleOutput ? 30 : 200);
+        StateHasChanged();
+    }
     [Parameter]
     public EventCallback<string> OnRunFile { get; set; } = EventCallback<string>.Empty;
     [Parameter]
@@ -77,7 +88,7 @@
 
     private void UploadFile()
     {
-        JSRuntime.InvokeVoidAsync("ClickElement", "import-upload-input");
+        JSRuntime.ClickElement("import-upload-input");
     }
 
 
@@ -99,7 +110,7 @@
         Commands.Add(new NewFileCommand());
         Commands.Add(new DeleteFileCommand());
         Commands.Add(new DeleteDirectoryCommand());
-        Commands.Add(new ExportCommand(DownloadFile));
+        Commands.Add(new ExportCommand(JSRuntime.DownloadFile));
         Commands.Add(new ImportCommand(ImportZip, UploadFile));
     }
 
@@ -136,20 +147,6 @@
         ImportZipData(await HttpClient.GetByteArrayAsync(url));
     }
 
-    private async void DownloadFile(string name, byte[] data)
-    {
-        string contentType = "application/octet-stream";
-
-    // Check if the IJSRuntime is the WebAssembly implementation of the JSRuntime
-        if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJSRuntime)
-        {
-            webAssemblyJSRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", name, contentType, data);
-        }
-        else
-        {
-    // Fall back to the slow method if not in WebAssembly
-            await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", name, contentType, data);
-        }
-    }
+    
 
 }

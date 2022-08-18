@@ -1,5 +1,5 @@
 @page "/"
-@inject IJSRuntime JSRuntime
+@using BadScript2.IO
 @using BadScript2.IO.Virtual
 @using BadScript2.Optimizations
 @using BadScript2.Parser
@@ -7,38 +7,160 @@
 @using BadScript2.Runtime
 @using BadScript2.Runtime.Objects
 @using BadScript2.Runtime.Settings
-@using BadScript2.IO
 @using BadScript2.Interop.Common.Apis
 @using BadScript2.Interop.Common.Task
 @using BadScript2.Console.Systems.Run
+@inject IJSRuntime JSRuntime
+@inject HttpClient HttpClient
 
-<div class="editor-content">
-    <div class="sidebar">
+<Modal Class="import-modal" @ref="@m_ImportModal">
+    <ModalHeader>
+        <ModalTitle Class="import-modal-title">Import Zip File</ModalTitle>
+        <CloseButton Class="import-modal-close-button"/>
+    </ModalHeader>
+    <ModalBody Class="import-modal-body">
+        <Field>
+            <InputFile id="import-modal-upload-input" OnChange="@InputFileUpload" hidden="">Import</InputFile>
+            <FieldLabel>Select Prebuilt Projects</FieldLabel>
+            <Select class="import-modal-select" @bind-SelectedValue="@m_SelectedImportValue" TValue="string">
+                <SelectGroup Class="import-modal-select-group" Label="Internal Images">
+                    @foreach (string project in m_InternalProjects)
+                    {
+                        <SelectItem Class="import-modal-select-item" TValue="string">@project</SelectItem>
+                    }
+                </SelectGroup>
+                <SelectGroup Class="import-modal-select-group" Label="Prebuilt Images">
+                    @foreach (string project in m_PrebuiltProjects)
+                    {
+                        <SelectItem Class="import-modal-select-item" TValue="string">@project</SelectItem>
+                    }
+                </SelectGroup>
+            </Select>
+        </Field>
+    </ModalBody>
+    <ModalFooter>
+        <Button Color="Color.Secondary" Clicked="@HideImportModalAndUpload">Upload File</Button>
+        <Button Color="Color.Secondary" Clicked="@HideImportModal">Close</Button>
+        <Button Color="Color.Primary" Clicked="@HideImportModalAndImport">Import</Button>
+    </ModalFooter>
+</Modal>
+<div style="height: calc(100% - @(m_ConsoleHeight)px)" class="editor-content">
+    <div hidden="@m_HideFileSystemView" class="sidebar">
         <div class="sidebar-header">
-            <button onclick="@Open">Open</button>
-            <button onclick="@Save">Save</button>
+            <button class="sidebar-header-button" onclick="@Open">Open</button>
+            <button class="sidebar-header-button" onclick="@Save">Save</button>
+            <button class="sidebar-header-button" onclick="@OpenImportModal">Import</button>
+            <button class="sidebar-header-button" onclick="@ExportProject">Export</button>
+            <button class="sidebar-header-button" onclick="@HideSideBar">Hide</button>
         </div>
         <FileSystemView SelectedNodeChanged="@SelectedNodeChanged" FileSystem="@FileSystem"></FileSystemView>
-        
     </div>
-    <div class="editor-container">
-        <CodeEditor OnEditorInitialized="EditorInit"></CodeEditor>
+    <div style="height: 100%; display: flex; flex-direction: column;" class="editor-container">
+        <button style="width: 100%; flex-grow: 0" hidden="@(!m_HideFileSystemView)" onclick="@ShowSideBar" class="show-sidebar">Show Side Bar</button>
+        <button style="width: 100%; flex-grow: 0" hidden="@(!m_HideScriptOutput)" onclick="@ShowConsoleOutput" class="show-sidebar">Show Console Output</button>
+        <Tabs @ref="m_Tabs" @bind-SelectedTab="@m_SelectedFile">
+            <Items>
+                @if (m_OpenFiles.Count == 0)
+                {
+                    <Tab Name="home">Home</Tab>
+                }
+                @foreach (KeyValuePair<string, CodeEditor?> file in m_OpenFiles)
+                {
+                    <Tab Name="@(file.Key)">
+                        @(Path.GetFileName(file.Key))<button onclick="@(() => CloseFile(file.Key))">X</button>
+                    </Tab>
+                }
+            </Items>
+            <Content>
+                @if (m_OpenFiles.Count == 0)
+                {
+                    <TabPanel Name="home">
+                        <p class="home-text">
+                        Create a new File and start coding!
+                        <br/>
+                        OR
+                        <br/>
+                        Import a prebuilt project and go explore!
+                        </p>
+                    </TabPanel>
+                }
+                @foreach (KeyValuePair<string, CodeEditor?> file in m_OpenFiles)
+                {
+                    <TabPanel Style="height: 100%;" Name="@(file.Key)">
+                        <CodeEditor OnEditorInitialized="@(e => InitFileEditor(file.Key, e))"></CodeEditor>
+                    </TabPanel>
+                }
+            </Content>
+        </Tabs>
     </div>
-    <div class="logout">
-        <textarea style="width: 100%; height: 100%; resize: none; background-color: #0e0e0e; color: white;" readonly>@ConsoleOutput</textarea>
+    <div hidden="@m_HideScriptOutput" class="logout">
+        <button style="width: 100%; flex-grow: 0" onclick="@HideConsoleOutput" class="show-sidebar">Hide Console Output</button>
+        <textarea style="width: 100%; height: 100%; resize: none; background-color: #0e0e0e; color: white;" readonly>@m_ConsoleOutput</textarea>
     </div>
 </div>
-<div style="height: 200px; width: 100%; min-width: 1000px">
-    <SimpleConsole OnFileSystemChanged="@FileSystemChanged" OnRunFile="@RunFile"></SimpleConsole>
+<div style="height: @(m_ConsoleHeight)px; width: 100%; min-width: 1000px">
+    <SimpleConsole OnSizeChangedEvent="@OnSizeChanged" OnFileSystemChanged="@FileSystemChanged" OnRunFile="@RunFile"></SimpleConsole>
 </div>
 <style>
+
+    .nav-tabs,
+    .nav-link {
+        background-color: #1e1e1e;
+        color: white;
+    }
+    .nav-link.active.show {
+        background-color: #0e0e0e;
+    }
+    
+    .home-text
+    {
+        text-align: center;
+        color: white;
+    }
+
+    .tab-content {
+        height:  100%;
+        background-color: #1e1e1e;
+    }
 
     .editor-content {
         display: flex;
         flex-direction: row;
-        height: calc(100% - 200px);
         overflow-y: hidden;
         overflow-x: auto;
+    }
+    
+    .import-modal {
+        background-color: #0e0e0e;
+        color: white;
+        height: auto;
+        margin: 100px;
+        width: calc(100% - 200px);
+    }
+    .import-modal-body {
+        background-color: #1e1e1e;
+        color: white;
+    }
+    
+    .import-modal-title {
+        color: white;
+    }
+    
+    .import-modal-select-group {
+        color: white;
+        background-color: #0e0e0e;
+    }
+    .import-modal-select {
+        color: white;
+        background-color: #0e0e0e;
+    }
+    .import-modal-select-item {
+        color: white;
+        background-color: #1e1e1e;
+    }
+    
+    .import-modal-close-button {
+        color: white;
     }
     
     
@@ -55,6 +177,11 @@
     
     .sidebar-header {
         padding-bottom: 15px;
+        display: flex;
+    }
+    
+    .sidebar-header-button {
+        flex-grow: 1;
     }
     
     
@@ -89,25 +216,123 @@
 
 @code {
 
-    
-    
-    
-    
-    private string ConsoleOutput = "";
-    private string NewFileText = "NewFile.bs";
 
-    
-    private CodeEditor? m_Editor;
+    private Tabs? m_Tabs;
+    private string m_ConsoleOutput = "";
+
+
     private BadVirtualNode? SelectedNode { get; set; }
+
+    private readonly Dictionary<string, CodeEditor?> m_OpenFiles = new Dictionary<string, CodeEditor?>();
+    private bool m_HideScriptOutput;
+    private bool m_HideFileSystemView;
+    private string m_SelectedImportValue = "";
+    private int m_ConsoleHeight = 200;
+    private Modal? m_ImportModal;
+    private string? m_SelectedFile = "home";
+
+    private readonly string[] m_InternalProjects =
+    {
+        "images/bootstrap/RootFS.zip",
+    };
+
+    private readonly string[] m_PrebuiltProjects =
+    {
+        "images/Minimal.zip",
+        "images/EmptyProject.zip",
+        "images/CoreProjects.zip",
+    };
+
+
+    private void HideSideBar()
+    {
+        m_HideFileSystemView = true;
+    }
+
+    private void ShowSideBar()
+    {
+        m_HideFileSystemView = false;
+    }
+
+    private void ShowConsoleOutput()
+    {
+        m_HideScriptOutput = false;
+    }
+
+    private void HideConsoleOutput()
+    {
+        m_HideScriptOutput = true;
+    }
+
+
+
+
+    private void OnSizeChanged(int size)
+    {
+        m_ConsoleHeight = size;
+    }
+
+    private void ExportProject()
+    {
+        MemoryStream ms = new MemoryStream();
+        BadFileSystem.Instance.ExportZip(ms);
+        JSRuntime.DownloadFile("Export.zip", ms.ToArray());
+    }
+
+    private void CloseFile(string file)
+    {
+        m_OpenFiles.Remove(file);
+        if (m_Tabs?.SelectedTab == file)
+        {
+            m_Tabs.SelectedTab = m_OpenFiles.Count > 0 ? m_OpenFiles.Keys.First() : "home";
+        }
+    }
+
+    private void HideImportModalAndUpload()
+    {
+        m_ImportModal?.Hide();
+        UploadFile();
+    }
+
+    private void HideImportModal()
+    {
+        m_ImportModal?.Hide();
+    }
+
+
+    private void OpenImportModal()
+    {
+        m_ImportModal?.Show();
+    }
+
+    private void HideImportModalAndImport()
+    {
+        m_ImportModal?.Hide();
+        Console.WriteLine("Importing: " + m_SelectedImportValue);
+        ImportZip(m_SelectedImportValue);
+    }
+
+    private void ImportZipData(byte[] data)
+    {
+        MemoryStream v = new MemoryStream(data);
+        BadFileSystem.Instance.ImportZip(v);
+        FileSystemChanged();
+    }
+
+    private async void ImportZip(string url)
+    {
+        ImportZipData(await HttpClient.GetByteArrayAsync(url));
+    }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         BadConsoleApi.AllowInput = false;
-        BadConsoleApi.OnClear += () => ConsoleOutput = "";
-        BadConsoleApi.OnWrite += s => ConsoleOutput += s;
-        BadConsoleApi.OnWriteLine += s => ConsoleOutput += s + "\n";
+        BadConsoleApi.OnClear += () => m_ConsoleOutput = "";
+        BadConsoleApi.OnWrite += s => m_ConsoleOutput += s;
+        BadConsoleApi.OnWriteLine += s => m_ConsoleOutput += s + "\n";
         RunStartup();
+
     }
 
     private void FileSystemChanged()
@@ -122,38 +347,41 @@
 
     private BadVirtualFileSystem FileSystem => (BadFileSystem.Instance as BadVirtualFileSystem)!;
 
-    private BadVirtualFile? m_OpenFile;
+
+    private void InitFileEditor(string file, CodeEditor editor)
+    {
+        Console.WriteLine("Editor loaded for file: " + file);
+        string lang = "badscript";
+        if (!file.EndsWith(".bs")) lang = Path.GetExtension(file).Remove(0, 1);
+        editor.Open(BadFileSystem.ReadAllText(file), lang);
+        m_OpenFiles[file] = editor;
+
+        m_Tabs!.SelectedTab = file;
+    }
+
 
     public void Open()
     {
-        if (SelectedNode is BadVirtualFile file)
+        if (SelectedNode is BadVirtualFile file && !m_OpenFiles.ContainsKey(file.AbsolutePath))
         {
-            m_OpenFile = file;
-            string lang = "badscript";
-            if (!file.Name.EndsWith(".bs")) lang = Path.GetExtension(file.Name).Remove(0, 1);
-            m_Editor!.Open(BadFileSystem.ReadAllText(file.AbsolutePath), lang);
+            Console.WriteLine("Opening editor for file: " + file);
+            m_OpenFiles.Add(file.AbsolutePath, null);
         }
     }
 
+
     public async void Save()
     {
-        if (m_OpenFile != null)
+        if (m_SelectedFile != null && m_OpenFiles.ContainsKey(m_SelectedFile))
         {
-            string path = m_OpenFile.AbsolutePath;
-            string content = await m_Editor!.GetValue();
+            Console.WriteLine("Saving File: " + m_SelectedFile);
+            string path = m_SelectedFile;
+            string content = await m_OpenFiles[m_SelectedFile]!.GetValue();
             BadFileSystem.WriteAllText(path, content);
         }
     }
 
-
-    
-    private void EditorInit(CodeEditor editor)
-    {
-        Console.WriteLine("Editor initialized");
-        m_Editor = editor;
-    }
-
-    private async void RunStartup()
+    private void RunStartup()
     {
         BadRunSystem sys = new BadRunSystem();
         BadRunSystemSettings settings = new BadRunSystemSettings();
@@ -161,9 +389,9 @@
         sys.Run(settings);
     }
 
-    private async void RunFile(string file)
+    private void RunFile(string file)
     {
-        ConsoleOutput = "";
+        m_ConsoleOutput = "";
         try
         {
             BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
@@ -183,11 +411,10 @@
             {
                 BadTaskRunner.Instance.RunStep();
             }
-            
         }
         catch (Exception e)
         {
-            ConsoleOutput = e.ToString();
+            m_ConsoleOutput = e.ToString();
         }
     }
 
@@ -212,4 +439,19 @@
             Console.WriteLine("Error: " + context.Scope.Error);
         }
     }
-    } 
+
+    private async void InputFileUpload(InputFileChangeEventArgs e)
+    {
+        using Stream s = e.File.OpenReadStream();
+        byte[] data = new byte[e.File.Size];
+        await s.ReadAsync(data, 0, (int)e.File.Size);
+        ImportZipData(data);
+    }
+
+    private void UploadFile()
+    {
+        JSRuntime.ClickElement("import-modal-upload-input");
+    }
+
+
+}

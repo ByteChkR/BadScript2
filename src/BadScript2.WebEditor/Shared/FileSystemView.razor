@@ -1,8 +1,8 @@
 @using BadScript2.IO.Virtual
 
 <TreeView Nodes="Items"
-          GetChildNodes="@(item => item.Children)"
-          HasChildNodes="@(item => item.HasChildren)"
+          GetChildNodes="@(item => item?.Children ?? Enumerable.Empty<BadVirtualNode>())"
+          HasChildNodes="@(item => item?.HasChildren ?? false)"
           @bind-SelectedNode="SelectedNode"
           @bind-ExpandedNodes="ExpandedNodes">
     <NodeContent>@GetName(context)</NodeContent>
@@ -30,13 +30,14 @@
         m_OnReload += StateHasChanged;
     }
 
-    private string GetName(BadVirtualNode node)
+    private string GetName(BadVirtualNode? node)
     {
+        if (node == null) return "INVALID NODE";
         return node is BadVirtualRoot ? "/" : node.Name;
     }
 
     [Parameter]
-    public BadVirtualFileSystem FileSystem { get; set; }
+    public BadVirtualFileSystem? FileSystem { get; set; }
 
     private BadVirtualNode? m_SelectedNode;
 
@@ -55,7 +56,7 @@
     public EventCallback<BadVirtualNode> SelectedNodeChanged { get; set; }
 
 
-    public IList<BadVirtualNode> ExpandedNodes { get; set; } = new List<BadVirtualNode>();
+    public IList<BadVirtualNode?> ExpandedNodes { get; set; } = new List<BadVirtualNode?>();
 
-    public IEnumerable<BadVirtualNode> Items => FileSystem.GetRoot().Children;
+    public IEnumerable<BadVirtualNode> Items => FileSystem?.GetRoot().Children ?? Enumerable.Empty<BadVirtualNode>();
 }
