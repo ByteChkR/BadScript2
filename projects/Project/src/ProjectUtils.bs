@@ -1,3 +1,18 @@
+const libLoaders = {}
+libLoaders[".bs"] = function(file, content) => IO.File.WriteAllText(file, content);
+libLoaders[".defl"] = function(file, content) => IO.File.WriteAllBytes(file, Compression.Deflate.Compress(content));
+libLoaders[".gzip"] = function(file, content) => IO.File.WriteAllBytes(file, Compression.GZip.Compress(content));
+libLoaders[".zlib"] = function(file, content) => IO.File.WriteAllBytes(file, Compression.ZLib.Compress(content));
+
+function GetLoader(file)
+{
+	const ext = IO.Path.GetExtension(file);
+	if(!libLoaders.Keys.Contains(ext))
+	{
+		throw $"Can not find loader for {file}";
+	}
+	return libLoaders[ext];
+}
 
 function SaveToFile(output)
 {
@@ -5,7 +20,7 @@ function SaveToFile(output)
 	{			
 		Console.WriteLine($"Output: {output}")
 		IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(output)));
-		IO.File.WriteAllText(output, src);
+		GetLoader(output)(output, src);
 		return src;
 	}
 
@@ -86,6 +101,8 @@ function ProcessEvals(builder)
 	{
 		let reader = new SourceReader(src);
 		let newSrc = "";
+		//Start key can not be put into a single string.
+		//Because the Project Builds itself and will fail because it has no closing bracket
 		let startKey = "$" + "(";
 		while(!reader.IsEOF())
 		{

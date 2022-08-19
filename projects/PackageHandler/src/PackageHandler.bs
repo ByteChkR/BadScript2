@@ -1,7 +1,24 @@
 
 Console.WriteLine("Loading Package Handler");
 
-let libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
+const libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
+
+const libLoaders = {}
+libLoaders[".bs"] = function(file) => IO.File.ReadAllText(file);
+libLoaders[".defl"] = function(file) => Compression.Deflate.Decompress(IO.File.ReadAllBytes(file));
+libLoaders[".gzip"] = function(file) => Compression.GZip.Decompress(IO.File.ReadAllBytes(file));
+libLoaders[".zlib"] = function(file) => Compression.ZLib.Decompress(IO.File.ReadAllBytes(file));
+
+function GetLibLoader(file)
+{
+	const ext = IO.Path.GetExtension(file);
+	if(!libLoaders.Keys.Contains(ext))
+	{
+		throw $"Can not find Loader for {file}";
+	}
+	return libLoaders[ext];
+}
+
 
 function FindFile(packageName!)
 {
@@ -30,7 +47,8 @@ function Import(str!)
 		}
 		//Run file
 
-		let src = IO.File.ReadAllText(file);
+
+		let src = GetLibLoader(file)(file);
 		Runtime.Evaluate(src, file);
 	}
 
