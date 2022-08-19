@@ -6,7 +6,7 @@ namespace BadScript2.Parser.Expressions.ControlFlow;
 
 public class BadBreakExpression : BadExpression
 {
-    public BadBreakExpression(BadSourcePosition position) : base(false, false, position) { }
+    public BadBreakExpression(BadSourcePosition position) : base(false, position) { }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {

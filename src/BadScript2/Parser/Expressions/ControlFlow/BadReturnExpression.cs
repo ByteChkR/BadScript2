@@ -9,7 +9,6 @@ public class BadReturnExpression : BadExpression
 {
     public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
         false,
-        false,
         position
     )
     {

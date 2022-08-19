@@ -16,19 +16,22 @@ public class BadFunctionExpression : BadExpression
     private readonly List<BadExpression> m_Body;
     private readonly List<BadFunctionParameter> m_Parameters;
     private readonly BadExpression? m_TypeExpr;
+    private readonly bool IsConstantFunction;
 
     public BadFunctionExpression(
         BadWordToken? name,
         List<BadFunctionParameter> parameter,
         List<BadExpression> block,
         BadSourcePosition position,
+        bool isConstant,
         BadExpression? typeExpr = null) :
-        base(false, false, position)
+        base(false, position)
     {
         Name = name;
         m_Parameters = parameter;
         m_Body = block;
         m_TypeExpr = typeExpr;
+        IsConstantFunction = isConstant;
     }
 
     private IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
@@ -91,7 +94,8 @@ public class BadFunctionExpression : BadExpression
             Name,
             m_Body,
             m_Parameters.Select(x => x.Initialize(context)).ToArray(),
-            Position
+            Position,
+            IsConstantFunction
         );
 
         if (Name != null)

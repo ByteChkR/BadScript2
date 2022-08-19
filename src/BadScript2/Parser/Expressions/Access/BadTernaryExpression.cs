@@ -13,7 +13,7 @@ public class BadTernaryExpression : BadExpression
         BadExpression left,
         BadExpression trueRet,
         BadExpression falseRet,
-        BadSourcePosition position) : base(left.IsConstant, false, position)
+        BadSourcePosition position) : base(left.IsConstant, position)
     {
         Left = left;
         TrueRet = trueRet;

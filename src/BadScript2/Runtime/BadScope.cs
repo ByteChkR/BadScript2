@@ -182,6 +182,21 @@ public class BadScope : BadObject
         m_ScopeVariables.GetProperty(name).Set(value, info);
     }
 
+    public BadPropertyInfo GetVariableInfo(BadObject name)
+    {
+        if (HasLocal(name))
+        {
+            return m_ScopeVariables.GetPropertyInfo(name);
+        }
+
+        if (Parent == null)
+        {
+            throw new BadRuntimeException($"Variable '{name}' is not defined");
+        }
+
+        return Parent!.GetVariableInfo(name);
+    }
+
     public BadObjectReference GetVariable(BadObject name)
     {
         if (HasLocal(name))

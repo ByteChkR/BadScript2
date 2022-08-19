@@ -1,9 +1,11 @@
 ﻿using BadScript2.IO;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.IO;
 
@@ -120,6 +122,35 @@ public class BadIOApi : BadInteropApi
             }
         );
 
+
+        t.SetFunction<string, BadArray>(
+            "WriteAllBytes",
+            (s, a) =>
+            {
+                using Stream stream = BadFileSystem.Instance.OpenWrite(s, BadWriteMode.CreateNew);
+                foreach (BadObject o in a.InnerArray)
+                {
+                    if (o is not IBadNumber num)
+                    {
+                        throw new BadRuntimeException("BadIO.WriteAllBytes: Array contains non-number");
+                    }
+
+                    stream.WriteByte((byte)num.Value);
+                }
+            }
+        );
+
+        t.SetFunction<string>(
+            "ReadAllBytes",
+            s =>
+            {
+                using Stream stream = BadFileSystem.Instance.OpenRead(s);
+                byte[] bytes = new byte[stream.Length];
+                stream.Read(bytes, 0, bytes.Length);
+
+                return new BadArray(bytes.Select(x => (BadObject)new BadNumber(x)).ToList());
+            }
+        );
 
         return t;
     }

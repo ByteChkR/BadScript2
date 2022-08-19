@@ -15,7 +15,7 @@ public class BadTryCatchExpression : BadExpression
         BadSourcePosition position,
         BadExpression[] expressions,
         BadExpression[] catchExpressions,
-        string errorName) : base(false, false, position)
+        string errorName) : base(false, position)
     {
         m_Expressions = expressions;
         m_CatchExpressions = catchExpressions;

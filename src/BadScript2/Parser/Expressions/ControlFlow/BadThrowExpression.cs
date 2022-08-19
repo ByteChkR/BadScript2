@@ -9,7 +9,6 @@ public class BadThrowExpression : BadExpression
 {
     public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
         false,
-        false,
         position
     )
     {

@@ -7,6 +7,7 @@ using BadScript2.ConsoleCore.Systems.Settings;
 using BadScript2.ConsoleCore.Systems.Test;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
+using BadScript2.Interop.Compression;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.Net;
@@ -60,6 +61,8 @@ internal static class BadProgram
         BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
         BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
         BadExecutionContextOptions.Default.Apis.Add(new BadNetApi());
+        BadExecutionContextOptions.Default.Apis.Add(new BadCompressionApi());
+
 
 
         BadConsoleRunner runner = new BadConsoleRunner(

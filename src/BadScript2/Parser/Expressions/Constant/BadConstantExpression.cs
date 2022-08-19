@@ -6,7 +6,7 @@ namespace BadScript2.Parser.Expressions.Constant;
 
 public class BadConstantExpression : BadExpression, IBadNativeExpression
 {
-    public BadConstantExpression(BadSourcePosition position, BadObject value) : base(true, false, position)
+    public BadConstantExpression(BadSourcePosition position, BadObject value) : base(true, position)
     {
         Value = value;
     }
@@ -26,7 +26,7 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
 
 public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpression
 {
-    protected BadConstantExpression(T value, BadSourcePosition position) : base(true, false, position)
+    protected BadConstantExpression(T value, BadSourcePosition position) : base(true, position)
     {
         Value = value;
     }

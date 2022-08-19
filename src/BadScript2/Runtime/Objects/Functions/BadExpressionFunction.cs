@@ -16,7 +16,8 @@ public class BadExpressionFunction : BadFunction
         BadWordToken? name,
         List<BadExpression> expressions,
         BadFunctionParameter[] parameters,
-        BadSourcePosition position) : base(name, parameters)
+        BadSourcePosition position,
+        bool isConstant) : base(name, isConstant, parameters)
     {
         m_Body = expressions;
         Position = position;
@@ -28,7 +29,7 @@ public class BadExpressionFunction : BadFunction
 
     public override BadFunction BindParentScope(BadScope scope)
     {
-        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position);
+        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant);
     }
 
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)

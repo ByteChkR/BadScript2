@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions;
 
 public abstract class BadExpression
 {
-    protected BadExpression(bool isConstant, bool isLValue, BadSourcePosition position)
+    protected BadExpression(bool isConstant, BadSourcePosition position)
     {
         IsConstant = isConstant;
         Position = position;

@@ -11,7 +11,6 @@ public class BadArrayExpression : BadExpression
 
     public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
         false,
-        false,
         position
     )
     {

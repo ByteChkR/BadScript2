@@ -12,7 +12,6 @@ public class BadPreIncrementExpression : BadExpression
 
     public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(
         right.IsConstant,
-        false,
         position
     )
     {

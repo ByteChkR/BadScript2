@@ -360,9 +360,21 @@ public class BadSourceParser
             }
         }
 
+        bool isConstant = false;
+        int constStart = Reader.CurrentIndex;
+        if (Reader.Is(BadStaticKeys.ConstantDefinitionKey))
+        {
+            isConstant = true;
+            Reader.Eat(BadStaticKeys.ConstantDefinitionKey);
+            Reader.SkipNonToken();
+        }
         if (Reader.Is(BadStaticKeys.FunctionKey))
         {
-            return ParseFunction();
+            return ParseFunction(isConstant);
+        }
+        if (isConstant)
+        {
+            Reader.SetPosition(constStart);
         }
 
         if (Reader.Is(BadStaticKeys.ClassKey))
@@ -859,7 +871,7 @@ public class BadSourceParser
         );
     }
 
-    private BadFunctionExpression ParseFunction()
+    private BadFunctionExpression ParseFunction(bool isConstant)
     {
         int start = Reader.CurrentIndex;
         Reader.Eat(BadStaticKeys.FunctionKey);
@@ -1045,6 +1057,7 @@ public class BadSourceParser
                 parameters,
                 block,
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                isConstant,
                 functionReturn
             );
         }
@@ -1054,6 +1067,7 @@ public class BadSourceParser
             parameters,
             block,
             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+            isConstant,
             functionReturn
         );
     }

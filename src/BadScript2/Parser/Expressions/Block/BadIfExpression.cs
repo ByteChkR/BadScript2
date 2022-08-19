@@ -15,7 +15,7 @@ public class BadIfExpression : BadExpression
     public BadIfExpression(
         Dictionary<BadExpression, BadExpression[]> branches,
         BadExpression[]? elseBranch,
-        BadSourcePosition position) : base(false, false, position)
+        BadSourcePosition position) : base(false, position)
     {
         m_ConditionalBranches = branches;
         m_ElseBranch = elseBranch;

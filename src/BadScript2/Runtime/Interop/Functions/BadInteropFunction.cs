@@ -11,7 +11,7 @@ public class BadInteropFunction : BadFunction
     public BadInteropFunction(
         BadWordToken? name,
         Func<BadObject[], BadObject> func,
-        params BadFunctionParameter[] parameters) : base(name, parameters)
+        params BadFunctionParameter[] parameters) : base(name, false, parameters)
     {
         m_Func = (_, args) => func(args);
     }
@@ -19,7 +19,7 @@ public class BadInteropFunction : BadFunction
     public BadInteropFunction(
         BadWordToken? name,
         Func<BadExecutionContext, BadObject[], BadObject> func,
-        params BadFunctionParameter[] parameters) : base(name, parameters)
+        params BadFunctionParameter[] parameters) : base(name, false, parameters)
     {
         m_Func = func;
     }

@@ -21,7 +21,6 @@ public class BadForEachExpression : BadExpression
         BadExpression[] body,
         BadSourcePosition position) : base(
         false,
-        false,
         position
     )
     {

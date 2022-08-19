@@ -8,7 +8,7 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
     public BadRuntimeSettings() : base("Runtime") { }
 
     private BadSettings? FileExtensionObj =>
-        m_FileExtensionObj ??= Settings?.GetProperty(nameof(FileExtension));
+        m_FileExtensionObj ?? (Settings?.HasProperty(nameof(FileExtension)) ?? false ? m_FileExtensionObj ??= Settings?.GetProperty(nameof(FileExtension)) : null);
 
     public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
 }

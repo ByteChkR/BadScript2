@@ -15,7 +15,6 @@ public class BadWhileExpression : BadExpression
 
     public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
         false,
-        false,
         position
     )
     {

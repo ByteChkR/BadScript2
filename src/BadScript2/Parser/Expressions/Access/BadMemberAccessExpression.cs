@@ -16,7 +16,6 @@ public class BadMemberAccessExpression : BadExpression
         BadSourcePosition position,
         bool nullChecked = false) : base(
         false,
-        true,
         position
     )
     {
@@ -51,7 +50,10 @@ public class BadMemberAccessExpression : BadExpression
         }
         else
         {
-            yield return left.GetProperty(BadObject.Wrap(Right.Text));
+            
+            BadObject ret= left.GetProperty(BadObject.Wrap(Right.Text));
+
+            yield return ret;
         }
     }
 

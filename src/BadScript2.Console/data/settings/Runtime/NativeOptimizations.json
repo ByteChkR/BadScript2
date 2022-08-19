@@ -3,7 +3,8 @@
     "NativeOptimizations": {
       "UseStringCaching": true,
       "UseConstantExpressionOptimization": true,
-      "UseStaticExtensionCaching": true
+      "UseStaticExtensionCaching": true,
+      "UseConstantFunctionCaching": true
     }
   }
 }

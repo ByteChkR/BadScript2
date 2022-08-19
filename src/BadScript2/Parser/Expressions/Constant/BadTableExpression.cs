@@ -12,7 +12,6 @@ public class BadTableExpression : BadExpression
 
     public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
         false,
-        false,
         position
     )
     {

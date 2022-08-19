@@ -12,7 +12,7 @@ public class BadNewExpression : BadExpression
 {
     private readonly BadInvocationExpression m_Right;
 
-    public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, false, position)
+    public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
     {
         m_Right = right;
     }

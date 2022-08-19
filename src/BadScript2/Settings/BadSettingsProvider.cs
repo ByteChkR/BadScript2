@@ -1,9 +1,15 @@
+using BadScript2.Common.Logging;
+using BadScript2.IO;
 using BadScript2.Runtime.Error;
 
 namespace BadScript2.Settings;
 
 public static class BadSettingsProvider
 {
+    private const string SETTINGS_FILE = "Settings.json";
+
+   
+    
     private static BadSettings? s_RootSettings;
 
     public static bool HasRootSettings => s_RootSettings != null;

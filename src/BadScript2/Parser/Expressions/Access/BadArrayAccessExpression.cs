@@ -18,7 +18,6 @@ public class BadArrayAccessExpression : BadExpression
         BadSourcePosition position,
         bool nullChecked = false) : base(
         false,
-        true,
         position
     )
     {

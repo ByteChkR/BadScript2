@@ -16,7 +16,7 @@ public class BadForExpression : BadExpression
         BadExpression condition,
         BadExpression varIncrement,
         BadExpression[] body,
-        BadSourcePosition position) : base(false, false, position)
+        BadSourcePosition position) : base(false, position)
     {
         VarDef = varDef;
         Condition = condition;

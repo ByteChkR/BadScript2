@@ -12,7 +12,6 @@ public class BadPostIncrementExpression : BadExpression
 
     public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(
         left.IsConstant,
-        false,
         position
     )
     {

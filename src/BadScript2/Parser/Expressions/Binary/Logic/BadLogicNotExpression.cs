@@ -10,7 +10,6 @@ public class BadLogicNotExpression : BadExpression
 {
     public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(
         right.IsConstant,
-        false,
         position
     )
     {

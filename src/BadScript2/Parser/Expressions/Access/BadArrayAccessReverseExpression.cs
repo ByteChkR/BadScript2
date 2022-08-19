@@ -18,7 +18,6 @@ public class BadArrayAccessReverseExpression : BadExpression
         BadSourcePosition position,
         bool nullChecked = false) : base(
         false,
-        true,
         position
     )
     {

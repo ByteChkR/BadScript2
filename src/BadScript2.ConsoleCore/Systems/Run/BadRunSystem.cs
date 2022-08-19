@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO.Compression;
 
 using BadScript2.Common.Logging;
 using BadScript2.ConsoleCore.Debugging.Scriptable;
@@ -110,6 +111,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         foreach (string file in files)
         {
+
             BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
             BadExecutionContext context = options.Build();
 

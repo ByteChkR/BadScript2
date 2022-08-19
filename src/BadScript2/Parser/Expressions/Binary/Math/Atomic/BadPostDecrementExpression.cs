@@ -12,7 +12,6 @@ public class BadPostDecrementExpression : BadExpression
 
     public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(
         left.IsConstant,
-        false,
         position
     )
     {

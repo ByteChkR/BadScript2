@@ -13,7 +13,6 @@ public class BadInvocationExpression : BadExpression
 
     public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
         false,
-        false,
         position
     )
     {

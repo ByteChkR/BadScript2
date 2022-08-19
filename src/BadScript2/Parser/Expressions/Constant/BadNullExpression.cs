@@ -6,7 +6,7 @@ namespace BadScript2.Parser.Expressions.Constant;
 
 public class BadNullExpression : BadExpression, IBadNativeExpression
 {
-    public BadNullExpression(BadSourcePosition position) : base(true, false, position) { }
+    public BadNullExpression(BadSourcePosition position) : base(true, position) { }
 
     public override string ToString()
     {

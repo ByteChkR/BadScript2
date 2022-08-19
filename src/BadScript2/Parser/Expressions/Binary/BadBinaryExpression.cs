@@ -7,7 +7,6 @@ public abstract class BadBinaryExpression : BadExpression
 {
     protected BadBinaryExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left.IsConstant && right.IsConstant,
-        false,
         position
     )
     {

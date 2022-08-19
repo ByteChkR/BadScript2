@@ -17,7 +17,7 @@ public class BadClassPrototypeExpression : BadExpression
         string name,
         BadExpression[] body,
         BadExpression? baseClass,
-        BadSourcePosition position) : base(false, false, position)
+        BadSourcePosition position) : base(false, position)
     {
         m_Name = name;
         m_Body = body;

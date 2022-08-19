@@ -10,7 +10,7 @@ public class BadAwaitExpression : BadExpression
 {
     private readonly BadExpression TaskExpr;
 
-    public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, false, position)
+    public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, position)
     {
         TaskExpr = expr;
     }

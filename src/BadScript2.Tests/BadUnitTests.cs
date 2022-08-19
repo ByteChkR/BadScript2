@@ -31,6 +31,7 @@ public class BadUnitTests
             }
 
             BadSettingsProvider.SetRootSettings(new BadSettings());
+            BadSettingsProvider.RootSettings.FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching").SetValue(true);
             BadNativeClassBuilder.AddNative(BadTask.Prototype);
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
@@ -67,6 +68,7 @@ public class BadUnitTests
             }
 
             BadSettingsProvider.SetRootSettings(new BadSettings());
+            BadSettingsProvider.RootSettings.FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching").SetValue(true);
             BadNativeClassBuilder.AddNative(BadTask.Prototype);
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();

@@ -10,7 +10,6 @@ public class BadAssignExpression : BadExpression
 {
     public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         false,
-        true,
         position
     )
     {
