@@ -4,6 +4,9 @@ using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Common.Logging.Writer;
 
+/// <summary>
+/// Contains settings for all log writers
+/// </summary>
 public class BadLogWriterSettings : BadSettingsProvider<BadLogWriterSettings>
 {
     private BadSettings? m_MaskObj;

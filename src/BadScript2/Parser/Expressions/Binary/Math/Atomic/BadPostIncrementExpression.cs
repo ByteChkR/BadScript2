@@ -6,22 +6,33 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
+/// <summary>
+/// Implements the Post Increment Expression
+/// </summary>
 public class BadPostIncrementExpression : BadExpression
 {
-    private readonly BadExpression m_Left;
+    /// <summary>
+    /// Left side of the expression
+    /// </summary>
+    public readonly BadExpression Left;
 
+    /// <summary>
+    /// Constructor of the Post Increment Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
     public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(
         left.IsConstant,
         position
     )
     {
-        m_Left = left;
+        Left = left;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
-        foreach (BadObject o in m_Left.Execute(context))
+        foreach (BadObject o in Left.Execute(context))
         {
             left = o;
 

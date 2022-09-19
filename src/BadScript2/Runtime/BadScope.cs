@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime;
@@ -45,12 +46,27 @@ public class BadScope : BadObject
     public BadObject? ReturnValue { get; private set; }
     public BadRuntimeError? Error { get; private set; }
 
+    public static BadClassPrototype Prototype { get; } = new BadNativeClassPrototype<BadScope>(
+        "Scope",
+        (_, args) =>
+        {
+            if (args.Length != 1 || args[0] is not IBadString name)
+            {
+                throw new BadRuntimeException("Expected Name in Scope Constructor");
+            }
+
+            return CreateScope(name.Value);
+        }
+    );
+
     public override BadClassPrototype GetPrototype()
     {
-        return new BadNativeClassPrototype<BadScope>(
-            "Scope",
-            (_, _) => throw new BadRuntimeException("Cannot call constructor on a scope")
-        );
+        return Prototype;
+    }
+
+    private static BadScope CreateScope(string name)
+    {
+        return new BadScope(name);
     }
 
     public void SetFlags(BadScopeFlags flags)

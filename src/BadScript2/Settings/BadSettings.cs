@@ -4,6 +4,9 @@ using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Settings;
 
+/// <summary>
+/// Public Api for the Settings System
+/// </summary>
 public class BadSettings
 {
     private readonly Dictionary<Type, object> m_ObjectCache = new Dictionary<Type, object>();

@@ -1,8 +1,17 @@
 namespace BadScript2.IO.Virtual;
 
+/// <summary>
+/// Virtual File System Implementation for the BadScript Engine
+/// </summary>
 public class BadVirtualFileSystem : IFileSystem
 {
+    /// <summary>
+    /// The Root Directory
+    /// </summary>
     private readonly BadVirtualRoot m_Root = new BadVirtualRoot();
+    /// <summary>
+    /// The Current Directory
+    /// </summary>
     private string m_CurrentDirectory = "/";
 
     public string GetStartupDirectory()
@@ -35,6 +44,12 @@ public class BadVirtualFileSystem : IFileSystem
     public bool IsDirectory(string path)
     {
         string[] parts = BadVirtualPathReader.SplitPath(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory));
+
+        if (parts.Length == 1 && string.IsNullOrEmpty(parts[0]))
+        {
+            return true;
+        }
+
         BadVirtualDirectory current = m_Root;
         for (int i = 0; i < parts.Length; i++)
         {
@@ -195,17 +210,31 @@ public class BadVirtualFileSystem : IFileSystem
         }
     }
 
+    /// <summary>
+    /// Returns the root directory of the filesystem
+    /// </summary>
+    /// <returns>The root directory</returns>
 
     public BadVirtualRoot GetRoot()
     {
         return m_Root;
     }
 
+    /// <summary>
+    /// Returns the Parent directory of the specified path
+    /// </summary>
+    /// <param name="path">Path</param>
+    /// <returns>Parent Directory Path</returns>
     private BadVirtualDirectory GetParentDirectory(string path)
     {
-        return GetDirectory(BadVirtualPathReader.JoinPath(BadVirtualPathReader.SplitPath(path).SkipLast(1)));
+        return GetDirectory(BadVirtualPathReader.JoinPath(BadVirtualPathReader.SplitPath(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)).SkipLast(1)));
     }
 
+    /// <summary>
+    /// Returns the directory at the specified path
+    /// </summary>
+    /// <param name="path">Path</param>
+    /// <returns>Directory Object</returns>
     private BadVirtualDirectory GetDirectory(string path)
     {
         if (string.IsNullOrEmpty(path) || BadVirtualPathReader.IsRootPath(path))
@@ -224,6 +253,11 @@ public class BadVirtualFileSystem : IFileSystem
         return current;
     }
 
+    /// <summary>
+    /// Returns the directories in the specified path
+    /// </summary>
+    /// <param name="directory">Path</param>
+    /// <returns>Directory Paths</returns>
     private IEnumerable<string> GetDirectories(BadVirtualDirectory directory)
     {
         foreach (BadVirtualDirectory sub in directory.Directories)
@@ -231,7 +265,11 @@ public class BadVirtualFileSystem : IFileSystem
             yield return sub.AbsolutePath;
         }
     }
-
+    /// <summary>
+    /// Returns the directories in the specified path recursively
+    /// </summary>
+    /// <param name="directory">Path</param>
+    /// <returns>Directory Paths</returns>
     private IEnumerable<string> GetDirectoriesRecursive(BadVirtualDirectory directory)
     {
         foreach (string s in GetDirectories(directory))
@@ -248,6 +286,12 @@ public class BadVirtualFileSystem : IFileSystem
         }
     }
 
+    /// <summary>
+    /// Returns the files in the specified path that match the specified extension
+    /// </summary>
+    /// <param name="directory">Path</param>
+    /// <param name="extension">The File Extension to be matched</param>
+    /// <returns>File Paths</returns>
     private IEnumerable<string> GetFiles(BadVirtualDirectory directory, string extension)
     {
         foreach (BadVirtualFile file in directory.Files)
@@ -259,6 +303,12 @@ public class BadVirtualFileSystem : IFileSystem
         }
     }
 
+    /// <summary>
+    /// Returns the files in the specified path that match the specified extension recursively
+    /// </summary>
+    /// <param name="directory">Path</param>
+    /// <param name="extension">The File Extension to be matched</param>
+    /// <returns>File Paths</returns>
     private IEnumerable<string> GetFilesRecursive(BadVirtualDirectory directory, string extension)
     {
         foreach (string file in GetFiles(directory, extension))
@@ -275,11 +325,22 @@ public class BadVirtualFileSystem : IFileSystem
         }
     }
 
+    /// <summary>
+    /// Returns true if sub is a subfolder of root
+    /// </summary>
+    /// <param name="root">Root Directory</param>
+    /// <param name="sub">Sub Directory</param>
+    /// <returns>True if sub is a subfolder of root</returns>
     private bool IsSubfolderOf(string root, string sub)
     {
         return GetFullPath(sub).StartsWith(GetFullPath(root));
     }
 
+    /// <summary>
+    /// Copies a file to a file
+    /// </summary>
+    /// <param name="src">Source File</param>
+    /// <param name="dst">Destination File</param>
     private void CopyFileToFile(string src, string dst)
     {
         using Stream s = OpenRead(src);
@@ -287,6 +348,11 @@ public class BadVirtualFileSystem : IFileSystem
         s.CopyTo(d);
     }
 
+    /// <summary>
+    /// Copies a directory to a directory
+    /// </summary>
+    /// <param name="src">Source Directory</param>
+    /// <param name="dst">Destination Directory</param>
     private void CopyDirectoryToDirectory(string src, string dst)
     {
         foreach (string directory in GetDirectories(src, true))

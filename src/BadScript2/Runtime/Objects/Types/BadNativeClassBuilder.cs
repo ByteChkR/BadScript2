@@ -17,6 +17,7 @@ public static class BadNativeClassBuilder
         CreateNativeType<BadFunction>("Function"),
         CreateNativeType<BadArray>("Array"),
         CreateNativeType<BadTable>("Table"),
+        BadScope.Prototype,
     };
 
     public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;

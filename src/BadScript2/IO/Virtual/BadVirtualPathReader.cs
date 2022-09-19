@@ -74,7 +74,7 @@ public static class BadVirtualPathReader
             }
         }
 
-        if (string.IsNullOrEmpty(result[^1]))
+        if (result.Count != 0 && string.IsNullOrEmpty(result[^1]))
         {
             result.RemoveAt(result.Count - 1);
         }

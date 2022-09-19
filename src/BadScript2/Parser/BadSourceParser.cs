@@ -6,6 +6,7 @@ using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
 using BadScript2.Parser.Expressions.Block;
+using BadScript2.Parser.Expressions.Block.Lock;
 using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Parser.Expressions.ControlFlow;
@@ -21,23 +22,51 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser;
 
+
+/// <summary>
+/// The Parser of the Language.
+/// It turns Source Code into an Expression Tree
+/// </summary>
 public class BadSourceParser
 {
+    /// <summary>
+    /// The Operator Table that is used to parse the Source Code
+    /// </summary>
     private readonly BadOperatorTable m_Operators;
 
+    /// <summary>
+    /// Constructor of the Parser
+    /// </summary>
+    /// <param name="sourceReader">The Source Reader</param>
+    /// <param name="operators">The Operator Table that is used to parse the Source Code</param>
     public BadSourceParser(BadSourceReader sourceReader, BadOperatorTable operators)
     {
         Reader = sourceReader;
         m_Operators = operators;
     }
 
+    /// <summary>
+    /// The Source Reader
+    /// </summary>
     public BadSourceReader Reader { get; }
 
+    /// <summary>
+    /// Creates a BadSourceParser Instance based on the source and filename provided
+    /// </summary>
+    /// <param name="fileName">File Name of the Source File</param>
+    /// <param name="source">Contents of the Source File</param>
+    /// <returns>BadSourceParser Instance</returns>
     public static BadSourceParser Create(string fileName, string source)
     {
         return new BadSourceParser(new BadSourceReader(fileName, source), BadOperatorTable.Instance);
     }
 
+    /// <summary>
+    /// Parses a Prefix Expression that has precedence greater than the provided precedence.
+    /// Moves the Reader to the next Token
+    /// </summary>
+    /// <param name="precedence">The Precedence</param>
+    /// <returns>The Parsed Expression</returns>
     private BadExpression? ParsePrefix(int precedence)
     {
         // Parse Symbol
@@ -61,6 +90,10 @@ public class BadSourceParser
         return op.Parse(this);
     }
 
+    /// <summary>
+    /// Parses an If Expression. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>BadIfExpression Instance</returns>
     private BadExpression ParseIf()
     {
         int start = Reader.CurrentIndex;
@@ -108,6 +141,10 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a For Each Expression. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>Instance of BadForEachExpression</returns>
     private BadExpression ParseForEach()
     {
         int start = Reader.CurrentIndex;
@@ -134,6 +171,32 @@ public class BadSourceParser
         );
     }
 
+
+    /// <summary>
+    /// Parses a Lock Expression. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>Instance of BadLockExpression</returns>
+    private BadExpression ParseLock()
+    {
+        int start = Reader.CurrentIndex;
+        Reader.Eat(BadStaticKeys.LockKey);
+        Reader.SkipNonToken();
+        Reader.Eat('(');
+        Reader.SkipNonToken();
+        BadExpression collection = ParseExpression();
+        Reader.SkipNonToken();
+        Reader.Eat(')');
+        Reader.SkipNonToken();
+        List<BadExpression> block = ParseBlock(start, out bool _);
+        Reader.SkipNonToken();
+
+        return new BadLockExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), collection, block.ToArray());
+    }
+
+    /// <summary>
+    /// Parses a For Loop Expression. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>Instance of BadForExpression</returns>
     private BadExpression ParseFor()
     {
         int start = Reader.CurrentIndex;
@@ -165,6 +228,12 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a Value Expression or a Prefix Function with precedence greater than the provided precedence. Moves the Reader to the Next Token
+    /// </summary>
+    /// <param name="precedence">The Precedence</param>
+    /// <returns>Value Expression or Operator Prefix Expression</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if a Variable Expression is malformed.</exception>
     private BadExpression ParseValue(int precedence)
     {
         Reader.SkipNonToken();
@@ -257,6 +326,11 @@ public class BadSourceParser
                 table,
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
             );
+        }
+
+        if (Reader.Is(BadStaticKeys.LockKey))
+        {
+            return ParseLock();
         }
 
         if (Reader.Is(BadStaticKeys.ForEachKey))
@@ -368,10 +442,12 @@ public class BadSourceParser
             Reader.Eat(BadStaticKeys.ConstantDefinitionKey);
             Reader.SkipNonToken();
         }
+
         if (Reader.Is(BadStaticKeys.FunctionKey))
         {
             return ParseFunction(isConstant);
         }
+
         if (isConstant)
         {
             Reader.SetPosition(constStart);
@@ -485,6 +561,12 @@ public class BadSourceParser
         return new BadVariableExpression(word.Text, word.SourcePosition);
     }
 
+    /// <summary>
+    /// Parses an Expression with a precedence greater than the given precedence. Moves the reader to the next token.
+    /// </summary>
+    /// <param name="left">The (optional) Left side of the expression</param>
+    /// <param name="precedence">The Minimum Precedence</param>
+    /// <returns>Parsed Expression</returns>
     public BadExpression ParseExpression(BadExpression? left = null, int precedence = int.MaxValue)
     {
         left ??= ParseValue(precedence);
@@ -613,6 +695,12 @@ public class BadSourceParser
     }
 
 
+    /// <summary>
+    /// Parses a Format Expression. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadStringExpression if no Format Parameters are found. Instance of BadFormattedStringExpression otherwise.</returns>
+    /// <exception cref="BadSourceReaderException">Gets Raised if the First Character sequence is not BadStaticKeys.FormatStringKey</exception>
+    /// <exception cref="BadParserException">Gets Raised if the string is not properly Terminated.</exception>
     private BadStringExpression ParseFormatString()
     {
         if (!Reader.Is(BadStaticKeys.FormatStringKey))
@@ -713,6 +801,10 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a While Loop. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadWhileExpression</returns>
     private BadWhileExpression ParseWhile()
     {
         int start = Reader.CurrentIndex;
@@ -731,6 +823,13 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a Block. Moves the reader to the next token.
+    /// </summary>
+    /// <param name="start">The Start index of the loop</param>
+    /// <param name="isSingleLine">Indicates if the Block is in single line format.</param>
+    /// <returns>List of Parsed Expressions</returns>
+    /// <exception cref="BadParserException">Gets Raised if there is no block start character and no single-line block start sequence.</exception>
     private List<BadExpression> ParseBlock(int start, out bool isSingleLine)
     {
         Reader.SkipNonToken();
@@ -775,6 +874,10 @@ public class BadSourceParser
         return block;
     }
 
+    /// <summary>
+    /// Parses a Try Catch Block. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadTryCatchExpression</returns>
     private BadExpression ParseTry()
     {
         int start = Reader.CurrentIndex;
@@ -814,6 +917,11 @@ public class BadSourceParser
     }
 
 
+    /// <summary>
+    /// Parses a New Expression. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadNewExpression</returns>
+    /// <exception cref="BadParserException">Gets Raised if the Expression after the new key is not an invocation expression.</exception>
     private BadNewExpression ParseNew()
     {
         int start = Reader.CurrentIndex;
@@ -828,6 +936,10 @@ public class BadSourceParser
         return new BadNewExpression(invoc, Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
     }
 
+    /// <summary>
+    /// Parses a Class Structure. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of a BadClassPrototypeExpression</returns>
     private BadClassPrototypeExpression ParseClass()
     {
         int start = Reader.CurrentIndex;
@@ -871,6 +983,12 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a function definition. Moves the reader to the next token.
+    /// </summary>
+    /// <param name="isConstant">Indicates that the function is declared as a constant. I.e. it is readonly inside the scope it is executed in</param>
+    /// <returns>Instance of BadFunctionExpression</returns>
+    /// <exception cref="BadParserException">Gets raised if the function header is invalid.</exception>
     private BadFunctionExpression ParseFunction(bool isConstant)
     {
         int start = Reader.CurrentIndex;
@@ -906,7 +1024,7 @@ public class BadSourceParser
             {
                 if (functionNameExpr is not BadVariableExpression expr)
                 {
-                    throw new BadRuntimeException(
+                    throw new BadParserException(
                         "Expected Variable Expression",
                         functionNameExpr.Position
                     );
@@ -969,7 +1087,7 @@ public class BadSourceParser
                 {
                     if (nameExpr is not BadVariableExpression expr)
                     {
-                        throw new BadRuntimeException(
+                        throw new BadParserException(
                             "Expected Variable Expression",
                             nameExpr.Position
                         );
@@ -1072,6 +1190,10 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses the File from start to end.
+    /// </summary>
+    /// <returns>Returns an Enumerable of BadExpressions</returns>
     public IEnumerable<BadExpression> Parse()
     {
         BadLogger.Log($"Parsing File: {Reader.FileName}", "SourceParser");

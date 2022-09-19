@@ -5,7 +5,6 @@ using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.NUnit;
 using BadScript2.IO;
-using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
@@ -36,12 +35,16 @@ public class BadUnitTests
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
 
-            BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-            BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
-            BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
+
+            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
+
+            //apis.AddRange(BadCommonInterop.Apis);
+            apis.Add(new BadIOApi());
+            apis.Add(new BadJsonApi());
+            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
             BadFileSystem.Instance.CreateDirectory(TestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     TestDirectory,
@@ -50,7 +53,7 @@ public class BadUnitTests
                 )
                 .ToArray();
             System.Console.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(false, files);
+            builder.Register(false, false, files);
 
             s_Context = builder.CreateContext();
 
@@ -73,12 +76,15 @@ public class BadUnitTests
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
 
-            BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-            BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
-            BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
+            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
+
+            //apis.AddRange(BadCommonInterop.Apis);
+            apis.Add(new BadIOApi());
+            apis.Add(new BadJsonApi());
+            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
             BadFileSystem.Instance.CreateDirectory(TestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     TestDirectory,
@@ -87,7 +93,7 @@ public class BadUnitTests
                 )
                 .ToArray();
             System.Console.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(true, files);
+            builder.Register(true, false, files);
 
             s_OptimizedContext = builder.CreateContext();
 
@@ -99,6 +105,7 @@ public class BadUnitTests
     public void Setup()
     {
         Context.Setup();
+        OptimizedContext.Setup();
     }
 
     public static BadNUnitTestCase[] GetTestCases()
@@ -106,11 +113,13 @@ public class BadUnitTests
         return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
     }
 
+    
     public static BadNUnitTestCase[] GetOptimizedTestCases()
     {
         return OptimizedContext?.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
     }
 
+    
     [TestCaseSource(nameof(GetTestCases))]
     public void Test(BadNUnitTestCase testCase)
     {
@@ -123,10 +132,12 @@ public class BadUnitTests
         OptimizedContext.Run(testCase);
     }
 
+    
 
     [TearDown]
     public void TearDown()
     {
         Context.Teardown();
+        OptimizedContext.Teardown();
     }
 }

@@ -6,8 +6,18 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.Binary;
 
+/// <summary>
+/// Implements the Assign Expression
+/// <Left> = <Right>
+/// </summary>
 public class BadAssignExpression : BadExpression
 {
+    /// <summary>
+    /// Constructor of the Assign Expression
+    /// </summary>
+    /// <param name="left">Left side that the right side will be assigned to</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
     public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         false,
         position
@@ -17,8 +27,14 @@ public class BadAssignExpression : BadExpression
         Right = right;
     }
 
-    private BadExpression Left { get; set; }
-    private BadExpression Right { get; set; }
+    /// <summary>
+    /// Left side that the right side will be assigned to
+    /// </summary>
+    public BadExpression Left { get; set; }
+    /// <summary>
+    /// Right side of the Expression
+    /// </summary>
+    public BadExpression Right { get; set; }
 
     public override void Optimize()
     {

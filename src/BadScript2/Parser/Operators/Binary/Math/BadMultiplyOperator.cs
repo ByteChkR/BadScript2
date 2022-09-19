@@ -3,8 +3,14 @@ using BadScript2.Parser.Expressions.Binary.Math;
 
 namespace BadScript2.Parser.Operators.Binary.Math;
 
+/// <summary>
+/// Implements the Multiply Operator
+/// </summary>
 public class BadMultiplyOperator : BadBinaryOperator
 {
+    /// <summary>
+    /// Constructor of the Operator
+    /// </summary>
     public BadMultiplyOperator() : base(5, "*") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)

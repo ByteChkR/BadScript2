@@ -4,10 +4,11 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
 
 </Project>

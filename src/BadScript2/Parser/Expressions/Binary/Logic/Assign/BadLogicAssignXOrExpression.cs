@@ -6,8 +6,18 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Logic.Assign;
 
+/// <summary>
+/// Implements the Assign Logic Exclusive Or Expression
+/// </summary>
 public class BadLogicAssignXOrExpression : BadBinaryExpression
 {
+    
+    /// <summary>
+    /// Constructor of the Assign Logic Exclusive Or Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
     public BadLogicAssignXOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,

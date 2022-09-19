@@ -1,3 +1,4 @@
+using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
@@ -12,8 +13,14 @@ public class BadConsoleApi : BadInteropApi
     public static Action<BadObject> OnWriteLine { get; set; } = WriteLine;
     public static Action OnClear { get; set; } = Clear;
     public static Func<string> OnReadLine { get; set; } = ReadLine;
+    public static Func<Task<string>> OnReadLineAsync { get; set; } = ReadLineAsync;
 
     public static bool AllowInput { get; set; } = true;
+
+    private static Task<string> ReadLineAsync()
+    {
+        return System.Threading.Tasks.Task.Run(Console.ReadLine);
+    }
 
     public override void Load(BadTable target)
     {
@@ -21,6 +28,22 @@ public class BadConsoleApi : BadInteropApi
         target.SetFunction("Write", OnWrite);
         target.SetFunction("Clear", OnClear);
         target.SetFunction("ReadLine", () => OnReadLine());
+        target.SetFunction(
+            "ReadLineAsync",
+            () => new BadTask(new ReadLineAsyncRunnable(), "Console.ReadLineAsync")
+        );
+    }
+
+    private static IEnumerable<BadObject> ReadLineAsyncBlocking()
+    {
+        Task<string>? t = OnReadLineAsync();
+
+        while (!t.IsCompleted)
+        {
+            yield return BadObject.Null;
+        }
+
+        yield return t.Result;
     }
 
     private static void Write(BadObject obj)
@@ -60,5 +83,29 @@ public class BadConsoleApi : BadInteropApi
         }
 
         return Console.ReadLine() ?? "";
+    }
+
+    private class ReadLineAsyncRunnable : BadRunnable
+    {
+        private BadObject m_Return = BadObject.Null;
+        private readonly IEnumerator<BadObject> m_Task = ReadLineAsyncBlocking().GetEnumerator();
+
+        public override IEnumerator<BadObject> Enumerator
+        {
+            get
+            {
+                while (m_Task.MoveNext())
+                {
+                    m_Return = m_Task.Current!;
+
+                    yield return m_Return;
+                }
+            }
+        }
+
+        public override BadObject GetReturn()
+        {
+            return m_Return;
+        }
     }
 }

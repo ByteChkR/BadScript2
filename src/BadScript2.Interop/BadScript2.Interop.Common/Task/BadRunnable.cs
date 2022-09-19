@@ -6,6 +6,8 @@ namespace BadScript2.Interop.Common.Task;
 
 public abstract class BadRunnable
 {
+    public static BadRunnable Empty { get; } = new BadEmptyRunnable();
+
     public abstract IEnumerator<BadObject> Enumerator { get; }
 
     public abstract BadObject GetReturn();
@@ -24,6 +26,16 @@ public abstract class BadRunnable
     public static BadRunnable Create(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
     {
         return new BadFunctionRunnable(func, ctx, args);
+    }
+
+    private class BadEmptyRunnable : BadRunnable
+    {
+        public override IEnumerator<BadObject> Enumerator => Enumerable.Empty<BadObject>().GetEnumerator();
+
+        public override BadObject GetReturn()
+        {
+            return BadObject.Null;
+        }
     }
 
 

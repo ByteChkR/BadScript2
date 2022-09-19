@@ -64,13 +64,13 @@ internal static class BadProgram
         BadExecutionContextOptions.Default.Apis.Add(new BadCompressionApi());
 
 
-
         BadConsoleRunner runner = new BadConsoleRunner(
             new BadDefaultRunSystem(),
             new BadTestSystem(),
             new BadRunSystem(),
             new BadSettingsSystem()
         );
+
 
         int r = runner.Run(args);
         lWriter.Dispose();

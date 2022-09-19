@@ -47,7 +47,7 @@ public class BadAwaitExpression : BadExpression
         BadTaskRunner.Instance.Current?.Pause();
         if (task.IsInactive)
         {
-            BadTaskRunner.Instance.AddTask(task);
+            BadTaskRunner.Instance.AddTask(task, true);
         }
 
         yield return BadObject.Null; //Should pause Here

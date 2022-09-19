@@ -7,11 +7,24 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser.Expressions.Access;
 
+/// <summary>
+/// Implements the Array Access to set or get properties from an object.
+/// <Left>[<Right>]
+/// </summary>
 public class BadArrayAccessExpression : BadExpression
 {
+    /// <summary>
+    /// Arguments of the array access.
+    /// </summary>
     private readonly BadExpression[] m_Arguments;
-    private readonly bool m_NullChecked;
 
+    /// <summary>
+    /// Constructor of the Array Access Expression
+    /// </summary>
+    /// <param name="left">Left side of the expression</param>
+    /// <param name="args">Right side of the expression</param>
+    /// <param name="position">Position inside the source code</param>
+    /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
     public BadArrayAccessExpression(
         BadExpression left,
         BadExpression[] args,
@@ -23,10 +36,26 @@ public class BadArrayAccessExpression : BadExpression
     {
         Left = left;
         m_Arguments = args;
-        m_NullChecked = nullChecked;
+        NullChecked = nullChecked;
     }
 
-    private BadExpression Left { get; set; }
+    /// <summary>
+    /// The count of the right side arguments.
+    /// </summary>
+    public int ArgumentCount => m_Arguments.Length;
+    /// <summary>
+    /// The Arguments of the Array Access.
+    /// </summary>
+    public IEnumerable<BadExpression> Arguments => m_Arguments;
+    /// <summary>
+    /// Indicates if the expression will be null-checked by the runtime
+    /// </summary>
+    public bool NullChecked { get; }
+
+    /// <summary>
+    /// Left side of the expression.
+    /// </summary>
+    public BadExpression Left { get; private set; }
 
     public override void Optimize()
     {
@@ -50,7 +79,7 @@ public class BadArrayAccessExpression : BadExpression
 
         left = left.Dereference();
 
-        if (m_NullChecked && left == BadObject.Null)
+        if (NullChecked && left == BadObject.Null)
         {
             yield return left;
 

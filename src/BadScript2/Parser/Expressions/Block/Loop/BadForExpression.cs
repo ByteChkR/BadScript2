@@ -7,10 +7,24 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
+/// <summary>
+/// Implements the For Loop Expression
+/// </summary>
 public class BadForExpression : BadExpression
 {
+    /// <summary>
+    /// Loop Body
+    /// </summary>
     private readonly BadExpression[] m_Body;
 
+    /// <summary>
+    /// Constructor of the For Expression
+    /// </summary>
+    /// <param name="varDef">The Variable Definition part of the for loop</param>
+    /// <param name="condition">The Exit Condition of the For Loop</param>
+    /// <param name="varIncrement">The Variable Modifier Expression of the For Loop</param>
+    /// <param name="body">The Loop Body</param>
+    /// <param name="position">The source position of the Expression</param>
     public BadForExpression(
         BadExpression varDef,
         BadExpression condition,
@@ -24,9 +38,23 @@ public class BadForExpression : BadExpression
         m_Body = body;
     }
 
-    private BadExpression Condition { get; set; }
-    private BadExpression VarDef { get; set; }
-    private BadExpression VarIncrement { get; set; }
+    /// <summary>
+    /// Loop Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
+
+    /// <summary>
+    /// The Exit Condition of the For Loop
+    /// </summary>
+    public BadExpression Condition { get; private set; }
+    /// <summary>
+    /// The Variable Definition part of the for loop
+    /// </summary>
+    public BadExpression VarDef { get; private set; }
+    /// <summary>
+    /// The Variable Modifier Expression of the For Loop
+    /// </summary>
+    public BadExpression VarIncrement { get; private set; }
 
     public override void Optimize()
     {

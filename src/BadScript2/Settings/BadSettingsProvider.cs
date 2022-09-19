@@ -1,15 +1,15 @@
-using BadScript2.Common.Logging;
-using BadScript2.IO;
 using BadScript2.Runtime.Error;
 
 namespace BadScript2.Settings;
 
+/// <summary>
+/// Helper class that can be used to automatically load a settings object from a file
+/// </summary>
 public static class BadSettingsProvider
 {
     private const string SETTINGS_FILE = "Settings.json";
 
-   
-    
+
     private static BadSettings? s_RootSettings;
 
     public static bool HasRootSettings => s_RootSettings != null;
@@ -25,6 +25,9 @@ public static class BadSettingsProvider
     }
 }
 
+/// <summary>
+/// Helper class that can be used to automatically load a settings object from a file
+/// </summary>
 public abstract class BadSettingsProvider<T> where T : BadSettingsProvider<T>, new()
 {
     private static T? s_Instance;

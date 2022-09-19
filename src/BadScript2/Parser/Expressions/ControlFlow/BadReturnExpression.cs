@@ -5,8 +5,17 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.ControlFlow;
 
+/// <summary>
+/// Implements the Return expression that is used to exit the current function with an Optional Return Value.
+/// </summary>
 public class BadReturnExpression : BadExpression
 {
+    /// <summary>
+    /// Constructor of the Return Expression
+    /// </summary>
+    /// <param name="right">The (optional) return value</param>
+    /// <param name="position">Source Position of the Expression</param>
+    /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
     public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
         false,
         position
@@ -16,9 +25,15 @@ public class BadReturnExpression : BadExpression
         IsRefReturn = isRefReturn;
     }
 
-    private bool IsRefReturn { get; }
+    /// <summary>
+    /// Indicates if the return value is meant to be a reference
+    /// </summary>
+    public bool IsRefReturn { get; }
 
-    private BadExpression? Right { get; set; }
+    /// <summary>
+    /// The (optional) return value
+    /// </summary>
+    public BadExpression? Right { get; private set; }
 
     public override void Optimize()
     {

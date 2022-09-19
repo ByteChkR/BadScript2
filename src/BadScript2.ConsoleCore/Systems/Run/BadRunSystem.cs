@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.IO.Compression;
 
 using BadScript2.Common.Logging;
 using BadScript2.ConsoleCore.Debugging.Scriptable;
@@ -81,6 +80,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     protected override int Run(BadRunSystemSettings settings)
     {
         BadExecutionContextOptions options = CreateOptions();
+
         BadRuntimeApi.StartupArguments = settings.Args;
         IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
                 StartupDirectory,
@@ -111,9 +111,9 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         foreach (string file in files)
         {
-
             BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
             BadExecutionContext context = options.Build();
+
 
             IEnumerable<BadExpression> exprs = parser.Parse();
             if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
@@ -125,6 +125,8 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"),
                 true
             );
+
+
             while (!BadTaskRunner.Instance.IsIdle)
             {
                 BadTaskRunner.Instance.RunStep();

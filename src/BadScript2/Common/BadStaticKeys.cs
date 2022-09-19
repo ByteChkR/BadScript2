@@ -1,5 +1,8 @@
 namespace BadScript2.Common;
 
+/// <summary>
+/// Contains Static Data for the BadScript Language
+/// </summary>
 public static class BadStaticKeys
 {
     public static readonly char[] Whitespace = { ' ', '\t' };
@@ -11,6 +14,7 @@ public static class BadStaticKeys
     public static readonly string MultiLineCommentEnd = "*/";
     public static readonly string VariableDefinitionKey = "let";
     public static readonly string ConstantDefinitionKey = "const";
+    public static readonly string LockKey = "lock";
     public static readonly string True = "true";
     public static readonly string False = "false";
     public static readonly string Null = "null";

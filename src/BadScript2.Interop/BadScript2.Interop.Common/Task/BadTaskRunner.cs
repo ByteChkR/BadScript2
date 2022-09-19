@@ -7,10 +7,12 @@ public class BadTaskRunner
     public static readonly BadTaskRunner Instance = new BadTaskRunner();
     private readonly List<BadTask> m_TaskList = new List<BadTask>();
 
-    private BadTaskRunner()
+    static BadTaskRunner()
     {
         BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
     }
+
+    private BadTaskRunner() { }
 
     public BadTask? Current { get; private set; }
     public bool IsIdle => m_TaskList.Count == 0;
@@ -19,6 +21,11 @@ public class BadTaskRunner
     {
         for (int i = m_TaskList.Count - 1; i >= 0; i--)
         {
+            if (i >= m_TaskList.Count)
+            {
+                continue;
+            }
+
             BadTask t = m_TaskList[i];
             Current = t;
             if (t.IsPaused)
@@ -50,6 +57,11 @@ public class BadTaskRunner
                 t.ContinuationTasks.ForEach(
                     x =>
                     {
+                        if (x.IsFinished)
+                        {
+                            return;
+                        }
+
                         if (m_TaskList.Contains(x))
                         {
                             x.Resume();
@@ -65,9 +77,27 @@ public class BadTaskRunner
         }
     }
 
+    public void Clear()
+    {
+        m_TaskList.Clear();
+    }
+
+    public void ClearTasksFrom(BadTask creator)
+    {
+        foreach (BadTask task in m_TaskList)
+        {
+            if (task.Creator == creator)
+            {
+                task.Cancel();
+                ClearTasksFrom(task);
+            }
+        }
+    }
+
     public void AddTask(BadTask task, bool runImmediately = false)
     {
         m_TaskList.Add(task);
+        task.SetCreator(Current);
         if (runImmediately)
         {
             task.Start();

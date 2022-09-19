@@ -5,8 +5,19 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.Access;
 
+/// <summary>
+/// Implements the Null Coalescing Expression
+/// <Left> ?? <Right>
+/// </summary>
 public class BadNullCoalescingExpression : BadBinaryExpression
 {
+    
+    /// <summary>
+    /// Constructor of the Null Coalescing Expression
+    /// </summary>
+    /// <param name="left">Left side of the expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Position inside the source code</param>
     public BadNullCoalescingExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
@@ -38,6 +49,6 @@ public class BadNullCoalescingExpression : BadBinaryExpression
 
     protected override string GetSymbol()
     {
-        throw new NotImplementedException();
+        return "??";
     }
 }

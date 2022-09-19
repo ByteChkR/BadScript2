@@ -6,8 +6,18 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Math.Assign;
 
+/// <summary>
+/// Implements the Add Assignment Expression
+/// </summary>
 public class BadAddAssignExpression : BadBinaryExpression
 {
+    
+    /// <summary>
+    /// Constructor of the Add Assignment Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
     public BadAddAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,

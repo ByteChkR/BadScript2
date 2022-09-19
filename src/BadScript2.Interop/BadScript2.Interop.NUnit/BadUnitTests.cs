@@ -1,6 +1,8 @@
 using BadScript2.Interop.Common;
+using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;
 
@@ -26,7 +28,9 @@ public class BadUnitTests
             }
 
             BadFileSystem.Instance.CreateDirectory(TestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(BadCommonInterop.Apis);
+            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
+            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     TestDirectory,
@@ -35,7 +39,7 @@ public class BadUnitTests
                 )
                 .ToArray();
             Console.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(false, files);
+            builder.Register(false, false, files);
 
             s_Context = builder.CreateContext();
 

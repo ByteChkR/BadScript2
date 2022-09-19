@@ -3,8 +3,14 @@ using BadScript2.Parser.Expressions.Binary.Logic;
 
 namespace BadScript2.Parser.Operators.Binary.Logic;
 
+/// <summary>
+/// Implements the Logic Or Operator
+/// </summary>
 public class BadLogicOrOperator : BadBinaryOperator
 {
+    /// <summary>
+    /// Constructor of the Operator
+    /// </summary>
     public BadLogicOrOperator() : base(14, "||") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)

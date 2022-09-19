@@ -2,6 +2,9 @@ using BadScript2.Settings;
 
 namespace BadScript2.Common.Logging;
 
+/// <summary>
+/// Logger settings
+/// </summary>
 public class BadLoggerSettings : BadSettingsProvider<BadLoggerSettings>
 {
     private BadSettings? m_ErrorBackgroundColorObj;

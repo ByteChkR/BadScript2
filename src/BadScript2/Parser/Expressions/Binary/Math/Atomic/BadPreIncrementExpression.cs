@@ -6,22 +6,33 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
+/// <summary>
+/// Implements the Pre Increment Expression
+/// </summary>
 public class BadPreIncrementExpression : BadExpression
 {
-    private readonly BadExpression m_Right;
+    /// <summary>
+    /// Right side of the Expression
+    /// </summary>
+    public readonly BadExpression Right;
 
+    /// <summary>
+    /// Constructor of the Pre Increment Expression
+    /// </summary>
+    /// <param name="right">Left side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
     public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(
         right.IsConstant,
         position
     )
     {
-        m_Right = right;
+        Right = right;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject right = BadObject.Null;
-        foreach (BadObject o in m_Right.Execute(context))
+        foreach (BadObject o in Right.Execute(context))
         {
             right = o;
 

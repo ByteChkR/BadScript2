@@ -5,12 +5,31 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.Block;
 
+/// <summary>
+/// Implements the Try Catch Statement Expression
+/// </summary>
 public class BadTryCatchExpression : BadExpression
 {
+    /// <summary>
+    /// The Catch Block
+    /// </summary>
     private readonly BadExpression[] m_CatchExpressions;
+    /// <summary>
+    /// The Variable name of the Exception inside the catch block
+    /// </summary>
     private readonly string m_ErrorName;
+    /// <summary>
+    /// The Try Block
+    /// </summary>
     private readonly BadExpression[] m_Expressions;
 
+    /// <summary>
+    /// Constructor for the Try Catch Expression
+    /// </summary>
+    /// <param name="position">Source position of the Expression</param>
+    /// <param name="expressions">The Try Block</param>
+    /// <param name="catchExpressions">The Catch Block</param>
+    /// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
     public BadTryCatchExpression(
         BadSourcePosition position,
         BadExpression[] expressions,

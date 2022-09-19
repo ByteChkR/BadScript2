@@ -152,6 +152,8 @@ public class BadIOApi : BadInteropApi
             }
         );
 
+        t.SetFunction<string>("Delete", BadFileSystem.Instance.DeleteFile);
+
         return t;
     }
 

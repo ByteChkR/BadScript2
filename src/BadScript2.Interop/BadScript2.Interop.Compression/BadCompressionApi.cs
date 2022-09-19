@@ -23,7 +23,7 @@ public class BadCompressionApi : BadInteropApi
 
         return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
     }
-    
+
     private static BadObject Inflate(BadArray obj)
     {
         MemoryStream ms = new MemoryStream(obj.InnerArray.Select(x => (byte)((BadNumber)x).Value).ToArray());
@@ -31,6 +31,7 @@ public class BadCompressionApi : BadInteropApi
         using DeflateStream ds = new DeflateStream(ms, CompressionMode.Decompress);
         ds.CopyTo(decompressed);
         ds.Close();
+
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
 
@@ -44,7 +45,7 @@ public class BadCompressionApi : BadInteropApi
 
         return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
     }
-    
+
     private static BadObject GZipDecompress(BadArray obj)
     {
         MemoryStream ms = new MemoryStream(obj.InnerArray.Select(x => (byte)((BadNumber)x).Value).ToArray());
@@ -52,6 +53,7 @@ public class BadCompressionApi : BadInteropApi
         using GZipStream ds = new GZipStream(ms, CompressionMode.Decompress);
         ds.CopyTo(decompressed);
         ds.Close();
+
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
 
@@ -65,7 +67,7 @@ public class BadCompressionApi : BadInteropApi
 
         return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
     }
-    
+
     private static BadObject ZLibDecompress(BadArray obj)
     {
         MemoryStream ms = new MemoryStream(obj.InnerArray.Select(x => (byte)((BadNumber)x).Value).ToArray());
@@ -73,21 +75,22 @@ public class BadCompressionApi : BadInteropApi
         using ZLibStream ds = new ZLibStream(ms, CompressionMode.Decompress);
         ds.CopyTo(decompressed);
         ds.Close();
+
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
-    
+
     public override void Load(BadTable target)
     {
         BadTable deflate = new BadTable();
         deflate.SetFunction<IBadString>("Compress", Deflate);
         deflate.SetFunction<BadArray>("Decompress", Inflate);
         target.SetProperty("Deflate", deflate);
-        
+
         BadTable gzip = new BadTable();
         gzip.SetFunction<IBadString>("Compress", GZipCompress);
         gzip.SetFunction<BadArray>("Decompress", GZipDecompress);
         target.SetProperty("GZip", gzip);
-        
+
         BadTable zlib = new BadTable();
         zlib.SetFunction<IBadString>("Compress", ZLibCompress);
         zlib.SetFunction<BadArray>("Decompress", ZLibDecompress);

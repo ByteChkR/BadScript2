@@ -8,20 +8,40 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser.Expressions.Types;
 
+/// <summary>
+/// Implements the New Expression
+/// </summary>
 public class BadNewExpression : BadExpression
 {
-    private readonly BadInvocationExpression m_Right;
-
+    /// <summary>
+    /// Constructor of the New Expression
+    /// </summary>
+    /// <param name="right">The Expression that evaluates to a BadClassPrototype that can be created</param>
+    /// <param name="position">Source Position of the Expression</param>
     public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
     {
-        m_Right = right;
+        Right = right;
     }
+
+    /// <summary>
+    /// The Constructor Invocation
+    /// </summary>
+    public BadInvocationExpression Right { get; }
 
     public override void Optimize()
     {
-        m_Right.Optimize();
+        Right.Optimize();
     }
 
+    /// <summary>
+    /// Creates an Instance of the Specified Class prototype
+    /// </summary>
+    /// <param name="proto">The Class prototype</param>
+    /// <param name="context">The Current Execution Context</param>
+    /// <param name="args">The Constructor Arguments</param>
+    /// <param name="pos">The Source Position that gets used to Raise an Exception</param>
+    /// <returns>The Created Instance of the Class</returns>
+    /// <exception cref="BadRuntimeException">Gets Raised if the return of the class prototype is not an Instance of BadClass or the Constructor of the class is not a BadFunction</exception>
     public static IEnumerable<BadObject> CreateObject(
         BadClassPrototype proto,
         BadExecutionContext context,
@@ -79,7 +99,7 @@ public class BadNewExpression : BadExpression
         BadObject obj = BadObject.Null;
 
         //Get Type from Right
-        foreach (BadObject o in m_Right.Left.Execute(context))
+        foreach (BadObject o in Right.Left.Execute(context))
         {
             obj = o;
 
@@ -94,7 +114,7 @@ public class BadNewExpression : BadExpression
         }
 
         List<BadObject> args = new List<BadObject>();
-        foreach (BadObject o in m_Right.GetArgs(context, args))
+        foreach (BadObject o in Right.GetArgs(context, args))
         {
             yield return o;
         }

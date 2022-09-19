@@ -5,6 +5,9 @@ using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Settings;
 
+/// <summary>
+/// Reads a JSON file and returns the resulting BadSettings Object
+/// </summary>
 public class BadSettingsReader
 {
     private readonly BadSettings m_RootSettings;

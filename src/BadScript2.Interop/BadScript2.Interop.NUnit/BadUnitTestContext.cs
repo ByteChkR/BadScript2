@@ -1,3 +1,4 @@
+using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -53,7 +54,7 @@ public class BadUnitTestContext
         for (int i = m_Setup.Count - 1; i >= 0; i--)
         {
             BadFunction function = m_Setup[i];
-            BadExecutionContext caller = BadExecutionContext.Create();
+            BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
                 yield return o;
@@ -71,7 +72,7 @@ public class BadUnitTestContext
         for (int i = m_Teardown.Count - 1; i >= 0; i--)
         {
             BadFunction function = m_Teardown[i];
-            BadExecutionContext caller = BadExecutionContext.Create();
+            BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
                 yield return o;
@@ -87,11 +88,18 @@ public class BadUnitTestContext
     private IEnumerable<BadObject> RunTestCase(BadNUnitTestCase testCase)
     {
         TestContext.WriteLine($"Running test '{testCase.TestName}'");
-        BadExecutionContext caller = BadExecutionContext.Create();
+        BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
 
-        foreach (BadObject o in testCase.Function.Invoke(Array.Empty<BadObject>(), caller))
+        BadTaskRunner.Instance.AddTask(
+            new BadTask(new BadInteropRunnable(testCase.Function.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator()), testCase.TestName),
+            true
+        );
+
+        while (!BadTaskRunner.Instance.IsIdle)
         {
-            yield return o;
+            BadTaskRunner.Instance.RunStep();
+
+            yield return BadObject.Null;
         }
 
         if (caller.Scope.IsError)

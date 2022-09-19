@@ -7,8 +7,20 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Access;
 
+
+/// <summary>
+/// Implements the Ternary Expression
+/// <Left> ? <TrueRet> : <FalseRet>
+/// </summary>
 public class BadTernaryExpression : BadExpression
 {
+    /// <summary>
+    /// Constructor for the Ternary Expression
+    /// </summary>
+    /// <param name="left">Left side that will be evaluated</param>
+    /// <param name="trueRet">Expression that is executed if left evaluates to true</param>
+    /// <param name="falseRet">Expression that is executed if left evaluates to false</param>
+    /// <param name="position">Source Position of the Expression</param>
     public BadTernaryExpression(
         BadExpression left,
         BadExpression trueRet,
@@ -20,9 +32,18 @@ public class BadTernaryExpression : BadExpression
         FalseRet = falseRet;
     }
 
-    private BadExpression FalseRet { get; set; }
-    private BadExpression Left { get; set; }
-    private BadExpression TrueRet { get; set; }
+    /// <summary>
+    /// Expression that is executed if left evaluates to false
+    /// </summary>
+    public BadExpression FalseRet { get; private set; }
+    /// <summary>
+    /// Left side that will be evaluated
+    /// </summary>
+    public BadExpression Left { get; private set; }
+    /// <summary>
+    /// Expression that is executed if left evaluates to true
+    /// </summary>
+    public BadExpression TrueRet { get; private set; }
 
     public override void Optimize()
     {

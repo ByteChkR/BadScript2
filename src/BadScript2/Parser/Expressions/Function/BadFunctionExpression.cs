@@ -11,13 +11,33 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser.Expressions.Function;
 
+/// <summary>
+/// Implements the Function Expression
+/// </summary>
 public class BadFunctionExpression : BadExpression
 {
+    /// <summary>
+    /// Indicates if this function can not be overwritten by another object
+    /// </summary>
+    public readonly bool IsConstantFunction;
+    /// <summary>
+    /// The Function Body
+    /// </summary>
     private readonly List<BadExpression> m_Body;
+    /// <summary>
+    /// The Function parameters
+    /// </summary>
     private readonly List<BadFunctionParameter> m_Parameters;
-    private readonly BadExpression? m_TypeExpr;
-    private readonly bool IsConstantFunction;
 
+    /// <summary>
+    /// Constructor of the Function Expression
+    /// </summary>
+    /// <param name="name">The (optional) name of the function</param>
+    /// <param name="parameter">The Function Parameters</param>
+    /// <param name="block">The Function Body</param>
+    /// <param name="position">Source Position of the Expression</param>
+    /// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
+    /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
     public BadFunctionExpression(
         BadWordToken? name,
         List<BadFunctionParameter> parameter,
@@ -30,13 +50,27 @@ public class BadFunctionExpression : BadExpression
         Name = name;
         m_Parameters = parameter;
         m_Body = block;
-        m_TypeExpr = typeExpr;
+        TypeExpression = typeExpr;
         IsConstantFunction = isConstant;
     }
 
-    private IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
-    private IEnumerable<BadExpression> Body => m_Body;
-    private BadWordToken? Name { get; }
+    /// <summary>
+    /// The (optional) Type Expression that is used to type-check the return value
+    /// </summary>
+    public BadExpression? TypeExpression { get; }
+
+    /// <summary>
+    /// The Function Parameters
+    /// </summary>
+    public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
+    /// <summary>
+    /// The Function Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
+    /// <summary>
+    /// The (optional) Function Name
+    /// </summary>
+    public BadWordToken? Name { get; }
 
     public override void Optimize()
     {
@@ -46,6 +80,10 @@ public class BadFunctionExpression : BadExpression
         }
     }
 
+    /// <summary>
+    /// Returns the Header of the Function
+    /// </summary>
+    /// <returns>String Header of the Function</returns>
     public string GetHeader()
     {
         return
@@ -70,10 +108,10 @@ public class BadFunctionExpression : BadExpression
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        if (m_TypeExpr != null)
+        if (TypeExpression != null)
         {
             BadObject obj = BadObject.Null;
-            foreach (BadObject o in m_TypeExpr.Execute(context))
+            foreach (BadObject o in TypeExpression.Execute(context))
             {
                 obj = o;
             }

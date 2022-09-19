@@ -6,8 +6,17 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Logic;
 
+/// <summary>
+/// Implements the Logic Or Expression
+/// </summary>
 public class BadLogicOrExpression : BadBinaryExpression
 {
+    /// <summary>
+    /// Constructor of the Logic Or Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
     public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,

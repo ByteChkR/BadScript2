@@ -4,15 +4,31 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.Binary.Comparison;
 
+/// <summary>
+/// Implements the Inequality Expression
+/// </summary>
 public class BadInequalityExpression : BadBinaryExpression
 {
+    
+    /// <summary>
+    /// Constructor for the Inequality Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
     public BadInequalityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position
     ) { }
 
-    private static BadObject NotEqual(BadObject left, BadObject right)
+    /// <summary>
+    /// Returns True if the two Objects are not equal
+    /// </summary>
+    /// <param name="left">Left Object</param>
+    /// <param name="right">Right Object</param>
+    /// <returns>True if the Objects are not Equal. False Otherwise</returns>
+    public static BadObject NotEqual(BadObject left, BadObject right)
     {
         if (!left.Equals(right))
         {

@@ -6,10 +6,21 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.Constant;
 
+/// <summary>
+/// Implements the Table Expression
+/// </summary>
 public class BadTableExpression : BadExpression
 {
+    /// <summary>
+    /// The Initializer List of the Table
+    /// </summary>
     private readonly Dictionary<BadWordToken, BadExpression> m_Table;
 
+    /// <summary>
+    /// Constructor of the Table Expression
+    /// </summary>
+    /// <param name="table">The Initializer List</param>
+    /// <param name="position">The Source Position of the Expression</param>
     public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
         false,
         position
@@ -17,6 +28,11 @@ public class BadTableExpression : BadExpression
     {
         m_Table = table;
     }
+
+    /// <summary>
+    /// The Initializer List of the Table
+    /// </summary>
+    public IDictionary<BadWordToken, BadExpression> Table => m_Table;
 
     public override void Optimize()
     {

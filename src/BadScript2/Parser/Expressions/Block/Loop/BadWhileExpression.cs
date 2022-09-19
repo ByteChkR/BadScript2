@@ -9,10 +9,22 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
+/// <summary>
+/// Implements the While Expression
+/// </summary>
 public class BadWhileExpression : BadExpression
 {
+    /// <summary>
+    /// The Loop Body
+    /// </summary>
     private readonly List<BadExpression> m_Body;
 
+    /// <summary>
+    /// Constructor of the While Expression
+    /// </summary>
+    /// <param name="condition">The condition of the loop</param>
+    /// <param name="block">The Loop Body</param>
+    /// <param name="position">Source position of the Expression</param>
     public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
         false,
         position
@@ -22,8 +34,16 @@ public class BadWhileExpression : BadExpression
         m_Body = block;
     }
 
-    private BadExpression Condition { get; set; }
-    
+    /// <summary>
+    /// The Loop Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
+
+    /// <summary>
+    /// The Loop Condition
+    /// </summary>
+    public BadExpression Condition { get; private set; }
+
 
     public override void Optimize()
     {
@@ -34,6 +54,10 @@ public class BadWhileExpression : BadExpression
         }
     }
 
+    /// <summary>
+    /// Returns a human readable representation of the Expression
+    /// </summary>
+    /// <returns>String Representation of the Expression</returns>
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder($"while ({Condition})");

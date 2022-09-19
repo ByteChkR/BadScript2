@@ -3,8 +3,14 @@ using BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
 namespace BadScript2.Parser.Operators.Binary.Math.Atomic;
 
+/// <summary>
+/// Implements the Pre Increment Operator
+/// </summary>
 public class BadPreIncrementOperator : BadUnaryPrefixOperator
 {
+    /// <summary>
+    /// Constructor of the Operator
+    /// </summary>
     public BadPreIncrementOperator() : base(2, "++") { }
 
 

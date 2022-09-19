@@ -7,8 +7,18 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary;
 
+/// <summary>
+/// Implements the Range Expression
+/// <Start>..<End>
+/// </summary>
 public class BadRangeExpression : BadBinaryExpression
 {
+    /// <summary>
+    /// Constructor of the Range Expression
+    /// </summary>
+    /// <param name="left">Start of the Range</param>
+    /// <param name="right">End of the Range</param>
+    /// <param name="position">Source position of the Expression</param>
     public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
@@ -54,6 +64,12 @@ public class BadRangeExpression : BadBinaryExpression
         yield return new BadInteropEnumerator(Range(lNum.Value, rNum.Value).GetEnumerator());
     }
 
+    /// <summary>
+    /// Returns a range of numbers
+    /// </summary>
+    /// <param name="from">Start of the Range</param>
+    /// <param name="to">End of the Range(Exclusive></param>
+    /// <returns></returns>
     public static IEnumerable<BadObject> Range(decimal from, decimal to)
     {
         for (decimal i = from; i < to; i++)

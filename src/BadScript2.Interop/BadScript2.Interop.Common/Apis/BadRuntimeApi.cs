@@ -1,3 +1,4 @@
+using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -92,11 +93,30 @@ public class BadRuntimeApi : BadInteropApi
                 "Evaluate",
                 args => Evaluate(
                     args[0],
-                    args.Length == 1 ? BadObject.Null : args[1]
+                    args.Length < 2 ? BadObject.Null : args[1],
+                    args.Length < 3 ? BadObject.True : args[2],
+                    args.Length < 4 ? BadObject.Null : args[3]
                 ),
                 "src",
                 new BadFunctionParameter("file", true, false, false),
-                new BadFunctionParameter("optimize", true, false, false)
+                new BadFunctionParameter("optimize", true, false, false),
+                new BadFunctionParameter("scope", true, false, false)
+            )
+        );
+        target.SetProperty(
+            "EvaluateAsync",
+            new BadInteropFunction(
+                "EvaluateAsync",
+                args => EvaluateAsync(
+                    args[0],
+                    args.Length < 2 ? BadObject.Null : args[1],
+                    args.Length < 3 ? BadObject.True : args[2],
+                    args.Length < 4 ? BadObject.Null : args[3]
+                ),
+                "src",
+                new BadFunctionParameter("file", true, false, false),
+                new BadFunctionParameter("optimize", true, false, false),
+                new BadFunctionParameter("scope", true, false, false)
             )
         );
         target.SetFunction("GetStackTrace", ctx => ctx.Scope.GetStackTrace());
@@ -158,11 +178,16 @@ public class BadRuntimeApi : BadInteropApi
         return m_Exports[name];
     }
 
-    private BadObject Evaluate(BadObject str, BadObject fileObj)
+    private BadObject Evaluate(BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope)
     {
         if (str is not IBadString src)
         {
             throw new BadRuntimeException($"Evaluate: Argument 'src' is not a string {str}");
+        }
+
+        if (optimizeExpr is not IBadBoolean optimizeE)
+        {
+            throw new BadRuntimeException($"Evaluate: Argument 'optimize' is not a boolean {optimizeExpr}");
         }
 
         string file = "<eval>";
@@ -176,9 +201,10 @@ public class BadRuntimeApi : BadInteropApi
         }
 
 
-        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization;
+        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
 
-        BadExecutionContext ctx = BadExecutionContextOptions.Default.Build();
+        BadExecutionContext ctx =
+            scope == BadObject.Null || scope is not BadScope sc ? BadExecutionContextOptions.Default.Build() : new BadExecutionContext(sc);
 
         IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
         if (optimize)
@@ -187,5 +213,42 @@ public class BadRuntimeApi : BadInteropApi
         }
 
         return ctx.Run(exprs) ?? BadObject.Null;
+    }
+
+    private BadObject EvaluateAsync(BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope)
+    {
+        if (str is not IBadString src)
+        {
+            throw new BadRuntimeException($"Evaluate: Argument 'src' is not a string {str}");
+        }
+
+        if (optimizeExpr is not IBadBoolean optimizeE)
+        {
+            throw new BadRuntimeException($"Evaluate: Argument 'optimize' is not a boolean {optimizeExpr}");
+        }
+
+        string file = "<eval>";
+        if (fileObj is IBadString fileStr)
+        {
+            file = fileStr.Value;
+        }
+        else if (fileObj != BadObject.Null)
+        {
+            throw new BadRuntimeException("Evaluate: Argument 'fileObj' is not a string");
+        }
+
+
+        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
+
+        BadExecutionContext ctx =
+            scope == BadObject.Null || scope is not BadScope sc ? BadExecutionContextOptions.Default.Build() : new BadExecutionContext(sc);
+
+        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
+        if (optimize)
+        {
+            exprs = BadExpressionOptimizer.Optimize(exprs);
+        }
+
+        return new BadTask(new BadInteropRunnable(ctx.Execute(exprs).GetEnumerator()), "EvaluateAsync");
     }
 }

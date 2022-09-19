@@ -1,0 +1,44 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Locking()
+{
+	let result = [];
+
+	function Task1() 
+	{
+		lock(result)
+		{
+			for(let i = 0; i < 100; i++)
+			{
+				result.Add(i);
+			}
+		}
+	}
+	function Task2() 
+	{
+		lock(result)
+		{
+			for(let i = 0; i < 100; i++)
+			{
+				result.Add(i);
+			}
+		}
+	}
+
+	Concurrent.Run(Task1.AsTask());
+	Concurrent.Run(Task2.AsTask());
+
+	while(result.Length != 200)
+	{
+		//Do Nothing
+	}
+
+	for(let i = 0; i < 200; i++)
+	{
+		Assert.IsTrue(i % 100 == result[i] % 100, $"{i % 100} == result[{i}]({result[i]})");
+	}
+}
+
+NUnit.AddTest(Test_Locking, "locking tests");

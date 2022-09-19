@@ -1,5 +1,8 @@
 namespace BadScript2.IO;
 
+/// <summary>
+/// Implements a wrapper for the actual OS file system
+/// </summary>
 public class BadSystemFileSystem : IFileSystem
 {
     public string GetStartupDirectory()

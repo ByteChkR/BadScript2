@@ -42,7 +42,6 @@ public class BadTask : BadObject
 
     public readonly BadRunnable Runnable;
 
-
     public BadTask(BadRunnable runnable, string name)
     {
         Name = name;
@@ -66,11 +65,18 @@ public class BadTask : BadObject
         m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
     }
 
+    public BadTask? Creator { get; private set; }
+
     public string Name { get; set; }
     public bool IsInactive => !IsRunning && !IsFinished && !IsPaused;
     public bool IsRunning { get; private set; }
     public bool IsFinished { get; private set; }
     public bool IsPaused { get; private set; }
+
+    public void SetCreator(BadTask? task)
+    {
+        Creator = task;
+    }
 
     public void Start()
     {
@@ -80,6 +86,7 @@ public class BadTask : BadObject
     public void Stop()
     {
         IsRunning = !(IsFinished = true);
+        IsPaused = false;
     }
 
     public void Cancel()
@@ -89,6 +96,7 @@ public class BadTask : BadObject
             throw new BadRuntimeException("Task is not running");
         }
 
+        IsPaused = false;
         IsFinished = true;
     }
 

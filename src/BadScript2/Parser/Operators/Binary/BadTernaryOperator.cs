@@ -4,8 +4,15 @@ using BadScript2.Reader;
 
 namespace BadScript2.Parser.Operators.Binary;
 
+/// <summary>
+/// Implements the Ternary Operator
+/// </summary>
 public class BadTernaryOperator : BadBinaryOperator
 {
+    
+    /// <summary>
+    /// Constructor of the Operator
+    /// </summary>
     public BadTernaryOperator() : base(15, "?") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)

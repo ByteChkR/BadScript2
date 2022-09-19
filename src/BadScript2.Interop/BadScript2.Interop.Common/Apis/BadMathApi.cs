@@ -6,6 +6,7 @@ namespace BadScript2.Interop.Common.Apis;
 
 public class BadMathApi : BadInteropApi
 {
+    private static readonly Random s_Random = new Random();
     public BadMathApi() : base("Math") { }
 
     public override void Load(BadTable target)
@@ -41,5 +42,6 @@ public class BadMathApi : BadInteropApi
         target.SetFunction<decimal>("Tan", x => (decimal)Math.Tan((double)x));
         target.SetFunction<decimal>("Tanh", x => (decimal)Math.Tanh((double)x));
         target.SetFunction<decimal>("Truncate", x => (decimal)Math.Truncate((double)x));
+        target.SetFunction("NextRandom", () => (decimal)s_Random.NextDouble());
     }
 }

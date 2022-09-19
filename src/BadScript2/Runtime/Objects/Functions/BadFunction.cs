@@ -148,10 +148,12 @@ public abstract class BadFunction : BadObject
         if (IsConstant && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
         {
             int? hash = GetHash(args);
-            if ( hash != null && m_Cache.ContainsKey(hash.Value))
+            if (hash != null && m_Cache.ContainsKey(hash.Value))
             {
                 BadLogger.Warn($"Found Cached value with Hash {hash}", "Runtime");
+
                 yield return m_Cache[hash.Value];
+
                 yield break;
             }
         }
@@ -160,6 +162,7 @@ public abstract class BadFunction : BadObject
         foreach (BadObject o in InvokeBlock(args, caller))
         {
             ret = o;
+
             yield return o;
         }
 

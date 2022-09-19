@@ -7,11 +7,28 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser.Expressions.Access;
 
+/// <summary>
+/// Implements the Reverse Array Access to set or get properties from an object.
+/// <Left>[^<Right>]
+/// </summary>
 public class BadArrayAccessReverseExpression : BadExpression
 {
+    /// <summary>
+    /// Arguments of the array access.
+    /// </summary>
     private readonly BadExpression[] m_Arguments;
+    /// <summary>
+    /// Indicates if the expression will be null-checked by the runtime
+    /// </summary>
     private readonly bool m_NullChecked;
 
+    /// <summary>
+    /// Constructor of the Array Access Expression
+    /// </summary>
+    /// <param name="left">Left side of the expression</param>
+    /// <param name="args">Right side of the expression</param>
+    /// <param name="position">Position inside the source code</param>
+    /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
     public BadArrayAccessReverseExpression(
         BadExpression left,
         BadExpression[] args,
@@ -26,8 +43,12 @@ public class BadArrayAccessReverseExpression : BadExpression
         m_NullChecked = nullChecked;
     }
 
+    /// <summary>
+    /// Left side of the Expression
+    /// </summary>
     private BadExpression Left { get; set; }
 
+    
     public override void Optimize()
     {
         Left = BadExpressionOptimizer.Optimize(Left);

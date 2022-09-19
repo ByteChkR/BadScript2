@@ -7,22 +7,48 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser.Expressions.Types;
 
+/// <summary>
+/// Implements the Class Prototype Expression
+/// </summary>
 public class BadClassPrototypeExpression : BadExpression
 {
-    private readonly BadExpression? m_BaseClass;
+    /// <summary>
+    /// The Class Body
+    /// </summary>
     private readonly BadExpression[] m_Body;
-    private readonly string m_Name;
 
+    /// <summary>
+    /// Constructor of the Class Prototype Expression
+    /// </summary>
+    /// <param name="name">The Class name</param>
+    /// <param name="body">The Class Body</param>
+    /// <param name="baseClass">The (optional) base class</param>
+    /// <param name="position">The Source Position of the Expression</param>
     public BadClassPrototypeExpression(
         string name,
         BadExpression[] body,
         BadExpression? baseClass,
         BadSourcePosition position) : base(false, position)
     {
-        m_Name = name;
+        Name = name;
         m_Body = body;
-        m_BaseClass = baseClass;
+        BaseClass = baseClass;
     }
+
+    /// <summary>
+    /// The (optional) Base Class
+    /// </summary>
+    public BadExpression? BaseClass { get; }
+
+    /// <summary>
+    /// The Class Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
+    
+    /// <summary>
+    /// The Class Name
+    /// </summary>
+    public string Name { get; }
 
     public override void Optimize()
     {
@@ -35,10 +61,10 @@ public class BadClassPrototypeExpression : BadExpression
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadClassPrototype? basePrototype = null;
-        if (m_BaseClass != null)
+        if (BaseClass != null)
         {
             BadObject obj = BadObject.Null;
-            foreach (BadObject o in m_BaseClass.Execute(context))
+            foreach (BadObject o in BaseClass.Execute(context))
             {
                 obj = o;
 
@@ -54,8 +80,8 @@ public class BadClassPrototypeExpression : BadExpression
             basePrototype = cls;
         }
 
-        BadClassPrototype p = new BadExpressionClassPrototype(m_Name, context.Scope, m_Body, basePrototype);
-        context.Scope.DefineVariable(m_Name, p);
+        BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, m_Body, basePrototype);
+        context.Scope.DefineVariable(Name, p);
 
         yield return p;
     }
