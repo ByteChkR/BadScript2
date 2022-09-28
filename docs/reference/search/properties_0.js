@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['absolutepath_0',['AbsolutePath',['../class_bad_virtual_directory.html#a8dee5f0d72fec901726759fc60d6cdf6',1,'BadVirtualDirectory.AbsolutePath()'],['../class_bad_virtual_file.html#a8ac3a1465b77b7596c127b4a55149b6c',1,'BadVirtualFile.AbsolutePath()']]],
-  ['allowinput_1',['AllowInput',['../class_bad_console_api.html#a37682d0662546a9229c3e04135924580',1,'BadConsoleApi']]],
-  ['apis_2',['Apis',['../class_bad_common_interop.html#a9a319aa1f5b49bb3560916941d71f8dc',1,'BadCommonInterop']]],
-  ['args_3',['Args',['../class_bad_run_system_settings.html#ad5311df7184f9b236761fc67ee8b592e',1,'BadRunSystemSettings']]]
+  ['absolutepath_0',['AbsolutePath',['../class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_directory.html#ad44af2884ed6b1f0e495106a2b9201a6',1,'BadScript2.IO.Virtual.BadVirtualDirectory.AbsolutePath()'],['../class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file.html#aa123c8d4f8aa4f1c4010e3c8456d2dba',1,'BadScript2.IO.Virtual.BadVirtualFile.AbsolutePath()']]],
+  ['allowinput_1',['AllowInput',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api.html#a6af01238c74dec51f51ea801bc723af7',1,'BadScript2::Interop::Common::Apis::BadConsoleApi']]],
+  ['apis_2',['Apis',['../class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html#aa0c04b194df825903ae18de22bfd42ee',1,'BadScript2::Interop::Common::BadCommonInterop']]],
+  ['args_3',['Args',['../class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_run_system_settings.html#a61a628c33041c5d561a43e048bb09fd9',1,'BadScript2::ConsoleCore::Systems::Run::BadRunSystemSettings']]],
+  ['argumentcount_4',['ArgumentCount',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_access_1_1_bad_array_access_expression.html#ac3a1be03d6de4bbfc90ec4c66cd668d3',1,'BadScript2.Parser.Expressions.Access.BadArrayAccessExpression.ArgumentCount()'],['../class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_invocation_expression.html#a939453d395ab690389534db3e1c7fab8',1,'BadScript2.Parser.Expressions.Function.BadInvocationExpression.ArgumentCount()']]],
+  ['arguments_5',['Arguments',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_access_1_1_bad_array_access_expression.html#a05442a262984d7592e848cefa9d37586',1,'BadScript2.Parser.Expressions.Access.BadArrayAccessExpression.Arguments()'],['../class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_invocation_expression.html#a653dc6f7667ae06e0ec05b45942b6351',1,'BadScript2.Parser.Expressions.Function.BadInvocationExpression.Arguments()']]]
 ];

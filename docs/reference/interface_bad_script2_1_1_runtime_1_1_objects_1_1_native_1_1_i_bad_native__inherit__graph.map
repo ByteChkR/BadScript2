@@ -1,0 +1,12 @@
+<map id="BadScript2.Runtime.Objects.Native.IBadNative" name="BadScript2.Runtime.Objects.Native.IBadNative">
+<area shape="rect" id="node1" title="Defines properties for Native Types" alt="" coords="221,136,412,177"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_1_1_bad_null_object.html" title="Implementation for the null&#45;value" alt="" coords="460,5,651,47"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_native.html" title="Implements a Native Type" alt="" coords="460,71,651,112"/>
+<area shape="rect" id="node5" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html" title="Implements the Interface for Native Boolean" alt="" coords="460,136,651,177"/>
+<area shape="rect" id="node7" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html" title="Implements the Interface for Native Numbers" alt="" coords="460,201,651,243"/>
+<area shape="rect" id="node9" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html" title="Implements the Interface for Native Strings" alt="" coords="460,267,651,308"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,143,173,170"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_boolean.html" title="Implements a Native Boolean" alt="" coords="699,136,889,177"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_number.html" title="Implements a Native Number" alt="" coords="699,201,889,243"/>
+<area shape="rect" id="node10" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_string.html" title="Implements a Native String" alt="" coords="699,267,889,308"/>
+</map>

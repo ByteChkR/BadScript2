@@ -1,26 +1,7 @@
 var searchData=
 [
-  ['s_5factiveextensions_0',['s_ActiveExtensions',['../class_bad_interop_extension.html#a10dd9f642fa5a96b673cedbe5cda4bb2',1,'BadInteropExtension']]],
-  ['s_5fcommonapis_1',['s_CommonApis',['../class_bad_common_interop.html#a7ee0126574f3b8de2e3cfe53dcfcd2c1',1,'BadCommonInterop']]],
-  ['s_5fcontext_2',['s_Context',['../class_bad_unit_tests.html#ad0dec4dc968fdd860501a5a9b443f424',1,'BadUnitTests']]],
-  ['s_5fdebugger_3',['s_Debugger',['../class_bad_debugger.html#aeb6207de6600f6b7979c4a20acf451f7',1,'BadDebugger']]],
-  ['s_5ffilesystem_4',['s_FileSystem',['../class_bad_file_system.html#a340d3edd907e831e907490cf5d59970d',1,'BadFileSystem']]],
-  ['s_5fglobalextensions_5',['s_GlobalExtensions',['../class_bad_interop_extension.html#acef8270b05a8f3763c5e45c6c19070f7',1,'BadInteropExtension']]],
-  ['s_5fignoredfiles_6',['s_IgnoredFiles',['../class_bad_console_debugger.html#af68cb8304a6074c75ed7d868eb16be47',1,'BadConsoleDebugger']]],
-  ['s_5finstance_7',['s_Instance',['../class_bad_settings_provider.html#a78610083a3a2b405fb4c120a0a24108f',1,'BadSettingsProvider']]],
-  ['s_5fmasks_8',['s_Masks',['../class_bad_log_mask.html#a043cda83d433e0d140c0b30d86a549a8',1,'BadLogMask']]],
-  ['s_5fnativeconstructors_9',['s_NativeConstructors',['../class_bad_native_class_helper.html#aadeefad56a5da49ecc5a8b29bfe1021f',1,'BadNativeClassHelper']]],
-  ['s_5fnativetypes_10',['s_NativeTypes',['../class_bad_native_class_builder.html#a9bdcb55b30ef278595b77305b1218ce8',1,'BadNativeClassBuilder']]],
-  ['s_5fobjectextensions_11',['s_ObjectExtensions',['../class_bad_interop_extension.html#a460a12d7113c15a29fa25fe7bfee3d46',1,'BadInteropExtension']]],
-  ['s_5foptimizedcontext_12',['s_OptimizedContext',['../class_bad_unit_tests.html#aaa46f2202f455a1d1bc01cc36c8df909',1,'BadUnitTests']]],
-  ['s_5frootsettings_13',['s_RootSettings',['../class_bad_settings_provider.html#ad5f1898c08b22a1c8dbbc9d96a89f5db',1,'BadSettingsProvider']]],
-  ['s_5fstaticextensioncache_14',['s_StaticExtensionCache',['../class_bad_interop_extension.html#a2781bdc30e3b5e730ca13f286f116a1b',1,'BadInteropExtension']]],
-  ['s_5fstringcache_15',['s_StringCache',['../class_bad_object.html#ab0d760be87ad72b3253f522791123a9a',1,'BadObject']]],
-  ['scope_16',['Scope',['../class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb',1,'BadExecutionContext']]],
-  ['settingsfile_17',['settingsFile',['../_bad_script2_8_web_editor_2_program_8cs.html#a04b001e276c54fc75d950cd218b59a7f',1,'Program.cs']]],
-  ['singlelinecomment_18',['SingleLineComment',['../class_bad_static_keys.html#a2dfecc4aa01d1ae1d5dd6324d0db87ff',1,'BadStaticKeys']]],
-  ['sourceposition_19',['SourcePosition',['../class_bad_token.html#a38c1cde4124e2d726ce93014b9f9f14c',1,'BadToken']]],
-  ['statementendkey_20',['StatementEndKey',['../class_bad_static_keys.html#a77ad68a517a4b0e0d5a58d7439505214',1,'BadStaticKeys']]],
-  ['stepsource_21',['StepSource',['../struct_bad_debugger_step.html#aee74e8a82b3aa68580305957df6a5ad4',1,'BadDebuggerStep']]],
-  ['subtractassignoperatorname_22',['SubtractAssignOperatorName',['../class_bad_static_keys.html#ab712ca023db10ddc67ecaf18aebb1268',1,'BadStaticKeys']]]
+  ['refkey_0',['RefKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a18f4a5a2508f3fb438b5c7819204fadb',1,'BadScript2::Common::BadStaticKeys']]],
+  ['returnkey_1',['ReturnKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a9cf351f64349da6eed43af7571a5f3e2',1,'BadScript2::Common::BadStaticKeys']]],
+  ['right_2',['Right',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_expression.html#a857cc7c5347183b2d184a78bcd7ea262',1,'BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreDecrementExpression.Right()'],['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_increment_expression.html#a25f5ec739a915293c6bf2b4abd226a1d',1,'BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreIncrementExpression.Right()']]],
+  ['runnable_3',['Runnable',['../class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html#a219b5db8252edf076cde2f94d587efd9',1,'BadScript2::Interop::Common::Task::BadTask']]]
 ];

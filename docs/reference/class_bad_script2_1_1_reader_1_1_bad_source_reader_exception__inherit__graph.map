@@ -1,0 +1,6 @@
+<map id="BadScript2.Reader.BadSourceReaderException" name="BadScript2.Reader.BadSourceReaderException">
+<area shape="rect" id="node1" title="Gets Raised if the Reader encounters an Error" alt="" coords="5,229,204,271"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_common_1_1_bad_parse_exception.html" title="Base Class for all BadScript Parser Exceptions" alt="" coords="36,155,173,181"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_common_1_1_bad_script_exception.html" title=" " alt="" coords="36,80,173,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="65,5,145,32"/>
+</map>

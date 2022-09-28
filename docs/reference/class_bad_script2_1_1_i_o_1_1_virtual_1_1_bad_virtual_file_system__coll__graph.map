@@ -1,0 +1,7 @@
+<map id="BadScript2.IO.Virtual.BadVirtualFileSystem" name="BadScript2.IO.Virtual.BadVirtualFileSystem">
+<area shape="rect" id="node1" title="Virtual File System Implementation for the BadScript Engine" alt="" coords="15,261,185,303"/>
+<area shape="rect" id="node2" href="$interface_bad_script2_1_1_i_o_1_1_i_file_system.html" title="Defines the interface for a file system" alt="" coords="5,165,96,191"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_root.html" title="Implements a Virtual File System Root Directory" alt="" coords="120,157,291,199"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_directory.html" title="Represents a Virtual File System Directory Entry" alt="" coords="138,81,273,108"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_node.html" title="Base class for all Virtual Filesystem Nodes" alt="" coords="149,5,261,32"/>
+</map>

@@ -1,0 +1,24 @@
+<map id="BadScript2.Runtime.Objects.BadObject" name="BadScript2.Runtime.Objects.BadObject">
+<area shape="rect" id="node1" title=" " alt="" coords="5,433,196,475"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html" title=" " alt="" coords="254,5,443,47"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_interop_1_1_json_1_1_bad_settings_object.html" title=" " alt="" coords="267,71,431,112"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_bad_scope.html" title="Implements the Scope for the Script Engine" alt="" coords="247,137,450,163"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error.html" title="Implements the Error Object Type" alt="" coords="261,188,436,229"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerator.html" title="Implements a simple wrapper for C# IEnumerators to be used in BS2" alt="" coords="256,253,441,295"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object.html" title=" " alt="" coords="244,319,453,375"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html" title="Implements a Dynamic List/Array for the BadScript Language" alt="" coords="253,400,444,441"/>
+<area shape="rect" id="node9" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_1_1_bad_null_object.html" title="Implementation for the null&#45;value" alt="" coords="253,465,444,507"/>
+<area shape="rect" id="node10" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html" title="Implements the base functionality for a BadScript Reference" alt="" coords="253,531,444,572"/>
+<area shape="rect" id="node12" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="253,596,444,637"/>
+<area shape="rect" id="node13" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html" title="Implements a function that can be called from the script" alt="" coords="253,661,444,703"/>
+<area shape="rect" id="node17" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_native.html" title="Implements a Native Type" alt="" coords="253,727,444,768"/>
+<area shape="rect" id="node18" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html" title="Implements a Type Instance in the BadScript Language" alt="" coords="253,792,444,833"/>
+<area shape="rect" id="node19" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html" title="Implements a Class Prototype for the BadScript Language" alt="" coords="253,872,444,913"/>
+<area shape="rect" id="node11" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html" title="Implements a Reference Object" alt="" coords="501,531,789,572"/>
+<area shape="rect" id="node14" href="$class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html" title=" " alt="" coords="522,647,769,717"/>
+<area shape="rect" id="node15" href="$class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html" title=" " alt="" coords="548,741,743,783"/>
+<area shape="rect" id="node16" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html" title="The Expression Function Implementation used if a function gets defined in the Source Code." alt="" coords="535,807,756,848"/>
+<area shape="rect" id="node20" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_expression_class_prototype.html" title="Implements a Class Prototype created from Bad Expressions(e.g. Source Code)" alt="" coords="526,872,765,913"/>
+<area shape="rect" id="node21" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_prototype.html" title="Implements a Native Class Prototype" alt="" coords="526,937,765,979"/>
+<area shape="rect" id="node22" href="$class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object_prototype.html" title=" " alt="" coords="837,930,1047,986"/>
+</map>

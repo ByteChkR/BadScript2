@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['datadirectory_0',['DataDirectory',['../class_bad_console_directories.html#a6f57fa3ede422a5f4f4e9885b933b13a',1,'BadConsoleDirectories']]],
-  ['debug_1',['Debug',['../class_bad_run_system_settings.html#a868cbce1bb8009a3a94dec2f59bd7092',1,'BadRunSystemSettings']]],
-  ['debuggerpath_2',['DebuggerPath',['../class_bad_script_debugger_settings.html#a10d2f1219a34fb9d9be0be8aab61c67b',1,'BadScriptDebuggerSettings']]],
-  ['debuggerpathobj_3',['DebuggerPathObj',['../class_bad_script_debugger_settings.html#add2ffcd22e9e79bd49bf0264b97a4d08',1,'BadScriptDebuggerSettings']]],
-  ['directories_4',['Directories',['../class_bad_virtual_directory.html#a25effda1d2262d97016784f5795c27f8',1,'BadVirtualDirectory']]]
+  ['datadirectory_0',['DataDirectory',['../class_bad_script2_1_1_console_core_1_1_bad_console_directories.html#acc593d0222b58c452468c8efa91363d3',1,'BadScript2::ConsoleCore::BadConsoleDirectories']]],
+  ['debug_1',['Debug',['../class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_run_system_settings.html#a7afbd0a7e89f264960d68cd33380d5fa',1,'BadScript2::ConsoleCore::Systems::Run::BadRunSystemSettings']]],
+  ['debuggerpath_2',['DebuggerPath',['../class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_settings.html#a122ddfabf80c8489d592105fdad3419f',1,'BadScript2::ConsoleCore::Debugging::Scriptable::BadScriptDebuggerSettings']]],
+  ['debuggerpathobj_3',['DebuggerPathObj',['../class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_settings.html#ad1d24835e06938e24ce6a9243fff17e7',1,'BadScript2::ConsoleCore::Debugging::Scriptable::BadScriptDebuggerSettings']]],
+  ['directories_4',['Directories',['../class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_directory.html#a6819c3b559328ede6e22cd6fe02d8021',1,'BadScript2::IO::Virtual::BadVirtualDirectory']]]
 ];

@@ -1,0 +1,6 @@
+<map id="BadScript2.Common.BadParseException" name="BadScript2.Common.BadParseException">
+<area shape="rect" id="node1" title="Base Class for all BadScript Parser Exceptions" alt="" coords="28,185,231,227"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_common_1_1_bad_script_exception.html" title=" " alt="" coords="61,109,198,136"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,13,85,39"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="109,5,320,47"/>
+</map>

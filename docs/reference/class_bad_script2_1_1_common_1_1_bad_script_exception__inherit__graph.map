@@ -1,0 +1,9 @@
+<map id="BadScript2.Common.BadScriptException" name="BadScript2.Common.BadScriptException">
+<area shape="rect" id="node1" title=" " alt="" coords="133,103,336,144"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_common_1_1_bad_parse_exception.html" title="Base Class for all BadScript Parser Exceptions" alt="" coords="384,37,587,79"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error_exception.html" title="Gets thrown if the runtime encounters an error" alt="" coords="396,103,575,144"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html" title="Gets thrown by the runtime" alt="" coords="398,168,573,209"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,110,85,137"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_parser_1_1_bad_parser_exception.html" title="Gets Raised when a Parser Error occurs" alt="" coords="637,5,831,47"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_reader_1_1_bad_source_reader_exception.html" title="Gets Raised if the Reader encounters an Error" alt="" coords="635,71,833,112"/>
+</map>

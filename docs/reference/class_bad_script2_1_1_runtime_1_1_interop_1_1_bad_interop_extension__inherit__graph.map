@@ -1,0 +1,13 @@
+<map id="BadScript2.Runtime.Interop.BadInteropExtension" name="BadScript2.Runtime.Interop.BadInteropExtension">
+<area shape="rect" id="node1" title="Public Extension API for the BS2 Runtime" alt="" coords="5,300,191,341"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_extension.html" title=" " alt="" coords="239,5,493,47"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_array_extension.html" title=" " alt="" coords="265,71,467,112"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_function_extension.html" title=" " alt="" coords="255,136,477,177"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_object_extension.html" title=" " alt="" coords="261,201,471,243"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_scope_extension.html" title=" " alt="" coords="261,267,471,308"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html" title=" " alt="" coords="263,332,469,373"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_table_extension.html" title=" " alt="" coords="265,397,467,439"/>
+<area shape="rect" id="node9" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_type_system_extension.html" title=" " alt="" coords="243,463,489,504"/>
+<area shape="rect" id="node10" href="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html" title=" " alt="" coords="271,528,461,569"/>
+<area shape="rect" id="node11" href="$class_bad_script2_1_1_interop_1_1_net_1_1_bad_net_interop_extensions.html" title=" " alt="" coords="276,593,456,635"/>
+</map>

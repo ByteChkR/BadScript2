@@ -1,0 +1,10 @@
+<map id="BadScript2.Runtime.Objects.Types.BadExpressionClassPrototype" name="BadScript2.Runtime.Objects.Types.BadExpressionClassPrototype">
+<area shape="rect" id="node1" title="Implements a Class Prototype created from Bad Expressions(e.g. Source Code)" alt="" coords="1119,171,1357,212"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html" title="Implements a Class Prototype for the BadScript Language" alt="" coords="802,74,937,101"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="281,138,364,165"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html" title="Implements a Class Prototype for the BadScript Language" alt="" coords="413,102,604,143"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_runtime_1_1_bad_scope.html" title="Implements the Scope for the Script Engine" alt="" coords="768,178,971,205"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="413,219,604,260"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="5,131,196,172"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="765,230,973,271"/>
+</map>

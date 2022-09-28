@@ -1,0 +1,8 @@
+<map id="BadScript2.Reader.Token.Primitive.BadPrimitiveToken" name="BadScript2.Reader.Token.Primitive.BadPrimitiveToken">
+<area shape="rect" id="node1" title="Base class for all primitive tokens" alt="" coords="133,104,316,145"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_boolean_token.html" title="Implements a Token that represents a Boolean" alt="" coords="364,5,544,47"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_null_token.html" title="Implements a Null token" alt="" coords="367,71,541,112"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_number_token.html" title="Implements a Token that represents a Number" alt="" coords="365,136,543,177"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_string_token.html" title="Implements a Token that represents a String" alt="" coords="367,201,541,243"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_token.html" title="Base Class for All tokens." alt="" coords="5,111,85,138"/>
+</map>

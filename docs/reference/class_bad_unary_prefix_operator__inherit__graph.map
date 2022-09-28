@@ -1,7 +1,0 @@
-<map id="BadUnaryPrefixOperator" name="BadUnaryPrefixOperator">
-<area shape="rect" id="node1" title=" " alt="" coords="184,80,347,107"/>
-<area shape="rect" id="node3" href="$class_bad_logic_not_operator.html" title=" " alt="" coords="5,155,152,181"/>
-<area shape="rect" id="node4" href="$class_bad_pre_decrement_operator.html" title=" " alt="" coords="176,155,355,181"/>
-<area shape="rect" id="node5" href="$class_bad_pre_increment_operator.html" title=" " alt="" coords="379,155,551,181"/>
-<area shape="rect" id="node2" href="$class_bad_operator.html" title=" " alt="" coords="218,5,313,32"/>
-</map>

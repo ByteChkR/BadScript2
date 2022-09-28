@@ -1,0 +1,5 @@
+<map id="BadScript2.Parser.Operators.Binary.Math.Atomic.BadPreDecrementOperator" name="BadScript2.Parser.Operators.Binary.Math.Atomic.BadPreDecrementOperator">
+<area shape="rect" id="node1" title="Implements the Pre Decrement Operator" alt="" coords="5,155,252,211"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_unary_prefix_operator.html" title="Base class for all Unary Prefix Operators" alt="" coords="47,80,210,107"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html" title="Base Class of All Operators" alt="" coords="81,5,176,32"/>
+</map>

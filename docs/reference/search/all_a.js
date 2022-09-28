@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['joinpath_0',['JoinPath',['../class_bad_virtual_path_reader.html#adda06495a2fc0928229b01df3b4dd738',1,'BadVirtualPathReader']]],
-  ['jsinterop_2ecs_1',['JSInterop.cs',['../_j_s_interop_8cs.html',1,'']]]
+  ['keys_0',['Keys',['../class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_table_extension.html#a32b31c749d5d83d902d7c74d4bf08875',1,'BadScript2::Interop::Common::Extensions::BadTableExtension']]]
 ];

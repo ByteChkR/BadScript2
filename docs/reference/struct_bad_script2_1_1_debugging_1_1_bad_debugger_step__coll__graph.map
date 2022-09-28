@@ -1,0 +1,10 @@
+<map id="BadScript2.Debugging.BadDebuggerStep" name="BadScript2.Debugging.BadDebuggerStep">
+<area shape="rect" id="node1" title="Represents a Debugging Step" alt="" coords="1380,73,1559,115"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1063,22,1275,49"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_bad_execution_context.html" title="The Execution Context. Every execution of a script needs a context the script is running in...." alt="" coords="1057,73,1280,115"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_bad_scope.html" title="Implements the Scope for the Script Engine" alt="" coords="765,81,968,107"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="281,81,364,107"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="413,103,604,144"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="5,73,196,115"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="1063,139,1274,180"/>
+</map>

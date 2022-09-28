@@ -85,18 +85,23 @@ $(document).ready(function(){initNavTree('_bad_virtual_file_stream_8cs_source.ht
   <div class="headertitle"><div class="title">BadVirtualFileStream.cs</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_bad_virtual_file_stream_8cs.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">namespace </span>BadScript2.IO.Virtual;</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">internal</span> <span class="keyword">class </span>BadVirtualFileStream : MemoryStream</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keyword">public</span> <span class="keyword">event</span> Action? OnDispose;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">protected</span> <span class="keyword">override</span> <span class="keywordtype">void</span> Dispose(<span class="keywordtype">bool</span> disposing)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        base.Dispose(disposing);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        OnDispose?.Invoke();</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    }</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+<a href="_bad_virtual_file_stream_8cs.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_bad_script2_1_1_i_o_1_1_virtual.html">BadScript2.IO.Virtual</a></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html">    6</a></span>    <span class="keyword">internal</span> <span class="keyword">class </span><a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html">BadVirtualFileStream</a> : MemoryStream</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#aaf7be4fd0d12ed683cda61bd66920f7f">   11</a></span>        <span class="keyword">public</span> <span class="keyword">event</span> Action? <a class="code hl_event" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#aaf7be4fd0d12ed683cda61bd66920f7f">OnDispose</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#a6a2eb858363fd42f797e62d8ad37da5f">   13</a></span>        <span class="keyword">protected</span> <span class="keyword">override</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#a6a2eb858363fd42f797e62d8ad37da5f">Dispose</a>(<span class="keywordtype">bool</span> disposing)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            base.Dispose(disposing);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <a class="code hl_event" href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#aaf7be4fd0d12ed683cda61bd66920f7f">OnDispose</a>?.Invoke();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        }</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream_html"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html">BadScript2.IO.Virtual.BadVirtualFileStream</a></div><div class="ttdoc">Implements a special memory stream that can be used to read and write to a virtual file</div><div class="ttdef"><b>Definition:</b> <a href="_bad_virtual_file_stream_8cs_source.html#l00006">BadVirtualFileStream.cs:7</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream_html_a6a2eb858363fd42f797e62d8ad37da5f"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#a6a2eb858363fd42f797e62d8ad37da5f">BadScript2.IO.Virtual.BadVirtualFileStream.Dispose</a></div><div class="ttdeci">override void Dispose(bool disposing)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_virtual_file_stream_8cs_source.html#l00013">BadVirtualFileStream.cs:13</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream_html_aaf7be4fd0d12ed683cda61bd66920f7f"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_stream.html#aaf7be4fd0d12ed683cda61bd66920f7f">BadScript2.IO.Virtual.BadVirtualFileStream.OnDispose</a></div><div class="ttdeci">Action? OnDispose</div><div class="ttdoc">On Dispose Event</div><div class="ttdef"><b>Definition:</b> <a href="_bad_virtual_file_stream_8cs_source.html#l00011">BadVirtualFileStream.cs:11</a></div></div>
+<div class="ttc" id="anamespace_bad_script2_1_1_i_o_1_1_virtual_html"><div class="ttname"><a href="namespace_bad_script2_1_1_i_o_1_1_virtual.html">BadScript2.IO.Virtual</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_virtual_directory_8cs_source.html#l00003">BadVirtualDirectory.cs:4</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

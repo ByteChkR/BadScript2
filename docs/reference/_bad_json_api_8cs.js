@@ -1,4 +1,4 @@
 var _bad_json_api_8cs =
 [
-    [ "BadJsonApi", "class_bad_json_api.html", "class_bad_json_api" ]
+    [ "BadScript2.Interop.Json.BadJsonApi", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api.html", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api" ]
 ];

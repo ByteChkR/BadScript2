@@ -1,8 +1,0 @@
-<map id="BadPrimitiveToken" name="BadPrimitiveToken">
-<area shape="rect" id="node1" title=" " alt="" coords="212,80,341,107"/>
-<area shape="rect" id="node3" href="$class_bad_boolean_token.html" title=" " alt="" coords="5,155,132,181"/>
-<area shape="rect" id="node4" href="$class_bad_null_token.html" title=" " alt="" coords="156,155,259,181"/>
-<area shape="rect" id="node5" href="$class_bad_number_token.html" title=" " alt="" coords="283,155,409,181"/>
-<area shape="rect" id="node6" href="$class_bad_string_token.html" title=" " alt="" coords="433,155,547,181"/>
-<area shape="rect" id="node2" href="$class_bad_token.html" title=" " alt="" coords="237,5,317,32"/>
-</map>

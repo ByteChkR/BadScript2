@@ -1,0 +1,5 @@
+<map id="BadScript2.Parser.Operators.Binary.Comparison.BadGreaterThanOperator" name="BadScript2.Parser.Operators.Binary.Comparison.BadGreaterThanOperator">
+<area shape="rect" id="node1" title="Implements the Greater Than Operator" alt="" coords="5,155,236,211"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="55,80,187,107"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html" title="Base Class of All Operators" alt="" coords="73,5,168,32"/>
+</map>

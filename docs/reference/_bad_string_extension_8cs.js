@@ -1,4 +1,4 @@
 var _bad_string_extension_8cs =
 [
-    [ "BadStringExtension", "class_bad_string_extension.html", "class_bad_string_extension" ]
+    [ "BadScript2.Interop.Common.Extensions.BadStringExtension", "class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html", "class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension" ]
 ];

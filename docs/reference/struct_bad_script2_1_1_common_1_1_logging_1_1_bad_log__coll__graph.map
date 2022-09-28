@@ -1,0 +1,6 @@
+<map id="BadScript2.Common.Logging.BadLog" name="BadScript2.Common.Logging.BadLog">
+<area shape="rect" id="node1" title="Represents a Log Message" alt="" coords="316,125,511,166"/>
+<area shape="rect" id="node2" title=" " alt="" coords="35,5,186,32"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html" title="Implements a Mask for Log Messages" alt="" coords="13,125,208,166"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="5,190,216,231"/>
+</map>

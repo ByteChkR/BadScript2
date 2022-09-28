@@ -1,0 +1,7 @@
+<map id="BadScript2.Runtime.Objects.Native.BadNumber" name="BadScript2.Runtime.Objects.Native.BadNumber">
+<area shape="rect" id="node1" title="Implements a Native Number" alt="" coords="57,229,247,271"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_native.html" title=" " alt="" coords="5,155,155,181"/>
+<area shape="rect" id="node3" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html" title="Implements the Interface for Native Numbers" alt="" coords="179,155,272,181"/>
+<area shape="rect" id="node4" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html" title="Defines properties for Native Types" alt="" coords="184,80,267,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="141,5,309,32"/>
+</map>

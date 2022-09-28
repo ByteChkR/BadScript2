@@ -1,0 +1,4 @@
+var class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_extension =
+[
+    [ "AddExtensions", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_extension.html#aba4c9b1c1a092460c3d58f46ac56e960", null ]
+];

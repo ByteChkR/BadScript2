@@ -1,4 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bad_settings_provider.html" title=" " alt="" coords="5,5,192,47"/>
-<area shape="rect" id="node2" href="$class_bad_task_runner_settings.html" title=" " alt="" coords="240,13,403,39"/>
+<area shape="rect" id="node1" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_token.html" title="Base Class for All tokens." alt="" coords="5,71,180,112"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_symbol_token.html" title="Implements a Symbol Token" alt="" coords="232,5,407,47"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_word_token.html" title="Implements a WordToken" alt="" coords="232,71,407,112"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_primitive_token.html" title="Base class for all primitive tokens" alt="" coords="228,136,411,177"/>
+<area shape="rect" id="node5" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_boolean_token.html" title="Implements a Token that represents a Boolean" alt="" coords="459,37,639,79"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_null_token.html" title="Implements a Null token" alt="" coords="461,103,636,144"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_number_token.html" title="Implements a Token that represents a Number" alt="" coords="459,168,638,209"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_string_token.html" title="Implements a Token that represents a String" alt="" coords="461,233,636,275"/>
 </map>

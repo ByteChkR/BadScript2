@@ -1,0 +1,6 @@
+<map id="BadScript2.Reader.Token.Primitive.BadNumberToken" name="BadScript2.Reader.Token.Primitive.BadNumberToken">
+<area shape="rect" id="node1" title="Implements a Token that represents a Number" alt="" coords="21,261,200,303"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_primitive_token.html" title="Base class for all primitive tokens" alt="" coords="46,185,175,212"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_token.html" title="Base Class for All tokens." alt="" coords="71,109,151,136"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="5,5,216,47"/>
+</map>

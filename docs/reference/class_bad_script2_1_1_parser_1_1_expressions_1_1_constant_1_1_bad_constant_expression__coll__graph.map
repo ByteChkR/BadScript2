@@ -1,0 +1,5 @@
+<map id="BadScript2.Parser.Expressions.Constant.BadConstantExpression&lt; T &gt;" name="BadScript2.Parser.Expressions.Constant.BadConstantExpression&lt; T &gt;">
+<area shape="rect" id="node1" title="Base Class of all Constant Expressions" alt="" coords="12,80,261,121"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node3" href="$interface_bad_script2_1_1_parser_1_1_expressions_1_1_constant_1_1_i_bad_native_expression.html" title="Gets implemented by all Constant/Native Expressions to provide fast access to the value without unwra..." alt="" coords="140,5,288,32"/>
+</map>

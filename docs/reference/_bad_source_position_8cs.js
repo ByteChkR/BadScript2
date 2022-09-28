@@ -1,4 +1,4 @@
 var _bad_source_position_8cs =
 [
-    [ "BadSourcePosition", "class_bad_source_position.html", "class_bad_source_position" ]
+    [ "BadScript2.Common.BadSourcePosition", "class_bad_script2_1_1_common_1_1_bad_source_position.html", "class_bad_script2_1_1_common_1_1_bad_source_position" ]
 ];
