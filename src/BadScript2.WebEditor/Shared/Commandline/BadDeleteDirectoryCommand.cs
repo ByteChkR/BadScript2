@@ -1,20 +1,21 @@
 using BadScript2.IO;
 
-namespace BadScript2.WebEditor.Shared.Commandline;
-
-public class BadDeleteDirectoryCommand : BadConsoleCommand
+namespace BadScript2.WebEditor.Shared.Commandline
 {
-    public BadDeleteDirectoryCommand() : base(
-        "deletedir",
-        "Deletes a Directory at the specified path",
-        new[] { "deldir", "rmdir" },
-        new[] { "filepath" }
-    ) { }
-
-    public override string Execute(string args)
+    public class BadDeleteDirectoryCommand : BadConsoleCommand
     {
-        BadFileSystem.Instance.DeleteDirectory(args, true);
+        public BadDeleteDirectoryCommand() : base(
+            "deletedir",
+            "Deletes a Directory at the specified path",
+            new[] { "deldir", "rmdir" },
+            new[] { "filepath" }
+        ) { }
 
-        return $"Directory '{BadFileSystem.Instance.GetFullPath(args)}' deleted";
+        public override string Execute(string args)
+        {
+            BadFileSystem.Instance.DeleteDirectory(args, true);
+
+            return $"Directory '{BadFileSystem.Instance.GetFullPath(args)}' deleted";
+        }
     }
 }

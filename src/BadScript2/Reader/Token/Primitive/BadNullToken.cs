@@ -1,17 +1,18 @@
 using BadScript2.Common;
 
-namespace BadScript2.Reader.Token.Primitive;
-
-/// <summary>
-/// Implements a Null token
-/// </summary>
-public class BadNullToken : BadPrimitiveToken
+namespace BadScript2.Reader.Token.Primitive
 {
     /// <summary>
-    /// Constructor for the Null token
+    ///     Implements a Null token
     /// </summary>
-    /// <param name="position">Source Position of the Token</param>
-    public BadNullToken(BadSourcePosition position) : base(position) { }
+    public class BadNullToken : BadPrimitiveToken
+    {
+        /// <summary>
+        ///     Constructor for the Null token
+        /// </summary>
+        /// <param name="position">Source Position of the Token</param>
+        public BadNullToken(BadSourcePosition position) : base(position) { }
 
-    public override BadPrimitiveType Type => BadPrimitiveType.Null;
+        public override BadPrimitiveType Type => BadPrimitiveType.Null;
+    }
 }

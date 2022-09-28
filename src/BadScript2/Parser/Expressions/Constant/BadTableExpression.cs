@@ -4,66 +4,67 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Constant;
-
-/// <summary>
-/// Implements the Table Expression
-/// </summary>
-public class BadTableExpression : BadExpression
+namespace BadScript2.Parser.Expressions.Constant
 {
     /// <summary>
-    /// The Initializer List of the Table
+    ///     Implements the Table Expression
     /// </summary>
-    private readonly Dictionary<BadWordToken, BadExpression> m_Table;
-
-    /// <summary>
-    /// Constructor of the Table Expression
-    /// </summary>
-    /// <param name="table">The Initializer List</param>
-    /// <param name="position">The Source Position of the Expression</param>
-    public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public class BadTableExpression : BadExpression
     {
-        m_Table = table;
-    }
+        /// <summary>
+        ///     The Initializer List of the Table
+        /// </summary>
+        private readonly Dictionary<BadWordToken, BadExpression> m_Table;
 
-    /// <summary>
-    /// The Initializer List of the Table
-    /// </summary>
-    public IDictionary<BadWordToken, BadExpression> Table => m_Table;
-
-    public override void Optimize()
-    {
-        KeyValuePair<BadWordToken, BadExpression>[] branches = m_Table.ToArray();
-        m_Table.Clear();
-        foreach (KeyValuePair<BadWordToken, BadExpression> branch in branches)
+        /// <summary>
+        ///     Constructor of the Table Expression
+        /// </summary>
+        /// <param name="table">The Initializer List</param>
+        /// <param name="position">The Source Position of the Expression</param>
+        public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
+            false,
+            position
+        )
         {
-            m_Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
+            m_Table = table;
         }
-    }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();
-        foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
+        /// <summary>
+        ///     The Initializer List of the Table
+        /// </summary>
+        public IDictionary<BadWordToken, BadExpression> Table => m_Table;
+
+        public override void Optimize()
         {
-            BadObject key = BadObject.Wrap(entry.Key.Text);
-
-            BadObject value = BadObject.Null;
-            foreach (BadObject o in entry.Value.Execute(context))
+            KeyValuePair<BadWordToken, BadExpression>[] branches = m_Table.ToArray();
+            m_Table.Clear();
+            foreach (KeyValuePair<BadWordToken, BadExpression> branch in branches)
             {
-                value = o;
+                m_Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
+            }
+        }
 
-                yield return o;
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();
+            foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
+            {
+                BadObject key = BadObject.Wrap(entry.Key.Text);
+
+                BadObject value = BadObject.Null;
+                foreach (BadObject o in entry.Value.Execute(context))
+                {
+                    value = o;
+
+                    yield return o;
+                }
+
+                value = value.Dereference();
+
+                table[key] = value;
             }
 
-            value = value.Dereference();
-
-            table[key] = value;
+            yield return new BadTable(table);
         }
-
-        yield return new BadTable(table);
     }
 }

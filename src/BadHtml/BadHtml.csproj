@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj" />
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+    </ItemGroup>
+
+</Project>

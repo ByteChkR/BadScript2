@@ -1,43 +1,44 @@
 using BadScript2.ConsoleCore.Systems;
 
-namespace BadScript2.ConsoleCore;
-
-public class BadConsoleRunner
+namespace BadScript2.ConsoleCore
 {
-    private readonly BadConsoleSystem m_Default;
-    private readonly BadConsoleSystem[] m_Systems;
-
-    public BadConsoleRunner(BadConsoleSystem @default, params BadConsoleSystem[] systems)
+    public class BadConsoleRunner
     {
-        m_Default = @default;
-        m_Systems = systems;
-    }
+        private readonly BadConsoleSystem m_Default;
+        private readonly BadConsoleSystem[] m_Systems;
 
-    public int Run(string[] args)
-    {
-        while (args.Length == 0)
+        public BadConsoleRunner(BadConsoleSystem @default, params BadConsoleSystem[] systems)
         {
-            Console.WriteLine("No command specified.");
-            Console.WriteLine("Usage: bs <system> [args]");
-            Console.WriteLine("Available systems:");
-            foreach (BadConsoleSystem sys in m_Systems)
+            m_Default = @default;
+            m_Systems = systems;
+        }
+
+        public int Run(string[] args)
+        {
+            while (args.Length == 0)
             {
-                Console.WriteLine($"\t{sys.Name}");
+                Console.WriteLine("No command specified.");
+                Console.WriteLine("Usage: bs <system> [args]");
+                Console.WriteLine("Available systems:");
+                foreach (BadConsoleSystem sys in m_Systems)
+                {
+                    Console.WriteLine($"\t{sys.Name}");
+                }
+
+                Console.Write("Input start arguments: ");
+
+                args = Console.ReadLine()!.Split(' ');
             }
 
-            Console.Write("Input start arguments: ");
+            string name = args[0];
+            BadConsoleSystem? system = m_Systems.FirstOrDefault(x => x.Name == name);
 
-            args = Console.ReadLine()!.Split(' ');
+            if (system == null)
+            {
+                return m_Default.Run(m_Default.Parse(args));
+            }
+
+            return system.Run(system.Parse(args.Skip(1).ToArray()));
         }
-
-        string name = args[0];
-        BadConsoleSystem? system = m_Systems.FirstOrDefault(x => x.Name == name);
-
-        if (system == null)
-        {
-            return m_Default.Run(m_Default.Parse(args));
-        }
-
-        return system.Run(system.Parse(args.Skip(1).ToArray()));
     }
 }

@@ -3,77 +3,78 @@ using BadScript2.Optimizations;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.ControlFlow;
-
-/// <summary>
-/// Implements the Return expression that is used to exit the current function with an Optional Return Value.
-/// </summary>
-public class BadReturnExpression : BadExpression
+namespace BadScript2.Parser.Expressions.ControlFlow
 {
     /// <summary>
-    /// Constructor of the Return Expression
+    ///     Implements the Return expression that is used to exit the current function with an Optional Return Value.
     /// </summary>
-    /// <param name="right">The (optional) return value</param>
-    /// <param name="position">Source Position of the Expression</param>
-    /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
-    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
-        false,
-        position
-    )
+    public class BadReturnExpression : BadExpression
     {
-        Right = right;
-        IsRefReturn = isRefReturn;
-    }
-
-    /// <summary>
-    /// Indicates if the return value is meant to be a reference
-    /// </summary>
-    public bool IsRefReturn { get; }
-
-    /// <summary>
-    /// The (optional) return value
-    /// </summary>
-    public BadExpression? Right { get; private set; }
-
-    public override void Optimize()
-    {
-        if (Right != null)
+        /// <summary>
+        ///     Constructor of the Return Expression
+        /// </summary>
+        /// <param name="right">The (optional) return value</param>
+        /// <param name="position">Source Position of the Expression</param>
+        /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
+        public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
+            false,
+            position
+        )
         {
-            Right = BadExpressionOptimizer.Optimize(Right);
+            Right = right;
+            IsRefReturn = isRefReturn;
         }
-    }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject value = BadObject.Null;
-        if (Right == null)
+        /// <summary>
+        ///     Indicates if the return value is meant to be a reference
+        /// </summary>
+        public bool IsRefReturn { get; }
+
+        /// <summary>
+        ///     The (optional) return value
+        /// </summary>
+        public BadExpression? Right { get; private set; }
+
+        public override void Optimize()
         {
+            if (Right != null)
+            {
+                Right = BadExpressionOptimizer.Optimize(Right);
+            }
+        }
+
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            BadObject value = BadObject.Null;
+            if (Right == null)
+            {
+                context.Scope.SetReturnValue(value);
+
+                yield return value;
+
+                yield break;
+            }
+
+            foreach (BadObject obj in Right.Execute(context))
+            {
+                value = obj;
+
+                yield return obj;
+            }
+
+            if (!IsRefReturn)
+            {
+                value = value.Dereference();
+            }
+
             context.Scope.SetReturnValue(value);
 
             yield return value;
-
-            yield break;
         }
 
-        foreach (BadObject obj in Right.Execute(context))
+        public override string ToString()
         {
-            value = obj;
-
-            yield return obj;
+            return "return " + Right ?? "";
         }
-
-        if (!IsRefReturn)
-        {
-            value = value.Dereference();
-        }
-
-        context.Scope.SetReturnValue(value);
-
-        yield return value;
-    }
-
-    public override string ToString()
-    {
-        return "return " + Right ?? "";
     }
 }

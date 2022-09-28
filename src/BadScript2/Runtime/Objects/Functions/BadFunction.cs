@@ -5,189 +5,253 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
+using BadScript2.Utility;
 
-namespace BadScript2.Runtime.Objects.Functions;
-
-public abstract class BadFunction : BadObject
+namespace BadScript2.Runtime.Objects.Functions
 {
-    public readonly bool IsConstant;
-    private readonly Dictionary<int, BadObject> m_Cache = new Dictionary<int, BadObject>();
-    public readonly BadWordToken? Name;
-    public readonly BadFunctionParameter[] Parameters;
-
-    protected BadFunction(BadWordToken? name, bool isConstant, params BadFunctionParameter[] parameters)
+    /// <summary>
+    ///     Implements a function that can be called from the script
+    /// </summary>
+    public abstract class BadFunction : BadObject
     {
-        Name = name;
-        IsConstant = isConstant;
-        Parameters = parameters;
-    }
+        /// <summary>
+        ///     Indicates if the function has no side effects and the result can be cached
+        /// </summary>
+        public readonly bool IsConstant;
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return BadNativeClassBuilder.GetNative("Function");
-    }
+        /// <summary>
+        ///     The Result Cache
+        /// </summary>
+        private readonly Dictionary<int, BadObject> m_Cache = new Dictionary<int, BadObject>();
 
-    public virtual BadFunction BindParentScope(BadScope scope)
-    {
-        return this;
-    }
+        /// <summary>
+        ///     (optional) Name of the Function
+        /// </summary>
+        public readonly BadWordToken? Name;
 
-    protected void CheckParameters(BadObject[] args)
-    {
-        for (int i = 0; i < Parameters.Length; i++)
+        /// <summary>
+        ///     The Function Parameters
+        /// </summary>
+        public readonly BadFunctionParameter[] Parameters;
+
+        /// <summary>
+        ///     Creates a new Function
+        /// </summary>
+        /// <param name="name">(optional) Function Name</param>
+        /// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
+        /// <param name="parameters">The function parameters</param>
+        protected BadFunction(BadWordToken? name, bool isConstant, params BadFunctionParameter[] parameters)
         {
-            BadFunctionParameter parameter = Parameters[i];
-            if (parameter.IsRestArgs)
-            {
-                //Do Nothing
-            }
-            else if (args.Length <= i)
-            {
-                if (!parameter.IsOptional)
-                {
-                    throw new BadRuntimeException(
-                        $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'"
-                    );
-                }
-            }
-            else
-            {
-                if (parameter.IsNullChecked && args[i] == Null)
-                {
-                    throw new BadRuntimeException(
-                        $"Null value not allowed for '{this}' parameter '{parameter}'"
-                    );
-                }
-            }
+            Name = name;
+            IsConstant = isConstant;
+            Parameters = parameters;
         }
-    }
 
-    public void ApplyParameters(BadExecutionContext context, BadObject[] args, BadSourcePosition? position = null)
-    {
-        for (int i = 0; i < Parameters.Length; i++)
+        public override BadClassPrototype GetPrototype()
         {
-            BadFunctionParameter parameter = Parameters[i];
-            if (parameter.IsRestArgs)
+            return BadNativeClassBuilder.GetNative("Function");
+        }
+
+        /// <summary>
+        ///     Returns an instance that is bound to the given scope
+        /// </summary>
+        /// <param name="scope">Scope to bind to</param>
+        /// <returns>Function Instance</returns>
+        public virtual BadFunction BindParentScope(BadScope scope)
+        {
+            return this;
+        }
+
+        /// <summary>
+        ///     Checks Parameters for the given function call
+        /// </summary>
+        /// <param name="args">Arguments provided for the invocation</param>
+        /// <exception cref="BadRuntimeException">Gets raised if the Parameters are invalid for the function</exception>
+        protected void CheckParameters(BadObject[] args)
+        {
+            for (int i = 0; i < Parameters.Length; i++)
             {
-                context.Scope.DefineVariable(
-                    parameter.Name,
-                    new BadArray(args.Skip(i).ToList()),
-                    new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array"))
-                );
-            }
-            else if (args.Length <= i)
-            {
-                if (parameter.IsOptional)
+                BadFunctionParameter parameter = Parameters[i];
+                if (parameter.IsRestArgs)
                 {
-                    context.Scope.DefineVariable(parameter.Name, Null, new BadPropertyInfo(parameter.Type));
+                    //Do Nothing
+                }
+                else if (args.Length <= i)
+                {
+                    if (!parameter.IsOptional)
+                    {
+                        throw new BadRuntimeException(
+                            $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'"
+                        );
+                    }
                 }
                 else
                 {
-                    if (position != null)
+                    if (parameter.IsNullChecked && args[i] == Null)
                     {
                         throw new BadRuntimeException(
-                            $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'",
-                            position
+                            $"Null value not allowed for '{this}' parameter '{parameter}'"
                         );
                     }
-
-                    throw new BadRuntimeException(
-                        $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'"
-                    );
                 }
             }
-            else
+        }
+
+        /// <summary>
+        ///     Applies the function arguments to the context of the function
+        /// </summary>
+        /// <param name="context">Function Context</param>
+        /// <param name="args">Arguments</param>
+        /// <param name="position">Source Position used for raising exceptions</param>
+        /// <exception cref="BadRuntimeException">Gets raised if the arguments can not be set in the context.</exception>
+        public void ApplyParameters(BadExecutionContext context, BadObject[] args, BadSourcePosition? position = null)
+        {
+            for (int i = 0; i < Parameters.Length; i++)
             {
-                if (parameter.IsNullChecked && args[i] == Null)
+                BadFunctionParameter parameter = Parameters[i];
+                if (parameter.IsRestArgs)
                 {
-                    if (position != null)
+                    context.Scope.DefineVariable(
+                        parameter.Name,
+                        new BadArray(args.Skip(i).ToList()),
+                        new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array"))
+                    );
+                }
+                else if (args.Length <= i)
+                {
+                    if (parameter.IsOptional)
                     {
+                        context.Scope.DefineVariable(parameter.Name, Null, new BadPropertyInfo(parameter.Type));
+                    }
+                    else
+                    {
+                        if (position != null)
+                        {
+                            throw new BadRuntimeException(
+                                $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'",
+                                position
+                            );
+                        }
+
                         throw new BadRuntimeException(
-                            $"Null value not allowed for '{this}' parameter '{parameter}'",
-                            position
+                            $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'"
+                        );
+                    }
+                }
+                else
+                {
+                    if (parameter.IsNullChecked && args[i] == Null)
+                    {
+                        if (position != null)
+                        {
+                            throw new BadRuntimeException(
+                                $"Null value not allowed for '{this}' parameter '{parameter}'",
+                                position
+                            );
+                        }
+
+                        throw new BadRuntimeException(
+                            $"Null value not allowed for '{this}' parameter '{parameter}'"
                         );
                     }
 
-                    throw new BadRuntimeException(
-                        $"Null value not allowed for '{this}' parameter '{parameter}'"
-                    );
+                    context.Scope.DefineVariable(parameter.Name, args[i], new BadPropertyInfo(parameter.Type));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Returns the Hash of the function arguments
+        /// </summary>
+        /// <param name="args">Arguments</param>
+        /// <returns>The Hash for the arguments</returns>
+        private int? GetHash(BadObject[] args)
+        {
+            int hash = 0;
+
+            //Generate Hash from arguments
+            foreach (BadObject o in args)
+            {
+                if (o is not IBadNative native)
+                {
+                    return null;
                 }
 
-                context.Scope.DefineVariable(parameter.Name, args[i], new BadPropertyInfo(parameter.Type));
+                if (hash == 0)
+                {
+                    hash = native.Value.GetHashCode();
+                }
+                else
+                {
+                    hash = BadHashCode.Combine(hash, native.Value);
+                }
             }
+
+            return hash;
         }
-    }
 
-    private int? GetHash(BadObject[] args)
-    {
-        int hash = 0;
-
-        //Generate Hash from arguments
-        foreach (BadObject o in args)
+        /// <summary>
+        ///     Invokes the function with the specified arguments
+        /// </summary>
+        /// <param name="args">Function Arguments</param>
+        /// <param name="caller">The Calling Context</param>
+        /// <returns>Enumeration of BadObjects</returns>
+        public IEnumerable<BadObject> Invoke(BadObject[] args, BadExecutionContext caller)
         {
-            if (o is not IBadNative native)
+            if (IsConstant && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
             {
-                return null;
+                int? hash = GetHash(args);
+                if (hash != null && m_Cache.ContainsKey(hash.Value))
+                {
+                    BadLogger.Warn($"Found Cached value with Hash {hash}", "Runtime");
+
+                    yield return m_Cache[hash.Value];
+
+                    yield break;
+                }
             }
 
-            if (hash == 0)
+            BadObject? ret = null;
+            foreach (BadObject o in InvokeBlock(args, caller))
             {
-                hash = native.Value.GetHashCode();
+                ret = o;
+
+                yield return o;
             }
-            else
+
+            if (IsConstant && ret != null && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
             {
-                hash = HashCode.Combine(hash, native.Value);
+                int? hash = GetHash(args);
+                if (hash != null)
+                {
+                    BadLogger.Warn($"Caching Result {ret.ToSafeString()} for function '{GetHeader()}'", "Runtime");
+                    m_Cache[hash.Value] = ret;
+                }
             }
         }
 
-        return hash;
-    }
+        /// <summary>
+        ///     Invokes the function with the specified arguments
+        /// </summary>
+        /// <param name="args">Function Arguments</param>
+        /// <param name="caller">The Calling Context</param>
+        /// <returns>Enumeration of BadObjects</returns>
+        protected abstract IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller);
 
-    public IEnumerable<BadObject> Invoke(BadObject[] args, BadExecutionContext caller)
-    {
-        if (IsConstant && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
+
+        /// <summary>
+        ///     Returns the Header of the function
+        /// </summary>
+        /// <returns>String Header</returns>
+        public string GetHeader()
         {
-            int? hash = GetHash(args);
-            if (hash != null && m_Cache.ContainsKey(hash.Value))
-            {
-                BadLogger.Warn($"Found Cached value with Hash {hash}", "Runtime");
-
-                yield return m_Cache[hash.Value];
-
-                yield break;
-            }
+            return
+                $"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
         }
 
-        BadObject? ret = null;
-        foreach (BadObject o in InvokeBlock(args, caller))
+        public override string ToSafeString(List<BadObject> done)
         {
-            ret = o;
-
-            yield return o;
+            return GetHeader();
         }
-
-        if (IsConstant && ret != null && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
-        {
-            int? hash = GetHash(args);
-            if (hash != null)
-            {
-                BadLogger.Warn($"Caching Result {ret.ToSafeString()} for function '{GetHeader()}'", "Runtime");
-                m_Cache[hash.Value] = ret;
-            }
-        }
-    }
-
-    protected abstract IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller);
-
-
-    public string GetHeader()
-    {
-        return
-            $"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
-    }
-
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return GetHeader();
     }
 }

@@ -1,18 +1,19 @@
-namespace BadScript2.IO.Virtual;
-
-/// <summary>
-/// Implements a special memory stream that can be used to read and write to a virtual file
-/// </summary>
-internal class BadVirtualFileStream : MemoryStream
+namespace BadScript2.IO.Virtual
 {
     /// <summary>
-    /// On Dispose Event
+    ///     Implements a special memory stream that can be used to read and write to a virtual file
     /// </summary>
-    public event Action? OnDispose;
-
-    protected override void Dispose(bool disposing)
+    internal class BadVirtualFileStream : MemoryStream
     {
-        base.Dispose(disposing);
-        OnDispose?.Invoke();
+        /// <summary>
+        ///     On Dispose Event
+        /// </summary>
+        public event Action? OnDispose;
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            OnDispose?.Invoke();
+        }
     }
 }

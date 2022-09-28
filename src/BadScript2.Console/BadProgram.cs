@@ -17,65 +17,66 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
 
-namespace BadScript2.Console;
-
-internal static class BadProgram
+namespace BadScript2.Console
 {
-    private const string SETTINGS_FILE = "Settings.json";
-
-    private static void LoadSettings()
+    internal static class BadProgram
     {
-        BadLogger.Log("Loading Settings...", "Settings");
-        BadSettings consoleSettings = new BadSettings();
-        string rootDir = BadFileSystem.Instance.GetStartupDirectory();
-        rootDir = rootDir.Remove(rootDir.Length - 1, 1);
+        private const string SETTINGS_FILE = "Settings.json";
 
-        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
-        consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
-        BadSettings root = new BadSettings();
-        root.SetProperty("Console", consoleSettings);
-        BadSettingsReader settingsReader = new BadSettingsReader(
-            root,
-            Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE)
-        );
+        private static void LoadSettings()
+        {
+            BadLogger.Log("Loading Settings...", "Settings");
+            BadSettings consoleSettings = new BadSettings();
+            string rootDir = BadFileSystem.Instance.GetStartupDirectory();
+            rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
-        BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
-        BadLogger.Log("Settings loaded!", "Settings");
-    }
+            consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
+            consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
+            BadSettings root = new BadSettings();
+            root.SetProperty("Console", consoleSettings);
+            BadSettingsReader settingsReader = new BadSettingsReader(
+                root,
+                Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE)
+            );
 
-    private static int Main(string[] args)
-    {
-        using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
-        cWriter.Register();
-        BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
-        lWriter.Register();
+            BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
+            BadLogger.Log("Settings loaded!", "Settings");
+        }
 
-
-        LoadSettings();
-        BadNativeClassBuilder.AddNative(BadTask.Prototype);
-        BadCommonInterop.AddExtensions();
-        BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-        BadInteropExtension.AddExtension<BadNetInteropExtensions>();
-
-        BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-        BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadNetApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadCompressionApi());
+        private static int Main(string[] args)
+        {
+            using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
+            cWriter.Register();
+            BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
+            lWriter.Register();
 
 
-        BadConsoleRunner runner = new BadConsoleRunner(
-            new BadDefaultRunSystem(),
-            new BadTestSystem(),
-            new BadRunSystem(),
-            new BadSettingsSystem()
-        );
+            LoadSettings();
+            BadNativeClassBuilder.AddNative(BadTask.Prototype);
+            BadCommonInterop.AddExtensions();
+            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
+            BadInteropExtension.AddExtension<BadNetInteropExtensions>();
+
+            BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
+            BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
+            BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
+            BadExecutionContextOptions.Default.Apis.Add(new BadNetApi());
+            BadExecutionContextOptions.Default.Apis.Add(new BadCompressionApi());
 
 
-        int r = runner.Run(args);
-        lWriter.Dispose();
+            BadConsoleRunner runner = new BadConsoleRunner(
+                new BadDefaultRunSystem(),
+                new BadTestSystem(),
+                new BadRunSystem(),
+                new BadSettingsSystem()
+            );
 
 
-        return r;
+            int r = runner.Run(args);
+            lWriter.Dispose();
+
+
+            return r;
+        }
     }
 }

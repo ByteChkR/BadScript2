@@ -3,35 +3,36 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Interop.Common.Extensions;
-
-public class BadScopeExtension : BadInteropExtension
+namespace BadScript2.Interop.Common.Extensions
 {
-    protected override void AddExtensions()
+    public class BadScopeExtension : BadInteropExtension
     {
-        RegisterObject<BadScope>(
-            "GetLocals",
-            o => new BadDynamicInteropFunction(
+        protected override void AddExtensions()
+        {
+            RegisterObject<BadScope>(
                 "GetLocals",
-                _ => GetLocals(o)
-            )
-        );
-        RegisterObject<BadScope>(
-            "GetParent",
-            o => new BadDynamicInteropFunction(
+                o => new BadDynamicInteropFunction(
+                    "GetLocals",
+                    _ => GetLocals(o)
+                )
+            );
+            RegisterObject<BadScope>(
                 "GetParent",
-                _ => GetParent(o)
-            )
-        );
-    }
+                o => new BadDynamicInteropFunction(
+                    "GetParent",
+                    _ => GetParent(o)
+                )
+            );
+        }
 
-    private BadObject GetParent(BadScope scope)
-    {
-        return scope.Parent ?? BadObject.Null;
-    }
+        private BadObject GetParent(BadScope scope)
+        {
+            return scope.Parent ?? BadObject.Null;
+        }
 
-    private BadObject GetLocals(BadScope scope)
-    {
-        return scope.GetTable();
+        private BadObject GetLocals(BadScope scope)
+        {
+            return scope.GetTable();
+        }
     }
 }

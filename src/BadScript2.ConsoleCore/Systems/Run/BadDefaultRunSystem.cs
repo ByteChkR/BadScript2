@@ -1,13 +1,14 @@
-namespace BadScript2.ConsoleCore.Systems.Run;
-
-public class BadDefaultRunSystem : BadRunSystem
+namespace BadScript2.ConsoleCore.Systems.Run
 {
-    public override object? Parse(string[] args)
+    public class BadDefaultRunSystem : BadRunSystem
     {
-        BadRunSystemSettings settings = new BadRunSystemSettings();
-        settings.Args = args.Skip(1);
-        settings.Files = args.Take(1);
+        public override object? Parse(string[] args)
+        {
+            BadRunSystemSettings settings = new BadRunSystemSettings();
+            settings.Args = args.Skip(1);
+            settings.Files = args.Take(1);
 
-        return settings;
+            return settings;
+        }
     }
 }

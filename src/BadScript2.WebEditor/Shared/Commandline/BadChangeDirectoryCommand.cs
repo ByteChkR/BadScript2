@@ -1,25 +1,26 @@
 using BadScript2.IO;
 
-namespace BadScript2.WebEditor.Shared.Commandline;
-
-public class BadChangeDirectoryCommand : BadConsoleCommand
+namespace BadScript2.WebEditor.Shared.Commandline
 {
-    public BadChangeDirectoryCommand() : base(
-        "cd",
-        "Changes the Current Working Directory",
-        Array.Empty<string>(),
-        new[] { "(optional) directory" }
-    ) { }
-
-    public override string Execute(string args)
+    public class BadChangeDirectoryCommand : BadConsoleCommand
     {
-        if (string.IsNullOrEmpty(args))
+        public BadChangeDirectoryCommand() : base(
+            "cd",
+            "Changes the Current Working Directory",
+            Array.Empty<string>(),
+            new[] { "(optional) directory" }
+        ) { }
+
+        public override string Execute(string args)
         {
-            return BadFileSystem.Instance.GetCurrentDirectory();
+            if (string.IsNullOrEmpty(args))
+            {
+                return BadFileSystem.Instance.GetCurrentDirectory();
+            }
+
+            BadFileSystem.Instance.SetCurrentDirectory(args);
+
+            return "";
         }
-
-        BadFileSystem.Instance.SetCurrentDirectory(args);
-
-        return "";
     }
 }

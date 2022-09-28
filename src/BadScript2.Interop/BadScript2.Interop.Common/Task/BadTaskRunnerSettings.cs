@@ -1,21 +1,22 @@
 using BadScript2.Settings;
 
-namespace BadScript2.Interop.Common.Task;
-
-public class BadTaskRunnerSettings : BadSettingsProvider<BadTaskRunnerSettings>
+namespace BadScript2.Interop.Common.Task
 {
-    private BadSettings? m_TaskIterationTimeObj;
-
-    public BadTaskRunnerSettings() : base("Runtime.Task") { }
-
-    private BadSettings? TaskIterationTimeObj => m_TaskIterationTimeObj ??
-                                                 (Settings?.HasProperty(nameof(TaskIterationTime)) ?? false
-                                                     ? m_TaskIterationTimeObj ??= Settings?.GetProperty(nameof(TaskIterationTime))
-                                                     : null);
-
-    public int TaskIterationTime
+    public class BadTaskRunnerSettings : BadSettingsProvider<BadTaskRunnerSettings>
     {
-        get => m_TaskIterationTimeObj?.GetValue<int>() ?? 1;
-        set => m_TaskIterationTimeObj?.SetValue(value);
+        private BadSettings? m_TaskIterationTimeObj;
+
+        public BadTaskRunnerSettings() : base("Runtime.Task") { }
+
+        private BadSettings? TaskIterationTimeObj => m_TaskIterationTimeObj ??
+                                                     (Settings?.HasProperty(nameof(TaskIterationTime)) ?? false
+                                                         ? m_TaskIterationTimeObj ??= Settings?.GetProperty(nameof(TaskIterationTime))
+                                                         : null);
+
+        public int TaskIterationTime
+        {
+            get => m_TaskIterationTimeObj?.GetValue<int>() ?? 1;
+            set => m_TaskIterationTimeObj?.SetValue(value);
+        }
     }
 }

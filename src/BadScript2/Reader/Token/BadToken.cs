@@ -1,37 +1,38 @@
 using BadScript2.Common;
 
-namespace BadScript2.Reader.Token;
-
-/// <summary>
-/// Base Class for All tokens.
-/// </summary>
-public abstract class BadToken
+namespace BadScript2.Reader.Token
 {
     /// <summary>
-    /// The Source Position of the Token
+    ///     Base Class for All tokens.
     /// </summary>
-    public readonly BadSourcePosition SourcePosition;
-
-    /// <summary>
-    /// Constructor for the Token
-    /// </summary>
-    /// <param name="position">The Source Position of the Token</param>
-    protected BadToken(BadSourcePosition position)
+    public abstract class BadToken
     {
-        SourcePosition = position;
-    }
+        /// <summary>
+        ///     The Source Position of the Token
+        /// </summary>
+        public readonly BadSourcePosition SourcePosition;
 
-    /// <summary>
-    /// The Text Representation of the Token
-    /// </summary>
-    public string Text => SourcePosition.Text;
+        /// <summary>
+        ///     Constructor for the Token
+        /// </summary>
+        /// <param name="position">The Source Position of the Token</param>
+        protected BadToken(BadSourcePosition position)
+        {
+            SourcePosition = position;
+        }
 
-    /// <summary>
-    /// The String Representation of the Token
-    /// </summary>
-    /// <returns>String Representation</returns>
-    public override string ToString()
-    {
-        return Text;
+        /// <summary>
+        ///     The Text Representation of the Token
+        /// </summary>
+        public string Text => SourcePosition.Text;
+
+        /// <summary>
+        ///     The String Representation of the Token
+        /// </summary>
+        /// <returns>String Representation</returns>
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

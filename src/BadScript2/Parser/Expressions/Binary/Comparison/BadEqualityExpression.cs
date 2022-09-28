@@ -2,69 +2,70 @@ using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Binary.Comparison;
-
-/// <summary>
-/// Implements the Equality Expression
-/// <Left> == <Right>
-/// </summary>
-public class BadEqualityExpression : BadBinaryExpression
+namespace BadScript2.Parser.Expressions.Binary.Comparison
 {
     /// <summary>
-    /// Constructor of the Equality Expression
+    ///     Implements the Equality Expression
+    ///     <Left> == <Right>
     /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadEqualityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
-
-    /// <summary>
-    /// Returns true if the left side is equal to the right side.
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <returns>True if left is equal to right</returns>
-    public static BadObject Equal(BadObject left, BadObject right)
+    public class BadEqualityExpression : BadBinaryExpression
     {
-        if (left.Equals(right))
+        /// <summary>
+        ///     Constructor of the Equality Expression
+        /// </summary>
+        /// <param name="left">Left side of the Expression</param>
+        /// <param name="right">Right side of the Expression</param>
+        /// <param name="position">Source Position of the Expression</param>
+        public BadEqualityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+            left,
+            right,
+            position
+        ) { }
+
+        /// <summary>
+        ///     Returns true if the left side is equal to the right side.
+        /// </summary>
+        /// <param name="left">Left side of the Expression</param>
+        /// <param name="right">Right side of the Expression</param>
+        /// <returns>True if left is equal to right</returns>
+        public static BadObject Equal(BadObject left, BadObject right)
         {
-            return BadObject.True;
+            if (left.Equals(right))
+            {
+                return BadObject.True;
+            }
+
+            return BadObject.False;
         }
 
-        return BadObject.False;
-    }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
         {
-            left = o;
+            BadObject left = BadObject.Null;
+            foreach (BadObject o in Left.Execute(context))
+            {
+                left = o;
 
-            yield return o;
+                yield return o;
+            }
+
+            left = left.Dereference();
+            BadObject right = BadObject.Null;
+            foreach (BadObject o in Right.Execute(context))
+            {
+                right = o;
+
+                yield return o;
+            }
+
+            right = right.Dereference();
+
+
+            yield return Equal(left, right);
         }
 
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
+        protected override string GetSymbol()
         {
-            right = o;
-
-            yield return o;
+            return "==";
         }
-
-        right = right.Dereference();
-
-
-        yield return Equal(left, right);
-    }
-
-    protected override string GetSymbol()
-    {
-        return "==";
     }
 }

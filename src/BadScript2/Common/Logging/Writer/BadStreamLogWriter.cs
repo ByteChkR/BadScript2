@@ -1,35 +1,36 @@
-namespace BadScript2.Common.Logging.Writer;
-
-/// <summary>
-/// Implements a simple stream writer for the log system
-/// </summary>
-public abstract class BadStreamLogWriter : BadLogWriter
+namespace BadScript2.Common.Logging.Writer
 {
     /// <summary>
-    /// The underlying streamwriter
+    ///     Implements a simple stream writer for the log system
     /// </summary>
-    private readonly StreamWriter m_Stream;
-
-    /// <summary>
-    /// Creates a new StreamLogWriter
-    /// </summary>
-    /// <param name="stream">The underlying stream</param>
-    protected BadStreamLogWriter(Stream stream)
+    public abstract class BadStreamLogWriter : BadLogWriter
     {
-        m_Stream = new StreamWriter(stream);
-    }
+        /// <summary>
+        ///     The underlying streamwriter
+        /// </summary>
+        private readonly StreamWriter m_Stream;
 
-    /// <summary>
-    /// Implements the IDisposable interface
-    /// </summary>
-    public override void Dispose()
-    {
-        base.Dispose();
-        m_Stream.Dispose();
-    }
+        /// <summary>
+        ///     Creates a new StreamLogWriter
+        /// </summary>
+        /// <param name="stream">The underlying stream</param>
+        protected BadStreamLogWriter(Stream stream)
+        {
+            m_Stream = new StreamWriter(stream);
+        }
 
-    protected override void Write(BadLog log)
-    {
-        m_Stream.WriteLine(log);
+        /// <summary>
+        ///     Implements the IDisposable interface
+        /// </summary>
+        public override void Dispose()
+        {
+            base.Dispose();
+            m_Stream.Dispose();
+        }
+
+        protected override void Write(BadLog log)
+        {
+            m_Stream.WriteLine(log);
+        }
     }
 }

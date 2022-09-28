@@ -1,22 +1,23 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math;
 
-namespace BadScript2.Parser.Operators.Binary.Math;
-
-/// <summary>
-/// Implements the Divide Operator
-/// </summary>
-public class BadDivideOperator : BadBinaryOperator
+namespace BadScript2.Parser.Operators.Binary.Math
 {
     /// <summary>
-    /// Constructor of the Operator
+    ///     Implements the Divide Operator
     /// </summary>
-    public BadDivideOperator() : base(5, "/") { }
-
-    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    public class BadDivideOperator : BadBinaryOperator
     {
-        BadExpression right = parser.ParseExpression(null, Precedence);
+        /// <summary>
+        ///     Constructor of the Operator
+        /// </summary>
+        public BadDivideOperator() : base(5, "/") { }
 
-        return new BadDivideExpression(left, right, left.Position.Combine(right.Position));
+        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+        {
+            BadExpression right = parser.ParseExpression(null, Precedence);
+
+            return new BadDivideExpression(left, right, left.Position.Combine(right.Position));
+        }
     }
 }

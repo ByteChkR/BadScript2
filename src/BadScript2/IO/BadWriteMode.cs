@@ -1,10 +1,11 @@
-namespace BadScript2.IO;
-
-/// <summary>
-/// The Write Modes of the File System Abstraction
-/// </summary>
-public enum BadWriteMode
+namespace BadScript2.IO
 {
-    CreateNew,
-    Append,
+    /// <summary>
+    ///     The Write Modes of the File System Abstraction
+    /// </summary>
+    public enum BadWriteMode
+    {
+        CreateNew,
+        Append,
+    }
 }

@@ -4,71 +4,72 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Logic.Assign;
-
-/// <summary>
-/// Implements the Assign Logic And Expression
-/// </summary>
-public class BadLogicAssignAndExpression : BadBinaryExpression
+namespace BadScript2.Parser.Expressions.Binary.Logic.Assign
 {
     /// <summary>
-    /// Constructor of the Assign Logic And Expression
+    ///     Implements the Assign Logic And Expression
     /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadLogicAssignAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    public class BadLogicAssignAndExpression : BadBinaryExpression
     {
-        bool hasReturn = false;
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+        /// <summary>
+        ///     Constructor of the Assign Logic And Expression
+        /// </summary>
+        /// <param name="left">Left side of the Expression</param>
+        /// <param name="right">Right side of the Expression</param>
+        /// <param name="position">Source Position of the Expression</param>
+        public BadLogicAssignAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+            left,
+            right,
+            position
+        ) { }
 
-            yield return o;
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            bool hasReturn = false;
+            BadObject left = BadObject.Null;
+            foreach (BadObject o in Left.Execute(context))
+            {
+                left = o;
+
+                yield return o;
+            }
+
+            if (left is not BadObjectReference leftRef)
+            {
+                throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
+            }
+
+            left = left.Dereference();
+
+            BadObject right = BadObject.Null;
+            foreach (BadObject o in Right.Execute(context))
+            {
+                right = o;
+
+                yield return o;
+            }
+
+            right = right.Dereference();
+
+            if (left is IBadBoolean lBool && right is IBadBoolean rBool)
+            {
+                hasReturn = true;
+
+                BadObject r = BadObject.Wrap(lBool.Value && rBool.Value);
+                leftRef.Set(r);
+
+                yield return r;
+            }
+
+            if (!hasReturn)
+            {
+                throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
+            }
         }
 
-        if (left is not BadObjectReference leftRef)
+        protected override string GetSymbol()
         {
-            throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
+            return "&=";
         }
-
-        left = left.Dereference();
-
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
-
-            yield return o;
-        }
-
-        right = right.Dereference();
-
-        if (left is IBadBoolean lBool && right is IBadBoolean rBool)
-        {
-            hasReturn = true;
-
-            BadObject r = BadObject.Wrap(lBool.Value && rBool.Value);
-            leftRef.Set(r);
-
-            yield return r;
-        }
-
-        if (!hasReturn)
-        {
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
-        }
-    }
-
-    protected override string GetSymbol()
-    {
-        return "&=";
     }
 }

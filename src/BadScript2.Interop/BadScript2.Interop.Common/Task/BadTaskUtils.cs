@@ -1,85 +1,87 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Utility;
 
-namespace BadScript2.Interop.Common.Task;
-
-public static class BadTaskUtils
+namespace BadScript2.Interop.Common.Task
 {
-    public static BadInteropRunnable WaitForTask<T>(Task<T> t, Func<T, BadObject> onComplete)
+    public static class BadTaskUtils
     {
-        BadInteropRunnable? runnable = null;
-
-        IEnumerator<BadObject> InnerWaitForTask()
+        public static BadInteropRunnable WaitForTask<T>(Task<T> t, Func<T, BadObject> onComplete)
         {
-            while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
+            BadInteropRunnable? runnable = null;
+
+            IEnumerator<BadObject> InnerWaitForTask()
             {
-                yield return BadObject.Null;
+                while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
+                {
+                    yield return BadObject.Null;
+                }
+
+                if (t.IsCompletedSuccessfully())
+                {
+                    runnable!.SetReturn(onComplete(t.Result));
+                }
+                else
+                {
+                    throw new BadRuntimeException("Task Failed");
+                }
             }
 
-            if (t.IsCompletedSuccessfully)
-            {
-                runnable!.SetReturn(onComplete(t.Result));
-            }
-            else
-            {
-                throw new BadRuntimeException("Task Failed");
-            }
+            runnable = new BadInteropRunnable(InnerWaitForTask());
+
+            return runnable;
         }
 
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
-    }
-
-    public static BadInteropRunnable WaitForTask(System.Threading.Tasks.Task t)
-    {
-        BadInteropRunnable? runnable = null;
-
-        IEnumerator<BadObject> InnerWaitForTask()
+        public static BadInteropRunnable WaitForTask(System.Threading.Tasks.Task t)
         {
-            while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
+            BadInteropRunnable? runnable = null;
+
+            IEnumerator<BadObject> InnerWaitForTask()
             {
-                yield return BadObject.Null;
+                while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
+                {
+                    yield return BadObject.Null;
+                }
+
+                if (t.IsCompletedSuccessfully())
+                {
+                    runnable!.SetReturn(BadObject.Null);
+                }
+                else
+                {
+                    throw new BadRuntimeException("Task Failed");
+                }
             }
 
-            if (t.IsCompletedSuccessfully)
-            {
-                runnable!.SetReturn(BadObject.Null);
-            }
-            else
-            {
-                throw new BadRuntimeException("Task Failed");
-            }
+            runnable = new BadInteropRunnable(InnerWaitForTask());
+
+            return runnable;
         }
 
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
-    }
-
-    public static BadInteropRunnable WaitForTask<T>(Task<T> t)
-    {
-        BadInteropRunnable? runnable = null;
-
-        IEnumerator<BadObject> InnerWaitForTask()
+        public static BadInteropRunnable WaitForTask<T>(Task<T> t)
         {
-            while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
+            BadInteropRunnable? runnable = null;
+
+            IEnumerator<BadObject> InnerWaitForTask()
             {
-                yield return BadObject.Null;
+                while (!t.IsCanceled && !t.IsCompleted && !t.IsFaulted)
+                {
+                    yield return BadObject.Null;
+                }
+
+                if (t.IsCompletedSuccessfully())
+                {
+                    runnable!.SetReturn(BadObject.Wrap(t.Result));
+                }
+                else
+                {
+                    throw new BadRuntimeException("Task Failed");
+                }
             }
 
-            if (t.IsCompletedSuccessfully)
-            {
-                runnable!.SetReturn(BadObject.Wrap(t.Result));
-            }
-            else
-            {
-                throw new BadRuntimeException("Task Failed");
-            }
+            runnable = new BadInteropRunnable(InnerWaitForTask());
+
+            return runnable;
         }
-
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
     }
 }

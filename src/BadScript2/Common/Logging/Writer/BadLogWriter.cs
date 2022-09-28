@@ -1,50 +1,65 @@
-namespace BadScript2.Common.Logging.Writer;
-
-/// <summary>
-/// Base Class of all log writers
-/// </summary>
-public abstract class BadLogWriter : IDisposable
+namespace BadScript2.Common.Logging.Writer
 {
     /// <summary>
-    /// Implements the IDisposable interface
+    ///     Base Class of all log writers
     /// </summary>
-    public virtual void Dispose()
+    public abstract class BadLogWriter : IDisposable
     {
-        Unregister();
-    }
+        public bool IsActive { get; private set; }
 
-    /// <summary>
-    /// Writes a log message to the log writer
-    /// </summary>
-    /// <param name="log">The log to be written</param>
-    protected abstract void Write(BadLog log);
-
-    /// <summary>
-    /// Inner Write Log Method makes sure the log is only written if the Mask Settings contain the log mask
-    /// </summary>
-    /// <param name="log">The Log to be written</param>
-    private void InnerWrite(BadLog log)
-    {
-        if (BadLogWriterSettings.Instance.Mask.Contains(log.Mask))
+        /// <summary>
+        ///     Implements the IDisposable interface
+        /// </summary>
+        public virtual void Dispose()
         {
-            Write(log);
+            Unregister();
         }
-    }
 
-    /// <summary>
-    /// Registers the Log Writer to the Log System
-    /// </summary>
-    public void Register()
-    {
-        BadLogger.OnLog += InnerWrite;
-    }
-    
+        /// <summary>
+        ///     Writes a log message to the log writer
+        /// </summary>
+        /// <param name="log">The log to be written</param>
+        protected abstract void Write(BadLog log);
 
-    /// <summary>
-    /// Unregisters the Log Writer from the Log System
-    /// </summary>
-    public void Unregister()
-    {
-        BadLogger.OnLog -= InnerWrite;
+        /// <summary>
+        ///     Inner Write Log Method makes sure the log is only written if the Mask Settings contain the log mask
+        /// </summary>
+        /// <param name="log">The Log to be written</param>
+        private void InnerWrite(BadLog log)
+        {
+            if (BadLogWriterSettings.Instance.Mask.Contains(log.Mask))
+            {
+                Write(log);
+            }
+        }
+
+        /// <summary>
+        ///     Registers the Log Writer to the Log System
+        /// </summary>
+        public void Register()
+        {
+            if (IsActive)
+            {
+                return;
+            }
+
+            BadLogger.OnLog += InnerWrite;
+            IsActive = true;
+        }
+
+
+        /// <summary>
+        ///     Unregisters the Log Writer from the Log System
+        /// </summary>
+        public void Unregister()
+        {
+            if (!IsActive)
+            {
+                return;
+            }
+
+            BadLogger.OnLog -= InnerWrite;
+            IsActive = false;
+        }
     }
 }

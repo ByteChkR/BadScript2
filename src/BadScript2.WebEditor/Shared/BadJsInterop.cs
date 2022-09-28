@@ -1,27 +1,28 @@
 using Microsoft.JSInterop;
 
-namespace BadScript2.WebEditor.Shared;
-
-public static class BadJsInterop
+namespace BadScript2.WebEditor.Shared
 {
-    public static async void ClickElement(this IJSRuntime runtime, string name)
+    public static class BadJsInterop
     {
-        await runtime.InvokeVoidAsync("ClickElement", name);
-    }
-
-    public static async void DownloadFile(this IJSRuntime runtime, string name, byte[] data)
-    {
-        string contentType = "application/octet-stream";
-
-        // Check if the IJSRuntime is the WebAssembly implementation of the JSRuntime
-        if (runtime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
+        public static async void ClickElement(this IJSRuntime runtime, string name)
         {
-            webAssemblyJsRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", name, contentType, data);
+            await runtime.InvokeVoidAsync("ClickElement", name);
         }
-        else
+
+        public static async void DownloadFile(this IJSRuntime runtime, string name, byte[] data)
         {
-            // Fall back to the slow method if not in WebAssembly
-            await runtime.InvokeVoidAsync("BlazorDownloadFile", name, contentType, data);
+            string contentType = "application/octet-stream";
+
+            // Check if the IJSRuntime is the WebAssembly implementation of the JSRuntime
+            if (runtime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
+            {
+                webAssemblyJsRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", name, contentType, data);
+            }
+            else
+            {
+                // Fall back to the slow method if not in WebAssembly
+                await runtime.InvokeVoidAsync("BlazorDownloadFile", name, contentType, data);
+            }
         }
     }
 }

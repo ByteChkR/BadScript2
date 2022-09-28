@@ -1,14 +1,23 @@
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Runtime.Objects.Native;
-
-public class BadNumber : BadNative<decimal>, IBadNumber
+namespace BadScript2.Runtime.Objects.Native
 {
-    public BadNumber(decimal value) : base(value) { }
-    decimal IBadNumber.Value => Value;
-
-    public override BadClassPrototype GetPrototype()
+    /// <summary>
+    ///     Implements a Native Number
+    /// </summary>
+    public class BadNumber : BadNative<decimal>, IBadNumber
     {
-        return BadNativeClassBuilder.GetNative("num");
+        /// <summary>
+        ///     Creates a new Native Number
+        /// </summary>
+        /// <param name="value">The Number Value</param>
+        public BadNumber(decimal value) : base(value) { }
+
+        decimal IBadNumber.Value => Value;
+
+        public override BadClassPrototype GetPrototype()
+        {
+            return BadNativeClassBuilder.GetNative("num");
+        }
     }
 }

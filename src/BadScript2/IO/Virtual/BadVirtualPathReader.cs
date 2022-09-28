@@ -1,84 +1,87 @@
-namespace BadScript2.IO.Virtual;
+using BadScript2.Utility;
 
-public static class BadVirtualPathReader
+namespace BadScript2.IO.Virtual
 {
-    public static string JoinPath(IEnumerable<string> parts)
+    public static class BadVirtualPathReader
     {
-        return '/' + string.Join("/", parts);
-    }
-
-    public static bool IsDirectory(string path)
-    {
-        return path.EndsWith('/') || path.EndsWith('\\');
-    }
-
-    public static string[] SplitPath(string path)
-    {
-        string[] parts = path.Split('/', '\\');
-        if (IsAbsolutePath(path))
+        public static string JoinPath(IEnumerable<string> parts)
         {
-            parts = parts.Skip(1).ToArray();
+            return '/' + string.Join("/", parts);
         }
 
-        return parts;
-    }
-
-    public static bool IsAbsolutePath(string path)
-    {
-        return path.StartsWith('/') || path.StartsWith('\\');
-    }
-
-    public static bool IsRootPath(string path)
-    {
-        return path == "/" || path == "\\";
-    }
-
-    public static string ResolvePath(string path, string currentDir)
-    {
-        string[] parts = SplitPath(path);
-
-        if (parts.Length == 0)
+        public static bool IsDirectory(string path)
         {
-            return currentDir;
+            return path.EndsWith('/') || path.EndsWith('\\');
         }
 
-        List<string> result;
-        if (IsAbsolutePath(path) || currentDir == "/" || currentDir == "\\")
+        public static string[] SplitPath(string path)
         {
-            result = new List<string>();
-        }
-        else
-        {
-            result = new List<string>(currentDir.Split('/', '\\').Skip(1));
-        }
-
-        for (int i = 0; i < parts.Length; i++)
-        {
-            if (parts[i] == ".")
+            string[] parts = path.Split('/', '\\');
+            if (IsAbsolutePath(path))
             {
-                continue;
+                parts = parts.Skip(1).ToArray();
             }
 
-            if (parts[i] == "..")
-            {
-                if (result.Count == 0)
-                {
-                    throw new Exception("Can't go back from root");
-                }
+            return parts;
+        }
 
-                result.RemoveAt(result.Count - 1);
+        public static bool IsAbsolutePath(string path)
+        {
+            return path.StartsWith('/') || path.StartsWith('\\');
+        }
+
+        public static bool IsRootPath(string path)
+        {
+            return path == "/" || path == "\\";
+        }
+
+        public static string ResolvePath(string path, string currentDir)
+        {
+            string[] parts = SplitPath(path);
+
+            if (parts.Length == 0)
+            {
+                return currentDir;
+            }
+
+            List<string> result;
+            if (IsAbsolutePath(path) || currentDir == "/" || currentDir == "\\")
+            {
+                result = new List<string>();
             }
             else
             {
-                result.Add(parts[i]);
+                result = new List<string>(currentDir.Split('/', '\\').Skip(1));
             }
-        }
 
-        if (result.Count != 0 && string.IsNullOrEmpty(result[^1]))
-        {
-            result.RemoveAt(result.Count - 1);
-        }
+            for (int i = 0; i < parts.Length; i++)
+            {
+                if (parts[i] == ".")
+                {
+                    continue;
+                }
 
-        return "/" + string.Join("/", result);
+                if (parts[i] == "..")
+                {
+                    if (result.Count == 0)
+                    {
+                        throw new Exception("Can't go back from root");
+                    }
+
+                    result.RemoveAt(result.Count - 1);
+                }
+                else
+                {
+                    result.Add(parts[i]);
+                }
+            }
+
+            if (result.Count != 0 && string.IsNullOrEmpty(result[result.Count - 1]))
+            {
+                result.RemoveAt(result.Count - 1);
+            }
+
+            return "/" + string.Join("/", result);
+        }
     }
 }

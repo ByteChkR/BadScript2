@@ -4,120 +4,173 @@ using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 
-namespace BadScript2.Runtime.Objects;
-
-public abstract class BadObject
+namespace BadScript2.Runtime.Objects
 {
-    private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
-    public static readonly BadObject Null = new BadNullObject();
-    public static readonly BadObject True = new BadBoolean(true);
-    public static readonly BadObject False = new BadBoolean(false);
-    public abstract BadClassPrototype GetPrototype();
-
-    public static BadObject Wrap<T>(T obj)
+    public abstract class BadObject
     {
-        if (obj is bool b)
-        {
-            if (b)
-            {
-                return True;
-            }
+        private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
+        public static readonly BadObject Null = new BadNullObject();
+        public static readonly BadObject True = new BadBoolean(true);
+        public static readonly BadObject False = new BadBoolean(false);
 
-            return False;
+        /// <summary>
+        ///     Returns the Prototype of this Object
+        /// </summary>
+        /// <returns>Instance of the ClassPrototype associated to this Type of BadObject</returns>
+        public abstract BadClassPrototype GetPrototype();
+
+        public static bool CanWrap(object? o)
+        {
+            return o is string || o is decimal || o is null;
         }
 
-        if (obj is decimal d)
+        public static BadObject Wrap<T>(T obj, bool allowNative = true)
         {
-            return new BadNumber(d);
-        }
-
-        if (obj is string s)
-        {
-            if (BadNativeOptimizationSettings.Instance.UseStringCaching)
+            if (obj is bool b)
             {
-                if (s_StringCache.ContainsKey(s))
+                if (b)
                 {
-                    return s_StringCache[s];
+                    return True;
                 }
 
-                return s_StringCache[s] = new BadString(s);
+                return False;
             }
 
-            return new BadString(s);
+            if (obj is decimal d)
+            {
+                return new BadNumber(d);
+            }
+
+            if (obj is string s)
+            {
+                if (BadNativeOptimizationSettings.Instance.UseStringCaching)
+                {
+                    if (s_StringCache.ContainsKey(s))
+                    {
+                        return s_StringCache[s];
+                    }
+
+                    return s_StringCache[s] = new BadString(s);
+                }
+
+                return new BadString(s);
+            }
+
+            if (Equals(obj, default(T)))
+            {
+                return Null;
+            }
+
+            if (allowNative)
+            {
+                return new BadNative<T>(obj);
+            }
+
+            throw new BadRuntimeException("Cannot wrap native type");
         }
 
-        if (Equals(obj, default(T)))
+        /// <summary>
+        ///     Returns true if the object contains a given property or there exists an extension for the current Instance
+        /// </summary>
+        /// <param name="propName">The Property Name</param>
+        /// <returns>True if the Property or an Extension with that name exists</returns>
+        public virtual bool HasProperty(BadObject propName)
         {
-            return Null;
+            return BadInteropExtension.HasObject(GetType(), propName);
         }
 
-        return new BadNative<T>(obj);
-    }
-
-    public virtual bool HasProperty(BadObject propName)
-    {
-        return BadInteropExtension.HasObject(GetType(), propName);
-    }
-
-    public virtual BadObjectReference GetProperty(BadObject propName)
-    {
-        return BadInteropExtension.GetObjectReference(GetType(), propName, this);
-    }
-
-    public static implicit operator BadObject(bool b)
-    {
-        return Wrap(b);
-    }
-
-    public static implicit operator BadObject(decimal d)
-    {
-        return Wrap(d);
-    }
-
-    public static implicit operator BadObject(string s)
-    {
-        return Wrap(s);
-    }
-
-    public abstract string ToSafeString(List<BadObject> done);
-
-    public override string ToString()
-    {
-        return ToSafeString(new List<BadObject>());
-    }
-
-    private class BadNullObject : BadObject, IBadNative
-    {
-        public object Value => null!;
-        public Type Type => typeof(object);
-
-        public bool Equals(IBadNative? other)
+        /// <summary>
+        ///     Returns a Reference to the Property with the given Name
+        /// </summary>
+        /// <param name="propName">The Property Name</param>
+        /// <returns>The Property Reference</returns>
+        public virtual BadObjectReference GetProperty(BadObject propName)
         {
-            return Equals((object?)other);
+            return BadInteropExtension.GetObjectReference(GetType(), propName, this);
         }
 
-        public override BadClassPrototype GetPrototype()
+        /// <summary>
+        ///     Implicit Converstion from Boolean to BadObject
+        /// </summary>
+        /// <param name="b">The Value</param>
+        /// <returns>Bad Object Instance</returns>
+        public static implicit operator BadObject(bool b)
         {
-            return new BadNativeClassPrototype<BadNullObject>(
-                "null",
-                (_, _) => throw new BadRuntimeException("Cannot call methods on null")
-            );
+            return Wrap(b);
         }
 
-        public override string ToSafeString(List<BadObject> done)
+        /// <summary>
+        ///     Implicit Converstion from Number to BadObject
+        /// </summary>
+        /// <param name="b">The Value</param>
+        /// <returns>Bad Object Instance</returns>
+        public static implicit operator BadObject(decimal d)
         {
-            return "null";
+            return Wrap(d);
         }
 
-
-        public override bool Equals(object? obj)
+        /// <summary>
+        ///     Implicit Converstion from String to BadObject
+        /// </summary>
+        /// <param name="b">The Value</param>
+        /// <returns>Bad Object Instance</returns>
+        public static implicit operator BadObject(string s)
         {
-            return ReferenceEquals(this, obj);
+            return Wrap(s);
         }
 
-        public override int GetHashCode()
+        /// <summary>
+        ///     Returns a String Representation of this Object. This function is recursion proof and supports circular references
+        /// </summary>
+        /// <param name="done">The Visited Elements</param>
+        /// <returns>String Representation</returns>
+        public abstract string ToSafeString(List<BadObject> done);
+
+        /// <summary>
+        ///     Returns a String Representation of this Object.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return ToSafeString(new List<BadObject>());
+        }
+
+        /// <summary>
+        ///     Implementation for the null-value
+        /// </summary>
+        private class BadNullObject : BadObject, IBadNative
+        {
+            public object Value => null!;
+            public Type Type => typeof(object);
+
+            public bool Equals(IBadNative? other)
+            {
+                return Equals((object?)other);
+            }
+
+            public override BadClassPrototype GetPrototype()
+            {
+                return new BadNativeClassPrototype<BadNullObject>(
+                    "null",
+                    (_, _) => throw new BadRuntimeException("Cannot call methods on null")
+                );
+            }
+
+            public override string ToSafeString(List<BadObject> done)
+            {
+                return "null";
+            }
+
+
+            public override bool Equals(object? obj)
+            {
+                return ReferenceEquals(this, obj);
+            }
+
+            public override int GetHashCode()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

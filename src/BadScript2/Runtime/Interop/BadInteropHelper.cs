@@ -2,36 +2,55 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Runtime.Interop;
-
-public static class BadInteropHelper
+namespace BadScript2.Runtime.Interop
 {
-    public static void SetProperty(
-        this BadObject elem,
-        BadObject propName,
-        BadObject value,
-        BadPropertyInfo? info = null)
+    /// <summary>
+    ///     Interop Extensions for working with the runtime api
+    /// </summary>
+    public static class BadInteropHelper
     {
-        elem.GetProperty(propName).Set(value, info);
-    }
-
-    public static T Unwrap<T>(this BadObject obj)
-    {
-        if (obj is T t)
+        public static void SetProperty(
+            this BadObject elem,
+            BadObject propName,
+            BadObject value,
+            BadPropertyInfo? info = null)
         {
-            return t;
+            elem.GetProperty(propName).Set(value, info);
         }
 
-        if (obj is IBadString str && typeof(T) == typeof(string))
+        public static bool CanUnwrap(this BadObject obj)
         {
-            return (T)(object)str.Value;
+            return obj is IBadNative;
         }
 
-        if (obj is BadNative<T> n)
+        public static object? Unwrap(this BadObject obj)
         {
-            return n.Value;
+            if (obj is IBadNative native)
+            {
+                return native.Value;
+            }
+
+            throw new BadRuntimeException($"Can not unwrap object '{obj}'");
         }
 
-        throw new BadRuntimeException($"Can not unwrap object '{obj}' to type " + typeof(T));
+        public static T Unwrap<T>(this BadObject obj)
+        {
+            if (obj is T t)
+            {
+                return t;
+            }
+
+            if (obj is IBadString str && typeof(T) == typeof(string))
+            {
+                return (T)(object)str.Value;
+            }
+
+            if (obj is BadNative<T> n)
+            {
+                return n.Value;
+            }
+
+            throw new BadRuntimeException($"Can not unwrap object '{obj}' to type " + typeof(T));
+        }
     }
 }

@@ -4,61 +4,63 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Parser.Expressions.Block.Lock;
-
-/// <summary>
-/// Implements the Lock Expression
-/// </summary>
-public class BadLockExpression : BadExpression
+namespace BadScript2.Parser.Expressions.Block.Lock
 {
     /// <summary>
-    /// The Block Body
+    ///     Implements the Lock Expression
     /// </summary>
-    private readonly BadExpression[] m_Block;
-    /// <summary>
-    /// The Expression to lock on
-    /// </summary>
-    private readonly BadExpression m_LockExpression;
-
-    /// <summary>
-    /// Constructor of the Lock Expression
-    /// </summary>
-    /// <param name="position">Source Position of the Expression</param>
-    /// <param name="lockExpression">The expression to lock on</param>
-    /// <param name="block">The Block Body</param>
-    public BadLockExpression(BadSourcePosition position, BadExpression lockExpression, BadExpression[] block) : base(false, position)
+    public class BadLockExpression : BadExpression
     {
-        m_LockExpression = lockExpression;
-        m_Block = block;
-    }
+        /// <summary>
+        ///     The Block Body
+        /// </summary>
+        private readonly BadExpression[] m_Block;
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject lockObj = BadObject.Null;
-        foreach (BadObject o in m_LockExpression.Execute(context))
+        /// <summary>
+        ///     The Expression to lock on
+        /// </summary>
+        private readonly BadExpression m_LockExpression;
+
+        /// <summary>
+        ///     Constructor of the Lock Expression
+        /// </summary>
+        /// <param name="position">Source Position of the Expression</param>
+        /// <param name="lockExpression">The expression to lock on</param>
+        /// <param name="block">The Block Body</param>
+        public BadLockExpression(BadSourcePosition position, BadExpression lockExpression, BadExpression[] block) : base(false, position)
         {
-            lockObj = o;
-
-            yield return o;
+            m_LockExpression = lockExpression;
+            m_Block = block;
         }
 
-        lockObj = lockObj.Dereference();
-
-        if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
         {
-            throw new BadRuntimeException("Lock object must be of type Array, Object or Class", Position);
-        }
+            BadObject lockObj = BadObject.Null;
+            foreach (BadObject o in m_LockExpression.Execute(context))
+            {
+                lockObj = o;
 
-        while (!BadLockList.Instance.TryAquire(lockObj))
-        {
-            yield return BadObject.Null;
-        }
+                yield return o;
+            }
 
-        foreach (BadObject o in context.Execute(m_Block))
-        {
-            yield return o;
-        }
+            lockObj = lockObj.Dereference();
 
-        BadLockList.Instance.Release(lockObj);
+            if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
+            {
+                throw new BadRuntimeException("Lock object must be of type Array, Object or Class", Position);
+            }
+
+            while (!BadLockList.Instance.TryAquire(lockObj))
+            {
+                yield return BadObject.Null;
+            }
+
+            foreach (BadObject o in context.Execute(m_Block))
+            {
+                yield return o;
+            }
+
+            BadLockList.Instance.Release(lockObj);
+        }
     }
 }

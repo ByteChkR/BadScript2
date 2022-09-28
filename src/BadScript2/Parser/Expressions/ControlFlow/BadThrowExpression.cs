@@ -3,51 +3,52 @@ using BadScript2.Optimizations;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.ControlFlow;
-
-/// <summary>
-/// Implements the Throw Expression that is used to raise errors inside the Script
-/// </summary>
-public class BadThrowExpression : BadExpression
+namespace BadScript2.Parser.Expressions.ControlFlow
 {
     /// <summary>
-    /// Constructor of the Throw Expression
+    ///     Implements the Throw Expression that is used to raise errors inside the Script
     /// </summary>
-    /// <param name="right">The Error Object that is thrown</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public class BadThrowExpression : BadExpression
     {
-        Right = right;
-    }
-
-    /// <summary>
-    /// The Error Object that is thrown
-    /// </summary>
-    private BadExpression Right { get; set; }
-
-    public override void Optimize()
-    {
-        Right = BadExpressionOptimizer.Optimize(Right);
-    }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject value = BadObject.Null;
-
-        foreach (BadObject obj in Right.Execute(context))
+        /// <summary>
+        ///     Constructor of the Throw Expression
+        /// </summary>
+        /// <param name="right">The Error Object that is thrown</param>
+        /// <param name="position">Source Position of the Expression</param>
+        public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
+            false,
+            position
+        )
         {
-            value = obj;
-
-            yield return obj;
+            Right = right;
         }
 
-        value = value.Dereference();
+        /// <summary>
+        ///     The Error Object that is thrown
+        /// </summary>
+        private BadExpression Right { get; set; }
 
-        context.Scope.SetError(value, null);
+        public override void Optimize()
+        {
+            Right = BadExpressionOptimizer.Optimize(Right);
+        }
 
-        yield return value;
+        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        {
+            BadObject value = BadObject.Null;
+
+            foreach (BadObject obj in Right.Execute(context))
+            {
+                value = obj;
+
+                yield return obj;
+            }
+
+            value = value.Dereference();
+
+            context.Scope.SetError(value, null);
+
+            yield return value;
+        }
     }
 }

@@ -1,20 +1,21 @@
 using BadScript2.IO;
 
-namespace BadScript2.WebEditor.Shared.Commandline;
-
-public class BadNewFileCommand : BadConsoleCommand
+namespace BadScript2.WebEditor.Shared.Commandline
 {
-    public BadNewFileCommand() : base(
-        "new",
-        "Creates a new file at the specified path",
-        Array.Empty<string>(),
-        new[] { "filepath" }
-    ) { }
-
-    public override string Execute(string args)
+    public class BadNewFileCommand : BadConsoleCommand
     {
-        BadFileSystem.WriteAllText(args, "");
+        public BadNewFileCommand() : base(
+            "new",
+            "Creates a new file at the specified path",
+            Array.Empty<string>(),
+            new[] { "filepath" }
+        ) { }
 
-        return $"File '{BadFileSystem.Instance.GetFullPath(args)}' created";
+        public override string Execute(string args)
+        {
+            BadFileSystem.WriteAllText(args, "");
+
+            return $"File '{BadFileSystem.Instance.GetFullPath(args)}' created";
+        }
     }
 }

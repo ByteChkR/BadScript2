@@ -1,20 +1,21 @@
 using BadScript2.IO;
 
-namespace BadScript2.ConsoleCore;
-
-public static class BadConsoleDirectories
+namespace BadScript2.ConsoleCore
 {
-    public static string DataDirectory
+    public static class BadConsoleDirectories
     {
-        get
+        public static string DataDirectory
         {
-            string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
+            get
+            {
+                string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
 
-            BadFileSystem.Instance.CreateDirectory(s);
+                BadFileSystem.Instance.CreateDirectory(s);
 
-            return s;
+                return s;
+            }
         }
-    }
 
-    public static string LogFile => Path.Combine(DataDirectory, "logs.log");
+        public static string LogFile => Path.Combine(DataDirectory, "logs.log");
+    }
 }

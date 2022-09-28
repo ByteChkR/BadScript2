@@ -1,53 +1,54 @@
 using BadScript2.Debugging;
 
-namespace BadScript2.ConsoleCore.Debugging;
-
-public class BadConsoleDebugger : IBadDebugger
+namespace BadScript2.ConsoleCore.Debugging
 {
-    private static readonly List<string> s_IgnoredFiles = new List<string>();
-    private int m_LastLine = -1;
-    private string? m_LastSource;
-
-    public void Step(BadDebuggerStep stepInfo)
+    public class BadConsoleDebugger : IBadDebugger
     {
-        string view = stepInfo.GetSourceView(out int _, out int lineInSource);
+        private static readonly List<string> s_IgnoredFiles = new List<string>();
+        private int m_LastLine = -1;
+        private string? m_LastSource;
 
-        if (m_LastSource == stepInfo.Position.Source && lineInSource == m_LastLine)
+        public void Step(BadDebuggerStep stepInfo)
         {
-            return;
-        }
+            string view = stepInfo.GetSourceView(out int _, out int lineInSource);
 
-        m_LastLine = lineInSource;
-        m_LastSource = stepInfo.Position.Source;
-        if (stepInfo.Position.FileName != null && s_IgnoredFiles.Contains(stepInfo.Position.FileName))
-        {
-            return;
-        }
-
-        Console.WriteLine(view);
-        Console.WriteLine("Press any key to continue");
-
-        bool exit = false;
-        do
-        {
-            string cmd = Console.ReadLine()!;
-            if (cmd.StartsWith("ignore-file"))
+            if (m_LastSource == stepInfo.Position.Source && lineInSource == m_LastLine)
             {
-                string file = cmd.Remove(0, "ignore-file".Length).Trim();
-                s_IgnoredFiles.Add(file);
-
-                continue;
+                return;
             }
 
-            if (cmd.StartsWith("file"))
+            m_LastLine = lineInSource;
+            m_LastSource = stepInfo.Position.Source;
+            if (stepInfo.Position.FileName != null && s_IgnoredFiles.Contains(stepInfo.Position.FileName))
             {
-                Console.WriteLine(stepInfo.Position.FileName ?? "NULL");
-
-                continue;
+                return;
             }
 
-            exit = true;
+            Console.WriteLine(view);
+            Console.WriteLine("Press any key to continue");
+
+            bool exit = false;
+            do
+            {
+                string cmd = Console.ReadLine()!;
+                if (cmd.StartsWith("ignore-file"))
+                {
+                    string file = cmd.Remove(0, "ignore-file".Length).Trim();
+                    s_IgnoredFiles.Add(file);
+
+                    continue;
+                }
+
+                if (cmd.StartsWith("file"))
+                {
+                    Console.WriteLine(stepInfo.Position.FileName ?? "NULL");
+
+                    continue;
+                }
+
+                exit = true;
+            }
+            while (!exit);
         }
-        while (!exit);
     }
 }

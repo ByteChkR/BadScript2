@@ -1,107 +1,113 @@
-namespace BadScript2.Common.Logging;
+using BadScript2.Utility;
 
-/// <summary>
-/// Represents a Log Message
-/// </summary>
-public struct BadLog : IEquatable<BadLog>
+namespace BadScript2.Common.Logging
 {
     /// <summary>
-    /// The Contents of the Message
+    ///     Represents a Log Message
     /// </summary>
-    public readonly string Message;
-    /// <summary>
-    /// The Mask of the message
-    /// </summary>
-    public readonly BadLogMask Mask;
-    /// <summary>
-    /// The Type of the message
-    /// </summary>
-    public readonly BadLogType Type;
-    /// <summary>
-    /// The (optional) position of the message
-    /// </summary>
-    public readonly BadSourcePosition? Position;
-
-    /// <summary>
-    /// Creates a new Log Message
-    /// </summary>
-    /// <param name="message">The message</param>
-    /// <param name="mask">The mask of the message</param>
-    /// <param name="position">The source position of the message</param>
-    /// <param name="type">The Log Type</param>
-    public BadLog(
-        string message,
-        BadLogMask? mask = null,
-        BadSourcePosition? position = null,
-        BadLogType type = BadLogType.Log)
+    public struct BadLog : IEquatable<BadLog>
     {
-        Message = message;
-        Type = type;
-        Position = position;
-        Mask = mask ?? BadLogMask.Default;
-    }
+        /// <summary>
+        ///     The Contents of the Message
+        /// </summary>
+        public readonly string Message;
 
-    /// <summary>
-    /// Converts a string message to a log object
-    /// </summary>
-    /// <param name="message">The log content</param>
-    /// <returns>BadLog Instance</returns>
-    public static implicit operator BadLog(string message)
-    {
-        return new BadLog(message);
-    }
+        /// <summary>
+        ///     The Mask of the message
+        /// </summary>
+        public readonly BadLogMask Mask;
 
-    /// <summary>
-    /// Returns a string representation of the log
-    /// </summary>
-    /// <returns>String representation of the log</returns>
-    public override string ToString()
-    {
-        if (Position != null)
+        /// <summary>
+        ///     The Type of the message
+        /// </summary>
+        public readonly BadLogType Type;
+
+        /// <summary>
+        ///     The (optional) position of the message
+        /// </summary>
+        public readonly BadSourcePosition? Position;
+
+        /// <summary>
+        ///     Creates a new Log Message
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="mask">The mask of the message</param>
+        /// <param name="position">The source position of the message</param>
+        /// <param name="type">The Log Type</param>
+        public BadLog(
+            string message,
+            BadLogMask? mask = null,
+            BadSourcePosition? position = null,
+            BadLogType type = BadLogType.Log)
         {
-            return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
+            Message = message;
+            Type = type;
+            Position = position;
+            Mask = mask ?? BadLogMask.Default;
         }
 
-        return $"[{Type}][{Mask}] {Message}";
-    }
+        /// <summary>
+        ///     Converts a string message to a log object
+        /// </summary>
+        /// <param name="message">The log content</param>
+        /// <returns>BadLog Instance</returns>
+        public static implicit operator BadLog(string message)
+        {
+            return new BadLog(message);
+        }
 
-    /// <summary>
-    /// Returns true if the log is equal to the other log
-    /// </summary>
-    /// <param name="other">Other Log</param>
-    /// <returns>True if the log is equal to the other log</returns>
-    public bool Equals(BadLog other)
-    {
-        return Message == other.Message && Mask.Equals(other.Mask) && Type == other.Type;
-    }
+        /// <summary>
+        ///     Returns a string representation of the log
+        /// </summary>
+        /// <returns>String representation of the log</returns>
+        public override string ToString()
+        {
+            if (Position != null)
+            {
+                return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
+            }
 
-    /// <summary>
-    /// Returns true if the log is equal to the other object
-    /// </summary>
-    /// <param name="obj">Other Object</param>
-    /// <returns>True if the log is equal to the other log</returns>
-    public override bool Equals(object? obj)
-    {
-        return obj is BadLog other && Equals(other);
-    }
+            return $"[{Type}][{Mask}] {Message}";
+        }
 
-    
-    /// <summary>
-    /// Returns the Hash Code for this Instance
-    /// </summary>
-    /// <returns>Hash Code</returns>
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Message, Mask, (int)Type);
-    }
+        /// <summary>
+        ///     Returns true if the log is equal to the other log
+        /// </summary>
+        /// <param name="other">Other Log</param>
+        /// <returns>True if the log is equal to the other log</returns>
+        public bool Equals(BadLog other)
+        {
+            return Message == other.Message && Mask.Equals(other.Mask) && Type == other.Type;
+        }
 
-    public static bool operator ==(BadLog left, BadLog right)
-    {
-        return left.Equals(right);
-    }
+        /// <summary>
+        ///     Returns true if the log is equal to the other object
+        /// </summary>
+        /// <param name="obj">Other Object</param>
+        /// <returns>True if the log is equal to the other log</returns>
+        public override bool Equals(object? obj)
+        {
+            return obj is BadLog other && Equals(other);
+        }
 
-    public static bool operator !=(BadLog left, BadLog right)
-    {
-        return !left.Equals(right);
+
+        /// <summary>
+        ///     Returns the Hash Code for this Instance
+        /// </summary>
+        /// <returns>Hash Code</returns>
+        public override int GetHashCode()
+        {
+            return BadHashCode.Combine(Message, Mask, (int)Type);
+        }
+
+        public static bool operator ==(BadLog left, BadLog right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(BadLog left, BadLog right)
+        {
+            return !left.Equals(right);
+        }
     }
 }
