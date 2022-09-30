@@ -1,15 +1,17 @@
+using System.Collections;
 using System.Text;
 
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Utility;
 
 namespace BadScript2.Runtime.Objects
 {
     /// <summary>
     ///     Implements a Table Structure for the BadScript Language
     /// </summary>
-    public class BadTable : BadObject
+    public class BadTable : BadObject, IBadEnumerable
     {
         /// <summary>
         ///     The Inner Table for this Object
@@ -163,6 +165,25 @@ namespace BadScript2.Runtime.Objects
             sb.AppendLine("}");
 
             return sb.ToString();
+        }
+
+        public IEnumerator<BadObject> GetEnumerator()
+        {
+            foreach (KeyValuePair<BadObject,BadObject> kvp in InnerTable)
+            {
+                yield return new BadTable(
+                    new Dictionary<BadObject, BadObject>
+                    {
+                        { "Key", kvp.Key },
+                        { "Value", kvp.Value }
+                    }
+                );
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

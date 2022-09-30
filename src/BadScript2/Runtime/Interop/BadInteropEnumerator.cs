@@ -1,15 +1,18 @@
+using System.Collections;
+
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Utility;
 
 namespace BadScript2.Runtime.Interop
 {
     /// <summary>
     ///     Implements a simple wrapper for C# IEnumerators to be used in BS2
     /// </summary>
-    public class BadInteropEnumerator : BadObject
+    public class BadInteropEnumerator : BadObject, IBadEnumerator
     {
         /// <summary>
         ///     Current Function Reference
@@ -83,6 +86,25 @@ namespace BadScript2.Runtime.Interop
         public override string ToSafeString(List<BadObject> done)
         {
             return "InteropEnumerator";
+        }
+
+        public bool MoveNext()
+        {
+            return m_Enumerator.MoveNext();
+        }
+
+        public void Reset()
+        {
+            m_Enumerator.Reset();
+        }
+
+        public BadObject Current => m_Enumerator.Current!;
+
+        object IEnumerator.Current => ((IEnumerator)m_Enumerator).Current!;
+
+        public void Dispose()
+        {
+            m_Enumerator.Dispose();
         }
     }
 }

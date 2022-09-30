@@ -1,8 +1,9 @@
-using BadScript2.ConsoleCore.Debugging.Scriptable;
+using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
+using BadScript2.Interop.Linq;
 using BadScript2.Interop.NUnit;
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
@@ -34,6 +35,7 @@ namespace BadScript2.Tests
                 BadNativeClassBuilder.AddNative(BadTask.Prototype);
                 BadCommonInterop.AddExtensions();
                 BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
+                BadInteropExtension.AddExtension<BadLinqExtensions>();
 
 
                 List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
@@ -74,6 +76,7 @@ namespace BadScript2.Tests
                 BadSettingsProvider.RootSettings.FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching").SetValue(true);
                 BadNativeClassBuilder.AddNative(BadTask.Prototype);
                 BadCommonInterop.AddExtensions();
+                BadInteropExtension.AddExtension<BadLinqExtensions>();
                 BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
 
                 List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);

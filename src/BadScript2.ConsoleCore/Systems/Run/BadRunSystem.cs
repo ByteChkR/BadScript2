@@ -1,7 +1,7 @@
 using System.Diagnostics;
 
 using BadScript2.Common.Logging;
-using BadScript2.ConsoleCore.Debugging.Scriptable;
+using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interactive;
 using BadScript2.Interop.Common.Apis;

@@ -4,7 +4,7 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
-namespace BadScript2.ConsoleCore.Debugging.Scriptable
+namespace BadScript2.Debugger.Scriptable
 {
     public class BadScriptDebuggerApi : BadInteropApi
     {

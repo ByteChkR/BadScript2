@@ -1,15 +1,17 @@
 ﻿using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
 using BadScript2.ConsoleCore;
-using BadScript2.ConsoleCore.Debugging.Scriptable;
+using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
 using BadScript2.ConsoleCore.Systems.Settings;
 using BadScript2.ConsoleCore.Systems.Test;
+using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.Compression;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
+using BadScript2.Interop.Linq;
 using BadScript2.Interop.Net;
 using BadScript2.IO;
 using BadScript2.Runtime;
@@ -56,6 +58,7 @@ namespace BadScript2.Console
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
             BadInteropExtension.AddExtension<BadNetInteropExtensions>();
+            BadInteropExtension.AddExtension<BadLinqExtensions>();
 
             BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
             BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
@@ -68,7 +71,8 @@ namespace BadScript2.Console
                 new BadDefaultRunSystem(),
                 new BadTestSystem(),
                 new BadRunSystem(),
-                new BadSettingsSystem()
+                new BadSettingsSystem(),
+                new BadHtmlSystem()
             );
 
 

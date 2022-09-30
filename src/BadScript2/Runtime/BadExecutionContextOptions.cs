@@ -68,5 +68,10 @@ namespace BadScript2.Runtime
 
             return ctx;
         }
+
+        public BadExecutionContextOptions Clone()
+        {
+            return new BadExecutionContextOptions(Apis);
+        }
     }
 }

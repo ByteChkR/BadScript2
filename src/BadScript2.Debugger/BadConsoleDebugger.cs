@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+
 using BadScript2.Debugging;
 
-namespace BadScript2.ConsoleCore.Debugging
+namespace BadScript2.Debugger
 {
     public class BadConsoleDebugger : IBadDebugger
     {

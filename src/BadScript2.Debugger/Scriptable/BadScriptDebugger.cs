@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 using BadScript2.Common.Logging;
 using BadScript2.Debugging;
 using BadScript2.Parser;
@@ -5,7 +8,7 @@ using BadScript2.Parser.Operators;
 using BadScript2.Reader;
 using BadScript2.Runtime;
 
-namespace BadScript2.ConsoleCore.Debugging.Scriptable
+namespace BadScript2.Debugger.Scriptable
 {
     public class BadScriptDebugger : IBadDebugger
     {
@@ -13,6 +16,24 @@ namespace BadScript2.ConsoleCore.Debugging.Scriptable
         private readonly BadExecutionContextOptions m_Options;
         private readonly List<string> m_SeenFiles = new List<string>();
 
+        public BadScriptDebugger(BadExecutionContextOptions options, string debuggerPath)
+        {
+            m_Options = options;
+            m_Options.Apis.Add(new BadScriptDebuggerApi(this));
+            LoadDebugger(debuggerPath);
+        }
+
+        private void LoadDebugger(string path)
+        {
+            BadExecutionContext ctx = m_Options.Build();
+            ctx.Run(
+                new BadSourceParser(
+                    BadSourceReader.FromFile(path),
+                    BadOperatorTable.Instance
+                ).Parse()
+            );
+        }
+        
         public BadScriptDebugger(BadExecutionContextOptions options)
         {
             m_Options = options;
@@ -24,13 +45,7 @@ namespace BadScript2.ConsoleCore.Debugging.Scriptable
             }
             else
             {
-                BadExecutionContext ctx = m_Options.Build();
-                ctx.Run(
-                    new BadSourceParser(
-                        BadSourceReader.FromFile(BadScriptDebuggerSettings.Instance.DebuggerPath),
-                        BadOperatorTable.Instance
-                    ).Parse()
-                );
+                LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
             }
         }
 
