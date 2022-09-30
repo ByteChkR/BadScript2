@@ -23,7 +23,6 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets
 
         public override byte[] Serialize()
         {
-            Console.WriteLine($"Color '{Color}' Value: {(byte)Color}");
             return new[] { (byte)BadConsolePacketType.Color, (byte)(IsBackground ? 1 : 0), (byte)Color };
         }
     }

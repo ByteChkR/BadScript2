@@ -16,12 +16,12 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote
         private readonly TcpListener m_Listener;
         private readonly object m_Lock = new object();
         private readonly ConcurrentQueue<BadConsolePacket> m_OutgoingPackets = new ConcurrentQueue<BadConsolePacket>();
-        private ConsoleColor m_BackgroundColor = Console.BackgroundColor;
+        private ConsoleColor m_BackgroundColor = ConsoleColor.Black;
+        private ConsoleColor m_ForegroundColor = ConsoleColor.White;
         private TcpClient m_Client;
         private bool m_ExitRequested;
 
 
-        private ConsoleColor m_ForegroundColor = Console.ForegroundColor;
         private Thread m_MessageThread;
 
         public BadNetworkConsoleHost(TcpListener listner)
