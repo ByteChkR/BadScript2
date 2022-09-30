@@ -1,4 +1,5 @@
 using BadScript2.Common.Logging;
+using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleCore;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
@@ -21,18 +22,18 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
-BadLogger.OnLog += l => Console.WriteLine(l);
+BadLogger.OnLog += l => BadConsole.WriteLine(l.ToString());
 HttpClient client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
 
 async Task LoadZip()
 {
-    Console.WriteLine("Loading Zip");
+    BadConsole.WriteLine("Loading Zip");
 
     byte[] zipData = await client.GetByteArrayAsync("images/bootstrap/RootFS.zip");
-    Console.WriteLine($"Data Size: {zipData.Length} Bytes");
+    BadConsole.WriteLine($"Data Size: {zipData.Length} Bytes");
     MemoryStream ms = new MemoryStream(zipData, false);
     ms.Position = 0;
-    Console.WriteLine("Importing Zip");
+    BadConsole.WriteLine("Importing Zip");
     BadFileSystem.Instance.ImportZip(ms);
 }
 

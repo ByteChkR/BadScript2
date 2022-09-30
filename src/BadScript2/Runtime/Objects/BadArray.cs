@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Text;
 
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Utility;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Debugging;
 
 namespace BadScript2.Debugger
@@ -27,13 +28,13 @@ namespace BadScript2.Debugger
                 return;
             }
 
-            Console.WriteLine(view);
-            Console.WriteLine("Press any key to continue");
+            BadConsole.WriteLine(view);
+            BadConsole.WriteLine("Press any key to continue");
 
             bool exit = false;
             do
             {
-                string cmd = Console.ReadLine()!;
+                string cmd = BadConsole.ReadLine()!;
                 if (cmd.StartsWith("ignore-file"))
                 {
                     string file = cmd.Remove(0, "ignore-file".Length).Trim();
@@ -44,7 +45,7 @@ namespace BadScript2.Debugger
 
                 if (cmd.StartsWith("file"))
                 {
-                    Console.WriteLine(stepInfo.Position.FileName ?? "NULL");
+                    BadConsole.WriteLine(stepInfo.Position.FileName ?? "NULL");
 
                     continue;
                 }

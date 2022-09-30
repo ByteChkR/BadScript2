@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Settings;
 
 namespace BadScript2.ConsoleCore.Systems.Settings
@@ -9,7 +10,7 @@ namespace BadScript2.ConsoleCore.Systems.Settings
         protected override int Run(BadSettingsSystemSettings settings)
         {
             BadSettings? setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
-            Console.WriteLine(
+            BadConsole.WriteLine(
                 setting?.ToString() ?? "null"
             );
 

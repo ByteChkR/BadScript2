@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
@@ -54,7 +55,7 @@ namespace BadScript2.Tests
                         true
                     )
                     .ToArray();
-                System.Console.WriteLine($"Loading Files...({files.Length})");
+                BadConsole.WriteLine($"Loading Files...({files.Length})");
                 builder.Register(false, false, files);
 
                 s_Context = builder.CreateContext();
@@ -95,7 +96,7 @@ namespace BadScript2.Tests
                         true
                     )
                     .ToArray();
-                System.Console.WriteLine($"Loading Files...({files.Length})");
+                BadConsole.WriteLine($"Loading Files...({files.Length})");
                 builder.Register(true, false, files);
 
                 s_OptimizedContext = builder.CreateContext();

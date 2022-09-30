@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
@@ -38,7 +39,7 @@ namespace BadScript2.Interop.NUnit
                         true
                     )
                     .ToArray();
-                Console.WriteLine($"Loading Files...({files.Length})");
+                BadConsole.WriteLine($"Loading Files...({files.Length})");
                 builder.Register(false, false, files);
 
                 s_Context = builder.CreateContext();

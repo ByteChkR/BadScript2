@@ -1,5 +1,6 @@
 ﻿using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
+using BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
@@ -47,6 +48,16 @@ namespace BadScript2.Console
 
         private static int Main(string[] args)
         {
+            if (args.Length == 3 && args[0] == "remote")
+            {
+                string host = args[1];
+                int port = int.Parse(args[2]);
+                BadNetworkConsoleClient client = new BadNetworkConsoleClient(host, port);
+                client.Start();
+                
+                return -1;
+            }
+            
             using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
             cWriter.Register();
             BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);

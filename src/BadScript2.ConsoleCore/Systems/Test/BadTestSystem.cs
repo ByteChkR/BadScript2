@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.NUnit;
 
 using NUnitLite;
@@ -18,7 +19,7 @@ namespace BadScript2.ConsoleCore.Systems.Test
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                BadConsole.WriteLine(e.ToString());
 
                 return e.HResult;
             }

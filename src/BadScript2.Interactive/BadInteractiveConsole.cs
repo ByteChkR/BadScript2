@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
 using BadScript2.Optimizations;
@@ -106,7 +107,7 @@ namespace BadScript2.Interactive
 
             if (m_Context.Scope.Error != null)
             {
-                Console.WriteLine("Error: " + m_Context.Scope.Error);
+                BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
                 m_Context.Scope.UnsetError();
             }
         }
@@ -143,7 +144,7 @@ namespace BadScript2.Interactive
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    BadConsole.WriteLine(e.Message);
                 }
             }
             else
@@ -156,7 +157,7 @@ namespace BadScript2.Interactive
 
             if (m_Context.Scope.Error != null)
             {
-                Console.WriteLine("Error: " + m_Context.Scope.Error);
+                BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
                 m_Context.Scope.UnsetError();
             }
         }

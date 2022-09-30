@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleCore.Systems;
 
 namespace BadScript2.ConsoleCore
@@ -17,17 +18,17 @@ namespace BadScript2.ConsoleCore
         {
             while (args.Length == 0)
             {
-                Console.WriteLine("No command specified.");
-                Console.WriteLine("Usage: bs <system> [args]");
-                Console.WriteLine("Available systems:");
+                BadConsole.WriteLine("No command specified.");
+                BadConsole.WriteLine("Usage: bs <system> [args]");
+                BadConsole.WriteLine("Available systems:");
                 foreach (BadConsoleSystem sys in m_Systems)
                 {
-                    Console.WriteLine($"\t{sys.Name}");
+                    BadConsole.WriteLine($"\t{sys.Name}");
                 }
 
-                Console.Write("Input start arguments: ");
+                BadConsole.Write("Input start arguments: ");
 
-                args = Console.ReadLine()!.Split(' ');
+                args = BadConsole.ReadLine()!.Split(' ');
             }
 
             string name = args[0];

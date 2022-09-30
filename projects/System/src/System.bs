@@ -4,7 +4,6 @@ const System = {
 	Assert: Assert,
 	Enumerables: Enumerables,
 	Events: Events,
-	Linq: Linq,
 	Logging: Logging,
 	SourceReader: SourceReader
 }

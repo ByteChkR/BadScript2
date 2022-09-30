@@ -1,3 +1,4 @@
+using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
@@ -19,7 +20,7 @@ namespace BadScript2.Interop.Common.Apis
 
         private static Task<string> ReadLineAsync()
         {
-            return System.Threading.Tasks.Task.Run(Console.ReadLine);
+            return System.Threading.Tasks.Task.Run(BadConsole.ReadLine);
         }
 
         public override void Load(BadTable target)
@@ -50,11 +51,11 @@ namespace BadScript2.Interop.Common.Apis
         {
             if (obj is IBadString str)
             {
-                Console.Write(str.Value);
+                BadConsole.Write(str.Value);
             }
             else
             {
-                Console.Write(obj);
+                BadConsole.Write(obj.ToString());
             }
         }
 
@@ -62,17 +63,17 @@ namespace BadScript2.Interop.Common.Apis
         {
             if (obj is IBadString str)
             {
-                Console.WriteLine(str.Value);
+                BadConsole.WriteLine(str.Value);
             }
             else
             {
-                Console.WriteLine(obj);
+                BadConsole.WriteLine(obj.ToString());
             }
         }
 
         public static void Clear()
         {
-            Console.Clear();
+            BadConsole.Clear();
         }
 
         public static string ReadLine()
@@ -82,7 +83,7 @@ namespace BadScript2.Interop.Common.Apis
                 throw new Exception("Input is not allowed");
             }
 
-            return Console.ReadLine() ?? "";
+            return BadConsole.ReadLine() ?? "";
         }
 
         private class ReadLineAsyncRunnable : BadRunnable

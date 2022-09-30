@@ -17,4 +17,8 @@
         <Folder Include="Runtime\Interop\Reflection" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj" />
+    </ItemGroup>
+
 </Project>

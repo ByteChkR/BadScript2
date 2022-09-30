@@ -3,6 +3,8 @@ using System.IO;
 
 using BadHtml;
 
+using BadScript2.ConsoleAbstraction;
+
 namespace BadScript2.MinimalConsole
 {
     internal class Program
@@ -16,7 +18,7 @@ namespace BadScript2.MinimalConsole
             
             if (args.Length < 1 || args.Length > 3)
             {
-                Console.WriteLine("Usage: BadScript2.MinimalConsole.exe [debug] <script> <UQL-Statement>");
+                BadConsole.WriteLine("Usage: BadScript2.MinimalConsole.exe [debug] <script> <UQL-Statement>");
             }
             bool debug = args[0]== "debug";
             string script = debug ? args[1] : args[0];

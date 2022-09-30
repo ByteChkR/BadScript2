@@ -72,6 +72,10 @@
         <Project>{ec1ca365-bf3f-40d1-a576-8718a782c5e6}</Project>
         <Name>BadHtml</Name>
       </ProjectReference>
+      <ProjectReference Include="..\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj">
+        <Project>{2117b34f-b421-428a-8afb-3572c5983b49}</Project>
+        <Name>BadScript2.ConsoleAbstraction</Name>
+      </ProjectReference>
       <ProjectReference Include="..\BadScript2.Debugger\BadScript2.Debugger.csproj">
         <Project>{b6ccdb2e-a319-4726-b388-a33bc4c1831e}</Project>
         <Name>BadScript2.Debugger</Name>

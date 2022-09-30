@@ -1,6 +1,10 @@
 using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
 
 using BadScript2.Common.Logging;
+using BadScript2.ConsoleAbstraction;
+using BadScript2.ConsoleAbstraction.Implementations.Remote;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interactive;
@@ -43,8 +47,8 @@ namespace BadScript2.ConsoleCore.Systems.Run
             BadInteractiveConsole console = new BadInteractiveConsole(options, BadTaskRunner.Instance, files);
             while (true)
             {
-                Console.Write(">");
-                string cmd = Console.ReadLine()!;
+                BadConsole.Write(">");
+                string cmd = BadConsole.ReadLine()!;
 
                 if (cmd == "exit")
                 {
@@ -73,13 +77,21 @@ namespace BadScript2.ConsoleCore.Systems.Run
 
             if (context.Scope.IsError)
             {
-                Console.WriteLine("Error: " + context.Scope.Error);
+                BadConsole.WriteLine("Error: " + context.Scope.Error);
             }
         }
 
         protected override int Run(BadRunSystemSettings settings)
         {
             BadExecutionContextOptions options = CreateOptions();
+
+            BadNetworkConsoleHost? host = null;
+            if (settings.RemotePort != -1)
+            {
+                host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
+                host.Start();
+                BadConsole.SetConsole(host);
+            }
 
             BadRuntimeApi.StartupArguments = settings.Args;
             IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
@@ -95,7 +107,11 @@ namespace BadScript2.ConsoleCore.Systems.Run
                     BadLogger.Warn("Benchmarking is not supported in interactive mode");
                 }
 
-                return RunInteractive(options, files);
+                int r= RunInteractive(options, files);
+
+                host?.Stop();
+                return r;
+                
             }
 
             Stopwatch? sw = null;
@@ -138,6 +154,8 @@ namespace BadScript2.ConsoleCore.Systems.Run
                 sw?.Stop();
                 BadLogger.Log($"Execution Time: {sw?.ElapsedMilliseconds ?? 0}ms", "Benchmark");
             }
+
+            host?.Stop();
 
             return -1;
         }

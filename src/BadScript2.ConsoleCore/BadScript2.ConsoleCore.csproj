@@ -19,8 +19,4 @@
         <PackageReference Include="NUnitLite" Version="3.13.3" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Debugging" />
-    </ItemGroup>
-
 </Project>
