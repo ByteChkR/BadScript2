@@ -1,0 +1,20 @@
+
+const args = OS.GetArguments();
+if(args.Length < 2)
+{
+	Console.WriteLine("Expected at least one Argument");
+}
+else
+{
+	foreach(file in args.Skip(1))
+	{
+		if(IO.Directory.Exists(file))
+		{
+			IO.Directory.Delete(file, true);
+		}
+		else if(IO.File.Exists(file))
+		{
+			IO.File.Delete(file);
+		}
+	}
+}

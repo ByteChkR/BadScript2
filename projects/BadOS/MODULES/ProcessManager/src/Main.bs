@@ -1,0 +1,96 @@
+
+const apiBuilder = ApiBuilder;
+
+class Process
+{
+	const ID;
+	const Executable;
+	const Parameters;
+	let bool IsRunning = false;
+
+	function Process(num id!, string executable!, Array parameters!)
+	{
+		ID = id;
+		Executable = executable;
+		Parameters = parameters;
+	}
+
+	function CreateProcessScope()
+	{
+		const scope = Runtime.CreateDefaultScope();
+		const table = apiBuilder.Build({Process: this});
+		scope.GetLocals()["OS"] = table;
+		return scope;
+	}
+
+	function Execute()
+	{
+		const src = IO.File.ReadAllText(Executable);
+		IsRunning = true;
+		await Runtime.EvaluateAsync(src, Executable, false, CreateProcessScope());
+		IsRunning = false;
+	}
+
+	function GetTask()
+	{
+		return Concurrent.Create(Execute);
+	}
+
+	function RunAsync()
+	{
+		if(IsRunning)
+		{
+			throw "Process is already Running!";
+		}
+		return GetTask();
+	}
+
+	function Run()
+	{
+		if(IsRunning)
+		{
+			throw "Process is already Running!";
+		}
+		Concurrent.Run(GetTask());
+	}
+}
+
+const runningProcesses = [];
+let nextProcId = 1;
+
+function CreateProcess(string file!, Array args)
+{
+	const id = nextProcId;
+	nextProcId++;
+	const proc = new Process(id, file, args);
+	runningProcesses.Add(proc);
+	return proc;
+}
+
+function BuildProcessApi(ctx, table)
+{
+	if(ctx.Keys.Contains("Process"))
+	{
+		const proc = ctx["Process"];
+		table["Process"] = {
+			GetCurrent: function() => proc,
+			Run: function(string file!, Array args!) => CreateProcess(file, args).Run(),
+			RunAsync: function(string file!, Array args!) => CreateProcess(file, args).RunAsync()
+		}
+		table["GetArguments"] = function() {
+				const r = [];
+				foreach(arg in proc.Parameters)
+				{
+					r.Add(arg);
+				}
+				return r;
+			}
+	}
+}
+
+ApiBuilder.Add(BuildProcessApi);
+ApiBuilder.AddData("CreateProcess", CreateProcess);
+
+
+
+

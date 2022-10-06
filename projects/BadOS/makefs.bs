@@ -1,0 +1,60 @@
+
+
+Console.WriteLine("Creating File System...");
+const outDir = "root";
+IO.Directory.CreateDirectory(outDir);
+IO.Directory.CreateDirectory(outDir+"/bin");
+IO.Directory.CreateDirectory(outDir+"/lib");
+IO.Directory.CreateDirectory(outDir+"/home/bin");
+IO.Directory.CreateDirectory(outDir+"/home/config");
+IO.Directory.CreateDirectory(outDir+"/os");
+IO.Directory.CreateDirectory(outDir+"/os/modules");
+
+Console.WriteLine("Copying BIOS/OS");
+IO.File.Copy("./BIOS/bin/BadOS_BIOS.bs", outDir+"/startup.bs");
+IO.File.Copy("./OS/bin/BadOS.bs", outDir+"/os/init.bs");
+
+Console.WriteLine("Copying OS-Modules");
+foreach(moduleDir in IO.Directory.GetDirectories("./MODULES", false))
+{
+	const inputFile = IO.Path.Combine(moduleDir, "bin", IO.Path.GetFileName(moduleDir) + ".bs");
+	const outputFile = IO.Path.Combine(outDir+"/os/modules", IO.Path.GetFileName(moduleDir) + ".bs");
+	IO.File.Copy(inputFile, outputFile);
+}
+
+Console.WriteLine("Copying Libs");
+foreach(libDir in IO.Directory.GetDirectories("./LIBS", false))
+{
+	const inputFile = IO.Path.Combine(libDir, "bin", IO.Path.GetFileName(libDir) + ".bs");
+	const outputFile = IO.Path.Combine(outDir+"/lib", IO.Path.GetFileName(libDir) + ".bs");
+	IO.File.Copy(inputFile, outputFile);
+}
+
+
+Console.WriteLine("Copying OS-Utils");
+foreach(binDir in IO.Directory.GetDirectories("./UTILS", false))
+{
+	const inputFile = IO.Path.Combine(binDir, "bin", IO.Path.GetFileName(binDir) + ".bs");
+	const outputFile = IO.Path.Combine(outDir+"/bin", IO.Path.GetFileName(binDir) + ".bs");
+	IO.File.Copy(inputFile, outputFile);
+}
+
+Console.WriteLine("Writing ENV Data");
+const envData = {
+	PATH: "/bin;/home/bin",
+	OS_NAME: "BadOS",
+	OS_VERSION: "0.1"
+}
+
+IO.File.WriteAllText(outDir+"/home/config/env.json", Json.ToJson(envData));
+
+const startupData = {
+	File: "/bin/shell.bs"
+}
+IO.File.WriteAllText(outDir+"/os/startup.json", Json.ToJson(startupData));
+
+Compression.Zip.FromDirectory(outDir, "root.zip");
+
+//IO.Directory.Delete(outDir, true);
+
+

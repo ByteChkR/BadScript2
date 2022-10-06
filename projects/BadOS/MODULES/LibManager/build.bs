@@ -1,0 +1,45 @@
+
+//Load Package Library
+let Package = Runtime.Import("Package");
+
+//Load Project Builder & Utils
+let Project = Package.Import("Project");
+let ProjectUtils = Package.Import("ProjectUtils");
+
+//Create Project and load Settings
+let project = (new Project())
+	.LoadSetting("AppInfo", "./settings/AppInfo.json")
+	.LoadSetting("BuildInfo", "./settings/BuildInfo.json")
+	.LoadSetting("Sources", "./settings/Sources.json");
+	
+//process #import
+project.AddPostprocessTask(
+							"Process #import statements",
+							ProjectUtils.ProcessImports
+						);
+
+//process evals
+project.AddPostprocessTask(
+							"Process evals",
+							ProjectUtils.ProcessEvals(project)
+						);
+
+
+if(Runtime.GetArguments().Contains("release"))
+{
+	//Minify
+	project.AddPostprocessTask(
+								"Minify Output",
+								ProjectUtils.Minify
+							);
+}
+
+
+//Save Output
+project.AddPostprocessTask(
+							"Save Output", 
+							ProjectUtils.SaveToOutput(project)
+						);
+
+
+project.Run();

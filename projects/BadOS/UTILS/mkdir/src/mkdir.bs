@@ -1,0 +1,10 @@
+
+const args = OS.GetArguments();
+if(args.Length != 2)
+{
+	Console.WriteLine("Expected one Argument");
+}
+else
+{
+	IO.Directory.CreateDirectory(args[1]);
+}

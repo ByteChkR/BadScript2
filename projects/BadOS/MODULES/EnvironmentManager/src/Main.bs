@@ -1,0 +1,52 @@
+
+class Environment
+{
+	const _envs = {}
+
+	function Environment()
+	{
+
+	}
+
+	function GetVariables()
+	{
+		return _envs.ToArray();
+	}
+
+	function Set(string key!, string value)
+	{
+		_envs[key] = value;
+	}
+
+	function Has(string key!)
+	{
+		return _envs.Keys.Contains(key);
+	}
+
+	function Get(string key!)
+	{
+		return _envs[key];
+	}
+
+}
+
+const envPath = "/home/config/env.json";
+const env = new Environment();
+let envData = Json.FromJson(IO.File.ReadAllText(envPath));
+foreach(envD in envData.Keys)
+{
+	env.Set(envD, envData[envD]);
+}
+
+function BuildEnvironmentApi(ctx, table)
+{
+	table["Environment"] = {
+				Get: function(string key!) => env.Get(key),
+				Has: function(string key!) => env.Has(key),
+				Set: function(string key!, string value!) => env.Set(key, value),
+				Reload: function() => env = GetEnvironment(),
+				GetVariables: function() => env.GetVariables()
+			}
+}
+
+ApiBuilder.Add(BuildEnvironmentApi);

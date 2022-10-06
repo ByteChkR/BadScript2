@@ -1,0 +1,32 @@
+const libPath = "/lib";
+const loadedLibs = {}
+
+function Export(string name!, obj)
+{
+	loadedLibs[name] = obj;
+}
+
+function Import(string name!)
+{
+	if(loadedLibs.Keys.Contains(name))
+	{
+		return loadedLibs[name];
+	}
+
+	const libraryPath = IO.Path.Combine(libPath, name+".bs");
+	const t = ApiBuilder.Data.CreateProcess(libraryPath, []);
+	await t.RunAsync();
+	if(loadedLibs.Keys.Contains(name))
+	{
+		return loadedLibs[name];
+	}
+	throw "Can not find Library " + name;
+}
+
+function BuildLibManApi(ctx, table)
+{
+	table["Import"] = Import;
+	table["Export"] = Export;
+}
+
+ApiBuilder.Add(BuildLibManApi);

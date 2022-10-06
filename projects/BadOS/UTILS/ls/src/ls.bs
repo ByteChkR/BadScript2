@@ -1,0 +1,30 @@
+
+function PrintFiles(dir)
+{
+
+	foreach(file in IO.Directory.GetDirectories(dir, false))
+	{
+		Console.WriteLine("\t- " + file);
+	}
+	
+	foreach(file in IO.Directory.GetFiles(dir, "", false))
+	{
+		Console.WriteLine("\t- " + file);
+	}
+	
+}
+
+
+const args = OS.GetArguments();
+if(args.Length == 1)
+{
+	PrintFiles(IO.Directory.GetCurrentDirectory());
+}
+else if(args.Length == 2)
+{
+	PrintFiles(args[1]);
+}
+else
+{
+	Console.WriteLine("Invalid Argument Count");
+}

@@ -1,0 +1,11 @@
+
+
+const System = {
+	Assert: Assert,
+	Enumerables: Enumerables,
+	Events: Events,
+	Logging: Logging,
+	SourceReader: SourceReader
+}
+
+OS.Export("System", System);

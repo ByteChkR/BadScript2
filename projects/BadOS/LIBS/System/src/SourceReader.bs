@@ -1,0 +1,149 @@
+
+class SourceReader
+{
+	let _src;
+	let _current;
+
+	function SourceReader(src!)
+	{
+		Assert.IsString(src);
+		_src = src;
+		_current = 0;
+	}
+
+	function Is(str!)
+	{
+		Assert.IsString(str);
+		for(let i = 0; i < str.Length; i++)
+		{
+			if(GetCurrent(i) != str[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function Eat(str!)
+	{
+		Assert.IsString(str);
+		if(!Is(str))
+		{
+			throw $"Expected {str}";
+		}
+
+		_current += str.Length;
+	}
+
+	function IsWhiteSpace()
+	{
+		return Is("\n") || Is("\r") || Is(" ") || Is("\t");
+	}
+
+	function SkipWhiteSpace()
+	{
+		while(!IsEOF() && IsWhiteSpace())
+		{
+			MoveNext();
+		}
+	}
+
+	function ParseWord()
+	{
+		let r = "";
+		while(!IsWhiteSpace())
+		{
+			r += GetCurrent();
+			MoveNext();
+		}
+		return r;
+	}
+
+	function IsEOF() => _current >= _src.Length || _current < 0;
+	function GetCurrent(offset?) => IsEOF() ? "\0" : _src[_current + (offset ?? 0)];
+
+	function MoveNext()
+	{
+		_current++;
+	}
+
+	function ReadComment()
+	{
+		let r = "";
+		while(!IsEOF() && GetCurrent() != "\n")
+		{
+
+			r += GetCurrent();
+			MoveNext();
+		}
+
+		return r;
+	}
+
+	function ReadMultilineComment()
+	{
+		let r = GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+		while(!IsEOF() && GetCurrent() != "*" && GetCurrent(1) != "/")
+		{
+			r += GetCurrent();
+			MoveNext();
+		}
+		r += GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+
+		return r;
+	}
+
+	function ReadString()
+	{
+		let r = GetCurrent();
+		MoveNext();
+		while(!IsEOF() && GetCurrent() != "\"")
+		{
+			r += GetCurrent();
+			if(GetCurrent() == "\\")
+			{
+				MoveNext();
+				r += GetCurrent();
+			}
+			MoveNext();
+		}
+		r += GetCurrent();
+		MoveNext();
+
+		return r;
+	}
+
+	function StripComments()
+	{
+		let r = "";
+		while(!IsEOF())
+		{
+			let c = GetCurrent();
+			if(c == "/" && GetCurrent(1) == "/")
+			{
+				ReadComment();
+			}
+			else if(c == "/" && GetCurrent(1) == "*")
+			{
+				ReadMultilineComment();
+			}
+			else if(c == "\"")
+			{
+				r += ReadString();
+			}
+			else
+			{
+				r += c;
+				MoveNext();
+			}
+		}
+
+		return r;
+	}
+}
