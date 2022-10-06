@@ -201,7 +201,7 @@ commands["eval"] = EvaluateInStep
 
 function OnLoadFile(file)
 {
-	if(file != "<debugger>" && !files.Contains(file))
+	if(file != "<debugger>" && !files.Contains(file) && file != Debugger.DebuggerPath.Replace("\\", "/"))
 	{
 		DisplayLoadFileDialog(file);
 	}	
