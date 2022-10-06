@@ -21,6 +21,8 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets
                     return BadConsoleDisconnectPacket.Deserialize(data);
                 case BadConsolePacketType.HeartBeat:
                     return BadConsoleHeartBeatPacket.Deserialize(data);
+                case BadConsolePacketType.Hello:
+                    return BadConsoleHelloPacket.Deserialize(data);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

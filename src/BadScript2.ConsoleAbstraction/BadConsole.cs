@@ -7,30 +7,32 @@ namespace BadScript2.ConsoleAbstraction
 {
     public static class BadConsole
     {
-        private static IBadConsole m_Console;
+        private static IBadConsole s_Console;
 
+        public static IBadConsole GetConsole() => s_Console;
         static BadConsole()
         {
-            m_Console = new SystemConsole();
+            s_Console = new SystemConsole();
         }
 
-        public static void SetConsole(IBadConsole console) => m_Console = console;
-        public static void Write(string str) => m_Console.Write(str);
-        public static void WriteLine(string str) => m_Console.WriteLine(str);
-        public static string ReadLine() => m_Console.ReadLine();
-        public static Task<string> ReadLineAsync() => m_Console.ReadLineAsync();
-        public static void Clear() => m_Console.Clear();
+        public static void SetConsole(IBadConsole console) => s_Console = console;
+        public static void Write(string str) => s_Console.Write(str);
+        public static void WriteLine(string str) => s_Console.WriteLine(str);
+        public static string ReadLine() => s_Console.ReadLine();
+        public static Task<string> ReadLineAsync() => s_Console.ReadLineAsync();
+        public static void Clear() => s_Console.Clear();
 
+        
         public static ConsoleColor ForegroundColor
         {
-            get => m_Console.ForegroundColor;
-            set => m_Console.ForegroundColor = value;
+            get => s_Console.ForegroundColor;
+            set => s_Console.ForegroundColor = value;
         }
 
         public static ConsoleColor BackgroundColor
         {
-            get => m_Console.BackgroundColor;
-            set => m_Console.BackgroundColor = value;
+            get => s_Console.BackgroundColor;
+            set => s_Console.BackgroundColor = value;
         }
         
     }

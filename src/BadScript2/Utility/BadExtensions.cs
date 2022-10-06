@@ -37,6 +37,10 @@ namespace BadScript2.Utility
 
                 q.Enqueue(item);
             }
+            if (q.Count == count + 1)
+            {
+                yield return q.Dequeue();
+            }
         }
     }
 }

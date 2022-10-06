@@ -15,8 +15,9 @@ namespace BadScript2.IO
         /// </summary>
         /// <param name="fs">The Virtual File System to Export</param>
         /// <param name="str">The Stream to write the Zip File to</param>
+        /// <param name="path">The Path to export</param>
         /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
-        public static void ExportZip(this IFileSystem fs, Stream str)
+        public static void ExportZip(this IFileSystem fs, Stream str, string path = "/")
         {
             BadLogger.Log("Exporting zip file..", "BFS");
             if (fs is not BadVirtualFileSystem vfs)
@@ -25,7 +26,7 @@ namespace BadScript2.IO
             }
 
             using ZipArchive zip = new ZipArchive(str, ZipArchiveMode.Update, true);
-            foreach (string file in vfs.GetFiles("/", "", true))
+            foreach (string file in vfs.GetFiles(path, "", true))
             {
                 BadLogger.Log("Exporting File: " + file, "BFS");
                 ZipArchiveEntry e = zip.CreateEntry(file.Remove(0, 1));

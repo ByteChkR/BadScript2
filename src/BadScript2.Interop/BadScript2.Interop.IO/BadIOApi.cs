@@ -11,8 +11,12 @@ namespace BadScript2.Interop.IO
 {
     public class BadIOApi : BadInteropApi
     {
-        public BadIOApi() : base("IO") { }
-
+        private readonly IFileSystem m_FileSystem;
+        public BadIOApi() : this(BadFileSystem.Instance) { }
+        public BadIOApi(IFileSystem fileSystem) : base("IO")
+        {
+            m_FileSystem = fileSystem;
+        }
         private BadTable CreatePath()
         {
             BadTable t = new BadTable();
@@ -21,8 +25,8 @@ namespace BadScript2.Interop.IO
             t.SetFunction<string>("GetFileNameWithoutExtension", (_, s) => Path.GetFileNameWithoutExtension(s));
             t.SetFunction<string>("GetDirectoryName", (_, s) => Path.GetDirectoryName(s) ?? BadObject.Null);
             t.SetFunction<string>("GetExtension", (_, s) => Path.GetExtension(s));
-            t.SetFunction<string>("GetFullPath", (_, s) => BadFileSystem.Instance.GetFullPath(s));
-            t.SetFunction<string>("GetStartupPath", (_, _) => BadFileSystem.Instance.GetStartupDirectory());
+            t.SetFunction<string>("GetFullPath", (_, s) => m_FileSystem.GetFullPath(s));
+            t.SetFunction<string>("GetStartupPath", (_, _) => m_FileSystem.GetStartupDirectory());
             t.SetFunction<string, string>("ChangeExtension", (_, s, ext) => Path.ChangeExtension(s, ext));
             t.SetProperty(
                 "Combine",
@@ -45,32 +49,32 @@ namespace BadScript2.Interop.IO
                 "CreateDirectory",
                 (_, s) =>
                 {
-                    BadFileSystem.Instance.CreateDirectory(s);
+                    m_FileSystem.CreateDirectory(s);
 
                     return BadObject.Null;
                 }
             );
 
-            t.SetFunction<string>("Exists", s => BadFileSystem.Instance.Exists(s) && BadFileSystem.Instance.IsDirectory(s));
+            t.SetFunction<string>("Exists", s => m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s));
             t.SetFunction<string, bool>(
                 "Delete",
-                BadFileSystem.Instance.DeleteDirectory
+                m_FileSystem.DeleteDirectory
             );
 
 
             t.SetFunction<string, string, bool>(
                 "Move",
-                BadFileSystem.Instance.Move
+                m_FileSystem.Move
             );
 
-            t.SetFunction("GetCurrentDirectory", () => BadFileSystem.Instance.GetCurrentDirectory());
-            t.SetFunction<string>("SetCurrentDirectory", BadFileSystem.Instance.SetCurrentDirectory);
-            t.SetFunction("GetStartupDirectory", () => BadFileSystem.Instance.GetStartupDirectory());
+            t.SetFunction("GetCurrentDirectory", () => m_FileSystem.GetCurrentDirectory());
+            t.SetFunction<string>("SetCurrentDirectory", m_FileSystem.SetCurrentDirectory);
+            t.SetFunction("GetStartupDirectory", () => m_FileSystem.GetStartupDirectory());
 
             t.SetFunction<string, bool>(
                 "GetDirectories",
                 (_, s, b) => new BadArray(
-                    BadFileSystem.Instance.GetDirectories(s, b)
+                    m_FileSystem.GetDirectories(s, b)
                         .Select(x => (BadObject)x)
                         .ToList()
                 )
@@ -79,7 +83,7 @@ namespace BadScript2.Interop.IO
             t.SetFunction<string, string, bool>(
                 "GetFiles",
                 (_, s, p, b) => new BadArray(
-                    BadFileSystem.Instance.GetFiles(s, p, b)
+                    m_FileSystem.GetFiles(s, p, b)
                         .Select(x => (BadObject)x)
                         .ToList()
                 )
@@ -94,20 +98,20 @@ namespace BadScript2.Interop.IO
 
             t.SetFunction<string, string>(
                 "WriteAllText",
-                BadFileSystem.WriteAllText
+                m_FileSystem.WriteAllText
             );
             t.SetFunction<string>(
                 "ReadAllText",
-                s => BadFileSystem.ReadAllText(s)
+                s => m_FileSystem.ReadAllText(s)
             );
             t.SetFunction<string>(
                 "Exists",
-                s => BadFileSystem.Instance.Exists(s)
+                s => m_FileSystem.Exists(s)
             );
             t.SetFunction<string>(
                 "ReadAllLines",
                 s => new BadArray(
-                    BadFileSystem.ReadAllLines(s)
+                    m_FileSystem.ReadAllLines(s)
                         .Select(x => (BadObject)x)
                         .ToList()
                 )
@@ -116,7 +120,7 @@ namespace BadScript2.Interop.IO
                 "WriteAllLines",
                 (s, a) =>
                 {
-                    BadFileSystem.WriteAllLines(s, a.InnerArray.Select(x => x.ToString()!));
+                    m_FileSystem.WriteAllLines(s, a.InnerArray.Select(x => x.ToString()!));
 
                     return BadObject.Null;
                 }
@@ -127,7 +131,7 @@ namespace BadScript2.Interop.IO
                 "WriteAllBytes",
                 (s, a) =>
                 {
-                    using Stream stream = BadFileSystem.Instance.OpenWrite(s, BadWriteMode.CreateNew);
+                    using Stream stream = m_FileSystem.OpenWrite(s, BadWriteMode.CreateNew);
                     foreach (BadObject o in a.InnerArray)
                     {
                         if (o is not IBadNumber num)
@@ -144,7 +148,7 @@ namespace BadScript2.Interop.IO
                 "ReadAllBytes",
                 s =>
                 {
-                    using Stream stream = BadFileSystem.Instance.OpenRead(s);
+                    using Stream stream = m_FileSystem.OpenRead(s);
                     byte[] bytes = new byte[stream.Length];
                     stream.Read(bytes, 0, bytes.Length);
 
@@ -152,8 +156,15 @@ namespace BadScript2.Interop.IO
                 }
             );
 
-            t.SetFunction<string>("Delete", BadFileSystem.Instance.DeleteFile);
+            t.SetFunction<string>("Delete", m_FileSystem.DeleteFile);
 
+            t.SetFunction<string, string>("Copy",
+                (i, o) =>
+                {
+                    using Stream inS = m_FileSystem.OpenRead(i);
+                    using Stream outS = m_FileSystem.OpenWrite(o, BadWriteMode.CreateNew);
+                    inS.CopyTo(outS);
+                });
             return t;
         }
 

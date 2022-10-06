@@ -39,15 +39,16 @@ namespace BadScript2.Interop.Common.Task
                 yield break;
             }
 
+            BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>();
             //Run Task
             //Add current to continuation
             task.ContinuationTasks.Add(
-                BadTaskRunner.Instance.Current ?? throw new BadRuntimeException("Current task is null", Position)
+                runner.Current ?? throw new BadRuntimeException("Current task is null", Position)
             );
-            BadTaskRunner.Instance.Current?.Pause();
+            runner.Current?.Pause();
             if (task.IsInactive)
             {
-                BadTaskRunner.Instance.AddTask(task, true);
+                runner.AddTask(task, true);
             }
 
             yield return BadObject.Null; //Should pause Here

@@ -30,20 +30,18 @@ namespace BadScript2.IO
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="contents">Contents to be written</param>
-        public static void WriteAllText(string path, string contents)
+        public static void WriteAllText(string path, string contents) => Instance.WriteAllText(path, contents);
+
+        public static void WriteAllText(this IFileSystem fileSystem, string path, string contents)
         {
-            using Stream s = Instance.OpenWrite(path, BadWriteMode.CreateNew);
+            using Stream s = fileSystem.OpenWrite(path, BadWriteMode.CreateNew);
             using StreamWriter sw = new StreamWriter(s);
             sw.Write(contents);
         }
 
-        /// <summary>
-        ///     Wrapper for <see cref="IFileSystem.OpenRead" />
-        /// </summary>
-        /// <param name="path">Path of the file</param>
-        public static string ReadAllText(string path)
+        public static string ReadAllText(this IFileSystem fileSystem, string path)
         {
-            using Stream s = Instance.OpenRead(path);
+            using Stream s = fileSystem.OpenRead(path);
             using StreamReader sw = new StreamReader(s);
 
             return sw.ReadToEnd();
@@ -53,9 +51,12 @@ namespace BadScript2.IO
         ///     Wrapper for <see cref="IFileSystem.OpenRead" />
         /// </summary>
         /// <param name="path">Path of the file</param>
-        public static IEnumerable<string> ReadAllLines(string path)
+        public static string ReadAllText(string path) => Instance.ReadAllText(path);
+
+        
+        public static IEnumerable<string> ReadAllLines(this IFileSystem fileSystem, string path)
         {
-            using Stream s = Instance.OpenRead(path);
+            using Stream s = fileSystem.OpenRead(path);
             using StreamReader sw = new StreamReader(s);
 
 
@@ -66,18 +67,26 @@ namespace BadScript2.IO
         }
 
         /// <summary>
-        ///     Wrapper for <see cref="IFileSystem.OpenWrite" /> that creates the file if it does not exist
+        ///     Wrapper for <see cref="IFileSystem.OpenRead" />
         /// </summary>
         /// <param name="path">Path of the file</param>
-        /// <param name="lines">lines to be written</param>
-        public static void WriteAllLines(string path, IEnumerable<string> lines)
+        public static IEnumerable<string> ReadAllLines(string path) => Instance.ReadAllLines(path);
+
+        public static void WriteAllLines(this IFileSystem fileSystem, string path, IEnumerable<string> lines)
         {
-            using Stream s = Instance.OpenWrite(path, BadWriteMode.CreateNew);
+            using Stream s = fileSystem.OpenWrite(path, BadWriteMode.CreateNew);
             using StreamWriter sw = new StreamWriter(s);
             foreach (string line in lines)
             {
                 sw.WriteLine(line);
             }
         }
+
+        /// <summary>
+        ///     Wrapper for <see cref="IFileSystem.OpenWrite" /> that creates the file if it does not exist
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <param name="lines">lines to be written</param>
+        public static void WriteAllLines(string path, IEnumerable<string> lines) => Instance.WriteAllLines(path, lines);
     }
 }

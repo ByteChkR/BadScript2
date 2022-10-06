@@ -6,6 +6,7 @@ using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
 using BadScript2.ConsoleCore.Systems.Settings;
 using BadScript2.ConsoleCore.Systems.Test;
+using BadScript2.ConsoleCore.Systems.VirtualMachine;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
@@ -60,8 +61,17 @@ namespace BadScript2.Console
             
             using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
             cWriter.Register();
-            BadFileLogWriter lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
-            lWriter.Register();
+
+            BadFileLogWriter? lWriter = null;
+            try
+            {
+                lWriter = new BadFileLogWriter(BadConsoleDirectories.LogFile);
+                lWriter.Register();
+            }
+            catch (Exception e)
+            {
+                BadLogger.Error("Can not attach log file writer. "+e.Message, "BadConsole");
+            }
 
 
             LoadSettings();
@@ -83,12 +93,16 @@ namespace BadScript2.Console
                 new BadTestSystem(),
                 new BadRunSystem(),
                 new BadSettingsSystem(),
-                new BadHtmlSystem()
+                new BadHtmlSystem(),
+                new BadVirtualMachineRunSystem(),
+                new BadVirtualMachineNewSystem(),
+                new BadVirtualMachineManagerSystem(),
+                new BadVirtualMachineManagerClientSystem()
             );
 
 
             int r = runner.Run(args);
-            lWriter.Dispose();
+            lWriter?.Dispose();
 
 
             return r;

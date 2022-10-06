@@ -7,6 +7,7 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets
         Color,
         Clear,
         Disconnect,
-        HeartBeat
+        HeartBeat,
+        Hello,
     }
 }

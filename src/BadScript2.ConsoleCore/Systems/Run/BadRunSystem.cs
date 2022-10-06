@@ -130,6 +130,7 @@ namespace BadScript2.ConsoleCore.Systems.Run
                 BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
                 BadExecutionContext context = options.Build();
 
+                context.Scope.AddSingleton(BadTaskRunner.Instance);
 
                 IEnumerable<BadExpression> exprs = parser.Parse();
                 if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)

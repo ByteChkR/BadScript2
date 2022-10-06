@@ -40,5 +40,6 @@ namespace BadScript2.ConsoleAbstraction.Implementations
             get => Console.BackgroundColor;
             set => Console.BackgroundColor = value;
         }
+
     }
 }

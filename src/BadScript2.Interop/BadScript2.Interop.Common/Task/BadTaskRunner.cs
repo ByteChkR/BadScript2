@@ -12,7 +12,6 @@ namespace BadScript2.Interop.Common.Task
             BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
         }
 
-        private BadTaskRunner() { }
 
         public BadTask? Current { get; private set; }
         public bool IsIdle => m_TaskList.Count == 0;

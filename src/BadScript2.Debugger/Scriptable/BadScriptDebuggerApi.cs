@@ -1,3 +1,5 @@
+using System.IO;
+
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
@@ -41,6 +43,7 @@ namespace BadScript2.Debugger.Scriptable
         {
             target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
             target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);
+            target.SetProperty("DebuggerPath", Path.GetFullPath(BadScriptDebuggerSettings.Instance.DebuggerPath!));
         }
     }
 }

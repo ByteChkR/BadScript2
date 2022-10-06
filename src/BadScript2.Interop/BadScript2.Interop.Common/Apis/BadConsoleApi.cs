@@ -9,18 +9,29 @@ namespace BadScript2.Interop.Common.Apis
 {
     public class BadConsoleApi : BadInteropApi
     {
-        public BadConsoleApi() : base("Console") { }
-        public static Action<BadObject> OnWrite { get; set; } = Write;
-        public static Action<BadObject> OnWriteLine { get; set; } = WriteLine;
-        public static Action OnClear { get; set; } = Clear;
-        public static Func<string> OnReadLine { get; set; } = ReadLine;
-        public static Func<Task<string>> OnReadLineAsync { get; set; } = ReadLineAsync;
-
-        public static bool AllowInput { get; set; } = true;
-
-        private static Task<string> ReadLineAsync()
+        private readonly IBadConsole? m_Console;
+        private IBadConsole Console => m_Console ?? BadConsole.GetConsole();
+        public BadConsoleApi() : this(BadConsole.GetConsole()) { }
+        public BadConsoleApi(IBadConsole console):base("Console")
         {
-            return System.Threading.Tasks.Task.Run(BadConsole.ReadLine);
+            m_Console = console;
+            OnWrite = Write;
+            OnWriteLine = WriteLine;
+            OnClear = Clear;
+            OnReadLine = ReadLine;
+            OnReadLineAsync = ReadLineAsync;
+        }
+        public Action<BadObject> OnWrite { get; set; }
+        public Action<BadObject> OnWriteLine { get; set; }
+        public Action OnClear { get; set; }
+        public Func<string> OnReadLine { get; set; }
+        public Func<Task<string>> OnReadLineAsync { get; set; }
+
+        public bool AllowInput { get; set; } = true;
+
+        private Task<string> ReadLineAsync()
+        {
+            return System.Threading.Tasks.Task.Run(Console.ReadLine);
         }
 
         public override void Load(BadTable target)
@@ -31,11 +42,11 @@ namespace BadScript2.Interop.Common.Apis
             target.SetFunction("ReadLine", () => OnReadLine());
             target.SetFunction(
                 "ReadLineAsync",
-                () => new BadTask(new ReadLineAsyncRunnable(), "Console.ReadLineAsync")
+                () => new BadTask(new ReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()), "Console.ReadLineAsync")
             );
         }
 
-        private static IEnumerable<BadObject> ReadLineAsyncBlocking()
+        private IEnumerable<BadObject> ReadLineAsyncBlocking()
         {
             Task<string>? t = OnReadLineAsync();
 
@@ -47,49 +58,53 @@ namespace BadScript2.Interop.Common.Apis
             yield return t.Result;
         }
 
-        private static void Write(BadObject obj)
+        private void Write(BadObject obj)
         {
             if (obj is IBadString str)
             {
-                BadConsole.Write(str.Value);
+                Console.Write(str.Value);
             }
             else
             {
-                BadConsole.Write(obj.ToString());
+                Console.Write(obj.ToString());
             }
         }
 
-        private static void WriteLine(BadObject obj)
+        private void WriteLine(BadObject obj)
         {
             if (obj is IBadString str)
             {
-                BadConsole.WriteLine(str.Value);
+                Console.WriteLine(str.Value);
             }
             else
             {
-                BadConsole.WriteLine(obj.ToString());
+                Console.WriteLine(obj.ToString());
             }
         }
 
-        public static void Clear()
+        public void Clear()
         {
-            BadConsole.Clear();
+            Console.Clear();
         }
 
-        public static string ReadLine()
+        public string ReadLine()
         {
             if (!AllowInput)
             {
                 throw new Exception("Input is not allowed");
             }
 
-            return BadConsole.ReadLine() ?? "";
+            return Console.ReadLine() ?? "";
         }
 
         private class ReadLineAsyncRunnable : BadRunnable
         {
-            private readonly IEnumerator<BadObject> m_Task = ReadLineAsyncBlocking().GetEnumerator();
+            private readonly IEnumerator<BadObject> m_Task;
             private BadObject m_Return = BadObject.Null;
+            public ReadLineAsyncRunnable(IEnumerator<BadObject> task)
+            {
+                m_Task = task;
+            }
 
             public override IEnumerator<BadObject> Enumerator
             {
