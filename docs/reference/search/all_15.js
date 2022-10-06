@@ -4,5 +4,6 @@ var searchData=
   ['values_1',['Values',['../class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_table_extension.html#a11660ef33701c16e590dfb39952a2138',1,'BadScript2::Interop::Common::Extensions::BadTableExtension']]],
   ['vardef_2',['VarDef',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_expression.html#a98fb761671fc1b9a21c10a5c0aa06071',1,'BadScript2::Parser::Expressions::Block::Loop::BadForExpression']]],
   ['variabledefinitionkey_3',['VariableDefinitionKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#acde58d4239d2ad0521f819a72c17c4bf',1,'BadScript2::Common::BadStaticKeys']]],
-  ['varincrement_4',['VarIncrement',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_expression.html#ad9fa4173242e3665829d8cf20018727f',1,'BadScript2::Parser::Expressions::Block::Loop::BadForExpression']]]
+  ['varincrement_4',['VarIncrement',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_expression.html#ad9fa4173242e3665829d8cf20018727f',1,'BadScript2::Parser::Expressions::Block::Loop::BadForExpression']]],
+  ['vmname_5',['VmName',['../class_bad_virtual_machine_manager_client_system_settings.html#abf63ce8333fabc90f704a735d6bf97af',1,'BadVirtualMachineManagerClientSystemSettings']]]
 ];

@@ -1,0 +1,17 @@
+<map id="BadScript2.Runtime.Interop.BadRuntimeEnumerator" name="BadScript2.Runtime.Interop.BadRuntimeEnumerator">
+<area shape="rect" id="node1" title=" " alt="" coords="1677,154,1863,195"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="345,161,428,188"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html" title="Implements a function that can be called from the script" alt="" coords="1337,238,1528,279"/>
+<area shape="rect" id="node12" href="$class_bad_scope.html" title="Implements the Scope for the Script Engine" alt="" coords="1052,109,1135,136"/>
+<area shape="rect" id="node13" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="633,45,824,86"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="5,157,196,198"/>
+<area shape="rect" id="node4" href="$interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerator.html" title=" " alt="" coords="1375,25,1490,52"/>
+<area shape="rect" id="node5" title=" " alt="" coords="1005,5,1182,32"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_word_token.html" title="Implements a WordToken" alt="" coords="1006,329,1181,370"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_token.html" title="Base Class for All tokens." alt="" coords="689,341,769,368"/>
+<area shape="rect" id="node9" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="281,365,492,406"/>
+<area shape="rect" id="node10" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html" title="Provides function parameter info" alt="" coords="985,263,1201,305"/>
+<area shape="rect" id="node11" href="$class_bad_script2_1_1_runtime_1_1_bad_execution_context.html" title="The Execution Context. Every execution of a script needs a context the script is running in...." alt="" coords="1321,95,1544,137"/>
+<area shape="rect" id="node14" href="$interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerable.html" title=" " alt="" coords="328,37,445,64"/>
+<area shape="rect" id="node15" title=" " alt="" coords="11,37,190,64"/>
+</map>

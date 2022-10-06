@@ -1,0 +1,12 @@
+<map id="BadScript2.Runtime.Interop.BadInteropEnumerable" name="BadScript2.Runtime.Interop.BadInteropEnumerable">
+<area shape="rect" id="node1" title=" " alt="" coords="1260,148,1445,189"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="700,147,783,174"/>
+<area shape="rect" id="node6" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html" title="Implements a function that can be called from the script" alt="" coords="969,80,1160,121"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="357,140,548,181"/>
+<area shape="rect" id="node4" href="$interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerable.html" title=" " alt="" coords="1006,206,1123,233"/>
+<area shape="rect" id="node5" title=" " alt="" coords="652,206,831,233"/>
+<area shape="rect" id="node7" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_word_token.html" title="Implements a WordToken" alt="" coords="654,5,829,47"/>
+<area shape="rect" id="node8" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_token.html" title="Base Class for All tokens." alt="" coords="413,13,493,39"/>
+<area shape="rect" id="node9" href="$class_bad_script2_1_1_common_1_1_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node10" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html" title="Provides function parameter info" alt="" coords="633,71,849,112"/>
+</map>

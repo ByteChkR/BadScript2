@@ -372,12 +372,12 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_settings_reader_8cs_source.html#l00066">66</a> of file <a class="el" href="_bad_settings_reader_8cs_source.html">BadSettingsReader.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   67</span>        {</div>
-<div class="line"><span class="lineno">   68</span>            <span class="keywordtype">string</span> json = <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_function" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#aea3057232ba8b0b8d5c748785fba7d40">ReadAllText</a>(fileName);</div>
+<div class="line"><span class="lineno">   68</span>            <span class="keywordtype">string</span> json = <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_function" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#a1fc03c0e963ad5abbaa77ea7235c506b">ReadAllText</a>(fileName);</div>
 <div class="line"><span class="lineno">   69</span>            JToken token = JToken.Parse(json);</div>
 <div class="line"><span class="lineno">   70</span> </div>
 <div class="line"><span class="lineno">   71</span>            <span class="keywordflow">return</span> token;</div>
 <div class="line"><span class="lineno">   72</span>        }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_bad_file_system_html_aea3057232ba8b0b8d5c748785fba7d40"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#aea3057232ba8b0b8d5c748785fba7d40">BadScript2.IO.BadFileSystem.ReadAllText</a></div><div class="ttdeci">static string ReadAllText(string path)</div><div class="ttdoc">Wrapper for IFileSystem.OpenRead</div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00044">BadFileSystem.cs:44</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_bad_file_system_html_a1fc03c0e963ad5abbaa77ea7235c506b"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#a1fc03c0e963ad5abbaa77ea7235c506b">BadScript2.IO.BadFileSystem.ReadAllText</a></div><div class="ttdeci">static string ReadAllText(this IFileSystem fileSystem, string path)</div><div class="ttdef"><b>Definition:</b> <a href="_bad_file_system_8cs_source.html#l00042">BadFileSystem.cs:42</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

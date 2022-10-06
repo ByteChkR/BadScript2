@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html" title="Implements a simple constant folding optimization" alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node1" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_node.html" title="Base class for all Virtual Filesystem Nodes" alt="" coords="5,39,176,80"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_directory.html" title="Represents a Virtual File System Directory Entry" alt="" coords="224,5,395,47"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file.html" title="Implements a Virtual File System File" alt="" coords="224,71,395,112"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_root.html" title="Implements a Virtual File System Root Directory" alt="" coords="443,5,613,47"/>
 </map>

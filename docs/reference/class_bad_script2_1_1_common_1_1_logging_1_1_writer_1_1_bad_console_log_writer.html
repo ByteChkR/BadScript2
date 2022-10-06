@@ -140,7 +140,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="namespace_bad_script2_1_1_console.html">Console</a> Log <a class="el" href="namespace_bad_script2_1_1_common_1_1_logging_1_1_writer.html">Writer</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_log_writer_8cs_source.html#l00006">6</a> of file <a class="el" href="_bad_console_log_writer_8cs_source.html">BadConsoleLogWriter.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_console_log_writer_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_console_log_writer_8cs_source.html">BadConsoleLogWriter.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a53c8cb15c6bd107c328610ca18ec3357" name="a53c8cb15c6bd107c328610ca18ec3357"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53c8cb15c6bd107c328610ca18ec3357">&#9670;&nbsp;</a></span>Write()</h2>
@@ -182,35 +182,35 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer.html#aaa1f6dee47f6619c48ddfb2633129d80">BadScript2.Common.Logging.Writer.BadLogWriter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_console_log_writer_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_console_log_writer_8cs_source.html">BadConsoleLogWriter.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>        {</div>
-<div class="line"><span class="lineno">   15</span>            ConsoleColor fg = Console.ForegroundColor;</div>
-<div class="line"><span class="lineno">   16</span>            ConsoleColor bg = Console.BackgroundColor;</div>
-<div class="line"><span class="lineno">   17</span>            <span class="keywordflow">switch</span> (log.Type)</div>
-<div class="line"><span class="lineno">   18</span>            {</div>
-<div class="line"><span class="lineno">   19</span>                <span class="keywordflow">case</span> <a class="code hl_enumeration" href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadLogType</a>.Log:</div>
-<div class="line"><span class="lineno">   20</span>                    Console.ForegroundColor = BadLoggerSettings.Instance.LogForegroundColor;</div>
-<div class="line"><span class="lineno">   21</span>                    Console.BackgroundColor = BadLoggerSettings.Instance.LogBackgroundColor;</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   24</span>                <span class="keywordflow">case</span> <a class="code hl_enumeration" href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadLogType</a>.Warning:</div>
-<div class="line"><span class="lineno">   25</span>                    Console.ForegroundColor = BadLoggerSettings.Instance.WarnForegroundColor;</div>
-<div class="line"><span class="lineno">   26</span>                    Console.BackgroundColor = BadLoggerSettings.Instance.WarnBackgroundColor;</div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   29</span>                <span class="keywordflow">case</span> <a class="code hl_enumeration" href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadLogType</a>.Error:</div>
-<div class="line"><span class="lineno">   30</span>                    Console.ForegroundColor = BadLoggerSettings.Instance.ErrorForegroundColor;</div>
-<div class="line"><span class="lineno">   31</span>                    Console.BackgroundColor = BadLoggerSettings.Instance.ErrorBackgroundColor;</div>
-<div class="line"><span class="lineno">   32</span> </div>
-<div class="line"><span class="lineno">   33</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   34</span>                <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">   35</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException();</div>
-<div class="line"><span class="lineno">   36</span>            }</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>            Console.WriteLine(log);</div>
-<div class="line"><span class="lineno">   39</span>            Console.ForegroundColor = fg;</div>
-<div class="line"><span class="lineno">   40</span>            Console.BackgroundColor = bg;</div>
-<div class="line"><span class="lineno">   41</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_console_log_writer_8cs_source.html#l00015">15</a> of file <a class="el" href="_bad_console_log_writer_8cs_source.html">BadConsoleLogWriter.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>        {</div>
+<div class="line"><span class="lineno">   17</span>            ConsoleColor fg = BadConsole.ForegroundColor;</div>
+<div class="line"><span class="lineno">   18</span>            ConsoleColor bg = BadConsole.BackgroundColor;</div>
+<div class="line"><span class="lineno">   19</span>            <span class="keywordflow">switch</span> (log.Type)</div>
+<div class="line"><span class="lineno">   20</span>            {</div>
+<div class="line"><span class="lineno">   21</span>                <span class="keywordflow">case</span> <a class="code hl_enumeration" href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadLogType</a>.Log:</div>
+<div class="line"><span class="lineno">   22</span>                    BadConsole.ForegroundColor = BadLoggerSettings.Instance.LogForegroundColor;</div>
+<div class="line"><span class="lineno">   23</span>                    BadConsole.BackgroundColor = BadLoggerSettings.Instance.LogBackgroundColor;</div>
+<div class="line"><span class="lineno">   24</span> </div>
+<div class="line"><span class="lineno">   25</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   26</span>                <span class="keywordflow">case</span> <a class="code hl_enumeration" href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadLogType</a>.Warning:</div>
+<div class="line"><span class="lineno">   27</span>                    BadConsole.ForegroundColor = BadLoggerSettings.Instance.WarnForegroundColor;</div>
+<div class="line"><span class="lineno">   28</span>                    BadConsole.BackgroundColor = BadLoggerSettings.Instance.WarnBackgroundColor;</div>
+<div class="line"><span class="lineno">   29</span> </div>
+<div class="line"><span class="lineno">   30</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   31</span>                <span class="keywordflow">case</span> <a class="code hl_enumeration" href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadLogType</a>.Error:</div>
+<div class="line"><span class="lineno">   32</span>                    BadConsole.ForegroundColor = BadLoggerSettings.Instance.ErrorForegroundColor;</div>
+<div class="line"><span class="lineno">   33</span>                    BadConsole.BackgroundColor = BadLoggerSettings.Instance.ErrorBackgroundColor;</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   36</span>                <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   37</span>                    <span class="keywordflow">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException();</div>
+<div class="line"><span class="lineno">   38</span>            }</div>
+<div class="line"><span class="lineno">   39</span> </div>
+<div class="line"><span class="lineno">   40</span>            BadConsole.WriteLine(log.ToString());</div>
+<div class="line"><span class="lineno">   41</span>            BadConsole.ForegroundColor = fg;</div>
+<div class="line"><span class="lineno">   42</span>            BadConsole.BackgroundColor = bg;</div>
+<div class="line"><span class="lineno">   43</span>        }</div>
 <div class="ttc" id="anamespace_bad_script2_1_1_common_1_1_logging_html_ab226e519c81cc055077edd237cf10ba5"><div class="ttname"><a href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadScript2.Common.Logging.BadLogType</a></div><div class="ttdeci">BadLogType</div><div class="ttdoc">Log Types</div><div class="ttdef"><b>Definition:</b> <a href="_bad_log_type_8cs_source.html#l00006">BadLogType.cs:7</a></div></div>
 </div><!-- fragment -->
 </div>

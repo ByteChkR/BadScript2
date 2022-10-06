@@ -252,23 +252,25 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   39</span>                yield <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   40</span>            }</div>
 <div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>            <span class="comment">//Run Task</span></div>
-<div class="line"><span class="lineno">   43</span>            <span class="comment">//Add current to continuation</span></div>
-<div class="line"><span class="lineno">   44</span>            task.ContinuationTasks.Add(</div>
-<div class="line"><span class="lineno">   45</span>                BadTaskRunner.Instance.Current ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Current task is null&quot;</span>, <a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">Position</a>)</div>
-<div class="line"><span class="lineno">   46</span>            );</div>
-<div class="line"><span class="lineno">   47</span>            BadTaskRunner.Instance.Current?.Pause();</div>
-<div class="line"><span class="lineno">   48</span>            <span class="keywordflow">if</span> (task.IsInactive)</div>
-<div class="line"><span class="lineno">   49</span>            {</div>
-<div class="line"><span class="lineno">   50</span>                BadTaskRunner.Instance.AddTask(task, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">   51</span>            }</div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>            yield <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>; <span class="comment">//Should pause Here</span></div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>            yield <span class="keywordflow">return</span> task.Runnable.GetReturn();</div>
-<div class="line"><span class="lineno">   56</span>        }</div>
+<div class="line"><span class="lineno">   42</span>            BadTaskRunner runner = context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.GetSingleton&lt;BadTaskRunner&gt;();</div>
+<div class="line"><span class="lineno">   43</span>            <span class="comment">//Run Task</span></div>
+<div class="line"><span class="lineno">   44</span>            <span class="comment">//Add current to continuation</span></div>
+<div class="line"><span class="lineno">   45</span>            task.ContinuationTasks.Add(</div>
+<div class="line"><span class="lineno">   46</span>                runner.Current ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Current task is null&quot;</span>, <a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">Position</a>)</div>
+<div class="line"><span class="lineno">   47</span>            );</div>
+<div class="line"><span class="lineno">   48</span>            runner.Current?.Pause();</div>
+<div class="line"><span class="lineno">   49</span>            <span class="keywordflow">if</span> (task.IsInactive)</div>
+<div class="line"><span class="lineno">   50</span>            {</div>
+<div class="line"><span class="lineno">   51</span>                runner.AddTask(task, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">   52</span>            }</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>            yield <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>; <span class="comment">//Should pause Here</span></div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>            yield <span class="keywordflow">return</span> task.Runnable.GetReturn();</div>
+<div class="line"><span class="lineno">   57</span>        }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html_a9e99859bd43e7a451c7e0ce2c847d2d5"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">BadScript2.Parser.Expressions.BadExpression.Position</a></div><div class="ttdeci">BadSourcePosition Position</div><div class="ttdoc">The source Position of the Expression</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00034">BadExpression.cs:34</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html_ae6bf28dcb34eac4a4ed5ae8536a11f2b"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#ae6bf28dcb34eac4a4ed5ae8536a11f2b">BadScript2.Parser.Expressions.BadExpression.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(BadExecutionContext context)</div><div class="ttdoc">Evaluates the Expression within the current Execution Context.</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00053">BadExpression.cs:53</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html_a9b522f55cce0f191df424eec37b6ee4c"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">BadScript2.Runtime.BadExecutionContext.Scope</a></div><div class="ttdeci">readonly BadScope Scope</div><div class="ttdoc">The Root Scope of the Context</div><div class="ttdef"><b>Definition:</b> <a href="_bad_execution_context_8cs_source.html#l00016">BadExecutionContext.cs:16</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadScript2.Runtime.Error.BadRuntimeException</a></div><div class="ttdoc">Gets thrown by the runtime</div><div class="ttdef"><b>Definition:</b> <a href="_bad_runtime_exception_8cs_source.html#l00008">BadRuntimeException.cs:9</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_ac71bfcf96e046f575f0bd000c876c307"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">BadScript2.Runtime.Objects.BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>

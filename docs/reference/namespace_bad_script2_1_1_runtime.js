@@ -6,7 +6,6 @@ var namespace_bad_script2_1_1_runtime =
     [ "Settings", "namespace_bad_script2_1_1_runtime_1_1_settings.html", "namespace_bad_script2_1_1_runtime_1_1_settings" ],
     [ "BadExecutionContext", "class_bad_script2_1_1_runtime_1_1_bad_execution_context.html", "class_bad_script2_1_1_runtime_1_1_bad_execution_context" ],
     [ "BadExecutionContextOptions", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options" ],
-    [ "BadScope", "class_bad_script2_1_1_runtime_1_1_bad_scope.html", "class_bad_script2_1_1_runtime_1_1_bad_scope" ],
     [ "BadScopeFlags", "namespace_bad_script2_1_1_runtime.html#abaabc720fc823abd09df89427aeaf3dc", [
       [ "None", "namespace_bad_script2_1_1_runtime.html#abaabc720fc823abd09df89427aeaf3dca6adf97f83acf6453d4a6a4b1070f3754", null ],
       [ "AllowReturn", "namespace_bad_script2_1_1_runtime.html#abaabc720fc823abd09df89427aeaf3dca73be301bbb888b42bb9b16201af766dd", null ],

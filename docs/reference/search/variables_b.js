@@ -1,7 +1,7 @@
 var searchData=
 [
   ['parameters_0',['Parameters',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#adde83a133d163a8a3160315ef11f00ad',1,'BadScript2::Runtime::Objects::Functions::BadFunction']]],
-  ['parent_1',['Parent',['../class_bad_script2_1_1_runtime_1_1_bad_scope.html#a16a8f7fa68bb7b32d0d97a702d5e417f',1,'BadScript2::Runtime::BadScope']]],
+  ['parent_1',['Parent',['../class_bad_scope.html#a16e07dfaa9b3ab5942384185964b7d47',1,'BadScope']]],
   ['parentscope_2',['ParentScope',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html#a7fad16f381450f4675accbb631074b77',1,'BadScript2::Runtime::Objects::Functions::BadExpressionFunction']]],
   ['position_3',['Position',['../class_bad_script2_1_1_common_1_1_bad_script_exception.html#ae7349fe3855f414f832df63dbe8b93fc',1,'BadScript2.Common.BadScriptException.Position()'],['../struct_bad_script2_1_1_common_1_1_logging_1_1_bad_log.html#adc8303328f04433e713956dc6bd1245a',1,'BadScript2.Common.Logging.BadLog.Position()'],['../struct_bad_script2_1_1_debugging_1_1_bad_debugger_step.html#ab12edb6875e47b827277088e36e71841',1,'BadScript2.Debugging.BadDebuggerStep.Position()'],['../class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html#a1aac67f26a32e5a13f4b8aa242a9f0b1',1,'BadScript2.Runtime.Objects.Functions.BadExpressionFunction.Position()']]],
   ['prime1_4',['Prime1',['../struct_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68',1,'BadScript2::Utility::BadHashCode']]],

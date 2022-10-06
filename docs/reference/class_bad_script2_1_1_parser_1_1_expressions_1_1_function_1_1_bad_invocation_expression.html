@@ -288,7 +288,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   70</span>                {</div>
 <div class="line"><span class="lineno">   71</span>                    argObj = arg;</div>
 <div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>                    <span class="keywordflow">if</span> (context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">IsError</a>)</div>
+<div class="line"><span class="lineno">   73</span>                    <span class="keywordflow">if</span> (context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a40b864590e67c49e2558c27fa2e778e1">IsError</a>)</div>
 <div class="line"><span class="lineno">   74</span>                    {</div>
 <div class="line"><span class="lineno">   75</span>                        yield <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   76</span>                    }</div>
@@ -299,9 +299,9 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   81</span>                args.Add(argObj.Dereference());</div>
 <div class="line"><span class="lineno">   82</span>            }</div>
 <div class="line"><span class="lineno">   83</span>        }</div>
+<div class="ttc" id="aclass_bad_scope_html_a40b864590e67c49e2558c27fa2e778e1"><div class="ttname"><a href="class_bad_scope.html#a40b864590e67c49e2558c27fa2e778e1">BadScope.IsError</a></div><div class="ttdeci">bool IsError</div><div class="ttdoc">Is true if the Scope encountered an error</div><div class="ttdef"><b>Definition:</b> <a href="_bad_scope_8cs_source.html#l00091">BadScope.cs:91</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html_ab4d745d470ec95c1aa947237cdffa6c7"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#ab4d745d470ec95c1aa947237cdffa6c7">BadScript2.Parser.Expressions.BadExpression.BadExpression</a></div><div class="ttdeci">BadExpression(bool isConstant, BadSourcePosition position)</div><div class="ttdoc">Constructor</div><div class="ttdef"><b>Definition:</b> <a href="_bad_expression_8cs_source.html#l00020">BadExpression.cs:20</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html_a9b522f55cce0f191df424eec37b6ee4c"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">BadScript2.Runtime.BadExecutionContext.Scope</a></div><div class="ttdeci">readonly BadScope Scope</div><div class="ttdoc">The Root Scope of the Context</div><div class="ttdef"><b>Definition:</b> <a href="_bad_execution_context_8cs_source.html#l00016">BadExecutionContext.cs:16</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_a0138f9b8274db24314c779fa6c9e1148"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">BadScript2.Runtime.BadScope.IsError</a></div><div class="ttdeci">bool IsError</div><div class="ttdoc">Is true if the Scope encountered an error</div><div class="ttdef"><b>Definition:</b> <a href="_bad_scope_8cs_source.html#l00089">BadScope.cs:89</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00009">BadObject.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_ac71bfcf96e046f575f0bd000c876c307"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">BadScript2.Runtime.Objects.BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition:</b> <a href="_bad_object_8cs_source.html#l00012">BadObject.cs:12</a></div></div>
 </div><!-- fragment -->
@@ -352,7 +352,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  140</span>                yield <span class="keywordflow">return</span> o;</div>
 <div class="line"><span class="lineno">  141</span>            }</div>
 <div class="line"><span class="lineno">  142</span> </div>
-<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">if</span> (context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">IsError</a>)</div>
+<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">if</span> (context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a40b864590e67c49e2558c27fa2e778e1">IsError</a>)</div>
 <div class="line"><span class="lineno">  144</span>            {</div>
 <div class="line"><span class="lineno">  145</span>                yield <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  146</span>            }</div>
@@ -365,7 +365,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  153</span>                yield <span class="keywordflow">return</span> o;</div>
 <div class="line"><span class="lineno">  154</span>            }</div>
 <div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>            <span class="keywordflow">if</span> (context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">IsError</a>)</div>
+<div class="line"><span class="lineno">  156</span>            <span class="keywordflow">if</span> (context.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a9b522f55cce0f191df424eec37b6ee4c">Scope</a>.<a class="code hl_property" href="class_bad_scope.html#a40b864590e67c49e2558c27fa2e778e1">IsError</a>)</div>
 <div class="line"><span class="lineno">  157</span>            {</div>
 <div class="line"><span class="lineno">  158</span>                yield <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  159</span>            }</div>

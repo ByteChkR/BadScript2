@@ -24,16 +24,11 @@ var annotated_dup =
         [ "BadProgram", "class_bad_script2_1_1_console_1_1_bad_program.html", "class_bad_script2_1_1_console_1_1_bad_program" ]
       ] ],
       [ "ConsoleCore", "namespace_bad_script2_1_1_console_core.html", [
-        [ "Debugging", "namespace_bad_script2_1_1_console_core_1_1_debugging.html", [
-          [ "Scriptable", "namespace_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable.html", [
-            [ "BadScriptDebugger", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger.html", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger" ],
-            [ "BadScriptDebuggerApi", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_api.html", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_api" ],
-            [ "BadScriptDebuggerExtension", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_extension.html", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_extension" ],
-            [ "BadScriptDebuggerSettings", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_settings.html", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_scriptable_1_1_bad_script_debugger_settings" ]
-          ] ],
-          [ "BadConsoleDebugger", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_bad_console_debugger.html", "class_bad_script2_1_1_console_core_1_1_debugging_1_1_bad_console_debugger" ]
-        ] ],
         [ "Systems", "namespace_bad_script2_1_1_console_core_1_1_systems.html", [
+          [ "Html", "namespace_bad_script2_1_1_console_core_1_1_systems_1_1_html.html", [
+            [ "BadHtmlSystem", "class_bad_script2_1_1_console_core_1_1_systems_1_1_html_1_1_bad_html_system.html", "class_bad_script2_1_1_console_core_1_1_systems_1_1_html_1_1_bad_html_system" ],
+            [ "BadHtmlSystemSettings", "class_bad_script2_1_1_console_core_1_1_systems_1_1_html_1_1_bad_html_system_settings.html", "class_bad_script2_1_1_console_core_1_1_systems_1_1_html_1_1_bad_html_system_settings" ]
+          ] ],
           [ "Run", "namespace_bad_script2_1_1_console_core_1_1_systems_1_1_run.html", [
             [ "BadDefaultRunSystem", "class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_default_run_system.html", "class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_default_run_system" ],
             [ "BadRunSystem", "class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_run_system.html", "class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_run_system" ],
@@ -91,9 +86,6 @@ var annotated_dup =
           ] ],
           [ "BadCommonInterop", "class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html", "class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop" ]
         ] ],
-        [ "Compression", "namespace_bad_script2_1_1_interop_1_1_compression.html", [
-          [ "BadCompressionApi", "class_bad_script2_1_1_interop_1_1_compression_1_1_bad_compression_api.html", "class_bad_script2_1_1_interop_1_1_compression_1_1_bad_compression_api" ]
-        ] ],
         [ "IO", "namespace_bad_script2_1_1_interop_1_1_i_o.html", [
           [ "BadIOApi", "class_bad_script2_1_1_interop_1_1_i_o_1_1_bad_i_o_api.html", "class_bad_script2_1_1_interop_1_1_i_o_1_1_bad_i_o_api" ]
         ] ],
@@ -101,6 +93,9 @@ var annotated_dup =
           [ "BadJson", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json" ],
           [ "BadJsonApi", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api.html", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api" ],
           [ "BadSettingsObject", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_settings_object.html", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_settings_object" ]
+        ] ],
+        [ "Linq", "namespace_bad_script2_1_1_interop_1_1_linq.html", [
+          [ "BadLinqExtensions", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions" ]
         ] ],
         [ "Net", "namespace_bad_script2_1_1_interop_1_1_net.html", [
           [ "BadNetApi", "class_bad_script2_1_1_interop_1_1_net_1_1_bad_net_api.html", "class_bad_script2_1_1_interop_1_1_net_1_1_bad_net_api" ],
@@ -336,9 +331,14 @@ var annotated_dup =
             [ "BadReflectionExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_bad_reflection_extensions.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_bad_reflection_extensions" ]
           ] ],
           [ "BadInteropApi", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api" ],
+          [ "BadInteropEnumerable", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable" ],
           [ "BadInteropEnumerator", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerator.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerator" ],
           [ "BadInteropExtension", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension" ],
-          [ "BadInteropHelper", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper" ]
+          [ "BadInteropHelper", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper" ],
+          [ "BadRuntimeEnumerable", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_runtime_enumerable.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_runtime_enumerable" ],
+          [ "BadRuntimeEnumerator", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_runtime_enumerator.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_runtime_enumerator" ],
+          [ "IBadEnumerable", "interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerable.html", null ],
+          [ "IBadEnumerator", "interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerator.html", null ]
         ] ],
         [ "Objects", "namespace_bad_script2_1_1_runtime_1_1_objects.html", [
           [ "Functions", "namespace_bad_script2_1_1_runtime_1_1_objects_1_1_functions.html", [
@@ -376,8 +376,7 @@ var annotated_dup =
           [ "BadRuntimeSettings", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_runtime_settings.html", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_runtime_settings" ]
         ] ],
         [ "BadExecutionContext", "class_bad_script2_1_1_runtime_1_1_bad_execution_context.html", "class_bad_script2_1_1_runtime_1_1_bad_execution_context" ],
-        [ "BadExecutionContextOptions", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options" ],
-        [ "BadScope", "class_bad_script2_1_1_runtime_1_1_bad_scope.html", "class_bad_script2_1_1_runtime_1_1_bad_scope" ]
+        [ "BadExecutionContextOptions", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options" ]
       ] ],
       [ "Settings", "namespace_bad_script2_1_1_settings.html", [
         [ "BadSettings", "class_bad_script2_1_1_settings_1_1_bad_settings.html", "class_bad_script2_1_1_settings_1_1_bad_settings" ],
@@ -389,5 +388,15 @@ var annotated_dup =
         [ "BadExtensions", "class_bad_script2_1_1_utility_1_1_bad_extensions.html", "class_bad_script2_1_1_utility_1_1_bad_extensions" ],
         [ "BadHashCode", "struct_bad_script2_1_1_utility_1_1_bad_hash_code.html", "struct_bad_script2_1_1_utility_1_1_bad_hash_code" ]
       ] ]
-    ] ]
+    ] ],
+    [ "BadCompressionApi", "class_bad_compression_api.html", "class_bad_compression_api" ],
+    [ "BadScope", "class_bad_scope.html", "class_bad_scope" ],
+    [ "BadVirtualMachineManagerClientSystem", "class_bad_virtual_machine_manager_client_system.html", "class_bad_virtual_machine_manager_client_system" ],
+    [ "BadVirtualMachineManagerClientSystemSettings", "class_bad_virtual_machine_manager_client_system_settings.html", "class_bad_virtual_machine_manager_client_system_settings" ],
+    [ "BadVirtualMachineManagerSystem", "class_bad_virtual_machine_manager_system.html", "class_bad_virtual_machine_manager_system" ],
+    [ "BadVirtualMachineManagerSystemSettings", "class_bad_virtual_machine_manager_system_settings.html", "class_bad_virtual_machine_manager_system_settings" ],
+    [ "BadVirtualMachineNewSystem", "class_bad_virtual_machine_new_system.html", "class_bad_virtual_machine_new_system" ],
+    [ "BadVirtualMachineNewSystemSettings", "class_bad_virtual_machine_new_system_settings.html", "class_bad_virtual_machine_new_system_settings" ],
+    [ "BadVirtualMachineRunSystem", "class_bad_virtual_machine_run_system.html", "class_bad_virtual_machine_run_system" ],
+    [ "BadVirtualMachineRunSystemSettings", "class_bad_virtual_machine_run_system_settings.html", "class_bad_virtual_machine_run_system_settings" ]
 ];

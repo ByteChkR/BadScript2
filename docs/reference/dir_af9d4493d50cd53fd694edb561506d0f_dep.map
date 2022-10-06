@@ -1,7 +1,9 @@
 <map id="src/BadScript2.ConsoleCore/Systems" name="src/BadScript2.ConsoleCore/Systems">
-<area shape="rect" id="node2" href="dir_383d48f9be29859e9089234b75af9c3b.html" title="Run" alt="" coords="229,63,301,111"/>
-<area shape="rect" id="node3" href="dir_dcfe1a73ffcb42bf7f7a4c8b4fd2cf38.html" title="Settings" alt="" coords="133,63,205,111"/>
-<area shape="rect" id="node4" href="dir_f666a6f9f7465b51c79bb39062e02789.html" title="Test" alt="" coords="37,63,109,111"/>
-<area shape="rect" id="clust2" href="dir_af9d4493d50cd53fd694edb561506d0f.html" alt="" coords="27,52,411,121"/>
-<area shape="rect" id="clust1" href="dir_37c03971f1cf4645ed2337b59c42d9d8.html" title="BadScript2.ConsoleCore" alt="" coords="16,16,421,132"/>
+<area shape="rect" id="node2" href="dir_f3ce1362285b2b7794e920a348475c5a.html" title="Html" alt="" coords="459,63,531,111"/>
+<area shape="rect" id="node3" href="dir_383d48f9be29859e9089234b75af9c3b.html" title="Run" alt="" coords="363,63,435,111"/>
+<area shape="rect" id="node4" href="dir_dcfe1a73ffcb42bf7f7a4c8b4fd2cf38.html" title="Settings" alt="" coords="267,63,339,111"/>
+<area shape="rect" id="node5" href="dir_f666a6f9f7465b51c79bb39062e02789.html" title="Test" alt="" coords="171,63,243,111"/>
+<area shape="rect" id="node6" href="dir_b90bbc17659bdce0eb4bf6c6805d7bed.html" title="VirtualMachine" alt="" coords="38,63,146,111"/>
+<area shape="rect" id="clust2" href="dir_af9d4493d50cd53fd694edb561506d0f.html" alt="" coords="27,52,640,121"/>
+<area shape="rect" id="clust1" href="dir_37c03971f1cf4645ed2337b59c42d9d8.html" title="BadScript2.ConsoleCore" alt="" coords="16,16,651,132"/>
 </map>

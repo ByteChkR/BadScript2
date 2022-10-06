@@ -1,0 +1,8 @@
+<map id="BadScope" name="BadScope">
+<area shape="rect" id="node1" title="Implements the Scope for the Script Engine" alt="" coords="185,323,268,349"/>
+<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="252,141,335,168"/>
+<area shape="rect" id="node4" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="65,217,255,259"/>
+<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="209,7,399,48"/>
+<area shape="rect" id="node5" href="$interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerable.html" title=" " alt="" coords="73,141,191,168"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,14,184,41"/>
+</map>

@@ -1,8 +1,8 @@
 var class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api =
 [
     [ "BadRuntimeApi", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ad633a69cf66bca27d9e792628a5c29e6", null ],
-    [ "Evaluate", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#aea4d578f5cf4767032e997ba25fdecde", null ],
-    [ "EvaluateAsync", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a24505d5fab4de7c0fd1333a8d566e9a8", null ],
+    [ "Evaluate", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab6a3daeb8663a7bc049b0e7dd94079e9", null ],
+    [ "EvaluateAsync", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#abec3f591ee3fa28bada08ed94346b64f", null ],
     [ "Export", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a486d6166847bbf06ed67ef3a14d5d5a4", null ],
     [ "GetArguments", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a69c33f34e9ddf22fce49cded90903159", null ],
     [ "GetExtensionNames", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a860b28a78912dbf164101cfe8a49fc24", null ],
