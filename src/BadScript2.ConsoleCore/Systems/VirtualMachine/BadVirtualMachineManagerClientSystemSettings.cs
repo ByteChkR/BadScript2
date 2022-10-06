@@ -14,8 +14,8 @@ public class BadVirtualMachineManagerClientSystemSettings
     public string User { get; set; } = "anon";
 
     [Option('p', "password", Required = false, HelpText = "Specifies the user password.")]
-    public string? Password { get; set; }
+    public string Password { get; set; } = "";
 
     [Option('n', "name", Required = true, HelpText = "Specifies the vm name.")]
-    public string VmName { get; set; }
+    public string VmName { get; set; } = "BadOS";
 }

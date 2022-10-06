@@ -15,7 +15,6 @@ public class BadScope : BadObject
     /// </summary>
     private readonly BadScope? Caller;
 
-    public BadScope GetRootScope() => Parent?.GetRootScope() ?? this;
     /// <summary>
     ///     The Scope Variables
     /// </summary>
@@ -117,10 +116,21 @@ public class BadScope : BadObject
         }
     );
 
+    public BadScope GetRootScope()
+    {
+        return Parent?.GetRootScope() ?? this;
+    }
+
     public void AddSingleton<T>(T instance)
     {
+        if (instance == null)
+        {
+            throw new BadRuntimeException("Cannot add null as singleton");
+        }
+
         m_SingletonCache.Add(typeof(T), instance);
     }
+
     public T GetSingleton<T>()
     {
         if (Parent != null)
@@ -130,6 +140,7 @@ public class BadScope : BadObject
 
         return (T)m_SingletonCache[typeof(T)];
     }
+
     public T GetSingleton<T>(bool createNew) where T : new()
     {
         if (Parent != null)
@@ -144,12 +155,12 @@ public class BadScope : BadObject
 
         if (createNew)
         {
-            
             T v = new T();
             m_SingletonCache[typeof(T)] = v;
 
             return v;
         }
+
         throw new Exception("Singleton not found");
     }
 

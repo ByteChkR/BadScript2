@@ -12,7 +12,7 @@ public class BadVirtualMachineNewSystem : BadConsoleSystem<BadVirtualMachineNewS
     {
         BadVirtualMachineInfo info = new BadVirtualMachineInfo();
         info.Name = settings.Name;
-        info.Mounts = settings.FileSystemMounts.Select(x => JsonConvert.DeserializeObject<BadFileSystemMount>(File.ReadAllText(x))).ToArray();
+        info.Mounts = settings.FileSystemMounts.Select(x => JsonConvert.DeserializeObject<BadFileSystemMount>(File.ReadAllText(x))).ToArray()!;
         string outputPath;
         if (settings.OutputPath == null)
         {

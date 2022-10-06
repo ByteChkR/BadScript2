@@ -15,7 +15,7 @@ public class BadVirtualMachineRunSystem : BadConsoleSystem<BadVirtualMachineRunS
     protected override int Run(BadVirtualMachineRunSystemSettings settings)
     {
         BadLogWriterSettings.Instance.Mask = BadLogMask.None;
-        BadVirtualMachineInfo info = JsonConvert.DeserializeObject<BadVirtualMachineInfo>(File.ReadAllText(settings.FilePath));
+        BadVirtualMachineInfo info = JsonConvert.DeserializeObject<BadVirtualMachineInfo>(File.ReadAllText(settings.FilePath))!;
 
         BadVirtualMachine vm = new BadVirtualMachine(info);
         foreach (BadObject o in vm.Execute(new SystemConsole())) { }

@@ -7,8 +7,8 @@ namespace BadScript2.VirtualMachine;
 
 public class BadFileSystemMount
 {
-    public string MountPoint { get; set; }
-    public string DataArchive { get; set; }
+    public string MountPoint { get; set; } = "/";
+    public string DataArchive { get; set; } = "data.zip";
     public bool IsPersistent { get; set; }
 
     public void Mount(BadVirtualFileSystem fs)

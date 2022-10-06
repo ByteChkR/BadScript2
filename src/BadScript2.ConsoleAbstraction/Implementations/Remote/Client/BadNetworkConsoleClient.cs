@@ -22,6 +22,8 @@ public class BadNetworkConsoleClient
     public BadNetworkConsoleClient(TcpClient client)
     {
         m_Client = client;
+        m_Address = "";
+        m_Port = -1;
     }
 
     public BadNetworkConsoleClient(string address, int port)
