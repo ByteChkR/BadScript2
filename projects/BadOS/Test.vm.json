@@ -2,7 +2,7 @@
   "Mounts": [
     {
       "MountPoint": "/",
-      "DataArchive": "./root.zip",
+      "DataArchive": "./bin/root.zip",
       "IsPersistent": false
     }
   ],

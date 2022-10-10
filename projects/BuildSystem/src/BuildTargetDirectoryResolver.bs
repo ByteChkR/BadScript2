@@ -1,0 +1,35 @@
+
+class BuildTargetDirectoryResolver
+{
+	
+	const Path;
+	const Targets = [];
+	function BuildTargetDirectoryResolver(string path!, context)
+	{
+		Path = path;
+		LoadTargets(context);
+	}
+
+	function LoadTargets(context)
+	{
+		Targets.Clear();
+		foreach(file in IO.Directory.GetFiles(Path, "json", false))
+		{
+			const loader = new BuildTargetLoader();
+			const target = new BuildTarget(loader.Load(file, context));
+			if(target.Info.Keys.Contains("Script"))
+			{
+				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGETSCRIPT_PATH)", IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"));
+				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGET_PATH)", IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"));
+			}
+			Targets.Add(target);
+		}
+	}
+
+	function Resolve(string name!)
+	{
+		return Targets.FirstOrDefault(function(t) => t.GetName() == name);
+	}
+
+
+}

@@ -6,60 +6,61 @@ using BadScript2.IO;
 
 using Newtonsoft.Json;
 
-namespace BadScript2.VirtualMachine.Managing;
-
-public class BadVirtualMachineManager
+namespace BadScript2.VirtualMachine.Managing
 {
-    private readonly IFileSystem m_FileSystem;
-    private readonly string[] m_VirtualMachinePaths;
-
-    public BadVirtualMachineManager(IFileSystem fileSystem, params string[] virtualMachinePaths)
+    public class BadVirtualMachineManager
     {
-        m_FileSystem = fileSystem;
-        m_VirtualMachinePaths = virtualMachinePaths;
-    }
+        private readonly IFileSystem m_FileSystem;
+        private readonly string[] m_VirtualMachinePaths;
 
-    private string? VirtualMachineSavePath => m_VirtualMachinePaths.FirstOrDefault();
-
-    public BadVirtualMachineInfo? GetMachineInfo(string name)
-    {
-        foreach (string path in m_VirtualMachinePaths)
+        public BadVirtualMachineManager(IFileSystem fileSystem, params string[] virtualMachinePaths)
         {
-            string fullPath = Path.Combine(path, name+".vm.json");
+            m_FileSystem = fileSystem;
+            m_VirtualMachinePaths = virtualMachinePaths;
+        }
 
-            if (m_FileSystem.IsFile(fullPath))
+        private string? VirtualMachineSavePath => m_VirtualMachinePaths.FirstOrDefault();
+
+        public BadVirtualMachineInfo? GetMachineInfo(string name)
+        {
+            foreach (string path in m_VirtualMachinePaths)
             {
-                return JsonConvert.DeserializeObject<BadVirtualMachineInfo>(m_FileSystem.ReadAllText(fullPath));
+                string fullPath = Path.Combine(path, name+".vm.json");
+
+                if (m_FileSystem.IsFile(fullPath))
+                {
+                    return JsonConvert.DeserializeObject<BadVirtualMachineInfo>(m_FileSystem.ReadAllText(fullPath));
+                }
             }
+
+
+            return null;
         }
 
-
-        return null;
-    }
-
-    public void SetMachineInfo(BadVirtualMachineInfo info)
-    {
-        string? vmPath = VirtualMachineSavePath;
-
-        if (vmPath == null)
+        public void SetMachineInfo(BadVirtualMachineInfo info)
         {
-            throw new Exception("Can not save the virtual machine info");
-        }
+            string? vmPath = VirtualMachineSavePath;
 
-        string fullPath = Path.Combine(vmPath, info.Name + ".vm.json");
-
-        m_FileSystem.WriteAllText(fullPath, JsonConvert.SerializeObject(info));
-    }
-
-    public void DeleteMachineInfo(string name)
-    {
-        foreach (string path in m_VirtualMachinePaths)
-        {
-            string fullPath = Path.Combine(path, name);
-
-            if (m_FileSystem.IsFile(fullPath))
+            if (vmPath == null)
             {
-                m_FileSystem.DeleteFile(fullPath);
+                throw new Exception("Can not save the virtual machine info");
+            }
+
+            string fullPath = Path.Combine(vmPath, info.Name + ".vm.json");
+
+            m_FileSystem.WriteAllText(fullPath, JsonConvert.SerializeObject(info));
+        }
+
+        public void DeleteMachineInfo(string name)
+        {
+            foreach (string path in m_VirtualMachinePaths)
+            {
+                string fullPath = Path.Combine(path, name);
+
+                if (m_FileSystem.IsFile(fullPath))
+                {
+                    m_FileSystem.DeleteFile(fullPath);
+                }
             }
         }
     }

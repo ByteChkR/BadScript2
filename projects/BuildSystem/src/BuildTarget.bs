@@ -1,0 +1,121 @@
+function CreateDebugString(string content)
+{
+	const cLen = content.Length;
+	const targetLen = 60;
+	if(cLen > targetLen)
+	{
+		return content;
+	}
+	const padding = targetLen - cLen;
+	const leftPad = Math.Ceiling(padding/2);
+	const rightPad = Math.Floor(padding/2);
+	let r = "";
+	for(let i = 0; i < leftPad; i++)
+	{
+		r += "-";
+	}
+
+	r += content;
+
+	for(let i = 0; i < rightPad; i++)
+	{
+		r += "-";
+	}
+
+	return r;
+}
+
+class BuildTarget
+{
+	const Info;
+	const Logger;
+	function BuildTarget(info!)
+	{
+		Info = info;
+		Logger = new BuildLogger("Target");
+	}
+
+	function GetName()
+	{
+		return Info.Name;
+	}
+
+	function GetDependencies()
+	{
+		if(Info.Keys.Contains("Dependencies"))
+		{
+			return Info.Dependencies;
+		}
+		return [];
+	}
+
+	function GetScript()
+	{
+		if(Info.Keys.Contains("Script"))
+		{
+			return Info.Script;
+		}
+		return null;
+	}
+
+	function GetPreScript()
+	{
+		if(Info.Keys.Contains("PreScript"))
+		{
+			return Info.PreScript;
+		}
+		return null;
+	}
+
+	function GetDescription()
+	{
+		if(Info.Keys.Contains("Description"))
+		{
+			return Info.Description;
+		}
+		return GetName();
+	}
+
+	function Save(string file!)
+	{
+		IO.File.WriteAllText(file, Json.ToJson(Info));
+	}
+
+	function ExecuteScript(scriptPath, context)
+	{
+		if(scriptPath == null)
+		{
+			return;
+		}
+		const scope = Runtime.CreateDefaultScope();
+		scope.GetLocals()["Context"] = context;
+		await Runtime.EvaluateAsync(IO.File.ReadAllText(scriptPath), scriptPath, false, scope);
+	}
+
+	function RunPreScript(context)
+	{
+		ExecuteScript(GetPreScript(), context);
+	}
+
+	function RunScript(context)
+	{
+		ExecuteScript(GetScript(), context);
+	}
+
+	function Run(BuildSystem system!, context)
+	{
+		Logger.Log(CreateDebugString($" START TARGET '{Info.Name}' "));
+
+		RunPreScript(context);
+
+		foreach(dep in GetDependencies())
+		{
+			system.Run(dep, context);
+		}
+
+		RunScript(context);
+
+		Logger.Log(CreateDebugString($" END TARGET '{Info.Name}' "));
+	}
+}
+

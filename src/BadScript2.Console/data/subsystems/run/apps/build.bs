@@ -1,0 +1,30 @@
+
+const Package = Runtime.Import("Package");
+
+const BuildSystem = Package.Import("BuildSystem");
+
+
+const args = Runtime.GetArguments();
+const targets;
+if(args.Length == 0)
+{
+	targets = ["default"];
+}
+else
+{
+	targets = args;
+}
+
+foreach(target in targets)
+{
+	const bs = new BuildSystem();
+	const context = {
+		Builder: bs,
+		DEFAULT_TARGETSCRIPT_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"),
+		DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
+		StartTarget: target
+	}
+	bs.AddTargetSource("./targets", context);
+	bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);
+	bs.Run(target, context);
+}

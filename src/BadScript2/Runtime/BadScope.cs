@@ -48,6 +48,20 @@ public class BadScope : BadObject
     /// <summary>
     ///     Creates a new Scope
     /// </summary>
+    /// <param name="name">The Name of the Scope</param>
+    /// <param name="caller">The Caller of the Scope</param>
+    /// <param name="flags">The Flags of the Scope</param>
+    public BadScope(string name, BadTable locals, BadScope? caller = null, BadScopeFlags flags = BadScopeFlags.RootScope)
+    {
+        Name = name;
+        Flags = flags;
+        Caller = caller;
+        m_ScopeVariables = locals;
+    }
+
+    /// <summary>
+    ///     Creates a new Scope
+    /// </summary>
     /// <param name="parent">The Parent Scope</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="name">The Name of the Scope</param>
@@ -107,12 +121,32 @@ public class BadScope : BadObject
         "Scope",
         (_, args) =>
         {
-            if (args.Length != 1 || args[0] is not IBadString name)
+            if (args.Length == 1)
             {
-                throw new BadRuntimeException("Expected Name in Scope Constructor");
+                if (args[0] is not IBadString name)
+                {
+                    throw new BadRuntimeException("Expected Name in Scope Constructor");
+                }
+
+                return CreateScope(name.Value);
             }
 
-            return CreateScope(name.Value);
+            if (args.Length == 2)
+            {
+                if (args[0] is not IBadString name)
+                {
+                    throw new BadRuntimeException("Expected Name in Scope Constructor");
+                }
+
+                if (args[1] is not BadTable locals)
+                {
+                    throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
+                }
+
+                return CreateScope(name.Value, locals);
+            }
+
+            throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
         }
     );
 
@@ -178,9 +212,16 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">Scope Name</param>
     /// <returns>New Scope Instance</returns>
-    private static BadScope CreateScope(string name)
+    private static BadScope CreateScope(string name, BadTable? locals = null)
     {
-        return new BadScope(name);
+        if (locals != null)
+        {
+            return new BadScope(name, locals);
+        }
+
+        BadScope s = new BadScope(name);
+
+        return s;
     }
 
     /// <summary>

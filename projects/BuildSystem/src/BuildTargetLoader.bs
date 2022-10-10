@@ -1,0 +1,59 @@
+
+
+class BuildTargetLoader
+{
+
+	function ResolveString(Table context!, string str)
+	{
+		if(str.Contains("{") && str.Contains("}"))
+		{
+			const scope = new Scope("ResolveStringCtx", context);
+			return await Runtime.EvaluateAsync($"$\"{str}\"", "", false, scope);
+		}
+		return str;
+	}
+
+	function ResolveTable(Table context!, Table table)
+	{
+		const t = {}
+		foreach(key in table.Keys)
+		{
+			t[Resolve(context, key)] = Resolve(context, table[key]);
+		}
+		return t;
+	}
+
+	function ResolveArray(Table context!, Array array)
+	{
+		for(let i = 0; i < array.Length; i++)
+		{
+			array[i] = Resolve(context, array[i]);
+		}
+		return array;
+	}
+
+	function Resolve(Table context!, obj)
+	{
+		if(obj == null)
+		{
+			return obj;
+		}
+		if(Runtime.Native.IsTable(obj))
+		{
+			return ResolveTable(context, obj);
+		}
+		else if(Runtime.Native.IsArray(obj))
+		{
+			return ResolveArray(context, obj);
+		}
+		else if(Runtime.Native.IsString(obj))
+		{
+			return ResolveString(context, obj);
+		}
+		return obj;
+	}
+	function Load(string file!, context)
+	{
+		return Resolve(context, Json.FromJson(IO.File.ReadAllText(file)));
+	}
+}

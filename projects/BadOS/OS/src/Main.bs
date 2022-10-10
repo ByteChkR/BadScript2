@@ -42,7 +42,13 @@ function Initialize()
 	const startupFile = "/os/startup.json"
 	const startupSettings = Json.FromJson(IO.File.ReadAllText(startupFile));
 
-	await builder.Data.CreateProcess(startupSettings.File, []).RunAsync();
+	Console.Clear();
+	Console.WriteLine(startupSettings.MOTD);
+
+	foreach(file in startupSettings.Files)
+	{
+		await builder.Data.CreateProcess(file, []).RunAsync();
+	}
 }
 
 Initialize();

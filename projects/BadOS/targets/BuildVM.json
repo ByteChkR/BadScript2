@@ -1,0 +1,7 @@
+{
+	"Name": "BuildVM",
+	"Dependencies": [
+		"BuildDependencies",
+		"MakeFS"
+	]
+}

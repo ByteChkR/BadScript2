@@ -3,19 +3,20 @@ using System.Net.Sockets;
 using BadScript2.IO;
 using BadScript2.VirtualMachine.Managing;
 
-namespace BadScript2.ConsoleCore.Systems.VirtualMachine;
-
-public class BadVirtualMachineManagerSystem : BadConsoleSystem<BadVirtualMachineManagerSystemSettings>
+namespace BadScript2.ConsoleCore.Systems.VirtualMachine
 {
-    public override string Name => "vms";
-
-    protected override int Run(BadVirtualMachineManagerSystemSettings settings)
+    public class BadVirtualMachineManagerSystem : BadConsoleSystem<BadVirtualMachineManagerSystemSettings>
     {
-        using BadVirtualMachineService vmService = new BadVirtualMachineService(settings.MachineManagerPath, BadFileSystem.Instance);
+        public override string Name => "vms";
 
-        BadVirtualMachineManagerHost host = new BadVirtualMachineManagerHost(vmService, TcpListener.Create(settings.ManagerPort));
-        host.StartSynchronously();
+        protected override int Run(BadVirtualMachineManagerSystemSettings settings)
+        {
+            using BadVirtualMachineService vmService = new BadVirtualMachineService(settings.MachineManagerPath, BadFileSystem.Instance);
 
-        return -1;
+            BadVirtualMachineManagerHost host = new BadVirtualMachineManagerHost(vmService, TcpListener.Create(settings.ManagerPort));
+            host.StartSynchronously();
+
+            return -1;
+        }
     }
 }

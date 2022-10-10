@@ -1,0 +1,40 @@
+
+
+class BuildSystem
+{
+	
+	function AddTargetSource(string dir!, context)
+	{
+		if(!IO.Directory.Exists(dir))
+		{
+			return;
+		}
+		const dirResolver = new BuildTargetDirectoryResolver(dir, context);
+		Resolver.AddResolverFunc(dirResolver.Resolve);
+	}
+
+	const Targets = [];
+	const Resolver = new BuildTargetResolver();
+
+
+	function Run(string name!, context)
+	{
+		GetTarget(name).Run(this, context);
+	}
+
+	function GetTarget(string name!)
+	{
+		let target = Targets.FirstOrDefault(function(t) => t.GetName() == name);
+		if(target == null)
+		{
+			target = Resolver.Resolve(name);
+			Targets.Add(target);
+		}
+		return target;
+	}
+
+
+}
+
+
+Runtime.Export("BuildSystem", BuildSystem);

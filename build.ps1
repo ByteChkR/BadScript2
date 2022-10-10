@@ -28,13 +28,13 @@ function Build-Language {
 function Build-Projects {
     cd projects
     cd Debugger
-    . $bs run -f build.bs -a install
+    . $bs build ReleaseRun
+    cd ../BuildSystem
+    . $bs build ReleaseLib
     cd ../PackageHandler
-    . $bs run -f build.bs -a install
-    cd ../Project
-    . $bs run -f build.bs -a install
+    . $bs build ReleaseStartup
     cd ../System
-    . $bs run -f build.bs -a install
+    . $bs build ReleaseLib
     cd ../..
 }
 

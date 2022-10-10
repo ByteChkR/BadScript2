@@ -1,0 +1,164 @@
+
+const apiBuilder = ApiBuilder;
+
+
+class User
+{
+	const Handle = {}
+	const Info;
+	function User(info!)
+	{
+		Handle.MakeReadOnly();
+		Info = info;
+	}
+
+	function GetUID() => Info.UID;
+	function GetName() => Info.Name;
+	function GetHomeDirectory() => Info.HomeDirectory;
+	function HasPassword() => Info.Password != null;
+	function Authenticate(string password?)
+	{
+		if(Info.Password == null || Info.Password == password)
+		{
+			return Handle;
+		}
+		return null;
+	}
+
+}
+
+class UserManager
+{
+
+	const _Users = [];
+	let _NextUID = 0;
+
+	function CreateDefault()
+	{
+		const root = {
+			Name: "root",
+			HomeDirectory: "/home/root",
+			Password: "bados"
+		}
+		const anon = {
+			Name: "anon",
+			HomeDirectory: "/home/anon",
+			Password: null
+		}
+
+		AddUser(root);
+		AddUser(anon);
+	}
+
+	function GetName(handle!)
+	{
+		return _Users.FirstOrDefault(function(x) => x.Handle == handle)?.GetName();
+	}
+
+	function HasPassword(name!)
+	{
+		return _Users.FirstOrDefault(function(x) => x.GetName() == name)?.HasPassword();
+	}
+
+	function GetUID(handle!)
+	{
+		return _Users.FirstOrDefault(function(x) => x.Handle == handle)?.GetUID();
+	}
+
+	function GetUser(string name!)
+	{
+		return _Users.FirstOrDefault(function(x) => x.GetName() == name);
+	}
+
+	function SaveUsers()
+	{
+		const data = {
+			NextUID: _NextUID,
+			Users: _Users.Select(function(x) => x.Info).ToArray()
+		}
+		IO.File.WriteAllText("/home/config/users.json", Json.ToJson(data));
+	}
+
+	function InnerAddUser(userInfo!)
+	{
+		const user = new User(userInfo);
+		_Users.Add(user);
+
+		IO.Directory.CreateDirectory(user.GetHomeDirectory());
+
+		SaveUsers();
+	}
+	function AddUser(userInfo!)
+	{
+		userInfo.UID = _NextUID;
+		_NextUID++;
+		InnerAddUser(userInfo);
+	}
+
+
+	function LoadUsers()
+	{
+		const data = Json.FromJson(IO.File.ReadAllText("/home/config/users.json"));
+		_NextUID = data.NextUID;
+		foreach(userInfo in data.Users)
+		{
+			InnerAddUser(userInfo);
+		}
+	}
+
+	function Authenticate(string userName, string password?)
+	{
+		const user = _Users.FirstOrDefault(function(u) => u.GetName() == userName);
+		if(user == null)
+		{
+			return null;
+		}
+		return user.Authenticate(password);
+	}
+
+	function AuthenticateByUID(num uid, string password?)
+	{
+		const user = _Users.FirstOrDefault(function(u) => u.GetUID() == uid);
+		if(user == null)
+		{
+			return null;
+		}
+		return user.Authenticate(password);
+	}
+
+	function UserManager()
+	{
+		if(IO.File.Exists("/home/config/users.json"))
+		{
+			LoadUsers();
+		}
+		else
+		{
+			CreateDefault();
+		}
+	}
+}
+
+
+const userManager = new UserManager();
+let currentUser = userManager.GetUser("root").Handle;
+function BuildUserApi(ctx, table)
+{
+	table["User"] = {
+		Authenticate: userManager.Authenticate,
+		AuthenticateByUID: userManager.AuthenticateByUID,
+		GetCurrentUser: function() => currentUser,
+		SetCurrentUser: function(handle!) => currentUser = handle,
+		GetUserName: function(handle?) => userManager.GetName(handle ?? currentUser),
+		GetUserID: function(handle?) => userManager.GetUID(handle ?? currentUser),
+		HasPassword: userManager.HasPassword
+	}
+}
+
+ApiBuilder.Add(BuildUserApi);
+ApiBuilder.AddData("GetCurrentUser", function() => currentUser);
+
+
+
+
+

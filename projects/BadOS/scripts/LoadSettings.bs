@@ -1,0 +1,8 @@
+
+function Load(file)
+{
+	return Json.FromJson(IO.File.ReadAllText(file));
+}
+
+Context["Dependencies"] = Load("./settings/Dependencies.json");
+

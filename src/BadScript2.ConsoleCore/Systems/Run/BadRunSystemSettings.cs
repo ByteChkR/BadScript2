@@ -1,3 +1,5 @@
+using BadScript2.Common.Logging;
+
 using CommandLine;
 
 namespace BadScript2.ConsoleCore.Systems.Run
@@ -21,5 +23,7 @@ namespace BadScript2.ConsoleCore.Systems.Run
 
         [Option('r', "remote", Required = false, HelpText = "Specifies the Remote Console Host port. If not specified the remote host will not be started")]
         public int RemotePort { get; set; } = -1;
+
+        
     }
 }

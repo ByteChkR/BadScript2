@@ -1,0 +1,25 @@
+
+class BuildTargetResolver
+{
+	
+	const _Funcs = [];
+	function AddResolverFunc(Function func!)
+	{
+		_Funcs.Add(func);
+	}
+
+	function Resolve(string name!)
+	{
+		foreach(func in _Funcs)
+		{
+			const target = func(name);
+			if(target != null)
+			{
+				return target;
+			}
+		}
+		throw $"Can not find target: '{name}'";
+	}
+
+
+}

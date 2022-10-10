@@ -1,0 +1,8 @@
+[
+	"./src/BuildLogger.bs",
+	"./src/BuildTargetResolver.bs",
+	"./src/BuildTargetLoader.bs",
+	"./src/BuildTargetDirectoryResolver.bs",
+	"./src/BuildTarget.bs",
+	"./src/BuildSystem.bs"
+]

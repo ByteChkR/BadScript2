@@ -1,0 +1,7 @@
+{
+	"Name": "Release",
+	"Dependencies": [
+		"LoadSettings",
+		"BuildVM"
+	]
+}

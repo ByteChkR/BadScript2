@@ -1,0 +1,23 @@
+[
+	"BIOS",
+	"OS",
+	"MODULES/EnvironmentManager",
+	"MODULES/LibManager",
+	"MODULES/ProcessManager",
+	"MODULES/UserManager",
+	"../System",
+	"../BuildSystem",
+	"LIBS/Shell",
+	"UTILS/cd",
+	"UTILS/clear",
+	"UTILS/env",
+	"UTILS/ls",
+	"UTILS/mkdir",
+	"UTILS/rm",
+	"UTILS/shell",
+	"UTILS/touch",
+	"UTILS/view",
+	"UTILS/login",
+	"UTILS/uname",
+	"UTILS/whoami"
+]

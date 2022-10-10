@@ -1,8 +1,0 @@
-[
-	"./src/Assert.bs",
-	"./src/Events.bs",
-	"./src/Logging.bs",
-	"./src/Collections/*.bs",
-	"./src/SourceReader.bs",
-	"./src/System.bs"
-]

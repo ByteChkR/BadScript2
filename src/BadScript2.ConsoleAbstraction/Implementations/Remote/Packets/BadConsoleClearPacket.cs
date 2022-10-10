@@ -1,17 +1,18 @@
-namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
-
-public class BadConsoleClearPacket : BadConsolePacket
+namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets
 {
-    public static readonly BadConsoleClearPacket Packet = new BadConsoleClearPacket();
-    private BadConsoleClearPacket() { }
-
-    public new static BadConsoleClearPacket Deserialize(byte[] data)
+    public class BadConsoleClearPacket : BadConsolePacket
     {
-        return Packet;
-    }
+        public static readonly BadConsoleClearPacket Packet = new BadConsoleClearPacket();
+        private BadConsoleClearPacket() { }
 
-    public override byte[] Serialize()
-    {
-        return new[] { (byte)BadConsolePacketType.Clear };
+        public new static BadConsoleClearPacket Deserialize(byte[] data)
+        {
+            return Packet;
+        }
+
+        public override byte[] Serialize()
+        {
+            return new[] { (byte)BadConsolePacketType.Clear };
+        }
     }
 }

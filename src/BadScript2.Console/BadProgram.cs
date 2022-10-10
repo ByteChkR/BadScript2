@@ -49,6 +49,17 @@ namespace BadScript2.Console
 
         private static int Main(string[] args)
         {
+            if (args.Contains("--logmask"))
+            {
+                int idx = Array.IndexOf(args, "--logmask");
+                if(idx + 1 < args.Length)
+                {
+                    string mask = args[idx + 1];
+                    BadLogWriterSettings.Instance.Mask = BadLogMask.GetMask(mask.Split(';').Select(x => (BadLogMask)x).ToArray());
+                    args = args.Where((_, i) => i != idx && i != idx + 1).ToArray();
+                }
+            }
+            
             if (args.Length == 3 && args[0] == "remote")
             {
                 string host = args[1];

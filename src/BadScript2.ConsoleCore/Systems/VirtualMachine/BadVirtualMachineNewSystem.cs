@@ -2,29 +2,30 @@ using BadScript2.VirtualMachine;
 
 using Newtonsoft.Json;
 
-namespace BadScript2.ConsoleCore.Systems.VirtualMachine;
-
-public class BadVirtualMachineNewSystem : BadConsoleSystem<BadVirtualMachineNewSystemSettings>
+namespace BadScript2.ConsoleCore.Systems.VirtualMachine
 {
-    public override string Name => "vm-new";
-
-    protected override int Run(BadVirtualMachineNewSystemSettings settings)
+    public class BadVirtualMachineNewSystem : BadConsoleSystem<BadVirtualMachineNewSystemSettings>
     {
-        BadVirtualMachineInfo info = new BadVirtualMachineInfo();
-        info.Name = settings.Name;
-        info.Mounts = settings.FileSystemMounts.Select(x => JsonConvert.DeserializeObject<BadFileSystemMount>(File.ReadAllText(x))).ToArray()!;
-        string outputPath;
-        if (settings.OutputPath == null)
-        {
-            outputPath = "./" + info.Name + ".vm.json";
-        }
-        else
-        {
-            outputPath = settings.OutputPath;
-        }
+        public override string Name => "vm-new";
 
-        File.WriteAllText(outputPath, JsonConvert.SerializeObject(info, Formatting.Indented));
+        protected override int Run(BadVirtualMachineNewSystemSettings settings)
+        {
+            BadVirtualMachineInfo info = new BadVirtualMachineInfo();
+            info.Name = settings.Name;
+            info.Mounts = settings.FileSystemMounts.Select(x => JsonConvert.DeserializeObject<BadFileSystemMount>(File.ReadAllText(x))).ToArray()!;
+            string outputPath;
+            if (settings.OutputPath == null)
+            {
+                outputPath = "./" + info.Name + ".vm.json";
+            }
+            else
+            {
+                outputPath = settings.OutputPath;
+            }
 
-        return 0;
+            File.WriteAllText(outputPath, JsonConvert.SerializeObject(info, Formatting.Indented));
+
+            return 0;
+        }
     }
 }

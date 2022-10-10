@@ -1,0 +1,29 @@
+
+const Package = Runtime.Import("Package");
+const BuildSystem = Package.Import("BuildSystem");
+function Clean()
+{
+	if(IO.Directory.Exists("./bin"))
+	{
+		IO.Directory.Delete("./bin", true);
+	}
+	foreach(dep in Context.Dependencies)
+	{
+		const originalDir = IO.Directory.GetCurrentDirectory();
+		IO.Directory.SetCurrentDirectory(dep);
+		const bs = new BuildSystem();
+		const context = {
+			Builder: bs,
+			DEFAULT_TARGETSCRIPT_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"),
+			DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
+			StartTarget: Context.StartTarget
+		}
+		bs.AddTargetSource("./targets", context);
+		bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);
+		bs.Run(Context.StartTarget, context);
+		IO.Directory.SetCurrentDirectory(originalDir);
+	}
+}
+
+
+Clean();

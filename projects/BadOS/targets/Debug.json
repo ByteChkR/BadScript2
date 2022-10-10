@@ -1,0 +1,7 @@
+{
+	"Name": "Debug",
+	"Dependencies": [
+		"LoadSettings",
+		"BuildVM"
+	]
+}

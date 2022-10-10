@@ -1,0 +1,24 @@
+
+
+class BuildLogger
+{
+	const Tag;
+	function BuildLogger(tag!)
+	{
+		Tag = tag;
+	}
+	function Log(msg!)
+	{
+		Console.WriteLine($"[{Tag}:LOG] {msg}");
+	}
+
+	function Warn(msg!)
+	{
+		Console.WriteLine($"[{Tag}:WARN] {msg}");
+	}
+
+	function Error(msg!)
+	{
+		Console.WriteLine($"[{Tag}:ERR] {msg}");
+	}
+}
