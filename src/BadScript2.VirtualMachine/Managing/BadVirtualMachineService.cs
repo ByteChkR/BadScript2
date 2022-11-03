@@ -25,6 +25,11 @@ namespace BadScript2.VirtualMachine.Managing
             LoadUsers();
         }
 
+        public void Dispose()
+        {
+            SaveUsers();
+        }
+
         public BadVirtualMachineUser? Authenticate(string name, string password)
         {
             return m_Users.FirstOrDefault(x => x.Name == name && x.Password == password);
@@ -59,6 +64,7 @@ namespace BadScript2.VirtualMachine.Managing
                 m_Users.Add(BadVirtualMachineUser.Anonymous);
                 m_FileSystem.CreateDirectory(Path.Combine(m_MachineServicePath, "users", BadVirtualMachineUser.Anonymous.Name));
                 SaveUsers();
+
                 return;
             }
 
@@ -76,11 +82,6 @@ namespace BadScript2.VirtualMachine.Managing
         {
             string json = JsonConvert.SerializeObject(m_Users, Formatting.Indented);
             m_FileSystem.WriteAllText(Path.Combine(m_MachineServicePath, "users.json"), json);
-        }
-
-        public void Dispose()
-        {
-            SaveUsers();
         }
     }
 }

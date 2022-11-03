@@ -1,0 +1,147 @@
+
+#import Package from Runtime
+#import WebFramework from Package
+
+class HighscoreDatabase
+{
+	const highscores = {}
+	function AddScore(string name!, num score!)
+	{
+		if(!highscores.Keys.Contains(name) || highscores[name] < score)
+		{
+			highscores[name] = score;
+		}
+	}
+
+	function GetScore(string name!)
+	{
+		if(highscores.Keys.Contains(name))
+		{
+			return highscores[name];
+		}
+		return 0;
+	}
+
+	function GetScores() => highscores;
+}
+
+class HighscoreApi
+{
+	const API_KEY;
+	const app;
+	const highscores = new HighscoreDatabase();
+	function HighscoreApi(prefix, apiKey)
+	{
+		API_KEY = apiKey;
+		app = new WebFramework(prefix);
+		app.MapExact("/get", GetScore);
+		app.MapExact("/set", SetScore);
+		app.MapExact("/list", ListScores);
+	}
+
+	function Error(ctx, num code, string msg)
+	{
+		ctx.Response.SetStatusCode(code);
+		ctx.Response.SetContent(msg);
+		ctx.Response.Close();
+	}
+
+	function Start()
+	{
+		app.Start();
+	}
+
+	function GetScore(ctx)
+	{
+		const request = ctx.Request;
+		const query = request.QueryString;
+		if(request.HttpMethod != "GET")
+		{
+			Error(ctx, 400, "Invalid HTTP Method: " + request.HttpMethod);
+		}
+		else if(!query.Keys.Contains("key") || query["key"] != API_KEY)
+		{
+			Error(ctx, 401, "Invalid API Key");
+		}
+		else if(!query.Keys.Contains("name") || query["name"] == "")
+		{
+			Error(ctx, 400, "Invalid Request. Missing 'name'");
+		}
+		else
+		{
+			const response = ctx.Response;
+			response.SetStatusCode(200);
+			response.SetContent(Json.ToJson(highscores.GetScore(query["name"])));
+			response.Close();
+		}
+	}
+
+	function SetScore(ctx)
+	{
+		const request = ctx.Request;
+		const query = request.QueryString;
+		if(request.HttpMethod != "POST")
+		{
+			Error(ctx, 400, "Invalid HTTP Method: " + request.HttpMethod);
+		}
+		else if(!query.Keys.Contains("key") || query["key"] != API_KEY)
+		{
+			Error(ctx, 401, "Invalid API Key");
+		}
+		else
+		{
+			try
+			{
+				const body = Json.FromJson(request.Content.AsString());
+				if(!Runtime.Native.IsTable(body) || 
+					!body.Keys.Contains("name") || 
+					!body.Keys.Contains("score") || 
+					!Runtime.Native.IsString(body.name) || 
+					!Runtime.Native.IsNumber(body.score))
+				{
+					throw "Invalid Json Body";
+				}
+				else
+				{
+					const response = ctx.Response;
+					highscores.AddScore(body.name, body.score);
+					response.SetStatusCode(200);
+					response.SetContent("Success");
+					response.Close();
+				}
+			}
+			catch(e)
+			{
+				Error(ctx, 400, Json.ToJson(e));
+			}
+		}
+	}
+
+	function ListScores(ctx)
+	{
+		const request = ctx.Request;
+		const query = request.QueryString;
+		if(request.HttpMethod != "GET")
+		{
+			Error(ctx, 400, "Invalid HTTP Method: " + request.HttpMethod);
+		}
+		else if(!query.Keys.Contains("key") || query["key"] != API_KEY)
+		{
+			Error(ctx, 401, "Invalid API Key");
+		}
+		else
+		{
+			const response = ctx.Response;
+			response.SetStatusCode(200);
+			response.SetContent(Json.ToJson(highscores.GetScores()));
+			response.Close();
+		}
+	}
+}
+
+
+
+Runtime.Export("HighscoreApi", HighscoreApi);
+
+const api = new HighscoreApi("http://localhost:3000/", "ABC_ABC_ABC");
+api.Start();

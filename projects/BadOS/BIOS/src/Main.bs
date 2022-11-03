@@ -6,3 +6,4 @@ const OS_INIT_PATH = "/os/init.bs";
 Console.WriteLine("Starting Operating System...");
 await Runtime.EvaluateAsync(IO.File.ReadAllText(OS_INIT_PATH), OS_INIT_PATH);
 Console.WriteLine("Stopping Operating System...");
+Machine.Exit();

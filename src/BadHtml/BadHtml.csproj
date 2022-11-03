@@ -7,20 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.Debugger\BadScript2.Debugger.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj" />
-        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\BadScript2.Debugger\BadScript2.Debugger.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj"/>
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.46"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ReferencePathWithRefAssemblies Update="C:\Users\Tim\.nuget\packages\htmlagilitypack\1.11.46\lib\netstandard2.0\HtmlAgilityPack.dll" />
+        <ReferencePathWithRefAssemblies Update="C:\Users\Tim\.nuget\packages\htmlagilitypack\1.11.46\lib\netstandard2.0\HtmlAgilityPack.dll"/>
     </ItemGroup>
 
 </Project>

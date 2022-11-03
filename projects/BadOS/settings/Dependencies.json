@@ -5,6 +5,7 @@
 	"MODULES/LibManager",
 	"MODULES/ProcessManager",
 	"MODULES/UserManager",
+	"MODULES/FileSystemManager",
 	"../System",
 	"../BuildSystem",
 	"LIBS/Shell",
@@ -16,8 +17,13 @@
 	"UTILS/rm",
 	"UTILS/shell",
 	"UTILS/touch",
+	"UTILS/proc",
+	"UTILS/kill",
 	"UTILS/view",
 	"UTILS/login",
 	"UTILS/uname",
-	"UTILS/whoami"
+	"UTILS/whoami",
+	"UTILS/shutdown",
+	"UTILS/reboot",
+	"UTILS/pipetest"
 ]

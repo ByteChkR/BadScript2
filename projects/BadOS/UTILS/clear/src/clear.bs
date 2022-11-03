@@ -1,1 +1,1 @@
-Console.Clear();
+OS.Clear();

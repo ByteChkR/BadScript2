@@ -59,6 +59,10 @@ namespace BadScript2.Interop.Common.Extensions
                 )
             );
 
+            RegisterObject<string>("IsLetters", s => s.All(char.IsLetter));
+            RegisterObject<string>("IsDigits", s => s.All(char.IsLetter));
+            RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
+
             RegisterObject<string>(
                 BadStaticKeys.ArrayAccessOperatorName,
                 s => new BadDynamicInteropFunction<decimal>(

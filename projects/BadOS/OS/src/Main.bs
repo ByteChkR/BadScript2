@@ -47,7 +47,7 @@ function Initialize()
 
 	foreach(file in startupSettings.Files)
 	{
-		await builder.Data.CreateProcess(file, []).RunAsync();
+		await builder.Data.CreateProcess(file, []).Create().Awaitable;
 	}
 }
 

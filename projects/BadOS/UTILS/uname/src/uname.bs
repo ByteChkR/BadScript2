@@ -1,11 +1,2 @@
-
-const args = OS.GetArguments();
-if(args.Length == 2 && args[1] == "long")
-{
-	Console.WriteLine($"{OS.Environment.Get("OS_NAME")}@{OS.Environment.Get("OS_VERSION")}");
-}
-else
-{
-	Console.WriteLine(OS.Environment.Get("OS_NAME"));
-}
+OS.WriteLine(Machine.GetName());
 

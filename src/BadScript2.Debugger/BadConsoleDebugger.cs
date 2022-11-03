@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using BadScript2.ConsoleAbstraction;

@@ -23,17 +23,6 @@ namespace BadScript2.Debugger.Scriptable
             LoadDebugger(debuggerPath);
         }
 
-        private void LoadDebugger(string path)
-        {
-            BadExecutionContext ctx = m_Options.Build();
-            ctx.Run(
-                new BadSourceParser(
-                    BadSourceReader.FromFile(path),
-                    BadOperatorTable.Instance
-                ).Parse()
-            );
-        }
-        
         public BadScriptDebugger(BadExecutionContextOptions options)
         {
             m_Options = options;
@@ -66,6 +55,17 @@ namespace BadScript2.Debugger.Scriptable
             }
 
             OnStep?.Invoke(stepInfo);
+        }
+
+        private void LoadDebugger(string path)
+        {
+            BadExecutionContext ctx = m_Options.Build();
+            ctx.Run(
+                new BadSourceParser(
+                    BadSourceReader.FromFile(path),
+                    BadOperatorTable.Instance
+                ).Parse()
+            );
         }
 
         public event Action<BadDebuggerStep>? OnStep;

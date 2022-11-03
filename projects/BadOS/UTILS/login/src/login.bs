@@ -1,12 +1,10 @@
-
-
 function RequestCredentials(user)
 {
 	const handle;
 	if(OS.User.HasPassword(user))
 	{
-		Console.Write("Password: ");
-		const password = Console.ReadLine();
+		OS.Write("Password: ");
+		const password = OS.ReadLine();
 		handle = OS.User.Authenticate(user, password);
 	}
 	else
@@ -23,12 +21,12 @@ function Login(disallowExit?)
 	{
 		while(handle == null)
 		{
-			Console.Write("User: ");
-			const user = Console.ReadLine();
+			OS.Write("User: ");
+			const user = OS.ReadLine();
 			handle = RequestCredentials(user);
 			if(handle == null)
 			{
-				Console.WriteLine("Invalid Credentials");
+				OS.WriteLine("Invalid Credentials");
 			}
 		}
 
@@ -36,12 +34,12 @@ function Login(disallowExit?)
 	}
 	else
 	{
-		Console.Write("User: ");
-		const user = Console.ReadLine();
+		OS.Write("User: ");
+		const user = OS.ReadLine();
 		handle = RequestCredentials(user);
 		if(handle == null)
 		{
-			Console.WriteLine("Invalid Credentials");
+			OS.WriteLine("Invalid Credentials");
 			return;
 		}
 

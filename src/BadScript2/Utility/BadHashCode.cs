@@ -313,7 +313,5 @@ namespace BadScript2.Utility
 
             return hash;
         }
-
-    
     }
 }

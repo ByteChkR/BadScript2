@@ -30,7 +30,10 @@ namespace BadScript2.IO
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="contents">Contents to be written</param>
-        public static void WriteAllText(string path, string contents) => Instance.WriteAllText(path, contents);
+        public static void WriteAllText(string path, string contents)
+        {
+            Instance.WriteAllText(path, contents);
+        }
 
         public static void WriteAllText(this IFileSystem fileSystem, string path, string contents)
         {
@@ -51,9 +54,12 @@ namespace BadScript2.IO
         ///     Wrapper for <see cref="IFileSystem.OpenRead" />
         /// </summary>
         /// <param name="path">Path of the file</param>
-        public static string ReadAllText(string path) => Instance.ReadAllText(path);
+        public static string ReadAllText(string path)
+        {
+            return Instance.ReadAllText(path);
+        }
 
-        
+
         public static IEnumerable<string> ReadAllLines(this IFileSystem fileSystem, string path)
         {
             using Stream s = fileSystem.OpenRead(path);
@@ -70,7 +76,10 @@ namespace BadScript2.IO
         ///     Wrapper for <see cref="IFileSystem.OpenRead" />
         /// </summary>
         /// <param name="path">Path of the file</param>
-        public static IEnumerable<string> ReadAllLines(string path) => Instance.ReadAllLines(path);
+        public static IEnumerable<string> ReadAllLines(string path)
+        {
+            return Instance.ReadAllLines(path);
+        }
 
         public static void WriteAllLines(this IFileSystem fileSystem, string path, IEnumerable<string> lines)
         {
@@ -87,6 +96,9 @@ namespace BadScript2.IO
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="lines">lines to be written</param>
-        public static void WriteAllLines(string path, IEnumerable<string> lines) => Instance.WriteAllLines(path, lines);
+        public static void WriteAllLines(string path, IEnumerable<string> lines)
+        {
+            Instance.WriteAllLines(path, lines);
+        }
     }
 }

@@ -10,9 +10,9 @@ namespace BadScript2.Interop.Common.Apis
     public class BadConsoleApi : BadInteropApi
     {
         private readonly IBadConsole? m_Console;
-        private IBadConsole Console => m_Console ?? BadConsole.GetConsole();
         public BadConsoleApi() : this(BadConsole.GetConsole()) { }
-        public BadConsoleApi(IBadConsole console):base("Console")
+
+        public BadConsoleApi(IBadConsole console) : base("Console")
         {
             m_Console = console;
             OnWrite = Write;
@@ -21,6 +21,8 @@ namespace BadScript2.Interop.Common.Apis
             OnReadLine = ReadLine;
             OnReadLineAsync = ReadLineAsync;
         }
+
+        private IBadConsole Console => m_Console ?? BadConsole.GetConsole();
         public Action<BadObject> OnWrite { get; set; }
         public Action<BadObject> OnWriteLine { get; set; }
         public Action OnClear { get; set; }
@@ -101,6 +103,7 @@ namespace BadScript2.Interop.Common.Apis
         {
             private readonly IEnumerator<BadObject> m_Task;
             private BadObject m_Return = BadObject.Null;
+
             public ReadLineAsyncRunnable(IEnumerator<BadObject> task)
             {
                 m_Task = task;

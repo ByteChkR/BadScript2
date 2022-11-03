@@ -9,12 +9,13 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop
 {
-    public class BadRuntimeEnumerator :BadObject, IBadEnumerator
+    public class BadRuntimeEnumerator : BadObject, IBadEnumerator
     {
-        private readonly BadFunction m_MoveNext;
-        private readonly BadFunction m_GetCurrent;
         private readonly BadExecutionContext m_Caller;
+        private readonly BadFunction m_GetCurrent;
+        private readonly BadFunction m_MoveNext;
         private readonly BadSourcePosition m_Position;
+
         public BadRuntimeEnumerator(BadExecutionContext caller, BadFunction moveNext, BadFunction getCurrent, BadSourcePosition position)
         {
             m_MoveNext = moveNext;
@@ -25,7 +26,7 @@ namespace BadScript2.Runtime.Interop
 
         public bool MoveNext()
         {
-            BadObject cond = BadObject.Null;
+            BadObject cond = Null;
             foreach (BadObject o in m_MoveNext.Invoke(Array.Empty<BadObject>(), m_Caller))
             {
                 cond = o;
@@ -51,7 +52,7 @@ namespace BadScript2.Runtime.Interop
         {
             get
             {
-                BadObject current = BadObject.Null;
+                BadObject current = Null;
                 foreach (BadObject o in m_GetCurrent.Invoke(Array.Empty<BadObject>(), m_Caller))
                 {
                     current = o;

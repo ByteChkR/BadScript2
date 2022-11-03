@@ -1,0 +1,18 @@
+
+
+const args = OS.GetArguments();
+
+if(args.Length < 3)
+{
+	OS.WriteLine("Invalid Argument Count");
+}
+else
+{
+	const path = args[1];
+	const exec = args[2];
+	args.RemoveAt(0);
+	args.RemoveAt(1);
+	await OS.Process.Create(exec, args, OS.Process.Output.File(path)).Awaitable;
+}
+
+

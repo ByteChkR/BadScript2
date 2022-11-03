@@ -54,6 +54,10 @@ class UserManager
 	{
 		return _Users.FirstOrDefault(function(x) => x.Handle == handle)?.GetName();
 	}
+	function GetHomeDirectory(handle!)
+	{
+		return _Users.FirstOrDefault(function(x) => x.Handle == handle)?.GetHomeDirectory();
+	}
 
 	function HasPassword(name!)
 	{
@@ -156,6 +160,9 @@ function BuildUserApi(ctx, table)
 }
 
 ApiBuilder.Add(BuildUserApi);
+ApiBuilder.AddData("GetUserIDs", function() => userManager.GetUID(currentUser));
+ApiBuilder.AddData("GetUserID", function() => userManager.GetUID(currentUser));
+ApiBuilder.AddData("GetUserHome", function() => userManager.GetHomeDirectory(currentUser));
 ApiBuilder.AddData("GetCurrentUser", function() => currentUser);
 
 

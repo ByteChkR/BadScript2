@@ -1,4 +1,5 @@
-﻿using BadScript2.Runtime.Objects;
+﻿using BadScript2.Runtime.Interop.Reflection.Objects;
+using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
 using Newtonsoft.Json.Linq;
@@ -64,6 +65,12 @@ namespace BadScript2.Interop.Json
             if (value is BadTable t)
             {
                 return ConvertTable(t);
+            }
+
+
+            if (value is BadReflectedObject ro)
+            {
+                return JToken.FromObject(ro.Instance);
             }
 
             throw new Exception("Unsupported value type: " + value.GetType());

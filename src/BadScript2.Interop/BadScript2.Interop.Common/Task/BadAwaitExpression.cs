@@ -40,6 +40,7 @@ namespace BadScript2.Interop.Common.Task
             }
 
             BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>();
+
             //Run Task
             //Add current to continuation
             task.ContinuationTasks.Add(

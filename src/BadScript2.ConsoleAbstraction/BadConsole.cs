@@ -9,20 +9,12 @@ namespace BadScript2.ConsoleAbstraction
     {
         private static IBadConsole s_Console;
 
-        public static IBadConsole GetConsole() => s_Console;
         static BadConsole()
         {
             s_Console = new SystemConsole();
         }
 
-        public static void SetConsole(IBadConsole console) => s_Console = console;
-        public static void Write(string str) => s_Console.Write(str);
-        public static void WriteLine(string str) => s_Console.WriteLine(str);
-        public static string ReadLine() => s_Console.ReadLine();
-        public static Task<string> ReadLineAsync() => s_Console.ReadLineAsync();
-        public static void Clear() => s_Console.Clear();
 
-        
         public static ConsoleColor ForegroundColor
         {
             get => s_Console.ForegroundColor;
@@ -34,6 +26,40 @@ namespace BadScript2.ConsoleAbstraction
             get => s_Console.BackgroundColor;
             set => s_Console.BackgroundColor = value;
         }
-        
+
+        public static IBadConsole GetConsole()
+        {
+            return s_Console;
+        }
+
+        public static void SetConsole(IBadConsole console)
+        {
+            s_Console = console;
+        }
+
+        public static void Write(string str)
+        {
+            s_Console.Write(str);
+        }
+
+        public static void WriteLine(string str)
+        {
+            s_Console.WriteLine(str);
+        }
+
+        public static string ReadLine()
+        {
+            return s_Console.ReadLine();
+        }
+
+        public static Task<string> ReadLineAsync()
+        {
+            return s_Console.ReadLineAsync();
+        }
+
+        public static void Clear()
+        {
+            s_Console.Clear();
+        }
     }
 }

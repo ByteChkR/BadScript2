@@ -4,7 +4,6 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects
 {
-    
     public class BadReflectedObject : BadObject
     {
         public static readonly BadClassPrototype Prototype = new BadReflectedObjectPrototype();

@@ -8,12 +8,13 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop
 {
-    public class BadRuntimeEnumerable:BadObject, IBadEnumerable
+    public class BadRuntimeEnumerable : BadObject, IBadEnumerable
     {
-        private readonly BadFunction m_MoveNext;
-        private readonly BadFunction m_GetCurrent;
         private readonly BadExecutionContext m_Caller;
+        private readonly BadFunction m_GetCurrent;
+        private readonly BadFunction m_MoveNext;
         private readonly BadSourcePosition m_Position;
+
         public BadRuntimeEnumerable(BadFunction moveNext, BadFunction getCurrent, BadExecutionContext caller, BadSourcePosition position)
         {
             m_MoveNext = moveNext;

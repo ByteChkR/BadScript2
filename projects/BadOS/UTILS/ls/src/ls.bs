@@ -2,14 +2,14 @@
 function PrintFiles(dir)
 {
 
-	foreach(file in IO.Directory.GetDirectories(dir, false))
+	foreach(file in OS.FileSystem.Directory.GetDirectories(dir, false))
 	{
-		Console.WriteLine("\t- " + file);
+		OS.WriteLine("\t- " + file);
 	}
 	
-	foreach(file in IO.Directory.GetFiles(dir, "", false))
+	foreach(file in OS.FileSystem.Directory.GetFiles(dir, "", false))
 	{
-		Console.WriteLine("\t- " + file);
+		OS.WriteLine("\t- " + file);
 	}
 	
 }
@@ -18,7 +18,7 @@ function PrintFiles(dir)
 const args = OS.GetArguments();
 if(args.Length == 1)
 {
-	PrintFiles(IO.Directory.GetCurrentDirectory());
+	PrintFiles(OS.FileSystem.Directory.GetCurrentDirectory());
 }
 else if(args.Length == 2)
 {
@@ -26,5 +26,5 @@ else if(args.Length == 2)
 }
 else
 {
-	Console.WriteLine("Invalid Argument Count");
+	OS.WriteLine("Invalid Argument Count");
 }

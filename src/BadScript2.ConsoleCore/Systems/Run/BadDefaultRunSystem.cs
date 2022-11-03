@@ -9,14 +9,14 @@ namespace BadScript2.ConsoleCore.Systems.Run
             BadRunSystemSettings settings = new BadRunSystemSettings();
             settings.Args = args.Skip(1);
             string file = args.First();
-            settings.Files = new[] {file};
+            settings.Files = new[] { file };
 
             if (!BadFileSystem.Instance.IsFile(file))
             {
                 string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
-                if(BadFileSystem.Instance.IsFile(path))
+                if (BadFileSystem.Instance.IsFile(path))
                 {
-                    settings.Files = new[] {path};
+                    settings.Files = new[] { path };
                 }
             }
 

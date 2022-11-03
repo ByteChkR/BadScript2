@@ -17,12 +17,12 @@ namespace BadScript2.Interop.Common.Extensions
                     "elem"
                 )
             );
-            
+
             RegisterObject<BadArray>(
                 "Clear",
                 a => new BadDynamicInteropFunction(
                     "Clear",
-                    (_) => Clear(a)
+                    _ => Clear(a)
                 )
             );
 
@@ -145,8 +145,10 @@ namespace BadScript2.Interop.Common.Extensions
         private BadObject Clear(BadArray arg)
         {
             arg.InnerArray.Clear();
+
             return BadObject.Null;
         }
+
         private BadObject Add(BadArray arg, BadObject obj)
         {
             arg.InnerArray.Add(obj);

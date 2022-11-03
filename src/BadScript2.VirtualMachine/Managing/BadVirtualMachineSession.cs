@@ -85,7 +85,7 @@ namespace BadScript2.VirtualMachine.Managing
                 {
                     return false;
                 }
-            
+
                 if (!m_Run.MoveNext())
                 {
                     m_Client.Dispose();
@@ -105,15 +105,16 @@ namespace BadScript2.VirtualMachine.Managing
             while (e.MoveNext())
             {
                 eh.MoveNext();
+
                 yield return BadObject.Null;
             }
-        
+
             host.Disconnect();
             while (eh.MoveNext())
             {
                 //Wait for console host to close
             }
-        
+
             machine.SaveState();
         }
     }

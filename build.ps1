@@ -35,6 +35,8 @@ function Build-Projects {
     . $bs build ReleaseStartup
     cd ../System
     . $bs build ReleaseLib
+    cd ../WebFramework
+    . $bs build ReleaseLib
     cd ../..
 }
 

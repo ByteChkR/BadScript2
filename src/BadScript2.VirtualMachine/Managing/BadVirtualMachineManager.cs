@@ -25,7 +25,7 @@ namespace BadScript2.VirtualMachine.Managing
         {
             foreach (string path in m_VirtualMachinePaths)
             {
-                string fullPath = Path.Combine(path, name+".vm.json");
+                string fullPath = Path.Combine(path, name + ".vm.json");
 
                 if (m_FileSystem.IsFile(fullPath))
                 {

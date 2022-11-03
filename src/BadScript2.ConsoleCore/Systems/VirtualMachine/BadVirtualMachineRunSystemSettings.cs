@@ -6,6 +6,5 @@ namespace BadScript2.ConsoleCore.Systems.VirtualMachine
     {
         [Value(0, HelpText = "The File Path of the Virtual Machine Config")]
         public string FilePath { get; set; } = "vm.json";
-
     }
 }

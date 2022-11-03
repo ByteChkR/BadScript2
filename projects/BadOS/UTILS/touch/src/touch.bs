@@ -2,9 +2,9 @@
 const args = OS.GetArguments();
 if(args.Length != 2)
 {
-	Console.WriteLine("Expected one Argument");
+	OS.WriteLine("Expected one Argument");
 }
 else
 {
-	IO.File.WriteAllText(args[1], "");
+	OS.FileSystem.File.WriteAllText(args[1], "");
 }

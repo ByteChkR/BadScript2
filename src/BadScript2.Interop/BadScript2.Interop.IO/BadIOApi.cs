@@ -13,10 +13,12 @@ namespace BadScript2.Interop.IO
     {
         private readonly IFileSystem m_FileSystem;
         public BadIOApi() : this(BadFileSystem.Instance) { }
+
         public BadIOApi(IFileSystem fileSystem) : base("IO")
         {
             m_FileSystem = fileSystem;
         }
+
         private BadTable CreatePath()
         {
             BadTable t = new BadTable();
@@ -158,13 +160,16 @@ namespace BadScript2.Interop.IO
 
             t.SetFunction<string>("Delete", m_FileSystem.DeleteFile);
 
-            t.SetFunction<string, string>("Copy",
+            t.SetFunction<string, string>(
+                "Copy",
                 (i, o) =>
                 {
                     using Stream inS = m_FileSystem.OpenRead(i);
                     using Stream outS = m_FileSystem.OpenWrite(o, BadWriteMode.CreateNew);
                     inS.CopyTo(outS);
-                });
+                }
+            );
+
             return t;
         }
 

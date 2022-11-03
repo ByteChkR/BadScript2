@@ -1,23 +1,180 @@
 
 const apiBuilder = ApiBuilder;
 
+
+class ProcessInput
+{
+	function ReadLine()
+	{
+		throw "ReadLine is not Implemented";
+	}
+
+	function ReadLineAsync()
+	{
+		throw "ReadLineAsync is not Implemented";
+	}
+
+	function Close()
+	{
+		
+	}
+}
+
+
+class ProcessNullInput : ProcessInput
+{
+
+}
+
+
+
+class ProcessDefaultInput : ProcessInput
+{
+	function ReadLine()
+	{
+		return Console.ReadLine();
+	}
+
+	function ReadLineAsync()
+	{
+		return Console.ReadLineAsync();
+	}
+}
+
+class ProcessOutput
+{
+	function Write(obj)
+	{
+		throw "Write is not Implemented";
+	}
+
+	function WriteLine(obj)
+	{
+		throw "WriteLine is not Implemented";
+	}
+
+	function Clear()
+	{
+		throw "Clear is not Implemented";
+	}
+
+	function Close()
+	{
+
+	}
+}
+
+class ProcessFileOutput : ProcessOutput
+{
+	const Path;
+	let _content = "";
+	function ProcessFileOutput(string file!)
+	{
+		Path = file;
+	}
+
+	function Write(obj)
+	{
+		_content += obj;
+	}
+
+	function WriteLine(obj)
+	{
+		_content += obj + "\n";
+	}
+
+	function Clear()
+	{
+		//DO NOTHING
+	}
+
+	function Close()
+	{
+		IO.File.WriteAllText(Path, _content);
+	}
+}
+
+class ProcessDefaultOutput : ProcessOutput
+{
+	function Write(obj)
+	{
+		Console.Write(obj);
+	}
+
+	function WriteLine(obj)
+	{
+		Console.WriteLine(obj);
+	}
+
+	function Clear()
+	{
+		Console.Clear();
+	}
+}
+
+class ProcessNullOutput : ProcessOutput
+{
+	function Write(obj)
+	{
+		
+	}
+
+	function WriteLine(obj)
+	{
+
+	}
+
+	function Clear()
+	{
+
+	}
+}
+
+const ProcessNullInput NullInput = new ProcessNullInput();
+const ProcessNullOutput NullOutput = new ProcessNullOutput();
+const ProcessDefaultInput DefaultInput = new ProcessDefaultInput();
+const ProcessDefaultOutput DefaultOutput = new ProcessDefaultOutput();
+
+
 class Process
 {
 	const ID;
 	const Executable;
 	const Parameters;
+	const OnProcessExit;
+	let ProcessInput Input;
+	let ProcessOutput Output;
 	let bool IsRunning = false;
+	let _CurrentTask;
 
-	function Process(num id!, string executable!, Array parameters!)
+	function Process(num id!, string executable!, Array parameters!, onProcessExit?, ProcessInput input?, ProcessOutput output?)
 	{
 		ID = id;
 		Executable = executable;
 		Parameters = parameters;
+		OnProcessExit = onProcessExit ?? function() {}
+		Input = input ?? DefaultInput;
+		Output = output ?? DefaultOutput;
+
 	}
 
+	function CreateProcessInfo()
+	{
+		return {
+			ID: ID,
+			Executable: Executable,
+			Parameters: Parameters,
+			IsRunning: function() => IsRunning,
+			Cancel: function() {
+				_CurrentTask.Cancel();
+				IsRunning = false;
+				HandleExit();
+			}
+		}
+	}
 	function CreateProcessScope()
 	{
-		const scope = Runtime.CreateDefaultScope();
+		const scope = new Scope("Process Scope");
 		const table = apiBuilder.Build({Process: this});
 		scope.GetLocals()["OS"] = table;
 		return scope;
@@ -29,6 +186,17 @@ class Process
 		IsRunning = true;
 		await Runtime.EvaluateAsync(src, Executable, false, CreateProcessScope());
 		IsRunning = false;
+		HandleExit();
+	}
+
+	function HandleExit()
+	{
+		_CurrentTask = null;
+
+		Input.Close();
+		Output.Close();
+
+		OnProcessExit();
 	}
 
 	function GetTask()
@@ -36,13 +204,21 @@ class Process
 		return Concurrent.Create(Execute);
 	}
 
-	function RunAsync()
+	function Create()
 	{
 		if(IsRunning)
 		{
 			throw "Process is already Running!";
 		}
-		return GetTask();
+
+		_CurrentTask = GetTask();
+		return {
+			ID: ID,
+			Executable: Executable,
+			Parameters: Parameters,
+			IsRunning: function() => IsRunning,
+			Awaitable: _CurrentTask
+		}
 	}
 
 	function Run()
@@ -51,18 +227,26 @@ class Process
 		{
 			throw "Process is already Running!";
 		}
-		Concurrent.Run(GetTask());
+		_CurrentTask = GetTask();
+		Concurrent.Run(task);
+		return {
+			ID: ID,
+			Executable: Executable,
+			Parameters: Parameters,
+			IsRunning: function() => IsRunning,
+			Awaitable: _CurrentTask
+		}
 	}
 }
 
 const runningProcesses = [];
 let nextProcId = 1;
 
-function CreateProcess(string file!, Array args)
+function CreateProcess(string file!, Array args, ProcessOutput output?, ProcessInput input?)
 {
 	const id = nextProcId;
 	nextProcId++;
-	const proc = new Process(id, file, args);
+	const proc = new Process(id, file, args, function() => runningProcesses.Remove(proc), input, output);
 	runningProcesses.Add(proc);
 	return proc;
 }
@@ -72,11 +256,28 @@ function BuildProcessApi(ctx, table)
 	if(ctx.Keys.Contains("Process"))
 	{
 		const proc = ctx["Process"];
+
 		table["Process"] = {
 			GetCurrent: function() => proc,
-			Run: function(string file!, Array args!) => CreateProcess(file, args).Run(),
-			RunAsync: function(string file!, Array args!) => CreateProcess(file, args).RunAsync()
+			Run: function(string file!, Array args!, ProcessOutput output?, ProcessInput input?) => CreateProcess(file, args, output, input).Run(),
+			Create: function(string file!, Array args!, ProcessOutput output?, ProcessInput input?) => CreateProcess(file, args, output, input).Create(),
+			GetProcessInfos: function() => runningProcesses.Select(function(p) => p.CreateProcessInfo()).ToArray(),
+			Input: {
+				Default: function() => DefaultInput,
+				Null: function() => NullInput
+			},
+			Output: {
+				Default: function() => DefaultOutput,
+				Null: function() => NullOutput,
+				File: function(string path!) => new ProcessFileOutput(path)
+			}
 		}
+
+		table["ReadLine"] = function() => proc.Input.ReadLine();
+		table["ReadLineAsync"] = function() => proc.Input.ReadLineAsync();
+		table["Write"] = function(obj) => proc.Output.Write(obj);
+		table["WriteLine"] = function(obj) => proc.Output.WriteLine(obj);
+		table["Clear"] = function() => proc.Output.Clear();
 		table["GetArguments"] = function() {
 				const r = [];
 				foreach(arg in proc.Parameters)

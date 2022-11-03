@@ -1,0 +1,275 @@
+
+const Permissions =
+{
+	Read: "R",
+	ReadWrite: "RW",
+	None: ""
+}
+
+class FileSystemManager
+{
+	const _Data;
+
+	function Init()
+	{
+		if(_Data != null)
+		{
+			return;
+		}
+		if(IO.File.Exists("/home/config/filesystem.json"))
+		{
+			LoadFileSystemData();
+		}
+		else
+		{
+			CreateFileSystemData();
+			SaveFileSystemData();
+		}
+	}
+
+	function LoadFileSystemData()
+	{
+		_Data = Json.FromJson(IO.File.ReadAllText("/home/config/filesystem.json"));
+	}
+
+	function SaveFileSystemData()
+	{
+		IO.File.WriteAllText("/home/config/filesystem.json", Json.ToJson(_Data));
+	}
+
+	function CreateFileSystemData()
+	{
+		_Data = {}
+		InitUser(0); //Root
+		_Data["0"].Entries.Clear();
+		_Data["0"].Entries.Add({ Path: "/", Permission: Permissions.ReadWrite });
+
+	}
+
+	function InitUser(num uid!)
+	{
+		if(_Data.Keys.Contains(uid.ToString()))
+		{
+			return;
+		}
+		_Data[uid.ToString()] = {
+			Entries: []
+		}
+
+		_Data[uid.ToString()].Entries.Add({ Path: ApiBuilder.Data["GetUserHome"](uid), Permission: Permissions.ReadWrite });
+		_Data[uid.ToString()].Entries.Add({ Path: "/bin", Permission: Permissions.Read});
+		_Data[uid.ToString()].Entries.Add({ Path: "/", Permission: Permissions.None});
+	}
+
+	function CanRead(string path!)
+	{
+		let fullPath = IO.Path.GetFullPath(path);
+		const uid = ApiBuilder.Data["GetUserID"]();
+		InitUser(uid);
+		const data = _Data[uid.ToString()];
+		while(fullPath != "")
+		{
+			const elem = data.Entries.FirstOrDefault(function(e) => e.Path == fullPath);
+			if(elem != null)
+			{
+				if(elem.Permission == Permissions.Read ||
+					elem.Permission == Permissions.ReadWrite)
+				{
+					return true;
+				}
+				return false;
+			}
+			const idx = fullPath.LastIndexOf("/");
+
+			fullPath = fullPath.Remove(idx, fullPath.Length - idx);
+		}
+
+		const root = data.Entries.First(function(x) => x.Path == "/");
+		if(root.Permission == Permissions.Read ||
+			root.Permission == Permissions.ReadWrite)
+		{
+			return true;
+		}
+		return false;
+
+	}
+
+	function CanWrite(string path!)
+	{
+		let fullPath = IO.Path.GetFullPath(path);
+		const uid = ApiBuilder.Data["GetUserID"]();
+		InitUser(uid);
+		const data = _Data[uid.ToString()];
+		while(fullPath != "")
+		{
+			Console.WriteLine("Checking permissions for: " + fullPath);
+			const elem = data.Entries.FirstOrDefault(function(e) => e.Path == fullPath);
+			if(elem != null)
+			{
+				if(elem.Permission == Permissions.ReadWrite)
+				{
+					return true;
+				}
+				return false;
+			}
+			const idx = fullPath.LastIndexOf("/");
+
+			fullPath = fullPath.Remove(idx, fullPath.Length - idx);
+		}
+
+		const root = data.Entries.First(function(x) => x.Path == "/");
+		if(root.Permission == Permissions.ReadWrite)
+		{
+			return true;
+		}
+		return false;
+	}
+}
+
+const apiBuilder = ApiBuilder;
+const manager = new FileSystemManager();
+
+function CreateDirectoryApi()
+{
+	const t = {}
+	foreach(key in IO.Directory.Keys)
+	{
+		t[key] = IO.Directory[key];
+	}
+
+	t["CreateDirectory"] = function(string dir!)
+	{
+		if(!manager.CanWrite(dir))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.Directory.CreateDirectory(dir);
+	}
+
+	t["Delete"] = function(string dir!, bool recursive!)
+	{
+		if(!manager.CanWrite(dir))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.Directory.Delete(dir, recursive);
+	}
+
+	t["Move"] = function(string src!, string dst!, bool overwrite!)
+	{
+		if(!manager.CanRead(src) || !manager.CanWrite(dst))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.Directory.Move(src, dst, overwrite);
+	}
+
+	return t;
+}
+
+function CreateFileApi()
+{
+	const t = {}
+	foreach(key in IO.File.Keys)
+	{
+		t[key] = IO.File[key];
+	}
+
+	t["WriteAllText"] = function(string file!, string content!)
+	{
+		if(!manager.CanWrite(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.WriteAllText(file, content);
+	}
+
+	t["WriteAllLines"] = function(string file!, Array content!)
+	{
+		if(!manager.CanWrite(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.WriteAllLines(file, content);
+	}
+
+
+	t["WriteAllBytes"] = function(string file!, Array content!)
+	{
+		if(!manager.CanWrite(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.WriteAllBytes(file, content);
+	}
+
+	t["ReadAllLines"] = function(string file!)
+	{
+		if(!manager.CanRead(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.ReadAllLines(file);
+	}
+
+
+	t["ReadAllText"] = function(string file!)
+	{
+		if(!manager.CanRead(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.ReadAllText(file);
+	}
+
+
+	t["ReadAllBytes"] = function(string file!)
+	{
+		if(!manager.CanRead(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.ReadAllBytes(file);
+	}
+
+	t["Delete"] = function(string file!)
+	{
+		if(!manager.CanWrite(file))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.Delete(file);
+	}
+
+
+	t["Copy"] = function(string from!, string to!)
+	{
+		if(!manager.CanWrite(to) ||
+			!manager.CanRead(from))
+		{
+			throw "User does not have the permission.";
+		}
+		return IO.File.Copy(from, to);
+	}
+
+
+	return t;
+}
+
+function BuildFileSystemApi(ctx, table)
+{
+
+	manager.Init();
+	table["FileSystem"] = {
+		Path: IO.Path,
+		Directory: CreateDirectoryApi(),
+		File: CreateFileApi()
+	}
+}
+
+ApiBuilder.Add(BuildFileSystemApi);
+
+
+
+
+

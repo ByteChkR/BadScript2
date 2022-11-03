@@ -15,7 +15,7 @@ function Import(string name!)
 
 	const libraryPath = IO.Path.Combine(libPath, name+".bs");
 	const t = ApiBuilder.Data.CreateProcess(libraryPath, []);
-	await t.RunAsync();
+	await t.Create().Awaitable;
 	if(loadedLibs.Keys.Contains(name))
 	{
 		return loadedLibs[name];

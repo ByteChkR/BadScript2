@@ -143,7 +143,7 @@ namespace BadScript2.Interop.Compression
             string[] files = m_FileSystem.GetFiles(inputDir, "", true).ToArray();
             foreach (string file in files)
             {
-                string zipPath = file.Remove(0, inputDir.Length+1).Replace('\\', '/');
+                string zipPath = file.Remove(0, inputDir.Length + 1).Replace('\\', '/');
                 ZipArchiveEntry entry = archive.CreateEntry(zipPath);
                 using Stream es = entry.Open();
                 using Stream s = m_FileSystem.OpenRead(file);

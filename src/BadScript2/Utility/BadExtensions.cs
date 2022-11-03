@@ -1,15 +1,7 @@
-using BadScript2.Common;
-using BadScript2.Runtime;
-using BadScript2.Runtime.Error;
-using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Functions;
-
 namespace BadScript2.Utility
 {
     public static class BadExtensions
     {
-        
-
         public static bool IsCompletedSuccessfully(this Task task)
         {
             return task.Status == TaskStatus.RanToCompletion;
@@ -37,6 +29,7 @@ namespace BadScript2.Utility
 
                 q.Enqueue(item);
             }
+
             if (q.Count == count + 1)
             {
                 yield return q.Dequeue();

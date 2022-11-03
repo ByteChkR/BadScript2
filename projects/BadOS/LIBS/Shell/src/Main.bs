@@ -1,10 +1,12 @@
+
+const System = OS.Import("System");
 class Shell
 {
 	let _ShouldExit = false;
 
 	function FindFile(string name)
 	{
-		if(IO.File.Exists(name))
+		if(OS.FileSystem.File.Exists(name))
 		{
 			return name;
 		}
@@ -19,8 +21,8 @@ class Shell
 					continue;
 				}
 
-				const r = IO.Path.Combine(path, name+".bs");
-				if(IO.File.Exists(r))
+				const r = OS.FileSystem.Path.Combine(path, name+".bs");
+				if(OS.FileSystem.File.Exists(r))
 				{
 					return r;
 				}
@@ -33,8 +35,12 @@ class Shell
 	{
 		while(!_ShouldExit)
 		{
-			Console.Write($"{OS.User.GetUserName()}@{OS.Environment.Get("OS_NAME")}:{IO.Directory.GetCurrentDirectory()}$");
-			const result = await Console.ReadLineAsync();
+			Console.Write($"{OS.User.GetUserName()}@{OS.Environment.Get("OS_NAME")}:{OS.FileSystem.Directory.GetCurrentDirectory()}$");
+			const result = (await OS.ReadLineAsync()).Trim();
+			if(result.Length == 0)
+			{
+				continue;
+			}
 			const parts = result.Split(" ");
 			if(parts.Length == 0)
 			{
@@ -50,10 +56,10 @@ class Shell
 			
 			if(file == null)
 			{
-				Console.WriteLine($"Invalid Command '{parts[0]}'");
+				OS.WriteLine($"Invalid Command '{parts[0]}'");
 				continue;
 			}
-			await OS.Process.RunAsync(file, parts);
+			await OS.Process.Create(file, parts).Awaitable;
 		}
 	}
 }

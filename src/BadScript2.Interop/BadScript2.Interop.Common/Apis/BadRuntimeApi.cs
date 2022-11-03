@@ -25,6 +25,7 @@ namespace BadScript2.Interop.Common.Apis
         {
             BadTable table = new BadTable();
 
+            table.SetFunction<string>("ParseNumber", s => decimal.Parse(s) );
             table.SetFunction<BadObject>("IsNative", Native_IsNative);
             table.SetFunction<BadObject>("IsFunction", Native_IsFunction);
             table.SetFunction<BadObject>("IsTable", Native_IsTable);
@@ -91,7 +92,8 @@ namespace BadScript2.Interop.Common.Apis
                 "Evaluate",
                 new BadInteropFunction(
                     "Evaluate",
-                    (ctx, args) => Evaluate(ctx,
+                    (ctx, args) => Evaluate(
+                        ctx,
                         args[0],
                         args.Length < 2 ? BadObject.Null : args[1],
                         args.Length < 3 ? BadObject.True : args[2],
@@ -107,7 +109,8 @@ namespace BadScript2.Interop.Common.Apis
                 "EvaluateAsync",
                 new BadInteropFunction(
                     "EvaluateAsync",
-                    (ctx, args) => EvaluateAsync(ctx,
+                    (ctx, args) => EvaluateAsync(
+                        ctx,
                         args[0],
                         args.Length < 2 ? BadObject.Null : args[1],
                         args.Length < 3 ? BadObject.True : args[2],
@@ -205,7 +208,9 @@ namespace BadScript2.Interop.Common.Apis
             bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
 
             BadExecutionContext ctx =
-                scope == BadObject.Null || scope is not BadScope sc ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope)) : new BadExecutionContext(sc);
+                scope == BadObject.Null || scope is not BadScope sc
+                    ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope))
+                    : new BadExecutionContext(sc);
 
             IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
             if (optimize)
@@ -242,7 +247,9 @@ namespace BadScript2.Interop.Common.Apis
             bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
 
             BadExecutionContext ctx =
-                scope == BadObject.Null || scope is not BadScope sc ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope)) : new BadExecutionContext(sc);
+                scope == BadObject.Null || scope is not BadScope sc
+                    ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope))
+                    : new BadExecutionContext(sc);
 
             IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
             if (optimize)

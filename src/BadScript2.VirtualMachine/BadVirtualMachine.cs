@@ -20,6 +20,8 @@ namespace BadScript2.VirtualMachine
     {
         public readonly BadVirtualFileSystem FileSystem;
         public readonly BadVirtualMachineInfo Info;
+        private bool m_IsExitRequested;
+        private bool m_IsRebootRequested;
 
         public BadVirtualMachine(BadVirtualMachineInfo info)
         {
@@ -72,55 +74,75 @@ namespace BadScript2.VirtualMachine
             }
         }
 
+        public void ForceExit()
+        {
+            m_IsExitRequested = true;
+        }
+
+        public void Reboot()
+        {
+            m_IsRebootRequested = true;
+        }
+
         public IEnumerable<BadObject> Execute(IBadConsole console)
         {
-            BadExecutionContextOptions options =
-                new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis.Where(x => x is not BadIOApi && x is not BadConsoleApi).ToArray());
-            options.Apis.Add(new BadConsoleApi(console));
-            options.Apis.Add(new BadIOApi(FileSystem));
-
-            BadTaskRunner runner = new BadTaskRunner();
-            options.Apis.Add(new BadTaskRunnerApi(runner));
-            BadExecutionContext ctx = options.Build();
-
-            ctx.Scope.AddSingleton(runner);
-            if (FileSystem.IsFile("startup.bs"))
+            m_IsRebootRequested = true;
+            while (m_IsRebootRequested)
             {
-                runner.AddTask(
-                    new BadTask(
-                        new BadInteropRunnable(
-                            ctx.Execute(
-                                    BadSourceParser.Create(
-                                            "startup.bs",
-                                            FileSystem.ReadAllText("startup.bs")
-                                        )
-                                        .Parse()
-                                )
-                                .GetEnumerator()
+                m_IsRebootRequested = false;
+                BadExecutionContextOptions options =
+                    new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis.Where(x => x is not BadIOApi && x is not BadConsoleApi).ToArray());
+                options.Apis.Add(new BadConsoleApi(console));
+                options.Apis.Add(new BadIOApi(FileSystem));
+
+                BadTaskRunner runner = new BadTaskRunner();
+                options.Apis.Add(new BadTaskRunnerApi(runner));
+
+                BadVirtualMachineApi vmApi = new BadVirtualMachineApi(this);
+                options.Apis.Add(vmApi);
+
+                BadExecutionContext ctx = options.Build();
+
+                ctx.Scope.AddSingleton(runner);
+                if (FileSystem.IsFile("startup.bs"))
+                {
+                    runner.AddTask(
+                        new BadTask(
+                            new BadInteropRunnable(
+                                ctx.Execute(
+                                        BadSourceParser.Create(
+                                                "startup.bs",
+                                                FileSystem.ReadAllText("startup.bs")
+                                            )
+                                            .Parse()
+                                    )
+                                    .GetEnumerator()
+                            ),
+                            "__VM_MAIN__"
                         ),
-                        "__VM_MAIN__"
-                    ),
-                    true
-                ); 
-            }
-            else
-            {
-                runner.AddTask(
-                    new BadTask(
-                        new BadInteropRunnable(
-                            InteractiveShell(ctx, console)
-                                .GetEnumerator()
+                        true
+                    );
+                }
+                else
+                {
+                    runner.AddTask(
+                        new BadTask(
+                            new BadInteropRunnable(
+                                InteractiveShell(ctx, console)
+                                    .GetEnumerator()
+                            ),
+                            "__VM_MAIN__"
                         ),
-                        "__VM_MAIN__"
-                    ),
-                    true
-                ); 
-            }
+                        true
+                    );
+                }
 
-            while (!runner.IsIdle)
-            {
-                runner.RunStep();
-                yield return BadObject.Null;
+                while (!runner.IsIdle && !m_IsExitRequested && !m_IsRebootRequested)
+                {
+                    runner.RunStep();
+
+                    yield return BadObject.Null;
+                }
             }
         }
     }

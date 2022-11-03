@@ -35,8 +35,6 @@ namespace BadHtml
     public class BadHtmlTemplate
     {
         private static string? s_ExtensionDirectory;
-    
-        public static string DebuggerPath { get; set; } = "Debugger.bs";
 
         /// <summary>
         ///     Static flag that indicates if the BadScript Runtime has been initialized
@@ -67,6 +65,8 @@ namespace BadHtml
         {
             FilePath = Path.GetFullPath(filePath);
         }
+
+        public static string DebuggerPath { get; set; } = "Debugger.bs";
 
         private static string ExtensionDirectory
         {

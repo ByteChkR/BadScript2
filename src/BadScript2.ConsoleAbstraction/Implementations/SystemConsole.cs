@@ -30,16 +30,16 @@ namespace BadScript2.ConsoleAbstraction.Implementations
             Console.Clear();
         }
 
-        public ConsoleColor ForegroundColor 
-        { 
+        public ConsoleColor ForegroundColor
+        {
             get => Console.ForegroundColor;
             set => Console.ForegroundColor = value;
         }
-        public ConsoleColor BackgroundColor 
-        { 
+
+        public ConsoleColor BackgroundColor
+        {
             get => Console.BackgroundColor;
             set => Console.BackgroundColor = value;
         }
-
     }
 }

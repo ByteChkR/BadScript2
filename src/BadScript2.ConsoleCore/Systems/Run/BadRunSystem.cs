@@ -107,11 +107,11 @@ namespace BadScript2.ConsoleCore.Systems.Run
                     BadLogger.Warn("Benchmarking is not supported in interactive mode");
                 }
 
-                int r= RunInteractive(options, files);
+                int r = RunInteractive(options, files);
 
                 host?.Stop();
+
                 return r;
-                
             }
 
             Stopwatch? sw = null;

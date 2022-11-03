@@ -1,4 +1,3 @@
-using BadScript2.Common.Logging;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
@@ -45,7 +44,7 @@ namespace BadScript2.Runtime
 
             foreach (BadInteropApi api in Apis)
             {
-                BadLogger.Log($"Registering API: {api.Name}", "ContextBuilder");
+                //BadLogger.Log($"Registering API: {api.Name}", "ContextBuilder");
                 BadTable table;
                 if (ctx.Scope.HasLocal(api.Name) && ctx.Scope.GetVariable(api.Name).Dereference() is BadTable t)
                 {
@@ -62,7 +61,7 @@ namespace BadScript2.Runtime
 
             foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
             {
-                BadLogger.Log($"Adding Native Type {type.Name}", "ContextBuilder");
+                //BadLogger.Log($"Adding Native Type {type.Name}", "ContextBuilder");
                 ctx.Scope.DefineVariable(type.Name, type);
             }
 

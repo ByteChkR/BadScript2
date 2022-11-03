@@ -6,5 +6,5 @@ if(args.Length != 2)
 }
 else
 {
-	IO.Directory.SetCurrentDirectory(args[1]);
+	OS.FileSystem.Directory.SetCurrentDirectory(args[1]);
 }

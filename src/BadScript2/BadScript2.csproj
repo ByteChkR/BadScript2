@@ -15,6 +15,7 @@
 
     <ItemGroup>
         <Folder Include="Runtime\Interop\Reflection" />
+        <Folder Include="Standards" />
     </ItemGroup>
 
     <ItemGroup>

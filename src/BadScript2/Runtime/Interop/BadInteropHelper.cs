@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
@@ -43,6 +44,11 @@ namespace BadScript2.Runtime.Interop
             if (obj is IBadString str && typeof(T) == typeof(string))
             {
                 return (T)(object)str.Value;
+            }
+
+            if (obj is IBadNumber num && typeof(T).IsNumericType())
+            {
+                return (T)Convert.ChangeType(num.Value, typeof(T));
             }
 
             if (obj is BadNative<T> n)

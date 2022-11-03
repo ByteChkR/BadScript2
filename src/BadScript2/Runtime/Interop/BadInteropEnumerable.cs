@@ -6,7 +6,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-using BadScript2.Utility;
 
 namespace BadScript2.Runtime.Interop
 {
@@ -14,13 +13,25 @@ namespace BadScript2.Runtime.Interop
     {
         private readonly IEnumerable<BadObject> m_Enumerable;
         private readonly BadFunction m_Func;
+
         public BadInteropEnumerable(IEnumerable<BadObject> enumerable)
         {
             m_Enumerable = enumerable;
 
-            m_Func = new BadDynamicInteropFunction("GetEnumerator",
+            m_Func = new BadDynamicInteropFunction(
+                "GetEnumerator",
                 c => new BadInteropEnumerator(m_Enumerable.GetEnumerator())
             );
+        }
+
+        public IEnumerator<BadObject> GetEnumerator()
+        {
+            return m_Enumerable.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)m_Enumerable).GetEnumerator();
         }
 
         public override BadClassPrototype GetPrototype()
@@ -42,22 +53,13 @@ namespace BadScript2.Runtime.Interop
             {
                 return BadObjectReference.Make("GetEnumerator", () => m_Func);
             }
+
             return base.GetProperty(propName);
         }
 
         public override string ToSafeString(List<BadObject> done)
         {
             return "BadInteropEnumerable";
-        }
-
-        public IEnumerator<BadObject> GetEnumerator()
-        {
-            return m_Enumerable.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable)m_Enumerable).GetEnumerator();
         }
     }
 }

@@ -1,0 +1,8 @@
+
+function BuildCommonApi(ctx, table)
+{
+	table["Json"] = Json;
+	table["Compression"] = Compression;
+}
+
+ApiBuilder.Add(BuildCommonApi);

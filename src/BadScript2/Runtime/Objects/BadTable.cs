@@ -4,7 +4,6 @@ using System.Text;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
-using BadScript2.Utility;
 
 namespace BadScript2.Runtime.Objects
 {
@@ -44,6 +43,25 @@ namespace BadScript2.Runtime.Objects
             {
                 PropertyInfos[kvp.Key] = new BadPropertyInfo();
             }
+        }
+
+        public IEnumerator<BadObject> GetEnumerator()
+        {
+            foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
+            {
+                yield return new BadTable(
+                    new Dictionary<BadObject, BadObject>
+                    {
+                        { "Key", kvp.Key },
+                        { "Value", kvp.Value },
+                    }
+                );
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
 
@@ -165,25 +183,6 @@ namespace BadScript2.Runtime.Objects
             sb.AppendLine("}");
 
             return sb.ToString();
-        }
-
-        public IEnumerator<BadObject> GetEnumerator()
-        {
-            foreach (KeyValuePair<BadObject,BadObject> kvp in InnerTable)
-            {
-                yield return new BadTable(
-                    new Dictionary<BadObject, BadObject>
-                    {
-                        { "Key", kvp.Key },
-                        { "Value", kvp.Value }
-                    }
-                );
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

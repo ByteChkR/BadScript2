@@ -325,7 +325,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        BadConsoleApi? api = BadExecutionContextOptions.Default.Apis.FirstOrDefault(x=>x is BadConsoleApi) as BadConsoleApi;
+        BadConsoleApi? api = BadExecutionContextOptions.Default.Apis.FirstOrDefault(x => x is BadConsoleApi) as BadConsoleApi;
         if (api != null)
         {
             api.AllowInput = false;
@@ -333,7 +333,7 @@
             api.OnWrite += s => m_ConsoleOutput += s;
             api.OnWriteLine += s => m_ConsoleOutput += s + "\n";
         }
-        
+
         RunStartup();
     }
 

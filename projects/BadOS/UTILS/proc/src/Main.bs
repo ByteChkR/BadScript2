@@ -1,0 +1,13 @@
+
+
+const args = OS.GetArguments();
+
+if(args.Length == 2)
+{
+	OS.WriteLine(OS.Process.GetProcessInfos().Where(function(p) => p.ID.ToString() == args[1] || p.Executable == args[1]).ToArray());
+}
+else
+{
+	OS.WriteLine(OS.Process.GetProcessInfos());
+}
+

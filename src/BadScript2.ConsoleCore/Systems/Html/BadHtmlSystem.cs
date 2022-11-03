@@ -16,7 +16,6 @@ namespace BadScript2.ConsoleCore.Systems.Html
     {
         public override string Name => "html";
 
-    
 
         public override object? Parse(string[] args)
         {
@@ -35,13 +34,12 @@ namespace BadScript2.ConsoleCore.Systems.Html
         {
             BadHtmlTemplate.SkipInitialization();
 
-        
 
             if (settings.Debug)
             {
                 BadDebugger.Attach(new BadScriptDebugger(BadExecutionContextOptions.Default));
             }
-            
+
             BadNetworkConsoleHost? host = null;
             if (settings.RemotePort != -1)
             {
@@ -56,7 +54,7 @@ namespace BadScript2.ConsoleCore.Systems.Html
                 string html = BadHtmlTemplate.Run(file);
                 BadFileSystem.WriteAllText(outFile, html);
             }
-            
+
             host?.Stop();
 
             return -1;
