@@ -1,0 +1,56 @@
+
+
+const Package = Runtime.Import("Package");
+const System = Package.Import("System");
+
+function ProcessImports()
+{
+	Console.WriteLine("Processing #import directives");
+	let reader = new System.SourceReader(Context.SourceCode);
+	let newSrc = "";
+	let imports = [];
+	while(!reader.IsEOF())
+	{
+		if(reader.Is("\""))
+		{
+			newSrc += reader.ReadString();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "/")
+		{
+			newSrc += reader.ReadComment();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "*")
+		{
+			newSrc += reader.ReadMultilineComment();
+		}
+		else if(reader.Is("#import"))
+		{
+			reader.Eat("#import");
+			reader.SkipWhiteSpace();
+			let importName = reader.ParseWord();
+			let defineVar = !imports.Contains(importName);
+
+			reader.SkipWhiteSpace();
+			reader.Eat("from");
+			reader.SkipWhiteSpace();
+			let importer = reader.ParseWord();
+			let insert = $"function(){{{importName} = {importer}.Import(\"{importName}\");}}();";
+			if(defineVar)
+			{
+				imports.Add(importName);
+				insert = $"let {importName};" + insert;
+			}
+			Console.WriteLine($"Processing import '{importName}' from '{importer}'");
+			newSrc += insert;
+		}
+		else
+		{				
+			newSrc += reader.GetCurrent();
+			reader.MoveNext();
+		}
+	}
+	Context.SourceCode = newSrc;
+}
+
+
+ProcessImports();

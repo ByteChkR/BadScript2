@@ -1,0 +1,10 @@
+{
+  "Name": "ReleaseApp",
+  "Description": "Builds and Releases the Project as an App",
+  "Dependencies": [
+    "Build",
+    "Minify",
+    "InstallToApp",
+    "SaveToOutput"
+  ]
+}

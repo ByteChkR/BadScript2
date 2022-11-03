@@ -1,0 +1,10 @@
+{
+  "Name": "ReleaseRun",
+  "Description": "Builds and Copies the Output to the 'run' subsystem directory",
+  "Dependencies": [
+    "Build",
+    "Minify",
+    "InstallToRun",
+    "SaveToOutput"
+  ]
+}

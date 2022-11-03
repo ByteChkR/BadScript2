@@ -1,0 +1,5 @@
+{
+  "Name": "ProcessEvals",
+  "Description": "Processes Evaluation Commands in the Source Output",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/ProcessEvals.bs"
+}

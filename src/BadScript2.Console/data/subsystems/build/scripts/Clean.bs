@@ -1,0 +1,14 @@
+
+
+function Clean()
+{
+	Console.WriteLine("Cleaning Project Folder");
+
+	if(IO.Directory.Exists("./bin"))
+	{
+		IO.Directory.Delete("./bin", true);
+	}
+}
+
+
+Clean();

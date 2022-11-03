@@ -1,0 +1,8 @@
+{
+  "Name": "Test",
+  "Description": "Builds and Runs the Project",
+  "Dependencies": [
+    "Debug",
+    "RunOutput"
+  ]
+}

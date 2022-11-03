@@ -1,0 +1,51 @@
+const Package = Runtime.Import("Package");
+const System = Package.Import("System");
+
+function ProcessEvals()
+{
+	Console.WriteLine("Processing eval statements");
+	let reader = new System.SourceReader(Context.SourceCode);
+	let newSrc = "";
+	//Start key can not be put into a single string.
+	//Because the Project Builds itself and will fail because it has no closing bracket
+	let startKey = "$" + "(";
+	while(!reader.IsEOF())
+	{
+		if(reader.Is(startKey))
+		{
+			reader.Eat(startKey);
+			reader.SkipWhiteSpace();
+			let parts = [];
+			let current = "";
+			while(!reader.IsEOF() && !reader.Is(")"))
+			{
+				if(reader.Is("."))
+				{
+					parts.Add(current);
+					current = "";
+				}
+				else
+				{
+					current += reader.GetCurrent();
+				}
+				
+				reader.MoveNext();
+			}
+			parts.Add(current);
+			reader.Eat(")");
+
+			let elem = GetElement(builder.GetSettings(), parts);
+			Console.WriteLine($"Evaluated to: {elem}");
+			newSrc += elem;
+		}
+		else
+		{				
+			newSrc += reader.GetCurrent();
+			reader.MoveNext();
+		}
+	}
+	Context.SourceCode = newSrc;
+}
+
+
+ProcessEvals();

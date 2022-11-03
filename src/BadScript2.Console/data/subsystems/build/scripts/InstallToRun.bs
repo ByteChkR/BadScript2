@@ -1,0 +1,12 @@
+
+
+function InstallToRun()
+{
+	Console.WriteLine("Installing to Run Directory");
+	const outFile = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", Context.AppInfo.Name + ".bs");
+	IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(outFile)));
+	IO.File.WriteAllText(outFile, Context.SourceCode);
+}
+
+
+InstallToRun();

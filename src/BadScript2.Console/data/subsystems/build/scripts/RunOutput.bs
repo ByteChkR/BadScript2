@@ -1,0 +1,18 @@
+
+
+function RunOutput()
+{
+	let dir = IO.Path.GetDirectoryName(Context.BuildInfo.OutputFile);
+	let original = IO.Directory.GetCurrentDirectory();
+	IO.Directory.SetCurrentDirectory(dir);
+	let name = IO.Path.GetFileName(Context.BuildInfo.OutputFile);
+
+	Console.WriteLine("Running File: " + Context.BuildInfo.OutputFile);
+
+	await Runtime.EvaluateAsync(IO.File.ReadAllText(name), Context.BuildInfo.OutputFile);
+
+	IO.Directory.SetCurrentDirectory(original);
+}
+
+
+RunOutput();

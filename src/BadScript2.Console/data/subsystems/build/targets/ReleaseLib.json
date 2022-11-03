@@ -1,0 +1,10 @@
+{
+  "Name": "ReleaseLib",
+  "Description": "Builds and Releases the Project as a Library",
+  "Dependencies": [
+    "Build",
+    "Minify",
+    "InstallToLib",
+    "SaveToOutput"
+  ]
+}

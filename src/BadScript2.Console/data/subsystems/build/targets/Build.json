@@ -1,0 +1,11 @@
+{
+  "Name": "Build",
+  "Description": "Builds the Project",
+  "Dependencies": [
+    "LoadSettings",
+    "ExpandSources",
+    "CombineSources",
+    "ProcessImports",
+    "ProcessEvals"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "Name": "SaveToOutput",
+  "Description": "Saves the Source Output to a file",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/SaveToOutput.bs"
+}

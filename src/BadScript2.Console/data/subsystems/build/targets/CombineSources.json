@@ -1,0 +1,5 @@
+{
+  "Name": "CombineSources",
+  "Description": "Combines the source files into a single file",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/CombineSources.bs"
+}

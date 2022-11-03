@@ -1,0 +1,5 @@
+{
+  "Name": "ProcessImports",
+  "Description": "Processes #import Commands in the Source Output",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/ProcessImports.bs"
+}

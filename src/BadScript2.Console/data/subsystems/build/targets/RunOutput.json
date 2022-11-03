@@ -1,0 +1,5 @@
+{
+  "Name": "RunOutput",
+  "Description": "Runs the Output",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/RunOutput.bs"
+}

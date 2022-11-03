@@ -1,0 +1,5 @@
+{
+  "Name": "ExpandSources",
+  "Description": "Expands the Source Files",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/ExpandSources.bs"
+}

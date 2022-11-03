@@ -1,0 +1,27 @@
+
+const Package = Runtime.Import("Package");
+const System = Package.Import("System");
+
+function Minify()
+{
+	Console.WriteLine("Minify Build Output");
+	let reader = new System.SourceReader(Context.SourceCode);
+
+	let newSrc = reader.StripComments();
+
+	newSrc = newSrc.Replace("\n", " ")
+					.Replace("\r", " ")
+					.Replace("\t", " ");
+
+	let parts = newSrc.Split(" ", true);
+	newSrc = "";
+	foreach(part in parts)
+	{
+		newSrc += part + " ";
+	}
+
+	Context.SourceCode = newSrc.Trim();
+}
+
+
+Minify();

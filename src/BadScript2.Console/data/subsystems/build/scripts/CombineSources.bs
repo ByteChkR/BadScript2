@@ -1,0 +1,17 @@
+
+
+function Combine()
+{
+	Console.WriteLine("Combining Source Files: " + Context.Sources);
+	let src = "";
+	for(let i = 0; i < Context.Sources.Length; i++)
+	{
+		const file = Context.Sources[i];
+		src += IO.File.ReadAllText(file);
+	}
+	Context.SourceCode = src;
+}
+
+
+
+Combine();

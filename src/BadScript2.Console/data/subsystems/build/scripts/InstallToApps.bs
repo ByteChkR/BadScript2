@@ -1,0 +1,12 @@
+
+
+function InstallToApps()
+{
+	Console.WriteLine("Installing to Apps Directory");
+	const outFile = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "apps", Context.AppInfo.Name + ".bs");
+	IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(outFile)));
+	IO.File.WriteAllText(outFile, Context.SourceCode);
+}
+
+
+InstallToApps();
