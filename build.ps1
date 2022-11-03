@@ -37,6 +37,8 @@ function Build-Projects {
     . $bs build ReleaseLib
     cd ../WebFramework
     . $bs build ReleaseLib
+    cd ../HighscoreApi
+    . $bs build ReleaseLib
     cd ../..
 }
 

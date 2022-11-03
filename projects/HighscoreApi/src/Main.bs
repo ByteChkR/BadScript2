@@ -142,6 +142,3 @@ class HighscoreApi
 
 
 Runtime.Export("HighscoreApi", HighscoreApi);
-
-const api = new HighscoreApi("http://localhost:3000/", "ABC_ABC_ABC");
-api.Start();
