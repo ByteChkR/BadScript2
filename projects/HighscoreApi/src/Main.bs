@@ -71,7 +71,10 @@ class HighscoreApi
 		{
 			const response = ctx.Response;
 			response.SetStatusCode(200);
-			response.SetContent(Json.ToJson(highscores.GetScore(query["name"])));
+			const name = query["name"];
+			const score = highscores.GetScore(name);
+			Console.WriteLine($"/get: {name} : {score.ToString()}");
+			response.SetContent(score.ToString());
 			response.Close();
 		}
 	}
@@ -92,7 +95,8 @@ class HighscoreApi
 		{
 			try
 			{
-				const body = Json.FromJson(request.Content.AsString());
+				const str = Net.DecodeUriComponent(request.Content.AsString());
+				const body = Json.FromJson(str);
 				if(!Runtime.Native.IsTable(body) || 
 					!body.Keys.Contains("name") || 
 					!body.Keys.Contains("score") || 
@@ -104,6 +108,7 @@ class HighscoreApi
 				else
 				{
 					const response = ctx.Response;
+					Console.WriteLine($"/set: {body.name} : {body.score}");
 					highscores.AddScore(body.name, body.score);
 					response.SetStatusCode(200);
 					response.SetContent("Success");
@@ -112,7 +117,7 @@ class HighscoreApi
 			}
 			catch(e)
 			{
-				Error(ctx, 400, Json.ToJson(e));
+				Error(ctx, 400, e.ErrorObject);
 			}
 		}
 	}
@@ -133,7 +138,10 @@ class HighscoreApi
 		{
 			const response = ctx.Response;
 			response.SetStatusCode(200);
-			response.SetContent(Json.ToJson(highscores.GetScores()));
+			const content = Json.ToJson(highscores.GetScores());
+
+			Console.WriteLine($"/list: {content}");
+			response.SetContent(content);
 			response.Close();
 		}
 	}

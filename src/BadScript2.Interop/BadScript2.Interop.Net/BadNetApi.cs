@@ -13,6 +13,8 @@ namespace BadScript2.Interop.Net
         {
             target.SetFunction<string>("Get", Get);
             target.SetFunction<string, string>("Post", Post);
+            target.SetFunction<string>("EncodeUriComponent", s => Uri.EscapeDataString(s));
+            target.SetFunction<string>("DecodeUriComponent", s => Uri.UnescapeDataString(s));
         }
 
 

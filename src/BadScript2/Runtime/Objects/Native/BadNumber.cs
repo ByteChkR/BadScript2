@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Objects.Native
@@ -18,6 +20,11 @@ namespace BadScript2.Runtime.Objects.Native
         public override BadClassPrototype GetPrototype()
         {
             return BadNativeClassBuilder.GetNative("num");
+        }
+
+        public override string ToSafeString(List<BadObject> done)
+        {
+            return Value.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
