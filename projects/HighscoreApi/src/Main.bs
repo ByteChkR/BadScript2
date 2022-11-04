@@ -43,6 +43,7 @@ class HighscoreApi
 	{
 		ctx.Response.SetStatusCode(code);
 		ctx.Response.SetContent(msg);
+		ctx.Response.SetHeader("Access-Control-Allow-Origin", "*");
 		ctx.Response.Close();
 	}
 
@@ -71,6 +72,7 @@ class HighscoreApi
 		{
 			const response = ctx.Response;
 			response.SetStatusCode(200);
+			response.SetHeader("Access-Control-Allow-Origin", "*");
 			const name = query["name"];
 			const score = highscores.GetScore(name);
 			Console.WriteLine($"/get: {name} : {score.ToString()}");
@@ -110,6 +112,7 @@ class HighscoreApi
 					const response = ctx.Response;
 					Console.WriteLine($"/set: {body.name} : {body.score}");
 					highscores.AddScore(body.name, body.score);
+					response.SetHeader("Access-Control-Allow-Origin", "*");
 					response.SetStatusCode(200);
 					response.SetContent("Success");
 					response.Close();
@@ -139,7 +142,7 @@ class HighscoreApi
 			const response = ctx.Response;
 			response.SetStatusCode(200);
 			const content = Json.ToJson(highscores.GetScores());
-
+			response.SetHeader("Access-Control-Allow-Origin", "*");
 			Console.WriteLine($"/list: {content}");
 			response.SetContent(content);
 			response.Close();
