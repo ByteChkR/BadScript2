@@ -8,6 +8,7 @@ The `Console` api has the following Properties:
         Write: function Write(BadObject)
         Clear: function Clear()
         ReadLine: function ReadLine()
+        ReadLineAsync: function ReadLineAsync()
 }
 ```
 

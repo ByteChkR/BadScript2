@@ -4,6 +4,7 @@
 
 ```js
 {
+    Clear: function Clear()       
 	Add: function Add(obj)
 	AddRange: function AddRange(array)
 	Insert: function Insert(index, obj)

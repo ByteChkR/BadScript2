@@ -2,6 +2,7 @@
 
 - [Global Extensions](./Global.md)
 - [Array Extensions](./Array.md)
+- [Enumerable Extensions](./Enumerable.md)
 - [Function Extensions](./Function.md)
 - [Scope Extensions](./Scope.md)
 - [String Extensions](./String.md)

@@ -105,7 +105,7 @@ public class BadNetHostExtensions : BadInteropExtension
         RegisterObject<BadHttpRequest>("HasEntityBody", r => r.Request.HasEntityBody);
         RegisterObject<BadHttpRequest>("UserHostAddress", r => r.Request.UserHostAddress);
         RegisterObject<BadHttpRequest>("UserHostName", r => r.Request.UserHostName);
-        RegisterObject<BadHttpRequest>("UserHostName", r => new BadArray((r.Request.UserLanguages ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList()));
+        RegisterObject<BadHttpRequest>("UserLanguages", r => new BadArray((r.Request.UserLanguages ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList()));
         RegisterObject<BadHttpRequest>("AcceptTypes", r => new BadArray((r.Request.AcceptTypes ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList()));
         RegisterObject<BadHttpRequest>("ContentEncoding", r => r.Request.ContentEncoding.EncodingName);
         RegisterObject<BadHttpRequest>("Cookies", r => CreateCookieTable(r.Request.Cookies));

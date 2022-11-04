@@ -9,15 +9,10 @@ The `Math` api has the following Properties:
         Tau: 6.28318530717958
         Abs: function Abs(Decimal)
         Asin: function Asin(Decimal)
-        Asinh: function Asinh(Decimal)
         Acos: function Acos(Decimal)
-        Acosh: function Acosh(Decimal)
         Atan: function Atan(Decimal)
         Atan2: function Atan2(Decimal, Decimal)
-        Atanh: function Atanh(Decimal)
-        Cbrt: function Cbrt(Decimal)
         Ceiling: function Ceiling(Decimal)
-        Clamp: function Clamp(Decimal, Decimal, Decimal)
         Cos: function Cos(Decimal)
         Cosh: function Cosh(Decimal)
         Exp: function Exp(Decimal)
@@ -35,6 +30,7 @@ The `Math` api has the following Properties:
         Tan: function Tan(Decimal)
         Tanh: function Tanh(Decimal)
         Truncate: function Truncate(Decimal)
+        NextRandom: function NextRandom()
 }
 
 ```

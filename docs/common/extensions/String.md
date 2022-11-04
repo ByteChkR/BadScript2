@@ -5,6 +5,9 @@
 {
 	ToLower: function ToLower()
 	ToUpper: function ToUpper()
+	IsLetters: function IsLetters()
+    IsDigits: function IsDigits()
+    IsWhiteSpace: function IsWhiteSpace()
 	op_ArrayAccess: function op_ArrayAccess(index)
 	Length: <length of string>
 	Format: function Format(formatArgs)

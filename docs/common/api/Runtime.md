@@ -4,9 +4,12 @@ The `Runtime` api has the following Properties:
 
 ```
 {
-        Evaluate: function Evaluate(src, file?, optimize?)
+        Evaluate: function Evaluate(src, file?, optimize?, scope?)
+        EvaluateAsync: function EvaluateAsync(src, file?, optimize?, scope?)
+        CreateDefaultScope: function CreateDefaultScope()
         GetStackTrace: function GetStackTrace()
         Native: {
+                ParseNumber: function ParseNumber(String)
                 IsNative: function IsNative(BadObject)
                 IsFunction: function IsFunction(BadObject)
                 IsTable: function IsTable(BadObject)
@@ -26,6 +29,9 @@ The `Runtime` api has the following Properties:
         GetTimeNow: function GetTimeNow()
 }
 ```
+
+> `Runtime.Evaluate` is executing a script fully synchronously. This can lead to problems with the `await` keyword and the `BadTask` abstraction. It is advised to use `Runtime.EvaluateAsync` instead.
+
 ___
 
 ## Links
