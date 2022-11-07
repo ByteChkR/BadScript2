@@ -8,10 +8,18 @@ public class BadTaskRunnerSettings : BadSettingsProvider<BadTaskRunnerSettings>
 
     public BadTaskRunnerSettings() : base("Runtime.Task") { }
 
-    private BadSettings? TaskIterationTimeObj => m_TaskIterationTimeObj ??
-                                                 (Settings?.HasProperty(nameof(TaskIterationTime)) ?? false
-                                                     ? m_TaskIterationTimeObj ??= Settings?.GetProperty(nameof(TaskIterationTime))
-                                                     : null);
+    private BadSettings? TaskIterationTimeObj
+    {
+        get
+        {
+            if (m_TaskIterationTimeObj == null && Settings != null && Settings.HasProperty(nameof(TaskIterationTime)))
+            {
+                m_TaskIterationTimeObj = Settings.GetProperty(nameof(TaskIterationTime));
+            }
+
+            return m_TaskIterationTimeObj;
+        }
+    }
 
     public int TaskIterationTime
     {

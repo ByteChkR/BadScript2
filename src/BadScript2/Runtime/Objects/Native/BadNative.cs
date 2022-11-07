@@ -13,7 +13,8 @@ public class BadNative<T> : BadObject, IBadNative
     /// <summary>
     ///     The Value of the Native Type
     /// </summary>
-    public readonly T Value;
+    private readonly T m_Value;
+    public T Value => m_Value;
 
 
     /// <summary>
@@ -28,11 +29,11 @@ public class BadNative<T> : BadObject, IBadNative
             throw new Exception("Can not construct native object with null value");
         }
 
-        Value = value;
+        m_Value = value;
     }
 
-    object IBadNative.Value => Value!;
-    Type IBadNative.Type => Value!.GetType();
+    object IBadNative.Value => m_Value!;
+    Type IBadNative.Type => m_Value!.GetType();
 
 
     /// <summary>
@@ -60,7 +61,7 @@ public class BadNative<T> : BadObject, IBadNative
 
     public override string ToSafeString(List<BadObject> done)
     {
-        return Value!.ToString()!;
+        return m_Value!.ToString()!;
     }
 
     /// <summary>

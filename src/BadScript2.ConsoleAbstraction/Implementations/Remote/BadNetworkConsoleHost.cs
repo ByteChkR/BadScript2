@@ -11,11 +11,6 @@ using BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote;
 
-public class BadNetworkConsoleException : Exception
-{
-    public BadNetworkConsoleException(string message) : base(message) { }
-}
-
 public class BadNetworkConsoleHost : IBadConsole
 {
     private readonly ConcurrentQueue<BadConsoleReadPacket> m_IncomingPackets = new ConcurrentQueue<BadConsoleReadPacket>();
