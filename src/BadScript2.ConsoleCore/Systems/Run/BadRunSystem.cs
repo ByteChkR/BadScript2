@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using BadScript2.Common.Logging;
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleAbstraction.Implementations.Remote;
+using BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interactive;
@@ -20,8 +21,30 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;
 
+using CommandLine;
+
 namespace BadScript2.ConsoleCore.Systems.Run;
 
+
+public class BadRemoteConsoleSystemSettings
+{
+    [Value(0, Default = "localhost", HelpText = "The Host to connect to", Required = true)]
+    public string Host { get; set; }
+    
+    [Value(1, Default = 1337, HelpText = "The Host port to connect to", Required = true)]
+    public int Port { get; set; } = 1337;
+}
+
+public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSettings>
+{
+    public override string Name => "remote";
+    protected override int Run(BadRemoteConsoleSystemSettings settings)
+    {
+        BadNetworkConsoleClient client = new BadNetworkConsoleClient(settings.Host, settings.Port);
+        client.Start();
+        return -1;
+    }
+}
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
     private string StartupDirectory

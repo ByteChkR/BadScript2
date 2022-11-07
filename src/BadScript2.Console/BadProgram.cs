@@ -62,16 +62,6 @@ internal static class BadProgram
             }
         }
 
-        if (args.Length == 3 && args[0] == "remote")
-        {
-            string host = args[1];
-            int port = int.Parse(args[2]);
-            BadNetworkConsoleClient client = new BadNetworkConsoleClient(host, port);
-            client.Start();
-
-            return -1;
-        }
-
         using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
         cWriter.Register();
 
@@ -112,7 +102,8 @@ internal static class BadProgram
             new BadVirtualMachineRunSystem(),
             new BadVirtualMachineNewSystem(),
             new BadVirtualMachineManagerSystem(),
-            new BadVirtualMachineManagerClientSystem()
+            new BadVirtualMachineManagerClientSystem(),
+            new BadRemoteConsoleSystem()
         );
 
         int r = runner.Run(args);
