@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
@@ -21,7 +22,7 @@ public abstract class BadObject
 
     public static bool CanWrap(object? o)
     {
-        return o is string || o is decimal || o is null;
+        return o is string || o is decimal || o is null || o.GetType().IsNumericType();
     }
 
     public static BadObject Wrap<T>(T obj, bool allowNative = true)
@@ -41,6 +42,11 @@ public abstract class BadObject
             return new BadNumber(d);
         }
 
+        if (typeof(T).IsNumericType() || obj != null && obj.GetType().IsNumericType())
+        {
+            return new BadNumber(Convert.ToDecimal(obj));
+        }
+        
         if (obj is string s)
         {
             if (BadNativeOptimizationSettings.Instance.UseStringCaching)
@@ -60,6 +66,7 @@ public abstract class BadObject
         {
             return Null;
         }
+
 
         if (allowNative)
         {

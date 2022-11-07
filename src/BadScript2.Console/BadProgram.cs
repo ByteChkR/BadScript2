@@ -1,6 +1,7 @@
-﻿using BadScript2.Common.Logging;
+﻿using System.Collections;
+
+using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
-using BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
@@ -21,13 +22,13 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
+using BadScript2.Testing;
 
 namespace BadScript2.Console;
 
 internal static class BadProgram
 {
     private const string SETTINGS_FILE = "Settings.json";
-
 
     private static void LoadSettings()
     {
@@ -106,6 +107,7 @@ internal static class BadProgram
             new BadRemoteConsoleSystem()
         );
 
+        
         int r = runner.Run(args);
         lWriter?.Dispose();
 
