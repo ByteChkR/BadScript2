@@ -15,7 +15,7 @@ public class BadArray : BadObject, IBadEnumerable
     /// <summary>
     ///     The Inner Array
     /// </summary>
-    public readonly List<BadObject> InnerArray;
+    public List<BadObject> InnerArray { get; }
 
     /// <summary>
     ///     Creates a new Instance of the BadScript Array

@@ -9,6 +9,18 @@ public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSe
 {
     private BadSettings? m_DebuggerPathObj;
     public BadScriptDebuggerSettings() : base("Runtime.Debugger") { }
-    public BadSettings? DebuggerPathObj => m_DebuggerPathObj ?? (Settings?.HasProperty("Path") ?? false ? m_DebuggerPathObj ??= Settings?.GetProperty("Path") : null);
+    public BadSettings? DebuggerPathObj
+    {
+        get
+        {
+            if (m_DebuggerPathObj == null && Settings != null && Settings.HasProperty("Path"))
+            {
+                m_DebuggerPathObj = Settings?.GetProperty("Path");
+            }
+
+            return m_DebuggerPathObj;
+        }
+    }
+
     public string? DebuggerPath => DebuggerPathObj?.GetValue<string>() ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Debugger.bs");
 }

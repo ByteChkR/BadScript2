@@ -17,6 +17,11 @@ public class BadVirtualMachineManagerHost
         m_Listener = listener;
     }
 
+    public void Exit()
+    {
+        m_ShouldExit = true;
+    }
+
     private BadVirtualMachineSession StartSession(TcpClient client)
     {
         BadVirtualMachineSession session = new BadVirtualMachineSession(client, m_Service);

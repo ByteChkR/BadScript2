@@ -15,12 +15,12 @@ public class BadTable : BadObject, IBadEnumerable
     /// <summary>
     ///     The Inner Table for this Object
     /// </summary>
-    public readonly Dictionary<BadObject, BadObject> InnerTable;
+    public Dictionary<BadObject, BadObject> InnerTable { get; }
 
     /// <summary>
     ///     A Table of additional property information
     /// </summary>
-    public readonly Dictionary<BadObject, BadPropertyInfo> PropertyInfos;
+    public Dictionary<BadObject, BadPropertyInfo> PropertyInfos { get; }
 
     /// <summary>
     ///     Creates a new Table Object

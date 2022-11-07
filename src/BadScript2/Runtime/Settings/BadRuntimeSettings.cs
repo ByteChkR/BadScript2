@@ -20,8 +20,18 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
     /// <summary>
     ///     The File Extension Settings Object
     /// </summary>
-    private BadSettings? FileExtensionObj =>
-        m_FileExtensionObj ?? (Settings?.HasProperty(nameof(FileExtension)) ?? false ? m_FileExtensionObj ??= Settings?.GetProperty(nameof(FileExtension)) : null);
+    private BadSettings? FileExtensionObj
+    {
+        get
+        {
+            if (m_FileExtensionObj == null && Settings != null && Settings.HasProperty(nameof(FileExtension)))
+            {
+                m_FileExtensionObj = Settings?.GetProperty(nameof(FileExtension));
+            }
+
+            return m_FileExtensionObj;
+        }
+    }
 
     /// <summary>
     ///     The Default File Extension of BadScript2 Scripts
