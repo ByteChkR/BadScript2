@@ -23,7 +23,7 @@ public abstract class BadClassPrototype : BadObject
     /// <summary>
     ///     The Name of the Type
     /// </summary>
-    public readonly string Name;
+    public string Name { get; }
 
     /// <summary>
     ///     Creates a new Class Prototype

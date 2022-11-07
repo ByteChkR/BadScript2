@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace BadScript2.VirtualMachine.Managing;
 
+public class BadVirtualMachineException : Exception
+{
+    public BadVirtualMachineException( string message ) : base( message )
+    {
+    }
+}
 public class BadVirtualMachineManager
 {
     private readonly IFileSystem m_FileSystem;
@@ -43,7 +49,7 @@ public class BadVirtualMachineManager
 
         if (vmPath == null)
         {
-            throw new Exception("Can not save the virtual machine info");
+            throw new BadVirtualMachineException("Can not save the virtual machine info");
         }
 
         string fullPath = Path.Combine(vmPath, info.Name + ".vm.json");

@@ -310,7 +310,7 @@ public class BadHtmlTemplate
     {
         string file = node.Attributes["src"].Value;
         BadSourceParser parser = BadSourceParser.Create(Path.GetFullPath(file), File.ReadAllText(file));
-        BadObject? ret = ctx.Run(parser.Parse());
+        ctx.Run(parser.Parse());
         node.ParentNode.RemoveChild(node);
     }
 

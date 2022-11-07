@@ -320,7 +320,7 @@ public class BadNetworkConsoleHost : IBadConsole
                     }
                     else
                     {
-                        throw new Exception("Invalid Packet Type");
+                        throw new BadNetworkConsoleException("Invalid Packet Type");
                     }
                 }
 

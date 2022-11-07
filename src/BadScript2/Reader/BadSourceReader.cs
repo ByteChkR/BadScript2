@@ -11,7 +11,7 @@ public class BadSourceReader
     /// <summary>
     ///     The Filename of the Source Code
     /// </summary>
-    public readonly string FileName;
+    public string FileName { get; }
 
     /// <summary>
     ///     The Source Code

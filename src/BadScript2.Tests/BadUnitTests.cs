@@ -41,7 +41,6 @@ public class BadUnitTests
 
             List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
 
-            //apis.AddRange(BadCommonInterop.Apis);
             apis.Add(new BadIOApi());
             apis.Add(new BadJsonApi());
             apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));

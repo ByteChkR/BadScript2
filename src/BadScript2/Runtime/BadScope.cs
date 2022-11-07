@@ -13,7 +13,7 @@ public class BadScope : BadObject
     /// <summary>
     ///     The Caller of the Current Scope
     /// </summary>
-    private readonly BadScope? Caller;
+    private readonly BadScope? m_Caller;
 
     /// <summary>
     ///     The Scope Variables
@@ -25,7 +25,7 @@ public class BadScope : BadObject
     /// <summary>
     ///     The Parent Scope
     /// </summary>
-    public readonly BadScope? Parent;
+    public BadScope? Parent { get; }
 
     /// <summary>
     ///     Creates a new Scope
@@ -37,7 +37,7 @@ public class BadScope : BadObject
     {
         Name = name;
         Flags = flags;
-        Caller = caller;
+        m_Caller = caller;
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class BadScope : BadObject
     {
         Name = name;
         Flags = flags;
-        Caller = caller;
+        m_Caller = caller;
         m_ScopeVariables = locals;
     }
 
@@ -271,7 +271,7 @@ public class BadScope : BadObject
                 stack.Add(current);
             }
 
-            current = current.Caller;
+            current = current.m_Caller;
         }
 
         return string.Join("\n", stack.Select(s => s.Name));

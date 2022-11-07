@@ -105,7 +105,7 @@ public class BadNetworkConsoleClient
         }
         else
         {
-            throw new Exception("Invalid Packet");
+            throw new BadNetworkConsoleException("Invalid Packet");
         }
     }
 
@@ -125,7 +125,7 @@ public class BadNetworkConsoleClient
                 int read = stream.Read(len, 0, len.Length);
                 if (read != len.Length)
                 {
-                    throw new Exception("Invalid Packet Size");
+                    throw new BadNetworkConsoleException("Invalid Packet Size");
                 }
 
                 byte[] packet = new byte[BitConverter.ToInt32(len, 0)];
@@ -133,7 +133,7 @@ public class BadNetworkConsoleClient
 
                 if (read != packet.Length)
                 {
-                    throw new Exception("Invalid Packet");
+                    throw new BadNetworkConsoleException("Invalid Packet");
                 }
 
                 ProcessPacket(BadConsolePacket.Deserialize(packet));

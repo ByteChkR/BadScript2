@@ -40,7 +40,7 @@ public class BadTask : BadObject
     private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
         new Dictionary<BadObject, BadObjectReference>();
 
-    public readonly BadRunnable Runnable;
+    public BadRunnable Runnable { get; }
 
     public BadTask(BadRunnable runnable, string name)
     {
@@ -92,7 +92,8 @@ public class BadTask : BadObject
 
     public void Stop()
     {
-        IsRunning = !(IsFinished = true);
+        IsFinished = true;
+        IsRunning = false;
         IsPaused = false;
     }
 
