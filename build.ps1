@@ -27,10 +27,12 @@ function Build-Language {
 
 function Build-Projects {
     cd projects
-    cd Debugger
-    . $bs build ReleaseRun
-    cd ../BuildSystem
+    cd BuildSystem
     . $bs build ReleaseLib
+    cd ../BuildSystem.Console
+    . $bs build ReleaseApp
+    cd ../Debugger
+    . $bs build ReleaseRun
     cd ../PackageHandler
     . $bs build ReleaseStartup
     cd ../System
@@ -39,6 +41,8 @@ function Build-Projects {
     . $bs build ReleaseLib
     cd ../HighscoreApi
     . $bs build ReleaseLib
+    cd ../HighscoreApi.Console
+    . $bs build ReleaseApp
     cd ../..
 }
 

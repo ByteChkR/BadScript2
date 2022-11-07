@@ -16,7 +16,7 @@ class WebApp
 	function WebApp(prefix, defaultRoute?)
 	{
 		_defaultRoute = defaultRoute ?? DefaultHandler;
-		_listener = NetHost.Create([prefix]);
+		_listener = NetHost.Create(prefix);
 	}
 
 	function MapRoute(matchFunc, handler)
