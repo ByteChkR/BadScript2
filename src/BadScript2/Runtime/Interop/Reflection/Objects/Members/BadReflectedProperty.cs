@@ -6,7 +6,7 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 public class BadReflectedProperty : BadReflectedMember
 {
-    public readonly PropertyInfo Property;
+    private readonly PropertyInfo Property;
 
     public BadReflectedProperty(PropertyInfo property) : base(property.Name)
     {

@@ -6,14 +6,14 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 public class BadConsoleWritePacket : BadConsolePacket
 {
-    public readonly bool IsWriteLine;
-    public readonly string Message;
-
     public BadConsoleWritePacket(bool isWriteLine, string message)
     {
         IsWriteLine = isWriteLine;
         Message = message;
     }
+
+    public bool IsWriteLine { get; }
+    public string Message { get; }
 
     public new static BadConsoleWritePacket Deserialize(byte[] data)
     {

@@ -4,12 +4,12 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 public class BadConsoleHelloPacket : BadConsolePacket
 {
-    public readonly int HeartBeatInterval;
-
     public BadConsoleHelloPacket(int heartBeatInterval)
     {
         HeartBeatInterval = heartBeatInterval;
     }
+
+    public int HeartBeatInterval { get; }
 
     public new static BadConsoleHelloPacket Deserialize(byte[] data)
     {

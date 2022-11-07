@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
@@ -47,11 +48,6 @@ public class BadHtmlTemplate
     private static BadLogWriter? s_ConsoleWriter;
 
     /// <summary>
-    ///     The File Path of the Template
-    /// </summary>
-    public readonly string FilePath;
-
-    /// <summary>
     ///     The Backing Field for the source code that was loaded from the template file
     /// </summary>
     private string? m_Source;
@@ -65,6 +61,11 @@ public class BadHtmlTemplate
     {
         FilePath = Path.GetFullPath(filePath);
     }
+
+    /// <summary>
+    ///     The File Path of the Template
+    /// </summary>
+    public string FilePath { get; }
 
     public static string DebuggerPath { get; set; } = "Debugger.bs";
 
@@ -140,9 +141,9 @@ public class BadHtmlTemplate
         BadCommonInterop.AddExtensions();
         BadInteropExtension.AddExtension<BadLinqExtensions>();
         BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-        BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-        BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
+        BadExecutionContextOptions.Default.AddApis(BadCommonInterop.Apis);
+        BadExecutionContextOptions.Default.AddApi(new BadJsonApi());
+        BadExecutionContextOptions.Default.AddApi(new BadIOApi());
     }
 
     /// <summary>
@@ -291,13 +292,13 @@ public class BadHtmlTemplate
             return;
         }
 
-        string r = ProcessInline(node.InnerHtml, ctx);
+        StringBuilder r = new StringBuilder(ProcessInline(node.InnerHtml, ctx));
         foreach (string styleTag in styleTags)
         {
-            r += styleTag;
+            r.Append(styleTag);
         }
 
-        node.InnerHtml = r;
+        node.InnerHtml = r.ToString();
     }
 
     /// <summary>
@@ -322,7 +323,7 @@ public class BadHtmlTemplate
     {
         string src = node.InnerText;
         BadSourceParser parser = BadSourceParser.Create(FilePath, src);
-        BadObject ret = ctx.Execute(parser.Parse()).Last();
+        ctx.Execute(parser.Parse()).Last();
         node.ParentNode.RemoveChild(node);
     }
 

@@ -9,17 +9,17 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 public class BadReflectedMethod : BadReflectedMember
 {
-    public readonly List<MethodInfo> Methods = new List<MethodInfo>();
+    private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();
 
     public BadReflectedMethod(MethodInfo method) : base(method.Name)
     {
-        Methods.Add(method);
+        m_Methods.Add(method);
     }
 
 
     public void AddMethod(MethodInfo method)
     {
-        Methods.Add(method);
+        m_Methods.Add(method);
     }
 
     private BadFunction CreateFunction(object instance)
@@ -86,7 +86,7 @@ public class BadReflectedMethod : BadReflectedMember
 
     private object?[] FindImplementation(BadObject[] args, out MethodInfo info)
     {
-        foreach (MethodInfo method in Methods)
+        foreach (MethodInfo method in m_Methods)
         {
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length != args.Length)

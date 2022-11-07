@@ -14,12 +14,12 @@ public class BadHttpContext : BadObject
         (_, _) => throw new BadRuntimeException("Cannot create new Http Contexts")
     );
 
-    public readonly HttpListenerContext Context;
-
     public BadHttpContext(HttpListenerContext context)
     {
         Context = context;
     }
+
+    public HttpListenerContext Context { get; }
 
     public override BadClassPrototype GetPrototype()
     {

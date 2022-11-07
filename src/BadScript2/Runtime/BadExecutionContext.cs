@@ -11,11 +11,6 @@ namespace BadScript2.Runtime;
 public class BadExecutionContext
 {
     /// <summary>
-    ///     The Root Scope of the Context
-    /// </summary>
-    public readonly BadScope Scope;
-
-    /// <summary>
     ///     Creates a new Execution Context
     /// </summary>
     /// <param name="scope">The Root Scope</param>
@@ -23,6 +18,11 @@ public class BadExecutionContext
     {
         Scope = scope;
     }
+
+    /// <summary>
+    ///     The Root Scope of the Context
+    /// </summary>
+    public BadScope Scope { get; }
 
     /// <summary>
     ///     Creates a new Execution Context with an empty scope

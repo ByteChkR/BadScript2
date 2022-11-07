@@ -12,6 +12,7 @@ public static class BadCommonInterop
         new BadConsoleApi(),
         new BadRuntimeApi(),
         new BadMathApi(),
+        new BadOperatingSystemApi(),
     };
 
     public static IEnumerable<BadInteropApi> Apis => s_CommonApis;

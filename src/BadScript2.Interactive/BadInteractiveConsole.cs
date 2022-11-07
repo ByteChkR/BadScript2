@@ -41,6 +41,8 @@ public class BadInteractiveConsole
         m_Api.Load(apiTable);
 
         BadExecutionContext ctx = m_Options.Build();
+
+        ctx.Scope.AddSingleton(BadTaskRunner.Instance);
         ctx.Scope.DefineVariable(m_Api.Name, apiTable);
 
         return ctx;

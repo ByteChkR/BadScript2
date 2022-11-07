@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Globalization;
 using System.Text;
 
 using BadScript2.Utility.Linq.Queries.Commands;
@@ -37,7 +38,7 @@ public static class BadLinqQuery
             linqQuery = linqQuery.Trim();
             string command = linqQuery.Split(' ').First();
             linqQuery = linqQuery.Remove(0, command.Length);
-            BadLinqQueryCommand cmd = m_Commands.First(x => x.Names.Any(x => x.ToLower() == command.ToLower()));
+            BadLinqQueryCommand cmd = m_Commands.First(x => x.Names.Any(x => x.ToLower(CultureInfo.InvariantCulture) == command.ToLower(CultureInfo.InvariantCulture)));
             if (cmd.HasArgument)
             {
                 StringBuilder sb = new StringBuilder();

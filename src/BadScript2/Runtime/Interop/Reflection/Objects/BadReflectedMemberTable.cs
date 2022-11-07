@@ -18,6 +18,8 @@ public class BadReflectedMemberTable
         m_Members = members;
     }
 
+    public IEnumerable<string> MemberNames => m_Members.Keys;
+
     public bool Contains(string name)
     {
         return m_Members.ContainsKey(name);
@@ -71,7 +73,10 @@ public class BadReflectedMemberTable
             {
                 if (property.Name == "Item" && property.GetIndexParameters().Length > 0)
                 {
-                    members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(property.GetMethod));
+                    if (!members.ContainsKey(BadStaticKeys.ArrayAccessOperatorName))
+                    {
+                        members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(property.GetMethod));
+                    }
                 }
                 else
                 {

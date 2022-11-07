@@ -61,7 +61,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
 
     public BadObject Current => m_Enumerator.Current!;
 
-    object IEnumerator.Current => ((IEnumerator)m_Enumerator).Current!;
+    object IEnumerator.Current => m_Enumerator.Current!;
 
     public void Dispose()
     {

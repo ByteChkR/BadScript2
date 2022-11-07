@@ -6,15 +6,15 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 public class BadReflectedField : BadReflectedMember
 {
-    public readonly FieldInfo FieldInfo;
+    private readonly FieldInfo m_Info;
 
     public BadReflectedField(FieldInfo field) : base(field.Name)
     {
-        FieldInfo = field;
+        m_Info = field;
     }
 
     public override BadObject Get(object instance)
     {
-        return Wrap(FieldInfo.GetValue(instance));
+        return Wrap(m_Info.GetValue(instance));
     }
 }

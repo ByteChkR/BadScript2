@@ -6,11 +6,6 @@ namespace BadScript2.IO.Virtual;
 public abstract class BadVirtualNode
 {
     /// <summary>
-    ///     Node Name
-    /// </summary>
-    public readonly string Name;
-
-    /// <summary>
     ///     Creates a new Virtual Node
     /// </summary>
     /// <param name="name">Node Name</param>
@@ -20,6 +15,11 @@ public abstract class BadVirtualNode
         Name = name;
         Parent = parent;
     }
+
+    /// <summary>
+    ///     Node Name
+    /// </summary>
+    public string Name { get; }
 
     /// <summary>
     ///     Parent Directory

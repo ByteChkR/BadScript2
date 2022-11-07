@@ -18,7 +18,10 @@ public class BadVirtualMachineRunSystem : BadConsoleSystem<BadVirtualMachineRunS
         BadVirtualMachineInfo info = JsonConvert.DeserializeObject<BadVirtualMachineInfo>(File.ReadAllText(settings.FilePath))!;
 
         BadVirtualMachine vm = new BadVirtualMachine(info);
-        foreach (BadObject o in vm.Execute(new SystemConsole())) { }
+        foreach (BadObject o in vm.Execute(new SystemConsole()))
+        {
+            //Do Nothing
+        }
 
         vm.SaveState();
 

@@ -46,7 +46,7 @@ public abstract class BadObject
         {
             return new BadNumber(Convert.ToDecimal(obj));
         }
-        
+
         if (obj is string s)
         {
             if (BadNativeOptimizationSettings.Instance.UseStringCaching)

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-using BadScript2.Common.Logging;
+﻿using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
 using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
@@ -85,12 +83,12 @@ internal static class BadProgram
         BadInteropExtension.AddExtension<BadLinqExtensions>();
         BadInteropExtension.AddExtension<BadNetHostExtensions>();
 
-        BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-        BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadNetApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadCompressionApi());
-        BadExecutionContextOptions.Default.Apis.Add(new BadNetHostApi());
+        BadExecutionContextOptions.Default.AddApis(BadCommonInterop.Apis);
+        BadExecutionContextOptions.Default.AddApi(new BadIOApi());
+        BadExecutionContextOptions.Default.AddApi(new BadJsonApi());
+        BadExecutionContextOptions.Default.AddApi(new BadNetApi());
+        BadExecutionContextOptions.Default.AddApi(new BadCompressionApi());
+        BadExecutionContextOptions.Default.AddApi(new BadNetHostApi());
 
 
         BadConsoleRunner runner = new BadConsoleRunner(
@@ -106,7 +104,7 @@ internal static class BadProgram
             new BadRemoteConsoleSystem()
         );
 
-        
+
         int r = runner.Run(args);
         lWriter?.Dispose();
 

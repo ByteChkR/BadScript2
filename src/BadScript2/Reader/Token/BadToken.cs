@@ -8,11 +8,6 @@ namespace BadScript2.Reader.Token;
 public abstract class BadToken
 {
     /// <summary>
-    ///     The Source Position of the Token
-    /// </summary>
-    public readonly BadSourcePosition SourcePosition;
-
-    /// <summary>
     ///     Constructor for the Token
     /// </summary>
     /// <param name="position">The Source Position of the Token</param>
@@ -20,6 +15,11 @@ public abstract class BadToken
     {
         SourcePosition = position;
     }
+
+    /// <summary>
+    ///     The Source Position of the Token
+    /// </summary>
+    public BadSourcePosition SourcePosition { get; }
 
     /// <summary>
     ///     The Text Representation of the Token

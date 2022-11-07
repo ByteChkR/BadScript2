@@ -6,12 +6,12 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 public class BadConsoleReadPacket : BadConsolePacket
 {
-    public readonly string Message;
-
     public BadConsoleReadPacket(string message)
     {
         Message = message;
     }
+
+    public string Message { get; }
 
     public override byte[] Serialize()
     {

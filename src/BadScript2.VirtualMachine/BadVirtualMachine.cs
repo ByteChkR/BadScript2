@@ -18,8 +18,6 @@ namespace BadScript2.VirtualMachine;
 public class BadVirtualMachine : IDisposable
 
 {
-    public readonly BadVirtualFileSystem FileSystem;
-    public readonly BadVirtualMachineInfo Info;
     private bool m_IsExitRequested;
     private bool m_IsRebootRequested;
 
@@ -32,6 +30,9 @@ public class BadVirtualMachine : IDisposable
             mount.Mount(FileSystem);
         }
     }
+
+    public BadVirtualFileSystem FileSystem { get; }
+    public BadVirtualMachineInfo Info { get; }
 
     public void Dispose()
     {
@@ -92,14 +93,14 @@ public class BadVirtualMachine : IDisposable
             m_IsRebootRequested = false;
             BadExecutionContextOptions options =
                 new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis.Where(x => x is not BadIOApi && x is not BadConsoleApi).ToArray());
-            options.Apis.Add(new BadConsoleApi(console));
-            options.Apis.Add(new BadIOApi(FileSystem));
+            options.AddApi(new BadConsoleApi(console));
+            options.AddApi(new BadIOApi(FileSystem));
 
             BadTaskRunner runner = new BadTaskRunner();
-            options.Apis.Add(new BadTaskRunnerApi(runner));
+            options.AddApi(new BadTaskRunnerApi(runner));
 
             BadVirtualMachineApi vmApi = new BadVirtualMachineApi(this);
-            options.Apis.Add(vmApi);
+            options.AddApi(vmApi);
 
             BadExecutionContext ctx = options.Build();
 

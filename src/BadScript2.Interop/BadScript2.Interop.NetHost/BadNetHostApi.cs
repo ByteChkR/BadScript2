@@ -1,5 +1,4 @@
-using System;
-
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
@@ -23,7 +22,7 @@ public class BadNetHostApi : BadInteropApi
                 {
                     if (p.InnerArray[i] is not IBadString str)
                     {
-                        throw new Exception("Invalid Prefix");
+                        throw new BadRuntimeException("Invalid Prefix");
                     }
 
                     prefixes[i] = str.Value;

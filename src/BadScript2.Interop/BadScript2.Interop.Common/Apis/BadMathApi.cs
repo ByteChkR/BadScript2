@@ -38,12 +38,5 @@ public class BadMathApi : BadInteropApi
         target.SetFunction<decimal>("Tanh", x => (decimal)Math.Tanh((double)x));
         target.SetFunction<decimal>("Truncate", x => (decimal)Math.Truncate((double)x));
         target.SetFunction("NextRandom", () => (decimal)s_Random.NextDouble());
-
-        //Not Supported in netstandard 2.0
-        // target.SetFunction<decimal>("Asinh", x => (decimal)Math.Asinh((double)x));
-        // target.SetFunction<decimal>("Acosh", x => (decimal)Math.Acosh((double)x));
-        // target.SetFunction<decimal>("Atanh", x => (decimal)Math.Atanh((double)x));
-        // target.SetFunction<decimal>("Cbrt", x => (decimal)Math.Cbrt((double)x));
-        // target.SetFunction<decimal, decimal, decimal>("Clamp", (v, min, max) => Math.Clamp(v, min, max));
     }
 }

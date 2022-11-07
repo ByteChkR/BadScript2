@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -502,7 +503,7 @@ public class BadSourceParser
         {
             BadNumberToken token = Reader.ParseNumber();
 
-            return new BadNumberExpression(decimal.Parse(token.Text), token.SourcePosition);
+            return new BadNumberExpression(decimal.Parse(token.Text, NumberFormatInfo.InvariantInfo), token.SourcePosition);
         }
 
         BadValueParser? valueParser = m_Operators.GetValueParser(this);

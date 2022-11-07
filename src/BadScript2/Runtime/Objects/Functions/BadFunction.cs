@@ -15,24 +15,9 @@ namespace BadScript2.Runtime.Objects.Functions;
 public abstract class BadFunction : BadObject
 {
     /// <summary>
-    ///     Indicates if the function has no side effects and the result can be cached
-    /// </summary>
-    public readonly bool IsConstant;
-
-    /// <summary>
     ///     The Result Cache
     /// </summary>
     private readonly Dictionary<int, BadObject> m_Cache = new Dictionary<int, BadObject>();
-
-    /// <summary>
-    ///     (optional) Name of the Function
-    /// </summary>
-    public readonly BadWordToken? Name;
-
-    /// <summary>
-    ///     The Function Parameters
-    /// </summary>
-    public readonly BadFunctionParameter[] Parameters;
 
     /// <summary>
     ///     Creates a new Function
@@ -46,6 +31,21 @@ public abstract class BadFunction : BadObject
         IsConstant = isConstant;
         Parameters = parameters;
     }
+
+    /// <summary>
+    ///     Indicates if the function has no side effects and the result can be cached
+    /// </summary>
+    public bool IsConstant { get; }
+
+    /// <summary>
+    ///     (optional) Name of the Function
+    /// </summary>
+    public BadWordToken? Name { get; }
+
+    /// <summary>
+    ///     The Function Parameters
+    /// </summary>
+    public BadFunctionParameter[] Parameters { get; }
 
     public override BadClassPrototype GetPrototype()
     {

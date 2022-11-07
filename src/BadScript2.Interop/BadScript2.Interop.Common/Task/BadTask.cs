@@ -35,7 +35,7 @@ public class BadTask : BadObject
         }
     );
 
-    public readonly List<BadTask> ContinuationTasks = new List<BadTask>();
+    private readonly List<BadTask> m_ContinuationTasks = new List<BadTask>();
 
     private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
         new Dictionary<BadObject, BadObjectReference>();
@@ -65,6 +65,8 @@ public class BadTask : BadObject
         m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
     }
 
+    public IEnumerable<BadTask> ContinuationTasks => m_ContinuationTasks;
+
     public BadTask? Creator { get; private set; }
 
     public string Name { get; set; }
@@ -72,6 +74,11 @@ public class BadTask : BadObject
     public bool IsRunning { get; private set; }
     public bool IsFinished { get; private set; }
     public bool IsPaused { get; private set; }
+
+    public void AddContinuation(BadTask task)
+    {
+        m_ContinuationTasks.Add(task);
+    }
 
     public void SetCreator(BadTask? task)
     {
@@ -140,7 +147,7 @@ public class BadTask : BadObject
             throw new BadRuntimeException("Task is already finished");
         }
 
-        ContinuationTasks.Add(task);
+        AddContinuation(task);
 
         return Null;
     }

@@ -14,7 +14,7 @@ public class BadPreIncrementExpression : BadExpression
     /// <summary>
     ///     Right side of the Expression
     /// </summary>
-    public readonly BadExpression Right;
+    private readonly BadExpression m_Right;
 
     /// <summary>
     ///     Constructor of the Pre Increment Expression
@@ -26,13 +26,13 @@ public class BadPreIncrementExpression : BadExpression
         position
     )
     {
-        Right = right;
+        m_Right = right;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
+        foreach (BadObject o in m_Right.Execute(context))
         {
             right = o;
 

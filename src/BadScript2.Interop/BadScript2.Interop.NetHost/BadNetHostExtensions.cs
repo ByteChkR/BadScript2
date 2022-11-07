@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
+using BadScript2.ConsoleAbstraction.Implementations.Remote;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
@@ -69,7 +70,11 @@ public class BadNetHostExtensions : BadInteropExtension
             () =>
             {
                 byte[] data = new byte[content.Length];
-                content.Read(data, 0, data.Length);
+                int read = content.Read(data, 0, data.Length);
+                if (read != data.Length)
+                {
+                    throw new BadNetworkConsoleException("Could not read all data from stream");
+                }
 
                 return new BadArray(data.Select(x => (BadObject)x).ToList());
             }

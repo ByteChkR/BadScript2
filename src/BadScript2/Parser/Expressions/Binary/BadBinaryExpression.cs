@@ -26,12 +26,12 @@ public abstract class BadBinaryExpression : BadExpression
     /// <summary>
     ///     Left side of the Expression
     /// </summary>
-    public BadExpression Left { get; private set; }
+    protected BadExpression Left { get; private set; }
 
     /// <summary>
     ///     Right side of the Expression
     /// </summary>
-    public BadExpression Right { get; private set; }
+    protected BadExpression Right { get; private set; }
 
     /// <inheritdoc cref="!:BadObject.Optimize" />
     public override void Optimize()

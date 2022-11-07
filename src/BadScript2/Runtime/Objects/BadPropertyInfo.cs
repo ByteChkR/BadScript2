@@ -8,16 +8,6 @@ namespace BadScript2.Runtime.Objects;
 public class BadPropertyInfo
 {
     /// <summary>
-    ///     The (optional) Type used for typechecking if a value gets assigned to this property
-    /// </summary>
-    public readonly BadClassPrototype? Type;
-
-    /// <summary>
-    ///     Indicates if this property is read only
-    /// </summary>
-    public bool IsReadOnly;
-
-    /// <summary>
     ///     Creates a new Property Info
     /// </summary>
     /// <param name="type">(optional) Type</param>
@@ -27,4 +17,14 @@ public class BadPropertyInfo
         Type = type;
         IsReadOnly = isReadOnly;
     }
+
+    /// <summary>
+    ///     The (optional) Type used for typechecking if a value gets assigned to this property
+    /// </summary>
+    public BadClassPrototype? Type { get; }
+
+    /// <summary>
+    ///     Indicates if this property is read only
+    /// </summary>
+    public bool IsReadOnly { get; set; }
 }

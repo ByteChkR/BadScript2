@@ -14,12 +14,12 @@ public class BadHttpRequest : BadObject
         (_, _) => throw new BadRuntimeException("Cannot create new Http Request")
     );
 
-    public readonly HttpListenerRequest Request;
-
     public BadHttpRequest(HttpListenerRequest request)
     {
         Request = request;
     }
+
+    public HttpListenerRequest Request { get; }
 
     public override BadClassPrototype GetPrototype()
     {

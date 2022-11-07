@@ -14,7 +14,7 @@ public class BadPostIncrementExpression : BadExpression
     /// <summary>
     ///     Left side of the expression
     /// </summary>
-    public readonly BadExpression Left;
+    private readonly BadExpression m_Left;
 
     /// <summary>
     ///     Constructor of the Post Increment Expression
@@ -26,13 +26,13 @@ public class BadPostIncrementExpression : BadExpression
         position
     )
     {
-        Left = left;
+        m_Left = left;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
+        foreach (BadObject o in m_Left.Execute(context))
         {
             left = o;
 

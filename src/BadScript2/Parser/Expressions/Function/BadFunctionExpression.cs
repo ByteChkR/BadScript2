@@ -17,11 +17,6 @@ namespace BadScript2.Parser.Expressions.Function;
 public class BadFunctionExpression : BadExpression
 {
     /// <summary>
-    ///     Indicates if this function can not be overwritten by another object
-    /// </summary>
-    public readonly bool IsConstantFunction;
-
-    /// <summary>
     ///     The Function Body
     /// </summary>
     private readonly List<BadExpression> m_Body;
@@ -55,6 +50,11 @@ public class BadFunctionExpression : BadExpression
         TypeExpression = typeExpr;
         IsConstantFunction = isConstant;
     }
+
+    /// <summary>
+    ///     Indicates if this function can not be overwritten by another object
+    /// </summary>
+    public bool IsConstantFunction { get; }
 
     /// <summary>
     ///     The (optional) Type Expression that is used to type-check the return value

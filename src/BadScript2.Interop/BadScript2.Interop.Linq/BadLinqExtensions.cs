@@ -196,8 +196,8 @@ public class BadLinqExtensions : BadInteropExtension
 
     protected override void AddExtensions()
     {
-        Register("ToArray", (c, e) => ToArray(e));
-        Register("Reverse", (c, e) => Reverse(e));
+        Register("ToArray", (_, e) => ToArray(e));
+        Register("Reverse", (_, e) => Reverse(e));
         Register<BadFunction>("Select", Select);
         Register<BadFunction>("Where", Where);
         Register<BadFunction>("All", All);

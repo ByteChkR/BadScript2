@@ -2,7 +2,6 @@
 using System.Text;
 
 using BadScript2.IO;
-using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
@@ -106,18 +105,18 @@ public class BadCompressionApi : BadInteropApi
         target.SetProperty("ZLib", zlib);
 
         BadTable zip = new BadTable();
-        zip.SetFunction<string, string>("FromDirectory", FromDirectory);
-        zip.SetFunction<string, string>("ToDirectory", ToDirectory);
+        zip.SetFunction<string, string>("FromDirectory", FromDirectoryApi);
+        zip.SetFunction<string, string>("ToDirectory", ToDirectoryApi);
         target.SetProperty("Zip", zip);
     }
 
-    private void ToDirectory(BadExecutionContext ctx, string outputDir, string inputFile)
+    private void ToDirectoryApi(string outputDir, string inputFile)
     {
         using Stream s = m_FileSystem.OpenRead(inputFile);
         ToDirectory(outputDir, s);
     }
 
-    private void FromDirectory(BadExecutionContext ctx, string inputDir, string outputFile)
+    private void FromDirectoryApi(string inputDir, string outputFile)
     {
         using Stream s = m_FileSystem.OpenWrite(outputFile, BadWriteMode.CreateNew);
         FromDirectory(inputDir, s);

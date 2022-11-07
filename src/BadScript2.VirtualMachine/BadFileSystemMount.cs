@@ -13,8 +13,6 @@ public class BadFileSystemMount
 
     public void Mount(BadVirtualFileSystem fs)
     {
-        //fs.CreateDirectory(MountPoint, true);
-
         if (!File.Exists(DataArchive))
         {
             return;

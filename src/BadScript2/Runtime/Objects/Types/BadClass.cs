@@ -19,16 +19,6 @@ public class BadClass : BadObject
     private readonly BadTable m_Table;
 
     /// <summary>
-    ///     The Type Name
-    /// </summary>
-    public readonly string Name;
-
-    /// <summary>
-    ///     The Class Prototype used to create this instance.
-    /// </summary>
-    public readonly BadClassPrototype Prototype;
-
-    /// <summary>
     ///     Creates a new BadScript Class Instance
     /// </summary>
     /// <param name="name">The Type Name</param>
@@ -42,6 +32,16 @@ public class BadClass : BadObject
         m_BaseClass = baseClass;
         Prototype = prototype;
     }
+
+    /// <summary>
+    ///     The Type Name
+    /// </summary>
+    public string Name { get; }
+
+    /// <summary>
+    ///     The Class Prototype used to create this instance.
+    /// </summary>
+    public BadClassPrototype Prototype { get; }
 
     /// <summary>
     ///     The Super Class of this Class(if this class is not at the end of the inheritance chain)

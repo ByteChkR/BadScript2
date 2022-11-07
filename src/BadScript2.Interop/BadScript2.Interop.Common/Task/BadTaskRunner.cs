@@ -53,25 +53,23 @@ public class BadTaskRunner
             if (t.IsFinished)
             {
                 m_TaskList.Remove(t);
-                t.ContinuationTasks.ForEach(
-                    x =>
+                foreach (BadTask x in t.ContinuationTasks)
+                {
+                    if (x.IsFinished)
                     {
-                        if (x.IsFinished)
-                        {
-                            return;
-                        }
-
-                        if (m_TaskList.Contains(x))
-                        {
-                            x.Resume();
-                        }
-                        else
-                        {
-                            m_TaskList.Add(x);
-                            x.Start();
-                        }
+                        continue;
                     }
-                );
+
+                    if (m_TaskList.Contains(x))
+                    {
+                        x.Resume();
+                    }
+                    else
+                    {
+                        m_TaskList.Add(x);
+                        x.Start();
+                    }
+                }
             }
         }
     }

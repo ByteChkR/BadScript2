@@ -77,10 +77,10 @@ BadCommonInterop.AddExtensions();
 //BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
 BadInteropExtension.AddExtension<BadNetInteropExtensions>();
 
-BadExecutionContextOptions.Default.Apis.AddRange(BadCommonInterop.Apis);
-BadExecutionContextOptions.Default.Apis.Add(new BadIOApi());
-BadExecutionContextOptions.Default.Apis.Add(new BadJsonApi());
-BadExecutionContextOptions.Default.Apis.Add(new BadNetApi());
+BadExecutionContextOptions.Default.AddApis(BadCommonInterop.Apis);
+BadExecutionContextOptions.Default.AddApi(new BadIOApi());
+BadExecutionContextOptions.Default.AddApi(new BadJsonApi());
+BadExecutionContextOptions.Default.AddApi(new BadNetApi());
 
 builder.Services
     .AddBlazorise(options => { options.Immediate = true; })

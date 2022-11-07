@@ -6,9 +6,9 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
 internal class BadReflectedObjectPrototype : BadANativeClassPrototype
 {
-    internal BadReflectedObjectPrototype() : base("BadReflectedObject", Constructor) { }
+    internal BadReflectedObjectPrototype() : base("BadReflectedObject", (_, args) => Constructor(args)) { }
 
-    private static BadObject Constructor(BadExecutionContext arg1, BadObject[] arg2)
+    private static BadObject Constructor(BadObject[] args)
     {
         throw new BadRuntimeException("Can not create a BadReflectedObject inside the Script");
     }

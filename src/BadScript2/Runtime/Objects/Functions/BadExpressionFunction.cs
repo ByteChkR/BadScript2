@@ -17,12 +17,12 @@ public class BadExpressionFunction : BadFunction
     /// <summary>
     ///     The Scope the function is defined in
     /// </summary>
-    public readonly BadScope ParentScope;
+    private readonly BadScope m_ParentScope;
 
     /// <summary>
     ///     The Source Position of the Function
     /// </summary>
-    public readonly BadSourcePosition Position;
+    private readonly BadSourcePosition m_Position;
 
     /// <summary>
     ///     Creates a new Expression Function
@@ -42,8 +42,8 @@ public class BadExpressionFunction : BadFunction
         bool isConstant) : base(name, isConstant, parameters)
     {
         m_Body = expressions;
-        Position = position;
-        ParentScope = parentScope;
+        m_Position = position;
+        m_ParentScope = parentScope;
     }
 
     /// <summary>
@@ -54,19 +54,19 @@ public class BadExpressionFunction : BadFunction
 
     public override BadFunction BindParentScope(BadScope scope)
     {
-        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant);
+        return new BadExpressionFunction(scope, Name, m_Body, Parameters, m_Position, IsConstant);
     }
 
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         BadExecutionContext ctx = new BadExecutionContext(
-            ParentScope.CreateChild(
+            m_ParentScope.CreateChild(
                 $"function {Name}",
                 caller.Scope,
                 BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
             )
         );
-        ApplyParameters(ctx, args, Position);
+        ApplyParameters(ctx, args, m_Position);
 
         foreach (BadObject o in ctx.Execute(Body))
         {
@@ -90,6 +90,6 @@ public class BadExpressionFunction : BadFunction
 
     public override string ToString()
     {
-        return base.ToString() + " at " + Position.GetPositionInfo();
+        return base.ToString() + " at " + m_Position.GetPositionInfo();
     }
 }

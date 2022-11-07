@@ -11,8 +11,4 @@
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Locking"/>
-    </ItemGroup>
-
 </Project>

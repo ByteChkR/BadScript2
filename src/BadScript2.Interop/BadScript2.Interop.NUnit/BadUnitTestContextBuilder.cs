@@ -27,11 +27,11 @@ public class BadUnitTestContextBuilder
 
     public BadUnitTestContextBuilder(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
 
-    public void Register(bool optimize, bool compile, params string[] files)
+    public void Register(bool optimize, params string[] files)
     {
         foreach (string file in files)
         {
-            SetupStage(file, optimize, compile);
+            SetupStage(file, optimize);
         }
     }
 
@@ -94,7 +94,7 @@ public class BadUnitTestContextBuilder
         }
     }
 
-    private void SetupStage(string file, bool optimize = false, bool compile = false)
+    private void SetupStage(string file, bool optimize = false)
     {
         //Load expressions
         IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();

@@ -19,14 +19,14 @@ public class BadScriptDebugger : IBadDebugger
     public BadScriptDebugger(BadExecutionContextOptions options, string debuggerPath)
     {
         m_Options = options;
-        m_Options.Apis.Add(new BadScriptDebuggerApi(this));
+        m_Options.AddApi(new BadScriptDebuggerApi(this));
         LoadDebugger(debuggerPath);
     }
 
     public BadScriptDebugger(BadExecutionContextOptions options)
     {
         m_Options = options;
-        m_Options.Apis.Add(new BadScriptDebuggerApi(this));
+        m_Options.AddApi(new BadScriptDebuggerApi(this));
 
         if (BadScriptDebuggerSettings.Instance.DebuggerPath == null)
         {

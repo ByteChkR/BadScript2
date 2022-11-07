@@ -2,16 +2,6 @@ namespace BadScript2.Common;
 
 public abstract class BadScriptException : Exception
 {
-    /// <summary>
-    ///     The Original Error Message
-    /// </summary>
-    public readonly string OriginalMessage;
-
-    /// <summary>
-    ///     The source position of where the error occurred
-    /// </summary>
-    public readonly BadSourcePosition? Position;
-
     protected BadScriptException(string message) : base(message)
     {
         OriginalMessage = message;
@@ -38,4 +28,14 @@ public abstract class BadScriptException : Exception
         OriginalMessage = originalMessage;
         Position = position;
     }
+
+    /// <summary>
+    ///     The Original Error Message
+    /// </summary>
+    public string OriginalMessage { get; }
+
+    /// <summary>
+    ///     The source position of where the error occurred
+    /// </summary>
+    public BadSourcePosition? Position { get; }
 }

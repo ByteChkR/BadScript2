@@ -4,14 +4,14 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 public class BadConsoleColorChangePacket : BadConsolePacket
 {
-    public readonly ConsoleColor Color;
-    public readonly bool IsBackground;
-
     public BadConsoleColorChangePacket(bool isBackground, ConsoleColor color)
     {
         IsBackground = isBackground;
         Color = color;
     }
+
+    public ConsoleColor Color { get; }
+    public bool IsBackground { get; }
 
     public new static BadConsoleColorChangePacket Deserialize(byte[] data)
     {

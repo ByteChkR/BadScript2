@@ -31,7 +31,7 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return ((IEnumerable)m_Enumerable).GetEnumerator();
+        return m_Enumerable.GetEnumerator();
     }
 
     public override BadClassPrototype GetPrototype()

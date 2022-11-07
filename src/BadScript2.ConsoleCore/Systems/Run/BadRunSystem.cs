@@ -62,7 +62,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     private BadExecutionContextOptions CreateOptions()
     {
         BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
-        options.Apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+        options.AddApi(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
         return options;
     }

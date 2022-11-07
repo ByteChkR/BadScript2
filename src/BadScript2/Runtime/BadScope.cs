@@ -23,11 +23,6 @@ public class BadScope : BadObject
     private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
 
     /// <summary>
-    ///     The Name of the Scope (for Debugging)
-    /// </summary>
-    public readonly string Name;
-
-    /// <summary>
     ///     The Parent Scope
     /// </summary>
     public readonly BadScope? Parent;
@@ -78,6 +73,11 @@ public class BadScope : BadObject
     {
         Parent = parent;
     }
+
+    /// <summary>
+    ///     The Name of the Scope (for Debugging)
+    /// </summary>
+    public string Name { get; }
 
     /// <summary>
     ///     The Scope Flags
@@ -155,7 +155,7 @@ public class BadScope : BadObject
         return Parent?.GetRootScope() ?? this;
     }
 
-    public void AddSingleton<T>(T instance)
+    public void AddSingleton<T>(T instance) where T : class
     {
         if (instance == null)
         {

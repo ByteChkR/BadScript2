@@ -56,7 +56,7 @@ public class BadUnitTests
                 )
                 .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(false, false, files);
+            builder.Register(false, files);
 
             s_Context = builder.CreateContext();
 
@@ -97,7 +97,7 @@ public class BadUnitTests
                 )
                 .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(true, false, files);
+            builder.Register(true, files);
 
             s_OptimizedContext = builder.CreateContext();
 

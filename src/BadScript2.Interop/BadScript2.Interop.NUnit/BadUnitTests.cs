@@ -40,7 +40,7 @@ public class BadUnitTests
                 )
                 .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
-            builder.Register(false, false, files);
+            builder.Register(false, files);
 
             s_Context = builder.CreateContext();
 

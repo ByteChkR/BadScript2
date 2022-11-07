@@ -43,7 +43,7 @@ public class BadAwaitExpression : BadExpression
 
         //Run Task
         //Add current to continuation
-        task.ContinuationTasks.Add(
+        task.AddContinuation(
             runner.Current ?? throw new BadRuntimeException("Current task is null", Position)
         );
         runner.Current?.Pause();
