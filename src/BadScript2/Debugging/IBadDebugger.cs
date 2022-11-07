@@ -1,14 +1,13 @@
-namespace BadScript2.Debugging
+namespace BadScript2.Debugging;
+
+/// <summary>
+///     Defines the Debugging Interface
+/// </summary>
+public interface IBadDebugger
 {
     /// <summary>
-    ///     Defines the Debugging Interface
+    ///     Gets called on every step when the Debugger is attached.
     /// </summary>
-    public interface IBadDebugger
-    {
-        /// <summary>
-        ///     Gets called on every step when the Debugger is attached.
-        /// </summary>
-        /// <param name="stepInfo">The Current Step Information</param>
-        void Step(BadDebuggerStep stepInfo);
-    }
+    /// <param name="stepInfo">The Current Step Information</param>
+    void Step(BadDebuggerStep stepInfo);
 }

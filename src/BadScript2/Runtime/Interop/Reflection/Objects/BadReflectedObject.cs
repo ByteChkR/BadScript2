@@ -2,52 +2,51 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
-namespace BadScript2.Runtime.Interop.Reflection.Objects
+namespace BadScript2.Runtime.Interop.Reflection.Objects;
+
+public class BadReflectedObject : BadObject
 {
-    public class BadReflectedObject : BadObject
+    public static readonly BadClassPrototype Prototype = new BadReflectedObjectPrototype();
+
+    public BadReflectedObject(object instance)
     {
-        public static readonly BadClassPrototype Prototype = new BadReflectedObjectPrototype();
+        Instance = instance;
+        Type = instance.GetType();
+        Members = BadReflectedMemberTable.Create(Type);
+    }
 
-        public BadReflectedObject(object instance)
+    public Type Type { get; }
+    public object Instance { get; }
+
+    public BadReflectedMemberTable Members { get; }
+
+    public override BadClassPrototype GetPrototype()
+    {
+        return Prototype;
+    }
+
+    public override string ToSafeString(List<BadObject> done)
+    {
+        return Instance.ToString();
+    }
+
+    public override BadObjectReference GetProperty(BadObject propName)
+    {
+        if (propName is IBadString s && Members.Contains(s.Value))
         {
-            Instance = instance;
-            Type = instance.GetType();
-            Members = BadReflectedMemberTable.Create(Type);
+            return Members.GetMember(Instance, s.Value);
         }
 
-        public Type Type { get; }
-        public object Instance { get; }
+        return base.GetProperty(propName);
+    }
 
-        public BadReflectedMemberTable Members { get; }
-
-        public override BadClassPrototype GetPrototype()
+    public override bool HasProperty(BadObject propName)
+    {
+        if (propName is IBadString s)
         {
-            return Prototype;
+            return Members.Contains(s.Value) || base.HasProperty(propName);
         }
 
-        public override string ToSafeString(List<BadObject> done)
-        {
-            return Instance.ToString();
-        }
-
-        public override BadObjectReference GetProperty(BadObject propName)
-        {
-            if (propName is IBadString s && Members.Contains(s.Value))
-            {
-                return Members.GetMember(Instance, s.Value);
-            }
-
-            return base.GetProperty(propName);
-        }
-
-        public override bool HasProperty(BadObject propName)
-        {
-            if (propName is IBadString s)
-            {
-                return Members.Contains(s.Value) || base.HasProperty(propName);
-            }
-
-            return base.HasProperty(propName);
-        }
+        return base.HasProperty(propName);
     }
 }

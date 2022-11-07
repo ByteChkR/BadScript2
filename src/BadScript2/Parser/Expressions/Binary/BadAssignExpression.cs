@@ -4,90 +4,89 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Binary
+namespace BadScript2.Parser.Expressions.Binary;
+
+/// <summary>
+///     Implements the Assign Expression
+///     <Left> = <Right>
+/// </summary>
+public class BadAssignExpression : BadExpression
 {
     /// <summary>
-    ///     Implements the Assign Expression
-    ///     <Left> = <Right>
+    ///     Constructor of the Assign Expression
     /// </summary>
-    public class BadAssignExpression : BadExpression
+    /// <param name="left">Left side that the right side will be assigned to</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        false,
+        position
+    )
     {
-        /// <summary>
-        ///     Constructor of the Assign Expression
-        /// </summary>
-        /// <param name="left">Left side that the right side will be assigned to</param>
-        /// <param name="right">Right side of the Expression</param>
-        /// <param name="position">Source position of the Expression</param>
-        public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-            false,
-            position
-        )
+        Left = left;
+        Right = right;
+    }
+
+    /// <summary>
+    ///     Left side that the right side will be assigned to
+    /// </summary>
+    public BadExpression Left { get; set; }
+
+    /// <summary>
+    ///     Right side of the Expression
+    /// </summary>
+    public BadExpression Right { get; set; }
+
+    public override void Optimize()
+    {
+        Left = BadExpressionOptimizer.Optimize(Left);
+        Right = BadExpressionOptimizer.Optimize(Right);
+    }
+
+    public override string ToString()
+    {
+        return $"({Left} = {Right})";
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+        foreach (BadObject o in Left.Execute(context))
         {
-            Left = left;
-            Right = right;
+            left = o;
+
+            yield return o;
         }
 
-        /// <summary>
-        ///     Left side that the right side will be assigned to
-        /// </summary>
-        public BadExpression Left { get; set; }
-
-        /// <summary>
-        ///     Right side of the Expression
-        /// </summary>
-        public BadExpression Right { get; set; }
-
-        public override void Optimize()
+        if (context.Scope.IsError)
         {
-            Left = BadExpressionOptimizer.Optimize(Left);
-            Right = BadExpressionOptimizer.Optimize(Right);
+            yield break;
         }
 
-        public override string ToString()
+        BadObject right = BadObject.Null;
+        foreach (BadObject o in Right.Execute(context))
         {
-            return $"({Left} = {Right})";
+            right = o;
+
+            yield return o;
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        if (context.Scope.IsError)
         {
-            BadObject left = BadObject.Null;
-            foreach (BadObject o in Left.Execute(context))
-            {
-                left = o;
-
-                yield return o;
-            }
-
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
-
-                yield return o;
-            }
-
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
-            right = right.Dereference();
-
-            if (left is BadObjectReference reference)
-            {
-                reference.Set(right);
-            }
-            else
-            {
-                throw new BadRuntimeException($"Left handside of {this} is not a reference", Position);
-            }
-
-            yield return left;
+            yield break;
         }
+
+        right = right.Dereference();
+
+        if (left is BadObjectReference reference)
+        {
+            reference.Set(right);
+        }
+        else
+        {
+            throw new BadRuntimeException($"Left handside of {this} is not a reference", Position);
+        }
+
+        yield return left;
     }
 }

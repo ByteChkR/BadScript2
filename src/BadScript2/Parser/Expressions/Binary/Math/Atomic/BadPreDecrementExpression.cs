@@ -4,57 +4,56 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Math.Atomic
+namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
+
+/// <summary>
+///     Implements the Pre Decrement Expression
+/// </summary>
+public class BadPreDecrementExpression : BadExpression
 {
     /// <summary>
-    ///     Implements the Pre Decrement Expression
+    ///     Right side of the Expression
     /// </summary>
-    public class BadPreDecrementExpression : BadExpression
+    public readonly BadExpression Right;
+
+    /// <summary>
+    ///     Constructor of the Pre Decrement Expression
+    /// </summary>
+    /// <param name="right">Left side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadPreDecrementExpression(BadExpression right, BadSourcePosition position) : base(
+        right.IsConstant,
+        position
+    )
     {
-        /// <summary>
-        ///     Right side of the Expression
-        /// </summary>
-        public readonly BadExpression Right;
+        Right = right;
+    }
 
-        /// <summary>
-        ///     Constructor of the Pre Decrement Expression
-        /// </summary>
-        /// <param name="right">Left side of the Expression</param>
-        /// <param name="position">Source position of the Expression</param>
-        public BadPreDecrementExpression(BadExpression right, BadSourcePosition position) : base(
-            right.IsConstant,
-            position
-        )
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject right = BadObject.Null;
+        foreach (BadObject o in Right.Execute(context))
         {
-            Right = right;
+            right = o;
+
+            yield return o;
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        if (right is not BadObjectReference rightRef)
         {
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
-
-                yield return o;
-            }
-
-            if (right is not BadObjectReference rightRef)
-            {
-                throw new BadRuntimeException("Right side of ++ must be a reference", Position);
-            }
-
-            right = right.Dereference();
-
-            if (right is not IBadNumber leftNumber)
-            {
-                throw new BadRuntimeException("Right side of ++ must be a number", Position);
-            }
-
-            BadObject r = leftNumber.Value - 1;
-            rightRef.Set(r);
-
-            yield return r;
+            throw new BadRuntimeException("Right side of ++ must be a reference", Position);
         }
+
+        right = right.Dereference();
+
+        if (right is not IBadNumber leftNumber)
+        {
+            throw new BadRuntimeException("Right side of ++ must be a number", Position);
+        }
+
+        BadObject r = leftNumber.Value - 1;
+        rightRef.Set(r);
+
+        yield return r;
     }
 }

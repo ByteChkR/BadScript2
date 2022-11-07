@@ -1,161 +1,160 @@
-namespace BadScript2.IO
+namespace BadScript2.IO;
+
+/// <summary>
+///     Implements a wrapper for the actual OS file system
+/// </summary>
+public class BadSystemFileSystem : IFileSystem
 {
-    /// <summary>
-    ///     Implements a wrapper for the actual OS file system
-    /// </summary>
-    public class BadSystemFileSystem : IFileSystem
+    public string GetStartupDirectory()
     {
-        public string GetStartupDirectory()
+        return AppDomain.CurrentDomain.BaseDirectory;
+    }
+
+    public bool Exists(string path)
+    {
+        return Directory.Exists(path) || File.Exists(path);
+    }
+
+    public bool IsFile(string path)
+    {
+        return File.Exists(path);
+    }
+
+    public bool IsDirectory(string path)
+    {
+        return Directory.Exists(path);
+    }
+
+    public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
+    {
+        return Directory.GetFiles(path, $"*{extension}", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+    }
+
+    public IEnumerable<string> GetDirectories(string path, bool recursive)
+    {
+        return Directory.GetDirectories(path, "*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+    }
+
+    public void CreateDirectory(string path, bool recursive = false)
+    {
+        List<string> directories = new List<string>();
+        string current = GetFullPath(path);
+
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+        while (current != null)
         {
-            return AppDomain.CurrentDomain.BaseDirectory;
+            directories.Add(current);
+            current = Path.GetDirectoryName(current)!;
         }
 
-        public bool Exists(string path)
+        for (int i = directories.Count - 1; i >= 0; i--)
         {
-            return Directory.Exists(path) || File.Exists(path);
-        }
-
-        public bool IsFile(string path)
-        {
-            return File.Exists(path);
-        }
-
-        public bool IsDirectory(string path)
-        {
-            return Directory.Exists(path);
-        }
-
-        public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
-        {
-            return Directory.GetFiles(path, $"*{extension}", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-        }
-
-        public IEnumerable<string> GetDirectories(string path, bool recursive)
-        {
-            return Directory.GetDirectories(path, "*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-        }
-
-        public void CreateDirectory(string path, bool recursive = false)
-        {
-            List<string> directories = new List<string>();
-            string current = GetFullPath(path);
-
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-            while (current != null)
+            if (!Directory.Exists(directories[i]))
             {
-                directories.Add(current);
-                current = Path.GetDirectoryName(current)!;
-            }
-
-            for (int i = directories.Count - 1; i >= 0; i--)
-            {
-                if (!Directory.Exists(directories[i]))
-                {
-                    Directory.CreateDirectory(directories[i]);
-                }
+                Directory.CreateDirectory(directories[i]);
             }
         }
+    }
 
-        public void DeleteDirectory(string path, bool recursive)
+    public void DeleteDirectory(string path, bool recursive)
+    {
+        Directory.Delete(path, recursive);
+    }
+
+    public void DeleteFile(string path)
+    {
+        File.Delete(path);
+    }
+
+    public string GetFullPath(string path)
+    {
+        return Path.GetFullPath(path);
+    }
+
+    public Stream OpenRead(string path)
+    {
+        return File.OpenRead(path);
+    }
+
+    public Stream OpenWrite(string path, BadWriteMode mode)
+    {
+        FileMode fileMode;
+        switch (mode)
         {
-            Directory.Delete(path, recursive);
+            case BadWriteMode.CreateNew:
+                fileMode = FileMode.Create;
+
+                break;
+            case BadWriteMode.Append:
+                fileMode = FileMode.Append;
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
         }
 
-        public void DeleteFile(string path)
-        {
-            File.Delete(path);
-        }
+        return File.Open(path, fileMode);
+    }
 
-        public string GetFullPath(string path)
-        {
-            return Path.GetFullPath(path);
-        }
+    public string GetCurrentDirectory()
+    {
+        return Directory.GetCurrentDirectory();
+    }
 
-        public Stream OpenRead(string path)
-        {
-            return File.OpenRead(path);
-        }
+    public void SetCurrentDirectory(string path)
+    {
+        Directory.SetCurrentDirectory(path);
+    }
 
-        public Stream OpenWrite(string path, BadWriteMode mode)
+    public void Copy(string src, string dst, bool overwrite = true)
+    {
+        if (File.Exists(src))
         {
-            FileMode fileMode;
-            switch (mode)
+            if (!overwrite && File.Exists(dst))
             {
-                case BadWriteMode.CreateNew:
-                    fileMode = FileMode.Create;
-
-                    break;
-                case BadWriteMode.Append:
-                    fileMode = FileMode.Append;
-
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+                throw new IOException("File already exists");
             }
 
-            return File.Open(path, fileMode);
+            File.Copy(src, dst, overwrite);
         }
-
-        public string GetCurrentDirectory()
+        else if (Directory.Exists(src))
         {
-            return Directory.GetCurrentDirectory();
-        }
-
-        public void SetCurrentDirectory(string path)
-        {
-            Directory.SetCurrentDirectory(path);
-        }
-
-        public void Copy(string src, string dst, bool overwrite = true)
-        {
-            if (File.Exists(src))
+            if (!overwrite && Directory.Exists(dst))
             {
-                if (!overwrite && File.Exists(dst))
-                {
-                    throw new IOException("File already exists");
-                }
-
-                File.Copy(src, dst, overwrite);
+                throw new IOException("Directory already exists");
             }
-            else if (Directory.Exists(src))
+
+            foreach (string directory in Directory.GetDirectories(src, "*", SearchOption.AllDirectories))
             {
-                if (!overwrite && Directory.Exists(dst))
-                {
-                    throw new IOException("Directory already exists");
-                }
+                Directory.CreateDirectory(directory.Replace(src, dst));
+            }
 
-                foreach (string directory in Directory.GetDirectories(src, "*", SearchOption.AllDirectories))
-                {
-                    Directory.CreateDirectory(directory.Replace(src, dst));
-                }
-
-                foreach (string file in Directory.GetFiles(src, "*", SearchOption.AllDirectories))
-                {
-                    File.Copy(file, file.Replace(src, dst), overwrite);
-                }
+            foreach (string file in Directory.GetFiles(src, "*", SearchOption.AllDirectories))
+            {
+                File.Copy(file, file.Replace(src, dst), overwrite);
             }
         }
+    }
 
-        public void Move(string src, string dst, bool overwrite = true)
+    public void Move(string src, string dst, bool overwrite = true)
+    {
+        if (File.Exists(src))
         {
-            if (File.Exists(src))
+            if (!overwrite && File.Exists(dst))
             {
-                if (!overwrite && File.Exists(dst))
-                {
-                    throw new IOException("File already exists");
-                }
-
-                File.Move(src, dst);
+                throw new IOException("File already exists");
             }
-            else if (Directory.Exists(src))
+
+            File.Move(src, dst);
+        }
+        else if (Directory.Exists(src))
+        {
+            if (!overwrite && Directory.Exists(dst))
             {
-                if (!overwrite && Directory.Exists(dst))
-                {
-                    throw new IOException("Directory already exists");
-                }
-
-                Directory.Move(src, dst);
+                throw new IOException("Directory already exists");
             }
+
+            Directory.Move(src, dst);
         }
     }
 }

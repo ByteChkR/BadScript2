@@ -1,23 +1,22 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math.Assign;
 
-namespace BadScript2.Parser.Operators.Binary.Math.Assign
+namespace BadScript2.Parser.Operators.Binary.Math.Assign;
+
+/// <summary>
+///     Implements the Subtract Assign Operator
+/// </summary>
+public class BadSubtractAssignOperator : BadBinaryOperator
 {
     /// <summary>
-    ///     Implements the Subtract Assign Operator
+    ///     Constructor of the Operator
     /// </summary>
-    public class BadSubtractAssignOperator : BadBinaryOperator
+    public BadSubtractAssignOperator() : base(15, "-=") { }
+
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
-        /// <summary>
-        ///     Constructor of the Operator
-        /// </summary>
-        public BadSubtractAssignOperator() : base(15, "-=") { }
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-        {
-            BadExpression right = parser.ParseExpression(null, Precedence);
-
-            return new BadSubtractAssignExpression(left, right, left.Position.Combine(right.Position));
-        }
+        return new BadSubtractAssignExpression(left, right, left.Position.Combine(right.Position));
     }
 }

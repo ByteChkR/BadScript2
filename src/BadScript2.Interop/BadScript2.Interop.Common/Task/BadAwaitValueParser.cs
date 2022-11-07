@@ -4,22 +4,21 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Operators;
 using BadScript2.Reader;
 
-namespace BadScript2.Interop.Common.Task
+namespace BadScript2.Interop.Common.Task;
+
+public class BadAwaitValueParser : BadValueParser
 {
-    public class BadAwaitValueParser : BadValueParser
+    public override bool IsValue(BadSourceParser parser)
     {
-        public override bool IsValue(BadSourceParser parser)
-        {
-            return parser.Reader.Is("await");
-        }
+        return parser.Reader.Is("await");
+    }
 
-        public override BadExpression ParseValue(BadSourceParser parser)
-        {
-            BadSourcePosition pos = parser.Reader.Eat("await");
-            parser.Reader.SkipNonToken();
-            BadExpression expr = parser.ParseExpression();
+    public override BadExpression ParseValue(BadSourceParser parser)
+    {
+        BadSourcePosition pos = parser.Reader.Eat("await");
+        parser.Reader.SkipNonToken();
+        BadExpression expr = parser.ParseExpression();
 
-            return new BadAwaitExpression(expr, pos.Combine(expr.Position));
-        }
+        return new BadAwaitExpression(expr, pos.Combine(expr.Position));
     }
 }

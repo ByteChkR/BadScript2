@@ -1,13 +1,12 @@
-namespace BadScript2.Runtime.Objects.Native
+namespace BadScript2.Runtime.Objects.Native;
+
+/// <summary>
+///     Implements the Interface for Native Numbers
+/// </summary>
+public interface IBadNumber : IBadNative
 {
     /// <summary>
-    ///     Implements the Interface for Native Numbers
+    ///     The Number Value
     /// </summary>
-    public interface IBadNumber : IBadNative
-    {
-        /// <summary>
-        ///     The Number Value
-        /// </summary>
-        new decimal Value { get; }
-    }
+    new decimal Value { get; }
 }

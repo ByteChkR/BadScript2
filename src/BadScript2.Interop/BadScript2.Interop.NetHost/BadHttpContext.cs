@@ -13,7 +13,9 @@ public class BadHttpContext : BadObject
         "HttpContext",
         (_, _) => throw new BadRuntimeException("Cannot create new Http Contexts")
     );
+
     public readonly HttpListenerContext Context;
+
     public BadHttpContext(HttpListenerContext context)
     {
         Context = context;

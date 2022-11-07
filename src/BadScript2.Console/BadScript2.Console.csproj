@@ -11,21 +11,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj" />
-        <ProjectReference Include="..\BadScript2.Interactive\BadScript2.Interactive.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Compression\BadScript2.Interop.Compression.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NetHost\BadScript2.Interop.NetHost.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj" />
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj" />
-        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interactive\BadScript2.Interactive.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Compression\BadScript2.Interop.Compression.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NetHost\BadScript2.Interop.NetHost.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj"/>
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="NUnit.ConsoleRunner" Version="3.15.0" />
-        <PackageReference Include="NUnitLite" Version="3.13.3" />
+        <PackageReference Include="NUnit.ConsoleRunner" Version="3.15.0"/>
+        <PackageReference Include="NUnitLite" Version="3.13.3"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -525,7 +525,7 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\subsystems\run\libs\WebFramework.bs">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

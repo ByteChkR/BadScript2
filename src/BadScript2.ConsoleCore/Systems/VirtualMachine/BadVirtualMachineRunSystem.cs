@@ -6,23 +6,22 @@ using BadScript2.VirtualMachine;
 
 using Newtonsoft.Json;
 
-namespace BadScript2.ConsoleCore.Systems.VirtualMachine
+namespace BadScript2.ConsoleCore.Systems.VirtualMachine;
+
+public class BadVirtualMachineRunSystem : BadConsoleSystem<BadVirtualMachineRunSystemSettings>
 {
-    public class BadVirtualMachineRunSystem : BadConsoleSystem<BadVirtualMachineRunSystemSettings>
+    public override string Name => "vm";
+
+    protected override int Run(BadVirtualMachineRunSystemSettings settings)
     {
-        public override string Name => "vm";
+        BadLogWriterSettings.Instance.Mask = BadLogMask.None;
+        BadVirtualMachineInfo info = JsonConvert.DeserializeObject<BadVirtualMachineInfo>(File.ReadAllText(settings.FilePath))!;
 
-        protected override int Run(BadVirtualMachineRunSystemSettings settings)
-        {
-            BadLogWriterSettings.Instance.Mask = BadLogMask.None;
-            BadVirtualMachineInfo info = JsonConvert.DeserializeObject<BadVirtualMachineInfo>(File.ReadAllText(settings.FilePath))!;
+        BadVirtualMachine vm = new BadVirtualMachine(info);
+        foreach (BadObject o in vm.Execute(new SystemConsole())) { }
 
-            BadVirtualMachine vm = new BadVirtualMachine(info);
-            foreach (BadObject o in vm.Execute(new SystemConsole())) { }
+        vm.SaveState();
 
-            vm.SaveState();
-
-            return 0;
-        }
+        return 0;
     }
 }

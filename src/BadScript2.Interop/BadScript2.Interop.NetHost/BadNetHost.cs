@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 
 using BadScript2.Interop.Common.Task;
-using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Interop.NetHost;
 
@@ -27,15 +25,16 @@ public class BadNetHost
         listener.BeginGetContext(
             r =>
             {
-                try {
+                try
+                {
                     HttpListenerContext ctx = listener.EndGetContext(r);
                     callback(new BadHttpContext(ctx));
-                    
                 }
                 catch (Exception)
                 {
                     //Do Nothing
                 }
+
                 accepted = true;
             },
             null

@@ -4,80 +4,79 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Comparison
+namespace BadScript2.Parser.Expressions.Binary.Comparison;
+
+/// <summary>
+///     Implements the Greater Than Expression
+/// </summary>
+public class BadGreaterThanExpression : BadBinaryExpression
 {
     /// <summary>
-    ///     Implements the Greater Than Expression
+    ///     Constructor of the Greater Than Expression
     /// </summary>
-    public class BadGreaterThanExpression : BadBinaryExpression
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadGreaterThanExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        left,
+        right,
+        position
+    ) { }
+
+
+    /// <summary>
+    ///     Returns true if the left side is greater than the right side
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="pos">Source position that is used to generate an Exception if left or right are not a number</param>
+    /// <returns>True if the Left side is greater than the right side. Otherwise false.</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
+    public static BadObject GreaterThan(BadObject left, BadObject right, BadSourcePosition pos)
     {
-        /// <summary>
-        ///     Constructor of the Greater Than Expression
-        /// </summary>
-        /// <param name="left">Left side of the Expression</param>
-        /// <param name="right">Right side of the Expression</param>
-        /// <param name="position">Source Position of the Expression</param>
-        public BadGreaterThanExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-            left,
-            right,
-            position
-        ) { }
-
-
-        /// <summary>
-        ///     Returns true if the left side is greater than the right side
-        /// </summary>
-        /// <param name="left">Left side of the Expression</param>
-        /// <param name="right">Right side of the Expression</param>
-        /// <param name="pos">Source position that is used to generate an Exception if left or right are not a number</param>
-        /// <returns>True if the Left side is greater than the right side. Otherwise false.</returns>
-        /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
-        public static BadObject GreaterThan(BadObject left, BadObject right, BadSourcePosition pos)
+        if (left is IBadNumber lNum)
         {
-            if (left is IBadNumber lNum)
+            if (right is IBadNumber rNum)
             {
-                if (right is IBadNumber rNum)
+                if (lNum.Value > rNum.Value)
                 {
-                    if (lNum.Value > rNum.Value)
-                    {
-                        return BadObject.True;
-                    }
-
-                    return BadObject.False;
+                    return BadObject.True;
                 }
-            }
 
-            throw new BadRuntimeException($"Can not apply operator '>' to {left} and {right}", pos);
+                return BadObject.False;
+            }
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        throw new BadRuntimeException($"Can not apply operator '>' to {left} and {right}", pos);
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+        foreach (BadObject o in Left.Execute(context))
         {
-            BadObject left = BadObject.Null;
-            foreach (BadObject o in Left.Execute(context))
-            {
-                left = o;
+            left = o;
 
-                yield return o;
-            }
-
-            left = left.Dereference();
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
-
-                yield return o;
-            }
-
-            right = right.Dereference();
-
-
-            yield return GreaterThan(left, right, Position);
+            yield return o;
         }
 
-        protected override string GetSymbol()
+        left = left.Dereference();
+        BadObject right = BadObject.Null;
+        foreach (BadObject o in Right.Execute(context))
         {
-            return ">";
+            right = o;
+
+            yield return o;
         }
+
+        right = right.Dereference();
+
+
+        yield return GreaterThan(left, right, Position);
+    }
+
+    protected override string GetSymbol()
+    {
+        return ">";
     }
 }

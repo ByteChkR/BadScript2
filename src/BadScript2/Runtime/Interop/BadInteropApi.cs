@@ -1,30 +1,29 @@
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime.Interop
+namespace BadScript2.Runtime.Interop;
+
+/// <summary>
+///     Implements an Interop API for the BS2 Language
+/// </summary>
+public abstract class BadInteropApi
 {
     /// <summary>
-    ///     Implements an Interop API for the BS2 Language
+    ///     Creates a new Interop API
     /// </summary>
-    public abstract class BadInteropApi
+    /// <param name="name">Name of the API</param>
+    protected BadInteropApi(string name)
     {
-        /// <summary>
-        ///     Creates a new Interop API
-        /// </summary>
-        /// <param name="name">Name of the API</param>
-        protected BadInteropApi(string name)
-        {
-            Name = name;
-        }
-
-        /// <summary>
-        ///     Name of the API
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        ///     Loads the API into the given Table
-        /// </summary>
-        /// <param name="target">Table Target</param>
-        public abstract void Load(BadTable target);
+        Name = name;
     }
+
+    /// <summary>
+    ///     Name of the API
+    /// </summary>
+    public string Name { get; }
+
+    /// <summary>
+    ///     Loads the API into the given Table
+    /// </summary>
+    /// <param name="target">Table Target</param>
+    public abstract void Load(BadTable target);
 }

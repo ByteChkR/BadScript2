@@ -148,7 +148,7 @@ public class BadNetHostExtensions : BadInteropExtension
             "SetContent",
             (string content) =>
             {
-                byte[] data = (resp.ContentEncoding?? Encoding.UTF8).GetBytes(content);
+                byte[] data = (resp.ContentEncoding ?? Encoding.UTF8).GetBytes(content);
                 resp.OutputStream.Write(data, 0, data.Length);
             }
         );

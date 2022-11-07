@@ -4,173 +4,172 @@ using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 
-namespace BadScript2.Runtime.Objects
+namespace BadScript2.Runtime.Objects;
+
+public abstract class BadObject
 {
-    public abstract class BadObject
+    private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
+    public static readonly BadObject Null = new BadNullObject();
+    public static readonly BadObject True = new BadBoolean(true);
+    public static readonly BadObject False = new BadBoolean(false);
+
+    /// <summary>
+    ///     Returns the Prototype of this Object
+    /// </summary>
+    /// <returns>Instance of the ClassPrototype associated to this Type of BadObject</returns>
+    public abstract BadClassPrototype GetPrototype();
+
+    public static bool CanWrap(object? o)
     {
-        private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
-        public static readonly BadObject Null = new BadNullObject();
-        public static readonly BadObject True = new BadBoolean(true);
-        public static readonly BadObject False = new BadBoolean(false);
+        return o is string || o is decimal || o is null;
+    }
 
-        /// <summary>
-        ///     Returns the Prototype of this Object
-        /// </summary>
-        /// <returns>Instance of the ClassPrototype associated to this Type of BadObject</returns>
-        public abstract BadClassPrototype GetPrototype();
-
-        public static bool CanWrap(object? o)
+    public static BadObject Wrap<T>(T obj, bool allowNative = true)
+    {
+        if (obj is bool b)
         {
-            return o is string || o is decimal || o is null;
+            if (b)
+            {
+                return True;
+            }
+
+            return False;
         }
 
-        public static BadObject Wrap<T>(T obj, bool allowNative = true)
+        if (obj is decimal d)
         {
-            if (obj is bool b)
+            return new BadNumber(d);
+        }
+
+        if (obj is string s)
+        {
+            if (BadNativeOptimizationSettings.Instance.UseStringCaching)
             {
-                if (b)
+                if (s_StringCache.ContainsKey(s))
                 {
-                    return True;
+                    return s_StringCache[s];
                 }
 
-                return False;
+                return s_StringCache[s] = new BadString(s);
             }
 
-            if (obj is decimal d)
-            {
-                return new BadNumber(d);
-            }
-
-            if (obj is string s)
-            {
-                if (BadNativeOptimizationSettings.Instance.UseStringCaching)
-                {
-                    if (s_StringCache.ContainsKey(s))
-                    {
-                        return s_StringCache[s];
-                    }
-
-                    return s_StringCache[s] = new BadString(s);
-                }
-
-                return new BadString(s);
-            }
-
-            if (Equals(obj, default(T)))
-            {
-                return Null;
-            }
-
-            if (allowNative)
-            {
-                return new BadNative<T>(obj);
-            }
-
-            throw new BadRuntimeException("Cannot wrap native type");
+            return new BadString(s);
         }
 
-        /// <summary>
-        ///     Returns true if the object contains a given property or there exists an extension for the current Instance
-        /// </summary>
-        /// <param name="propName">The Property Name</param>
-        /// <returns>True if the Property or an Extension with that name exists</returns>
-        public virtual bool HasProperty(BadObject propName)
+        if (Equals(obj, default(T)))
         {
-            return BadInteropExtension.HasObject(GetType(), propName);
+            return Null;
         }
 
-        /// <summary>
-        ///     Returns a Reference to the Property with the given Name
-        /// </summary>
-        /// <param name="propName">The Property Name</param>
-        /// <returns>The Property Reference</returns>
-        public virtual BadObjectReference GetProperty(BadObject propName)
+        if (allowNative)
         {
-            return BadInteropExtension.GetObjectReference(GetType(), propName, this);
+            return new BadNative<T>(obj);
         }
 
-        /// <summary>
-        ///     Implicit Converstion from Boolean to BadObject
-        /// </summary>
-        /// <param name="b">The Value</param>
-        /// <returns>Bad Object Instance</returns>
-        public static implicit operator BadObject(bool b)
+        throw new BadRuntimeException("Cannot wrap native type");
+    }
+
+    /// <summary>
+    ///     Returns true if the object contains a given property or there exists an extension for the current Instance
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <returns>True if the Property or an Extension with that name exists</returns>
+    public virtual bool HasProperty(BadObject propName)
+    {
+        return BadInteropExtension.HasObject(GetType(), propName);
+    }
+
+    /// <summary>
+    ///     Returns a Reference to the Property with the given Name
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <returns>The Property Reference</returns>
+    public virtual BadObjectReference GetProperty(BadObject propName)
+    {
+        return BadInteropExtension.GetObjectReference(GetType(), propName, this);
+    }
+
+    /// <summary>
+    ///     Implicit Converstion from Boolean to BadObject
+    /// </summary>
+    /// <param name="b">The Value</param>
+    /// <returns>Bad Object Instance</returns>
+    public static implicit operator BadObject(bool b)
+    {
+        return Wrap(b);
+    }
+
+    /// <summary>
+    ///     Implicit Converstion from Number to BadObject
+    /// </summary>
+    /// <param name="b">The Value</param>
+    /// <returns>Bad Object Instance</returns>
+    public static implicit operator BadObject(decimal d)
+    {
+        return Wrap(d);
+    }
+
+    /// <summary>
+    ///     Implicit Converstion from String to BadObject
+    /// </summary>
+    /// <param name="b">The Value</param>
+    /// <returns>Bad Object Instance</returns>
+    public static implicit operator BadObject(string s)
+    {
+        return Wrap(s);
+    }
+
+    /// <summary>
+    ///     Returns a String Representation of this Object. This function is recursion proof and supports circular references
+    /// </summary>
+    /// <param name="done">The Visited Elements</param>
+    /// <returns>String Representation</returns>
+    public abstract string ToSafeString(List<BadObject> done);
+
+    /// <summary>
+    ///     Returns a String Representation of this Object.
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        return ToSafeString(new List<BadObject>());
+    }
+
+    /// <summary>
+    ///     Implementation for the null-value
+    /// </summary>
+    private class BadNullObject : BadObject, IBadNative
+    {
+        public object Value => null!;
+        public Type Type => typeof(object);
+
+        public bool Equals(IBadNative? other)
         {
-            return Wrap(b);
+            return Equals((object?)other);
         }
 
-        /// <summary>
-        ///     Implicit Converstion from Number to BadObject
-        /// </summary>
-        /// <param name="b">The Value</param>
-        /// <returns>Bad Object Instance</returns>
-        public static implicit operator BadObject(decimal d)
+        public override BadClassPrototype GetPrototype()
         {
-            return Wrap(d);
+            return new BadNativeClassPrototype<BadNullObject>(
+                "null",
+                (_, _) => throw new BadRuntimeException("Cannot call methods on null")
+            );
         }
 
-        /// <summary>
-        ///     Implicit Converstion from String to BadObject
-        /// </summary>
-        /// <param name="b">The Value</param>
-        /// <returns>Bad Object Instance</returns>
-        public static implicit operator BadObject(string s)
+        public override string ToSafeString(List<BadObject> done)
         {
-            return Wrap(s);
+            return "null";
         }
 
-        /// <summary>
-        ///     Returns a String Representation of this Object. This function is recursion proof and supports circular references
-        /// </summary>
-        /// <param name="done">The Visited Elements</param>
-        /// <returns>String Representation</returns>
-        public abstract string ToSafeString(List<BadObject> done);
 
-        /// <summary>
-        ///     Returns a String Representation of this Object.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+        public override bool Equals(object? obj)
         {
-            return ToSafeString(new List<BadObject>());
+            return ReferenceEquals(this, obj);
         }
 
-        /// <summary>
-        ///     Implementation for the null-value
-        /// </summary>
-        private class BadNullObject : BadObject, IBadNative
+        public override int GetHashCode()
         {
-            public object Value => null!;
-            public Type Type => typeof(object);
-
-            public bool Equals(IBadNative? other)
-            {
-                return Equals((object?)other);
-            }
-
-            public override BadClassPrototype GetPrototype()
-            {
-                return new BadNativeClassPrototype<BadNullObject>(
-                    "null",
-                    (_, _) => throw new BadRuntimeException("Cannot call methods on null")
-                );
-            }
-
-            public override string ToSafeString(List<BadObject> done)
-            {
-                return "null";
-            }
-
-
-            public override bool Equals(object? obj)
-            {
-                return ReferenceEquals(this, obj);
-            }
-
-            public override int GetHashCode()
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
     }
 }

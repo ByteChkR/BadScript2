@@ -1,23 +1,22 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Logic;
 
-namespace BadScript2.Parser.Operators.Binary.Logic
+namespace BadScript2.Parser.Operators.Binary.Logic;
+
+/// <summary>
+///     Implements the Logic Or Operator
+/// </summary>
+public class BadLogicOrOperator : BadBinaryOperator
 {
     /// <summary>
-    ///     Implements the Logic Or Operator
+    ///     Constructor of the Operator
     /// </summary>
-    public class BadLogicOrOperator : BadBinaryOperator
+    public BadLogicOrOperator() : base(14, "||") { }
+
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
-        /// <summary>
-        ///     Constructor of the Operator
-        /// </summary>
-        public BadLogicOrOperator() : base(14, "||") { }
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-        {
-            BadExpression right = parser.ParseExpression(null, Precedence);
-
-            return new BadLogicOrExpression(left, right, left.Position.Combine(right.Position));
-        }
+        return new BadLogicOrExpression(left, right, left.Position.Combine(right.Position));
     }
 }

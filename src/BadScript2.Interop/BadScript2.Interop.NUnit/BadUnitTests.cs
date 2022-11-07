@@ -9,66 +9,65 @@ using BadScript2.Settings;
 
 using NUnit.Framework;
 
-namespace BadScript2.Interop.NUnit
+namespace BadScript2.Interop.NUnit;
+
+public class BadUnitTests
 {
-    public class BadUnitTests
+    private static BadUnitTestContext? s_Context;
+
+    private static string TestDirectory =>
+        BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Test.TestDirectory") ??
+        throw new BadRuntimeException("Test directory not found");
+
+    private static BadUnitTestContext Context
     {
-        private static BadUnitTestContext? s_Context;
-
-        private static string TestDirectory =>
-            BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Test.TestDirectory") ??
-            throw new BadRuntimeException("Test directory not found");
-
-        private static BadUnitTestContext Context
+        get
         {
-            get
+            if (s_Context != null)
             {
-                if (s_Context != null)
-                {
-                    return s_Context;
-                }
-
-                BadFileSystem.Instance.CreateDirectory(TestDirectory);
-                List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-                apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
-                BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
-
-                string[] files = BadFileSystem.Instance.GetFiles(
-                        TestDirectory,
-                        $".{BadRuntimeSettings.Instance.FileExtension}",
-                        true
-                    )
-                    .ToArray();
-                BadConsole.WriteLine($"Loading Files...({files.Length})");
-                builder.Register(false, false, files);
-
-                s_Context = builder.CreateContext();
-
                 return s_Context;
             }
-        }
 
-        [SetUp]
-        public void Setup()
-        {
-            Context.Setup();
-        }
+            BadFileSystem.Instance.CreateDirectory(TestDirectory);
+            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
+            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
-        public static BadNUnitTestCase[] GetTestCases()
-        {
-            return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
-        }
+            string[] files = BadFileSystem.Instance.GetFiles(
+                    TestDirectory,
+                    $".{BadRuntimeSettings.Instance.FileExtension}",
+                    true
+                )
+                .ToArray();
+            BadConsole.WriteLine($"Loading Files...({files.Length})");
+            builder.Register(false, false, files);
 
-        [TestCaseSource(nameof(GetTestCases))]
-        public void Test(BadNUnitTestCase testCase)
-        {
-            Context.Run(testCase);
-        }
+            s_Context = builder.CreateContext();
 
-        [TearDown]
-        public void TearDown()
-        {
-            Context.Teardown();
+            return s_Context;
         }
+    }
+
+    [SetUp]
+    public void Setup()
+    {
+        Context.Setup();
+    }
+
+    public static BadNUnitTestCase[] GetTestCases()
+    {
+        return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
+    }
+
+    [TestCaseSource(nameof(GetTestCases))]
+    public void Test(BadNUnitTestCase testCase)
+    {
+        Context.Run(testCase);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        Context.Teardown();
     }
 }

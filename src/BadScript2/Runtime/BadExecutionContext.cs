@@ -1,79 +1,78 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime
+namespace BadScript2.Runtime;
+
+/// <summary>
+///     The Execution Context.
+///     Every execution of a script needs a context the script is running in.
+///     It is responsible for defining the global scope and the global variables.
+/// </summary>
+public class BadExecutionContext
 {
     /// <summary>
-    ///     The Execution Context.
-    ///     Every execution of a script needs a context the script is running in.
-    ///     It is responsible for defining the global scope and the global variables.
+    ///     The Root Scope of the Context
     /// </summary>
-    public class BadExecutionContext
+    public readonly BadScope Scope;
+
+    /// <summary>
+    ///     Creates a new Execution Context
+    /// </summary>
+    /// <param name="scope">The Root Scope</param>
+    public BadExecutionContext(BadScope scope)
     {
-        /// <summary>
-        ///     The Root Scope of the Context
-        /// </summary>
-        public readonly BadScope Scope;
+        Scope = scope;
+    }
 
-        /// <summary>
-        ///     Creates a new Execution Context
-        /// </summary>
-        /// <param name="scope">The Root Scope</param>
-        public BadExecutionContext(BadScope scope)
+    /// <summary>
+    ///     Creates a new Execution Context with an empty scope
+    /// </summary>
+    /// <returns>New (empty) instance.</returns>
+    public static BadExecutionContext Create()
+    {
+        return new BadExecutionContext(new BadScope("<root>"));
+    }
+
+
+    /// <summary>
+    ///     Executes an enumeration of expressions.
+    /// </summary>
+    /// <param name="expressions">Expression Enumeration</param>
+    /// <returns>The Return Value. Null if no return value was set.</returns>
+    public BadObject? Run(IEnumerable<BadExpression> expressions)
+    {
+        foreach (BadObject o in Execute(expressions))
         {
-            Scope = scope;
+            //Execute
         }
 
-        /// <summary>
-        ///     Creates a new Execution Context with an empty scope
-        /// </summary>
-        /// <returns>New (empty) instance.</returns>
-        public static BadExecutionContext Create()
+        if (Scope.ReturnValue != null)
         {
-            return new BadExecutionContext(new BadScope("<root>"));
+            return Scope.ReturnValue;
         }
 
+        return null;
+    }
 
-        /// <summary>
-        ///     Executes an enumeration of expressions.
-        /// </summary>
-        /// <param name="expressions">Expression Enumeration</param>
-        /// <returns>The Return Value. Null if no return value was set.</returns>
-        public BadObject? Run(IEnumerable<BadExpression> expressions)
+    /// <summary>
+    ///     Executes an enumeration of expressions.
+    /// </summary>
+    /// <param name="expressions">Expression Enumeration</param>
+    /// <returns>Enumeration of the resulting objects</returns>
+    public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
+    {
+        foreach (BadExpression expression in expressions)
         {
-            foreach (BadObject o in Execute(expressions))
+            foreach (BadObject o in expression.Execute(this))
             {
-                //Execute
-            }
+                yield return o;
 
-            if (Scope.ReturnValue != null)
-            {
-                return Scope.ReturnValue;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Executes an enumeration of expressions.
-        /// </summary>
-        /// <param name="expressions">Expression Enumeration</param>
-        /// <returns>Enumeration of the resulting objects</returns>
-        public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
-        {
-            foreach (BadExpression expression in expressions)
-            {
-                foreach (BadObject o in expression.Execute(this))
+                if (Scope.ReturnValue != null ||
+                    Scope.IsBreak ||
+                    Scope.IsContinue ||
+                    Scope.IsError)
                 {
-                    yield return o;
-
-                    if (Scope.ReturnValue != null ||
-                        Scope.IsBreak ||
-                        Scope.IsContinue ||
-                        Scope.IsError)
-                    {
-                        yield break;
-                    }
+                    yield break;
                 }
             }
         }

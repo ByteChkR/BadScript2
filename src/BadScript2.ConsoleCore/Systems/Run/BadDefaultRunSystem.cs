@@ -1,26 +1,25 @@
 using BadScript2.IO;
 
-namespace BadScript2.ConsoleCore.Systems.Run
+namespace BadScript2.ConsoleCore.Systems.Run;
+
+public class BadDefaultRunSystem : BadRunSystem
 {
-    public class BadDefaultRunSystem : BadRunSystem
+    public override object? Parse(string[] args)
     {
-        public override object? Parse(string[] args)
+        BadRunSystemSettings settings = new BadRunSystemSettings();
+        settings.Args = args.Skip(1);
+        string file = args.First();
+        settings.Files = new[] { file };
+
+        if (!BadFileSystem.Instance.IsFile(file))
         {
-            BadRunSystemSettings settings = new BadRunSystemSettings();
-            settings.Args = args.Skip(1);
-            string file = args.First();
-            settings.Files = new[] { file };
-
-            if (!BadFileSystem.Instance.IsFile(file))
+            string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
+            if (BadFileSystem.Instance.IsFile(path))
             {
-                string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
-                if (BadFileSystem.Instance.IsFile(path))
-                {
-                    settings.Files = new[] { path };
-                }
+                settings.Files = new[] { path };
             }
-
-            return settings;
         }
+
+        return settings;
     }
 }

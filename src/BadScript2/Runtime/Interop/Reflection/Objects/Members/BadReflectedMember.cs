@@ -1,26 +1,25 @@
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime.Interop.Reflection.Objects.Members
+namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
+
+public abstract class BadReflectedMember
 {
-    public abstract class BadReflectedMember
+    public readonly string Name;
+
+    protected BadReflectedMember(string name)
     {
-        public readonly string Name;
+        Name = name;
+    }
 
-        protected BadReflectedMember(string name)
+    public abstract BadObject Get(object instance);
+
+    protected BadObject Wrap(object? o)
+    {
+        if (BadObject.CanWrap(o))
         {
-            Name = name;
+            return BadObject.Wrap(o);
         }
 
-        public abstract BadObject Get(object instance);
-
-        protected BadObject Wrap(object? o)
-        {
-            if (BadObject.CanWrap(o))
-            {
-                return BadObject.Wrap(o);
-            }
-
-            return new BadReflectedObject(o!);
-        }
+        return new BadReflectedObject(o!);
     }
 }

@@ -1,18 +1,17 @@
-namespace BadScript2.Runtime.Objects.Native
+namespace BadScript2.Runtime.Objects.Native;
+
+/// <summary>
+///     Defines properties for Native Types
+/// </summary>
+public interface IBadNative : IEquatable<IBadNative>
 {
     /// <summary>
-    ///     Defines properties for Native Types
+    ///     The Value of the Native Object
     /// </summary>
-    public interface IBadNative : IEquatable<IBadNative>
-    {
-        /// <summary>
-        ///     The Value of the Native Object
-        /// </summary>
-        object Value { get; }
+    object Value { get; }
 
-        /// <summary>
-        ///     The Type of the Native Object
-        /// </summary>
-        Type Type { get; }
-    }
+    /// <summary>
+    ///     The Type of the Native Object
+    /// </summary>
+    Type Type { get; }
 }

@@ -3,23 +3,22 @@ using BadScript2.Parser.Expressions.Access;
 using BadScript2.Reader;
 using BadScript2.Reader.Token;
 
-namespace BadScript2.Parser.Operators.Binary
+namespace BadScript2.Parser.Operators.Binary;
+
+/// <summary>
+///     Implements the Member Access Operator
+/// </summary>
+public class BadMemberAccessOperator : BadBinaryOperator
 {
     /// <summary>
-    ///     Implements the Member Access Operator
+    ///     Constructor of the Operator
     /// </summary>
-    public class BadMemberAccessOperator : BadBinaryOperator
+    public BadMemberAccessOperator() : base(2, ".") { }
+
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
-        /// <summary>
-        ///     Constructor of the Operator
-        /// </summary>
-        public BadMemberAccessOperator() : base(2, ".") { }
+        BadWordToken right = parser.Reader.ParseWord();
 
-        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-        {
-            BadWordToken right = parser.Reader.ParseWord();
-
-            return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition));
-        }
+        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition));
     }
 }

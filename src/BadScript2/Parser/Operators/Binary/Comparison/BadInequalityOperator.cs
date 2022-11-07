@@ -1,23 +1,22 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Comparison;
 
-namespace BadScript2.Parser.Operators.Binary.Comparison
+namespace BadScript2.Parser.Operators.Binary.Comparison;
+
+/// <summary>
+///     Implements the Inequality Operator
+/// </summary>
+public class BadInequalityOperator : BadBinaryOperator
 {
     /// <summary>
-    ///     Implements the Inequality Operator
+    ///     Constructor of the Operator
     /// </summary>
-    public class BadInequalityOperator : BadBinaryOperator
+    public BadInequalityOperator() : base(9, "!=") { }
+
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
-        /// <summary>
-        ///     Constructor of the Operator
-        /// </summary>
-        public BadInequalityOperator() : base(9, "!=") { }
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-        public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-        {
-            BadExpression right = parser.ParseExpression(null, Precedence);
-
-            return new BadInequalityExpression(left, right, left.Position.Combine(right.Position));
-        }
+        return new BadInequalityExpression(left, right, left.Position.Combine(right.Position));
     }
 }

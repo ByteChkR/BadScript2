@@ -6,96 +6,95 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Reflection.Objects.Members;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Runtime.Interop.Reflection.Objects
+namespace BadScript2.Runtime.Interop.Reflection.Objects;
+
+public class BadReflectedMemberTable
 {
-    public class BadReflectedMemberTable
+    private static readonly Dictionary<Type, BadReflectedMemberTable> m_TableCache = new Dictionary<Type, BadReflectedMemberTable>();
+    private readonly Dictionary<string, BadReflectedMember> m_Members;
+
+    private BadReflectedMemberTable(Dictionary<string, BadReflectedMember> members)
     {
-        private static readonly Dictionary<Type, BadReflectedMemberTable> m_TableCache = new Dictionary<Type, BadReflectedMemberTable>();
-        private readonly Dictionary<string, BadReflectedMember> m_Members;
+        m_Members = members;
+    }
 
-        private BadReflectedMemberTable(Dictionary<string, BadReflectedMember> members)
+    public bool Contains(string name)
+    {
+        return m_Members.ContainsKey(name);
+    }
+
+    public BadObjectReference GetMember(object instance, string name)
+    {
+        if (m_Members.TryGetValue(name, out BadReflectedMember member))
         {
-            m_Members = members;
+            return BadObjectReference.Make(name, () => member.Get(instance));
         }
 
-        public bool Contains(string name)
+        throw new BadRuntimeException("Member " + name + " not found");
+    }
+
+    public static BadReflectedMemberTable Create<T>()
+    {
+        return Create(typeof(T));
+    }
+
+    public static BadReflectedMemberTable Create(Type t)
+    {
+        if (m_TableCache.ContainsKey(t))
         {
-            return m_Members.ContainsKey(name);
+            return m_TableCache[t];
         }
 
-        public BadObjectReference GetMember(object instance, string name)
+        BadLogger.Log($"Creating Member Table for {t.Name}", "BadReflection");
+        BadReflectedMemberTable table = CreateInternal(t);
+        m_TableCache[t] = table;
+
+        return table;
+    }
+
+    private static BadReflectedMemberTable CreateInternal(Type t)
+    {
+        Dictionary<string, BadReflectedMember> members = new Dictionary<string, BadReflectedMember>();
+
+        if (t.IsArray)
         {
-            if (m_Members.TryGetValue(name, out BadReflectedMember member))
+            members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(t.GetMethod("Get")));
+        }
+
+        foreach (MemberInfo info in t.GetMembers())
+        {
+            if (info is FieldInfo field)
             {
-                return BadObjectReference.Make(name, () => member.Get(instance));
+                members.Add(field.Name, new BadReflectedField(field));
             }
-
-            throw new BadRuntimeException("Member " + name + " not found");
-        }
-
-        public static BadReflectedMemberTable Create<T>()
-        {
-            return Create(typeof(T));
-        }
-
-        public static BadReflectedMemberTable Create(Type t)
-        {
-            if (m_TableCache.ContainsKey(t))
+            else if (info is PropertyInfo property)
             {
-                return m_TableCache[t];
-            }
-
-            BadLogger.Log($"Creating Member Table for {t.Name}", "BadReflection");
-            BadReflectedMemberTable table = CreateInternal(t);
-            m_TableCache[t] = table;
-
-            return table;
-        }
-
-        private static BadReflectedMemberTable CreateInternal(Type t)
-        {
-            Dictionary<string, BadReflectedMember> members = new Dictionary<string, BadReflectedMember>();
-
-            if (t.IsArray)
-            {
-                members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(t.GetMethod("Get")));
-            }
-
-            foreach (MemberInfo info in t.GetMembers())
-            {
-                if (info is FieldInfo field)
+                if (property.Name == "Item" && property.GetIndexParameters().Length > 0)
                 {
-                    members.Add(field.Name, new BadReflectedField(field));
+                    members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(property.GetMethod));
                 }
-                else if (info is PropertyInfo property)
+                else
                 {
-                    if (property.Name == "Item" && property.GetIndexParameters().Length > 0)
-                    {
-                        members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(property.GetMethod));
-                    }
-                    else
-                    {
-                        members.Add(property.Name, new BadReflectedProperty(property));
-                    }
-                }
-                else if (info is MethodInfo method)
-                {
-                    if (method.Name == "GetEnumerator")
-                    {
-                        members["GetEnumerator"] = new BadReflectedEnumeratorMethod(method);
-                    }
-                    else if (members.ContainsKey(method.Name) && members[method.Name] is BadReflectedMethod m)
-                    {
-                        m.AddMethod(method);
-                    }
-                    else
-                    {
-                        members.Add(method.Name, new BadReflectedMethod(method));
-                    }
+                    members.Add(property.Name, new BadReflectedProperty(property));
                 }
             }
-
-            return new BadReflectedMemberTable(members);
+            else if (info is MethodInfo method)
+            {
+                if (method.Name == "GetEnumerator")
+                {
+                    members["GetEnumerator"] = new BadReflectedEnumeratorMethod(method);
+                }
+                else if (members.ContainsKey(method.Name) && members[method.Name] is BadReflectedMethod m)
+                {
+                    m.AddMethod(method);
+                }
+                else
+                {
+                    members.Add(method.Name, new BadReflectedMethod(method));
+                }
+            }
         }
+
+        return new BadReflectedMemberTable(members);
     }
 }

@@ -4,72 +4,71 @@ using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Parser.Expressions.Variables
+namespace BadScript2.Parser.Expressions.Variables;
+
+/// <summary>
+///     Implements the Formattted String Expression
+/// </summary>
+public class BadFormattedStringExpression : BadStringExpression
 {
     /// <summary>
-    ///     Implements the Formattted String Expression
+    ///     The Expressions that will be evaluated during the creation of the formatted string
     /// </summary>
-    public class BadFormattedStringExpression : BadStringExpression
+    private readonly BadExpression[] m_Expressions;
+
+    /// <summary>
+    ///     Constructor of the Formatted String Expression
+    /// </summary>
+    /// <param name="exprs">The Expressions that will be evaluated during the creation of the formatted string</param>
+    /// <param name="str">The Format String</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
+        str,
+        position
+    )
     {
-        /// <summary>
-        ///     The Expressions that will be evaluated during the creation of the formatted string
-        /// </summary>
-        private readonly BadExpression[] m_Expressions;
+        m_Expressions = exprs;
+    }
 
-        /// <summary>
-        ///     Constructor of the Formatted String Expression
-        /// </summary>
-        /// <param name="exprs">The Expressions that will be evaluated during the creation of the formatted string</param>
-        /// <param name="str">The Format String</param>
-        /// <param name="position">Source Position of the Expression</param>
-        public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
-            str,
-            position
-        )
+    /// <summary>
+    ///     The Expressions that will be evaluated during the creation of the formatted string
+    /// </summary>
+    public IEnumerable<BadExpression> Expressions => m_Expressions;
+
+    /// <summary>
+    ///     The Expression count of the Format String
+    /// </summary>
+    public int ExpressionCount => m_Expressions.Length;
+
+    public override void Optimize()
+    {
+        for (int i = 0; i < m_Expressions.Length; i++)
         {
-            m_Expressions = exprs;
+            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
         }
+    }
 
-        /// <summary>
-        ///     The Expressions that will be evaluated during the creation of the formatted string
-        /// </summary>
-        public IEnumerable<BadExpression> Expressions => m_Expressions;
-
-        /// <summary>
-        ///     The Expression count of the Format String
-        /// </summary>
-        public int ExpressionCount => m_Expressions.Length;
-
-        public override void Optimize()
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        List<BadObject> objs = new List<BadObject>();
+        foreach (BadExpression expr in m_Expressions)
         {
-            for (int i = 0; i < m_Expressions.Length; i++)
+            BadObject obj = BadObject.Null;
+            foreach (BadObject o in expr.Execute(context))
             {
-                m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
-            }
-        }
-
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-        {
-            List<BadObject> objs = new List<BadObject>();
-            foreach (BadExpression expr in m_Expressions)
-            {
-                BadObject obj = BadObject.Null;
-                foreach (BadObject o in expr.Execute(context))
+                if (context.Scope.IsError)
                 {
-                    if (context.Scope.IsError)
-                    {
-                        yield break;
-                    }
-
-                    obj = o;
-
-                    yield return o;
+                    yield break;
                 }
 
-                objs.Add(obj.Dereference());
+                obj = o;
+
+                yield return o;
             }
 
-            yield return string.Format(Value, objs.Cast<object?>().ToArray());
+            objs.Add(obj.Dereference());
         }
+
+        yield return string.Format(Value, objs.Cast<object?>().ToArray());
     }
 }

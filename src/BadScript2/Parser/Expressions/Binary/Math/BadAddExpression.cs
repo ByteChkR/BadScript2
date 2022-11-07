@@ -4,99 +4,98 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Binary.Math
+namespace BadScript2.Parser.Expressions.Binary.Math;
+
+/// <summary>
+///     Implements the Add Expression
+/// </summary>
+public class BadAddExpression : BadBinaryExpression
 {
     /// <summary>
-    ///     Implements the Add Expression
+    ///     Constructor of the Add Expression
     /// </summary>
-    public class BadAddExpression : BadBinaryExpression
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        left,
+        right,
+        position
+    ) { }
+
+    protected override string GetSymbol()
     {
-        /// <summary>
-        ///     Constructor of the Add Expression
-        /// </summary>
-        /// <param name="left">Left side of the Expression</param>
-        /// <param name="right">Right side of the Expression</param>
-        /// <param name="position">Source Position of the Expression</param>
-        public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-            left,
-            right,
-            position
-        ) { }
+        return "+";
+    }
 
-        protected override string GetSymbol()
+    /// <summary>
+    ///     Adds left and right together
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="pos">Source position that is used to generate an Exception if left or right can not be added</param>
+    /// <returns>The result of the addition of left and right</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side can not be added</exception>
+    public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
+    {
+        if (left is IBadString lStr)
         {
-            return "+";
+            if (right is IBadNative rNative)
+            {
+                return BadObject.Wrap(lStr.Value + rNative.Value);
+            }
+
+            return BadObject.Wrap(lStr.Value + right);
         }
 
-        /// <summary>
-        ///     Adds left and right together
-        /// </summary>
-        /// <param name="left">Left side of the Expression</param>
-        /// <param name="right">Right side of the Expression</param>
-        /// <param name="pos">Source position that is used to generate an Exception if left or right can not be added</param>
-        /// <returns>The result of the addition of left and right</returns>
-        /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side can not be added</exception>
-        public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
+        if (left is IBadNumber lNum)
         {
-            if (left is IBadString lStr)
+            if (right is IBadString rStr)
             {
-                if (right is IBadNative rNative)
-                {
-                    return BadObject.Wrap(lStr.Value + rNative.Value);
-                }
-
-                return BadObject.Wrap(lStr.Value + right);
+                return BadObject.Wrap(lNum.Value + rStr.Value);
             }
 
-            if (left is IBadNumber lNum)
+            if (right is IBadNumber rNum)
             {
-                if (right is IBadString rStr)
-                {
-                    return BadObject.Wrap(lNum.Value + rStr.Value);
-                }
-
-                if (right is IBadNumber rNum)
-                {
-                    return BadObject.Wrap(lNum.Value + rNum.Value);
-                }
+                return BadObject.Wrap(lNum.Value + rNum.Value);
             }
-            else if (left is IBadBoolean lBool)
+        }
+        else if (left is IBadBoolean lBool)
+        {
+            if (right is IBadString rStr)
             {
-                if (right is IBadString rStr)
-                {
-                    return BadObject.Wrap(lBool.Value + rStr.Value);
-                }
+                return BadObject.Wrap(lBool.Value + rStr.Value);
             }
-            else if (right is IBadString rStr)
-            {
-                return BadObject.Wrap(left + rStr.Value);
-            }
-
-            throw new BadRuntimeException($"Can not apply operator '+' to {left} and {right}", pos);
+        }
+        else if (right is IBadString rStr)
+        {
+            return BadObject.Wrap(left + rStr.Value);
         }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+        throw new BadRuntimeException($"Can not apply operator '+' to {left} and {right}", pos);
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+        foreach (BadObject o in Left.Execute(context))
         {
-            BadObject left = BadObject.Null;
-            foreach (BadObject o in Left.Execute(context))
-            {
-                left = o;
+            left = o;
 
-                yield return o;
-            }
-
-            left = left.Dereference();
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
-
-                yield return o;
-            }
-
-            right = right.Dereference();
-
-            yield return Add(left, right, Position);
+            yield return o;
         }
+
+        left = left.Dereference();
+        BadObject right = BadObject.Null;
+        foreach (BadObject o in Right.Execute(context))
+        {
+            right = o;
+
+            yield return o;
+        }
+
+        right = right.Dereference();
+
+        yield return Add(left, right, Position);
     }
 }

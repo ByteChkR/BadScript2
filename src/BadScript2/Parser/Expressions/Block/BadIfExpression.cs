@@ -5,115 +5,114 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Parser.Expressions.Block
+namespace BadScript2.Parser.Expressions.Block;
+
+/// <summary>
+///     Implements the If Statement Expression
+/// </summary>
+public class BadIfExpression : BadExpression
 {
     /// <summary>
-    ///     Implements the If Statement Expression
+    ///     The Conditional Branches
     /// </summary>
-    public class BadIfExpression : BadExpression
+    private readonly Dictionary<BadExpression, BadExpression[]> m_ConditionalBranches;
+
+    /// <summary>
+    ///     The (optional) Else Branch
+    /// </summary>
+    private readonly BadExpression[]? m_ElseBranch;
+
+    /// <summary>
+    ///     Constructor of the If Expression
+    /// </summary>
+    /// <param name="branches">The Conditional Branches</param>
+    /// <param name="elseBranch">The (optional) Else Branch</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadIfExpression(
+        Dictionary<BadExpression, BadExpression[]> branches,
+        BadExpression[]? elseBranch,
+        BadSourcePosition position) : base(false, position)
     {
-        /// <summary>
-        ///     The Conditional Branches
-        /// </summary>
-        private readonly Dictionary<BadExpression, BadExpression[]> m_ConditionalBranches;
+        m_ConditionalBranches = branches;
+        m_ElseBranch = elseBranch;
+    }
 
-        /// <summary>
-        ///     The (optional) Else Branch
-        /// </summary>
-        private readonly BadExpression[]? m_ElseBranch;
+    /// <summary>
+    ///     The Conditional Branches
+    /// </summary>
+    public IDictionary<BadExpression, BadExpression[]> ConditionalBranches => m_ConditionalBranches;
 
-        /// <summary>
-        ///     Constructor of the If Expression
-        /// </summary>
-        /// <param name="branches">The Conditional Branches</param>
-        /// <param name="elseBranch">The (optional) Else Branch</param>
-        /// <param name="position">Source Position of the Expression</param>
-        public BadIfExpression(
-            Dictionary<BadExpression, BadExpression[]> branches,
-            BadExpression[]? elseBranch,
-            BadSourcePosition position) : base(false, position)
+    /// <summary>
+    ///     The (optional) Else Branch
+    /// </summary>
+    public IEnumerable<BadExpression>? ElseBranch => m_ElseBranch;
+
+    public override void Optimize()
+    {
+        KeyValuePair<BadExpression, BadExpression[]>[] branches = m_ConditionalBranches.ToArray();
+        m_ConditionalBranches.Clear();
+        foreach (KeyValuePair<BadExpression, BadExpression[]> branch in branches)
         {
-            m_ConditionalBranches = branches;
-            m_ElseBranch = elseBranch;
+            m_ConditionalBranches[BadExpressionOptimizer.Optimize(branch.Key)] =
+                BadExpressionOptimizer.Optimize(branch.Value).ToArray();
         }
 
-        /// <summary>
-        ///     The Conditional Branches
-        /// </summary>
-        public IDictionary<BadExpression, BadExpression[]> ConditionalBranches => m_ConditionalBranches;
-
-        /// <summary>
-        ///     The (optional) Else Branch
-        /// </summary>
-        public IEnumerable<BadExpression>? ElseBranch => m_ElseBranch;
-
-        public override void Optimize()
+        if (m_ElseBranch != null)
         {
-            KeyValuePair<BadExpression, BadExpression[]>[] branches = m_ConditionalBranches.ToArray();
-            m_ConditionalBranches.Clear();
-            foreach (KeyValuePair<BadExpression, BadExpression[]> branch in branches)
+            for (int i = 0; i < m_ElseBranch.Length; i++)
             {
-                m_ConditionalBranches[BadExpressionOptimizer.Optimize(branch.Key)] =
-                    BadExpressionOptimizer.Optimize(branch.Value).ToArray();
-            }
-
-            if (m_ElseBranch != null)
-            {
-                for (int i = 0; i < m_ElseBranch.Length; i++)
-                {
-                    m_ElseBranch[i] = BadExpressionOptimizer.Optimize(m_ElseBranch[i]);
-                }
+                m_ElseBranch[i] = BadExpressionOptimizer.Optimize(m_ElseBranch[i]);
             }
         }
+    }
 
-        protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        foreach (KeyValuePair<BadExpression, BadExpression[]> keyValuePair in m_ConditionalBranches)
         {
-            foreach (KeyValuePair<BadExpression, BadExpression[]> keyValuePair in m_ConditionalBranches)
+            BadObject conditionResult = BadObject.Null;
+            foreach (BadObject o in keyValuePair.Key.Execute(context))
             {
-                BadObject conditionResult = BadObject.Null;
-                foreach (BadObject o in keyValuePair.Key.Execute(context))
-                {
-                    conditionResult = o;
+                conditionResult = o;
 
-                    yield return o;
-                }
-
-                conditionResult = conditionResult.Dereference();
-
-                if (conditionResult is not IBadBoolean cBool)
-                {
-                    throw new BadRuntimeException("Condition must be a boolean", Position);
-                }
-
-                if (cBool.Value)
-                {
-                    BadExecutionContext branchContext = new BadExecutionContext(
-                        context.Scope.CreateChild(
-                            "IfBranch",
-                            context.Scope
-                        )
-                    );
-                    foreach (BadObject o in branchContext.Execute(keyValuePair.Value))
-                    {
-                        yield return o;
-                    }
-
-                    yield break;
-                }
+                yield return o;
             }
 
-            if (m_ElseBranch is not null)
+            conditionResult = conditionResult.Dereference();
+
+            if (conditionResult is not IBadBoolean cBool)
             {
-                BadExecutionContext elseContext = new BadExecutionContext(
+                throw new BadRuntimeException("Condition must be a boolean", Position);
+            }
+
+            if (cBool.Value)
+            {
+                BadExecutionContext branchContext = new BadExecutionContext(
                     context.Scope.CreateChild(
                         "IfBranch",
                         context.Scope
                     )
                 );
-                foreach (BadObject o in elseContext.Execute(m_ElseBranch))
+                foreach (BadObject o in branchContext.Execute(keyValuePair.Value))
                 {
                     yield return o;
                 }
+
+                yield break;
+            }
+        }
+
+        if (m_ElseBranch is not null)
+        {
+            BadExecutionContext elseContext = new BadExecutionContext(
+                context.Scope.CreateChild(
+                    "IfBranch",
+                    context.Scope
+                )
+            );
+            foreach (BadObject o in elseContext.Execute(m_ElseBranch))
+            {
+                yield return o;
             }
         }
     }

@@ -3,7 +3,6 @@ using System;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.NetHost;

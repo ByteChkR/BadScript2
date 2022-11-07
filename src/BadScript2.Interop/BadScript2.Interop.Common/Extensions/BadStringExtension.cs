@@ -6,223 +6,222 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
-namespace BadScript2.Interop.Common.Extensions
+namespace BadScript2.Interop.Common.Extensions;
+
+public class BadStringExtension : BadInteropExtension
 {
-    public class BadStringExtension : BadInteropExtension
+    private BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)
     {
-        private BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)
+        if (splitChar is not IBadString splitStr)
         {
-            if (splitChar is not IBadString splitStr)
-            {
-                throw new BadRuntimeException("splitChar must be a string");
-            }
-
-            bool skip = false;
-            if (skipEmpty is not IBadBoolean skipB)
-            {
-                if (skipEmpty != BadObject.Null)
-                {
-                    throw new BadRuntimeException("skipEmpty must be a boolean");
-                }
-            }
-            else
-            {
-                skip = skipB.Value;
-            }
-
-            return new BadArray(
-                str.Split(
-                        new[] { splitStr.Value },
-                        skip
-                            ? StringSplitOptions.RemoveEmptyEntries
-                            : StringSplitOptions.None
-                    )
-                    .Select(x => (BadObject)x)
-                    .ToList()
-            );
+            throw new BadRuntimeException("splitChar must be a string");
         }
 
-        protected override void AddExtensions()
+        bool skip = false;
+        if (skipEmpty is not IBadBoolean skipB)
         {
-            RegisterObject<string>(
+            if (skipEmpty != BadObject.Null)
+            {
+                throw new BadRuntimeException("skipEmpty must be a boolean");
+            }
+        }
+        else
+        {
+            skip = skipB.Value;
+        }
+
+        return new BadArray(
+            str.Split(
+                    new[] { splitStr.Value },
+                    skip
+                        ? StringSplitOptions.RemoveEmptyEntries
+                        : StringSplitOptions.None
+                )
+                .Select(x => (BadObject)x)
+                .ToList()
+        );
+    }
+
+    protected override void AddExtensions()
+    {
+        RegisterObject<string>(
+            "ToLower",
+            o => new BadDynamicInteropFunction(
                 "ToLower",
-                o => new BadDynamicInteropFunction(
-                    "ToLower",
-                    _ => o.ToLower()
-                )
-            );
-            RegisterObject<string>(
+                _ => o.ToLower()
+            )
+        );
+        RegisterObject<string>(
+            "ToUpper",
+            o => new BadDynamicInteropFunction(
                 "ToUpper",
-                o => new BadDynamicInteropFunction(
-                    "ToUpper",
-                    _ => o.ToUpper()
-                )
-            );
+                _ => o.ToUpper()
+            )
+        );
 
-            RegisterObject<string>("IsLetters", s => s.All(char.IsLetter));
-            RegisterObject<string>("IsDigits", s => s.All(char.IsLetter));
-            RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
+        RegisterObject<string>("IsLetters", s => s.All(char.IsLetter));
+        RegisterObject<string>("IsDigits", s => s.All(char.IsLetter));
+        RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
 
-            RegisterObject<string>(
+        RegisterObject<string>(
+            BadStaticKeys.ArrayAccessOperatorName,
+            s => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessOperatorName,
-                s => new BadDynamicInteropFunction<decimal>(
-                    BadStaticKeys.ArrayAccessOperatorName,
-                    (_, i) => s[(int)i].ToString(),
-                    "index"
-                )
-            );
-            RegisterObject<string>("Length", a => BadObject.Wrap((decimal)a.Length));
-            RegisterObject<string>(
+                (_, i) => s[(int)i].ToString(),
+                "index"
+            )
+        );
+        RegisterObject<string>("Length", a => BadObject.Wrap((decimal)a.Length));
+        RegisterObject<string>(
+            "Format",
+            s => new BadInteropFunction(
                 "Format",
-                s => new BadInteropFunction(
-                    "Format",
-                    args => string.Format(s, args.Cast<object?>().ToArray()),
-                    new BadFunctionParameter("args", false, false, true)
-                )
-            );
+                args => string.Format(s, args.Cast<object?>().ToArray()),
+                new BadFunctionParameter("args", false, false, true)
+            )
+        );
 
-            RegisterObject<string>(
+        RegisterObject<string>(
+            "Split",
+            s => new BadInteropFunction(
                 "Split",
-                s => new BadInteropFunction(
-                    "Split",
-                    args => StringSplit(s, args[0], args.Length == 2 ? args[1] : BadObject.Null),
-                    "splitStr",
-                    new BadFunctionParameter("skipEmpty", true, false, false)
-                )
-            );
+                args => StringSplit(s, args[0], args.Length == 2 ? args[1] : BadObject.Null),
+                "splitStr",
+                new BadFunctionParameter("skipEmpty", true, false, false)
+            )
+        );
 
-            //Substring
-            RegisterObject<string>(
+        //Substring
+        RegisterObject<string>(
+            "Substring",
+            s => new BadDynamicInteropFunction<decimal, decimal>(
                 "Substring",
-                s => new BadDynamicInteropFunction<decimal, decimal>(
-                    "Substring",
-                    (_, start, end) => s.Substring((int)start, (int)end),
-                    "start",
-                    "end"
-                )
-            );
+                (_, start, end) => s.Substring((int)start, (int)end),
+                "start",
+                "end"
+            )
+        );
 
-            //IndexOf
-            RegisterObject<string>(
+        //IndexOf
+        RegisterObject<string>(
+            "IndexOf",
+            s => new BadDynamicInteropFunction<string>(
                 "IndexOf",
-                s => new BadDynamicInteropFunction<string>(
-                    "IndexOf",
-                    (_, str) => (decimal)s.IndexOf(str, StringComparison.Ordinal)
-                )
-            );
+                (_, str) => (decimal)s.IndexOf(str, StringComparison.Ordinal)
+            )
+        );
 
-            RegisterObject<string>(
+        RegisterObject<string>(
+            "Contains",
+            s => new BadDynamicInteropFunction<string>(
                 "Contains",
-                s => new BadDynamicInteropFunction<string>(
-                    "Contains",
-                    (_, str) => s.Contains(str)
-                )
-            );
+                (_, str) => s.Contains(str)
+            )
+        );
 
-            //LastIndexOf
-            RegisterObject<string>(
+        //LastIndexOf
+        RegisterObject<string>(
+            "LastIndexOf",
+            s => new BadDynamicInteropFunction<string>(
                 "LastIndexOf",
-                s => new BadDynamicInteropFunction<string>(
-                    "LastIndexOf",
-                    (_, str) => (decimal)s.LastIndexOf(str, StringComparison.Ordinal)
-                )
-            );
+                (_, str) => (decimal)s.LastIndexOf(str, StringComparison.Ordinal)
+            )
+        );
 
-            //Replace
-            RegisterObject<string>(
+        //Replace
+        RegisterObject<string>(
+            "Replace",
+            s => new BadDynamicInteropFunction<string, string>(
                 "Replace",
-                s => new BadDynamicInteropFunction<string, string>(
-                    "Replace",
-                    (_, oldStr, newStr) => s.Replace(oldStr, newStr)
-                )
-            );
+                (_, oldStr, newStr) => s.Replace(oldStr, newStr)
+            )
+        );
 
-            //Trim
-            RegisterObject<string>(
+        //Trim
+        RegisterObject<string>(
+            "Trim",
+            s => new BadDynamicInteropFunction(
                 "Trim",
-                s => new BadDynamicInteropFunction(
-                    "Trim",
-                    _ => s.Trim()
-                )
-            );
+                _ => s.Trim()
+            )
+        );
 
-            //TrimStart
-            RegisterObject<string>(
+        //TrimStart
+        RegisterObject<string>(
+            "TrimStart",
+            s => new BadDynamicInteropFunction(
                 "TrimStart",
-                s => new BadDynamicInteropFunction(
-                    "TrimStart",
-                    _ => s.TrimStart()
-                )
-            );
+                _ => s.TrimStart()
+            )
+        );
 
-            //TrimEnd
-            RegisterObject<string>(
+        //TrimEnd
+        RegisterObject<string>(
+            "TrimEnd",
+            s => new BadDynamicInteropFunction(
                 "TrimEnd",
-                s => new BadDynamicInteropFunction(
-                    "TrimEnd",
-                    _ => s.TrimEnd()
-                )
-            );
+                _ => s.TrimEnd()
+            )
+        );
 
-            //PadLeft
-            RegisterObject<string>(
+        //PadLeft
+        RegisterObject<string>(
+            "PadLeft",
+            s => new BadDynamicInteropFunction<decimal>(
                 "PadLeft",
-                s => new BadDynamicInteropFunction<decimal>(
-                    "PadLeft",
-                    (_, padding) => s.PadLeft((int)padding),
-                    "padding"
-                )
-            );
+                (_, padding) => s.PadLeft((int)padding),
+                "padding"
+            )
+        );
 
-            //PadRight
-            RegisterObject<string>(
+        //PadRight
+        RegisterObject<string>(
+            "PadRight",
+            s => new BadDynamicInteropFunction<decimal>(
                 "PadRight",
-                s => new BadDynamicInteropFunction<decimal>(
-                    "PadRight",
-                    (_, padding) => s.PadRight((int)padding),
-                    "padding"
-                )
-            );
+                (_, padding) => s.PadRight((int)padding),
+                "padding"
+            )
+        );
 
-            //Remove
-            RegisterObject<string>(
+        //Remove
+        RegisterObject<string>(
+            "Remove",
+            s => new BadDynamicInteropFunction<decimal, decimal>(
                 "Remove",
-                s => new BadDynamicInteropFunction<decimal, decimal>(
-                    "Remove",
-                    (_, start, count) => s.Remove((int)start, (int)count),
-                    "start",
-                    "count"
-                )
-            );
+                (_, start, count) => s.Remove((int)start, (int)count),
+                "start",
+                "count"
+            )
+        );
 
-            //Insert
-            RegisterObject<string>(
+        //Insert
+        RegisterObject<string>(
+            "Insert",
+            s => new BadDynamicInteropFunction<decimal, string>(
                 "Insert",
-                s => new BadDynamicInteropFunction<decimal, string>(
-                    "Insert",
-                    (_, index, str) => s.Insert((int)index, str),
-                    "index",
-                    "str"
-                )
-            );
+                (_, index, str) => s.Insert((int)index, str),
+                "index",
+                "str"
+            )
+        );
 
-            //EndsWith
-            RegisterObject<string>(
+        //EndsWith
+        RegisterObject<string>(
+            "EndsWith",
+            s => new BadDynamicInteropFunction<string>(
                 "EndsWith",
-                s => new BadDynamicInteropFunction<string>(
-                    "EndsWith",
-                    (_, str) => s.EndsWith(str, StringComparison.Ordinal)
-                )
-            );
+                (_, str) => s.EndsWith(str, StringComparison.Ordinal)
+            )
+        );
 
-            //StartsWith
-            RegisterObject<string>(
+        //StartsWith
+        RegisterObject<string>(
+            "StartsWith",
+            s => new BadDynamicInteropFunction<string>(
                 "StartsWith",
-                s => new BadDynamicInteropFunction<string>(
-                    "StartsWith",
-                    (_, str) => s.StartsWith(str, StringComparison.Ordinal)
-                )
-            );
-        }
+                (_, str) => s.StartsWith(str, StringComparison.Ordinal)
+            )
+        );
     }
 }

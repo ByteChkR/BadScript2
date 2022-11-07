@@ -1,13 +1,12 @@
-namespace BadScript2.Runtime.Objects.Native
+namespace BadScript2.Runtime.Objects.Native;
+
+/// <summary>
+///     Implements the Interface for Native Boolean
+/// </summary>
+public interface IBadBoolean : IBadNative
 {
     /// <summary>
-    ///     Implements the Interface for Native Boolean
+    ///     The Boolean Value
     /// </summary>
-    public interface IBadBoolean : IBadNative
-    {
-        /// <summary>
-        ///     The Boolean Value
-        /// </summary>
-        new bool Value { get; }
-    }
+    new bool Value { get; }
 }
