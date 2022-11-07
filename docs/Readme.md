@@ -16,6 +16,26 @@ Follow these steps to get started.
 
 Currently it is only possible to build the project from source. Binaries will be available on the first release.
 
+#### Using an installation script
+
+Tested on:
+- Windows 10 64-bit
+- Debian 11 (Bullseye)
+
+Requirements:
+- git
+- net6.0 SDK
+- Powershell 6.0 or greater
+
+
+Run this powershell snippet to install the Runtime in the current directory.
+```ps1
+Invoke-WebRequest -OutFile install.ps1 -Uri https://bs.byt3.dev/install.ps1;./install.ps1
+```
+
+> Update the Runtime by running `./install.ps1` again.
+
+
 #### Building from Source
 
 Tested on:
@@ -40,6 +60,7 @@ Requirements:
 
 `build.ps1` compiles the language project and builds all common libraries for the runtime.
 The Compiled output will be generated in `./build`.
+
 
 ### Hello World
 Create a file `helloworld.bs` with the following content:
