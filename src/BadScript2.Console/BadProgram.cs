@@ -33,54 +33,7 @@ namespace BadScript2.Console
     {
         private const string SETTINGS_FILE = "Settings.json";
 
-        private static void LinqTest()
-        {
-            while (true)
-            {
-                System.Console.WriteLine("BLINQ: ");
-                StringBuilder sb = new StringBuilder();
-                string? current = null;
-                while (current != "exit")
-                {
-                    if (current != null)
-                    {
-                        sb.AppendLine(current);
-                    }
-
-                    current = System.Console.ReadLine()!;
-                }
-
-                string statement = sb.ToString();
-                if (statement == "")
-                {
-                    return;
-                }
-
-                try
-                {
-                    IEnumerable result = BadLinqQuery.Parse(statement, AppDomain.CurrentDomain.GetAssemblies());
-
-                    object?[] arr = result.Cast<object?>().ToArray();
-
-                    if (arr.All(x => x is BadObject))
-                    {
-                        List<BadObject> objs = arr.Cast<BadObject>().ToList();
-                        System.Console.WriteLine(BadJson.ToJson(new BadArray(objs)));
-                    }
-                    else
-                    {
-                        foreach (object? item in arr)
-                        {
-                            System.Console.WriteLine(item);
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    System.Console.WriteLine(e);
-                }
-            }
-        }
+        
 
         private static void LoadSettings()
         {
@@ -167,10 +120,6 @@ namespace BadScript2.Console
                 new BadVirtualMachineManagerSystem(),
                 new BadVirtualMachineManagerClientSystem()
             );
-
-
-            //LinqTest();
-
 
             int r = runner.Run(args);
             lWriter?.Dispose();
