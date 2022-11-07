@@ -1,0 +1,5 @@
+<map id="BadEqualityExpression" name="BadEqualityExpression">
+<area shape="rect" id="node1" title="Implements the Equality Expression &lt;Left&gt; == &lt;Right&gt;" alt="" coords="5,155,163,181"/>
+<area shape="rect" id="node2" href="$class_bad_binary_expression.html" title="Base Implementation of all Binary Expressions" alt="" coords="11,80,157,107"/>
+<area shape="rect" id="node3" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="29,5,139,32"/>
+</map>

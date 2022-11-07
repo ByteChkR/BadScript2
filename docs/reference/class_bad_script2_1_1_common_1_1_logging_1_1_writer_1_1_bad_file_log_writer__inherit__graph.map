@@ -1,6 +1,0 @@
-<map id="BadScript2.Common.Logging.Writer.BadFileLogWriter" name="BadScript2.Common.Logging.Writer.BadFileLogWriter">
-<area shape="rect" id="node1" title="Implements a simple file writer for the log system" alt="" coords="5,229,200,271"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_stream_log_writer.html" title="Implements a simple stream writer for the log system" alt="" coords="31,155,174,181"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer.html" title="Base Class of all log writers" alt="" coords="52,80,153,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="58,5,147,32"/>
-</map>

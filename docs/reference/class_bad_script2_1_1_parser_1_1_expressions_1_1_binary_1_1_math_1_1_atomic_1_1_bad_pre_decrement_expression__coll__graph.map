@@ -1,5 +1,0 @@
-<map id="BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreDecrementExpression" name="BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreDecrementExpression">
-<area shape="rect" id="node1" title="Implements the Pre Decrement Expression" alt="" coords="29,109,276,165"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="5,13,116,39"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="141,5,349,47"/>
-</map>

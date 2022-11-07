@@ -1,5 +1,0 @@
-var class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object_prototype =
-[
-    [ "BadReflectedObjectPrototype", "class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object_prototype.html#afaf74fef182c05e105df8a2b1a79d882", null ],
-    [ "Constructor", "class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object_prototype.html#ae2cc2c93f550b0e059d337dc5ad1f5de", null ]
-];

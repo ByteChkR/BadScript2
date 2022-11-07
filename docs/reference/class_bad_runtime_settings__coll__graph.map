@@ -1,0 +1,5 @@
+<map id="BadRuntimeSettings" name="BadRuntimeSettings">
+<area shape="rect" id="node1" title="Provides runtime settings." alt="" coords="25,185,167,212"/>
+<area shape="rect" id="node2" href="$class_bad_settings_provider.html" title=" " alt="" coords="176,95,341,136"/>
+<area shape="rect" id="node3" href="$class_bad_settings.html" title="Public Api for the Settings System" alt="" coords="5,5,99,32"/>
+</map>

@@ -1,0 +1,35 @@
+<map id="BadBinaryOperator" name="BadBinaryOperator">
+<area shape="rect" id="node1" title="Base class for all binary operators" alt="" coords="148,765,280,792"/>
+<area shape="rect" id="node3" href="$class_bad_add_assign_operator.html" title="Implements the Add Assign Operator" alt="" coords="359,5,518,32"/>
+<area shape="rect" id="node4" href="$class_bad_add_operator.html" title="Implements the Add Operator" alt="" coords="379,56,498,83"/>
+<area shape="rect" id="node5" href="$class_bad_assign_operator.html" title="Implements the Assign Operator" alt="" coords="371,107,506,133"/>
+<area shape="rect" id="node6" href="$class_bad_divide_assign_operator.html" title="Implements the Divide Assign Operator" alt="" coords="354,157,523,184"/>
+<area shape="rect" id="node7" href="$class_bad_divide_operator.html" title="Implements the Divide Operator" alt="" coords="374,208,503,235"/>
+<area shape="rect" id="node8" href="$class_bad_equality_operator.html" title="Implements the Equality Operator" alt="" coords="367,259,510,285"/>
+<area shape="rect" id="node9" href="$class_bad_greater_or_equal_operator.html" title="Implements the Greater or Equal Operator" alt="" coords="346,309,531,336"/>
+<area shape="rect" id="node10" href="$class_bad_greater_than_operator.html" title="Implements the Greater Than Operator" alt="" coords="355,360,522,387"/>
+<area shape="rect" id="node11" href="$class_bad_inequality_operator.html" title="Implements the Inequality Operator" alt="" coords="363,411,514,437"/>
+<area shape="rect" id="node12" href="$class_bad_less_or_equal_operator.html" title="Implements the Less or Equal Operator" alt="" coords="353,461,524,488"/>
+<area shape="rect" id="node13" href="$class_bad_less_than_operator.html" title="Implements the Less Than Operator" alt="" coords="363,512,514,539"/>
+<area shape="rect" id="node14" href="$class_bad_logic_and_operator.html" title="Implements the Logic And Operator" alt="" coords="364,563,513,589"/>
+<area shape="rect" id="node15" href="$class_bad_logic_assign_and_operator.html" title="Implements the Logic And Assign Operator" alt="" coords="344,613,533,640"/>
+<area shape="rect" id="node16" href="$class_bad_logic_assign_or_operator.html" title="Implements the Logic Or Assign Operator" alt="" coords="349,664,529,691"/>
+<area shape="rect" id="node17" href="$class_bad_logic_assign_x_or_operator.html" title="Implements the Logic Exclusive Or Assign Operator" alt="" coords="345,715,532,741"/>
+<area shape="rect" id="node18" href="$class_bad_logic_or_operator.html" title="Implements the Logic Or Operator" alt="" coords="369,765,509,792"/>
+<area shape="rect" id="node19" href="$class_bad_logic_x_or_operator.html" title="Implements the Logic Exclusive Or Operator" alt="" coords="365,816,512,843"/>
+<area shape="rect" id="node20" href="$class_bad_member_access_operator.html" title="Implements the Member Access Operator" alt="" coords="345,867,532,893"/>
+<area shape="rect" id="node21" href="$class_bad_modulus_assign_operator.html" title="Implements the Modulus Assign Operator" alt="" coords="347,917,531,944"/>
+<area shape="rect" id="node22" href="$class_bad_modulus_operator.html" title="Implements the Modulus Operator" alt="" coords="367,968,511,995"/>
+<area shape="rect" id="node23" href="$class_bad_multiply_assign_operator.html" title="Implements the Multiply Assign Operator" alt="" coords="349,1019,529,1045"/>
+<area shape="rect" id="node24" href="$class_bad_multiply_operator.html" title="Implements the Multiply Operator" alt="" coords="369,1069,509,1096"/>
+<area shape="rect" id="node25" href="$class_bad_null_checked_member_access_operator.html" title="Implements the Null&#45;Checked Member Access Operator" alt="" coords="334,1121,543,1162"/>
+<area shape="rect" id="node26" href="$class_bad_null_coalescing_assign_operator.html" title="Implements the Null&#45;Coalescing Assign Operator" alt="" coords="328,1187,549,1213"/>
+<area shape="rect" id="node27" href="$class_bad_null_coalescing_operator.html" title="Implements the Null&#45;Coalescing Operator" alt="" coords="348,1237,529,1264"/>
+<area shape="rect" id="node28" href="$class_bad_post_decrement_operator.html" title="Implements the Post Decrement Operator" alt="" coords="346,1288,531,1315"/>
+<area shape="rect" id="node29" href="$class_bad_post_increment_operator.html" title="Implements the Post Increment Operator" alt="" coords="349,1339,528,1365"/>
+<area shape="rect" id="node30" href="$class_bad_range_operator.html" title="Implements the Range Operator" alt="" coords="373,1389,505,1416"/>
+<area shape="rect" id="node31" href="$class_bad_subtract_assign_operator.html" title="Implements the Subtract Assign Operator" alt="" coords="347,1440,531,1467"/>
+<area shape="rect" id="node32" href="$class_bad_subtract_operator.html" title="Implements the Subtract Operator" alt="" coords="367,1491,511,1517"/>
+<area shape="rect" id="node33" href="$class_bad_ternary_operator.html" title="Implements the Ternary Operator" alt="" coords="369,1541,508,1568"/>
+<area shape="rect" id="node2" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="5,765,100,792"/>
+</map>

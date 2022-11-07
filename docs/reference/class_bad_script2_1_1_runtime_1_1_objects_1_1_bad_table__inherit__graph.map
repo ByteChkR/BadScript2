@@ -1,6 +1,0 @@
-<map id="BadScript2.Runtime.Objects.BadTable" name="BadScript2.Runtime.Objects.BadTable">
-<area shape="rect" id="node1" title="Implements a Table Structure for the BadScript Language" alt="" coords="13,155,203,196"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="5,80,88,107"/>
-<area shape="rect" id="node3" href="$interface_bad_script2_1_1_runtime_1_1_interop_1_1_i_bad_enumerable.html" title=" " alt="" coords="112,80,229,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="81,5,260,32"/>
-</map>

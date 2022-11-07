@@ -1,5 +1,0 @@
-<map id="BadScript2.Parser.Operators.Binary.Comparison.BadInequalityOperator" name="BadScript2.Parser.Operators.Binary.Comparison.BadInequalityOperator">
-<area shape="rect" id="node1" title="Implements the Inequality Operator" alt="" coords="5,155,220,211"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="47,80,179,107"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html" title="Base Class of All Operators" alt="" coords="65,5,160,32"/>
-</map>

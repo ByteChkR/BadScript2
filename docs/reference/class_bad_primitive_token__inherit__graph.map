@@ -1,0 +1,8 @@
+<map id="BadPrimitiveToken" name="BadPrimitiveToken">
+<area shape="rect" id="node1" title="Base class for all primitive tokens" alt="" coords="212,80,341,107"/>
+<area shape="rect" id="node3" href="$class_bad_boolean_token.html" title="Implements a Token that represents a Boolean" alt="" coords="5,155,132,181"/>
+<area shape="rect" id="node4" href="$class_bad_null_token.html" title="Implements a Null token" alt="" coords="156,155,259,181"/>
+<area shape="rect" id="node5" href="$class_bad_number_token.html" title="Implements a Token that represents a Number" alt="" coords="283,155,409,181"/>
+<area shape="rect" id="node6" href="$class_bad_string_token.html" title="Implements a Token that represents a String" alt="" coords="433,155,547,181"/>
+<area shape="rect" id="node2" href="$class_bad_token.html" title="Base Class for All tokens." alt="" coords="237,5,317,32"/>
+</map>

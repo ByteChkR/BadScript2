@@ -1,5 +1,0 @@
-<map id="BadScript2.Parser.Operators.Binary.Math.BadMultiplyOperator" name="BadScript2.Parser.Operators.Binary.Math.BadMultiplyOperator">
-<area shape="rect" id="node1" title="Implements the Multiply Operator" alt="" coords="5,155,220,196"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="47,80,179,107"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html" title="Base Class of All Operators" alt="" coords="65,5,160,32"/>
-</map>

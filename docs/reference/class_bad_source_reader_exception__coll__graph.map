@@ -1,0 +1,7 @@
+<map id="BadSourceReaderException" name="BadSourceReaderException">
+<area shape="rect" id="node1" title="Gets Raised if the Reader encounters an Error" alt="" coords="18,247,203,273"/>
+<area shape="rect" id="node2" href="$class_bad_parse_exception.html" title="Base Class for all BadScript Parser Exceptions" alt="" coords="42,171,179,197"/>
+<area shape="rect" id="node3" href="$class_bad_script_exception.html" title=" " alt="" coords="42,95,179,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,5,85,32"/>
+<area shape="rect" id="node5" href="$class_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="109,5,243,32"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="BadClass" name="BadClass">
+<area shape="rect" id="node1" title="Implements a Type Instance in the BadScript Language" alt="" coords="185,267,263,293"/>
+<area shape="rect" id="node2" href="$class_bad_object.html" title=" " alt="" coords="183,90,265,117"/>
+<area shape="rect" id="node3" href="$class_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="57,176,133,203"/>
+<area shape="rect" id="node6" href="$class_bad_class_prototype.html" title="Implements a Class Prototype for the BadScript Language" alt="" coords="157,176,291,203"/>
+<area shape="rect" id="node4" href="$interface_i_bad_enumerable.html" title=" " alt="" coords="36,90,153,117"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,5,184,32"/>
+</map>

@@ -1,7 +1,0 @@
-<map id="BadScript2.Runtime.Objects.BadObject.BadNullObject" name="BadScript2.Runtime.Objects.BadObject.BadNullObject">
-<area shape="rect" id="node1" title="Implementation for the null&#45;value" alt="" coords="156,217,347,259"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="158,141,241,168"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" title=" " alt="" coords="5,7,196,48"/>
-<area shape="rect" id="node4" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html" title="Defines properties for Native Types" alt="" coords="305,141,387,168"/>
-<area shape="rect" id="node5" title=" " alt="" coords="282,14,450,41"/>
-</map>

@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['settings_0',['Settings',['../class_bad_script2_1_1_settings_1_1_bad_settings_provider.html#a667bc0c5207a4c5b357681df71a068c4',1,'BadScript2::Settings::BadSettingsProvider']]],
-  ['source_1',['Source',['../class_bad_script2_1_1_common_1_1_bad_source_position.html#a67f8312ad922c2642f5426b38814a495',1,'BadScript2::Common::BadSourcePosition']]],
-  ['stacktrace_2',['StackTrace',['../class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error.html#acb70d893f64ee43b0defbe5eeeaeee18',1,'BadScript2::Runtime::Error::BadRuntimeError']]],
-  ['startuparguments_3',['StartupArguments',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba',1,'BadScript2::Interop::Common::Apis::BadRuntimeApi']]],
-  ['startupdirectory_4',['StartupDirectory',['../class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_run_system.html#a13d6c22d3062480bcc70c4f58cac9b8a',1,'BadScript2::ConsoleCore::Systems::Run::BadRunSystem']]],
-  ['superclass_5',['SuperClass',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a587fc486ed8a574df1a20d9477a805e8',1,'BadScript2::Runtime::Objects::Types::BadClass']]],
-  ['symbol_6',['Symbol',['../class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html#a5fff44c819f11410023283826b51b979',1,'BadScript2::Parser::Operators::BadOperator']]]
+  ['settings_0',['Settings',['../class_bad_settings_provider.html#a46187aaacb38ac555752966a509635f4',1,'BadSettingsProvider']]],
+  ['source_1',['Source',['../class_bad_source_position.html#a5f94bd945fa08880598297c3681b6b4d',1,'BadSourcePosition']]],
+  ['stacktrace_2',['StackTrace',['../class_bad_runtime_error.html#a75aba3a6984ae415a9ae6c1071f497fb',1,'BadRuntimeError']]],
+  ['startuparguments_3',['StartupArguments',['../class_bad_runtime_api.html#a0b64d363c6be5abf4711890b7181ea52',1,'BadRuntimeApi']]],
+  ['startupdirectory_4',['StartupDirectory',['../class_bad_run_system.html#a4785cdf631461976a324881a0b6506dd',1,'BadRunSystem']]],
+  ['superclass_5',['SuperClass',['../class_bad_class.html#a77d0e4b3f3cb0345e7a1b84fec8f2065',1,'BadClass']]],
+  ['symbol_6',['Symbol',['../class_bad_operator.html#ace626c8f06e71ef00a8908bd7442d8ed',1,'BadOperator']]]
 ];

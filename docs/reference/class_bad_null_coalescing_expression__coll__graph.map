@@ -1,0 +1,5 @@
+<map id="BadNullCoalescingExpression" name="BadNullCoalescingExpression">
+<area shape="rect" id="node1" title="Implements the Null Coalescing Expression &lt;Left&gt; ?? &lt;Right&gt;" alt="" coords="5,155,201,181"/>
+<area shape="rect" id="node2" href="$class_bad_binary_expression.html" title="Base Implementation of all Binary Expressions" alt="" coords="30,80,177,107"/>
+<area shape="rect" id="node3" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="48,5,159,32"/>
+</map>

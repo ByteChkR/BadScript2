@@ -1,0 +1,4 @@
+<map id="BadInvocationExpression" name="BadInvocationExpression">
+<area shape="rect" id="node1" title="Implements the Invocation Expression" alt="" coords="5,95,172,121"/>
+<area shape="rect" id="node2" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="33,5,144,32"/>
+</map>

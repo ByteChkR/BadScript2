@@ -1,13 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html" title="Public Extension API for the BS2 Runtime" alt="" coords="5,300,191,341"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_array_extension.html" title=" " alt="" coords="260,5,463,47"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_function_extension.html" title=" " alt="" coords="250,71,473,112"/>
-<area shape="rect" id="node4" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_object_extension.html" title=" " alt="" coords="256,136,467,177"/>
-<area shape="rect" id="node5" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_scope_extension.html" title=" " alt="" coords="257,201,466,243"/>
-<area shape="rect" id="node6" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html" title=" " alt="" coords="258,267,465,308"/>
-<area shape="rect" id="node7" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_table_extension.html" title=" " alt="" coords="260,332,463,373"/>
-<area shape="rect" id="node8" href="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_type_system_extension.html" title=" " alt="" coords="239,397,484,439"/>
-<area shape="rect" id="node9" href="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html" title=" " alt="" coords="267,463,456,504"/>
-<area shape="rect" id="node10" href="$class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html" title=" " alt="" coords="281,528,442,569"/>
-<area shape="rect" id="node11" href="$class_bad_script2_1_1_interop_1_1_net_1_1_bad_net_interop_extensions.html" title=" " alt="" coords="271,593,451,635"/>
+<area shape="rect" id="node1" href="$class_bad_operator_table.html" title="Implements the Operator Table used by the Parser" alt="" coords="5,5,132,32"/>
 </map>

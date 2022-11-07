@@ -1,0 +1,5 @@
+<map id="BadPostDecrementOperator" name="BadPostDecrementOperator">
+<area shape="rect" id="node1" title="Implements the Post Decrement Operator" alt="" coords="5,155,191,181"/>
+<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="32,80,164,107"/>
+<area shape="rect" id="node3" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="51,5,145,32"/>
+</map>

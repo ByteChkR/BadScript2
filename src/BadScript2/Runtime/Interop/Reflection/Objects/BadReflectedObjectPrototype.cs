@@ -4,7 +4,7 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
-internal class BadReflectedObjectPrototype : BadNativeClassPrototype
+internal class BadReflectedObjectPrototype : BadANativeClassPrototype
 {
     internal BadReflectedObjectPrototype() : base("BadReflectedObject", Constructor) { }
 

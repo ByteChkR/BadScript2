@@ -1,4 +1,0 @@
-<map id="BadScript2.Parser.Expressions.ControlFlow.BadThrowExpression" name="BadScript2.Parser.Expressions.ControlFlow.BadThrowExpression">
-<area shape="rect" id="node1" title="Implements the Throw Expression that is used to raise errors inside the Script" alt="" coords="5,80,221,121"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="58,5,169,32"/>
-</map>

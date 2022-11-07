@@ -1,3 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bad_virtual_machine_run_system_settings.html" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node1" href="$class_bad_token.html" title="Base Class for All tokens." alt="" coords="5,132,85,159"/>
+<area shape="rect" id="node2" href="$class_bad_primitive_token.html" title="Base class for all primitive tokens" alt="" coords="133,81,263,108"/>
+<area shape="rect" id="node7" href="$class_bad_symbol_token.html" title="Implements a Symbol Token" alt="" coords="136,132,260,159"/>
+<area shape="rect" id="node8" href="$class_bad_word_token.html" title="Implements a WordToken" alt="" coords="143,183,253,209"/>
+<area shape="rect" id="node3" href="$class_bad_boolean_token.html" title="Implements a Token that represents a Boolean" alt="" coords="311,5,437,32"/>
+<area shape="rect" id="node4" href="$class_bad_null_token.html" title="Implements a Null token" alt="" coords="323,56,425,83"/>
+<area shape="rect" id="node5" href="$class_bad_number_token.html" title="Implements a Token that represents a Number" alt="" coords="311,107,437,133"/>
+<area shape="rect" id="node6" href="$class_bad_string_token.html" title="Implements a Token that represents a String" alt="" coords="317,157,431,184"/>
 </map>

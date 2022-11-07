@@ -1,0 +1,13 @@
+<map id="BadInteractiveConsoleApi" name="BadInteractiveConsoleApi">
+<area shape="rect" id="node1" title=" " alt="" coords="681,356,851,383"/>
+<area shape="rect" id="node3" href="$class_bad_interactive_console.html" title=" " alt="" coords="508,445,659,472"/>
+<area shape="rect" id="node2" href="$class_bad_interop_api.html" title="Implements an Interop API for the BS2 Language" alt="" coords="715,265,817,292"/>
+<area shape="rect" id="node4" href="$class_bad_execution_context_options.html" title="Provides settings for creating a new BadExecutionContext" alt="" coords="5,356,199,383"/>
+<area shape="rect" id="node5" href="$class_bad_task_runner.html" title=" " alt="" coords="293,356,407,383"/>
+<area shape="rect" id="node6" href="$class_bad_execution_context.html" title="The Execution Context. Every execution of a script needs a context the script is running in...." alt="" coords="509,356,657,383"/>
+<area shape="rect" id="node7" href="$class_bad_scope.html" title="Implements the Scope for the Script Engine" alt="" coords="542,265,625,292"/>
+<area shape="rect" id="node8" href="$class_bad_object.html" title=" " alt="" coords="521,90,603,117"/>
+<area shape="rect" id="node9" href="$class_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="600,175,676,201"/>
+<area shape="rect" id="node10" href="$interface_i_bad_enumerable.html" title=" " alt="" coords="689,90,806,117"/>
+<area shape="rect" id="node11" title=" " alt="" coords="658,5,837,32"/>
+</map>

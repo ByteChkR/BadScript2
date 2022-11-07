@@ -1,5 +1,0 @@
-<map id="BadScript2.Reader.Token.Primitive.BadStringToken" name="BadScript2.Reader.Token.Primitive.BadStringToken">
-<area shape="rect" id="node1" title="Implements a Token that represents a String" alt="" coords="5,155,180,196"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_reader_1_1_token_1_1_primitive_1_1_bad_primitive_token.html" title="Base class for all primitive tokens" alt="" coords="28,80,157,107"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_reader_1_1_token_1_1_bad_token.html" title="Base Class for All tokens." alt="" coords="53,5,133,32"/>
-</map>

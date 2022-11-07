@@ -1,0 +1,5 @@
+<map id="BadStreamLogWriter" name="BadStreamLogWriter">
+<area shape="rect" id="node1" title="Implements a simple stream writer for the log system" alt="" coords="5,155,148,181"/>
+<area shape="rect" id="node2" href="$class_bad_log_writer.html" title="Base Class of all log writers" alt="" coords="26,80,127,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="32,5,121,32"/>
+</map>

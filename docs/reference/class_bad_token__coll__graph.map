@@ -1,0 +1,4 @@
+<map id="BadToken" name="BadToken">
+<area shape="rect" id="node1" title="Base Class for All tokens." alt="" coords="32,95,112,121"/>
+<area shape="rect" id="node2" href="$class_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="5,5,139,32"/>
+</map>

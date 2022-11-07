@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['unregister_0',['Unregister',['../class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer.html#a7f7656ad3ff8ec343cb941500085c3d2',1,'BadScript2::Common::Logging::Writer::BadLogWriter']]],
-  ['unseterror_1',['UnsetError',['../class_bad_scope.html#adedfa4e0630569353d2229e993dcc1e0',1,'BadScope']]],
-  ['unwrap_2',['Unwrap',['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper.html#a6ed42528192a14599a6a9e5d00ecf071',1,'BadScript2::Runtime::Interop::BadInteropHelper']]],
-  ['unwrap_3c_20t_20_3e_3',['Unwrap&lt; T &gt;',['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper.html#ac3c7e9b9a0771cf73c8abd499dae88f9',1,'BadScript2::Runtime::Interop::BadInteropHelper']]]
+  ['unpack_0',['Unpack',['../class_bad_linq_extensions.html#aae407a480a080fd9f2488d7af1d350af',1,'BadLinqExtensions']]],
+  ['unregister_1',['Unregister',['../class_bad_log_writer.html#a088a190e0d32f115bda462abe87ff007',1,'BadLogWriter']]],
+  ['unseterror_2',['UnsetError',['../class_bad_scope.html#adedfa4e0630569353d2229e993dcc1e0',1,'BadScope']]],
+  ['unwrap_3',['Unwrap',['../class_bad_interop_helper.html#ae677caeafcdd1d516df7fc83dc1f59f8',1,'BadInteropHelper']]],
+  ['unwrap_3c_20t_20_3e_4',['Unwrap&lt; T &gt;',['../class_bad_interop_helper.html#a6c61bf57f076e636cd8205d7c93fe281',1,'BadInteropHelper']]]
 ];

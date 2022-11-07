@@ -1,11 +1,12 @@
 <map id="src/BadScript2.Interop" name="src/BadScript2.Interop">
-<area shape="rect" id="node2" href="dir_ecb14d9ba8a6a02f07f219f62488e64b.html" title="BadScript2.Interop.Common" alt="" coords="1175,63,1361,111"/>
-<area shape="rect" id="node3" href="dir_ac5aff37269068bb947214021cf1171a.html" title="BadScript2.Interop.Compression" alt="" coords="942,63,1151,111"/>
-<area shape="rect" id="node4" href="dir_49c13e43f2b1587b32c6a0305c756d54.html" title="BadScript2.Interop.IO" alt="" coords="771,63,917,111"/>
-<area shape="rect" id="node5" href="dir_15b07b868da8456af59cf54e67eb097c.html" title="BadScript2.Interop.Json" alt="" coords="587,63,747,111"/>
-<area shape="rect" id="node6" href="dir_017c0b63efe24195c060d47225a5ca49.html" title="BadScript2.Interop.Linq" alt="" coords="405,63,563,111"/>
-<area shape="rect" id="node7" href="dir_1da2cc97bb824d1dcd7b590ba0de76a0.html" title="BadScript2.Interop.Net" alt="" coords="227,63,381,111"/>
-<area shape="rect" id="node8" href="dir_3b671f7b4efeee1fc6fd931313875674.html" title="BadScript2.Interop.NUnit" alt="" coords="37,63,203,111"/>
-<area shape="rect" id="clust2" href="dir_743d4fc473248ca03e83ba8b0a438d7a.html" alt="" coords="27,52,1525,121"/>
-<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="16,16,1536,132"/>
+<area shape="rect" id="node2" href="dir_ecb14d9ba8a6a02f07f219f62488e64b.html" title="BadScript2.Interop.Common" alt="" coords="1379,63,1565,111"/>
+<area shape="rect" id="node3" href="dir_ac5aff37269068bb947214021cf1171a.html" title="BadScript2.Interop.Compression" alt="" coords="1146,63,1355,111"/>
+<area shape="rect" id="node4" href="dir_49c13e43f2b1587b32c6a0305c756d54.html" title="BadScript2.Interop.IO" alt="" coords="975,63,1121,111"/>
+<area shape="rect" id="node5" href="dir_15b07b868da8456af59cf54e67eb097c.html" title="BadScript2.Interop.Json" alt="" coords="791,63,951,111"/>
+<area shape="rect" id="node6" href="dir_017c0b63efe24195c060d47225a5ca49.html" title="BadScript2.Interop.Linq" alt="" coords="609,63,767,111"/>
+<area shape="rect" id="node7" href="dir_1da2cc97bb824d1dcd7b590ba0de76a0.html" title="BadScript2.Interop.Net" alt="" coords="431,63,585,111"/>
+<area shape="rect" id="node8" href="dir_ea05d808567f9508a34bace8233d9efc.html" title="BadScript2.Interop.NetHost" alt="" coords="227,63,407,111"/>
+<area shape="rect" id="node9" href="dir_3b671f7b4efeee1fc6fd931313875674.html" title="BadScript2.Interop.NUnit" alt="" coords="37,63,203,111"/>
+<area shape="rect" id="clust2" href="dir_743d4fc473248ca03e83ba8b0a438d7a.html" alt="" coords="27,52,1729,121"/>
+<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="16,16,1740,132"/>
 </map>

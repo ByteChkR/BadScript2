@@ -1,0 +1,5 @@
+<map id="BadLogicAssignAndExpression" name="BadLogicAssignAndExpression">
+<area shape="rect" id="node1" title="Implements the Assign Logic And Expression" alt="" coords="5,155,209,181"/>
+<area shape="rect" id="node2" href="$class_bad_binary_expression.html" title="Base Implementation of all Binary Expressions" alt="" coords="34,80,181,107"/>
+<area shape="rect" id="node3" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="52,5,163,32"/>
+</map>

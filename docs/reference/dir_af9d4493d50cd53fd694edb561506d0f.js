@@ -5,5 +5,5 @@ var dir_af9d4493d50cd53fd694edb561506d0f =
     [ "Settings", "dir_dcfe1a73ffcb42bf7f7a4c8b4fd2cf38.html", "dir_dcfe1a73ffcb42bf7f7a4c8b4fd2cf38" ],
     [ "Test", "dir_f666a6f9f7465b51c79bb39062e02789.html", "dir_f666a6f9f7465b51c79bb39062e02789" ],
     [ "VirtualMachine", "dir_b90bbc17659bdce0eb4bf6c6805d7bed.html", "dir_b90bbc17659bdce0eb4bf6c6805d7bed" ],
-    [ "BadConsoleSystem.cs", "_bad_console_system_8cs.html", "_bad_console_system_8cs" ]
+    [ "BadAConsoleSystem.cs", "_bad_a_console_system_8cs.html", "_bad_a_console_system_8cs" ]
 ];

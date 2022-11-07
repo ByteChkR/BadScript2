@@ -1,11 +1,12 @@
 var class_bad_scope =
 [
     [ "BadScope", "class_bad_scope.html#a7a3f3ad50d433ae33bc65fa3946fbfea", null ],
+    [ "BadScope", "class_bad_scope.html#ab8ecdc7bc5944a718e73ce9244fdb4f6", null ],
     [ "BadScope", "class_bad_scope.html#abb2f700b3cc55ae848e94ee90f824d43", null ],
     [ "AddSingleton< T >", "class_bad_scope.html#a0312ef191dbc93640e2ef77ff3f7a3fe", null ],
     [ "ClearCaptures", "class_bad_scope.html#afa49c2aed629d9af81187bec3fa295e0", null ],
     [ "CreateChild", "class_bad_scope.html#a831d352576b716d13f8b09794a5e0ee4", null ],
-    [ "CreateScope", "class_bad_scope.html#a8ecc4ec3ca40874b98ff83f292083f0b", null ],
+    [ "CreateScope", "class_bad_scope.html#aed77e88ccd9ba2b5b41658e99648f1f2", null ],
     [ "DefineVariable", "class_bad_scope.html#a1b0e505786279e15f6d79722106247b8", null ],
     [ "GetProperty", "class_bad_scope.html#a238ad7042fa4dd8df6e51856b28dc752", null ],
     [ "GetPrototype", "class_bad_scope.html#a7d938fdecca3e40007fe95333b403bf5", null ],

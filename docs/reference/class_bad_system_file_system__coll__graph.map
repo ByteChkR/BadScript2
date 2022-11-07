@@ -1,0 +1,4 @@
+<map id="BadSystemFileSystem" name="BadSystemFileSystem">
+<area shape="rect" id="node1" title="Implements a wrapper for the actual OS file system" alt="" coords="5,80,161,107"/>
+<area shape="rect" id="node2" href="$interface_i_file_system.html" title="Defines the interface for a file system" alt="" coords="38,5,129,32"/>
+</map>

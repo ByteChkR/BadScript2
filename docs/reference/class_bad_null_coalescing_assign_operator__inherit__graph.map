@@ -1,0 +1,5 @@
+<map id="BadNullCoalescingAssignOperator" name="BadNullCoalescingAssignOperator">
+<area shape="rect" id="node1" title="Implements the Null&#45;Coalescing Assign Operator" alt="" coords="5,155,227,181"/>
+<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="50,80,182,107"/>
+<area shape="rect" id="node3" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="69,5,163,32"/>
+</map>

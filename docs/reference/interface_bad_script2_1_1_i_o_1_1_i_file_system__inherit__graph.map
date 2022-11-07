@@ -1,5 +1,0 @@
-<map id="BadScript2.IO.IFileSystem" name="BadScript2.IO.IFileSystem">
-<area shape="rect" id="node1" title="Defines the interface for a file system" alt="" coords="119,5,295,32"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_i_o_1_1_bad_system_file_system.html" title="Implements a wrapper for the actual OS file system" alt="" coords="5,80,201,121"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_system.html" title="Virtual File System Implementation for the BadScript Engine" alt="" coords="226,80,397,121"/>
-</map>

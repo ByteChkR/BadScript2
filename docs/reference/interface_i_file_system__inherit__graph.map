@@ -1,0 +1,5 @@
+<map id="IFileSystem" name="IFileSystem">
+<area shape="rect" id="node1" title="Defines the interface for a file system" alt="" coords="126,5,217,32"/>
+<area shape="rect" id="node2" href="$class_bad_system_file_system.html" title="Implements a wrapper for the actual OS file system" alt="" coords="5,80,161,107"/>
+<area shape="rect" id="node3" href="$class_bad_virtual_file_system.html" title="Virtual File System Implementation for the BadScript Engine" alt="" coords="185,80,333,107"/>
+</map>

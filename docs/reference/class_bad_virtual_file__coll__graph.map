@@ -1,0 +1,4 @@
+<map id="BadVirtualFile" name="BadVirtualFile">
+<area shape="rect" id="node1" title="Implements a Virtual File System File" alt="" coords="10,80,113,107"/>
+<area shape="rect" id="node2" href="$class_bad_virtual_node.html" title="Base class for all Virtual Filesystem Nodes" alt="" coords="5,5,117,32"/>
+</map>

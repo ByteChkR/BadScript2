@@ -1,6 +1,0 @@
-<map id="BadScript2.IO.Virtual.BadVirtualNode" name="BadScript2.IO.Virtual.BadVirtualNode">
-<area shape="rect" id="node1" title="Base class for all Virtual Filesystem Nodes" alt="" coords="103,5,273,47"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_directory.html" title="Represents a Virtual File System Directory Entry" alt="" coords="5,95,176,136"/>
-<area shape="rect" id="node4" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file.html" title="Implements a Virtual File System File" alt="" coords="200,95,371,136"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_root.html" title="Implements a Virtual File System Root Directory" alt="" coords="5,184,176,225"/>
-</map>

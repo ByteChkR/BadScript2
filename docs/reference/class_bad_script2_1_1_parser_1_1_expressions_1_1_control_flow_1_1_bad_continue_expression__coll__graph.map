@@ -1,4 +1,0 @@
-<map id="BadScript2.Parser.Expressions.ControlFlow.BadContinueExpression" name="BadScript2.Parser.Expressions.ControlFlow.BadContinueExpression">
-<area shape="rect" id="node1" title="Implements the Break Expression that is used to skip a loop iteraion" alt="" coords="5,80,239,121"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="67,5,177,32"/>
-</map>

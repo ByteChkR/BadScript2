@@ -1,7 +1,0 @@
-<map id="BadScript2.Runtime.Objects.Native.BadString" name="BadScript2.Runtime.Objects.Native.BadString">
-<area shape="rect" id="node1" title="Implements a Native String" alt="" coords="45,229,235,271"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_native.html" title=" " alt="" coords="5,155,141,181"/>
-<area shape="rect" id="node3" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html" title="Implements the Interface for Native Strings" alt="" coords="165,155,248,181"/>
-<area shape="rect" id="node4" href="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html" title="Defines properties for Native Types" alt="" coords="165,80,248,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="123,5,291,32"/>
-</map>

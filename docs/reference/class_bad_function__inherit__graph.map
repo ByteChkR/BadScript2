@@ -1,0 +1,7 @@
+<map id="BadFunction" name="BadFunction">
+<area shape="rect" id="node1" title="Implements a function that can be called from the script" alt="" coords="136,127,231,154"/>
+<area shape="rect" id="node3" href="$class_bad_dynamic_interop_function.html" title=" " alt="" coords="279,105,464,176"/>
+<area shape="rect" id="node4" href="$class_bad_expression_function.html" title="The Expression Function Implementation used if a function gets defined in the Source Code." alt="" coords="291,201,451,227"/>
+<area shape="rect" id="node5" href="$class_bad_interop_function.html" title=" " alt="" coords="304,251,439,278"/>
+<area shape="rect" id="node2" href="$class_bad_object.html" title=" " alt="" coords="5,127,88,154"/>
+</map>

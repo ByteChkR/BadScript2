@@ -5,10 +5,10 @@ namespace BadScript2.ConsoleCore;
 
 public class BadConsoleRunner
 {
-    private readonly BadConsoleSystem m_Default;
-    private readonly BadConsoleSystem[] m_Systems;
+    private readonly BadAConsoleSystem m_Default;
+    private readonly BadAConsoleSystem[] m_Systems;
 
-    public BadConsoleRunner(BadConsoleSystem @default, params BadConsoleSystem[] systems)
+    public BadConsoleRunner(BadAConsoleSystem @default, params BadAConsoleSystem[] systems)
     {
         m_Default = @default;
         m_Systems = systems;
@@ -21,7 +21,7 @@ public class BadConsoleRunner
             BadConsole.WriteLine("No command specified.");
             BadConsole.WriteLine("Usage: bs <system> [args]");
             BadConsole.WriteLine("Available systems:");
-            foreach (BadConsoleSystem sys in m_Systems)
+            foreach (BadAConsoleSystem sys in m_Systems)
             {
                 BadConsole.WriteLine($"\t{sys.Name}");
             }
@@ -32,7 +32,7 @@ public class BadConsoleRunner
         }
 
         string name = args[0];
-        BadConsoleSystem? system = m_Systems.FirstOrDefault(x => x.Name == name);
+        BadAConsoleSystem? system = m_Systems.FirstOrDefault(x => x.Name == name);
 
         if (system == null)
         {

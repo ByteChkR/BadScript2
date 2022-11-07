@@ -53,7 +53,7 @@ public class BadNewExpression : BadExpression
     {
         BadObject obj = BadObject.Null;
 
-        if (proto is BadNativeClassPrototype nativeType)
+        if (proto is BadANativeClassPrototype nativeType)
         {
             foreach (BadObject o in nativeType.CreateInstance(context, args))
             {

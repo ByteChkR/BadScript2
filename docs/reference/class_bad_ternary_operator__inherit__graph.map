@@ -1,0 +1,5 @@
+<map id="BadTernaryOperator" name="BadTernaryOperator">
+<area shape="rect" id="node1" title="Implements the Ternary Operator" alt="" coords="5,155,144,181"/>
+<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="9,80,141,107"/>
+<area shape="rect" id="node3" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="27,5,122,32"/>
+</map>

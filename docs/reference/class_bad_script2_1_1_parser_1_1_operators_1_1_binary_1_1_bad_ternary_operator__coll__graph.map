@@ -1,5 +1,0 @@
-<map id="BadScript2.Parser.Operators.Binary.BadTernaryOperator" name="BadScript2.Parser.Operators.Binary.BadTernaryOperator">
-<area shape="rect" id="node1" title="Implements the Ternary Operator" alt="" coords="5,155,199,196"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="36,80,168,107"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html" title="Base Class of All Operators" alt="" coords="55,5,149,32"/>
-</map>

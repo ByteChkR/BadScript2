@@ -1,0 +1,6 @@
+<map id="BadLog" name="BadLog">
+<area shape="rect" id="node1" title="Represents a Log Message" alt="" coords="197,112,263,139"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,14,156,41"/>
+<area shape="rect" id="node3" href="$class_bad_log_mask.html" title="Implements a Mask for Log Messages" alt="" coords="181,14,279,41"/>
+<area shape="rect" id="node4" href="$class_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="369,14,502,41"/>
+</map>

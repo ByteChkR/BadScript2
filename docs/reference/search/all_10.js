@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['queueround_0',['QueueRound',['../struct_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7',1,'BadScript2::Utility::BadHashCode']]],
-  ['quote_1',['Quote',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a315af6e543687b0c64e411ea49065f12',1,'BadScript2::Common::BadStaticKeys']]]
+  ['queueround_0',['QueueRound',['../struct_bad_hash_code.html#a506c6045bc7e66521a100d582119aeeb',1,'BadHashCode']]],
+  ['quote_1',['Quote',['../class_bad_static_keys.html#a222be28dfc3ba22198aa9033117b15e4',1,'BadStaticKeys']]]
 ];

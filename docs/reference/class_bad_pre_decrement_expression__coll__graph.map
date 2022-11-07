@@ -1,0 +1,4 @@
+<map id="BadPreDecrementExpression" name="BadPreDecrementExpression">
+<area shape="rect" id="node1" title="Implements the Pre Decrement Expression" alt="" coords="5,95,199,121"/>
+<area shape="rect" id="node2" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="47,5,157,32"/>
+</map>

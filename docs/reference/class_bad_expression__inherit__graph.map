@@ -1,0 +1,51 @@
+<map id="BadExpression" name="BadExpression">
+<area shape="rect" id="node1" title="Base Implementation for all Expressions used inside the Script" alt="" coords="5,861,116,887"/>
+<area shape="rect" id="node2" href="$class_bad_constant_expression.html" title=" " alt="" coords="198,5,361,47"/>
+<area shape="rect" id="node4" href="$class_bad_constant_expression.html" title=" " alt="" coords="198,71,361,112"/>
+<area shape="rect" id="node6" href="$class_bad_constant_expression.html" title=" " alt="" coords="198,136,361,177"/>
+<area shape="rect" id="node8" href="$class_bad_array_access_expression.html" title="Implements the Array Access to set or get properties from an object. &lt;Left&gt;[&lt;Right&gt;]" alt="" coords="187,202,372,229"/>
+<area shape="rect" id="node9" href="$class_bad_array_access_reverse_expression.html" title="Implements the Reverse Array Access to set or get properties from an object. &lt;Left&gt;[^&lt;Right&gt;]" alt="" coords="164,253,395,279"/>
+<area shape="rect" id="node10" href="$class_bad_array_expression.html" title="Implements the Array Expression" alt="" coords="209,303,350,330"/>
+<area shape="rect" id="node11" href="$class_bad_assign_expression.html" title="Implements the Assign Expression &lt;Left&gt; = &lt;Right&gt;" alt="" coords="204,354,355,381"/>
+<area shape="rect" id="node12" href="$class_bad_await_expression.html" title=" " alt="" coords="208,405,351,431"/>
+<area shape="rect" id="node13" href="$class_bad_binary_expression.html" title="Base Implementation of all Binary Expressions" alt="" coords="206,455,353,482"/>
+<area shape="rect" id="node25" href="$class_bad_break_expression.html" title="Implements the Break Expression that is used to prematurely exit a loop" alt="" coords="207,506,351,533"/>
+<area shape="rect" id="node26" href="$class_bad_class_prototype_expression.html" title="Implements the Class Prototype Expression" alt="" coords="180,557,379,583"/>
+<area shape="rect" id="node27" href="$class_bad_constant_expression.html" title="Base Class of all Constant Expressions" alt="" coords="183,607,376,634"/>
+<area shape="rect" id="node28" href="$class_bad_continue_expression.html" title="Implements the Break Expression that is used to skip a loop iteraion" alt="" coords="199,658,360,685"/>
+<area shape="rect" id="node29" href="$class_bad_for_each_expression.html" title="Implements the For Each Expression" alt="" coords="200,709,359,735"/>
+<area shape="rect" id="node30" href="$class_bad_for_expression.html" title="Implements the For Loop Expression" alt="" coords="215,759,344,786"/>
+<area shape="rect" id="node31" href="$class_bad_function_expression.html" title="Implements the Function Expression" alt="" coords="199,810,359,837"/>
+<area shape="rect" id="node32" href="$class_bad_if_expression.html" title="Implements the If Statement Expression" alt="" coords="221,861,337,887"/>
+<area shape="rect" id="node33" href="$class_bad_invocation_expression.html" title="Implements the Invocation Expression" alt="" coords="196,911,363,938"/>
+<area shape="rect" id="node34" href="$class_bad_lock_expression.html" title="Implements the Lock Expression" alt="" coords="210,962,349,989"/>
+<area shape="rect" id="node35" href="$class_bad_logic_not_expression.html" title="Implements the Logic Not Exression" alt="" coords="199,1013,360,1039"/>
+<area shape="rect" id="node36" href="$class_bad_member_access_expression.html" title="Implements the Member Access to set or get properties from an object. &lt;Left&gt;.&lt;Right&gt;" alt="" coords="179,1063,380,1090"/>
+<area shape="rect" id="node37" href="$class_bad_new_expression.html" title="Implements the New Expression" alt="" coords="212,1114,347,1141"/>
+<area shape="rect" id="node38" href="$class_bad_null_expression.html" title="Implements the Null Expression" alt="" coords="213,1165,345,1191"/>
+<area shape="rect" id="node39" href="$class_bad_post_decrement_expression.html" title="Implements the Post Decrement Expression" alt="" coords="179,1215,379,1242"/>
+<area shape="rect" id="node40" href="$class_bad_post_increment_expression.html" title="Implements the Post Increment Expression" alt="" coords="182,1266,377,1293"/>
+<area shape="rect" id="node41" href="$class_bad_pre_decrement_expression.html" title="Implements the Pre Decrement Expression" alt="" coords="183,1317,376,1343"/>
+<area shape="rect" id="node42" href="$class_bad_pre_increment_expression.html" title="Implements the Pre Increment Expression" alt="" coords="186,1367,373,1394"/>
+<area shape="rect" id="node43" href="$class_bad_return_expression.html" title="Implements the Return expression that is used to exit the current function with an Optional Return Va..." alt="" coords="205,1418,353,1445"/>
+<area shape="rect" id="node44" href="$class_bad_table_expression.html" title="Implements the Table Expression" alt="" coords="209,1469,350,1495"/>
+<area shape="rect" id="node45" href="$class_bad_ternary_expression.html" title="Implements the Ternary Expression &lt;Left&gt; ? &lt;TrueRet&gt; : &lt;FalseRet&gt;" alt="" coords="203,1519,356,1546"/>
+<area shape="rect" id="node46" href="$class_bad_throw_expression.html" title="Implements the Throw Expression that is used to raise errors inside the Script" alt="" coords="207,1570,351,1597"/>
+<area shape="rect" id="node47" href="$class_bad_try_catch_expression.html" title="Implements the Try Catch Statement Expression" alt="" coords="198,1621,361,1647"/>
+<area shape="rect" id="node48" href="$class_bad_variable_expression.html" title="Implements the Variable Expression" alt="" coords="201,1671,358,1698"/>
+<area shape="rect" id="node49" href="$class_bad_while_expression.html" title="Implements the While Expression" alt="" coords="208,1722,351,1749"/>
+<area shape="rect" id="node3" href="$class_bad_boolean_expression.html" title="Implements the Boolean Expression" alt="" coords="464,13,621,39"/>
+<area shape="rect" id="node5" href="$class_bad_number_expression.html" title="Implements the Number Expression" alt="" coords="465,78,620,105"/>
+<area shape="rect" id="node7" href="$class_bad_string_expression.html" title="Implements the String Expression" alt="" coords="471,143,615,170"/>
+<area shape="rect" id="node14" href="$class_bad_add_assign_expression.html" title="Implements the Add Assignment Expression" alt="" coords="456,202,629,229"/>
+<area shape="rect" id="node15" href="$class_bad_add_expression.html" title="Implements the Add Expression" alt="" coords="476,253,609,279"/>
+<area shape="rect" id="node16" href="$class_bad_divide_assign_expression.html" title="Implements the Divide Assignment Expression" alt="" coords="451,303,635,330"/>
+<area shape="rect" id="node17" href="$class_bad_divide_expression.html" title="Implements the Divide Expression" alt="" coords="471,354,615,381"/>
+<area shape="rect" id="node18" href="$class_bad_equality_expression.html" title="Implements the Equality Expression &lt;Left&gt; == &lt;Right&gt;" alt="" coords="464,405,621,431"/>
+<area shape="rect" id="node19" href="$class_bad_greater_or_equal_expression.html" title="Implements the Greater or Equal Expression &lt;Left&gt; &gt;= &lt;Right&gt;" alt="" coords="443,455,643,482"/>
+<area shape="rect" id="node20" href="$class_bad_greater_than_expression.html" title="Implements the Greater Than Expression" alt="" coords="452,506,633,533"/>
+<area shape="rect" id="node21" href="$class_bad_inequality_expression.html" title="Implements the Inequality Expression" alt="" coords="460,557,625,583"/>
+<area shape="rect" id="node22" href="$class_bad_less_or_equal_expression.html" title="Implements the Less or Equal Expression &lt;Left&gt; &lt;= &lt;Right&gt;" alt="" coords="450,607,635,634"/>
+<area shape="rect" id="node23" href="$class_bad_less_than_expression.html" title="Implements the Less Than Expression" alt="" coords="459,658,626,685"/>
+<area shape="rect" id="node24" href="$class_bad_logic_and_expression.html" title="Implements the Logic And Expression" alt="" coords="461,709,625,735"/>
+</map>

@@ -1,5 +1,0 @@
-<map id="BadScript2.Parser.Expressions.Variables.BadVariableExpression" name="BadScript2.Parser.Expressions.Variables.BadVariableExpression">
-<area shape="rect" id="node1" title="Implements the Variable Expression" alt="" coords="32,80,247,121"/>
-<area shape="rect" id="node3" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression.html" title="Implements the Variable Definition Expression" alt="" coords="5,169,273,211"/>
-<area shape="rect" id="node2" href="$class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="84,5,195,32"/>
-</map>
