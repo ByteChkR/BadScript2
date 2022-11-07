@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj"/>
+        <ProjectReference Include="..\BadScript2.Common\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2", "BadScript2\BadScript2.csproj", "{7DFC9BB9-A2DB-432F-B3C5-A466F6955DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Console", "BadScript2.Console\BadScript2.Console.csproj", "{5189FCB9-EA69-4EC2-B0BA-7F378EA6DAA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Console", "BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj", "{5189FCB9-EA69-4EC2-B0BA-7F378EA6DAA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interactive", "BadScript2.Interactive\BadScript2.Interactive.csproj", "{A7D57D0B-510A-4224-89FA-EB69ADE4353F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interactive", "BadScript2.Common\BadScript2.Interactive\BadScript2.Interactive.csproj", "{A7D57D0B-510A-4224-89FA-EB69ADE4353F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Common", "BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj", "{A4EB6C75-A26C-4E1B-89F9-B630AAA9A848}"
 EndProject
@@ -22,13 +22,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Tests", "BadScri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Net", "BadScript2.Interop\BadScript2.Interop.Net\BadScript2.Interop.Net.csproj", "{13C9846D-6B95-4BF4-9735-FB35F14EA4F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.WebEditor", "BadScript2.WebEditor\BadScript2.WebEditor.csproj", "{612C1DCF-469B-4806-B30B-4D01F9E9FCF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.WebEditor", "BadScript2.Web\BadScript2.WebEditor\BadScript2.WebEditor.csproj", "{612C1DCF-469B-4806-B30B-4D01F9E9FCF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{689B835C-4F95-4C14-B26E-5314D01EA14B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Web", "BadScript2.Web\BadScript2.Web.csproj", "{1CF2D392-016B-46A9-9440-8CA5E6B7E77A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Web", "BadScript2.Web\BadScript2.Web\BadScript2.Web.csproj", "{1CF2D392-016B-46A9-9440-8CA5E6B7E77A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.ConsoleCore", "BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj", "{268CF52C-AE3F-43BA-9EDB-98C7FFA92815}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.ConsoleCore", "BadScript2.Console\BadScript2.ConsoleCore\BadScript2.ConsoleCore.csproj", "{268CF52C-AE3F-43BA-9EDB-98C7FFA92815}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Compression", "BadScript2.Interop\BadScript2.Interop.Compression\BadScript2.Interop.Compression.csproj", "{5A61E7B9-8FC3-4BF0-B8A3-A9232425C90B}"
 EndProject
@@ -36,15 +36,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BadHtml", "BadHtml", "{977D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadHtml", "BadHtml\BadHtml.csproj", "{EC1CA365-BF3F-40D1-A576-8718A782C5E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Debugger", "BadScript2.Debugger\BadScript2.Debugger.csproj", "{B6CCDB2E-A319-4726-B388-A33BC4C1831E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Debugger", "BadScript2.Common\BadScript2.Debugger\BadScript2.Debugger.csproj", "{B6CCDB2E-A319-4726-B388-A33BC4C1831E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Linq", "BadScript2.Interop\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj", "{DE8215C4-857E-4F49-A085-29FE3C08FFE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.ConsoleAbstraction", "BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj", "{2117B34F-B421-428A-8AFB-3572C5983B49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.ConsoleAbstraction", "BadScript2.Common\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj", "{2117B34F-B421-428A-8AFB-3572C5983B49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.VirtualMachine", "BadScript2.VirtualMachine\BadScript2.VirtualMachine.csproj", "{F3ADEEE8-E08B-4C2A-9E72-22F43B5BA8A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.VirtualMachine", "BadScript2.Common\BadScript2.VirtualMachine\BadScript2.VirtualMachine.csproj", "{F3ADEEE8-E08B-4C2A-9E72-22F43B5BA8A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.NetHost", "BadScript2.Interop\BadScript2.Interop.NetHost\BadScript2.Interop.NetHost.csproj", "{0851B898-A166-4560-A425-B897DC447A84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9B36C199-79B3-4273-8456-5D4ECE688B93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,5 +145,9 @@ Global
 		{EC1CA365-BF3F-40D1-A576-8718A782C5E6} = {977D3144-EC4E-40EB-9779-F63A305EB027}
 		{DE8215C4-857E-4F49-A085-29FE3C08FFE8} = {A73351E3-752B-4A73-8EEC-7C3364A18F95}
 		{0851B898-A166-4560-A425-B897DC447A84} = {A73351E3-752B-4A73-8EEC-7C3364A18F95}
+		{2117B34F-B421-428A-8AFB-3572C5983B49} = {9B36C199-79B3-4273-8456-5D4ECE688B93}
+		{B6CCDB2E-A319-4726-B388-A33BC4C1831E} = {9B36C199-79B3-4273-8456-5D4ECE688B93}
+		{A7D57D0B-510A-4224-89FA-EB69ADE4353F} = {9B36C199-79B3-4273-8456-5D4ECE688B93}
+		{F3ADEEE8-E08B-4C2A-9E72-22F43B5BA8A4} = {9B36C199-79B3-4273-8456-5D4ECE688B93}
 	EndGlobalSection
 EndGlobal

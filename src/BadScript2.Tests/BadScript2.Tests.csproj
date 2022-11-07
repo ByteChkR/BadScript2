@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console.csproj" />
+        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj" />
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj" />
         <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
     </ItemGroup>
