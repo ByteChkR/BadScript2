@@ -1,8 +1,8 @@
 # BadScript2 Landing Page
 
 [![Build Status](https://app.travis-ci.com/ByteChkR/BadScript2.svg?branch=main)](https://app.travis-ci.com/ByteChkR/BadScript2)
-[![codecov](https://codecov.io/gh/ByteChkR/BadScript2/branch/main/graph/badge.svg?token=WTZHER2P0X)](https://codecov.io/gh/ByteChkR/BadScript2)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ByteChkR/BadScript2&amp;utm_campaign=Badge_Grade)
+[![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ByteChkR/BadScript2&utm_campaign=Badge_Coverage)
+[![Codacy Code Quality Badge](https://app.codacy.com/project/badge/Grade/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ByteChkR/BadScript2&amp;utm_campaign=Badge_Grade)
 
 Bad Script is an Interpreted Scripting Language written in pure C#. It has a similar syntax to javascript and written to be easily extensible.
 
