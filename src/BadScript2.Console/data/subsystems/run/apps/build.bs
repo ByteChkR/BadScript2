@@ -1,10 +1,12 @@
 
-const Package = Runtime.Import("Package");
 
+//Bootstrap Version
+const Package = Runtime.Import("Package");
 const BuildSystem = Package.Import("BuildSystem");
 
 
 const args = Runtime.GetArguments();
+
 const targets;
 if(args.Length == 0)
 {

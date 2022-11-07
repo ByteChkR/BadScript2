@@ -4,7 +4,7 @@
   "Dependencies": [
     "Build",
     "Minify",
-    "InstallToApp",
+    "InstallToApps",
     "SaveToOutput"
   ]
 }
