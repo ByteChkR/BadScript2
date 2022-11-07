@@ -22,7 +22,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
-using BadScript2.Testing;
 
 namespace BadScript2.Console;
 
