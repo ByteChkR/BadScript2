@@ -37,7 +37,7 @@ public class BadVariableExpression : BadExpression
     {
         BadObject name = BadObject.Wrap(Name);
 
-        BadObjectReference obj = context.Scope.GetVariable(name);
+        BadObjectReference obj = context.Scope.GetVariable(name, context.Scope);
 
 
         yield return obj;

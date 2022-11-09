@@ -1,4 +1,5 @@
-
+#define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
+#define START_DIR Environment.Runtime == "Runtime" ? "IO.Directory.GetStartupDirectory()" : "\"/\""
 class BuildTargetDirectoryResolver
 {
 	
@@ -13,14 +14,14 @@ class BuildTargetDirectoryResolver
 	function LoadTargets(context)
 	{
 		Targets.Clear();
-		foreach(file in IO.Directory.GetFiles(Path, "json", false))
+		foreach(file in $(FILESYSTEM_API).Directory.GetFiles(Path, "json", false))
 		{
 			const loader = new BuildTargetLoader();
 			const target = new BuildTarget(loader.Load(file, context));
 			if(target.Info.Keys.Contains("Script"))
 			{
-				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGETSCRIPT_PATH)", IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"));
-				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGET_PATH)", IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"));
+				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGETSCRIPT_PATH)", IO.Path.Combine($(START_DIR), "data", "subsystems", "build", "scripts"));
+				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGET_PATH)", IO.Path.Combine($(START_DIR), "data", "subsystems", "build", "targets"));
 			}
 			Targets.Add(target);
 		}

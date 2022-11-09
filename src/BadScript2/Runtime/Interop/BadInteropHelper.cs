@@ -24,17 +24,17 @@ public static class BadInteropHelper
         return obj is IBadNative;
     }
 
-    public static object? Unwrap(this BadObject obj)
+    public static object? Unwrap(this BadObject obj, BadScope? caller = null)
     {
         if (obj is IBadNative native)
         {
             return native.Value;
         }
 
-        throw new BadRuntimeException($"Can not unwrap object '{obj}'");
+        throw BadRuntimeException.Create(caller,$"Can not unwrap object '{obj}'");
     }
 
-    public static T Unwrap<T>(this BadObject obj)
+    public static T Unwrap<T>(this BadObject obj, BadScope? caller = null)
     {
         if (obj is T t)
         {
@@ -56,6 +56,6 @@ public static class BadInteropHelper
             return n.Value;
         }
 
-        throw new BadRuntimeException($"Can not unwrap object '{obj}' to type " + typeof(T));
+        throw BadRuntimeException.Create(caller,$"Can not unwrap object '{obj}' to type " + typeof(T));
     }
 }

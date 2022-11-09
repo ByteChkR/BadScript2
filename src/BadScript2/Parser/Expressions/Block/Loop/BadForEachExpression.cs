@@ -7,6 +7,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
+
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
 /// <summary>
@@ -65,16 +66,16 @@ public class BadForEachExpression : BadExpression
     /// <param name="target">The loop target</param>
     /// <returns>Tuple of Functions used in the for each loop</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
-    private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target)
+    private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
     {
         if (target.HasProperty("MoveNext"))
         {
-            BadFunction? moveNext = target.GetProperty("MoveNext").Dereference() as BadFunction;
+            BadFunction? moveNext = target.GetProperty("MoveNext", context.Scope).Dereference() as BadFunction;
             if (moveNext != null)
             {
                 if (target.HasProperty("GetCurrent"))
                 {
-                    BadFunction? getCurrent = target.GetProperty("GetCurrent").Dereference() as BadFunction;
+                    BadFunction? getCurrent = target.GetProperty("GetCurrent", context.Scope).Dereference() as BadFunction;
                     if (getCurrent != null)
                     {
                         return (moveNext, getCurrent);
@@ -100,7 +101,7 @@ public class BadForEachExpression : BadExpression
 
         if (target.HasProperty("GetEnumerator"))
         {
-            BadFunction? getEnumerator = target.GetProperty("GetEnumerator").Dereference() as BadFunction;
+            BadFunction? getEnumerator = target.GetProperty("GetEnumerator", context.Scope).Dereference() as BadFunction;
             if (getEnumerator == null)
             {
                 throw new BadRuntimeException("Invalid enumerator", Position);
@@ -120,13 +121,13 @@ public class BadForEachExpression : BadExpression
 
             if (newTarget == BadObject.Null)
             {
-                throw new BadRuntimeException($"Invalid enumerator: {target}", Position);
+                throw BadRuntimeException.Create(context.Scope,$"Invalid enumerator: {target}", Position);
             }
 
             target = newTarget.Dereference();
         }
 
-        (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target);
+        (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context);
 
         if (context.Scope.IsError)
         {
@@ -194,7 +195,7 @@ public class BadForEachExpression : BadExpression
             }
 
             bRet = cond.Dereference() as IBadBoolean ??
-                   throw new BadRuntimeException("Enumerator MoveNext did not return a boolean", Position);
+                   throw BadRuntimeException.Create(context.Scope,"Enumerator MoveNext did not return a boolean", Position);
         }
     }
 }

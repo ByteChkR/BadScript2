@@ -1,4 +1,5 @@
 using BadScript2.Common;
+using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -176,7 +177,7 @@ public class BadSettingsObject : BadObject
                base.HasProperty(propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (m_PropertyReferences.ContainsKey(propName))
         {
@@ -191,6 +192,6 @@ public class BadSettingsObject : BadObject
             );
         }
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName, caller);
     }
 }

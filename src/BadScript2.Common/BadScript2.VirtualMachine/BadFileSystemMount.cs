@@ -20,7 +20,7 @@ public class BadFileSystemMount
 
         using (Stream s = File.OpenRead(DataArchive))
         {
-            fs.ImportZip(s);
+            fs.ImportZip(s, MountPoint);
         }
     }
 

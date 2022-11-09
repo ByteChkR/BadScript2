@@ -33,6 +33,22 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
         }
     }
 
+    private BadSettings? m_WriteStackTraceInRuntimeErrorsObj;
+    private BadSettings? WriteStackTraceInRuntimeErrorsObj
+    {
+        get
+        {
+            if (m_WriteStackTraceInRuntimeErrorsObj == null && Settings != null && Settings.HasProperty(nameof(WriteStackTraceInRuntimeErrors)))
+            {
+                m_WriteStackTraceInRuntimeErrorsObj = Settings?.GetProperty(nameof(WriteStackTraceInRuntimeErrors));
+            }
+
+            return m_WriteStackTraceInRuntimeErrorsObj;
+        }
+    }
+    
+    public bool WriteStackTraceInRuntimeErrors => WriteStackTraceInRuntimeErrorsObj?.GetValue<bool>() ?? true;
+
     /// <summary>
     ///     The Default File Extension of BadScript2 Scripts
     /// </summary>

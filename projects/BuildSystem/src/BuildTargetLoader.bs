@@ -1,4 +1,4 @@
-
+#define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
 
 class BuildTargetLoader
 {
@@ -8,7 +8,7 @@ class BuildTargetLoader
 		if(str.Contains("{") && str.Contains("}"))
 		{
 			const scope = new Scope("ResolveStringCtx", context);
-			return await Runtime.EvaluateAsync($"$\"{str}\"", "", false, scope);
+			return await $(Environment.Runtime).EvaluateAsync($"$\"{str}\"", "", false, scope);
 		}
 		return str;
 	}
@@ -38,15 +38,15 @@ class BuildTargetLoader
 		{
 			return obj;
 		}
-		if(Runtime.Native.IsTable(obj))
+		if($(Environment.Runtime).Native.IsTable(obj))
 		{
 			return ResolveTable(context, obj);
 		}
-		else if(Runtime.Native.IsArray(obj))
+		else if($(Environment.Runtime).Native.IsArray(obj))
 		{
 			return ResolveArray(context, obj);
 		}
-		else if(Runtime.Native.IsString(obj))
+		else if($(Environment.Runtime).Native.IsString(obj))
 		{
 			return ResolveString(context, obj);
 		}
@@ -54,6 +54,6 @@ class BuildTargetLoader
 	}
 	function Load(string file!, context)
 	{
-		return Resolve(context, Json.FromJson(IO.File.ReadAllText(file)));
+		return Resolve(context, Json.FromJson($(FILESYSTEM_API).File.ReadAllText(file)));
 	}
 }

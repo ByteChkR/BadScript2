@@ -8,4 +8,4 @@ const System = {
 	SourceReader: SourceReader
 }
 
-Runtime.Export("System", System);
+$(Environment.Runtime).Export("System", System);

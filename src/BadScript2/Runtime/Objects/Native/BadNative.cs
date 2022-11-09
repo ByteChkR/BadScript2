@@ -117,11 +117,11 @@ public class BadNative<T> : BadObject, IBadNative
         return BadInteropExtension.HasObject<T>(propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return BadObjectReference.Make(
             $"BadNative<{typeof(T).Name}>.{propName}",
-            () => BadInteropExtension.GetObject<T>(propName, this)
+            () => BadInteropExtension.GetObject<T>(propName, this, caller)
         );
     }
 }

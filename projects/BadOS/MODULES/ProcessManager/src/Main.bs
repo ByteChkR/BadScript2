@@ -176,7 +176,12 @@ class Process
 	{
 		const scope = new Scope("Process Scope");
 		const table = apiBuilder.Build({Process: this});
-		scope.GetLocals()["OS"] = table;
+		const locals = scope.GetLocals();
+		locals["OS"] = table;
+		foreach(type in Runtime.GetNativeTypes())
+		{
+			locals[type.Name] = type;
+		}
 		return scope;
 	}
 
@@ -184,7 +189,9 @@ class Process
 	{
 		const src = IO.File.ReadAllText(Executable);
 		IsRunning = true;
+
 		await Runtime.EvaluateAsync(src, Executable, false, CreateProcessScope());
+
 		IsRunning = false;
 		HandleExit();
 	}

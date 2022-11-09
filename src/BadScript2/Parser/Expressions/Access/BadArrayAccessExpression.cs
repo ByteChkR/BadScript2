@@ -104,7 +104,7 @@ public class BadArrayAccessExpression : BadExpression
 
         if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
         {
-            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessOperatorName).Dereference() as BadFunction;
+            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context.Scope).Dereference() as BadFunction;
             if (func == null)
             {
                 throw new BadRuntimeException("Array access operator is not a function", Position);

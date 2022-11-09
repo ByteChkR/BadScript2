@@ -35,7 +35,7 @@ class Shell
 	{
 		while(!_ShouldExit)
 		{
-			Console.Write($"{OS.User.GetUserName()}@{OS.Environment.Get("OS_NAME")}:{OS.FileSystem.Directory.GetCurrentDirectory()}$");
+			OS.Write($"{OS.User.GetUserName()}@{OS.Environment.Get("OS_NAME")}:{OS.FileSystem.Directory.GetCurrentDirectory()}$");
 			const result = (await OS.ReadLineAsync()).Trim();
 			if(result.Length == 0)
 			{

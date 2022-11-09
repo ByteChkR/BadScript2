@@ -10,6 +10,7 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Interop.Common.Apis;
@@ -114,12 +115,14 @@ public class BadRuntimeApi : BadInteropApi
                     args[0],
                     args.Length < 2 ? BadObject.Null : args[1],
                     args.Length < 3 ? BadObject.True : args[2],
-                    args.Length < 4 ? BadObject.Null : args[3]
+                    args.Length < 4 ? BadObject.Null : args[3],
+                    args.Length < 5 ? BadObject.False : args[4]
                 ),
                 "src",
                 new BadFunctionParameter("file", true, false, false),
                 new BadFunctionParameter("optimize", true, false, false),
-                new BadFunctionParameter("scope", true, false, false)
+                new BadFunctionParameter("scope", true, false, false),
+                new BadFunctionParameter("setLastAsReturn", true, false, false)
             )
         );
         target.SetFunction("CreateDefaultScope", ctx => ctx.Scope.GetRootScope().CreateChild("<customscope>", ctx.Scope));
@@ -132,6 +135,7 @@ public class BadRuntimeApi : BadInteropApi
         target.SetFunction<BadObject>("GetExtensionNames", GetExtensionNames);
         target.SetFunction("GetGlobalExtensionNames", GetGlobalExtensionNames);
         target.SetFunction("GetTimeNow", GetTimeNow);
+        target.SetFunction("GetNativeTypes", c => new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList()));
     }
 
 
@@ -221,7 +225,7 @@ public class BadRuntimeApi : BadInteropApi
         return ctx.Run(exprs) ?? BadObject.Null;
     }
 
-    private BadObject EvaluateAsync(BadExecutionContext caller, BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope)
+    private BadObject EvaluateAsync(BadExecutionContext caller, BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope, BadObject setLastAsReturn)
     {
         if (str is not IBadString src)
         {
@@ -242,6 +246,10 @@ public class BadRuntimeApi : BadInteropApi
         {
             throw new BadRuntimeException("Evaluate: Argument 'fileObj' is not a string");
         }
+        if(setLastAsReturn is not IBadBoolean setLastAsReturnB)
+        {
+            throw new BadRuntimeException("Evaluate: Argument 'setLastAsReturn' is not a boolean");
+        }
 
 
         bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
@@ -257,6 +265,7 @@ public class BadRuntimeApi : BadInteropApi
             exprs = BadExpressionOptimizer.Optimize(exprs);
         }
 
-        return new BadTask(new BadInteropRunnable(ctx.Execute(exprs).GetEnumerator()), "EvaluateAsync");
+        
+        return new BadTask(new BadInteropRunnable(ctx.Execute(exprs).GetEnumerator(), setLastAsReturnB.Value), "EvaluateAsync");
     }
 }

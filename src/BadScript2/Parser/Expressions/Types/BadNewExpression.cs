@@ -82,7 +82,7 @@ public class BadNewExpression : BadExpression
 
         if (cls.HasProperty(cls.Name))
         {
-            BadObject ctor = cls.GetProperty(cls.Name).Dereference();
+            BadObject ctor = cls.GetProperty(cls.Name, context.Scope).Dereference();
             if (ctor is not BadFunction func)
             {
                 throw new BadRuntimeException("Cannot create object from non-function type", pos);

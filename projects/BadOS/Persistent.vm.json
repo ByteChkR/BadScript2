@@ -4,6 +4,11 @@
       "MountPoint": "/",
       "DataArchive": "./bin/root.zip",
       "IsPersistent": false
+    },
+    {
+      "MountPoint": "/home/",
+      "DataArchive": "./bin/home.zip",
+      "IsPersistent": true
     }
   ],
   "Name": "BadOS - Testing"

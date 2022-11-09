@@ -83,7 +83,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
                base.HasProperty(propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is IBadString str)
         {
@@ -98,7 +98,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
             }
         }
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName,caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

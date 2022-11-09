@@ -23,11 +23,6 @@ public class BadScope : BadObject
     private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
 
     /// <summary>
-    ///     The Parent Scope
-    /// </summary>
-    public BadScope? Parent { get; }
-
-    /// <summary>
     ///     Creates a new Scope
     /// </summary>
     /// <param name="name">The Name of the Scope</param>
@@ -75,6 +70,11 @@ public class BadScope : BadObject
     }
 
     /// <summary>
+    ///     The Parent Scope
+    /// </summary>
+    public BadScope? Parent { get; }
+
+    /// <summary>
     ///     The Name of the Scope (for Debugging)
     /// </summary>
     public string Name { get; }
@@ -119,7 +119,7 @@ public class BadScope : BadObject
     /// </summary>
     public static BadClassPrototype Prototype { get; } = new BadNativeClassPrototype<BadScope>(
         "Scope",
-        (_, args) =>
+        (c, args) =>
         {
             if (args.Length == 1)
             {
@@ -128,7 +128,7 @@ public class BadScope : BadObject
                     throw new BadRuntimeException("Expected Name in Scope Constructor");
                 }
 
-                return CreateScope(name.Value);
+                return CreateScope(c, name.Value);
             }
 
             if (args.Length == 2)
@@ -143,7 +143,7 @@ public class BadScope : BadObject
                     throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
                 }
 
-                return CreateScope(name.Value, locals);
+                return CreateScope(c, name.Value, locals);
             }
 
             throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
@@ -212,14 +212,22 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">Scope Name</param>
     /// <returns>New Scope Instance</returns>
-    private static BadScope CreateScope(string name, BadTable? locals = null)
+    private static BadScope CreateScope(BadExecutionContext ctx, string name, BadTable? locals = null)
     {
+        BadScope s;
         if (locals != null)
         {
-            return new BadScope(name, locals);
+            s = new BadScope(name, locals);
+        }
+        else
+        {
+            s = new BadScope(name);
         }
 
-        BadScope s = new BadScope(name);
+        foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope().m_SingletonCache)
+        {
+            s.m_SingletonCache.Add(kvp.Key, kvp.Value);
+        }
 
         return s;
     }
@@ -405,14 +413,14 @@ public class BadScope : BadObject
     /// <param name="value">Variable Value</param>
     /// <param name="info">Variable Info</param>
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
-    public void DefineVariable(BadObject name, BadObject value, BadPropertyInfo? info = null)
+    public void DefineVariable(BadObject name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
     {
         if (HasLocal(name))
         {
             throw new BadRuntimeException($"Variable {name} is already defined");
         }
 
-        m_ScopeVariables.GetProperty(name).Set(value, info);
+        m_ScopeVariables.GetProperty(name, caller ?? this).Set(value, info);
     }
 
     /// <summary>
@@ -436,6 +444,21 @@ public class BadScope : BadObject
         return Parent!.GetVariableInfo(name);
     }
 
+    public BadObjectReference GetVariable(BadObject name, BadScope caller)
+    {
+        if (HasLocal(name))
+        {
+            return m_ScopeVariables.GetProperty(name, caller);
+        }
+
+        if (Parent == null)
+        {
+            throw BadRuntimeException.Create(caller, $"Variable '{name}' is not defined");
+        }
+
+        return Parent!.GetVariable(name, caller);
+    }
+
     /// <summary>
     ///     Returns a variable reference of the specified variable
     /// </summary>
@@ -444,17 +467,7 @@ public class BadScope : BadObject
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public BadObjectReference GetVariable(BadObject name)
     {
-        if (HasLocal(name))
-        {
-            return m_ScopeVariables.GetProperty(name);
-        }
-
-        if (Parent == null)
-        {
-            throw new BadRuntimeException($"Variable '{name}' is not defined");
-        }
-
-        return Parent!.GetVariable(name);
+        return GetVariable(name, this);
     }
 
     /// <summary>
@@ -463,11 +476,11 @@ public class BadScope : BadObject
     /// <param name="name">The Name</param>
     /// <param name="value">The Value</param>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
-    public void SetVariable(BadObject name, BadObject value)
+    public void SetVariable(BadObject name, BadObject value, BadScope? caller = null)
     {
         if (HasLocal(name))
         {
-            m_ScopeVariables.GetProperty(name).Set(value);
+            m_ScopeVariables.GetProperty(name, caller).Set(value);
         }
         else
         {
@@ -500,14 +513,15 @@ public class BadScope : BadObject
         return HasLocal(name) || Parent != null && Parent.HasVariable(name);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (HasVariable(propName))
         {
-            return GetVariable(propName);
+            return GetVariable(propName, caller ?? this);
         }
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName, caller);
     }
 
     public override bool HasProperty(BadObject propName)

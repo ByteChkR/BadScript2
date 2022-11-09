@@ -1,4 +1,4 @@
-
+#define CONSOLE_API Environment.Runtime == "Runtime" ? "Console" : "OS"
 
 class BuildLogger
 {
@@ -9,16 +9,16 @@ class BuildLogger
 	}
 	function Log(msg!)
 	{
-		Console.WriteLine($"[{Tag}:LOG] {msg}");
+		$(CONSOLE_API).WriteLine($"[{Tag}:LOG] {msg}");
 	}
 
 	function Warn(msg!)
 	{
-		Console.WriteLine($"[{Tag}:WARN] {msg}");
+		$(CONSOLE_API).WriteLine($"[{Tag}:WARN] {msg}");
 	}
 
 	function Error(msg!)
 	{
-		Console.WriteLine($"[{Tag}:ERR] {msg}");
+		$(CONSOLE_API).WriteLine($"[{Tag}:ERR] {msg}");
 	}
 }

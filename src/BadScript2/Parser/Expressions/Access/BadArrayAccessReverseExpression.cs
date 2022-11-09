@@ -95,7 +95,7 @@ public class BadArrayAccessReverseExpression : BadExpression
 
         if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName))
         {
-            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName).Dereference() as BadFunction;
+            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context.Scope).Dereference() as BadFunction;
             if (func == null)
             {
                 throw new BadRuntimeException("Array access reverse operator is not a function", Position);

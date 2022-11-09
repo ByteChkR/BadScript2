@@ -30,14 +30,14 @@ public class BadReflectedObject : BadObject
         return Instance.ToString();
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is IBadString s && Members.Contains(s.Value))
         {
             return Members.GetMember(Instance, s.Value);
         }
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName, caller);
     }
 
     public override bool HasProperty(BadObject propName)

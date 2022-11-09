@@ -114,6 +114,7 @@ public abstract class BadFunction : BadObject
                 context.Scope.DefineVariable(
                     parameter.Name,
                     new BadArray(args.Skip(i).ToList()),
+                    null,
                     new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array"))
                 );
             }
@@ -121,7 +122,7 @@ public abstract class BadFunction : BadObject
             {
                 if (parameter.IsOptional)
                 {
-                    context.Scope.DefineVariable(parameter.Name, Null, new BadPropertyInfo(parameter.Type));
+                    context.Scope.DefineVariable(parameter.Name, Null, null, new BadPropertyInfo(parameter.Type));
                 }
                 else
                 {
@@ -155,7 +156,7 @@ public abstract class BadFunction : BadObject
                     );
                 }
 
-                context.Scope.DefineVariable(parameter.Name, args[i], new BadPropertyInfo(parameter.Type));
+                context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type));
             }
         }
     }

@@ -91,9 +91,9 @@ public abstract class BadObject
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <returns>The Property Reference</returns>
-    public virtual BadObjectReference GetProperty(BadObject propName)
+    public virtual BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        return BadInteropExtension.GetObjectReference(GetType(), propName, this);
+        return BadInteropExtension.GetObjectReference(GetType(), propName, this, caller);
     }
 
     /// <summary>

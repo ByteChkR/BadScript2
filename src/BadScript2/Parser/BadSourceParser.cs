@@ -1209,7 +1209,6 @@ public class BadSourceParser
     /// <returns>Returns an Enumerable of BadExpressions</returns>
     public IEnumerable<BadExpression> Parse()
     {
-        BadLogger.Log($"Parsing File: {Reader.FileName}", "SourceParser");
         Reader.SkipNonToken();
         while (!Reader.IsEof())
         {

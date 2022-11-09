@@ -83,7 +83,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
             type = proto;
         }
 
-        context.Scope.DefineVariable(BadObject.Wrap(Name), BadObject.Null, new BadPropertyInfo(type, IsReadOnly));
+        context.Scope.DefineVariable(BadObject.Wrap(Name), BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly));
 
         foreach (BadObject o in base.InnerExecute(context))
         {

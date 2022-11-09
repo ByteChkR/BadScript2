@@ -96,11 +96,11 @@ public class BadTable : BadObject, IBadEnumerable
         return InnerTable.ContainsKey(propName) || BadInteropExtension.HasObject<BadTable>(propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (BadInteropExtension.HasObject<BadTable>(propName) && !InnerTable.ContainsKey(propName))
         {
-            return BadInteropExtension.GetObjectReference(GetType(), propName, this);
+            return BadInteropExtension.GetObjectReference(GetType(), propName, this, caller);
         }
 
         return BadObjectReference.Make(

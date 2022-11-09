@@ -14,7 +14,8 @@ function BuildDependencies()
 			Builder: bs,
 			DEFAULT_TARGETSCRIPT_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"),
 			DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
-			StartTarget: Context.StartTarget
+			StartTarget: Context.StartTarget,
+			Environment: Context.Environment
 		}
 		bs.AddTargetSource("./targets", context);
 		bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);

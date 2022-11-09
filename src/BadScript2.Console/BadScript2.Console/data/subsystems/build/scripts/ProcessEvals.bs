@@ -1,6 +1,20 @@
 const Package = Runtime.Import("Package");
 const System = Package.Import("System");
 
+function GetElement(root, path)
+{
+	let current = root;
+	foreach(part in path)
+	{
+		if(!Runtime.Native.IsTable(current) || !current.Keys.Contains(part))
+		{
+			throw $"Can not find Property {part} in {current}";
+		}
+		current = current[part];
+	}
+	return current;
+}
+
 function ProcessEvals()
 {
 	Console.WriteLine("Processing eval statements");
@@ -34,7 +48,7 @@ function ProcessEvals()
 			parts.Add(current);
 			reader.Eat(")");
 
-			let elem = GetElement(builder.GetSettings(), parts);
+			let elem = GetElement(Context, parts);
 			Console.WriteLine($"Evaluated to: {elem}");
 			newSrc += elem;
 		}

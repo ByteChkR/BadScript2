@@ -106,7 +106,7 @@ public class BadInvocationExpression : BadExpression
         else if (left.HasProperty(BadStaticKeys.InvocationOperatorName))
         {
             BadFunction? invocationOp =
-                left.GetProperty(BadStaticKeys.InvocationOperatorName).Dereference() as BadFunction;
+                left.GetProperty(BadStaticKeys.InvocationOperatorName, context.Scope).Dereference() as BadFunction;
             if (invocationOp == null)
             {
                 throw new BadRuntimeException("Function Invocation Operator is not a function", position);

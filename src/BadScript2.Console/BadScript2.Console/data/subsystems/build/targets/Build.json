@@ -5,6 +5,7 @@
     "LoadSettings",
     "ExpandSources",
     "CombineSources",
+    "ProcessDirectives",
     "ProcessImports",
     "ProcessEvals"
   ]

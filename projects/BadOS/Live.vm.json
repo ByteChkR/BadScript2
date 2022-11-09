@@ -1,0 +1,15 @@
+{
+  "Mounts": [
+    {
+      "MountPoint": "/",
+      "DataArchive": "./bin/root.zip",
+      "IsPersistent": false
+    },
+    {
+      "MountPoint": "/home/",
+      "DataArchive": "./bin/home.zip",
+      "IsPersistent": false
+    }
+  ],
+  "Name": "BadOS - Testing"
+}

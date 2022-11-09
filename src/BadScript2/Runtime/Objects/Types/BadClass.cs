@@ -98,11 +98,11 @@ public class BadClass : BadObject
         return BadInteropExtension.HasObject(GetType(), propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller= null)
     {
         if (!HasProperty(propName))
         {
-            throw new BadRuntimeException($"Property {propName} not found in class {Name} or any of its base classes");
+            throw BadRuntimeException.Create(caller, $"Property {propName} not found in class {Name} or any of its base classes");
         }
 
         if (m_Table.InnerTable.ContainsKey(propName))
@@ -117,12 +117,12 @@ public class BadClass : BadObject
                         BadPropertyInfo info = m_Table.GetPropertyInfo(propName);
                         if (m_Table.InnerTable[propName] != Null && info.IsReadOnly)
                         {
-                            throw new BadRuntimeException($"{Name}.{propName} is read-only");
+                            throw BadRuntimeException.Create(caller, $"{Name}.{propName} is read-only");
                         }
 
                         if (info.Type != null && !info.Type.IsAssignableFrom(o))
                         {
-                            throw new BadRuntimeException(
+                            throw BadRuntimeException.Create(caller, 
                                 $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
                             );
                         }
@@ -135,10 +135,10 @@ public class BadClass : BadObject
 
         if (m_BaseClass != null)
         {
-            return m_BaseClass.GetProperty(propName);
+            return m_BaseClass.GetProperty(propName, caller);
         }
 
-        return BadInteropExtension.GetObjectReference(GetType(), propName, SuperClass ?? this);
+        return BadInteropExtension.GetObjectReference(GetType(), propName, SuperClass ?? this, caller);
     }
 
 

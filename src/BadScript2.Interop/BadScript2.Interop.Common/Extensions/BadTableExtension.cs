@@ -38,7 +38,7 @@ public class BadTableExtension : BadInteropExtension
             BadStaticKeys.ArrayAccessOperatorName,
             t => new BadDynamicInteropFunction<BadObject>(
                 BadStaticKeys.ArrayAccessOperatorName,
-                (_, o) => t.GetProperty(o),
+                (c, o) => t.GetProperty(o, c.Scope),
                 "key"
             )
         );

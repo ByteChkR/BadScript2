@@ -24,7 +24,8 @@ foreach(target in targets)
 		Builder: bs,
 		DEFAULT_TARGETSCRIPT_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"),
 		DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
-		StartTarget: target
+		StartTarget: target,
+		Environment: {Runtime: "Runtime"}
 	}
 	bs.AddTargetSource("./targets", context);
 	bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);

@@ -47,14 +47,14 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
         return propName is IBadString { Value: "GetEnumerator" } || base.HasProperty(propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is IBadString { Value: "GetEnumerator" })
         {
             return BadObjectReference.Make("GetEnumerator", () => m_Func);
         }
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName, caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

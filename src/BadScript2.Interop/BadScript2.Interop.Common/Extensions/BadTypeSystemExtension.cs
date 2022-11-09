@@ -41,6 +41,11 @@ public class BadTypeSystemExtension : BadInteropExtension
                 (_, super) => IsBaseClassOf(super, proto)
             )
         );
+
+        RegisterObject<BadClassPrototype>(
+            "Name",
+            proto => proto.Name
+        );
     }
 
     private static BadObject IsAssignableFrom(BadObject obj, BadClassPrototype proto)

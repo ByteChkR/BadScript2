@@ -158,7 +158,7 @@ public class BadTask : BadObject
         return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (m_Properties.ContainsKey(propName))
         {
@@ -166,7 +166,7 @@ public class BadTask : BadObject
         }
 
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName, caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

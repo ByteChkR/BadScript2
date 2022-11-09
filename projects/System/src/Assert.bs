@@ -1,5 +1,5 @@
 
-let Native = Runtime.Native;
+let Native = $(Environment.Runtime).Native;
 
 function IsString(obj)
 {

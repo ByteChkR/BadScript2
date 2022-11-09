@@ -52,7 +52,7 @@ public class BadRuntimeError : BadObject
         return $"{ErrorObject.ToSafeString(done)} at\n{StackTrace}\n{InnerError?.ToSafeString(done) ?? ""}";
     }
 
-    public override BadObjectReference GetProperty(BadObject propName)
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is IBadString str)
         {
@@ -64,7 +64,7 @@ public class BadRuntimeError : BadObject
             }
         }
 
-        return base.GetProperty(propName);
+        return base.GetProperty(propName, caller);
     }
 
     public override bool HasProperty(BadObject propName)

@@ -1,9 +1,9 @@
 
 function LoadFile(string file!) => Json.FromJson(IO.File.ReadAllText(file));
 
-Console.WriteLine("Loading AppInfo");
-Context.AppInfo = LoadFile("./settings/AppInfo.json");
-Console.WriteLine("Loading BuildInfo");
-Context.BuildInfo = LoadFile("./settings/BuildInfo.json");
-Console.WriteLine("Loading Sources");
-Context.Sources = LoadFile("./settings/Sources.json");
+foreach(file in IO.Directory.GetFiles("./settings", "*.json", true))
+{
+	const name = IO.Path.GetFileNameWithoutExtension(file);
+	Console.WriteLine($"Loading {name}");
+	Context[name] = LoadFile(file);
+}

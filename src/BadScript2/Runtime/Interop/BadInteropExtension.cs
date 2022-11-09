@@ -234,11 +234,11 @@ public abstract class BadInteropExtension
     /// <param name="propName">Extension Name</param>
     /// <param name="instance">Object Instance</param>
     /// <returns>Object Reference</returns>
-    public static BadObjectReference GetObjectReference(Type t, BadObject propName, BadObject instance)
+    public static BadObjectReference GetObjectReference(Type t, BadObject propName, BadObject instance, BadScope? caller)
     {
         return BadObjectReference.Make(
             $"{t.Name}.{propName}",
-            () => GetObject(t, propName, instance)
+            () => GetObject(t, propName, instance, caller)
         );
     }
 
@@ -249,14 +249,21 @@ public abstract class BadInteropExtension
     /// <param name="propName">Extension Name</param>
     /// <param name="instance">Object Instance</param>
     /// <returns>Object Instance</returns>
-    public static BadObject GetObject(Type t, BadObject propName, BadObject instance)
+    public static BadObject GetObject(Type t, BadObject propName, BadObject instance, BadScope? caller)
     {
         if (HasGlobalExtensions(propName))
         {
             return s_GlobalExtensions[propName](instance);
         }
 
-        return GetTypeExtensions(t)[propName](instance);
+
+        Dictionary<BadObject, Func<BadObject, BadObject>> ext = GetTypeExtensions(t);
+        if (ext.ContainsKey(propName))
+        {
+            return ext[propName](instance);
+        }
+
+        throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}");
     }
 
 
@@ -267,9 +274,9 @@ public abstract class BadInteropExtension
     /// <param name="instance">Object Instance</param>
     /// <typeparam name="T">Type</typeparam>
     /// <returns>Object Instance</returns>
-    public static BadObject GetObject<T>(BadObject propName, BadObject instance)
+    public static BadObject GetObject<T>(BadObject propName, BadObject instance, BadScope? caller = null)
     {
-        return GetObject(typeof(T), propName, instance);
+        return GetObject(typeof(T), propName, instance, caller);
     }
 
     /// <summary>

@@ -78,7 +78,7 @@ public abstract class BadExpression
         BadExecutionContext context,
         string name)
     {
-        BadFunction? func = left.GetProperty(name).Dereference() as BadFunction;
+        BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
 
         if (func == null)
         {

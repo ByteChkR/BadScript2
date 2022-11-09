@@ -54,6 +54,7 @@ foreach(binDir in IO.Directory.GetDirectories("./UTILS", false))
 	const outputFile = IO.Path.Combine("/bin", IO.Path.GetFileName(binDir) + ".bs");
 	Copy(inputFile, outputFile);
 }
+Copy("../BuildSystem.Console/bin/build.bs", "/bin/build.bs");
 
 const envData = {
 	PATH: "/bin;/home/bin",
@@ -71,7 +72,7 @@ const startupData = {
 		"/bin/login.bs",
 		"/bin/shell.bs"
 	],
-	MOTD: $"{envData.OS_NAME}@{envData.OS_VERSION}\nThis is a '{Context.StartTarget}' build created on the {buildTimestamp.Day}.{buildTimestamp.Month}.{buildTimestamp.Year} at {buildTimestamp.Hour}:{buildTimestamp.Minute}:{buildTimestamp.Second}"
+	MOTD: $"{envData.OS_NAME}@{envData.OS_VERSION}\nThis is a '{Context.StartTarget}' build created on the {buildTimestamp.Day}.{buildTimestamp.Month}.{buildTimestamp.Year} at {buildTimestamp.Hour}:{buildTimestamp.Minute}:{buildTimestamp.Second}\n\n\tThis software is provided as is!\n"
 }
 const startupDataPath = "/os/startup.json";
 
