@@ -1,0 +1,30 @@
+let Assert = NUnit.Assert;
+
+function Test()
+{
+	let v;
+	Assert.AreEqual(v, null, "Uninitialized Variable is not null");
+}
+
+NUnit.AddTest(Test, "Variable Definition: Default");
+
+function ConstTest()
+{
+	const v;
+	Assert.AreEqual(v, null, "Uninitialized Constant is not null");	
+}
+NUnit.AddTest(ConstTest, "Constant Definition: Default");
+
+function TestAssign()
+{
+	let v = 10;
+	Assert.AreEqual(v, 10, "Initialized Variable is not equal to the initialized value");
+}
+NUnit.AddTest(TestAssign, "Variable Definition + Assignment: Default");
+
+function ConstTestAssign()
+{
+	const v = 10;
+	Assert.AreEqual(v, 10, "Uninitialized Constant is not equal to the initialized value");	
+}
+NUnit.AddTest(ConstTestAssign, "Constant Definition + Assignment: Default");

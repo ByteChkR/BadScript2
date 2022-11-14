@@ -71,8 +71,24 @@ public class BadGreaterThanExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-
-        yield return GreaterThan(left, right, Position);
+        if (left.HasProperty(BadStaticKeys.GreaterOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.GreaterOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.GreaterOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.GreaterOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return GreaterThan(left, right, Position);
+        }
     }
 
     protected override string GetSymbol()

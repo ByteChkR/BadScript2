@@ -59,8 +59,24 @@ public class BadEqualityExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-
-        yield return Equal(left, right);
+        if (left.HasProperty(BadStaticKeys.EqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.EqualOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.EqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.EqualOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return Equal(left, right);
+        }
     }
 
     protected override string GetSymbol()

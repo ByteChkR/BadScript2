@@ -106,6 +106,8 @@ public class BadUnitTests
     [SetUp]
     public void Setup()
     {
+        //Required to get the raw Assert.Pass exception instead of the runtime exception that is caught
+        BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         Context.Setup();
         OptimizedContext.Setup();
     }

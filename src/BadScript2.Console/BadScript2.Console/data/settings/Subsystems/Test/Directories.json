@@ -2,7 +2,7 @@
   "Subsystems": {
     "Test": {
       "RootDirectory": "$(Console.SubsystemDirectory)/test",
-      "TestDirectory": "$(RootDirectory)/tests"
+      "TestDirectory": "$(RootDirectory)"
     }
   }
 }

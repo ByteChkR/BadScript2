@@ -1,0 +1,21 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_LogicAnd()
+{
+	let b = true;
+	b &= true;
+	Assert.IsTrue(b, "true && true");
+	b = false;
+	b &= true;
+	Assert.IsFalse(b, "false && true");
+	b = true;
+	b &= false;
+	Assert.IsFalse(b, "true && false");
+	b = false;
+	b &= false;
+	Assert.IsFalse(b, "false && false");
+}
+
+NUnit.AddTest(Test_LogicAnd, "Operator '&=' tests");

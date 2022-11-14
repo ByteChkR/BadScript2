@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	let i = 10;
+	let a = {
+		op_MultiplyAssign: function(right) => i = i * right
+	}
+
+	a *= 5
+	Assert.AreEqual(i, 50, "a *= 5");
+}
+
+NUnit.AddTest(Test, "Custom Operator '*=' tests");

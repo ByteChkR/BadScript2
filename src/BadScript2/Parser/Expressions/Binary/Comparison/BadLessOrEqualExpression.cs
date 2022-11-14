@@ -71,7 +71,25 @@ public class BadLessOrEqualExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        yield return LessOrEqual(left, right, Position);
+        if (left.HasProperty(BadStaticKeys.LessEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.LessEqualOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.LessEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.LessEqualOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else
+
+        {
+            yield return LessOrEqual(left, right, Position);
+        }
     }
 
     protected override string GetSymbol()

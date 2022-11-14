@@ -63,7 +63,24 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        yield return GreaterOrEqual(left, right, Position);
+        if (left.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.GreaterEqualOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.GreaterEqualOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return GreaterOrEqual(left, right, Position);
+        }
     }
 
     protected override string GetSymbol()

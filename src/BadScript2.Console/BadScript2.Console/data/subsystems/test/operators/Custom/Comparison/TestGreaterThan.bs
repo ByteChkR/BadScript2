@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_GreaterThan()
+{
+	const t = {
+		op_Greater: other => other > 10
+	}
+	Assert.IsTrue(t > 11, "t <= 10");
+}
+
+NUnit.AddTest(Test_GreaterThan, "Custom Operator '>' tests");

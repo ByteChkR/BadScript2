@@ -40,6 +40,21 @@ let add = function(a, b) => a + b; //Single Line Block Unnamed Function
 
 ```
 
+### Lambda Functions
+
+For convenience the Single Line Functions can be expressed as lambda expressions.
+Those functions can not define a return type.
+
+```js
+
+const Add = (a, b) => a + b; //Specifying Parameters with a parameter list.
+
+const Double = x => x * 2; //Single Parameters can be specified without the brackets
+
+const Double4 = () => Double(4); //If the function has no parameters the empty brackets must be specified.
+
+```
+
 ___
 
 ## Links

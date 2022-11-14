@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Examples.MinimalConsole", "BadScript2.Examples.MinimalConsole\BadScript2.Examples.MinimalConsole.csproj", "{F85514D1-F7DC-4F89-8E5F-3C807E2F4C29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BadScript2", "BadScript2", "{925B4F5B-5F21-42EA-9150-ACDDC28E9DAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2", "..\..\src\BadScript2\BadScript2.csproj", "{2F6E1DF0-8C05-4A19-97F5-DC874511E064}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Examples.Sandbox", "BadScript2.Examples.Sandbox\BadScript2.Examples.Sandbox.csproj", "{D253DF2E-9C4B-4E02-857F-C78406055846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Common", "..\..\src\BadScript2.Interop\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj", "{92FFDA0A-D3B0-4EF7-A779-7AA29F5BF748}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.IO", "..\..\src\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj", "{85E31D5D-C8AC-4F82-9036-0A72B2573CD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Examples.CustomApi", "BadScript2.Examples.CustomApi\BadScript2.Examples.CustomApi.csproj", "{DC118BAC-B7AB-4A5E-8568-E03353D11E22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F85514D1-F7DC-4F89-8E5F-3C807E2F4C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F85514D1-F7DC-4F89-8E5F-3C807E2F4C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F85514D1-F7DC-4F89-8E5F-3C807E2F4C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F85514D1-F7DC-4F89-8E5F-3C807E2F4C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F6E1DF0-8C05-4A19-97F5-DC874511E064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F6E1DF0-8C05-4A19-97F5-DC874511E064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F6E1DF0-8C05-4A19-97F5-DC874511E064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F6E1DF0-8C05-4A19-97F5-DC874511E064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D253DF2E-9C4B-4E02-857F-C78406055846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D253DF2E-9C4B-4E02-857F-C78406055846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D253DF2E-9C4B-4E02-857F-C78406055846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D253DF2E-9C4B-4E02-857F-C78406055846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92FFDA0A-D3B0-4EF7-A779-7AA29F5BF748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FFDA0A-D3B0-4EF7-A779-7AA29F5BF748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FFDA0A-D3B0-4EF7-A779-7AA29F5BF748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FFDA0A-D3B0-4EF7-A779-7AA29F5BF748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85E31D5D-C8AC-4F82-9036-0A72B2573CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85E31D5D-C8AC-4F82-9036-0A72B2573CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85E31D5D-C8AC-4F82-9036-0A72B2573CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85E31D5D-C8AC-4F82-9036-0A72B2573CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC118BAC-B7AB-4A5E-8568-E03353D11E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC118BAC-B7AB-4A5E-8568-E03353D11E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC118BAC-B7AB-4A5E-8568-E03353D11E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC118BAC-B7AB-4A5E-8568-E03353D11E22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2F6E1DF0-8C05-4A19-97F5-DC874511E064} = {925B4F5B-5F21-42EA-9150-ACDDC28E9DAC}
+		{92FFDA0A-D3B0-4EF7-A779-7AA29F5BF748} = {925B4F5B-5F21-42EA-9150-ACDDC28E9DAC}
+		{85E31D5D-C8AC-4F82-9036-0A72B2573CD8} = {925B4F5B-5F21-42EA-9150-ACDDC28E9DAC}
+	EndGlobalSection
+EndGlobal

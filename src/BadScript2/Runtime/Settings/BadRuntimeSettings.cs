@@ -7,10 +7,14 @@ namespace BadScript2.Runtime.Settings;
 /// </summary>
 public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 {
+    private BadSettings? m_CatchRuntimeExceptionsObj;
+
     /// <summary>
     ///     The File Extension Settings Object
     /// </summary>
     private BadSettings? m_FileExtensionObj;
+
+    private BadSettings? m_WriteStackTraceInRuntimeErrorsObj;
 
     /// <summary>
     ///     Creates a new instance of the BadRuntimeSettings class.
@@ -33,7 +37,6 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
         }
     }
 
-    private BadSettings? m_WriteStackTraceInRuntimeErrorsObj;
     private BadSettings? WriteStackTraceInRuntimeErrorsObj
     {
         get
@@ -46,11 +49,38 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
             return m_WriteStackTraceInRuntimeErrorsObj;
         }
     }
-    
-    public bool WriteStackTraceInRuntimeErrors => WriteStackTraceInRuntimeErrorsObj?.GetValue<bool>() ?? true;
+
+    private BadSettings? CatchRuntimeExceptionsObj
+    {
+        get
+        {
+            if (m_CatchRuntimeExceptionsObj == null && Settings != null && Settings.HasProperty(nameof(CatchRuntimeExceptions)))
+            {
+                m_CatchRuntimeExceptionsObj = Settings?.GetProperty(nameof(CatchRuntimeExceptions));
+            }
+
+            return m_CatchRuntimeExceptionsObj;
+        }
+    }
+
+    public bool WriteStackTraceInRuntimeErrors => WriteStackTraceInRuntimeErrorsObj?.GetValue<bool>() ?? false;
 
     /// <summary>
     ///     The Default File Extension of BadScript2 Scripts
     /// </summary>
     public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
+
+    public bool CatchRuntimeExceptions
+    {
+        get => CatchRuntimeExceptionsObj?.GetValue<bool>() ?? true;
+        set
+        {
+            if (CatchRuntimeExceptionsObj == null)
+            {
+                m_CatchRuntimeExceptionsObj = new BadSettings();
+            }
+
+            m_CatchRuntimeExceptionsObj!.SetValue(value);
+        }
+    }
 }

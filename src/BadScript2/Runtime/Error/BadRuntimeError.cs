@@ -37,6 +37,23 @@ public class BadRuntimeError : BadObject
     /// </summary>
     public BadObject ErrorObject { get; }
 
+    public static BadRuntimeError FromException(Exception e, string? scriptStackTrace = null)
+    {
+        BadRuntimeError? inner = e.InnerException == null ? null : FromException(e.InnerException);
+
+        string st;
+        if (scriptStackTrace == null)
+        {
+            st = e.StackTrace;
+        }
+        else
+        {
+            st = "Script Stack Trace: " + Environment.NewLine + scriptStackTrace + Environment.NewLine +"Runtime Stacktrace:" + Environment.NewLine + e.StackTrace;
+        }
+
+        return new BadRuntimeError(inner, e.Message, st);
+    }
+
     public override BadClassPrototype GetPrototype()
     {
         return new BadNativeClassPrototype<BadRuntimeError>(

@@ -54,6 +54,17 @@ public class BadExecutionContext
         return null;
     }
 
+    public BadObject ExecuteScript(IEnumerable<BadExpression> expressions)
+    {
+        BadObject result = BadObject.Null;
+        foreach (BadObject o in Execute(expressions))
+        {
+            result = o;
+        }
+
+        return result;
+    }
+
     /// <summary>
     ///     Executes an enumeration of expressions.
     /// </summary>

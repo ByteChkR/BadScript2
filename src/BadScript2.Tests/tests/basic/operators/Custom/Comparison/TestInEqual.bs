@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_InEqual()
+{
+	const t = {
+		op_NotEqual: other => other != true
+	}
+	Assert.IsTrue(t != false, "t == true");
+}
+
+NUnit.AddTest(Test_InEqual, "Custom Operator '!=' tests");

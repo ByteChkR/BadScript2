@@ -61,8 +61,24 @@ public class BadLessThanExpression : BadBinaryExpression
         }
 
         right = right.Dereference();
-
-        yield return LessThan(left, right, Position);
+        if (left.HasProperty(BadStaticKeys.LessOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.LessOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.LessOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.LessOperatorName))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return LessThan(left, right, Position);
+        }
     }
 
     protected override string GetSymbol()

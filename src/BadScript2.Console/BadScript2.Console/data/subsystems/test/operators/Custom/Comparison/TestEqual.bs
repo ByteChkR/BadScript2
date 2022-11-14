@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Equal()
+{
+	const t = {
+		op_Equal: other => other == true
+	}
+	Assert.IsTrue(t == true, "t != true");
+}
+
+NUnit.AddTest(Test_Equal, "Custom Operator '==' tests");

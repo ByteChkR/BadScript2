@@ -1,0 +1,44 @@
+let Assert = NUnit.Assert;
+
+function Test()
+{
+	class C {}
+	let c = new C();
+	Assert.IsTrue(c.IsInstanceOf(C), "Class instance is not instance of its definition");
+}
+
+NUnit.AddTest(Test, "Class Definition + Create");
+
+
+function TestConstMember()
+{
+	class C 
+	{
+		const Pass;
+		function C(pass)
+		{
+			Pass = pass;
+		}
+	}
+	let c = new C(true);
+	Assert.IsTrue(c.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestConstMember, "Class Definition + Create + Const Member: default");
+
+
+function TestCtor()
+{
+	class C 
+	{
+		let Pass;
+		function C(pass)
+		{
+			Pass = pass;
+		}
+	}
+	let c = new C(true);
+	Assert.IsTrue(c.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestCtor, "Class Definition + Create + Constructor: default");

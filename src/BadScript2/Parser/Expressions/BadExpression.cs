@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Parser.Expressions;
 
@@ -57,9 +58,34 @@ public abstract class BadExpression
             BadDebugger.Step(new BadDebuggerStep(context, Position, this));
         }
 
-        foreach (BadObject o in InnerExecute(context))
+        if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
         {
-            yield return o;
+            IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
+            while (true)
+            {
+                try
+                {
+                    if (!e.MoveNext())
+                    {
+                        break;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    context.Scope.SetErrorObject(BadRuntimeError.FromException(exception, context.Scope.GetStackTrace()));
+
+                    break;
+                }
+
+                yield return e.Current ?? BadObject.Null;
+            }
+        }
+        else
+        {
+            foreach (BadObject o in InnerExecute(context))
+            {
+                yield return o;
+            }
         }
     }
 

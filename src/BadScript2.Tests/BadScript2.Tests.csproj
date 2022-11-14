@@ -235,6 +235,24 @@
         <None Update="tests\basic\Locking.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestEqual.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestGreaterOrEqual.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestGreaterThan.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestInEqual.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestLessOrEqual.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestLessThan.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

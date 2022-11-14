@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 using BadScript2.Common;
-using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
 using BadScript2.Parser.Expressions.Block;
@@ -59,6 +58,11 @@ public class BadSourceParser
     public static BadSourceParser Create(string fileName, string source)
     {
         return new BadSourceParser(new BadSourceReader(fileName, source), BadOperatorTable.Instance);
+    }
+
+    public static IEnumerable<BadExpression> Parse(string fileName, string source)
+    {
+        return Create(fileName, source).Parse();
     }
 
     /// <summary>
@@ -244,6 +248,29 @@ public class BadSourceParser
         if (prefixExpr != null)
         {
             return prefixExpr;
+        }
+
+        if (Reader.Is('('))
+        {
+            int start = Reader.CurrentIndex;
+            try
+            {
+                List<BadFunctionParameter> p = ParseParameters(start);
+
+                Reader.SkipNonToken();
+                if (!Reader.Is("=>"))
+                {
+                    Reader.SetPosition(start);
+                }
+                else
+                {
+                    return ParseFunction(start, null, null, false, p);
+                }
+            }
+            catch (Exception e)
+            {
+                Reader.SetPosition(start);
+            }
         }
 
         if (Reader.Is('('))
@@ -514,6 +541,7 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
+        int wordStart = Reader.CurrentIndex;
         BadWordToken word = Reader.ParseWord();
 
         if (word.Text == BadStaticKeys.VariableDefinitionKey ||
@@ -557,6 +585,49 @@ public class BadSourceParser
             Reader.SkipNonToken();
 
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
+        }
+
+        Reader.SkipNonToken();
+
+        if (precedence > 0 && (Reader.Is("=>") || Reader.Is('*') || Reader.Is('?') || Reader.Is('!')))
+        {
+            int start = Reader.CurrentIndex;
+
+            while (Reader.Is('*') || Reader.Is('?') || Reader.Is('!'))
+            {
+                Reader.MoveNext();
+            }
+
+            Reader.SkipNonToken();
+            if (!Reader.Is("=>"))
+            {
+                Reader.SetPosition(start);
+            }
+            else
+            {
+                Reader.SetPosition(start);
+                BadFunctionParameter p;
+
+                if (Reader.Is("=>"))
+                {
+                    p = new BadFunctionParameter(word.Text, false, false, false);
+                }
+                else
+                {
+                    Reader.SetPosition(wordStart);
+                    p = ParseParameter();
+                }
+
+                Reader.SkipNonToken();
+                if (!Reader.Is("=>"))
+                {
+                    Reader.SetPosition(start);
+                }
+                else
+                {
+                    return ParseFunction(start, null, null, false, new List<BadFunctionParameter> { p });
+                }
+            }
         }
 
         return new BadVariableExpression(word.Text, word.SourcePosition);
@@ -993,6 +1064,182 @@ public class BadSourceParser
         );
     }
 
+    private BadFunctionParameter ParseParameter()
+    {
+        BadExpression nameExpr = ParseValue(0);
+        Reader.SkipNonToken();
+
+        while (Reader.Is("."))
+        {
+            Reader.Eat(".");
+            BadWordToken right = Reader.ParseWord();
+            nameExpr = new BadMemberAccessExpression(
+                nameExpr,
+                right,
+                nameExpr.Position.Combine(right.SourcePosition)
+            );
+            Reader.SkipNonToken();
+        }
+
+        Reader.SkipNonToken();
+        string name;
+        BadExpression? typeExpr = null;
+        Reader.SkipNonToken();
+        if (Reader.IsWordStart())
+        {
+            name = Reader.ParseWord().Text;
+            typeExpr = nameExpr;
+        }
+        else
+        {
+            if (nameExpr is not BadVariableExpression expr)
+            {
+                throw new BadParserException(
+                    "Expected Variable Expression",
+                    nameExpr.Position
+                );
+            }
+
+            name = expr.Name;
+        }
+
+
+        bool isOptional = false;
+        bool isNullChecked = false;
+        bool isRestArgs = false;
+        if (Reader.Is('*'))
+        {
+            isRestArgs = true;
+            Reader.Eat('*');
+            Reader.SkipNonToken();
+        }
+        else
+        {
+            if (Reader.Is('?'))
+            {
+                isOptional = true;
+                Reader.Eat('?');
+                Reader.SkipNonToken();
+                if (Reader.Is('!'))
+                {
+                    isNullChecked = true;
+                    Reader.Eat('!');
+                    Reader.SkipNonToken();
+                }
+            }
+            else if (Reader.Is('!'))
+            {
+                isNullChecked = true;
+                Reader.Eat('!');
+                Reader.SkipNonToken();
+                if (Reader.Is('?'))
+                {
+                    isOptional = true;
+                    Reader.Eat('?');
+                    Reader.SkipNonToken();
+                }
+            }
+        }
+
+        Reader.SkipNonToken();
+
+        return new BadFunctionParameter(name, isOptional, isNullChecked, isRestArgs, typeExpr);
+    }
+
+    private List<BadFunctionParameter> ParseParameters(int start)
+    {
+        List<BadFunctionParameter> parameters = new List<BadFunctionParameter>();
+
+        Reader.Eat('(');
+        Reader.SkipNonToken();
+        if (!Reader.Is(')'))
+        {
+            bool first = true;
+            bool hadOptional = false;
+            bool hadRest = false;
+            while (Reader.Is(',') || first)
+            {
+                if (hadRest)
+                {
+                    throw new BadParserException(
+                        "Rest parameter must be last parameter",
+                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                    );
+                }
+
+                if (!first)
+                {
+                    Reader.Eat(',');
+                    Reader.SkipNonToken();
+                }
+
+                first = false;
+
+
+                BadFunctionParameter param = ParseParameter();
+
+                if (hadOptional && !param.IsOptional && !param.IsRestArgs)
+                {
+                    throw new BadParserException(
+                        "Non-Optional parameters must be in front of optional parameters",
+                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                    );
+                }
+
+                Reader.SkipNonToken();
+                if (parameters.Any(p => p.Name == param.Name))
+                {
+                    throw new BadParserException(
+                        "Duplicate parameter name",
+                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                    );
+                }
+
+                hadOptional |= param.IsOptional;
+                hadRest |= param.IsRestArgs;
+
+
+                parameters.Add(param);
+            }
+        }
+
+        Reader.SkipNonToken();
+        Reader.Eat(')');
+
+        return parameters;
+    }
+
+    private BadFunctionExpression ParseFunction(int start, string? functionName, BadExpression? functionReturn, bool isConstant, List<BadFunctionParameter> parameters)
+    {
+        List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
+
+        if (isSingleLine)
+        {
+            block[0] = new BadReturnExpression(block[0], block[0].Position, false);
+        }
+
+        if (functionName == null)
+        {
+            return new BadFunctionExpression(
+                null,
+                parameters,
+                block,
+                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                isConstant,
+                functionReturn
+            );
+        }
+
+        return new BadFunctionExpression(
+            functionName,
+            parameters,
+            block,
+            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+            isConstant,
+            functionReturn
+        );
+    }
+
     /// <summary>
     ///     Parses a function definition. Moves the reader to the next token.
     /// </summary>
@@ -1047,160 +1294,9 @@ public class BadSourceParser
             }
         }
 
-        Reader.Eat('(');
-        Reader.SkipNonToken();
-        List<BadFunctionParameter> parameters = new List<BadFunctionParameter>();
-        if (!Reader.Is(')'))
-        {
-            bool first = true;
-            bool hadOptional = false;
-            bool hadRest = false;
-            while (Reader.Is(',') || first)
-            {
-                if (hadRest)
-                {
-                    throw new BadParserException(
-                        "Rest parameter must be last parameter",
-                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                    );
-                }
+        List<BadFunctionParameter> parameters = ParseParameters(start);
 
-                if (!first)
-                {
-                    Reader.Eat(',');
-                    Reader.SkipNonToken();
-                }
-
-                first = false;
-                BadExpression nameExpr = ParseValue(0);
-                Reader.SkipNonToken();
-
-                while (Reader.Is("."))
-                {
-                    Reader.Eat(".");
-                    BadWordToken right = Reader.ParseWord();
-                    nameExpr = new BadMemberAccessExpression(
-                        nameExpr,
-                        right,
-                        nameExpr.Position.Combine(right.SourcePosition)
-                    );
-                    Reader.SkipNonToken();
-                }
-
-                Reader.SkipNonToken();
-                string name;
-                BadExpression? typeExpr = null;
-                Reader.SkipNonToken();
-                if (Reader.IsWordStart())
-                {
-                    name = Reader.ParseWord().Text;
-                    typeExpr = nameExpr;
-                }
-                else
-                {
-                    if (nameExpr is not BadVariableExpression expr)
-                    {
-                        throw new BadParserException(
-                            "Expected Variable Expression",
-                            nameExpr.Position
-                        );
-                    }
-
-                    name = expr.Name;
-                }
-
-
-                bool isOptional = false;
-                bool isNullChecked = false;
-                bool isRestArgs = false;
-                if (Reader.Is('*'))
-                {
-                    isRestArgs = true;
-                    hadRest = true;
-                    Reader.Eat('*');
-                    Reader.SkipNonToken();
-                }
-                else
-                {
-                    if (Reader.Is('?'))
-                    {
-                        isOptional = true;
-                        hadOptional = true;
-                        Reader.Eat('?');
-                        Reader.SkipNonToken();
-                        if (Reader.Is('!'))
-                        {
-                            isNullChecked = true;
-                            Reader.Eat('!');
-                            Reader.SkipNonToken();
-                        }
-                    }
-                    else if (Reader.Is('!'))
-                    {
-                        isNullChecked = true;
-                        Reader.Eat('!');
-                        Reader.SkipNonToken();
-                        if (Reader.Is('?'))
-                        {
-                            isOptional = true;
-                            hadOptional = true;
-                            Reader.Eat('?');
-                            Reader.SkipNonToken();
-                        }
-                    }
-                }
-
-                if (hadOptional && !isOptional && !isRestArgs)
-                {
-                    throw new BadParserException(
-                        "Non-Optional parameters must be in front of optional parameters",
-                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                    );
-                }
-
-                Reader.SkipNonToken();
-                if (parameters.Any(p => p.Name == name))
-                {
-                    throw new BadParserException(
-                        "Duplicate parameter name",
-                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                    );
-                }
-
-                parameters.Add(new BadFunctionParameter(name, isOptional, isNullChecked, isRestArgs, typeExpr));
-            }
-        }
-
-        Reader.SkipNonToken();
-        Reader.Eat(')');
-
-        List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
-
-        if (isSingleLine)
-        {
-            block[0] = new BadReturnExpression(block[0], block[0].Position, false);
-        }
-
-        if (functionName == null)
-        {
-            return new BadFunctionExpression(
-                null,
-                parameters,
-                block,
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-                isConstant,
-                functionReturn
-            );
-        }
-
-        return new BadFunctionExpression(
-            functionName,
-            parameters,
-            block,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            isConstant,
-            functionReturn
-        );
+        return ParseFunction(start, functionName, functionReturn, isConstant, parameters);
     }
 
     /// <summary>

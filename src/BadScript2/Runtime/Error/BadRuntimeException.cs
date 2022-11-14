@@ -8,28 +8,6 @@ namespace BadScript2.Runtime.Error;
 /// </summary>
 public class BadRuntimeException : BadScriptException
 {
-    public static BadRuntimeException Create(BadScope? scope, string message)
-    {
-        if (scope!= null && BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors)
-        {
-            message = message + Environment.NewLine+scope.GetStackTrace();
-            
-        }
-
-        return new BadRuntimeException(message);
-    }
-
-    public static BadRuntimeException Create(BadScope? scope, string message, BadSourcePosition pos)
-    {
-        if (scope!= null &&BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors)
-        {
-            message = message + Environment.NewLine + scope.GetStackTrace();
-
-        }
-
-        return new BadRuntimeException(message, pos);
-    }
-
     /// <summary>
     ///     Creates a new BadScriptException
     /// </summary>
@@ -47,4 +25,24 @@ public class BadRuntimeException : BadScriptException
         message,
         position
     ) { }
+
+    public static BadRuntimeException Create(BadScope? scope, string message)
+    {
+        if (scope != null && BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors)
+        {
+            message = message + Environment.NewLine + scope.GetStackTrace();
+        }
+
+        return new BadRuntimeException(message);
+    }
+
+    public static BadRuntimeException Create(BadScope? scope, string message, BadSourcePosition pos)
+    {
+        if (scope != null && BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors)
+        {
+            message = message + Environment.NewLine + scope.GetStackTrace();
+        }
+
+        return new BadRuntimeException(message, pos);
+    }
 }
