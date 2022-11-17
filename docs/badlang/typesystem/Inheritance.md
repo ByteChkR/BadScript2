@@ -58,6 +58,43 @@ d.WriteThis(); //Prints class D
 
 ```
 
+## Member Visibility
+
+Members/Properties of classes can be declared public, protected or private.
+
+```js
+class C
+{
+	const __privateVar; //Private. Only accessible in functions of C
+	const _protectedVar; //Protected. Only accessible in functions of C and functions of inheriting classes
+	const publicVar; //Accessible from everywhere
+
+	function _ProtectedFunc()
+	{
+
+	}
+}
+
+class D : C
+{
+	function D()
+	{
+		const prot = base._protectedVar;
+		base._ProtectedFunc();
+
+		const priv = base.__privateVar; //Crashes
+	}
+}
+
+
+const d = new D();
+
+d._ProtectedFunc(); //Crashes
+d._protectedVar; //Crashes
+d.__privateVar; //Crashes
+
+```
+
 ___
 
 ## Links
