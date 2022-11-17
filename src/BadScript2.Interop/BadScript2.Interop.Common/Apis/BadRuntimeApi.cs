@@ -125,7 +125,7 @@ public class BadRuntimeApi : BadInteropApi
                 new BadFunctionParameter("setLastAsReturn", true, false, false)
             )
         );
-        target.SetFunction("CreateDefaultScope", ctx => ctx.Scope.GetRootScope().CreateChild("<customscope>", ctx.Scope));
+        target.SetFunction("CreateDefaultScope", ctx => ctx.Scope.GetRootScope().CreateChild("<customscope>", ctx.Scope, null));
         target.SetFunction("GetStackTrace", ctx => ctx.Scope.GetStackTrace());
         target.SetProperty("Native", MakeNative());
         target.SetFunction<string, BadObject>("Export", Export);
@@ -213,7 +213,7 @@ public class BadRuntimeApi : BadInteropApi
 
         BadExecutionContext ctx =
             scope == BadObject.Null || scope is not BadScope sc
-                ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope))
+                ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope, null))
                 : new BadExecutionContext(sc);
 
         IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
@@ -256,7 +256,7 @@ public class BadRuntimeApi : BadInteropApi
 
         BadExecutionContext ctx =
             scope == BadObject.Null || scope is not BadScope sc
-                ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope))
+                ? new BadExecutionContext(caller.Scope.GetRootScope().CreateChild("<EvaluateAsync>", caller.Scope, null))
                 : new BadExecutionContext(sc);
 
         IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();

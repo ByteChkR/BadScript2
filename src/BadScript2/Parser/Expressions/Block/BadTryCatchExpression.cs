@@ -59,7 +59,7 @@ public class BadTryCatchExpression : BadExpression
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadExecutionContext tryContext = new BadExecutionContext(
-            context.Scope.CreateChild("TryBlock", context.Scope, BadScopeFlags.CaptureThrow)
+            context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
         );
         foreach (BadObject o in tryContext.Execute(m_Expressions))
         {
@@ -69,7 +69,7 @@ public class BadTryCatchExpression : BadExpression
         if (tryContext.Scope.Error != null)
         {
             BadExecutionContext catchContext = new BadExecutionContext(
-                context.Scope.CreateChild("CatchBlock", context.Scope)
+                context.Scope.CreateChild("CatchBlock", context.Scope, null)
             );
             catchContext.Scope.DefineVariable(m_ErrorName, tryContext.Scope.Error);
             foreach (BadObject o in catchContext.Execute(m_CatchExpressions))

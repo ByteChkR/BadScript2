@@ -1,0 +1,45 @@
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	class C 
+	{
+		let PublicVar;
+		let _ProtectedVar;
+		let __PrivateVar;
+		function C()
+		{
+			PublicVar = true;
+			_ProtectedVar = true;
+			__PrivateVar = true;
+			__PrivateFunc();
+		}
+
+		function _ProtectedFunc()
+		{
+			
+		}
+
+		function __PrivateFunc()
+		{
+			
+		}
+	}
+
+	class D : C
+	{
+		function D()
+		{
+			base.C();
+			const prot = base._ProtectedVar;
+			base._ProtectedFunc();
+		}
+	}
+
+	let d = new D();
+	let pub = d.PublicVar;
+	
+}
+
+NUnit.AddTest(Test, "Class Member Visibility");

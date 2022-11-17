@@ -1,7 +1,7 @@
 
 class Environment
 {
-	const _envs = {}
+	const __envs = {}
 
 	function Environment()
 	{
@@ -10,22 +10,22 @@ class Environment
 
 	function GetVariables()
 	{
-		return _envs.ToArray();
+		return __envs.ToArray();
 	}
 
 	function Set(string key!, string value)
 	{
-		_envs[key] = value;
+		__envs[key] = value;
 	}
 
 	function Has(string key!)
 	{
-		return _envs.Keys.Contains(key);
+		return __envs.Keys.Contains(key);
 	}
 
 	function Get(string key!)
 	{
-		return _envs[key];
+		return __envs[key];
 	}
 
 }

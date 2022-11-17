@@ -90,7 +90,7 @@ public class BadIfExpression : BadExpression
                 BadExecutionContext branchContext = new BadExecutionContext(
                     context.Scope.CreateChild(
                         "IfBranch",
-                        context.Scope
+                        context.Scope, null
                     )
                 );
                 foreach (BadObject o in branchContext.Execute(keyValuePair.Value))
@@ -107,7 +107,7 @@ public class BadIfExpression : BadExpression
             BadExecutionContext elseContext = new BadExecutionContext(
                 context.Scope.CreateChild(
                     "IfBranch",
-                    context.Scope
+                    context.Scope, null
                 )
             );
             foreach (BadObject o in elseContext.Execute(m_ElseBranch))

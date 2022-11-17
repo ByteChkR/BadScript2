@@ -419,5 +419,8 @@
       <None Update="data\subsystems\test\operators\Custom\Comparison\TestLessThan.bs">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="data\subsystems\test\classes\visibility.bs">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

@@ -186,7 +186,7 @@ public class BadHtmlTemplate
     {
         string path = Path.Combine(ExtensionDirectory, ext + '.' + BadRuntimeSettings.Instance.FileExtension);
         IEnumerable<BadExpression> script = BadSourceParser.Create(path, BadFileSystem.ReadAllText(path)).Parse();
-        BadExecutionContext scriptCtx = new BadExecutionContext(ctx.Scope.CreateChild("ExtensionLoadScope", null, BadScopeFlags.Returnable));
+        BadExecutionContext scriptCtx = new BadExecutionContext(ctx.Scope.CreateChild("ExtensionLoadScope", null, null, BadScopeFlags.Returnable));
         api.SetProperty(ext, scriptCtx.Run(script) ?? BadObject.Null, new BadPropertyInfo(null, true));
 
         return BadObject.Null;

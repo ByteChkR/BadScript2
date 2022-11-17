@@ -41,7 +41,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
     {
         BadClass? baseInstance = null;
         BadExecutionContext ctx = new BadExecutionContext(
-            m_ParentScope.CreateChild($"class instance {Name}", caller.Scope)
+            m_ParentScope.CreateChild($"class instance {Name}", caller.Scope, true)
         );
         ctx.Scope.SetFlags(BadScopeFlags.None);
         if (BaseClass != null)
@@ -66,7 +66,8 @@ public class BadExpressionClassPrototype : BadClassPrototype
             yield return o;
         }
 
-        BadClass thisInstance = new BadClass(Name, ctx.Scope.GetTable(), baseInstance, this);
+        BadClass thisInstance = new BadClass(Name, ctx.Scope, baseInstance, this);
+        ctx.Scope.ClassObject = thisInstance;
 
         if (setThis)
         {

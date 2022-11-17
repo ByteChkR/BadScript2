@@ -253,6 +253,9 @@
         <None Update="tests\basic\operators\Custom\Comparison\TestLessThan.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\classes\visibility.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

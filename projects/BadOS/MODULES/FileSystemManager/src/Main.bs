@@ -8,11 +8,11 @@ const Permissions =
 
 class FileSystemManager
 {
-	const _Data;
+	const __Data;
 
 	function Init()
 	{
-		if(_Data != null)
+		if(__Data != null)
 		{
 			return;
 		}
@@ -29,36 +29,36 @@ class FileSystemManager
 
 	function LoadFileSystemData()
 	{
-		_Data = Json.FromJson(IO.File.ReadAllText("/home/config/filesystem.json"));
+		__Data = Json.FromJson(IO.File.ReadAllText("/home/config/filesystem.json"));
 	}
 
 	function SaveFileSystemData()
 	{
-		IO.File.WriteAllText("/home/config/filesystem.json", Json.ToJson(_Data));
+		IO.File.WriteAllText("/home/config/filesystem.json", Json.ToJson(__Data));
 	}
 
 	function CreateFileSystemData()
 	{
-		_Data = {}
+		__Data = {}
 		InitUser(0); //Root
-		_Data["0"].Entries.Clear();
-		_Data["0"].Entries.Add({ Path: "/", Permission: Permissions.ReadWrite });
+		__Data["0"].Entries.Clear();
+		__Data["0"].Entries.Add({ Path: "/", Permission: Permissions.ReadWrite });
 
 	}
 
 	function InitUser(num uid!)
 	{
-		if(_Data.Keys.Contains(uid.ToString()))
+		if(__Data.Keys.Contains(uid.ToString()))
 		{
 			return;
 		}
-		_Data[uid.ToString()] = {
+		__Data[uid.ToString()] = {
 			Entries: []
 		}
 
-		_Data[uid.ToString()].Entries.Add({ Path: ApiBuilder.Data["GetUserHome"](uid), Permission: Permissions.ReadWrite });
-		_Data[uid.ToString()].Entries.Add({ Path: "/bin", Permission: Permissions.Read});
-		_Data[uid.ToString()].Entries.Add({ Path: "/", Permission: Permissions.None});
+		__Data[uid.ToString()].Entries.Add({ Path: ApiBuilder.Data["GetUserHome"](uid), Permission: Permissions.ReadWrite });
+		__Data[uid.ToString()].Entries.Add({ Path: "/bin", Permission: Permissions.Read});
+		__Data[uid.ToString()].Entries.Add({ Path: "/", Permission: Permissions.None});
 	}
 
 	function CanRead(string path!)
@@ -66,7 +66,7 @@ class FileSystemManager
 		let fullPath = IO.Path.GetFullPath(path);
 		const uid = ApiBuilder.Data["GetUserID"]();
 		InitUser(uid);
-		const data = _Data[uid.ToString()];
+		const data = __Data[uid.ToString()];
 		while(fullPath != "")
 		{
 			const elem = data.Entries.FirstOrDefault(function(e) => e.Path == fullPath);
@@ -99,7 +99,7 @@ class FileSystemManager
 		let fullPath = IO.Path.GetFullPath(path);
 		const uid = ApiBuilder.Data["GetUserID"]();
 		InitUser(uid);
-		const data = _Data[uid.ToString()];
+		const data = __Data[uid.ToString()];
 		while(fullPath != "")
 		{
 			Console.WriteLine("Checking permissions for: " + fullPath);

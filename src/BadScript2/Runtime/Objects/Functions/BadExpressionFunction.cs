@@ -62,7 +62,7 @@ public class BadExpressionFunction : BadFunction
         BadExecutionContext ctx = new BadExecutionContext(
             m_ParentScope.CreateChild(
                 ToString(),
-                caller.Scope,
+                caller.Scope, null,
                 BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
             )
         );

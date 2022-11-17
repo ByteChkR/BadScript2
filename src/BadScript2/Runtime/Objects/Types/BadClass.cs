@@ -3,6 +3,15 @@ using BadScript2.Runtime.Interop;
 
 namespace BadScript2.Runtime.Objects.Types;
 
+[Flags]
+public enum BadPropertyVisibility
+{
+    Public = 1,
+    Protected = 2,
+    Private = 4,
+    All = Public | Protected | Private,
+}
+
 /// <summary>
 ///     Implements a Type Instance in the BadScript Language
 /// </summary>
@@ -16,19 +25,19 @@ public class BadClass : BadObject
     /// <summary>
     ///     Table of all members of this type(excluding base class members)
     /// </summary>
-    private readonly BadTable m_Table;
+    private readonly BadScope m_Scope;
 
     /// <summary>
     ///     Creates a new BadScript Class Instance
     /// </summary>
     /// <param name="name">The Type Name</param>
-    /// <param name="table">Table of all members of this type(excluding base class members)</param>
+    /// <param name="scope">Table of all members of this type(excluding base class members)</param>
     /// <param name="baseClass">Base Class Instance</param>
     /// <param name="prototype">The Class Prototype used to create this instance.</param>
-    public BadClass(string name, BadTable table, BadClass? baseClass, BadClassPrototype prototype)
+    public BadClass(string name, BadScope scope, BadClass? baseClass, BadClassPrototype prototype)
     {
         Name = name;
-        m_Table = table;
+        m_Scope = scope;
         m_BaseClass = baseClass;
         Prototype = prototype;
     }
@@ -74,7 +83,7 @@ public class BadClass : BadObject
     private void SetThis(BadClass thisInstance)
     {
         SuperClass = thisInstance;
-        m_Table.GetProperty("this").Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
+        m_Scope.GetTable().GetProperty("this").Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
         m_BaseClass?.SetThis(thisInstance);
     }
 
@@ -85,7 +94,7 @@ public class BadClass : BadObject
 
     public override bool HasProperty(BadObject propName)
     {
-        if (m_Table.InnerTable.ContainsKey(propName))
+        if (m_Scope.GetTable().InnerTable.ContainsKey(propName))
         {
             return true;
         }
@@ -98,47 +107,89 @@ public class BadClass : BadObject
         return BadInteropExtension.HasObject(GetType(), propName);
     }
 
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller= null)
+
+    
+
+    public BadObjectReference GetProperty(BadObject propName, BadPropertyVisibility visibility, BadScope? caller = null)
     {
+        BadPropertyVisibility vis = BadScope.GetPropertyVisibility(propName);
+        if (caller != null)
+        {
+            if (caller.ClassObject == null)
+            {
+                visibility = BadPropertyVisibility.Public;
+            }
+            else if(caller.ClassObject == this)
+            {
+                visibility = BadPropertyVisibility.All;
+            }
+            else if (caller.ClassObject.InheritsFrom(Prototype))
+            {
+                visibility = BadPropertyVisibility.Public | BadPropertyVisibility.Protected;
+            }
+            else
+            {
+                visibility = BadPropertyVisibility.Public;
+            }
+
+            //Check if caller is this class
+            // => All
+            //check if caller is a child class 
+            // => Public | Protected
+            //else
+            // => Public
+        }
+
         if (!HasProperty(propName))
         {
             throw BadRuntimeException.Create(caller, $"Property {propName} not found in class {Name} or any of its base classes");
         }
 
-        if (m_Table.InnerTable.ContainsKey(propName))
+        if ((vis & visibility) == 0)
+        {
+            throw BadRuntimeException.Create(caller, $"Property {Name}.{propName} is not visible from {caller?.Name ?? "global"}");
+        }
+
+        if (m_Scope.GetTable().InnerTable.ContainsKey(propName))
         {
             return BadObjectReference.Make(
                 $"{Name}.{propName}",
-                () => m_Table.InnerTable[propName],
+                () => m_Scope.GetTable().InnerTable[propName],
                 (o, _) =>
                 {
-                    if (m_Table.InnerTable.ContainsKey(propName))
+                    if (m_Scope.GetTable().InnerTable.ContainsKey(propName))
                     {
-                        BadPropertyInfo info = m_Table.GetPropertyInfo(propName);
-                        if (m_Table.InnerTable[propName] != Null && info.IsReadOnly)
+                        BadPropertyInfo info = m_Scope.GetTable().GetPropertyInfo(propName);
+                        if (m_Scope.GetTable().InnerTable[propName] != Null && info.IsReadOnly)
                         {
                             throw BadRuntimeException.Create(caller, $"{Name}.{propName} is read-only");
                         }
 
                         if (info.Type != null && !info.Type.IsAssignableFrom(o))
                         {
-                            throw BadRuntimeException.Create(caller, 
+                            throw BadRuntimeException.Create(
+                                caller,
                                 $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
                             );
                         }
                     }
 
-                    m_Table.InnerTable[propName] = o;
+                    m_Scope.GetTable().InnerTable[propName] = o;
                 }
             );
         }
 
         if (m_BaseClass != null)
         {
-            return m_BaseClass.GetProperty(propName, caller);
+            return m_BaseClass.GetProperty(propName, visibility & ~BadPropertyVisibility.Private & BadPropertyVisibility.All, caller); //Allow public, protected
         }
 
         return BadInteropExtension.GetObjectReference(GetType(), propName, SuperClass ?? this, caller);
+    }
+
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    {
+        return GetProperty(propName, BadPropertyVisibility.Public, caller);
     }
 
 
@@ -147,6 +198,6 @@ public class BadClass : BadObject
         done.Add(this);
 
         return
-            $"class {Name}\n{m_Table.ToSafeString(done)}";
+            $"class {Name}\n{m_Scope.ToSafeString(done)}";
     }
 }

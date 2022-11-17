@@ -155,7 +155,7 @@ public class BadForEachExpression : BadExpression
             BadExecutionContext loopContext = new BadExecutionContext(
                 context.Scope.CreateChild(
                     "ForEachLoop",
-                    context.Scope,
+                    context.Scope, null,
                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
                 )
             );

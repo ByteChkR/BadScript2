@@ -15,12 +15,15 @@ public class BadScope : BadObject
     /// </summary>
     private readonly BadScope? m_Caller;
 
+    public BadClass? ClassObject { get; internal set; }
+
     /// <summary>
     ///     The Scope Variables
     /// </summary>
     private readonly BadTable m_ScopeVariables = new BadTable();
 
     private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
+    private readonly bool m_UseVisibility;
 
     /// <summary>
     ///     Creates a new Scope
@@ -60,14 +63,17 @@ public class BadScope : BadObject
         BadScope parent,
         BadScope? caller,
         string name,
-        BadScopeFlags flags = BadScopeFlags.RootScope) : this(
+        BadScopeFlags flags = BadScopeFlags.RootScope,
+        bool useVisibility = false) : this(
         name,
         caller,
         ClearCaptures(parent.Flags) | flags
     )
     {
+        m_UseVisibility = useVisibility;
         Parent = parent;
     }
+    
 
     /// <summary>
     ///     The Parent Scope
@@ -401,10 +407,13 @@ public class BadScope : BadObject
     /// <param name="caller">The Caller</param>
     /// <param name="flags">Scope Flags</param>
     /// <returns>New BadScope Instance</returns>
-    public BadScope CreateChild(string name, BadScope? caller, BadScopeFlags flags = BadScopeFlags.RootScope)
+    public BadScope CreateChild(string name, BadScope? caller, bool? useVisibility, BadScopeFlags flags = BadScopeFlags.RootScope)
     {
-        return new BadScope(this, caller, name, flags);
+        var sc= new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility);
+        sc.ClassObject = ClassObject;
+        return sc;
     }
+    
 
     /// <summary>
     ///     Defines a new Variable in the current scope
@@ -444,8 +453,72 @@ public class BadScope : BadObject
         return Parent!.GetVariableInfo(name);
     }
 
+    public static BadPropertyVisibility GetPropertyVisibility(BadObject propName)
+    {
+        if (propName is not IBadString s)
+        {
+            return BadPropertyVisibility.Public;
+        }
+
+        if (s.Value.StartsWith("__"))
+        {
+            return BadPropertyVisibility.Private;
+        }
+
+        if (s.Value.StartsWith("_"))
+        {
+            return BadPropertyVisibility.Protected;
+        }
+
+        return BadPropertyVisibility.Public;
+    }
+
+    public bool IsVisibleParentOf(BadScope scope)
+    {
+        if (scope == this)
+        {
+            return true;
+        }
+
+        BadScope? current = scope.Parent;
+        while (current != null)
+        {
+            if (!current.m_UseVisibility)
+            {
+                return false;
+            }
+            if (current == this)
+            {
+                return true;
+            }
+
+
+            current = current.Parent;
+        }
+
+        return false;
+    }
+
     public BadObjectReference GetVariable(BadObject name, BadScope caller)
     {
+        if (m_UseVisibility)
+        {
+            BadPropertyVisibility vis;
+            if (IsVisibleParentOf(caller))
+            {
+                vis = BadPropertyVisibility.All;
+            }
+            else
+            {
+                vis = BadPropertyVisibility.Public;
+            }
+
+            if ((GetPropertyVisibility(name) & vis) == 0)
+            {
+                throw BadRuntimeException.Create(caller, $"Variable '{name}' is not visible to {caller}");
+            }
+        }
+
         if (HasLocal(name))
         {
             return m_ScopeVariables.GetProperty(name, caller);

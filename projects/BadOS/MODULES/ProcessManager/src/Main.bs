@@ -67,7 +67,7 @@ class ProcessOutput
 class ProcessFileOutput : ProcessOutput
 {
 	const Path;
-	let _content = "";
+	let __content = "";
 	function ProcessFileOutput(string file!)
 	{
 		Path = file;
@@ -75,12 +75,12 @@ class ProcessFileOutput : ProcessOutput
 
 	function Write(obj)
 	{
-		_content += obj;
+		__content += obj;
 	}
 
 	function WriteLine(obj)
 	{
-		_content += obj + "\n";
+		__content += obj + "\n";
 	}
 
 	function Clear()
@@ -90,7 +90,7 @@ class ProcessFileOutput : ProcessOutput
 
 	function Close()
 	{
-		IO.File.WriteAllText(Path, _content);
+		IO.File.WriteAllText(Path, __content);
 	}
 }
 

@@ -2,9 +2,9 @@
 const System = OS.Import("System");
 class Shell
 {
-	let _ShouldExit = false;
+	let __ShouldExit = false;
 
-	function FindFile(string name)
+	function __FindFile(string name)
 	{
 		if(OS.FileSystem.File.Exists(name))
 		{
@@ -33,7 +33,7 @@ class Shell
 
 	function Loop()
 	{
-		while(!_ShouldExit)
+		while(!__ShouldExit)
 		{
 			OS.Write($"{OS.User.GetUserName()}@{OS.Environment.Get("OS_NAME")}:{OS.FileSystem.Directory.GetCurrentDirectory()}$");
 			const result = (await OS.ReadLineAsync()).Trim();
@@ -52,7 +52,7 @@ class Shell
 				break;
 			}
 
-			const file = FindFile(parts[0]);
+			const file = __FindFile(parts[0]);
 			
 			if(file == null)
 			{
