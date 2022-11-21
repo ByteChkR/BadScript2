@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringToUpper()
+{
+	const s = "Hello";
+	Assert.IsTrue(s.ToUpper() == "HELLO", "String.ToUpper Failed");
+}
+
+NUnit.AddTest(Test_StringToUpper, "String.ToUpper tests");

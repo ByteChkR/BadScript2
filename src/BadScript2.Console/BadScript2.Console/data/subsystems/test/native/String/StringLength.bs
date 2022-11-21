@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringLength()
+{
+	const s = "Hello";
+	Assert.IsTrue(s.Length == 5, "String.Length Failed");
+}
+
+NUnit.AddTest(Test_StringLength, "String.Length tests");

@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringContains()
+{
+	const s = "Hello World";
+	Assert.IsTrue(s.Contains("World"), "String.Contains Failed");
+	Assert.IsFalse(s.Contains("Planet"), "String.Contains Failed");
+}
+
+NUnit.AddTest(Test_StringContains, "String.Contains tests");

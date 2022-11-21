@@ -1,0 +1,14 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_FunctionInvoke()
+{
+	function MyFunc(a, b, c) => (a && b) || c;
+	Assert.IsTrue(MyFunc.Invoke([true, true, false]), "Function.Invoke Failed");
+	Assert.IsFalse(MyFunc.Invoke([true, false, false]), "Function.Invoke Failed");
+	Assert.IsTrue(MyFunc.Invoke([true, false, true]), "Function.Invoke Failed");
+
+}
+
+NUnit.AddTest(Test_FunctionInvoke, "Function.Invoke tests");

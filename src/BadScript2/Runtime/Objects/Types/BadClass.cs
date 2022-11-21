@@ -131,13 +131,6 @@ public class BadClass : BadObject
             {
                 visibility = BadPropertyVisibility.Public;
             }
-
-            //Check if caller is this class
-            // => All
-            //check if caller is a child class 
-            // => Public | Protected
-            //else
-            // => Public
         }
 
         if (!HasProperty(propName))

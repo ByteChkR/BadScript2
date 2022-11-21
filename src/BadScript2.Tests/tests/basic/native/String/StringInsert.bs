@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringInsert()
+{
+	const s = "Hello Planet";
+	Assert.IsTrue(s.Insert(0, "Planet") == "PlanetHello Planet", "String.Insert Failed");
+}
+
+NUnit.AddTest(Test_StringInsert, "String.Insert tests");

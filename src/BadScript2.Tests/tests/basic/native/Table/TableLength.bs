@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TableLength()
+{
+	let self = {
+		A: true
+	}
+
+	Assert.IsTrue(self.Length == 1, "Table Length is wrong");
+	
+
+}
+
+NUnit.AddTest(Test_TableLength, "Table.Length tests");

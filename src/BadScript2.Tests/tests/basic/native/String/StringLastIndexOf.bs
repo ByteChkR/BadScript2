@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringLastIndexOf()
+{
+	const s = "Hello World".LastIndexOf("l");
+	Assert.IsTrue(s == 9, "String.LastIndexOf Failed");
+}
+
+NUnit.AddTest(Test_StringLastIndexOf, "String.LastIndexOf tests");

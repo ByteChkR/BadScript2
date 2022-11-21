@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringTrim()
+{
+	const s = " Hello World ";
+	Assert.IsTrue(s.Trim() == "Hello World", "String.Trim Failed");
+}
+
+NUnit.AddTest(Test_StringTrim, "String.Trim tests");

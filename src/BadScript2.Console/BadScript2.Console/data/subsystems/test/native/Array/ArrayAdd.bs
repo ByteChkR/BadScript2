@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayAdd()
+{
+	let self = [];
+	
+	self.Add("Hello");
+
+	Assert.IsTrue(self[0] == "Hello", "Array.Add Failed");
+
+}
+
+NUnit.AddTest(Test_ArrayAdd, "Array.Add tests");

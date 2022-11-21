@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TableKeys()
+{
+	let self = {
+		A: true
+	}
+
+	Assert.IsTrue(self.Keys.Length == 1, "Keys count is wrong");
+	Assert.IsTrue(self.Keys[0] == "A", "Keys[0] != A");
+		
+}
+
+NUnit.AddTest(Test_TableKeys, "Table.Keys tests");

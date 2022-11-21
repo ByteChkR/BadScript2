@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringTrimEnd()
+{
+	const s = " Hello World ";
+	Assert.IsTrue(s.TrimEnd() == " Hello World", "String.TrimEnd Failed");
+}
+
+NUnit.AddTest(Test_StringTrimEnd, "String.TrimEnd tests");

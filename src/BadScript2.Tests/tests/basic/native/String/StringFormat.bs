@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringFormat()
+{
+	const s = "Hello {0}";
+	Assert.IsTrue(s.Format("World") == "Hello World", "String.Format Failed");
+}
+
+NUnit.AddTest(Test_StringFormat, "String.Format tests");

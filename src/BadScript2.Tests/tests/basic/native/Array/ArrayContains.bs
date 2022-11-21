@@ -1,0 +1,14 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayContains()
+{
+	let self = ["Hello"];
+
+	Assert.IsTrue(self.Contains("Hello"), "Array.Contains Failed");
+	Assert.IsFalse(self.Contains("World"), "Array.Contains Failed");
+
+}
+
+NUnit.AddTest(Test_ArrayContains, "Array.Contains tests");

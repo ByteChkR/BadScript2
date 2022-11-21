@@ -1,6 +1,9 @@
-﻿using BadScript2.Runtime.Interop;
+﻿using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
 using NUnit.Framework;
@@ -36,6 +39,7 @@ public class BadNUnitApi : BadInteropApi
         assert.SetFunction<decimal, string>("Negative", Assert_Negative);
         assert.SetFunction<decimal, string>("Zero", Assert_Zero);
         assert.SetFunction<decimal, string>("NotZero", Assert_NotZero);
+        assert.SetFunction<BadFunction, string>("Throws", Assert_Throws);
 
         return assert;
     }
@@ -45,6 +49,19 @@ public class BadNUnitApi : BadInteropApi
         target.SetProperty("Assert", MakeAssert());
     }
 
+    private static void Assert_Throws(BadExecutionContext ctx, BadFunction func, string message)
+    {
+        
+        Assert.Throws<BadRuntimeException>(() =>
+            {
+                foreach (BadObject o in func.Invoke(Array.Empty<BadObject>(), ctx))
+                {
+                    //Do Nothing
+                }
+            },
+            message
+        );
+    }
     private static void Assert_AreEqual(
         BadObject expected,
         BadObject actual,

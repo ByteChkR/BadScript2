@@ -267,7 +267,7 @@ public class BadSourceParser
                     return ParseFunction(start, null, null, false, p);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Reader.SetPosition(start);
             }

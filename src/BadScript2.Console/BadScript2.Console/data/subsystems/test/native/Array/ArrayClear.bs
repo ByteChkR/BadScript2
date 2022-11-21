@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayClear()
+{
+	let self = ["Hello"];
+	
+	self.Clear();
+
+	Assert.IsTrue(self.Length == 0, "Array.Clear Failed");
+
+}
+
+NUnit.AddTest(Test_ArrayClear, "Array.Clear tests");

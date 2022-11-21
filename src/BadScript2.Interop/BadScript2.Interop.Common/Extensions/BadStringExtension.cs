@@ -60,7 +60,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         RegisterObject<string>("IsLetters", s => s.All(char.IsLetter));
-        RegisterObject<string>("IsDigits", s => s.All(char.IsLetter));
+        RegisterObject<string>("IsDigits", s => s.All(char.IsDigit));
         RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
 
         RegisterObject<string>(
@@ -169,7 +169,7 @@ public class BadStringExtension : BadInteropExtension
             "PadLeft",
             s => new BadDynamicInteropFunction<decimal>(
                 "PadLeft",
-                (_, padding) => s.PadLeft((int)padding),
+                (_, padding) =>s.PadLeft((int)padding),
                 "padding"
             )
         );

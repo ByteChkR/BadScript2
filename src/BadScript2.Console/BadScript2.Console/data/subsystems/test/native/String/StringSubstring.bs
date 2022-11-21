@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringSubstring()
+{
+	const s = "Hello World".Substring(0, 5);
+	Assert.IsTrue(s == "Hello", "String.Substring Failed");
+}
+
+NUnit.AddTest(Test_StringSubstring, "String.Substring tests");

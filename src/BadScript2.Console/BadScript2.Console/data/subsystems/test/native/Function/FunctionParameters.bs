@@ -1,0 +1,27 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_FunctionParameters()
+{
+	function MyFunc(n!, o?, r*) => true;
+	Assert.IsTrue(MyFunc.Parameters.Length == 3, "Function.Parameters Failed");
+	Assert.IsTrue(MyFunc.Parameters[0].Name == "n", "Function.Parameters[0].Name Failed");
+	Assert.IsTrue(MyFunc.Parameters[1].Name == "o", "Function.Parameters[1].Name Failed");
+	Assert.IsTrue(MyFunc.Parameters[2].Name == "r", "Function.Parameters[2].Name Failed");
+
+	Assert.IsTrue(MyFunc.Parameters[0].IsNullChecked, "Function.Parameters[0].IsNullChecked Failed");
+	Assert.IsFalse(MyFunc.Parameters[1].IsNullChecked, "Function.Parameters[1].IsNullChecked Failed");
+	Assert.IsFalse(MyFunc.Parameters[2].IsNullChecked, "Function.Parameters[2].IsNullChecked Failed");
+
+	Assert.IsFalse(MyFunc.Parameters[0].IsOptional, "Function.Parameters[0].IsOptional Failed");
+	Assert.IsTrue(MyFunc.Parameters[1].IsOptional, "Function.Parameters[1].IsOptional Failed");
+	Assert.IsFalse(MyFunc.Parameters[2].IsOptional, "Function.Parameters[2].IsOptional Failed");
+
+	Assert.IsFalse(MyFunc.Parameters[0].IsRestArgs, "Function.Parameters[0].IsRestArgs Failed");
+	Assert.IsFalse(MyFunc.Parameters[1].IsRestArgs, "Function.Parameters[1].IsRestArgs Failed");
+	Assert.IsTrue(MyFunc.Parameters[2].IsRestArgs, "Function.Parameters[2].IsRestArgs Failed");
+
+}
+
+NUnit.AddTest(Test_FunctionParameters, "Function.Parameters tests");

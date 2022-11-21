@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayRemove()
+{
+	let self = ["Hello", true];
+	
+	self.Remove("Hello");
+
+	Assert.IsTrue(self.Length == 1, "Array.Remove Failed");
+	Assert.IsTrue(self[0], "Array.Remove Failed");
+
+}
+
+NUnit.AddTest(Test_ArrayRemove, "Array.Remove tests");

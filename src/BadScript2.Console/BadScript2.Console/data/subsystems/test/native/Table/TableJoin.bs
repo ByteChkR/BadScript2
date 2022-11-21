@@ -1,0 +1,53 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TableJoin()
+{
+	let self = {
+		A: true
+	}
+
+	const other1 = {
+		A: false,
+		B: false
+	}
+	const other2 = {
+		B: true,
+		C: false
+	}
+
+	self.Join(false, other1, other2);
+
+	Assert.IsTrue(self.A, "self.A got overwritten with overwrite=false");
+	Assert.IsTrue(self.Keys.Contains("B"), "self.B was not transferred from other1");
+	Assert.IsTrue(self.Keys.Contains("C"), "self.C was not transferred from other2");
+	Assert.IsFalse(self.B, "self.B got overwritten with overwrite=false");
+}
+
+NUnit.AddTest(Test_TableJoin, "Table.Join tests overwrite=false");
+
+function Test_TableJoinOverwrite()
+{
+	let self = {
+		A: true
+	}
+
+	const other1 = {
+		A: false,
+		B: false
+	}
+	const other2 = {
+		B: true,
+		C: false
+	}
+
+	self.Join(true, other1, other2);
+
+	Assert.IsFalse(self.A, "self.A did not get overwritten with overwrite=true");
+	Assert.IsTrue(self.Keys.Contains("B"), "self.B was not transferred from other1");
+	Assert.IsTrue(self.Keys.Contains("C"), "self.C was not transferred from other2");
+	Assert.IsTrue(self.B, "self.B did not overwritten with overwrite=true");
+}
+
+NUnit.AddTest(Test_TableJoinOverwrite, "Table.Join tests overwrite=true");

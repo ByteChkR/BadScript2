@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringReplace()
+{
+	const s = "Hello Planet";
+	Assert.IsTrue(s.Replace("Planet", "World") == "Hello World", "String.Replace Failed");
+}
+
+NUnit.AddTest(Test_StringReplace, "String.Replace tests");

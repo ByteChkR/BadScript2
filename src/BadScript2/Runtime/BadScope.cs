@@ -15,8 +15,6 @@ public class BadScope : BadObject
     /// </summary>
     private readonly BadScope? m_Caller;
 
-    public BadClass? ClassObject { get; internal set; }
-
     /// <summary>
     ///     The Scope Variables
     /// </summary>
@@ -73,7 +71,9 @@ public class BadScope : BadObject
         m_UseVisibility = useVisibility;
         Parent = parent;
     }
-    
+
+    public BadClass? ClassObject { get; internal set; }
+
 
     /// <summary>
     ///     The Parent Scope
@@ -405,15 +405,17 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">Scope Name</param>
     /// <param name="caller">The Caller</param>
+    /// <param name="useVisibility">Specifies if the scope is part of a class structure(if visibility flags are used)</param>
     /// <param name="flags">Scope Flags</param>
     /// <returns>New BadScope Instance</returns>
     public BadScope CreateChild(string name, BadScope? caller, bool? useVisibility, BadScopeFlags flags = BadScopeFlags.RootScope)
     {
-        var sc= new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility);
+        BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility);
         sc.ClassObject = ClassObject;
+
         return sc;
     }
-    
+
 
     /// <summary>
     ///     Defines a new Variable in the current scope
@@ -487,6 +489,7 @@ public class BadScope : BadObject
             {
                 return false;
             }
+
             if (current == this)
             {
                 return true;

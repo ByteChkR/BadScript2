@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringIsWhiteSpace()
+{
+	const s = " \t";
+	const n = "\tHello";
+	Assert.IsTrue(s.IsWhiteSpace, "String.IsWhiteSpace Failed");
+	Assert.IsFalse(n.IsWhiteSpace, "String.IsWhiteSpace Failed");
+}
+
+NUnit.AddTest(Test_StringIsWhiteSpace, "String.IsWhiteSpace tests");
