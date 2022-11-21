@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj"/>
-        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyVersion>2022.11.21.1</AssemblyVersion>
+    <FileVersion>2022.11.21.1</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
+    <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
+  </ItemGroup>
 </Project>

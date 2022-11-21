@@ -29,7 +29,12 @@ public class BadReflectedMemberTable
     {
         if (m_Members.TryGetValue(name, out BadReflectedMember member))
         {
-            return BadObjectReference.Make(name, () => member.Get(instance));
+            if (member.IsReadOnly)
+            {
+                return BadObjectReference.Make(name, () => member.Get(instance));
+            }
+
+            return BadObjectReference.Make(name, () => member.Get(instance), (o, i) => member.Set(instance, o));
         }
 
         throw new BadRuntimeException("Member " + name + " not found");

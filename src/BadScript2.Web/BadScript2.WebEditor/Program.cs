@@ -3,6 +3,7 @@ using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleCore;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
+using BadScript2.Interop.Common.Versioning;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.Net;
@@ -72,6 +73,7 @@ static void LoadSettings()
 
 LoadSettings();
 BadNativeClassBuilder.AddNative(BadTask.Prototype);
+BadNativeClassBuilder.AddNative(BadVersion.Prototype);
 BadCommonInterop.AddExtensions();
 
 //BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();

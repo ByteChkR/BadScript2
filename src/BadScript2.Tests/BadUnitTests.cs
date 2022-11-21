@@ -2,6 +2,7 @@ using BadScript2.ConsoleAbstraction;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
+using BadScript2.Interop.Common.Versioning;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.Linq;
@@ -34,6 +35,7 @@ public class BadUnitTests
             BadSettingsProvider.SetRootSettings(new BadSettings());
             BadSettingsProvider.RootSettings.FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching").SetValue(true);
             BadNativeClassBuilder.AddNative(BadTask.Prototype);
+            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
             BadInteropExtension.AddExtension<BadLinqExtensions>();
@@ -75,6 +77,7 @@ public class BadUnitTests
             BadSettingsProvider.SetRootSettings(new BadSettings());
             BadSettingsProvider.RootSettings.FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching").SetValue(true);
             BadNativeClassBuilder.AddNative(BadTask.Prototype);
+            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
             BadCommonInterop.AddExtensions();
             BadInteropExtension.AddExtension<BadLinqExtensions>();
             BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();

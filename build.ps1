@@ -34,6 +34,9 @@ function Build-Projects {
     cd ../BuildSystem.Console
     Write-Progress -Activity "BadScript2 Build" -Status "Build App 'BuildSystem.Console' 40%" -PercentComplete 40
     . $bs build ReleaseApp
+    cd ../VersionChange
+    Write-Progress -Activity "BadScript2 Build" -Status "Build App 'VersionChange' 45%" -PercentComplete 45
+    . $bs build ReleaseApp
     cd ../Debugger
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'Debugger' 50%" -PercentComplete 50
     . $bs build ReleaseRun

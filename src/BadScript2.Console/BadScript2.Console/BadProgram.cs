@@ -9,6 +9,7 @@ using BadScript2.ConsoleCore.Systems.VirtualMachine;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
+using BadScript2.Interop.Common.Versioning;
 using BadScript2.Interop.Compression;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
@@ -77,6 +78,7 @@ internal static class BadProgram
 
         LoadSettings();
         BadNativeClassBuilder.AddNative(BadTask.Prototype);
+        BadNativeClassBuilder.AddNative(BadVersion.Prototype);
         BadCommonInterop.AddExtensions();
         BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
         BadInteropExtension.AddExtension<BadNetInteropExtensions>();

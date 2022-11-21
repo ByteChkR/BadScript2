@@ -131,8 +131,15 @@ public class BadReflectedMethod : BadReflectedMember
         return Wrap(info.Invoke(instance, implArgs));
     }
 
+    public override bool IsReadOnly => true;
+
     public override BadObject Get(object instance)
     {
         return CreateFunction(instance);
+    }
+
+    public override void Set(object instance, BadObject o)
+    {
+        throw new BadRuntimeException("Can not set a value to a method");
     }
 }

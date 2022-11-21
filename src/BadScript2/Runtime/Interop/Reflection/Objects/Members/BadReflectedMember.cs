@@ -9,10 +9,12 @@ public abstract class BadReflectedMember
         Name = name;
     }
 
+    public abstract bool IsReadOnly { get; }
     protected string Name { get; }
 
     public abstract BadObject Get(object instance);
 
+    public abstract void Set(object instance, BadObject o);
     protected BadObject Wrap(object? o)
     {
         if (BadObject.CanWrap(o))
