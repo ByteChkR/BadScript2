@@ -220,7 +220,7 @@ public abstract class BadFunction : BadObject
             yield return o;
         }
 
-        if (IsConstant && ret != null && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
+        if (!caller.Scope.IsError && IsConstant && ret != null && BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
         {
             int? hash = GetHash(args);
             if (hash != null)
