@@ -14,6 +14,8 @@ public static class BadStaticKeys
     public static readonly string MultiLineCommentEnd = "*/";
     public static readonly string VariableDefinitionKey = "let";
     public static readonly string ConstantDefinitionKey = "const";
+    public static readonly string CompiledDefinitionKey = "compiled";
+    public static readonly string CompiledFastDefinitionKey = "fast";
     public static readonly string LockKey = "lock";
     public static readonly string True = "true";
     public static readonly string False = "false";

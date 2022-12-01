@@ -1,4 +1,3 @@
-using BadScript2.Compiler;
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
@@ -7,8 +6,9 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Settings;
+using BadScript2.Runtime.VirtualMachine;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
-using BadScript2.VirtualMachine;
 
 using NUnit.Framework;
 
@@ -170,7 +170,6 @@ public class BadUnitTests
             throw new BadRuntimeException("CompiledContext is null");
         }
 
-        BadCompiler compiler = new BadCompiler();
 
         return CompiledContext.GetTestCases()
             .Where(x => x.AllowCompile)
@@ -178,7 +177,7 @@ public class BadUnitTests
                 x =>
                 {
                     BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(compiler, func, true);
+                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(BadCompiler.Instance, func, true);
 
                     return new BadNUnitTestCase(compiled, x.TestName, true);
                 }
@@ -193,7 +192,6 @@ public class BadUnitTests
             throw new BadRuntimeException("CompiledOptimizedContext is null");
         }
 
-        BadCompiler compiler = new BadCompiler();
 
         return CompiledOptimizedContext.GetTestCases()
             .Where(x => x.AllowCompile)
@@ -201,7 +199,7 @@ public class BadUnitTests
                 x =>
                 {
                     BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(compiler, func, true);
+                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(BadCompiler.Instance, func, true);
 
                     return new BadNUnitTestCase(compiled, x.TestName, true);
                 }

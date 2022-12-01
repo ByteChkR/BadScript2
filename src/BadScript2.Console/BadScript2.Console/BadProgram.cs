@@ -1,6 +1,5 @@
 ﻿using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
-using BadScript2.Compiler;
 using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
@@ -21,6 +20,7 @@ using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
 
 namespace BadScript2.Console;

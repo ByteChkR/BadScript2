@@ -8,8 +8,16 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Parser.Expressions.Function;
+
+public enum BadFunctionCompileLevel
+{
+    None,
+    Compiled,
+    CompiledFast,
+}
 
 /// <summary>
 ///     Implements the Function Expression
@@ -34,6 +42,7 @@ public class BadFunctionExpression : BadExpression
     /// <param name="block">The Function Body</param>
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
+    /// <param name="isCompiled">Defines if the resulting function will be compiled</param>
     /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
     public BadFunctionExpression(
         BadWordToken? name,
@@ -41,6 +50,7 @@ public class BadFunctionExpression : BadExpression
         List<BadExpression> block,
         BadSourcePosition position,
         bool isConstant,
+        BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
         BadExpression? typeExpr = null) :
         base(false, position)
     {
@@ -49,6 +59,7 @@ public class BadFunctionExpression : BadExpression
         m_Body = block;
         TypeExpression = typeExpr;
         IsConstantFunction = isConstant;
+        CompileLevel = compileLevel;
     }
 
     /// <summary>
@@ -75,6 +86,8 @@ public class BadFunctionExpression : BadExpression
     ///     The (optional) Function Name
     /// </summary>
     public BadWordToken? Name { get; }
+
+    public BadFunctionCompileLevel CompileLevel { get; }
 
     public override void Optimize()
     {
@@ -140,11 +153,23 @@ public class BadFunctionExpression : BadExpression
             IsConstantFunction
         );
 
-        if (Name != null)
+        BadFunction fFinal = f;
+
+        if (CompileLevel == BadFunctionCompileLevel.Compiled)
         {
-            context.Scope.DefineVariable(BadObject.Wrap(Name.Text), f);
+            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true);
+        }
+        else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
+        {
+            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false);
         }
 
-        yield return f;
+
+        if (Name != null)
+        {
+            context.Scope.DefineVariable(BadObject.Wrap(Name.Text), fFinal);
+        }
+
+        yield return fFinal;
     }
 }

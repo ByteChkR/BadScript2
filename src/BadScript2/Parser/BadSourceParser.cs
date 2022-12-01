@@ -264,7 +264,7 @@ public class BadSourceParser
                 }
                 else
                 {
-                    return ParseFunction(start, null, null, false, p);
+                    return ParseFunction(start, null, null, false, BadFunctionCompileLevel.None, p);
                 }
             }
             catch (Exception)
@@ -463,6 +463,7 @@ public class BadSourceParser
         }
 
         bool isConstant = false;
+        BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None;
         int constStart = Reader.CurrentIndex;
         if (Reader.Is(BadStaticKeys.ConstantDefinitionKey))
         {
@@ -470,15 +471,35 @@ public class BadSourceParser
             Reader.Eat(BadStaticKeys.ConstantDefinitionKey);
             Reader.SkipNonToken();
         }
+        int compiledStart = Reader.CurrentIndex;
+        if (Reader.Is(BadStaticKeys.CompiledDefinitionKey))
+        {
+            compileLevel = BadFunctionCompileLevel.Compiled;
+            Reader.Eat(BadStaticKeys.CompiledDefinitionKey);
+            Reader.SkipNonToken();
+            if (Reader.Is(BadStaticKeys.CompiledFastDefinitionKey))
+            {
+                compileLevel = BadFunctionCompileLevel.CompiledFast;
+                Reader.Eat(BadStaticKeys.CompiledFastDefinitionKey);
+                Reader.SkipNonToken();
+            }
+        }
 
         if (Reader.Is(BadStaticKeys.FunctionKey))
         {
-            return ParseFunction(isConstant);
+            return ParseFunction(isConstant, compileLevel);
         }
 
-        if (isConstant)
+        if (compileLevel != BadFunctionCompileLevel.None || isConstant)
         {
-            Reader.SetPosition(constStart);
+            if(compiledStart < constStart)
+            {
+                Reader.SetPosition(compiledStart);
+            }
+            else
+            {
+                Reader.SetPosition(constStart);
+            }
         }
 
         if (Reader.Is(BadStaticKeys.ClassKey) && Reader.IsWhiteSpace(BadStaticKeys.ClassKey.Length))
@@ -625,7 +646,7 @@ public class BadSourceParser
                 }
                 else
                 {
-                    return ParseFunction(start, null, null, false, new List<BadFunctionParameter> { p });
+                    return ParseFunction(start, null, null, false, BadFunctionCompileLevel.None, new List<BadFunctionParameter> { p });
                 }
             }
         }
@@ -1209,7 +1230,7 @@ public class BadSourceParser
         return parameters;
     }
 
-    private BadFunctionExpression ParseFunction(int start, string? functionName, BadExpression? functionReturn, bool isConstant, List<BadFunctionParameter> parameters)
+    private BadFunctionExpression ParseFunction(int start, string? functionName, BadExpression? functionReturn, bool isConstant, BadFunctionCompileLevel compileLevel, List<BadFunctionParameter> parameters)
     {
         List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
 
@@ -1226,6 +1247,7 @@ public class BadSourceParser
                 block,
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
                 isConstant,
+                compileLevel,
                 functionReturn
             );
         }
@@ -1236,6 +1258,7 @@ public class BadSourceParser
             block,
             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
             isConstant,
+            compileLevel,
             functionReturn
         );
     }
@@ -1249,7 +1272,7 @@ public class BadSourceParser
     /// </param>
     /// <returns>Instance of BadFunctionExpression</returns>
     /// <exception cref="BadParserException">Gets raised if the function header is invalid.</exception>
-    private BadFunctionExpression ParseFunction(bool isConstant)
+    private BadFunctionExpression ParseFunction(bool isConstant, BadFunctionCompileLevel compileLevel)
     {
         int start = Reader.CurrentIndex;
         Reader.Eat(BadStaticKeys.FunctionKey);
@@ -1296,7 +1319,7 @@ public class BadSourceParser
 
         List<BadFunctionParameter> parameters = ParseParameters(start);
 
-        return ParseFunction(start, functionName, functionReturn, isConstant, parameters);
+        return ParseFunction(start, functionName, functionReturn, isConstant, compileLevel, parameters);
     }
 
     /// <summary>

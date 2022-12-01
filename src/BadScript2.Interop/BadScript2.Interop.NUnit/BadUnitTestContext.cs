@@ -91,7 +91,7 @@ public class BadUnitTestContext
         BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
 
         BadTaskRunner.Instance.AddTask(
-            new BadTask(new BadInteropRunnable(testCase.Function.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator()), testCase.TestName),
+            new BadTask(new BadInteropRunnable(testCase.Function!.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator()), testCase.TestName),
             true
         );
 
