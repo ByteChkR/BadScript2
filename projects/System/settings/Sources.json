@@ -4,5 +4,6 @@
 	"./src/Logging.bs",
 	"./src/Collections/*.bs",
 	"./src/SourceReader.bs",
+	"./src/Math.bs",
 	"./src/System.bs"
 ]

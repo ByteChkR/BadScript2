@@ -3,7 +3,7 @@
 const Package = Runtime.Import("Package");
 const System = Package.Import("System");
 
-function ReadBlock(reader)
+compiled fast function ReadBlock(reader)
 {
 	let level = 1;
 	reader.Eat("{");
@@ -46,7 +46,7 @@ function ReadBlock(reader)
 	return src;
 }
 
-function ReadUntil(reader, char)
+compiled fast function ReadUntil(reader, char)
 {
 	let str = "";
 	while(!reader.IsEOF() && !reader.Is(char))

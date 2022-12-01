@@ -1,7 +1,7 @@
 const Package = Runtime.Import("Package");
 const System = Package.Import("System");
 
-function GetElement(root, path)
+compiled fast function GetElement(root, path)
 {
 	let current = root;
 	foreach(part in path)
@@ -15,7 +15,7 @@ function GetElement(root, path)
 	return current;
 }
 
-function ProcessEvals()
+compiled fast function ProcessEvals()
 {
 	Console.WriteLine("Processing eval statements");
 	let reader = new System.SourceReader(Context.SourceCode);

@@ -11,7 +11,7 @@ class SourceReader
 		_current = 0;
 	}
 
-	function Is(str!)
+	compiled fast function Is(str!)
 	{
 		Assert.IsString(str);
 		for(let i = 0; i < str.Length; i++)
@@ -40,7 +40,7 @@ class SourceReader
 		return Is("\n") || Is("\r") || Is(" ") || Is("\t");
 	}
 
-	function SkipWhiteSpace()
+	compiled fast function SkipWhiteSpace()
 	{
 		while(!IsEOF() && IsWhiteSpace())
 		{
@@ -48,7 +48,7 @@ class SourceReader
 		}
 	}
 
-	function ParseWord()
+	compiled fast function ParseWord()
 	{
 		let r = "";
 		while(!IsWhiteSpace())
@@ -67,7 +67,7 @@ class SourceReader
 		_current++;
 	}
 
-	function ReadComment()
+	compiled fast function ReadComment()
 	{
 		let r = "";
 		while(!IsEOF() && GetCurrent() != "\n")
@@ -80,7 +80,7 @@ class SourceReader
 		return r;
 	}
 
-	function ReadMultilineComment()
+	compiled fast function ReadMultilineComment()
 	{
 		let r = GetCurrent();
 		MoveNext();
@@ -99,7 +99,7 @@ class SourceReader
 		return r;
 	}
 
-	function ReadString()
+	compiled fast function ReadString()
 	{
 		let r = GetCurrent();
 		MoveNext();
@@ -119,7 +119,7 @@ class SourceReader
 		return r;
 	}
 
-	function StripComments()
+	compiled fast function StripComments()
 	{
 		let r = "";
 		while(!IsEOF())
