@@ -28,6 +28,8 @@ public class BadArrayExpression : BadExpression
         m_InitExpressions = initExpressions;
     }
 
+    public int Length => m_InitExpressions.Length;
+
     /// <summary>
     ///     The Initializer List
     /// </summary>

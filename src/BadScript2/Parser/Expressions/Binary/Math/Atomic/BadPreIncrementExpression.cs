@@ -14,7 +14,7 @@ public class BadPreIncrementExpression : BadExpression
     /// <summary>
     ///     Right side of the Expression
     /// </summary>
-    private readonly BadExpression m_Right;
+    public readonly BadExpression Right;
 
     /// <summary>
     ///     Constructor of the Pre Increment Expression
@@ -26,13 +26,27 @@ public class BadPreIncrementExpression : BadExpression
         position
     )
     {
-        m_Right = right;
+        Right = right;
+    }
+
+    public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
+    {
+        BadObject right = reference.Dereference();
+        if (right is not IBadNumber leftNumber)
+        {
+            throw new BadRuntimeException("Right side of ++ must be a number", position);
+        }
+
+        BadObject r = leftNumber.Value + 1;
+        reference.Set(r);
+
+        return r;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject right = BadObject.Null;
-        foreach (BadObject o in m_Right.Execute(context))
+        foreach (BadObject o in Right.Execute(context))
         {
             right = o;
 
@@ -44,16 +58,6 @@ public class BadPreIncrementExpression : BadExpression
             throw new BadRuntimeException("Right side of ++ must be a reference", Position);
         }
 
-        right = right.Dereference();
-
-        if (right is not IBadNumber leftNumber)
-        {
-            throw new BadRuntimeException("Right side of ++ must be a number", Position);
-        }
-
-        BadObject r = leftNumber.Value + 1;
-        rightRef.Set(r);
-
-        yield return r;
+        yield return Increment(rightRef, Position);
     }
 }

@@ -13,11 +13,6 @@ public class BadArray : BadObject, IBadEnumerable
 
 {
     /// <summary>
-    ///     The Inner Array
-    /// </summary>
-    public List<BadObject> InnerArray { get; }
-
-    /// <summary>
     ///     Creates a new Instance of the BadScript Array
     /// </summary>
     /// <param name="innerArray">The Initial Elements</param>
@@ -30,6 +25,11 @@ public class BadArray : BadObject, IBadEnumerable
     ///     Creates a new Instance of the BadScript Array
     /// </summary>
     public BadArray() : this(new List<BadObject>()) { }
+
+    /// <summary>
+    ///     The Inner Array
+    /// </summary>
+    public List<BadObject> InnerArray { get; }
 
     public IEnumerator<BadObject> GetEnumerator()
     {

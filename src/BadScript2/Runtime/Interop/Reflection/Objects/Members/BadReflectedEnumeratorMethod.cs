@@ -21,6 +21,6 @@ public class BadReflectedEnumeratorMethod : BadReflectedMethod
 
     public override BadObject Get(object instance)
     {
-        return new BadInteropFunction("GetEnumerator", objects => new BadInteropEnumerator(GetEnumerable(instance).GetEnumerator()));
+        return new BadInteropFunction("GetEnumerator", _ => new BadInteropEnumerator(GetEnumerable(instance).GetEnumerator()));
     }
 }

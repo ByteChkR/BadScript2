@@ -12,14 +12,14 @@ namespace BadScript2.Parser.Expressions.Block.Lock;
 public class BadLockExpression : BadExpression
 {
     /// <summary>
+    ///     The Expression to lock on
+    /// </summary>
+    public readonly BadExpression LockExpression;
+
+    /// <summary>
     ///     The Block Body
     /// </summary>
     private readonly BadExpression[] m_Block;
-
-    /// <summary>
-    ///     The Expression to lock on
-    /// </summary>
-    private readonly BadExpression m_LockExpression;
 
     /// <summary>
     ///     Constructor of the Lock Expression
@@ -29,14 +29,16 @@ public class BadLockExpression : BadExpression
     /// <param name="block">The Block Body</param>
     public BadLockExpression(BadSourcePosition position, BadExpression lockExpression, BadExpression[] block) : base(false, position)
     {
-        m_LockExpression = lockExpression;
+        LockExpression = lockExpression;
         m_Block = block;
     }
+
+    public IEnumerable<BadExpression> Block => m_Block;
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject lockObj = BadObject.Null;
-        foreach (BadObject o in m_LockExpression.Execute(context))
+        foreach (BadObject o in LockExpression.Execute(context))
         {
             lockObj = o;
 

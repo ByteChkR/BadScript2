@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 
@@ -8,12 +7,6 @@ using Newtonsoft.Json;
 
 namespace BadScript2.VirtualMachine.Managing;
 
-public class BadVirtualMachineException : Exception
-{
-    public BadVirtualMachineException( string message ) : base( message )
-    {
-    }
-}
 public class BadVirtualMachineManager
 {
     private readonly IFileSystem m_FileSystem;

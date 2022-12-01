@@ -40,8 +40,6 @@ public class BadTask : BadObject
     private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
         new Dictionary<BadObject, BadObjectReference>();
 
-    public BadRunnable Runnable { get; }
-
     public BadTask(BadRunnable runnable, string name)
     {
         Name = name;
@@ -64,6 +62,8 @@ public class BadTask : BadObject
         m_Properties.Add("Resume", BadObjectReference.Make("Task.Resume", () => resumeFunc));
         m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
     }
+
+    public BadRunnable Runnable { get; }
 
     public IEnumerable<BadTask> ContinuationTasks => m_ContinuationTasks;
 

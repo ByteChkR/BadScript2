@@ -26,7 +26,7 @@ public class BadThrowExpression : BadExpression
     /// <summary>
     ///     The Error Object that is thrown
     /// </summary>
-    private BadExpression Right { get; set; }
+    public BadExpression Right { get; set; }
 
     public override void Optimize()
     {

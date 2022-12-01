@@ -98,11 +98,12 @@ public abstract class BadExpression
     /// <param name="name">The name of the operator override function</param>
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the override function does not exist or is not of type BadFunction</exception>
-    protected IEnumerable<BadObject> ExecuteOperatorOverride(
+    protected static IEnumerable<BadObject> ExecuteOperatorOverride(
         BadObject left,
         BadObject right,
         BadExecutionContext context,
-        string name)
+        string name,
+        BadSourcePosition position)
     {
         BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
 
@@ -110,7 +111,7 @@ public abstract class BadExpression
         {
             throw new BadRuntimeException(
                 $"{left.GetType().Name} has no {name} property",
-                Position
+                position
             );
         }
 

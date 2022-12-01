@@ -1,13 +1,13 @@
 
 let Assert = NUnit.Assert;
 
-
+let i = 10;
+let a = {
+	op_ModuloAssign: function(right) => i = i % right
+}
 function Test()
 {
-	let i = 10;
-	let a = {
-		op_ModuloAssign: function(right) => i = i % right
-	}
+	
 
 	a %= 5
 	Assert.AreEqual(i, 0, "a %= 5");

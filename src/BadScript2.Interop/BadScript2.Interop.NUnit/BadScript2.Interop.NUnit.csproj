@@ -1,17 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <AssemblyVersion>2022.11.21.1</AssemblyVersion>
-    <FileVersion>2022.11.21.1</FileVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
-    <ProjectReference Include="..\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.3" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AssemblyVersion>2022.11.21.1</AssemblyVersion>
+        <FileVersion>2022.11.21.1</FileVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\BadScript2.VirtualMachine\BadScript2.Runtime.Compiler\BadScript2.Runtime.Compiler.csproj" />
+        <ProjectReference Include="..\..\BadScript2.VirtualMachine\BadScript2.Runtime.VirtualMachine\BadScript2.Runtime.VirtualMachine.csproj" />
+        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="NUnit" Version="3.13.3" />
+    </ItemGroup>
 </Project>

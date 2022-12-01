@@ -1,5 +1,6 @@
 ﻿using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
+using BadScript2.Compiler;
 using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
@@ -27,6 +28,7 @@ namespace BadScript2.Console;
 internal static class BadProgram
 {
     private const string SETTINGS_FILE = "Settings.json";
+
 
     private static void LoadSettings()
     {
@@ -91,6 +93,7 @@ internal static class BadProgram
         BadExecutionContextOptions.Default.AddApi(new BadNetApi());
         BadExecutionContextOptions.Default.AddApi(new BadCompressionApi());
         BadExecutionContextOptions.Default.AddApi(new BadNetHostApi());
+        BadExecutionContextOptions.Default.AddApi(new BadCompilerApi());
 
 
         BadConsoleRunner runner = new BadConsoleRunner(
@@ -106,6 +109,7 @@ internal static class BadProgram
             new BadRemoteConsoleSystem()
         );
 
+        //CompileTest();
 
         int r = runner.Run(args);
         lWriter?.Dispose();

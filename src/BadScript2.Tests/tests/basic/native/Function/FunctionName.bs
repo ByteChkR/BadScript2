@@ -2,10 +2,10 @@
 let Assert = NUnit.Assert;
 
 
+function MyFunc() => true;
+const f = function() => true;
 function Test_FunctionName()
 {
-	function MyFunc() => true;
-	const f = function() => true;
 	Assert.IsTrue(MyFunc.Name == "MyFunc", "Function.Name Failed");
 	Assert.IsTrue(f.Name == "<anonymous>", "Function.Name Failed");
 

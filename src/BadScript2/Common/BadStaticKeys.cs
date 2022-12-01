@@ -48,12 +48,11 @@ public static class BadStaticKeys
     public static readonly string MultiplyAssignOperatorName = "op_MultiplyAssign";
     public static readonly string DivideAssignOperatorName = "op_DivideAssign";
     public static readonly string ModuloAssignOperatorName = "op_ModuloAssign";
-    
+
     public static readonly string EqualOperatorName = "op_Equal";
     public static readonly string NotEqualOperatorName = "op_NotEqual";
     public static readonly string GreaterOperatorName = "op_Greater";
     public static readonly string GreaterEqualOperatorName = "op_GreaterOrEqual";
     public static readonly string LessOperatorName = "op_Less";
     public static readonly string LessEqualOperatorName = "op_LessOrEqual";
-    
 }

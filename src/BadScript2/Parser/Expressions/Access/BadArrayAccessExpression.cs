@@ -69,6 +69,31 @@ public class BadArrayAccessExpression : BadExpression
         }
     }
 
+    public static IEnumerable<BadObject> Access(BadExecutionContext context, BadObject left, BadObject[] args, BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
+        {
+            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context.Scope).Dereference() as BadFunction;
+            if (func == null)
+            {
+                throw new BadRuntimeException("Array access operator is not a function", position);
+            }
+
+            BadObject r = BadObject.Null;
+            foreach (BadObject o in func.Invoke(args.ToArray(), context))
+            {
+                yield return o;
+                r = o;
+            }
+
+            yield return r;
+        }
+        else
+        {
+            throw new BadRuntimeException("Array access operator is not defined", position);
+        }
+    }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -102,26 +127,9 @@ public class BadArrayAccessExpression : BadExpression
             args.Add(argObj);
         }
 
-        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
+        foreach (BadObject o in Access(context, left, args.ToArray(), Position))
         {
-            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context.Scope).Dereference() as BadFunction;
-            if (func == null)
-            {
-                throw new BadRuntimeException("Array access operator is not a function", Position);
-            }
-
-            BadObject r = BadObject.Null;
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
-            {
-                yield return o;
-                r = o;
-            }
-
-            yield return r;
-        }
-        else
-        {
-            throw new BadRuntimeException("Array access operator is not defined", Position);
+            yield return o;
         }
     }
 }

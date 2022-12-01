@@ -30,12 +30,12 @@ public class BadAssignExpression : BadExpression
     /// <summary>
     ///     Left side that the right side will be assigned to
     /// </summary>
-    private BadExpression Left { get; set; }
+    public BadExpression Left { get; set; }
 
     /// <summary>
     ///     Right side of the Expression
     /// </summary>
-    private BadExpression Right { get; set; }
+    public BadExpression Right { get; set; }
 
     public override void Optimize()
     {

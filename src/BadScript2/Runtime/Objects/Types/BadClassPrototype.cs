@@ -21,11 +21,6 @@ public abstract class BadClassPrototype : BadObject
     protected readonly BadClassPrototype? BaseClass;
 
     /// <summary>
-    ///     The Name of the Type
-    /// </summary>
-    public string Name { get; }
-
-    /// <summary>
     ///     Creates a new Class Prototype
     /// </summary>
     /// <param name="name">Class Name</param>
@@ -35,6 +30,11 @@ public abstract class BadClassPrototype : BadObject
         Name = name;
         BaseClass = baseClass;
     }
+
+    /// <summary>
+    ///     The Name of the Type
+    /// </summary>
+    public string Name { get; }
 
     public override BadClassPrototype GetPrototype()
     {

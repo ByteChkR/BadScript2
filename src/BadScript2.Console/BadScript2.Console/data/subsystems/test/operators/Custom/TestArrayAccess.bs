@@ -1,13 +1,13 @@
 
 let Assert = NUnit.Assert;
 
-
+let array = [1, 2, 3];
+let a = {
+	op_ArrayAccess: function(index) => array[index]
+}
 function Test_CustomArrayAccess()
 {
-	let array = [1, 2, 3];
-	let a = {
-		op_ArrayAccess: function(index) => array[index]
-	}
+	
 
 	Assert.AreEqual(1, a[0], "1 == a[0]");
 	Assert.AreEqual(2, a[1], "2 == a[1]");

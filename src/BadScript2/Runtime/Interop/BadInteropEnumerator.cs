@@ -98,7 +98,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
             }
         }
 
-        return base.GetProperty(propName,caller);
+        return base.GetProperty(propName, caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

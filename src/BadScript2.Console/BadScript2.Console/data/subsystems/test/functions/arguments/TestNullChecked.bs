@@ -14,18 +14,18 @@ function Test_NullCheckedArguments()
 
 NUnit.AddTest(Test_NullCheckedArguments, "NullChecked Function Argument Tests");
 
+const f1 = arg! => Assert.IsNotNull(arg, "Arg is null");
 function Test_LambdaNullCheckedArg()
 {
-	const f = arg! => Assert.IsNotNull(arg, "Arg is null");
-	f(true);
+	f1(true);
 }
 
 NUnit.AddTest(Test_LambdaNullCheckedArg, "NullChecked Lambda Function Argument Tests");
 
+const f2 = (arg!) => Assert.IsNotNull(arg, "Arg is null");
 function Test_LambdaNullCheckedArgList()
 {
-	const f = (arg!) => Assert.IsNotNull(arg, "Arg is null");
-	f(true);
+	f2(true);
 }
 
 NUnit.AddTest(Test_LambdaNullCheckedArgList, "NullChecked Lambda Function Argument List Tests");

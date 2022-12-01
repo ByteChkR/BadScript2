@@ -91,7 +91,8 @@ public class BadWhileExpression : BadExpression
             BadExecutionContext loopContext = new BadExecutionContext(
                 context.Scope.CreateChild(
                     "WhileLoop",
-                    context.Scope, null,
+                    context.Scope,
+                    null,
                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
                 )
             );

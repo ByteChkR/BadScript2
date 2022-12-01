@@ -42,6 +42,28 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
         throw new BadRuntimeException($"Can not apply operator '>=' to {left} and {right}", pos);
     }
 
+    public static IEnumerable<BadObject> GreaterOrEqualWithOverride(BadExecutionContext context, BadObject left, BadObject right, BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.GreaterEqualOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.GreaterEqualOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return GreaterOrEqual(left, right, position);
+        }
+    }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -63,23 +85,9 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        foreach (BadObject o in GreaterOrEqualWithOverride(context, left, right, Position))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.GreaterEqualOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else if (right.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.GreaterEqualOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return GreaterOrEqual(left, right, Position);
+            yield return o;
         }
     }
 

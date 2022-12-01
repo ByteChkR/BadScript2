@@ -95,7 +95,8 @@ public class BadForExpression : BadExpression
             BadExecutionContext loopContext = new BadExecutionContext(
                 loopCtx.Scope.CreateChild(
                     "InnerForLoop",
-                    loopCtx.Scope, null,
+                    loopCtx.Scope,
+                    null,
                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
                 )
             );

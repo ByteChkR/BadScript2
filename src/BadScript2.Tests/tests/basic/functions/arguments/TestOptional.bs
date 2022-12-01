@@ -18,20 +18,20 @@ function Test_OptionalArguments()
 
 NUnit.AddTest(Test_OptionalArguments, "Optional Function Argument Tests");
 
+const f1 = arg? => arg;
 function Test_LambdaOptionalArg()
 {
-	const f = arg? => arg;
-	f(true);
-	f();
+	f1(true);
+	f1();
 }
 
 NUnit.AddTest(Test_LambdaOptionalArg, "Optional Lambda Function Argument Tests");
 
+const f2 = (arg?) => arg;
 function Test_LambdaOptionalArgList()
 {
-	const f = (arg?) => arg;
-	f(true);
-	f();
+	f2(true);
+	f2();
 }
 
 NUnit.AddTest(Test_LambdaOptionalArgList, "Optional Lambda Function Argument List Tests");

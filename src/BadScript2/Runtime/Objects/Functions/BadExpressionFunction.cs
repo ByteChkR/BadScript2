@@ -17,12 +17,12 @@ public class BadExpressionFunction : BadFunction
     /// <summary>
     ///     The Scope the function is defined in
     /// </summary>
-    private readonly BadScope m_ParentScope;
+    public readonly BadScope ParentScope;
 
     /// <summary>
     ///     The Source Position of the Function
     /// </summary>
-    private readonly BadSourcePosition m_Position;
+    public readonly BadSourcePosition Position;
 
     /// <summary>
     ///     Creates a new Expression Function
@@ -42,8 +42,8 @@ public class BadExpressionFunction : BadFunction
         bool isConstant) : base(name, isConstant, parameters)
     {
         m_Body = expressions;
-        m_Position = position;
-        m_ParentScope = parentScope;
+        Position = position;
+        ParentScope = parentScope;
     }
 
     /// <summary>
@@ -54,19 +54,20 @@ public class BadExpressionFunction : BadFunction
 
     public override BadFunction BindParentScope(BadScope scope)
     {
-        return new BadExpressionFunction(scope, Name, m_Body, Parameters, m_Position, IsConstant);
+        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant);
     }
 
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         BadExecutionContext ctx = new BadExecutionContext(
-            m_ParentScope.CreateChild(
+            ParentScope.CreateChild(
                 ToString(),
-                caller.Scope, null,
+                caller.Scope,
+                null,
                 BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
             )
         );
-        ApplyParameters(ctx, args, m_Position);
+        ApplyParameters(ctx, args, Position);
 
         foreach (BadObject o in ctx.Execute(Body))
         {
@@ -90,6 +91,6 @@ public class BadExpressionFunction : BadFunction
 
     public override string ToString()
     {
-        return base.ToString() + " at " + m_Position.GetPositionInfo();
+        return base.ToString() + " at " + Position.GetPositionInfo();
     }
 }

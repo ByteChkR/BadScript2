@@ -10,7 +10,7 @@ function Test_IfBranch()
 		b = true;
 	}
 
-	Assert.IsTrue(b, "b == true");
+	Assert.IsTrue(b, "b == true 1");
 
 	b = false;
 	if(b)
@@ -22,7 +22,7 @@ function Test_IfBranch()
 		b = true;
 	}
 
-	Assert.IsTrue(b, "b == true");
+	Assert.IsTrue(b, "b == true 2");
 
 	b = false;
 	if(false)
@@ -38,7 +38,7 @@ function Test_IfBranch()
 		b = false;
 	}
 
-	Assert.IsTrue(b, "b == true");
+	Assert.IsTrue(b, "b == true 3");
 }
 
 NUnit.AddTest(Test_IfBranch, "if branch tests");

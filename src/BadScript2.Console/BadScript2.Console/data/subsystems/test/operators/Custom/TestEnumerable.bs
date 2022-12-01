@@ -1,13 +1,13 @@
 
 let Assert = NUnit.Assert;
 
-
+let array = [1, 2, 3];
+let a = {
+	GetEnumerator: function() => array.GetEnumerator()
+}
 function Test_CustomEnumerable()
 {
-	let array = [1, 2, 3];
-	let a = {
-		GetEnumerator: function() => array.GetEnumerator()
-	}
+	
 
 	let s = 0;
 	foreach(e in a)

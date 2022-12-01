@@ -29,6 +29,8 @@ public class BadTableExpression : BadExpression
         m_Table = table;
     }
 
+    public int Length => m_Table.Count;
+
     /// <summary>
     ///     The Initializer List of the Table
     /// </summary>

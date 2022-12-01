@@ -41,6 +41,28 @@ public class BadLessThanExpression : BadBinaryExpression
         throw new BadRuntimeException($"Can not apply operator '<' to {left} and {right}", pos);
     }
 
+    public static IEnumerable<BadObject> LessThanWithOverride(BadExecutionContext context, BadObject left, BadObject right, BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.LessOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.LessOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.LessOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.LessOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return LessThan(left, right, position);
+        }
+    }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -61,23 +83,9 @@ public class BadLessThanExpression : BadBinaryExpression
         }
 
         right = right.Dereference();
-        if (left.HasProperty(BadStaticKeys.LessOperatorName))
+        foreach (BadObject o in LessThanWithOverride(context, left, right, Position))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.LessOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else if (right.HasProperty(BadStaticKeys.LessOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.LessOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return LessThan(left, right, Position);
+            yield return o;
         }
     }
 

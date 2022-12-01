@@ -10,12 +10,12 @@ public class BadReflectedField : BadReflectedMember
 {
     private readonly FieldInfo m_Info;
 
-    public override bool IsReadOnly => m_Info.IsInitOnly;
-
     public BadReflectedField(FieldInfo field) : base(field.Name)
     {
         m_Info = field;
     }
+
+    public override bool IsReadOnly => m_Info.IsInitOnly;
 
     public override BadObject Get(object instance)
     {
@@ -28,6 +28,7 @@ public class BadReflectedField : BadReflectedMember
         {
             throw new BadRuntimeException("Invalid Reflection Set");
         }
+
         m_Info.SetValue(instance, native.Value);
     }
 }

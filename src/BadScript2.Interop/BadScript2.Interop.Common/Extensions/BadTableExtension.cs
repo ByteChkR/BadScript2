@@ -76,6 +76,7 @@ public class BadTableExtension : BadInteropExtension
         {
             throw BadRuntimeException.Create(ctx.Scope, "Overwrite is not a boolean value");
         }
+
         foreach (BadObject o in others)
         {
             if (o is not BadTable other)

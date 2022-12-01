@@ -21,7 +21,7 @@ public class BadArrayAccessReverseExpression : BadExpression
     /// <summary>
     ///     Indicates if the expression will be null-checked by the runtime
     /// </summary>
-    private readonly bool m_NullChecked;
+    public readonly bool NullChecked;
 
     /// <summary>
     ///     Constructor of the Array Access Expression
@@ -41,13 +41,16 @@ public class BadArrayAccessReverseExpression : BadExpression
     {
         Left = left;
         m_Arguments = args;
-        m_NullChecked = nullChecked;
+        NullChecked = nullChecked;
     }
+
+    public IEnumerable<BadExpression> Arguments => m_Arguments;
+    public int ArgumentCount => m_Arguments.Length;
 
     /// <summary>
     ///     Left side of the Expression
     /// </summary>
-    private BadExpression Left { get; set; }
+    public BadExpression Left { get; set; }
 
 
     public override void Optimize()
@@ -57,6 +60,31 @@ public class BadArrayAccessReverseExpression : BadExpression
         for (int i = 0; i < m_Arguments.Length; i++)
         {
             m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
+        }
+    }
+
+    public static IEnumerable<BadObject> Access(BadExecutionContext context, BadObject left, BadObject[] args, BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName))
+        {
+            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context.Scope).Dereference() as BadFunction;
+            if (func == null)
+            {
+                throw new BadRuntimeException("Array access reverse operator is not a function", position);
+            }
+
+            BadObject r = BadObject.Null;
+            foreach (BadObject o in func.Invoke(args.ToArray(), context))
+            {
+                yield return o;
+                r = o;
+            }
+
+            yield return r;
+        }
+        else
+        {
+            throw new BadRuntimeException("Array access reverse operator is not defined", position);
         }
     }
 
@@ -72,7 +100,7 @@ public class BadArrayAccessReverseExpression : BadExpression
 
         left = left.Dereference();
 
-        if (m_NullChecked && left == BadObject.Null)
+        if (NullChecked && left == BadObject.Null)
         {
             yield return left;
 
@@ -93,26 +121,9 @@ public class BadArrayAccessReverseExpression : BadExpression
             args.Add(argObj);
         }
 
-        if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName))
+        foreach (BadObject o in Access(context, left, args.ToArray(), Position))
         {
-            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context.Scope).Dereference() as BadFunction;
-            if (func == null)
-            {
-                throw new BadRuntimeException("Array access reverse operator is not a function", Position);
-            }
-
-            BadObject r = BadObject.Null;
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
-            {
-                yield return o;
-                r = o;
-            }
-
-            yield return r;
-        }
-        else
-        {
-            throw new BadRuntimeException("Array access reverse operator is not defined", Position);
+            yield return o;
         }
     }
 }

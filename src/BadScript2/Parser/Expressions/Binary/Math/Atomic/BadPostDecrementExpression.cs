@@ -14,7 +14,7 @@ public class BadPostDecrementExpression : BadExpression
     /// <summary>
     ///     Left side of the expression
     /// </summary>
-    private readonly BadExpression m_Left;
+    public readonly BadExpression Left;
 
     /// <summary>
     ///     Constructor of the Post Decrement Expression
@@ -26,13 +26,27 @@ public class BadPostDecrementExpression : BadExpression
         position
     )
     {
-        m_Left = left;
+        Left = left;
+    }
+
+
+    public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
+    {
+        BadObject value = reference.Dereference();
+        if (value is not IBadNumber leftNumber)
+        {
+            throw new BadRuntimeException("Left side of -- must be a number", position);
+        }
+
+        reference.Set(leftNumber.Value - 1);
+
+        return value;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
-        foreach (BadObject o in m_Left.Execute(context))
+        foreach (BadObject o in Left.Execute(context))
         {
             left = o;
 
@@ -41,18 +55,10 @@ public class BadPostDecrementExpression : BadExpression
 
         if (left is not BadObjectReference leftRef)
         {
-            throw new BadRuntimeException("Left side of ++ must be a reference", Position);
+            throw new BadRuntimeException("Left side of -- must be a reference", Position);
         }
 
-        left = left.Dereference();
 
-        if (left is not IBadNumber leftNumber)
-        {
-            throw new BadRuntimeException("Left side of ++ must be a number", Position);
-        }
-
-        leftRef.Set(leftNumber.Value - 1);
-
-        yield return left;
+        yield return Decrement(leftRef, Position);
     }
 }

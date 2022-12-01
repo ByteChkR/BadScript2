@@ -9,6 +9,7 @@ public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSe
 {
     private BadSettings? m_DebuggerPathObj;
     public BadScriptDebuggerSettings() : base("Runtime.Debugger") { }
+
     public BadSettings? DebuggerPathObj
     {
         get

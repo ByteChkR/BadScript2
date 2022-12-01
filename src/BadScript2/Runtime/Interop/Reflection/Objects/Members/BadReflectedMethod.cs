@@ -16,6 +16,8 @@ public class BadReflectedMethod : BadReflectedMember
         m_Methods.Add(method);
     }
 
+    public override bool IsReadOnly => true;
+
 
     public void AddMethod(MethodInfo method)
     {
@@ -130,8 +132,6 @@ public class BadReflectedMethod : BadReflectedMember
 
         return Wrap(info.Invoke(instance, implArgs));
     }
-
-    public override bool IsReadOnly => true;
 
     public override BadObject Get(object instance)
     {

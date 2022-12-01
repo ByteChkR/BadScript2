@@ -14,18 +14,18 @@ function Test_RestArgs()
 NUnit.AddTest(Test_RestArgs, "Rest Function Argument Tests");
 
 
+const f1 = args* => Assert.AreEqual(args.Length, 4, "args.Length == 4");
 function Test_LambdaRestArgs()
 {
-	const f = args* => Assert.AreEqual(args.Length, 4, "args.Length == 4");
-	f(true, 1, "2", null);
+	f1(true, 1, "2", null);
 }
 
 NUnit.AddTest(Test_LambdaRestArgs, "Rest Lambda Function Argument Tests");
 
+const f2 = (args*) => Assert.AreEqual(args.Length, 4, "args.Length == 4");
 function Test_LambdaRestArgList()
 {
-	const f = (args*) => Assert.AreEqual(args.Length, 4, "args.Length == 4");
-	f(true, 1, "2", null);
+	f2(true, 1, "2", null);
 }
 
 NUnit.AddTest(Test_LambdaRestArgList, "Rest Lambda Function Argument List Tests");

@@ -1,6 +1,5 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.NUnit;
-using BadScript2.Runtime.Settings;
 
 using NUnitLite;
 

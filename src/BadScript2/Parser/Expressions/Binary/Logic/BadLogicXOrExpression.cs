@@ -31,7 +31,7 @@ public class BadLogicXOrExpression : BadBinaryExpression
     /// <param name="pos">Source position that is used to generate an Exception if left or right are not a boolean</param>
     /// <returns>True if either the left side or the right side are true. Otherwise false.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadBoolean</exception>
-    private static BadObject XOr(BadObject left, BadObject right, BadSourcePosition pos)
+    public static BadObject XOr(BadObject left, BadObject right, BadSourcePosition pos)
     {
         if (left is IBadBoolean lBool && right is IBadBoolean rBool)
         {

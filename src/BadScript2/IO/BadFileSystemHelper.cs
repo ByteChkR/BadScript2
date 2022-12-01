@@ -62,7 +62,7 @@ public static class BadFileSystemHelper
         foreach (ZipArchiveEntry entry in arch.Entries)
         {
             BadLogger.Log("Importing File: " + entry.FullName, "BFS");
-            if (BadVirtualPathReader.IsDirectory(root+entry.FullName))
+            if (BadVirtualPathReader.IsDirectory(root + entry.FullName))
             {
                 continue;
             }
@@ -70,11 +70,11 @@ public static class BadFileSystemHelper
             string? dir = Path.GetDirectoryName(entry.FullName);
             if (dir != null && !string.IsNullOrEmpty(dir))
             {
-                vfs.CreateDirectory(root+dir, true);
+                vfs.CreateDirectory(root + dir, true);
             }
 
             using Stream s = entry.Open();
-            using Stream o = vfs.OpenWrite(root+entry.FullName, BadWriteMode.CreateNew);
+            using Stream o = vfs.OpenWrite(root + entry.FullName, BadWriteMode.CreateNew);
             s.CopyTo(o);
         }
 

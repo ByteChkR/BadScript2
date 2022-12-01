@@ -50,6 +50,29 @@ public class BadLessOrEqualExpression : BadBinaryExpression
         throw new BadRuntimeException($"Can not apply operator '<=' to {left} and {right}", pos);
     }
 
+    public static IEnumerable<BadObject> LessOrEqualWithOverride(BadExecutionContext context, BadObject left, BadObject right, BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.LessEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.LessEqualOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.LessEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.LessEqualOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else
+
+        {
+            yield return LessOrEqual(left, right, position);
+        }
+    }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -71,24 +94,10 @@ public class BadLessOrEqualExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.LessEqualOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.LessEqualOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else if (right.HasProperty(BadStaticKeys.LessEqualOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.LessEqualOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else
 
+        foreach (BadObject o in LessOrEqualWithOverride(context, left, right, Position))
         {
-            yield return LessOrEqual(left, right, Position);
+            yield return o;
         }
     }
 

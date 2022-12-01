@@ -7,7 +7,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
-
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
 /// <summary>
@@ -16,19 +15,19 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 public class BadForEachExpression : BadExpression
 {
     /// <summary>
+    ///     The Variable Name of the Current Loop iteration
+    /// </summary>
+    public readonly BadWordToken LoopVariable;
+
+    /// <summary>
     ///     The Loop Body
     /// </summary>
     private readonly BadExpression[] m_Body;
 
     /// <summary>
-    ///     The Variable Name of the Current Loop iteration
-    /// </summary>
-    private readonly BadWordToken m_LoopVariable;
-
-    /// <summary>
     ///     The Enumerable/Enumerator Expression of the Loop
     /// </summary>
-    private BadExpression m_Target;
+    public BadExpression Target;
 
     /// <summary>
     ///     Constructor of the For Each Expression
@@ -46,14 +45,16 @@ public class BadForEachExpression : BadExpression
         position
     )
     {
-        m_Target = target;
-        m_LoopVariable = loopVariable;
+        Target = target;
+        LoopVariable = loopVariable;
         m_Body = body;
     }
 
+    public IEnumerable<BadExpression> Body => m_Body;
+
     public override void Optimize()
     {
-        m_Target = BadExpressionOptimizer.Optimize(m_Target);
+        Target = BadExpressionOptimizer.Optimize(Target);
         for (int i = 0; i < m_Body.Length; i++)
         {
             m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
@@ -90,7 +91,7 @@ public class BadForEachExpression : BadExpression
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject target = BadObject.Null;
-        foreach (BadObject o in m_Target.Execute(context))
+        foreach (BadObject o in Target.Execute(context))
         {
             target = o;
 
@@ -121,7 +122,7 @@ public class BadForEachExpression : BadExpression
 
             if (newTarget == BadObject.Null)
             {
-                throw BadRuntimeException.Create(context.Scope,$"Invalid enumerator: {target}", Position);
+                throw BadRuntimeException.Create(context.Scope, $"Invalid enumerator: {target}", Position);
             }
 
             target = newTarget.Dereference();
@@ -155,7 +156,8 @@ public class BadForEachExpression : BadExpression
             BadExecutionContext loopContext = new BadExecutionContext(
                 context.Scope.CreateChild(
                     "ForEachLoop",
-                    context.Scope, null,
+                    context.Scope,
+                    null,
                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
                 )
             );
@@ -175,7 +177,7 @@ public class BadForEachExpression : BadExpression
 
             current = current.Dereference();
 
-            loopContext.Scope.DefineVariable(m_LoopVariable.Text, current);
+            loopContext.Scope.DefineVariable(LoopVariable.Text, current);
 
             foreach (BadObject o in loopContext.Execute(m_Body))
             {
@@ -195,7 +197,7 @@ public class BadForEachExpression : BadExpression
             }
 
             bRet = cond.Dereference() as IBadBoolean ??
-                   throw BadRuntimeException.Create(context.Scope,"Enumerator MoveNext did not return a boolean", Position);
+                   throw BadRuntimeException.Create(context.Scope, "Enumerator MoveNext did not return a boolean", Position);
         }
     }
 }

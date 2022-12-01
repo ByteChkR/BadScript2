@@ -74,17 +74,25 @@ public class BadExecutionContext
     {
         foreach (BadExpression expression in expressions)
         {
-            foreach (BadObject o in expression.Execute(this))
+            foreach (BadObject o in Execute(expression))
             {
                 yield return o;
+            }   
+        }
+    }
 
-                if (Scope.ReturnValue != null ||
-                    Scope.IsBreak ||
-                    Scope.IsContinue ||
-                    Scope.IsError)
-                {
-                    yield break;
-                }
+    public IEnumerable<BadObject> Execute(BadExpression expression)
+    {
+        foreach (BadObject o in expression.Execute(this))
+        {
+            yield return o;
+
+            if (Scope.ReturnValue != null ||
+                Scope.IsBreak ||
+                Scope.IsContinue ||
+                Scope.IsError)
+            {
+                yield break;
             }
         }
     }

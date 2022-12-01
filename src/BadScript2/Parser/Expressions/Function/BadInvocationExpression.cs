@@ -163,4 +163,9 @@ public class BadInvocationExpression : BadExpression
             yield return o;
         }
     }
+
+    public override string ToString()
+    {
+        return $"({Left}({string.Join(", ", m_Arguments.Select(x => x.ToString()))}))";
+    }
 }

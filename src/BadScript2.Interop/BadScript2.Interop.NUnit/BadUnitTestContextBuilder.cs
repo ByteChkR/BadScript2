@@ -40,7 +40,7 @@ public class BadUnitTestContextBuilder
         return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList());
     }
 
-    public void AddTest(BadFunction function, BadObject testName)
+    public void AddTest(BadFunction function, BadObject testName, bool allowCompile = true)
     {
         string? name = null;
         if (testName != BadObject.Null)
@@ -48,7 +48,7 @@ public class BadUnitTestContextBuilder
             name = (testName as IBadString)?.Value ?? throw new InvalidOperationException("Test name must be a string");
         }
 
-        m_Cases.Add(new BadNUnitTestCase(function, name));
+        m_Cases.Add(new BadNUnitTestCase(function, name, allowCompile));
     }
 
     public void AddSetup(BadFunction function)

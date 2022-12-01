@@ -14,7 +14,6 @@ public class BadNative<T> : BadObject, IBadNative
     ///     The Value of the Native Type
     /// </summary>
     private readonly T m_Value;
-    public T Value => m_Value;
 
 
     /// <summary>
@@ -31,6 +30,8 @@ public class BadNative<T> : BadObject, IBadNative
 
         m_Value = value;
     }
+
+    public T Value => m_Value;
 
     object IBadNative.Value => m_Value!;
     Type IBadNative.Type => m_Value!.GetType();

@@ -169,7 +169,7 @@ public class BadStringExtension : BadInteropExtension
             "PadLeft",
             s => new BadDynamicInteropFunction<decimal>(
                 "PadLeft",
-                (_, padding) =>s.PadLeft((int)padding),
+                (_, padding) => s.PadLeft((int)padding),
                 "padding"
             )
         );

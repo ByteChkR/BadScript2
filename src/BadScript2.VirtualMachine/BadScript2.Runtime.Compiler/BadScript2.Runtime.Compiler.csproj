@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BadScript2.Compiler</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\BadScript2.Runtime.VirtualMachine\BadScript2.Runtime.VirtualMachine.csproj" />
+    </ItemGroup>
+
+</Project>

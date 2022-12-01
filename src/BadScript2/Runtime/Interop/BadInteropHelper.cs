@@ -31,7 +31,7 @@ public static class BadInteropHelper
             return native.Value;
         }
 
-        throw BadRuntimeException.Create(caller,$"Can not unwrap object '{obj}'");
+        throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}'");
     }
 
     public static T Unwrap<T>(this BadObject obj, BadScope? caller = null)
@@ -56,6 +56,6 @@ public static class BadInteropHelper
             return n.Value;
         }
 
-        throw BadRuntimeException.Create(caller,$"Can not unwrap object '{obj}' to type " + typeof(T));
+        throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + typeof(T));
     }
 }

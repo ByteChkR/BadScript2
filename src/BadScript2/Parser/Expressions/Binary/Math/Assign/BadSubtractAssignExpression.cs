@@ -23,9 +23,43 @@ public class BadSubtractAssignExpression : BadBinaryExpression
         position
     ) { }
 
+    public static BadObject Subtract(BadObjectReference leftRef, BadObject left, BadObject right, BadSourcePosition position, string symbol)
+    {
+        if (left is IBadNumber lNum && right is IBadNumber rNum)
+        {
+            BadObject r = BadObject.Wrap(lNum.Value - rNum.Value);
+            leftRef.Set(r);
+
+            return r;
+        }
+
+        throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
+    }
+
+    public static IEnumerable<BadObject> SubtractWithOverride(BadExecutionContext context, BadObjectReference leftRef, BadObject right, BadSourcePosition position, string symbol)
+    {
+        BadObject left = leftRef.Dereference();
+        if (left.HasProperty(BadStaticKeys.SubtractAssignOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(
+                         left,
+                         right,
+                         context,
+                         BadStaticKeys.SubtractAssignOperatorName,
+                         position
+                     ))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return Subtract(leftRef, left, right, position, symbol);
+        }
+    }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        bool hasReturn = false;
         BadObject left = BadObject.Null;
         foreach (BadObject o in Left.Execute(context))
         {
@@ -39,7 +73,6 @@ public class BadSubtractAssignExpression : BadBinaryExpression
             throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
         }
 
-        left = left.Dereference();
 
         BadObject right = BadObject.Null;
         foreach (BadObject o in Right.Execute(context))
@@ -51,33 +84,9 @@ public class BadSubtractAssignExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        if (left is IBadNumber lNum && right is IBadNumber rNum)
+        foreach (BadObject o in SubtractWithOverride(context, leftRef, right, Position, GetSymbol()))
         {
-            hasReturn = true;
-
-            BadObject r = BadObject.Wrap(lNum.Value - rNum.Value);
-            leftRef.Set(r);
-
-            yield return r;
-        }
-        else if (left.HasProperty(BadStaticKeys.SubtractAssignOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context,
-                         BadStaticKeys.SubtractAssignOperatorName
-                     ))
-            {
-                yield return o;
-            }
-
-            hasReturn = true;
-        }
-
-        if (!hasReturn)
-        {
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
+            yield return o;
         }
     }
 

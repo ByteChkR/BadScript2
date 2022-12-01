@@ -11,14 +11,14 @@ namespace BadScript2.Parser.Expressions.Block;
 public class BadTryCatchExpression : BadExpression
 {
     /// <summary>
+    ///     The Variable name of the Exception inside the catch block
+    /// </summary>
+    public readonly string ErrorName;
+
+    /// <summary>
     ///     The Catch Block
     /// </summary>
     private readonly BadExpression[] m_CatchExpressions;
-
-    /// <summary>
-    ///     The Variable name of the Exception inside the catch block
-    /// </summary>
-    private readonly string m_ErrorName;
 
     /// <summary>
     ///     The Try Block
@@ -40,8 +40,11 @@ public class BadTryCatchExpression : BadExpression
     {
         m_Expressions = expressions;
         m_CatchExpressions = catchExpressions;
-        m_ErrorName = errorName;
+        ErrorName = errorName;
     }
+
+    public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
+    public IEnumerable<BadExpression> TryExpressions => m_Expressions;
 
     public override void Optimize()
     {
@@ -71,7 +74,7 @@ public class BadTryCatchExpression : BadExpression
             BadExecutionContext catchContext = new BadExecutionContext(
                 context.Scope.CreateChild("CatchBlock", context.Scope, null)
             );
-            catchContext.Scope.DefineVariable(m_ErrorName, tryContext.Scope.Error);
+            catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
             foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
             {
                 yield return o;

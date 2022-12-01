@@ -51,8 +51,8 @@ public class BadNUnitApi : BadInteropApi
 
     private static void Assert_Throws(BadExecutionContext ctx, BadFunction func, string message)
     {
-        
-        Assert.Throws<BadRuntimeException>(() =>
+        Assert.Throws<BadRuntimeException>(
+            () =>
             {
                 foreach (BadObject o in func.Invoke(Array.Empty<BadObject>(), ctx))
                 {
@@ -62,6 +62,7 @@ public class BadNUnitApi : BadInteropApi
             message
         );
     }
+
     private static void Assert_AreEqual(
         BadObject expected,
         BadObject actual,

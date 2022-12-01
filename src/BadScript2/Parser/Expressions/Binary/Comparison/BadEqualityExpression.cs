@@ -38,6 +38,28 @@ public class BadEqualityExpression : BadBinaryExpression
         return BadObject.False;
     }
 
+    public static IEnumerable<BadObject> EqualWithOverride(BadExecutionContext caller, BadObject left, BadObject right, BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.EqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(left, right, caller, BadStaticKeys.EqualOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.EqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(right, left, caller, BadStaticKeys.EqualOperatorName, position))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return Equal(left, right);
+        }
+    }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -59,23 +81,9 @@ public class BadEqualityExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.EqualOperatorName))
+        foreach (BadObject o in EqualWithOverride(context, left, right, Position))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.EqualOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else if (right.HasProperty(BadStaticKeys.EqualOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.EqualOperatorName))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return Equal(left, right);
+            yield return o;
         }
     }
 

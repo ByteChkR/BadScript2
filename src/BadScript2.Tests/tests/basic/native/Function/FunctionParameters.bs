@@ -2,9 +2,9 @@
 let Assert = NUnit.Assert;
 
 
+function MyFunc(n!, o?, r*) => true;
 function Test_FunctionParameters()
 {
-	function MyFunc(n!, o?, r*) => true;
 	Assert.IsTrue(MyFunc.Parameters.Length == 3, "Function.Parameters Failed");
 	Assert.IsTrue(MyFunc.Parameters[0].Name == "n", "Function.Parameters[0].Name Failed");
 	Assert.IsTrue(MyFunc.Parameters[1].Name == "o", "Function.Parameters[1].Name Failed");

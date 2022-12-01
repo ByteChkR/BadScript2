@@ -246,7 +246,8 @@ public class BadRuntimeApi : BadInteropApi
         {
             throw new BadRuntimeException("Evaluate: Argument 'fileObj' is not a string");
         }
-        if(setLastAsReturn is not IBadBoolean setLastAsReturnB)
+
+        if (setLastAsReturn is not IBadBoolean setLastAsReturnB)
         {
             throw new BadRuntimeException("Evaluate: Argument 'setLastAsReturn' is not a boolean");
         }
@@ -265,7 +266,7 @@ public class BadRuntimeApi : BadInteropApi
             exprs = BadExpressionOptimizer.Optimize(exprs);
         }
 
-        
+
         return new BadTask(new BadInteropRunnable(ctx.Execute(exprs).GetEnumerator(), setLastAsReturnB.Value), "EvaluateAsync");
     }
 }

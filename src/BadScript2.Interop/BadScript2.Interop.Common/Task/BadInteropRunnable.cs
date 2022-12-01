@@ -20,6 +20,7 @@ public class BadInteropRunnable : BadRunnable
         while (enumerator.MoveNext())
         {
             last = enumerator.Current ?? BadObject.Null;
+
             yield return last;
         }
 

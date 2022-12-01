@@ -3,15 +3,6 @@ using BadScript2.Runtime.Interop;
 
 namespace BadScript2.Runtime.Objects.Types;
 
-[Flags]
-public enum BadPropertyVisibility
-{
-    Public = 1,
-    Protected = 2,
-    Private = 4,
-    All = Public | Protected | Private,
-}
-
 /// <summary>
 ///     Implements a Type Instance in the BadScript Language
 /// </summary>
@@ -108,8 +99,6 @@ public class BadClass : BadObject
     }
 
 
-    
-
     public BadObjectReference GetProperty(BadObject propName, BadPropertyVisibility visibility, BadScope? caller = null)
     {
         BadPropertyVisibility vis = BadScope.GetPropertyVisibility(propName);
@@ -119,7 +108,7 @@ public class BadClass : BadObject
             {
                 visibility = BadPropertyVisibility.Public;
             }
-            else if(caller.ClassObject == this)
+            else if (caller.ClassObject == this)
             {
                 visibility = BadPropertyVisibility.All;
             }

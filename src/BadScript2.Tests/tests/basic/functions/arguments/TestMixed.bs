@@ -22,10 +22,9 @@ function Test_FunctionArguments()
 
 NUnit.AddTest(Test_FunctionArguments, "Mixed Function Argument Tests");
 
-
+const f = (x!, y?, args*) => Assert.IsTrue(x == true && y == 1 && args.Length == 2, $"Lambda Mixed Argument Error");
 function Test_LambdaMixedArgList()
 {
-	const f = (x!, y?, args*) => Assert.IsTrue(x == true && y == 1 && args.Length == 2, $"Lambda Mixed Argument Error");
 	f(true, 1, "2", null);
 }
 

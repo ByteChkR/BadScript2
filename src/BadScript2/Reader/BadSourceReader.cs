@@ -9,11 +9,6 @@ namespace BadScript2.Reader;
 public class BadSourceReader
 {
     /// <summary>
-    ///     The Filename of the Source Code
-    /// </summary>
-    public string FileName { get; }
-
-    /// <summary>
     ///     The Source Code
     /// </summary>
     private readonly string m_Source;
@@ -28,6 +23,11 @@ public class BadSourceReader
         FileName = fileName;
         m_Source = source;
     }
+
+    /// <summary>
+    ///     The Filename of the Source Code
+    /// </summary>
+    public string FileName { get; }
 
     /// <summary>
     ///     The Current Index of the Reader

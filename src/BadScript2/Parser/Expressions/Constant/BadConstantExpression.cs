@@ -22,7 +22,7 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
     /// <summary>
     ///     The Constant Value of the Expression
     /// </summary>
-    private BadObject Value { get; }
+    public BadObject Value { get; }
 
     /// <summary>
     ///     Private Implementation of IBadNativeExpression.Value

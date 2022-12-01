@@ -48,7 +48,7 @@ public class BadRuntimeError : BadObject
         }
         else
         {
-            st = "Script Stack Trace: " + Environment.NewLine + scriptStackTrace + Environment.NewLine +"Runtime Stacktrace:" + Environment.NewLine + e.StackTrace;
+            st = "Script Stack Trace: " + Environment.NewLine + scriptStackTrace + Environment.NewLine + "Runtime Stacktrace:" + Environment.NewLine + e.StackTrace;
         }
 
         return new BadRuntimeError(inner, e.Message, st);
