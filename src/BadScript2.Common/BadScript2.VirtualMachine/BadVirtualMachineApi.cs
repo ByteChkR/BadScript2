@@ -13,7 +13,7 @@ public class BadVirtualMachineApi : BadInteropApi
         m_Machine = machine;
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction("GetName", _ => m_Machine.Info.Name);
         target.SetFunction("Exit", _ => m_Machine.ForceExit());

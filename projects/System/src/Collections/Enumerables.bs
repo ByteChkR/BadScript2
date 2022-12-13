@@ -1,3 +1,29 @@
+function Primes()
+{
+	function GetEnumerator()
+	{
+		let i = 1;
+		function GetCurrent() => i;
+		compiled fast function MoveNext()
+		{
+			i += 2;
+			while(!System.Math.IsPrime(i))
+			{
+				i += 2;
+			}
+			return true;
+		}
+
+		return {
+			GetCurrent: GetCurrent,
+			MoveNext: MoveNext
+		}
+	}
+	return {
+		GetEnumerator: GetEnumerator
+	}
+}
+
 function Infinite(obj)
 {
 	function GetEnumerator()
@@ -81,5 +107,6 @@ function Range(from, to, step?)
 const Enumerables = {
 	Range: Range,
 	Repeat: Repeat,
-	Infinite: Infinite
+	Infinite: Infinite,
+	Primes: Primes
 }

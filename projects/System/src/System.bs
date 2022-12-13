@@ -6,7 +6,7 @@ const System = {
 	Events: Events,
 	Logging: Logging,
 	SourceReader: SourceReader,
-	Math: Math
+	Math: SysMath
 }
 
 $(Environment.Runtime).Export("System", System);

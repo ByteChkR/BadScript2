@@ -87,7 +87,7 @@ public class BadCompressionApi : BadInteropApi
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         BadTable deflate = new BadTable();
         deflate.SetFunction<IBadString>("Compress", Deflate);

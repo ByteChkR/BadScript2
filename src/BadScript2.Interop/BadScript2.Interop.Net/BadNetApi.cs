@@ -9,7 +9,7 @@ public class BadNetApi : BadInteropApi
 {
     public BadNetApi() : base("Net") { }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction<string>("Get", Get);
         target.SetFunction<string, string>("Post", Post);

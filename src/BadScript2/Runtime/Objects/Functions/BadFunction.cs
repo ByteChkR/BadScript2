@@ -225,7 +225,7 @@ public abstract class BadFunction : BadObject
             int? hash = GetHash(args);
             if (hash != null)
             {
-                BadLogger.Warn($"Caching Result {ret.ToSafeString()} for function '{GetHeader()}'", "Runtime");
+                //BadLogger.Warn($"Caching Result {ret.ToSafeString()} for function '{GetHeader()}'", "Runtime");
                 m_Cache[hash.Value] = ret;
             }
         }

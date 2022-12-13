@@ -12,13 +12,6 @@ using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Parser.Expressions.Function;
 
-public enum BadFunctionCompileLevel
-{
-    None,
-    Compiled,
-    CompiledFast,
-}
-
 /// <summary>
 ///     Implements the Function Expression
 /// </summary>

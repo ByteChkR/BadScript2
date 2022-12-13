@@ -20,7 +20,7 @@ public class BadXmlApi : BadInteropApi
         return new BadReflectedObject(doc);
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction<string>("Load", LoadXml);
     }

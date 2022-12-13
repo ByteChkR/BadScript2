@@ -11,7 +11,7 @@ public class BadNetHostApi : BadInteropApi
     public BadNetHostApi() : base("NetHost") { }
 
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction<BadArray>(
             "Create",

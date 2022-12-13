@@ -30,8 +30,8 @@ const compiled fast function IsPrime(num n)
 	{
 		return false;
 	}
-	const nHalf = n / 2;
-	for(let i = 3; i < nHalf; i += 2)
+	const nSqrt = Math.Sqrt(n);
+	for(let i = 3; i < nSqrt; i += 2)
 	{
 		if(n % i == 0)
 		{
@@ -41,7 +41,7 @@ const compiled fast function IsPrime(num n)
 	return true;
 }
 
-const Math = {
+const SysMath = {
 	IsPrime: IsPrime,
 	Sum: Sum
 }

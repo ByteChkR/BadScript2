@@ -173,7 +173,7 @@ public class BadIOApi : BadInteropApi
         return t;
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetProperty("Path", CreatePath());
         target.SetProperty("Directory", CreateDirectory());

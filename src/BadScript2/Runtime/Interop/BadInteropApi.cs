@@ -21,9 +21,21 @@ public abstract class BadInteropApi
     /// </summary>
     public string Name { get; }
 
+    public virtual Version Version => GetType().Assembly.GetName().Version;
+
     /// <summary>
     ///     Loads the API into the given Table
     /// </summary>
     /// <param name="target">Table Target</param>
-    public abstract void Load(BadTable target);
+    protected abstract void LoadApi(BadTable target);
+
+    public void Load(BadTable table)
+    {
+        BadTable info = new BadTable();
+        info.SetProperty("Name", Name, new BadPropertyInfo(null, true));
+        info.SetProperty("Version", Version.ToString(), new BadPropertyInfo(null, true));
+        info.SetProperty("AssemblyName", GetType().Assembly.GetName().Name, new BadPropertyInfo(null, true));
+        table.SetProperty("Info", info, new BadPropertyInfo(null, true));
+        LoadApi(table);
+    }
 }

@@ -44,7 +44,7 @@ public class BadNUnitApi : BadInteropApi
         return assert;
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetProperty("Assert", MakeAssert());
     }

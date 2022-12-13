@@ -9,7 +9,7 @@ public class BadMathApi : BadInteropApi
     private static readonly Random s_Random = new Random();
     public BadMathApi() : base("Math") { }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetProperty("PI", (decimal)Math.PI);
         target.SetProperty("E", (decimal)Math.E);

@@ -13,7 +13,7 @@ public class BadInteractiveConsoleApi : BadInteropApi
         m_Console = console;
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction("Reset", m_Console.Reset);
         target.SetFunction<string>("Run", m_Console.Run);

@@ -2,8 +2,8 @@
 	"./src/Assert.bs",
 	"./src/Events.bs",
 	"./src/Logging.bs",
+	"./src/Math.bs",
 	"./src/Collections/*.bs",
 	"./src/SourceReader.bs",
-	"./src/Math.bs",
 	"./src/System.bs"
 ]

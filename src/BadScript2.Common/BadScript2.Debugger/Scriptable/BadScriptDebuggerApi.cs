@@ -39,7 +39,7 @@ public class BadScriptDebuggerApi : BadInteropApi
         };
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
         target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);

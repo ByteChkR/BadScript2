@@ -9,7 +9,7 @@ public class BadCompilerApi : BadInteropApi
 {
     public BadCompilerApi() : base("Compiler") { }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetFunction<BadExpressionFunction, bool>("Compile", this.CompileFunction);
     }

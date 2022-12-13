@@ -4,6 +4,7 @@ using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
 using BadScript2.ConsoleCore.Systems.Settings;
+using BadScript2.ConsoleCore.Systems.Shell;
 using BadScript2.ConsoleCore.Systems.Test;
 using BadScript2.ConsoleCore.Systems.VirtualMachine;
 using BadScript2.Debugger.Scriptable;
@@ -25,10 +26,12 @@ using BadScript2.Settings;
 
 namespace BadScript2.Console;
 
+
 internal static class BadProgram
 {
     private const string SETTINGS_FILE = "Settings.json";
 
+    
 
     private static void LoadSettings()
     {
@@ -106,7 +109,8 @@ internal static class BadProgram
             new BadVirtualMachineNewSystem(),
             new BadVirtualMachineManagerSystem(),
             new BadVirtualMachineManagerClientSystem(),
-            new BadRemoteConsoleSystem()
+            new BadRemoteConsoleSystem(),
+            new BadShellSystem()
         );
 
         //CompileTest();

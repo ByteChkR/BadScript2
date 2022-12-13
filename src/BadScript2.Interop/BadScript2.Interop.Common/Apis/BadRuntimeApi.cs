@@ -87,7 +87,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetProperty(
             "Evaluate",
@@ -135,7 +135,7 @@ public class BadRuntimeApi : BadInteropApi
         target.SetFunction<BadObject>("GetExtensionNames", GetExtensionNames);
         target.SetFunction("GetGlobalExtensionNames", GetGlobalExtensionNames);
         target.SetFunction("GetTimeNow", GetTimeNow);
-        target.SetFunction("GetNativeTypes", c => new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList()));
+        target.SetFunction("GetNativeTypes", _ => new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList()));
     }
 
 
@@ -150,6 +150,7 @@ public class BadRuntimeApi : BadInteropApi
         table.SetProperty("Minute", time.Minute);
         table.SetProperty("Second", time.Second);
         table.SetProperty("Millisecond", time.Millisecond);
+        table.SetProperty("UnixTime", ((DateTimeOffset)time).ToUnixTimeMilliseconds());
 
         return table;
     }

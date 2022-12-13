@@ -109,7 +109,7 @@ public class BadOperatingSystemApi : BadInteropApi
         return t;
     }
 
-    public override void Load(BadTable target)
+    protected override void LoadApi(BadTable target)
     {
         target.SetProperty("Environment", CreateEnvironmentTable());
         target.SetFunction<string, string, string, bool, bool>(
