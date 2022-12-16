@@ -150,7 +150,8 @@ public class BadRuntimeApi : BadInteropApi
         table.SetProperty("Minute", time.Minute);
         table.SetProperty("Second", time.Second);
         table.SetProperty("Millisecond", time.Millisecond);
-        table.SetProperty("UnixTime", ((DateTimeOffset)time).ToUnixTimeMilliseconds());
+        table.SetProperty("UnixTimeMilliseconds", ((DateTimeOffset)time).ToUnixTimeMilliseconds());
+        table.SetProperty("UnixTimeSeconds", ((DateTimeOffset)time).ToUnixTimeSeconds());
 
         return table;
     }
