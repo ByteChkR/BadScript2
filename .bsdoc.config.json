@@ -1,6 +1,6 @@
 {
 	"Meta": {
-		"Title": "BadScript2 Core Libraries Reference",
+		"Title": "Core Libraries Reference",
 		"Version": "2023.1.29.0"
 	},
 	"Sources": [
@@ -27,7 +27,7 @@
 	},
 	"Style": {
 		"Default": {
-			"Primary": "5DACBD",
+			"Primary": "FFFFFF",
 			"Secondary": "24527A",
 			"Border": "5DACBD"
 		},
