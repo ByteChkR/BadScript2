@@ -6,34 +6,62 @@ function DefaultHandler(ctx)
 	ctx.Response.Close();
 }
 
-
+@|
+	Implements a Wrapper around the NetHost API.
+	Allows for simple routing.
+|@
 class WebApp
 {
 	const _listener;
 	const _routes = [];
 	let _exit = false;
 	const _defaultRoute;
+	@|
+		Creates a new WebApp Object
+		|PARAM prefix any: Prefix for the Http Listener
+		|PARAM defaultRoute Function: The Default Route that will be called if no handler for the specified route has been found
+	|@
 	function WebApp(prefix, defaultRoute?)
 	{
 		_defaultRoute = defaultRoute ?? DefaultHandler;
 		_listener = NetHost.Create(prefix);
 	}
 
+	@|
+		Maps a route to a specific handler
+		|PARAM matchFunc Function: the function that matches the route context
+		|PARAM handler Function: the handler that will be called if matchFunc matched the requested route
+		|RET void:
+	|@
 	function MapRoute(matchFunc, handler)
 	{
 		_routes.Add({Match: matchFunc, Handler: handler});
 	}
 
+	@|
+		Maps an exact route to a specific handler
+		|PARAM route string: the route string that will be matched
+		|PARAM handler Function: the handler that will be called if route matched the requested route
+		|RET void:
+	|@
 	function MapExact(route, handler)
 	{
 		MapRoute(function(r) => r == route, handler);
 	}
 
+	@|
+		Exits the Web App Listener
+		|RET void:
+	|@
 	function Exit()
 	{
 		_exit = true;
 	}
 
+	@|
+		Gets a handler for a requested route.
+		|RET Function: The Handler for the specified route
+	|@
 	function GetRoute(ctx)
 	{
 		foreach(route in _routes)
@@ -46,6 +74,10 @@ class WebApp
 		return _defaultRoute;
 	}
 
+	@|
+		Starts the Web App
+		|RET void:
+	|@
 	function Start()
 	{
 		_listener.Start();

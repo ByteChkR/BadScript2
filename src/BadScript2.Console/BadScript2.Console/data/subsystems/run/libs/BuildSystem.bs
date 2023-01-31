@@ -1,37 +1,75 @@
 
 
+@|
+	Implements a Logger that will output logs prefixed with different tags.
+|@
 class BuildLogger
 {
 	const Tag;
+	@|
+		Creates a new BuildLogger instance with the specified tag
+		|PARAM tag string: The tag that is displayed
+	|@
 	function BuildLogger(tag!)
 	{
 		Tag = tag;
 	}
+
+
+	@|
+		Logs a message
+		|PARAM msg any: The message
+		|RET void:
+	|@
 	function Log(msg!)
 	{
 		Console.WriteLine($"[{Tag}:LOG] {msg}");
 	}
 
+	@|
+		Logs a warning
+		|PARAM msg any: The message
+		|RET void:
+	|@
 	function Warn(msg!)
 	{
 		Console.WriteLine($"[{Tag}:WARN] {msg}");
 	}
 
+	@|
+		Logs an error
+		|PARAM msg any: The error
+		|RET void:
+	|@
 	function Error(msg!)
 	{
 		Console.WriteLine($"[{Tag}:ERR] {msg}");
 	}
 }
 
+@|
+	Resolves Build Targets by Name
+|@
 class BuildTargetResolver
 {
 	
 	const _Funcs = [];
+	@|
+		Adds a Resolver Function
+		|PARAM func Function: Resolver Function
+		|RET void:
+	|@
 	function AddResolverFunc(Function func!)
 	{
 		_Funcs.Add(func);
 	}
 
+
+	@|
+		Resolves a Build Target by Name
+		|PARAM name string: Name of the Build Target
+		|RET any: The Build Target with the specified name
+	|@
 	function Resolve(string name!)
 	{
 		foreach(func in _Funcs)
@@ -48,23 +86,135 @@ class BuildTargetResolver
 
 }
 
+
+@|
+	Loads Build Targets
+|@
+class BuildTargetLoader
+{
+	@|
+		Resolves a String Value with the specified context.
+		|PARAM context Table: The Context that the string is resolved with
+		|PARAM str string: The String to be resolved
+		|RET string: the resolved string
+	|@
+	function ResolveString(Table context!, string str)
+	{
+		if(str.Contains("{") && str.Contains("}"))
+		{
+			const scope = new Scope("ResolveStringCtx", context);
+			return await Runtime.EvaluateAsync($"$\"{str}\"", "", false, scope);
+		}
+		return str;
+	}
+
+	@|
+		Resolves a Table with the specified context.
+		|PARAM context Table: The Context that the Table is resolved with
+		|PARAM table Table: The Table to be resolved
+		|RET Table: the resolved string
+	|@
+	function ResolveTable(Table context!, Table table)
+	{
+		const t = {}
+		foreach(key in table.Keys)
+		{
+			t[Resolve(context, key)] = Resolve(context, table[key]);
+		}
+		return t;
+	}
+
+	@|
+		Resolves an Array with the specified context.
+		|PARAM context Table: The Context that the Array is resolved with
+		|PARAM array Array: The Array to be resolved
+		|RET Array: the resolved Array
+	|@
+	function ResolveArray(Table context!, Array array)
+	{
+		for(let i = 0; i < array.Length; i++)
+		{
+			array[i] = Resolve(context, array[i]);
+		}
+		return array;
+	}
+
+	@|
+		Resolves an Object with the specified context.
+		|PARAM context Table: The Context that the Object is resolved with
+		|PARAM obj any: The Object to be resolved
+		|RET any: the resolved Object
+	|@
+	function Resolve(Table context!, obj)
+	{
+		if(obj == null)
+		{
+			return obj;
+		}
+		if(Runtime.Native.IsTable(obj))
+		{
+			return ResolveTable(context, obj);
+		}
+		else if(Runtime.Native.IsArray(obj))
+		{
+			return ResolveArray(context, obj);
+		}
+		else if(Runtime.Native.IsString(obj))
+		{
+			return ResolveString(context, obj);
+		}
+		return obj;
+	}
+
+	@|
+		Loads a build target from the specified file and resolves it with the supplied context.
+		|PARAM context Table: The Context that the build target is resolved with
+		|PARAM file string: The Build Target File
+		|RET any: the resolved Object
+	|@
+	function Load(string file!, context)
+	{
+		return Resolve(context, Json.FromJson(IO.File.ReadAllText(file)));
+	}
+}
+
+
+
+
+@|
+	Resolves Build Target Directories
+|@
 class BuildTargetDirectoryResolver
 {
 	
 	const Path;
 	const Targets = [];
-	function BuildTargetDirectoryResolver(string path!)
+
+	@|
+		Creates a new instance of the build Target Resolver class
+		|PARAM path string: The Path that contains the build target .json files
+		|PARAM context any: The contex the build targets are resolved with.
+	|@
+	function BuildTargetDirectoryResolver(string path!, context)
 	{
 		Path = path;
-		LoadTargets();
+		LoadTargets(context);
 	}
 
-	function LoadTargets()
+
+
+	@|
+		Loads all targets from the Path that was specified in the constructor.
+		|PARAM context any: the context which is used to resolve the build targets
+		|RET void:
+	|@
+	function LoadTargets(context)
 	{
 		Targets.Clear();
 		foreach(file in IO.Directory.GetFiles(Path, "json", false))
 		{
-			const target = new BuildTarget(Json.FromJson(IO.File.ReadAllText(file)));
+			const loader = new BuildTargetLoader();
+			const target = new BuildTarget(loader.Load(file, context));
 			if(target.Info.Keys.Contains("Script"))
 			{
 				target.Info.Script = target.Info.Script.Replace("$"+"(DEFAULT_TARGETSCRIPT_PATH)", IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"));
@@ -74,6 +224,13 @@ class BuildTargetDirectoryResolver
 		}
 	}
 
+
+
+	@|
+		Resolves a build target with the specified name. returns null if no target was found.
+		|PARAM name string: the build target name
+		|RET any: The Build Target with the specified name.
+	|@
 	function Resolve(string name!)
 	{
 		return Targets.FirstOrDefault(function(t) => t.GetName() == name);
@@ -81,6 +238,7 @@ class BuildTargetDirectoryResolver
 
 
 }
+
 function CreateDebugString(string content)
 {
 	const cLen = content.Length;
@@ -108,21 +266,38 @@ function CreateDebugString(string content)
 	return r;
 }
 
+
+
+@|
+	Models a Build Target in the Build System Pipeline
+|@
 class BuildTarget
 {
 	const Info;
 	const Logger;
+	@|
+		Constructs a new Build Target from the specified build target info
+		|PARAM info any: The build target info
+	|@
 	function BuildTarget(info!)
 	{
 		Info = info;
 		Logger = new BuildLogger("Target");
 	}
 
+	@|
+		Returns the Build Target Name
+		|RET string: Build Target Name
+	|@
 	function GetName()
 	{
 		return Info.Name;
 	}
 
+	@|
+		Returns the Build Target Dependencies
+		|RET Array: Build Target Dependencies
+	|@
 	function GetDependencies()
 	{
 		if(Info.Keys.Contains("Dependencies"))
@@ -132,6 +307,10 @@ class BuildTarget
 		return [];
 	}
 
+	@|
+		Returns the Build Target Script
+		|RET string: Path to build target script. (null if not defined)
+	|@
 	function GetScript()
 	{
 		if(Info.Keys.Contains("Script"))
@@ -141,6 +320,23 @@ class BuildTarget
 		return null;
 	}
 
+	@|
+		Returns the Build Target PreScript
+		|RET string: Path to build target PreScript. (null if not defined)
+	|@
+	function GetPreScript()
+	{
+		if(Info.Keys.Contains("PreScript"))
+		{
+			return Info.PreScript;
+		}
+		return null;
+	}
+
+	@|
+		Returns the Build Target Description
+		|RET string: Build Target Description. (Name if not defined)
+	|@
 	function GetDescription()
 	{
 		if(Info.Keys.Contains("Description"))
@@ -150,14 +346,24 @@ class BuildTarget
 		return GetName();
 	}
 
+	@|
+		Saves the build target to a file
+		|PARAM file string: Path of the resulting build target file.
+	|@
 	function Save(string file!)
 	{
 		IO.File.WriteAllText(file, Json.ToJson(Info));
 	}
 
-	function RunScript(context)
+
+	@|
+		Executes a Script
+		|PARAM scriptPath string: the path to the script that will be executed.
+		|PARAM context any: the context that will be used to execute the script.
+		|RET void:
+	|@
+	function ExecuteScript(scriptPath, context)
 	{
-		const scriptPath = GetScript();
 		if(scriptPath == null)
 		{
 			return;
@@ -167,9 +373,38 @@ class BuildTarget
 		await Runtime.EvaluateAsync(IO.File.ReadAllText(scriptPath), scriptPath, false, scope);
 	}
 
+	@|
+		Runs the Pre Script
+		|PARAM context any: the context that will be used to execute the script.
+		|RET void:
+	|@
+	function RunPreScript(context)
+	{
+		ExecuteScript(GetPreScript(), context);
+	}
+
+	@|
+		Runs the Script
+		|PARAM context any: the context that will be used to execute the script.
+		|RET void:
+	|@
+	function RunScript(context)
+	{
+		ExecuteScript(GetScript(), context);
+	}
+
+	@|
+		Runs the Build Target
+		|PARAM system BuildSystem: the build system that this build target is running in.
+		|PARAM context any: the context that will be used to execute the build target.
+		|RET void:
+	|@
 	function Run(BuildSystem system!, context)
 	{
 		Logger.Log(CreateDebugString($" START TARGET '{Info.Name}' "));
+
+		RunPreScript(context);
+
 		foreach(dep in GetDependencies())
 		{
 			system.Run(dep, context);
@@ -185,11 +420,14 @@ class BuildTarget
 
 class BuildSystem
 {
-	
-	function AddTargetSource(string dir!)
+
+	function AddTargetSource(string dir!, context)
 	{
-		IO.Directory.CreateDirectory(dir);
-		const dirResolver = new BuildTargetDirectoryResolver(dir);
+		if(!IO.Directory.Exists(dir))
+		{
+			return;
+		}
+		const dirResolver = new BuildTargetDirectoryResolver(dir, context);
 		Resolver.AddResolverFunc(dirResolver.Resolve);
 	}
 
@@ -217,4 +455,11 @@ class BuildSystem
 }
 
 
-Runtime.Export("BuildSystem", BuildSystem);
+Runtime.Export("BuildSystem", {
+	BuildSystem: BuildSystem, 
+	BuildLogger: BuildLogger,
+	BuildTarget: BuildTarget,
+	BuildTargetDirectoryResolver: BuildTargetDirectoryResolver,
+	BuildTargetLoader: BuildTargetLoader,
+	BuildTargetResolver: BuildTargetResolver
+});

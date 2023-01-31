@@ -17,7 +17,8 @@ class Logger
 
 	@|
 		Logs a message
-		|RET: void
+		|PARAM msg any: Object that will be logged.
+		|RET void:
 	|@
 	function Log(msg)
 	{
@@ -26,7 +27,8 @@ class Logger
 
 	@|
 		Logs a warning
-		|RET: void
+		|PARAM msg any: Object that will be logged.
+		|RET void:
 	|@
 	function Warn(msg)
 	{
@@ -53,8 +55,8 @@ class TagLogger : Logger
 
 	@|
 		Logs a message
-		|PARAM msg: Message to Log
-		|RET: void
+		|PARAM msg any: Message to Log
+		|RET void:
 	|@
 	function Log(msg)
 	{
@@ -63,8 +65,8 @@ class TagLogger : Logger
 
 	@|
 		Logs a warning
-		|PARAM msg: Warning to Log
-		|RET: void
+		|PARAM msg any: Warning to Log
+		|RET void:
 	|@
 	function Warn(msg)
 	{
@@ -74,7 +76,7 @@ class TagLogger : Logger
 
 @|
 	Creates a Default Logger hooked up to the Console Output
-	|RET: Default Logger Instance
+	|RET System.Logging.Logger: Default Logger Instance
 |@
 function CreateDefaultLogger()
 {

@@ -26,21 +26,38 @@ function CreateDebugString(string content)
 	return r;
 }
 
+
+
+@|
+	Models a Build Target in the Build System Pipeline
+|@
 class BuildTarget
 {
 	const Info;
 	const Logger;
+	@|
+		Constructs a new Build Target from the specified build target info
+		|PARAM info any: The build target info
+	|@
 	function BuildTarget(info!)
 	{
 		Info = info;
 		Logger = new BuildLogger("Target");
 	}
 
+	@|
+		Returns the Build Target Name
+		|RET string: Build Target Name
+	|@
 	function GetName()
 	{
 		return Info.Name;
 	}
 
+	@|
+		Returns the Build Target Dependencies
+		|RET Array: Build Target Dependencies
+	|@
 	function GetDependencies()
 	{
 		if(Info.Keys.Contains("Dependencies"))
@@ -50,6 +67,10 @@ class BuildTarget
 		return [];
 	}
 
+	@|
+		Returns the Build Target Script
+		|RET string: Path to build target script. (null if not defined)
+	|@
 	function GetScript()
 	{
 		if(Info.Keys.Contains("Script"))
@@ -59,6 +80,10 @@ class BuildTarget
 		return null;
 	}
 
+	@|
+		Returns the Build Target PreScript
+		|RET string: Path to build target PreScript. (null if not defined)
+	|@
 	function GetPreScript()
 	{
 		if(Info.Keys.Contains("PreScript"))
@@ -68,6 +93,10 @@ class BuildTarget
 		return null;
 	}
 
+	@|
+		Returns the Build Target Description
+		|RET string: Build Target Description. (Name if not defined)
+	|@
 	function GetDescription()
 	{
 		if(Info.Keys.Contains("Description"))
@@ -77,11 +106,22 @@ class BuildTarget
 		return GetName();
 	}
 
+	@|
+		Saves the build target to a file
+		|PARAM file string: Path of the resulting build target file.
+	|@
 	function Save(string file!)
 	{
 		$(FILESYSTEM_API).File.WriteAllText(file, Json.ToJson(Info));
 	}
 
+
+	@|
+		Executes a Script
+		|PARAM scriptPath string: the path to the script that will be executed.
+		|PARAM context any: the context that will be used to execute the script.
+		|RET void:
+	|@
 	function ExecuteScript(scriptPath, context)
 	{
 		if(scriptPath == null)
@@ -93,16 +133,32 @@ class BuildTarget
 		await $(Environment.Runtime).EvaluateAsync($(FILESYSTEM_API).File.ReadAllText(scriptPath), scriptPath, false, scope);
 	}
 
+	@|
+		Runs the Pre Script
+		|PARAM context any: the context that will be used to execute the script.
+		|RET void:
+	|@
 	function RunPreScript(context)
 	{
 		ExecuteScript(GetPreScript(), context);
 	}
 
+	@|
+		Runs the Script
+		|PARAM context any: the context that will be used to execute the script.
+		|RET void:
+	|@
 	function RunScript(context)
 	{
 		ExecuteScript(GetScript(), context);
 	}
 
+	@|
+		Runs the Build Target
+		|PARAM system BuildSystem: the build system that this build target is running in.
+		|PARAM context any: the context that will be used to execute the build target.
+		|RET void:
+	|@
 	function Run(BuildSystem system!, context)
 	{
 		Logger.Log(CreateDebugString($" START TARGET '{Info.Name}' "));

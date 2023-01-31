@@ -24,18 +24,23 @@
               "IsNullChecked": true,
               "IsOptional": false,
               "IsRestArgs": false,
-              "Description": ""
+              "Description": "The Name of the User",
+              "Type": "string"
             },
             {
               "Name": "score",
               "IsNullChecked": true,
               "IsOptional": false,
               "IsRestArgs": false,
-              "Description": ""
+              "Description": "The Score",
+              "Type": "num"
             }
           ],
-          "Return": "",
-          "Description": ""
+          "Return": {
+            "Type": "any",
+            "Description": ""
+          },
+          "Description": "Adds a score"
         },
         {
           "Name": "GetScore",
@@ -47,22 +52,29 @@
               "IsNullChecked": true,
               "IsOptional": false,
               "IsRestArgs": false,
-              "Description": ""
+              "Description": "The Name of the User",
+              "Type": "string"
             }
           ],
-          "Return": "",
-          "Description": ""
+          "Return": {
+            "Type": "num",
+            "Description": "The Highscore (0 if no highscore was set)"
+          },
+          "Description": "Gets the high score of a specified user"
         },
         {
           "Name": "GetScores",
           "Type": "function",
           "OriginalName": "GetScores",
           "Parameters": [],
-          "Return": "",
-          "Description": ""
+          "Return": {
+            "Type": "Table",
+            "Description": "The Highscore Table"
+          },
+          "Description": "Returns a table of scores with the user name as key."
         }
       ],
-      "Description": ""
+      "Description": "Stores highscores by name in memory"
     }
   ],
   "Properties": [
@@ -86,18 +98,23 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the prefix for the http listener.",
+          "Type": "any"
         },
         {
           "Name": "apiKey",
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the api key that is used to authenticate with the server.",
+          "Type": "string"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "any",
+        "Description": ""
+      },
+      "Description": "Constructs a new Highscore API"
     },
     {
       "Name": "Error",
@@ -109,33 +126,42 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "The Http Context",
+          "Type": "any"
         },
         {
           "Name": "code",
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "The Http Status Code.",
+          "Type": "num"
         },
         {
           "Name": "msg",
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the error message",
+          "Type": "string"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Helper Function. Terminates a Connection with an error code and a message."
     },
     {
       "Name": "Start",
       "Type": "function",
       "OriginalName": "Start",
       "Parameters": [],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Starts the API Listener"
     },
     {
       "Name": "GetScore",
@@ -147,11 +173,15 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "The Http Context",
+          "Type": "any"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Implements the 'GET /get?key=<API_KEY>&name=<user_name>' endpoint\r\nReturns the Score for a specific user."
     },
     {
       "Name": "SetScore",
@@ -163,11 +193,15 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "The Http Context",
+          "Type": "any"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Implements the 'POST /set?key=<API_KEY>' endpoint\r\nSets the Score for a specific user."
     },
     {
       "Name": "ListScores",
@@ -179,13 +213,17 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "The Http Context",
+          "Type": "any"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Implements the 'GET /list?key=<API_KEY>' endpoint\r\nReturns scores for all users."
     }
   ],
   "OriginalName": "HighscoreApi",
-  "Description": ""
+  "Description": "Defines the Highscore API using the WebFramework Library"
 }

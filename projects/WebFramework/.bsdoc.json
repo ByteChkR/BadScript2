@@ -35,18 +35,23 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "Prefix for the Http Listener",
+          "Type": "any"
         },
         {
           "Name": "defaultRoute",
           "IsNullChecked": false,
           "IsOptional": true,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "The Default Route that will be called if no handler for the specified route has been found",
+          "Type": "Function"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "any",
+        "Description": ""
+      },
+      "Description": "Creates a new WebApp Object"
     },
     {
       "Name": "MapRoute",
@@ -58,18 +63,23 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the function that matches the route context",
+          "Type": "Function"
         },
         {
           "Name": "handler",
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the handler that will be called if matchFunc matched the requested route",
+          "Type": "Function"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Maps a route to a specific handler"
     },
     {
       "Name": "MapExact",
@@ -81,26 +91,34 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the route string that will be matched",
+          "Type": "string"
         },
         {
           "Name": "handler",
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "the handler that will be called if route matched the requested route",
+          "Type": "Function"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Maps an exact route to a specific handler"
     },
     {
       "Name": "Exit",
       "Type": "function",
       "OriginalName": "Exit",
       "Parameters": [],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Exits the Web App Listener"
     },
     {
       "Name": "GetRoute",
@@ -112,21 +130,28 @@
           "IsNullChecked": false,
           "IsOptional": false,
           "IsRestArgs": false,
-          "Description": ""
+          "Description": "",
+          "Type": "any"
         }
       ],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "Function",
+        "Description": "The Handler for the specified route"
+      },
+      "Description": "Gets a handler for a requested route."
     },
     {
       "Name": "Start",
       "Type": "function",
       "OriginalName": "Start",
       "Parameters": [],
-      "Return": "",
-      "Description": ""
+      "Return": {
+        "Type": "void",
+        "Description": ""
+      },
+      "Description": "Starts the Web App"
     }
   ],
   "OriginalName": "WebApp",
-  "Description": ""
+  "Description": "Implements a Wrapper around the NetHost API.\r\nAllows for simple routing."
 }

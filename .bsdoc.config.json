@@ -1,13 +1,14 @@
 {
 	"Meta": {
-		"Title": "Core Libraries Reference",
-		"Version": "2023.1.29.0"
+		"Title": "BadScript2 Common and Library Reference",
+		"Version": "2023.1.31.0"
 	},
 	"Sources": [
 		"projects/BuildSystem/.bsdoc.json",
 		"projects/HighscoreApi/.bsdoc.json",
 		"projects/System/.bsdoc.json",
-		"projects/WebFramework/.bsdoc.json"
+		"projects/WebFramework/.bsdoc.json",
+		".bsdoc.json"
 	],
 	"Options": {
 		"SideBar": {

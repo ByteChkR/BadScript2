@@ -37,4 +37,11 @@ class BuildSystem
 }
 
 
-$(Environment.Runtime).Export("BuildSystem", BuildSystem);
+$(Environment.Runtime).Export("BuildSystem", {
+	BuildSystem: BuildSystem, 
+	BuildLogger: BuildLogger,
+	BuildTarget: BuildTarget,
+	BuildTargetDirectoryResolver: BuildTargetDirectoryResolver,
+	BuildTargetLoader: BuildTargetLoader,
+	BuildTargetResolver: BuildTargetResolver
+});

@@ -2,9 +2,18 @@
 #import Package from Runtime
 #import WebFramework from Package
 
+@|
+	Stores highscores by name in memory
+|@
 class HighscoreDatabase
 {
 	const highscores = {}
+
+	@|
+		Adds a score
+		|PARAM name string: The Name of the User
+		|PARAM score num: The Score
+	|@
 	function AddScore(string name!, num score!)
 	{
 		if(!highscores.Keys.Contains(name) || highscores[name] < score)
@@ -13,6 +22,11 @@ class HighscoreDatabase
 		}
 	}
 
+	@|
+		Gets the high score of a specified user
+		|PARAM name string: The Name of the User
+		|RET num: The Highscore (0 if no highscore was set)
+	|@
 	function GetScore(string name!)
 	{
 		if(highscores.Keys.Contains(name))
@@ -22,14 +36,26 @@ class HighscoreDatabase
 		return 0;
 	}
 
+	@|
+		Returns a table of scores with the user name as key.
+		|RET Table: The Highscore Table
+	|@
 	function GetScores() => highscores;
 }
 
+@|
+	Defines the Highscore API using the WebFramework Library
+|@
 class HighscoreApi
 {
 	const API_KEY;
 	const app;
 	const highscores = new HighscoreDatabase();
+	@|
+		Constructs a new Highscore API
+		|PARAM prefix any: the prefix for the http listener.
+		|PARAM apiKey string: the api key that is used to authenticate with the server.
+	|@
 	function HighscoreApi(prefix, apiKey)
 	{
 		API_KEY = apiKey;
@@ -39,6 +65,13 @@ class HighscoreApi
 		app.MapExact("/list", ListScores);
 	}
 
+	@|
+		Helper Function. Terminates a Connection with an error code and a message.
+		|PARAM ctx any: The Http Context
+		|PARAM code num: The Http Status Code.
+		|PARAM msg string: the error message
+		|RET void:
+	|@
 	function Error(ctx, num code, string msg)
 	{
 		ctx.Response.SetStatusCode(code);
@@ -47,11 +80,21 @@ class HighscoreApi
 		ctx.Response.Close();
 	}
 
+	@|
+		Starts the API Listener
+		|RET void:
+	|@
 	function Start()
 	{
 		app.Start();
 	}
 
+	@|
+		Implements the 'GET /get?key=<API_KEY>&name=<user_name>' endpoint
+		Returns the Score for a specific user.
+		|PARAM ctx any: The Http Context
+		|RET void:
+	|@
 	function GetScore(ctx)
 	{
 		const request = ctx.Request;
@@ -81,6 +124,12 @@ class HighscoreApi
 		}
 	}
 
+	@|
+		Implements the 'POST /set?key=<API_KEY>' endpoint
+		Sets the Score for a specific user.
+		|PARAM ctx any: The Http Context
+		|RET void:
+	|@
 	function SetScore(ctx)
 	{
 		const request = ctx.Request;
@@ -125,6 +174,12 @@ class HighscoreApi
 		}
 	}
 
+	@|
+		Implements the 'GET /list?key=<API_KEY>' endpoint
+		Returns scores for all users.
+		|PARAM ctx any: The Http Context
+		|RET void:
+	|@
 	function ListScores(ctx)
 	{
 		const request = ctx.Request;

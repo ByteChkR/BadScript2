@@ -1,16 +1,34 @@
 #define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
 #define START_DIR Environment.Runtime == "Runtime" ? "IO.Directory.GetStartupDirectory()" : "\"/\""
+
+
+@|
+	Resolves Build Target Directories
+|@
 class BuildTargetDirectoryResolver
 {
 	
 	const Path;
 	const Targets = [];
+
+	@|
+		Creates a new instance of the build Target Resolver class
+		|PARAM path string: The Path that contains the build target .json files
+		|PARAM context any: The contex the build targets are resolved with.
+	|@
 	function BuildTargetDirectoryResolver(string path!, context)
 	{
 		Path = path;
 		LoadTargets(context);
 	}
 
+
+
+	@|
+		Loads all targets from the Path that was specified in the constructor.
+		|PARAM context any: the context which is used to resolve the build targets
+		|RET void:
+	|@
 	function LoadTargets(context)
 	{
 		Targets.Clear();
@@ -27,6 +45,13 @@ class BuildTargetDirectoryResolver
 		}
 	}
 
+
+
+	@|
+		Resolves a build target with the specified name. returns null if no target was found.
+		|PARAM name string: the build target name
+		|RET any: The Build Target with the specified name.
+	|@
 	function Resolve(string name!)
 	{
 		return Targets.FirstOrDefault(function(t) => t.GetName() == name);

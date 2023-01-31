@@ -1,13 +1,27 @@
 
+@|
+	Resolves Build Targets by Name
+|@
 class BuildTargetResolver
 {
 	
 	const _Funcs = [];
+	@|
+		Adds a Resolver Function
+		|PARAM func Function: Resolver Function
+		|RET void:
+	|@
 	function AddResolverFunc(Function func!)
 	{
 		_Funcs.Add(func);
 	}
 
+
+	@|
+		Resolves a Build Target by Name
+		|PARAM name string: Name of the Build Target
+		|RET any: The Build Target with the specified name
+	|@
 	function Resolve(string name!)
 	{
 		foreach(func in _Funcs)

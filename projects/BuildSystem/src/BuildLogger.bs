@@ -1,22 +1,46 @@
 #define CONSOLE_API Environment.Runtime == "Runtime" ? "Console" : "OS"
 
+@|
+	Implements a Logger that will output logs prefixed with different tags.
+|@
 class BuildLogger
 {
 	const Tag;
+	@|
+		Creates a new BuildLogger instance with the specified tag
+		|PARAM tag string: The tag that is displayed
+	|@
 	function BuildLogger(tag!)
 	{
 		Tag = tag;
 	}
+
+
+	@|
+		Logs a message
+		|PARAM msg any: The message
+		|RET void:
+	|@
 	function Log(msg!)
 	{
 		$(CONSOLE_API).WriteLine($"[{Tag}:LOG] {msg}");
 	}
 
+	@|
+		Logs a warning
+		|PARAM msg any: The message
+		|RET void:
+	|@
 	function Warn(msg!)
 	{
 		$(CONSOLE_API).WriteLine($"[{Tag}:WARN] {msg}");
 	}
 
+	@|
+		Logs an error
+		|PARAM msg any: The error
+		|RET void:
+	|@
 	function Error(msg!)
 	{
 		$(CONSOLE_API).WriteLine($"[{Tag}:ERR] {msg}");

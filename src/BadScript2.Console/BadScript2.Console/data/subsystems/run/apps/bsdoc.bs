@@ -37,14 +37,20 @@ function CreateProperty(name, model)
 			let description = "";
 			if(model.Meta.Parameters.Keys.Contains(param.Name))
 			{
-				description = model.Meta.Parameters[param.Name];
+				description = model.Meta.Parameters[param.Name].Description;
+			}
+			let type = "any";
+			if(model.Meta.Parameters.Keys.Contains(param.Name))
+			{
+				type = model.Meta.Parameters[param.Name].Type;
 			}
 			result.Parameters.Add({ 
 				Name: param.Name, 
 				IsNullChecked: param.IsNullChecked, 
 				IsOptional: param.IsOptional, 
 				IsRestArgs: param.IsRestArgs, 
-				Description: description
+				Description: description,
+				Type: type
 			});
 		}
 		return result;
@@ -181,6 +187,26 @@ function LoadLibrary(name, path)
 
 function Main(args)
 {
+		if(args.Length == 0)
+		{
+			const sections = [];
+			sections.Add(CreateSection("Console", Console));
+			sections.Add(CreateSection("IO", IO));
+			sections.Add(CreateSection("Runtime", Runtime));
+			sections.Add(CreateSection("Math", Math));
+			sections.Add(CreateSection("OS", OS));
+			sections.Add(CreateSection("Compression", Compression));
+			sections.Add(CreateSection("Net", Net));
+			sections.Add(CreateSection("NetHost", NetHost));
+			const result = {
+				SectionName: "Common Runtime Apis",
+				SectionType: SECTION_TYPES.NAMESPACE,
+				Sections: sections,
+				Properties: []
+			}
+			IO.File.WriteAllText("./.bsdoc.json", Json.ToJson(result));
+			return;
+		}
 		if(args.Length < 1 || args.Length > 2)
 		{
 			Console.WriteLine("Wrong Parameter Count. Expected \"bs bsdoc <name> [path to library source, default:\"./bin/<name>.bs\"]\"");

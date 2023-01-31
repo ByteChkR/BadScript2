@@ -2,23 +2,37 @@ using System.Text;
 
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser;
 
+
+public class BadParameterMetaData
+{
+    public readonly string Description;
+    public readonly string Type;
+    public BadParameterMetaData(string type, string description)
+    {
+        Type = type;
+        Description = description;
+    }
+}
 public class BadMetaData : BadObject
 {
-    public static readonly BadMetaData Empty = new BadMetaData("", "", new Dictionary<string, string>());
+    public static readonly BadMetaData Empty = new BadMetaData("", "", "any", new Dictionary<string, BadParameterMetaData>());
     public readonly string Description;
-    public readonly Dictionary<string, string> ParameterDescriptions;
+    public readonly Dictionary<string, BadParameterMetaData> ParameterDescriptions;
     public readonly string ReturnDescription;
+    public readonly string ReturnType;
 
-    public BadMetaData(string description, string returnDescription, Dictionary<string, string> parameterDescriptions)
+    public BadMetaData(string description, string returnDescription, string returnType, Dictionary<string, BadParameterMetaData> parameterDescriptions)
     {
         Description = description;
         ReturnDescription = returnDescription;
         ParameterDescriptions = parameterDescriptions;
+        ReturnType = returnType;
     }
 
     public override BadClassPrototype GetPrototype()
@@ -42,12 +56,33 @@ public class BadMetaData : BadObject
 
             if (s.Value == "Return")
             {
-                return BadObjectReference.Make("BadMetaData.Return", () => ReturnDescription);
+                return BadObjectReference.Make(
+                    "BadMetaData.Return",
+                    () => new BadTable(
+                        new Dictionary<BadObject, BadObject>
+                        {
+                            { "Type", ReturnType },
+                            { "Description", ReturnDescription }
+                        }
+                    )
+                );
             }
 
             if (s.Value == "Parameters")
             {
-                return BadObjectReference.Make("BadMetaData.Parameters", () => new BadTable(ParameterDescriptions.ToDictionary(x => (BadObject)x.Key, x => (BadObject)x.Value)));
+                return BadObjectReference.Make(
+                    "BadMetaData.Parameters",
+                    () => new BadTable(
+                        ParameterDescriptions.ToDictionary(
+                            x => (BadObject)x.Key,
+                            x => (BadObject)new BadTable(new Dictionary<BadObject, BadObject>
+                            {
+                                { "Type", x.Value.Type }, 
+                                { "Description", x.Value.Description }
+                            })
+                        )
+                    )
+                );
             }
         }
 
@@ -60,9 +95,9 @@ public class BadMetaData : BadObject
 
         sb.AppendLine(Description);
 
-        foreach (KeyValuePair<string, string> kv in ParameterDescriptions)
+        foreach (KeyValuePair<string, BadParameterMetaData> kv in ParameterDescriptions)
         {
-            sb.AppendLine($"Parameter {kv.Key}: {kv.Value}");
+            sb.AppendLine($"Parameter {kv.Key} {kv.Value.Type}: {kv.Value.Description}");
         }
 
         sb.AppendLine("Returns: " + ReturnDescription);

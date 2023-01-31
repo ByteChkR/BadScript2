@@ -242,19 +242,20 @@ public class BadSourceParser
             Reader.SkipNonToken();
             StringBuilder rootMeta = new StringBuilder();
             StringBuilder returnMeta = new StringBuilder();
-            Dictionary<string, StringBuilder> meta = new Dictionary<string, StringBuilder>();
+            string returnType = "any";
+            Dictionary<string, (string, StringBuilder)> meta = new Dictionary<string, (string, StringBuilder)>();
 
-            StringBuilder GetMeta(string name)
+            StringBuilder GetMeta(string name, string type)
             {
-                if (meta.TryGetValue(name, out StringBuilder? val))
+                if (meta.TryGetValue(name, out (string, StringBuilder) val))
                 {
-                    return val;
+                    return val.Item2;
                 }
 
-                val = new StringBuilder();
+                val = (type, new StringBuilder());
                 meta[name] = val;
 
-                return val;
+                return val.Item2;
             }
 
             while (!Reader.Is("|@"))
@@ -265,10 +266,25 @@ public class BadSourceParser
                     Reader.SkipNonToken();
                     string name = Reader.ParseWord().Text;
                     Reader.SkipNonToken();
+                    string type = "any";
+                    if (!Reader.Is(':'))
+                    {
+                        type = "";
+                        while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
+                        {
+                            type += Reader.ParseWord().Text;
+                            if (Reader.Is('.'))
+                            {
+                                type += '.';
+                                Reader.MoveNext();
+                            }
+                        }
+                        Reader.SkipNonToken();
+                    }
                     Reader.Eat(':');
                     Reader.SkipNonToken();
-                    StringBuilder m = GetMeta(name);
-                    while (!Reader.IsEof() && !Reader.IsNewLine())
+                    StringBuilder m = GetMeta(name, type);
+                    while (!Reader.IsEof() && !Reader.Is("|@") && !Reader.IsNewLine())
                     {
                         m.Append(Reader.GetCurrentChar());
                         Reader.MoveNext();
@@ -276,18 +292,37 @@ public class BadSourceParser
 
                     Reader.SkipNonToken();
                 }
-                else if (Reader.Is("|RET:"))
+                else if (Reader.Is("|RET"))
                 {
-                    Reader.Eat("|RET:");
+                    Reader.Eat("|RET");   
+                    Reader.SkipNonToken();
+                    string type = "any";
+                    if (!Reader.Is(':'))
+                    {
+                        type = "";
+                        while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
+                        {
+                            type += Reader.ParseWord().Text;
+                            if (Reader.Is('.'))
+                            {
+                                type += '.';
+                                Reader.MoveNext();
+                            }
+                        }
+                        Reader.SkipNonToken();
+                    }
+                    Reader.Eat(':');
                     Reader.SkipNonToken();
 
-                    while (!Reader.IsEof() && !Reader.IsNewLine())
+                    while (!Reader.IsEof() && !Reader.Is("|@") && !Reader.IsNewLine())
                     {
                         returnMeta.Append(Reader.GetCurrentChar());
                         Reader.MoveNext();
                     }
 
                     Reader.SkipNonToken();
+                    
+                    returnType = type;
                 }
                 else
                 {
@@ -309,12 +344,25 @@ public class BadSourceParser
 
                     rootMeta.AppendLine();
                     Reader.SkipNonToken();
+                    
                 }
             }
 
             Reader.Eat("|@");
             Reader.SkipNonToken();
-            m_MetaData = new BadMetaData(rootMeta.ToString().Trim(), returnMeta.ToString().Trim(), meta.ToDictionary(x => x.Key, x => x.Value.ToString().Trim()));
+            
+            m_MetaData = new BadMetaData(
+                rootMeta.ToString().Trim(),
+                returnMeta.ToString().Trim(),
+                returnType,
+                meta.ToDictionary(
+                    x => x.Key, 
+                    x => new BadParameterMetaData(
+                        x.Value.Item1, 
+                        x.Value.Item2.ToString().Trim()
+                        )
+                    )
+            );
         }
     }
 

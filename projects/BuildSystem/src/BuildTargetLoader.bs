@@ -1,8 +1,16 @@
 #define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
 
+@|
+	Loads Build Targets
+|@
 class BuildTargetLoader
 {
-
+	@|
+		Resolves a String Value with the specified context.
+		|PARAM context Table: The Context that the string is resolved with
+		|PARAM str string: The String to be resolved
+		|RET string: the resolved string
+	|@
 	function ResolveString(Table context!, string str)
 	{
 		if(str.Contains("{") && str.Contains("}"))
@@ -13,6 +21,12 @@ class BuildTargetLoader
 		return str;
 	}
 
+	@|
+		Resolves a Table with the specified context.
+		|PARAM context Table: The Context that the Table is resolved with
+		|PARAM table Table: The Table to be resolved
+		|RET Table: the resolved string
+	|@
 	function ResolveTable(Table context!, Table table)
 	{
 		const t = {}
@@ -23,6 +37,12 @@ class BuildTargetLoader
 		return t;
 	}
 
+	@|
+		Resolves an Array with the specified context.
+		|PARAM context Table: The Context that the Array is resolved with
+		|PARAM array Array: The Array to be resolved
+		|RET Array: the resolved Array
+	|@
 	function ResolveArray(Table context!, Array array)
 	{
 		for(let i = 0; i < array.Length; i++)
@@ -32,6 +52,12 @@ class BuildTargetLoader
 		return array;
 	}
 
+	@|
+		Resolves an Object with the specified context.
+		|PARAM context Table: The Context that the Object is resolved with
+		|PARAM obj any: The Object to be resolved
+		|RET any: the resolved Object
+	|@
 	function Resolve(Table context!, obj)
 	{
 		if(obj == null)
@@ -52,6 +78,13 @@ class BuildTargetLoader
 		}
 		return obj;
 	}
+
+	@|
+		Loads a build target from the specified file and resolves it with the supplied context.
+		|PARAM context Table: The Context that the build target is resolved with
+		|PARAM file string: The Build Target File
+		|RET any: the resolved Object
+	|@
 	function Load(string file!, context)
 	{
 		return Resolve(context, Json.FromJson($(FILESYSTEM_API).File.ReadAllText(file)));
