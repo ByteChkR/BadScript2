@@ -1,5 +1,7 @@
 namespace BadScript2.Parser.Operators;
 
+
+
 /// <summary>
 ///     Base Class of All Operators
 /// </summary>

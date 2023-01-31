@@ -1,4 +1,5 @@
 using BadScript2.Common;
+using BadScript2.Parser;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
@@ -19,6 +20,7 @@ public class BadCompiledFunction : BadFunction
         BadSourcePosition position,
         BadWordToken? name,
         bool isConstant,
+        BadMetaData? metaData,
         params BadFunctionParameter[] parameters) : base(
         name,
         isConstant,
@@ -29,7 +31,10 @@ public class BadCompiledFunction : BadFunction
         m_UseOverrides = useOverrides;
         m_ParentScope = parentScope;
         m_Position = position;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {

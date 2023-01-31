@@ -1,0 +1,713 @@
+{
+  "SectionName": "System",
+  "SectionType": "namespace",
+  "Sections": [
+    {
+      "SectionName": "Assert",
+      "SectionType": "namespace",
+      "Sections": [],
+      "Properties": [
+        {
+          "Name": "IsString",
+          "Type": "function",
+          "OriginalName": "IsString",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is a String"
+        },
+        {
+          "Name": "IsBoolean",
+          "Type": "function",
+          "OriginalName": "IsBoolean",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is a Boolean"
+        },
+        {
+          "Name": "IsNumber",
+          "Type": "function",
+          "OriginalName": "IsNumber",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is a Number"
+        },
+        {
+          "Name": "IsArray",
+          "Type": "function",
+          "OriginalName": "IsArray",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is an Array"
+        },
+        {
+          "Name": "IsTable",
+          "Type": "function",
+          "OriginalName": "IsTable",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is a Table"
+        },
+        {
+          "Name": "IsFunction",
+          "Type": "function",
+          "OriginalName": "IsFunction",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is a Function"
+        },
+        {
+          "Name": "IsEnumerator",
+          "Type": "function",
+          "OriginalName": "IsEnumerator",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is an Enumerator"
+        },
+        {
+          "Name": "IsEnumerable",
+          "Type": "function",
+          "OriginalName": "IsEnumerable",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "object that will be tested"
+            }
+          ],
+          "Return": "void(throws if assertion fails)",
+          "Description": "Asserts that the specified object is an Enumerable"
+        }
+      ]
+    },
+    {
+      "SectionName": "Enumerables",
+      "SectionType": "namespace",
+      "Sections": [],
+      "Properties": [
+        {
+          "Name": "Range",
+          "Type": "function",
+          "OriginalName": "Range",
+          "Parameters": [
+            {
+              "Name": "from",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "Start Number"
+            },
+            {
+              "Name": "to",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "End Number."
+            },
+            {
+              "Name": "step",
+              "IsNullChecked": false,
+              "IsOptional": true,
+              "IsRestArgs": false,
+              "Description": "Step Number"
+            }
+          ],
+          "Return": "Enumerable",
+          "Description": "Returns an Enumerable that counts from an arbitrary number to an arbitrary number"
+        },
+        {
+          "Name": "Repeat",
+          "Type": "function",
+          "OriginalName": "Repeat",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "The object that will repeat in this enumerable"
+            },
+            {
+              "Name": "num",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "The amount of repetitions."
+            }
+          ],
+          "Return": "Enumerable",
+          "Description": "Returns an Enumerable that repeats the same object 'num' times."
+        },
+        {
+          "Name": "Infinite",
+          "Type": "function",
+          "OriginalName": "Infinite",
+          "Parameters": [
+            {
+              "Name": "obj",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "The object that will infinitely repeat in this enumerable"
+            }
+          ],
+          "Return": "Infinite Enumerable",
+          "Description": "Returns an Infinite Enumerable"
+        },
+        {
+          "Name": "Primes",
+          "Type": "function",
+          "OriginalName": "Primes",
+          "Parameters": [],
+          "Return": "Enumerable of Prime Numbers",
+          "Description": "Returns an Enumerable of prime numbers"
+        }
+      ]
+    },
+    {
+      "SectionName": "Events",
+      "SectionType": "namespace",
+      "Sections": [
+        {
+          "SectionName": "Event",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [
+            {
+              "Name": "_CallList",
+              "Type": "value",
+              "Value": null
+            },
+            {
+              "Name": "_CallPrototype",
+              "Type": "value",
+              "Value": null
+            },
+            {
+              "Name": "Event",
+              "Type": "function",
+              "OriginalName": "Event",
+              "Parameters": [
+                {
+                  "Name": "callProto",
+                  "IsNullChecked": true,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "The Function Signature of this event."
+                }
+              ],
+              "Return": "",
+              "Description": "Event Constructor"
+            },
+            {
+              "Name": "Remove",
+              "Type": "function",
+              "OriginalName": "Remove",
+              "Parameters": [
+                {
+                  "Name": "func",
+                  "IsNullChecked": true,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "The listener to unsubscribe."
+                }
+              ],
+              "Return": "void",
+              "Description": "Removes a subscribed listener from the event"
+            },
+            {
+              "Name": "Add",
+              "Type": "function",
+              "OriginalName": "Add",
+              "Parameters": [
+                {
+                  "Name": "func",
+                  "IsNullChecked": true,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "The listener to subscribe."
+                }
+              ],
+              "Return": "void",
+              "Description": "Adds a listener to event"
+            },
+            {
+              "Name": "Invoke",
+              "Type": "function",
+              "OriginalName": "Invoke",
+              "Parameters": [
+                {
+                  "Name": "args",
+                  "IsNullChecked": false,
+                  "IsOptional": false,
+                  "IsRestArgs": true,
+                  "Description": "the parameters for the event"
+                }
+              ],
+              "Return": "void",
+              "Description": "Invokes the Event"
+            },
+            {
+              "Name": "op_AddAssign",
+              "Type": "function",
+              "OriginalName": "op_AddAssign",
+              "Parameters": [
+                {
+                  "Name": "func",
+                  "IsNullChecked": true,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "The listener to subscribe."
+                }
+              ],
+              "Return": "void",
+              "Description": "Operator Override for '+='"
+            },
+            {
+              "Name": "op_SubtractAssign",
+              "Type": "function",
+              "OriginalName": "op_SubtractAssign",
+              "Parameters": [
+                {
+                  "Name": "func",
+                  "IsNullChecked": true,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "The listener to unsubscribe."
+                }
+              ],
+              "Return": "void",
+              "Description": "Operator Override for '-='"
+            },
+            {
+              "Name": "op_Invoke",
+              "Type": "function",
+              "OriginalName": "op_Invoke",
+              "Parameters": [
+                {
+                  "Name": "args",
+                  "IsNullChecked": false,
+                  "IsOptional": false,
+                  "IsRestArgs": true,
+                  "Description": "the parameters for the event"
+                }
+              ],
+              "Return": "void",
+              "Description": "Operator Override for '()'"
+            }
+          ],
+          "OriginalName": "Event",
+          "Description": "An Event class that allows other code to hook into this event with the +=/-= operators.\r\nInvocation can be done with the () operator."
+        }
+      ],
+      "Properties": []
+    },
+    {
+      "SectionName": "Logging",
+      "SectionType": "namespace",
+      "Sections": [
+        {
+          "SectionName": "Logger",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [
+            {
+              "Name": "OnLog",
+              "Type": "value",
+              "Value": null
+            },
+            {
+              "Name": "OnWarn",
+              "Type": "value",
+              "Value": null
+            },
+            {
+              "Name": "Logger",
+              "Type": "function",
+              "OriginalName": "Logger",
+              "Parameters": [],
+              "Return": "",
+              "Description": "Logger Constructor"
+            },
+            {
+              "Name": "Log",
+              "Type": "function",
+              "OriginalName": "Log",
+              "Parameters": [
+                {
+                  "Name": "msg",
+                  "IsNullChecked": false,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": ""
+                }
+              ],
+              "Return": "void",
+              "Description": "Logs a message"
+            },
+            {
+              "Name": "Warn",
+              "Type": "function",
+              "OriginalName": "Warn",
+              "Parameters": [
+                {
+                  "Name": "msg",
+                  "IsNullChecked": false,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": ""
+                }
+              ],
+              "Return": "void",
+              "Description": "Logs a warning"
+            }
+          ],
+          "OriginalName": "Logger",
+          "Description": "A simple Logger class with OnLog and OnWarn Events"
+        },
+        {
+          "SectionName": "TagLogger",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [
+            {
+              "Name": "base",
+              "Type": "class-definition-base",
+              "ClassName": "Logger"
+            },
+            {
+              "Name": "LogTag",
+              "Type": "value",
+              "Value": "[LOG]"
+            },
+            {
+              "Name": "WarnTag",
+              "Type": "value",
+              "Value": "[WARN]"
+            },
+            {
+              "Name": "TagLogger",
+              "Type": "function",
+              "OriginalName": "TagLogger",
+              "Parameters": [],
+              "Return": "",
+              "Description": "Logger Constructor"
+            },
+            {
+              "Name": "Log",
+              "Type": "function",
+              "OriginalName": "Log",
+              "Parameters": [
+                {
+                  "Name": "msg",
+                  "IsNullChecked": false,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "Message to Log"
+                }
+              ],
+              "Return": "void",
+              "Description": "Logs a message"
+            },
+            {
+              "Name": "Warn",
+              "Type": "function",
+              "OriginalName": "Warn",
+              "Parameters": [
+                {
+                  "Name": "msg",
+                  "IsNullChecked": false,
+                  "IsOptional": false,
+                  "IsRestArgs": false,
+                  "Description": "Warning to Log"
+                }
+              ],
+              "Return": "void",
+              "Description": "Logs a warning"
+            }
+          ],
+          "OriginalName": "TagLogger",
+          "Description": "A simple Logger class that supports adding a tag to every log written."
+        }
+      ],
+      "Properties": [
+        {
+          "Name": "CreateDefault",
+          "Type": "function",
+          "OriginalName": "CreateDefaultLogger",
+          "Parameters": [],
+          "Return": "Default Logger Instance",
+          "Description": "Creates a Default Logger hooked up to the Console Output"
+        }
+      ]
+    },
+    {
+      "SectionName": "SourceReader",
+      "SectionType": "class-definition",
+      "Sections": [],
+      "Properties": [
+        {
+          "Name": "_src",
+          "Type": "value",
+          "Value": null
+        },
+        {
+          "Name": "_current",
+          "Type": "value",
+          "Value": null
+        },
+        {
+          "Name": "SourceReader",
+          "Type": "function",
+          "OriginalName": "SourceReader",
+          "Parameters": [
+            {
+              "Name": "src",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "The Source code"
+            }
+          ],
+          "Return": "",
+          "Description": "Source Reader Constructor"
+        },
+        {
+          "Name": "Is",
+          "Type": "function",
+          "OriginalName": "Is",
+          "Parameters": [
+            {
+              "Name": "str",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "The string sequence to test against"
+            }
+          ],
+          "Return": "True if the next string sequence is equal to str",
+          "Description": "Returns true if the next string sequence is equal to str"
+        },
+        {
+          "Name": "Eat",
+          "Type": "function",
+          "OriginalName": "Eat",
+          "Parameters": [
+            {
+              "Name": "str",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "The string sequence to test against"
+            }
+          ],
+          "Return": "void",
+          "Description": "Consumes the specified string from the source reader.\r\nIf the specified string does not match the string sequence in the reader, an error is thrown"
+        },
+        {
+          "Name": "IsWhiteSpace",
+          "Type": "function",
+          "OriginalName": "IsWhiteSpace",
+          "Parameters": [],
+          "Return": "True if the next character is a whitespace character",
+          "Description": "Returns true if the next character is a whitespace character"
+        },
+        {
+          "Name": "SkipWhiteSpace",
+          "Type": "function",
+          "OriginalName": "SkipWhiteSpace",
+          "Parameters": [],
+          "Return": "void",
+          "Description": "Skips all whitespace characters"
+        },
+        {
+          "Name": "ParseWord",
+          "Type": "function",
+          "OriginalName": "ParseWord",
+          "Parameters": [],
+          "Return": "Parsed Word String",
+          "Description": "Parses a word"
+        },
+        {
+          "Name": "IsEOF",
+          "Type": "function",
+          "OriginalName": "IsEOF",
+          "Parameters": [
+            {
+              "Name": "offset",
+              "IsNullChecked": false,
+              "IsOptional": true,
+              "IsRestArgs": false,
+              "Description": ""
+            }
+          ],
+          "Return": "bool",
+          "Description": "Returns True if the current reader position plus the offset is out of bounds"
+        },
+        {
+          "Name": "GetCurrent",
+          "Type": "function",
+          "OriginalName": "GetCurrent",
+          "Parameters": [
+            {
+              "Name": "offset",
+              "IsNullChecked": false,
+              "IsOptional": true,
+              "IsRestArgs": false,
+              "Description": ""
+            }
+          ],
+          "Return": "string",
+          "Description": "Returns a character at the specified offset(default=0) or '\\0' if IsEOF(offset) is true."
+        },
+        {
+          "Name": "MoveNext",
+          "Type": "function",
+          "OriginalName": "MoveNext",
+          "Parameters": [],
+          "Return": "void",
+          "Description": "Moves the reader to the next position"
+        },
+        {
+          "Name": "ReadComment",
+          "Type": "function",
+          "OriginalName": "ReadComment",
+          "Parameters": [],
+          "Return": "Parsed Comment String",
+          "Description": "Parses a single line comment"
+        },
+        {
+          "Name": "ReadMultilineComment",
+          "Type": "function",
+          "OriginalName": "ReadMultilineComment",
+          "Parameters": [],
+          "Return": "Parsed Comment String",
+          "Description": "Parses a multi line comment"
+        },
+        {
+          "Name": "ReadMetaComment",
+          "Type": "function",
+          "OriginalName": "ReadMetaComment",
+          "Parameters": [],
+          "Return": "Parsed Comment String",
+          "Description": "Parses a meta comment"
+        },
+        {
+          "Name": "ReadString",
+          "Type": "function",
+          "OriginalName": "ReadString",
+          "Parameters": [],
+          "Return": "Parsed String",
+          "Description": "Parses a string expression"
+        },
+        {
+          "Name": "StripComments",
+          "Type": "function",
+          "OriginalName": "StripComments",
+          "Parameters": [],
+          "Return": "Stripped Source",
+          "Description": "Removes all comments from the source code and returns it."
+        }
+      ],
+      "OriginalName": "SourceReader",
+      "Description": "Supports rudimentary source code parsing."
+    },
+    {
+      "SectionName": "Math",
+      "SectionType": "namespace",
+      "Sections": [],
+      "Properties": [
+        {
+          "Name": "IsPrime",
+          "Type": "function",
+          "OriginalName": "IsPrime",
+          "Parameters": [
+            {
+              "Name": "n",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "Positive Number"
+            }
+          ],
+          "Return": "True if n is Prime",
+          "Description": "Returns True is the specified number n is a Prime Number"
+        },
+        {
+          "Name": "Sum",
+          "Type": "function",
+          "OriginalName": "Sum",
+          "Parameters": [
+            {
+              "Name": "n",
+              "IsNullChecked": false,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": "Positive Number"
+            }
+          ],
+          "Return": "Sum from 1 to N",
+          "Description": "Sums numbers from 1 to N"
+        }
+      ]
+    }
+  ],
+  "Properties": []
+}

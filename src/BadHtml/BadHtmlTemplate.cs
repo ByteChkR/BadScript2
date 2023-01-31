@@ -247,7 +247,8 @@ public class BadHtmlTemplate
     {
         string src = $"$\"{input.Replace("\n", "").Replace("\r", "")}\"";
         BadSourceParser parser = BadSourceParser.Create(FilePath, src);
-        BadObject ret = ctx.Execute(parser.Parse()).Last();
+        BadExpression[] exprs = parser.Parse().ToArray();
+        BadObject ret = ctx.Execute(exprs).Last();
         if (ret is not IBadString str)
         {
             throw new BadRuntimeException("Invalid Format String Return");

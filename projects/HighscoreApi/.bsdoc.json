@@ -1,0 +1,191 @@
+{
+  "SectionName": "HighscoreApi",
+  "SectionType": "class-definition",
+  "Sections": [
+    {
+      "SectionName": "HighscoreDatabase",
+      "SectionType": "class-instance",
+      "Sections": [
+        {
+          "SectionName": "highscores",
+          "SectionType": "namespace",
+          "Sections": [],
+          "Properties": []
+        }
+      ],
+      "Properties": [
+        {
+          "Name": "AddScore",
+          "Type": "function",
+          "OriginalName": "AddScore",
+          "Parameters": [
+            {
+              "Name": "name",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": ""
+            },
+            {
+              "Name": "score",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": ""
+            }
+          ],
+          "Return": "",
+          "Description": ""
+        },
+        {
+          "Name": "GetScore",
+          "Type": "function",
+          "OriginalName": "GetScore",
+          "Parameters": [
+            {
+              "Name": "name",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": ""
+            }
+          ],
+          "Return": "",
+          "Description": ""
+        },
+        {
+          "Name": "GetScores",
+          "Type": "function",
+          "OriginalName": "GetScores",
+          "Parameters": [],
+          "Return": "",
+          "Description": ""
+        }
+      ],
+      "Description": ""
+    }
+  ],
+  "Properties": [
+    {
+      "Name": "API_KEY",
+      "Type": "value",
+      "Value": null
+    },
+    {
+      "Name": "app",
+      "Type": "value",
+      "Value": null
+    },
+    {
+      "Name": "HighscoreApi",
+      "Type": "function",
+      "OriginalName": "HighscoreApi",
+      "Parameters": [
+        {
+          "Name": "prefix",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "apiKey",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "Error",
+      "Type": "function",
+      "OriginalName": "Error",
+      "Parameters": [
+        {
+          "Name": "ctx",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "code",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "msg",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "Start",
+      "Type": "function",
+      "OriginalName": "Start",
+      "Parameters": [],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "GetScore",
+      "Type": "function",
+      "OriginalName": "GetScore",
+      "Parameters": [
+        {
+          "Name": "ctx",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "SetScore",
+      "Type": "function",
+      "OriginalName": "SetScore",
+      "Parameters": [
+        {
+          "Name": "ctx",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "ListScores",
+      "Type": "function",
+      "OriginalName": "ListScores",
+      "Parameters": [
+        {
+          "Name": "ctx",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    }
+  ],
+  "OriginalName": "HighscoreApi",
+  "Description": ""
+}

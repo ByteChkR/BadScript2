@@ -1,0 +1,132 @@
+{
+  "SectionName": "WebApp",
+  "SectionType": "class-definition",
+  "Sections": [
+    {
+      "SectionName": "_routes",
+      "SectionType": "namespace",
+      "Sections": [],
+      "Properties": []
+    }
+  ],
+  "Properties": [
+    {
+      "Name": "_listener",
+      "Type": "value",
+      "Value": null
+    },
+    {
+      "Name": "_exit",
+      "Type": "value",
+      "Value": false
+    },
+    {
+      "Name": "_defaultRoute",
+      "Type": "value",
+      "Value": null
+    },
+    {
+      "Name": "WebApp",
+      "Type": "function",
+      "OriginalName": "WebApp",
+      "Parameters": [
+        {
+          "Name": "prefix",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "defaultRoute",
+          "IsNullChecked": false,
+          "IsOptional": true,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "MapRoute",
+      "Type": "function",
+      "OriginalName": "MapRoute",
+      "Parameters": [
+        {
+          "Name": "matchFunc",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "handler",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "MapExact",
+      "Type": "function",
+      "OriginalName": "MapExact",
+      "Parameters": [
+        {
+          "Name": "route",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "handler",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "Exit",
+      "Type": "function",
+      "OriginalName": "Exit",
+      "Parameters": [],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "GetRoute",
+      "Type": "function",
+      "OriginalName": "GetRoute",
+      "Parameters": [
+        {
+          "Name": "ctx",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "Start",
+      "Type": "function",
+      "OriginalName": "Start",
+      "Parameters": [],
+      "Return": "",
+      "Description": ""
+    }
+  ],
+  "OriginalName": "WebApp",
+  "Description": ""
+}

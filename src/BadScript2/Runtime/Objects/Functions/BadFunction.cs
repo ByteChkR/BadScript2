@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Common.Logging;
+using BadScript2.Parser;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Native;
@@ -18,6 +19,8 @@ public abstract class BadFunction : BadObject
     ///     The Result Cache
     /// </summary>
     private readonly Dictionary<int, BadObject> m_Cache = new Dictionary<int, BadObject>();
+    
+    public virtual BadMetaData MetaData => BadMetaData.Empty;
 
     /// <summary>
     ///     Creates a new Function

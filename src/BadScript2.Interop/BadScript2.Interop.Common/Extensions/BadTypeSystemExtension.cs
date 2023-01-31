@@ -19,6 +19,22 @@ public class BadTypeSystemExtension : BadInteropExtension
             )
         );
 
+        RegisterObject<BadClass>("GetClassScope", c => new BadDynamicInteropFunction("GetClassScope", (ctx) => c.Scope));
+
+        RegisterObject<BadClassPrototype>("CreateInstance", p => new BadDynamicInteropFunction("CreateInstance",
+            ctx =>
+            {
+                BadObject obj = BadObject.Null;
+                foreach (BadObject o in p.CreateInstance(ctx))
+                {
+                    obj = o;
+                }
+
+                return obj;
+            }));
+        
+        RegisterObject<BadClassPrototype>("Meta", f => f.MetaData);
+
         RegisterObject<BadClassPrototype>(
             "IsAssignableFrom",
             proto => new BadDynamicInteropFunction<BadObject>(
@@ -41,6 +57,8 @@ public class BadTypeSystemExtension : BadInteropExtension
                 (_, super) => IsBaseClassOf(super, proto)
             )
         );
+
+        RegisterObject<BadClassPrototype>("GetBaseClass", p => new BadDynamicInteropFunction("GetBaseClass", ctx => p.GetBaseClass() ?? BadObject.Null));
 
         RegisterObject<BadClassPrototype>(
             "Name",

@@ -549,5 +549,8 @@
     <None Update="data\subsystems\test\native\Table\TableValues.bs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\subsystems\run\apps\bsdoc.bs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

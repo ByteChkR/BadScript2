@@ -1,0 +1,125 @@
+{
+  "SectionName": "BuildSystem",
+  "SectionType": "class-definition",
+  "Sections": [
+    {
+      "SectionName": "Targets",
+      "SectionType": "namespace",
+      "Sections": [],
+      "Properties": []
+    },
+    {
+      "SectionName": "BuildTargetResolver",
+      "SectionType": "class-instance",
+      "Sections": [
+        {
+          "SectionName": "_Funcs",
+          "SectionType": "namespace",
+          "Sections": [],
+          "Properties": []
+        }
+      ],
+      "Properties": [
+        {
+          "Name": "AddResolverFunc",
+          "Type": "function",
+          "OriginalName": "AddResolverFunc",
+          "Parameters": [
+            {
+              "Name": "func",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": ""
+            }
+          ],
+          "Return": "",
+          "Description": ""
+        },
+        {
+          "Name": "Resolve",
+          "Type": "function",
+          "OriginalName": "Resolve",
+          "Parameters": [
+            {
+              "Name": "name",
+              "IsNullChecked": true,
+              "IsOptional": false,
+              "IsRestArgs": false,
+              "Description": ""
+            }
+          ],
+          "Return": "",
+          "Description": ""
+        }
+      ],
+      "Description": ""
+    }
+  ],
+  "Properties": [
+    {
+      "Name": "AddTargetSource",
+      "Type": "function",
+      "OriginalName": "AddTargetSource",
+      "Parameters": [
+        {
+          "Name": "dir",
+          "IsNullChecked": true,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "context",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "Run",
+      "Type": "function",
+      "OriginalName": "Run",
+      "Parameters": [
+        {
+          "Name": "name",
+          "IsNullChecked": true,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        },
+        {
+          "Name": "context",
+          "IsNullChecked": false,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    },
+    {
+      "Name": "GetTarget",
+      "Type": "function",
+      "OriginalName": "GetTarget",
+      "Parameters": [
+        {
+          "Name": "name",
+          "IsNullChecked": true,
+          "IsOptional": false,
+          "IsRestArgs": false,
+          "Description": ""
+        }
+      ],
+      "Return": "",
+      "Description": ""
+    }
+  ],
+  "OriginalName": "BuildSystem",
+  "Description": ""
+}

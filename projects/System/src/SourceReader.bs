@@ -1,9 +1,14 @@
-
+@|
+	Supports rudimentary source code parsing.
+|@
 class SourceReader
 {
 	let _src;
 	let _current;
-
+	@|
+		Source Reader Constructor
+		|PARAM src: The Source code
+	|@
 	function SourceReader(src!)
 	{
 		Assert.IsString(src);
@@ -11,6 +16,11 @@ class SourceReader
 		_current = 0;
 	}
 
+	@|
+		Returns true if the next string sequence is equal to str
+		|PARAM str: The string sequence to test against
+		|RET: True if the next string sequence is equal to str
+	|@
 	compiled fast function Is(str!)
 	{
 		Assert.IsString(str);
@@ -24,6 +34,12 @@ class SourceReader
 		return true;
 	}
 
+	@|
+		Consumes the specified string from the source reader.
+		If the specified string does not match the string sequence in the reader, an error is thrown
+		|PARAM str: The string sequence to test against
+		|RET: void
+	|@
 	function Eat(str!)
 	{
 		Assert.IsString(str);
@@ -35,11 +51,20 @@ class SourceReader
 		_current += str.Length;
 	}
 
+	@|
+		Returns true if the next character is a whitespace character
+		|RET: True if the next character is a whitespace character
+	|@
 	function IsWhiteSpace()
 	{
 		return Is("\n") || Is("\r") || Is(" ") || Is("\t");
 	}
 
+
+	@|
+		Skips all whitespace characters
+		|RET: void
+	|@
 	compiled fast function SkipWhiteSpace()
 	{
 		while(!IsEOF() && IsWhiteSpace())
@@ -48,6 +73,10 @@ class SourceReader
 		}
 	}
 
+	@|
+		Parses a word
+		|RET: Parsed Word String
+	|@
 	compiled fast function ParseWord()
 	{
 		let r = "";
@@ -59,14 +88,30 @@ class SourceReader
 		return r;
 	}
 
-	function IsEOF() => _current >= _src.Length || _current < 0;
-	function GetCurrent(offset?) => IsEOF() ? "\0" : _src[_current + (offset ?? 0)];
+	@|
+		Returns True if the current reader position plus the offset is out of bounds
+		|RET: bool
+	|@
+	function IsEOF(offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0;
+	@|
+		Returns a character at the specified offset(default=0) or '\0' if IsEOF(offset) is true.
+		|RET: string
+	|@
+	function GetCurrent(offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)];
 
+	@|
+		Moves the reader to the next position
+		|RET: void
+	|@
 	function MoveNext()
 	{
 		_current++;
 	}
 
+	@|
+		Parses a single line comment
+		|RET: Parsed Comment String
+	|@
 	compiled fast function ReadComment()
 	{
 		let r = "";
@@ -80,13 +125,17 @@ class SourceReader
 		return r;
 	}
 
+	@|
+		Parses a multi line comment
+		|RET: Parsed Comment String
+	|@
 	compiled fast function ReadMultilineComment()
 	{
 		let r = GetCurrent();
 		MoveNext();
 		r += GetCurrent();
 		MoveNext();
-		while(!IsEOF() && GetCurrent() != "*" && GetCurrent(1) != "/")
+		while(!IsEOF(1) && !Is("*/"))
 		{
 			r += GetCurrent();
 			MoveNext();
@@ -99,6 +148,35 @@ class SourceReader
 		return r;
 	}
 
+
+	@|
+		Parses a meta comment
+		|RET: Parsed Comment String
+	|@
+	compiled fast function ReadMetaComment()
+	{
+		let r = GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+		while(!IsEOF(1) && !Is("|@"))
+		{
+			r += GetCurrent();
+			MoveNext();
+		}
+		r += GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+
+		return r;
+	}
+
+
+	@|
+		Parses a string expression
+		|RET: Parsed String
+	|@
 	compiled fast function ReadString()
 	{
 		let r = GetCurrent();
@@ -119,6 +197,10 @@ class SourceReader
 		return r;
 	}
 
+	@|
+		Removes all comments from the source code and returns it.
+		|RET: Stripped Source
+	|@
 	compiled fast function StripComments()
 	{
 		let r = "";
@@ -132,6 +214,10 @@ class SourceReader
 			else if(c == "/" && GetCurrent(1) == "*")
 			{
 				ReadMultilineComment();
+			}
+			else if(c == "@" && GetCurrent(1) == "|")
+			{
+				ReadMetaComment();
 			}
 			else if(c == "\"")
 			{

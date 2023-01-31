@@ -33,6 +33,8 @@ public class BadSourceParser
     /// </summary>
     private readonly BadOperatorTable m_Operators;
 
+    private BadMetaData? m_MetaData;
+
     /// <summary>
     ///     Constructor of the Parser
     /// </summary>
@@ -232,6 +234,90 @@ public class BadSourceParser
         );
     }
 
+    private void ParseMeta()
+    {
+        if (Reader.Is("@|"))
+        {
+            Reader.Eat("@|");
+            Reader.SkipNonToken();
+            StringBuilder rootMeta = new StringBuilder();
+            StringBuilder returnMeta = new StringBuilder();
+            Dictionary<string, StringBuilder> meta = new Dictionary<string, StringBuilder>();
+
+            StringBuilder GetMeta(string name)
+            {
+                if (meta.TryGetValue(name, out StringBuilder? val))
+                {
+                    return val;
+                }
+
+                val = new StringBuilder();
+                meta[name] = val;
+
+                return val;
+            }
+
+            while (!Reader.Is("|@"))
+            {
+                if (Reader.Is("|PARAM"))
+                {
+                    Reader.Eat("|PARAM");
+                    Reader.SkipNonToken();
+                    string name = Reader.ParseWord().Text;
+                    Reader.SkipNonToken();
+                    Reader.Eat(':');
+                    Reader.SkipNonToken();
+                    StringBuilder m = GetMeta(name);
+                    while (!Reader.IsEof() && !Reader.IsNewLine())
+                    {
+                        m.Append(Reader.GetCurrentChar());
+                        Reader.MoveNext();
+                    }
+
+                    Reader.SkipNonToken();
+                }
+                else if (Reader.Is("|RET:"))
+                {
+                    Reader.Eat("|RET:");
+                    Reader.SkipNonToken();
+
+                    while (!Reader.IsEof() && !Reader.IsNewLine())
+                    {
+                        returnMeta.Append(Reader.GetCurrentChar());
+                        Reader.MoveNext();
+                    }
+
+                    Reader.SkipNonToken();
+                }
+                else
+                {
+                    if (Reader.IsNewLine(-1))
+                    {
+                        Reader.SkipNonToken();
+
+                        if (Reader.Is("|"))
+                        {
+                            continue;
+                        }
+                    }
+
+                    while (!Reader.IsEof() && !Reader.IsNewLine() && !Reader.Is("|@"))
+                    {
+                        rootMeta.Append(Reader.GetCurrentChar());
+                        Reader.MoveNext();
+                    }
+
+                    rootMeta.AppendLine();
+                    Reader.SkipNonToken();
+                }
+            }
+
+            Reader.Eat("|@");
+            Reader.SkipNonToken();
+            m_MetaData = new BadMetaData(rootMeta.ToString().Trim(), returnMeta.ToString().Trim(), meta.ToDictionary(x => x.Key, x => x.Value.ToString().Trim()));
+        }
+    }
+
     /// <summary>
     ///     Parses a Value Expression or a Prefix Function with precedence greater than the provided precedence. Moves the
     ///     Reader to the Next Token
@@ -241,6 +327,10 @@ public class BadSourceParser
     /// <exception cref="BadRuntimeException">Gets raised if a Variable Expression is malformed.</exception>
     private BadExpression ParseValue(int precedence)
     {
+        Reader.SkipNonToken();
+
+        ParseMeta();
+
         Reader.SkipNonToken();
 
         BadExpression? prefixExpr = ParsePrefix(precedence);
@@ -471,6 +561,7 @@ public class BadSourceParser
             Reader.Eat(BadStaticKeys.ConstantDefinitionKey);
             Reader.SkipNonToken();
         }
+
         int compiledStart = Reader.CurrentIndex;
         if (Reader.Is(BadStaticKeys.CompiledDefinitionKey))
         {
@@ -492,7 +583,7 @@ public class BadSourceParser
 
         if (compileLevel != BadFunctionCompileLevel.None || isConstant)
         {
-            if(compiledStart < constStart)
+            if (compiledStart < constStart)
             {
                 Reader.SetPosition(compiledStart);
             }
@@ -1044,6 +1135,8 @@ public class BadSourceParser
     /// <returns>Instance of a BadClassPrototypeExpression</returns>
     private BadClassPrototypeExpression ParseClass()
     {
+        BadMetaData? meta = m_MetaData;
+        m_MetaData = null;
         int start = Reader.CurrentIndex;
         Reader.Eat(BadStaticKeys.ClassKey);
         Reader.SkipNonToken();
@@ -1081,7 +1174,8 @@ public class BadSourceParser
             name.Text,
             members.ToArray(),
             baseClass,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+            meta
         );
     }
 
@@ -1230,8 +1324,16 @@ public class BadSourceParser
         return parameters;
     }
 
-    private BadFunctionExpression ParseFunction(int start, string? functionName, BadExpression? functionReturn, bool isConstant, BadFunctionCompileLevel compileLevel, List<BadFunctionParameter> parameters)
+    private BadFunctionExpression ParseFunction(
+        int start,
+        string? functionName,
+        BadExpression? functionReturn,
+        bool isConstant,
+        BadFunctionCompileLevel compileLevel,
+        List<BadFunctionParameter> parameters)
     {
+        BadMetaData? meta = m_MetaData;
+        m_MetaData = null;
         List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
 
         if (isSingleLine)
@@ -1247,6 +1349,7 @@ public class BadSourceParser
                 block,
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
                 isConstant,
+                meta,
                 compileLevel,
                 functionReturn
             );
@@ -1258,6 +1361,7 @@ public class BadSourceParser
             block,
             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
             isConstant,
+            meta,
             compileLevel,
             functionReturn
         );

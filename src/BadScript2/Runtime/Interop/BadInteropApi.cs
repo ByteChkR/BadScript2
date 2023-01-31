@@ -35,7 +35,11 @@ public abstract class BadInteropApi
         info.SetProperty("Name", Name, new BadPropertyInfo(null, true));
         info.SetProperty("Version", Version.ToString(), new BadPropertyInfo(null, true));
         info.SetProperty("AssemblyName", GetType().Assembly.GetName().Name, new BadPropertyInfo(null, true));
-        table.SetProperty("Info", info, new BadPropertyInfo(null, true));
+        if (!table.HasProperty("Info"))
+        {
+            table.SetProperty("Info", info, new BadPropertyInfo(null, true));
+        }
+
         LoadApi(table);
     }
 }

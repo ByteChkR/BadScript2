@@ -1,3 +1,4 @@
+using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -18,6 +19,8 @@ public class BadExpressionClassPrototype : BadClassPrototype
     ///     The Parent scope this class prototype was created in.
     /// </summary>
     private readonly BadScope m_ParentScope;
+    
+    
 
     /// <summary>
     ///     Creates a new BadExpressionClassPrototype
@@ -30,7 +33,8 @@ public class BadExpressionClassPrototype : BadClassPrototype
         string name,
         BadScope parentScope,
         BadExpression[] body,
-        BadClassPrototype? baseClass) : base(name, baseClass)
+        BadClassPrototype? baseClass,
+        BadMetaData? meta) : base(name, baseClass, meta)
     {
         m_ParentScope = parentScope;
         m_Body = body;

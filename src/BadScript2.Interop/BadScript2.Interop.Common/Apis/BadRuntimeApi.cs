@@ -36,11 +36,21 @@ public class BadRuntimeApi : BadInteropApi
         table.SetFunction<BadObject>("IsArray", Native_IsArray);
         table.SetFunction<BadObject>("IsEnumerable", Native_IsEnumerable);
         table.SetFunction<BadObject>("IsEnumerator", Native_IsEnumerator);
+        table.SetFunction<BadObject>("IsPrototype", Native_IsPrototype);
+        table.SetFunction<BadObject>("IsPrototypeInstance", Native_IsPrototypeInstance);
 
         return table;
     }
 
 
+    private BadObject Native_IsPrototypeInstance(BadObject arg)
+    {
+        return arg is BadClass;
+    }
+    private BadObject Native_IsPrototype(BadObject arg)
+    {
+        return arg is BadClassPrototype;
+    }
     private BadObject Native_IsNative(BadObject arg)
     {
         return arg is IBadNative;

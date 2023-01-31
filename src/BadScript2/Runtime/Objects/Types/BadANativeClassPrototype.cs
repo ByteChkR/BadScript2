@@ -1,3 +1,5 @@
+using BadScript2.Parser;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -17,7 +19,8 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
     /// <param name="func">Class Constructor</param>
     protected BadANativeClassPrototype(
         string name,
-        Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, null)
+        Func<BadExecutionContext, BadObject[], BadObject> func,
+        BadMetaData? meta = null) : base(name, null, meta)
     {
         m_Func = func;
     }

@@ -31,6 +31,8 @@ public class BadFunctionExtension : BadInteropExtension
                 "args"
             )
         );
+        
+        RegisterObject<BadFunction>("Meta", f => f.MetaData);
 
         RegisterObject<BadFunctionParameter>("Name", p => p.Name);
         RegisterObject<BadFunctionParameter>("IsNullChecked", p => p.IsNullChecked);

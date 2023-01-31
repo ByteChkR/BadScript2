@@ -13,7 +13,8 @@ public class MyCustomApi : BadInteropApi
     //Set the name of the API in the constructor
     public MyCustomApi() : base("MyCustomApi") { }
 
-    public override void Load(BadTable target)
+
+    protected override void LoadApi(BadTable target)
     {
         //Add your api to the target table here
 

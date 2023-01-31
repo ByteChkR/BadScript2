@@ -28,6 +28,6 @@ public class BadCompilerApi : BadInteropApi
         //     Console.WriteLine($"{current++}\t: {instruction}");
         // }
 
-        return new BadCompiledFunction(instrs, useOverride, func.ParentScope, func.Position, func.Name, func.IsConstant, func.Parameters);
+        return new BadCompiledFunction(instrs, useOverride, func.ParentScope, func.Position, func.Name, func.IsConstant, func.MetaData, func.Parameters);
     }
 }

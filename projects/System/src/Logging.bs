@@ -1,47 +1,81 @@
+@|
+	A simple Logger class with OnLog and OnWarn Events
+|@
 class Logger
 {
 	let OnLog;
 	let OnWarn;
 
+	@|
+		Logger Constructor
+	|@
 	function Logger()
 	{
 		OnLog = new Events.Event(function(msg) => {});
 		OnWarn = new Events.Event(function(msg) => {});
 	}
 
+	@|
+		Logs a message
+		|RET: void
+	|@
 	function Log(msg)
 	{
 		OnLog.Invoke(msg);
 	}
 
+	@|
+		Logs a warning
+		|RET: void
+	|@
 	function Warn(msg)
 	{
 		OnWarn.Invoke(msg);
 	}
 }
 
+@|
+	A simple Logger class that supports adding a tag to every log written.
+|@
 class TagLogger : Logger
 {
 
 	let LogTag = "[LOG]";
 	let WarnTag = "[WARN]";
 
+	@|
+		Logger Constructor
+	|@
 	function TagLogger()
 	{
 		base.Logger();
 	}
 
+	@|
+		Logs a message
+		|PARAM msg: Message to Log
+		|RET: void
+	|@
 	function Log(msg)
 	{
 		base.Log($"{LogTag} {msg}");
 	}
 
+	@|
+		Logs a warning
+		|PARAM msg: Warning to Log
+		|RET: void
+	|@
 	function Warn(msg)
 	{
 		base.Warn($"{WarnTag} {msg}");
 	}
 }
 
+@|
+	Creates a Default Logger hooked up to the Console Output
+	|RET: Default Logger Instance
+|@
 function CreateDefaultLogger()
 {
 	let l = new Logger();

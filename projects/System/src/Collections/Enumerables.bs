@@ -1,3 +1,7 @@
+@|
+	Returns an Enumerable of prime numbers
+	|RET: Enumerable of Prime Numbers
+|@
 function Primes()
 {
 	function GetEnumerator()
@@ -24,6 +28,11 @@ function Primes()
 	}
 }
 
+@|
+	Returns an Infinite Enumerable
+	|PARAM obj: The object that will infinitely repeat in this enumerable
+	|RET: Infinite Enumerable
+|@
 function Infinite(obj)
 {
 	function GetEnumerator()
@@ -40,6 +49,12 @@ function Infinite(obj)
 	}
 }
 
+@|
+	Returns an Enumerable that repeats the same object 'num' times.
+	|PARAM obj: The object that will repeat in this enumerable
+	|PARAM num: The amount of repetitions.
+	|RET: Enumerable
+|@
 function Repeat(obj, num)
 {
 	Assert.IsNumber(num);
@@ -67,6 +82,13 @@ function Repeat(obj, num)
 	}
 }
 
+@|
+	Returns an Enumerable that counts from an arbitrary number to an arbitrary number
+	|PARAM from: Start Number
+	|PARAM to: End Number.
+	|PARAM step: Step Number
+	|RET: Enumerable
+|@
 function Range(from, to, step?)
 {
 	step ??= 1;

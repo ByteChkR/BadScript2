@@ -17,6 +17,8 @@ public class BadClass : BadObject
     ///     Table of all members of this type(excluding base class members)
     /// </summary>
     private readonly BadScope m_Scope;
+    
+    public BadScope Scope => m_Scope;
 
     /// <summary>
     ///     Creates a new BadScript Class Instance

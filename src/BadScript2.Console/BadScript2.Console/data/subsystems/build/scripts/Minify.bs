@@ -7,7 +7,17 @@ function Minify()
 	Console.WriteLine("Minify Build Output");
 	let reader = new System.SourceReader(Context.SourceCode);
 
-	let newSrc = reader.StripComments();
+	let newSrc = Context.SourceCode;
+	try
+	{
+		newSrc = reader.StripComments();
+		Console.WriteLine("Strip Source Success");
+	}
+	catch(e)
+	{
+		Console.WriteLine("Strip Source Failed");
+		Console.WriteLine(e);
+	}
 
 	newSrc = newSrc.Replace("\n", " ")
 					.Replace("\r", " ")

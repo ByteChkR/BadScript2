@@ -1,4 +1,5 @@
 using BadScript2.Common;
+using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Reader.Token;
 
@@ -39,11 +40,13 @@ public class BadExpressionFunction : BadFunction
         List<BadExpression> expressions,
         BadFunctionParameter[] parameters,
         BadSourcePosition position,
-        bool isConstant) : base(name, isConstant, parameters)
+        bool isConstant,
+        BadMetaData? metaData) : base(name, isConstant, parameters)
     {
         m_Body = expressions;
         Position = position;
         ParentScope = parentScope;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
 
     /// <summary>
@@ -52,9 +55,11 @@ public class BadExpressionFunction : BadFunction
     public IEnumerable<BadExpression> Body => m_Body;
 
 
+    public override BadMetaData MetaData { get; }
+
     public override BadFunction BindParentScope(BadScope scope)
     {
-        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant);
+        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant, MetaData);
     }
 
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)

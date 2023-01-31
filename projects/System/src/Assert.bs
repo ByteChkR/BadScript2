@@ -1,41 +1,85 @@
 
 let Native = $(Environment.Runtime).Native;
 
+@|
+	Asserts that the specified object is a String
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsString(obj)
 {
 	if(obj == null || !Native.IsString(obj)) => throw "Expected String";
 }
 
+@|
+	Asserts that the specified object is a Boolean
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsBoolean(obj)
 {
 	if(obj == null || !Native.IsBoolean(obj)) => throw "Expected Boolean";
 }
 
+
+@|
+	Asserts that the specified object is a Number
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsNumber(obj)
 {
 	if(obj == null || !Native.IsNumber(obj)) => throw "Expected Number";
 }
 
+
+@|
+	Asserts that the specified object is an Array
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsArray(obj)
 {
 	if(obj == null || !Native.IsArray(obj)) => throw "Expected Array";
 }
 
+@|
+	Asserts that the specified object is a Table
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsTable(obj)
 {
 	if(obj == null || !Native.IsTable(obj)) => throw "Expected Table";
 }
 
+@|
+	Asserts that the specified object is a Function
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsFunction(obj)
 {
 	if(obj == null || !Native.IsFunction(obj)) => throw "Expected Function";
 }
 
+
+@|
+	Asserts that the specified object is an Enumerable
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsEnumerable(obj)
 {
 	if(obj == null || !Native.IsEnumerable(obj)) => throw "Expected Enumerable";
 }
 
+
+@|
+	Asserts that the specified object is an Enumerator
+	|PARAM obj: object that will be tested
+	|RET: void(throws if assertion fails)
+|@
 function IsEnumerator(obj)
 {
 	if(obj == null || !Native.IsEnumerator(obj)) => throw "Expected Enumerator";

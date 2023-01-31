@@ -21,6 +21,9 @@ public class BadFunctionExpression : BadExpression
     ///     The Function Body
     /// </summary>
     private readonly List<BadExpression> m_Body;
+    
+    
+    private readonly BadMetaData? m_MetaData;
 
     /// <summary>
     ///     The Function parameters
@@ -35,7 +38,7 @@ public class BadFunctionExpression : BadExpression
     /// <param name="block">The Function Body</param>
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
-    /// <param name="isCompiled">Defines if the resulting function will be compiled</param>
+    /// <param name="compileLevel">Defines if the resulting function will be compiled</param>
     /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
     public BadFunctionExpression(
         BadWordToken? name,
@@ -43,6 +46,7 @@ public class BadFunctionExpression : BadExpression
         List<BadExpression> block,
         BadSourcePosition position,
         bool isConstant,
+        BadMetaData? metaData,
         BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
         BadExpression? typeExpr = null) :
         base(false, position)
@@ -52,6 +56,7 @@ public class BadFunctionExpression : BadExpression
         m_Body = block;
         TypeExpression = typeExpr;
         IsConstantFunction = isConstant;
+        m_MetaData = metaData;
         CompileLevel = compileLevel;
     }
 
@@ -143,7 +148,8 @@ public class BadFunctionExpression : BadExpression
             m_Body,
             m_Parameters.Select(x => x.Initialize(context)).ToArray(),
             Position,
-            IsConstantFunction
+            IsConstantFunction,
+            m_MetaData
         );
 
         BadFunction fFinal = f;

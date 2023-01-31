@@ -1,0 +1,41 @@
+{
+	"Meta": {
+		"Title": "BadScript2 Core Libraries Reference",
+		"Version": "2023.1.29.0"
+	},
+	"Sources": [
+		"projects/BuildSystem/.bsdoc.json",
+		"projects/HighscoreApi/.bsdoc.json",
+		"projects/System/.bsdoc.json",
+		"projects/WebFramework/.bsdoc.json"
+	],
+	"Options": {
+		"SideBar": {
+			"Enabled": true,
+			"Width": "250px",
+			"Position": "left"
+		},
+		"Header": {
+			"Enabled": true,
+			"ShowLogo": true,
+			"ShowTitle": true,
+			"ShowVersion": true,
+			"Height": "100px",
+			"Logo": "/logo.png"
+		},
+		"Documentation": {}
+	},
+	"Style": {
+		"Default": {
+			"Primary": "000000",
+			"Secondary": "FFFFFF",
+			"Border": "000000"
+		},
+		"Light": {},
+		"Dark": {
+			"Primary": "FFFFFF",
+			"Secondary": "1f1f1f",
+			"Border": "FFFFFF"
+		}
+	}
+}

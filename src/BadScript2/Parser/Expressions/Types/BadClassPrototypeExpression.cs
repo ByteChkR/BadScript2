@@ -17,6 +17,8 @@ public class BadClassPrototypeExpression : BadExpression
     /// </summary>
     private readonly BadExpression[] m_Body;
 
+    private readonly BadMetaData? m_MetaData;
+
     /// <summary>
     ///     Constructor of the Class Prototype Expression
     /// </summary>
@@ -28,11 +30,13 @@ public class BadClassPrototypeExpression : BadExpression
         string name,
         BadExpression[] body,
         BadExpression? baseClass,
-        BadSourcePosition position) : base(false, position)
+        BadSourcePosition position,
+        BadMetaData? metaData) : base(false, position)
     {
         Name = name;
         m_Body = body;
         BaseClass = baseClass;
+        m_MetaData = metaData;
     }
 
     /// <summary>
@@ -80,7 +84,7 @@ public class BadClassPrototypeExpression : BadExpression
             basePrototype = cls;
         }
 
-        BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, m_Body, basePrototype);
+        BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, m_Body, basePrototype, m_MetaData);
         context.Scope.DefineVariable(Name, p);
 
         yield return p;

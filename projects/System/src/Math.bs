@@ -1,3 +1,9 @@
+
+@|
+	Sums numbers from 1 to N
+	|PARAM n: Positive Number
+	|RET: Sum from 1 to N
+|@
 const compiled fast function Sum(num n)
 {
 	if(n < 0)
@@ -12,6 +18,12 @@ const compiled fast function Sum(num n)
 	return r;
 }
 
+
+@|
+	Returns True is the specified number n is a Prime Number
+	|PARAM n: Positive Number
+	|RET: True if n is Prime
+|@
 const compiled fast function IsPrime(num n)
 {
 	if(n <= 0)
