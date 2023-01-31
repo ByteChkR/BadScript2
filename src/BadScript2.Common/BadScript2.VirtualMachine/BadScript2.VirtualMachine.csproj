@@ -3,8 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2022.12.1.0</AssemblyVersion>
-    <FileVersion>2022.12.1.0</FileVersion>
+    <AssemblyVersion>2023.1.31.0</AssemblyVersion>
+    <FileVersion>2023.1.31.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
