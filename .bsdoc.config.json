@@ -21,21 +21,21 @@
 			"ShowTitle": true,
 			"ShowVersion": true,
 			"Height": "100px",
-			"Logo": "/logo.png"
+			"Logo": "logo.png"
 		},
 		"Documentation": {}
 	},
 	"Style": {
 		"Default": {
-			"Primary": "000000",
-			"Secondary": "FFFFFF",
-			"Border": "000000"
+			"Primary": "5DACBD",
+			"Secondary": "24527A",
+			"Border": "5DACBD"
 		},
 		"Light": {},
 		"Dark": {
-			"Primary": "FFFFFF",
-			"Secondary": "1f1f1f",
-			"Border": "FFFFFF"
+			"Primary": "5DACBD",
+			"Secondary": "11283A",
+			"Border": "5DACBD"
 		}
 	}
 }
