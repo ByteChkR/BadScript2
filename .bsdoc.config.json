@@ -10,6 +10,7 @@
 		"projects/WebFramework/.bsdoc.json",
 		".bsdoc.json"
 	],
+	"InjectSources": ["docs/.bsdoc.coretypes.json"],
 	"Options": {
 		"SideBar": {
 			"Enabled": true,

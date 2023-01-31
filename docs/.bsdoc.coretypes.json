@@ -1,0 +1,71 @@
+{
+	"SectionName": "BadScript 2 Core Types",
+	"SectionType": "namespace",
+	"Sections": [
+		{
+          "SectionName": "any",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "any",
+          "Description": "Wildcard for Untyped Expressions"
+        },
+		{
+          "SectionName": "void",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "void",
+          "Description": "Wildcard for functions that do not return a value."
+        },
+		{
+          "SectionName": "bool",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "void",
+          "Description": "A binary value that can have values 'True' or 'False'."
+        },
+		{
+          "SectionName": "num",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "num",
+          "Description": "A number value."
+        },
+		{
+          "SectionName": "string",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "string",
+          "Description": "A string literal value."
+        },
+		{
+          "SectionName": "Function",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "Function",
+          "Description": "A Function Expression"
+        },
+		{
+          "SectionName": "Table",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "Table",
+          "Description": "A Table Expression"
+        },
+		{
+          "SectionName": "Array",
+          "SectionType": "class-definition",
+          "Sections": [],
+          "Properties": [],
+          "OriginalName": "Array",
+          "Description": "An Array Expression"
+        }
+	],
+	"Properties": []
+}
