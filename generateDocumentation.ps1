@@ -16,3 +16,4 @@ bs build Debug
 bs bsdoc WebFramework
 cd ..
 cd ..
+bs bsdoc

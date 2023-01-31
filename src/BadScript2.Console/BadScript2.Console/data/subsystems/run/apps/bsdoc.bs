@@ -194,7 +194,6 @@ function Main(args)
 			sections.Add(CreateSection("IO", IO));
 			sections.Add(CreateSection("Runtime", Runtime));
 			sections.Add(CreateSection("Math", Math));
-			sections.Add(CreateSection("OS", OS));
 			sections.Add(CreateSection("Compression", Compression));
 			sections.Add(CreateSection("Net", Net));
 			sections.Add(CreateSection("NetHost", NetHost));
