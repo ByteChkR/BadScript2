@@ -4,6 +4,10 @@
 [![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ByteChkR/BadScript2&utm_campaign=Badge_Coverage)
 [![Codacy Code Quality Badge](https://app.codacy.com/project/badge/Grade/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ByteChkR/BadScript2&amp;utm_campaign=Badge_Grade)
 
+<div style="display: flex; justify-content: center;">
+<img width="256" height="256" src="https://github.com/ByteChkR/BadScript2/blob/main/res/Logo.png?raw=true"/>
+</div>
+
 Bad Script is an Interpreted Scripting Language written in pure C#. It has a similar syntax to javascript and written to be easily extensible.
 
 This Repository contains a complete rewrite of [BadScript](https://github.com/ByteChkR/BadScript)

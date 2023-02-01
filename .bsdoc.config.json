@@ -23,7 +23,7 @@
 			"ShowTitle": true,
 			"ShowVersion": true,
 			"Height": "100px",
-			"Logo": "logo.png"
+			"Logo": "res/Logo.png"
 		},
 		"Documentation": {}
 	},

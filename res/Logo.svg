@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512">
+	<style>
+	  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700');
+	</style>
+	<polygon fill="none" stroke-width="2px" transform="rotate(-20 256 300)" stroke="#0f2024" points="400,235 325,365 175,365 100,235 175,105 325,105"></polygon>
+	<polygon fill="none" stroke-width="2px" transform="rotate(20 256 300)" stroke="#0f2024" points="400,235 325,365 175,365 100,235 175,105 325,105"></polygon>
+	<polygon fill="none" stroke-width="4px" transform="rotate(-10 256 300)" stroke="#25515b" points="400,235 325,365 175,365 100,235 175,105 325,105"></polygon>
+	<polygon fill="none" stroke-width="4px" transform="rotate(10 256 300)" stroke="#25515b" points="400,235 325,365 175,365 100,235 175,105 325,105"></polygon>
+	<polygon fill="none" stroke-width="8px" stroke="#5DACBD" points="400,235 325,365 175,365 100,235 175,105 325,105"></polygon>
+	<text style="font-size: 40px; font-family: 'Oswald', sans-serif;" text-anchor="middle" fill="#5DACBD" x="256" y="256">BadScript 2</text>
+</svg>
