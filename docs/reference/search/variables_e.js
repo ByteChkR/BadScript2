@@ -1,27 +1,9 @@
 var searchData=
 [
-  ['s_5factiveextensions_0',['s_ActiveExtensions',['../class_bad_interop_extension.html#a10dd9f642fa5a96b673cedbe5cda4bb2',1,'BadInteropExtension']]],
-  ['s_5fcommonapis_1',['s_CommonApis',['../class_bad_common_interop.html#a7ee0126574f3b8de2e3cfe53dcfcd2c1',1,'BadCommonInterop']]],
-  ['s_5fcontext_2',['s_Context',['../class_bad_unit_tests.html#a2ffd3317a9b0e30e69a7a5218ff46e4a',1,'BadUnitTests']]],
-  ['s_5fdebugger_3',['s_Debugger',['../class_bad_debugger.html#aeb6207de6600f6b7979c4a20acf451f7',1,'BadDebugger']]],
-  ['s_5ffilesystem_4',['s_FileSystem',['../class_bad_file_system.html#a340d3edd907e831e907490cf5d59970d',1,'BadFileSystem']]],
-  ['s_5fglobalextensions_5',['s_GlobalExtensions',['../class_bad_interop_extension.html#acef8270b05a8f3763c5e45c6c19070f7',1,'BadInteropExtension']]],
-  ['s_5finstance_6',['s_Instance',['../class_bad_settings_provider.html#a78610083a3a2b405fb4c120a0a24108f',1,'BadSettingsProvider']]],
-  ['s_5fmasks_7',['s_Masks',['../class_bad_log_mask.html#a043cda83d433e0d140c0b30d86a549a8',1,'BadLogMask']]],
-  ['s_5fnativeconstructors_8',['s_NativeConstructors',['../class_bad_native_class_helper.html#aadeefad56a5da49ecc5a8b29bfe1021f',1,'BadNativeClassHelper']]],
-  ['s_5fnativetypes_9',['s_NativeTypes',['../class_bad_native_class_builder.html#a9bdcb55b30ef278595b77305b1218ce8',1,'BadNativeClassBuilder']]],
-  ['s_5fobjectextensions_10',['s_ObjectExtensions',['../class_bad_interop_extension.html#a460a12d7113c15a29fa25fe7bfee3d46',1,'BadInteropExtension']]],
-  ['s_5fprototype_11',['s_Prototype',['../class_bad_http_context.html#adbf3d5b4ae8329099ce59772c0776db0',1,'BadHttpContext.s_Prototype()'],['../class_bad_http_request.html#a59a698d1147e1b0ce9dc9891b0413d5d',1,'BadHttpRequest.s_Prototype()']]],
-  ['s_5frandom_12',['s_Random',['../class_bad_math_api.html#ac0ab007a1034226ecc5f58f76736b0f4',1,'BadMathApi']]],
-  ['s_5frootsettings_13',['s_RootSettings',['../class_bad_settings_provider.html#ad5f1898c08b22a1c8dbbc9d96a89f5db',1,'BadSettingsProvider']]],
-  ['s_5fseed_14',['s_seed',['../struct_bad_hash_code.html#a58613dddc321988adc5dfa0c6a05b454',1,'BadHashCode']]],
-  ['s_5fstaticextensioncache_15',['s_StaticExtensionCache',['../class_bad_interop_extension.html#a2781bdc30e3b5e730ca13f286f116a1b',1,'BadInteropExtension']]],
-  ['s_5fstringcache_16',['s_StringCache',['../class_bad_object.html#ab0d760be87ad72b3253f522791123a9a',1,'BadObject']]],
-  ['scope_17',['Scope',['../class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb',1,'BadExecutionContext']]],
-  ['settings_5ffile_18',['SETTINGS_FILE',['../class_bad_program.html#af2b672078660a702b6327a597bb337f5',1,'BadProgram']]],
-  ['singlelinecomment_19',['SingleLineComment',['../class_bad_static_keys.html#a2dfecc4aa01d1ae1d5dd6324d0db87ff',1,'BadStaticKeys']]],
-  ['sourceposition_20',['SourcePosition',['../class_bad_token.html#a38c1cde4124e2d726ce93014b9f9f14c',1,'BadToken']]],
-  ['statementendkey_21',['StatementEndKey',['../class_bad_static_keys.html#a77ad68a517a4b0e0d5a58d7439505214',1,'BadStaticKeys']]],
-  ['stepsource_22',['StepSource',['../struct_bad_debugger_step.html#aee74e8a82b3aa68580305957df6a5ad4',1,'BadDebuggerStep']]],
-  ['subtractassignoperatorname_23',['SubtractAssignOperatorName',['../class_bad_static_keys.html#ab712ca023db10ddc67ecaf18aebb1268',1,'BadStaticKeys']]]
+  ['refkey_0',['RefKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a18f4a5a2508f3fb438b5c7819204fadb',1,'BadScript2::Common::BadStaticKeys']]],
+  ['returndescription_1',['ReturnDescription',['../class_bad_script2_1_1_parser_1_1_bad_meta_data.html#a58c1e09f761465fe8837bf1fd27df271',1,'BadScript2::Parser::BadMetaData']]],
+  ['returnkey_2',['ReturnKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a9cf351f64349da6eed43af7571a5f3e2',1,'BadScript2::Common::BadStaticKeys']]],
+  ['returnpointer_3',['ReturnPointer',['../class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_runtime_virtual_stack_frame.html#a746dceb9ce916980b3ed8675fd70acea',1,'BadScript2::Runtime::VirtualMachine::BadRuntimeVirtualStackFrame']]],
+  ['returntype_4',['ReturnType',['../class_bad_script2_1_1_parser_1_1_bad_meta_data.html#abca435c0808fe9725c72df243df923d3',1,'BadScript2::Parser::BadMetaData']]],
+  ['right_5',['Right',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_expression.html#a857cc7c5347183b2d184a78bcd7ea262',1,'BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreDecrementExpression.Right'],['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_increment_expression.html#a25f5ec739a915293c6bf2b4abd226a1d',1,'BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreIncrementExpression.Right']]]
 ];

@@ -1,4 +1,4 @@
 var _bad_source_parser_8cs =
 [
-    [ "BadSourceParser", "class_bad_source_parser.html", "class_bad_source_parser" ]
+    [ "BadScript2.Parser.BadSourceParser", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html", "class_bad_script2_1_1_parser_1_1_bad_source_parser" ]
 ];

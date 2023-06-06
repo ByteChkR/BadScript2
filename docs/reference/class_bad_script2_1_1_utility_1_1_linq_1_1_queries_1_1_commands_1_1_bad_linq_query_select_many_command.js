@@ -1,0 +1,5 @@
+var class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_select_many_command =
+[
+    [ "BadLinqQuerySelectManyCommand", "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_select_many_command.html#a8b5fcbabfa1865bf89d45d86833b54a9", null ],
+    [ "Run", "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_select_many_command.html#a06be1115d74cc8d27ee0c401045a5037", null ]
+];

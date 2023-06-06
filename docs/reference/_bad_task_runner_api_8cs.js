@@ -1,4 +1,4 @@
 var _bad_task_runner_api_8cs =
 [
-    [ "BadTaskRunnerApi", "class_bad_task_runner_api.html", "class_bad_task_runner_api" ]
+    [ "BadScript2.Interop.Common.Task.BadTaskRunnerApi", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_runner_api.html", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_runner_api" ]
 ];

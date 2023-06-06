@@ -1,4 +1,4 @@
 var _bad_remote_console_system_settings_8cs =
 [
-    [ "BadRemoteConsoleSystemSettings", "class_bad_remote_console_system_settings.html", "class_bad_remote_console_system_settings" ]
+    [ "BadScript2.ConsoleCore.Systems.Run.BadRemoteConsoleSystemSettings", "class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_remote_console_system_settings.html", "class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_remote_console_system_settings" ]
 ];

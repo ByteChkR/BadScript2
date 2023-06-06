@@ -1,0 +1,16 @@
+digraph "src/BadScript2.Console/BadScript2.ConsoleCore"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_5a4dd81883b8a7ebb14c54f346ab5cc3 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="BadScript2.Console", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_5a4dd81883b8a7ebb14c54f346ab5cc3.html",tooltip=""]
+  subgraph clusterdir_e41b22475a02d93e4243d7e062d29584 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_e41b22475a02d93e4243d7e062d29584.html",tooltip=""]
+    dir_e41b22475a02d93e4243d7e062d29584 [shape=plaintext, label="BadScript2.ConsoleCore"];
+  dir_1d6f508a259c8a2ec4e74522addb096a [label="Systems", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_1d6f508a259c8a2ec4e74522addb096a.html",tooltip=""];
+  }
+  }
+}

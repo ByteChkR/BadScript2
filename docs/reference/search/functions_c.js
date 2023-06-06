@@ -1,16 +1,20 @@
 var searchData=
 [
-  ['main_0',['Main',['../class_bad_program.html#a2e46e78c2f71e9d674c6f70fa1870919',1,'BadProgram']]],
-  ['make_1',['Make',['../class_bad_object_reference.html#aef7534604b0926805122dd3a07cb4a18',1,'BadObjectReference']]],
-  ['makeassert_2',['MakeAssert',['../class_bad_n_unit_api.html#a125582e734cca932a4182d8dfccbfeec',1,'BadNUnitApi']]],
-  ['makenative_3',['MakeNative',['../class_bad_runtime_api.html#a6ffc5fea94734482b48fa4a04b34d3fb',1,'BadRuntimeApi']]],
-  ['makesourceposition_4',['MakeSourcePosition',['../class_bad_source_reader.html#a8df62892596c40a13cf889a32abe44b1',1,'BadSourceReader.MakeSourcePosition(int length)'],['../class_bad_source_reader.html#a2a08de48ffe17151d7fc552b7b3302b8',1,'BadSourceReader.MakeSourcePosition(int index, int length)']]],
-  ['makeword_5',['MakeWord',['../class_bad_word_token.html#a2529656926b36f0d289fc4a76286b08f',1,'BadWordToken']]],
-  ['mixemptystate_6',['MixEmptyState',['../struct_bad_hash_code.html#aa04c48e81ac07cbbc27e5cebc8acf436',1,'BadHashCode']]],
-  ['mixfinal_7',['MixFinal',['../struct_bad_hash_code.html#a9325a3b778aad033dbc1531f41075a5f',1,'BadHashCode']]],
-  ['mixstate_8',['MixState',['../struct_bad_hash_code.html#afb042acd294c12c980f48172f05366cc',1,'BadHashCode']]],
-  ['mod_9',['Mod',['../class_bad_modulus_expression.html#afc8daf56f75ee6762c4f968d3529ad70',1,'BadModulusExpression']]],
-  ['move_10',['Move',['../class_bad_system_file_system.html#aefad7833ed642fae17deb9d5c1a9b1b9',1,'BadSystemFileSystem.Move()'],['../interface_i_file_system.html#afa59904492e84f131737e24afc696389',1,'IFileSystem.Move()'],['../class_bad_virtual_file_system.html#a1f29aaff6d34c4fbf4cf5aef5fd5d57d',1,'BadVirtualFileSystem.Move()']]],
-  ['movenext_11',['MoveNext',['../class_bad_source_reader.html#a67c3171b324b3c10d64238ef34c58e27',1,'BadSourceReader.MoveNext()'],['../class_bad_interop_enumerator.html#ac20653ad213cb79f3027dabf66380eed',1,'BadInteropEnumerator.MoveNext()'],['../class_bad_runtime_enumerator.html#ad9f1dcd42d47e23f38b17a62b8e2b2e5',1,'BadRuntimeEnumerator.MoveNext()']]],
-  ['mul_12',['Mul',['../class_bad_multiply_expression.html#a5d7d7d1c775d8a3e0717299d46500c20',1,'BadMultiplyExpression']]]
+  ['main_0',['Main',['../class_bad_script2_1_1_console_1_1_bad_program.html#ab908774bba10922fe32690a600bca078',1,'BadScript2::Console::BadProgram']]],
+  ['make_1',['Make',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a286117f66bc34ca22ed94d8f90c74663',1,'BadScript2::Runtime::Objects::BadObjectReference']]],
+  ['makeassert_2',['MakeAssert',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_api.html#a7a67762d555f31d49e640d172fd7ac6c',1,'BadScript2::Interop::NUnit::BadNUnitApi']]],
+  ['makenative_3',['MakeNative',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#af213be5399f84b748c4f549cc5f7f442',1,'BadScript2::Interop::Common::Apis::BadRuntimeApi']]],
+  ['makesourceposition_4',['MakeSourcePosition',['../class_bad_script2_1_1_reader_1_1_bad_source_reader.html#a7351dc26099732652ace1005c662d375',1,'BadScript2.Reader.BadSourceReader.MakeSourcePosition(int length)'],['../class_bad_script2_1_1_reader_1_1_bad_source_reader.html#aca14ccde991fb1d3cbfcca04ff85068e',1,'BadScript2.Reader.BadSourceReader.MakeSourcePosition(int index, int length)']]],
+  ['makeword_5',['MakeWord',['../class_bad_script2_1_1_reader_1_1_token_1_1_bad_word_token.html#a3e6dd3f3fc02ac0021b0848abf752f92',1,'BadScript2::Reader::Token::BadWordToken']]],
+  ['mixemptystate_6',['MixEmptyState',['../class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd',1,'BadScript2::Utility::BadHashCode']]],
+  ['mixfinal_7',['MixFinal',['../class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5',1,'BadScript2::Utility::BadHashCode']]],
+  ['mixstate_8',['MixState',['../class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76',1,'BadScript2::Utility::BadHashCode']]],
+  ['mod_9',['Mod',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_modulus_expression.html#a5baeb7aec5fadb5d7431dfb57801c731',1,'BadScript2::Parser::Expressions::Binary::Math::BadModulusExpression']]],
+  ['modulus_10',['Modulus',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_expression.html#a43ca8a2938232b5083224a86102393fe',1,'BadScript2::Parser::Expressions::Binary::Math::Assign::BadModulusAssignExpression']]],
+  ['moduluswithoverride_11',['ModulusWithOverride',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_expression.html#a51e33517e825cbd5167f8b8434a469f3',1,'BadScript2::Parser::Expressions::Binary::Math::Assign::BadModulusAssignExpression']]],
+  ['move_12',['Move',['../class_bad_script2_1_1_i_o_1_1_bad_system_file_system.html#aac54d0bf5eade6ebab9c66736ce03083',1,'BadScript2.IO.BadSystemFileSystem.Move()'],['../interface_bad_script2_1_1_i_o_1_1_i_file_system.html#adcecff5c9dcbb8fd773f54029872c34d',1,'BadScript2.IO.IFileSystem.Move()'],['../class_bad_script2_1_1_i_o_1_1_virtual_1_1_bad_virtual_file_system.html#a15432af28528a9ae20a4b1dba5e570fb',1,'BadScript2.IO.Virtual.BadVirtualFileSystem.Move()']]],
+  ['movenext_13',['MoveNext',['../class_bad_script2_1_1_reader_1_1_bad_source_reader.html#a13a27ce1f9c6692563fd5b9bd4a0ceac',1,'BadScript2.Reader.BadSourceReader.MoveNext()'],['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerator.html#a15170e1389655d86602c3927c6986f9f',1,'BadScript2.Runtime.Interop.BadInteropEnumerator.MoveNext()'],['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_runtime_enumerator.html#a015f34cc857cf8801ad367866b1b0792',1,'BadScript2.Runtime.Interop.BadRuntimeEnumerator.MoveNext()']]],
+  ['mul_14',['Mul',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_multiply_expression.html#ab2a828fc2fb04f0dc07d3db594ac1eab',1,'BadScript2::Parser::Expressions::Binary::Math::BadMultiplyExpression']]],
+  ['multiply_15',['Multiply',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_expression.html#a55dda6adc7faca6a5f59883199a97ba1',1,'BadScript2::Parser::Expressions::Binary::Math::Assign::BadMultiplyAssignExpression']]],
+  ['multiplywithoverride_16',['MultiplyWithOverride',['../class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_expression.html#a2af77f831650089b0ae7943d534ae308',1,'BadScript2::Parser::Expressions::Binary::Math::Assign::BadMultiplyAssignExpression']]]
 ];

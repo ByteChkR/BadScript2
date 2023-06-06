@@ -1,0 +1,19 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="BadScript2.Interop.Common.\lTask.BadRunnable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_runnable.html",tooltip="Implements a Runnable Object."];
+  Node0 -> Node1 [id="edge8_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="BadScript2.Interop.Common.\lApis.BadConsoleApi.ReadLineAsync\lRunnable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api_1_1_read_line_async_runnable.html",tooltip="Awaitable Enumeration that wraps the ReadLineAsync Task."];
+  Node0 -> Node2 [id="edge9_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="BadScript2.Interop.Common.\lTask.BadInteropRunnable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_interop_runnable.html",tooltip="Implements a Runnable that can return a value."];
+  Node0 -> Node3 [id="edge10_Node000000_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="BadScript2.Interop.Common.\lTask.BadRunnable.BadEmptyRunnable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_runnable_1_1_bad_empty_runnable.html",tooltip="Implements the 'Empty' Runnable."];
+  Node0 -> Node4 [id="edge11_Node000000_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="BadScript2.Interop.Common.\lTask.BadRunnable.BadFunctionRunnable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_runnable_1_1_bad_function_runnable.html",tooltip="Implements a Function Runnable."];
+  Node0 -> Node5 [id="edge12_Node000000_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="BadScript2.Interop.Common.\lTask.BadRunnable.BadRunnableImpl",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_runnable_1_1_bad_runnable_impl.html",tooltip="Implements the Runnable."];
+}

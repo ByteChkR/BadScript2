@@ -25,6 +25,13 @@
 var NAVTREE =
 [
   [ "BadScript2 Reference Documentation", "index.html", [
+    [ "Packages", "namespaces.html", [
+      [ "Package List", "namespaces.html", "namespaces_dup" ],
+      [ "Package Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -38,11 +45,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Enumerations", "globals_enum.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
@@ -50,17 +53,29 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_bad_a_console_system_8cs.html",
-"_bad_logic_assign_or_operator_8cs.html",
-"_bad_system_file_system_8cs.html",
-"class_bad_compression_api.html",
-"class_bad_execution_context.html#a24730d4805860affe8171e203b4e96eb",
-"class_bad_interop_extension.html#a72ef4c91036141ee05b14a2cf282f870",
-"class_bad_logger_settings.html#a673a1a7a6be89d4a12c93f88b3da2a3b",
-"class_bad_number_expression.html",
-"class_bad_runtime_enumerable.html#ad3eaafe5ac422ed1c94827653b00520d",
-"class_bad_static_keys.html#a2dfecc4aa01d1ae1d5dd6324d0db87ff",
-"class_bad_variable_expression.html#abed63fab5de4e0b29b3b5cf9407eeadc",
-"functions_prop_p.html"
+"_bad_linq_common_8cs.html",
+"_bad_op_code_8cs.html#add29ff78e12642e6225e159b1a4b895bab7e7f2b46723f5b08d763041108f8fed",
+"_bad_unary_prefix_operator_8cs_source.html",
+"class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#ab6cb1ef2fb27f65175e11884dca0fa17",
+"class_bad_script2_1_1_i_o_1_1_bad_file_system.html",
+"class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api_1_1_read_line_async_runnable.html#a1fc2ef06842023cf9519b76688a11f34",
+"class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html#a3472ef0184b12d21bcca42839219c484",
+"class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abe7321be594d17ccc757d1f64d68b53e",
+"class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_net_host_api.html",
+"class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_binary_expression.html#afd6989339e844bda7dbb6c02066be335",
+"class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_add_expression.html#a94007ad8157701e36e3fca27d231f35c",
+"class_bad_script2_1_1_parser_1_1_expressions_1_1_control_flow_1_1_bad_return_expression.html#a5e5df24a55e1025223e8aa49e488dc7e",
+"class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_comparison_1_1_bad_inequality_operator.html#a1e26b3df755bf5940db839c99fda8eba",
+"class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#abb3c09bc5bd52a4f40ecf05fbcd70241",
+"class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html#a3272d6cec9acc0650374869a0bdd7707",
+"class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html#ac713e6daf6d4c22c4018add8af1a5ad9",
+"class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object_prototype.html",
+"class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#acf90818f9a3dcf2155b63fb4dffb9a0f",
+"class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function.html#a9a520db9c75c99e6a642d717990521d6",
+"class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_cons3ad739d5408f9305cb47ffd8dac2009b.html#adfe9f898f14fb9b28cdbaaa69e86cc01",
+"class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a860924b872a8308c84cf83dda4ac07bd",
+"functions_c.html",
+"namespace_bad_script2_1_1_runtime_1_1_interop.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

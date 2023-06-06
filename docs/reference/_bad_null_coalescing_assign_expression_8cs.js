@@ -1,4 +1,4 @@
 var _bad_null_coalescing_assign_expression_8cs =
 [
-    [ "BadNullCoalescingAssignExpression", "class_bad_null_coalescing_assign_expression.html", "class_bad_null_coalescing_assign_expression" ]
+    [ "BadScript2.Parser.Expressions.Access.BadNullCoalescingAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_access_1_1_bad_null_coalescing_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_access_1_1_bad_null_coalescing_assign_expression" ]
 ];

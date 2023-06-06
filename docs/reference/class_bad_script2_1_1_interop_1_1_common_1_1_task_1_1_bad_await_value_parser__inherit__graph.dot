@@ -1,0 +1,10 @@
+digraph "BadScript2.Interop.Common.Task.BadAwaitValueParser"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="BadScript2.Interop.Common.\lTask.BadAwaitValueParser",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Implements the parse for the 'await' Expression."];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="BadValueParser",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_parser_1_1_operators_1_1_bad_value_parser.html",tooltip="Base class for all Value Parsers."];
+}

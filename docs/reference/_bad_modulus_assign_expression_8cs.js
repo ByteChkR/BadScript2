@@ -1,4 +1,4 @@
 var _bad_modulus_assign_expression_8cs =
 [
-    [ "BadModulusAssignExpression", "class_bad_modulus_assign_expression.html", "class_bad_modulus_assign_expression" ]
+    [ "BadScript2.Parser.Expressions.Binary.Math.Assign.BadModulusAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_expression" ]
 ];

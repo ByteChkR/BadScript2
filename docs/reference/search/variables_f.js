@@ -1,8 +1,28 @@
 var searchData=
 [
-  ['taskexpr_0',['TaskExpr',['../class_bad_await_expression.html#ae4b9c4b999559fa447422740eaf0b1fa',1,'BadAwaitExpression']]],
-  ['throwkey_1',['ThrowKey',['../class_bad_static_keys.html#a3f8490b6b7b9927490a72627cc8ed3f3',1,'BadStaticKeys']]],
-  ['true_2',['True',['../class_bad_static_keys.html#a173bb894cff12dcc77f24fc62cf3eccf',1,'BadStaticKeys.True()'],['../class_bad_object.html#a9b3d8c7fba59ccd41c0775fa669a5fea',1,'BadObject.True()']]],
-  ['trykey_3',['TryKey',['../class_bad_static_keys.html#ad9c9b4ec4d7b3d167f6ffd6687d3c171',1,'BadStaticKeys']]],
-  ['type_4',['Type',['../struct_bad_log.html#aa6c42a77bc42ef9434c8e10874062011',1,'BadLog.Type()'],['../class_bad_property_info.html#ac5d49593cbf97cfe197aabf4f331aca2',1,'BadPropertyInfo.Type()']]]
+  ['s_5factiveextensions_0',['s_ActiveExtensions',['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a31a6ae2d104afdd5462ae56be6bb5ace',1,'BadScript2::Runtime::Interop::BadInteropExtension']]],
+  ['s_5fcommonapis_1',['s_CommonApis',['../class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html#abb81a516ccfec4ed21152d9fa2b14228',1,'BadScript2::Interop::Common::BadCommonInterop']]],
+  ['s_5fcompiledcontext_2',['s_CompiledContext',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html#ae2a782f491eb9910b94009a1fc31bf8d',1,'BadScript2::Interop::NUnit::BadUnitTests']]],
+  ['s_5fcompiledoptimizedcontext_3',['s_CompiledOptimizedContext',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html#a0be37ceda1b3cf136cad0af1e8823728',1,'BadScript2::Interop::NUnit::BadUnitTests']]],
+  ['s_5fcontext_4',['s_Context',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html#a87a78333c1fe6c701bafa039220e49d2',1,'BadScript2::Interop::NUnit::BadUnitTests']]],
+  ['s_5fdebugger_5',['s_Debugger',['../class_bad_script2_1_1_debugging_1_1_bad_debugger.html#a16beda517c6a7bef4e29db61a41c84e8',1,'BadScript2::Debugging::BadDebugger']]],
+  ['s_5ffilesystem_6',['s_FileSystem',['../class_bad_script2_1_1_i_o_1_1_bad_file_system.html#a616565fd79191a350f8c70fc89d9a8bb',1,'BadScript2::IO::BadFileSystem']]],
+  ['s_5fglobalextensions_7',['s_GlobalExtensions',['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#aac8dfaf2069dd11cb967354a40743d5b',1,'BadScript2::Runtime::Interop::BadInteropExtension']]],
+  ['s_5finstance_8',['s_Instance',['../class_bad_script2_1_1_settings_1_1_bad_settings_provider.html#af94e69a5f37a39e7d4dfbb52c3543d12',1,'BadScript2::Settings::BadSettingsProvider']]],
+  ['s_5fmasks_9',['s_Masks',['../class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#a27edf6141ecd1221f3fda79fde3aad89',1,'BadScript2::Common::Logging::BadLogMask']]],
+  ['s_5fnativeconstructors_10',['s_NativeConstructors',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_helper.html#abc315adfbd659689a52c305f350b9d19',1,'BadScript2::Runtime::Objects::Types::BadNativeClassHelper']]],
+  ['s_5fnativetypes_11',['s_NativeTypes',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html#af460e48c54adafb43504fec673d1b99b',1,'BadScript2::Runtime::Objects::Types::BadNativeClassBuilder']]],
+  ['s_5fobjectextensions_12',['s_ObjectExtensions',['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#af73f09c0136013f9caa935644693987a',1,'BadScript2::Runtime::Interop::BadInteropExtension']]],
+  ['s_5foptimizedcontext_13',['s_OptimizedContext',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html#ac41c3294edd3c3b53e2e3c9906fb8d59',1,'BadScript2::Interop::NUnit::BadUnitTests']]],
+  ['s_5fprototype_14',['s_Prototype',['../class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_http_context.html#a1f9e025cbd76c5d9122f91c6c421530d',1,'BadScript2.Interop.NetHost.BadHttpContext.s_Prototype'],['../class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_http_request.html#ab2474cbf5d1363216e1127b909501bd4',1,'BadScript2.Interop.NetHost.BadHttpRequest.s_Prototype']]],
+  ['s_5frandom_15',['s_Random',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_math_api.html#aee3ff85fa2b1ff09931d2af1f033a2eb',1,'BadScript2::Interop::Common::Apis::BadMathApi']]],
+  ['s_5frootsettings_16',['s_RootSettings',['../class_bad_script2_1_1_settings_1_1_bad_settings_provider.html#a4f1c9433074e74e30112c8c47253f272',1,'BadScript2::Settings::BadSettingsProvider']]],
+  ['s_5fseed_17',['s_seed',['../class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362',1,'BadScript2::Utility::BadHashCode']]],
+  ['s_5fstaticextensioncache_18',['s_StaticExtensionCache',['../class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a50930cd5c883e3bacf8f2b8c829f8239',1,'BadScript2::Runtime::Interop::BadInteropExtension']]],
+  ['s_5fstringcache_19',['s_StringCache',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a771765ef4921bb5158aaa8283640d37a',1,'BadScript2::Runtime::Objects::BadObject']]],
+  ['settings_5ffile_20',['SETTINGS_FILE',['../class_bad_script2_1_1_console_1_1_bad_program.html#a4ffb166827bbc85bf0542aea9d7e9eb3',1,'BadScript2::Console::BadProgram']]],
+  ['singlelinecomment_21',['SingleLineComment',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a24cd6e11876b5cae30923fe1b98f8648',1,'BadScript2::Common::BadStaticKeys']]],
+  ['statementendkey_22',['StatementEndKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#af8a784c58da49886ddaa4ac0918757b4',1,'BadScript2::Common::BadStaticKeys']]],
+  ['stepsource_23',['StepSource',['../struct_bad_script2_1_1_debugging_1_1_bad_debugger_step.html#a9f21231f44e5b57bb301b18b6635e5e0',1,'BadScript2::Debugging::BadDebuggerStep']]],
+  ['subtractassignoperatorname_24',['SubtractAssignOperatorName',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#a457f1f460c6338fae3d398e427ac0cda',1,'BadScript2::Common::BadStaticKeys']]]
 ];

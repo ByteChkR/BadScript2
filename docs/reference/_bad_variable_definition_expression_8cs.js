@@ -1,4 +1,4 @@
 var _bad_variable_definition_expression_8cs =
 [
-    [ "BadVariableDefinitionExpression", "class_bad_variable_definition_expression.html", "class_bad_variable_definition_expression" ]
+    [ "BadScript2.Parser.Expressions.Variables.BadVariableDefinitionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression" ]
 ];

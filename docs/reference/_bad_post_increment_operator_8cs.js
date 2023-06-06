@@ -1,4 +1,4 @@
 var _bad_post_increment_operator_8cs =
 [
-    [ "BadPostIncrementOperator", "class_bad_post_increment_operator.html", "class_bad_post_increment_operator" ]
+    [ "BadScript2.Parser.Operators.Binary.Math.Atomic.BadPostIncrementOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_atomic_1_1_bad_post_increment_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_atomic_1_1_bad_post_increment_operator" ]
 ];

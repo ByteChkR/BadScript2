@@ -1,4 +1,4 @@
 var _bad_logic_assign_or_operator_8cs =
 [
-    [ "BadLogicAssignOrOperator", "class_bad_logic_assign_or_operator.html", "class_bad_logic_assign_or_operator" ]
+    [ "BadScript2.Parser.Operators.Binary.Logic.Assign.BadLogicAssignOrOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_or_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_or_operator" ]
 ];

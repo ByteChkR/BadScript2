@@ -1,4 +1,4 @@
 var _bad_greater_than_operator_8cs =
 [
-    [ "BadGreaterThanOperator", "class_bad_greater_than_operator.html", "class_bad_greater_than_operator" ]
+    [ "BadScript2.Parser.Operators.Binary.Comparison.BadGreaterThanOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_comparison_1_1_bad_greater_than_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_comparison_1_1_bad_greater_than_operator" ]
 ];

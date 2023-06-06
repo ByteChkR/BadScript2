@@ -1,0 +1,12 @@
+digraph "BadScript2.Runtime.Objects.Native.IBadString"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="BadScript2.Runtime.Objects.\lNative.IBadString",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Implements the Interface for Native Strings."];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="IBadNative",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html",tooltip="Defines properties for Native Types."];
+  Node3 -> Node2 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="IEquatable\< IBadNative \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+}

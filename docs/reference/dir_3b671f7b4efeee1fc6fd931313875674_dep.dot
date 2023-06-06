@@ -1,0 +1,12 @@
+digraph "src/BadScript2.Interop/BadScript2.Interop.NUnit"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_743d4fc473248ca03e83ba8b0a438d7a {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="BadScript2.Interop", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_743d4fc473248ca03e83ba8b0a438d7a.html",tooltip=""]
+  dir_3b671f7b4efeee1fc6fd931313875674 [label="BadScript2.Interop.NUnit", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_3b671f7b4efeee1fc6fd931313875674.html",tooltip=""];
+  }
+}

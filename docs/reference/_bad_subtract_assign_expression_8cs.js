@@ -1,4 +1,4 @@
 var _bad_subtract_assign_expression_8cs =
 [
-    [ "BadSubtractAssignExpression", "class_bad_subtract_assign_expression.html", "class_bad_subtract_assign_expression" ]
+    [ "BadScript2.Parser.Expressions.Binary.Math.Assign.BadSubtractAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_subtract_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_subtract_assign_expression" ]
 ];
