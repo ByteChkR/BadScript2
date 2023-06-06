@@ -22,8 +22,15 @@ using BadScript2.Settings;
 
 namespace BadScript2.ConsoleCore.Systems.Run;
 
+/// <summary>
+/// Runs one or more BadScript scripts
+/// </summary>
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
+	/// <summary>
+	/// The Startup Directory where all containing scripts will be loaded at every execution
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
 	private string StartupDirectory
 	{
 		get
@@ -61,6 +68,10 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 		}
 	}
 
+	/// <summary>
+	/// Creates the Execution Context Options for the Run System
+	/// </summary>
+	/// <returns>Execution Context Options</returns>
 	private BadExecutionContextOptions CreateOptions()
 	{
 		BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
@@ -70,9 +81,15 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 	}
 
 
-	private IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> exprs)
+	/// <summary>
+	/// Runs a Parser Output Enumeration
+	/// </summary>
+	/// <param name="context">Execution Context</param>
+	/// <param name="expressions">Parser Enumeration</param>
+	/// <returns>Objects of the Enumeration</returns>
+	private IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> expressions)
 	{
-		foreach (BadObject o in exprs)
+		foreach (BadObject o in expressions)
 		{
 			yield return o;
 		}

@@ -10,8 +10,14 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Task;
 
+/// <summary>
+/// Implements a Task Object
+/// </summary>
 public class BadTask : BadObject
 {
+	/// <summary>
+	/// The BadTask Prototype
+	/// </summary>
 	public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadTask>("Task",
 		(ctx, args) =>
 		{
@@ -33,11 +39,22 @@ public class BadTask : BadObject
 			return new BadTask(BadRunnable.Create(f, ctx), name.Value);
 		});
 
+	/// <summary>
+	/// The List of Continuation Tasks
+	/// </summary>
 	private readonly List<BadTask> m_ContinuationTasks = new List<BadTask>();
 
+	/// <summary>
+	/// The Task Properties
+	/// </summary>
 	private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
 		new Dictionary<BadObject, BadObjectReference>();
 
+	/// <summary>
+	/// Constructs a new Task
+	/// </summary>
+	/// <param name="runnable">Runnable</param>
+	/// <param name="name">Task Name</param>
 	public BadTask(BadRunnable runnable, string name)
 	{
 		Name = name;
@@ -59,37 +76,75 @@ public class BadTask : BadObject
 		m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
 	}
 
+	/// <summary>
+	/// Runnable of the Task
+	/// </summary>
 	public BadRunnable Runnable { get; }
 
+	/// <summary>
+	/// Enumeration of Continuation Tasks
+	/// </summary>
 	public IEnumerable<BadTask> ContinuationTasks => m_ContinuationTasks;
 
+	/// <summary>
+	/// The Creator of this Task
+	/// </summary>
 	public BadTask? Creator { get; private set; }
 
+	/// <summary>
+	/// The Name of the Task
+	/// </summary>
 	public string Name { get; set; }
 
+	/// <summary>
+	/// Is True if the Task is not running, finished or paused
+	/// </summary>
 	public bool IsInactive => !IsRunning && !IsFinished && !IsPaused;
 
+	/// <summary>
+	/// Is true if the task is running
+	/// </summary>
 	public bool IsRunning { get; private set; }
 
+	/// <summary>
+	/// Is true if the task is finished
+	/// </summary>
 	public bool IsFinished { get; private set; }
 
+	/// <summary>
+	/// Is true if the task is running
+	/// </summary>
 	public bool IsPaused { get; private set; }
 
+	/// <summary>
+	/// Adds a Continuation Task
+	/// </summary>
+	/// <param name="task"></param>
 	public void AddContinuation(BadTask task)
 	{
 		m_ContinuationTasks.Add(task);
 	}
 
+	/// <summary>
+	/// Sets the Creator of this Task
+	/// </summary>
+	/// <param name="task">Creator</param>
 	public void SetCreator(BadTask? task)
 	{
 		Creator = task;
 	}
 
+	/// <summary>
+	/// Starts the Task
+	/// </summary>
 	public void Start()
 	{
 		IsRunning = true;
 	}
 
+	/// <summary>
+	/// Stops the Task
+	/// </summary>
 	public void Stop()
 	{
 		IsFinished = true;
@@ -97,6 +152,10 @@ public class BadTask : BadObject
 		IsPaused = false;
 	}
 
+	/// <summary>
+	/// Cancels the Task
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the task is not running</exception>
 	public void Cancel()
 	{
 		if (!IsRunning)
@@ -109,6 +168,10 @@ public class BadTask : BadObject
 	}
 
 
+	/// <summary>
+	/// Resumes the Task
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the task is not running or paused</exception>
 	public void Resume()
 	{
 		if (!IsRunning)
@@ -125,6 +188,10 @@ public class BadTask : BadObject
 	}
 
 
+	/// <summary>
+	/// Pauses the Task
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the task is not running or is paused</exception>
 	public void Pause()
 	{
 		if (!IsRunning)
@@ -141,6 +208,12 @@ public class BadTask : BadObject
 	}
 
 
+	/// <summary>
+	/// Continues the Task with another Task
+	/// </summary>
+	/// <param name="task">Continuation</param>
+	/// <returns>NULL</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the task is already finished</exception>
 	private BadObject ContinueWith(BadTask task)
 	{
 		if (IsFinished)
@@ -153,6 +226,14 @@ public class BadTask : BadObject
 		return Null;
 	}
 
+	/// <summary>
+	/// Creates a new Task from a Function
+	/// </summary>
+	/// <param name="f">Function</param>
+	/// <param name="caller">Caller Context</param>
+	/// <param name="name">Name</param>
+	/// <param name="args">Function Arguments</param>
+	/// <returns>Bad Task Instance</returns>
 	public static BadObject Create(BadFunction f, BadExecutionContext caller, string? name, params BadObject[] args)
 	{
 		return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());

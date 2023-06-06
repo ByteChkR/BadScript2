@@ -5,6 +5,9 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Interop.Common.Extensions;
 
+/// <summary>
+/// Implements Function Extensions
+/// </summary>
 public class BadFunctionExtension : BadInteropExtension
 {
 	protected override void AddExtensions()

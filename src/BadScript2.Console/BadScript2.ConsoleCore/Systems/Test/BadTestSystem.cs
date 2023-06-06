@@ -5,6 +5,9 @@ using NUnitLite;
 
 namespace BadScript2.ConsoleCore.Systems.Test;
 
+/// <summary>
+/// Runs unit tests using NUnitLite
+/// </summary>
 public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
 {
 	public override string Name => "test";

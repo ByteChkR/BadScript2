@@ -13,6 +13,9 @@ using BadScript2.Runtime.Settings;
 
 namespace BadScript2.ConsoleCore.Systems.Html;
 
+/// <summary>
+/// Runs the Html Template Engine
+/// </summary>
 public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 {
 	public override string Name => "html";

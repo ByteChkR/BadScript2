@@ -9,8 +9,14 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.IO;
 
+/// <summary>
+/// Implements the "IO" Api
+/// </summary>
 public class BadIOApi : BadInteropApi
 {
+	/// <summary>
+	/// The FileSystem Instance
+	/// </summary>
 	private readonly IFileSystem m_FileSystem;
 
 	public BadIOApi() : this(BadFileSystem.Instance) { }

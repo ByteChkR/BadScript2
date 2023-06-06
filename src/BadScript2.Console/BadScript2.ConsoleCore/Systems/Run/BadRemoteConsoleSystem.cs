@@ -2,6 +2,9 @@ using BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 
 namespace BadScript2.ConsoleCore.Systems.Run;
 
+/// <summary>
+/// Connects to a remote console
+/// </summary>
 public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSettings>
 {
 	public override string Name => "remote";

@@ -4,7 +4,6 @@ using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
 using BadScript2.ConsoleCore.Systems.Settings;
-using BadScript2.ConsoleCore.Systems.Shell;
 using BadScript2.ConsoleCore.Systems.Test;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
@@ -25,11 +24,21 @@ using BadScript2.Settings;
 
 namespace BadScript2.Console;
 
+
+/// <summary>
+/// Entrypoint for the Console Application
+/// </summary>
 internal static class BadProgram
 {
+	/// <summary>
+	/// Defines the Settings file
+	/// </summary>
 	private const string SETTINGS_FILE = "Settings.json";
 
-
+	
+	/// <summary>
+	/// Loads the Settings
+	/// </summary>
 	private static void LoadSettings()
 	{
 		BadLogger.Log("Loading Settings...", "Settings");
@@ -48,6 +57,11 @@ internal static class BadProgram
 		BadLogger.Log("Settings loaded!", "Settings");
 	}
 
+	/// <summary>
+	/// Entrypoint
+	/// </summary>
+	/// <param name="args">Commandline Arguments</param>
+	/// <returns>Return Code</returns>
 	private static int Main(string[] args)
 	{
 		if (args.Contains("--logmask"))
@@ -102,10 +116,8 @@ internal static class BadProgram
 			new BadRunSystem(),
 			new BadSettingsSystem(),
 			new BadHtmlSystem(),
-			new BadRemoteConsoleSystem(),
-			new BadShellSystem());
+			new BadRemoteConsoleSystem());
 
-		//CompileTest();
 
 		int r = runner.Run(args);
 		lWriter?.Dispose();

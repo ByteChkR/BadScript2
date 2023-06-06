@@ -2,8 +2,17 @@ using System.Globalization;
 
 namespace BadScript2.Interop.Common.Versioning;
 
+/// <summary>
+/// Imlpements Versioning Extensions
+/// </summary>
 public static class BadVersionExtensions
 {
+	/// <summary>
+	/// Changes the Version Object by the given Change String
+	/// </summary>
+	/// <param name="version">Version Object</param>
+	/// <param name="changeStr">Change String</param>
+	/// <returns>New Version Object</returns>
 	public static Version ChangeVersion(this Version version, string changeStr)
 	{
 		string[] subVersions = changeStr.Split('.');
@@ -117,6 +126,12 @@ public static class BadVersionExtensions
 	}
 
 
+	/// <summary>
+	/// Applies the Change Reset to the Version Array
+	/// </summary>
+	/// <param name="changeReset">Version Reset Array</param>
+	/// <param name="original">The Original Version Components</param>
+	/// <param name="versions">The Version Components</param>
 	private static void ApplyChangeReset(bool[] changeReset, int[] original, int[] versions)
 	{
 		for (int j = 0; j < changeReset.Length; j++)

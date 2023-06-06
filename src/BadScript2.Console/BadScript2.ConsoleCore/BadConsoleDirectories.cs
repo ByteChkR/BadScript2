@@ -2,8 +2,14 @@ using BadScript2.IO;
 
 namespace BadScript2.ConsoleCore;
 
+/// <summary>
+/// Static class that contains all the directories used by the console
+/// </summary>
 public static class BadConsoleDirectories
 {
+	/// <summary>
+	/// The Data Directory
+	/// </summary>
 	public static string DataDirectory
 	{
 		get
@@ -16,5 +22,8 @@ public static class BadConsoleDirectories
 		}
 	}
 
+	/// <summary>
+	/// The Log File
+	/// </summary>
 	public static string LogFile => Path.Combine(DataDirectory, "logs.log");
 }

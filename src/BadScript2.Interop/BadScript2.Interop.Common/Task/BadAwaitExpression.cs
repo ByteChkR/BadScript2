@@ -6,10 +6,21 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.Common.Task;
 
+/// <summary>
+/// Implements the 'await' expression
+/// </summary>
 public class BadAwaitExpression : BadExpression
 {
+	/// <summary>
+	/// The Task Expression
+	/// </summary>
 	private readonly BadExpression TaskExpr;
 
+	/// <summary>
+	/// Constructs a new Await Expression
+	/// </summary>
+	/// <param name="expr">Task Expression</param>
+	/// <param name="position">Source Position</param>
 	public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, position)
 	{
 		TaskExpr = expr;

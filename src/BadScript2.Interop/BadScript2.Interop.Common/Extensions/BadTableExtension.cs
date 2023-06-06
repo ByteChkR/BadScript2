@@ -10,6 +10,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Extensions;
 
+/// <summary>
+/// Implements Table Extensions
+/// </summary>
 public class BadTableExtension : BadInteropExtension
 {
 	protected override void AddExtensions()
@@ -52,6 +55,14 @@ public class BadTableExtension : BadInteropExtension
 				new BadFunctionParameter("others", false, true, true, null)));
 	}
 
+	/// <summary>
+	/// Joins two or more tables together
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="self">The 'self' table</param>
+	/// <param name="args">The Arguments</param>
+	/// <returns>The 'self' table</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
 	private BadObject JoinTable(BadExecutionContext ctx, BadTable self, BadObject[] args)
 	{
 		if (args.Length == 0)
@@ -86,6 +97,12 @@ public class BadTableExtension : BadInteropExtension
 		return self;
 	}
 
+	/// <summary>
+	/// Removes a key from the table
+	/// </summary>
+	/// <param name="table">Table</param>
+	/// <param name="key">Key</param>
+	/// <returns>NULL</returns>
 	private static BadObject RemoveKey(BadTable table, BadObject key)
 	{
 		table.RemoveKey(key);
@@ -93,11 +110,21 @@ public class BadTableExtension : BadInteropExtension
 		return BadObject.Null;
 	}
 
+	/// <summary>
+	/// Returns the Keys of the Table
+	/// </summary>
+	/// <param name="table">Table</param>
+	/// <returns>Array of keys</returns>
 	private static BadObject Keys(BadTable table)
 	{
 		return new BadArray(table.InnerTable.Keys.ToList());
 	}
 
+	/// <summary>
+	/// Returns the Values of the Table
+	/// </summary>
+	/// <param name="table">Table</param>
+	/// <returns>Array of Values</returns>
 	private static BadObject Values(BadTable table)
 	{
 		return new BadArray(table.InnerTable.Values.ToList());

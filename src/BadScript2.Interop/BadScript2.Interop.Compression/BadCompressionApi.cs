@@ -9,18 +9,36 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.Compression;
 
+/// <summary>
+/// Implements the "Compression" API
+/// </summary>
 public class BadCompressionApi : BadInteropApi
 {
+	/// <summary>
+	/// The FileSystem Instance
+	/// </summary>
 	private readonly IFileSystem m_FileSystem;
 
+	/// <summary>
+	/// Creates a new API Instance
+	/// </summary>
 	public BadCompressionApi() : this(BadFileSystem.Instance) { }
 
+	/// <summary>
+	/// Creates a new API Instance
+	/// </summary>
+	/// <param name="fileSystem">File System Instance to use</param>
 	public BadCompressionApi(IFileSystem fileSystem) : base("Compression")
 	{
 		m_FileSystem = fileSystem;
 	}
 
 
+	/// <summary>
+	/// Deflates the given string
+	/// </summary>
+	/// <param name="obj">String</param>
+	/// <returns>Compressed Array</returns>
 	private static BadObject Deflate(IBadString obj)
 	{
 		MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj.Value));
@@ -32,6 +50,11 @@ public class BadCompressionApi : BadInteropApi
 		return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
 	}
 
+	/// <summary>
+	/// Inflate the given array
+	/// </summary>
+	/// <param name="obj">Array</param>
+	/// <returns>String</returns>
 	private static BadObject Inflate(BadArray obj)
 	{
 		MemoryStream ms = new MemoryStream(obj.InnerArray.Select(x => (byte)((BadNumber)x).Value).ToArray());
@@ -43,6 +66,11 @@ public class BadCompressionApi : BadInteropApi
 		return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
 	}
 
+	/// <summary>
+	/// GZip Compress the given string
+	/// </summary>
+	/// <param name="obj">String</param>
+	/// <returns>Compressed Array</returns>
 	private static BadObject GZipCompress(IBadString obj)
 	{
 		MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj.Value));
@@ -54,6 +82,11 @@ public class BadCompressionApi : BadInteropApi
 		return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
 	}
 
+	/// <summary>
+	/// GZip Decompress the given array
+	/// </summary>
+	/// <param name="obj">Array</param>
+	/// <returns>String</returns>
 	private static BadObject GZipDecompress(BadArray obj)
 	{
 		MemoryStream ms = new MemoryStream(obj.InnerArray.Select(x => (byte)((BadNumber)x).Value).ToArray());
@@ -65,6 +98,11 @@ public class BadCompressionApi : BadInteropApi
 		return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
 	}
 
+	/// <summary>
+	/// ZLib Compress the given string
+	/// </summary>
+	/// <param name="obj">String</param>
+	/// <returns>Compressed Array</returns>
 	private static BadObject ZLibCompress(IBadString obj)
 	{
 		MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj.Value));
@@ -76,6 +114,11 @@ public class BadCompressionApi : BadInteropApi
 		return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
 	}
 
+	/// <summary>
+	/// ZLib Decompress the given array
+	/// </summary>
+	/// <param name="obj">Array</param>
+	/// <returns>String</returns>
 	private static BadObject ZLibDecompress(BadArray obj)
 	{
 		MemoryStream ms = new MemoryStream(obj.InnerArray.Select(x => (byte)((BadNumber)x).Value).ToArray());
@@ -110,18 +153,33 @@ public class BadCompressionApi : BadInteropApi
 		target.SetProperty("Zip", zip);
 	}
 
+	/// <summary>
+	/// Decompresses the given file to the given output directory
+	/// </summary>
+	/// <param name="outputDir">Output Directory</param>
+	/// <param name="inputFile">Input File</param>
 	private void ToDirectoryApi(string outputDir, string inputFile)
 	{
 		using Stream s = m_FileSystem.OpenRead(inputFile);
 		ToDirectory(outputDir, s);
 	}
 
+	/// <summary>
+	/// Compreses the given directory to the given output file
+	/// </summary>
+	/// <param name="inputDir">Input Directory</param>
+	/// <param name="outputFile">Output File</param>
 	private void FromDirectoryApi(string inputDir, string outputFile)
 	{
 		using Stream s = m_FileSystem.OpenWrite(outputFile, BadWriteMode.CreateNew);
 		FromDirectory(inputDir, s);
 	}
 
+	/// <summary>
+	/// Decompresses the given stream to the given output directory
+	/// </summary>
+	/// <param name="outputDir">directory</param>
+	/// <param name="input">Input Stream</param>
 	private void ToDirectory(string outputDir, Stream input)
 	{
 		using ZipArchive archive = new ZipArchive(input, ZipArchiveMode.Read);
@@ -137,6 +195,11 @@ public class BadCompressionApi : BadInteropApi
 		}
 	}
 
+	/// <summary>
+	/// Compreses the given directory to the given output stream
+	/// </summary>
+	/// <param name="inputDir">Input Directory</param>
+	/// <param name="output">Stream</param>
 	private void FromDirectory(string inputDir, Stream output)
 	{
 		using ZipArchive archive = new ZipArchive(output, ZipArchiveMode.Create);

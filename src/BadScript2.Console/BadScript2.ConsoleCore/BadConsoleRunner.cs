@@ -3,17 +3,37 @@ using BadScript2.ConsoleCore.Systems;
 
 namespace BadScript2.ConsoleCore;
 
+/// <summary>
+/// Class that can register console systems and run them
+/// </summary>
 public class BadConsoleRunner
 {
+	/// <summary>
+	/// The Default system that is beeing used if the user does not specify a system
+	/// </summary>
 	private readonly BadAConsoleSystem m_Default;
+	
+	/// <summary>
+	/// The Systems that are registered
+	/// </summary>
 	private readonly BadAConsoleSystem[] m_Systems;
 
+	/// <summary>
+	/// Constructor
+	/// </summary>
+	/// <param name="default">Default System</param>
+	/// <param name="systems">Registered Systems</param>
 	public BadConsoleRunner(BadAConsoleSystem @default, params BadAConsoleSystem[] systems)
 	{
 		m_Default = @default;
 		m_Systems = systems;
 	}
 
+	/// <summary>
+	/// Runs a system with the specified arguments
+	/// </summary>
+	/// <param name="args">Commandline Arguments</param>
+	/// <returns>Return Code</returns>
 	public int Run(string[] args)
 	{
 		while (args.Length == 0)

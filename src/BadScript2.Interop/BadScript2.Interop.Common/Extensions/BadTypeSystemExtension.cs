@@ -6,6 +6,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Extensions;
 
+/// <summary>
+/// Implements TypeSystem Extensions
+/// </summary>
 public class BadTypeSystemExtension : BadInteropExtension
 {
 	protected override void AddExtensions()
@@ -51,11 +54,24 @@ public class BadTypeSystemExtension : BadInteropExtension
 			proto => proto.Name);
 	}
 
+	
+	/// <summary>
+	/// Returns true if the given object is an instance of the given prototype
+	/// </summary>
+	/// <param name="obj">The Object</param>
+	/// <param name="proto">The Prototype</param>
+	/// <returns>True if the object is an instance of the given prototype</returns>
 	private static BadObject IsAssignableFrom(BadObject obj, BadClassPrototype proto)
 	{
 		return proto.IsAssignableFrom(obj);
 	}
 
+	/// <summary>
+	/// Returns true if the given prototype is a base class of the given prototype
+	/// </summary>
+	/// <param name="proto">Prototype</param>
+	/// <param name="super">Super Type</param>
+	/// <returns>True if the given prototype is a base class of the given prototype</returns>
 	private static BadObject IsBaseClassOf(
 		BadClassPrototype proto,
 		BadClassPrototype super)
@@ -63,6 +79,12 @@ public class BadTypeSystemExtension : BadInteropExtension
 		return super.IsSuperClassOf(proto);
 	}
 
+	/// <summary>
+	/// Returns true if the given object is an instance of the given prototype
+	/// </summary>
+	/// <param name="obj">The Object</param>
+	/// <param name="proto">The Prototype</param>
+	/// <returns>True if the object is an instance of the given prototype</returns>
 	private static BadObject IsInstanceOf(BadClassPrototype proto, BadObject obj)
 	{
 		return proto.IsAssignableFrom(obj);

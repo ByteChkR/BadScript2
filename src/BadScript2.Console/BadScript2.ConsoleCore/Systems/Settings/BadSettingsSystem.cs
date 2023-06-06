@@ -3,6 +3,9 @@ using BadScript2.Settings;
 
 namespace BadScript2.ConsoleCore.Systems.Settings;
 
+/// <summary>
+/// Prints a specific setting to the console
+/// </summary>
 public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 {
 	public override string Name => "settings";
