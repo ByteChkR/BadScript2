@@ -6,8 +6,16 @@ using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Interop.Json;
 
+/// <summary>
+/// Implements a Json to BadObject Converter
+/// </summary>
 public static class BadJson
 {
+	/// <summary>
+	/// Converts a JArray to a BadArray
+	/// </summary>
+	/// <param name="array">Array</param>
+	/// <returns>Array</returns>
 	private static BadArray ConvertArray(JArray array)
 	{
 		List<BadObject> a = new List<BadObject>();
@@ -25,6 +33,11 @@ public static class BadJson
 		return new BadArray(a);
 	}
 
+	/// <summary>
+	/// Converts a JObject to a BadTable
+	/// </summary>
+	/// <param name="obj">Object</param>
+	/// <returns>Object</returns>
 	private static BadTable ConvertObject(JObject obj)
 	{
 		Dictionary<BadObject, BadObject> t = new Dictionary<BadObject, BadObject>();
@@ -37,6 +50,12 @@ public static class BadJson
 		return new BadTable(t);
 	}
 
+	/// <summary>
+	/// Converts a BadObject to a JToken
+	/// </summary>
+	/// <param name="value">Object</param>
+	/// <returns>Object</returns>
+	/// <exception cref="Exception">Gets Raised if the type is not supported</exception>
 	public static JToken ConvertNode(BadObject value)
 	{
 		if (value is IBadString s)
@@ -78,6 +97,12 @@ public static class BadJson
 		throw new Exception("Unsupported value type: " + value.GetType());
 	}
 
+	/// <summary>
+	/// Converts a BadTable to a JObject
+	/// </summary>
+	/// <param name="table">Object</param>
+	/// <returns>Object</returns>
+	/// <exception cref="Exception">Get raised if any of the table keys is not a string</exception>
 	private static JObject ConvertTable(BadTable table)
 	{
 		JObject obj = new JObject();
@@ -95,6 +120,11 @@ public static class BadJson
 		return obj;
 	}
 
+	/// <summary>
+	/// Converts a BadArray to a JArray
+	/// </summary>
+	/// <param name="value">Array</param>
+	/// <returns>Array</returns>
 	private static JArray ConvertArray(BadArray value)
 	{
 		JArray array = new JArray();
@@ -107,6 +137,12 @@ public static class BadJson
 		return array;
 	}
 
+	/// <summary>
+	/// Converts a JValue to a BadObject
+	/// </summary>
+	/// <param name="value">Value</param>
+	/// <returns>Value</returns>
+	/// <exception cref="Exception">Gets Raised if the type is not supported</exception>
 	private static BadObject ConvertValue(JValue value)
 	{
 		switch (value.Type)
@@ -126,6 +162,12 @@ public static class BadJson
 		}
 	}
 
+	/// <summary>
+	/// Converts a JToken to a BadObject
+	/// </summary>
+	/// <param name="node">Node</param>
+	/// <returns>Object</returns>
+	/// <exception cref="Exception">Gets Raised if the type is not supported</exception>
 	public static BadObject ConvertNode(JToken? node)
 	{
 		if (node is null)
@@ -151,6 +193,11 @@ public static class BadJson
 		throw new Exception("Unsupported node type: " + node.GetType());
 	}
 
+	/// <summary>
+	/// Converts a Json string to a BadObject
+	/// </summary>
+	/// <param name="s">String</param>
+	/// <returns>Bad Object</returns>
 	public static BadObject FromJson(string s)
 	{
 		JToken o = JToken.Parse(s);
@@ -158,6 +205,11 @@ public static class BadJson
 		return ConvertNode(o);
 	}
 
+	/// <summary>
+	/// Converts a BadObject to a Json string
+	/// </summary>
+	/// <param name="o">Object</param>
+	/// <returns>JSON String</returns>
 	public static string ToJson(BadObject o)
 	{
 		JToken token = ConvertNode(o);
