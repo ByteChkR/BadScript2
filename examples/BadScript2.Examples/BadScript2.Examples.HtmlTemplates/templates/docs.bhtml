@@ -1,0 +1,205 @@
+<script lang="bs2">
+
+	function GetParameterDescription(param, meta)
+	{
+		if(meta.Parameters.Keys.Contains(param.Name))
+		{
+			return meta.Parameters[param.Name].Description;
+		}
+		return "no description";
+	}
+
+	function GetPropertyKeys(table)
+	{
+		const r = [];
+		foreach(key in table.Keys)
+		{
+			if(	!Runtime.Native.IsTable(table[key]) &&
+				!Runtime.Native.IsFunction(table[key]) &&
+				!Runtime.Native.IsEnumerable(table[key]) &&
+				!Runtime.Native.IsEnumerator(table[key]))
+			{
+				r.Add(key);
+			}
+		}
+		return r;
+	}
+
+	function GetFunctionKeys(table)
+	{
+		const r = [];
+		foreach(key in table.Keys)
+		{
+			if(Runtime.Native.IsFunction(table[key]))
+			{
+				r.Add(key);
+			}
+		}
+		return r;
+	}
+	function GetTableKeys(table)
+	{
+		const r = [];
+		foreach(key in table.Keys)
+		{
+			if(Runtime.Native.IsTable(table[key]))
+			{
+				r.Add(key);
+			}
+		}
+		return r;
+	}
+</script>
+
+<bs:function name="CreateArrayDocs" param:array>
+	<bs:foreach on="0..array.Length" as="i">
+		<tr>
+			<td>{i}</td>
+			<td>{array[i]}</td>
+		</tr>
+	</bs:foreach>
+</bs:function>
+
+<bs:function name="CreateFunctionDocs" param:func="Function">
+	<h2>{func.Name}</h2>
+	<p>Description: {func.Meta.Description}</p>
+	<table>
+		<tr>
+			<th>Return Type</th>
+			<th>Comment</th>
+		</tr>
+		<tr>
+			<td>{func.Meta.Return.Type}</td>
+			<td>{func.Meta.Return.Description}</td>
+		</tr>
+	</table>
+	<br/>
+	<bs:if test="func.Parameters.Length != 0">
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Optional</th>
+				<th>NullChecked</th>
+				<th>RestArgs</th>
+				<th>Comment</th>
+			</tr>
+			<bs:foreach on="func.Parameters" as="param">		
+				<tr>
+					<td>{param.Name}</td>
+					<td>{param.Type ?? "any"}</td>
+					<td>{param.IsOptional}</td>
+					<td>{param.IsNullChecked}</td>
+					<td>{param.IsRestArgs}</td>
+					<td>{GetParameterDescription(param, func.Meta)}</td>
+				</tr>
+			</bs:foreach>
+		</table>
+	</bs:if>
+</bs:function>
+
+<bs:function name="CreatePropertyDocs" param:name param:value>
+	
+</bs:function>
+
+<bs:function name="GenerateDocs" param:table param:name>
+	<div class="container">
+		<h1>{name}</h1>
+		<bs:if test="GetTableKeys(table).Length != 0">
+			<bs:foreach on="GetTableKeys(table)" as="key">
+				{GenerateDocs(table[key], key)}
+			</bs:foreach>
+		</bs:if>
+		<bs:if test="GetPropertyKeys(table).Length != 0">
+			<div class="container">
+				<h2>Properties</h2>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Value</th>
+					</tr>
+					<bs:foreach on="GetPropertyKeys(table)" as="key">
+						<tr>
+							<td>{key}</td>
+							<td>
+								<bs:if test="Runtime.Native.IsArray(table[key])">
+									<table>
+										<tr>
+											<td>Index</td>
+											<td>Value</td>
+										</tr>
+										{CreateArrayDocs(table[key])}
+									</table>
+								</bs:if>
+								<bs:if test="!Runtime.Native.IsArray(table[key])">
+									{table[key]}
+								</bs:if>
+							</td>
+						</tr>
+					</bs:foreach>
+				</table>
+			</div>
+		</bs:if>
+		<bs:if test="GetFunctionKeys(table).Length != 0">
+			<div class="container">
+				<h2>Functions</h2>
+				<bs:foreach on="GetFunctionKeys(table)" as="key">
+					<div class="container">
+						{CreateFunctionDocs(table[key])}
+					</div>
+				</bs:foreach>
+			</div>
+		</bs:if>
+	</div>
+</bs:function>
+
+<bs:function name="CreateDocs" param:table>
+	<bs:foreach on="GetTableKeys(table)" as="key">
+		{GenerateDocs(table[key], key)}
+	</bs:foreach>
+</bs:function>
+
+<div>
+	{CreateDocs(Runtime.CreateDefaultScope().GetParent())}
+</div>
+
+<style>
+
+	tr:nth-child(even) {
+		background-color: #AAAAAA;
+	}
+
+	tr:nth-child(odd) {
+		background-color: #FFFFFF;
+	}
+
+	table {
+		border-collapse: collapse;
+		border: 1px solid black;
+		table-layout: fixed;
+		margin: 0 auto;
+		width: 90%;
+		margin-bottom: 5px;
+	}
+
+	p {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+
+	td {
+		border: 1px solid black;
+	}
+
+	h2 {
+		text-align: center;
+	}
+
+	.container {
+		border: 1px solid black;
+		margin-bottom: 5px;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+
+</style>

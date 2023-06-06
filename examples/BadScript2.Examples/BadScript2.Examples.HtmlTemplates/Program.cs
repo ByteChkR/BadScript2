@@ -21,10 +21,10 @@ internal static class Program
         // All templates that depend on external data need a model object that the template can pull data from.
         // The model object can be any object that BadScript2 can convert to a BadObject.
         // The model object can also be a BadObject directly.
-        BadObject model = BadJson.FromJson(File.ReadAllText("templates/data.json"));
+        BadObject model = BadObject.Null;//BadJson.FromJson(File.ReadAllText("templates/docs.json"));
 
         //Load the template
-        BadHtmlTemplate template = new BadHtmlTemplate("templates/template.bhtml");
+        BadHtmlTemplate template = new BadHtmlTemplate("templates/docs.bhtml");
 
         //Run the template with the model and write the result to a file
         File.WriteAllText("template.html", template.Run(model));

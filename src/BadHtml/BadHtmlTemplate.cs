@@ -18,9 +18,11 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
@@ -232,7 +234,7 @@ public class BadHtmlTemplate
     /// <returns>True if child nodes can be processed</returns>
     private bool CanProcessChildren(HtmlNode node)
     {
-        return node.Name != "script" && node.Name != "style";
+        return node.Name != "script" && node.Name != "style" && !IsSpecialNode(node);
     }
 
     /// <summary>
@@ -345,6 +347,213 @@ public class BadHtmlTemplate
         }
     }
 
+    private string ProcessChildrenIsolated(HtmlNode node, BadExecutionContext ctx)
+    {
+        HtmlDocument doc = new HtmlDocument();
+        doc.LoadHtml(node.InnerHtml);
+        ProcessNode(doc.DocumentNode, ctx);
+
+        if (ctx.Scope.IsError) throw new BadRuntimeErrorException(ctx.Scope.Error);
+
+        return doc.DocumentNode.InnerHtml;
+    }
+
+    private IEnumerable<HtmlNode> ProcessChildNodesIsolated(HtmlNode node, BadExecutionContext ctx)
+    {
+        HtmlDocument doc = new HtmlDocument();
+        doc.LoadHtml(node.InnerHtml);
+        ProcessNode(doc.DocumentNode, ctx);
+        if (ctx.Scope.IsError) throw new BadRuntimeErrorException(ctx.Scope.Error);
+
+        return doc.DocumentNode.ChildNodes;
+    }
+
+
+    private string InvokeFunction(HtmlNode node, BadExecutionContext ctx, BadFunctionParameter[] parameters, BadObject[] args)
+    {
+        if(args.Length != parameters.Length)
+        {
+            throw new BadRuntimeException("Invalid Argument Count");
+        }
+        BadExecutionContext funcCtx = new BadExecutionContext(ctx.Scope.CreateChild("bs:function", null, null));
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            var parameter = parameters[i].Initialize(funcCtx);
+            funcCtx.Scope.DefineVariable(parameter.Name, args[i], funcCtx.Scope, new BadPropertyInfo(parameter.Type));
+        }
+
+        return ProcessChildrenIsolated(node, funcCtx);
+    }
+
+
+    private BadExpression? ParseParameterType(HtmlAttribute attribute)
+    {
+        if (string.IsNullOrEmpty(attribute.Value))
+        {
+            return null;
+        }
+
+        BadSourceParser parser = BadSourceParser.Create(FilePath, attribute.Value);
+
+        return parser.Parse().FirstOrDefault();
+    }
+
+    private void ProcessFunction(HtmlNode node, BadExecutionContext ctx)
+    {
+        string name = node.Attributes["name"]?.Value ?? throw new BadRuntimeException("Invalid Function Name");
+        BadFunctionParameter[] parameter = node.Attributes.Where(x => x.Name.StartsWith("param:"))
+            .Select(
+                x => new BadFunctionParameter(
+                    x.Name.Remove(0, "param:".Length),
+                    false,
+                    false,
+                    false,
+                    ParseParameterType(x)
+                )
+            )
+            .ToArray();
+        BadInteropFunction func = new BadInteropFunction(
+            name,
+            (ctx, args) => InvokeFunction(node, ctx, parameter, args),
+            parameter
+        );
+        ctx.Scope.DefineVariable(name, func, ctx.Scope, new BadPropertyInfo(func.GetPrototype(), true));
+        node.ParentNode.RemoveChild(node);
+    }
+
+    private void ProcessForeach(HtmlNode node, BadExecutionContext ctx)
+    {
+        string? enumeratorStr = node.Attributes["on"]?.Value;
+        string name = node.Attributes["as"]?.Value ?? "item";
+        if (enumeratorStr == null)
+        {
+            throw new BadRuntimeException("Invalid Enumerator");
+        }
+
+        BadSourceParser enumeratorParser = BadSourceParser.Create(FilePath, enumeratorStr);
+        BadExpression[] enumeratorExprs = enumeratorParser.Parse().ToArray();
+        BadObject ret = ctx.Execute(enumeratorExprs).Last().Dereference();
+        HtmlNode? parent = node.ParentNode;
+        HtmlNode? prevSilbing = node.PreviousSibling;
+
+        if (ret is IBadEnumerable enumerable)
+        {
+            foreach (BadObject o in enumerable)
+            {
+                BadExecutionContext loopCtx = new BadExecutionContext(ctx.Scope.CreateChild("bs:foreach", null, null));
+                loopCtx.Scope.DefineVariable(name, o, loopCtx.Scope, new BadPropertyInfo(o.GetPrototype(), true));
+                foreach (HtmlNode htmlNode in ProcessChildNodesIsolated(node, loopCtx))
+                {
+                    if (prevSilbing == null)
+                    {
+                        parent.AppendChild(htmlNode);
+                    }
+                    else
+                    {
+                        parent.InsertAfter(htmlNode, prevSilbing);
+                    }
+
+                    prevSilbing = htmlNode;
+                }
+            }
+        }
+        else if (ret is IBadEnumerator enumerator)
+        {
+            while (enumerator.MoveNext())
+            {
+                BadObject o = enumerator.Current ?? throw new BadRuntimeException("Invalid Enumerator");
+                BadExecutionContext loopCtx = new BadExecutionContext(ctx.Scope.CreateChild("bs:foreach", null, null));
+                loopCtx.Scope.DefineVariable(name, o, loopCtx.Scope, new BadPropertyInfo(o.GetPrototype(), true));
+                foreach (HtmlNode htmlNode in ProcessChildNodesIsolated(node, loopCtx))
+                {
+                    if (prevSilbing == null)
+                    {
+                        parent.AppendChild(htmlNode);
+                    }
+                    else
+                    {
+                        parent.InsertAfter(htmlNode, prevSilbing);
+                    }
+
+                    prevSilbing = htmlNode;
+                }
+            }
+        }
+
+        node.ParentNode.RemoveChild(node);
+    }
+
+    private void ProcessIf(HtmlNode node, BadExecutionContext ctx)
+    {
+        string? condition = node.Attributes["test"]?.Value;
+        if (condition == null)
+        {
+            throw new BadRuntimeException("Invalid Condition");
+        }
+
+        BadSourceParser conditionParser = BadSourceParser.Create(FilePath, condition);
+        BadExpression[] conditionExprs = conditionParser.Parse().ToArray();
+        BadObject ret = ctx.Execute(conditionExprs).Last().Dereference();
+        if (ret is not IBadBoolean b)
+        {
+            throw new BadRuntimeException("Invalid Condition Return");
+        }
+
+        if (b.Value)
+        {
+            string result = ProcessChildrenIsolated(node, ctx);
+            node.ParentNode.InnerHtml = node.ParentNode.InnerHtml.Replace(node.OuterHtml, result);
+        }
+        else
+        {
+            node.ParentNode.RemoveChild(node);
+        }
+    }
+
+    private bool IsSpecialNode(HtmlNode node)
+    {
+        return node.Name == "bs:if" || node.Name == "bs:foreach" || node.Name == "bs:function";
+    }
+
+    private void ProcessSpecial(HtmlNode node, BadExecutionContext ctx)
+    {
+        if (node.Name == "bs:if")
+        {
+            ProcessIf(node, ctx);
+        }
+        else if (node.Name == "bs:foreach")
+        {
+            ProcessForeach(node, ctx);
+        }
+        else if (node.Name == "bs:function")
+        {
+            ProcessFunction(node, ctx);
+        }
+        else
+        {
+            throw new Exception("Unknown Special Node");
+        }
+
+        //If name is bs:function then
+        //  create a function with the specified name and parameters and add it to the scope
+        //  Remove the node from the document and return
+        //if name is bs:if then
+        //  if the condition is true then
+        //      remove the node
+        //      process the children
+        //  else
+        //      remove the node and return
+        //if name is bs:for then
+        //  create for loop with the specified parameters
+        //  remove the node and return
+        //if name is bs:while then
+        //  create while loop with the specified parameters
+        //  remove the node and return
+        //if name is bs:foreach then
+        //  create foreach loop with the specified parameters
+        //  remove the node and return
+    }
+
     /// <summary>
     ///     Processes the Node Text of the Current Node
     /// </summary>
@@ -357,6 +566,13 @@ public class BadHtmlTemplate
             return;
         }
 
+        if (IsSpecialNode(node))
+        {
+            ProcessSpecial(node, ctx);
+
+            return;
+        }
+
         foreach (HtmlAttribute attribute in node.Attributes)
         {
             if (attribute.Name != "style" && attribute.Value.Contains('{'))
@@ -364,6 +580,7 @@ public class BadHtmlTemplate
                 attribute.Value = ProcessInline(attribute.Value, ctx);
             }
         }
+
 
         if (node.Name == "script" && node.Attributes.Contains("lang") && node.Attributes["lang"].Value == "bs2")
         {

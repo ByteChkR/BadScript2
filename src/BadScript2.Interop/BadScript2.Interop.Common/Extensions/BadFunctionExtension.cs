@@ -38,5 +38,6 @@ public class BadFunctionExtension : BadInteropExtension
         RegisterObject<BadFunctionParameter>("IsNullChecked", p => p.IsNullChecked);
         RegisterObject<BadFunctionParameter>("IsOptional", p => p.IsOptional);
         RegisterObject<BadFunctionParameter>("IsRestArgs", p => p.IsRestArgs);
+        RegisterObject<BadFunctionParameter>("Type", p => p.Type ?? BadObject.Null);
     }
 }
