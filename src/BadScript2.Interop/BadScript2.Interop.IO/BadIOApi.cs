@@ -11,172 +11,140 @@ namespace BadScript2.Interop.IO;
 
 public class BadIOApi : BadInteropApi
 {
-    private readonly IFileSystem m_FileSystem;
-    public BadIOApi() : this(BadFileSystem.Instance) { }
+	private readonly IFileSystem m_FileSystem;
 
-    public BadIOApi(IFileSystem fileSystem) : base("IO")
-    {
-        m_FileSystem = fileSystem;
-    }
+	public BadIOApi() : this(BadFileSystem.Instance) { }
 
-    private BadTable CreatePath()
-    {
-        BadTable t = new BadTable();
+	public BadIOApi(IFileSystem fileSystem) : base("IO")
+	{
+		m_FileSystem = fileSystem;
+	}
 
-        t.SetFunction<string>("GetFileName", (_, s) => Path.GetFileName(s));
-        t.SetFunction<string>("GetFileNameWithoutExtension", (_, s) => Path.GetFileNameWithoutExtension(s));
-        t.SetFunction<string>("GetDirectoryName", (_, s) => Path.GetDirectoryName(s) ?? BadObject.Null);
-        t.SetFunction<string>("GetExtension", (_, s) => Path.GetExtension(s));
-        t.SetFunction<string>("GetFullPath", (_, s) => m_FileSystem.GetFullPath(s));
-        t.SetFunction<string>("GetStartupPath", (_, _) => m_FileSystem.GetStartupDirectory());
-        t.SetFunction<string, string>("ChangeExtension", (_, s, ext) => Path.ChangeExtension(s, ext));
-        t.SetProperty(
-            "Combine",
-            new BadInteropFunction("Combine", Combine, new BadFunctionParameter("parts", false, false, true))
-        );
+	private BadTable CreatePath()
+	{
+		BadTable t = new BadTable();
 
-        return t;
-    }
+		t.SetFunction<string>("GetFileName", (_, s) => Path.GetFileName(s));
+		t.SetFunction<string>("GetFileNameWithoutExtension", (_, s) => Path.GetFileNameWithoutExtension(s));
+		t.SetFunction<string>("GetDirectoryName", (_, s) => Path.GetDirectoryName(s) ?? BadObject.Null);
+		t.SetFunction<string>("GetExtension", (_, s) => Path.GetExtension(s));
+		t.SetFunction<string>("GetFullPath", (_, s) => m_FileSystem.GetFullPath(s));
+		t.SetFunction<string>("GetStartupPath", (_, _) => m_FileSystem.GetStartupDirectory());
+		t.SetFunction<string, string>("ChangeExtension", (_, s, ext) => Path.ChangeExtension(s, ext));
+		t.SetProperty("Combine",
+			new BadInteropFunction("Combine", Combine, new BadFunctionParameter("parts", false, false, true)));
 
-    private BadObject Combine(BadObject[] arg)
-    {
-        return Path.Combine(arg.Select(x => x.ToString()!).ToArray());
-    }
+		return t;
+	}
 
-    private BadTable CreateDirectory()
-    {
-        BadTable t = new BadTable();
+	private BadObject Combine(BadObject[] arg)
+	{
+		return Path.Combine(arg.Select(x => x.ToString()!).ToArray());
+	}
 
-        t.SetFunction<string>(
-            "CreateDirectory",
-            (_, s) =>
-            {
-                m_FileSystem.CreateDirectory(s);
+	private BadTable CreateDirectory()
+	{
+		BadTable t = new BadTable();
 
-                return BadObject.Null;
-            }
-        );
+		t.SetFunction<string>("CreateDirectory",
+			(_, s) =>
+			{
+				m_FileSystem.CreateDirectory(s);
 
-        t.SetFunction<string>("Exists", s => m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s));
-        t.SetFunction<string, bool>(
-            "Delete",
-            m_FileSystem.DeleteDirectory
-        );
+				return BadObject.Null;
+			});
+
+		t.SetFunction<string>("Exists", s => m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s));
+		t.SetFunction<string, bool>("Delete",
+			m_FileSystem.DeleteDirectory);
 
 
-        t.SetFunction<string, string, bool>(
-            "Move",
-            m_FileSystem.Move
-        );
+		t.SetFunction<string, string, bool>("Move",
+			m_FileSystem.Move);
 
-        t.SetFunction("GetCurrentDirectory", () => m_FileSystem.GetCurrentDirectory());
-        t.SetFunction<string>("SetCurrentDirectory", m_FileSystem.SetCurrentDirectory);
-        t.SetFunction("GetStartupDirectory", () => m_FileSystem.GetStartupDirectory());
+		t.SetFunction("GetCurrentDirectory", () => m_FileSystem.GetCurrentDirectory());
+		t.SetFunction<string>("SetCurrentDirectory", m_FileSystem.SetCurrentDirectory);
+		t.SetFunction("GetStartupDirectory", () => m_FileSystem.GetStartupDirectory());
 
-        t.SetFunction<string, bool>(
-            "GetDirectories",
-            (_, s, b) => new BadArray(
-                m_FileSystem.GetDirectories(s, b)
-                    .Select(x => (BadObject)x)
-                    .ToList()
-            )
-        );
+		t.SetFunction<string, bool>("GetDirectories",
+			(_, s, b) => new BadArray(m_FileSystem.GetDirectories(s, b)
+				.Select(x => (BadObject)x)
+				.ToList()));
 
-        t.SetFunction<string, string, bool>(
-            "GetFiles",
-            (_, s, p, b) => new BadArray(
-                m_FileSystem.GetFiles(s, p, b)
-                    .Select(x => (BadObject)x)
-                    .ToList()
-            )
-        );
+		t.SetFunction<string, string, bool>("GetFiles",
+			(_, s, p, b) => new BadArray(m_FileSystem.GetFiles(s, p, b)
+				.Select(x => (BadObject)x)
+				.ToList()));
 
-        return t;
-    }
+		return t;
+	}
 
-    private BadTable CreateFile()
-    {
-        BadTable t = new BadTable();
+	private BadTable CreateFile()
+	{
+		BadTable t = new BadTable();
 
-        t.SetFunction<string, string>(
-            "WriteAllText",
-            m_FileSystem.WriteAllText
-        );
-        t.SetFunction<string>(
-            "ReadAllText",
-            s => m_FileSystem.ReadAllText(s)
-        );
-        t.SetFunction<string>(
-            "Exists",
-            s => m_FileSystem.Exists(s)
-        );
-        t.SetFunction<string>(
-            "ReadAllLines",
-            s => new BadArray(
-                m_FileSystem.ReadAllLines(s)
-                    .Select(x => (BadObject)x)
-                    .ToList()
-            )
-        );
-        t.SetFunction<string, BadArray>(
-            "WriteAllLines",
-            (s, a) =>
-            {
-                m_FileSystem.WriteAllLines(s, a.InnerArray.Select(x => x.ToString()!));
+		t.SetFunction<string, string>("WriteAllText",
+			m_FileSystem.WriteAllText);
+		t.SetFunction<string>("ReadAllText",
+			s => m_FileSystem.ReadAllText(s));
+		t.SetFunction<string>("Exists",
+			s => m_FileSystem.Exists(s));
+		t.SetFunction<string>("ReadAllLines",
+			s => new BadArray(m_FileSystem.ReadAllLines(s)
+				.Select(x => (BadObject)x)
+				.ToList()));
+		t.SetFunction<string, BadArray>("WriteAllLines",
+			(s, a) =>
+			{
+				m_FileSystem.WriteAllLines(s, a.InnerArray.Select(x => x.ToString()!));
 
-                return BadObject.Null;
-            }
-        );
+				return BadObject.Null;
+			});
 
 
-        t.SetFunction<string, BadArray>(
-            "WriteAllBytes",
-            (s, a) =>
-            {
-                using Stream stream = m_FileSystem.OpenWrite(s, BadWriteMode.CreateNew);
-                foreach (BadObject o in a.InnerArray)
-                {
-                    if (o is not IBadNumber num)
-                    {
-                        throw new BadRuntimeException("BadIO.WriteAllBytes: Array contains non-number");
-                    }
+		t.SetFunction<string, BadArray>("WriteAllBytes",
+			(s, a) =>
+			{
+				using Stream stream = m_FileSystem.OpenWrite(s, BadWriteMode.CreateNew);
 
-                    stream.WriteByte((byte)num.Value);
-                }
-            }
-        );
+				foreach (BadObject o in a.InnerArray)
+				{
+					if (o is not IBadNumber num)
+					{
+						throw new BadRuntimeException("BadIO.WriteAllBytes: Array contains non-number");
+					}
 
-        t.SetFunction<string>(
-            "ReadAllBytes",
-            s =>
-            {
-                using Stream stream = m_FileSystem.OpenRead(s);
-                byte[] bytes = new byte[stream.Length];
-                stream.Read(bytes, 0, bytes.Length);
+					stream.WriteByte((byte)num.Value);
+				}
+			});
 
-                return new BadArray(bytes.Select(x => (BadObject)new BadNumber(x)).ToList());
-            }
-        );
+		t.SetFunction<string>("ReadAllBytes",
+			s =>
+			{
+				using Stream stream = m_FileSystem.OpenRead(s);
+				byte[] bytes = new byte[stream.Length];
+				stream.Read(bytes, 0, bytes.Length);
 
-        t.SetFunction<string>("Delete", m_FileSystem.DeleteFile);
+				return new BadArray(bytes.Select(x => (BadObject)new BadNumber(x)).ToList());
+			});
 
-        t.SetFunction<string, string>(
-            "Copy",
-            (i, o) =>
-            {
-                using Stream inS = m_FileSystem.OpenRead(i);
-                using Stream outS = m_FileSystem.OpenWrite(o, BadWriteMode.CreateNew);
-                inS.CopyTo(outS);
-            }
-        );
+		t.SetFunction<string>("Delete", m_FileSystem.DeleteFile);
 
-        return t;
-    }
+		t.SetFunction<string, string>("Copy",
+			(i, o) =>
+			{
+				using Stream inS = m_FileSystem.OpenRead(i);
+				using Stream outS = m_FileSystem.OpenWrite(o, BadWriteMode.CreateNew);
+				inS.CopyTo(outS);
+			});
 
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetProperty("Path", CreatePath());
-        target.SetProperty("Directory", CreateDirectory());
-        target.SetProperty("File", CreateFile());
-    }
+		return t;
+	}
+
+	protected override void LoadApi(BadTable target)
+	{
+		target.SetProperty("Path", CreatePath());
+		target.SetProperty("Directory", CreateDirectory());
+		target.SetProperty("File", CreateFile());
+	}
 }

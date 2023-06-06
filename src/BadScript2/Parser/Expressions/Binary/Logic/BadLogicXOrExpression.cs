@@ -17,11 +17,9 @@ public class BadLogicXOrExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadLogicXOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadLogicXOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
     /// <summary>
     ///     Returns true if left or right are true. False if both are true
@@ -32,41 +30,43 @@ public class BadLogicXOrExpression : BadBinaryExpression
     /// <returns>True if either the left side or the right side are true. Otherwise false.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadBoolean</exception>
     public static BadObject XOr(BadObject left, BadObject right, BadSourcePosition pos)
-    {
-        if (left is IBadBoolean lBool && right is IBadBoolean rBool)
-        {
-            return lBool.Value ^ rBool.Value ? BadObject.True : BadObject.False;
-        }
+	{
+		if (left is IBadBoolean lBool && right is IBadBoolean rBool)
+		{
+			return lBool.Value ^ rBool.Value ? BadObject.True : BadObject.False;
+		}
 
-        throw new BadRuntimeException($"Can not apply operator '^' to {left} and {right}", pos);
-    }
+		throw new BadRuntimeException($"Can not apply operator '^' to {left} and {right}", pos);
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-            yield return o;
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+			yield return o;
+		}
 
-            yield return o;
-        }
+		left = left.Dereference();
+		BadObject right = BadObject.Null;
 
-        right = right.Dereference();
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-        yield return XOr(left, right, Position);
-    }
+			yield return o;
+		}
 
-    protected override string GetSymbol()
-    {
-        return "^";
-    }
+		right = right.Dereference();
+
+		yield return XOr(left, right, Position);
+	}
+
+	protected override string GetSymbol()
+	{
+		return "^";
+	}
 }

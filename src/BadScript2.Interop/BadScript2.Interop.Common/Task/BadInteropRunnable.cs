@@ -4,36 +4,37 @@ namespace BadScript2.Interop.Common.Task;
 
 public class BadInteropRunnable : BadRunnable
 {
-    private BadObject m_ReturnValue = BadObject.Null;
+	private BadObject m_ReturnValue = BadObject.Null;
 
 
-    public BadInteropRunnable(IEnumerator<BadObject> enumerator, bool setLastAsReturn = false)
-    {
-        Enumerator = setLastAsReturn ? CreateEnumerator(enumerator) : enumerator;
-    }
+	public BadInteropRunnable(IEnumerator<BadObject> enumerator, bool setLastAsReturn = false)
+	{
+		Enumerator = setLastAsReturn ? CreateEnumerator(enumerator) : enumerator;
+	}
 
-    public override IEnumerator<BadObject> Enumerator { get; }
+	public override IEnumerator<BadObject> Enumerator { get; }
 
-    private IEnumerator<BadObject> CreateEnumerator(IEnumerator<BadObject> enumerator)
-    {
-        BadObject last = enumerator.Current ?? BadObject.Null;
-        while (enumerator.MoveNext())
-        {
-            last = enumerator.Current ?? BadObject.Null;
+	private IEnumerator<BadObject> CreateEnumerator(IEnumerator<BadObject> enumerator)
+	{
+		BadObject last = enumerator.Current ?? BadObject.Null;
 
-            yield return last;
-        }
+		while (enumerator.MoveNext())
+		{
+			last = enumerator.Current ?? BadObject.Null;
 
-        SetReturn(last);
-    }
+			yield return last;
+		}
 
-    public void SetReturn(BadObject obj)
-    {
-        m_ReturnValue = obj;
-    }
+		SetReturn(last);
+	}
 
-    public override BadObject GetReturn()
-    {
-        return m_ReturnValue;
-    }
+	public void SetReturn(BadObject obj)
+	{
+		m_ReturnValue = obj;
+	}
+
+	public override BadObject GetReturn()
+	{
+		return m_ReturnValue;
+	}
 }

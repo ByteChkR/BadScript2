@@ -21,43 +21,43 @@ public class BadPreDecrementExpression : BadExpression
     /// </summary>
     /// <param name="right">Left side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadPreDecrementExpression(BadExpression right, BadSourcePosition position) : base(
-        right.IsConstant,
-        position
-    )
-    {
-        Right = right;
-    }
+    public BadPreDecrementExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
+		position)
+	{
+		Right = right;
+	}
 
-    public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
-    {
-        BadObject right = reference.Dereference();
-        if (right is not IBadNumber leftNumber)
-        {
-            throw new BadRuntimeException("Right side of -- must be a number", position);
-        }
+	public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
+	{
+		BadObject right = reference.Dereference();
 
-        BadObject r = leftNumber.Value - 1;
-        reference.Set(r);
+		if (right is not IBadNumber leftNumber)
+		{
+			throw new BadRuntimeException("Right side of -- must be a number", position);
+		}
 
-        return r;
-    }
+		BadObject r = leftNumber.Value - 1;
+		reference.Set(r);
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+		return r;
+	}
 
-            yield return o;
-        }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject right = BadObject.Null;
 
-        if (right is not BadObjectReference rightRef)
-        {
-            throw new BadRuntimeException("Right side of -- must be a reference", Position);
-        }
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-        yield return Decrement(rightRef, Position);
-    }
+			yield return o;
+		}
+
+		if (right is not BadObjectReference rightRef)
+		{
+			throw new BadRuntimeException("Right side of -- must be a reference", Position);
+		}
+
+		yield return Decrement(rightRef, Position);
+	}
 }

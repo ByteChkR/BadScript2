@@ -21,15 +21,15 @@ public class BadTernaryExpression : BadExpression
     /// <param name="falseRet">Expression that is executed if left evaluates to false</param>
     /// <param name="position">Source Position of the Expression</param>
     public BadTernaryExpression(
-        BadExpression left,
-        BadExpression trueRet,
-        BadExpression falseRet,
-        BadSourcePosition position) : base(left.IsConstant, position)
-    {
-        Left = left;
-        TrueRet = trueRet;
-        FalseRet = falseRet;
-    }
+		BadExpression left,
+		BadExpression trueRet,
+		BadExpression falseRet,
+		BadSourcePosition position) : base(left.IsConstant, position)
+	{
+		Left = left;
+		TrueRet = trueRet;
+		FalseRet = falseRet;
+	}
 
     /// <summary>
     ///     Expression that is executed if left evaluates to false
@@ -46,46 +46,47 @@ public class BadTernaryExpression : BadExpression
     /// </summary>
     public BadExpression TrueRet { get; private set; }
 
-    public override void Optimize()
-    {
-        FalseRet = BadExpressionOptimizer.Optimize(FalseRet);
-        Left = BadExpressionOptimizer.Optimize(Left);
-        TrueRet = BadExpressionOptimizer.Optimize(TrueRet);
-    }
+	public override void Optimize()
+	{
+		FalseRet = BadExpressionOptimizer.Optimize(FalseRet);
+		Left = BadExpressionOptimizer.Optimize(Left);
+		TrueRet = BadExpressionOptimizer.Optimize(TrueRet);
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
-        }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        left = left.Dereference();
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
+		}
 
-        if (left is not IBadBoolean lBool)
-        {
-            throw new BadRuntimeException("Ternary operator requires a boolean value on the left side.", Position);
-        }
+		left = left.Dereference();
 
-        if (lBool.Value)
-        {
-            foreach (BadObject o in TrueRet.Execute(context))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            foreach (BadObject o in FalseRet.Execute(context))
-            {
-                yield return o;
-            }
-        }
-    }
+		if (left is not IBadBoolean lBool)
+		{
+			throw new BadRuntimeException("Ternary operator requires a boolean value on the left side.", Position);
+		}
 
-    public override string ToString()
-    {
-        return $"({Left} ? {TrueRet} : {FalseRet})";
-    }
+		if (lBool.Value)
+		{
+			foreach (BadObject o in TrueRet.Execute(context))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			foreach (BadObject o in FalseRet.Execute(context))
+			{
+				yield return o;
+			}
+		}
+	}
+
+	public override string ToString()
+	{
+		return $"({Left} ? {TrueRet} : {FalseRet})";
+	}
 }

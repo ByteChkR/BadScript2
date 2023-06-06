@@ -15,51 +15,55 @@ namespace BadScript2.ConsoleCore.Systems.Html;
 
 public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 {
-    public override string Name => "html";
+	public override string Name => "html";
 
 
-    public override object? Parse(string[] args)
-    {
-        if (args.Length == 1)
-        {
-            return new BadHtmlSystemSettings
-            {
-                Files = new[] { args[0] },
-            };
-        }
+	public override object? Parse(string[] args)
+	{
+		if (args.Length == 1)
+		{
+			return new BadHtmlSystemSettings
+			{
+				Files = new[]
+				{
+					args[0]
+				}
+			};
+		}
 
-        return base.Parse(args);
-    }
+		return base.Parse(args);
+	}
 
-    protected override int Run(BadHtmlSystemSettings settings)
-    {
-        BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
-        BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
-        BadHtmlTemplate.SkipInitialization();
+	protected override int Run(BadHtmlSystemSettings settings)
+	{
+		BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
+		BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
+		BadHtmlTemplate.SkipInitialization();
 
 
-        if (settings.Debug)
-        {
-            BadDebugger.Attach(new BadScriptDebugger(BadExecutionContextOptions.Default));
-        }
+		if (settings.Debug)
+		{
+			BadDebugger.Attach(new BadScriptDebugger(BadExecutionContextOptions.Default));
+		}
 
-        BadNetworkConsoleHost? host = null;
-        if (settings.RemotePort != -1)
-        {
-            host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
-            host.Start();
-            BadConsole.SetConsole(host);
-        }
+		BadNetworkConsoleHost? host = null;
 
-        foreach (string file in settings.Files)
-        {
-            string outFile = Path.ChangeExtension(file, "html");
-            string html = BadHtmlTemplate.Run(file);
-            BadFileSystem.WriteAllText(outFile, html);
-        }
+		if (settings.RemotePort != -1)
+		{
+			host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
+			host.Start();
+			BadConsole.SetConsole(host);
+		}
 
-        host?.Stop();
+		foreach (string file in settings.Files)
+		{
+			string outFile = Path.ChangeExtension(file, "html");
+			string html = BadHtmlTemplate.Run(file);
+			BadFileSystem.WriteAllText(outFile, html);
+		}
 
-        return -1;
-    }
+		host?.Stop();
+
+		return -1;
+	}
 }

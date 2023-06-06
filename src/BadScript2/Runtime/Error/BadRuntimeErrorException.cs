@@ -11,5 +11,6 @@ public class BadRuntimeErrorException : BadScriptException
     ///     Creates a new BadRuntimeErrorException
     /// </summary>
     /// <param name="error">The Runtime Error that was generated</param>
-    public BadRuntimeErrorException(BadRuntimeError? error) : base(error?.ToString() ?? "<no error>", error?.ErrorObject.ToString() ?? "<no error>") { }
+    public BadRuntimeErrorException(BadRuntimeError? error) : base(error?.ToString() ?? "<no error>",
+		error?.ErrorObject.ToString() ?? "<no error>") { }
 }

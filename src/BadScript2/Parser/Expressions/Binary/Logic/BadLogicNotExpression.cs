@@ -16,13 +16,11 @@ public class BadLogicNotExpression : BadExpression
     /// </summary>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(
-        right.IsConstant,
-        position
-    )
-    {
-        Right = right;
-    }
+    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
+		position)
+	{
+		Right = right;
+	}
 
     /// <summary>
     ///     Right side of the Expression
@@ -38,28 +36,27 @@ public class BadLogicNotExpression : BadExpression
     /// <returns>The negation of Left</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if left is not an IBadBoolean</exception>
     private static BadObject Not(BadObject left, BadSourcePosition pos)
-    {
-        if (left is IBadBoolean rBool)
-        {
-            return rBool.Value ? BadObject.False : BadObject.True;
-        }
+	{
+		if (left is IBadBoolean rBool)
+		{
+			return rBool.Value ? BadObject.False : BadObject.True;
+		}
 
-        throw new BadRuntimeException(
-            $"Cannot apply '!' to object '{left}'",
-            pos
-        );
-    }
+		throw new BadRuntimeException($"Cannot apply '!' to object '{left}'",
+			pos);
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject r = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            r = o;
-        }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject r = BadObject.Null;
 
-        r = r.Dereference();
+		foreach (BadObject o in Right.Execute(context))
+		{
+			r = o;
+		}
 
-        yield return Not(r, Position);
-    }
+		r = r.Dereference();
+
+		yield return Not(r, Position);
+	}
 }

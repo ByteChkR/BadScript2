@@ -17,11 +17,9 @@ public class BadGreaterThanExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadGreaterThanExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadGreaterThanExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
 
     /// <summary>
@@ -33,74 +31,88 @@ public class BadGreaterThanExpression : BadBinaryExpression
     /// <returns>True if the Left side is greater than the right side. Otherwise false.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
     public static BadObject GreaterThan(BadObject left, BadObject right, BadSourcePosition pos)
-    {
-        if (left is IBadNumber lNum)
-        {
-            if (right is IBadNumber rNum)
-            {
-                if (lNum.Value > rNum.Value)
-                {
-                    return BadObject.True;
-                }
+	{
+		if (left is IBadNumber lNum)
+		{
+			if (right is IBadNumber rNum)
+			{
+				if (lNum.Value > rNum.Value)
+				{
+					return BadObject.True;
+				}
 
-                return BadObject.False;
-            }
-        }
+				return BadObject.False;
+			}
+		}
 
-        throw new BadRuntimeException($"Can not apply operator '>' to {left} and {right}", pos);
-    }
+		throw new BadRuntimeException($"Can not apply operator '>' to {left} and {right}", pos);
+	}
 
-    public static IEnumerable<BadObject> GreaterThanWithOverride(BadExecutionContext context, BadObject left, BadObject right, BadSourcePosition position)
-    {
-        if (left.HasProperty(BadStaticKeys.GreaterOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(left, right, context, BadStaticKeys.GreaterOperatorName, position))
-            {
-                yield return o;
-            }
-        }
-        else if (right.HasProperty(BadStaticKeys.GreaterOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(right, left, context, BadStaticKeys.GreaterOperatorName, position))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return GreaterThan(left, right, position);
-        }
-    }
+	public static IEnumerable<BadObject> GreaterThanWithOverride(
+		BadExecutionContext context,
+		BadObject left,
+		BadObject right,
+		BadSourcePosition position)
+	{
+		if (left.HasProperty(BadStaticKeys.GreaterOperatorName))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(left,
+				         right,
+				         context,
+				         BadStaticKeys.GreaterOperatorName,
+				         position))
+			{
+				yield return o;
+			}
+		}
+		else if (right.HasProperty(BadStaticKeys.GreaterOperatorName))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(right,
+				         left,
+				         context,
+				         BadStaticKeys.GreaterOperatorName,
+				         position))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return GreaterThan(left, right, position);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-            yield return o;
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+			yield return o;
+		}
 
-            yield return o;
-        }
+		left = left.Dereference();
+		BadObject right = BadObject.Null;
 
-        right = right.Dereference();
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-        foreach (BadObject o in GreaterThanWithOverride(context, left, right, Position))
-        {
-            yield return o;
-        }
-    }
+			yield return o;
+		}
 
-    protected override string GetSymbol()
-    {
-        return ">";
-    }
+		right = right.Dereference();
+
+		foreach (BadObject o in GreaterThanWithOverride(context, left, right, Position))
+		{
+			yield return o;
+		}
+	}
+
+	protected override string GetSymbol()
+	{
+		return ">";
+	}
 }

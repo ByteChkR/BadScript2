@@ -4,25 +4,26 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 public abstract class BadReflectedMember
 {
-    protected BadReflectedMember(string name)
-    {
-        Name = name;
-    }
+	protected BadReflectedMember(string name)
+	{
+		Name = name;
+	}
 
-    public abstract bool IsReadOnly { get; }
-    protected string Name { get; }
+	public abstract bool IsReadOnly { get; }
 
-    public abstract BadObject Get(object instance);
+	protected string Name { get; }
 
-    public abstract void Set(object instance, BadObject o);
+	public abstract BadObject Get(object instance);
 
-    protected BadObject Wrap(object? o)
-    {
-        if (BadObject.CanWrap(o))
-        {
-            return BadObject.Wrap(o);
-        }
+	public abstract void Set(object instance, BadObject o);
 
-        return new BadReflectedObject(o!);
-    }
+	protected BadObject Wrap(object? o)
+	{
+		if (BadObject.CanWrap(o))
+		{
+			return BadObject.Wrap(o);
+		}
+
+		return new BadReflectedObject(o!);
+	}
 }

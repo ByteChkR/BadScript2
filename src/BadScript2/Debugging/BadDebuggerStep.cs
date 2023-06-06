@@ -33,21 +33,21 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="position">The Source Position of the Step</param>
     /// <param name="stepSource">The Source of the Step</param>
     public BadDebuggerStep(BadExecutionContext context, BadSourcePosition position, object? stepSource)
-    {
-        Context = context;
-        Position = position;
-        StepSource = stepSource;
-    }
+	{
+		Context = context;
+		Position = position;
+		StepSource = stepSource;
+	}
 
     /// <summary>
     ///     Returns a string representation of the Step
     /// </summary>
     /// <returns>String representation</returns>
     public string GetInfo()
-    {
-        return
-            $"######################################\nDebug Step at {Position.GetPositionInfo()}\n\nStepSource: {StepSource}\n\nContext: {Context.Scope.Name}: {Context.Scope}\n\n######################################\n";
-    }
+	{
+		return
+			$"######################################\nDebug Step at {Position.GetPositionInfo()}\n\nStepSource: {StepSource}\n\nContext: {Context.Scope.Name}: {Context.Scope}\n\n######################################\n";
+	}
 
 
     /// <summary>
@@ -58,9 +58,9 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="lineDelta">The Amount of lines before and after the Source Position</param>
     /// <returns>String Representation</returns>
     public string GetSourceView(out int topInSource, out int lineInSource, int lineDelta = 4)
-    {
-        return GetSourceView(lineDelta, lineDelta, out topInSource, out lineInSource);
-    }
+	{
+		return GetSourceView(lineDelta, lineDelta, out topInSource, out lineInSource);
+	}
 
 
     /// <summary>
@@ -72,27 +72,28 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="bottom">The Amount of lines after the Source Position</param>
     /// <returns>String Representation</returns>
     public string GetSourceView(int top, int bottom, out int topInSource, out int lineInSource)
-    {
-        StringBuilder sb = new StringBuilder($"File: {Position.FileName}\n");
-        string[] lines = GetLines(top, bottom, out topInSource, out lineInSource);
-        for (int i = 0; i < lines.Length; i++)
-        {
-            int ln = topInSource + i;
-            string line = lines[i].Trim();
-            sb.AppendLine($"{(lineInSource == ln ? ">>" : ln)}\t| {line}");
-        }
+	{
+		StringBuilder sb = new StringBuilder($"File: {Position.FileName}\n");
+		string[] lines = GetLines(top, bottom, out topInSource, out lineInSource);
 
-        return sb.ToString();
-    }
+		for (int i = 0; i < lines.Length; i++)
+		{
+			int ln = topInSource + i;
+			string line = lines[i].Trim();
+			sb.AppendLine($"{(lineInSource == ln ? ">>" : ln)}\t| {line}");
+		}
+
+		return sb.ToString();
+	}
 
     /// <summary>
     ///     Returns string representation of the Step
     /// </summary>
     /// <returns>String representation</returns>
     public override string ToString()
-    {
-        return GetInfo();
-    }
+	{
+		return GetInfo();
+	}
 
     /// <summary>
     ///     Returns a line excerpt of the Step
@@ -103,31 +104,33 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="bottom">The Amount of lines after the Source Position</param>
     /// <returns>String Representation</returns>
     private string[] GetLines(int top, int bottom, out int topInSource, out int lineInSource)
-    {
-        lineInSource = 1;
-        for (int i = 0; i < Position.Index; i++)
-        {
-            if (Position.Source[i] == '\n')
-            {
-                lineInSource++;
-            }
-        }
+	{
+		lineInSource = 1;
 
-        topInSource = Math.Max(1, lineInSource - top);
+		for (int i = 0; i < Position.Index; i++)
+		{
+			if (Position.Source[i] == '\n')
+			{
+				lineInSource++;
+			}
+		}
 
-        string[] lines = Position.Source.Split('\n');
+		topInSource = Math.Max(1, lineInSource - top);
+
+		string[] lines = Position.Source.Split('\n');
 
 
-        List<string> lns = new List<string>();
-        for (int i = topInSource - 1;
-             i < topInSource - 1 + Math.Min(top + bottom, lines.Length - (topInSource - 1));
-             i++)
-        {
-            lns.Add(lines[i]);
-        }
+		List<string> lns = new List<string>();
 
-        return lns.ToArray();
-    }
+		for (int i = topInSource - 1;
+		     i < topInSource - 1 + Math.Min(top + bottom, lines.Length - (topInSource - 1));
+		     i++)
+		{
+			lns.Add(lines[i]);
+		}
+
+		return lns.ToArray();
+	}
 
     /// <summary>
     ///     Returns true if the Step is equal to another object
@@ -135,9 +138,9 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="other">The other object</param>
     /// <returns>True if equal</returns>
     public bool Equals(BadDebuggerStep other)
-    {
-        return Equals(StepSource, other.StepSource) && Context.Equals(other.Context) && Position.Equals(other.Position);
-    }
+	{
+		return Equals(StepSource, other.StepSource) && Context.Equals(other.Context) && Position.Equals(other.Position);
+	}
 
     /// <summary>
     ///     Returns true if the Step is equal to another object
@@ -145,18 +148,18 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="obj">The other object</param>
     /// <returns>True if equal</returns>
     public override bool Equals(object? obj)
-    {
-        return obj is BadDebuggerStep other && Equals(other);
-    }
+	{
+		return obj is BadDebuggerStep other && Equals(other);
+	}
 
     /// <summary>
     ///     Returns the Hash Code of the Step
     /// </summary>
     /// <returns></returns>
     public override int GetHashCode()
-    {
-        return BadHashCode.Combine(StepSource, Context, Position);
-    }
+	{
+		return BadHashCode.Combine(StepSource, Context, Position);
+	}
 
     /// <summary>
     ///     Implements the == operator
@@ -165,9 +168,9 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="right">The right side</param>
     /// <returns>True if equal</returns>
     public static bool operator ==(BadDebuggerStep left, BadDebuggerStep right)
-    {
-        return left.Equals(right);
-    }
+	{
+		return left.Equals(right);
+	}
 
     /// <summary>
     ///     Implements the != operator
@@ -176,7 +179,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
     /// <param name="right">The right side</param>
     /// <returns>True if not equal</returns>
     public static bool operator !=(BadDebuggerStep left, BadDebuggerStep right)
-    {
-        return !left.Equals(right);
-    }
+	{
+		return !left.Equals(right);
+	}
 }

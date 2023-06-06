@@ -7,27 +7,37 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler;
 
 public class BadCompilerApi : BadInteropApi
 {
-    public BadCompilerApi() : base("Compiler") { }
+	public BadCompilerApi() : base("Compiler") { }
 
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetFunction<BadExpressionFunction, bool>("Compile", this.CompileFunction);
-    }
+	protected override void LoadApi(BadTable target)
+	{
+		target.SetFunction<BadExpressionFunction, bool>("Compile", CompileFunction);
+	}
 
-    public BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
-    {
-        return CompileFunction(BadCompiler.Instance, func, useOverride);
-    }
+	public BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
+	{
+		return CompileFunction(BadCompiler.Instance, func, useOverride);
+	}
 
-    public static BadCompiledFunction CompileFunction(BadCompiler compiler, BadExpressionFunction func, bool useOverride)
-    {
-        BadInstruction[] instrs = compiler.Compile(func.Body).ToArray();
-        //int current = 0;
-        // foreach (BadInstruction instruction in instrs)
-        // {
-        //     Console.WriteLine($"{current++}\t: {instruction}");
-        // }
+	public static BadCompiledFunction CompileFunction(
+		BadCompiler compiler,
+		BadExpressionFunction func,
+		bool useOverride)
+	{
+		BadInstruction[] instrs = compiler.Compile(func.Body).ToArray();
+		//int current = 0;
+		// foreach (BadInstruction instruction in instrs)
+		// {
+		//     Console.WriteLine($"{current++}\t: {instruction}");
+		// }
 
-        return new BadCompiledFunction(instrs, useOverride, func.ParentScope, func.Position, func.Name, func.IsConstant, func.MetaData, func.Parameters);
-    }
+		return new BadCompiledFunction(instrs,
+			useOverride,
+			func.ParentScope,
+			func.Position,
+			func.Name,
+			func.IsConstant,
+			func.MetaData,
+			func.Parameters);
+	}
 }

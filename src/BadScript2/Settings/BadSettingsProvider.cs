@@ -7,7 +7,7 @@ namespace BadScript2.Settings;
 /// </summary>
 public static class BadSettingsProvider
 {
-    private static BadSettings? s_RootSettings;
+	private static BadSettings? s_RootSettings;
 
     /// <summary>
     ///     Returns true if the root setting has been set
@@ -18,19 +18,18 @@ public static class BadSettingsProvider
     ///     Returns the Root Settings Object
     /// </summary>
     /// <exception cref="BadRuntimeException">Gets raised if the Root Settings Object has not been set.</exception>
-    public static BadSettings RootSettings => s_RootSettings ??
-                                              throw new BadRuntimeException(
-                                                  "BadSettingsProvider.RootSettings is not initialized"
-                                              );
+    public static BadSettings RootSettings =>
+		s_RootSettings ??
+		throw new BadRuntimeException("BadSettingsProvider.RootSettings is not initialized");
 
     /// <summary>
     ///     Sets the Root Settings Object
     /// </summary>
     /// <param name="settings">Root Settings</param>
     public static void SetRootSettings(BadSettings settings)
-    {
-        s_RootSettings = settings;
-    }
+	{
+		s_RootSettings = settings;
+	}
 }
 
 /// <summary>
@@ -53,16 +52,15 @@ public abstract class BadSettingsProvider<T> where T : BadSettingsProvider<T>, n
     /// </summary>
     /// <param name="path">The Settings Path</param>
     protected BadSettingsProvider(string path)
-    {
-        m_Path = path;
-    }
+	{
+		m_Path = path;
+	}
 
     /// <summary>
     ///     Returns the Instance of the Settings Provider
     /// </summary>
-    protected BadSettings? Settings => BadSettingsProvider.HasRootSettings
-        ? BadSettingsProvider.RootSettings.FindProperty(m_Path)
-        : null;
+    protected BadSettings? Settings =>
+		BadSettingsProvider.HasRootSettings ? BadSettingsProvider.RootSettings.FindProperty(m_Path) : null;
 
     /// <summary>
     ///     Returns the Instance of the Settings Provider

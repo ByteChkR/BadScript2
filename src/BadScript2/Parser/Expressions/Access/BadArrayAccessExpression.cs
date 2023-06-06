@@ -26,18 +26,16 @@ public class BadArrayAccessExpression : BadExpression
     /// <param name="position">Position inside the source code</param>
     /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
     public BadArrayAccessExpression(
-        BadExpression left,
-        BadExpression[] args,
-        BadSourcePosition position,
-        bool nullChecked = false) : base(
-        false,
-        position
-    )
-    {
-        Left = left;
-        m_Arguments = args;
-        NullChecked = nullChecked;
-    }
+		BadExpression left,
+		BadExpression[] args,
+		BadSourcePosition position,
+		bool nullChecked = false) : base(false,
+		position)
+	{
+		Left = left;
+		m_Arguments = args;
+		NullChecked = nullChecked;
+	}
 
     /// <summary>
     ///     The count of the right side arguments.
@@ -59,77 +57,88 @@ public class BadArrayAccessExpression : BadExpression
     /// </summary>
     public BadExpression Left { get; private set; }
 
-    public override void Optimize()
-    {
-        Left = BadExpressionOptimizer.Optimize(Left);
+	public override void Optimize()
+	{
+		Left = BadExpressionOptimizer.Optimize(Left);
 
-        for (int i = 0; i < m_Arguments.Length; i++)
-        {
-            m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
-        }
-    }
+		for (int i = 0; i < m_Arguments.Length; i++)
+		{
+			m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
+		}
+	}
 
-    public static IEnumerable<BadObject> Access(BadExecutionContext context, BadObject left, BadObject[] args, BadSourcePosition position)
-    {
-        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
-        {
-            BadFunction? func = left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context.Scope).Dereference() as BadFunction;
-            if (func == null)
-            {
-                throw new BadRuntimeException("Array access operator is not a function", position);
-            }
+	public static IEnumerable<BadObject> Access(
+		BadExecutionContext context,
+		BadObject left,
+		BadObject[] args,
+		BadSourcePosition position)
+	{
+		if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
+		{
+			BadFunction? func =
+				left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context.Scope).Dereference() as BadFunction;
 
-            BadObject r = BadObject.Null;
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
-            {
-                yield return o;
-                r = o;
-            }
+			if (func == null)
+			{
+				throw new BadRuntimeException("Array access operator is not a function", position);
+			}
 
-            yield return r;
-        }
-        else
-        {
-            throw new BadRuntimeException("Array access operator is not defined", position);
-        }
-    }
+			BadObject r = BadObject.Null;
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+			foreach (BadObject o in func.Invoke(args.ToArray(), context))
+			{
+				yield return o;
 
-            yield return o;
-        }
+				r = o;
+			}
 
-        left = left.Dereference();
+			yield return r;
+		}
+		else
+		{
+			throw new BadRuntimeException("Array access operator is not defined", position);
+		}
+	}
 
-        if (NullChecked && left == BadObject.Null)
-        {
-            yield return left;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-            yield break;
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        List<BadObject> args = new List<BadObject>();
-        foreach (BadExpression argExpr in m_Arguments)
-        {
-            BadObject argObj = BadObject.Null;
-            foreach (BadObject arg in argExpr.Execute(context))
-            {
-                argObj = arg;
+			yield return o;
+		}
 
-                yield return arg;
-            }
+		left = left.Dereference();
 
-            args.Add(argObj);
-        }
+		if (NullChecked && left == BadObject.Null)
+		{
+			yield return left;
 
-        foreach (BadObject o in Access(context, left, args.ToArray(), Position))
-        {
-            yield return o;
-        }
-    }
+			yield break;
+		}
+
+		List<BadObject> args = new List<BadObject>();
+
+		foreach (BadExpression argExpr in m_Arguments)
+		{
+			BadObject argObj = BadObject.Null;
+
+			foreach (BadObject arg in argExpr.Execute(context))
+			{
+				argObj = arg;
+
+				yield return arg;
+			}
+
+			args.Add(argObj);
+		}
+
+		foreach (BadObject o in Access(context, left, args.ToArray(), Position))
+		{
+			yield return o;
+		}
+	}
 }

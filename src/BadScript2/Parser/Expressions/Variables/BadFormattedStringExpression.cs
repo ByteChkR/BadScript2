@@ -22,13 +22,11 @@ public class BadFormattedStringExpression : BadStringExpression
     /// <param name="exprs">The Expressions that will be evaluated during the creation of the formatted string</param>
     /// <param name="str">The Format String</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
-        str,
-        position
-    )
-    {
-        m_Expressions = exprs;
-    }
+    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(str,
+		position)
+	{
+		m_Expressions = exprs;
+	}
 
     /// <summary>
     ///     The Expressions that will be evaluated during the creation of the formatted string
@@ -40,35 +38,37 @@ public class BadFormattedStringExpression : BadStringExpression
     /// </summary>
     public int ExpressionCount => m_Expressions.Length;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_Expressions.Length; i++)
-        {
-            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_Expressions.Length; i++)
+		{
+			m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        List<BadObject> objs = new List<BadObject>();
-        foreach (BadExpression expr in m_Expressions)
-        {
-            BadObject obj = BadObject.Null;
-            foreach (BadObject o in expr.Execute(context))
-            {
-                if (context.Scope.IsError)
-                {
-                    yield break;
-                }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		List<BadObject> objs = new List<BadObject>();
 
-                obj = o;
+		foreach (BadExpression expr in m_Expressions)
+		{
+			BadObject obj = BadObject.Null;
 
-                yield return o;
-            }
+			foreach (BadObject o in expr.Execute(context))
+			{
+				if (context.Scope.IsError)
+				{
+					yield break;
+				}
 
-            objs.Add(obj.Dereference());
-        }
+				obj = o;
 
-        yield return string.Format(Value, objs.Cast<object?>().ToArray());
-    }
+				yield return o;
+			}
+
+			objs.Add(obj.Dereference());
+		}
+
+		yield return string.Format(Value, objs.Cast<object?>().ToArray());
+	}
 }

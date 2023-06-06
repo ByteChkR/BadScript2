@@ -4,8 +4,10 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 
 public class BadLogicAssignXOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogicAssignXOrExpression>
 {
-    public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadLogicAssignXOrExpression expression)
-    {
-        yield return new BadInstruction(BadOpCode.XOrAssign, expression.Position);
-    }
+	public override IEnumerable<BadInstruction> CompileBinary(
+		BadCompiler compiler,
+		BadLogicAssignXOrExpression expression)
+	{
+		yield return new BadInstruction(BadOpCode.XOrAssign, expression.Position);
+	}
 }

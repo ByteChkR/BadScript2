@@ -1,0 +1,70 @@
+
+
+<script lang="bs2">
+    function ConvertToDocumentationItems(obj)
+    {
+        const items = [];
+        foreach(key in obj.Keys)
+        {
+            const isTable = Runtime.Native.IsTable(obj[key]);
+            const item = {
+                name: key,
+                isTable: isTable,
+                item: isTable ? 
+                            ConvertToDocumentationItems(obj[key]) : 
+                            obj[key]
+            }
+            items.Add(item);
+        }
+        
+        return items;
+    }
+    
+    function GetDocumentationItems()
+    {
+        const items = ConvertToDocumentationItems(Runtime);
+        Console.WriteLine(items);
+        return items;
+    }
+    
+</script>
+
+<bs2:function name="GenerateSection" arg:items>
+    <bs2:each items="items" var="item">
+        <section class="documentation-section">
+            <div class="documentation-section-content">
+                <bs2:if test="!item.isTable">
+                    {GenerateItem(Console.WriteLine("Generating Item: " +  item.name) ?? item)}
+                </bs2:if>
+                <bs2:if test="item.isTable">
+                    <h2 class="documentation-section-title">{Console.WriteLine("Generating Section: " +  item.name) ?? item.name}</h2>
+                    {GenerateSection(item.item)}
+                </bs2:if>
+            </div>
+        </section>
+    </bs2:each>
+</bs2:function>
+<bs2:function name="GenerateItem" arg:item>
+    <bs2:if test="Runtime.Native.IsFunction(item.item)">
+        <h3>{item.name}</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Null Checked</th>
+                <th>Optional</th>
+                <th>Rest Args</th>
+            </tr>
+            <bs2:each items="item.item.Parameters" var="param">
+                <tr>
+                    <td>{param.Name}</td>
+                    <td>{param.IsNullChecked}</td>
+                    <td>{param.IsOptional}</td>
+                    <td>{param.IsRestArgs}</td>
+                </tr>
+            </bs2:each>          
+        </table>
+    </bs2:if>
+</bs2:function>
+
+{GenerateSection(GetDocumentationItems())}
+

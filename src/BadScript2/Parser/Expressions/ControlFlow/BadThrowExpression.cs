@@ -15,39 +15,37 @@ public class BadThrowExpression : BadExpression
     /// </summary>
     /// <param name="right">The Error Object that is thrown</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
-        false,
-        position
-    )
-    {
-        Right = right;
-    }
+    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(false,
+		position)
+	{
+		Right = right;
+	}
 
     /// <summary>
     ///     The Error Object that is thrown
     /// </summary>
     public BadExpression Right { get; set; }
 
-    public override void Optimize()
-    {
-        Right = BadExpressionOptimizer.Optimize(Right);
-    }
+	public override void Optimize()
+	{
+		Right = BadExpressionOptimizer.Optimize(Right);
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject value = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject value = BadObject.Null;
 
-        foreach (BadObject obj in Right.Execute(context))
-        {
-            value = obj;
+		foreach (BadObject obj in Right.Execute(context))
+		{
+			value = obj;
 
-            yield return obj;
-        }
+			yield return obj;
+		}
 
-        value = value.Dereference();
+		value = value.Dereference();
 
-        context.Scope.SetError(value, null);
+		context.Scope.SetError(value, null);
 
-        yield return value;
-    }
+		yield return value;
+	}
 }

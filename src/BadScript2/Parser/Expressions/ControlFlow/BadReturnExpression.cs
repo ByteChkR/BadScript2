@@ -16,14 +16,12 @@ public class BadReturnExpression : BadExpression
     /// <param name="right">The (optional) return value</param>
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
-    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
-        false,
-        position
-    )
-    {
-        Right = right;
-        IsRefReturn = isRefReturn;
-    }
+    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(false,
+		position)
+	{
+		Right = right;
+		IsRefReturn = isRefReturn;
+	}
 
     /// <summary>
     ///     Indicates if the return value is meant to be a reference
@@ -35,45 +33,46 @@ public class BadReturnExpression : BadExpression
     /// </summary>
     public BadExpression? Right { get; private set; }
 
-    public override void Optimize()
-    {
-        if (Right != null)
-        {
-            Right = BadExpressionOptimizer.Optimize(Right);
-        }
-    }
+	public override void Optimize()
+	{
+		if (Right != null)
+		{
+			Right = BadExpressionOptimizer.Optimize(Right);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject value = BadObject.Null;
-        if (Right == null)
-        {
-            context.Scope.SetReturnValue(value);
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject value = BadObject.Null;
 
-            yield return value;
+		if (Right == null)
+		{
+			context.Scope.SetReturnValue(value);
 
-            yield break;
-        }
+			yield return value;
 
-        foreach (BadObject obj in Right.Execute(context))
-        {
-            value = obj;
+			yield break;
+		}
 
-            yield return obj;
-        }
+		foreach (BadObject obj in Right.Execute(context))
+		{
+			value = obj;
 
-        if (!IsRefReturn)
-        {
-            value = value.Dereference();
-        }
+			yield return obj;
+		}
 
-        context.Scope.SetReturnValue(value);
+		if (!IsRefReturn)
+		{
+			value = value.Dereference();
+		}
 
-        yield return value;
-    }
+		context.Scope.SetReturnValue(value);
 
-    public override string ToString()
-    {
-        return "return " + Right ?? "";
-    }
+		yield return value;
+	}
+
+	public override string ToString()
+	{
+		return "return " + Right ?? "";
+	}
 }

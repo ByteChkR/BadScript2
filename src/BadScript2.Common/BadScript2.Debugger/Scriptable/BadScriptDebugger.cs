@@ -12,62 +12,61 @@ namespace BadScript2.Debugger.Scriptable;
 
 public class BadScriptDebugger : IBadDebugger
 {
-    private readonly Dictionary<string, int> m_LineNumbers = new Dictionary<string, int>();
-    private readonly BadExecutionContextOptions m_Options;
-    private readonly List<string> m_SeenFiles = new List<string>();
+	private readonly Dictionary<string, int> m_LineNumbers = new Dictionary<string, int>();
+	private readonly BadExecutionContextOptions m_Options;
+	private readonly List<string> m_SeenFiles = new List<string>();
 
-    public BadScriptDebugger(BadExecutionContextOptions options, string debuggerPath)
-    {
-        m_Options = options;
-        m_Options.AddApi(new BadScriptDebuggerApi(this));
-        LoadDebugger(debuggerPath);
-    }
+	public BadScriptDebugger(BadExecutionContextOptions options, string debuggerPath)
+	{
+		m_Options = options;
+		m_Options.AddApi(new BadScriptDebuggerApi(this));
+		LoadDebugger(debuggerPath);
+	}
 
-    public BadScriptDebugger(BadExecutionContextOptions options)
-    {
-        m_Options = options;
-        m_Options.AddApi(new BadScriptDebuggerApi(this));
+	public BadScriptDebugger(BadExecutionContextOptions options)
+	{
+		m_Options = options;
+		m_Options.AddApi(new BadScriptDebuggerApi(this));
 
-        if (BadScriptDebuggerSettings.Instance.DebuggerPath == null)
-        {
-            BadLogger.Warn("Debugger path not set, debugger will not be available", "Debugger");
-        }
-        else
-        {
-            LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
-        }
-    }
+		if (BadScriptDebuggerSettings.Instance.DebuggerPath == null)
+		{
+			BadLogger.Warn("Debugger path not set, debugger will not be available", "Debugger");
+		}
+		else
+		{
+			LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
+		}
+	}
 
-    public void Step(BadDebuggerStep stepInfo)
-    {
-        stepInfo.GetSourceView(out int _, out int lineInSource);
+	public void Step(BadDebuggerStep stepInfo)
+	{
+		stepInfo.GetSourceView(out int _, out int lineInSource);
 
-        if (m_LineNumbers.ContainsKey(stepInfo.Position.Source) && lineInSource == m_LineNumbers[stepInfo.Position.Source])
-        {
-            return;
-        }
+		if (m_LineNumbers.ContainsKey(stepInfo.Position.Source) &&
+		    lineInSource == m_LineNumbers[stepInfo.Position.Source])
+		{
+			return;
+		}
 
-        m_LineNumbers[stepInfo.Position.Source] = lineInSource;
-        if (!m_SeenFiles.Contains(stepInfo.Position.FileName ?? ""))
-        {
-            m_SeenFiles.Add(stepInfo.Position.FileName ?? "");
-            OnFileLoaded?.Invoke(stepInfo.Position.FileName ?? "");
-        }
+		m_LineNumbers[stepInfo.Position.Source] = lineInSource;
 
-        OnStep?.Invoke(stepInfo);
-    }
+		if (!m_SeenFiles.Contains(stepInfo.Position.FileName ?? ""))
+		{
+			m_SeenFiles.Add(stepInfo.Position.FileName ?? "");
+			OnFileLoaded?.Invoke(stepInfo.Position.FileName ?? "");
+		}
 
-    private void LoadDebugger(string path)
-    {
-        BadExecutionContext ctx = m_Options.Build();
-        ctx.Run(
-            new BadSourceParser(
-                BadSourceReader.FromFile(path),
-                BadOperatorTable.Instance
-            ).Parse()
-        );
-    }
+		OnStep?.Invoke(stepInfo);
+	}
 
-    public event Action<BadDebuggerStep>? OnStep;
-    public event Action<string>? OnFileLoaded;
+	private void LoadDebugger(string path)
+	{
+		BadExecutionContext ctx = m_Options.Build();
+		ctx.Run(new BadSourceParser(BadSourceReader.FromFile(path),
+			BadOperatorTable.Instance).Parse());
+	}
+
+	public event Action<BadDebuggerStep>? OnStep;
+
+	public event Action<string>? OnFileLoaded;
 }

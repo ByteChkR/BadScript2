@@ -13,349 +13,360 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote;
 
 public class BadNetworkConsoleHost : IBadConsole
 {
-    private readonly ConcurrentQueue<BadConsoleReadPacket> m_IncomingPackets = new ConcurrentQueue<BadConsoleReadPacket>();
-    private readonly TcpListener? m_Listener;
-    private readonly object m_Lock = new object();
-    private readonly ConcurrentQueue<BadConsolePacket> m_OutgoingPackets = new ConcurrentQueue<BadConsolePacket>();
-    private ConsoleColor m_BackgroundColor = ConsoleColor.Black;
-    private TcpClient? m_Client;
-    private bool m_ExitRequested;
-    private ConsoleColor m_ForegroundColor = ConsoleColor.White;
+	private readonly ConcurrentQueue<BadConsoleReadPacket> m_IncomingPackets =
+		new ConcurrentQueue<BadConsoleReadPacket>();
+
+	private readonly TcpListener? m_Listener;
+	private readonly object m_Lock = new object();
+	private readonly ConcurrentQueue<BadConsolePacket> m_OutgoingPackets = new ConcurrentQueue<BadConsolePacket>();
+	private ConsoleColor m_BackgroundColor = ConsoleColor.Black;
+	private TcpClient? m_Client;
+	private bool m_ExitRequested;
+	private ConsoleColor m_ForegroundColor = ConsoleColor.White;
 
 
-    private Thread? m_MessageThread;
+	private Thread? m_MessageThread;
 
-    public BadNetworkConsoleHost(TcpListener listner)
-    {
-        m_Listener = listner;
-    }
+	public BadNetworkConsoleHost(TcpListener listner)
+	{
+		m_Listener = listner;
+	}
 
-    public BadNetworkConsoleHost(TcpClient client)
-    {
-        m_Client = client;
-    }
+	public BadNetworkConsoleHost(TcpClient client)
+	{
+		m_Client = client;
+	}
 
-    public static int HeartBeatInterval { get; set; } = 3000;
-    public static int HeartBeatTimeOut { get; set; } = 5000;
-    public static int ReadSleepTimeout { get; set; } = 100;
-    public static int ReceiveSleepTimeout { get; set; } = 100;
-    public static int AcceptSleepTimeout { get; set; } = 100;
+	public static int HeartBeatInterval { get; set; } = 3000;
 
-    public void Write(string str)
-    {
-        m_OutgoingPackets.Enqueue(new BadConsoleWritePacket(false, str));
-    }
+	public static int HeartBeatTimeOut { get; set; } = 5000;
 
-    public void WriteLine(string str)
-    {
-        m_OutgoingPackets.Enqueue(new BadConsoleWritePacket(true, str));
-    }
+	public static int ReadSleepTimeout { get; set; } = 100;
 
-    public string ReadLine()
-    {
-        BadConsoleReadPacket ret;
-        while (!m_IncomingPackets.TryDequeue(out ret))
-        {
-            Thread.Sleep(ReadSleepTimeout);
-        }
+	public static int ReceiveSleepTimeout { get; set; } = 100;
 
-        return ret.Message;
-    }
+	public static int AcceptSleepTimeout { get; set; } = 100;
 
-    public Task<string> ReadLineAsync()
-    {
-        return Task.Run(ReadLine);
-    }
+	public void Write(string str)
+	{
+		m_OutgoingPackets.Enqueue(new BadConsoleWritePacket(false, str));
+	}
 
-    public void Clear()
-    {
-        m_OutgoingPackets.Enqueue(BadConsoleClearPacket.Packet);
-    }
+	public void WriteLine(string str)
+	{
+		m_OutgoingPackets.Enqueue(new BadConsoleWritePacket(true, str));
+	}
 
-    public ConsoleColor ForegroundColor
-    {
-        get => m_ForegroundColor;
-        set
-        {
-            m_ForegroundColor = value;
-            m_OutgoingPackets.Enqueue(new BadConsoleColorChangePacket(false, value));
-        }
-    }
+	public string ReadLine()
+	{
+		BadConsoleReadPacket ret;
 
-    public ConsoleColor BackgroundColor
-    {
-        get => m_BackgroundColor;
-        set
-        {
-            m_BackgroundColor = value;
-            m_OutgoingPackets.Enqueue(new BadConsoleColorChangePacket(true, value));
-        }
-    }
+		while (!m_IncomingPackets.TryDequeue(out ret))
+		{
+			Thread.Sleep(ReadSleepTimeout);
+		}
 
-    public void Start()
-    {
-        if (m_MessageThread != null)
-        {
-            throw new BadNetworkConsoleException("Message Thread already running");
-        }
+		return ret.Message;
+	}
 
-        lock (m_Lock)
-        {
-            m_ExitRequested = false;
-        }
+	public Task<string> ReadLineAsync()
+	{
+		return Task.Run(ReadLine);
+	}
 
-        m_MessageThread = new Thread(MessageThread);
-        m_MessageThread.Start();
-    }
+	public void Clear()
+	{
+		m_OutgoingPackets.Enqueue(BadConsoleClearPacket.Packet);
+	}
 
-    public void Stop()
-    {
-        if (m_MessageThread == null)
-        {
-            throw new BadNetworkConsoleException("Message Thread is not running");
-        }
+	public ConsoleColor ForegroundColor
+	{
+		get => m_ForegroundColor;
+		set
+		{
+			m_ForegroundColor = value;
+			m_OutgoingPackets.Enqueue(new BadConsoleColorChangePacket(false, value));
+		}
+	}
 
-        lock (m_Lock)
-        {
-            m_ExitRequested = true;
-        }
-    }
+	public ConsoleColor BackgroundColor
+	{
+		get => m_BackgroundColor;
+		set
+		{
+			m_BackgroundColor = value;
+			m_OutgoingPackets.Enqueue(new BadConsoleColorChangePacket(true, value));
+		}
+	}
 
-    public IEnumerable MessageRoutine()
-    {
-        while (!m_ExitRequested)
-        {
-            if (m_Listener != null && (m_Client == null || !m_Client.Connected))
-            {
-                m_Listener.Start();
-                BadConsole.WriteLine($"[Console Host] Waiting for Connection on {m_Listener.LocalEndpoint}");
-                bool accepted = false;
-                m_Listener.BeginAcceptTcpClient(
-                    ar =>
-                    {
-                        m_Client = m_Listener.EndAcceptTcpClient(ar);
-                        accepted = true;
-                    },
-                    null
-                );
-                while (!accepted && !m_ExitRequested)
-                {
-                    yield return null;
-                }
+	public void Start()
+	{
+		if (m_MessageThread != null)
+		{
+			throw new BadNetworkConsoleException("Message Thread already running");
+		}
 
-                m_Listener.Stop();
-            }
+		lock (m_Lock)
+		{
+			m_ExitRequested = false;
+		}
 
-            m_OutgoingPackets.Enqueue(new BadConsoleHelloPacket(HeartBeatInterval));
-            bool done;
-            DateTime lastHeartBeat = DateTime.Now;
-            while (!m_ExitRequested && m_Client!.Connected)
-            {
-                done = false;
+		m_MessageThread = new Thread(MessageThread);
+		m_MessageThread.Start();
+	}
 
-                if (!m_Client!.Connected && m_Listener == null)
-                {
-                    break;
-                }
+	public void Stop()
+	{
+		if (m_MessageThread == null)
+		{
+			throw new BadNetworkConsoleException("Message Thread is not running");
+		}
 
-                if (m_Client.Available != 0)
-                {
-                    done = true;
-                    lastHeartBeat = DateTime.Now;
-                    byte[] len = new byte[sizeof(int)];
-                    NetworkStream stream = m_Client.GetStream();
-                    int read = stream.Read(len, 0, len.Length);
-                    if (read != len.Length)
-                    {
-                        throw new BadNetworkConsoleException("Invalid Packet Size");
-                    }
+		lock (m_Lock)
+		{
+			m_ExitRequested = true;
+		}
+	}
 
-                    byte[] packet = new byte[BitConverter.ToInt32(len, 0)];
-                    read = stream.Read(packet, 0, packet.Length);
+	public IEnumerable MessageRoutine()
+	{
+		while (!m_ExitRequested)
+		{
+			if (m_Listener != null && (m_Client == null || !m_Client.Connected))
+			{
+				m_Listener.Start();
+				BadConsole.WriteLine($"[Console Host] Waiting for Connection on {m_Listener.LocalEndpoint}");
+				bool accepted = false;
+				m_Listener.BeginAcceptTcpClient(ar =>
+					{
+						m_Client = m_Listener.EndAcceptTcpClient(ar);
+						accepted = true;
+					},
+					null);
 
-                    if (read != packet.Length)
-                    {
-                        throw new BadNetworkConsoleException("Invalid Packet");
-                    }
+				while (!accepted && !m_ExitRequested)
+				{
+					yield return null;
+				}
 
-                    BadConsolePacket packetObj = BadConsolePacket.Deserialize(packet);
-                    if (packetObj is BadConsoleReadPacket rp)
-                    {
-                        m_IncomingPackets.Enqueue(rp);
-                    }
-                    else if (packetObj is BadConsoleHeartBeatPacket)
-                    {
-                        //Ignore Packet
-                    }
-                    else if (packetObj is BadConsoleDisconnectPacket)
-                    {
-                        m_Client.Dispose();
-                    }
-                    else
-                    {
-                        throw new BadNetworkConsoleException("Invalid Packet Type");
-                    }
-                }
+				m_Listener.Stop();
+			}
 
-                if (m_OutgoingPackets.Count != 0)
-                {
-                    if (m_OutgoingPackets.TryDequeue(out BadConsolePacket packet))
-                    {
-                        done = true;
-                        NetworkStream stream = m_Client.GetStream();
-                        List<byte> packetData = new List<byte>();
-                        byte[] packetBytes = packet.Serialize();
-                        packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
-                        packetData.AddRange(packetBytes);
-                        stream.Write(packetData.ToArray(), 0, packetData.Count());
-                    }
-                }
+			m_OutgoingPackets.Enqueue(new BadConsoleHelloPacket(HeartBeatInterval));
+			bool done;
+			DateTime lastHeartBeat = DateTime.Now;
 
-                if (!done)
-                {
-                    if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
-                    {
-                        m_Client.Dispose();
-                    }
+			while (!m_ExitRequested && m_Client!.Connected)
+			{
+				done = false;
+
+				if (!m_Client!.Connected && m_Listener == null)
+				{
+					break;
+				}
+
+				if (m_Client.Available != 0)
+				{
+					done = true;
+					lastHeartBeat = DateTime.Now;
+					byte[] len = new byte[sizeof(int)];
+					NetworkStream stream = m_Client.GetStream();
+					int read = stream.Read(len, 0, len.Length);
+
+					if (read != len.Length)
+					{
+						throw new BadNetworkConsoleException("Invalid Packet Size");
+					}
+
+					byte[] packet = new byte[BitConverter.ToInt32(len, 0)];
+					read = stream.Read(packet, 0, packet.Length);
+
+					if (read != packet.Length)
+					{
+						throw new BadNetworkConsoleException("Invalid Packet");
+					}
+
+					BadConsolePacket packetObj = BadConsolePacket.Deserialize(packet);
+
+					if (packetObj is BadConsoleReadPacket rp)
+					{
+						m_IncomingPackets.Enqueue(rp);
+					}
+					else if (packetObj is BadConsoleHeartBeatPacket)
+					{
+						//Ignore Packet
+					}
+					else if (packetObj is BadConsoleDisconnectPacket)
+					{
+						m_Client.Dispose();
+					}
+					else
+					{
+						throw new BadNetworkConsoleException("Invalid Packet Type");
+					}
+				}
+
+				if (m_OutgoingPackets.Count != 0)
+				{
+					if (m_OutgoingPackets.TryDequeue(out BadConsolePacket packet))
+					{
+						done = true;
+						NetworkStream stream = m_Client.GetStream();
+						List<byte> packetData = new List<byte>();
+						byte[] packetBytes = packet.Serialize();
+						packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
+						packetData.AddRange(packetBytes);
+						stream.Write(packetData.ToArray(), 0, packetData.Count());
+					}
+				}
+
+				if (!done)
+				{
+					if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
+					{
+						m_Client.Dispose();
+					}
 
 
-                    yield return null;
-                }
-            }
+					yield return null;
+				}
+			}
 
-            if (!(m_Client?.Connected ?? false) && m_Listener == null)
-            {
-                break;
-            }
-        }
+			if (!(m_Client?.Connected ?? false) && m_Listener == null)
+			{
+				break;
+			}
+		}
 
-        if (m_Client!.Connected)
-        {
-            NetworkStream stream = m_Client.GetStream();
-            List<byte> packetData = new List<byte>();
-            byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
-            packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
-            packetData.AddRange(packetBytes);
-            stream.Write(packetData.ToArray(), 0, packetData.Count());
-            m_Client.Dispose();
-        }
+		if (m_Client!.Connected)
+		{
+			NetworkStream stream = m_Client.GetStream();
+			List<byte> packetData = new List<byte>();
+			byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
+			packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
+			packetData.AddRange(packetBytes);
+			stream.Write(packetData.ToArray(), 0, packetData.Count());
+			m_Client.Dispose();
+		}
 
-        m_MessageThread = null;
-    }
+		m_MessageThread = null;
+	}
 
-    public void Disconnect()
-    {
-        m_OutgoingPackets.Enqueue(BadConsoleDisconnectPacket.Packet);
-    }
+	public void Disconnect()
+	{
+		m_OutgoingPackets.Enqueue(BadConsoleDisconnectPacket.Packet);
+	}
 
-    private void MessageThread()
-    {
-        while (!m_ExitRequested)
-        {
-            if (m_Listener != null && (m_Client == null || !m_Client.Connected))
-            {
-                m_Listener.Start();
-                BadConsole.WriteLine($"[Console Host] Waiting for Connection on {m_Listener.LocalEndpoint}");
-                bool accepted = false;
-                m_Listener.BeginAcceptTcpClient(
-                    ar =>
-                    {
-                        m_Client = m_Listener.EndAcceptTcpClient(ar);
-                        accepted = true;
-                    },
-                    null
-                );
-                while (!accepted && !m_ExitRequested)
-                {
-                    Thread.Sleep(AcceptSleepTimeout);
-                }
+	private void MessageThread()
+	{
+		while (!m_ExitRequested)
+		{
+			if (m_Listener != null && (m_Client == null || !m_Client.Connected))
+			{
+				m_Listener.Start();
+				BadConsole.WriteLine($"[Console Host] Waiting for Connection on {m_Listener.LocalEndpoint}");
+				bool accepted = false;
+				m_Listener.BeginAcceptTcpClient(ar =>
+					{
+						m_Client = m_Listener.EndAcceptTcpClient(ar);
+						accepted = true;
+					},
+					null);
 
-                m_Listener.Stop();
-            }
+				while (!accepted && !m_ExitRequested)
+				{
+					Thread.Sleep(AcceptSleepTimeout);
+				}
 
-            m_OutgoingPackets.Enqueue(new BadConsoleHelloPacket(HeartBeatInterval));
-            bool done;
-            DateTime lastHeartBeat = DateTime.Now;
-            while (!m_ExitRequested && m_Client!.Connected)
-            {
-                done = false;
+				m_Listener.Stop();
+			}
 
-                if (m_Client.Available != 0)
-                {
-                    done = true;
-                    lastHeartBeat = DateTime.Now;
-                    byte[] len = new byte[sizeof(int)];
-                    NetworkStream stream = m_Client.GetStream();
-                    int read = stream.Read(len, 0, len.Length);
-                    if (read != len.Length)
-                    {
-                        throw new BadNetworkConsoleException("Invalid Packet Size");
-                    }
+			m_OutgoingPackets.Enqueue(new BadConsoleHelloPacket(HeartBeatInterval));
+			bool done;
+			DateTime lastHeartBeat = DateTime.Now;
 
-                    byte[] packet = new byte[BitConverter.ToInt32(len, 0)];
-                    read = stream.Read(packet, 0, packet.Length);
+			while (!m_ExitRequested && m_Client!.Connected)
+			{
+				done = false;
 
-                    if (read != packet.Length)
-                    {
-                        throw new BadNetworkConsoleException("Invalid Packet");
-                    }
+				if (m_Client.Available != 0)
+				{
+					done = true;
+					lastHeartBeat = DateTime.Now;
+					byte[] len = new byte[sizeof(int)];
+					NetworkStream stream = m_Client.GetStream();
+					int read = stream.Read(len, 0, len.Length);
 
-                    BadConsolePacket packetObj = BadConsolePacket.Deserialize(packet);
-                    if (packetObj is BadConsoleReadPacket rp)
-                    {
-                        m_IncomingPackets.Enqueue(rp);
-                    }
-                    else if (packetObj is BadConsoleHeartBeatPacket)
-                    {
-                        //Ignore Packet
-                    }
-                    else if (packetObj is BadConsoleDisconnectPacket)
-                    {
-                        m_Client.Dispose();
-                    }
-                    else
-                    {
-                        throw new BadNetworkConsoleException("Invalid Packet Type");
-                    }
-                }
+					if (read != len.Length)
+					{
+						throw new BadNetworkConsoleException("Invalid Packet Size");
+					}
 
-                if (m_OutgoingPackets.Count != 0)
-                {
-                    if (m_OutgoingPackets.TryDequeue(out BadConsolePacket packet))
-                    {
-                        done = true;
-                        NetworkStream stream = m_Client.GetStream();
-                        List<byte> packetData = new List<byte>();
-                        byte[] packetBytes = packet.Serialize();
-                        packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
-                        packetData.AddRange(packetBytes);
-                        stream.Write(packetData.ToArray(), 0, packetData.Count());
-                    }
-                }
+					byte[] packet = new byte[BitConverter.ToInt32(len, 0)];
+					read = stream.Read(packet, 0, packet.Length);
 
-                if (!done)
-                {
-                    if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
-                    {
-                        m_Client.Dispose();
-                    }
+					if (read != packet.Length)
+					{
+						throw new BadNetworkConsoleException("Invalid Packet");
+					}
 
-                    Thread.Sleep(ReceiveSleepTimeout);
-                }
-            }
-        }
+					BadConsolePacket packetObj = BadConsolePacket.Deserialize(packet);
 
-        if (m_Client!.Connected)
-        {
-            NetworkStream stream = m_Client.GetStream();
-            List<byte> packetData = new List<byte>();
-            byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
-            packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
-            packetData.AddRange(packetBytes);
-            stream.Write(packetData.ToArray(), 0, packetData.Count());
-            m_Client.Dispose();
-        }
+					if (packetObj is BadConsoleReadPacket rp)
+					{
+						m_IncomingPackets.Enqueue(rp);
+					}
+					else if (packetObj is BadConsoleHeartBeatPacket)
+					{
+						//Ignore Packet
+					}
+					else if (packetObj is BadConsoleDisconnectPacket)
+					{
+						m_Client.Dispose();
+					}
+					else
+					{
+						throw new BadNetworkConsoleException("Invalid Packet Type");
+					}
+				}
 
-        m_MessageThread = null;
-    }
+				if (m_OutgoingPackets.Count != 0)
+				{
+					if (m_OutgoingPackets.TryDequeue(out BadConsolePacket packet))
+					{
+						done = true;
+						NetworkStream stream = m_Client.GetStream();
+						List<byte> packetData = new List<byte>();
+						byte[] packetBytes = packet.Serialize();
+						packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
+						packetData.AddRange(packetBytes);
+						stream.Write(packetData.ToArray(), 0, packetData.Count());
+					}
+				}
+
+				if (!done)
+				{
+					if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
+					{
+						m_Client.Dispose();
+					}
+
+					Thread.Sleep(ReceiveSleepTimeout);
+				}
+			}
+		}
+
+		if (m_Client!.Connected)
+		{
+			NetworkStream stream = m_Client.GetStream();
+			List<byte> packetData = new List<byte>();
+			byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
+			packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
+			packetData.AddRange(packetBytes);
+			stream.Write(packetData.ToArray(), 0, packetData.Count());
+			m_Client.Dispose();
+		}
+
+		m_MessageThread = null;
+	}
 }

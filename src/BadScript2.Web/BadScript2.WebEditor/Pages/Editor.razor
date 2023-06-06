@@ -39,6 +39,12 @@
                         <SelectItem Class="import-modal-select-item" TValue="string">@project</SelectItem>
                     }
                 </SelectGroup>
+                <SelectGroup Class="import-modal-select-group" Label="Documentation Images">
+                    @foreach (string project in m_DocumentationProjects)
+                    {
+                        <SelectItem Class="import-modal-select-item" TValue="string">@project</SelectItem>
+                    }
+                </SelectGroup>
             </Select>
         </Field>
     </ModalBody>
@@ -237,14 +243,23 @@
 
     private readonly string[] m_InternalProjects =
     {
-        "images/bootstrap/RootFS.zip",
+        "images/bootstrap/RootFS.zip"
     };
 
     private readonly string[] m_PrebuiltProjects =
     {
         "images/Minimal.zip",
         "images/EmptyProject.zip",
-        "images/CoreProjects.zip",
+        "images/CoreProjects.zip"
+    };
+
+    private readonly string[] m_DocumentationProjects =
+    {
+        "images/docs/01_Variables.zip",
+        "images/docs/02_Loops.zip",
+        "images/docs/03_Arrays.zip",
+        "images/docs/04_Tables.zip",
+        "images/docs/05_Functions.zip"
     };
 
 
@@ -358,7 +373,8 @@
     {
         Console.WriteLine("Editor loaded for file: " + file);
         string lang = "badscript";
-        if (!file.EndsWith(".bs")) lang = Path.GetExtension(file).Remove(0, 1);
+        if (!file.EndsWith(".bs"))
+            lang = Path.GetExtension(file).Remove(0, 1);
         editor.Open(BadFileSystem.ReadAllText(file), lang);
         m_OpenFiles[file] = editor;
 
@@ -473,7 +489,9 @@
     if (query.AllKeys.Any(x => x == "fs"))
     {
         string[]? urls = query.GetValues("fs")?.Select(x => Encoding.UTF8.GetString(Convert.FromBase64String(x))).ToArray();
-        if (urls == null) return;
+        if (urls == null)
+            return;
+
         Console.WriteLine("Urls Specified in parameter: " + string.Join(", ", urls));
         foreach (string url in urls)
         {

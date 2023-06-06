@@ -7,50 +7,53 @@ namespace BadScript2.Debugger;
 
 public class BadConsoleDebugger : IBadDebugger
 {
-    private static readonly List<string> s_IgnoredFiles = new List<string>();
-    private int m_LastLine = -1;
-    private string? m_LastSource;
+	private static readonly List<string> s_IgnoredFiles = new List<string>();
+	private int m_LastLine = -1;
+	private string? m_LastSource;
 
-    public void Step(BadDebuggerStep stepInfo)
-    {
-        string view = stepInfo.GetSourceView(out int _, out int lineInSource);
+	public void Step(BadDebuggerStep stepInfo)
+	{
+		string view = stepInfo.GetSourceView(out int _, out int lineInSource);
 
-        if (m_LastSource == stepInfo.Position.Source && lineInSource == m_LastLine)
-        {
-            return;
-        }
+		if (m_LastSource == stepInfo.Position.Source && lineInSource == m_LastLine)
+		{
+			return;
+		}
 
-        m_LastLine = lineInSource;
-        m_LastSource = stepInfo.Position.Source;
-        if (stepInfo.Position.FileName != null && s_IgnoredFiles.Contains(stepInfo.Position.FileName))
-        {
-            return;
-        }
+		m_LastLine = lineInSource;
+		m_LastSource = stepInfo.Position.Source;
 
-        BadConsole.WriteLine(view);
-        BadConsole.WriteLine("Press any key to continue");
+		if (stepInfo.Position.FileName != null && s_IgnoredFiles.Contains(stepInfo.Position.FileName))
+		{
+			return;
+		}
 
-        bool exit = false;
-        do
-        {
-            string cmd = BadConsole.ReadLine()!;
-            if (cmd.StartsWith("ignore-file"))
-            {
-                string file = cmd.Remove(0, "ignore-file".Length).Trim();
-                s_IgnoredFiles.Add(file);
+		BadConsole.WriteLine(view);
+		BadConsole.WriteLine("Press any key to continue");
 
-                continue;
-            }
+		bool exit = false;
 
-            if (cmd.StartsWith("file"))
-            {
-                BadConsole.WriteLine(stepInfo.Position.FileName ?? "NULL");
+		do
+		{
+			string cmd = BadConsole.ReadLine()!;
 
-                continue;
-            }
+			if (cmd.StartsWith("ignore-file"))
+			{
+				string file = cmd.Remove(0, "ignore-file".Length).Trim();
+				s_IgnoredFiles.Add(file);
 
-            exit = true;
-        }
-        while (!exit);
-    }
+				continue;
+			}
+
+			if (cmd.StartsWith("file"))
+			{
+				BadConsole.WriteLine(stepInfo.Position.FileName ?? "NULL");
+
+				continue;
+			}
+
+			exit = true;
+		}
+		while (!exit);
+	}
 }

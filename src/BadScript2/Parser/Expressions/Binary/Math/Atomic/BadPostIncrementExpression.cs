@@ -21,42 +21,42 @@ public class BadPostIncrementExpression : BadExpression
     /// </summary>
     /// <param name="left">Left side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(
-        left.IsConstant,
-        position
-    )
-    {
-        Left = left;
-    }
+    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
+		position)
+	{
+		Left = left;
+	}
 
-    public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
-    {
-        BadObject value = reference.Dereference();
-        if (value is not IBadNumber leftNumber)
-        {
-            throw new BadRuntimeException("Left side of ++ must be a number", position);
-        }
+	public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
+	{
+		BadObject value = reference.Dereference();
 
-        reference.Set(leftNumber.Value + 1);
+		if (value is not IBadNumber leftNumber)
+		{
+			throw new BadRuntimeException("Left side of ++ must be a number", position);
+		}
 
-        return value;
-    }
+		reference.Set(leftNumber.Value + 1);
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+		return value;
+	}
 
-            yield return o;
-        }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        if (left is not BadObjectReference leftRef)
-        {
-            throw new BadRuntimeException("Left side of ++ must be a reference", Position);
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        yield return Increment(leftRef, Position);
-    }
+			yield return o;
+		}
+
+		if (left is not BadObjectReference leftRef)
+		{
+			throw new BadRuntimeException("Left side of ++ must be a reference", Position);
+		}
+
+		yield return Increment(leftRef, Position);
+	}
 }

@@ -19,10 +19,10 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Character is a Valid Word Start Character</returns>
     public static bool IsWordStart(this BadSourceReader reader, int offset = 0)
-    {
-        return char.IsLetter(reader.GetCurrentChar(offset)) ||
-               reader.GetCurrentChar(offset) == '_';
-    }
+	{
+		return char.IsLetter(reader.GetCurrentChar(offset)) ||
+		       reader.GetCurrentChar(offset) == '_';
+	}
 
     /// <summary>
     ///     Returns true if the Current Character of the Reader is a valid Word Character.
@@ -31,10 +31,10 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Current Character is a valid Word Character</returns>
     public static bool IsWordChar(this BadSourceReader reader, int offset = 0)
-    {
-        return char.IsLetterOrDigit(reader.GetCurrentChar(offset)) ||
-               reader.GetCurrentChar(offset) == '_';
-    }
+	{
+		return char.IsLetterOrDigit(reader.GetCurrentChar(offset)) ||
+		       reader.GetCurrentChar(offset) == '_';
+	}
 
     /// <summary>
     ///     Returns true if the Current Character is a String Quote Character
@@ -43,9 +43,9 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Current Character is a Quote</returns>
     public static bool IsStringQuote(this BadSourceReader reader, int offset = 0)
-    {
-        return reader.GetCurrentChar(offset) == BadStaticKeys.Quote;
-    }
+	{
+		return reader.GetCurrentChar(offset) == BadStaticKeys.Quote;
+	}
 
     /// <summary>
     ///     Returns true if the Current Character is a valid Number Character
@@ -54,11 +54,11 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Current Character is a valid Number Character</returns>
     public static bool IsNumberStart(this BadSourceReader reader, int offset = 0)
-    {
-        return reader.IsDigit(offset) ||
-               reader.GetCurrentChar(offset) == BadStaticKeys.DecimalSeparator ||
-               reader.GetCurrentChar(offset) == BadStaticKeys.NegativeSign;
-    }
+	{
+		return reader.IsDigit(offset) ||
+		       reader.GetCurrentChar(offset) == BadStaticKeys.DecimalSeparator ||
+		       reader.GetCurrentChar(offset) == BadStaticKeys.NegativeSign;
+	}
 
     /// <summary>
     ///     Returns true if the Current Character is a Digit
@@ -67,9 +67,9 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Current Character is a Digit</returns>
     public static bool IsDigit(this BadSourceReader reader, int offset = 0)
-    {
-        return char.IsDigit(reader.GetCurrentChar(offset));
-    }
+	{
+		return char.IsDigit(reader.GetCurrentChar(offset));
+	}
 
     /// <summary>
     ///     Returns true if the Current Character is a Newline Character
@@ -78,18 +78,18 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Current Character is a NewLine Character</returns>
     public static bool IsNewLine(this BadSourceReader reader, int offset = 0)
-    {
-        return reader.Is(offset, BadStaticKeys.NewLine);
-    }
+	{
+		return reader.Is(offset, BadStaticKeys.NewLine);
+	}
 
     /// <summary>
     ///     Skips all whitespace characters
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     public static void SkipWhiteSpace(this BadSourceReader reader)
-    {
-        reader.Skip(BadStaticKeys.Whitespace);
-    }
+	{
+		reader.Skip(BadStaticKeys.Whitespace);
+	}
 
 
     /// <summary>
@@ -97,64 +97,64 @@ public static class BadSourceReaderExtensions
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     public static void SkipNewLine(this BadSourceReader reader)
-    {
-        reader.Skip(BadStaticKeys.NewLine);
-    }
+	{
+		reader.Skip(BadStaticKeys.NewLine);
+	}
 
     /// <summary>
     ///     Skips all characters untile a newline is found
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     public static void SkipToEndOfLine(this BadSourceReader reader)
-    {
-        reader.Seek(BadStaticKeys.NewLine);
-    }
+	{
+		reader.Seek(BadStaticKeys.NewLine);
+	}
 
     /// <summary>
     ///     Skips all whitespace and newline characters
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     public static void SkipWhiteSpaceAndNewLine(this BadSourceReader reader)
-    {
-        reader.Skip(BadStaticKeys.Whitespace.Concat(BadStaticKeys.NewLine).ToArray());
-    }
+	{
+		reader.Skip(BadStaticKeys.Whitespace.Concat(BadStaticKeys.NewLine).ToArray());
+	}
 
     /// <summary>
     ///     Skips a comment
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     public static void SkipComment(this BadSourceReader reader)
-    {
-        if (reader.Is(BadStaticKeys.SingleLineComment))
-        {
-            reader.Eat(BadStaticKeys.SingleLineComment);
-            reader.SkipToEndOfLine();
-            reader.SkipNewLine();
-        }
-        else if (reader.Is(BadStaticKeys.MultiLineCommentStart))
-        {
-            reader.Eat(BadStaticKeys.MultiLineCommentStart);
-            reader.Seek(BadStaticKeys.MultiLineCommentEnd);
-            reader.Eat(BadStaticKeys.MultiLineCommentEnd);
-        }
-    }
+	{
+		if (reader.Is(BadStaticKeys.SingleLineComment))
+		{
+			reader.Eat(BadStaticKeys.SingleLineComment);
+			reader.SkipToEndOfLine();
+			reader.SkipNewLine();
+		}
+		else if (reader.Is(BadStaticKeys.MultiLineCommentStart))
+		{
+			reader.Eat(BadStaticKeys.MultiLineCommentStart);
+			reader.Seek(BadStaticKeys.MultiLineCommentEnd);
+			reader.Eat(BadStaticKeys.MultiLineCommentEnd);
+		}
+	}
 
     /// <summary>
     ///     Skips all whitespace, newline characters and comments
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     public static void SkipNonToken(this BadSourceReader reader)
-    {
-        int current;
+	{
+		int current;
 
-        do
-        {
-            current = reader.CurrentIndex;
-            reader.SkipComment();
-            reader.SkipWhiteSpaceAndNewLine();
-        }
-        while (current != reader.CurrentIndex);
-    }
+		do
+		{
+			current = reader.CurrentIndex;
+			reader.SkipComment();
+			reader.SkipWhiteSpaceAndNewLine();
+		}
+		while (current != reader.CurrentIndex);
+	}
 
 
     /// <summary>
@@ -167,24 +167,24 @@ public static class BadSourceReaderExtensions
     ///     <seealso cref="BadSourceReaderExtensions.IsWordStart" />
     /// </exception>
     public static BadWordToken ParseWord(this BadSourceReader reader)
-    {
-        if (!reader.IsWordStart())
-        {
-            throw new BadSourceReaderException(
-                $"Expected word start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-                reader.MakeSourcePosition(1)
-            );
-        }
+	{
+		if (!reader.IsWordStart())
+		{
+			throw new BadSourceReaderException(
+				$"Expected word start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+				reader.MakeSourcePosition(1));
+		}
 
-        int start = reader.CurrentIndex;
-        reader.MoveNext();
-        while (reader.IsWordChar())
-        {
-            reader.MoveNext();
-        }
+		int start = reader.CurrentIndex;
+		reader.MoveNext();
 
-        return new BadWordToken(reader.MakeSourcePosition(start, reader.CurrentIndex - start));
-    }
+		while (reader.IsWordChar())
+		{
+			reader.MoveNext();
+		}
+
+		return new BadWordToken(reader.MakeSourcePosition(start, reader.CurrentIndex - start));
+	}
 
     /// <summary>
     ///     Parses a BadNumberToken
@@ -193,35 +193,35 @@ public static class BadSourceReaderExtensions
     /// <returns>The Resulting BadNumberToken</returns>
     /// <exception cref="BadSourceReaderException">Gets raised if the Start Character is not a valid number character</exception>
     public static BadNumberToken ParseNumber(this BadSourceReader reader)
-    {
-        if (!reader.IsNumberStart())
-        {
-            throw new BadSourceReaderException(
-                $"Expected number start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-                reader.MakeSourcePosition(1)
-            );
-        }
+	{
+		if (!reader.IsNumberStart())
+		{
+			throw new BadSourceReaderException(
+				$"Expected number start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+				reader.MakeSourcePosition(1));
+		}
 
-        int start = reader.CurrentIndex;
-        reader.MoveNext();
-        bool hasDecimal = false;
-        while (reader.IsDigit() || !hasDecimal && reader.Is(BadStaticKeys.DecimalSeparator))
-        {
-            if (reader.Is(BadStaticKeys.DecimalSeparator))
-            {
-                hasDecimal = true;
-            }
+		int start = reader.CurrentIndex;
+		reader.MoveNext();
+		bool hasDecimal = false;
 
-            reader.MoveNext();
-        }
+		while (reader.IsDigit() || (!hasDecimal && reader.Is(BadStaticKeys.DecimalSeparator)))
+		{
+			if (reader.Is(BadStaticKeys.DecimalSeparator))
+			{
+				hasDecimal = true;
+			}
 
-        if (reader.Last(BadStaticKeys.DecimalSeparator))
-        {
-            reader.SetPosition(reader.CurrentIndex - 1);
-        }
+			reader.MoveNext();
+		}
 
-        return new BadNumberToken(reader.MakeSourcePosition(start, reader.CurrentIndex - start));
-    }
+		if (reader.Last(BadStaticKeys.DecimalSeparator))
+		{
+			reader.SetPosition(reader.CurrentIndex - 1);
+		}
+
+		return new BadNumberToken(reader.MakeSourcePosition(start, reader.CurrentIndex - start));
+	}
 
     /// <summary>
     ///     Parses a BadBoolean Token
@@ -233,22 +233,21 @@ public static class BadSourceReaderExtensions
     ///     BadStaticKeys.True and not equal to BadStaticKeys.False
     /// </exception>
     public static BadBooleanToken ParseBoolean(this BadSourceReader reader)
-    {
-        if (reader.Is(BadStaticKeys.True))
-        {
-            return new BadBooleanToken(reader.Eat(BadStaticKeys.True));
-        }
+	{
+		if (reader.Is(BadStaticKeys.True))
+		{
+			return new BadBooleanToken(reader.Eat(BadStaticKeys.True));
+		}
 
-        if (reader.Is(BadStaticKeys.False))
-        {
-            return new BadBooleanToken(reader.Eat(BadStaticKeys.False));
-        }
+		if (reader.Is(BadStaticKeys.False))
+		{
+			return new BadBooleanToken(reader.Eat(BadStaticKeys.False));
+		}
 
-        throw new BadSourceReaderException(
-            $"Expected boolean but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-            reader.MakeSourcePosition(1)
-        );
-    }
+		throw new BadSourceReaderException(
+			$"Expected boolean but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+			reader.MakeSourcePosition(1));
+	}
 
     /// <summary>
     ///     Parses a BadNullToken
@@ -256,9 +255,9 @@ public static class BadSourceReaderExtensions
     /// <param name="reader">The Reader Instance</param>
     /// <returns>The Resulting BadNullToken Instance</returns>
     public static BadNullToken ParseNull(this BadSourceReader reader)
-    {
-        return new BadNullToken(reader.Eat(BadStaticKeys.Null));
-    }
+	{
+		return new BadNullToken(reader.Eat(BadStaticKeys.Null));
+	}
 
     /// <summary>
     ///     Tries to parse symbols
@@ -267,14 +266,14 @@ public static class BadSourceReaderExtensions
     /// <param name="symbols">The Symbol Sequence to be parsed</param>
     /// <returns>The Bad Symbol Token if the Symbol was matched to the Current Character Sequence. Null otherwise</returns>
     public static BadSymbolToken? TryParseSymbols(this BadSourceReader reader, string symbols)
-    {
-        if (reader.Is(symbols))
-        {
-            return new BadSymbolToken(reader.Eat(symbols));
-        }
+	{
+		if (reader.Is(symbols))
+		{
+			return new BadSymbolToken(reader.Eat(symbols));
+		}
 
-        return null;
-    }
+		return null;
+	}
 
     /// <summary>
     ///     Tries to parse a list of symbols
@@ -283,15 +282,16 @@ public static class BadSourceReaderExtensions
     /// <param name="symbols">The Symbol Sequences to be parsed</param>
     /// <returns>The Bad Symbol Token if one of the Symbols was matched to the Current Character Sequence. Null otherwise</returns>
     public static BadSymbolToken? TryParseSymbols(this BadSourceReader reader, IEnumerable<string> symbols)
-    {
-        string? symbol = symbols.FirstOrDefault(x => reader.Is(x));
-        if (symbol == null)
-        {
-            return null;
-        }
+	{
+		string? symbol = symbols.FirstOrDefault(x => reader.Is(x));
 
-        return reader.TryParseSymbols(symbol);
-    }
+		if (symbol == null)
+		{
+			return null;
+		}
+
+		return reader.TryParseSymbols(symbol);
+	}
 
     /// <summary>
     ///     Parses a BadStringToken
@@ -303,54 +303,52 @@ public static class BadSourceReaderExtensions
     ///     not properly terminated.
     /// </exception>
     public static BadStringToken ParseString(this BadSourceReader reader)
-    {
-        if (!reader.IsStringQuote())
-        {
-            throw new BadSourceReaderException(
-                $"Expected string start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-                reader.MakeSourcePosition(1)
-            );
-        }
+	{
+		if (!reader.IsStringQuote())
+		{
+			throw new BadSourceReaderException(
+				$"Expected string start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+				reader.MakeSourcePosition(1));
+		}
 
-        int start = reader.CurrentIndex;
-        reader.MoveNext();
-        bool isEscaped = false;
-        StringBuilder sb = new StringBuilder("\"");
-        while (!reader.IsStringQuote())
-        {
-            if (reader.IsNewLine() || reader.IsEof())
-            {
-                throw new BadSourceReaderException(
-                    "String not terminated",
-                    reader.MakeSourcePosition(start, reader.CurrentIndex - start)
-                );
-            }
+		int start = reader.CurrentIndex;
+		reader.MoveNext();
+		bool isEscaped = false;
+		StringBuilder sb = new StringBuilder("\"");
 
-            if (reader.Is(BadStaticKeys.EscapeCharacter))
-            {
-                isEscaped = true;
-                reader.MoveNext();
-            }
+		while (!reader.IsStringQuote())
+		{
+			if (reader.IsNewLine() || reader.IsEof())
+			{
+				throw new BadSourceReaderException("String not terminated",
+					reader.MakeSourcePosition(start, reader.CurrentIndex - start));
+			}
 
-            if (isEscaped)
-            {
-                isEscaped = false;
-                sb.Append(Regex.Unescape($"\\{reader.GetCurrentChar()}"));
-            }
-            else
-            {
-                sb.Append(reader.GetCurrentChar());
-            }
+			if (reader.Is(BadStaticKeys.EscapeCharacter))
+			{
+				isEscaped = true;
+				reader.MoveNext();
+			}
 
-            reader.MoveNext();
-        }
+			if (isEscaped)
+			{
+				isEscaped = false;
+				sb.Append(Regex.Unescape($"\\{reader.GetCurrentChar()}"));
+			}
+			else
+			{
+				sb.Append(reader.GetCurrentChar());
+			}
 
-        reader.Eat(BadStaticKeys.Quote);
+			reader.MoveNext();
+		}
 
-        sb.Append("\"");
+		reader.Eat(BadStaticKeys.Quote);
 
-        return new BadStringToken(sb.ToString(), reader.MakeSourcePosition(start, reader.CurrentIndex - start));
-    }
+		sb.Append("\"");
+
+		return new BadStringToken(sb.ToString(), reader.MakeSourcePosition(start, reader.CurrentIndex - start));
+	}
 
     /// <summary>
     ///     Returns true if the Current Character is any whitespace or newline characters
@@ -359,10 +357,10 @@ public static class BadSourceReaderExtensions
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Current Character is a Whitespace or Newline Character</returns>
     public static bool IsWhiteSpace(this BadSourceReader reader, int offset = 0)
-    {
-        return reader.Is(offset, BadStaticKeys.Whitespace) ||
-               reader.Is(offset, BadStaticKeys.NewLine);
-    }
+	{
+		return reader.Is(offset, BadStaticKeys.Whitespace) ||
+		       reader.Is(offset, BadStaticKeys.NewLine);
+	}
 
     /// <summary>
     ///     Returns true if the last non-whitespace character is the specified character
@@ -371,13 +369,14 @@ public static class BadSourceReaderExtensions
     /// <param name="c">The Character that should be matched</param>
     /// <returns>True if the character is the last non-whitespace character.</returns>
     public static bool Last(this BadSourceReader reader, char c)
-    {
-        int index = -1;
-        while (reader.IsWhiteSpace(index))
-        {
-            index--;
-        }
+	{
+		int index = -1;
 
-        return reader.GetCurrentChar(index) == c;
-    }
+		while (reader.IsWhiteSpace(index))
+		{
+			index--;
+		}
+
+		return reader.GetCurrentChar(index) == c;
+	}
 }

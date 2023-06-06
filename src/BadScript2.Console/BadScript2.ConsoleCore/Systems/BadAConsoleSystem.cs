@@ -2,9 +2,22 @@ namespace BadScript2.ConsoleCore.Systems;
 
 public abstract class BadAConsoleSystem
 {
-    public abstract string Name { get; }
+	/// <summary>
+	/// The Name of the Console System
+	/// </summary>
+	public abstract string Name { get; }
 
-    public abstract int Run(object? settings);
+	/// <summary>
+	/// Runs the Console System with the given settings
+	/// </summary>
+	/// <param name="settings">The Settings Object</param>
+	/// <returns>Return Code</returns>
+	public abstract int Run(object? settings);
 
-    public abstract object? Parse(string[] args);
+	/// <summary>
+	/// Parses the given arguments into a settings object
+	/// </summary>
+	/// <param name="args">Startup Arguments</param>
+	/// <returns>Settings Object</returns>
+	public abstract object? Parse(string[] args);
 }

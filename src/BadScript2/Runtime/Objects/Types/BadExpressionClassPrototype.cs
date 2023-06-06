@@ -19,8 +19,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
     ///     The Parent scope this class prototype was created in.
     /// </summary>
     private readonly BadScope m_ParentScope;
-    
-    
+
 
     /// <summary>
     ///     Creates a new BadExpressionClassPrototype
@@ -30,54 +29,55 @@ public class BadExpressionClassPrototype : BadClassPrototype
     /// <param name="body">The Class Body(Members & Functions)</param>
     /// <param name="baseClass">The Base class of the prototype</param>
     public BadExpressionClassPrototype(
-        string name,
-        BadScope parentScope,
-        BadExpression[] body,
-        BadClassPrototype? baseClass,
-        BadMetaData? meta) : base(name, baseClass, meta)
-    {
-        m_ParentScope = parentScope;
-        m_Body = body;
-    }
+		string name,
+		BadScope parentScope,
+		BadExpression[] body,
+		BadClassPrototype? baseClass,
+		BadMetaData? meta) : base(name, baseClass, meta)
+	{
+		m_ParentScope = parentScope;
+		m_Body = body;
+	}
 
 
-    public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
-    {
-        BadClass? baseInstance = null;
-        BadExecutionContext ctx = new BadExecutionContext(
-            m_ParentScope.CreateChild($"class instance {Name}", caller.Scope, true)
-        );
-        ctx.Scope.SetFlags(BadScopeFlags.None);
-        if (BaseClass != null)
-        {
-            BadObject obj = Null;
-            foreach (BadObject o in BaseClass.CreateInstance(caller, false))
-            {
-                obj = o;
-            }
+	public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
+	{
+		BadClass? baseInstance = null;
+		BadExecutionContext ctx = new BadExecutionContext(
+			m_ParentScope.CreateChild($"class instance {Name}", caller.Scope, true));
+		ctx.Scope.SetFlags(BadScopeFlags.None);
 
-            if (obj is not BadClass cls)
-            {
-                throw new BadRuntimeException("Base class is not a class");
-            }
+		if (BaseClass != null)
+		{
+			BadObject obj = Null;
 
-            baseInstance = cls;
-            ctx.Scope.GetTable().SetProperty("base", baseInstance, new BadPropertyInfo(BaseClass, true));
-        }
+			foreach (BadObject o in BaseClass.CreateInstance(caller, false))
+			{
+				obj = o;
+			}
 
-        foreach (BadObject o in ctx.Execute(m_Body))
-        {
-            yield return o;
-        }
+			if (obj is not BadClass cls)
+			{
+				throw new BadRuntimeException("Base class is not a class");
+			}
 
-        BadClass thisInstance = new BadClass(Name, ctx.Scope, baseInstance, this);
-        ctx.Scope.ClassObject = thisInstance;
+			baseInstance = cls;
+			ctx.Scope.GetTable().SetProperty("base", baseInstance, new BadPropertyInfo(BaseClass, true));
+		}
 
-        if (setThis)
-        {
-            thisInstance.SetThis();
-        }
+		foreach (BadObject o in ctx.Execute(m_Body))
+		{
+			yield return o;
+		}
 
-        yield return thisInstance;
-    }
+		BadClass thisInstance = new BadClass(Name, ctx.Scope, baseInstance, this);
+		ctx.Scope.ClassObject = thisInstance;
+
+		if (setThis)
+		{
+			thisInstance.SetThis();
+		}
+
+		yield return thisInstance;
+	}
 }

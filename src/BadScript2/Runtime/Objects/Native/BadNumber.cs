@@ -15,15 +15,15 @@ public class BadNumber : BadNative<decimal>, IBadNumber
     /// <param name="value">The Number Value</param>
     public BadNumber(decimal value) : base(value) { }
 
-    decimal IBadNumber.Value => Value;
+	decimal IBadNumber.Value => Value;
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return BadNativeClassBuilder.GetNative("num");
-    }
+	public override BadClassPrototype GetPrototype()
+	{
+		return BadNativeClassBuilder.GetNative("num");
+	}
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return Value.ToString(CultureInfo.InvariantCulture);
-    }
+	public override string ToSafeString(List<BadObject> done)
+	{
+		return Value.ToString(CultureInfo.InvariantCulture);
+	}
 }

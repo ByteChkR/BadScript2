@@ -19,17 +19,15 @@ public class BadVariableDefinitionExpression : BadVariableExpression
     /// <param name="typeExpression">The (optional) Type of the Variable</param>
     /// <param name="isReadOnly">Indicates if the Variable will be declared as Read-Only</param>
     public BadVariableDefinitionExpression(
-        string name,
-        BadSourcePosition position,
-        BadExpression? typeExpression = null,
-        bool isReadOnly = false) : base(
-        name,
-        position
-    )
-    {
-        IsReadOnly = isReadOnly;
-        TypeExpression = typeExpression;
-    }
+		string name,
+		BadSourcePosition position,
+		BadExpression? typeExpression = null,
+		bool isReadOnly = false) : base(name,
+		position)
+	{
+		IsReadOnly = isReadOnly;
+		TypeExpression = typeExpression;
+	}
 
     /// <summary>
     ///     Indicates if the Variable will be declared as Read-Only
@@ -46,48 +44,50 @@ public class BadVariableDefinitionExpression : BadVariableExpression
     /// </summary>
     /// <returns>String Representation</returns>
     public override string ToString()
-    {
-        if (IsReadOnly)
-        {
-            return $"{BadStaticKeys.ConstantDefinitionKey} {Name}";
-        }
+	{
+		if (IsReadOnly)
+		{
+			return $"{BadStaticKeys.ConstantDefinitionKey} {Name}";
+		}
 
-        return $"{BadStaticKeys.VariableDefinitionKey} {Name}";
-    }
+		return $"{BadStaticKeys.VariableDefinitionKey} {Name}";
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadClassPrototype? type = null;
-        if (TypeExpression != null)
-        {
-            BadObject obj = BadObject.Null;
-            foreach (BadObject o in TypeExpression.Execute(context))
-            {
-                obj = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadClassPrototype? type = null;
 
-                yield return o;
-            }
+		if (TypeExpression != null)
+		{
+			BadObject obj = BadObject.Null;
 
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
+			foreach (BadObject o in TypeExpression.Execute(context))
+			{
+				obj = o;
 
-            obj = obj.Dereference();
+				yield return o;
+			}
 
-            if (obj is not BadClassPrototype proto)
-            {
-                throw new BadRuntimeException("Type expression must be a class prototype", Position);
-            }
+			if (context.Scope.IsError)
+			{
+				yield break;
+			}
 
-            type = proto;
-        }
+			obj = obj.Dereference();
 
-        context.Scope.DefineVariable(BadObject.Wrap(Name), BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly));
+			if (obj is not BadClassPrototype proto)
+			{
+				throw new BadRuntimeException("Type expression must be a class prototype", Position);
+			}
 
-        foreach (BadObject o in base.InnerExecute(context))
-        {
-            yield return o;
-        }
-    }
+			type = proto;
+		}
+
+		context.Scope.DefineVariable(BadObject.Wrap(Name), BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly));
+
+		foreach (BadObject o in base.InnerExecute(context))
+		{
+			yield return o;
+		}
+	}
 }

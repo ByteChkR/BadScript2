@@ -7,31 +7,23 @@ namespace BadScript2.Interop.Common.Extensions;
 
 public class BadScopeExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
-    {
-        RegisterObject<BadScope>(
-            "GetLocals",
-            o => new BadDynamicInteropFunction(
-                "GetLocals",
-                _ => GetLocals(o)
-            )
-        );
-        RegisterObject<BadScope>(
-            "GetParent",
-            o => new BadDynamicInteropFunction(
-                "GetParent",
-                _ => GetParent(o)
-            )
-        );
-    }
+	protected override void AddExtensions()
+	{
+		RegisterObject<BadScope>("GetLocals",
+			o => new BadDynamicInteropFunction("GetLocals",
+				_ => GetLocals(o)));
+		RegisterObject<BadScope>("GetParent",
+			o => new BadDynamicInteropFunction("GetParent",
+				_ => GetParent(o)));
+	}
 
-    private BadObject GetParent(BadScope scope)
-    {
-        return scope.Parent ?? BadObject.Null;
-    }
+	private BadObject GetParent(BadScope scope)
+	{
+		return scope.Parent ?? BadObject.Null;
+	}
 
-    private BadObject GetLocals(BadScope scope)
-    {
-        return scope.GetTable();
-    }
+	private BadObject GetLocals(BadScope scope)
+	{
+		return scope.GetTable();
+	}
 }

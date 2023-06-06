@@ -8,156 +8,160 @@ namespace BadScript2.Interop.Json;
 
 public static class BadJson
 {
-    private static BadArray ConvertArray(JArray array)
-    {
-        List<BadObject> a = new List<BadObject>();
-        foreach (JToken? node in array)
-        {
-            if (node == null)
-            {
-                continue;
-            }
+	private static BadArray ConvertArray(JArray array)
+	{
+		List<BadObject> a = new List<BadObject>();
 
-            a.Add(ConvertNode(node));
-        }
+		foreach (JToken? node in array)
+		{
+			if (node == null)
+			{
+				continue;
+			}
 
-        return new BadArray(a);
-    }
+			a.Add(ConvertNode(node));
+		}
 
-    private static BadTable ConvertObject(JObject obj)
-    {
-        Dictionary<BadObject, BadObject> t = new Dictionary<BadObject, BadObject>();
-        foreach (KeyValuePair<string, JToken?> keyValuePair in obj)
-        {
-            t.Add(keyValuePair.Key, keyValuePair.Value == null ? BadObject.Null : ConvertNode(keyValuePair.Value));
-        }
+		return new BadArray(a);
+	}
 
-        return new BadTable(t);
-    }
+	private static BadTable ConvertObject(JObject obj)
+	{
+		Dictionary<BadObject, BadObject> t = new Dictionary<BadObject, BadObject>();
 
-    public static JToken ConvertNode(BadObject value)
-    {
-        if (value is IBadString s)
-        {
-            return new JValue(s.Value);
-        }
+		foreach (KeyValuePair<string, JToken?> keyValuePair in obj)
+		{
+			t.Add(keyValuePair.Key, keyValuePair.Value == null ? BadObject.Null : ConvertNode(keyValuePair.Value));
+		}
 
-        if (value is IBadNumber n)
-        {
-            return new JValue(n.Value);
-        }
+		return new BadTable(t);
+	}
 
-        if (value is IBadBoolean b)
-        {
-            return new JValue(b.Value);
-        }
+	public static JToken ConvertNode(BadObject value)
+	{
+		if (value is IBadString s)
+		{
+			return new JValue(s.Value);
+		}
 
-        if (value == BadObject.Null)
-        {
-            return JValue.CreateNull();
-        }
+		if (value is IBadNumber n)
+		{
+			return new JValue(n.Value);
+		}
 
-        if (value is BadArray a)
-        {
-            return ConvertArray(a);
-        }
+		if (value is IBadBoolean b)
+		{
+			return new JValue(b.Value);
+		}
 
-        if (value is BadTable t)
-        {
-            return ConvertTable(t);
-        }
+		if (value == BadObject.Null)
+		{
+			return JValue.CreateNull();
+		}
+
+		if (value is BadArray a)
+		{
+			return ConvertArray(a);
+		}
+
+		if (value is BadTable t)
+		{
+			return ConvertTable(t);
+		}
 
 
-        if (value is BadReflectedObject ro)
-        {
-            return JToken.FromObject(ro.Instance);
-        }
+		if (value is BadReflectedObject ro)
+		{
+			return JToken.FromObject(ro.Instance);
+		}
 
-        throw new Exception("Unsupported value type: " + value.GetType());
-    }
+		throw new Exception("Unsupported value type: " + value.GetType());
+	}
 
-    private static JObject ConvertTable(BadTable table)
-    {
-        JObject obj = new JObject();
-        foreach (KeyValuePair<BadObject, BadObject> keyValuePair in table.InnerTable)
-        {
-            if (keyValuePair.Key is not IBadString key)
-            {
-                throw new Exception("Key is not a string");
-            }
+	private static JObject ConvertTable(BadTable table)
+	{
+		JObject obj = new JObject();
 
-            obj.Add(key.Value, ConvertNode(keyValuePair.Value));
-        }
+		foreach (KeyValuePair<BadObject, BadObject> keyValuePair in table.InnerTable)
+		{
+			if (keyValuePair.Key is not IBadString key)
+			{
+				throw new Exception("Key is not a string");
+			}
 
-        return obj;
-    }
+			obj.Add(key.Value, ConvertNode(keyValuePair.Value));
+		}
 
-    private static JArray ConvertArray(BadArray value)
-    {
-        JArray array = new JArray();
-        foreach (BadObject node in value.InnerArray)
-        {
-            array.Add(ConvertNode(node));
-        }
+		return obj;
+	}
 
-        return array;
-    }
+	private static JArray ConvertArray(BadArray value)
+	{
+		JArray array = new JArray();
 
-    private static BadObject ConvertValue(JValue value)
-    {
-        switch (value.Type)
-        {
-            case JTokenType.Integer:
-                return (decimal)(long)value.Value!;
-            case JTokenType.Float:
-                return (decimal)(double)value.Value!;
-            case JTokenType.String:
-                return (string)value.Value!;
-            case JTokenType.Boolean:
-                return (bool)value.Value!;
-            case JTokenType.Null:
-                return BadObject.Null;
-            default:
-                throw new Exception("Unsupported Json type: " + value.Type);
-        }
-    }
+		foreach (BadObject node in value.InnerArray)
+		{
+			array.Add(ConvertNode(node));
+		}
 
-    public static BadObject ConvertNode(JToken? node)
-    {
-        if (node is null)
-        {
-            return BadObject.Null;
-        }
+		return array;
+	}
 
-        if (node is JArray a)
-        {
-            return ConvertArray(a);
-        }
+	private static BadObject ConvertValue(JValue value)
+	{
+		switch (value.Type)
+		{
+			case JTokenType.Integer:
+				return (decimal)(long)value.Value!;
+			case JTokenType.Float:
+				return (decimal)(double)value.Value!;
+			case JTokenType.String:
+				return (string)value.Value!;
+			case JTokenType.Boolean:
+				return (bool)value.Value!;
+			case JTokenType.Null:
+				return BadObject.Null;
+			default:
+				throw new Exception("Unsupported Json type: " + value.Type);
+		}
+	}
 
-        if (node is JObject o)
-        {
-            return ConvertObject(o);
-        }
+	public static BadObject ConvertNode(JToken? node)
+	{
+		if (node is null)
+		{
+			return BadObject.Null;
+		}
 
-        if (node is JValue v)
-        {
-            return ConvertValue(v);
-        }
+		if (node is JArray a)
+		{
+			return ConvertArray(a);
+		}
 
-        throw new Exception("Unsupported node type: " + node.GetType());
-    }
+		if (node is JObject o)
+		{
+			return ConvertObject(o);
+		}
 
-    public static BadObject FromJson(string s)
-    {
-        JToken o = JToken.Parse(s);
+		if (node is JValue v)
+		{
+			return ConvertValue(v);
+		}
 
-        return ConvertNode(o);
-    }
+		throw new Exception("Unsupported node type: " + node.GetType());
+	}
 
-    public static string ToJson(BadObject o)
-    {
-        JToken token = ConvertNode(o);
+	public static BadObject FromJson(string s)
+	{
+		JToken o = JToken.Parse(s);
 
-        return token.ToString();
-    }
+		return ConvertNode(o);
+	}
+
+	public static string ToJson(BadObject o)
+	{
+		JToken token = ConvertNode(o);
+
+		return token.ToString();
+	}
 }

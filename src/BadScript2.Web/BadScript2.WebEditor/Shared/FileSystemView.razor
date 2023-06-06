@@ -34,7 +34,6 @@
                         </g>
                     </svg>
                 </button>
-                    
             }
         </div>
     </NodeContent>
@@ -66,8 +65,10 @@
 
     [Parameter]
     public EventCallback<string> OnRunFile { get; set; } = EventCallback<string>.Empty;
+
     [Parameter]
     public EventCallback<string> OnOpenFile { get; set; } = EventCallback<string>.Empty;
+
     private static event Action? OnReload;
 
     public static void Reload()
@@ -99,7 +100,9 @@
 
     private string GetName(BadVirtualNode? node)
     {
-        if (node == null) return "INVALID NODE";
+        if (node == null)
+            return "INVALID NODE";
+
         return node is BadVirtualRoot ? "/" : node.Name;
     }
 
@@ -126,4 +129,5 @@
     public IList<BadVirtualNode?> ExpandedNodes { get; set; } = new List<BadVirtualNode?>();
 
     public IEnumerable<BadVirtualNode> Items => FileSystem?.GetRoot().Children ?? Enumerable.Empty<BadVirtualNode>();
+
 }

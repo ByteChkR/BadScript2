@@ -17,11 +17,9 @@ public class BadLogicAndExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadLogicAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadLogicAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
     /// <summary>
     ///     Returns true if left and right are true
@@ -32,83 +30,85 @@ public class BadLogicAndExpression : BadBinaryExpression
     /// <returns>True if the Left side and the right side are true. Otherwise false.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadBoolean</exception>
     public static BadObject And(BadObject left, BadObject right, BadSourcePosition pos)
-    {
-        if (left is IBadBoolean lBool)
-        {
-            if (!lBool.Value)
-            {
-                return BadObject.False;
-            }
+	{
+		if (left is IBadBoolean lBool)
+		{
+			if (!lBool.Value)
+			{
+				return BadObject.False;
+			}
 
-            if (right is IBadBoolean rBool)
-            {
-                if (rBool.Value)
-                {
-                    return BadObject.True;
-                }
+			if (right is IBadBoolean rBool)
+			{
+				if (rBool.Value)
+				{
+					return BadObject.True;
+				}
 
-                return BadObject.False;
-            }
+				return BadObject.False;
+			}
 
-            throw new BadRuntimeException($"Can not apply operator '&&' to {left} and {right}", pos);
-        }
+			throw new BadRuntimeException($"Can not apply operator '&&' to {left} and {right}", pos);
+		}
 
-        throw new BadRuntimeException($"Can not apply operator '&&' to {left}. expected boolean", pos);
-    }
+		throw new BadRuntimeException($"Can not apply operator '&&' to {left}. expected boolean", pos);
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-            yield return o;
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        left = left.Dereference();
+			yield return o;
+		}
 
-        if (left is IBadBoolean lBool)
-        {
-            if (!lBool.Value)
-            {
-                yield return BadObject.False;
+		left = left.Dereference();
 
-                yield break;
-            }
+		if (left is IBadBoolean lBool)
+		{
+			if (!lBool.Value)
+			{
+				yield return BadObject.False;
 
-            BadObject right = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                right = o;
+				yield break;
+			}
 
-                yield return o;
-            }
+			BadObject right = BadObject.Null;
 
-            right = right.Dereference();
+			foreach (BadObject o in Right.Execute(context))
+			{
+				right = o;
 
-            if (right is IBadBoolean rBool)
-            {
-                if (rBool.Value)
-                {
-                    yield return BadObject.True;
-                }
-                else
-                {
-                    yield return BadObject.False;
-                }
+				yield return o;
+			}
 
-                yield break;
-            }
+			right = right.Dereference();
 
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
-        }
+			if (right is IBadBoolean rBool)
+			{
+				if (rBool.Value)
+				{
+					yield return BadObject.True;
+				}
+				else
+				{
+					yield return BadObject.False;
+				}
 
-        throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
-    }
+				yield break;
+			}
 
-    protected override string GetSymbol()
-    {
-        return "&&";
-    }
+			throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
+		}
+
+		throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
+	}
+
+	protected override string GetSymbol()
+	{
+		return "&&";
+	}
 }

@@ -15,21 +15,21 @@ public abstract class BadStreamLogWriter : BadLogWriter
     /// </summary>
     /// <param name="stream">The underlying stream</param>
     protected BadStreamLogWriter(Stream stream)
-    {
-        m_Stream = new StreamWriter(stream);
-    }
+	{
+		m_Stream = new StreamWriter(stream);
+	}
 
     /// <summary>
     ///     Implements the IDisposable interface
     /// </summary>
     public override void Dispose()
-    {
-        base.Dispose();
-        m_Stream.Dispose();
-    }
+	{
+		base.Dispose();
+		m_Stream.Dispose();
+	}
 
-    protected override void Write(BadLog log)
-    {
-        m_Stream.WriteLine(log);
-    }
+	protected override void Write(BadLog log)
+	{
+		m_Stream.WriteLine(log);
+	}
 }

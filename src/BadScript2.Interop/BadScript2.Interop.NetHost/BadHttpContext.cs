@@ -9,25 +9,23 @@ namespace BadScript2.Interop.NetHost;
 
 public class BadHttpContext : BadObject
 {
-    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>(
-        "HttpContext",
-        (_, _) => throw new BadRuntimeException("Cannot create new Http Contexts")
-    );
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>("HttpContext",
+		(_, _) => throw new BadRuntimeException("Cannot create new Http Contexts"));
 
-    public BadHttpContext(HttpListenerContext context)
-    {
-        Context = context;
-    }
+	public BadHttpContext(HttpListenerContext context)
+	{
+		Context = context;
+	}
 
-    public HttpListenerContext Context { get; }
+	public HttpListenerContext Context { get; }
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return s_Prototype;
-    }
+	public override BadClassPrototype GetPrototype()
+	{
+		return s_Prototype;
+	}
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return Context.ToString();
-    }
+	public override string ToSafeString(List<BadObject> done)
+	{
+		return Context.ToString();
+	}
 }

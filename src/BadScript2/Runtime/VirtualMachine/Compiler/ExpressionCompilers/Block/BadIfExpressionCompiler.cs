@@ -6,71 +6,85 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
 {
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadIfExpression expression)
-    {
-        List<List<BadInstruction>> branches = new List<List<BadInstruction>>();
-        int totalInstructions = 0;
-        foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expression.ConditionalBranches)
-        {
-            List<BadInstruction> branchInstructions = new List<BadInstruction>();
+	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadIfExpression expression)
+	{
+		List<List<BadInstruction>> branches = new List<List<BadInstruction>>();
+		int totalInstructions = 0;
 
-            foreach (BadInstruction instruction in compiler.Compile(branch.Key))
-            {
-                branchInstructions.Add(instruction);
-            }
+		foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expression.ConditionalBranches)
+		{
+			List<BadInstruction> branchInstructions = new List<BadInstruction>();
 
-            //Jump to next branch if false
-            int jumpIndex = branchInstructions.Count;
-            branchInstructions.Add(new BadInstruction());
+			foreach (BadInstruction instruction in compiler.Compile(branch.Key))
+			{
+				branchInstructions.Add(instruction);
+			}
 
-            branchInstructions.Add(new BadInstruction(BadOpCode.CreateScope, expression.Position, "IfScope", BadObject.Null));
+			//Jump to next branch if false
+			int jumpIndex = branchInstructions.Count;
+			branchInstructions.Add(new BadInstruction());
 
-            foreach (BadInstruction instruction in compiler.Compile(branch.Value))
-            {
-                branchInstructions.Add(instruction);
-            }
+			branchInstructions.Add(new BadInstruction(BadOpCode.CreateScope,
+				expression.Position,
+				"IfScope",
+				BadObject.Null));
 
-            branchInstructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
+			foreach (BadInstruction instruction in compiler.Compile(branch.Value))
+			{
+				branchInstructions.Add(instruction);
+			}
 
-            //Write Relative Jump Expression (-1 for the end jump after the branch has been taken)
-            branchInstructions[jumpIndex] = new BadInstruction(BadOpCode.JumpRelativeIfFalse, expression.Position, branchInstructions.Count - jumpIndex);
-            branches.Add(branchInstructions);
-            totalInstructions += branchInstructions.Count + 1;
-        }
+			branchInstructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
 
-        List<BadInstruction> elseInstructions = new List<BadInstruction>();
-        if (expression.ElseBranch != null)
-        {
-            elseInstructions.Add(new BadInstruction(BadOpCode.CreateScope, expression.Position, "IfScope", BadObject.Null));
-            totalInstructions++;
-            foreach (BadInstruction instruction in compiler.Compile(expression.ElseBranch))
-            {
-                elseInstructions.Add(instruction);
-                totalInstructions++;
-            }
+			//Write Relative Jump Expression (-1 for the end jump after the branch has been taken)
+			branchInstructions[jumpIndex] = new BadInstruction(BadOpCode.JumpRelativeIfFalse,
+				expression.Position,
+				branchInstructions.Count - jumpIndex);
+			branches.Add(branchInstructions);
+			totalInstructions += branchInstructions.Count + 1;
+		}
 
-            elseInstructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
-            totalInstructions++;
-        }
+		List<BadInstruction> elseInstructions = new List<BadInstruction>();
 
-        int currentInstruction = 0;
-        foreach (List<BadInstruction> instructions in branches)
-        {
-            currentInstruction += instructions.Count + 1;
-            instructions.Add(new BadInstruction(BadOpCode.JumpRelative, expression.Position, totalInstructions - currentInstruction + 1));
-        }
+		if (expression.ElseBranch != null)
+		{
+			elseInstructions.Add(new BadInstruction(BadOpCode.CreateScope,
+				expression.Position,
+				"IfScope",
+				BadObject.Null));
+			totalInstructions++;
 
-        foreach (List<BadInstruction> instructions in branches)
-        {
-            foreach (BadInstruction instruction in instructions)
-            {
-                yield return instruction;
-            }
-        }
+			foreach (BadInstruction instruction in compiler.Compile(expression.ElseBranch))
+			{
+				elseInstructions.Add(instruction);
+				totalInstructions++;
+			}
 
-        foreach (BadInstruction instruction in elseInstructions)
-        {
-            yield return instruction;
-        }
-    }
+			elseInstructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
+			totalInstructions++;
+		}
+
+		int currentInstruction = 0;
+
+		foreach (List<BadInstruction> instructions in branches)
+		{
+			currentInstruction += instructions.Count + 1;
+			instructions.Add(new BadInstruction(BadOpCode.JumpRelative,
+				expression.Position,
+				totalInstructions - currentInstruction + 1));
+		}
+
+		foreach (List<BadInstruction> instructions in branches)
+		{
+			foreach (BadInstruction instruction in instructions)
+			{
+				yield return instruction;
+			}
+		}
+
+		foreach (BadInstruction instruction in elseInstructions)
+		{
+			yield return instruction;
+		}
+	}
 }

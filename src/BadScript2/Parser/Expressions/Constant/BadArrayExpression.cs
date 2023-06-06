@@ -20,45 +20,45 @@ public class BadArrayExpression : BadExpression
     /// </summary>
     /// <param name="initExpressions">The initializer list of the Array</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
-        false,
-        position
-    )
-    {
-        m_InitExpressions = initExpressions;
-    }
+    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(false,
+		position)
+	{
+		m_InitExpressions = initExpressions;
+	}
 
-    public int Length => m_InitExpressions.Length;
+	public int Length => m_InitExpressions.Length;
 
     /// <summary>
     ///     The Initializer List
     /// </summary>
     public IEnumerable<BadExpression> InitExpressions => m_InitExpressions;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_InitExpressions.Length; i++)
-        {
-            m_InitExpressions[i] = BadExpressionOptimizer.Optimize(m_InitExpressions[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_InitExpressions.Length; i++)
+		{
+			m_InitExpressions[i] = BadExpressionOptimizer.Optimize(m_InitExpressions[i]);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        List<BadObject> array = new List<BadObject>();
-        foreach (BadExpression expression in m_InitExpressions)
-        {
-            BadObject o = BadObject.Null;
-            foreach (BadObject obj in expression.Execute(context))
-            {
-                o = obj;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		List<BadObject> array = new List<BadObject>();
 
-                yield return o;
-            }
+		foreach (BadExpression expression in m_InitExpressions)
+		{
+			BadObject o = BadObject.Null;
 
-            array.Add(o.Dereference());
-        }
+			foreach (BadObject obj in expression.Execute(context))
+			{
+				o = obj;
 
-        yield return new BadArray(array);
-    }
+				yield return o;
+			}
+
+			array.Add(o.Dereference());
+		}
+
+		yield return new BadArray(array);
+	}
 }

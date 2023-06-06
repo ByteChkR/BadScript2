@@ -19,10 +19,10 @@ public abstract class BadExpression
     /// <param name="isConstant">Indicates if the expression stays constant at all times</param>
     /// <param name="position">The source Position of the Expression</param>
     protected BadExpression(bool isConstant, BadSourcePosition position)
-    {
-        IsConstant = isConstant;
-        Position = position;
-    }
+	{
+		IsConstant = isConstant;
+		Position = position;
+	}
 
     /// <summary>
     ///     Indicates if the expression stays constant at all times.
@@ -52,42 +52,44 @@ public abstract class BadExpression
     /// <param name="context">The current Execution context the expression is evaluated in</param>
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     public IEnumerable<BadObject> Execute(BadExecutionContext context)
-    {
-        if (BadDebugger.IsAttached)
-        {
-            BadDebugger.Step(new BadDebuggerStep(context, Position, this));
-        }
+	{
+		if (BadDebugger.IsAttached)
+		{
+			BadDebugger.Step(new BadDebuggerStep(context, Position, this));
+		}
 
-        if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
-        {
-            IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
-            while (true)
-            {
-                try
-                {
-                    if (!e.MoveNext())
-                    {
-                        break;
-                    }
-                }
-                catch (Exception exception)
-                {
-                    context.Scope.SetErrorObject(BadRuntimeError.FromException(exception, context.Scope.GetStackTrace()));
+		if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
+		{
+			IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
 
-                    break;
-                }
+			while (true)
+			{
+				try
+				{
+					if (!e.MoveNext())
+					{
+						break;
+					}
+				}
+				catch (Exception exception)
+				{
+					context.Scope.SetErrorObject(
+						BadRuntimeError.FromException(exception, context.Scope.GetStackTrace()));
 
-                yield return e.Current ?? BadObject.Null;
-            }
-        }
-        else
-        {
-            foreach (BadObject o in InnerExecute(context))
-            {
-                yield return o;
-            }
-        }
-    }
+					break;
+				}
+
+				yield return e.Current ?? BadObject.Null;
+			}
+		}
+		else
+		{
+			foreach (BadObject o in InnerExecute(context))
+			{
+				yield return o;
+			}
+		}
+	}
 
     /// <summary>
     ///     Helper function that executes an operator override function if implemented.
@@ -96,28 +98,31 @@ public abstract class BadExpression
     /// <param name="right">Right Expression Part</param>
     /// <param name="context">The current Execution context the expression is evaluated in</param>
     /// <param name="name">The name of the operator override function</param>
+    /// <param name="position">The Source Position used when throwing an error</param>
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the override function does not exist or is not of type BadFunction</exception>
     protected static IEnumerable<BadObject> ExecuteOperatorOverride(
-        BadObject left,
-        BadObject right,
-        BadExecutionContext context,
-        string name,
-        BadSourcePosition position)
-    {
-        BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
+		BadObject left,
+		BadObject right,
+		BadExecutionContext context,
+		string name,
+		BadSourcePosition position)
+	{
+		BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
 
-        if (func == null)
-        {
-            throw new BadRuntimeException(
-                $"{left.GetType().Name} has no {name} property",
-                position
-            );
-        }
+		if (func == null)
+		{
+			throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
+				position);
+		}
 
-        foreach (BadObject o in func.Invoke(new[] { right }, context))
-        {
-            yield return o;
-        }
-    }
+		foreach (BadObject o in func.Invoke(new[]
+			         {
+				         right
+			         },
+			         context))
+		{
+			yield return o;
+		}
+	}
 }

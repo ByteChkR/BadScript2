@@ -13,103 +13,105 @@ namespace BadScript2.Interop.NUnit;
 
 public class BadUnitTestContextBuilder
 {
-    private readonly List<BadInteropApi> m_Apis;
-    private readonly List<BadNUnitTestCase> m_Cases = new List<BadNUnitTestCase>();
-    private readonly List<BadFunction> m_Setup = new List<BadFunction>();
-    private readonly List<BadFunction> m_Teardown = new List<BadFunction>();
+	private readonly List<BadInteropApi> m_Apis;
+	private readonly List<BadNUnitTestCase> m_Cases = new List<BadNUnitTestCase>();
+	private readonly List<BadFunction> m_Setup = new List<BadFunction>();
+	private readonly List<BadFunction> m_Teardown = new List<BadFunction>();
 
-    public BadUnitTestContextBuilder(IEnumerable<BadInteropApi> apis)
-    {
-        m_Apis = apis.ToList();
-        m_Apis.Add(new BadNUnitApi());
-        m_Apis.Add(new BadNUnitConsoleApi(this));
-    }
+	public BadUnitTestContextBuilder(IEnumerable<BadInteropApi> apis)
+	{
+		m_Apis = apis.ToList();
+		m_Apis.Add(new BadNUnitApi());
+		m_Apis.Add(new BadNUnitConsoleApi(this));
+	}
 
-    public BadUnitTestContextBuilder(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
+	public BadUnitTestContextBuilder(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
 
-    public void Register(bool optimize, params string[] files)
-    {
-        foreach (string file in files)
-        {
-            SetupStage(file, optimize);
-        }
-    }
+	public void Register(bool optimize, params string[] files)
+	{
+		foreach (string file in files)
+		{
+			SetupStage(file, optimize);
+		}
+	}
 
-    public BadUnitTestContext CreateContext()
-    {
-        return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList());
-    }
+	public BadUnitTestContext CreateContext()
+	{
+		return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList());
+	}
 
-    public void AddTest(BadFunction function, BadObject testName, bool allowCompile = true)
-    {
-        string? name = null;
-        if (testName != BadObject.Null)
-        {
-            name = (testName as IBadString)?.Value ?? throw new InvalidOperationException("Test name must be a string");
-        }
+	public void AddTest(BadFunction function, BadObject testName, bool allowCompile = true)
+	{
+		string? name = null;
 
-        m_Cases.Add(new BadNUnitTestCase(function, name, allowCompile));
-    }
+		if (testName != BadObject.Null)
+		{
+			name = (testName as IBadString)?.Value ?? throw new InvalidOperationException("Test name must be a string");
+		}
 
-    public void AddSetup(BadFunction function)
-    {
-        m_Setup.Add(function);
-    }
+		m_Cases.Add(new BadNUnitTestCase(function, name, allowCompile));
+	}
 
-
-    public void AddTeardown(BadFunction function)
-    {
-        m_Teardown.Add(function);
-    }
-
-    public void Reset()
-    {
-        m_Teardown.Clear();
-        m_Setup.Clear();
-        m_Cases.Clear();
-    }
+	public void AddSetup(BadFunction function)
+	{
+		m_Setup.Add(function);
+	}
 
 
-    private void LoadApis(BadExecutionContext context)
-    {
-        foreach (BadInteropApi api in m_Apis)
-        {
-            BadTable target;
-            if (context.Scope.HasLocal(api.Name) && context.Scope.GetVariable(api.Name).Dereference() is BadTable table)
-            {
-                target = table;
-            }
-            else
-            {
-                target = new BadTable();
-                context.Scope.DefineVariable(api.Name, target);
-            }
+	public void AddTeardown(BadFunction function)
+	{
+		m_Teardown.Add(function);
+	}
 
-            api.Load(target);
-        }
+	public void Reset()
+	{
+		m_Teardown.Clear();
+		m_Setup.Clear();
+		m_Cases.Clear();
+	}
 
-        foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
-        {
-            context.Scope.DefineVariable(type.Name, type);
-        }
-    }
 
-    private void SetupStage(string file, bool optimize = false)
-    {
-        //Load expressions
-        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
+	private void LoadApis(BadExecutionContext context)
+	{
+		foreach (BadInteropApi api in m_Apis)
+		{
+			BadTable target;
 
-        if (optimize)
-        {
-            expressions = BadExpressionOptimizer.Optimize(expressions);
-        }
+			if (context.Scope.HasLocal(api.Name) && context.Scope.GetVariable(api.Name).Dereference() is BadTable table)
+			{
+				target = table;
+			}
+			else
+			{
+				target = new BadTable();
+				context.Scope.DefineVariable(api.Name, target);
+			}
 
-        //Create Context
-        BadExecutionContext context = BadExecutionContext.Create();
+			api.Load(target);
+		}
 
-        //Add Apis
-        LoadApis(context);
+		foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
+		{
+			context.Scope.DefineVariable(type.Name, type);
+		}
+	}
 
-        context.Run(expressions);
-    }
+	private void SetupStage(string file, bool optimize = false)
+	{
+		//Load expressions
+		IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
+
+		if (optimize)
+		{
+			expressions = BadExpressionOptimizer.Optimize(expressions);
+		}
+
+		//Create Context
+		BadExecutionContext context = BadExecutionContext.Create();
+
+		//Add Apis
+		LoadApis(context);
+
+		context.Run(expressions);
+	}
 }

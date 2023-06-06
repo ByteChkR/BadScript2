@@ -8,36 +8,35 @@ namespace BadScript2.Interop.NetHost;
 
 public class BadNetHostApi : BadInteropApi
 {
-    public BadNetHostApi() : base("NetHost") { }
+	public BadNetHostApi() : base("NetHost") { }
 
 
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetFunction<BadArray>(
-            "Create",
-            p =>
-            {
-                string[] prefixes = new string[p.InnerArray.Count];
-                for (int i = 0; i < prefixes.Length; i++)
-                {
-                    if (p.InnerArray[i] is not IBadString str)
-                    {
-                        throw new BadRuntimeException("Invalid Prefix");
-                    }
+	protected override void LoadApi(BadTable target)
+	{
+		target.SetFunction<BadArray>("Create",
+			p =>
+			{
+				string[] prefixes = new string[p.InnerArray.Count];
 
-                    prefixes[i] = str.Value;
-                }
+				for (int i = 0; i < prefixes.Length; i++)
+				{
+					if (p.InnerArray[i] is not IBadString str)
+					{
+						throw new BadRuntimeException("Invalid Prefix");
+					}
 
-                BadNetHost host = new BadNetHost(prefixes);
-                BadTable table = new BadTable();
-                table.SetFunction("Start", host.Start);
-                table.SetFunction("Stop", host.Stop);
-                table.SetFunction("Close", host.Close);
-                table.SetFunction("Abort", host.Abort);
-                table.SetFunction("AcceptClient", host.AcceptClient);
+					prefixes[i] = str.Value;
+				}
 
-                return table;
-            }
-        );
-    }
+				BadNetHost host = new BadNetHost(prefixes);
+				BadTable table = new BadTable();
+				table.SetFunction("Start", host.Start);
+				table.SetFunction("Stop", host.Stop);
+				table.SetFunction("Close", host.Close);
+				table.SetFunction("Abort", host.Abort);
+				table.SetFunction("AcceptClient", host.AcceptClient);
+
+				return table;
+			});
+	}
 }

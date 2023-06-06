@@ -25,12 +25,12 @@ public class BadNullExpression : BadExpression, IBadNativeExpression
     /// </summary>
     /// <returns>String Representation of the Expression</returns>
     public override string ToString()
-    {
-        return BadStaticKeys.Null;
-    }
+	{
+		return BadStaticKeys.Null;
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        yield return BadObject.Null;
-    }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		yield return BadObject.Null;
+	}
 }

@@ -4,35 +4,36 @@ namespace BadScript2.ConsoleCore.Systems;
 
 public abstract class BadConsoleSystem<T> : BadAConsoleSystem
 {
-    public override int Run(object? settings)
-    {
-        if (settings is T t)
-        {
-            return Run(t);
-        }
+	public override int Run(object? settings)
+	{
+		if (settings is T t)
+		{
+			return Run(t);
+		}
 
-        if (settings is null)
-        {
-            BadConsole.WriteLine("No settings provided.");
-        }
-        else
-        {
-            BadConsole.WriteLine("Invalid settings type");
-        }
+		if (settings is null)
+		{
+			BadConsole.WriteLine("No settings provided.");
+		}
+		else
+		{
+			BadConsole.WriteLine("Invalid settings type");
+		}
 
-        return -1;
-    }
+		return -1;
+	}
 
-    public override object? Parse(string[] args)
-    {
-        T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
-        if (t is null)
-        {
-            return null;
-        }
+	public override object? Parse(string[] args)
+	{
+		T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
 
-        return t;
-    }
+		if (t is null)
+		{
+			return null;
+		}
 
-    protected abstract int Run(T settings);
+		return t;
+	}
+
+	protected abstract int Run(T settings);
 }

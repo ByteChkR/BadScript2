@@ -7,37 +7,32 @@ namespace BadScript2.Interop.Common.Extensions;
 
 public class BadFunctionExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
-    {
-        RegisterObject<BadFunction>("Name", f => f.Name?.Text ?? "<anonymous>");
-        RegisterObject<BadFunction>(
-            "Parameters",
-            f => new BadArray(f.Parameters.Select(x => BadObject.Wrap(x)).ToList())
-        );
-        RegisterObject<BadFunction>(
-            "Invoke",
-            f => new BadDynamicInteropFunction<BadArray>(
-                "Invoke",
-                (ctx, a) =>
-                {
-                    BadObject r = BadObject.Null;
-                    foreach (BadObject o in f.Invoke(a.InnerArray.ToArray(), ctx))
-                    {
-                        r = o;
-                    }
+	protected override void AddExtensions()
+	{
+		RegisterObject<BadFunction>("Name", f => f.Name?.Text ?? "<anonymous>");
+		RegisterObject<BadFunction>("Parameters",
+			f => new BadArray(f.Parameters.Select(x => BadObject.Wrap(x)).ToList()));
+		RegisterObject<BadFunction>("Invoke",
+			f => new BadDynamicInteropFunction<BadArray>("Invoke",
+				(ctx, a) =>
+				{
+					BadObject r = BadObject.Null;
 
-                    return r;
-                },
-                "args"
-            )
-        );
-        
-        RegisterObject<BadFunction>("Meta", f => f.MetaData);
+					foreach (BadObject o in f.Invoke(a.InnerArray.ToArray(), ctx))
+					{
+						r = o;
+					}
 
-        RegisterObject<BadFunctionParameter>("Name", p => p.Name);
-        RegisterObject<BadFunctionParameter>("IsNullChecked", p => p.IsNullChecked);
-        RegisterObject<BadFunctionParameter>("IsOptional", p => p.IsOptional);
-        RegisterObject<BadFunctionParameter>("IsRestArgs", p => p.IsRestArgs);
-        RegisterObject<BadFunctionParameter>("Type", p => p.Type ?? BadObject.Null);
-    }
+					return r;
+				},
+				"args"));
+
+		RegisterObject<BadFunction>("Meta", f => f.MetaData);
+
+		RegisterObject<BadFunctionParameter>("Name", p => p.Name);
+		RegisterObject<BadFunctionParameter>("IsNullChecked", p => p.IsNullChecked);
+		RegisterObject<BadFunctionParameter>("IsOptional", p => p.IsOptional);
+		RegisterObject<BadFunctionParameter>("IsRestArgs", p => p.IsRestArgs);
+		RegisterObject<BadFunctionParameter>("Type", p => p.Type ?? BadObject.Null);
+	}
 }

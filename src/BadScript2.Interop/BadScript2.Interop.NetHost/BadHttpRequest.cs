@@ -9,25 +9,23 @@ namespace BadScript2.Interop.NetHost;
 
 public class BadHttpRequest : BadObject
 {
-    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>(
-        "HttpRequest",
-        (_, _) => throw new BadRuntimeException("Cannot create new Http Request")
-    );
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>("HttpRequest",
+		(_, _) => throw new BadRuntimeException("Cannot create new Http Request"));
 
-    public BadHttpRequest(HttpListenerRequest request)
-    {
-        Request = request;
-    }
+	public BadHttpRequest(HttpListenerRequest request)
+	{
+		Request = request;
+	}
 
-    public HttpListenerRequest Request { get; }
+	public HttpListenerRequest Request { get; }
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return s_Prototype;
-    }
+	public override BadClassPrototype GetPrototype()
+	{
+		return s_Prototype;
+	}
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return Request.ToString();
-    }
+	public override string ToSafeString(List<BadObject> done)
+	{
+		return Request.ToString();
+	}
 }

@@ -24,140 +24,143 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
-    private string StartupDirectory
-    {
-        get
-        {
-            string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Run.StartupDirectory");
-            if (s == null)
-            {
-                throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
-            }
+	private string StartupDirectory
+	{
+		get
+		{
+			string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Run.StartupDirectory");
 
-            BadFileSystem.Instance.CreateDirectory(s);
+			if (s == null)
+			{
+				throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
+			}
 
-            return s;
-        }
-    }
+			BadFileSystem.Instance.CreateDirectory(s);
 
-    public override string Name => "run";
+			return s;
+		}
+	}
 
-    private int RunInteractive(BadExecutionContextOptions options, IEnumerable<string> files)
-    {
-        BadInteractiveConsole console = new BadInteractiveConsole(options, BadTaskRunner.Instance, files);
-        while (true)
-        {
-            BadConsole.Write(">");
-            string cmd = BadConsole.ReadLine()!;
+	public override string Name => "run";
 
-            if (cmd == "exit")
-            {
-                return -1;
-            }
+	private int RunInteractive(BadExecutionContextOptions options, IEnumerable<string> files)
+	{
+		BadInteractiveConsole console = new BadInteractiveConsole(options, BadTaskRunner.Instance, files);
 
-            console.Run(cmd);
-        }
-    }
+		while (true)
+		{
+			BadConsole.Write(">");
+			string cmd = BadConsole.ReadLine()!;
 
-    private BadExecutionContextOptions CreateOptions()
-    {
-        BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
-        options.AddApi(new BadTaskRunnerApi(BadTaskRunner.Instance));
+			if (cmd == "exit")
+			{
+				return -1;
+			}
 
-        return options;
-    }
+			console.Run(cmd);
+		}
+	}
 
+	private BadExecutionContextOptions CreateOptions()
+	{
+		BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
+		options.AddApi(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
-    private IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> exprs)
-    {
-        foreach (BadObject o in exprs)
-        {
-            yield return o;
-        }
-
-        if (context.Scope.IsError)
-        {
-            BadConsole.WriteLine("Error: " + context.Scope.Error);
-        }
-    }
-
-    protected override int Run(BadRunSystemSettings settings)
-    {
-        BadExecutionContextOptions options = CreateOptions();
-
-        BadNetworkConsoleHost? host = null;
-        if (settings.RemotePort != -1)
-        {
-            host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
-            host.Start();
-            BadConsole.SetConsole(host);
-        }
-
-        BadRuntimeApi.StartupArguments = settings.Args;
-        IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
-                StartupDirectory,
-                $".{BadRuntimeSettings.Instance.FileExtension}",
-                true
-            )
-            .Concat(settings.Files);
-        if (settings.Interactive)
-        {
-            if (settings.Benchmark)
-            {
-                BadLogger.Warn("Benchmarking is not supported in interactive mode");
-            }
-
-            int r = RunInteractive(options, files);
-
-            host?.Stop();
-
-            return r;
-        }
-
-        Stopwatch? sw = null;
-        if (settings.Benchmark)
-        {
-            sw = Stopwatch.StartNew();
-        }
-
-        if (settings.Debug)
-        {
-            BadDebugger.Attach(new BadScriptDebugger(options));
-        }
-
-        foreach (string file in files)
-        {
-            BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
-            BadExecutionContext context = options.Build();
-
-            context.Scope.AddSingleton(BadTaskRunner.Instance);
-
-            IEnumerable<BadExpression> exprs = parser.Parse();
-            if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
-            {
-                exprs = BadExpressionOptimizer.Optimize(exprs);
-            }
-
-            BadTaskRunner.Instance.AddTask(
-                new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"),
-                true
-            );
+		return options;
+	}
 
 
-            while (!BadTaskRunner.Instance.IsIdle)
-            {
-                BadTaskRunner.Instance.RunStep();
-            }
-        }
+	private IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> exprs)
+	{
+		foreach (BadObject o in exprs)
+		{
+			yield return o;
+		}
 
-        if (settings.Benchmark)
-        {
-            sw?.Stop();
-            BadLogger.Log($"Execution Time: {sw?.ElapsedMilliseconds ?? 0}ms", "Benchmark");
-        }
+		if (context.Scope.IsError)
+		{
+			BadConsole.WriteLine("Error: " + context.Scope.Error);
+		}
+	}
 
-        host?.Stop();
+	protected override int Run(BadRunSystemSettings settings)
+	{
+		BadExecutionContextOptions options = CreateOptions();
 
-        return -1;
-    }
+		BadNetworkConsoleHost? host = null;
+
+		if (settings.RemotePort != -1)
+		{
+			host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
+			host.Start();
+			BadConsole.SetConsole(host);
+		}
+
+		BadRuntimeApi.StartupArguments = settings.Args;
+		IEnumerable<string> files = BadFileSystem.Instance.GetFiles(StartupDirectory,
+				$".{BadRuntimeSettings.Instance.FileExtension}",
+				true)
+			.Concat(settings.Files);
+
+		if (settings.Interactive)
+		{
+			if (settings.Benchmark)
+			{
+				BadLogger.Warn("Benchmarking is not supported in interactive mode");
+			}
+
+			int r = RunInteractive(options, files);
+
+			host?.Stop();
+
+			return r;
+		}
+
+		Stopwatch? sw = null;
+
+		if (settings.Benchmark)
+		{
+			sw = Stopwatch.StartNew();
+		}
+
+		if (settings.Debug)
+		{
+			BadDebugger.Attach(new BadScriptDebugger(options));
+		}
+
+		foreach (string file in files)
+		{
+			BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
+			BadExecutionContext context = options.Build();
+
+			context.Scope.AddSingleton(BadTaskRunner.Instance);
+
+			IEnumerable<BadExpression> exprs = parser.Parse();
+
+			if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
+			{
+				exprs = BadExpressionOptimizer.Optimize(exprs);
+			}
+
+			BadTaskRunner.Instance.AddTask(
+				new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"),
+				true);
+
+
+			while (!BadTaskRunner.Instance.IsIdle)
+			{
+				BadTaskRunner.Instance.RunStep();
+			}
+		}
+
+		if (settings.Benchmark)
+		{
+			sw?.Stop();
+			BadLogger.Log($"Execution Time: {sw?.ElapsedMilliseconds ?? 0}ms", "Benchmark");
+		}
+
+		host?.Stop();
+
+		return -1;
+	}
 }

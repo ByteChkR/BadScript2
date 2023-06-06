@@ -4,100 +4,104 @@ namespace BadScript2.Interop.Common.Task;
 
 public class BadTaskRunner
 {
-    public static readonly BadTaskRunner Instance = new BadTaskRunner();
-    private readonly List<BadTask> m_TaskList = new List<BadTask>();
+	public static readonly BadTaskRunner Instance = new BadTaskRunner();
+	private readonly List<BadTask> m_TaskList = new List<BadTask>();
 
-    static BadTaskRunner()
-    {
-        BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
-    }
+	static BadTaskRunner()
+	{
+		BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
+	}
 
 
-    public BadTask? Current { get; private set; }
-    public bool IsIdle => m_TaskList.Count == 0;
+	public BadTask? Current { get; private set; }
 
-    public void RunStep()
-    {
-        for (int i = m_TaskList.Count - 1; i >= 0; i--)
-        {
-            if (i >= m_TaskList.Count)
-            {
-                continue;
-            }
+	public bool IsIdle => m_TaskList.Count == 0;
 
-            BadTask t = m_TaskList[i];
-            Current = t;
-            if (t.IsPaused)
-            {
-                continue;
-            }
+	public void RunStep()
+	{
+		for (int i = m_TaskList.Count - 1; i >= 0; i--)
+		{
+			if (i >= m_TaskList.Count)
+			{
+				continue;
+			}
 
-            if (!t.IsFinished)
-            {
-                for (int j = 0; j < BadTaskRunnerSettings.Instance.TaskIterationTime; j++)
-                {
-                    if (t.IsPaused)
-                    {
-                        break;
-                    }
+			BadTask t = m_TaskList[i];
+			Current = t;
 
-                    if (t.IsFinished || !t.Runnable.Enumerator.MoveNext())
-                    {
-                        t.Stop();
+			if (t.IsPaused)
+			{
+				continue;
+			}
 
-                        break;
-                    }
-                }
-            }
+			if (!t.IsFinished)
+			{
+				for (int j = 0; j < BadTaskRunnerSettings.Instance.TaskIterationTime; j++)
+				{
+					if (t.IsPaused)
+					{
+						break;
+					}
 
-            if (t.IsFinished)
-            {
-                m_TaskList.Remove(t);
-                foreach (BadTask x in t.ContinuationTasks)
-                {
-                    if (x.IsFinished)
-                    {
-                        continue;
-                    }
+					if (t.IsFinished || !t.Runnable.Enumerator.MoveNext())
+					{
+						t.Stop();
 
-                    if (m_TaskList.Contains(x))
-                    {
-                        x.Resume();
-                    }
-                    else
-                    {
-                        m_TaskList.Add(x);
-                        x.Start();
-                    }
-                }
-            }
-        }
-    }
+						break;
+					}
+				}
+			}
 
-    public void Clear()
-    {
-        m_TaskList.Clear();
-    }
+			if (t.IsFinished)
+			{
+				m_TaskList.Remove(t);
 
-    public void ClearTasksFrom(BadTask creator)
-    {
-        foreach (BadTask task in m_TaskList)
-        {
-            if (task.Creator == creator)
-            {
-                task.Cancel();
-                ClearTasksFrom(task);
-            }
-        }
-    }
+				foreach (BadTask x in t.ContinuationTasks)
+				{
+					if (x.IsFinished)
+					{
+						continue;
+					}
 
-    public void AddTask(BadTask task, bool runImmediately = false)
-    {
-        m_TaskList.Add(task);
-        task.SetCreator(Current);
-        if (runImmediately)
-        {
-            task.Start();
-        }
-    }
+					if (m_TaskList.Contains(x))
+					{
+						x.Resume();
+					}
+					else
+					{
+						m_TaskList.Add(x);
+						x.Start();
+					}
+				}
+			}
+		}
+	}
+
+	public void Clear()
+	{
+		m_TaskList.Clear();
+	}
+
+	public void ClearTasksFrom(BadTask creator)
+	{
+		foreach (BadTask task in m_TaskList)
+		{
+			if (task.Creator == creator)
+			{
+				task.Cancel();
+				ClearTasksFrom(task);
+			}
+		}
+	}
+
+	public void AddTask(BadTask task, bool runImmediately = false)
+	{
+		m_TaskList.Add(task);
+		task.SetCreator(Current);
+
+		if (runImmediately)
+		{
+			task.Start();
+		}
+	}
 }

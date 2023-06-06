@@ -18,28 +18,29 @@ public class BadVirtualFile : BadVirtualNode
     /// <param name="name">Name of the File</param>
     /// <param name="parent">The parent directory</param>
     internal BadVirtualFile(string name, BadVirtualDirectory? parent) : base(name, parent)
-    {
-        m_Data = Array.Empty<byte>();
-    }
+	{
+		m_Data = Array.Empty<byte>();
+	}
 
     /// <summary>
     ///     The Absolute Path of the File
     /// </summary>
     public string AbsolutePath => Parent?.AbsolutePath + Name;
 
-    public override bool HasChildren => false;
-    public override IEnumerable<BadVirtualNode> Children => Enumerable.Empty<BadVirtualNode>();
+	public override bool HasChildren => false;
+
+	public override IEnumerable<BadVirtualNode> Children => Enumerable.Empty<BadVirtualNode>();
 
     /// <summary>
     ///     Returns a readable stream for the file
     /// </summary>
     /// <returns>File Stream</returns>
     public Stream OpenRead()
-    {
-        BadLogger.Log($"Opening File(READ) {AbsolutePath}", "BFS");
+	{
+		BadLogger.Log($"Opening File(READ) {AbsolutePath}", "BFS");
 
-        return new MemoryStream(m_Data, false);
-    }
+		return new MemoryStream(m_Data, false);
+	}
 
     /// <summary>
     ///     Returns a writable stream for the file
@@ -47,18 +48,19 @@ public class BadVirtualFile : BadVirtualNode
     /// <param name="mode">Write Mode</param>
     /// <returns>File Stream</returns>
     public Stream OpenWrite(BadWriteMode mode)
-    {
-        BadLogger.Log($"Opening File(WRITE: {mode}) {AbsolutePath}", "BFS");
-        BadVirtualFileStream s = new BadVirtualFileStream();
-        if (mode == BadWriteMode.CreateNew)
-        {
-            m_Data = Array.Empty<byte>();
-        }
+	{
+		BadLogger.Log($"Opening File(WRITE: {mode}) {AbsolutePath}", "BFS");
+		BadVirtualFileStream s = new BadVirtualFileStream();
 
-        s.Write(m_Data, 0, m_Data.Length);
+		if (mode == BadWriteMode.CreateNew)
+		{
+			m_Data = Array.Empty<byte>();
+		}
 
-        s.OnDispose += () => m_Data = s.ToArray();
+		s.Write(m_Data, 0, m_Data.Length);
 
-        return s;
-    }
+		s.OnDispose += () => m_Data = s.ToArray();
+
+		return s;
+	}
 }

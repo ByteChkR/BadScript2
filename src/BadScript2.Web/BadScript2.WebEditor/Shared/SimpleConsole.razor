@@ -78,7 +78,9 @@
     public EventCallback OnFileSystemChanged { get; set; } = EventCallback.Empty;
 
     private string ConsoleHistory { get; set; } = "";
+
     private string ConsoleInput { get; set; } = "";
+
     private List<BadConsoleCommand> Commands { get; set; } = new List<BadConsoleCommand>();
 
     private async void InputFileUpload(InputFileChangeEventArgs e)
@@ -123,8 +125,8 @@
         string cmd = ConsoleInput;
         ConsoleInput = "";
         string[] parts = cmd.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 0)
-            return;
+        if (parts.Length == 0) return;
+
         BadConsoleCommand? command = Commands.FirstOrDefault(x => x.Name == parts[0] || x.Aliases.Contains(parts[0]));
         if (command == null)
         {

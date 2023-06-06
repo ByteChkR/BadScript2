@@ -21,51 +21,52 @@ public class BadTableExpression : BadExpression
     /// </summary>
     /// <param name="table">The Initializer List</param>
     /// <param name="position">The Source Position of the Expression</param>
-    public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
-        false,
-        position
-    )
-    {
-        m_Table = table;
-    }
+    public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(false,
+		position)
+	{
+		m_Table = table;
+	}
 
-    public int Length => m_Table.Count;
+	public int Length => m_Table.Count;
 
     /// <summary>
     ///     The Initializer List of the Table
     /// </summary>
     public IDictionary<BadWordToken, BadExpression> Table => m_Table;
 
-    public override void Optimize()
-    {
-        KeyValuePair<BadWordToken, BadExpression>[] branches = m_Table.ToArray();
-        m_Table.Clear();
-        foreach (KeyValuePair<BadWordToken, BadExpression> branch in branches)
-        {
-            m_Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
-        }
-    }
+	public override void Optimize()
+	{
+		KeyValuePair<BadWordToken, BadExpression>[] branches = m_Table.ToArray();
+		m_Table.Clear();
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();
-        foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
-        {
-            BadObject key = BadObject.Wrap(entry.Key.Text);
+		foreach (KeyValuePair<BadWordToken, BadExpression> branch in branches)
+		{
+			m_Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
+		}
+	}
 
-            BadObject value = BadObject.Null;
-            foreach (BadObject o in entry.Value.Execute(context))
-            {
-                value = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();
 
-                yield return o;
-            }
+		foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
+		{
+			BadObject key = BadObject.Wrap(entry.Key.Text);
 
-            value = value.Dereference();
+			BadObject value = BadObject.Null;
 
-            table[key] = value;
-        }
+			foreach (BadObject o in entry.Value.Execute(context))
+			{
+				value = o;
 
-        yield return new BadTable(table);
-    }
+				yield return o;
+			}
+
+			value = value.Dereference();
+
+			table[key] = value;
+		}
+
+		yield return new BadTable(table);
+	}
 }

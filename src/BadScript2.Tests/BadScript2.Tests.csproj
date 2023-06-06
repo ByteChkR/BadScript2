@@ -1,403 +1,403 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <IsPackable>false</IsPackable>
-    <LangVersion>latest</LangVersion>
-    <AssemblyVersion>2023.1.31.0</AssemblyVersion>
-    <FileVersion>2023.1.31.0</FileVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
-    <PackageReference Include="coverlet.collector" Version="3.1.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj" />
-    <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj" />
-    <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="tests\basic\variable_definitions\default.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\variable_definitions\typesafe.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\default.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\typesafe.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\classes\default.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\classes\typesafe.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\classes\inherit.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestTernary.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\TestSubtract.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\TestAssignSubtract.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\TestLogicAnd.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Comparison\TestGreaterOrEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\TestDivide.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\arguments\TestNullChecked.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestNullCheckedMemberAccess.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\TestEnumerable.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\arguments\TestOptional.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Comparison\TestEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestMemberAccess.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestNullCheckedArrayAccess.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\Atomic\TestPostDecrement.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Comparison\TestLessOrEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\TestAssignDivide.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Comparison\TestLessThan.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Comparison\TestGreaterThan.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\TestArrayAccess.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\TestLogicNot.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestArrayAccess.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestFor.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestNullCoalescing.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\TestMultiply.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\Atomic\TestPreIncrement.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\TestAssignAdd.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\TestLogicXOr.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\arguments\TestRestArgs.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestForeach.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestContinue.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\TestInvocation.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestBreak.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Comparison\TestInEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\TestLogicOr.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\Atomic\TestPreDecrement.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\TestEnumerator.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\TestAssignMultiply.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestReturn.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\Atomic\TestPostIncrement.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\TestTryCatchThrow.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestWhile.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\arguments\TestMixed.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\TestAdd.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Math\TestAddAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Math\TestDivideAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Math\TestModuloAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Math\TestMultiplyAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Math\TestSubtractAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\FormatString.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\loops\TestForeachRange.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\Assign\TestLogicAndAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\Assign\TestLogicOrAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Logic\Assign\TestLogicXOrAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\TestModulo.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestNullCoalescingAssign.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Math\Assign\TestAssignModulo.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\TestArrayAccessRef.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\IfBranches.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\PrecedenceOverride.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Access\TestArrayReverseAccess.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\TestArrayAccessReverse.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\functions\const.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\Locking.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Comparison\TestEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Comparison\TestGreaterOrEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Comparison\TestGreaterThan.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Comparison\TestInEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Comparison\TestLessOrEqual.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\operators\Custom\Comparison\TestLessThan.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\classes\visibility.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\TableJoin.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\TableJoin.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\TableMakeReadOnly.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\TableRemoveKey.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\TableKeys.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\TableLength.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\TableValues.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Table\TableMakeReadOnly.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayInsert.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayGet.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayRemove.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayClear.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayInsertRange.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayAddRange.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Table\TableJoin.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Table\TableKeys.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayRemoveAt.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayLength.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayAdd.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Table\TableRemoveKey.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArraySet.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Table\TableLength.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Array\ArrayContains.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Table\TableValues.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Function\FunctionInvoke.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Function\FunctionName.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\Function\FunctionParameters.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringContains.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringEndsWith.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringFormat.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringIndexOf.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringInsert.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringIsDigits.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringIsLetters.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringIsWhiteSpace.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringLastIndexOf.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringLength.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringPadLeft.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringPadRight.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringRemove.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringReplace.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringSplit.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringStartsWith.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringSubstring.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringToLower.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringToUpper.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringTrim.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringTrimEnd.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tests\basic\native\String\StringTrimStart.bs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+        <LangVersion>latest</LangVersion>
+        <AssemblyVersion>2023.1.31.0</AssemblyVersion>
+        <FileVersion>2023.1.31.0</FileVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
+        <PackageReference Include="NUnit" Version="3.13.3"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
+        <PackageReference Include="NUnit.Analyzers" Version="3.3.0"/>
+        <PackageReference Include="coverlet.collector" Version="3.1.2"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj"/>
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="tests\basic\variable_definitions\default.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\variable_definitions\typesafe.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\default.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\typesafe.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\default.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\typesafe.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\inherit.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestTernary.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\TestSubtract.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\TestAssignSubtract.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\TestLogicAnd.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Comparison\TestGreaterOrEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\TestDivide.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\arguments\TestNullChecked.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestNullCheckedMemberAccess.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\TestEnumerable.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\arguments\TestOptional.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Comparison\TestEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestMemberAccess.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestNullCheckedArrayAccess.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\Atomic\TestPostDecrement.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Comparison\TestLessOrEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\TestAssignDivide.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Comparison\TestLessThan.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Comparison\TestGreaterThan.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\TestArrayAccess.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\TestLogicNot.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestArrayAccess.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestFor.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestNullCoalescing.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\TestMultiply.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\Atomic\TestPreIncrement.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\TestAssignAdd.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\TestLogicXOr.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\arguments\TestRestArgs.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestForeach.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestContinue.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\TestInvocation.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestBreak.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Comparison\TestInEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\TestLogicOr.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\Atomic\TestPreDecrement.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\TestEnumerator.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\TestAssignMultiply.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestReturn.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\Atomic\TestPostIncrement.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\TestTryCatchThrow.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestWhile.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\arguments\TestMixed.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\TestAdd.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestAddAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestDivideAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestModuloAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestMultiplyAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Math\TestSubtractAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\FormatString.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\loops\TestForeachRange.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\Assign\TestLogicAndAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\Assign\TestLogicOrAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Logic\Assign\TestLogicXOrAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\TestModulo.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestNullCoalescingAssign.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Math\Assign\TestAssignModulo.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\TestArrayAccessRef.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\IfBranches.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\PrecedenceOverride.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Access\TestArrayReverseAccess.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\TestArrayAccessReverse.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\functions\const.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\Locking.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestGreaterOrEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestGreaterThan.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestInEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestLessOrEqual.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\operators\Custom\Comparison\TestLessThan.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\visibility.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\TableJoin.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\TableJoin.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\TableMakeReadOnly.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\TableRemoveKey.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\TableKeys.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\TableLength.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\TableValues.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Table\TableMakeReadOnly.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayInsert.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayGet.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayRemove.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayClear.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayInsertRange.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayAddRange.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Table\TableJoin.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Table\TableKeys.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayRemoveAt.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayLength.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayAdd.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Table\TableRemoveKey.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArraySet.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Table\TableLength.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Array\ArrayContains.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Table\TableValues.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Function\FunctionInvoke.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Function\FunctionName.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\Function\FunctionParameters.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringContains.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringEndsWith.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringFormat.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringIndexOf.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringInsert.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringIsDigits.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringIsLetters.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringIsWhiteSpace.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringLastIndexOf.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringLength.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringPadLeft.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringPadRight.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringRemove.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringReplace.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringSplit.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringStartsWith.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringSubstring.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringToLower.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringToUpper.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringTrim.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringTrimEnd.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\native\String\StringTrimStart.bs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 </Project>

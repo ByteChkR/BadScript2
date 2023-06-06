@@ -15,9 +15,9 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="value">The Constant Value of the Expression</param>
     public BadConstantExpression(BadSourcePosition position, BadObject value) : base(true, position)
-    {
-        Value = value;
-    }
+	{
+		Value = value;
+	}
 
     /// <summary>
     ///     The Constant Value of the Expression
@@ -29,19 +29,19 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
     /// </summary>
     object IBadNativeExpression.Value => Value;
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        yield return Value;
-    }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		yield return Value;
+	}
 
     /// <summary>
     ///     String Representation of the Expression
     /// </summary>
     /// <returns>String Representation</returns>
     public override string ToString()
-    {
-        return Value.ToString();
-    }
+	{
+		return Value.ToString();
+	}
 }
 
 /// <summary>
@@ -56,9 +56,9 @@ public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpres
     /// <param name="value">Constant Value of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
     protected BadConstantExpression(T value, BadSourcePosition position) : base(true, position)
-    {
-        Value = value;
-    }
+	{
+		Value = value;
+	}
 
 
     /// <summary>
@@ -77,12 +77,12 @@ public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpres
     /// </summary>
     /// <returns>String Representation of the Expression</returns>
     public override string ToString()
-    {
-        return Value!.ToString()!;
-    }
+	{
+		return Value!.ToString()!;
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        yield return BadObject.Wrap(Value);
-    }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		yield return BadObject.Wrap(Value);
+	}
 }

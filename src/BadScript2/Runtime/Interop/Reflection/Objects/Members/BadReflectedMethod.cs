@@ -9,137 +9,143 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 public class BadReflectedMethod : BadReflectedMember
 {
-    private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();
+	private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();
 
-    public BadReflectedMethod(MethodInfo method) : base(method.Name)
-    {
-        m_Methods.Add(method);
-    }
+	public BadReflectedMethod(MethodInfo method) : base(method.Name)
+	{
+		m_Methods.Add(method);
+	}
 
-    public override bool IsReadOnly => true;
+	public override bool IsReadOnly => true;
 
 
-    public void AddMethod(MethodInfo method)
-    {
-        m_Methods.Add(method);
-    }
+	public void AddMethod(MethodInfo method)
+	{
+		m_Methods.Add(method);
+	}
 
-    private BadFunction CreateFunction(object instance)
-    {
-        return new BadInteropFunction(Name, args => Invoke(instance, args), new BadFunctionParameter("args", false, false, true, null));
-    }
+	private BadFunction CreateFunction(object instance)
+	{
+		return new BadInteropFunction(Name,
+			args => Invoke(instance, args),
+			new BadFunctionParameter("args", false, false, true, null));
+	}
 
-    private bool CanConvert(BadObject o, Type t)
-    {
-        if (o.CanUnwrap())
-        {
-            object? obj = o.Unwrap();
-            if (obj == null)
-            {
-                return !t.IsValueType;
-            }
+	private bool CanConvert(BadObject o, Type t)
+	{
+		if (o.CanUnwrap())
+		{
+			object? obj = o.Unwrap();
 
-            return t.IsInstanceOfType(obj) || t.IsNumericType() && obj.GetType().IsNumericType();
-        }
+			if (obj == null)
+			{
+				return !t.IsValueType;
+			}
 
-        if (o is BadReflectedObject ro)
-        {
-            object obj = ro.Instance;
+			return t.IsInstanceOfType(obj) || (t.IsNumericType() && obj.GetType().IsNumericType());
+		}
 
-            return t.IsInstanceOfType(obj);
-        }
+		if (o is BadReflectedObject ro)
+		{
+			object obj = ro.Instance;
 
-        return false;
-    }
+			return t.IsInstanceOfType(obj);
+		}
 
-    private object? ConvertObject(BadObject o, Type t)
-    {
-        object? obj;
-        if (o.CanUnwrap())
-        {
-            obj = o.Unwrap();
-        }
-        else if (o is BadReflectedObject ro)
-        {
-            obj = ro.Instance;
-        }
-        else
-        {
-            throw new BadRuntimeException("Cannot convert object");
-        }
+		return false;
+	}
 
-        if (obj == null)
-        {
-            return null;
-        }
+	private object? ConvertObject(BadObject o, Type t)
+	{
+		object? obj;
 
-        if (t.IsInstanceOfType(obj))
-        {
-            return obj;
-        }
+		if (o.CanUnwrap())
+		{
+			obj = o.Unwrap();
+		}
+		else if (o is BadReflectedObject ro)
+		{
+			obj = ro.Instance;
+		}
+		else
+		{
+			throw new BadRuntimeException("Cannot convert object");
+		}
 
-        if (t.IsNumericType())
-        {
-            return Convert.ChangeType(obj, t);
-        }
+		if (obj == null)
+		{
+			return null;
+		}
 
-        throw new BadRuntimeException("Cannot convert object");
-    }
+		if (t.IsInstanceOfType(obj))
+		{
+			return obj;
+		}
 
-    private object?[] FindImplementation(BadObject[] args, out MethodInfo info)
-    {
-        foreach (MethodInfo method in m_Methods)
-        {
-            ParameterInfo[] parameters = method.GetParameters();
-            if (parameters.Length != args.Length)
-            {
-                continue;
-            }
+		if (t.IsNumericType())
+		{
+			return Convert.ChangeType(obj, t);
+		}
 
-            object?[] converted = new object?[args.Length];
-            bool skipThis = false;
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                ParameterInfo parameter = parameters[i];
-                BadObject argument = args[i];
+		throw new BadRuntimeException("Cannot convert object");
+	}
 
-                if (!CanConvert(argument, parameter.ParameterType))
-                {
-                    skipThis = true;
+	private object?[] FindImplementation(BadObject[] args, out MethodInfo info)
+	{
+		foreach (MethodInfo method in m_Methods)
+		{
+			ParameterInfo[] parameters = method.GetParameters();
 
-                    break;
-                }
+			if (parameters.Length != args.Length)
+			{
+				continue;
+			}
 
-                converted[i] = ConvertObject(argument, parameter.ParameterType);
-            }
+			object?[] converted = new object?[args.Length];
+			bool skipThis = false;
 
-            if (skipThis)
-            {
-                continue;
-            }
+			for (int i = 0; i < parameters.Length; i++)
+			{
+				ParameterInfo parameter = parameters[i];
+				BadObject argument = args[i];
 
-            info = method;
+				if (!CanConvert(argument, parameter.ParameterType))
+				{
+					skipThis = true;
 
-            return converted;
-        }
+					break;
+				}
 
-        throw new BadRuntimeException("No matching method found");
-    }
+				converted[i] = ConvertObject(argument, parameter.ParameterType);
+			}
 
-    private BadObject Invoke(object instance, BadObject[] args)
-    {
-        object?[] implArgs = FindImplementation(args, out MethodInfo info);
+			if (skipThis)
+			{
+				continue;
+			}
 
-        return Wrap(info.Invoke(instance, implArgs));
-    }
+			info = method;
 
-    public override BadObject Get(object instance)
-    {
-        return CreateFunction(instance);
-    }
+			return converted;
+		}
 
-    public override void Set(object instance, BadObject o)
-    {
-        throw new BadRuntimeException("Can not set a value to a method");
-    }
+		throw new BadRuntimeException("No matching method found");
+	}
+
+	private BadObject Invoke(object instance, BadObject[] args)
+	{
+		object?[] implArgs = FindImplementation(args, out MethodInfo info);
+
+		return Wrap(info.Invoke(instance, implArgs));
+	}
+
+	public override BadObject Get(object instance)
+	{
+		return CreateFunction(instance);
+	}
+
+	public override void Set(object instance, BadObject o)
+	{
+		throw new BadRuntimeException("Can not set a value to a method");
+	}
 }

@@ -13,10 +13,10 @@ public class BadNullCoalescingOperator : BadBinaryOperator
     /// </summary>
     public BadNullCoalescingOperator() : base(15, "??") { }
 
-    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-    {
-        BadExpression right = parser.ParseExpression();
+	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+	{
+		BadExpression right = parser.ParseExpression();
 
-        return new BadNullCoalescingExpression(left, right, left.Position.Combine(right.Position));
-    }
+		return new BadNullCoalescingExpression(left, right, left.Position.Combine(right.Position));
+	}
 }

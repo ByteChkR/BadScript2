@@ -4,17 +4,17 @@ namespace BadScript2.ConsoleCore;
 
 public static class BadConsoleDirectories
 {
-    public static string DataDirectory
-    {
-        get
-        {
-            string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
+	public static string DataDirectory
+	{
+		get
+		{
+			string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
 
-            BadFileSystem.Instance.CreateDirectory(s);
+			BadFileSystem.Instance.CreateDirectory(s);
 
-            return s;
-        }
-    }
+			return s;
+		}
+	}
 
-    public static string LogFile => Path.Combine(DataDirectory, "logs.log");
+	public static string LogFile => Path.Combine(DataDirectory, "logs.log");
 }

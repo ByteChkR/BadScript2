@@ -9,19 +9,19 @@ namespace BadScript2.Interop.Common.Apis;
 
 public class BadXmlApi : BadInteropApi
 {
-    public BadXmlApi() : base("Xml") { }
+	public BadXmlApi() : base("Xml") { }
 
-    public static BadObject LoadXml(string s)
-    {
-        XmlDocument doc = new XmlDocument();
-        doc.LoadXml(s);
+	public static BadObject LoadXml(string s)
+	{
+		XmlDocument doc = new XmlDocument();
+		doc.LoadXml(s);
 
 
-        return new BadReflectedObject(doc);
-    }
+		return new BadReflectedObject(doc);
+	}
 
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetFunction<string>("Load", LoadXml);
-    }
+	protected override void LoadApi(BadTable target)
+	{
+		target.SetFunction<string>("Load", LoadXml);
+	}
 }

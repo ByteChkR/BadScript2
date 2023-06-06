@@ -24,18 +24,21 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 BadLogger.OnLog += l => BadConsole.WriteLine(l.ToString());
-HttpClient client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
+HttpClient client = new HttpClient
+{
+	BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+};
 
 async Task LoadZip()
 {
-    BadConsole.WriteLine("Loading Zip");
+	BadConsole.WriteLine("Loading Zip");
 
-    byte[] zipData = await client.GetByteArrayAsync("images/bootstrap/RootFS.zip");
-    BadConsole.WriteLine($"Data Size: {zipData.Length} Bytes");
-    MemoryStream ms = new MemoryStream(zipData, false);
-    ms.Position = 0;
-    BadConsole.WriteLine("Importing Zip");
-    BadFileSystem.Instance.ImportZip(ms);
+	byte[] zipData = await client.GetByteArrayAsync("images/bootstrap/RootFS.zip");
+	BadConsole.WriteLine($"Data Size: {zipData.Length} Bytes");
+	MemoryStream ms = new MemoryStream(zipData, false);
+	ms.Position = 0;
+	BadConsole.WriteLine("Importing Zip");
+	BadFileSystem.Instance.ImportZip(ms);
 }
 
 
@@ -53,22 +56,20 @@ BadSettingsProvider.SetRootSettings(new BadSettings());
 
 static void LoadSettings()
 {
-    BadLogger.Log("Loading Settings...", "Settings");
-    BadSettings consoleSettings = new BadSettings();
-    string rootDir = BadFileSystem.Instance.GetStartupDirectory();
-    rootDir = rootDir.Remove(rootDir.Length - 1, 1);
+	BadLogger.Log("Loading Settings...", "Settings");
+	BadSettings consoleSettings = new BadSettings();
+	string rootDir = BadFileSystem.Instance.GetStartupDirectory();
+	rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
-    consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
-    consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
-    BadSettings root = new BadSettings();
-    root.SetProperty("Console", consoleSettings);
-    BadSettingsReader settingsReader = new BadSettingsReader(
-        root,
-        Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), settingsFile)
-    );
+	consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
+	consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
+	BadSettings root = new BadSettings();
+	root.SetProperty("Console", consoleSettings);
+	BadSettingsReader settingsReader = new BadSettingsReader(root,
+		Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), settingsFile));
 
-    BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
-    BadLogger.Log("Settings loaded!", "Settings");
+	BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
+	BadLogger.Log("Settings loaded!", "Settings");
 }
 
 LoadSettings();
@@ -85,12 +86,15 @@ BadExecutionContextOptions.Default.AddApi(new BadJsonApi());
 BadExecutionContextOptions.Default.AddApi(new BadNetApi());
 
 builder.Services
-    .AddBlazorise(options => { options.Immediate = true; })
-    .AddBootstrapProviders()
-    .AddFontAwesomeIcons();
+	.AddBlazorise(options => { options.Immediate = true; })
+	.AddBootstrapProviders()
+	.AddFontAwesomeIcons();
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(_ => new HttpClient
+{
+	BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+});
 
 await builder.Build().RunAsync();

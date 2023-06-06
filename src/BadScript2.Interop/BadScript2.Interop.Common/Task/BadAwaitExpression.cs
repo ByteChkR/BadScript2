@@ -8,52 +8,52 @@ namespace BadScript2.Interop.Common.Task;
 
 public class BadAwaitExpression : BadExpression
 {
-    private readonly BadExpression TaskExpr;
+	private readonly BadExpression TaskExpr;
 
-    public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, position)
-    {
-        TaskExpr = expr;
-    }
+	public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, position)
+	{
+		TaskExpr = expr;
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject obj = BadObject.Null;
-        foreach (BadObject o in TaskExpr.Execute(context))
-        {
-            obj = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject obj = BadObject.Null;
 
-            yield return o;
-        }
+		foreach (BadObject o in TaskExpr.Execute(context))
+		{
+			obj = o;
 
-        obj = obj.Dereference();
+			yield return o;
+		}
 
-        if (obj is not BadTask task)
-        {
-            throw new BadRuntimeException("await can only be used on a task", Position);
-        }
+		obj = obj.Dereference();
 
-        if (task.IsFinished)
-        {
-            yield return task.Runnable.GetReturn();
+		if (obj is not BadTask task)
+		{
+			throw new BadRuntimeException("await can only be used on a task", Position);
+		}
 
-            yield break;
-        }
+		if (task.IsFinished)
+		{
+			yield return task.Runnable.GetReturn();
 
-        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>();
+			yield break;
+		}
 
-        //Run Task
-        //Add current to continuation
-        task.AddContinuation(
-            runner.Current ?? throw new BadRuntimeException("Current task is null", Position)
-        );
-        runner.Current?.Pause();
-        if (task.IsInactive)
-        {
-            runner.AddTask(task, true);
-        }
+		BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>();
 
-        yield return BadObject.Null; //Should pause Here
+		//Run Task
+		//Add current to continuation
+		task.AddContinuation(runner.Current ?? throw new BadRuntimeException("Current task is null", Position));
+		runner.Current?.Pause();
 
-        yield return task.Runnable.GetReturn();
-    }
+		if (task.IsInactive)
+		{
+			runner.AddTask(task, true);
+		}
+
+		yield return BadObject.Null; //Should pause Here
+
+		yield return task.Runnable.GetReturn();
+	}
 }

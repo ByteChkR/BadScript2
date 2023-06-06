@@ -27,41 +27,45 @@ public class BadLockExpression : BadExpression
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="lockExpression">The expression to lock on</param>
     /// <param name="block">The Block Body</param>
-    public BadLockExpression(BadSourcePosition position, BadExpression lockExpression, BadExpression[] block) : base(false, position)
-    {
-        LockExpression = lockExpression;
-        m_Block = block;
-    }
+    public BadLockExpression(
+		BadSourcePosition position,
+		BadExpression lockExpression,
+		BadExpression[] block) : base(false, position)
+	{
+		LockExpression = lockExpression;
+		m_Block = block;
+	}
 
-    public IEnumerable<BadExpression> Block => m_Block;
+	public IEnumerable<BadExpression> Block => m_Block;
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject lockObj = BadObject.Null;
-        foreach (BadObject o in LockExpression.Execute(context))
-        {
-            lockObj = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject lockObj = BadObject.Null;
 
-            yield return o;
-        }
+		foreach (BadObject o in LockExpression.Execute(context))
+		{
+			lockObj = o;
 
-        lockObj = lockObj.Dereference();
+			yield return o;
+		}
 
-        if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
-        {
-            throw new BadRuntimeException("Lock object must be of type Array, Object or Class", Position);
-        }
+		lockObj = lockObj.Dereference();
 
-        while (!BadLockList.Instance.TryAquire(lockObj))
-        {
-            yield return BadObject.Null;
-        }
+		if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
+		{
+			throw new BadRuntimeException("Lock object must be of type Array, Object or Class", Position);
+		}
 
-        foreach (BadObject o in context.Execute(m_Block))
-        {
-            yield return o;
-        }
+		while (!BadLockList.Instance.TryAquire(lockObj))
+		{
+			yield return BadObject.Null;
+		}
 
-        BadLockList.Instance.Release(lockObj);
-    }
+		foreach (BadObject o in context.Execute(m_Block))
+		{
+			yield return o;
+		}
+
+		BadLockList.Instance.Release(lockObj);
+	}
 }

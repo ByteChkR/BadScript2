@@ -13,11 +13,11 @@ public class BadStringToken : BadPrimitiveToken
     /// <param name="str">The String value(including the Quotes)</param>
     /// <param name="position">The Position in the Source</param>
     public BadStringToken(string str, BadSourcePosition position) : base(position)
-    {
-        Value = str;
-    }
+	{
+		Value = str;
+	}
 
-    public override BadPrimitiveType Type => BadPrimitiveType.String;
+	public override BadPrimitiveType Type => BadPrimitiveType.String;
 
     /// <summary>
     ///     The Value of the Token

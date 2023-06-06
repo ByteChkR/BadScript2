@@ -11,81 +11,85 @@ namespace BadScript2.Runtime.Interop;
 
 public class BadRuntimeEnumerator : BadObject, IBadEnumerator
 {
-    private readonly BadExecutionContext m_Caller;
-    private readonly BadFunction m_GetCurrent;
-    private readonly BadFunction m_MoveNext;
-    private readonly BadSourcePosition m_Position;
+	private readonly BadExecutionContext m_Caller;
+	private readonly BadFunction m_GetCurrent;
+	private readonly BadFunction m_MoveNext;
+	private readonly BadSourcePosition m_Position;
 
-    public BadRuntimeEnumerator(BadExecutionContext caller, BadFunction moveNext, BadFunction getCurrent, BadSourcePosition position)
-    {
-        m_MoveNext = moveNext;
-        m_GetCurrent = getCurrent;
-        m_Caller = caller;
-        m_Position = position;
-    }
+	public BadRuntimeEnumerator(
+		BadExecutionContext caller,
+		BadFunction moveNext,
+		BadFunction getCurrent,
+		BadSourcePosition position)
+	{
+		m_MoveNext = moveNext;
+		m_GetCurrent = getCurrent;
+		m_Caller = caller;
+		m_Position = position;
+	}
 
-    public bool MoveNext()
-    {
-        BadObject cond = Null;
-        foreach (BadObject o in m_MoveNext.Invoke(Array.Empty<BadObject>(), m_Caller))
-        {
-            cond = o;
-        }
+	public bool MoveNext()
+	{
+		BadObject cond = Null;
 
-        if (m_Caller.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(m_Caller.Scope.Error);
-        }
+		foreach (BadObject o in m_MoveNext.Invoke(Array.Empty<BadObject>(), m_Caller))
+		{
+			cond = o;
+		}
 
-        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-                           throw new BadRuntimeException("While Condition is not a boolean", m_Position);
+		if (m_Caller.Scope.IsError)
+		{
+			throw new BadRuntimeErrorException(m_Caller.Scope.Error);
+		}
 
-        return bRet.Value;
-    }
+		IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+		                   throw new BadRuntimeException("While Condition is not a boolean", m_Position);
 
-    public void Reset()
-    {
-        throw new NotSupportedException();
-    }
+		return bRet.Value;
+	}
 
-    public BadObject Current
-    {
-        get
-        {
-            BadObject current = Null;
-            foreach (BadObject o in m_GetCurrent.Invoke(Array.Empty<BadObject>(), m_Caller))
-            {
-                current = o;
-            }
+	public void Reset()
+	{
+		throw new NotSupportedException();
+	}
 
-            if (m_Caller.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(m_Caller.Scope.Error);
-            }
+	public BadObject Current
+	{
+		get
+		{
+			BadObject current = Null;
 
-            current = current.Dereference();
+			foreach (BadObject o in m_GetCurrent.Invoke(Array.Empty<BadObject>(), m_Caller))
+			{
+				current = o;
+			}
 
-            return current;
-        }
-    }
+			if (m_Caller.Scope.IsError)
+			{
+				throw new BadRuntimeErrorException(m_Caller.Scope.Error);
+			}
 
-    object IEnumerator.Current => Current;
+			current = current.Dereference();
 
-    public void Dispose()
-    {
-        //Nothing to dispose
-    }
+			return current;
+		}
+	}
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return new BadNativeClassPrototype<BadRuntimeEnumerator>(
-            "Enumerator",
-            (_, _) => throw new BadRuntimeException("Cannot call method")
-        );
-    }
+	object IEnumerator.Current => Current;
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return "BadRuntimeEnumerator";
-    }
+	public void Dispose()
+	{
+		//Nothing to dispose
+	}
+
+	public override BadClassPrototype GetPrototype()
+	{
+		return new BadNativeClassPrototype<BadRuntimeEnumerator>("Enumerator",
+			(_, _) => throw new BadRuntimeException("Cannot call method"));
+	}
+
+	public override string ToSafeString(List<BadObject> done)
+	{
+		return "BadRuntimeEnumerator";
+	}
 }

@@ -17,9 +17,9 @@ public class BadArray : BadObject, IBadEnumerable
     /// </summary>
     /// <param name="innerArray">The Initial Elements</param>
     public BadArray(List<BadObject> innerArray)
-    {
-        InnerArray = innerArray;
-    }
+	{
+		InnerArray = innerArray;
+	}
 
     /// <summary>
     ///     Creates a new Instance of the BadScript Array
@@ -31,78 +31,81 @@ public class BadArray : BadObject, IBadEnumerable
     /// </summary>
     public List<BadObject> InnerArray { get; }
 
-    public IEnumerator<BadObject> GetEnumerator()
-    {
-        foreach (BadObject o in InnerArray)
-        {
-            yield return o;
-        }
-    }
+	public IEnumerator<BadObject> GetEnumerator()
+	{
+		foreach (BadObject o in InnerArray)
+		{
+			yield return o;
+		}
+	}
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+	IEnumerator IEnumerable.GetEnumerator()
+	{
+		return GetEnumerator();
+	}
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return BadNativeClassBuilder.GetNative("Array");
-    }
+	public override BadClassPrototype GetPrototype()
+	{
+		return BadNativeClassBuilder.GetNative("Array");
+	}
 
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        done.Add(this);
-        StringBuilder sb = new StringBuilder();
-        sb.Append("[");
-        sb.AppendLine();
-        foreach (BadObject element in InnerArray)
-        {
-            string str = "{...}";
-            if (!done.Contains(element))
-            {
-                str = element.ToSafeString(done)!.Trim();
-            }
+	public override string ToSafeString(List<BadObject> done)
+	{
+		done.Add(this);
+		StringBuilder sb = new StringBuilder();
+		sb.Append("[");
+		sb.AppendLine();
 
-            if (str.Contains("\n"))
-            {
-                str = str.Replace("\n", "\n\t");
-            }
+		foreach (BadObject element in InnerArray)
+		{
+			string str = "{...}";
 
-            sb.AppendLine($"\t{str}");
-        }
+			if (!done.Contains(element))
+			{
+				str = element.ToSafeString(done)!.Trim();
+			}
 
-        sb.AppendLine("]");
+			if (str.Contains("\n"))
+			{
+				str = str.Replace("\n", "\n\t");
+			}
 
-        return sb.ToString();
-    }
+			sb.AppendLine($"\t{str}");
+		}
 
-    public override string ToString()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.Append("[");
-        sb.AppendLine();
-        foreach (BadObject element in InnerArray)
-        {
-            if (element is BadScope)
-            {
-                sb.AppendLine("RECURSION_PROTECT");
+		sb.AppendLine("]");
 
-                continue;
-            }
+		return sb.ToString();
+	}
 
-            string str = element.ToString()!.Trim();
+	public override string ToString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.Append("[");
+		sb.AppendLine();
 
-            if (str.Contains("\n"))
-            {
-                str = str.Replace("\n", "\n\t");
-            }
+		foreach (BadObject element in InnerArray)
+		{
+			if (element is BadScope)
+			{
+				sb.AppendLine("RECURSION_PROTECT");
 
-            sb.AppendLine($"\t{str}");
-        }
+				continue;
+			}
 
-        sb.AppendLine("]");
+			string str = element.ToString()!.Trim();
 
-        return sb.ToString();
-    }
+			if (str.Contains("\n"))
+			{
+				str = str.Replace("\n", "\n\t");
+			}
+
+			sb.AppendLine($"\t{str}");
+		}
+
+		sb.AppendLine("]");
+
+		return sb.ToString();
+	}
 }

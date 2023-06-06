@@ -4,13 +4,13 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 
 public class BadArrayExpressionCompiler : BadExpressionCompiler<BadArrayExpression>
 {
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayExpression expression)
-    {
-        foreach (BadInstruction instruction in compiler.Compile(expression.InitExpressions, false))
-        {
-            yield return instruction;
-        }
+	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayExpression expression)
+	{
+		foreach (BadInstruction instruction in compiler.Compile(expression.InitExpressions, false))
+		{
+			yield return instruction;
+		}
 
-        yield return new BadInstruction(BadOpCode.ArrayInit, expression.Position, expression.Length);
-    }
+		yield return new BadInstruction(BadOpCode.ArrayInit, expression.Position, expression.Length);
+	}
 }

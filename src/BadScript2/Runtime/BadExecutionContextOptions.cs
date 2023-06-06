@@ -24,9 +24,9 @@ public class BadExecutionContextOptions
     /// </summary>
     /// <param name="apis">Apis that should be added.</param>
     public BadExecutionContextOptions(IEnumerable<BadInteropApi> apis)
-    {
-        m_Apis.AddRange(apis);
-    }
+	{
+		m_Apis.AddRange(apis);
+	}
 
     /// <summary>
     ///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
@@ -39,51 +39,52 @@ public class BadExecutionContextOptions
     /// </summary>
     public IEnumerable<BadInteropApi> Apis => m_Apis;
 
-    public void AddApi(BadInteropApi api)
-    {
-        m_Apis.Add(api);
-    }
+	public void AddApi(BadInteropApi api)
+	{
+		m_Apis.Add(api);
+	}
 
-    public void AddApis(IEnumerable<BadInteropApi> apis)
-    {
-        m_Apis.AddRange(apis);
-    }
+	public void AddApis(IEnumerable<BadInteropApi> apis)
+	{
+		m_Apis.AddRange(apis);
+	}
 
     /// <summary>
     ///     Builds a new <see cref="BadExecutionContext" /> with the options provided in this Options Instance.
     /// </summary>
     /// <returns>The new <see cref="BadExecutionContext" /></returns>
     public BadExecutionContext Build()
-    {
-        BadExecutionContext ctx = BadExecutionContext.Create();
+	{
+		BadExecutionContext ctx = BadExecutionContext.Create();
 
-        foreach (BadInteropApi api in m_Apis)
-        {
-            BadTable table;
-            if (ctx.Scope.HasLocal(api.Name) && ctx.Scope.GetVariable(api.Name).Dereference() is BadTable t)
-            {
-                table = t;
-            }
-            else
-            {
-                table = new BadTable();
-                ctx.Scope.DefineVariable(api.Name, table);
-            }
+		foreach (BadInteropApi api in m_Apis)
+		{
+			BadTable table;
 
-            api.Load(table);
-        }
+			if (ctx.Scope.HasLocal(api.Name) && ctx.Scope.GetVariable(api.Name).Dereference() is BadTable t)
+			{
+				table = t;
+			}
+			else
+			{
+				table = new BadTable();
+				ctx.Scope.DefineVariable(api.Name, table);
+			}
 
-        foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
-        {
-            ctx.Scope.DefineVariable(type.Name, type);
-        }
+			api.Load(table);
+		}
+
+		foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
+		{
+			ctx.Scope.DefineVariable(type.Name, type);
+		}
 
 
-        return ctx;
-    }
+		return ctx;
+	}
 
-    public BadExecutionContextOptions Clone()
-    {
-        return new BadExecutionContextOptions(m_Apis);
-    }
+	public BadExecutionContextOptions Clone()
+	{
+		return new BadExecutionContextOptions(m_Apis);
+	}
 }

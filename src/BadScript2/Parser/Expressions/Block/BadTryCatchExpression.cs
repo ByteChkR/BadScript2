@@ -33,52 +33,53 @@ public class BadTryCatchExpression : BadExpression
     /// <param name="catchExpressions">The Catch Block</param>
     /// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
     public BadTryCatchExpression(
-        BadSourcePosition position,
-        BadExpression[] expressions,
-        BadExpression[] catchExpressions,
-        string errorName) : base(false, position)
-    {
-        m_Expressions = expressions;
-        m_CatchExpressions = catchExpressions;
-        ErrorName = errorName;
-    }
+		BadSourcePosition position,
+		BadExpression[] expressions,
+		BadExpression[] catchExpressions,
+		string errorName) : base(false, position)
+	{
+		m_Expressions = expressions;
+		m_CatchExpressions = catchExpressions;
+		ErrorName = errorName;
+	}
 
-    public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
-    public IEnumerable<BadExpression> TryExpressions => m_Expressions;
+	public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_CatchExpressions.Length; i++)
-        {
-            m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
-        }
+	public IEnumerable<BadExpression> TryExpressions => m_Expressions;
 
-        for (int i = 0; i < m_Expressions.Length; i++)
-        {
-            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_CatchExpressions.Length; i++)
+		{
+			m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
+		}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadExecutionContext tryContext = new BadExecutionContext(
-            context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
-        );
-        foreach (BadObject o in tryContext.Execute(m_Expressions))
-        {
-            yield return o;
-        }
+		for (int i = 0; i < m_Expressions.Length; i++)
+		{
+			m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+		}
+	}
 
-        if (tryContext.Scope.Error != null)
-        {
-            BadExecutionContext catchContext = new BadExecutionContext(
-                context.Scope.CreateChild("CatchBlock", context.Scope, null)
-            );
-            catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
-            foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
-            {
-                yield return o;
-            }
-        }
-    }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadExecutionContext tryContext = new BadExecutionContext(
+			context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow));
+
+		foreach (BadObject o in tryContext.Execute(m_Expressions))
+		{
+			yield return o;
+		}
+
+		if (tryContext.Scope.Error != null)
+		{
+			BadExecutionContext catchContext = new BadExecutionContext(
+				context.Scope.CreateChild("CatchBlock", context.Scope, null));
+			catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
+
+			foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
+			{
+				yield return o;
+			}
+		}
+	}
 }

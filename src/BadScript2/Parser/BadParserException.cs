@@ -13,8 +13,8 @@ public class BadParserException : BadParseException
     /// <param name="message">The Exception Message</param>
     /// <param name="position">The Source Position of the Exception</param>
     public BadParserException(
-        string message,
-        BadSourcePosition position) : base(message, position) { }
+		string message,
+		BadSourcePosition position) : base(message, position) { }
 
     /// <summary>
     ///     Constructor
@@ -23,8 +23,8 @@ public class BadParserException : BadParseException
     /// <param name="position">The Source Position of the Exception</param>
     /// <param name="inner">The Inner Exception</param>
     public BadParserException(
-        string message,
-        BadSourcePosition position,
-        Exception inner) :
-        base(message, position, inner) { }
+		string message,
+		BadSourcePosition position,
+		Exception inner) :
+		base(message, position, inner) { }
 }

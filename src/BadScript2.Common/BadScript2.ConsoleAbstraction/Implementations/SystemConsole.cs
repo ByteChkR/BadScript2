@@ -5,40 +5,40 @@ namespace BadScript2.ConsoleAbstraction.Implementations;
 
 public class SystemConsole : IBadConsole
 {
-    public void Write(string str)
-    {
-        Console.Write(str);
-    }
+	public void Write(string str)
+	{
+		Console.Write(str);
+	}
 
-    public void WriteLine(string str)
-    {
-        Console.WriteLine(str);
-    }
+	public void WriteLine(string str)
+	{
+		Console.WriteLine(str);
+	}
 
-    public string ReadLine()
-    {
-        return Console.ReadLine();
-    }
+	public string ReadLine()
+	{
+		return Console.ReadLine();
+	}
 
-    public Task<string> ReadLineAsync()
-    {
-        return Task.Run(Console.ReadLine);
-    }
+	public Task<string> ReadLineAsync()
+	{
+		return Task.Run(Console.ReadLine);
+	}
 
-    public void Clear()
-    {
-        Console.Clear();
-    }
+	public void Clear()
+	{
+		Console.Clear();
+	}
 
-    public ConsoleColor ForegroundColor
-    {
-        get => Console.ForegroundColor;
-        set => Console.ForegroundColor = value;
-    }
+	public ConsoleColor ForegroundColor
+	{
+		get => Console.ForegroundColor;
+		set => Console.ForegroundColor = value;
+	}
 
-    public ConsoleColor BackgroundColor
-    {
-        get => Console.BackgroundColor;
-        set => Console.BackgroundColor = value;
-    }
+	public ConsoleColor BackgroundColor
+	{
+		get => Console.BackgroundColor;
+		set => Console.BackgroundColor = value;
+	}
 }

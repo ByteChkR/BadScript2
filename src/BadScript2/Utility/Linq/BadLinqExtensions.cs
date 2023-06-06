@@ -10,325 +10,338 @@ namespace BadScript2.Utility.Linq;
 
 public static class BadLinqExtensions
 {
-    private static object? Unpack(this BadObject obj)
-    {
-        if (obj.CanUnwrap())
-        {
-            return obj.Unwrap();
-        }
+	private static object? Unpack(this BadObject obj)
+	{
+		if (obj.CanUnwrap())
+		{
+			return obj.Unwrap();
+		}
 
-        if (obj is BadReflectedObject ro)
-        {
-            return ro.Instance;
-        }
+		if (obj is BadReflectedObject ro)
+		{
+			return ro.Instance;
+		}
 
-        return obj;
-    }
+		return obj;
+	}
 
-    private static object? InnerSelect(string varName, BadExpression query, object? o)
-    {
-        BadExecutionContext ctx = BadLinqCommon.PredicateContextOptions.Build();
-        if (o is BadObject bo)
-        {
-            ctx.Scope.DefineVariable(varName, bo);
-        }
-        else
-        {
-            if (BadObject.CanWrap(o))
-            {
-                ctx.Scope.DefineVariable(varName, BadObject.Wrap(o));
-            }
-            else
-            {
-                ctx.Scope.DefineVariable(varName, new BadReflectedObject(o!));
-            }
-        }
+	private static object? InnerSelect(string varName, BadExpression query, object? o)
+	{
+		BadExecutionContext ctx = BadLinqCommon.PredicateContextOptions.Build();
 
-        BadObject r = BadObject.Null;
-        foreach (BadObject o1 in query.Execute(ctx))
-        {
-            if (ctx.Scope.IsError)
-            {
-                throw new Exception($"Error in LINQ Select: {varName} => {query} : {ctx.Scope.Error!.ToSafeString()}");
-            }
+		if (o is BadObject bo)
+		{
+			ctx.Scope.DefineVariable(varName, bo);
+		}
+		else
+		{
+			if (BadObject.CanWrap(o))
+			{
+				ctx.Scope.DefineVariable(varName, BadObject.Wrap(o));
+			}
+			else
+			{
+				ctx.Scope.DefineVariable(varName, new BadReflectedObject(o!));
+			}
+		}
 
-            r = o1;
-        }
+		BadObject r = BadObject.Null;
 
-        return r.Dereference().Unpack();
-    }
+		foreach (BadObject o1 in query.Execute(ctx))
+		{
+			if (ctx.Scope.IsError)
+			{
+				throw new Exception($"Error in LINQ Select: {varName} => {query} : {ctx.Scope.Error!.ToSafeString()}");
+			}
 
-    public static object? FirstOrDefault(this IEnumerable enumerable)
-    {
-        foreach (object o in enumerable)
-        {
-            return o;
-        }
+			r = o1;
+		}
 
-        return null;
-    }
+		return r.Dereference().Unpack();
+	}
 
-    public static object? FirstOrDefault(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                return o;
-            }
-        }
+	public static object? FirstOrDefault(this IEnumerable enumerable)
+	{
+		foreach (object o in enumerable)
+		{
+			return o;
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public static object First(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                return o;
-            }
-        }
+	public static object? FirstOrDefault(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        throw new Exception("No matching element found");
-    }
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				return o;
+			}
+		}
 
-    public static object? LastOrDefault(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
-        object? last = null;
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                last = o;
-            }
-        }
+		return null;
+	}
 
-        return last;
-    }
+	public static object First(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-    public static object Last(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				return o;
+			}
+		}
 
-        object? last = null;
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                last = o;
-            }
-        }
+		throw new Exception("No matching element found");
+	}
 
-        return last ?? throw new Exception("No matching element found");
-    }
+	public static object? LastOrDefault(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		object? last = null;
 
-    public static IEnumerable Take(this IEnumerable enumerable, int count)
-    {
-        int i = 0;
-        foreach (object o in enumerable)
-        {
-            if (i >= count)
-            {
-                yield break;
-            }
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				last = o;
+			}
+		}
 
-            yield return o;
-            i++;
-        }
-    }
+		return last;
+	}
 
-    public static IEnumerable Skip(this IEnumerable enumerable, int count)
-    {
-        int i = 0;
-        foreach (object o in enumerable)
-        {
-            if (i >= count)
-            {
-                yield return o;
-            }
+	public static object Last(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-            i++;
-        }
-    }
+		object? last = null;
 
-    public static IEnumerable TakeLast(this IEnumerable enumerable, int count)
-    {
-        List<object> l = new List<object>();
-        foreach (object o in enumerable)
-        {
-            l.Add(o);
-        }
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				last = o;
+			}
+		}
 
-        for (int i = l.Count - count; i < l.Count; i++)
-        {
-            yield return l[i];
-        }
-    }
+		return last ?? throw new Exception("No matching element found");
+	}
 
-    public static IEnumerable SkipLast(this IEnumerable enumerable, int count)
-    {
-        List<object> l = new List<object>();
-        foreach (object o in enumerable)
-        {
-            l.Add(o);
-        }
+	public static IEnumerable Take(this IEnumerable enumerable, int count)
+	{
+		int i = 0;
 
-        for (int i = 0; i < l.Count - count; i++)
-        {
-            yield return l[i];
-        }
-    }
+		foreach (object o in enumerable)
+		{
+			if (i >= count)
+			{
+				yield break;
+			}
 
-    public static IEnumerable SelectMany(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+			yield return o;
 
-        foreach (object o in enumerable)
-        {
-            object? e = InnerSelect(varName, query, o);
-            if (e is not IEnumerable en)
-            {
-                throw new Exception("SelectMany must return an IEnumerable");
-            }
+			i++;
+		}
+	}
 
-            foreach (object o1 in en)
-            {
-                yield return o1;
-            }
-        }
-    }
+	public static IEnumerable Skip(this IEnumerable enumerable, int count)
+	{
+		int i = 0;
 
-    public static IEnumerable Select(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		foreach (object o in enumerable)
+		{
+			if (i >= count)
+			{
+				yield return o;
+			}
 
-        foreach (object o in enumerable)
-        {
-            yield return InnerSelect(varName, query, o);
-        }
-    }
+			i++;
+		}
+	}
 
-    public static IEnumerable OrderBy(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+	public static IEnumerable TakeLast(this IEnumerable enumerable, int count)
+	{
+		List<object> l = new List<object>();
 
-        IEnumerable<object> e = enumerable.Cast<object>();
+		foreach (object o in enumerable)
+		{
+			l.Add(o);
+		}
 
-        return e.OrderBy(o => InnerSelect(varName, query, o));
-    }
+		for (int i = l.Count - count; i < l.Count; i++)
+		{
+			yield return l[i];
+		}
+	}
 
-    public static IEnumerable OrderByDescending(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+	public static IEnumerable SkipLast(this IEnumerable enumerable, int count)
+	{
+		List<object> l = new List<object>();
 
-        IEnumerable<object> e = enumerable.Cast<object>();
+		foreach (object o in enumerable)
+		{
+			l.Add(o);
+		}
 
-        return e.OrderByDescending(o => InnerSelect(varName, query, o));
-    }
+		for (int i = 0; i < l.Count - count; i++)
+		{
+			yield return l[i];
+		}
+	}
+
+	public static IEnumerable SelectMany(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+		foreach (object o in enumerable)
+		{
+			object? e = InnerSelect(varName, query, o);
+
+			if (e is not IEnumerable en)
+			{
+				throw new Exception("SelectMany must return an IEnumerable");
+			}
+
+			foreach (object o1 in en)
+			{
+				yield return o1;
+			}
+		}
+	}
+
+	public static IEnumerable Select(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+		foreach (object o in enumerable)
+		{
+			yield return InnerSelect(varName, query, o);
+		}
+	}
+
+	public static IEnumerable OrderBy(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+		IEnumerable<object> e = enumerable.Cast<object>();
+
+		return e.OrderBy(o => InnerSelect(varName, query, o));
+	}
+
+	public static IEnumerable OrderByDescending(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+		IEnumerable<object> e = enumerable.Cast<object>();
+
+		return e.OrderByDescending(o => InnerSelect(varName, query, o));
+	}
 
 
-    public static IEnumerable SkipWhile(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
-        bool skip = true;
-        foreach (object o in enumerable)
-        {
-            if (skip && BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                continue;
-            }
+	public static IEnumerable SkipWhile(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		bool skip = true;
 
-            skip = false;
+		foreach (object o in enumerable)
+		{
+			if (skip && BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				continue;
+			}
 
-            yield return o;
-        }
-    }
+			skip = false;
 
-    public static IEnumerable TakeWhile(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+			yield return o;
+		}
+	}
 
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                yield return o;
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
+	public static IEnumerable TakeWhile(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-    public static bool All(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				yield return o;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
 
-        foreach (object o in enumerable)
-        {
-            if (!BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                return false;
-            }
-        }
+	public static bool All(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        return true;
-    }
+		foreach (object o in enumerable)
+		{
+			if (!BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				return false;
+			}
+		}
 
-    public static bool Any(this IEnumerable enumerable)
-    {
-        foreach (object o in enumerable)
-        {
-            return true;
-        }
+		return true;
+	}
 
-        return false;
-    }
+	public static bool Any(this IEnumerable enumerable)
+	{
+		foreach (object o in enumerable)
+		{
+			return true;
+		}
 
-    public static bool Any(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		return false;
+	}
 
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                return true;
-            }
-        }
+	public static bool Any(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        return false;
-    }
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				return true;
+			}
+		}
 
-    public static IEnumerable Where(this IEnumerable enumerable, string predicate)
-    {
-        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+		return false;
+	}
 
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                yield return o;
-            }
-        }
-    }
+	public static IEnumerable Where(this IEnumerable enumerable, string predicate)
+	{
+		(string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+		BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+		foreach (object o in enumerable)
+		{
+			if (BadLinqCommon.InnerWhere(varName, query, o))
+			{
+				yield return o;
+			}
+		}
+	}
 }

@@ -17,37 +17,36 @@ public class BadNullCoalescingExpression : BadBinaryExpression
     /// <param name="left">Left side of the expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Position inside the source code</param>
-    public BadNullCoalescingExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadNullCoalescingExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
-        }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        left = left.Dereference();
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
+		}
 
-        if (left == BadObject.Null)
-        {
-            foreach (BadObject o in Right.Execute(context))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return left;
-        }
-    }
+		left = left.Dereference();
 
-    protected override string GetSymbol()
-    {
-        return "??";
-    }
+		if (left == BadObject.Null)
+		{
+			foreach (BadObject o in Right.Execute(context))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return left;
+		}
+	}
+
+	protected override string GetSymbol()
+	{
+		return "??";
+	}
 }

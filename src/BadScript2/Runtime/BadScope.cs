@@ -20,8 +20,8 @@ public class BadScope : BadObject
     /// </summary>
     private readonly BadTable m_ScopeVariables = new BadTable();
 
-    private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
-    private readonly bool m_UseVisibility;
+	private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
+	private readonly bool m_UseVisibility;
 
     /// <summary>
     ///     Creates a new Scope
@@ -30,11 +30,11 @@ public class BadScope : BadObject
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
     public BadScope(string name, BadScope? caller = null, BadScopeFlags flags = BadScopeFlags.RootScope)
-    {
-        Name = name;
-        Flags = flags;
-        m_Caller = caller;
-    }
+	{
+		Name = name;
+		Flags = flags;
+		m_Caller = caller;
+	}
 
     /// <summary>
     ///     Creates a new Scope
@@ -42,13 +42,17 @@ public class BadScope : BadObject
     /// <param name="name">The Name of the Scope</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
-    public BadScope(string name, BadTable locals, BadScope? caller = null, BadScopeFlags flags = BadScopeFlags.RootScope)
-    {
-        Name = name;
-        Flags = flags;
-        m_Caller = caller;
-        m_ScopeVariables = locals;
-    }
+    public BadScope(
+		string name,
+		BadTable locals,
+		BadScope? caller = null,
+		BadScopeFlags flags = BadScopeFlags.RootScope)
+	{
+		Name = name;
+		Flags = flags;
+		m_Caller = caller;
+		m_ScopeVariables = locals;
+	}
 
     /// <summary>
     ///     Creates a new Scope
@@ -58,21 +62,19 @@ public class BadScope : BadObject
     /// <param name="name">The Name of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
     private BadScope(
-        BadScope parent,
-        BadScope? caller,
-        string name,
-        BadScopeFlags flags = BadScopeFlags.RootScope,
-        bool useVisibility = false) : this(
-        name,
-        caller,
-        ClearCaptures(parent.Flags) | flags
-    )
-    {
-        m_UseVisibility = useVisibility;
-        Parent = parent;
-    }
+		BadScope parent,
+		BadScope? caller,
+		string name,
+		BadScopeFlags flags = BadScopeFlags.RootScope,
+		bool useVisibility = false) : this(name,
+		caller,
+		ClearCaptures(parent.Flags) | flags)
+	{
+		m_UseVisibility = useVisibility;
+		Parent = parent;
+	}
 
-    public BadClass? ClassObject { get; internal set; }
+	public BadClass? ClassObject { get; internal set; }
 
 
     /// <summary>
@@ -123,95 +125,93 @@ public class BadScope : BadObject
     /// <summary>
     ///     A Class Prototype for the Scope
     /// </summary>
-    public static BadClassPrototype Prototype { get; } = new BadNativeClassPrototype<BadScope>(
-        "Scope",
-        (c, args) =>
-        {
-            if (args.Length == 1)
-            {
-                if (args[0] is not IBadString name)
-                {
-                    throw new BadRuntimeException("Expected Name in Scope Constructor");
-                }
+    public static BadClassPrototype Prototype { get; } = new BadNativeClassPrototype<BadScope>("Scope",
+		(c, args) =>
+		{
+			if (args.Length == 1)
+			{
+				if (args[0] is not IBadString name)
+				{
+					throw new BadRuntimeException("Expected Name in Scope Constructor");
+				}
 
-                return CreateScope(c, name.Value);
-            }
+				return CreateScope(c, name.Value);
+			}
 
-            if (args.Length == 2)
-            {
-                if (args[0] is not IBadString name)
-                {
-                    throw new BadRuntimeException("Expected Name in Scope Constructor");
-                }
+			if (args.Length == 2)
+			{
+				if (args[0] is not IBadString name)
+				{
+					throw new BadRuntimeException("Expected Name in Scope Constructor");
+				}
 
-                if (args[1] is not BadTable locals)
-                {
-                    throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
-                }
+				if (args[1] is not BadTable locals)
+				{
+					throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
+				}
 
-                return CreateScope(c, name.Value, locals);
-            }
+				return CreateScope(c, name.Value, locals);
+			}
 
-            throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
-        }
-    );
+			throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
+		});
 
-    public BadScope GetRootScope()
-    {
-        return Parent?.GetRootScope() ?? this;
-    }
+	public BadScope GetRootScope()
+	{
+		return Parent?.GetRootScope() ?? this;
+	}
 
-    public void AddSingleton<T>(T instance) where T : class
-    {
-        if (instance == null)
-        {
-            throw new BadRuntimeException("Cannot add null as singleton");
-        }
+	public void AddSingleton<T>(T instance) where T : class
+	{
+		if (instance == null)
+		{
+			throw new BadRuntimeException("Cannot add null as singleton");
+		}
 
-        m_SingletonCache.Add(typeof(T), instance);
-    }
+		m_SingletonCache.Add(typeof(T), instance);
+	}
 
-    public T GetSingleton<T>()
-    {
-        if (Parent != null)
-        {
-            return Parent.GetSingleton<T>();
-        }
+	public T GetSingleton<T>()
+	{
+		if (Parent != null)
+		{
+			return Parent.GetSingleton<T>();
+		}
 
-        return (T)m_SingletonCache[typeof(T)];
-    }
+		return (T)m_SingletonCache[typeof(T)];
+	}
 
-    public T GetSingleton<T>(bool createNew) where T : new()
-    {
-        if (Parent != null)
-        {
-            return Parent.GetSingleton<T>(createNew);
-        }
+	public T GetSingleton<T>(bool createNew) where T : new()
+	{
+		if (Parent != null)
+		{
+			return Parent.GetSingleton<T>(createNew);
+		}
 
-        if (m_SingletonCache.ContainsKey(typeof(T)))
-        {
-            return (T)m_SingletonCache[typeof(T)];
-        }
+		if (m_SingletonCache.ContainsKey(typeof(T)))
+		{
+			return (T)m_SingletonCache[typeof(T)];
+		}
 
-        if (createNew)
-        {
-            T v = new T();
-            m_SingletonCache[typeof(T)] = v;
+		if (createNew)
+		{
+			T v = new T();
+			m_SingletonCache[typeof(T)] = v;
 
-            return v;
-        }
+			return v;
+		}
 
-        throw new Exception("Singleton not found");
-    }
+		throw new Exception("Singleton not found");
+	}
 
     /// <summary>
     ///     Returns the Class Prototype for the Scope
     /// </summary>
     /// <returns>BadClassPrototype</returns>
     public override BadClassPrototype GetPrototype()
-    {
-        return Prototype;
-    }
+	{
+		return Prototype;
+	}
 
     /// <summary>
     ///     Creates a Root Scope with the given name
@@ -219,55 +219,57 @@ public class BadScope : BadObject
     /// <param name="name">Scope Name</param>
     /// <returns>New Scope Instance</returns>
     private static BadScope CreateScope(BadExecutionContext ctx, string name, BadTable? locals = null)
-    {
-        BadScope s;
-        if (locals != null)
-        {
-            s = new BadScope(name, locals);
-        }
-        else
-        {
-            s = new BadScope(name);
-        }
+	{
+		BadScope s;
 
-        foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope().m_SingletonCache)
-        {
-            s.m_SingletonCache.Add(kvp.Key, kvp.Value);
-        }
+		if (locals != null)
+		{
+			s = new BadScope(name, locals);
+		}
+		else
+		{
+			s = new BadScope(name);
+		}
 
-        return s;
-    }
+		foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope().m_SingletonCache)
+		{
+			s.m_SingletonCache.Add(kvp.Key, kvp.Value);
+		}
+
+		return s;
+	}
 
     /// <summary>
     ///     Sets the Scope Flags
     /// </summary>
     /// <param name="flags">Scope Flags</param>
     public void SetFlags(BadScopeFlags flags)
-    {
-        Flags = flags;
-    }
+	{
+		Flags = flags;
+	}
 
     /// <summary>
     ///     Unsets the Error if it was set
     /// </summary>
     public void UnsetError()
-    {
-        IsError = false;
-        Error = null;
-        if (Parent != null)
-        {
-            Parent.UnsetError();
-        }
-    }
+	{
+		IsError = false;
+		Error = null;
+
+		if (Parent != null)
+		{
+			Parent.UnsetError();
+		}
+	}
 
     /// <summary>
     ///     Returns the Stack Trace of the Current scope
     /// </summary>
     /// <returns>Stack Trace</returns>
     public string GetStackTrace()
-    {
-        return GetStackTrace(this);
-    }
+	{
+		return GetStackTrace(this);
+	}
 
     /// <summary>
     ///     Returns the Stack Trace of the given Scope
@@ -275,21 +277,22 @@ public class BadScope : BadObject
     /// <param name="scope">The Scope</param>
     /// <returns>Stack Trace</returns>
     private static string GetStackTrace(BadScope scope)
-    {
-        BadScope? current = scope;
-        List<BadScope> stack = new List<BadScope>();
-        while (current != null)
-        {
-            if (current.CountInStackTrace)
-            {
-                stack.Add(current);
-            }
+	{
+		BadScope? current = scope;
+		List<BadScope> stack = new List<BadScope>();
 
-            current = current.m_Caller ?? current.Parent;
-        }
+		while (current != null)
+		{
+			if (current.CountInStackTrace)
+			{
+				stack.Add(current);
+			}
 
-        return string.Join("\n", stack.Select(s => s.Name));
-    }
+			current = current.m_Caller ?? current.Parent;
+		}
+
+		return string.Join("\n", stack.Select(s => s.Name));
+	}
 
     /// <summary>
     ///     Clears all Capture Flags from the given Flags
@@ -297,63 +300,66 @@ public class BadScope : BadObject
     /// <param name="flags">The Flags to be cleared</param>
     /// <returns>Cleared Flags</returns>
     private static BadScopeFlags ClearCaptures(BadScopeFlags flags)
-    {
-        return flags &
-               ~(BadScopeFlags.CaptureReturn |
-                 BadScopeFlags.CaptureBreak |
-                 BadScopeFlags.CaptureContinue |
-                 BadScopeFlags.CaptureThrow);
-    }
+	{
+		return flags &
+		       ~(BadScopeFlags.CaptureReturn |
+		         BadScopeFlags.CaptureBreak |
+		         BadScopeFlags.CaptureContinue |
+		         BadScopeFlags.CaptureThrow);
+	}
 
     /// <summary>
     ///     Sets the break keyword inside this scope
     /// </summary>
     /// <exception cref="BadRuntimeException">Gets raised if the current scope does not allow the Break Keyword</exception>
     public void SetBreak()
-    {
-        if ((Flags & BadScopeFlags.AllowBreak) == 0)
-        {
-            throw new BadRuntimeException("Break not allowed in this scope");
-        }
+	{
+		if ((Flags & BadScopeFlags.AllowBreak) == 0)
+		{
+			throw new BadRuntimeException("Break not allowed in this scope");
+		}
 
-        IsBreak = true;
-        if ((Flags & BadScopeFlags.CaptureBreak) == 0)
-        {
-            Parent?.SetBreak();
-        }
-    }
+		IsBreak = true;
+
+		if ((Flags & BadScopeFlags.CaptureBreak) == 0)
+		{
+			Parent?.SetBreak();
+		}
+	}
 
     /// <summary>
     ///     Sets the continue keyword inside this scope
     /// </summary>
     /// <exception cref="BadRuntimeException">Gets raised if the current scope does not allow the continue Keyword</exception>
     public void SetContinue()
-    {
-        if ((Flags & BadScopeFlags.AllowContinue) == 0)
-        {
-            throw new BadRuntimeException("Continue not allowed in this scope");
-        }
+	{
+		if ((Flags & BadScopeFlags.AllowContinue) == 0)
+		{
+			throw new BadRuntimeException("Continue not allowed in this scope");
+		}
 
-        IsContinue = true;
-        if ((Flags & BadScopeFlags.CaptureContinue) == 0)
-        {
-            Parent?.SetContinue();
-        }
-    }
+		IsContinue = true;
+
+		if ((Flags & BadScopeFlags.CaptureContinue) == 0)
+		{
+			Parent?.SetContinue();
+		}
+	}
 
     /// <summary>
     ///     Sets an error object inside this scope
     /// </summary>
     /// <param name="error">The Error</param>
     public void SetErrorObject(BadRuntimeError error)
-    {
-        Error = error;
-        IsError = true;
-        if ((Flags & BadScopeFlags.CaptureThrow) == 0)
-        {
-            Parent?.SetErrorObject(error);
-        }
-    }
+	{
+		Error = error;
+		IsError = true;
+
+		if ((Flags & BadScopeFlags.CaptureThrow) == 0)
+		{
+			Parent?.SetErrorObject(error);
+		}
+	}
 
     /// <summary>
     ///     Sets an error object inside this scope
@@ -362,14 +368,14 @@ public class BadScope : BadObject
     /// <param name="inner">The Inner Error</param>
     /// <exception cref="BadRuntimeException">Gets Raised if an error can not be set in this scope</exception>
     public void SetError(BadObject obj, BadRuntimeError? inner)
-    {
-        if ((Flags & BadScopeFlags.AllowThrow) == 0)
-        {
-            throw new BadRuntimeException("Throw not allowed in this scope");
-        }
+	{
+		if ((Flags & BadScopeFlags.AllowThrow) == 0)
+		{
+			throw new BadRuntimeException("Throw not allowed in this scope");
+		}
 
-        SetErrorObject(new BadRuntimeError(inner, obj, GetStackTrace()));
-    }
+		SetErrorObject(new BadRuntimeError(inner, obj, GetStackTrace()));
+	}
 
     /// <summary>
     ///     Sets the Return value of this scope
@@ -377,27 +383,28 @@ public class BadScope : BadObject
     /// <param name="value">The Return Value</param>
     /// <exception cref="BadRuntimeException">Gets Raised if the Scope does not allow returning</exception>
     public void SetReturnValue(BadObject? value)
-    {
-        if ((Flags & BadScopeFlags.AllowReturn) == 0)
-        {
-            throw new BadRuntimeException("Return not allowed in this scope");
-        }
+	{
+		if ((Flags & BadScopeFlags.AllowReturn) == 0)
+		{
+			throw new BadRuntimeException("Return not allowed in this scope");
+		}
 
-        ReturnValue = value;
-        if ((Flags & BadScopeFlags.CaptureReturn) == 0)
-        {
-            Parent?.SetReturnValue(value);
-        }
-    }
+		ReturnValue = value;
+
+		if ((Flags & BadScopeFlags.CaptureReturn) == 0)
+		{
+			Parent?.SetReturnValue(value);
+		}
+	}
 
     /// <summary>
     ///     Returns the Variable Table of the current scope
     /// </summary>
     /// <returns>BadTable with all local variables</returns>
     public BadTable GetTable()
-    {
-        return m_ScopeVariables;
-    }
+	{
+		return m_ScopeVariables;
+	}
 
 
     /// <summary>
@@ -408,13 +415,17 @@ public class BadScope : BadObject
     /// <param name="useVisibility">Specifies if the scope is part of a class structure(if visibility flags are used)</param>
     /// <param name="flags">Scope Flags</param>
     /// <returns>New BadScope Instance</returns>
-    public BadScope CreateChild(string name, BadScope? caller, bool? useVisibility, BadScopeFlags flags = BadScopeFlags.RootScope)
-    {
-        BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility);
-        sc.ClassObject = ClassObject;
+    public BadScope CreateChild(
+		string name,
+		BadScope? caller,
+		bool? useVisibility,
+		BadScopeFlags flags = BadScopeFlags.RootScope)
+	{
+		BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility);
+		sc.ClassObject = ClassObject;
 
-        return sc;
-    }
+		return sc;
+	}
 
 
     /// <summary>
@@ -425,14 +436,14 @@ public class BadScope : BadObject
     /// <param name="info">Variable Info</param>
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
     public void DefineVariable(BadObject name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
-    {
-        if (HasLocal(name))
-        {
-            throw new BadRuntimeException($"Variable {name} is already defined");
-        }
+	{
+		if (HasLocal(name))
+		{
+			throw new BadRuntimeException($"Variable {name} is already defined");
+		}
 
-        m_ScopeVariables.GetProperty(name, caller ?? this).Set(value, info);
-    }
+		m_ScopeVariables.GetProperty(name, caller ?? this).Set(value, info);
+	}
 
     /// <summary>
     ///     Returns the variable info of the specified variable
@@ -441,99 +452,101 @@ public class BadScope : BadObject
     /// <returns>Variable Info</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public BadPropertyInfo GetVariableInfo(BadObject name)
-    {
-        if (HasLocal(name))
-        {
-            return m_ScopeVariables.GetPropertyInfo(name);
-        }
+	{
+		if (HasLocal(name))
+		{
+			return m_ScopeVariables.GetPropertyInfo(name);
+		}
 
-        if (Parent == null)
-        {
-            throw new BadRuntimeException($"Variable '{name}' is not defined");
-        }
+		if (Parent == null)
+		{
+			throw new BadRuntimeException($"Variable '{name}' is not defined");
+		}
 
-        return Parent!.GetVariableInfo(name);
-    }
+		return Parent!.GetVariableInfo(name);
+	}
 
-    public static BadPropertyVisibility GetPropertyVisibility(BadObject propName)
-    {
-        if (propName is not IBadString s)
-        {
-            return BadPropertyVisibility.Public;
-        }
+	public static BadPropertyVisibility GetPropertyVisibility(BadObject propName)
+	{
+		if (propName is not IBadString s)
+		{
+			return BadPropertyVisibility.Public;
+		}
 
-        if (s.Value.StartsWith("__"))
-        {
-            return BadPropertyVisibility.Private;
-        }
+		if (s.Value.StartsWith("__"))
+		{
+			return BadPropertyVisibility.Private;
+		}
 
-        if (s.Value.StartsWith("_"))
-        {
-            return BadPropertyVisibility.Protected;
-        }
+		if (s.Value.StartsWith("_"))
+		{
+			return BadPropertyVisibility.Protected;
+		}
 
-        return BadPropertyVisibility.Public;
-    }
+		return BadPropertyVisibility.Public;
+	}
 
-    public bool IsVisibleParentOf(BadScope scope)
-    {
-        if (scope == this)
-        {
-            return true;
-        }
+	public bool IsVisibleParentOf(BadScope scope)
+	{
+		if (scope == this)
+		{
+			return true;
+		}
 
-        BadScope? current = scope.Parent;
-        while (current != null)
-        {
-            if (!current.m_UseVisibility)
-            {
-                return false;
-            }
+		BadScope? current = scope.Parent;
 
-            if (current == this)
-            {
-                return true;
-            }
+		while (current != null)
+		{
+			if (!current.m_UseVisibility)
+			{
+				return false;
+			}
+
+			if (current == this)
+			{
+				return true;
+			}
 
 
-            current = current.Parent;
-        }
+			current = current.Parent;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public BadObjectReference GetVariable(BadObject name, BadScope caller)
-    {
-        if (m_UseVisibility)
-        {
-            BadPropertyVisibility vis;
-            if (IsVisibleParentOf(caller))
-            {
-                vis = BadPropertyVisibility.All;
-            }
-            else
-            {
-                vis = BadPropertyVisibility.Public;
-            }
+	public BadObjectReference GetVariable(BadObject name, BadScope caller)
+	{
+		if (m_UseVisibility)
+		{
+			BadPropertyVisibility vis;
 
-            if ((GetPropertyVisibility(name) & vis) == 0)
-            {
-                throw BadRuntimeException.Create(caller, $"Variable '{name}' is not visible to {caller}");
-            }
-        }
+			if (IsVisibleParentOf(caller))
+			{
+				vis = BadPropertyVisibility.All;
+			}
+			else
+			{
+				vis = BadPropertyVisibility.Public;
+			}
 
-        if (HasLocal(name))
-        {
-            return m_ScopeVariables.GetProperty(name, caller);
-        }
+			if ((GetPropertyVisibility(name) & vis) == 0)
+			{
+				throw BadRuntimeException.Create(caller, $"Variable '{name}' is not visible to {caller}");
+			}
+		}
 
-        if (Parent == null)
-        {
-            throw BadRuntimeException.Create(caller, $"Variable '{name}' is not defined");
-        }
+		if (HasLocal(name))
+		{
+			return m_ScopeVariables.GetProperty(name, caller);
+		}
 
-        return Parent!.GetVariable(name, caller);
-    }
+		if (Parent == null)
+		{
+			throw BadRuntimeException.Create(caller, $"Variable '{name}' is not defined");
+		}
+
+		return Parent!.GetVariable(name, caller);
+	}
 
     /// <summary>
     ///     Returns a variable reference of the specified variable
@@ -542,9 +555,9 @@ public class BadScope : BadObject
     /// <returns>Variable Reference</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public BadObjectReference GetVariable(BadObject name)
-    {
-        return GetVariable(name, this);
-    }
+	{
+		return GetVariable(name, this);
+	}
 
     /// <summary>
     ///     Sets a variable with the specified name to the specified value
@@ -553,21 +566,21 @@ public class BadScope : BadObject
     /// <param name="value">The Value</param>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public void SetVariable(BadObject name, BadObject value, BadScope? caller = null)
-    {
-        if (HasLocal(name))
-        {
-            m_ScopeVariables.GetProperty(name, caller).Set(value);
-        }
-        else
-        {
-            if (Parent == null)
-            {
-                throw new BadRuntimeException($"Variable '{name}' is not defined");
-            }
+	{
+		if (HasLocal(name))
+		{
+			m_ScopeVariables.GetProperty(name, caller).Set(value);
+		}
+		else
+		{
+			if (Parent == null)
+			{
+				throw new BadRuntimeException($"Variable '{name}' is not defined");
+			}
 
-            Parent!.SetVariable(name, value);
-        }
-    }
+			Parent!.SetVariable(name, value);
+		}
+	}
 
     /// <summary>
     ///     returns true if the specified variable is defined in the current scope
@@ -575,9 +588,9 @@ public class BadScope : BadObject
     /// <param name="name">The Name</param>
     /// <returns>true if the variable is defined</returns>
     public bool HasLocal(BadObject name)
-    {
-        return m_ScopeVariables.HasProperty(name);
-    }
+	{
+		return m_ScopeVariables.HasProperty(name);
+	}
 
     /// <summary>
     ///     returns true if the specified variable is defined in the current scope or any parent scope
@@ -585,31 +598,31 @@ public class BadScope : BadObject
     /// <param name="name">The Name</param>
     /// <returns>true if the variable is defined</returns>
     public bool HasVariable(BadObject name)
-    {
-        return HasLocal(name) || Parent != null && Parent.HasVariable(name);
-    }
+	{
+		return HasLocal(name) || (Parent != null && Parent.HasVariable(name));
+	}
 
 
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
-    {
-        if (HasVariable(propName))
-        {
-            return GetVariable(propName, caller ?? this);
-        }
+	public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+	{
+		if (HasVariable(propName))
+		{
+			return GetVariable(propName, caller ?? this);
+		}
 
-        return base.GetProperty(propName, caller);
-    }
+		return base.GetProperty(propName, caller);
+	}
 
-    public override bool HasProperty(BadObject propName)
-    {
-        return HasVariable(propName) || base.HasProperty(propName);
-    }
+	public override bool HasProperty(BadObject propName)
+	{
+		return HasVariable(propName) || base.HasProperty(propName);
+	}
 
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        done.Add(this);
+	public override string ToSafeString(List<BadObject> done)
+	{
+		done.Add(this);
 
-        return m_ScopeVariables.ToSafeString(done);
-    }
+		return m_ScopeVariables.ToSafeString(done);
+	}
 }

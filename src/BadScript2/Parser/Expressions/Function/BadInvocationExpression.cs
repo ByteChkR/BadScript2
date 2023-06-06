@@ -23,14 +23,12 @@ public class BadInvocationExpression : BadExpression
     /// <param name="left">Left Side of the Invocation</param>
     /// <param name="args">The Invocation Arguments</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
-        false,
-        position
-    )
-    {
-        Left = left;
-        m_Arguments = args;
-    }
+    public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(false,
+		position)
+	{
+		Left = left;
+		m_Arguments = args;
+	}
 
     /// <summary>
     ///     Argument Count of the Invocation
@@ -47,13 +45,13 @@ public class BadInvocationExpression : BadExpression
     /// </summary>
     public BadExpression Left { get; }
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_Arguments.Length; i++)
-        {
-            m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_Arguments.Length; i++)
+		{
+			m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
+		}
+	}
 
     /// <summary>
     ///     Returns the argument objects
@@ -62,25 +60,26 @@ public class BadInvocationExpression : BadExpression
     /// <param name="args">The Arguments that will be evaluated</param>
     /// <returns>List of evaluates arguments</returns>
     public IEnumerable<BadObject> GetArgs(BadExecutionContext context, List<BadObject> args)
-    {
-        foreach (BadExpression argExpr in m_Arguments)
-        {
-            BadObject argObj = BadObject.Null;
-            foreach (BadObject arg in argExpr.Execute(context))
-            {
-                argObj = arg;
+	{
+		foreach (BadExpression argExpr in m_Arguments)
+		{
+			BadObject argObj = BadObject.Null;
 
-                if (context.Scope.IsError)
-                {
-                    yield break;
-                }
+			foreach (BadObject arg in argExpr.Execute(context))
+			{
+				argObj = arg;
 
-                yield return arg;
-            }
+				if (context.Scope.IsError)
+				{
+					yield break;
+				}
 
-            args.Add(argObj.Dereference());
-        }
-    }
+				yield return arg;
+			}
+
+			args.Add(argObj.Dereference());
+		}
+	}
 
     /// <summary>
     ///     Invokes a function
@@ -94,78 +93,85 @@ public class BadInvocationExpression : BadExpression
     ///     Gets raised if the object is not a function or the Invocation Override Function
     ///     is not of type BadFunction
     /// </exception>
-    public static IEnumerable<BadObject> Invoke(BadObject left, BadObject[] args, BadSourcePosition position, BadExecutionContext context)
-    {
-        if (left is BadFunction func)
-        {
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
-            {
-                yield return o;
-            }
-        }
-        else if (left.HasProperty(BadStaticKeys.InvocationOperatorName))
-        {
-            BadFunction? invocationOp =
-                left.GetProperty(BadStaticKeys.InvocationOperatorName, context.Scope).Dereference() as BadFunction;
-            if (invocationOp == null)
-            {
-                throw new BadRuntimeException("Function Invocation Operator is not a function", position);
-            }
+    public static IEnumerable<BadObject> Invoke(
+		BadObject left,
+		BadObject[] args,
+		BadSourcePosition position,
+		BadExecutionContext context)
+	{
+		if (left is BadFunction func)
+		{
+			foreach (BadObject o in func.Invoke(args.ToArray(), context))
+			{
+				yield return o;
+			}
+		}
+		else if (left.HasProperty(BadStaticKeys.InvocationOperatorName))
+		{
+			BadFunction? invocationOp =
+				left.GetProperty(BadStaticKeys.InvocationOperatorName, context.Scope).Dereference() as BadFunction;
 
-            BadObject r = BadObject.Null;
-            foreach (BadObject o in invocationOp.Invoke(args.ToArray(), context))
-            {
-                yield return o;
-                r = o;
-            }
+			if (invocationOp == null)
+			{
+				throw new BadRuntimeException("Function Invocation Operator is not a function", position);
+			}
 
-            yield return r.Dereference();
-        }
-        else
-        {
-            throw new BadRuntimeException(
-                "Cannot invoke non-function object",
-                position
-            );
-        }
-    }
+			BadObject r = BadObject.Null;
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+			foreach (BadObject o in invocationOp.Invoke(args.ToArray(), context))
+			{
+				yield return o;
 
-            yield return o;
-        }
+				r = o;
+			}
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
+			yield return r.Dereference();
+		}
+		else
+		{
+			throw new BadRuntimeException("Cannot invoke non-function object",
+				position);
+		}
+	}
 
-        left = left.Dereference();
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        List<BadObject> args = new List<BadObject>();
-        foreach (BadObject o in GetArgs(context, args))
-        {
-            yield return o;
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
+			yield return o;
+		}
 
-        foreach (BadObject? o in Invoke(left, args.ToArray(), Position, context))
-        {
-            yield return o;
-        }
-    }
+		if (context.Scope.IsError)
+		{
+			yield break;
+		}
 
-    public override string ToString()
-    {
-        return $"({Left}({string.Join(", ", m_Arguments.Select(x => x.ToString()))}))";
-    }
+		left = left.Dereference();
+
+		List<BadObject> args = new List<BadObject>();
+
+		foreach (BadObject o in GetArgs(context, args))
+		{
+			yield return o;
+		}
+
+		if (context.Scope.IsError)
+		{
+			yield break;
+		}
+
+		foreach (BadObject? o in Invoke(left, args.ToArray(), Position, context))
+		{
+			yield return o;
+		}
+	}
+
+	public override string ToString()
+	{
+		return $"({Left}({string.Join(", ", m_Arguments.Select(x => x.ToString()))}))";
+	}
 }

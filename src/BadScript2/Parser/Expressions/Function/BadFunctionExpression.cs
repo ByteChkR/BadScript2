@@ -21,9 +21,9 @@ public class BadFunctionExpression : BadExpression
     ///     The Function Body
     /// </summary>
     private readonly List<BadExpression> m_Body;
-    
-    
-    private readonly BadMetaData? m_MetaData;
+
+
+	private readonly BadMetaData? m_MetaData;
 
     /// <summary>
     ///     The Function parameters
@@ -41,24 +41,24 @@ public class BadFunctionExpression : BadExpression
     /// <param name="compileLevel">Defines if the resulting function will be compiled</param>
     /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
     public BadFunctionExpression(
-        BadWordToken? name,
-        List<BadFunctionParameter> parameter,
-        List<BadExpression> block,
-        BadSourcePosition position,
-        bool isConstant,
-        BadMetaData? metaData,
-        BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
-        BadExpression? typeExpr = null) :
-        base(false, position)
-    {
-        Name = name;
-        m_Parameters = parameter;
-        m_Body = block;
-        TypeExpression = typeExpr;
-        IsConstantFunction = isConstant;
-        m_MetaData = metaData;
-        CompileLevel = compileLevel;
-    }
+		BadWordToken? name,
+		List<BadFunctionParameter> parameter,
+		List<BadExpression> block,
+		BadSourcePosition position,
+		bool isConstant,
+		BadMetaData? metaData,
+		BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
+		BadExpression? typeExpr = null) :
+		base(false, position)
+	{
+		Name = name;
+		m_Parameters = parameter;
+		m_Body = block;
+		TypeExpression = typeExpr;
+		IsConstantFunction = isConstant;
+		m_MetaData = metaData;
+		CompileLevel = compileLevel;
+	}
 
     /// <summary>
     ///     Indicates if this function can not be overwritten by another object
@@ -85,90 +85,88 @@ public class BadFunctionExpression : BadExpression
     /// </summary>
     public BadWordToken? Name { get; }
 
-    public BadFunctionCompileLevel CompileLevel { get; }
+	public BadFunctionCompileLevel CompileLevel { get; }
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_Body.Count; i++)
-        {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_Body.Count; i++)
+		{
+			m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+		}
+	}
 
     /// <summary>
     ///     Returns the Header of the Function
     /// </summary>
     /// <returns>String Header of the Function</returns>
     public string GetHeader()
-    {
-        return
-            $"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
-    }
+	{
+		return
+			$"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
+	}
 
 
-    public override string ToString()
-    {
-        StringBuilder sb = new StringBuilder(GetHeader());
-        sb.AppendLine();
-        sb.AppendLine("{");
-        foreach (BadExpression expression in Body)
-        {
-            sb.AppendLine($"\t{expression}");
-        }
+	public override string ToString()
+	{
+		StringBuilder sb = new StringBuilder(GetHeader());
+		sb.AppendLine();
+		sb.AppendLine("{");
 
-        sb.AppendLine("}");
+		foreach (BadExpression expression in Body)
+		{
+			sb.AppendLine($"\t{expression}");
+		}
 
-        return sb.ToString();
-    }
+		sb.AppendLine("}");
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        if (TypeExpression != null)
-        {
-            BadObject obj = BadObject.Null;
-            foreach (BadObject o in TypeExpression.Execute(context))
-            {
-                obj = o;
-            }
+		return sb.ToString();
+	}
 
-            obj = obj.Dereference();
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		if (TypeExpression != null)
+		{
+			BadObject obj = BadObject.Null;
 
-            if (obj is not BadClassPrototype proto)
-            {
-                throw new BadRuntimeException(
-                    $"Expected class prototype, but got {obj.GetType().Name}",
-                    Position
-                );
-            }
-        }
+			foreach (BadObject o in TypeExpression.Execute(context))
+			{
+				obj = o;
+			}
 
-        BadExpressionFunction f = new BadExpressionFunction(
-            context.Scope,
-            Name,
-            m_Body,
-            m_Parameters.Select(x => x.Initialize(context)).ToArray(),
-            Position,
-            IsConstantFunction,
-            m_MetaData
-        );
+			obj = obj.Dereference();
 
-        BadFunction fFinal = f;
+			if (obj is not BadClassPrototype proto)
+			{
+				throw new BadRuntimeException($"Expected class prototype, but got {obj.GetType().Name}",
+					Position);
+			}
+		}
 
-        if (CompileLevel == BadFunctionCompileLevel.Compiled)
-        {
-            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true);
-        }
-        else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
-        {
-            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false);
-        }
+		BadExpressionFunction f = new BadExpressionFunction(context.Scope,
+			Name,
+			m_Body,
+			m_Parameters.Select(x => x.Initialize(context)).ToArray(),
+			Position,
+			IsConstantFunction,
+			m_MetaData);
+
+		BadFunction fFinal = f;
+
+		if (CompileLevel == BadFunctionCompileLevel.Compiled)
+		{
+			fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true);
+		}
+		else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
+		{
+			fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false);
+		}
 
 
-        if (Name != null)
-        {
-            context.Scope.DefineVariable(BadObject.Wrap(Name.Text), fFinal);
-        }
+		if (Name != null)
+		{
+			context.Scope.DefineVariable(BadObject.Wrap(Name.Text), fFinal);
+		}
 
-        yield return fFinal;
-    }
+		yield return fFinal;
+	}
 }

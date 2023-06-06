@@ -15,9 +15,9 @@ public class BadVariableExpression : BadExpression
     /// <param name="name">Name of the Variable</param>
     /// <param name="position">Source Position of the Expression</param>
     public BadVariableExpression(string name, BadSourcePosition position) : base(false, position)
-    {
-        Name = name;
-    }
+	{
+		Name = name;
+	}
 
     /// <summary>
     ///     Name of the Variable
@@ -29,17 +29,17 @@ public class BadVariableExpression : BadExpression
     /// </summary>
     /// <returns>String Representation</returns>
     public override string ToString()
-    {
-        return Name;
-    }
+	{
+		return Name;
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject name = BadObject.Wrap(Name);
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject name = BadObject.Wrap(Name);
 
-        BadObjectReference obj = context.Scope.GetVariable(name, context.Scope);
+		BadObjectReference obj = context.Scope.GetVariable(name, context.Scope);
 
 
-        yield return obj;
-    }
+		yield return obj;
+	}
 }

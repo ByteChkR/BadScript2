@@ -18,14 +18,12 @@ public class BadAssignExpression : BadExpression
     /// <param name="left">Left side that the right side will be assigned to</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        false,
-        position
-    )
-    {
-        Left = left;
-        Right = right;
-    }
+    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(false,
+		position)
+	{
+		Left = left;
+		Right = right;
+	}
 
     /// <summary>
     ///     Left side that the right side will be assigned to
@@ -37,56 +35,58 @@ public class BadAssignExpression : BadExpression
     /// </summary>
     public BadExpression Right { get; set; }
 
-    public override void Optimize()
-    {
-        Left = BadExpressionOptimizer.Optimize(Left);
-        Right = BadExpressionOptimizer.Optimize(Right);
-    }
+	public override void Optimize()
+	{
+		Left = BadExpressionOptimizer.Optimize(Left);
+		Right = BadExpressionOptimizer.Optimize(Right);
+	}
 
-    public override string ToString()
-    {
-        return $"({Left} = {Right})";
-    }
+	public override string ToString()
+	{
+		return $"({Left} = {Right})";
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-            yield return o;
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
+			yield return o;
+		}
 
-        BadObject right = BadObject.Null;
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+		if (context.Scope.IsError)
+		{
+			yield break;
+		}
 
-            yield return o;
-        }
+		BadObject right = BadObject.Null;
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-        right = right.Dereference();
+			yield return o;
+		}
 
-        if (left is BadObjectReference reference)
-        {
-            reference.Set(right);
-        }
-        else
-        {
-            throw new BadRuntimeException($"Left handside of {this} is not a reference", Position);
-        }
+		if (context.Scope.IsError)
+		{
+			yield break;
+		}
 
-        yield return left;
-    }
+		right = right.Dereference();
+
+		if (left is BadObjectReference reference)
+		{
+			reference.Set(right);
+		}
+		else
+		{
+			throw new BadRuntimeException($"Left handside of {this} is not a reference", Position);
+		}
+
+		yield return left;
+	}
 }

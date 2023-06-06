@@ -13,10 +13,10 @@ public class BadString : BadNative<string>, IBadString
     /// <param name="value">The String Value</param>
     public BadString(string value) : base(value) { }
 
-    string IBadString.Value => Value;
+	string IBadString.Value => Value;
 
-    public override BadClassPrototype GetPrototype()
-    {
-        return BadNativeClassBuilder.GetNative("string");
-    }
+	public override BadClassPrototype GetPrototype()
+	{
+		return BadNativeClassBuilder.GetNative("string");
+	}
 }

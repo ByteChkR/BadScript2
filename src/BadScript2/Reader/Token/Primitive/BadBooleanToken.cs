@@ -13,7 +13,7 @@ public class BadBooleanToken : BadPrimitiveToken
     /// <param name="position">Source Position of the Token</param>
     public BadBooleanToken(BadSourcePosition position) : base(position) { }
 
-    public override BadPrimitiveType Type => BadPrimitiveType.Boolean;
+	public override BadPrimitiveType Type => BadPrimitiveType.Boolean;
 
     /// <summary>
     ///     The Value of the Token

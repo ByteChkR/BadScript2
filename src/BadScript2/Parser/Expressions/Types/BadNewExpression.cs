@@ -19,19 +19,19 @@ public class BadNewExpression : BadExpression
     /// <param name="right">The Expression that evaluates to a BadClassPrototype that can be created</param>
     /// <param name="position">Source Position of the Expression</param>
     public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
-    {
-        Right = right;
-    }
+	{
+		Right = right;
+	}
 
     /// <summary>
     ///     The Constructor Invocation
     /// </summary>
     public BadInvocationExpression Right { get; }
 
-    public override void Optimize()
-    {
-        Right.Optimize();
-    }
+	public override void Optimize()
+	{
+		Right.Optimize();
+	}
 
     /// <summary>
     ///     Creates an Instance of the Specified Class prototype
@@ -46,85 +46,87 @@ public class BadNewExpression : BadExpression
     ///     or the Constructor of the class is not a BadFunction
     /// </exception>
     public static IEnumerable<BadObject> CreateObject(
-        BadClassPrototype proto,
-        BadExecutionContext context,
-        BadObject[] args,
-        BadSourcePosition pos)
-    {
-        BadObject obj = BadObject.Null;
+		BadClassPrototype proto,
+		BadExecutionContext context,
+		BadObject[] args,
+		BadSourcePosition pos)
+	{
+		BadObject obj = BadObject.Null;
 
-        if (proto is BadANativeClassPrototype nativeType)
-        {
-            foreach (BadObject o in nativeType.CreateInstance(context, args))
-            {
-                yield return o;
-            }
+		if (proto is BadANativeClassPrototype nativeType)
+		{
+			foreach (BadObject o in nativeType.CreateInstance(context, args))
+			{
+				yield return o;
+			}
 
-            yield break;
-        }
+			yield break;
+		}
 
 
-        foreach (BadObject o in proto.CreateInstance(context))
-        {
-            obj = o;
+		foreach (BadObject o in proto.CreateInstance(context))
+		{
+			obj = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        obj = obj.Dereference();
+		obj = obj.Dereference();
 
-        if (obj is not BadClass cls)
-        {
-            throw new BadRuntimeException("Cannot create object from non-class type", pos);
-        }
+		if (obj is not BadClass cls)
+		{
+			throw new BadRuntimeException("Cannot create object from non-class type", pos);
+		}
 
-        //Call Constructor if exists
+		//Call Constructor if exists
 
-        if (cls.HasProperty(cls.Name))
-        {
-            BadObject ctor = cls.GetProperty(cls.Name, context.Scope).Dereference();
-            if (ctor is not BadFunction func)
-            {
-                throw new BadRuntimeException("Cannot create object from non-function type", pos);
-            }
+		if (cls.HasProperty(cls.Name))
+		{
+			BadObject ctor = cls.GetProperty(cls.Name, context.Scope).Dereference();
 
-            foreach (BadObject o in func.Invoke(args, context))
-            {
-                yield return o;
-            }
-        }
+			if (ctor is not BadFunction func)
+			{
+				throw new BadRuntimeException("Cannot create object from non-function type", pos);
+			}
 
-        yield return cls;
-    }
+			foreach (BadObject o in func.Invoke(args, context))
+			{
+				yield return o;
+			}
+		}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject obj = BadObject.Null;
+		yield return cls;
+	}
 
-        //Get Type from Right
-        foreach (BadObject o in Right.Left.Execute(context))
-        {
-            obj = o;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject obj = BadObject.Null;
 
-            yield return o;
-        }
+		//Get Type from Right
+		foreach (BadObject o in Right.Left.Execute(context))
+		{
+			obj = o;
 
-        obj = obj.Dereference();
+			yield return o;
+		}
 
-        if (obj is not BadClassPrototype ptype)
-        {
-            throw new BadRuntimeException("Cannot create object from non-class type", Position);
-        }
+		obj = obj.Dereference();
 
-        List<BadObject> args = new List<BadObject>();
-        foreach (BadObject o in Right.GetArgs(context, args))
-        {
-            yield return o;
-        }
+		if (obj is not BadClassPrototype ptype)
+		{
+			throw new BadRuntimeException("Cannot create object from non-class type", Position);
+		}
 
-        foreach (BadObject o in CreateObject(ptype, context, args.ToArray(), Position))
-        {
-            yield return o;
-        }
-    }
+		List<BadObject> args = new List<BadObject>();
+
+		foreach (BadObject o in Right.GetArgs(context, args))
+		{
+			yield return o;
+		}
+
+		foreach (BadObject o in CreateObject(ptype, context, args.ToArray(), Position))
+		{
+			yield return o;
+		}
+	}
 }

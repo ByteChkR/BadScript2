@@ -10,101 +10,104 @@ namespace BadScript2.Interop.NUnit;
 
 public class BadUnitTestContext
 {
-    private readonly List<BadNUnitTestCase> m_Cases;
-    private readonly List<BadFunction> m_Setup;
-    private readonly List<BadFunction> m_Teardown;
+	private readonly List<BadNUnitTestCase> m_Cases;
+	private readonly List<BadFunction> m_Setup;
+	private readonly List<BadFunction> m_Teardown;
 
-    public BadUnitTestContext(List<BadNUnitTestCase> cases, List<BadFunction> setup, List<BadFunction> teardown)
-    {
-        m_Cases = cases;
-        m_Setup = setup;
-        m_Teardown = teardown;
-    }
+	public BadUnitTestContext(List<BadNUnitTestCase> cases, List<BadFunction> setup, List<BadFunction> teardown)
+	{
+		m_Cases = cases;
+		m_Setup = setup;
+		m_Teardown = teardown;
+	}
 
-    private static void Run(IEnumerable<BadObject> enumerable)
-    {
-        foreach (BadObject _ in enumerable)
-        {
-            //Execute
-        }
-    }
+	private static void Run(IEnumerable<BadObject> enumerable)
+	{
+		foreach (BadObject _ in enumerable)
+		{
+			//Execute
+		}
+	}
 
-    public void Setup()
-    {
-        Run(RunSetup());
-    }
+	public void Setup()
+	{
+		Run(RunSetup());
+	}
 
-    public void Teardown()
-    {
-        Run(RunTeardown());
-    }
+	public void Teardown()
+	{
+		Run(RunTeardown());
+	}
 
-    public void Run(BadNUnitTestCase test)
-    {
-        Run(RunTestCase(test));
-    }
+	public void Run(BadNUnitTestCase test)
+	{
+		Run(RunTestCase(test));
+	}
 
-    public BadNUnitTestCase[] GetTestCases()
-    {
-        return m_Cases.ToArray();
-    }
+	public BadNUnitTestCase[] GetTestCases()
+	{
+		return m_Cases.ToArray();
+	}
 
-    public IEnumerable<BadObject> RunSetup()
-    {
-        for (int i = m_Setup.Count - 1; i >= 0; i--)
-        {
-            BadFunction function = m_Setup[i];
-            BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
-            foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
-            {
-                yield return o;
-            }
+	public IEnumerable<BadObject> RunSetup()
+	{
+		for (int i = m_Setup.Count - 1; i >= 0; i--)
+		{
+			BadFunction function = m_Setup[i];
+			BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
 
-            if (caller.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(caller.Scope.Error);
-            }
-        }
-    }
+			foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
+			{
+				yield return o;
+			}
 
-    public IEnumerable<BadObject> RunTeardown()
-    {
-        for (int i = m_Teardown.Count - 1; i >= 0; i--)
-        {
-            BadFunction function = m_Teardown[i];
-            BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
-            foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
-            {
-                yield return o;
-            }
+			if (caller.Scope.IsError)
+			{
+				throw new BadRuntimeErrorException(caller.Scope.Error);
+			}
+		}
+	}
 
-            if (caller.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(caller.Scope.Error);
-            }
-        }
-    }
+	public IEnumerable<BadObject> RunTeardown()
+	{
+		for (int i = m_Teardown.Count - 1; i >= 0; i--)
+		{
+			BadFunction function = m_Teardown[i];
+			BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
 
-    private IEnumerable<BadObject> RunTestCase(BadNUnitTestCase testCase)
-    {
-        TestContext.WriteLine($"Running test '{testCase.TestName}'");
-        BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
+			foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
+			{
+				yield return o;
+			}
 
-        BadTaskRunner.Instance.AddTask(
-            new BadTask(new BadInteropRunnable(testCase.Function!.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator()), testCase.TestName),
-            true
-        );
+			if (caller.Scope.IsError)
+			{
+				throw new BadRuntimeErrorException(caller.Scope.Error);
+			}
+		}
+	}
 
-        while (!BadTaskRunner.Instance.IsIdle)
-        {
-            BadTaskRunner.Instance.RunStep();
+	private IEnumerable<BadObject> RunTestCase(BadNUnitTestCase testCase)
+	{
+		TestContext.WriteLine($"Running test '{testCase.TestName}'");
+		BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
 
-            yield return BadObject.Null;
-        }
+		BadTaskRunner.Instance.AddTask(
+			new BadTask(
+				new BadInteropRunnable(testCase.Function!.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator()),
+				testCase.TestName),
+			true);
 
-        if (caller.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(caller.Scope.Error);
-        }
-    }
+		while (!BadTaskRunner.Instance.IsIdle)
+		{
+			BadTaskRunner.Instance.RunStep();
+
+			yield return BadObject.Null;
+		}
+
+		if (caller.Scope.IsError)
+		{
+			throw new BadRuntimeErrorException(caller.Scope.Error);
+		}
+	}
 }

@@ -18,12 +18,12 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
     /// <param name="name">Class Name</param>
     /// <param name="func">Class Constructor</param>
     protected BadANativeClassPrototype(
-        string name,
-        Func<BadExecutionContext, BadObject[], BadObject> func,
-        BadMetaData? meta = null) : base(name, null, meta)
-    {
-        m_Func = func;
-    }
+		string name,
+		Func<BadExecutionContext, BadObject[], BadObject> func,
+		BadMetaData? meta = null) : base(name, null, meta)
+	{
+		m_Func = func;
+	}
 
     /// <summary>
     ///     Creates an instance of the Class
@@ -32,12 +32,12 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
     /// <param name="args">Constructor Arguments</param>
     /// <returns>Enumeration of BadObjects that were created by the exeuction of the constructor</returns>
     public IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, BadObject[] args)
-    {
-        yield return m_Func(caller, args);
-    }
+	{
+		yield return m_Func(caller, args);
+	}
 
-    public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
-    {
-        return CreateInstance(caller, Array.Empty<BadObject>());
-    }
+	public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
+	{
+		return CreateInstance(caller, Array.Empty<BadObject>());
+	}
 }

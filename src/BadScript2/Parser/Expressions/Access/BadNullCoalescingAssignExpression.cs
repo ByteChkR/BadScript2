@@ -19,53 +19,54 @@ public class BadNullCoalescingAssignExpression : BadBinaryExpression
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Position inside the source code</param>
     public BadNullCoalescingAssignExpression(
-        BadExpression left,
-        BadExpression right,
-        BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+		BadExpression left,
+		BadExpression right,
+		BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
-        }
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        if (left is not BadObjectReference leftRef)
-        {
-            throw new BadRuntimeException("Left side of null coalescing assignment must be a reference", Position);
-        }
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
+		}
 
-        left = left.Dereference();
+		if (left is not BadObjectReference leftRef)
+		{
+			throw new BadRuntimeException("Left side of null coalescing assignment must be a reference", Position);
+		}
 
-        if (left == BadObject.Null)
-        {
-            BadObject rVal = BadObject.Null;
-            foreach (BadObject o in Right.Execute(context))
-            {
-                yield return o;
-                rVal = o;
-            }
+		left = left.Dereference();
 
-            rVal = rVal.Dereference();
-            leftRef.Set(rVal);
+		if (left == BadObject.Null)
+		{
+			BadObject rVal = BadObject.Null;
 
-            yield return rVal;
-        }
-        else
-        {
-            yield return left;
-        }
-    }
+			foreach (BadObject o in Right.Execute(context))
+			{
+				yield return o;
+
+				rVal = o;
+			}
+
+			rVal = rVal.Dereference();
+			leftRef.Set(rVal);
+
+			yield return rVal;
+		}
+		else
+		{
+			yield return left;
+		}
+	}
 
 
-    protected override string GetSymbol()
-    {
-        return "??=";
-    }
+	protected override string GetSymbol()
+	{
+		return "??=";
+	}
 }
