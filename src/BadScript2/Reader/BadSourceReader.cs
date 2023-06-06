@@ -13,15 +13,35 @@ public class BadSourceReader
     /// </summary>
     private readonly string m_Source;
 
+    public string Source => m_Source.Substring(m_StartIndex, m_EndIndex - m_StartIndex);
+    
+    private readonly int m_StartIndex;
+    private readonly int m_EndIndex;
+
+
+    public BadSourceReader(string fileName, string source, int start, int end)
+    {
+        FileName = fileName;
+        m_Source = source;
+        if (start < 0 || start >= end)
+        {
+            throw new ArgumentOutOfRangeException(nameof(start));
+        }
+        if(end > source.Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(end));
+        }
+        m_StartIndex = start;
+        m_EndIndex = end;
+        CurrentIndex = start;
+    }
     /// <summary>
     ///     Creates a new Source Code Reader
     /// </summary>
     /// <param name="fileName">The Filename of the Source Code</param>
     /// <param name="source">The Source Code</param>
-    public BadSourceReader(string fileName, string source)
+    public BadSourceReader(string fileName, string source) : this(fileName, source, 0, source.Length)
     {
-        FileName = fileName;
-        m_Source = source;
     }
 
     /// <summary>
@@ -65,7 +85,7 @@ public class BadSourceReader
     /// <returns>True if the Reader is at the end of the source code.</returns>
     public bool IsEof(int offset = 0)
     {
-        return CurrentIndex + offset >= m_Source.Length && CurrentIndex + offset >= 0;
+        return CurrentIndex + offset >= m_EndIndex && CurrentIndex + offset >= m_StartIndex;
     }
 
     /// <summary>

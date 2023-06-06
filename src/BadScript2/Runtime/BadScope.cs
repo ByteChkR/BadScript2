@@ -285,7 +285,7 @@ public class BadScope : BadObject
                 stack.Add(current);
             }
 
-            current = current.m_Caller;
+            current = current.m_Caller ?? current.Parent;
         }
 
         return string.Join("\n", stack.Select(s => s.Name));

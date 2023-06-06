@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 
+using BadScript2.Common;
 using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
 using BadScript2.Debugger.Scriptable;
@@ -15,6 +17,7 @@ using BadScript2.Interop.Linq;
 using BadScript2.IO;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
+using BadScript2.Reader;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -237,6 +240,63 @@ public class BadHtmlTemplate
         return node.Name != "script" && node.Name != "style" && !IsSpecialNode(node);
     }
 
+
+    private string EscapeInline(string source, int start, int length)
+    {
+        if (start == 0 || start + length == source.Length)
+        {
+            throw new BadRuntimeException("Can not Escape Inline String. It is at the start/end of the file");
+        }
+
+        string src = source.Replace('\n', ' ').Replace('\r', ' ');
+        int quotationStart = start - 2;
+        int quotationEnd = start + length;
+        src = src.Remove(quotationStart, 2).Insert(quotationStart, "$\"");
+        src = src.Remove(quotationEnd, 1).Insert(quotationEnd, "\"");
+
+        return src;
+    }
+
+    private string ProcessInlineEscaped(string source, int start, int length, BadExecutionContext ctx)
+    {
+        string src = source.Replace('\n', ' ').Replace('\r', ' ');
+        int quotationStart = start - 2;
+        int quotationEnd = start + length;
+        var quotationStartLength = 2;
+        var quotationEndLength = 1;
+        if (quotationStart < 0)
+        {
+            quotationStartLength = quotationStart + 2;
+            src.Remove(0, quotationStartLength);
+            quotationStart = 0;
+            quotationEnd -= quotationStartLength;
+        }
+        if(quotationEnd > src.Length)
+        {
+            quotationEndLength = quotationEnd - src.Length;
+            src.Remove(src.Length - quotationEndLength, quotationEndLength);
+            quotationEnd = src.Length;
+        }
+        src = src.Remove(quotationStart, quotationStartLength).Insert(quotationStart, "$\"");
+        src = src.Remove(quotationEnd, quotationEndLength).Insert(quotationEnd, "\"");
+
+        BadSourceParser parser = BadSourceParser.Create(FilePath, src, quotationStart, quotationEnd+1);
+        BadExpression[] exprs = parser.Parse().ToArray();
+        BadObject ret = ctx.Execute(exprs).Last();
+
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
+
+        if (ret is not IBadString str)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Inline Script Result", BadSourcePosition.Create(FilePath, Source, start, length));
+        }
+
+        return str.Value;
+    }
+
     /// <summary>
     ///     Processes an inline script
     ///     Format: $"My Name is {Model.Name}"
@@ -245,15 +305,20 @@ public class BadHtmlTemplate
     /// <param name="ctx">The Execution Context</param>
     /// <returns>The Resulting Output</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the format string is invalid.</exception>
-    private string ProcessInline(string input, BadExecutionContext ctx)
+    private string ProcessInline(string source, int start, int length, BadExecutionContext ctx)
     {
-        string src = $"$\"{input.Replace("\n", "").Replace("\r", "")}\"";
-        BadSourceParser parser = BadSourceParser.Create(FilePath, src);
+        BadSourceParser parser = BadSourceParser.Create(FilePath, source, start, start + length);
         BadExpression[] exprs = parser.Parse().ToArray();
         BadObject ret = ctx.Execute(exprs).Last();
+
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
+
         if (ret is not IBadString str)
         {
-            throw new BadRuntimeException("Invalid Format String Return");
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Inline Script Result", BadSourcePosition.Create(FilePath, Source, start, length));
         }
 
         return str.Value;
@@ -295,7 +360,7 @@ public class BadHtmlTemplate
             return;
         }
 
-        StringBuilder r = new StringBuilder(ProcessInline(node.InnerHtml, ctx));
+        StringBuilder r = new StringBuilder(ProcessInlineEscaped(GetSource(node), node.InnerStartIndex, node.InnerLength, ctx));
         foreach (string styleTag in styleTags)
         {
             r.Append(styleTag);
@@ -317,6 +382,25 @@ public class BadHtmlTemplate
         node.ParentNode.RemoveChild(node);
     }
 
+    private string GetSource(HtmlNode node)
+    {
+        return node.OwnerDocument.Text;
+
+        // var current = node;
+        // var last = node;
+        // while (current != null)
+        // {
+        //     last = current;
+        //     current = current.ParentNode;
+        // }
+        // return last.InnerHtml;
+    }
+
+    private string GetSource(HtmlAttribute attribute)
+    {
+        return GetSource(attribute.OwnerNode);
+    }
+
     /// <summary>
     ///     Processes a Script Block.
     /// </summary>
@@ -324,9 +408,13 @@ public class BadHtmlTemplate
     /// <param name="ctx">The Execution Context</param>
     private void ProcessScriptBlock(HtmlNode node, BadExecutionContext ctx)
     {
-        string src = node.InnerText;
-        BadSourceParser parser = BadSourceParser.Create(FilePath, src);
+        BadSourceParser parser = BadSourceParser.Create(FilePath, GetSource(node), node.InnerStartIndex, node.InnerStartIndex + node.InnerLength);
         ctx.Execute(parser.Parse()).Last();
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
+
         node.ParentNode.RemoveChild(node);
     }
 
@@ -353,7 +441,10 @@ public class BadHtmlTemplate
         doc.LoadHtml(node.InnerHtml);
         ProcessNode(doc.DocumentNode, ctx);
 
-        if (ctx.Scope.IsError) throw new BadRuntimeErrorException(ctx.Scope.Error);
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
 
         return doc.DocumentNode.InnerHtml;
     }
@@ -362,23 +453,36 @@ public class BadHtmlTemplate
     {
         HtmlDocument doc = new HtmlDocument();
         doc.LoadHtml(node.InnerHtml);
-        ProcessNode(doc.DocumentNode, ctx);
-        if (ctx.Scope.IsError) throw new BadRuntimeErrorException(ctx.Scope.Error);
+        try {
+            ProcessNode(doc.DocumentNode, ctx);
+        }
+        catch (BadSourceReaderException e)
+        {
+            throw new Exception(
+                $"Could not Process Node {node.Name} with content\n{node.InnerHtml}",
+                e
+            );
+        }
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
 
         return doc.DocumentNode.ChildNodes;
     }
 
 
-    private string InvokeFunction(HtmlNode node, BadExecutionContext ctx, BadFunctionParameter[] parameters, BadObject[] args)
+    private string InvokeFunction(HtmlNode node, BadExecutionContext ctx,BadFunctionParameter[] parameters, BadObject[] args, string funcName)
     {
-        if(args.Length != parameters.Length)
+        if (args.Length != parameters.Length)
         {
-            throw new BadRuntimeException("Invalid Argument Count");
+            throw BadRuntimeException.Create(ctx.Scope, $"Invalid Argument Count. Expected {parameters.Length} but got {args.Length}");
         }
-        BadExecutionContext funcCtx = new BadExecutionContext(ctx.Scope.CreateChild("bs:function", null, null));
+
+        BadExecutionContext funcCtx = new BadExecutionContext(ctx.Scope.CreateChild($"bs:function {funcName}({string.Join(", ", parameters.Select(x=>x.ToString()))})", ctx.Scope, null, BadScopeFlags.CaptureReturn));
         for (int i = 0; i < parameters.Length; i++)
         {
-            var parameter = parameters[i].Initialize(funcCtx);
+            BadFunctionParameter parameter = parameters[i].Initialize(funcCtx);
             funcCtx.Scope.DefineVariable(parameter.Name, args[i], funcCtx.Scope, new BadPropertyInfo(parameter.Type));
         }
 
@@ -388,19 +492,32 @@ public class BadHtmlTemplate
 
     private BadExpression? ParseParameterType(HtmlAttribute attribute)
     {
+        int start = GetValueStartIndex(attribute);
         if (string.IsNullOrEmpty(attribute.Value))
         {
             return null;
         }
 
-        BadSourceParser parser = BadSourceParser.Create(FilePath, attribute.Value);
+        BadSourceParser parser = BadSourceParser.Create(FilePath, GetSource(attribute), start, start + attribute.ValueLength);
 
         return parser.Parse().FirstOrDefault();
     }
 
     private void ProcessFunction(HtmlNode node, BadExecutionContext ctx)
     {
-        string name = node.Attributes["name"]?.Value ?? throw new BadRuntimeException("Invalid Function Name");
+        HtmlAttribute? nameAttribute = node.Attributes["name"];
+
+        if (nameAttribute == null)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "No Function Name", BadSourcePosition.Create(FilePath, Source, node.OuterStartIndex, node.OuterLength));
+        }
+
+        string name = nameAttribute.Value;
+        if (string.IsNullOrEmpty(name))
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Function Name", BadSourcePosition.Create(FilePath, Source, node.OuterStartIndex, node.OuterLength));
+        }
+
         BadFunctionParameter[] parameter = node.Attributes.Where(x => x.Name.StartsWith("param:"))
             .Select(
                 x => new BadFunctionParameter(
@@ -414,25 +531,52 @@ public class BadHtmlTemplate
             .ToArray();
         BadInteropFunction func = new BadInteropFunction(
             name,
-            (ctx, args) => InvokeFunction(node, ctx, parameter, args),
+            (ctx, args) => InvokeFunction(node, ctx, parameter, args, name),
             parameter
         );
         ctx.Scope.DefineVariable(name, func, ctx.Scope, new BadPropertyInfo(func.GetPrototype(), true));
         node.ParentNode.RemoveChild(node);
     }
 
+    private int GetOuterStartIndex(HtmlNode node)
+    {
+        return node.OuterStartIndex;
+    }
+
+    private int GetValueStartIndex(HtmlAttribute attribute)
+    {
+        return attribute.ValueStartIndex;
+    }
+
     private void ProcessForeach(HtmlNode node, BadExecutionContext ctx)
     {
-        string? enumeratorStr = node.Attributes["on"]?.Value;
+        int outerStart = GetOuterStartIndex(node);
+        HtmlAttribute? enumeratorAttribute = node.Attributes["on"];
         string name = node.Attributes["as"]?.Value ?? "item";
-        if (enumeratorStr == null)
+        if (enumeratorAttribute == null)
         {
-            throw new BadRuntimeException("Invalid Enumerator");
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Enumerator", BadSourcePosition.Create(FilePath, Source, outerStart, node.OuterLength));
         }
 
-        BadSourceParser enumeratorParser = BadSourceParser.Create(FilePath, enumeratorStr);
+        if (enumeratorAttribute.ValueLength == 0)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Enumerator", BadSourcePosition.Create(FilePath, Source, outerStart, node.OuterLength));
+        }
+
+        int enumeratorStart = GetValueStartIndex(enumeratorAttribute);
+        BadSourceParser enumeratorParser = BadSourceParser.Create(
+            FilePath,
+            GetSource(enumeratorAttribute),
+            enumeratorStart,
+            enumeratorStart + enumeratorAttribute.ValueLength
+        );
         BadExpression[] enumeratorExprs = enumeratorParser.Parse().ToArray();
         BadObject ret = ctx.Execute(enumeratorExprs).Last().Dereference();
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
+
         HtmlNode? parent = node.ParentNode;
         HtmlNode? prevSilbing = node.PreviousSibling;
 
@@ -461,7 +605,8 @@ public class BadHtmlTemplate
         {
             while (enumerator.MoveNext())
             {
-                BadObject o = enumerator.Current ?? throw new BadRuntimeException("Invalid Enumerator");
+                BadObject o = enumerator.Current ??
+                              throw BadRuntimeException.Create(ctx.Scope, "Invalid Enumerator", BadSourcePosition.Create(FilePath, Source, outerStart, node.OuterLength));
                 BadExecutionContext loopCtx = new BadExecutionContext(ctx.Scope.CreateChild("bs:foreach", null, null));
                 loopCtx.Scope.DefineVariable(name, o, loopCtx.Scope, new BadPropertyInfo(o.GetPrototype(), true));
                 foreach (HtmlNode htmlNode in ProcessChildNodesIsolated(node, loopCtx))
@@ -479,24 +624,40 @@ public class BadHtmlTemplate
                 }
             }
         }
+        else
+        {
+            throw BadRuntimeException.Create(
+                ctx.Scope,
+                "Invalid Enumerator",
+                BadSourcePosition.Create(FilePath, Source, enumeratorStart, enumeratorAttribute.ValueLength)
+            );
+        }
 
         node.ParentNode.RemoveChild(node);
     }
 
     private void ProcessIf(HtmlNode node, BadExecutionContext ctx)
     {
-        string? condition = node.Attributes["test"]?.Value;
+        HtmlAttribute? condition = node.Attributes["test"];
         if (condition == null)
         {
-            throw new BadRuntimeException("Invalid Condition");
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Condition", BadSourcePosition.Create(FilePath, Source, node.OuterStartIndex, node.OuterLength));
+            ;
         }
 
-        BadSourceParser conditionParser = BadSourceParser.Create(FilePath, condition);
+        int conditionStart = GetValueStartIndex(condition);
+
+        BadSourceParser conditionParser = BadSourceParser.Create(FilePath, GetSource(condition), conditionStart, conditionStart + condition.ValueLength);
         BadExpression[] conditionExprs = conditionParser.Parse().ToArray();
         BadObject ret = ctx.Execute(conditionExprs).Last().Dereference();
+        if (ctx.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(ctx.Scope.Error);
+        }
+
         if (ret is not IBadBoolean b)
         {
-            throw new BadRuntimeException("Invalid Condition Return");
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Condition", BadSourcePosition.Create(FilePath, Source, conditionStart, condition.ValueLength));
         }
 
         if (b.Value)
@@ -577,7 +738,8 @@ public class BadHtmlTemplate
         {
             if (attribute.Name != "style" && attribute.Value.Contains('{'))
             {
-                attribute.Value = ProcessInline(attribute.Value, ctx);
+                int attributeStart = GetValueStartIndex(attribute);
+                attribute.Value = ProcessInline(GetSource(attribute), attributeStart, attribute.ValueLength, ctx);
             }
         }
 

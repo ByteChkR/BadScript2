@@ -9,6 +9,7 @@ using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.IO;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Settings;
 
 namespace BadScript2.ConsoleCore.Systems.Html;
 
@@ -32,6 +33,8 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
     protected override int Run(BadHtmlSystemSettings settings)
     {
+        BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
+        BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
         BadHtmlTemplate.SkipInitialization();
 
 

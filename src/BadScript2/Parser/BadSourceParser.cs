@@ -61,6 +61,10 @@ public class BadSourceParser
     {
         return new BadSourceParser(new BadSourceReader(fileName, source), BadOperatorTable.Instance);
     }
+    public static BadSourceParser Create(string fileName, string source, int start, int end)
+    {
+        return new BadSourceParser(new BadSourceReader(fileName, source,  start,  end), BadOperatorTable.Instance);
+    }
 
     public static IEnumerable<BadExpression> Parse(string fileName, string source)
     {

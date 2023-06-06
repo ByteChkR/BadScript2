@@ -63,7 +63,19 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
         }
     }
 
-    public bool WriteStackTraceInRuntimeErrors => WriteStackTraceInRuntimeErrorsObj?.GetValue<bool>() ?? false;
+    public bool WriteStackTraceInRuntimeErrors
+    {
+        get => WriteStackTraceInRuntimeErrorsObj?.GetValue<bool>() ?? false;
+        set
+        {
+            if (WriteStackTraceInRuntimeErrorsObj == null)
+            {
+                m_WriteStackTraceInRuntimeErrorsObj = new BadSettings();
+            }
+
+            m_WriteStackTraceInRuntimeErrorsObj!.SetValue(value);
+        }
+    }
 
     /// <summary>
     ///     The Default File Extension of BadScript2 Scripts
