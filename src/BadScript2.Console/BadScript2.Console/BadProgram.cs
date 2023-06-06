@@ -6,7 +6,6 @@ using BadScript2.ConsoleCore.Systems.Run;
 using BadScript2.ConsoleCore.Systems.Settings;
 using BadScript2.ConsoleCore.Systems.Shell;
 using BadScript2.ConsoleCore.Systems.Test;
-using BadScript2.ConsoleCore.Systems.VirtualMachine;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Task;
@@ -105,10 +104,6 @@ internal static class BadProgram
             new BadRunSystem(),
             new BadSettingsSystem(),
             new BadHtmlSystem(),
-            new BadVirtualMachineRunSystem(),
-            new BadVirtualMachineNewSystem(),
-            new BadVirtualMachineManagerSystem(),
-            new BadVirtualMachineManagerClientSystem(),
             new BadRemoteConsoleSystem(),
             new BadShellSystem()
         );

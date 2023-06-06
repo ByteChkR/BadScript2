@@ -1,3 +1,0 @@
-const Shell = OS.Import("Shell");
-const sh = new Shell();
-sh.Loop();

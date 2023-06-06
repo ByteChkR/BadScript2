@@ -10,8 +10,12 @@
 @using BadScript2.Interop.Common.Apis
 @using BadScript2.Interop.Common.Task
 @using BadScript2.ConsoleCore.Systems.Run
+@using System.Collections.Specialized
+@using System.Web
+@using System.Text
 @inject IJSRuntime JsRuntime
 @inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
 
 <Modal Class="import-modal" @ref="@m_ImportModal">
     <ModalHeader>
@@ -53,7 +57,7 @@
             <button class="sidebar-header-button" onclick="@ExportProject">Export</button>
             <button class="sidebar-header-button" onclick="@HideSideBar">Hide</button>
         </div>
-        <FileSystemView SelectedNodeChanged="@SelectedNodeChanged" FileSystem="@FileSystem"></FileSystemView>
+        <FileSystemView SelectedNodeChanged="@SelectedNodeChanged" FileSystem="@FileSystem" OnRunFile="@RunFile" OnOpenFile="@OpenFile"></FileSystemView>
     </div>
     <div style="height: 100%; display: flex; flex-direction: column;" class="editor-container">
         <button style="width: 100%; flex-grow: 0" hidden="@(!m_HideFileSystemView)" onclick="@ShowSideBar" class="show-sidebar">Show Side Bar</button>
@@ -361,13 +365,17 @@
         m_Tabs!.SelectTab(file);
     }
 
+    public void OpenFile(string path)
+    {
+        m_OpenFiles.Add(path, null);
+    }
 
     public void Open()
     {
-        if (SelectedNode is BadVirtualFile file && !m_OpenFiles.ContainsKey(file.AbsolutePath))
+        if (SelectedNode is BadVirtualFile file)
         {
             Console.WriteLine("Opening editor for file: " + file);
-            m_OpenFiles.Add(file.AbsolutePath, null);
+            OpenFile(file.AbsolutePath);
         }
     }
 
@@ -455,5 +463,22 @@
         JsRuntime.ClickElement("import-modal-upload-input");
     }
 
+
+
+
+}
+
+@{
+    NameValueCollection query = HttpUtility.ParseQueryString(new Uri(NavigationManager.Uri).Query);
+    if (query.AllKeys.Any(x => x == "fs"))
+    {
+        string[]? urls = query.GetValues("fs")?.Select(x => Encoding.UTF8.GetString(Convert.FromBase64String(x))).ToArray();
+        if (urls == null) return;
+        Console.WriteLine("Urls Specified in parameter: " + string.Join(", ", urls));
+        foreach (string url in urls)
+        {
+            ImportZip(url);
+        }
+    }
 
 }

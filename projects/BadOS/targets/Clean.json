@@ -1,8 +1,0 @@
-{
-	"Name": "Clean",
-	"Script": "./scripts/Clean.bs",
-	"Dependencies": [
-		"LoadSettings",
-		"BuildDependencies"
-	]
-}

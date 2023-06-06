@@ -12,7 +12,6 @@
     <ProjectReference Include="..\..\BadScript2.Common\BadScript2.Debugger\BadScript2.Debugger.csproj" />
     <ProjectReference Include="..\..\BadScript2.Common\BadScript2.Interactive\BadScript2.Interactive.csproj" />
     <ProjectReference Include="..\..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj" />
-    <ProjectReference Include="..\..\BadScript2.Common\BadScript2.VirtualMachine\BadScript2.VirtualMachine.csproj" />
     <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
   </ItemGroup>
   <ItemGroup>

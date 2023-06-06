@@ -16,7 +16,6 @@ using BadScript2.Runtime.Settings;
 using BadScript2.Runtime.VirtualMachine;
 using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
-using BadScript2.VirtualMachine;
 
 namespace BadScript2.Tests;
 
