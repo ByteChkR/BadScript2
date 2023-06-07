@@ -13,31 +13,47 @@ namespace BadScript2.Parser.Expressions;
 /// </summary>
 public abstract class BadExpression
 {
-    /// <summary>
-    ///     Constructor
-    /// </summary>
-    /// <param name="isConstant">Indicates if the expression stays constant at all times</param>
-    /// <param name="position">The source Position of the Expression</param>
-    protected BadExpression(bool isConstant, BadSourcePosition position)
-	{
-		IsConstant = isConstant;
-		Position = position;
-	}
+	/// <summary>
+	///     Constructor
+	/// </summary>
+	/// <param name="isConstant">Indicates if the expression stays constant at all times</param>
+	/// <param name="position">The source Position of the Expression</param>
+	protected BadExpression(bool isConstant, BadSourcePosition position)
+    {
+        IsConstant = isConstant;
+        Position = position;
+    }
 
-    /// <summary>
-    ///     Indicates if the expression stays constant at all times.
-    /// </summary>
-    public bool IsConstant { get; }
+	/// <summary>
+	///     Indicates if the expression stays constant at all times.
+	/// </summary>
+	public bool IsConstant { get; }
 
-    /// <summary>
-    ///     The source Position of the Expression
-    /// </summary>
-    public BadSourcePosition Position { get; }
+	/// <summary>
+	///     The source Position of the Expression
+	/// </summary>
+	public BadSourcePosition Position { get; private set; }
 
-    /// <summary>
-    ///     Optimizes the Expression
-    /// </summary>
-    public virtual void Optimize() { }
+	/// <summary>
+	///     Optimizes the Expression
+	/// </summary>
+	public virtual void Optimize() { }
+
+    public abstract IEnumerable<BadExpression> GetDescendants();
+
+    public IEnumerable<BadExpression> GetDescendantsAndSelf()
+    {
+        yield return this;
+        foreach (BadExpression? descendant in GetDescendants())
+        {
+            yield return descendant;
+        }
+    }
+
+    public void SetPosition(BadSourcePosition pos)
+    {
+        Position = pos;
+    }
 
     /// <summary>
     ///     Is used to evaluate the Expression
@@ -52,44 +68,45 @@ public abstract class BadExpression
     /// <param name="context">The current Execution context the expression is evaluated in</param>
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     public IEnumerable<BadObject> Execute(BadExecutionContext context)
-	{
-		if (BadDebugger.IsAttached)
-		{
-			BadDebugger.Step(new BadDebuggerStep(context, Position, this));
-		}
+    {
+        if (BadDebugger.IsAttached)
+        {
+            BadDebugger.Step(new BadDebuggerStep(context, Position, this));
+        }
 
-		if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
-		{
-			IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
+        if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
+        {
+            IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
 
-			while (true)
-			{
-				try
-				{
-					if (!e.MoveNext())
-					{
-						break;
-					}
-				}
-				catch (Exception exception)
-				{
-					context.Scope.SetErrorObject(
-						BadRuntimeError.FromException(exception, context.Scope.GetStackTrace()));
+            while (true)
+            {
+                try
+                {
+                    if (!e.MoveNext())
+                    {
+                        break;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    context.Scope.SetErrorObject(
+                        BadRuntimeError.FromException(exception, context.Scope.GetStackTrace())
+                    );
 
-					break;
-				}
+                    break;
+                }
 
-				yield return e.Current ?? BadObject.Null;
-			}
-		}
-		else
-		{
-			foreach (BadObject o in InnerExecute(context))
-			{
-				yield return o;
-			}
-		}
-	}
+                yield return e.Current ?? BadObject.Null;
+            }
+        }
+        else
+        {
+            foreach (BadObject o in InnerExecute(context))
+            {
+                yield return o;
+            }
+        }
+    }
 
     /// <summary>
     ///     Helper function that executes an operator override function if implemented.
@@ -102,27 +119,31 @@ public abstract class BadExpression
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the override function does not exist or is not of type BadFunction</exception>
     protected static IEnumerable<BadObject> ExecuteOperatorOverride(
-		BadObject left,
-		BadObject right,
-		BadExecutionContext context,
-		string name,
-		BadSourcePosition position)
-	{
-		BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
+        BadObject left,
+        BadObject right,
+        BadExecutionContext context,
+        string name,
+        BadSourcePosition position)
+    {
+        BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
 
-		if (func == null)
-		{
-			throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
-				position);
-		}
+        if (func == null)
+        {
+            throw new BadRuntimeException(
+                $"{left.GetType().Name} has no {name} property",
+                position
+            );
+        }
 
-		foreach (BadObject o in func.Invoke(new[]
-			         {
-				         right
-			         },
-			         context))
-		{
-			yield return o;
-		}
-	}
+        foreach (BadObject o in func.Invoke(
+                     new[]
+                     {
+                         right,
+                     },
+                     context
+                 ))
+        {
+            yield return o;
+        }
+    }
 }

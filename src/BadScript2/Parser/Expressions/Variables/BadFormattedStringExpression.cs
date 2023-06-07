@@ -71,4 +71,20 @@ public class BadFormattedStringExpression : BadStringExpression
 
 		yield return string.Format(Value, objs.Cast<object?>().ToArray());
 	}
+
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expr in m_Expressions)
+		{
+			foreach (BadExpression e in expr.GetDescendantsAndSelf())
+			{
+				yield return e;
+			}
+		}
+
+		foreach (BadExpression e in base.GetDescendants())
+		{
+			yield return e;
+		}
+	}
 }

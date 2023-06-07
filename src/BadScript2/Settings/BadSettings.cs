@@ -76,14 +76,14 @@ public class BadSettings
 	{
 		if (m_Value == null)
 		{
-			return default(T?);
+			return default;
 		}
 
 		Type t = typeof(T);
 
-		if (m_ObjectCache.ContainsKey(t))
+		if (m_ObjectCache.TryGetValue(t, out object? value))
 		{
-			return (T)m_ObjectCache[t];
+			return (T)value;
 		}
 
 		T? v = m_Value.ToObject<T>();

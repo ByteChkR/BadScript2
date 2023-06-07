@@ -60,7 +60,23 @@ public class BadForEachExpression : BadExpression
 		}
 	}
 
-    /// <summary>
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in Target.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+		
+		foreach (BadExpression expression in m_Body)
+		{
+			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+			{
+				yield return descendant;
+			}
+		}
+	}
+
+	/// <summary>
     ///     Helper Function that returns the MoveNext/GetCurrent function of the Target
     /// </summary>
     /// <param name="target">The loop target</param>

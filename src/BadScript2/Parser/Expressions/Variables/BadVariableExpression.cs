@@ -33,7 +33,12 @@ public class BadVariableExpression : BadExpression
 		return Name;
 	}
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    yield break;
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadObject name = BadObject.Wrap(Name);
 

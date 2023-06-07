@@ -31,6 +31,14 @@ public class BadThrowExpression : BadExpression
 		Right = BadExpressionOptimizer.Optimize(Right);
 	}
 
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression right in Right.GetDescendantsAndSelf())
+		{
+			yield return right;
+		}
+	}
+
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadObject value = BadObject.Null;

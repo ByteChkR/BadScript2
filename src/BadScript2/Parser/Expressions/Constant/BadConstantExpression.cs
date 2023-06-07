@@ -42,6 +42,11 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
 	{
 		return Value.ToString();
 	}
+
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    yield break;
+    }
 }
 
 /// <summary>
@@ -50,7 +55,12 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
 /// <typeparam name="T">Type of the Constant Value</typeparam>
 public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpression
 {
-    /// <summary>
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		yield break;
+	}
+
+	/// <summary>
     ///     Constructor of the Constant Expression
     /// </summary>
     /// <param name="value">Constant Value of the Expression</param>

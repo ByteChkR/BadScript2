@@ -53,7 +53,23 @@ public class BadInvocationExpression : BadExpression
 		}
 	}
 
-    /// <summary>
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression left in Left.GetDescendantsAndSelf())
+		{
+			yield return left;
+		}
+
+		foreach (BadExpression argument in m_Arguments)
+		{
+			foreach (BadExpression arg in argument.GetDescendantsAndSelf())
+			{
+				yield return arg;
+			}
+		}
+	}
+
+	/// <summary>
     ///     Returns the argument objects
     /// </summary>
     /// <param name="context">The Current Execution Context</param>

@@ -37,6 +37,22 @@ public class BadArrayAccessExpression : BadExpression
 		NullChecked = nullChecked;
 	}
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+
+	    foreach (BadExpression expression in m_Arguments)
+	    {
+		    foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+		    {
+			    yield return descendant;
+		    }
+	    }
+    }
+
     /// <summary>
     ///     The count of the right side arguments.
     /// </summary>

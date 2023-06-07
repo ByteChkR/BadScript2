@@ -11,7 +11,18 @@ namespace BadScript2.Parser.Expressions.Constant;
 /// </summary>
 public class BadTableExpression : BadExpression
 {
-    /// <summary>
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (KeyValuePair<BadWordToken,BadExpression> kvp in m_Table)
+		{
+			foreach (BadExpression expression in kvp.Value.GetDescendantsAndSelf())
+			{
+				yield return expression;
+			}
+		}
+	}
+
+	/// <summary>
     ///     The Initializer List of the Table
     /// </summary>
     private readonly Dictionary<BadWordToken, BadExpression> m_Table;

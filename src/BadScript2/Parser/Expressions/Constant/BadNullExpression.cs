@@ -33,4 +33,9 @@ public class BadNullExpression : BadExpression, IBadNativeExpression
 	{
 		yield return BadObject.Null;
 	}
+
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		yield break;
+	}
 }

@@ -98,6 +98,56 @@ public abstract class BadFunction : BadObject
 		}
 	}
 
+    public static void ApplyParameters(string funcStr, BadFunctionParameter[] parameters, BadExecutionContext context, BadObject[] args, BadSourcePosition? position = null)
+    {
+	    for (int i = 0; i < parameters.Length; i++)
+	    {
+		    BadFunctionParameter parameter = parameters[i];
+
+		    if (parameter.IsRestArgs)
+		    {
+			    context.Scope.DefineVariable(parameter.Name,
+				    new BadArray(args.Skip(i).ToList()),
+				    null,
+				    new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array")));
+		    }
+		    else if (args.Length <= i)
+		    {
+			    if (parameter.IsOptional)
+			    {
+				    context.Scope.DefineVariable(parameter.Name, Null, null, new BadPropertyInfo(parameter.Type));
+			    }
+			    else
+			    {
+				    if (position != null)
+				    {
+					    throw new BadRuntimeException(
+						    $"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'",
+						    position);
+				    }
+
+				    throw new BadRuntimeException(
+					    $"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'");
+			    }
+		    }
+		    else
+		    {
+			    if (parameter.IsNullChecked && args[i] == Null)
+			    {
+				    if (position != null)
+				    {
+					    throw new BadRuntimeException($"Null value not allowed for '{funcStr}' parameter '{parameter}'",
+						    position);
+				    }
+
+				    throw new BadRuntimeException($"Null value not allowed for '{funcStr}' parameter '{parameter}'");
+			    }
+
+			    context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type));
+		    }
+	    }
+    }
+    
     /// <summary>
     ///     Applies the function arguments to the context of the function
     /// </summary>
@@ -106,54 +156,9 @@ public abstract class BadFunction : BadObject
     /// <param name="position">Source Position used for raising exceptions</param>
     /// <exception cref="BadRuntimeException">Gets raised if the arguments can not be set in the context.</exception>
     public void ApplyParameters(BadExecutionContext context, BadObject[] args, BadSourcePosition? position = null)
-	{
-		for (int i = 0; i < Parameters.Length; i++)
-		{
-			BadFunctionParameter parameter = Parameters[i];
-
-			if (parameter.IsRestArgs)
-			{
-				context.Scope.DefineVariable(parameter.Name,
-					new BadArray(args.Skip(i).ToList()),
-					null,
-					new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array")));
-			}
-			else if (args.Length <= i)
-			{
-				if (parameter.IsOptional)
-				{
-					context.Scope.DefineVariable(parameter.Name, Null, null, new BadPropertyInfo(parameter.Type));
-				}
-				else
-				{
-					if (position != null)
-					{
-						throw new BadRuntimeException(
-							$"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'",
-							position);
-					}
-
-					throw new BadRuntimeException(
-						$"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'");
-				}
-			}
-			else
-			{
-				if (parameter.IsNullChecked && args[i] == Null)
-				{
-					if (position != null)
-					{
-						throw new BadRuntimeException($"Null value not allowed for '{this}' parameter '{parameter}'",
-							position);
-					}
-
-					throw new BadRuntimeException($"Null value not allowed for '{this}' parameter '{parameter}'");
-				}
-
-				context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type));
-			}
-		}
-	}
+    {
+	    ApplyParameters(ToString(), Parameters, context, args, position);
+    }
 
     /// <summary>
     ///     Returns the Hash of the function arguments
@@ -245,9 +250,13 @@ public abstract class BadFunction : BadObject
     /// </summary>
     /// <returns>String Header</returns>
     public string GetHeader()
+    {
+	    return GetHeader(Name?.ToString() ?? "<anonymous>", Parameters);
+    }
+    
+    public static string GetHeader(string name, BadFunctionParameter[] parameters)
 	{
-		return
-			$"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
+	    return $"{BadStaticKeys.FunctionKey} {name}({string.Join(", ", parameters.Cast<object>())})";
 	}
 
 	public override string ToSafeString(List<BadObject> done)

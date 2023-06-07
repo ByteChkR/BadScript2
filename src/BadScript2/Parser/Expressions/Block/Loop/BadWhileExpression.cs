@@ -54,7 +54,23 @@ public class BadWhileExpression : BadExpression
 		}
 	}
 
-    /// <summary>
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in Condition.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+		
+		foreach (BadExpression expression in m_Body)
+		{
+			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+			{
+				yield return descendant;
+			}
+		}
+	}
+
+	/// <summary>
     ///     Returns a human readable representation of the Expression
     /// </summary>
     /// <returns>String Representation of the Expression</returns>

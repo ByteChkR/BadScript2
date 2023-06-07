@@ -25,6 +25,18 @@ public class BadAssignExpression : BadExpression
 		Right = right;
 	}
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+
+	    foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+    }
     /// <summary>
     ///     Left side that the right side will be assigned to
     /// </summary>

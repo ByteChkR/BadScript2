@@ -31,6 +31,24 @@ public class BadTernaryExpression : BadExpression
 		FalseRet = falseRet;
 	}
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+	    
+	    foreach (BadExpression expression in TrueRet.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+	    
+	    foreach (BadExpression expression in FalseRet.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+    }
+
     /// <summary>
     ///     Expression that is executed if left evaluates to false
     /// </summary>

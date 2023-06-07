@@ -34,6 +34,15 @@ public class BadMemberAccessExpression : BadExpression
 		NullChecked = nullChecked;
 	}
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+
+    }
+
     /// <summary>
     ///     Property that indicates if the result of the left side of the expression should be null-checked.
     /// </summary>

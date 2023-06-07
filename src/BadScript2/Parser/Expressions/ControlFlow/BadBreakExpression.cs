@@ -21,4 +21,8 @@ public class BadBreakExpression : BadExpression
 
 		yield return BadObject.Null;
 	}
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		yield break;
+	}
 }

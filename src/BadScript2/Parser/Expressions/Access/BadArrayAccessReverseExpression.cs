@@ -23,6 +23,21 @@ public class BadArrayAccessReverseExpression : BadExpression
     /// </summary>
     public readonly bool NullChecked;
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+
+	    foreach (BadExpression expression in m_Arguments)
+	    {
+		    foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+		    {
+			    yield return descendant;
+		    }
+	    }
+    }
     /// <summary>
     ///     Constructor of the Array Access Expression
     /// </summary>

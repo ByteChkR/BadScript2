@@ -16,6 +16,14 @@ public class BadPreIncrementExpression : BadExpression
     /// </summary>
     public readonly BadExpression Right;
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+
+	    foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+    }
     /// <summary>
     ///     Constructor of the Pre Increment Expression
     /// </summary>

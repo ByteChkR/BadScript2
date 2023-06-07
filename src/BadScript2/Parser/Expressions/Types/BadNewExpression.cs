@@ -33,7 +33,15 @@ public class BadNewExpression : BadExpression
 		Right.Optimize();
 	}
 
-    /// <summary>
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in Right.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
+
+	/// <summary>
     ///     Creates an Instance of the Specified Class prototype
     /// </summary>
     /// <param name="proto">The Class prototype</param>

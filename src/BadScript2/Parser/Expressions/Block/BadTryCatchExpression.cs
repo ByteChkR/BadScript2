@@ -60,6 +60,24 @@ public class BadTryCatchExpression : BadExpression
 		}
 	}
 
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in m_Expressions)
+		{
+			foreach (BadExpression e in expression.GetDescendantsAndSelf())
+			{
+				yield return e;
+			}
+		}
+		foreach (BadExpression expression in m_CatchExpressions)
+		{
+			foreach (BadExpression e in expression.GetDescendantsAndSelf())
+			{
+				yield return e;
+			}
+		}
+	}
+
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadExecutionContext tryContext = new BadExecutionContext(

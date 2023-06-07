@@ -22,6 +22,14 @@ public class BadLogicNotExpression : BadExpression
 		Right = right;
 	}
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+
+	    foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+    }
     /// <summary>
     ///     Right side of the Expression
     /// </summary>

@@ -16,6 +16,14 @@ public class BadPostIncrementExpression : BadExpression
     /// </summary>
     public readonly BadExpression Left;
 
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+
+	    foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
+	    {
+		    yield return expression;
+	    }
+    }
     /// <summary>
     ///     Constructor of the Post Increment Expression
     /// </summary>

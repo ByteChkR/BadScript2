@@ -61,4 +61,15 @@ public class BadArrayExpression : BadExpression
 
 		yield return new BadArray(array);
 	}
+
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in m_InitExpressions)
+		{
+			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+			{
+				yield return descendant;
+			}
+		}
+	}
 }

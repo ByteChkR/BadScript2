@@ -26,6 +26,14 @@ public class BadAwaitExpression : BadExpression
 		TaskExpr = expr;
 	}
 
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in TaskExpr.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
+
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadObject obj = BadObject.Null;
