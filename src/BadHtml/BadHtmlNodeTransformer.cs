@@ -54,7 +54,6 @@ public abstract class BadHtmlNodeTransformer
         {
             if (transformer.CanTransform(context))
             {
-                Console.WriteLine("Transforming Element: " + context.InputNode.Name + " with Transformer: " + transformer.GetType().Name);
                 transformer.TransformNode(context);
 
                 return;
