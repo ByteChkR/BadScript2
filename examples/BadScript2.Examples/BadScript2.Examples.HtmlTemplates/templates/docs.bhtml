@@ -52,12 +52,12 @@
 </script>
 
 <bs:function name="CreateArrayDocs" param:array>
-	<bs:foreach on="0..array.Length" as="i">
+	<bs:each on="0..array.Length" as="i">
 		<tr>
 			<td>{i}</td>
 			<td>{array[i]}</td>
 		</tr>
-	</bs:foreach>
+	</bs:each>
 </bs:function>
 
 <bs:function name="CreateFunctionDocs" param:func="Function">
@@ -84,7 +84,7 @@
 				<th>RestArgs</th>
 				<th>Comment</th>
 			</tr>
-			<bs:foreach on="func.Parameters" as="param">		
+			<bs:each on="func.Parameters" as="param">		
 				<tr>
 					<td>{param.Name}</td>
 					<td>{param.Type ?? "any"}</td>
@@ -93,7 +93,7 @@
 					<td>{param.IsRestArgs}</td>
 					<td>{GetParameterDescription(param, func.Meta)}</td>
 				</tr>
-			</bs:foreach>
+			</bs:each>
 		</table>
 	</bs:if>
 </bs:function>
@@ -106,9 +106,9 @@
 	<div class="container">
 		<h1>{name}</h1>
 		<bs:if test="GetTableKeys(table).Length != 0">
-			<bs:foreach on="GetTableKeys(table)" as="key">
+			<bs:each on="GetTableKeys(table)" as="key">
 				{GenerateDocs(table[key], key)}
-			</bs:foreach>
+			</bs:each>
 		</bs:if>
 		<bs:if test="GetPropertyKeys(table).Length != 0">
 			<div class="container">
@@ -118,7 +118,7 @@
 						<th>Name</th>
 						<th>Value</th>
 					</tr>
-					<bs:foreach on="GetPropertyKeys(table)" as="key">
+					<bs:each on="GetPropertyKeys(table)" as="key">
 						<tr>
 							<td>{key}</td>
 							<td>
@@ -136,27 +136,27 @@
 								</bs:if>
 							</td>
 						</tr>
-					</bs:foreach>
+					</bs:each>
 				</table>
 			</div>
 		</bs:if>
 		<bs:if test="GetFunctionKeys(table).Length != 0">
 			<div class="container">
 				<h2>Functions</h2>
-				<bs:foreach on="GetFunctionKeys(table)" as="key">
+				<bs:each on="GetFunctionKeys(table)" as="key">
 					<div class="container">
 						{CreateFunctionDocs(table[key])}
 					</div>
-				</bs:foreach>
+				</bs:each>
 			</div>
 		</bs:if>
 	</div>
 </bs:function>
 
 <bs:function name="CreateDocs" param:table>
-	<bs:foreach on="GetTableKeys(table)" as="key">
+	<bs:each on="GetTableKeys(table)" as="key">
 		{GenerateDocs(table[key], key)}
-	</bs:foreach>
+	</bs:each>
 </bs:function>
 
 <div>
