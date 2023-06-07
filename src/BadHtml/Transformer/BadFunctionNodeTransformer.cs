@@ -105,7 +105,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
         BadFunction.ApplyParameters(BadFunction.GetHeader(name, parameters), parameters, ctx, arguments, context.CreateOuterPosition());
         foreach (HtmlNode? child in context.InputNode.ChildNodes)
         {
-            BadHtmlContext childContext = new BadHtmlContext(child, outputDocument.DocumentNode, ctx, context.FilePath, context.Source);
+            BadHtmlContext childContext = new BadHtmlContext(child, outputDocument.DocumentNode, ctx, context.FilePath, context.Source, context.Options);
             Transform(childContext);
         }
 

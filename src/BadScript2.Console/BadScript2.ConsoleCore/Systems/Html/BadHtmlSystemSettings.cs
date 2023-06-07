@@ -28,4 +28,10 @@ public class BadHtmlSystemSettings
 		Required = false,
 		HelpText = "Specifies the Remote Console Host port. If not specified the remote host will not be started")]
 	public int RemotePort { get; set; } = -1;
+
+	[Option("skipEmptyNodes", Required = false, HelpText = "If enabled, empty text nodes will be skipped.")]
+	public bool SkipEmptyTextNodes { get; set; } = false;
+
+	[Option('m', "minify", Required = false, HelpText = "If enabled, the output will be minified.")]
+	public bool Minify { get; set; } = false;
 }

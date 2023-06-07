@@ -723,6 +723,20 @@ public class BadSourceParser
         {
             return ParseFormatString();
         }
+        
+        
+        if (Reader.Is(BadStaticKeys.MultiLineFormatStringKey))
+        {
+            return ParseMultiLineFormatString();
+        }
+
+        
+        if (Reader.Is(BadStaticKeys.MultiLineStringKey))
+        {
+            BadStringToken token = Reader.ParseMultiLineString();
+
+            return new BadStringExpression(token.Value, token.SourcePosition);
+        }
 
         if (Reader.IsNumberStart())
         {
@@ -1001,6 +1015,93 @@ public class BadSourceParser
         return left;
     }
 
+    private BadStringExpression ParseMultiLineFormatString()
+    {
+        if (!Reader.Is(BadStaticKeys.MultiLineFormatStringKey))
+        {
+            throw new BadSourceReaderException(
+                $"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
+                Reader.MakeSourcePosition(1)
+            );
+        }
+
+        int start = Reader.CurrentIndex;
+        Reader.Eat(BadStaticKeys.MultiLineFormatStringKey);
+        StringBuilder sb = new StringBuilder();
+        List<BadExpression> args = new List<BadExpression>();
+
+        while (!Reader.IsStringQuote())
+        {
+            if (Reader.IsEof())
+            {
+                throw new BadSourceReaderException(
+                    "String not terminated",
+                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                );
+            }
+
+            if (Reader.Is('{'))
+            {
+                Reader.Eat('{');
+                Reader.SkipNonToken();
+
+                if (!Reader.Is('{'))
+                {
+                    BadExpression expr = ParseExpression();
+                    Reader.SkipNonToken();
+                    Reader.Eat('}');
+                    sb.Append($"{{{args.Count}}}");
+                    args.Add(expr);
+
+                    continue;
+                }
+
+                Reader.Eat('{');
+                sb.Append("{{");
+
+                continue;
+            }
+
+            if (Reader.Is('}'))
+            {
+                int idx = Reader.CurrentIndex;
+                Reader.Eat('}');
+
+                if (Reader.Is('}'))
+                {
+                    Reader.Eat('}');
+                    sb.Append("}}");
+
+                    continue;
+                }
+
+                throw new BadParserException(
+                    "Expected '}'",
+                    Reader.MakeSourcePosition(idx, 1)
+                );
+            }
+
+            sb.Append(Reader.GetCurrentChar());
+
+            Reader.MoveNext();
+        }
+
+        Reader.Eat(BadStaticKeys.Quote);
+
+        if (args.Count == 0)
+        {
+            return new BadStringExpression(
+                '"' + sb.ToString() + '"',
+                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+            );
+        }
+
+        return new BadFormattedStringExpression(
+            args.ToArray(),
+            sb.ToString(),
+            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+        );
+    }
 
     /// <summary>
     ///     Parses a Format Expression. Moves the reader to the next token.

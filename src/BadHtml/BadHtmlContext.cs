@@ -21,14 +21,16 @@ public class BadHtmlContext
     public readonly HtmlNode InputNode;
     public readonly HtmlNode OutputNode;
     public readonly string Source;
+    public readonly BadHtmlTemplateOptions Options;
 
-    public BadHtmlContext(HtmlNode inputNode, HtmlNode outputNode, BadExecutionContext executionContext, string filePath, string source)
+    public BadHtmlContext(HtmlNode inputNode, HtmlNode outputNode, BadExecutionContext executionContext, string filePath, string source, BadHtmlTemplateOptions options)
     {
         InputNode = inputNode;
         OutputNode = outputNode;
         ExecutionContext = executionContext;
         FilePath = filePath;
         Source = source;
+        Options = options;
     }
 
     public HtmlDocument InputDocument => InputNode.OwnerDocument;
@@ -36,7 +38,7 @@ public class BadHtmlContext
 
     public BadHtmlContext CreateChild(HtmlNode inputNode, HtmlNode outputNode, BadExecutionContext? executionContext = null)
     {
-        return new BadHtmlContext(inputNode, outputNode, executionContext ?? ExecutionContext, FilePath, Source);
+        return new BadHtmlContext(inputNode, outputNode, executionContext ?? ExecutionContext, FilePath, Source, Options);
     }
 
     public BadSourcePosition CreateAttributePosition(HtmlAttribute attribute)

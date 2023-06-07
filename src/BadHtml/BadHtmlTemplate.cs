@@ -32,8 +32,9 @@ public class BadHtmlTemplate
         m_Source = File.ReadAllText(m_FilePath);
     }
 
-    public HtmlDocument RunTemplate(object? model = null)
+    public HtmlDocument RunTemplate(object? model = null, BadHtmlTemplateOptions? options = null)
     {
+        options ??= new BadHtmlTemplateOptions();
         string src = GetSource();
         HtmlDocument input = new HtmlDocument();
         input.LoadHtml(src);
@@ -45,16 +46,16 @@ public class BadHtmlTemplate
 
         foreach (HtmlNode node in input.DocumentNode.ChildNodes)
         {
-            BadHtmlContext ctx = new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src);
+            BadHtmlContext ctx = new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src, options);
             BadHtmlNodeTransformer.Transform(ctx);
         }
 
         return output;
     }
 
-    public string Run(object? model = null)
+    public string Run(object? model = null, BadHtmlTemplateOptions? options = null)
     {
-        return RunTemplate(model).DocumentNode.OuterHtml;
+        return RunTemplate(model, options).DocumentNode.OuterHtml;
     }
 
     public static BadHtmlTemplate Create(string file) => new BadHtmlTemplate(file);

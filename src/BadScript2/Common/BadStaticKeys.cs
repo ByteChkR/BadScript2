@@ -19,6 +19,8 @@ public static class BadStaticKeys
 
 	public static readonly char Quote = '"';
 	public static readonly string FormatStringKey = "$\"";
+	public static readonly string MultiLineStringKey = "@\"";
+	public static readonly string MultiLineFormatStringKey = "$@\"";
 	public static readonly string SingleLineComment = "//";
 	public static readonly string MultiLineCommentStart = "/*";
 	public static readonly string MultiLineCommentEnd = "*/";

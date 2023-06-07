@@ -350,6 +350,34 @@ public static class BadSourceReaderExtensions
 		return new BadStringToken(sb.ToString(), reader.MakeSourcePosition(start, reader.CurrentIndex - start));
 	}
 
+    public static BadStringToken ParseMultiLineString(this BadSourceReader reader)
+    {
+	    int start = reader.CurrentIndex;
+	    reader.Eat(BadStaticKeys.MultiLineStringKey);
+
+	    StringBuilder sb = new StringBuilder("\"");
+
+	    while (!reader.IsStringQuote())
+	    {
+		    if (reader.IsEof())
+		    {
+			    throw new BadSourceReaderException("String not terminated",
+				    reader.MakeSourcePosition(start, reader.CurrentIndex - start));
+		    }
+
+		    
+		    sb.Append(reader.GetCurrentChar());
+
+		    reader.MoveNext();
+	    }
+
+	    reader.Eat(BadStaticKeys.Quote);
+
+	    sb.Append("\"");
+
+	    return new BadStringToken(sb.ToString(), reader.MakeSourcePosition(start, reader.CurrentIndex - start));
+    }
+
     /// <summary>
     ///     Returns true if the Current Character is any whitespace or newline characters
     /// </summary>

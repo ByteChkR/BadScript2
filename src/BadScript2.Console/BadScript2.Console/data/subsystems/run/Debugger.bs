@@ -106,6 +106,7 @@ function UnsetBreakPoint(step, cmd)
 	if(parts.Length != 2)
 	{
 		Console.WriteLine($"Invalid Arguments '{cmd}'");
+		return;
 	}
 	let file = parts[0];
 	let line = parts[1];

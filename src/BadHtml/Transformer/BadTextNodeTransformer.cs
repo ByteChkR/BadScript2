@@ -15,13 +15,18 @@ public class BadTextNodeTransformer : BadHtmlNodeTransformer
 
     public override void TransformNode(BadHtmlContext context)
     {
-        if(context.InputNode.InnerText.All(x=>char.IsWhiteSpace(x) || x == '\n' || x == '\t'))
+        if (context.InputNode.InnerText.All(x => char.IsWhiteSpace(x) || x == '\n' || x == '\r' || x == '\t'))
         {
-            context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(context.InputNode.InnerText));
+            if (!context.Options.SkipEmptyTextNodes)
+            {
+                context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(context.InputNode.InnerText));
+            }
+
             return;
         }
+
         //Get Text and Replace all newlines with spaces
-        string text = "$\"" + context.InputNode.InnerText.Replace("\n", " ").Replace("\r", " ") + '"';
+        string text = "$@\"" + context.InputNode.InnerText + '"';
 
         //Evaluate Text with BadScript
         BadObject result = context.ParseAndExecute(text, context.CreateInnerPosition());

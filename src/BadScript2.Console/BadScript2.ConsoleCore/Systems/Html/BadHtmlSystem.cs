@@ -57,11 +57,33 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
             BadConsole.SetConsole(host);
         }
 
+        BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
+        {
+            SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
+        };
         foreach (string file in settings.Files)
         {
             string outFile = Path.ChangeExtension(file, "html");
-            string html = BadHtmlTemplate.Create(file).Run();
-            BadFileSystem.WriteAllText(outFile, html);
+            string htmlString = BadHtmlTemplate.Create(file).Run(null, opts);
+
+            var originalSize = htmlString.Length;
+            if (settings.Minify)
+            {
+                htmlString = htmlString.Replace("\n", " ")
+                    .Replace("\r", " ")
+                    .Replace("\t", " ");
+                while (htmlString.Contains("  "))
+                {
+                    htmlString = htmlString.Replace("  ", " ");
+                }
+                Console.WriteLine("Minified output to {1} characters({0}%)", Math.Round(htmlString.Length / (float) originalSize * 100, 2), htmlString.Length);
+            }
+            else
+            {
+                Console.WriteLine("Generated output {0} characters", htmlString.Length);
+            }
+
+            BadFileSystem.WriteAllText(outFile, htmlString);
         }
 
         host?.Stop();
