@@ -66,7 +66,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
             string outFile = Path.ChangeExtension(file, "html");
             string htmlString = BadHtmlTemplate.Create(file).Run(null, opts);
 
-            var originalSize = htmlString.Length;
+            int originalSize = htmlString.Length;
             if (settings.Minify)
             {
                 htmlString = htmlString.Replace("\n", " ")
@@ -76,7 +76,8 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
                 {
                     htmlString = htmlString.Replace("  ", " ");
                 }
-                Console.WriteLine("Minified output to {1} characters({0}%)", Math.Round(htmlString.Length / (float) originalSize * 100, 2), htmlString.Length);
+
+                Console.WriteLine("Minified output to {1} characters({0}%)", Math.Round(htmlString.Length / (float)originalSize * 100, 2), htmlString.Length);
             }
             else
             {
