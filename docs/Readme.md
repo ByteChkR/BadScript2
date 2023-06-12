@@ -47,7 +47,7 @@ Tested on:
 Requirements:
 - git
 - net6.0 SDK
-- Powershell 6.0 or greater
+- Powershell 7.0 or greater
 
 1. Open a Powershell Session
 	- On Windows: `powershell`
