@@ -31,20 +31,17 @@ public abstract class BadHtmlNodeTransformer
     {
         foreach (HtmlAttribute attribute in context.InputNode.Attributes)
         {
-            if (attribute.Name != "style") //Dont process style attributes because they could have unexpected characters.
-            {
-                //Get Attribute Value
-                string value = attribute.Value;
+            //Get Attribute Value
+            string value = attribute.Value;
 
-                //Replace all newlines with spaces
-                value = value.Replace("\n", " ").Replace("\r", " ");
+            //Replace all newlines with spaces
+            value = value.Replace("\n", " ").Replace("\r", " ");
 
-                //Evaluate Attribute Value with BadScript
-                BadObject result = context.ParseAndExecute("$\"" + value + '"', context.CreateAttributePosition(attribute));
+            //Evaluate Attribute Value with BadScript
+            BadObject result = context.ParseAndExecute("$\"" + value + '"', context.CreateAttributePosition(attribute));
 
-                //Set Attribute Value
-                node.Attributes[attribute.Name].Value = result.ToString();
-            }
+            //Set Attribute Value
+            node.Attributes[attribute.Name].Value = result.ToString();
         }
     }
 
