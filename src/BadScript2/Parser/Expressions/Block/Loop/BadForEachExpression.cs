@@ -14,29 +14,29 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 /// </summary>
 public class BadForEachExpression : BadExpression
 {
-    /// <summary>
-    ///     The Variable Name of the Current Loop iteration
-    /// </summary>
-    public readonly BadWordToken LoopVariable;
+	/// <summary>
+	///     The Variable Name of the Current Loop iteration
+	/// </summary>
+	public readonly BadWordToken LoopVariable;
 
-    /// <summary>
-    ///     The Loop Body
-    /// </summary>
-    private readonly BadExpression[] m_Body;
+	/// <summary>
+	///     The Loop Body
+	/// </summary>
+	private readonly BadExpression[] m_Body;
 
-    /// <summary>
-    ///     The Enumerable/Enumerator Expression of the Loop
-    /// </summary>
-    public BadExpression Target;
+	/// <summary>
+	///     The Enumerable/Enumerator Expression of the Loop
+	/// </summary>
+	public BadExpression Target;
 
-    /// <summary>
-    ///     Constructor of the For Each Expression
-    /// </summary>
-    /// <param name="target">The Enumerable/Enumerator Expression of the Loop</param>
-    /// <param name="loopVariable">The Variable Name of the Current Loop iteration</param>
-    /// <param name="body">The Loop Body</param>
-    /// <param name="position">The Source Position of the Expression</param>
-    public BadForEachExpression(
+	/// <summary>
+	///     Constructor of the For Each Expression
+	/// </summary>
+	/// <param name="target">The Enumerable/Enumerator Expression of the Loop</param>
+	/// <param name="loopVariable">The Variable Name of the Current Loop iteration</param>
+	/// <param name="body">The Loop Body</param>
+	/// <param name="position">The Source Position of the Expression</param>
+	public BadForEachExpression(
 		BadExpression target,
 		BadWordToken loopVariable,
 		BadExpression[] body,
@@ -66,7 +66,7 @@ public class BadForEachExpression : BadExpression
 		{
 			yield return expression;
 		}
-		
+
 		foreach (BadExpression expression in m_Body)
 		{
 			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
@@ -77,12 +77,12 @@ public class BadForEachExpression : BadExpression
 	}
 
 	/// <summary>
-    ///     Helper Function that returns the MoveNext/GetCurrent function of the Target
-    /// </summary>
-    /// <param name="target">The loop target</param>
-    /// <returns>Tuple of Functions used in the for each loop</returns>
-    /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
-    private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
+	///     Helper Function that returns the MoveNext/GetCurrent function of the Target
+	/// </summary>
+	/// <param name="target">The loop target</param>
+	/// <returns>Tuple of Functions used in the for each loop</returns>
+	/// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
+	private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
 	{
 		if (target.HasProperty("MoveNext"))
 		{

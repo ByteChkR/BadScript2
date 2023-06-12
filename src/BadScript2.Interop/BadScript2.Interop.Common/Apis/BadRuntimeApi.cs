@@ -16,27 +16,27 @@ using BadScript2.Runtime.Settings;
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>
-/// Implements the "Runtime" API
+///     Implements the "Runtime" API
 /// </summary>
 public class BadRuntimeApi : BadInteropApi
 {
 	/// <summary>
-	/// The Exported Objects
+	///     The Exported Objects
 	/// </summary>
 	private readonly Dictionary<string, BadObject> m_Exports = new Dictionary<string, BadObject>();
 
 	/// <summary>
-	/// Constructs a new Runtime API Instance
+	///     Constructs a new Runtime API Instance
 	/// </summary>
 	public BadRuntimeApi() : base("Runtime") { }
 
 	/// <summary>
-	/// The Startup Arguments that were passed to the Runtime
+	///     The Startup Arguments that were passed to the Runtime
 	/// </summary>
 	public static IEnumerable<string>? StartupArguments { get; set; }
 
 	/// <summary>
-	/// Creates the "Native" Table
+	///     Creates the "Native" Table
 	/// </summary>
 	/// <returns>Bad Table</returns>
 	private BadTable MakeNative()
@@ -61,7 +61,7 @@ public class BadRuntimeApi : BadInteropApi
 
 
 	/// <summary>
-	/// Returns true if the given object is an instance of a class prototype
+	///     Returns true if the given object is an instance of a class prototype
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -71,7 +71,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a class prototype
+	///     Returns true if the given object is a class prototype
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -81,7 +81,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a native object
+	///     Returns true if the given object is a native object
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -91,7 +91,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a function
+	///     Returns true if the given object is a function
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -101,7 +101,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a table
+	///     Returns true if the given object is a table
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -111,7 +111,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a string
+	///     Returns true if the given object is a string
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -121,7 +121,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a number
+	///     Returns true if the given object is a number
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -131,7 +131,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is a boolean
+	///     Returns true if the given object is a boolean
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -141,7 +141,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is an array
+	///     Returns true if the given object is an array
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -151,7 +151,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is enumerable
+	///     Returns true if the given object is enumerable
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -161,7 +161,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given object is an enumerator
+	///     Returns true if the given object is an enumerator
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
@@ -214,7 +214,7 @@ public class BadRuntimeApi : BadInteropApi
 
 
 	/// <summary>
-	/// Returns the Current Time
+	///     Returns the Current Time
 	/// </summary>
 	/// <returns>Bad Table with the Current Time</returns>
 	private static BadObject GetTimeNow()
@@ -235,7 +235,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns all Extension Names of the given object
+	///     Returns all Extension Names of the given object
 	/// </summary>
 	/// <param name="o">Object</param>
 	/// <returns>Array of Extension Names</returns>
@@ -245,7 +245,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Lists all global extension names
+	///     Lists all global extension names
 	/// </summary>
 	/// <returns>Array of Extension Names</returns>
 	private BadObject GetGlobalExtensionNames()
@@ -254,7 +254,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns the arguments passed to the script
+	///     Returns the arguments passed to the script
 	/// </summary>
 	/// <returns>Array of Arguments</returns>
 	private BadObject GetArguments()
@@ -265,7 +265,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Exports a package
+	///     Exports a package
 	/// </summary>
 	/// <param name="name">Package Name</param>
 	/// <param name="obj">Package</param>
@@ -275,7 +275,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns true if the given package is exported
+	///     Returns true if the given package is exported
 	/// </summary>
 	/// <param name="name">Package Name</param>
 	/// <returns>True if package exists</returns>
@@ -285,7 +285,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Imports a package
+	///     Imports a package
 	/// </summary>
 	/// <param name="name">Package Name</param>
 	/// <returns>Package</returns>
@@ -295,8 +295,8 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// DONT USE THIS! USE THE ASYNC VERSION!
-	/// Evaluates a string
+	///     DONT USE THIS! USE THE ASYNC VERSION!
+	///     Evaluates a string
 	/// </summary>
 	/// <param name="caller">Caller Context</param>
 	/// <param name="str">Source String</param>
@@ -353,7 +353,7 @@ public class BadRuntimeApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Evaluates a string
+	///     Evaluates a string
 	/// </summary>
 	/// <param name="caller">Caller Context</param>
 	/// <param name="str">Source String</param>

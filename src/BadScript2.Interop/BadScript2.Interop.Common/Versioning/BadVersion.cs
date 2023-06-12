@@ -8,27 +8,28 @@ using BadScript2.Runtime.Objects.Types;
 namespace BadScript2.Interop.Common.Versioning;
 
 /// <summary>
-/// Implements a Version Object
+///     Implements a Version Object
 /// </summary>
 public class BadVersion : BadObject, IBadNative
 {
 	/// <summary>
-	/// The Version Class Prototype
+	///     The Version Class Prototype
 	/// </summary>
 	public static readonly BadClassPrototype
 		Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 
 	/// <summary>
-	/// The Change Version Function Reference
+	///     The Change Version Function Reference
 	/// </summary>
 	private readonly BadObjectReference m_ChangeVersion;
+
 	/// <summary>
-	/// The Inner Version Object
+	///     The Inner Version Object
 	/// </summary>
 	private readonly Version m_Version;
 
 	/// <summary>
-	/// Creates a new Version Object
+	///     Creates a new Version Object
 	/// </summary>
 	/// <param name="version">Version Object</param>
 	public BadVersion(Version version)
@@ -95,7 +96,7 @@ public class BadVersion : BadObject, IBadNative
 	}
 
 	/// <summary>
-	/// The Version Constructor
+	///     The Version Constructor
 	/// </summary>
 	/// <param name="ctx">Caller Context</param>
 	/// <param name="args">Arguments</param>

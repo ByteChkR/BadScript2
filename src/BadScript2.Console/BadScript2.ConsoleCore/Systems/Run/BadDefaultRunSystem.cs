@@ -3,8 +3,8 @@ using BadScript2.IO;
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>
-/// Default Run System
-/// Is used to enable running scripts by simply typing "bs &lt;script&gt; &lt;args&gt;"
+///     Default Run System
+///     Is used to enable running scripts by simply typing "bs &lt;script&gt; &lt;args&gt;"
 /// </summary>
 public class BadDefaultRunSystem : BadRunSystem
 {

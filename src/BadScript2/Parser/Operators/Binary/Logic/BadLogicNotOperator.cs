@@ -8,10 +8,10 @@ namespace BadScript2.Parser.Operators.Binary.Logic;
 /// </summary>
 public class BadLogicNotOperator : BadUnaryPrefixOperator
 {
-    /// <summary>
-    ///     Constructor of the Operator
-    /// </summary>
-    public BadLogicNotOperator() : base(3, "!") { }
+	/// <summary>
+	///     Constructor of the Operator
+	/// </summary>
+	public BadLogicNotOperator() : base(3, "!") { }
 
 	public override BadExpression Parse(BadSourceParser parser)
 	{

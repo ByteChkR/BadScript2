@@ -9,50 +9,52 @@ namespace BadHtml.Transformer;
 
 public class BadIfNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
-    {
-        return context.InputNode.Name == "bs:if";
-    }
+	public override bool CanTransform(BadHtmlContext context)
+	{
+		return context.InputNode.Name == "bs:if";
+	}
 
-    public override void TransformNode(BadHtmlContext context)
-    {
-        HtmlAttribute? conditionAttribute = context.InputNode.Attributes["test"];
-        if (conditionAttribute == null)
-        {
-            throw BadRuntimeException.Create(context.ExecutionContext.Scope, "Missing 'test' attribute in 'bs:if' node", context.CreateOuterPosition());
-        }
+	public override void TransformNode(BadHtmlContext context)
+	{
+		HtmlAttribute? conditionAttribute = context.InputNode.Attributes["test"];
 
-        if (string.IsNullOrEmpty(conditionAttribute.Value))
-        {
-            throw BadRuntimeException.Create(context.ExecutionContext.Scope, "Empty 'test' attribute in 'bs:if' node", context.CreateAttributePosition(conditionAttribute));
-        }
+		if (conditionAttribute == null)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Missing 'test' attribute in 'bs:if' node",
+				context.CreateOuterPosition());
+		}
 
-        BadObject resultObj = context.ParseAndExecute(conditionAttribute.Value, context.CreateAttributePosition(conditionAttribute));
+		if (string.IsNullOrEmpty(conditionAttribute.Value))
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Empty 'test' attribute in 'bs:if' node",
+				context.CreateAttributePosition(conditionAttribute));
+		}
 
-        if (resultObj is not IBadBoolean result)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Result of 'test' attribute in 'bs:if' node is not a boolean",
-                context.CreateAttributePosition(conditionAttribute)
-            );
-        }
+		BadObject resultObj = context.ParseAndExecute(conditionAttribute.Value,
+			context.CreateAttributePosition(conditionAttribute));
 
-        if (result.Value)
-        {
-            BadExecutionContext branchContext = new BadExecutionContext(
-                context.ExecutionContext.Scope.CreateChild(
-                    "bs:if",
-                    context.ExecutionContext.Scope,
-                    null
-                )
-            );
-            foreach (HtmlNode? child in context.InputNode.ChildNodes)
-            {
-                BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+		if (resultObj is not IBadBoolean result)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Result of 'test' attribute in 'bs:if' node is not a boolean",
+				context.CreateAttributePosition(conditionAttribute));
+		}
 
-                Transform(childContext);
-            }
-        }
-    }
+		if (result.Value)
+		{
+			BadExecutionContext branchContext = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild(
+				"bs:if",
+				context.ExecutionContext.Scope,
+				null));
+
+			foreach (HtmlNode? child in context.InputNode.ChildNodes)
+			{
+				BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+
+				Transform(childContext);
+			}
+		}
+	}
 }

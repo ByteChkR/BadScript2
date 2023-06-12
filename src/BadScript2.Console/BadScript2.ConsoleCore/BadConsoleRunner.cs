@@ -4,22 +4,22 @@ using BadScript2.ConsoleCore.Systems;
 namespace BadScript2.ConsoleCore;
 
 /// <summary>
-/// Class that can register console systems and run them
+///     Class that can register console systems and run them
 /// </summary>
 public class BadConsoleRunner
 {
 	/// <summary>
-	/// The Default system that is beeing used if the user does not specify a system
+	///     The Default system that is beeing used if the user does not specify a system
 	/// </summary>
 	private readonly BadAConsoleSystem m_Default;
-	
+
 	/// <summary>
-	/// The Systems that are registered
+	///     The Systems that are registered
 	/// </summary>
 	private readonly BadAConsoleSystem[] m_Systems;
 
 	/// <summary>
-	/// Constructor
+	///     Constructor
 	/// </summary>
 	/// <param name="default">Default System</param>
 	/// <param name="systems">Registered Systems</param>
@@ -30,7 +30,7 @@ public class BadConsoleRunner
 	}
 
 	/// <summary>
-	/// Runs a system with the specified arguments
+	///     Runs a system with the specified arguments
 	/// </summary>
 	/// <param name="args">Commandline Arguments</param>
 	/// <returns>Return Code</returns>

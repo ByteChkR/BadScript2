@@ -10,25 +10,25 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public class BadExpressionClassPrototype : BadClassPrototype
 {
-    /// <summary>
-    ///     The Class Body(Members & Functions)
-    /// </summary>
-    private readonly BadExpression[] m_Body;
+	/// <summary>
+	///     The Class Body(Members & Functions)
+	/// </summary>
+	private readonly BadExpression[] m_Body;
 
-    /// <summary>
-    ///     The Parent scope this class prototype was created in.
-    /// </summary>
-    private readonly BadScope m_ParentScope;
+	/// <summary>
+	///     The Parent scope this class prototype was created in.
+	/// </summary>
+	private readonly BadScope m_ParentScope;
 
 
-    /// <summary>
-    ///     Creates a new BadExpressionClassPrototype
-    /// </summary>
-    /// <param name="name">Name of the Type</param>
-    /// <param name="parentScope">The Parent scope this class prototype was created in.</param>
-    /// <param name="body">The Class Body(Members & Functions)</param>
-    /// <param name="baseClass">The Base class of the prototype</param>
-    public BadExpressionClassPrototype(
+	/// <summary>
+	///     Creates a new BadExpressionClassPrototype
+	/// </summary>
+	/// <param name="name">Name of the Type</param>
+	/// <param name="parentScope">The Parent scope this class prototype was created in.</param>
+	/// <param name="body">The Class Body(Members & Functions)</param>
+	/// <param name="baseClass">The Base class of the prototype</param>
+	public BadExpressionClassPrototype(
 		string name,
 		BadScope parentScope,
 		BadExpression[] body,

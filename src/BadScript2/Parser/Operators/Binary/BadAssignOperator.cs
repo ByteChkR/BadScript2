@@ -8,10 +8,10 @@ namespace BadScript2.Parser.Operators.Binary;
 /// </summary>
 public class BadAssignOperator : BadBinaryOperator
 {
-    /// <summary>
-    ///     Constructor of the Operator
-    /// </summary>
-    public BadAssignOperator() : base(15, "=") { }
+	/// <summary>
+	///     Constructor of the Operator
+	/// </summary>
+	public BadAssignOperator() : base(15, "=") { }
 
 	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
 	{

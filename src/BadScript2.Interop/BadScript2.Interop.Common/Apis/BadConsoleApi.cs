@@ -8,22 +8,22 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>
-/// Implements the "Console" API
+///     Implements the "Console" API
 /// </summary>
 public class BadConsoleApi : BadInteropApi
 {
 	/// <summary>
-	/// The Console Implementation that is used
+	///     The Console Implementation that is used
 	/// </summary>
 	private readonly IBadConsole? m_Console;
 
 	/// <summary>
-	/// Constructs a new Console API Instance
+	///     Constructs a new Console API Instance
 	/// </summary>
 	public BadConsoleApi() : this(BadConsole.GetConsole()) { }
 
 	/// <summary>
-	/// Constructs a new Console API Instance
+	///     Constructs a new Console API Instance
 	/// </summary>
 	/// <param name="console">Console Implementation to use</param>
 	public BadConsoleApi(IBadConsole console) : base("Console")
@@ -37,42 +37,42 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// The Console Implementation that is used
+	///     The Console Implementation that is used
 	/// </summary>
 	private IBadConsole Console => m_Console ?? BadConsole.GetConsole();
 
 	/// <summary>
-	/// Event Handler for the "Write" Function
+	///     Event Handler for the "Write" Function
 	/// </summary>
 	public Action<BadObject> OnWrite { get; set; }
-	
+
 	/// <summary>
-	/// Event Handler for the "WriteLine" Function
+	///     Event Handler for the "WriteLine" Function
 	/// </summary>
 	public Action<BadObject> OnWriteLine { get; set; }
 
 	/// <summary>
-	/// Event Handler for the "Clear" Function
+	///     Event Handler for the "Clear" Function
 	/// </summary>
 	public Action OnClear { get; set; }
 
 	/// <summary>
-	/// Event Handler for the "ReadLine" Function
+	///     Event Handler for the "ReadLine" Function
 	/// </summary>
 	public Func<string> OnReadLine { get; set; }
 
 	/// <summary>
-	/// Event Handler for the "ReadLineAsync" Function
+	///     Event Handler for the "ReadLineAsync" Function
 	/// </summary>
 	public Func<Task<string>> OnReadLineAsync { get; set; }
 
 	/// <summary>
-	/// If Set to false, the Console will throw an error if console input is requested.
+	///     If Set to false, the Console will throw an error if console input is requested.
 	/// </summary>
 	public bool AllowInput { get; set; } = true;
 
 	/// <summary>
-	/// Wrapper that calls the "Write" Function in a new Task
+	///     Wrapper that calls the "Write" Function in a new Task
 	/// </summary>
 	/// <returns>Task</returns>
 	private Task<string> ReadLineAsync()
@@ -92,7 +92,7 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Wrapper that will block until the Task is completed
+	///     Wrapper that will block until the Task is completed
 	/// </summary>
 	/// <returns>Awaitable Enumeration in BadScript</returns>
 	private IEnumerable<BadObject> ReadLineAsyncBlocking()
@@ -108,7 +108,7 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Writes an Object to the Console
+	///     Writes an Object to the Console
 	/// </summary>
 	/// <param name="obj">The Object to write</param>
 	private void Write(BadObject obj)
@@ -124,7 +124,7 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Writes an Object to the Console. Appends a newline.
+	///     Writes an Object to the Console. Appends a newline.
 	/// </summary>
 	/// <param name="obj">The Object to write</param>
 	private void WriteLine(BadObject obj)
@@ -140,7 +140,7 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Clears the Console
+	///     Clears the Console
 	/// </summary>
 	public void Clear()
 	{
@@ -148,7 +148,7 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Reads a line from the Console
+	///     Reads a line from the Console
 	/// </summary>
 	/// <returns>Console Input</returns>
 	/// <exception cref="Exception">Gets raised if AllowInput is false</exception>
@@ -163,22 +163,22 @@ public class BadConsoleApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Awaitable Enumeration that wraps the ReadLineAsync Task
+	///     Awaitable Enumeration that wraps the ReadLineAsync Task
 	/// </summary>
 	private class ReadLineAsyncRunnable : BadRunnable
 	{
 		/// <summary>
-		/// The Wrapped Task
+		///     The Wrapped Task
 		/// </summary>
 		private readonly IEnumerator<BadObject> m_Task;
-		
+
 		/// <summary>
-		/// The Return Value
+		///     The Return Value
 		/// </summary>
 		private BadObject m_Return = BadObject.Null;
 
 		/// <summary>
-		/// Constructs a new Instance
+		///     Constructs a new Instance
 		/// </summary>
 		/// <param name="task">The Awaitable Enumeration</param>
 		public ReadLineAsyncRunnable(IEnumerator<BadObject> task)
@@ -187,7 +187,7 @@ public class BadConsoleApi : BadInteropApi
 		}
 
 		/// <summary>
-		/// The Enumerator that wraps the Task
+		///     The Enumerator that wraps the Task
 		/// </summary>
 		public override IEnumerator<BadObject> Enumerator
 		{
@@ -203,7 +203,7 @@ public class BadConsoleApi : BadInteropApi
 		}
 
 		/// <summary>
-		/// The Return Value
+		///     The Return Value
 		/// </summary>
 		/// <returns>Return Value</returns>
 		public override BadObject GetReturn()

@@ -4,7 +4,7 @@ using BadScript2.Runtime.Interop.Functions;
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
-/// Implements Generic Object Extensions
+///     Implements Generic Object Extensions
 /// </summary>
 public class BadObjectExtension : BadInteropExtension
 {

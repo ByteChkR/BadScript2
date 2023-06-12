@@ -10,18 +10,18 @@ namespace BadScript2.Runtime.Objects.Native;
 /// <typeparam name="T">The Type of the Native Type</typeparam>
 public class BadNative<T> : BadObject, IBadNative
 {
-    /// <summary>
-    ///     The Value of the Native Type
-    /// </summary>
-    private readonly T m_Value;
+	/// <summary>
+	///     The Value of the Native Type
+	/// </summary>
+	private readonly T m_Value;
 
 
-    /// <summary>
-    ///     Creates a new Native Type
-    /// </summary>
-    /// <param name="value">The Value</param>
-    /// <exception cref="Exception">Gets raised if the <paramref name="value" /> is null</exception>
-    public BadNative(T value)
+	/// <summary>
+	///     Creates a new Native Type
+	/// </summary>
+	/// <param name="value">The Value</param>
+	/// <exception cref="Exception">Gets raised if the <paramref name="value" /> is null</exception>
+	public BadNative(T value)
 	{
 		if (value == null)
 		{
@@ -38,12 +38,12 @@ public class BadNative<T> : BadObject, IBadNative
 	Type IBadNative.Type => m_Value!.GetType();
 
 
-    /// <summary>
-    ///     Returns true if this and the other native types are equal
-    /// </summary>
-    /// <param name="other">Other Native Type</param>
-    /// <returns>True if equal</returns>
-    public bool Equals(IBadNative? other)
+	/// <summary>
+	///     Returns true if this and the other native types are equal
+	/// </summary>
+	/// <param name="other">Other Native Type</param>
+	/// <returns>True if equal</returns>
+	public bool Equals(IBadNative? other)
 	{
 		if (other is null)
 		{
@@ -66,34 +66,34 @@ public class BadNative<T> : BadObject, IBadNative
 		return m_Value!.ToString()!;
 	}
 
-    /// <summary>
-    ///     Implements the == operator
-    /// </summary>
-    /// <param name="a">Left</param>
-    /// <param name="b">Right</param>
-    /// <returns>True if equal</returns>
-    public static bool operator ==(BadNative<T> a, BadObject b)
+	/// <summary>
+	///     Implements the == operator
+	/// </summary>
+	/// <param name="a">Left</param>
+	/// <param name="b">Right</param>
+	/// <returns>True if equal</returns>
+	public static bool operator ==(BadNative<T> a, BadObject b)
 	{
 		return a.Equals(b);
 	}
 
-    /// <summary>
-    ///     Implements the != operator
-    /// </summary>
-    /// <param name="a">Left</param>
-    /// <param name="b">Right</param>
-    /// <returns>True if not equal</returns>
-    public static bool operator !=(BadNative<T> a, BadObject b)
+	/// <summary>
+	///     Implements the != operator
+	/// </summary>
+	/// <param name="a">Left</param>
+	/// <param name="b">Right</param>
+	/// <returns>True if not equal</returns>
+	public static bool operator !=(BadNative<T> a, BadObject b)
 	{
 		return !(a == b);
 	}
 
-    /// <summary>
-    ///     Returns true if this and the other objects are equal
-    /// </summary>
-    /// <param name="obj">Other Instance</param>
-    /// <returns>True if equal</returns>
-    public override bool Equals(object? obj)
+	/// <summary>
+	///     Returns true if this and the other objects are equal
+	/// </summary>
+	/// <param name="obj">Other Instance</param>
+	/// <returns>True if equal</returns>
+	public override bool Equals(object? obj)
 	{
 		return obj is IBadNative other && Equals(other);
 	}

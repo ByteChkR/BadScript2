@@ -6,7 +6,7 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
 	where T : BadBinaryExpression
 {
 	/// <summary>
-	/// Compiles a Binary Expression
+	///     Compiles a Binary Expression
 	/// </summary>
 	/// <param name="compiler">The Compiler Instance</param>
 	/// <param name="expression">The Expression to compile</param>

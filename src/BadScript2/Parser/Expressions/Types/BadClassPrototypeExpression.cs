@@ -12,12 +12,12 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadClassPrototypeExpression : BadExpression
 {
-	/// <summary>
-	///     The Class Body
-	/// </summary>
-	private readonly BadExpression[] m_Body;
+    /// <summary>
+    ///     The Class Body
+    /// </summary>
+    private readonly BadExpression[] m_Body;
 
-    private readonly BadMetaData? m_MetaData;
+	private readonly BadMetaData? m_MetaData;
 
     /// <summary>
     ///     Constructor of the Class Prototype Expression
@@ -27,17 +27,17 @@ public class BadClassPrototypeExpression : BadExpression
     /// <param name="baseClass">The (optional) base class</param>
     /// <param name="position">The Source Position of the Expression</param>
     public BadClassPrototypeExpression(
-        string name,
-        BadExpression[] body,
-        BadExpression? baseClass,
-        BadSourcePosition position,
-        BadMetaData? metaData) : base(false, position)
-    {
-        Name = name;
-        m_Body = body;
-        BaseClass = baseClass;
-        m_MetaData = metaData;
-    }
+		string name,
+		BadExpression[] body,
+		BadExpression? baseClass,
+		BadSourcePosition position,
+		BadMetaData? metaData) : base(false, position)
+	{
+		Name = name;
+		m_Body = body;
+		BaseClass = baseClass;
+		m_MetaData = metaData;
+	}
 
     /// <summary>
     ///     The (optional) Base Class
@@ -54,61 +54,61 @@ public class BadClassPrototypeExpression : BadExpression
     /// </summary>
     public string Name { get; }
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_Body.Length; i++)
-        {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_Body.Length; i++)
+		{
+			m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+		}
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        if (BaseClass != null)
-        {
-            foreach (BadExpression baseExpr in BaseClass.GetDescendantsAndSelf())
-            {
-                yield return baseExpr;
-            }
-        }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		if (BaseClass != null)
+		{
+			foreach (BadExpression baseExpr in BaseClass.GetDescendantsAndSelf())
+			{
+				yield return baseExpr;
+			}
+		}
 
-        foreach (BadExpression expression in m_Body)
-        {
-            foreach (BadExpression e in expression.GetDescendantsAndSelf())
-            {
-                yield return e;
-            }
-        }
-    }
+		foreach (BadExpression expression in m_Body)
+		{
+			foreach (BadExpression e in expression.GetDescendantsAndSelf())
+			{
+				yield return e;
+			}
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadClassPrototype? basePrototype = null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadClassPrototype? basePrototype = null;
 
-        if (BaseClass != null)
-        {
-            BadObject obj = BadObject.Null;
+		if (BaseClass != null)
+		{
+			BadObject obj = BadObject.Null;
 
-            foreach (BadObject o in BaseClass.Execute(context))
-            {
-                obj = o;
+			foreach (BadObject o in BaseClass.Execute(context))
+			{
+				obj = o;
 
-                yield return o;
-            }
+				yield return o;
+			}
 
-            obj = obj.Dereference();
+			obj = obj.Dereference();
 
-            if (obj is not BadClassPrototype cls)
-            {
-                throw new BadRuntimeException("Base class must be a class prototype", Position);
-            }
+			if (obj is not BadClassPrototype cls)
+			{
+				throw new BadRuntimeException("Base class must be a class prototype", Position);
+			}
 
-            basePrototype = cls;
-        }
+			basePrototype = cls;
+		}
 
-        BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, m_Body, basePrototype, m_MetaData);
-        context.Scope.DefineVariable(Name, p);
+		BadClassPrototype p = new BadExpressionClassPrototype(Name, context.Scope, m_Body, basePrototype, m_MetaData);
+		context.Scope.DefineVariable(Name, p);
 
-        yield return p;
-    }
+		yield return p;
+	}
 }

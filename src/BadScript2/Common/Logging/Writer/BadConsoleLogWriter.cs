@@ -7,12 +7,12 @@ namespace BadScript2.Common.Logging.Writer;
 /// </summary>
 public class BadConsoleLogWriter : BadLogWriter
 {
-    /// <summary>
-    ///     Writes a log message to the log writer
-    /// </summary>
-    /// <param name="log">The log to be written</param>
-    /// <exception cref="ArgumentOutOfRangeException">Gets raised if the BadLogType is unsupported</exception>
-    protected override void Write(BadLog log)
+	/// <summary>
+	///     Writes a log message to the log writer
+	/// </summary>
+	/// <param name="log">The log to be written</param>
+	/// <exception cref="ArgumentOutOfRangeException">Gets raised if the BadLogType is unsupported</exception>
+	protected override void Write(BadLog log)
 	{
 		ConsoleColor fg = BadConsole.ForegroundColor;
 		ConsoleColor bg = BadConsole.BackgroundColor;

@@ -5,29 +5,29 @@ using BadScript2.Runtime.Objects.Functions;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Implements a Runnable Object
+///     Implements a Runnable Object
 /// </summary>
 public abstract class BadRunnable
 {
 	/// <summary>
-	/// Empty Runnable
+	///     Empty Runnable
 	/// </summary>
 	public static BadRunnable Empty { get; } = new BadEmptyRunnable();
 
 	/// <summary>
-	/// The Enumerator of the Runnable
+	///     The Enumerator of the Runnable
 	/// </summary>
 	public abstract IEnumerator<BadObject> Enumerator { get; }
 
 	/// <summary>
-	/// Gets the Return Value
+	///     Gets the Return Value
 	/// </summary>
 	/// <returns>The Return Value</returns>
 	public abstract BadObject GetReturn();
 
 
 	/// <summary>
-	/// Creates a Runnable from an Enumeration
+	///     Creates a Runnable from an Enumeration
 	/// </summary>
 	/// <param name="e">Enumeration</param>
 	/// <returns>Runnable</returns>
@@ -37,7 +37,7 @@ public abstract class BadRunnable
 	}
 
 	/// <summary>
-	/// Creates a Runnable from an Enumeration
+	///     Creates a Runnable from an Enumeration
 	/// </summary>
 	/// <param name="e">Enumerator</param>
 	/// <returns>Runnable</returns>
@@ -47,7 +47,7 @@ public abstract class BadRunnable
 	}
 
 	/// <summary>
-	/// Creates a Runnable from a Function
+	///     Creates a Runnable from a Function
 	/// </summary>
 	/// <param name="func">Function</param>
 	/// <param name="ctx">Execution Context</param>
@@ -59,7 +59,7 @@ public abstract class BadRunnable
 	}
 
 	/// <summary>
-	/// Implements the 'Empty' Runnable
+	///     Implements the 'Empty' Runnable
 	/// </summary>
 	private class BadEmptyRunnable : BadRunnable
 	{
@@ -73,12 +73,12 @@ public abstract class BadRunnable
 
 
 	/// <summary>
-	/// Implements the Runnable
+	///     Implements the Runnable
 	/// </summary>
 	private class BadRunnableImpl : BadRunnable
 	{
 		/// <summary>
-		/// Constructor
+		///     Constructor
 		/// </summary>
 		/// <param name="enumerator">Enumeration</param>
 		public BadRunnableImpl(IEnumerator<BadObject> enumerator)
@@ -95,17 +95,17 @@ public abstract class BadRunnable
 	}
 
 	/// <summary>
-	/// Implements a Function Runnable
+	///     Implements a Function Runnable
 	/// </summary>
 	private class BadFunctionRunnable : BadRunnable
 	{
 		/// <summary>
-		/// The Return Value
+		///     The Return Value
 		/// </summary>
 		private BadObject m_ReturnValue = BadObject.Null;
 
 		/// <summary>
-		/// Constructor
+		///     Constructor
 		/// </summary>
 		/// <param name="func">Function</param>
 		/// <param name="ctx">Execution Context</param>
@@ -119,7 +119,7 @@ public abstract class BadRunnable
 
 
 		/// <summary>
-		/// Creates an Enumeration from a Function
+		///     Creates an Enumeration from a Function
 		/// </summary>
 		/// <param name="func">Function</param>
 		/// <param name="ctx">Execution Context</param>

@@ -7,7 +7,7 @@ using BadScript2.Runtime.Objects.Types;
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
-/// Implements TypeSystem Extensions
+///     Implements TypeSystem Extensions
 /// </summary>
 public class BadTypeSystemExtension : BadInteropExtension
 {
@@ -54,9 +54,9 @@ public class BadTypeSystemExtension : BadInteropExtension
 			proto => proto.Name);
 	}
 
-	
+
 	/// <summary>
-	/// Returns true if the given object is an instance of the given prototype
+	///     Returns true if the given object is an instance of the given prototype
 	/// </summary>
 	/// <param name="obj">The Object</param>
 	/// <param name="proto">The Prototype</param>
@@ -67,7 +67,7 @@ public class BadTypeSystemExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns true if the given prototype is a base class of the given prototype
+	///     Returns true if the given prototype is a base class of the given prototype
 	/// </summary>
 	/// <param name="proto">Prototype</param>
 	/// <param name="super">Super Type</param>
@@ -80,7 +80,7 @@ public class BadTypeSystemExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns true if the given object is an instance of the given prototype
+	///     Returns true if the given object is an instance of the given prototype
 	/// </summary>
 	/// <param name="obj">The Object</param>
 	/// <param name="proto">The Prototype</param>

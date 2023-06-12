@@ -11,39 +11,39 @@ namespace BadScript2.Parser.Expressions.Binary.Logic;
 /// </summary>
 public class BadLogicNotExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor for the Logic Not Expression
-    /// </summary>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source position of the Expression</param>
-    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
+	/// <summary>
+	///     Constructor for the Logic Not Expression
+	/// </summary>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">Source position of the Expression</param>
+	public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
 		position)
 	{
 		Right = right;
 	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
+	/// <summary>
+	///     Right side of the Expression
+	/// </summary>
+	public BadExpression Right { get; }
 
-	    foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
-    }
-    /// <summary>
-    ///     Right side of the Expression
-    /// </summary>
-    public BadExpression Right { get; }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
 
-    /// <summary>
-    ///     Returns true if the Input is false
-    ///     Returns false if the Input is true
-    /// </summary>
-    /// <param name="left">The Input of the Expression</param>
-    /// <param name="pos">Source Position that is used to generate an error if left is not inheriting IBadBoolean</param>
-    /// <returns>The negation of Left</returns>
-    /// <exception cref="BadRuntimeException">Gets thrown if left is not an IBadBoolean</exception>
-    private static BadObject Not(BadObject left, BadSourcePosition pos)
+	/// <summary>
+	///     Returns true if the Input is false
+	///     Returns false if the Input is true
+	/// </summary>
+	/// <param name="left">The Input of the Expression</param>
+	/// <param name="pos">Source Position that is used to generate an error if left is not inheriting IBadBoolean</param>
+	/// <returns>The negation of Left</returns>
+	/// <exception cref="BadRuntimeException">Gets thrown if left is not an IBadBoolean</exception>
+	private static BadObject Not(BadObject left, BadSourcePosition pos)
 	{
 		if (left is IBadBoolean rBool)
 		{

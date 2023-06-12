@@ -1,4 +1,4 @@
-param ($config="Debug", [Switch] $writeLog=$false)
+param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false)
 
 
 if ($IsWindows) {
@@ -72,3 +72,8 @@ else {
 }
 
 Write-Progress -Activity "BadScript2 Build" -Complete
+
+if ($noTests -eq $false)
+{
+    . $bs test
+}

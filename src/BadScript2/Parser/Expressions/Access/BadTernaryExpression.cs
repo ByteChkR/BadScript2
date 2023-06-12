@@ -13,14 +13,14 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadTernaryExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor for the Ternary Expression
-    /// </summary>
-    /// <param name="left">Left side that will be evaluated</param>
-    /// <param name="trueRet">Expression that is executed if left evaluates to true</param>
-    /// <param name="falseRet">Expression that is executed if left evaluates to false</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadTernaryExpression(
+	/// <summary>
+	///     Constructor for the Ternary Expression
+	/// </summary>
+	/// <param name="left">Left side that will be evaluated</param>
+	/// <param name="trueRet">Expression that is executed if left evaluates to true</param>
+	/// <param name="falseRet">Expression that is executed if left evaluates to false</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadTernaryExpression(
 		BadExpression left,
 		BadExpression trueRet,
 		BadExpression falseRet,
@@ -31,38 +31,38 @@ public class BadTernaryExpression : BadExpression
 		FalseRet = falseRet;
 	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
-	    
-	    foreach (BadExpression expression in TrueRet.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
-	    
-	    foreach (BadExpression expression in FalseRet.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
-    }
+	/// <summary>
+	///     Expression that is executed if left evaluates to false
+	/// </summary>
+	public BadExpression FalseRet { get; private set; }
 
-    /// <summary>
-    ///     Expression that is executed if left evaluates to false
-    /// </summary>
-    public BadExpression FalseRet { get; private set; }
+	/// <summary>
+	///     Left side that will be evaluated
+	/// </summary>
+	public BadExpression Left { get; private set; }
 
-    /// <summary>
-    ///     Left side that will be evaluated
-    /// </summary>
-    public BadExpression Left { get; private set; }
+	/// <summary>
+	///     Expression that is executed if left evaluates to true
+	/// </summary>
+	public BadExpression TrueRet { get; private set; }
 
-    /// <summary>
-    ///     Expression that is executed if left evaluates to true
-    /// </summary>
-    public BadExpression TrueRet { get; private set; }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+
+		foreach (BadExpression expression in TrueRet.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+
+		foreach (BadExpression expression in FalseRet.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
 
 	public override void Optimize()
 	{

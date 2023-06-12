@@ -9,11 +9,11 @@ namespace BadScript2.Parser.Expressions.ControlFlow;
 /// </summary>
 public class BadContinueExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor of the Continue Expression
-    /// </summary>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadContinueExpression(BadSourcePosition position) : base(false, position) { }
+	/// <summary>
+	///     Constructor of the Continue Expression
+	/// </summary>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadContinueExpression(BadSourcePosition position) : base(false, position) { }
 
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{

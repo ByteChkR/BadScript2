@@ -196,7 +196,6 @@ public class BadLinqExtensions : BadInteropExtension
 		return new BadInteropEnumerable(e.Reverse());
 	}
 
-
 	protected override void AddExtensions()
 	{
 		Register("ToArray", (_, e) => ToArray(e));

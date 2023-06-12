@@ -10,32 +10,32 @@ namespace BadScript2.Settings;
 /// </summary>
 public class BadSettingsReader
 {
-    /// <summary>
-    ///     The Root Settings Object that all other Settings are added into
-    /// </summary>
-    private readonly BadSettings m_RootSettings;
+	/// <summary>
+	///     The Root Settings Object that all other Settings are added into
+	/// </summary>
+	private readonly BadSettings m_RootSettings;
 
-    /// <summary>
-    ///     The Source Files that are used to read the Settings
-    /// </summary>
-    private readonly string[] m_SourceFiles;
+	/// <summary>
+	///     The Source Files that are used to read the Settings
+	/// </summary>
+	private readonly string[] m_SourceFiles;
 
-    /// <summary>
-    ///     Constructs a new BadSettingsReader
-    /// </summary>
-    /// <param name="rootSettings">Root Settings Object</param>
-    /// <param name="sourceFiles">List of Source Files</param>
-    public BadSettingsReader(BadSettings rootSettings, params string[] sourceFiles)
+	/// <summary>
+	///     Constructs a new BadSettingsReader
+	/// </summary>
+	/// <param name="rootSettings">Root Settings Object</param>
+	/// <param name="sourceFiles">List of Source Files</param>
+	public BadSettingsReader(BadSettings rootSettings, params string[] sourceFiles)
 	{
 		m_SourceFiles = sourceFiles;
 		m_RootSettings = rootSettings;
 	}
 
-    /// <summary>
-    ///     Returns a new Instance of BadSettings with all source files loaded
-    /// </summary>
-    /// <returns>BadSettings Instance</returns>
-    public BadSettings ReadSettings()
+	/// <summary>
+	///     Returns a new Instance of BadSettings with all source files loaded
+	/// </summary>
+	/// <returns>BadSettings Instance</returns>
+	public BadSettings ReadSettings()
 	{
 		List<BadSettings> settings = new List<BadSettings>
 		{
@@ -62,12 +62,12 @@ public class BadSettingsReader
 		return s;
 	}
 
-    /// <summary>
-    ///     Parses a JSON File and returns the resulting JObject
-    /// </summary>
-    /// <param name="fileName">Source File</param>
-    /// <returns></returns>
-    private JToken ReadJsonFile(string fileName)
+	/// <summary>
+	///     Parses a JSON File and returns the resulting JObject
+	/// </summary>
+	/// <param name="fileName">Source File</param>
+	/// <returns></returns>
+	private JToken ReadJsonFile(string fileName)
 	{
 		string json = BadFileSystem.ReadAllText(fileName);
 		JToken token = JToken.Parse(json);
@@ -75,12 +75,12 @@ public class BadSettingsReader
 		return token;
 	}
 
-    /// <summary>
-    ///     Creates a Settings Object from a JToken
-    /// </summary>
-    /// <param name="token">JToken to convert</param>
-    /// <returns>BadSettings Instance</returns>
-    private BadSettings CreateSettings(JToken? token)
+	/// <summary>
+	///     Creates a Settings Object from a JToken
+	/// </summary>
+	/// <param name="token">JToken to convert</param>
+	/// <returns>BadSettings Instance</returns>
+	private BadSettings CreateSettings(JToken? token)
 	{
 		if (token is
 		    {
@@ -102,11 +102,11 @@ public class BadSettingsReader
 	}
 
 
-    /// <summary>
-    ///     Processes Dynamic Include Statements inside a settings object.
-    /// </summary>
-    /// <param name="settings">Settings object to process</param>
-    private void ReadDynamicSettings(BadSettings settings)
+	/// <summary>
+	///     Processes Dynamic Include Statements inside a settings object.
+	/// </summary>
+	/// <param name="settings">Settings object to process</param>
+	private void ReadDynamicSettings(BadSettings settings)
 	{
 		BadLogger.Log("Processing Dynamic Includes", "SettingsReader");
 		BadSettings? elems = settings.FindProperty("SettingsBuilder.Include");

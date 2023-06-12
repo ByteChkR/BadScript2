@@ -42,8 +42,8 @@ public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpr
 
 
 		IEnumerable<BadExpression> loopBody = expression.Body;
-		loopBody = loopBody.Prepend(new BadAssignExpression(
-			new BadVariableDefinitionExpression(expression.LoopVariable.Text,
+		loopBody = loopBody.Prepend(new BadAssignExpression(new BadVariableDefinitionExpression(
+				expression.LoopVariable.Text,
 				expression.LoopVariable.SourcePosition,
 				null,
 				true),

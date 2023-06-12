@@ -24,20 +24,19 @@ using BadScript2.Settings;
 
 namespace BadScript2.Console;
 
-
 /// <summary>
-/// Entrypoint for the Console Application
+///     Entrypoint for the Console Application
 /// </summary>
 internal static class BadProgram
 {
 	/// <summary>
-	/// Defines the Settings file
+	///     Defines the Settings file
 	/// </summary>
 	private const string SETTINGS_FILE = "Settings.json";
 
-	
+
 	/// <summary>
-	/// Loads the Settings
+	///     Loads the Settings
 	/// </summary>
 	private static void LoadSettings()
 	{
@@ -58,7 +57,7 @@ internal static class BadProgram
 	}
 
 	/// <summary>
-	/// Entrypoint
+	///     Entrypoint
 	/// </summary>
 	/// <param name="args">Commandline Arguments</param>
 	/// <returns>Return Code</returns>

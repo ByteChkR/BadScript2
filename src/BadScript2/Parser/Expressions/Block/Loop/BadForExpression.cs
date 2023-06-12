@@ -26,17 +26,17 @@ public class BadForExpression : BadExpression
 	/// <param name="body">The Loop Body</param>
 	/// <param name="position">The source position of the Expression</param>
 	public BadForExpression(
-        BadExpression varDef,
-        BadExpression condition,
-        BadExpression varIncrement,
-        BadExpression[] body,
-        BadSourcePosition position) : base(false, position)
-    {
-        VarDef = varDef;
-        Condition = condition;
-        VarIncrement = varIncrement;
-        m_Body = body;
-    }
+		BadExpression varDef,
+		BadExpression condition,
+		BadExpression varIncrement,
+		BadExpression[] body,
+		BadSourcePosition position) : base(false, position)
+	{
+		VarDef = varDef;
+		Condition = condition;
+		VarIncrement = varIncrement;
+		m_Body = body;
+	}
 
 	/// <summary>
 	///     Loop Body
@@ -58,104 +58,100 @@ public class BadForExpression : BadExpression
 	/// </summary>
 	public BadExpression VarIncrement { get; private set; }
 
-    public override void Optimize()
-    {
-        Condition = BadExpressionOptimizer.Optimize(Condition);
-        VarDef = BadExpressionOptimizer.Optimize(VarDef);
-        VarIncrement = BadExpressionOptimizer.Optimize(VarIncrement);
+	public override void Optimize()
+	{
+		Condition = BadExpressionOptimizer.Optimize(Condition);
+		VarDef = BadExpressionOptimizer.Optimize(VarDef);
+		VarIncrement = BadExpressionOptimizer.Optimize(VarIncrement);
 
-        for (int i = 0; i < m_Body.Length; i++)
-        {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
-        }
-    }
+		for (int i = 0; i < m_Body.Length; i++)
+		{
+			m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+		}
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        foreach (BadExpression? vDef in VarDef.GetDescendantsAndSelf())
-        {
-            yield return vDef;
-        }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression? vDef in VarDef.GetDescendantsAndSelf())
+		{
+			yield return vDef;
+		}
 
-        foreach (BadExpression? vInc in VarIncrement.GetDescendantsAndSelf())
-        {
-            yield return vInc;
-        }
+		foreach (BadExpression? vInc in VarIncrement.GetDescendantsAndSelf())
+		{
+			yield return vInc;
+		}
 
-        foreach (BadExpression? cond in Condition.GetDescendantsAndSelf())
-        {
-            yield return cond;
-        }
+		foreach (BadExpression? cond in Condition.GetDescendantsAndSelf())
+		{
+			yield return cond;
+		}
 
-        foreach (BadExpression expression in m_Body)
-        {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
-        }
-    }
+		foreach (BadExpression expression in m_Body)
+		{
+			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+			{
+				yield return descendant;
+			}
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadExecutionContext loopCtx =
-            new BadExecutionContext(context.Scope.CreateChild("ForLoop", context.Scope, null));
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadExecutionContext loopCtx =
+			new BadExecutionContext(context.Scope.CreateChild("ForLoop", context.Scope, null));
 
-        foreach (BadObject o in VarDef.Execute(loopCtx))
-        {
-            yield return o;
-        }
+		foreach (BadObject o in VarDef.Execute(loopCtx))
+		{
+			yield return o;
+		}
 
 
-        BadObject cond = BadObject.Null;
+		BadObject cond = BadObject.Null;
 
-        foreach (BadObject o in Condition.Execute(loopCtx))
-        {
-            cond = o;
+		foreach (BadObject o in Condition.Execute(loopCtx))
+		{
+			cond = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-                           throw new BadRuntimeException("While Condition is not a boolean", Position);
+		IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+		                   throw new BadRuntimeException("While Condition is not a boolean", Position);
 
-        while (bRet.Value)
-        {
-            BadExecutionContext loopContext = new BadExecutionContext(
-                loopCtx.Scope.CreateChild(
-                    "InnerForLoop",
-                    loopCtx.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
+		while (bRet.Value)
+		{
+			BadExecutionContext loopContext = new BadExecutionContext(loopCtx.Scope.CreateChild("InnerForLoop",
+				loopCtx.Scope,
+				null,
+				BadScopeFlags.Breakable | BadScopeFlags.Continuable));
 
-            foreach (BadObject o in loopContext.Execute(m_Body))
-            {
-                yield return o;
-            }
+			foreach (BadObject o in loopContext.Execute(m_Body))
+			{
+				yield return o;
+			}
 
-            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-            {
-                break;
-            }
+			if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+			{
+				break;
+			}
 
-            foreach (BadObject o in VarIncrement.Execute(loopContext))
-            {
-                yield return o;
-            }
+			foreach (BadObject o in VarIncrement.Execute(loopContext))
+			{
+				yield return o;
+			}
 
-            foreach (BadObject o in Condition.Execute(loopContext))
-            {
-                cond = o;
+			foreach (BadObject o in Condition.Execute(loopContext))
+			{
+				cond = o;
 
-                yield return o;
-            }
+				yield return o;
+			}
 
-            bRet = cond.Dereference() as IBadBoolean ??
-                   throw new BadRuntimeException("While Condition is not a boolean", Position);
-        }
+			bRet = cond.Dereference() as IBadBoolean ??
+			       throw new BadRuntimeException("While Condition is not a boolean", Position);
+		}
 
-        yield return BadObject.Null;
-    }
+		yield return BadObject.Null;
+	}
 }

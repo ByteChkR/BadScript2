@@ -6,7 +6,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
-/// Implements Scope Extensions
+///     Implements Scope Extensions
 /// </summary>
 public class BadScopeExtension : BadInteropExtension
 {
@@ -21,7 +21,7 @@ public class BadScopeExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Gets the Parent Scope
+	///     Gets the Parent Scope
 	/// </summary>
 	/// <param name="scope">The Scope</param>
 	/// <returns>Parent Scope or NULL</returns>
@@ -31,7 +31,7 @@ public class BadScopeExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns the Local Variable Table of the Scope
+	///     Returns the Local Variable Table of the Scope
 	/// </summary>
 	/// <param name="scope">The Scope</param>
 	/// <returns>Local Variable Table</returns>

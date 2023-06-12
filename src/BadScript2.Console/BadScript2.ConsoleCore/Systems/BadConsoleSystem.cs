@@ -3,7 +3,7 @@ using BadScript2.ConsoleAbstraction;
 namespace BadScript2.ConsoleCore.Systems;
 
 /// <summary>
-/// Implements a Console System that uses a settings object of Type T
+///     Implements a Console System that uses a settings object of Type T
 /// </summary>
 /// <typeparam name="T">The Settings Type</typeparam>
 public abstract class BadConsoleSystem<T> : BadAConsoleSystem
@@ -40,7 +40,7 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
 	}
 
 	/// <summary>
-	/// Runs the Console System with the given settings
+	///     Runs the Console System with the given settings
 	/// </summary>
 	/// <param name="settings">The Settings Object</param>
 	/// <returns>Return Code</returns>

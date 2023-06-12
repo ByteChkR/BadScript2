@@ -11,25 +11,25 @@ namespace BadScript2.Parser.Expressions.Binary.Logic;
 /// </summary>
 public class BadLogicAndExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor of the Logic And Expression
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadLogicAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor of the Logic And Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadLogicAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 
-    /// <summary>
-    ///     Returns true if left and right are true
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="pos">Source position that is used to generate an Exception if left or right are not a boolean</param>
-    /// <returns>True if the Left side and the right side are true. Otherwise false.</returns>
-    /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadBoolean</exception>
-    public static BadObject And(BadObject left, BadObject right, BadSourcePosition pos)
+	/// <summary>
+	///     Returns true if left and right are true
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="pos">Source position that is used to generate an Exception if left or right are not a boolean</param>
+	/// <returns>True if the Left side and the right side are true. Otherwise false.</returns>
+	/// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadBoolean</exception>
+	public static BadObject And(BadObject left, BadObject right, BadSourcePosition pos)
 	{
 		if (left is IBadBoolean lBool)
 		{

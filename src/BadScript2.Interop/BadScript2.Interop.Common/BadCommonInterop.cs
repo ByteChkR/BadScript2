@@ -6,12 +6,12 @@ using BadScript2.Runtime.Interop;
 namespace BadScript2.Interop.Common;
 
 /// <summary>
-/// Implements the Common Interop Wrapper
+///     Implements the Common Interop Wrapper
 /// </summary>
 public static class BadCommonInterop
 {
 	/// <summary>
-	/// All Common Interop Apis
+	///     All Common Interop Apis
 	/// </summary>
 	private static readonly BadInteropApi[] s_CommonApis =
 	{
@@ -23,12 +23,12 @@ public static class BadCommonInterop
 	};
 
 	/// <summary>
-	/// All Common Interop Apis
+	///     All Common Interop Apis
 	/// </summary>
 	public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
 
 	/// <summary>
-	/// Adds all Common Interop Extensions to the BadScript Runtime
+	///     Adds all Common Interop Extensions to the BadScript Runtime
 	/// </summary>
 	public static void AddExtensions()
 	{

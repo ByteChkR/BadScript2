@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 using BadScript2.Common;
@@ -16,96 +15,117 @@ namespace BadHtml;
 
 public class BadHtmlContext
 {
-    public readonly BadExecutionContext ExecutionContext;
-    public readonly string FilePath;
-    public readonly HtmlNode InputNode;
-    public readonly HtmlNode OutputNode;
-    public readonly string Source;
-    public readonly BadHtmlTemplateOptions Options;
+	public readonly BadExecutionContext ExecutionContext;
+	public readonly string FilePath;
+	public readonly HtmlNode InputNode;
+	public readonly BadHtmlTemplateOptions Options;
+	public readonly HtmlNode OutputNode;
+	public readonly string Source;
 
-    public BadHtmlContext(HtmlNode inputNode, HtmlNode outputNode, BadExecutionContext executionContext, string filePath, string source, BadHtmlTemplateOptions options)
-    {
-        InputNode = inputNode;
-        OutputNode = outputNode;
-        ExecutionContext = executionContext;
-        FilePath = filePath;
-        Source = source;
-        Options = options;
-    }
+	public BadHtmlContext(
+		HtmlNode inputNode,
+		HtmlNode outputNode,
+		BadExecutionContext executionContext,
+		string filePath,
+		string source,
+		BadHtmlTemplateOptions options)
+	{
+		InputNode = inputNode;
+		OutputNode = outputNode;
+		ExecutionContext = executionContext;
+		FilePath = filePath;
+		Source = source;
+		Options = options;
+	}
 
-    public HtmlDocument InputDocument => InputNode.OwnerDocument;
-    public HtmlDocument OutputDocument => OutputNode.OwnerDocument;
+	public HtmlDocument InputDocument => InputNode.OwnerDocument;
 
-    public BadHtmlContext CreateChild(HtmlNode inputNode, HtmlNode outputNode, BadExecutionContext? executionContext = null)
-    {
-        return new BadHtmlContext(inputNode, outputNode, executionContext ?? ExecutionContext, FilePath, Source, Options);
-    }
+	public HtmlDocument OutputDocument => OutputNode.OwnerDocument;
 
-    public BadSourcePosition CreateAttributePosition(HtmlAttribute attribute)
-    {
-        return new BadSourcePosition(FilePath, Source, attribute.ValueStartIndex, attribute.Value.Length);
-    }
+	public BadHtmlContext CreateChild(
+		HtmlNode inputNode,
+		HtmlNode outputNode,
+		BadExecutionContext? executionContext = null)
+	{
+		return new BadHtmlContext(inputNode,
+			outputNode,
+			executionContext ?? ExecutionContext,
+			FilePath,
+			Source,
+			Options);
+	}
 
-    public BadSourcePosition CreateInnerPosition()
-    {
-        return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
-    }
+	public BadSourcePosition CreateAttributePosition(HtmlAttribute attribute)
+	{
+		return new BadSourcePosition(FilePath, Source, attribute.ValueStartIndex, attribute.Value.Length);
+	}
 
-    public BadSourcePosition CreateOuterPosition()
-    {
-        return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
-    }
+	public BadSourcePosition CreateInnerPosition()
+	{
+		return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
+	}
 
-    private IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
-    {
-        foreach (BadExpression expression in expressions)
-        {
-            foreach (BadExpression innerExpression in expression.GetDescendantsAndSelf())
-            {
-                yield return innerExpression;
-            }
-        }
-    }
+	public BadSourcePosition CreateOuterPosition()
+	{
+		return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
+	}
 
-    public BadExpression[] Parse(string code, BadSourcePosition pos)
-    {
-        try
-        {
-            BadExpression[] expressions = BadSourceParser.Parse(FilePath, code).ToArray();
-            foreach (BadExpression expression in VisitAll(expressions))
-            {
-                BadSourcePosition newPosition = BadSourcePosition.Create(FilePath, Source, pos.Index + expression.Position.Index, expression.Position.Length);
-                expression.SetPosition(newPosition);
-            }
+	private IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
+	{
+		foreach (BadExpression expression in expressions)
+		{
+			foreach (BadExpression innerExpression in expression.GetDescendantsAndSelf())
+			{
+				yield return innerExpression;
+			}
+		}
+	}
 
-            return expressions;
-        }
-        catch (BadSourceReaderException e)
-        {
-            if (e.Position == null)
-            {
-                throw new BadSourceReaderException(e.OriginalMessage, pos);
-            }
+	public BadExpression[] Parse(string code, BadSourcePosition pos)
+	{
+		try
+		{
+			BadExpression[] expressions = BadSourceParser.Parse(FilePath, code).ToArray();
 
-            throw new BadSourceReaderException(e.OriginalMessage, BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length));
-        }
-    }
+			foreach (BadExpression expression in VisitAll(expressions))
+			{
+				BadSourcePosition newPosition = BadSourcePosition.Create(FilePath,
+					Source,
+					pos.Index + expression.Position.Index,
+					expression.Position.Length);
+				expression.SetPosition(newPosition);
+			}
 
-    public BadObject Execute(BadExpression[] expressions)
-    {
-        BadObject result = ExecutionContext.ExecuteScript(expressions);
+			return expressions;
+		}
+		catch (BadSourceReaderException e)
+		{
+			if (e.Position == null)
+			{
+				throw new BadSourceReaderException(e.OriginalMessage, pos);
+			}
 
-        if (ExecutionContext.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
-        }
+			throw new BadSourceReaderException(e.OriginalMessage,
+				BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length));
+		}
+	}
 
-        return result.Dereference();
-    }
-    public BadObject ParseAndExecute(string code, BadSourcePosition pos)
-    {
-        BadExpression[] expressions = Parse(code, pos);
+	public BadObject Execute(BadExpression[] expressions)
+	{
+		BadObject result = ExecutionContext.ExecuteScript(expressions);
 
-        return Execute(expressions);
-    }
+		if (ExecutionContext.Scope.IsError)
+		{
+			throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
+		}
+
+		return result.Dereference();
+	}
+
+	public BadObject ParseAndExecute(string code, BadSourcePosition pos)
+	{
+		BadExpression[] expressions = Parse(code, pos);
+
+		return Execute(expressions);
+	}
 }

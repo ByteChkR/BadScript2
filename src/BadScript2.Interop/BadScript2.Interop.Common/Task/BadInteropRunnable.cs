@@ -3,18 +3,18 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Implements a Runnable that can return a value
+///     Implements a Runnable that can return a value
 /// </summary>
 public class BadInteropRunnable : BadRunnable
 {
 	/// <summary>
-	/// The Return Value
+	///     The Return Value
 	/// </summary>
 	private BadObject m_ReturnValue = BadObject.Null;
 
 
 	/// <summary>
-	/// Creates a new Runnable
+	///     Creates a new Runnable
 	/// </summary>
 	/// <param name="enumerator">Enumeration</param>
 	/// <param name="setLastAsReturn">Set Last object as return</param>
@@ -26,7 +26,7 @@ public class BadInteropRunnable : BadRunnable
 	public override IEnumerator<BadObject> Enumerator { get; }
 
 	/// <summary>
-	/// Creates the Enumerator
+	///     Creates the Enumerator
 	/// </summary>
 	/// <param name="enumerator">Enumeration</param>
 	/// <returns>Enumeration</returns>
@@ -45,7 +45,7 @@ public class BadInteropRunnable : BadRunnable
 	}
 
 	/// <summary>
-	/// Sets the Return Value
+	///     Sets the Return Value
 	/// </summary>
 	/// <param name="obj">The Return Value</param>
 	public void SetReturn(BadObject obj)

@@ -100,8 +100,7 @@
 
     private string GetName(BadVirtualNode? node)
     {
-        if (node == null)
-            return "INVALID NODE";
+        if (node == null) return "INVALID NODE";
 
         return node is BadVirtualRoot ? "/" : node.Name;
     }

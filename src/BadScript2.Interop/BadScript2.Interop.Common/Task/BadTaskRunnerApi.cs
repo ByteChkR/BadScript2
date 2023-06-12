@@ -7,17 +7,17 @@ using BadScript2.Runtime.Objects.Functions;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Implements the 'Concurrent' API
+///     Implements the 'Concurrent' API
 /// </summary>
 public class BadTaskRunnerApi : BadInteropApi
 {
 	/// <summary>
-	/// The Runner Instance
+	///     The Runner Instance
 	/// </summary>
 	private readonly BadTaskRunner m_Runner;
 
 	/// <summary>
-	/// Creates a new API Instance
+	///     Creates a new API Instance
 	/// </summary>
 	/// <param name="runner">Task Runner Instance</param>
 	public BadTaskRunnerApi(BadTaskRunner runner) : base("Concurrent")
@@ -33,7 +33,7 @@ public class BadTaskRunnerApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Returns the Current Task
+	///     Returns the Current Task
 	/// </summary>
 	/// <returns>Task</returns>
 	private BadObject GetCurrentTask()
@@ -42,7 +42,7 @@ public class BadTaskRunnerApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Adds a Task to the Runner
+	///     Adds a Task to the Runner
 	/// </summary>
 	/// <param name="task">Task</param>
 	private void AddTask(BadTask task)
@@ -51,7 +51,7 @@ public class BadTaskRunnerApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Creates a new Task
+	///     Creates a new Task
 	/// </summary>
 	/// <param name="caller">Caller Context</param>
 	/// <param name="func">Function</param>

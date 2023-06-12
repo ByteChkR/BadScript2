@@ -7,27 +7,27 @@ namespace BadScript2.Runtime.Interop;
 /// </summary>
 public abstract class BadInteropApi
 {
-    /// <summary>
-    ///     Creates a new Interop API
-    /// </summary>
-    /// <param name="name">Name of the API</param>
-    protected BadInteropApi(string name)
+	/// <summary>
+	///     Creates a new Interop API
+	/// </summary>
+	/// <param name="name">Name of the API</param>
+	protected BadInteropApi(string name)
 	{
 		Name = name;
 	}
 
-    /// <summary>
-    ///     Name of the API
-    /// </summary>
-    public string Name { get; }
+	/// <summary>
+	///     Name of the API
+	/// </summary>
+	public string Name { get; }
 
 	public virtual Version Version => GetType().Assembly.GetName().Version;
 
-    /// <summary>
-    ///     Loads the API into the given Table
-    /// </summary>
-    /// <param name="target">Table Target</param>
-    protected abstract void LoadApi(BadTable target);
+	/// <summary>
+	///     Loads the API into the given Table
+	/// </summary>
+	/// <param name="target">Table Target</param>
+	protected abstract void LoadApi(BadTable target);
 
 	public void Load(BadTable table)
 	{

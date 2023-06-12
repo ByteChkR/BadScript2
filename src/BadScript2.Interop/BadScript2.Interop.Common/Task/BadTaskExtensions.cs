@@ -7,7 +7,7 @@ using BadScript2.Runtime.Objects.Functions;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Implements the 'AsTask' Function
+///     Implements the 'AsTask' Function
 /// </summary>
 public class BadTaskExtensions : BadInteropExtension
 {
@@ -18,7 +18,7 @@ public class BadTaskExtensions : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Converts a Function into a task
+	///     Converts a Function into a task
 	/// </summary>
 	/// <param name="ctx">Execution Context</param>
 	/// <param name="func">Function</param>

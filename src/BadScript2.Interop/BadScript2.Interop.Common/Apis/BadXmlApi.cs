@@ -7,19 +7,18 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.Common.Apis;
 
-
 /// <summary>
-/// Implements the "Xml" API
+///     Implements the "Xml" API
 /// </summary>
 public class BadXmlApi : BadInteropApi
 {
 	/// <summary>
-	/// Constructs a new Xml API Instance
+	///     Constructs a new Xml API Instance
 	/// </summary>
 	public BadXmlApi() : base("Xml") { }
 
 	/// <summary>
-	/// Loads an XML Document from a string
+	///     Loads an XML Document from a string
 	/// </summary>
 	/// <param name="s">Xml String</param>
 	/// <returns>The XmlDocument wrapped in a Reflected Object</returns>

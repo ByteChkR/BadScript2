@@ -7,12 +7,12 @@ using Newtonsoft.Json.Linq;
 namespace BadScript2.Interop.Json;
 
 /// <summary>
-/// Implements a Json to BadObject Converter
+///     Implements a Json to BadObject Converter
 /// </summary>
 public static class BadJson
 {
 	/// <summary>
-	/// Converts a JArray to a BadArray
+	///     Converts a JArray to a BadArray
 	/// </summary>
 	/// <param name="array">Array</param>
 	/// <returns>Array</returns>
@@ -34,7 +34,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a JObject to a BadTable
+	///     Converts a JObject to a BadTable
 	/// </summary>
 	/// <param name="obj">Object</param>
 	/// <returns>Object</returns>
@@ -51,7 +51,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a BadObject to a JToken
+	///     Converts a BadObject to a JToken
 	/// </summary>
 	/// <param name="value">Object</param>
 	/// <returns>Object</returns>
@@ -98,7 +98,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a BadTable to a JObject
+	///     Converts a BadTable to a JObject
 	/// </summary>
 	/// <param name="table">Object</param>
 	/// <returns>Object</returns>
@@ -121,7 +121,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a BadArray to a JArray
+	///     Converts a BadArray to a JArray
 	/// </summary>
 	/// <param name="value">Array</param>
 	/// <returns>Array</returns>
@@ -138,7 +138,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a JValue to a BadObject
+	///     Converts a JValue to a BadObject
 	/// </summary>
 	/// <param name="value">Value</param>
 	/// <returns>Value</returns>
@@ -163,7 +163,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a JToken to a BadObject
+	///     Converts a JToken to a BadObject
 	/// </summary>
 	/// <param name="node">Node</param>
 	/// <returns>Object</returns>
@@ -194,7 +194,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a Json string to a BadObject
+	///     Converts a Json string to a BadObject
 	/// </summary>
 	/// <param name="s">String</param>
 	/// <returns>Bad Object</returns>
@@ -206,7 +206,7 @@ public static class BadJson
 	}
 
 	/// <summary>
-	/// Converts a BadObject to a Json string
+	///     Converts a BadObject to a Json string
 	/// </summary>
 	/// <param name="o">Object</param>
 	/// <returns>JSON String</returns>

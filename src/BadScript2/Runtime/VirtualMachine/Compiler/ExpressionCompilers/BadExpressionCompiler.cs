@@ -6,7 +6,7 @@ public abstract class BadExpressionCompiler<T> : IBadExpressionCompiler
 	where T : BadExpression
 {
 	/// <summary>
-	/// Compiles an Expression
+	///     Compiles an Expression
 	/// </summary>
 	/// <param name="compiler">The Compiler Instance</param>
 	/// <param name="expression">The Expression to Compile</param>
@@ -23,7 +23,7 @@ public abstract class BadExpressionCompiler<T> : IBadExpressionCompiler
 	}
 
 	/// <summary>
-	/// Compiles an Expression
+	///     Compiles an Expression
 	/// </summary>
 	/// <param name="compiler">The Compiler Instance</param>
 	/// <param name="expression">The Expression to Compile</param>

@@ -8,10 +8,10 @@ namespace BadScript2.Parser.Operators.Binary.Comparison;
 /// </summary>
 public class BadGreaterOrEqualOperator : BadBinaryOperator
 {
-    /// <summary>
-    ///     Constructor of the Operator
-    /// </summary>
-    public BadGreaterOrEqualOperator() : base(8, ">=") { }
+	/// <summary>
+	///     Constructor of the Operator
+	/// </summary>
+	public BadGreaterOrEqualOperator() : base(8, ">=") { }
 
 	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
 	{

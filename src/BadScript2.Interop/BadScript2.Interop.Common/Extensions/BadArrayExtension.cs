@@ -6,7 +6,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
-/// Implements Array Extensions
+///     Implements Array Extensions
 /// </summary>
 public class BadArrayExtension : BadInteropExtension
 {
@@ -91,7 +91,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns an enumerator of the array
+	///     Returns an enumerator of the array
 	/// </summary>
 	/// <param name="array">The Array</param>
 	/// <returns>Enumerator</returns>
@@ -101,7 +101,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Clears the array
+	///     Clears the array
 	/// </summary>
 	/// <param name="arg">The Array</param>
 	/// <returns>NULL</returns>
@@ -113,7 +113,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Adds an element to the array
+	///     Adds an element to the array
 	/// </summary>
 	/// <param name="arg">Array</param>
 	/// <param name="obj">Element</param>
@@ -126,7 +126,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Inserts an element at the given index
+	///     Inserts an element at the given index
 	/// </summary>
 	/// <param name="arg">Array</param>
 	/// <param name="index">Index</param>
@@ -140,7 +140,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns True if the array contains the given element
+	///     Returns True if the array contains the given element
 	/// </summary>
 	/// <param name="arg">Array</param>
 	/// <param name="obj">Element</param>
@@ -151,7 +151,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Removes an element from the array
+	///     Removes an element from the array
 	/// </summary>
 	/// <param name="arg">Array</param>
 	/// <param name="obj">Element</param>
@@ -164,7 +164,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Removes an element at the given index
+	///     Removes an element at the given index
 	/// </summary>
 	/// <param name="arg">Array</param>
 	/// <param name="obj">Index</param>
@@ -178,7 +178,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns a value from the array
+	///     Returns a value from the array
 	/// </summary>
 	/// <param name="arg">Array</param>
 	/// <param name="obj">Index</param>
@@ -191,7 +191,7 @@ public class BadArrayExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Sets a value in the array
+	///     Sets a value in the array
 	/// </summary>
 	/// <param name="arg">The Array</param>
 	/// <param name="obj">The Index</param>

@@ -11,55 +11,58 @@ namespace BadHtml;
 
 public abstract class BadHtmlNodeTransformer
 {
-    private static readonly List<BadHtmlNodeTransformer> s_Transformers = new List<BadHtmlNodeTransformer>
-    {
-        new BadExecuteScriptNodeTransformer(),
-        new BadForEachNodeTransformer(),
-        new BadWhileNodeTransformer(),
-        new BadFunctionNodeTransformer(),
-        new BadIfNodeTransformer(),
-        new BadCopyStyleNodeTransformer(),
-        new BadCopyScriptNodeTransformer(),
-        new BadTextNodeTransformer(),
-        new BadCopyNodeTransformer(),
-    };
+	private static readonly List<BadHtmlNodeTransformer> s_Transformers = new List<BadHtmlNodeTransformer>
+	{
+		new BadExecuteScriptNodeTransformer(),
+		new BadForEachNodeTransformer(),
+		new BadWhileNodeTransformer(),
+		new BadFunctionNodeTransformer(),
+		new BadIfNodeTransformer(),
+		new BadCopyStyleNodeTransformer(),
+		new BadCopyScriptNodeTransformer(),
+		new BadTextNodeTransformer(),
+		new BadCopyNodeTransformer()
+	};
 
-    public abstract bool CanTransform(BadHtmlContext context);
-    public abstract void TransformNode(BadHtmlContext context);
+	public abstract bool CanTransform(BadHtmlContext context);
 
-    protected static void TransformAttributes(BadHtmlContext context, HtmlNode node)
-    {
-        foreach (HtmlAttribute attribute in context.InputNode.Attributes)
-        {
-            if (attribute.Name != "style") //Dont process style attributes because they could have unexpected characters.
-            {
-                //Get Attribute Value
-                string value = attribute.Value;
+	public abstract void TransformNode(BadHtmlContext context);
 
-                //Replace all newlines with spaces
-                value = value.Replace("\n", " ").Replace("\r", " ");
+	protected static void TransformAttributes(BadHtmlContext context, HtmlNode node)
+	{
+		foreach (HtmlAttribute attribute in context.InputNode.Attributes)
+		{
+			if (attribute.Name !=
+			    "style") //Dont process style attributes because they could have unexpected characters.
+			{
+				//Get Attribute Value
+				string value = attribute.Value;
 
-                //Evaluate Attribute Value with BadScript
-                BadObject result = context.ParseAndExecute("$\"" + value + '"', context.CreateAttributePosition(attribute));
+				//Replace all newlines with spaces
+				value = value.Replace("\n", " ").Replace("\r", " ");
 
-                //Set Attribute Value
-                node.Attributes[attribute.Name].Value = result.ToString();
-            }
-        }
-    }
+				//Evaluate Attribute Value with BadScript
+				BadObject result =
+					context.ParseAndExecute("$\"" + value + '"', context.CreateAttributePosition(attribute));
 
-    public static void Transform(BadHtmlContext context)
-    {
-        foreach (BadHtmlNodeTransformer transformer in s_Transformers)
-        {
-            if (transformer.CanTransform(context))
-            {
-                transformer.TransformNode(context);
+				//Set Attribute Value
+				node.Attributes[attribute.Name].Value = result.ToString();
+			}
+		}
+	}
 
-                return;
-            }
-        }
+	public static void Transform(BadHtmlContext context)
+	{
+		foreach (BadHtmlNodeTransformer transformer in s_Transformers)
+		{
+			if (transformer.CanTransform(context))
+			{
+				transformer.TransformNode(context);
 
-        throw new InvalidOperationException("No transformer found");
-    }
+				return;
+			}
+		}
+
+		throw new InvalidOperationException("No transformer found");
+	}
 }

@@ -5,12 +5,12 @@ using BadScript2.Utility;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Utilities for Tasks
+///     Utilities for Tasks
 /// </summary>
 public static class BadTaskUtils
 {
 	/// <summary>
-	/// Waits for a C# Task to complete and returns the result as a BadObject
+	///     Waits for a C# Task to complete and returns the result as a BadObject
 	/// </summary>
 	/// <param name="t">Task</param>
 	/// <param name="onComplete">On Complete Callback</param>
@@ -25,9 +25,7 @@ public static class BadTaskUtils
 		{
 			while (t is
 			       {
-				       IsCanceled: false,
-				       IsCompleted: false,
-				       IsFaulted: false
+				       IsCanceled: false, IsCompleted: false, IsFaulted: false
 			       })
 			{
 				yield return BadObject.Null;
@@ -48,7 +46,7 @@ public static class BadTaskUtils
 		return runnable;
 	}
 
-	
+
 	/// <param name="t">Task</param>
 	/// <returns>Awaitable Runnable</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
@@ -60,9 +58,7 @@ public static class BadTaskUtils
 		{
 			while (t is
 			       {
-				       IsCanceled: false,
-				       IsCompleted: false,
-				       IsFaulted: false
+				       IsCanceled: false, IsCompleted: false, IsFaulted: false
 			       })
 			{
 				yield return BadObject.Null;
@@ -84,7 +80,7 @@ public static class BadTaskUtils
 	}
 
 	/// <summary>
-	/// Waits for a C# Task to complete and returns the result as a BadObject
+	///     Waits for a C# Task to complete and returns the result as a BadObject
 	/// </summary>
 	/// <param name="t">Task</param>
 	/// <typeparam name="T">Task Return</typeparam>
@@ -98,9 +94,7 @@ public static class BadTaskUtils
 		{
 			while (t is
 			       {
-				       IsCanceled: false,
-				       IsCompleted: false,
-				       IsFaulted: false
+				       IsCanceled: false, IsCompleted: false, IsFaulted: false
 			       })
 			{
 				yield return BadObject.Null;

@@ -23,29 +23,29 @@ public static class BadNativeClassBuilder
 		BadScope.Prototype
 	};
 
-    /// <summary>
-    ///     Enumeration of all Native Class Prototypes
-    /// </summary>
-    public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
+	/// <summary>
+	///     Enumeration of all Native Class Prototypes
+	/// </summary>
+	public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
 
 
-    /// <summary>
-    ///     Returns a Native Class Prototype for the given Native Type
-    /// </summary>
-    /// <param name="name">Type Name</param>
-    /// <returns>The Prototype</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the prototype does not exist.</exception>
-    public static BadClassPrototype GetNative(string name)
+	/// <summary>
+	///     Returns a Native Class Prototype for the given Native Type
+	/// </summary>
+	/// <param name="name">Type Name</param>
+	/// <returns>The Prototype</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the prototype does not exist.</exception>
+	public static BadClassPrototype GetNative(string name)
 	{
 		return s_NativeTypes?.FirstOrDefault(x => x.Name == name) ??
 		       throw new BadRuntimeException("Native class not found");
 	}
 
-    /// <summary>
-    ///     Adds a native Type
-    /// </summary>
-    /// <param name="native">The native type</param>
-    public static void AddNative(BadClassPrototype native)
+	/// <summary>
+	///     Adds a native Type
+	/// </summary>
+	/// <param name="native">The native type</param>
+	public static void AddNative(BadClassPrototype native)
 	{
 		if (s_NativeTypes.Any(x => x.Name == native.Name))
 		{
@@ -56,14 +56,14 @@ public static class BadNativeClassBuilder
 	}
 
 
-    /// <summary>
-    ///     Creates a Native Class Prototype
-    /// </summary>
-    /// <param name="name">Type Name</param>
-    /// <param name="constructor">The Constructor</param>
-    /// <typeparam name="T">The BadObject Type</typeparam>
-    /// <returns>The Prototype</returns>
-    private static BadNativeClassPrototype<T> Create<T>(
+	/// <summary>
+	///     Creates a Native Class Prototype
+	/// </summary>
+	/// <param name="name">Type Name</param>
+	/// <param name="constructor">The Constructor</param>
+	/// <typeparam name="T">The BadObject Type</typeparam>
+	/// <returns>The Prototype</returns>
+	private static BadNativeClassPrototype<T> Create<T>(
 		string name,
 		Func<BadObject[], BadObject> constructor) where T : BadObject
 	{
@@ -71,28 +71,28 @@ public static class BadNativeClassBuilder
 			(_, a) => constructor(a));
 	}
 
-    /// <summary>
-    ///     Creates a Native Class Prototype
-    /// </summary>
-    /// <param name="name">Name of the Type</param>
-    /// <typeparam name="T">BadObject Type</typeparam>
-    /// <returns>Class Prototype</returns>
-    private static BadNativeClassPrototype<T> CreateNativeType<T>(string name) where T : BadObject
+	/// <summary>
+	///     Creates a Native Class Prototype
+	/// </summary>
+	/// <param name="name">Name of the Type</param>
+	/// <typeparam name="T">BadObject Type</typeparam>
+	/// <returns>Class Prototype</returns>
+	private static BadNativeClassPrototype<T> CreateNativeType<T>(string name) where T : BadObject
 	{
 		return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name));
 	}
 
-    /// <summary>
-    ///     Creates a Native Class Prototype from a File
-    /// </summary>
-    /// <param name="name">Name of the Prototype</param>
-    /// <param name="file">File Name of the Script containing the class definition</param>
-    /// <returns>New Prototype</returns>
-    /// <exception cref="BadRuntimeException">
-    ///     Gets raised if the returned type does not have the name provided or the resulting
-    ///     Object is not a Class Prototype
-    /// </exception>
-    private static BadClassPrototype CreateNativeType(string name, string file)
+	/// <summary>
+	///     Creates a Native Class Prototype from a File
+	/// </summary>
+	/// <param name="name">Name of the Prototype</param>
+	/// <param name="file">File Name of the Script containing the class definition</param>
+	/// <returns>New Prototype</returns>
+	/// <exception cref="BadRuntimeException">
+	///     Gets raised if the returned type does not have the name provided or the resulting
+	///     Object is not a Class Prototype
+	/// </exception>
+	private static BadClassPrototype CreateNativeType(string name, string file)
 	{
 		BadSourceParser parser = new BadSourceParser(BadSourceReader.FromFile(file), BadOperatorTable.Instance);
 		BadExecutionContext ctx = new BadExecutionContext(
@@ -112,14 +112,14 @@ public static class BadNativeClassBuilder
 		return cls;
 	}
 
-    /// <summary>
-    ///     Creates a Native Class Prototype
-    /// </summary>
-    /// <param name="name">Type Name</param>
-    /// <param name="constructor">The Constructor</param>
-    /// <typeparam name="T">The BadObject Type</typeparam>
-    /// <returns>The Prototype</returns>
-    private static BadNativeClassPrototype<T> CreateNativeType<T>(
+	/// <summary>
+	///     Creates a Native Class Prototype
+	/// </summary>
+	/// <param name="name">Type Name</param>
+	/// <param name="constructor">The Constructor</param>
+	/// <typeparam name="T">The BadObject Type</typeparam>
+	/// <returns>The Prototype</returns>
+	private static BadNativeClassPrototype<T> CreateNativeType<T>(
 		string name,
 		Func<BadObject[], BadObject> constructor) where T : BadObject
 	{

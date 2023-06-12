@@ -9,33 +9,33 @@ namespace BadScript2.Runtime.Error;
 /// </summary>
 public class BadRuntimeError : BadObject
 {
-    /// <summary>
-    ///     Creates a new Error Object
-    /// </summary>
-    /// <param name="innerError">The Inner Error</param>
-    /// <param name="obj">The Object that was thrown</param>
-    /// <param name="stackTrace">The Stacktrace of the Error</param>
-    public BadRuntimeError(BadRuntimeError? innerError, BadObject obj, string stackTrace)
+	/// <summary>
+	///     Creates a new Error Object
+	/// </summary>
+	/// <param name="innerError">The Inner Error</param>
+	/// <param name="obj">The Object that was thrown</param>
+	/// <param name="stackTrace">The Stacktrace of the Error</param>
+	public BadRuntimeError(BadRuntimeError? innerError, BadObject obj, string stackTrace)
 	{
 		InnerError = innerError;
 		ErrorObject = obj;
 		StackTrace = stackTrace;
 	}
 
-    /// <summary>
-    ///     The Stacktrace of the Error
-    /// </summary>
-    public string StackTrace { get; }
+	/// <summary>
+	///     The Stacktrace of the Error
+	/// </summary>
+	public string StackTrace { get; }
 
-    /// <summary>
-    ///     The Inner Error
-    /// </summary>
-    public BadRuntimeError? InnerError { get; set; }
+	/// <summary>
+	///     The Inner Error
+	/// </summary>
+	public BadRuntimeError? InnerError { get; set; }
 
-    /// <summary>
-    ///     The Object that was thrown
-    /// </summary>
-    public BadObject ErrorObject { get; }
+	/// <summary>
+	///     The Object that was thrown
+	/// </summary>
+	public BadObject ErrorObject { get; }
 
 	public static BadRuntimeError FromException(Exception e, string? scriptStackTrace = null)
 	{

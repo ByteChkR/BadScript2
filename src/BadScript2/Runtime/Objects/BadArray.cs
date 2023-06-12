@@ -12,24 +12,24 @@ namespace BadScript2.Runtime.Objects;
 public class BadArray : BadObject, IBadEnumerable
 
 {
-    /// <summary>
-    ///     Creates a new Instance of the BadScript Array
-    /// </summary>
-    /// <param name="innerArray">The Initial Elements</param>
-    public BadArray(List<BadObject> innerArray)
+	/// <summary>
+	///     Creates a new Instance of the BadScript Array
+	/// </summary>
+	/// <param name="innerArray">The Initial Elements</param>
+	public BadArray(List<BadObject> innerArray)
 	{
 		InnerArray = innerArray;
 	}
 
-    /// <summary>
-    ///     Creates a new Instance of the BadScript Array
-    /// </summary>
-    public BadArray() : this(new List<BadObject>()) { }
+	/// <summary>
+	///     Creates a new Instance of the BadScript Array
+	/// </summary>
+	public BadArray() : this(new List<BadObject>()) { }
 
-    /// <summary>
-    ///     The Inner Array
-    /// </summary>
-    public List<BadObject> InnerArray { get; }
+	/// <summary>
+	///     The Inner Array
+	/// </summary>
+	public List<BadObject> InnerArray { get; }
 
 	public IEnumerator<BadObject> GetEnumerator()
 	{

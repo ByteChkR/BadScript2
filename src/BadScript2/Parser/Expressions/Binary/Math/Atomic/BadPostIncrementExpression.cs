@@ -11,28 +11,28 @@ namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 /// </summary>
 public class BadPostIncrementExpression : BadExpression
 {
-    /// <summary>
-    ///     Left side of the expression
-    /// </summary>
-    public readonly BadExpression Left;
+	/// <summary>
+	///     Left side of the expression
+	/// </summary>
+	public readonly BadExpression Left;
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-
-	    foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
-    }
-    /// <summary>
-    ///     Constructor of the Post Increment Expression
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="position">Source position of the Expression</param>
-    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
+	/// <summary>
+	///     Constructor of the Post Increment Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="position">Source position of the Expression</param>
+	public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
 		position)
 	{
 		Left = left;
+	}
+
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
 	}
 
 	public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)

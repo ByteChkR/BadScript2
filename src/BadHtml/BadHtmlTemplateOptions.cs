@@ -2,5 +2,5 @@ namespace BadHtml;
 
 public class BadHtmlTemplateOptions
 {
-    public bool SkipEmptyTextNodes = false;
+	public bool SkipEmptyTextNodes = false;
 }

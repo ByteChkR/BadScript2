@@ -9,22 +9,22 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 {
 	private BadSettings? m_CatchRuntimeExceptionsObj;
 
-    /// <summary>
-    ///     The File Extension Settings Object
-    /// </summary>
-    private BadSettings? m_FileExtensionObj;
+	/// <summary>
+	///     The File Extension Settings Object
+	/// </summary>
+	private BadSettings? m_FileExtensionObj;
 
 	private BadSettings? m_WriteStackTraceInRuntimeErrorsObj;
 
-    /// <summary>
-    ///     Creates a new instance of the BadRuntimeSettings class.
-    /// </summary>
-    public BadRuntimeSettings() : base("Runtime") { }
+	/// <summary>
+	///     Creates a new instance of the BadRuntimeSettings class.
+	/// </summary>
+	public BadRuntimeSettings() : base("Runtime") { }
 
-    /// <summary>
-    ///     The File Extension Settings Object
-    /// </summary>
-    private BadSettings? FileExtensionObj
+	/// <summary>
+	///     The File Extension Settings Object
+	/// </summary>
+	private BadSettings? FileExtensionObj
 	{
 		get
 		{
@@ -81,10 +81,10 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 		}
 	}
 
-    /// <summary>
-    ///     The Default File Extension of BadScript2 Scripts
-    /// </summary>
-    public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
+	/// <summary>
+	///     The Default File Extension of BadScript2 Scripts
+	/// </summary>
+	public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
 
 	public bool CatchRuntimeExceptions
 	{

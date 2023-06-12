@@ -12,17 +12,17 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadMemberAccessExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor for the Member Access Expression.
-    /// </summary>
-    /// <param name="left">Left side of the expression</param>
-    /// <param name="right">Right side of the expression</param>
-    /// <param name="position">Position inside the source code</param>
-    /// <param name="nullChecked">
-    ///     Null-check the result of the left side of the expression. If null. this expression returns
-    ///     BadObject.Null
-    /// </param>
-    public BadMemberAccessExpression(
+	/// <summary>
+	///     Constructor for the Member Access Expression.
+	/// </summary>
+	/// <param name="left">Left side of the expression</param>
+	/// <param name="right">Right side of the expression</param>
+	/// <param name="position">Position inside the source code</param>
+	/// <param name="nullChecked">
+	///     Null-check the result of the left side of the expression. If null. this expression returns
+	///     BadObject.Null
+	/// </param>
+	public BadMemberAccessExpression(
 		BadExpression left,
 		BadWordToken right,
 		BadSourcePosition position,
@@ -34,29 +34,28 @@ public class BadMemberAccessExpression : BadExpression
 		NullChecked = nullChecked;
 	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
+	/// <summary>
+	///     Property that indicates if the result of the left side of the expression should be null-checked.
+	/// </summary>
+	public bool NullChecked { get; }
 
-    }
+	/// <summary>
+	///     Left side of the expression
+	/// </summary>
+	public BadExpression Left { get; private set; }
 
-    /// <summary>
-    ///     Property that indicates if the result of the left side of the expression should be null-checked.
-    /// </summary>
-    public bool NullChecked { get; }
+	/// <summary>
+	///     Right Side of the expression
+	/// </summary>
+	public BadWordToken Right { get; }
 
-    /// <summary>
-    ///     Left side of the expression
-    /// </summary>
-    public BadExpression Left { get; private set; }
-
-    /// <summary>
-    ///     Right Side of the expression
-    /// </summary>
-    public BadWordToken Right { get; }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
 
 	public override void Optimize()
 	{

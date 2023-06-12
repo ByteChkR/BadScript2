@@ -8,27 +8,27 @@ namespace BadScript2.Runtime.Objects;
 /// </summary>
 public abstract class BadObjectReference : BadObject
 {
-    /// <summary>
-    ///     Returns the Referenced Object
-    /// </summary>
-    /// <returns>Referenced Object</returns>
-    public abstract BadObject Resolve();
+	/// <summary>
+	///     Returns the Referenced Object
+	/// </summary>
+	/// <returns>Referenced Object</returns>
+	public abstract BadObject Resolve();
 
-    /// <summary>
-    ///     Sets the Referenced Object to a new Value
-    /// </summary>
-    /// <param name="obj">New Value</param>
-    /// <param name="info">(Optional) Property Info</param>
-    public abstract void Set(BadObject obj, BadPropertyInfo? info = null);
+	/// <summary>
+	///     Sets the Referenced Object to a new Value
+	/// </summary>
+	/// <param name="obj">New Value</param>
+	/// <param name="info">(Optional) Property Info</param>
+	public abstract void Set(BadObject obj, BadPropertyInfo? info = null);
 
-    /// <summary>
-    ///     Creates a new Reference Object
-    /// </summary>
-    /// <param name="refText">Text used for debugging</param>
-    /// <param name="getter">Getter of the Property</param>
-    /// <param name="setter">(optional) Setter of the Property</param>
-    /// <returns>Reference Instance</returns>
-    public static BadObjectReference Make(
+	/// <summary>
+	///     Creates a new Reference Object
+	/// </summary>
+	/// <param name="refText">Text used for debugging</param>
+	/// <param name="getter">Getter of the Property</param>
+	/// <param name="setter">(optional) Setter of the Property</param>
+	/// <returns>Reference Instance</returns>
+	public static BadObjectReference Make(
 		string refText,
 		Func<BadObject> getter,
 		Action<BadObject, BadPropertyInfo?>? setter = null)
@@ -36,33 +36,33 @@ public abstract class BadObjectReference : BadObject
 		return new BadObjectReferenceImpl(refText, getter, setter);
 	}
 
-    /// <summary>
-    ///     Implements a Reference Object
-    /// </summary>
-    private class BadObjectReferenceImpl : BadObjectReference
+	/// <summary>
+	///     Implements a Reference Object
+	/// </summary>
+	private class BadObjectReferenceImpl : BadObjectReference
 	{
-        /// <summary>
-        ///     The Getter of the Reference
-        /// </summary>
-        private readonly Func<BadObject> m_Getter;
+		/// <summary>
+		///     The Getter of the Reference
+		/// </summary>
+		private readonly Func<BadObject> m_Getter;
 
-        /// <summary>
-        ///     The Debug Text
-        /// </summary>
-        private readonly string m_RefText;
+		/// <summary>
+		///     The Debug Text
+		/// </summary>
+		private readonly string m_RefText;
 
-        /// <summary>
-        ///     The Setter of the Reference
-        /// </summary>
-        private readonly Action<BadObject, BadPropertyInfo?>? m_Setter;
+		/// <summary>
+		///     The Setter of the Reference
+		/// </summary>
+		private readonly Action<BadObject, BadPropertyInfo?>? m_Setter;
 
-        /// <summary>
-        ///     Creates a new Reference Object
-        /// </summary>
-        /// <param name="refText">The Reference Debug Text</param>
-        /// <param name="getter">Getter of the Reference</param>
-        /// <param name="setter">Setter of the Reference</param>
-        public BadObjectReferenceImpl(
+		/// <summary>
+		///     Creates a new Reference Object
+		/// </summary>
+		/// <param name="refText">The Reference Debug Text</param>
+		/// <param name="getter">Getter of the Reference</param>
+		/// <param name="setter">Setter of the Reference</param>
+		public BadObjectReferenceImpl(
 			string refText,
 			Func<BadObject> getter,
 			Action<BadObject, BadPropertyInfo?>? setter)

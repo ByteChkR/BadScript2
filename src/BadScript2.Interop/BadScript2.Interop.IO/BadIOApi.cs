@@ -10,22 +10,22 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Interop.IO;
 
 /// <summary>
-/// Implements the "IO" Api
+///     Implements the "IO" Api
 /// </summary>
 public class BadIOApi : BadInteropApi
 {
 	/// <summary>
-	/// The FileSystem Instance
+	///     The FileSystem Instance
 	/// </summary>
 	private readonly IFileSystem m_FileSystem;
 
 	/// <summary>
-	/// Creates a new API Instance
+	///     Creates a new API Instance
 	/// </summary>
 	public BadIOApi() : this(BadFileSystem.Instance) { }
 
 	/// <summary>
-	/// Creates a new API Instance
+	///     Creates a new API Instance
 	/// </summary>
 	/// <param name="fileSystem">File System Instance</param>
 	public BadIOApi(IFileSystem fileSystem) : base("IO")
@@ -34,7 +34,7 @@ public class BadIOApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Creates the "Path" Table
+	///     Creates the "Path" Table
 	/// </summary>
 	/// <returns>Table</returns>
 	private BadTable CreatePath()
@@ -55,7 +55,7 @@ public class BadIOApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Combines the given paths
+	///     Combines the given paths
 	/// </summary>
 	/// <param name="arg">Paths</param>
 	/// <returns>Combined Path String</returns>
@@ -65,7 +65,7 @@ public class BadIOApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Creates the "Directory" Table
+	///     Creates the "Directory" Table
 	/// </summary>
 	/// <returns>Table</returns>
 	private BadTable CreateDirectory()
@@ -106,7 +106,7 @@ public class BadIOApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Creates the "File" Table
+	///     Creates the "File" Table
 	/// </summary>
 	/// <returns>Table</returns>
 	private BadTable CreateFile()

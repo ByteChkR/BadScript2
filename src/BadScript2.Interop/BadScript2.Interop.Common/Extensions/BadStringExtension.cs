@@ -9,12 +9,12 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
-/// Implements String Extensions
+///     Implements String Extensions
 /// </summary>
 public class BadStringExtension : BadInteropExtension
 {
 	/// <summary>
-	/// Split a string into an array
+	///     Split a string into an array
 	/// </summary>
 	/// <param name="str">String to Split</param>
 	/// <param name="splitChar">The Split Character</param>

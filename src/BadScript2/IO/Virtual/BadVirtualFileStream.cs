@@ -5,10 +5,10 @@ namespace BadScript2.IO.Virtual;
 /// </summary>
 internal class BadVirtualFileStream : MemoryStream
 {
-    /// <summary>
-    ///     On Dispose Event
-    /// </summary>
-    public event Action? OnDispose;
+	/// <summary>
+	///     On Dispose Event
+	/// </summary>
+	public event Action? OnDispose;
 
 	protected override void Dispose(bool disposing)
 	{

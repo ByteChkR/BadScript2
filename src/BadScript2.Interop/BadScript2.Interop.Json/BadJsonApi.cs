@@ -8,12 +8,12 @@ using BadScript2.Settings;
 namespace BadScript2.Interop.Json;
 
 /// <summary>
-/// Implements the "Json" Api
+///     Implements the "Json" Api
 /// </summary>
 public class BadJsonApi : BadInteropApi
 {
 	/// <summary>
-	/// Creates a new "Json" Api
+	///     Creates a new "Json" Api
 	/// </summary>
 	public BadJsonApi() : base("Json") { }
 

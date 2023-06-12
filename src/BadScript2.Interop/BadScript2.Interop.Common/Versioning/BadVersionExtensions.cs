@@ -3,12 +3,12 @@ using System.Globalization;
 namespace BadScript2.Interop.Common.Versioning;
 
 /// <summary>
-/// Imlpements Versioning Extensions
+///     Imlpements Versioning Extensions
 /// </summary>
 public static class BadVersionExtensions
 {
 	/// <summary>
-	/// Changes the Version Object by the given Change String
+	///     Changes the Version Object by the given Change String
 	/// </summary>
 	/// <param name="version">Version Object</param>
 	/// <param name="changeStr">Change String</param>
@@ -127,7 +127,7 @@ public static class BadVersionExtensions
 
 
 	/// <summary>
-	/// Applies the Change Reset to the Version Array
+	///     Applies the Change Reset to the Version Array
 	/// </summary>
 	/// <param name="changeReset">Version Reset Array</param>
 	/// <param name="original">The Original Version Components</param>

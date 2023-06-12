@@ -11,32 +11,33 @@ using BadScript2.Settings;
 namespace BadScript2.Interop.Json;
 
 /// <summary>
-/// Implements a Settings Object Wrapper
+///     Implements a Settings Object Wrapper
 /// </summary>
 public class BadSettingsObject : BadObject
 {
 	/// <summary>
-	/// The Class Prototype
+	///     The Class Prototype
 	/// </summary>
 	public static readonly BadClassPrototype Prototype =
 		new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args) => CreateObj(args));
 
 	/// <summary>
-	/// Properties
+	///     Properties
 	/// </summary>
 	private readonly Dictionary<BadObject, BadObject> m_Properties;
+
 	/// <summary>
-	/// Property References
+	///     Property References
 	/// </summary>
 	private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;
-	
+
 	/// <summary>
-	/// Inner Settings Object
+	///     Inner Settings Object
 	/// </summary>
 	private readonly BadSettings m_Settings;
 
 	/// <summary>
-	/// Creates a new Settings Object
+	///     Creates a new Settings Object
 	/// </summary>
 	/// <param name="settings">Inner Settings Object</param>
 	public BadSettingsObject(BadSettings settings)
@@ -148,7 +149,7 @@ public class BadSettingsObject : BadObject
 	}
 
 	/// <summary>
-	/// Creates a new Settings Object
+	///     Creates a new Settings Object
 	/// </summary>
 	/// <param name="args">Arguments</param>
 	/// <returns>BadSettingsObject</returns>

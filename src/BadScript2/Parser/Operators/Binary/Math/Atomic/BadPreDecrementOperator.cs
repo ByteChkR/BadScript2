@@ -8,10 +8,10 @@ namespace BadScript2.Parser.Operators.Binary.Math.Atomic;
 /// </summary>
 public class BadPreDecrementOperator : BadUnaryPrefixOperator
 {
-    /// <summary>
-    ///     Constructor of the Operator
-    /// </summary>
-    public BadPreDecrementOperator() : base(2, "--") { }
+	/// <summary>
+	///     Constructor of the Operator
+	/// </summary>
+	public BadPreDecrementOperator() : base(2, "--") { }
 
 
 	public override BadExpression Parse(BadSourceParser parser)

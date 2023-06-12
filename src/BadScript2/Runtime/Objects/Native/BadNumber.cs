@@ -9,11 +9,11 @@ namespace BadScript2.Runtime.Objects.Native;
 /// </summary>
 public class BadNumber : BadNative<decimal>, IBadNumber
 {
-    /// <summary>
-    ///     Creates a new Native Number
-    /// </summary>
-    /// <param name="value">The Number Value</param>
-    public BadNumber(decimal value) : base(value) { }
+	/// <summary>
+	///     Creates a new Native Number
+	/// </summary>
+	/// <param name="value">The Number Value</param>
+	public BadNumber(decimal value) : base(value) { }
 
 	decimal IBadNumber.Value => Value;
 

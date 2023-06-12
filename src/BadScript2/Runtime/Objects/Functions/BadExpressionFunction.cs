@@ -10,31 +10,31 @@ namespace BadScript2.Runtime.Objects.Functions;
 /// </summary>
 public class BadExpressionFunction : BadFunction
 {
-    /// <summary>
-    ///     The Function Body
-    /// </summary>
-    private readonly List<BadExpression> m_Body;
+	/// <summary>
+	///     The Function Body
+	/// </summary>
+	private readonly List<BadExpression> m_Body;
 
-    /// <summary>
-    ///     The Scope the function is defined in
-    /// </summary>
-    public readonly BadScope ParentScope;
+	/// <summary>
+	///     The Scope the function is defined in
+	/// </summary>
+	public readonly BadScope ParentScope;
 
-    /// <summary>
-    ///     The Source Position of the Function
-    /// </summary>
-    public readonly BadSourcePosition Position;
+	/// <summary>
+	///     The Source Position of the Function
+	/// </summary>
+	public readonly BadSourcePosition Position;
 
-    /// <summary>
-    ///     Creates a new Expression Function
-    /// </summary>
-    /// <param name="parentScope">The Scope the function is defined in</param>
-    /// <param name="name">The (optional) function name</param>
-    /// <param name="expressions">The Function Body</param>
-    /// <param name="parameters">The parameter info</param>
-    /// <param name="position">The Source Position of the Function</param>
-    /// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
-    public BadExpressionFunction(
+	/// <summary>
+	///     Creates a new Expression Function
+	/// </summary>
+	/// <param name="parentScope">The Scope the function is defined in</param>
+	/// <param name="name">The (optional) function name</param>
+	/// <param name="expressions">The Function Body</param>
+	/// <param name="parameters">The parameter info</param>
+	/// <param name="position">The Source Position of the Function</param>
+	/// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
+	public BadExpressionFunction(
 		BadScope parentScope,
 		BadWordToken? name,
 		List<BadExpression> expressions,
@@ -49,10 +49,10 @@ public class BadExpressionFunction : BadFunction
 		MetaData = metaData ?? BadMetaData.Empty;
 	}
 
-    /// <summary>
-    ///     Enumeration of all expressions in the function body
-    /// </summary>
-    public IEnumerable<BadExpression> Body => m_Body;
+	/// <summary>
+	///     Enumeration of all expressions in the function body
+	/// </summary>
+	public IEnumerable<BadExpression> Body => m_Body;
 
 
 	public override BadMetaData MetaData { get; }

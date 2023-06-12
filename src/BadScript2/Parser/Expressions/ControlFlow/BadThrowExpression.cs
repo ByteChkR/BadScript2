@@ -10,21 +10,21 @@ namespace BadScript2.Parser.Expressions.ControlFlow;
 /// </summary>
 public class BadThrowExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor of the Throw Expression
-    /// </summary>
-    /// <param name="right">The Error Object that is thrown</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(false,
+	/// <summary>
+	///     Constructor of the Throw Expression
+	/// </summary>
+	/// <param name="right">The Error Object that is thrown</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(false,
 		position)
 	{
 		Right = right;
 	}
 
-    /// <summary>
-    ///     The Error Object that is thrown
-    /// </summary>
-    public BadExpression Right { get; set; }
+	/// <summary>
+	///     The Error Object that is thrown
+	/// </summary>
+	public BadExpression Right { get; set; }
 
 	public override void Optimize()
 	{

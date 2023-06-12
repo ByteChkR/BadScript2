@@ -10,14 +10,14 @@ namespace BadScript2.IO;
 /// </summary>
 public static class BadFileSystemHelper
 {
-    /// <summary>
-    ///     Exports a Virtual File System to a Zip File
-    /// </summary>
-    /// <param name="fs">The Virtual File System to Export</param>
-    /// <param name="str">The Stream to write the Zip File to</param>
-    /// <param name="path">The Path to export</param>
-    /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
-    public static void ExportZip(this IFileSystem fs, Stream str, string path = "/")
+	/// <summary>
+	///     Exports a Virtual File System to a Zip File
+	/// </summary>
+	/// <param name="fs">The Virtual File System to Export</param>
+	/// <param name="str">The Stream to write the Zip File to</param>
+	/// <param name="path">The Path to export</param>
+	/// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
+	public static void ExportZip(this IFileSystem fs, Stream str, string path = "/")
 	{
 		BadLogger.Log("Exporting zip file..", "BFS");
 
@@ -40,14 +40,14 @@ public static class BadFileSystemHelper
 		zip.Dispose();
 	}
 
-    /// <summary>
-    ///     Imports a Zip File to a Virtual File System
-    /// </summary>
-    /// <param name="fs">The Virtual File System to Import to</param>
-    /// <param name="str">The Stream to read the Zip File from</param>
-    /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
-    /// <exception cref="Exception">Gets thrown when the Zip File is invalid</exception>
-    public static void ImportZip(this IFileSystem fs, Stream str, string root = "/")
+	/// <summary>
+	///     Imports a Zip File to a Virtual File System
+	/// </summary>
+	/// <param name="fs">The Virtual File System to Import to</param>
+	/// <param name="str">The Stream to read the Zip File from</param>
+	/// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
+	/// <exception cref="Exception">Gets thrown when the Zip File is invalid</exception>
+	public static void ImportZip(this IFileSystem fs, Stream str, string root = "/")
 	{
 		BadLogger.Log("Importing zip file..", "BFS");
 

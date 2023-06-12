@@ -9,22 +9,22 @@ namespace BadScript2.Parser.Expressions.Constant;
 /// </summary>
 public class BadNullExpression : BadExpression, IBadNativeExpression
 {
-    /// <summary>
-    ///     Constructor for the null expression
-    /// </summary>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadNullExpression(BadSourcePosition position) : base(true, position) { }
+	/// <summary>
+	///     Constructor for the null expression
+	/// </summary>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadNullExpression(BadSourcePosition position) : base(true, position) { }
 
-    /// <summary>
-    ///     The Raw Value of the Expression
-    /// </summary>
-    public object Value => null!;
+	/// <summary>
+	///     The Raw Value of the Expression
+	/// </summary>
+	public object Value => null!;
 
-    /// <summary>
-    ///     String Representation of the Expression
-    /// </summary>
-    /// <returns>String Representation of the Expression</returns>
-    public override string ToString()
+	/// <summary>
+	///     String Representation of the Expression
+	/// </summary>
+	/// <returns>String Representation of the Expression</returns>
+	public override string ToString()
 	{
 		return BadStaticKeys.Null;
 	}

@@ -9,36 +9,36 @@ namespace BadScript2.Parser.Expressions.Variables;
 /// </summary>
 public class BadVariableExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor of the Variable Expression
-    /// </summary>
-    /// <param name="name">Name of the Variable</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadVariableExpression(string name, BadSourcePosition position) : base(false, position)
+	/// <summary>
+	///     Constructor of the Variable Expression
+	/// </summary>
+	/// <param name="name">Name of the Variable</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadVariableExpression(string name, BadSourcePosition position) : base(false, position)
 	{
 		Name = name;
 	}
 
-    /// <summary>
-    ///     Name of the Variable
-    /// </summary>
-    public string Name { get; }
+	/// <summary>
+	///     Name of the Variable
+	/// </summary>
+	public string Name { get; }
 
-    /// <summary>
-    ///     Returns the String representation of the Variable Expression
-    /// </summary>
-    /// <returns>String Representation</returns>
-    public override string ToString()
+	/// <summary>
+	///     Returns the String representation of the Variable Expression
+	/// </summary>
+	/// <returns>String Representation</returns>
+	public override string ToString()
 	{
 		return Name;
 	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-	    yield break;
-    }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		yield break;
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadObject name = BadObject.Wrap(Name);
 

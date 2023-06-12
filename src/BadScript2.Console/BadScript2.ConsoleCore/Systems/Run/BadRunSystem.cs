@@ -23,12 +23,12 @@ using BadScript2.Settings;
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>
-/// Runs one or more BadScript scripts
+///     Runs one or more BadScript scripts
 /// </summary>
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
 	/// <summary>
-	/// The Startup Directory where all containing scripts will be loaded at every execution
+	///     The Startup Directory where all containing scripts will be loaded at every execution
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
 	private string StartupDirectory
@@ -69,7 +69,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 	}
 
 	/// <summary>
-	/// Creates the Execution Context Options for the Run System
+	///     Creates the Execution Context Options for the Run System
 	/// </summary>
 	/// <returns>Execution Context Options</returns>
 	private BadExecutionContextOptions CreateOptions()
@@ -82,7 +82,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
 
 	/// <summary>
-	/// Runs a Parser Output Enumeration
+	///     Runs a Parser Output Enumeration
 	/// </summary>
 	/// <param name="context">Execution Context</param>
 	/// <param name="expressions">Parser Enumeration</param>

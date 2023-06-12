@@ -13,39 +13,24 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadArrayAccessReverseExpression : BadExpression
 {
-    /// <summary>
-    ///     Arguments of the array access.
-    /// </summary>
-    private readonly BadExpression[] m_Arguments;
+	/// <summary>
+	///     Arguments of the array access.
+	/// </summary>
+	private readonly BadExpression[] m_Arguments;
 
-    /// <summary>
-    ///     Indicates if the expression will be null-checked by the runtime
-    /// </summary>
-    public readonly bool NullChecked;
+	/// <summary>
+	///     Indicates if the expression will be null-checked by the runtime
+	/// </summary>
+	public readonly bool NullChecked;
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-	    foreach (BadExpression expression in Left.GetDescendantsAndSelf())
-	    {
-		    yield return expression;
-	    }
-
-	    foreach (BadExpression expression in m_Arguments)
-	    {
-		    foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-		    {
-			    yield return descendant;
-		    }
-	    }
-    }
-    /// <summary>
-    ///     Constructor of the Array Access Expression
-    /// </summary>
-    /// <param name="left">Left side of the expression</param>
-    /// <param name="args">Right side of the expression</param>
-    /// <param name="position">Position inside the source code</param>
-    /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
-    public BadArrayAccessReverseExpression(
+	/// <summary>
+	///     Constructor of the Array Access Expression
+	/// </summary>
+	/// <param name="left">Left side of the expression</param>
+	/// <param name="args">Right side of the expression</param>
+	/// <param name="position">Position inside the source code</param>
+	/// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
+	public BadArrayAccessReverseExpression(
 		BadExpression left,
 		BadExpression[] args,
 		BadSourcePosition position,
@@ -61,10 +46,26 @@ public class BadArrayAccessReverseExpression : BadExpression
 
 	public int ArgumentCount => m_Arguments.Length;
 
-    /// <summary>
-    ///     Left side of the Expression
-    /// </summary>
-    public BadExpression Left { get; set; }
+	/// <summary>
+	///     Left side of the Expression
+	/// </summary>
+	public BadExpression Left { get; set; }
+
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+
+		foreach (BadExpression expression in m_Arguments)
+		{
+			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+			{
+				yield return descendant;
+			}
+		}
+	}
 
 
 	public override void Optimize()

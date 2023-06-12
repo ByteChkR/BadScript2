@@ -11,7 +11,7 @@ using BadScript2.Runtime.Objects.Types;
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
-/// Implements Table Extensions
+///     Implements Table Extensions
 /// </summary>
 public class BadTableExtension : BadInteropExtension
 {
@@ -56,7 +56,7 @@ public class BadTableExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Joins two or more tables together
+	///     Joins two or more tables together
 	/// </summary>
 	/// <param name="ctx">The Execution Context</param>
 	/// <param name="self">The 'self' table</param>
@@ -98,7 +98,7 @@ public class BadTableExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Removes a key from the table
+	///     Removes a key from the table
 	/// </summary>
 	/// <param name="table">Table</param>
 	/// <param name="key">Key</param>
@@ -111,7 +111,7 @@ public class BadTableExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns the Keys of the Table
+	///     Returns the Keys of the Table
 	/// </summary>
 	/// <param name="table">Table</param>
 	/// <returns>Array of keys</returns>
@@ -121,7 +121,7 @@ public class BadTableExtension : BadInteropExtension
 	}
 
 	/// <summary>
-	/// Returns the Values of the Table
+	///     Returns the Values of the Table
 	/// </summary>
 	/// <param name="table">Table</param>
 	/// <returns>Array of Values</returns>

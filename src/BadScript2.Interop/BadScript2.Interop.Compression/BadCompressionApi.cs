@@ -10,22 +10,22 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Interop.Compression;
 
 /// <summary>
-/// Implements the "Compression" API
+///     Implements the "Compression" API
 /// </summary>
 public class BadCompressionApi : BadInteropApi
 {
 	/// <summary>
-	/// The FileSystem Instance
+	///     The FileSystem Instance
 	/// </summary>
 	private readonly IFileSystem m_FileSystem;
 
 	/// <summary>
-	/// Creates a new API Instance
+	///     Creates a new API Instance
 	/// </summary>
 	public BadCompressionApi() : this(BadFileSystem.Instance) { }
 
 	/// <summary>
-	/// Creates a new API Instance
+	///     Creates a new API Instance
 	/// </summary>
 	/// <param name="fileSystem">File System Instance to use</param>
 	public BadCompressionApi(IFileSystem fileSystem) : base("Compression")
@@ -35,7 +35,7 @@ public class BadCompressionApi : BadInteropApi
 
 
 	/// <summary>
-	/// Deflates the given string
+	///     Deflates the given string
 	/// </summary>
 	/// <param name="obj">String</param>
 	/// <returns>Compressed Array</returns>
@@ -51,7 +51,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Inflate the given array
+	///     Inflate the given array
 	/// </summary>
 	/// <param name="obj">Array</param>
 	/// <returns>String</returns>
@@ -67,7 +67,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// GZip Compress the given string
+	///     GZip Compress the given string
 	/// </summary>
 	/// <param name="obj">String</param>
 	/// <returns>Compressed Array</returns>
@@ -83,7 +83,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// GZip Decompress the given array
+	///     GZip Decompress the given array
 	/// </summary>
 	/// <param name="obj">Array</param>
 	/// <returns>String</returns>
@@ -99,7 +99,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// ZLib Compress the given string
+	///     ZLib Compress the given string
 	/// </summary>
 	/// <param name="obj">String</param>
 	/// <returns>Compressed Array</returns>
@@ -115,7 +115,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// ZLib Decompress the given array
+	///     ZLib Decompress the given array
 	/// </summary>
 	/// <param name="obj">Array</param>
 	/// <returns>String</returns>
@@ -154,7 +154,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Decompresses the given file to the given output directory
+	///     Decompresses the given file to the given output directory
 	/// </summary>
 	/// <param name="outputDir">Output Directory</param>
 	/// <param name="inputFile">Input File</param>
@@ -165,7 +165,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Compreses the given directory to the given output file
+	///     Compreses the given directory to the given output file
 	/// </summary>
 	/// <param name="inputDir">Input Directory</param>
 	/// <param name="outputFile">Output File</param>
@@ -176,7 +176,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Decompresses the given stream to the given output directory
+	///     Decompresses the given stream to the given output directory
 	/// </summary>
 	/// <param name="outputDir">directory</param>
 	/// <param name="input">Input Stream</param>
@@ -196,7 +196,7 @@ public class BadCompressionApi : BadInteropApi
 	}
 
 	/// <summary>
-	/// Compreses the given directory to the given output stream
+	///     Compreses the given directory to the given output stream
 	/// </summary>
 	/// <param name="inputDir">Input Directory</param>
 	/// <param name="output">Stream</param>

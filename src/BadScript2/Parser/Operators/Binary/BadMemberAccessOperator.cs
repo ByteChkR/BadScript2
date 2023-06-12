@@ -10,10 +10,10 @@ namespace BadScript2.Parser.Operators.Binary;
 /// </summary>
 public class BadMemberAccessOperator : BadBinaryOperator
 {
-    /// <summary>
-    ///     Constructor of the Operator
-    /// </summary>
-    public BadMemberAccessOperator() : base(2, ".") { }
+	/// <summary>
+	///     Constructor of the Operator
+	/// </summary>
+	public BadMemberAccessOperator() : base(2, ".") { }
 
 	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
 	{

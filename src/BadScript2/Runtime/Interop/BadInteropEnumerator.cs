@@ -13,26 +13,26 @@ namespace BadScript2.Runtime.Interop;
 /// </summary>
 public class BadInteropEnumerator : BadObject, IBadEnumerator
 {
-    /// <summary>
-    ///     Current Function Reference
-    /// </summary>
-    private readonly BadObjectReference m_Current;
+	/// <summary>
+	///     Current Function Reference
+	/// </summary>
+	private readonly BadObjectReference m_Current;
 
-    /// <summary>
-    ///     The Internal Enumerator
-    /// </summary>
-    private readonly IEnumerator<BadObject> m_Enumerator;
+	/// <summary>
+	///     The Internal Enumerator
+	/// </summary>
+	private readonly IEnumerator<BadObject> m_Enumerator;
 
-    /// <summary>
-    ///     GetNext Function Reference
-    /// </summary>
-    private readonly BadObjectReference m_Next;
+	/// <summary>
+	///     GetNext Function Reference
+	/// </summary>
+	private readonly BadObjectReference m_Next;
 
-    /// <summary>
-    ///     Creates a new Interop Enumerator
-    /// </summary>
-    /// <param name="enumerator">Enumerator to iterate</param>
-    public BadInteropEnumerator(IEnumerator<BadObject> enumerator)
+	/// <summary>
+	///     Creates a new Interop Enumerator
+	/// </summary>
+	/// <param name="enumerator">Enumerator to iterate</param>
+	public BadInteropEnumerator(IEnumerator<BadObject> enumerator)
 	{
 		m_Enumerator = enumerator;
 		BadDynamicInteropFunction next = new BadDynamicInteropFunction("MoveNext",

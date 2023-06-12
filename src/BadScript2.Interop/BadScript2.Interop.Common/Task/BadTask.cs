@@ -11,12 +11,12 @@ using BadScript2.Runtime.Objects.Types;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Implements a Task Object
+///     Implements a Task Object
 /// </summary>
 public class BadTask : BadObject
 {
 	/// <summary>
-	/// The BadTask Prototype
+	///     The BadTask Prototype
 	/// </summary>
 	public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadTask>("Task",
 		(ctx, args) =>
@@ -40,18 +40,18 @@ public class BadTask : BadObject
 		});
 
 	/// <summary>
-	/// The List of Continuation Tasks
+	///     The List of Continuation Tasks
 	/// </summary>
 	private readonly List<BadTask> m_ContinuationTasks = new List<BadTask>();
 
 	/// <summary>
-	/// The Task Properties
+	///     The Task Properties
 	/// </summary>
 	private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
 		new Dictionary<BadObject, BadObjectReference>();
 
 	/// <summary>
-	/// Constructs a new Task
+	///     Constructs a new Task
 	/// </summary>
 	/// <param name="runnable">Runnable</param>
 	/// <param name="name">Task Name</param>
@@ -77,47 +77,47 @@ public class BadTask : BadObject
 	}
 
 	/// <summary>
-	/// Runnable of the Task
+	///     Runnable of the Task
 	/// </summary>
 	public BadRunnable Runnable { get; }
 
 	/// <summary>
-	/// Enumeration of Continuation Tasks
+	///     Enumeration of Continuation Tasks
 	/// </summary>
 	public IEnumerable<BadTask> ContinuationTasks => m_ContinuationTasks;
 
 	/// <summary>
-	/// The Creator of this Task
+	///     The Creator of this Task
 	/// </summary>
 	public BadTask? Creator { get; private set; }
 
 	/// <summary>
-	/// The Name of the Task
+	///     The Name of the Task
 	/// </summary>
 	public string Name { get; set; }
 
 	/// <summary>
-	/// Is True if the Task is not running, finished or paused
+	///     Is True if the Task is not running, finished or paused
 	/// </summary>
 	public bool IsInactive => !IsRunning && !IsFinished && !IsPaused;
 
 	/// <summary>
-	/// Is true if the task is running
+	///     Is true if the task is running
 	/// </summary>
 	public bool IsRunning { get; private set; }
 
 	/// <summary>
-	/// Is true if the task is finished
+	///     Is true if the task is finished
 	/// </summary>
 	public bool IsFinished { get; private set; }
 
 	/// <summary>
-	/// Is true if the task is running
+	///     Is true if the task is running
 	/// </summary>
 	public bool IsPaused { get; private set; }
 
 	/// <summary>
-	/// Adds a Continuation Task
+	///     Adds a Continuation Task
 	/// </summary>
 	/// <param name="task"></param>
 	public void AddContinuation(BadTask task)
@@ -126,7 +126,7 @@ public class BadTask : BadObject
 	}
 
 	/// <summary>
-	/// Sets the Creator of this Task
+	///     Sets the Creator of this Task
 	/// </summary>
 	/// <param name="task">Creator</param>
 	public void SetCreator(BadTask? task)
@@ -135,7 +135,7 @@ public class BadTask : BadObject
 	}
 
 	/// <summary>
-	/// Starts the Task
+	///     Starts the Task
 	/// </summary>
 	public void Start()
 	{
@@ -143,7 +143,7 @@ public class BadTask : BadObject
 	}
 
 	/// <summary>
-	/// Stops the Task
+	///     Stops the Task
 	/// </summary>
 	public void Stop()
 	{
@@ -153,7 +153,7 @@ public class BadTask : BadObject
 	}
 
 	/// <summary>
-	/// Cancels the Task
+	///     Cancels the Task
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is not running</exception>
 	public void Cancel()
@@ -169,7 +169,7 @@ public class BadTask : BadObject
 
 
 	/// <summary>
-	/// Resumes the Task
+	///     Resumes the Task
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is not running or paused</exception>
 	public void Resume()
@@ -189,7 +189,7 @@ public class BadTask : BadObject
 
 
 	/// <summary>
-	/// Pauses the Task
+	///     Pauses the Task
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is not running or is paused</exception>
 	public void Pause()
@@ -209,7 +209,7 @@ public class BadTask : BadObject
 
 
 	/// <summary>
-	/// Continues the Task with another Task
+	///     Continues the Task with another Task
 	/// </summary>
 	/// <param name="task">Continuation</param>
 	/// <returns>NULL</returns>
@@ -227,7 +227,7 @@ public class BadTask : BadObject
 	}
 
 	/// <summary>
-	/// Creates a new Task from a Function
+	///     Creates a new Task from a Function
 	/// </summary>
 	/// <param name="f">Function</param>
 	/// <param name="caller">Caller Context</param>

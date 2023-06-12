@@ -38,13 +38,13 @@ public static partial class BadDynamicFunctionExtensions
 		Func<T1, T2, T3, T4, T5, BadObject> func)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5>(propName,
-		(
-			_,
-			t1,
-			t2,
-			t3,
-			t4,
-			t5) => func(t1, t2, t3, t4, t5));
+			(
+				_,
+				t1,
+				t2,
+				t3,
+				t4,
+				t5) => func(t1, t2, t3, t4, t5));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6>(
@@ -53,14 +53,14 @@ public static partial class BadDynamicFunctionExtensions
 		Func<T1, T2, T3, T4, T5, T6, BadObject> func)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6>(propName,
-		(
-			_,
-			t1,
-			t2,
-			t3,
-			t4,
-			t5,
-			t6) => func(t1, t2, t3, t4, t5, t6));
+			(
+				_,
+				t1,
+				t2,
+				t3,
+				t4,
+				t5,
+				t6) => func(t1, t2, t3, t4, t5, t6));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7>(

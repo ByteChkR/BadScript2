@@ -7,7 +7,7 @@ using BadScript2.Reader;
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
-/// Implements the parse for the 'await' Expression
+///     Implements the parse for the 'await' Expression
 /// </summary>
 public class BadAwaitValueParser : BadValueParser
 {

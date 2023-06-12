@@ -9,17 +9,17 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>
-/// Implements the "OS" API
+///     Implements the "OS" API
 /// </summary>
 public class BadOperatingSystemApi : BadInteropApi
 {
 	/// <summary>
-	/// Constructs a new OS API Instance
+	///     Constructs a new OS API Instance
 	/// </summary>
 	public BadOperatingSystemApi() : base("OS") { }
 
 	/// <summary>
-	/// Creates the "Environment" Table
+	///     Creates the "Environment" Table
 	/// </summary>
 	/// <returns>Bad Table</returns>
 	private BadTable CreateEnvironmentTable()
@@ -74,7 +74,7 @@ public class BadOperatingSystemApi : BadInteropApi
 
 
 	/// <summary>
-	/// Wrapper that creates an awaitable enumeration for a process
+	///     Wrapper that creates an awaitable enumeration for a process
 	/// </summary>
 	/// <param name="p">The Process to wait for</param>
 	/// <param name="r">Runnable Getter</param>
@@ -91,7 +91,7 @@ public class BadOperatingSystemApi : BadInteropApi
 
 
 	/// <summary>
-	/// Creates the "Process" Table for a given Process
+	///     Creates the "Process" Table for a given Process
 	/// </summary>
 	/// <param name="p">The Process</param>
 	/// <returns>Process Table</returns>

@@ -10,57 +10,60 @@ namespace BadHtml.Transformer;
 
 public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
-    {
-        return context.InputNode.Name == "bs:while";
-    }
+	public override bool CanTransform(BadHtmlContext context)
+	{
+		return context.InputNode.Name == "bs:while";
+	}
 
-    private bool Evaluate(BadHtmlContext context, HtmlAttribute attribute, BadExpression[] expressions)
-    {
-        BadObject resultObj = context.Execute(expressions);
+	private bool Evaluate(BadHtmlContext context, HtmlAttribute attribute, BadExpression[] expressions)
+	{
+		BadObject resultObj = context.Execute(expressions);
 
-        if (resultObj is not IBadBoolean result)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Result of 'test' attribute in 'bs:if' node is not a boolean",
-                context.CreateAttributePosition(attribute)
-            );
-        }
+		if (resultObj is not IBadBoolean result)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Result of 'test' attribute in 'bs:if' node is not a boolean",
+				context.CreateAttributePosition(attribute));
+		}
 
-        return result.Value;
-    }
+		return result.Value;
+	}
 
-    public override void TransformNode(BadHtmlContext context)
-    {
-        HtmlAttribute? conditionAttribute = context.InputNode.Attributes["test"];
-        if (conditionAttribute == null)
-        {
-            throw BadRuntimeException.Create(context.ExecutionContext.Scope, "Missing 'test' attribute in 'bs:if' node", context.CreateOuterPosition());
-        }
+	public override void TransformNode(BadHtmlContext context)
+	{
+		HtmlAttribute? conditionAttribute = context.InputNode.Attributes["test"];
 
-        if (string.IsNullOrEmpty(conditionAttribute.Value))
-        {
-            throw BadRuntimeException.Create(context.ExecutionContext.Scope, "Empty 'test' attribute in 'bs:if' node", context.CreateAttributePosition(conditionAttribute));
-        }
+		if (conditionAttribute == null)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Missing 'test' attribute in 'bs:if' node",
+				context.CreateOuterPosition());
+		}
 
-        BadExpression[] expressions = context.Parse(conditionAttribute.Value, context.CreateAttributePosition(conditionAttribute));
-        while (Evaluate(context, conditionAttribute, expressions))
-        {
-            BadExecutionContext loopContext = new BadExecutionContext(
-                context.ExecutionContext.Scope.CreateChild(
-                    "bs:while",
-                    context.ExecutionContext.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
-            foreach (HtmlNode? child in context.InputNode.ChildNodes)
-            {
-                BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, loopContext);
+		if (string.IsNullOrEmpty(conditionAttribute.Value))
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Empty 'test' attribute in 'bs:if' node",
+				context.CreateAttributePosition(conditionAttribute));
+		}
 
-                Transform(childContext);
-            }
-        }
-    }
+		BadExpression[] expressions =
+			context.Parse(conditionAttribute.Value, context.CreateAttributePosition(conditionAttribute));
+
+		while (Evaluate(context, conditionAttribute, expressions))
+		{
+			BadExecutionContext loopContext = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild(
+				"bs:while",
+				context.ExecutionContext.Scope,
+				null,
+				BadScopeFlags.Breakable | BadScopeFlags.Continuable));
+
+			foreach (HtmlNode? child in context.InputNode.ChildNodes)
+			{
+				BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, loopContext);
+
+				Transform(childContext);
+			}
+		}
+	}
 }
