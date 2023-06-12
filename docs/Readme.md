@@ -34,7 +34,7 @@ Requirements:
 
 Run this powershell snippet to install the Runtime in the current directory.
 ```ps1
-irm https://bytechkr.github.io/BadScript2/Install.ps1 | iex
+irm https://bs.byt3.dev/Install.ps1 | iex
 ```
 
 
