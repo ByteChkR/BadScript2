@@ -34,10 +34,8 @@ Requirements:
 
 Run this powershell snippet to install the Runtime in the current directory.
 ```ps1
-Invoke-WebRequest -OutFile install.ps1 -Uri https://bs.byt3.dev/install.ps1;./install.ps1
+irm https://bytechkr.github.io/BadScript2/Install.ps1 | iex
 ```
-
-> Update the Runtime by running `./install.ps1` again.
 
 
 #### Building from Source
