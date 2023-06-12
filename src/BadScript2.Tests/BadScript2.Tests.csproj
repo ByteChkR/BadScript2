@@ -9,16 +9,16 @@
         <FileVersion>2023.1.31.0</FileVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
-        <PackageReference Include="NUnit" Version="3.13.3"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
-        <PackageReference Include="NUnit.Analyzers" Version="3.3.0"/>
-        <PackageReference Include="coverlet.collector" Version="3.1.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
+        <PackageReference Include="coverlet.collector" Version="3.1.2" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj"/>
-        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj"/>
-        <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
+        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj" />
+        <ProjectReference Include="..\BadScript2\BadScript2.csproj" />
     </ItemGroup>
     <ItemGroup>
         <None Update="tests\basic\variable_definitions\default.bs">
@@ -398,6 +398,81 @@
         </None>
         <None Update="tests\basic\native\String\StringTrimStart.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScript.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptWithSpaces.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScript.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScript.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptInsideTag.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptInsideTag.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptInsideTag.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptInsideTagWithSpaces.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptWithSpaces.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\InlineScriptWithSpaces.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScript.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScript.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScript.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideAttribute.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideAttribute.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideAttribute.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideTag.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideTag.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideTag.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideTagWithSpaces.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideTagWithSpaces.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptInsideTagWithSpaces.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptWithSpaces.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptWithSpaces.default.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\html\simple\Inline\InlineScriptWithSpaces.skip.html">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 </Project>

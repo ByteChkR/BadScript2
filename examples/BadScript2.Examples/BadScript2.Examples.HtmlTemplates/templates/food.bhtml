@@ -1,0 +1,84 @@
+<bs:function name="GenerateFruit" param:fruit>
+	<h2>{fruit.name}</h2>
+	<p>ID: {fruit.id}</p>
+	<p>Family: {fruit.family}</p>
+	<p>Order: {fruit.order}</p>
+	<p>Genus: {fruit.genus}</p>
+	<h4>Nutrition(per 100g)</h4>
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Value</th>
+		</tr>
+		<tr>
+			<td>Calories</td>
+			<td>{fruit.nutritions.calories}g</td>
+		</tr>
+		<tr>
+			<td>Fat</td>
+			<td>{fruit.nutritions.sugar}g</td>
+		</tr>
+		<tr>
+			<td>Sugar</td>
+			<td>{fruit.nutritions.sugar}g</td>
+		</tr>
+		<tr>
+			<td>Carbohydrates</td>
+			<td>{fruit.nutritions.carbohydrates}g</td>
+		</tr>
+		<tr>
+			<td>Protein</td>
+			<td>{fruit.nutritions.protein}g</td>
+		</tr>
+	</table>
+</bs:function>
+
+
+<script lang="bs2">
+	function GetFruits()
+	{
+		if(Model.Keys.Contains("Order"))
+		{
+			return Model.Fruits.OrderBy(x => x[Model.Order]);
+		}
+
+		return Model.Fruits;
+	}
+</script>
+
+<body>
+	<h1 style="text-align: center;">Fruit Listing</h1>
+	<div class="container">
+		<bs:each on="GetFruits()" as="fruit">
+			<div class="fruit">
+				{GenerateFruit(fruit)}
+			</div>
+		</bs:each>
+	</div>
+</body>
+
+<style>
+	
+	table {
+		border-collapse: collapse;
+		table-layout: fixed;
+		width: 300px;
+	}
+
+	table, th, td {
+		border: 1px solid black;
+	}
+
+	.container {
+		margin-left: 100px;
+		margin-right: 100px;
+	}
+
+	.fruit {
+		border-bottom: 1px solid black;
+		padding-bottom: 50px;
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+
+</style>

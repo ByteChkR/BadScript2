@@ -210,6 +210,7 @@ public class BadLinqExtensions : BadInteropExtension
 		Register<decimal>("Skip", Skip);
 		Register<decimal>("SkipLast", SkipLast);
 		Register<decimal>("Take", Take);
+		Register<BadFunction>("OrderBy", OrderBy);
 		RegisterObject<IBadEnumerable>("First",
 			e => new BadInteropFunction("First",
 				(c, args) => First(c, e, args[0]),
@@ -241,6 +242,25 @@ public class BadLinqExtensions : BadInteropExtension
 		RegisterObject<IBadEnumerable>("ToTable",
 			e => new BadDynamicInteropFunction<BadFunction, BadFunction>("ToTable",
 				(c, ks, vs) => ToTable(c, e, ks, vs)));
+	}
+
+	private BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
+	{
+		return new BadInteropEnumerable(e.OrderBy(o =>
+		{
+			BadObject? r = BadObject.Null;
+
+			foreach (BadObject o1 in function.Invoke(new[]
+				         {
+					         o
+				         },
+				         ctx))
+			{
+				r = o1;
+			}
+
+			return r.Dereference();
+		}));
 	}
 
 	private static void Register(string name, Func<BadExecutionContext, IBadEnumerable, BadObject> func)

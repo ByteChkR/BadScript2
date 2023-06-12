@@ -5,7 +5,7 @@ namespace BadScript2.Runtime.Objects.Native;
 /// <summary>
 ///     Implements a Native String
 /// </summary>
-public class BadString : BadNative<string>, IBadString
+public class BadString : BadNative<string>, IBadString, IComparable, IComparable<BadObject>, IComparable<IBadString>
 {
 	/// <summary>
 	///     Creates a new Native String
@@ -18,5 +18,30 @@ public class BadString : BadNative<string>, IBadString
 	public override BadClassPrototype GetPrototype()
 	{
 		return BadNativeClassBuilder.GetNative("string");
+	}
+
+	public int CompareTo(object obj)
+	{
+		if (obj is BadObject o)
+		{
+			return CompareTo(o);
+		}
+		
+		throw new Exception("Cannot compare string to non string");
+	}
+
+	public int CompareTo(BadObject other)
+	{
+		if (other is IBadString str)
+		{
+			return CompareTo(str);
+		}
+		
+		throw new Exception("Cannot compare string to non string");
+	}
+
+	public int CompareTo(IBadString other)
+	{
+		return string.Compare(Value, other.Value, StringComparison.Ordinal);
 	}
 }

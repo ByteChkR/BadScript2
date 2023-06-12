@@ -1,3 +1,5 @@
+using BadHtml;
+
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
@@ -17,6 +19,8 @@ using BadScript2.Runtime.VirtualMachine;
 using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
 
+using HtmlAgilityPack;
+
 namespace BadScript2.Tests;
 
 public class BadUnitTests
@@ -28,6 +32,10 @@ public class BadUnitTests
 
 
 	private static string TestDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "tests");
+
+	private static string ScriptTestDirectory => Path.Combine(TestDirectory, "basic");
+
+	private static string HtmlTestDirectory => Path.Combine(TestDirectory, "html");
 
 	private static BadUnitTestContext Context
 	{
@@ -55,10 +63,10 @@ public class BadUnitTests
 			apis.Add(new BadJsonApi());
 			apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
-			BadFileSystem.Instance.CreateDirectory(TestDirectory);
+			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
-			string[] files = BadFileSystem.Instance.GetFiles(TestDirectory,
+			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
 					true)
 				.ToArray();
@@ -96,10 +104,10 @@ public class BadUnitTests
 			apis.Add(new BadJsonApi());
 			apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
-			BadFileSystem.Instance.CreateDirectory(TestDirectory);
+			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
-			string[] files = BadFileSystem.Instance.GetFiles(TestDirectory,
+			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
 					true)
 				.ToArray();
@@ -137,10 +145,10 @@ public class BadUnitTests
 			apis.Add(new BadJsonApi());
 			apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
-			BadFileSystem.Instance.CreateDirectory(TestDirectory);
+			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
-			string[] files = BadFileSystem.Instance.GetFiles(TestDirectory,
+			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
 					true)
 				.ToArray();
@@ -178,10 +186,10 @@ public class BadUnitTests
 			apis.Add(new BadJsonApi());
 			apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
 
-			BadFileSystem.Instance.CreateDirectory(TestDirectory);
+			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
 
-			string[] files = BadFileSystem.Instance.GetFiles(TestDirectory,
+			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
 					true)
 				.ToArray();
@@ -236,6 +244,11 @@ public class BadUnitTests
 			.ToArray();
 	}
 
+	public static string[] GetHtmlTemplateFiles()
+	{
+		return BadFileSystem.Instance.GetFiles(HtmlTestDirectory, ".bhtml", true).ToArray();
+	}
+
 	public static BadNUnitTestCase[] GetCompiledOptimizedTestCases()
 	{
 		if (CompiledOptimizedContext == null)
@@ -279,6 +292,59 @@ public class BadUnitTests
 	public void TestCompiledOptimized(BadNUnitTestCase testCase)
 	{
 		CompiledOptimizedContext.Run(testCase);
+	}
+
+	private HtmlDocument LoadReference(string file)
+	{
+		HtmlDocument reference = new HtmlDocument();
+		reference.Load(file);
+
+		return reference;
+	}
+
+	[Test]
+	[TestCaseSource(nameof(GetHtmlTemplateFiles))]
+	public void TestHtmlTemplateDefault(string file)
+	{
+		BadHtmlTemplateOptions options = new BadHtmlTemplateOptions();
+		string referenceFile = Path.ChangeExtension(file, $".{(options.SkipEmptyTextNodes ? "skip" : "default")}.html");
+		HtmlDocument result = BadHtmlTemplate.Create(file).RunTemplate(null, options);
+
+		if (BadFileSystem.Instance.Exists(referenceFile))
+		{
+			HtmlDocument reference = LoadReference(referenceFile);
+			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));
+		}
+		else
+		{
+			BadFileSystem.Instance.CreateDirectory(Path.GetDirectoryName(referenceFile)!, true);
+			result.Save(referenceFile);
+			Assert.Inconclusive("Reference file does not exist. Saving...");
+		}
+	}
+
+	[Test]
+	[TestCaseSource(nameof(GetHtmlTemplateFiles))]
+	public void TestHtmlTemplateSkipEmpty(string file)
+	{
+		BadHtmlTemplateOptions options = new BadHtmlTemplateOptions
+		{
+			SkipEmptyTextNodes = true
+		};
+		string referenceFile = Path.ChangeExtension(file, $".{(options.SkipEmptyTextNodes ? "skip" : "default")}.html");
+		HtmlDocument result = BadHtmlTemplate.Create(file).RunTemplate(null, options);
+
+		if (BadFileSystem.Instance.Exists(referenceFile))
+		{
+			HtmlDocument reference = LoadReference(referenceFile);
+			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));
+		}
+		else
+		{
+			BadFileSystem.Instance.CreateDirectory(Path.GetDirectoryName(referenceFile)!, true);
+			result.Save(referenceFile);
+			Assert.Inconclusive("Reference file does not exist. Saving...");
+		}
 	}
 
 
