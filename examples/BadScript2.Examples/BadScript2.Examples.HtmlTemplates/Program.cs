@@ -24,7 +24,7 @@ internal static class Program
         BadObject model = BadObject.Null;//BadJson.FromJson(File.ReadAllText("templates/docs.json"));
 
         //Load the template
-        BadHtmlTemplate template = new BadHtmlTemplate("templates/docs.bhtml");
+        BadHtmlTemplate template = BadHtmlTemplate.Create("templates/docs.bhtml");
 
         //Run the template with the model and write the result to a file
         File.WriteAllText("template.html", template.Run(model));

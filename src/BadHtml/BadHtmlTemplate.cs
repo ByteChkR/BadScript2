@@ -1,5 +1,6 @@
 using System.IO;
 
+using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
@@ -29,7 +30,7 @@ public class BadHtmlTemplate
 
 	public void Reload()
 	{
-		m_Source = File.ReadAllText(m_FilePath);
+		m_Source = BadFileSystem.ReadAllText(m_FilePath);
 	}
 
 	public HtmlDocument RunTemplate(object? model = null, BadHtmlTemplateOptions? options = null)
