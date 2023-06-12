@@ -11,14 +11,14 @@ namespace BadScript2.Parser.Expressions.Variables;
 /// </summary>
 public class BadVariableDefinitionExpression : BadVariableExpression
 {
-    /// <summary>
-    ///     Constructor of the Variable Definition Expression
-    /// </summary>
-    /// <param name="name">The name of the Variable</param>
-    /// <param name="position">The Source Position of the Expression</param>
-    /// <param name="typeExpression">The (optional) Type of the Variable</param>
-    /// <param name="isReadOnly">Indicates if the Variable will be declared as Read-Only</param>
-    public BadVariableDefinitionExpression(
+	/// <summary>
+	///     Constructor of the Variable Definition Expression
+	/// </summary>
+	/// <param name="name">The name of the Variable</param>
+	/// <param name="position">The Source Position of the Expression</param>
+	/// <param name="typeExpression">The (optional) Type of the Variable</param>
+	/// <param name="isReadOnly">Indicates if the Variable will be declared as Read-Only</param>
+	public BadVariableDefinitionExpression(
 		string name,
 		BadSourcePosition position,
 		BadExpression? typeExpression = null,
@@ -29,21 +29,21 @@ public class BadVariableDefinitionExpression : BadVariableExpression
 		TypeExpression = typeExpression;
 	}
 
-    /// <summary>
-    ///     Indicates if the Variable will be declared as Read-Only
-    /// </summary>
-    public bool IsReadOnly { get; }
+	/// <summary>
+	///     Indicates if the Variable will be declared as Read-Only
+	/// </summary>
+	public bool IsReadOnly { get; }
 
-    /// <summary>
-    ///     The (optional) Type of the Variable
-    /// </summary>
-    public BadExpression? TypeExpression { get; }
+	/// <summary>
+	///     The (optional) Type of the Variable
+	/// </summary>
+	public BadExpression? TypeExpression { get; }
 
-    /// <summary>
-    ///     String Representation of the Expression
-    /// </summary>
-    /// <returns>String Representation</returns>
-    public override string ToString()
+	/// <summary>
+	///     String Representation of the Expression
+	/// </summary>
+	/// <returns>String Representation</returns>
+	public override string ToString()
 	{
 		if (IsReadOnly)
 		{

@@ -12,21 +12,21 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadClassPrototypeExpression : BadExpression
 {
-    /// <summary>
-    ///     The Class Body
-    /// </summary>
-    private readonly BadExpression[] m_Body;
+	/// <summary>
+	///     The Class Body
+	/// </summary>
+	private readonly BadExpression[] m_Body;
 
 	private readonly BadMetaData? m_MetaData;
 
-    /// <summary>
-    ///     Constructor of the Class Prototype Expression
-    /// </summary>
-    /// <param name="name">The Class name</param>
-    /// <param name="body">The Class Body</param>
-    /// <param name="baseClass">The (optional) base class</param>
-    /// <param name="position">The Source Position of the Expression</param>
-    public BadClassPrototypeExpression(
+	/// <summary>
+	///     Constructor of the Class Prototype Expression
+	/// </summary>
+	/// <param name="name">The Class name</param>
+	/// <param name="body">The Class Body</param>
+	/// <param name="baseClass">The (optional) base class</param>
+	/// <param name="position">The Source Position of the Expression</param>
+	public BadClassPrototypeExpression(
 		string name,
 		BadExpression[] body,
 		BadExpression? baseClass,
@@ -39,20 +39,20 @@ public class BadClassPrototypeExpression : BadExpression
 		m_MetaData = metaData;
 	}
 
-    /// <summary>
-    ///     The (optional) Base Class
-    /// </summary>
-    public BadExpression? BaseClass { get; }
+	/// <summary>
+	///     The (optional) Base Class
+	/// </summary>
+	public BadExpression? BaseClass { get; }
 
-    /// <summary>
-    ///     The Class Body
-    /// </summary>
-    public IEnumerable<BadExpression> Body => m_Body;
+	/// <summary>
+	///     The Class Body
+	/// </summary>
+	public IEnumerable<BadExpression> Body => m_Body;
 
-    /// <summary>
-    ///     The Class Name
-    /// </summary>
-    public string Name { get; }
+	/// <summary>
+	///     The Class Name
+	/// </summary>
+	public string Name { get; }
 
 	public override void Optimize()
 	{

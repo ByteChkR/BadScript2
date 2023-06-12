@@ -1,5 +1,3 @@
-using System.IO;
-
 using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;

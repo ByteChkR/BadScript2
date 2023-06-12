@@ -17,30 +17,30 @@ namespace BadScript2.Parser.Expressions.Function;
 /// </summary>
 public class BadFunctionExpression : BadExpression
 {
-    /// <summary>
-    ///     The Function Body
-    /// </summary>
-    private readonly List<BadExpression> m_Body;
+	/// <summary>
+	///     The Function Body
+	/// </summary>
+	private readonly List<BadExpression> m_Body;
 
 
 	private readonly BadMetaData? m_MetaData;
 
-    /// <summary>
-    ///     The Function parameters
-    /// </summary>
-    private readonly List<BadFunctionParameter> m_Parameters;
+	/// <summary>
+	///     The Function parameters
+	/// </summary>
+	private readonly List<BadFunctionParameter> m_Parameters;
 
-    /// <summary>
-    ///     Constructor of the Function Expression
-    /// </summary>
-    /// <param name="name">The (optional) name of the function</param>
-    /// <param name="parameter">The Function Parameters</param>
-    /// <param name="block">The Function Body</param>
-    /// <param name="position">Source Position of the Expression</param>
-    /// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
-    /// <param name="compileLevel">Defines if the resulting function will be compiled</param>
-    /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
-    public BadFunctionExpression(
+	/// <summary>
+	///     Constructor of the Function Expression
+	/// </summary>
+	/// <param name="name">The (optional) name of the function</param>
+	/// <param name="parameter">The Function Parameters</param>
+	/// <param name="block">The Function Body</param>
+	/// <param name="position">Source Position of the Expression</param>
+	/// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
+	/// <param name="compileLevel">Defines if the resulting function will be compiled</param>
+	/// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
+	public BadFunctionExpression(
 		BadWordToken? name,
 		List<BadFunctionParameter> parameter,
 		List<BadExpression> block,
@@ -60,30 +60,30 @@ public class BadFunctionExpression : BadExpression
 		CompileLevel = compileLevel;
 	}
 
-    /// <summary>
-    ///     Indicates if this function can not be overwritten by another object
-    /// </summary>
-    public bool IsConstantFunction { get; }
+	/// <summary>
+	///     Indicates if this function can not be overwritten by another object
+	/// </summary>
+	public bool IsConstantFunction { get; }
 
-    /// <summary>
-    ///     The (optional) Type Expression that is used to type-check the return value
-    /// </summary>
-    public BadExpression? TypeExpression { get; }
+	/// <summary>
+	///     The (optional) Type Expression that is used to type-check the return value
+	/// </summary>
+	public BadExpression? TypeExpression { get; }
 
-    /// <summary>
-    ///     The Function Parameters
-    /// </summary>
-    public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
+	/// <summary>
+	///     The Function Parameters
+	/// </summary>
+	public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
 
-    /// <summary>
-    ///     The Function Body
-    /// </summary>
-    public IEnumerable<BadExpression> Body => m_Body;
+	/// <summary>
+	///     The Function Body
+	/// </summary>
+	public IEnumerable<BadExpression> Body => m_Body;
 
-    /// <summary>
-    ///     The (optional) Function Name
-    /// </summary>
-    public BadWordToken? Name { get; }
+	/// <summary>
+	///     The (optional) Function Name
+	/// </summary>
+	public BadWordToken? Name { get; }
 
 	public BadFunctionCompileLevel CompileLevel { get; }
 
@@ -95,11 +95,11 @@ public class BadFunctionExpression : BadExpression
 		}
 	}
 
-    /// <summary>
-    ///     Returns the Header of the Function
-    /// </summary>
-    /// <returns>String Header of the Function</returns>
-    public string GetHeader()
+	/// <summary>
+	///     Returns the Header of the Function
+	/// </summary>
+	/// <returns>String Header of the Function</returns>
+	public string GetHeader()
 	{
 		return
 			$"{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";

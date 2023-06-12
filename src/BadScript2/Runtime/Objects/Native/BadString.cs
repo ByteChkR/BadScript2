@@ -15,18 +15,13 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
 
 	string IBadString.Value => Value;
 
-	public override BadClassPrototype GetPrototype()
-	{
-		return BadNativeClassBuilder.GetNative("string");
-	}
-
 	public int CompareTo(object obj)
 	{
 		if (obj is BadObject o)
 		{
 			return CompareTo(o);
 		}
-		
+
 		throw new Exception("Cannot compare string to non string");
 	}
 
@@ -36,12 +31,17 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
 		{
 			return CompareTo(str);
 		}
-		
+
 		throw new Exception("Cannot compare string to non string");
 	}
 
 	public int CompareTo(IBadString other)
 	{
 		return string.Compare(Value, other.Value, StringComparison.Ordinal);
+	}
+
+	public override BadClassPrototype GetPrototype()
+	{
+		return BadNativeClassBuilder.GetNative("string");
 	}
 }
