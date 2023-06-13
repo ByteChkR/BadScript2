@@ -31,7 +31,7 @@ public class BadHtmlTemplate
 		m_Source = BadFileSystem.ReadAllText(m_FilePath);
 	}
 
-	public HtmlDocument RunTemplate(object? model = null, BadHtmlTemplateOptions? options = null)
+	public HtmlDocument RunTemplate(object? model = null, BadHtmlTemplateOptions? options = null, BadScope? caller = null)
 	{
 		options ??= new BadHtmlTemplateOptions();
 		string src = GetSource();
@@ -39,6 +39,7 @@ public class BadHtmlTemplate
 		input.LoadHtml(src);
 		HtmlDocument output = new HtmlDocument();
 		BadExecutionContext executionContext = BadExecutionContextOptions.Default.Build();
+		executionContext.Scope.SetCaller(caller);
 
 		BadObject mod = model as BadObject ?? BadObject.Wrap(model);
 		executionContext.Scope.DefineVariable("Model", mod, executionContext.Scope, new BadPropertyInfo(null, true));
@@ -53,9 +54,9 @@ public class BadHtmlTemplate
 		return output;
 	}
 
-	public string Run(object? model = null, BadHtmlTemplateOptions? options = null)
+	public string Run(object? model = null, BadHtmlTemplateOptions? options = null, BadScope? caller = null)
 	{
-		return RunTemplate(model, options).DocumentNode.OuterHtml;
+		return RunTemplate(model, options, caller).DocumentNode.OuterHtml;
 	}
 
 	public static BadHtmlTemplate Create(string file)

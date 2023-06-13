@@ -13,8 +13,13 @@ public class BadScope : BadObject
 	/// <summary>
 	///     The Caller of the Current Scope
 	/// </summary>
-	private readonly BadScope? m_Caller;
+	private BadScope? m_Caller;
 
+	public void SetCaller(BadScope? caller)
+	{
+		m_Caller = caller;
+	}
+	
 	/// <summary>
 	///     The Scope Variables
 	/// </summary>

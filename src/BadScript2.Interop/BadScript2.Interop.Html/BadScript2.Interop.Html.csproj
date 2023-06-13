@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\BadHtml\BadHtml.csproj" />
+      <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
+    </ItemGroup>
+
+</Project>
