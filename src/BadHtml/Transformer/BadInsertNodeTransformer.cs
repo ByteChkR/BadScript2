@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 
@@ -7,53 +9,67 @@ namespace BadHtml.Transformer;
 
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
-	public override bool CanTransform(BadHtmlContext context)
-	{
-		return context.InputNode.Name == "bs:insert";
-	}
+    public override bool CanTransform(BadHtmlContext context)
+    {
+        return context.InputNode.Name == "bs:insert";
+    }
 
-	public override void TransformNode(BadHtmlContext context)
-	{
-		HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];
-		bool isGlobal = context.InputNode.Attributes["global"]?.Value != "false";
 
-		if (pathAttribute == null)
-		{
-			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
-				"Missing 'into' attribute in 'bs:insert' node",
-				context.CreateOuterPosition());
-		}
+    private IEnumerable<HtmlNode> GetNodes(BadHtmlContext context, string path, bool global)
+    {
+        if (path.StartsWith("#"))
+        {
+            yield return context.OutputDocument.GetElementbyId(path.Remove(1));
+        }
+        else
+        {
+            HtmlNode? root = global ? context.OutputDocument.DocumentNode : context.OutputNode;
+            foreach (HtmlNode node in root.SelectNodes(path))
+            {
+                yield return node;
+            }
+        }
+    }
 
-		string? path = pathAttribute.Value;
+    public override void TransformNode(BadHtmlContext context)
+    {
+        HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];
+        bool isGlobal = context.InputNode.Attributes["global"]?.Value != "false";
 
-		if (string.IsNullOrEmpty(path))
-		{
-			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
-				"Empty 'into' attribute in 'bs:insert' node",
-				context.CreateAttributePosition(pathAttribute));
-		}
+        if (pathAttribute == null)
+        {
+            throw BadRuntimeException.Create(
+                context.ExecutionContext.Scope,
+                "Missing 'into' attribute in 'bs:insert' node",
+                context.CreateOuterPosition()
+            );
+        }
 
-		//Either it is an ID(starting with #) or a XPath
-		//	If its an ID the "isGlobal" flag is ignored
-		HtmlNode? outputNode = path.StartsWith("#") ? context.OutputDocument.GetElementbyId(path.Remove(1)) :
-			isGlobal ?
-				context.OutputDocument.DocumentNode.SelectSingleNode(path) :
-				context.OutputNode.SelectSingleNode(path);
+        string? path = pathAttribute.Value;
 
-		if (outputNode == null)
-		{
-			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
-				$"Could not find node '{path}'",
-				context.CreateAttributePosition(pathAttribute));
-		}
+        if (string.IsNullOrEmpty(path))
+        {
+            throw BadRuntimeException.Create(
+                context.ExecutionContext.Scope,
+                "Empty 'into' attribute in 'bs:insert' node",
+                context.CreateAttributePosition(pathAttribute)
+            );
+        }
 
-		foreach (HtmlNode node in context.InputNode.ChildNodes)
-		{
-			BadHtmlContext ctx = context.CreateChild(node,
-				outputNode,
-				new BadExecutionContext(
-					context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null)));
-			Transform(ctx);
-		}
-	}
+
+        foreach (HtmlNode outputNode in GetNodes(context, path, isGlobal))
+        {
+            foreach (HtmlNode node in context.InputNode.ChildNodes)
+            {
+                BadHtmlContext ctx = context.CreateChild(
+                    node,
+                    outputNode,
+                    new BadExecutionContext(
+                        context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null)
+                    )
+                );
+                Transform(ctx);
+            }
+        }
+    }
 }
