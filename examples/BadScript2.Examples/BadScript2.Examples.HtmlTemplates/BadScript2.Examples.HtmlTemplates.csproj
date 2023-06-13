@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\src\BadHtml\BadHtml.csproj" />
+      <ProjectReference Include="..\..\..\src\BadScript2.Interop\BadScript2.Interop.Html\BadScript2.Interop.Html.csproj" />
     </ItemGroup>
 
     <ItemGroup>
