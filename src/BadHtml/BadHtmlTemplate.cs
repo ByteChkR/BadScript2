@@ -9,6 +9,7 @@ namespace BadHtml;
 public class BadHtmlTemplate
 {
 	private readonly string m_FilePath;
+	public string FilePath => m_FilePath;
 	private string? m_Source;
 
 	private BadHtmlTemplate(string filePath)
