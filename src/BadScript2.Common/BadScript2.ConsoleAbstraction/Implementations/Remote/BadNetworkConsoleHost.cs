@@ -21,6 +21,7 @@ public class BadNetworkConsoleHost : IBadConsole
 	private readonly ConcurrentQueue<BadConsolePacket> m_OutgoingPackets = new ConcurrentQueue<BadConsolePacket>();
 	private ConsoleColor m_BackgroundColor = ConsoleColor.Black;
 	private TcpClient? m_Client;
+	public bool IsConnected => m_Client != null;
 	private bool m_ExitRequested;
 	private ConsoleColor m_ForegroundColor = ConsoleColor.White;
 
