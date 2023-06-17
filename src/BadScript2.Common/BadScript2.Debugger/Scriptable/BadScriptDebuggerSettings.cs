@@ -7,23 +7,15 @@ namespace BadScript2.Debugger.Scriptable;
 
 public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSettings>
 {
-	private BadSettings? m_DebuggerPathObj;
-
 	public BadScriptDebuggerSettings() : base("Runtime.Debugger") { }
 
-	public BadSettings? DebuggerPathObj
+	
+	private BadEditableSetting<BadScriptDebuggerSettings, string> m_DebuggerPath =
+		new BadEditableSetting<BadScriptDebuggerSettings, string>(nameof(DebuggerPath), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Debugger.bs"));
+	
+	public string DebuggerPath
 	{
-		get
-		{
-			if (m_DebuggerPathObj == null && Settings != null && Settings.HasProperty("Path"))
-			{
-				m_DebuggerPathObj = Settings?.GetProperty("Path");
-			}
-
-			return m_DebuggerPathObj;
-		}
+		get => m_DebuggerPath.GetValue()!;
+		set => m_DebuggerPath.Set(value);
 	}
-
-	public string? DebuggerPath =>
-		DebuggerPathObj?.GetValue<string>() ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Debugger.bs");
 }

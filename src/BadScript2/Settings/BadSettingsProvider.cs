@@ -59,7 +59,7 @@ public abstract class BadSettingsProvider<T> where T : BadSettingsProvider<T>, n
 	/// <summary>
 	///     Returns the Instance of the Settings Provider
 	/// </summary>
-	protected BadSettings? Settings =>
+	public BadSettings? Settings =>
 		BadSettingsProvider.HasRootSettings ? BadSettingsProvider.RootSettings.FindProperty(m_Path) : null;
 
 	/// <summary>

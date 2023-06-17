@@ -8,87 +8,63 @@ namespace BadScript2.Common.Logging;
 /// </summary>
 public class BadLoggerSettings : BadSettingsProvider<BadLoggerSettings>
 {
-	private BadSettings? m_ErrorBackgroundColorObj;
+    private readonly BadEditableSetting<BadLoggerSettings, string> m_ErrorBackgroundColor =
+        new BadEditableSetting<BadLoggerSettings, string>(nameof(ErrorBackgroundColor), "Black");
 
 
-	private BadSettings? m_ErrorForegroundColorObj;
+    private readonly BadEditableSetting<BadLoggerSettings, string> m_ErrorForegroundColor =
+        new BadEditableSetting<BadLoggerSettings, string>(nameof(ErrorForegroundColor), "White");
+
+    private readonly BadEditableSetting<BadLoggerSettings, string> m_LogBackgroundColor =
+        new BadEditableSetting<BadLoggerSettings, string>(nameof(LogBackgroundColor), "Black");
 
 
-	private BadSettings? m_LogBackgroundColorObj;
-
-	private BadSettings? m_LogForegroundColorObj;
-
-
-	private BadSettings? m_WarnBackgroundColorObj;
+    private readonly BadEditableSetting<BadLoggerSettings, string> m_LogForegroundColor =
+        new BadEditableSetting<BadLoggerSettings, string>(nameof(LogForegroundColor), "White");
 
 
-	private BadSettings? m_WarnForegroundColorObj;
+    private readonly BadEditableSetting<BadLoggerSettings, string> m_WarnBackgroundColor =
+        new BadEditableSetting<BadLoggerSettings, string>(nameof(WarnBackgroundColor), "Black");
 
-	public BadLoggerSettings() : base("Logging") { }
 
-	private BadSettings? LogForegroundColorObj =>
-		m_LogForegroundColorObj ??= Settings?.GetProperty(nameof(LogForegroundColor));
+    private readonly BadEditableSetting<BadLoggerSettings, string> m_WarnForegroundColor =
+        new BadEditableSetting<BadLoggerSettings, string>(nameof(WarnForegroundColor), "White");
 
-	public ConsoleColor LogForegroundColor
-	{
-		get =>
-			BadEnum.Parse<ConsoleColor>(LogForegroundColorObj?.GetValue<string>() ?? "White",
-				true);
-		set => LogForegroundColorObj?.SetValue(value.ToString());
-	}
+    public BadLoggerSettings() : base("Logging") { }
 
-	private BadSettings? LogBackgroundColorObj =>
-		m_LogBackgroundColorObj ??= Settings?.GetProperty(nameof(LogBackgroundColor));
+    public ConsoleColor LogForegroundColor
+    {
+        get => BadEnum.Parse<ConsoleColor>(m_LogForegroundColor.GetValue()!, true);
+        set => m_LogForegroundColor.Set(value.ToString());
+    }
 
-	public ConsoleColor LogBackgroundColor
-	{
-		get =>
-			BadEnum.Parse<ConsoleColor>(LogBackgroundColorObj?.GetValue<string>() ?? "Black",
-				true);
-		set => LogBackgroundColorObj?.SetValue(value.ToString());
-	}
+    public ConsoleColor LogBackgroundColor
+    {
+        get => BadEnum.Parse<ConsoleColor>(m_LogBackgroundColor.GetValue()!, true);
+        set => m_LogBackgroundColor.Set(value.ToString());
+    }
 
-	private BadSettings? WarnForegroundColorObj =>
-		m_WarnForegroundColorObj ??= Settings?.GetProperty(nameof(WarnForegroundColor));
+    public ConsoleColor WarnForegroundColor
+    {
+        get => BadEnum.Parse<ConsoleColor>(m_WarnForegroundColor.GetValue()!, true);
+        set => m_WarnForegroundColor.Set(value.ToString());
+    }
 
-	public ConsoleColor WarnForegroundColor
-	{
-		get =>
-			BadEnum.Parse<ConsoleColor>(WarnForegroundColorObj?.GetValue<string>() ?? "White",
-				true);
-		set => WarnForegroundColorObj?.SetValue(value.ToString());
-	}
+    public ConsoleColor WarnBackgroundColor
+    {
+        get => BadEnum.Parse<ConsoleColor>(m_WarnBackgroundColor.GetValue()!, true);
+        set => m_WarnBackgroundColor.Set(value.ToString());
+    }
 
-	private BadSettings? WarnBackgroundColorObj =>
-		m_WarnBackgroundColorObj ??= Settings?.GetProperty(nameof(WarnBackgroundColor));
+    public ConsoleColor ErrorForegroundColor
+    {
+        get => BadEnum.Parse<ConsoleColor>(m_ErrorForegroundColor.GetValue()!, true);
+        set => m_ErrorForegroundColor.Set(value.ToString());
+    }
 
-	public ConsoleColor WarnBackgroundColor
-	{
-		get =>
-			BadEnum.Parse<ConsoleColor>(WarnBackgroundColorObj?.GetValue<string>() ?? "Black",
-				true);
-		set => WarnBackgroundColorObj?.SetValue(value.ToString());
-	}
-
-	private BadSettings? ErrorForegroundColorObj =>
-		m_ErrorForegroundColorObj ??= Settings?.GetProperty(nameof(ErrorForegroundColor));
-
-	public ConsoleColor ErrorForegroundColor
-	{
-		get =>
-			BadEnum.Parse<ConsoleColor>(ErrorForegroundColorObj?.GetValue<string>() ?? "White",
-				true);
-		set => ErrorForegroundColorObj?.SetValue(value.ToString());
-	}
-
-	private BadSettings? ErrorBackgroundColorObj =>
-		m_ErrorBackgroundColorObj ??= Settings?.GetProperty(nameof(ErrorBackgroundColor));
-
-	public ConsoleColor ErrorBackgroundColor
-	{
-		get =>
-			BadEnum.Parse<ConsoleColor>(ErrorBackgroundColorObj?.GetValue<string>() ?? "Black",
-				true);
-		set => ErrorBackgroundColorObj?.SetValue(value.ToString());
-	}
+    public ConsoleColor ErrorBackgroundColor
+    {
+        get => BadEnum.Parse<ConsoleColor>(m_ErrorBackgroundColor.GetValue()!, true);
+        set => m_ErrorBackgroundColor.Set(value.ToString());
+    }
 }

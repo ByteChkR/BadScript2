@@ -7,38 +7,22 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadTaskRunnerSettings : BadSettingsProvider<BadTaskRunnerSettings>
 {
-	/// <summary>
-	///     The Iteration Time of the Task Runner(how many iterations per runner step)
-	/// </summary>
-	private BadSettings? m_TaskIterationTimeObj;
 
 	/// <summary>
 	///     Creates a new Settings Instance
 	/// </summary>
 	public BadTaskRunnerSettings() : base("Runtime.Task") { }
 
-	/// <summary>
-	///     The Iteration Time of the Task Runner(how many iterations per runner step)
-	/// </summary>
-	private BadSettings? TaskIterationTimeObj
-	{
-		get
-		{
-			if (m_TaskIterationTimeObj == null && Settings != null && Settings.HasProperty(nameof(TaskIterationTime)))
-			{
-				m_TaskIterationTimeObj = Settings.GetProperty(nameof(TaskIterationTime));
-			}
 
-			return m_TaskIterationTimeObj;
-		}
-	}
-
+	
+	private readonly BadEditableSetting<BadTaskRunnerSettings, int> m_TaskIterationTime =
+		new BadEditableSetting<BadTaskRunnerSettings, int>(nameof(TaskIterationTime), 1);
 	/// <summary>
 	///     The Iteration Time of the Task Runner(how many iterations per runner step)
 	/// </summary>
 	public int TaskIterationTime
 	{
-		get => m_TaskIterationTimeObj?.GetValue<int>() ?? 1;
-		set => m_TaskIterationTimeObj?.SetValue(value);
+		get => m_TaskIterationTime.GetValue();
+		set => m_TaskIterationTime.Set(value);
 	}
 }

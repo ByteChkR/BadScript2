@@ -11,6 +11,8 @@ namespace BadScript2.Interop.Json;
 /// </summary>
 public static class BadJson
 {
+    
+    
 	/// <summary>
 	///     Converts a JArray to a BadArray
 	/// </summary>

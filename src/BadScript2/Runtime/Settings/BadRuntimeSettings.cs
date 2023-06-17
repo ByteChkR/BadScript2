@@ -7,96 +7,39 @@ namespace BadScript2.Runtime.Settings;
 /// </summary>
 public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 {
-	private BadSettings? m_CatchRuntimeExceptionsObj;
+    private readonly BadEditableSetting<BadRuntimeSettings, bool> m_CatchRuntimeExceptions =
+        new BadEditableSetting<BadRuntimeSettings, bool>(nameof(CatchRuntimeExceptions), true);
 
-	/// <summary>
-	///     The File Extension Settings Object
-	/// </summary>
-	private BadSettings? m_FileExtensionObj;
+    private readonly BadEditableSetting<BadRuntimeSettings, string> m_FileExtension =
+        new BadEditableSetting<BadRuntimeSettings, string>(nameof(FileExtension), "bs");
 
-	private BadSettings? m_WriteStackTraceInRuntimeErrorsObj;
 
-	/// <summary>
-	///     Creates a new instance of the BadRuntimeSettings class.
-	/// </summary>
-	public BadRuntimeSettings() : base("Runtime") { }
+    private readonly BadEditableSetting<BadRuntimeSettings, bool> m_WriteStackTraceInRuntimeErrors =
+        new BadEditableSetting<BadRuntimeSettings, bool>(nameof(WriteStackTraceInRuntimeErrors));
 
-	/// <summary>
-	///     The File Extension Settings Object
-	/// </summary>
-	private BadSettings? FileExtensionObj
-	{
-		get
-		{
-			if (m_FileExtensionObj == null && Settings != null && Settings.HasProperty(nameof(FileExtension)))
-			{
-				m_FileExtensionObj = Settings?.GetProperty(nameof(FileExtension));
-			}
+    /// <summary>
+    ///     Creates a new instance of the BadRuntimeSettings class.
+    /// </summary>
+    public BadRuntimeSettings() : base("Runtime") { }
 
-			return m_FileExtensionObj;
-		}
-	}
+    public bool WriteStackTraceInRuntimeErrors
+    {
+        get => m_WriteStackTraceInRuntimeErrors.GetValue();
+        set => m_WriteStackTraceInRuntimeErrors.Set(value);
+    }
 
-	private BadSettings? WriteStackTraceInRuntimeErrorsObj
-	{
-		get
-		{
-			if (m_WriteStackTraceInRuntimeErrorsObj == null &&
-			    Settings != null &&
-			    Settings.HasProperty(nameof(WriteStackTraceInRuntimeErrors)))
-			{
-				m_WriteStackTraceInRuntimeErrorsObj = Settings?.GetProperty(nameof(WriteStackTraceInRuntimeErrors));
-			}
+    /// <summary>
+    ///     The Default File Extension of BadScript2 Scripts
+    /// </summary>
+    public string FileExtension
+    {
+        get => m_FileExtension.GetValue()!;
+        set => m_FileExtension.Set(value);
+    }
 
-			return m_WriteStackTraceInRuntimeErrorsObj;
-		}
-	}
-
-	private BadSettings? CatchRuntimeExceptionsObj
-	{
-		get
-		{
-			if (m_CatchRuntimeExceptionsObj == null &&
-			    Settings != null &&
-			    Settings.HasProperty(nameof(CatchRuntimeExceptions)))
-			{
-				m_CatchRuntimeExceptionsObj = Settings?.GetProperty(nameof(CatchRuntimeExceptions));
-			}
-
-			return m_CatchRuntimeExceptionsObj;
-		}
-	}
-
-	public bool WriteStackTraceInRuntimeErrors
-	{
-		get => WriteStackTraceInRuntimeErrorsObj?.GetValue<bool>() ?? false;
-		set
-		{
-			if (WriteStackTraceInRuntimeErrorsObj == null)
-			{
-				m_WriteStackTraceInRuntimeErrorsObj = new BadSettings();
-			}
-
-			m_WriteStackTraceInRuntimeErrorsObj!.SetValue(value);
-		}
-	}
-
-	/// <summary>
-	///     The Default File Extension of BadScript2 Scripts
-	/// </summary>
-	public string FileExtension => FileExtensionObj?.GetValue<string>() ?? "bs";
-
-	public bool CatchRuntimeExceptions
-	{
-		get => CatchRuntimeExceptionsObj?.GetValue<bool>() ?? true;
-		set
-		{
-			if (CatchRuntimeExceptionsObj == null)
-			{
-				m_CatchRuntimeExceptionsObj = new BadSettings();
-			}
-
-			m_CatchRuntimeExceptionsObj!.SetValue(value);
-		}
-	}
+    public bool CatchRuntimeExceptions
+    {
+        get => m_CatchRuntimeExceptions.GetValue();
+        set => m_CatchRuntimeExceptions.Set(value);
+    }
 }
