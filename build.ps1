@@ -53,8 +53,11 @@ function Build-Projects {
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'HighscoreApi' 90%" -PercentComplete 90
     . $bs build ReleaseLib
     cd ../HighscoreApi.Console
-    Write-Progress -Activity "BadScript2 Build" -Status "Build App 'HighscoreApi.Console' 100%" -PercentComplete 100
+    Write-Progress -Activity "BadScript2 Build" -Status "Build App 'HighscoreApi.Console' 95%" -PercentComplete 95
     . $bs build ReleaseApp
+    cd ../CommandlineParser
+    Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'CommandlineParser' 100%" -PercentComplete 100
+    . $bs build ReleaseLib
     cd ../..
 }
 
