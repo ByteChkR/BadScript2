@@ -25,8 +25,6 @@
 var NAVTREE =
 [
   [ "BadScript2 Reference Documentation", "index.html", [
-    [ "<a href=\"http://useiconic.com/open\" >Open Iconic v1.1.1</a>", "md_src_2_bad_script2_8_web_2_bad_script2_8_web_2wwwroot_2css_2open-iconic_2_r_e_a_d_m_e.html", null ],
-    [ "<a href=\"http://useiconic.com/open\" >Open Iconic v1.1.1</a>", "md_src_2_bad_script2_8_web_2_bad_script2_8_web_editor_2wwwroot_2css_2open-iconic_2_r_e_a_d_m_e.html", null ],
     [ "Packages", "namespaces.html", [
       [ "Package List", "namespaces.html", "namespaces_dup" ],
       [ "Package Members", "namespacemembers.html", [
@@ -85,8 +83,8 @@ var NAVTREEINDEX =
 "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bloc8967e2906a526c3b46a5fe78f2d591f7.html#a69b150340722b237eabb5a9a2564145e",
 "class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a5d67b0bbfbc4472bfa61e54a58a51f1e",
 "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_skip_while_command.html",
-"functions_func_n.html",
-"namespace_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign.html"
+"functions_func_t.html",
+"namespace_bad_script2_1_1_runtime.html#abaabc720fc823abd09df89427aeaf3dca21504f5c23b956b955cee3823d4c9366"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
