@@ -48,7 +48,8 @@ public class BadOperatorTable
 		new BadNullCheckedMemberAccessOperator(),
 		new BadNullCoalescingAssignOperator(),
 		new BadNullCoalescingOperator(),
-		new BadTernaryOperator()
+		new BadTernaryOperator(),
+		new BadInOperator(),
 	};
 
 	/// <summary>
