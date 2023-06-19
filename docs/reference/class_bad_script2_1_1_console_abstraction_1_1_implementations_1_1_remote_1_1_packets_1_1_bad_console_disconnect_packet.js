@@ -1,0 +1,7 @@
+var class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet =
+[
+    [ "BadConsoleDisconnectPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet.html#a7156170209dd64d7acf18868d314e58b", null ],
+    [ "Deserialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet.html#aff637a683540c8f22d42819cdf24619a", null ],
+    [ "Serialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet.html#ade6a0ab1ddc1b9f75d9af098debc8074", null ],
+    [ "Packet", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet.html#af68289fe4ea6e53ab3819c40123dc838", null ]
+];

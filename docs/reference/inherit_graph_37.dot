@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.Parser.BadParameter\lMetaData",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_parser_1_1_bad_parameter_meta_data.html",tooltip=" "];
+  Node0 [id="Node000000",label="BadScript2.Interop.NUnit.\lBadNUnitTestCase",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html",tooltip=" "];
 }

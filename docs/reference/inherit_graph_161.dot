@@ -1,0 +1,31 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="BadScript2.Utility.Linq.\lQueries.BadLinqQueryCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_bad_linq_query_command.html",tooltip=" "];
+  Node0 -> Node1 [id="edge311_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lOrderByCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_order_by_command.html",tooltip=" "];
+  Node0 -> Node2 [id="edge312_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lOrderByDescendingCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_order_by_descending_command.html",tooltip=" "];
+  Node0 -> Node3 [id="edge313_Node000000_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lSelectCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_select_command.html",tooltip=" "];
+  Node0 -> Node4 [id="edge314_Node000000_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lSelectManyCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_select_many_command.html",tooltip=" "];
+  Node0 -> Node5 [id="edge315_Node000000_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lSkipCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_skip_command.html",tooltip=" "];
+  Node0 -> Node6 [id="edge316_Node000000_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lSkipLastCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_skip_last_command.html",tooltip=" "];
+  Node0 -> Node7 [id="edge317_Node000000_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lSkipWhileCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_skip_while_command.html",tooltip=" "];
+  Node0 -> Node8 [id="edge318_Node000000_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lTakeCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_take_command.html",tooltip=" "];
+  Node0 -> Node9 [id="edge319_Node000000_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node9 [id="Node000009",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lTakeLastCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_take_last_command.html",tooltip=" "];
+  Node0 -> Node10 [id="edge320_Node000000_Node000010",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node10 [id="Node000010",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lTakeWhileCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_take_while_command.html",tooltip=" "];
+  Node0 -> Node11 [id="edge321_Node000000_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node11 [id="Node000011",label="BadScript2.Utility.Linq.\lQueries.Commands.BadLinqQuery\lWhereCommand",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_where_command.html",tooltip=" "];
+}

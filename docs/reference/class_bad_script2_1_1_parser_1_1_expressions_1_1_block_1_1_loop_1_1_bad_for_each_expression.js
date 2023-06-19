@@ -2,6 +2,7 @@ var class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_
 [
     [ "BadForEachExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html#a91da11443be19cb497d5c505e3d40282", null ],
     [ "FindEnumerator", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html#a2fbcb4374220ecb4298f9d97afaf6a33", null ],
+    [ "GetDescendants", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html#aa17753e63f92649602427f45d461d939", null ],
     [ "InnerExecute", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html#a7966352826737d7f5b5a22080070fb18", null ],
     [ "Optimize", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html#a2417a7815442c7b66d1db946d79866de", null ],
     [ "LoopVariable", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html#a3b8b83a73b993a5c19e90b812c922da4", null ],

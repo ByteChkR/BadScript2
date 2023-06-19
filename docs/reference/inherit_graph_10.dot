@@ -5,9 +5,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.ConsoleCore.Systems.\lBadConsoleSystem\< BadRunSystemSettings \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_core_1_1_systems_1_1_bad_console_system.html",tooltip=" "];
-  Node0 -> Node1 [id="edge4_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node1 [id="Node000001",label="BadScript2.ConsoleCore.Systems.\lRun.BadRunSystem",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_run_system.html",tooltip="Runs one or more BadScript scripts."];
-  Node1 -> Node2 [id="edge5_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="BadScript2.ConsoleCore.Systems.\lRun.BadDefaultRunSystem",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_core_1_1_systems_1_1_run_1_1_bad_default_run_system.html",tooltip="Default Run System Is used to enable running scripts by simply typing \"bs <script> <args>\"."];
+  Node0 [id="Node000000",label="BadScript2.ConsoleAbstraction.\lIBadConsole",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html",tooltip=" "];
+  Node0 -> Node1 [id="edge13_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="BadScript2.ConsoleAbstraction.\lImplementations.Remote.BadNetwork\lConsoleHost",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html",tooltip=" "];
+  Node0 -> Node2 [id="edge14_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="BadScript2.ConsoleAbstraction.\lImplementations.SystemConsole",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html",tooltip=" "];
 }

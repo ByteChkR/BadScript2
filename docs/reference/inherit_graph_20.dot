@@ -5,5 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.Interop.Common.\lBadCommonInterop",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html",tooltip="Implements the Common Interop Wrapper."];
+  Node0 [id="Node000000",label="BadScript2.ConsoleCore.Systems.\lBadConsoleSystem\< BadSettingsSystem\lSettings \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_core_1_1_systems_1_1_bad_console_system.html",tooltip=" "];
+  Node0 -> Node1 [id="edge29_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="BadScript2.ConsoleCore.Systems.\lSettings.BadSettingsSystem",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_console_core_1_1_systems_1_1_settings_1_1_bad_settings_system.html",tooltip="Prints a specific setting to the console."];
 }

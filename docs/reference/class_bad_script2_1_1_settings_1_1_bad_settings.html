@@ -524,14 +524,14 @@ Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   76</span>    {</div>
 <div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#a24d97ee78c68edab47d161e2853f0b57">m_Value</a> == <span class="keyword">null</span>)</div>
 <div class="line"><span class="lineno">   78</span>        {</div>
-<div class="line"><span class="lineno">   79</span>            <span class="keywordflow">return</span> <span class="keywordflow">default</span>(T?);</div>
+<div class="line"><span class="lineno">   79</span>            <span class="keywordflow">return</span> <span class="keywordflow">default</span>;</div>
 <div class="line"><span class="lineno">   80</span>        }</div>
 <div class="line"><span class="lineno">   81</span> </div>
 <div class="line"><span class="lineno">   82</span>        Type t = typeof(T);</div>
 <div class="line"><span class="lineno">   83</span> </div>
-<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">m_ObjectCache</a>.ContainsKey(t))</div>
+<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">m_ObjectCache</a>.TryGetValue(t, out <span class="keywordtype">object</span>? value))</div>
 <div class="line"><span class="lineno">   85</span>        {</div>
-<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">return</span> (T)<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">m_ObjectCache</a>[t];</div>
+<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">return</span> (T)value;</div>
 <div class="line"><span class="lineno">   87</span>        }</div>
 <div class="line"><span class="lineno">   88</span> </div>
 <div class="line"><span class="lineno">   89</span>        T? v = <a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#a24d97ee78c68edab47d161e2853f0b57">m_Value</a>.ToObject&lt;T&gt;();</div>

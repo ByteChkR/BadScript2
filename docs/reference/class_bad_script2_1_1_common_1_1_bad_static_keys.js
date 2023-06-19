@@ -31,6 +31,8 @@ var class_bad_script2_1_1_common_1_1_bad_static_keys =
     [ "ModuloAssignOperatorName", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#aff90943bbb925286de01d841a85f2ee0", null ],
     [ "MultiLineCommentEnd", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#af73e0b79b2f2d86dd07cb703cefe3f5a", null ],
     [ "MultiLineCommentStart", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#a8934539e470a03f339b63ab70926900e", null ],
+    [ "MultiLineFormatStringKey", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#ae33952acbe52782134b2a157005dda9d", null ],
+    [ "MultiLineStringKey", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#ac5ae66a9049635b94e095d287be42e47", null ],
     [ "MultiplyAssignOperatorName", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#ad20ab7e7163848da75183ec2a6ded79b", null ],
     [ "NegativeSign", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#afcff1a73463aacbc007ca55b13f34ec2", null ],
     [ "NewKey", "class_bad_script2_1_1_common_1_1_bad_static_keys.html#a38670b422bd7de49fe97c53af14c1549", null ],

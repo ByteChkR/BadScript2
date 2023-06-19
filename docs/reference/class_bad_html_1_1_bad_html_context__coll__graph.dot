@@ -1,0 +1,12 @@
+digraph "BadHtml.BadHtmlContext"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="BadHtml.BadHtmlContext",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" ExecutionContext",fontcolor="grey" ];
+  Node2 [id="Node000002",label="BadScript2.Runtime.BadExecution\lContext",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_runtime_1_1_bad_execution_context.html",tooltip="The Execution Context. Every execution of a script needs a context the script is running in...."];
+  Node3 -> Node1 [id="edge2_Node000001_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" Options",fontcolor="grey" ];
+  Node3 [id="Node000003",label="BadHtml.BadHtmlTemplateOptions",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$class_bad_html_1_1_bad_html_template_options.html",tooltip=" "];
+}

@@ -5,6 +5,7 @@ var searchData=
   ['onreadlineasync_2',['OnReadLineAsync',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api.html#a603f331cb04f27ead0b367e3cc25bf31',1,'BadScript2::Interop::Common::Apis::BadConsoleApi']]],
   ['onwrite_3',['OnWrite',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api.html#a96babfe7ffc02f71fa2952e596055332',1,'BadScript2::Interop::Common::Apis::BadConsoleApi']]],
   ['onwriteline_4',['OnWriteLine',['../class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api.html#ae71470b4631241bceed97925519bba1b',1,'BadScript2::Interop::Common::Apis::BadConsoleApi']]],
-  ['optimizedcontext_5',['OptimizedContext',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html#aeebfc1714764bfe22f5cea02144f092f',1,'BadScript2::Interop::NUnit::BadUnitTests']]],
-  ['originalmessage_6',['OriginalMessage',['../class_bad_script2_1_1_common_1_1_bad_script_exception.html#ae0939886ad578e3effa3855baf2cc9d6',1,'BadScript2::Common::BadScriptException']]]
+  ['optimizedcontext_5',['OptimizedContext',['../class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html#aeebfc1714764bfe22f5cea02144f092f',1,'BadScript2.Interop.NUnit.BadUnitTests.OptimizedContext'],['../class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce',1,'BadScript2.Tests.BadUnitTests.OptimizedContext']]],
+  ['originalmessage_6',['OriginalMessage',['../class_bad_script2_1_1_common_1_1_bad_script_exception.html#ae0939886ad578e3effa3855baf2cc9d6',1,'BadScript2::Common::BadScriptException']]],
+  ['outputdocument_7',['OutputDocument',['../class_bad_html_1_1_bad_html_context.html#a472b033fb448d8cd4fec8ef3539cef00',1,'BadHtml::BadHtmlContext']]]
 ];

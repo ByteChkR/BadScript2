@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('_bad_settings_8cs_source.html',''); in
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using </span>Newtonsoft.Json.Linq;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="namespace_bad_script2_1_1_settings.html">    5</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_bad_script2_1_1_settings.html">BadScript2.Settings</a>;</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_bad_script2_1_1_settings.html">BadScript2.Settings</a>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_bad_script2_1_1_settings_1_1_bad_settings.html">   10</a></span><span class="keyword">public</span> <span class="keyword">class </span><a class="code hl_class" href="class_bad_script2_1_1_settings_1_1_bad_settings.html">BadSettings</a></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
@@ -135,14 +135,14 @@ $(document).ready(function(){initNavTree('_bad_settings_8cs_source.html',''); in
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    {</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#a24d97ee78c68edab47d161e2853f0b57">m_Value</a> == <span class="keyword">null</span>)</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keywordflow">return</span> <span class="keywordflow">default</span>(T?);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keywordflow">return</span> <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        Type t = typeof(T);</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">m_ObjectCache</a>.ContainsKey(t))</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">m_ObjectCache</a>.TryGetValue(t, out <span class="keywordtype">object</span>? value))</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">return</span> (T)<a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">m_ObjectCache</a>[t];</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">return</span> (T)value;</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        }</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        T? v = <a class="code hl_variable" href="class_bad_script2_1_1_settings_1_1_bad_settings.html#a24d97ee78c68edab47d161e2853f0b57">m_Value</a>.ToObject&lt;T&gt;();</div>
@@ -406,7 +406,7 @@ $(document).ready(function(){initNavTree('_bad_settings_8cs_source.html',''); in
 <div class="ttc" id="aclass_bad_script2_1_1_settings_1_1_bad_settings_html_aefce1ae37e7f6f396396102ec4f06d74"><div class="ttname"><a href="class_bad_script2_1_1_settings_1_1_bad_settings.html#aefce1ae37e7f6f396396102ec4f06d74">BadScript2.Settings.BadSettings.m_ObjectCache</a></div><div class="ttdeci">readonly Dictionary&lt; Type, object &gt; m_ObjectCache</div><div class="ttdoc">Cache for the Serialized Value of the Settings.</div><div class="ttdef"><b>Definition</b> <a href="_bad_settings_8cs_source.html#l00015">BadSettings.cs:15</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_settings_1_1_bad_settings_html_af0c5d8b9f1edcc85efa1dc4f856929e2"><div class="ttname"><a href="class_bad_script2_1_1_settings_1_1_bad_settings.html#af0c5d8b9f1edcc85efa1dc4f856929e2">BadScript2.Settings.BadSettings.ResolveEnvironmentVariables</a></div><div class="ttdeci">static void ResolveEnvironmentVariables(BadSettings root, BadSettings settings, BadSettings parent)</div><div class="ttdoc">Resolves Environment Variables in the current object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_settings_8cs_source.html#l00379">BadSettings.cs:379</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_settings_1_1_bad_settings_html_afcad53a4ae1e767e68ea78eb1c1e48db"><div class="ttname"><a href="class_bad_script2_1_1_settings_1_1_bad_settings.html#afcad53a4ae1e767e68ea78eb1c1e48db">BadScript2.Settings.BadSettings.SetProperty</a></div><div class="ttdeci">void SetProperty(string propertyName, BadSettings value)</div><div class="ttdoc">Sets the Property with the given Name.</div><div class="ttdef"><b>Definition</b> <a href="_bad_settings_8cs_source.html#l00168">BadSettings.cs:168</a></div></div>
-<div class="ttc" id="anamespace_bad_script2_1_1_settings_html"><div class="ttname"><a href="namespace_bad_script2_1_1_settings.html">BadScript2.Settings</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_settings_8cs_source.html#l00005">BadSettings.cs:5</a></div></div>
+<div class="ttc" id="anamespace_bad_script2_1_1_settings_html"><div class="ttname"><a href="namespace_bad_script2_1_1_settings.html">BadScript2.Settings</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_editable_setting_8cs_source.html#l00005">BadEditableSetting.cs:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

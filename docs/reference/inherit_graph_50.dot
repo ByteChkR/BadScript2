@@ -5,27 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.Runtime.Interop.\lBadInteropExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html",tooltip="Public Extension API for the BS2 Runtime."];
-  Node0 -> Node1 [id="edge145_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node1 [id="Node000001",label="BadScript2.Interop.Common.\lExtensions.BadArrayExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_array_extension.html",tooltip="Implements Array Extensions."];
-  Node0 -> Node2 [id="edge146_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="BadScript2.Interop.Common.\lExtensions.BadFunctionExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_function_extension.html",tooltip="Implements Function Extensions."];
-  Node0 -> Node3 [id="edge147_Node000000_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="BadScript2.Interop.Common.\lExtensions.BadObjectExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_object_extension.html",tooltip="Implements Generic Object Extensions."];
-  Node0 -> Node4 [id="edge148_Node000000_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node4 [id="Node000004",label="BadScript2.Interop.Common.\lExtensions.BadScopeExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_scope_extension.html",tooltip="Implements Scope Extensions."];
-  Node0 -> Node5 [id="edge149_Node000000_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node5 [id="Node000005",label="BadScript2.Interop.Common.\lExtensions.BadStringExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html",tooltip="Implements String Extensions."];
-  Node0 -> Node6 [id="edge150_Node000000_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node6 [id="Node000006",label="BadScript2.Interop.Common.\lExtensions.BadTableExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_table_extension.html",tooltip="Implements Table Extensions."];
-  Node0 -> Node7 [id="edge151_Node000000_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node7 [id="Node000007",label="BadScript2.Interop.Common.\lExtensions.BadTypeSystemExtension",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_type_system_extension.html",tooltip="Implements TypeSystem Extensions."];
-  Node0 -> Node8 [id="edge152_Node000000_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node8 [id="Node000008",label="BadScript2.Interop.Common.\lTask.BadTaskExtensions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html",tooltip="Implements the 'AsTask' Function."];
-  Node0 -> Node9 [id="edge153_Node000000_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node9 [id="Node000009",label="BadScript2.Interop.Linq.\lBadLinqExtensions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html",tooltip=" "];
-  Node0 -> Node10 [id="edge154_Node000000_Node000010",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node10 [id="Node000010",label="BadScript2.Interop.Net.Bad\lNetInteropExtensions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_net_1_1_bad_net_interop_extensions.html",tooltip=" "];
-  Node0 -> Node11 [id="edge155_Node000000_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node11 [id="Node000011",label="BadScript2.Interop.NetHost.\lBadNetHostExtensions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_net_host_extensions.html",tooltip=" "];
+  Node0 [id="Node000000",label="BadScript2.Parser.Expressions.\lBlock.Lock.BadLockList",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_lock_1_1_bad_lock_list.html",tooltip="The Lock List that is used to store all locks."];
 }

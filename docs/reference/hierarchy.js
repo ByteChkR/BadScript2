@@ -71,7 +71,27 @@ var hierarchy =
     ] ],
     [ "BadScript2.Interop.Common.BadCommonInterop", "class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html", null ],
     [ "BadScript2.Runtime.VirtualMachine.Compiler.BadCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html", null ],
+    [ "BadScript2.ConsoleAbstraction.BadConsole", "class_bad_script2_1_1_console_abstraction_1_1_bad_console.html", null ],
+    [ "BadScript2.WebEditor.Shared.Commandline.BadConsoleCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_console_command.html", [
+      [ "BadScript2.WebEditor.Shared.Commandline.BadChangeDirectoryCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_change_directory_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadDeleteDirectoryCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_delete_directory_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadDeleteFileCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_delete_file_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadExportCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_export_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadHelpCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_help_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadImportCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_import_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadNewFileCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_new_file_command.html", null ],
+      [ "BadScript2.WebEditor.Shared.Commandline.BadRunCommand", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_commandline_1_1_bad_run_command.html", null ]
+    ] ],
     [ "BadScript2.ConsoleCore.BadConsoleDirectories", "class_bad_script2_1_1_console_core_1_1_bad_console_directories.html", null ],
+    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsolePacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_packet.html", [
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleClearPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_clear_packet.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleColorChangePacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleDisconnectPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleHeartBeatPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_heart_beat_packet.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleHelloPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleReadPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_read_packet.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleWritePacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_write_packet.html", null ]
+    ] ],
     [ "BadScript2.ConsoleCore.BadConsoleRunner", "class_bad_script2_1_1_console_core_1_1_bad_console_runner.html", null ],
     [ "BadScript2.ConsoleCore.Systems.BadConsoleSystem< BadHtmlSystemSettings >", "class_bad_script2_1_1_console_core_1_1_systems_1_1_bad_console_system.html", [
       [ "BadScript2.ConsoleCore.Systems.Html.BadHtmlSystem", "class_bad_script2_1_1_console_core_1_1_systems_1_1_html_1_1_bad_html_system.html", null ]
@@ -92,6 +112,14 @@ var hierarchy =
     ] ],
     [ "BadScript2.Debugging.BadDebugger", "class_bad_script2_1_1_debugging_1_1_bad_debugger.html", null ],
     [ "BadScript2.Runtime.Interop.Functions.Extensions.BadDynamicFunctionExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_extensions_1_1_bad_dynamic_function_extensions.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< T, TValue >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Common.Logging.BadLoggerSettings, string >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Common.Logging.Writer.BadLogWriterSettings, string[]>", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Debugger.Scriptable.BadScriptDebuggerSettings, string >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Interop.Common.Task.BadTaskRunnerSettings, int >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Runtime.Settings.BadNativeOptimizationSettings, bool >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Runtime.Settings.BadRuntimeSettings, bool >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
+    [ "BadScript2.Settings.BadEditableSetting< BadScript2.Runtime.Settings.BadRuntimeSettings, string >", "class_bad_script2_1_1_settings_1_1_bad_editable_setting.html", null ],
     [ "BadScript2.Utility.BadEnum", "class_bad_script2_1_1_utility_1_1_bad_enum.html", null ],
     [ "BadScript2.Runtime.BadExecutionContext", "class_bad_script2_1_1_runtime_1_1_bad_execution_context.html", null ],
     [ "BadScript2.Runtime.BadExecutionContextOptions", "class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html", null ],
@@ -116,6 +144,7 @@ var hierarchy =
       [ "BadScript2.Parser.Expressions.Binary.BadBinaryExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_binary_expression.html", [
         [ "BadScript2.Parser.Expressions.Access.BadNullCoalescingAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_access_1_1_bad_null_coalescing_assign_expression.html", null ],
         [ "BadScript2.Parser.Expressions.Access.BadNullCoalescingExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_access_1_1_bad_null_coalescing_expression.html", null ],
+        [ "BadScript2.Parser.Expressions.Binary.BadInExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression.html", null ],
         [ "BadScript2.Parser.Expressions.Binary.BadRangeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_range_expression.html", null ],
         [ "BadScript2.Parser.Expressions.Binary.Comparison.BadEqualityExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_equality_expression.html", null ],
         [ "BadScript2.Parser.Expressions.Binary.Comparison.BadGreaterOrEqualExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_greater_or_equal_expression.html", null ],
@@ -278,9 +307,29 @@ var hierarchy =
     [ "BadScript2.IO.BadFileSystemHelper", "class_bad_script2_1_1_i_o_1_1_bad_file_system_helper.html", null ],
     [ "BadScript2.Runtime.Objects.Functions.BadFunctionParameter", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html", null ],
     [ "BadScript2.Utility.BadHashCode", "class_bad_script2_1_1_utility_1_1_bad_hash_code.html", null ],
+    [ "BadHtml.BadHtmlContext", "class_bad_html_1_1_bad_html_context.html", null ],
+    [ "BadHtml.BadHtmlNodeTransformer", "class_bad_html_1_1_bad_html_node_transformer.html", [
+      [ "BadHtml.Transformer.BadCopyNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_copy_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadCopyScriptNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_copy_script_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadCopyStyleNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_copy_style_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadExecuteScriptNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_execute_script_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadForEachNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_for_each_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadFunctionNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_function_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadIfNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_if_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadImportFileNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_import_file_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadImportTemplateNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_import_template_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadInsertNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_insert_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadTextNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_text_node_transformer.html", null ],
+      [ "BadHtml.Transformer.BadWhileNodeTransformer", "class_bad_html_1_1_transformer_1_1_bad_while_node_transformer.html", null ]
+    ] ],
     [ "BadScript2.ConsoleCore.Systems.Html.BadHtmlSystemSettings", "class_bad_script2_1_1_console_core_1_1_systems_1_1_html_1_1_bad_html_system_settings.html", null ],
+    [ "BadHtml.BadHtmlTemplate", "class_bad_html_1_1_bad_html_template.html", null ],
+    [ "BadHtml.BadHtmlTemplateOptions", "class_bad_html_1_1_bad_html_template_options.html", null ],
     [ "BadScript2.Runtime.VirtualMachine.BadInstruction", "struct_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_instruction.html", null ],
+    [ "BadScript2.Interactive.BadInteractiveConsole", "class_bad_script2_1_1_interactive_1_1_bad_interactive_console.html", null ],
     [ "BadScript2.Runtime.Interop.BadInteropApi", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html", [
+      [ "BadScript2.Debugger.Scriptable.BadScriptDebuggerApi", "class_bad_script2_1_1_debugger_1_1_scriptable_1_1_bad_script_debugger_api.html", null ],
+      [ "BadScript2.Interactive.BadInteractiveConsoleApi", "class_bad_script2_1_1_interactive_1_1_bad_interactive_console_api.html", null ],
       [ "BadScript2.Interop.Common.Apis.BadConsoleApi", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_console_api.html", null ],
       [ "BadScript2.Interop.Common.Apis.BadMathApi", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_math_api.html", null ],
       [ "BadScript2.Interop.Common.Apis.BadOperatingSystemApi", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_operating_system_api.html", null ],
@@ -288,6 +337,7 @@ var hierarchy =
       [ "BadScript2.Interop.Common.Apis.BadXmlApi", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_xml_api.html", null ],
       [ "BadScript2.Interop.Common.Task.BadTaskRunnerApi", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_runner_api.html", null ],
       [ "BadScript2.Interop.Compression.BadCompressionApi", "class_bad_script2_1_1_interop_1_1_compression_1_1_bad_compression_api.html", null ],
+      [ "BadScript2.Interop.Html.BadHtmlApi", "class_bad_script2_1_1_interop_1_1_html_1_1_bad_html_api.html", null ],
       [ "BadScript2.Interop.IO.BadIOApi", "class_bad_script2_1_1_interop_1_1_i_o_1_1_bad_i_o_api.html", null ],
       [ "BadScript2.Interop.Json.BadJsonApi", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api.html", null ],
       [ "BadScript2.Interop.NUnit.BadNUnitApi", "class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_api.html", null ],
@@ -297,6 +347,7 @@ var hierarchy =
       [ "BadScript2.Runtime.VirtualMachine.Compiler.BadCompilerApi", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html", null ]
     ] ],
     [ "BadScript2.Runtime.Interop.BadInteropExtension", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html", [
+      [ "BadScript2.Debugger.Scriptable.BadScriptDebuggerExtension", "class_bad_script2_1_1_debugger_1_1_scriptable_1_1_bad_script_debugger_extension.html", null ],
       [ "BadScript2.Interop.Common.Extensions.BadArrayExtension", "class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_array_extension.html", null ],
       [ "BadScript2.Interop.Common.Extensions.BadFunctionExtension", "class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_function_extension.html", null ],
       [ "BadScript2.Interop.Common.Extensions.BadObjectExtension", "class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_object_extension.html", null ],
@@ -310,6 +361,8 @@ var hierarchy =
       [ "BadScript2.Interop.NetHost.BadNetHostExtensions", "class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_net_host_extensions.html", null ]
     ] ],
     [ "BadScript2.Runtime.Interop.BadInteropHelper", "class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_helper.html", null ],
+    [ "BadScript2.Tests.BadInteropTests", "class_bad_script2_1_1_tests_1_1_bad_interop_tests.html", null ],
+    [ "BadScript2.WebEditor.Shared.BadJsInterop", "class_bad_script2_1_1_web_editor_1_1_shared_1_1_bad_js_interop.html", null ],
     [ "BadScript2.Interop.Json.BadJson", "class_bad_script2_1_1_interop_1_1_json_1_1_bad_json.html", null ],
     [ "BadScript2.Utility.Linq.BadLinqCommon", "class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_common.html", null ],
     [ "BadScript2.Utility.Linq.BadLinqExtensions", "class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html", null ],
@@ -329,6 +382,7 @@ var hierarchy =
       [ "BadScript2.Utility.Linq.Queries.Commands.BadLinqQueryWhereCommand", "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_where_command.html", null ]
     ] ],
     [ "BadScript2.Utility.Linq.Queries.BadLinqQueryCommandData", "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_bad_linq_query_command_data.html", null ],
+    [ "BadScript2.Tests.BadLinqTests", "class_bad_script2_1_1_tests_1_1_bad_linq_tests.html", null ],
     [ "BadScript2.Parser.Expressions.Block.Lock.BadLockList", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_lock_1_1_bad_lock_list.html", null ],
     [ "BadScript2.Common.Logging.BadLogger", "class_bad_script2_1_1_common_1_1_logging_1_1_bad_logger.html", null ],
     [ "BadScript2.Common.Logging.BadLogMask", "class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html", null ],
@@ -344,6 +398,11 @@ var hierarchy =
     [ "BadScript2.Runtime.Objects.Types.BadNativeClassBuilder", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html", null ],
     [ "BadScript2.Runtime.Objects.Types.BadNativeClassHelper", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_helper.html", null ],
     [ "BadScript2.Interop.NetHost.BadNetHost", "class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_net_host.html", null ],
+    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Client.BadNetworkConsoleClient", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_bad_network_console_client.html", null ],
+    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands.BadNetworkConsoleClientCommand", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commands22907f936c02519f0cf83e8eae5a8355.html", [
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands.BadNetworkConsoleClientDisconnectCommand", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commands2b646e7d2dbedb2bb3aaee5bbd4d26d0.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands.BadNetworkConsoleClientListCommand", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commandsbe85ba252174efdf3e536a78ca5e9cd8.html", null ]
+    ] ],
     [ "BadScript2.Interop.NUnit.BadNUnitTestCase", "class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html", null ],
     [ "BadScript2.Runtime.Objects.BadObject", "class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html", [
       [ "BadScript2.Interop.Common.Task.BadTask", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html", null ],
@@ -385,6 +444,7 @@ var hierarchy =
     [ "BadScript2.Parser.Operators.BadOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html", [
       [ "BadScript2.Parser.Operators.BadBinaryOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html", [
         [ "BadScript2.Parser.Operators.Binary.BadAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_assign_operator.html", null ],
+        [ "BadScript2.Parser.Operators.Binary.BadInOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_in_operator.html", null ],
         [ "BadScript2.Parser.Operators.Binary.BadMemberAccessOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_member_access_operator.html", null ],
         [ "BadScript2.Parser.Operators.Binary.BadNullCheckedMemberAccessOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_checked_member_access_operator.html", null ],
         [ "BadScript2.Parser.Operators.Binary.BadNullCoalescingAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_coalescing_assign_operator.html", null ],
@@ -460,6 +520,9 @@ var hierarchy =
     [ "BadScript2.Settings.BadSettingsProvider< BadRuntimeSettings >", "class_bad_script2_1_1_settings_1_1_bad_settings_provider.html", [
       [ "BadScript2.Runtime.Settings.BadRuntimeSettings", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_runtime_settings.html", null ]
     ] ],
+    [ "BadScript2.Settings.BadSettingsProvider< BadScriptDebuggerSettings >", "class_bad_script2_1_1_settings_1_1_bad_settings_provider.html", [
+      [ "BadScript2.Debugger.Scriptable.BadScriptDebuggerSettings", "class_bad_script2_1_1_debugger_1_1_scriptable_1_1_bad_script_debugger_settings.html", null ]
+    ] ],
     [ "BadScript2.Settings.BadSettingsProvider< BadTaskRunnerSettings >", "class_bad_script2_1_1_settings_1_1_bad_settings_provider.html", [
       [ "BadScript2.Interop.Common.Task.BadTaskRunnerSettings", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_runner_settings.html", null ]
     ] ],
@@ -486,6 +549,7 @@ var hierarchy =
     [ "BadScript2.Interop.NUnit.BadUnitTestContext", "class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html", null ],
     [ "BadScript2.Interop.NUnit.BadUnitTestContextBuilder", "class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_builder.html", null ],
     [ "BadScript2.Interop.NUnit.BadUnitTests", "class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_tests.html", null ],
+    [ "BadScript2.Tests.BadUnitTests", "class_bad_script2_1_1_tests_1_1_bad_unit_tests.html", null ],
     [ "BadScript2.Parser.Operators.BadValueParser", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_value_parser.html", [
       [ "BadScript2.Interop.Common.Task.BadAwaitValueParser", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_await_value_parser.html", null ]
     ] ],
@@ -506,9 +570,17 @@ var hierarchy =
         [ "BadScript2.Runtime.Error.BadRuntimeErrorException", "class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error_exception.html", null ],
         [ "BadScript2.Runtime.Error.BadRuntimeException", "class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html", null ]
       ] ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleException", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_exception.html", null ],
       [ "BadScript2.Runtime.VirtualMachine.Compiler.BadCompilerException", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_exception.html", null ]
     ] ],
-    [ "BadScript2.Debugging.IBadDebugger", "interface_bad_script2_1_1_debugging_1_1_i_bad_debugger.html", null ],
+    [ "BadScript2.ConsoleAbstraction.IBadConsole", "interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html", [
+      [ "BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html", null ],
+      [ "BadScript2.ConsoleAbstraction.Implementations.SystemConsole", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html", null ]
+    ] ],
+    [ "BadScript2.Debugging.IBadDebugger", "interface_bad_script2_1_1_debugging_1_1_i_bad_debugger.html", [
+      [ "BadScript2.Debugger.BadConsoleDebugger", "class_bad_script2_1_1_debugger_1_1_bad_console_debugger.html", null ],
+      [ "BadScript2.Debugger.Scriptable.BadScriptDebugger", "class_bad_script2_1_1_debugger_1_1_scriptable_1_1_bad_script_debugger.html", null ]
+    ] ],
     [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.IBadExpressionCompiler", "interface_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_i_bad_expression_compiler.html", [
       [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.BadExpressionCompiler< T >", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_expression_compiler.html", [
         [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler< T >", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html", null ]
@@ -520,6 +592,14 @@ var hierarchy =
       [ "BadScript2.Parser.Expressions.Constant.BadConstantExpression< string >", "class_bad_script2_1_1_parser_1_1_expressions_1_1_constant_1_1_bad_constant_expression.html", null ],
       [ "BadScript2.Parser.Expressions.Constant.BadConstantExpression< T >", "class_bad_script2_1_1_parser_1_1_expressions_1_1_constant_1_1_bad_constant_expression.html", null ],
       [ "BadScript2.Parser.Expressions.Constant.BadNullExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_constant_1_1_bad_null_expression.html", null ]
+    ] ],
+    [ "IComparable", null, [
+      [ "BadScript2.Runtime.Objects.Native.BadNumber", "class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_number.html", null ],
+      [ "BadScript2.Runtime.Objects.Native.BadNumber", "class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_number.html", null ],
+      [ "BadScript2.Runtime.Objects.Native.BadNumber", "class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_number.html", null ],
+      [ "BadScript2.Runtime.Objects.Native.BadString", "class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_string.html", null ],
+      [ "BadScript2.Runtime.Objects.Native.BadString", "class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_string.html", null ],
+      [ "BadScript2.Runtime.Objects.Native.BadString", "class_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_bad_string.html", null ]
     ] ],
     [ "IDisposable", null, [
       [ "BadScript2.Common.Logging.Writer.BadLogWriter", "class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer.html", [

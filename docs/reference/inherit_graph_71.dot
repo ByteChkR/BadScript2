@@ -5,7 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.Runtime.Virtual\lMachine.Compiler.ExpressionCompilers.\lBadExpressionCompiler\< BadBreakExpression \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_expression_compiler.html",tooltip=" "];
-  Node0 -> Node1 [id="edge218_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node1 [id="Node000001",label="BadScript2.Runtime.Virtual\lMachine.Compiler.ExpressionCompilers.\lControlFlow.BadBreakExpressionCompiler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_cont8a57916071b3030a99d0dc359a1b058a.html",tooltip=" "];
+  Node0 [id="Node000000",label="BadScript2.Runtime.Objects.\lTypes.BadNativeClassHelper",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_helper.html",tooltip="Helper Class for Creating Native Class Prototypes."];
 }

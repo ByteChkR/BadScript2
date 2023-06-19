@@ -1,6 +1,7 @@
 var class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_bad_try_catch_expression =
 [
     [ "BadTryCatchExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_bad_try_catch_expression.html#a3689cc762fca46917722607143de8eee", null ],
+    [ "GetDescendants", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_bad_try_catch_expression.html#a7ba12edf378bf2a9487d9acaa8dd44f2", null ],
     [ "InnerExecute", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_bad_try_catch_expression.html#a2be2aebf926952124ace2431db01c518", null ],
     [ "Optimize", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_bad_try_catch_expression.html#a31e77159918b4419f623957dd1d1c09f", null ],
     [ "ErrorName", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_bad_try_catch_expression.html#a8ae6de361eae1543e23c672829820334", null ],

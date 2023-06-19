@@ -181,8 +181,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_console_log_writer_8cs_source.html#l00015">15</a> of file <a class="el" href="_bad_console_log_writer_8cs_source.html">BadConsoleLogWriter.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   16</span>    {</div>
-<div class="line"><span class="lineno">   17</span>        ConsoleColor fg = BadConsole.ForegroundColor;</div>
-<div class="line"><span class="lineno">   18</span>        ConsoleColor bg = BadConsole.BackgroundColor;</div>
+<div class="line"><span class="lineno">   17</span>        ConsoleColor fg = <a class="code hl_class" href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html">BadConsole</a>.<a class="code hl_property" href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#aa228e6dc6df73a89313e6868edef4446">ForegroundColor</a>;</div>
+<div class="line"><span class="lineno">   18</span>        ConsoleColor bg = <a class="code hl_class" href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html">BadConsole</a>.<a class="code hl_property" href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#a5280c013389afc23e43fe6df28e3098c">BackgroundColor</a>;</div>
 <div class="line"><span class="lineno">   19</span> </div>
 <div class="line"><span class="lineno">   20</span>        <span class="keywordflow">switch</span> (log.Type)</div>
 <div class="line"><span class="lineno">   21</span>        {</div>
@@ -205,10 +205,14 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   38</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException();</div>
 <div class="line"><span class="lineno">   39</span>        }</div>
 <div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>        BadConsole.WriteLine(log.ToString());</div>
+<div class="line"><span class="lineno">   41</span>        <a class="code hl_class" href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html">BadConsole</a>.<a class="code hl_function" href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#a7227097a0c5cb679a12f57510faaf198">WriteLine</a>(log.ToString());</div>
 <div class="line"><span class="lineno">   42</span>        BadConsole.ForegroundColor = fg;</div>
 <div class="line"><span class="lineno">   43</span>        BadConsole.BackgroundColor = bg;</div>
 <div class="line"><span class="lineno">   44</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html">BadScript2.ConsoleAbstraction.BadConsole</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00008">BadConsole.cs:9</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html_a5280c013389afc23e43fe6df28e3098c"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#a5280c013389afc23e43fe6df28e3098c">BadScript2.ConsoleAbstraction.BadConsole.BackgroundColor</a></div><div class="ttdeci">static ConsoleColor BackgroundColor</div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00024">BadConsole.cs:25</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html_a7227097a0c5cb679a12f57510faaf198"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#a7227097a0c5cb679a12f57510faaf198">BadScript2.ConsoleAbstraction.BadConsole.WriteLine</a></div><div class="ttdeci">static void WriteLine(string str)</div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00045">BadConsole.cs:45</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html_aa228e6dc6df73a89313e6868edef4446"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#aa228e6dc6df73a89313e6868edef4446">BadScript2.ConsoleAbstraction.BadConsole.ForegroundColor</a></div><div class="ttdeci">static ConsoleColor ForegroundColor</div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00018">BadConsole.cs:19</a></div></div>
 <div class="ttc" id="anamespace_bad_script2_1_1_common_1_1_logging_html_ab226e519c81cc055077edd237cf10ba5"><div class="ttname"><a href="namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5">BadScript2.Common.Logging.BadLogType</a></div><div class="ttdeci">BadLogType</div><div class="ttdoc">Log Types.</div><div class="ttdef"><b>Definition</b> <a href="_bad_log_type_8cs_source.html#l00006">BadLogType.cs:7</a></div></div>
 </div><!-- fragment -->
 </div>

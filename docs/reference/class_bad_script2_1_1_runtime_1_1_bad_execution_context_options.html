@@ -117,6 +117,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8a9fe99442142974a9d0a322ed5a83a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ff7e90fbfedd7dc7fe19c8c09ed83c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a7ff7e90fbfedd7dc7fe19c8c09ed83c8">AddApi</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadInteropApi</a> api)</td></tr>
 <tr class="separator:a7ff7e90fbfedd7dc7fe19c8c09ed83c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15677f5e1b741e69cabd25bb511667d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a15677f5e1b741e69cabd25bb511667d3">ReplaceApi</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadInteropApi</a> api)</td></tr>
+<tr class="separator:a15677f5e1b741e69cabd25bb511667d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6ccfe4f604b5364b07dd64409e36590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa6ccfe4f604b5364b07dd64409e36590">AddApis</a> (IEnumerable&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadInteropApi</a> &gt; apis)</td></tr>
 <tr class="separator:aa6ccfe4f604b5364b07dd64409e36590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ef813c83e89cd0ffb401e858afe2c8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a3ef813c83e89cd0ffb401e858afe2c8b">Build</a> ()</td></tr>
@@ -249,10 +251,10 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00047">47</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
-<div class="line"><span class="lineno">   49</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>.AddRange(apis);</div>
-<div class="line"><span class="lineno">   50</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00053">53</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>    {</div>
+<div class="line"><span class="lineno">   55</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>.AddRange(apis);</div>
+<div class="line"><span class="lineno">   56</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,35 +276,35 @@ Private Attributes</h2></td></tr>
 <p>Builds a new BadExecutionContext with the options provided in this Options Instance. </p>
 <dl class="section return"><dt>Returns</dt><dd>The new BadExecutionContext</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00056">56</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>    {</div>
-<div class="line"><span class="lineno">   58</span>        BadExecutionContext ctx = BadExecutionContext.Create();</div>
-<div class="line"><span class="lineno">   59</span> </div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadInteropApi</a> api <span class="keywordflow">in</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>)</div>
-<div class="line"><span class="lineno">   61</span>        {</div>
-<div class="line"><span class="lineno">   62</span>            <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table;</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>            <span class="keywordflow">if</span> (ctx.Scope.HasLocal(api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>) &amp;&amp; ctx.Scope.GetVariable(api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>).Dereference() is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> t)</div>
-<div class="line"><span class="lineno">   65</span>            {</div>
-<div class="line"><span class="lineno">   66</span>                table = t;</div>
-<div class="line"><span class="lineno">   67</span>            }</div>
-<div class="line"><span class="lineno">   68</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   69</span>            {</div>
-<div class="line"><span class="lineno">   70</span>                table = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>();</div>
-<div class="line"><span class="lineno">   71</span>                ctx.Scope.DefineVariable(api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>, table);</div>
-<div class="line"><span class="lineno">   72</span>            }</div>
-<div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>            api.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a356b3581442b2c311e14d959f9188c6f">Load</a>(table);</div>
-<div class="line"><span class="lineno">   75</span>        }</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a> type <span class="keywordflow">in</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html">BadNativeClassBuilder</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html#ac05cab41b24901fa9abbf6c38c7e0ced">NativeTypes</a>)</div>
-<div class="line"><span class="lineno">   78</span>        {</div>
-<div class="line"><span class="lineno">   79</span>            ctx.Scope.DefineVariable(type.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">Name</a>, type);</div>
-<div class="line"><span class="lineno">   80</span>        }</div>
-<div class="line"><span class="lineno">   81</span> </div>
+<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00062">62</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
+<div class="line"><span class="lineno">   64</span>        BadExecutionContext ctx = BadExecutionContext.Create();</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadInteropApi</a> api <span class="keywordflow">in</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>)</div>
+<div class="line"><span class="lineno">   67</span>        {</div>
+<div class="line"><span class="lineno">   68</span>            <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table;</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">if</span> (ctx.Scope.HasLocal(api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>) &amp;&amp; ctx.Scope.GetVariable(api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>).Dereference() is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> t)</div>
+<div class="line"><span class="lineno">   71</span>            {</div>
+<div class="line"><span class="lineno">   72</span>                table = t;</div>
+<div class="line"><span class="lineno">   73</span>            }</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   75</span>            {</div>
+<div class="line"><span class="lineno">   76</span>                table = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>();</div>
+<div class="line"><span class="lineno">   77</span>                ctx.Scope.DefineVariable(api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>, table);</div>
+<div class="line"><span class="lineno">   78</span>            }</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>            api.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a356b3581442b2c311e14d959f9188c6f">Load</a>(table);</div>
+<div class="line"><span class="lineno">   81</span>        }</div>
 <div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">return</span> ctx;</div>
-<div class="line"><span class="lineno">   84</span>    }</div>
+<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a> type <span class="keywordflow">in</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html">BadNativeClassBuilder</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html#ac05cab41b24901fa9abbf6c38c7e0ced">NativeTypes</a>)</div>
+<div class="line"><span class="lineno">   84</span>        {</div>
+<div class="line"><span class="lineno">   85</span>            ctx.Scope.DefineVariable(type.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">Name</a>, type);</div>
+<div class="line"><span class="lineno">   86</span>        }</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">return</span> ctx;</div>
+<div class="line"><span class="lineno">   90</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadScript2.Runtime.Interop.BadInteropApi</a></div><div class="ttdoc">Implements an Interop API for the BS2 Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_api_8cs_source.html#l00008">BadInteropApi.cs:9</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api_html_a356b3581442b2c311e14d959f9188c6f"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a356b3581442b2c311e14d959f9188c6f">BadScript2.Runtime.Interop.BadInteropApi.Load</a></div><div class="ttdeci">void Load(BadTable table)</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_api_8cs_source.html#l00032">BadInteropApi.cs:32</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api_html_a8382d73a486b41844c0f43b99aa05604"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">BadScript2.Runtime.Interop.BadInteropApi.Name</a></div><div class="ttdeci">string Name</div><div class="ttdoc">Name of the API.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_api_8cs_source.html#l00022">BadInteropApi.cs:22</a></div></div>
@@ -329,11 +331,35 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00086">86</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   87</span>    {</div>
-<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a112a003c234d1522bb1dceb7a044eccb">BadExecutionContextOptions</a>(<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>);</div>
-<div class="line"><span class="lineno">   89</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00092">92</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   93</span>    {</div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a112a003c234d1522bb1dceb7a044eccb">BadExecutionContextOptions</a>(<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>);</div>
+<div class="line"><span class="lineno">   95</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_options_html_a112a003c234d1522bb1dceb7a044eccb"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a112a003c234d1522bb1dceb7a044eccb">BadScript2.Runtime.BadExecutionContextOptions.BadExecutionContextOptions</a></div><div class="ttdeci">BadExecutionContextOptions(IEnumerable&lt; BadInteropApi &gt; apis)</div><div class="ttdoc">Creates a new instance of the BadExecutionContextOptions class.</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_options_8cs_source.html#l00026">BadExecutionContextOptions.cs:26</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a15677f5e1b741e69cabd25bb511667d3" name="a15677f5e1b741e69cabd25bb511667d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15677f5e1b741e69cabd25bb511667d3">&#9670;&#160;</a></span>ReplaceApi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BadScript2.Runtime.BadExecutionContextOptions.ReplaceApi </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html">BadInteropApi</a>&#160;</td>
+          <td class="paramname"><em>api</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_execution_context_options_8cs_source.html#l00047">47</a> of file <a class="el" href="_bad_execution_context_options_8cs_source.html">BadExecutionContextOptions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordtype">int</span> index = <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>.FindIndex(x =&gt; x.Name == api.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a8382d73a486b41844c0f43b99aa05604">Name</a>);</div>
+<div class="line"><span class="lineno">   50</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#aa881ccd047ed54b0e280aa587047a116">m_Apis</a>[index] = api;</div>
+<div class="line"><span class="lineno">   51</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.Optimizations.\lBadExpressionOptimizer",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html",tooltip="Implements a simple constant folding optimization."];
+  Node0 [id="Node000000",label="BadScript2.Interop.NetHost.\lBadNetHost",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_interop_1_1_net_host_1_1_bad_net_host.html",tooltip=" "];
 }

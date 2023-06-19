@@ -12,6 +12,7 @@ digraph "src/BadScript2.Interop"
     dir_743d4fc473248ca03e83ba8b0a438d7a [shape=plaintext, label="BadScript2.Interop"];
   dir_ecb14d9ba8a6a02f07f219f62488e64b [label="BadScript2.Interop.Common", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_ecb14d9ba8a6a02f07f219f62488e64b.html",tooltip=""];
   dir_ac5aff37269068bb947214021cf1171a [label="BadScript2.Interop.Compression", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_ac5aff37269068bb947214021cf1171a.html",tooltip=""];
+  dir_0373e874d3dc74669d91c037caaf5f7d [label="BadScript2.Interop.Html", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_0373e874d3dc74669d91c037caaf5f7d.html",tooltip=""];
   dir_49c13e43f2b1587b32c6a0305c756d54 [label="BadScript2.Interop.IO", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_49c13e43f2b1587b32c6a0305c756d54.html",tooltip=""];
   dir_15b07b868da8456af59cf54e67eb097c [label="BadScript2.Interop.Json", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_15b07b868da8456af59cf54e67eb097c.html",tooltip=""];
   dir_017c0b63efe24195c060d47225a5ca49 [label="BadScript2.Interop.Linq", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_017c0b63efe24195c060d47225a5ca49.html",tooltip=""];

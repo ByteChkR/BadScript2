@@ -1,0 +1,4 @@
+var _bad_console_disconnect_packet_8cs =
+[
+    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleDisconnectPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet.html", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_disconnect_packet" ]
+];

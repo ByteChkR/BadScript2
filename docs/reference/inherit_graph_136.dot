@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BadScript2.Utility.Linq.\lBadLinqExtensions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html",tooltip=" "];
+  Node0 [id="Node000000",label="BadScript2.Settings.BadEditable\lSetting\< BadScript2.Debugger.Scriptable.\lBadScriptDebuggerSettings, string \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_settings_1_1_bad_editable_setting.html",tooltip=" "];
 }

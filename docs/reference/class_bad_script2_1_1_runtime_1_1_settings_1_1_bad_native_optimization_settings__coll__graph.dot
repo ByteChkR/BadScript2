@@ -10,5 +10,6 @@ digraph "BadScript2.Runtime.Settings.BadNativeOptimizationSettings"
   Node2 [id="Node000002",label="BadSettingsProvider\l\< BadNativeOptimizationSettings \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_settings_1_1_bad_settings_provider.html",tooltip=" "];
   Node3 -> Node2 [id="edge2_Node000002_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" s_RootSettings",fontcolor="grey" ];
   Node3 [id="Node000003",label="BadScript2.Settings.BadSettings",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_settings_1_1_bad_settings.html",tooltip="Public Api for the Settings System."];
-  Node3 -> Node1 [id="edge3_Node000001_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" m_UseConstantExpressionOptimization\lObj\nm_UseConstantFunctionCaching\lObj\nm_UseStaticExtensionCaching\lObj\nm_UseStringCachingObj",fontcolor="grey" ];
+  Node4 -> Node1 [id="edge3_Node000001_Node000004",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" m_UseConstantExpressionOptimization\nm_UseConstantFunctionCaching\nm_UseStaticExtensionCaching\nm_UseStringCaching",fontcolor="grey" ];
+  Node4 [id="Node000004",label="BadScript2.Settings.BadEditable\lSetting\< BadScript2.Runtime.Settings.\lBadNativeOptimizationSettings, bool \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$class_bad_script2_1_1_settings_1_1_bad_editable_setting.html",tooltip=" "];
 }

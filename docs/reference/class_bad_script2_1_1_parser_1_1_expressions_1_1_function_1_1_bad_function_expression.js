@@ -1,6 +1,7 @@
 var class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression =
 [
     [ "BadFunctionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a744539c3b2323356c2259f2e106a8ccf", null ],
+    [ "GetDescendants", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a076dbde694eaaf951657795a3ad64429", null ],
     [ "GetHeader", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#aba271a442f48135b93823b6c7540982c", null ],
     [ "InnerExecute", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a4ee432c6634d6dc309bd9942cc3670b8", null ],
     [ "Optimize", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#add7792f309a893a18cbc715176d4a38a", null ],

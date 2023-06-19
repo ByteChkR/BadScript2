@@ -16,6 +16,7 @@ var class_bad_script2_1_1_parser_1_1_bad_source_parser =
     [ "ParseIf", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#af357be522193d88d80019c051e0b37ae", null ],
     [ "ParseLock", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a276cf3150b13fe9fe71cbd5fe6bef1a7", null ],
     [ "ParseMeta", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ad487f28fd6408b65af4b8e5181a9f3b7", null ],
+    [ "ParseMultiLineFormatString", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ac3378260a62eae6dde4573c6b20ec11a", null ],
     [ "ParseNew", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a17cd26b1880168aced0c621eb3392e04", null ],
     [ "ParseParameter", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#aad20c848ddb05d2679df55e5ac1d0cd6", null ],
     [ "ParseParameters", "class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ac3b8c66e658609040ff7924453c638cb", null ],

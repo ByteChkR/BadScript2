@@ -14,6 +14,7 @@ var class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions =
     [ "Invoke< T >", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a5126f558443c52d2c5c3b155d6731862", null ],
     [ "Last", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ae94dd56ed56fd6e19c304a3fca3953d8", null ],
     [ "LastOrDefault", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a52c2b6ff9cf2cba918e13c43ad170426", null ],
+    [ "OrderBy", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a6aa64c222288f4c0d6070138e14ce079", null ],
     [ "Register", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72", null ],
     [ "Register< T >", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#adbe81bbc41801a012ac5e03cf82e0f99", null ],
     [ "Reverse", "class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3058b90898d09f68d48f8fe433bd53e4", null ],

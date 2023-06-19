@@ -1,16 +1,12 @@
 var class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings =
 [
     [ "BadNativeOptimizationSettings", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#aa0fd26f194d645c34c4bed05d64a2bac", null ],
-    [ "m_UseConstantExpressionOptimizationObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a163e76166805a0a309903f394ab666a6", null ],
-    [ "m_UseConstantFunctionCachingObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#aa733d2c6754d6c4fbd94c3a1b10770fe", null ],
-    [ "m_UseStaticExtensionCachingObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a38b5795c7c18be9fb67db6ad31619fff", null ],
-    [ "m_UseStringCachingObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ab062bc3b00331732e0a758b49d3ea7cd", null ],
+    [ "m_UseConstantExpressionOptimization", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ac3ed65a94129cfa0d577c13f9479d239", null ],
+    [ "m_UseConstantFunctionCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a278a751dade398011605ee42aedef3f4", null ],
+    [ "m_UseStaticExtensionCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a2148011e2e120eb601264da3e6a8c513", null ],
+    [ "m_UseStringCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#aec85c78b64b868337af58dd17e734473", null ],
     [ "UseConstantExpressionOptimization", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ad14dc41dab01e6a9ded5a026cf648cee", null ],
-    [ "UseConstantExpressionOptimizationObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a6dac6f4b44d3c99d08744c7af6c35930", null ],
     [ "UseConstantFunctionCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a00939dff18e2df967d7500de290ee55a", null ],
-    [ "UseConstantFunctionCachingObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a3a2295fce697abbef81eaa62dd38d44b", null ],
     [ "UseStaticExtensionCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a774cca918346bf0b4ecd1efb19bd1776", null ],
-    [ "UseStaticExtensionCachingObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a96e4c5630cc93c5f745537b50b9037f4", null ],
-    [ "UseStringCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ad7ecfc44eee53ad4efd21492f39f39ac", null ],
-    [ "UseStringCachingObj", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#a50a2e3477c49785aa2d017fc49792779", null ]
+    [ "UseStringCaching", "class_bad_script2_1_1_runtime_1_1_settings_1_1_bad_native_optimization_settings.html#ad7ecfc44eee53ad4efd21492f39f39ac", null ]
 ];
