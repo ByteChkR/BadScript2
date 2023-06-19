@@ -14,11 +14,11 @@ public class BadLogWriterSettings : BadSettingsProvider<BadLogWriterSettings>
 
 
 	
-	private readonly BadEditableSetting<BadLogWriterSettings, BadLogMask> m_Mask =
-		new BadEditableSetting<BadLogWriterSettings, BadLogMask>(nameof(Mask), BadLogMask.All);
+	private readonly BadEditableSetting<BadLogWriterSettings, string[]> m_Mask =
+		new BadEditableSetting<BadLogWriterSettings, string[]>(nameof(Mask), BadLogMask.All.GetNames());
 	public BadLogMask Mask
 	{
-		get => m_Mask.GetValue()!;
-		set => m_Mask.Set(value);
+		get => BadLogMask.GetMask(m_Mask.GetValue()!.Select(x => (BadLogMask)x).ToArray());
+		set => m_Mask.Set(value.GetNames());
 	}
 }
