@@ -1,8 +1,0 @@
-{
-  "Subsystems": {
-    "Html": {
-      "RootDirectory": "$(Console.SubsystemDirectory)/html",
-      "ExtensionDirectory": "$(RootDirectory)/extensions"
-    }
-  }
-}
