@@ -8,5 +8,7 @@ var class_bad_reflected_method =
     [ "FindImplementation", "class_bad_reflected_method.html#afa93f8c3d1fb56fc37b2a1882e9b20ff", null ],
     [ "Get", "class_bad_reflected_method.html#a42891f90fe367476feceda5ac1234be4", null ],
     [ "Invoke", "class_bad_reflected_method.html#acb631a069c6758ea08f5a75ecdfbf0a1", null ],
-    [ "Methods", "class_bad_reflected_method.html#a56036ac69d61d048bc1abd63d2511ec6", null ]
+    [ "Set", "class_bad_reflected_method.html#a262dc17011a1a7832741ab96cdb83c1d", null ],
+    [ "m_Methods", "class_bad_reflected_method.html#a5912ef67a4f48778c68379db110321bf", null ],
+    [ "IsReadOnly", "class_bad_reflected_method.html#a86691482f98d45151791cdca60cf6c62", null ]
 ];

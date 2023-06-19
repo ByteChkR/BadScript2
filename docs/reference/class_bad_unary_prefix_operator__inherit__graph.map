@@ -1,7 +1,0 @@
-<map id="BadUnaryPrefixOperator" name="BadUnaryPrefixOperator">
-<area shape="rect" id="node1" title="Base class for all Unary Prefix Operators" alt="" coords="184,80,347,107"/>
-<area shape="rect" id="node3" href="$class_bad_logic_not_operator.html" title="Implements the Logic Not Operator" alt="" coords="5,155,152,181"/>
-<area shape="rect" id="node4" href="$class_bad_pre_decrement_operator.html" title="Implements the Pre Decrement Operator" alt="" coords="176,155,355,181"/>
-<area shape="rect" id="node5" href="$class_bad_pre_increment_operator.html" title="Implements the Pre Increment Operator" alt="" coords="379,155,551,181"/>
-<area shape="rect" id="node2" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="218,5,313,32"/>
-</map>

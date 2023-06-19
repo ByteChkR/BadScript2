@@ -1,5 +1,0 @@
-<map id="BadGreaterThanExpression" name="BadGreaterThanExpression">
-<area shape="rect" id="node1" title="Implements the Greater Than Expression" alt="" coords="5,155,187,181"/>
-<area shape="rect" id="node2" href="$class_bad_binary_expression.html" title="Base Implementation of all Binary Expressions" alt="" coords="23,80,169,107"/>
-<area shape="rect" id="node3" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="41,5,151,32"/>
-</map>

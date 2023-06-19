@@ -1,7 +1,0 @@
-<map id="BadBoolean" name="BadBoolean">
-<area shape="rect" id="node1" title="Implements a Native Boolean" alt="" coords="91,229,183,256"/>
-<area shape="rect" id="node2" href="$class_bad_native.html" title=" " alt="" coords="5,155,133,181"/>
-<area shape="rect" id="node3" href="$interface_i_bad_boolean.html" title="Implements the Interface for Native Boolean" alt="" coords="158,155,253,181"/>
-<area shape="rect" id="node4" href="$interface_i_bad_native.html" title="Defines properties for Native Types" alt="" coords="164,80,247,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="121,5,289,32"/>
-</map>

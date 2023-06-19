@@ -1,5 +1,6 @@
 var class_bad_source_reader =
 [
+    [ "BadSourceReader", "class_bad_source_reader.html#ab38814ea33a491cb05942b7de66c65c1", null ],
     [ "BadSourceReader", "class_bad_source_reader.html#ae858a60ae2d6ee1d7baec054761df347", null ],
     [ "Eat", "class_bad_source_reader.html#a430552e6133ef65c495eb8303c18dccc", null ],
     [ "Eat", "class_bad_source_reader.html#ac2a23324bbf5e21711093fcf9af9eedd", null ],
@@ -24,8 +25,11 @@ var class_bad_source_reader =
     [ "SetPosition", "class_bad_source_reader.html#ad8bd35f60ecb8b5b1cecdaa768a2eb9e", null ],
     [ "Skip", "class_bad_source_reader.html#a3cf04dd8cbb709d43244efbf073c911d", null ],
     [ "Skip", "class_bad_source_reader.html#a26b484c1d80b828007d572fc23af75f0", null ],
-    [ "FileName", "class_bad_source_reader.html#ab617f678c88b0449c07670655ffe8237", null ],
+    [ "m_EndIndex", "class_bad_source_reader.html#a70b6ec2b21f7665bcfd15d1c8c3f4fb5", null ],
     [ "m_Source", "class_bad_source_reader.html#aca85013e147fa2ea3344ebdfe482a6e1", null ],
+    [ "m_StartIndex", "class_bad_source_reader.html#af2f522c5ae6a997c392bc6fa0cd527ea", null ],
     [ "CurrentChar", "class_bad_source_reader.html#afd0f8da667c3e139c2f287b83d3bf301", null ],
-    [ "CurrentIndex", "class_bad_source_reader.html#a7a24211d89c8bd3183a9cb2f0295a84a", null ]
+    [ "CurrentIndex", "class_bad_source_reader.html#a7a24211d89c8bd3183a9cb2f0295a84a", null ],
+    [ "FileName", "class_bad_source_reader.html#a404d6991af9fa3b0517e8c55f56fc8b9", null ],
+    [ "Source", "class_bad_source_reader.html#a4412a68dab875c21e28117e96fb9bc11", null ]
 ];

@@ -1,5 +1,0 @@
-<map id="BadLogicXOrOperator" name="BadLogicXOrOperator">
-<area shape="rect" id="node1" title="Implements the Logic Exclusive Or Operator" alt="" coords="5,155,152,181"/>
-<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="13,80,145,107"/>
-<area shape="rect" id="node3" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="31,5,126,32"/>
-</map>

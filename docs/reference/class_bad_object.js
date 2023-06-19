@@ -2,7 +2,7 @@ var class_bad_object =
 [
     [ "BadNullObject", "class_bad_object_1_1_bad_null_object.html", "class_bad_object_1_1_bad_null_object" ],
     [ "CanWrap", "class_bad_object.html#a8e2db830906024bc4f9a63b11e8c0411", null ],
-    [ "GetProperty", "class_bad_object.html#a0605f82074345294ad1913a318471064", null ],
+    [ "GetProperty", "class_bad_object.html#a0ecd745fea7be31b113e5f44619680ef", null ],
     [ "GetPrototype", "class_bad_object.html#a2daf4608e96a0f2e2dacb48b5bc98edf", null ],
     [ "HasProperty", "class_bad_object.html#a49b16f0742a8d59f11dd2665a10d8468", null ],
     [ "operator BadObject", "class_bad_object.html#aea5d9c8c28113d45b14630bf2e910ab2", null ],

@@ -1,6 +1,7 @@
 var class_bad_member_access_expression =
 [
     [ "BadMemberAccessExpression", "class_bad_member_access_expression.html#a4474f7296e1c8f69362a8dae8c6d72b6", null ],
+    [ "GetDescendants", "class_bad_member_access_expression.html#a61223fd32ef94509669a55a2e7c39bd7", null ],
     [ "InnerExecute", "class_bad_member_access_expression.html#a594e58f53f586eccebe1e24525fd1ba1", null ],
     [ "Optimize", "class_bad_member_access_expression.html#abdea48633752789f47aa38c80ccd436d", null ],
     [ "ToString", "class_bad_member_access_expression.html#a7ea4dc6145a3633233c275469acb3b24", null ],

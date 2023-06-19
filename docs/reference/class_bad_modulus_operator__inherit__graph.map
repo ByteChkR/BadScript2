@@ -1,5 +1,0 @@
-<map id="BadModulusOperator" name="BadModulusOperator">
-<area shape="rect" id="node1" title="Implements the Modulus Operator" alt="" coords="5,155,149,181"/>
-<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="11,80,143,107"/>
-<area shape="rect" id="node3" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="30,5,125,32"/>
-</map>

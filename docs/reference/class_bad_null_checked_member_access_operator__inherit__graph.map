@@ -1,5 +1,0 @@
-<map id="BadNullCheckedMemberAccessOperator" name="BadNullCheckedMemberAccessOperator">
-<area shape="rect" id="node1" title="Implements the Null&#45;Checked Member Access Operator" alt="" coords="5,155,215,196"/>
-<area shape="rect" id="node2" href="$class_bad_binary_operator.html" title="Base class for all binary operators" alt="" coords="44,80,176,107"/>
-<area shape="rect" id="node3" href="$class_bad_operator.html" title="Base Class of All Operators" alt="" coords="63,5,157,32"/>
-</map>

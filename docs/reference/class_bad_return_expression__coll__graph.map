@@ -1,4 +1,0 @@
-<map id="BadReturnExpression" name="BadReturnExpression">
-<area shape="rect" id="node1" title="Implements the Return expression that is used to exit the current function with an Optional Return Va..." alt="" coords="5,80,153,107"/>
-<area shape="rect" id="node2" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="24,5,135,32"/>
-</map>

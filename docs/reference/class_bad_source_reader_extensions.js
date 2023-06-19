@@ -9,6 +9,7 @@ var class_bad_source_reader_extensions =
     [ "IsWordStart", "class_bad_source_reader_extensions.html#a27a98dc387c585e26899bd648a4bbf47", null ],
     [ "Last", "class_bad_source_reader_extensions.html#afabaac4ef5f0f018442eb49a8ec60fc4", null ],
     [ "ParseBoolean", "class_bad_source_reader_extensions.html#ac555aed31d9c1395bea807a8233dab62", null ],
+    [ "ParseMultiLineString", "class_bad_source_reader_extensions.html#ae738125617ccedcc42e0d1c3a8da52ed", null ],
     [ "ParseNull", "class_bad_source_reader_extensions.html#a2b998f624c11837804efb2a48e41390d", null ],
     [ "ParseNumber", "class_bad_source_reader_extensions.html#ac7d558d1ddf42e679d90a54621c39e97", null ],
     [ "ParseString", "class_bad_source_reader_extensions.html#a99eeb85415128d123ff5fa224cf6bf25", null ],

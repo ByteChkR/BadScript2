@@ -1,6 +1,7 @@
 var class_bad_for_expression =
 [
     [ "BadForExpression", "class_bad_for_expression.html#a3d01bdf55535d19c25add16b26c42a78", null ],
+    [ "GetDescendants", "class_bad_for_expression.html#a419a5fcfdc2bd2ded36c718bc276a4ca", null ],
     [ "InnerExecute", "class_bad_for_expression.html#a31223eb20c331c11c1fd07d40768562d", null ],
     [ "Optimize", "class_bad_for_expression.html#adbe837c2e0e9ccd55db0f807bfa0c5ac", null ],
     [ "m_Body", "class_bad_for_expression.html#aea3802f72b277c2eb23d4a3aae0037d2", null ],

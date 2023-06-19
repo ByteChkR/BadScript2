@@ -1,7 +1,0 @@
-<map id="BadInteropEnumerator" name="BadInteropEnumerator">
-<area shape="rect" id="node1" title="Implements a simple wrapper for C# IEnumerators to be used in BS2" alt="" coords="57,203,207,229"/>
-<area shape="rect" id="node2" href="$class_bad_object.html" title=" " alt="" coords="5,14,88,41"/>
-<area shape="rect" id="node5" href="$class_bad_object_reference.html" title="Implements the base functionality for a BadScript Reference" alt="" coords="61,99,203,125"/>
-<area shape="rect" id="node3" href="$interface_i_bad_enumerator.html" title=" " alt="" coords="227,99,341,125"/>
-<area shape="rect" id="node4" title=" " alt="" coords="195,14,373,41"/>
-</map>

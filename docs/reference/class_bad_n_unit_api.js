@@ -22,7 +22,8 @@ var class_bad_n_unit_api =
     [ "Assert_NotZero", "class_bad_n_unit_api.html#a7b1884d1455b6afb948f80f1ecd8c03e", null ],
     [ "Assert_Pass", "class_bad_n_unit_api.html#acff08a86fa60b086082ff0fd0aab01e7", null ],
     [ "Assert_Positive", "class_bad_n_unit_api.html#a22f33032ec108d0f603e0a8bc07cea0d", null ],
+    [ "Assert_Throws", "class_bad_n_unit_api.html#ad3a91305b0aab7c533ef5ee82cbf1927", null ],
     [ "Assert_Zero", "class_bad_n_unit_api.html#a1887bea1ddc1700be349e4db0b0e082a", null ],
-    [ "Load", "class_bad_n_unit_api.html#a2f99fa073a2531687e83fc437564daab", null ],
+    [ "LoadApi", "class_bad_n_unit_api.html#a40f3f1cc6ce1920847cc0e9620214d47", null ],
     [ "MakeAssert", "class_bad_n_unit_api.html#a125582e734cca932a4182d8dfccbfeec", null ]
 ];

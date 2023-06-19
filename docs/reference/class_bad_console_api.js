@@ -4,7 +4,7 @@ var class_bad_console_api =
     [ "BadConsoleApi", "class_bad_console_api.html#a3ff9d2429619bba762335a38cf520b24", null ],
     [ "BadConsoleApi", "class_bad_console_api.html#a0b07dcee655a9231eacb34c921a13ceb", null ],
     [ "Clear", "class_bad_console_api.html#ad3dd43a9784f1b5e741480dd9be225ca", null ],
-    [ "Load", "class_bad_console_api.html#aa82ac3ff3735c5204ac289e20c153e8e", null ],
+    [ "LoadApi", "class_bad_console_api.html#a7c3a699445d778446eb3ba57d9f472c0", null ],
     [ "ReadLine", "class_bad_console_api.html#af4b981d38d2841336c3839d7732a99ea", null ],
     [ "ReadLineAsync", "class_bad_console_api.html#a5e6bc3e22536558d0b08acb79c3db089", null ],
     [ "ReadLineAsyncBlocking", "class_bad_console_api.html#adead179c2199e299bbf84b47c2e56398", null ],

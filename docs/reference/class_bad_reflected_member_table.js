@@ -7,5 +7,6 @@ var class_bad_reflected_member_table =
     [ "CreateInternal", "class_bad_reflected_member_table.html#a3196b9924c765221c07b34602f107af1", null ],
     [ "GetMember", "class_bad_reflected_member_table.html#a4585d63d1463b3a1a900bc09156dac2d", null ],
     [ "m_Members", "class_bad_reflected_member_table.html#a4b328a6ed03322cf2f930ab090ff381e", null ],
-    [ "m_TableCache", "class_bad_reflected_member_table.html#a3e206c4af66eda41453d4b7c9f30e0b2", null ]
+    [ "m_TableCache", "class_bad_reflected_member_table.html#a3e206c4af66eda41453d4b7c9f30e0b2", null ],
+    [ "MemberNames", "class_bad_reflected_member_table.html#a36563091288ba32f5be884389781b9c8", null ]
 ];

@@ -1,4 +1,0 @@
-<map id="BadArrayAccessReverseExpression" name="BadArrayAccessReverseExpression">
-<area shape="rect" id="node1" title="Implements the Reverse Array Access to set or get properties from an object. &lt;Left&gt;[^&lt;Right&gt;]" alt="" coords="5,80,236,107"/>
-<area shape="rect" id="node2" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="65,5,176,32"/>
-</map>

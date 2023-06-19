@@ -1,4 +1,0 @@
-<map id="BadTernaryExpression" name="BadTernaryExpression">
-<area shape="rect" id="node1" title="Implements the Ternary Expression &lt;Left&gt; ? &lt;TrueRet&gt; : &lt;FalseRet&gt;" alt="" coords="5,80,159,107"/>
-<area shape="rect" id="node2" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="27,5,137,32"/>
-</map>

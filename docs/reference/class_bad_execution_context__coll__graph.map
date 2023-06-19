@@ -1,8 +1,0 @@
-<map id="BadExecutionContext" name="BadExecutionContext">
-<area shape="rect" id="node1" title="The Execution Context. Every execution of a script needs a context the script is running in...." alt="" coords="5,356,153,383"/>
-<area shape="rect" id="node2" href="$class_bad_scope.html" title="Implements the Scope for the Script Engine" alt="" coords="38,265,121,292"/>
-<area shape="rect" id="node3" href="$class_bad_object.html" title=" " alt="" coords="17,90,99,117"/>
-<area shape="rect" id="node4" href="$class_bad_table.html" title="Implements a Table Structure for the BadScript Language" alt="" coords="96,175,172,201"/>
-<area shape="rect" id="node5" href="$interface_i_bad_enumerable.html" title=" " alt="" coords="185,90,302,117"/>
-<area shape="rect" id="node6" title=" " alt="" coords="154,5,333,32"/>
-</map>

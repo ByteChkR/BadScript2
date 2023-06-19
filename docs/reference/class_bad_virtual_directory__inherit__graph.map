@@ -1,5 +1,0 @@
-<map id="BadVirtualDirectory" name="BadVirtualDirectory">
-<area shape="rect" id="node1" title="Represents a Virtual File System Directory Entry" alt="" coords="5,80,140,107"/>
-<area shape="rect" id="node3" href="$class_bad_virtual_root.html" title="Implements a Virtual File System Root Directory" alt="" coords="18,155,127,181"/>
-<area shape="rect" id="node2" href="$class_bad_virtual_node.html" title="Base class for all Virtual Filesystem Nodes" alt="" coords="17,5,129,32"/>
-</map>

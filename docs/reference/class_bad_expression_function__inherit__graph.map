@@ -1,5 +1,0 @@
-<map id="BadExpressionFunction" name="BadExpressionFunction">
-<area shape="rect" id="node1" title="The Expression Function Implementation used if a function gets defined in the Source Code." alt="" coords="5,155,165,181"/>
-<area shape="rect" id="node2" href="$class_bad_function.html" title="Implements a function that can be called from the script" alt="" coords="38,80,133,107"/>
-<area shape="rect" id="node3" href="$class_bad_object.html" title=" " alt="" coords="44,5,127,32"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="BadSourceParser" name="BadSourceParser">
-<area shape="rect" id="node1" title="The Parser of the Language. It turns Source Code into an Expression Tree" alt="" coords="7,95,131,121"/>
-<area shape="rect" id="node2" href="$class_bad_operator_table.html" title="Implements the Operator Table used by the Parser" alt="" coords="5,5,132,32"/>
-</map>

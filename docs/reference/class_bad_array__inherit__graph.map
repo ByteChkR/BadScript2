@@ -1,6 +1,0 @@
-<map id="BadArray" name="BadArray">
-<area shape="rect" id="node1" title="Implements a Dynamic List/Array for the BadScript Language" alt="" coords="70,155,146,181"/>
-<area shape="rect" id="node2" href="$class_bad_object.html" title=" " alt="" coords="5,80,88,107"/>
-<area shape="rect" id="node3" href="$interface_i_bad_enumerable.html" title=" " alt="" coords="112,80,229,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="81,5,260,32"/>
-</map>

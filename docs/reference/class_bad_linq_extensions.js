@@ -23,6 +23,7 @@ var class_bad_linq_extensions =
     [ "Last", "class_bad_linq_extensions.html#a4632b16c3dae9ab10bd461fe0ca6920a", null ],
     [ "LastOrDefault", "class_bad_linq_extensions.html#ae5744b3a73cd8a8210d475450cfa7383", null ],
     [ "LastOrDefault", "class_bad_linq_extensions.html#aed85ae3b718f9ba7f56ebb7755309ab8", null ],
+    [ "OrderBy", "class_bad_linq_extensions.html#a68bd93d6b4ba3c905b0bd7d9a3a6840e", null ],
     [ "OrderBy", "class_bad_linq_extensions.html#a26a02bf330097ea015d9bfc8a359a5ee", null ],
     [ "OrderByDescending", "class_bad_linq_extensions.html#a7d9fb697da656329b6cb4ad5646d442f", null ],
     [ "Register", "class_bad_linq_extensions.html#af6b60a4a6a3879ed46291c0310921b41", null ],

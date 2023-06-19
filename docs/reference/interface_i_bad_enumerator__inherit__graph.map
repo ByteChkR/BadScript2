@@ -1,6 +1,0 @@
-<map id="IBadEnumerator" name="IBadEnumerator">
-<area shape="rect" id="node1" title=" " alt="" coords="113,80,227,107"/>
-<area shape="rect" id="node3" href="$class_bad_interop_enumerator.html" title="Implements a simple wrapper for C# IEnumerators to be used in BS2" alt="" coords="5,155,156,181"/>
-<area shape="rect" id="node4" href="$class_bad_runtime_enumerator.html" title=" " alt="" coords="181,155,341,181"/>
-<area shape="rect" id="node2" title=" " alt="" coords="81,5,259,32"/>
-</map>

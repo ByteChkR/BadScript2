@@ -1,6 +1,0 @@
-<map id="BadNullToken" name="BadNullToken">
-<area shape="rect" id="node1" title="Implements a Null token" alt="" coords="21,247,123,273"/>
-<area shape="rect" id="node2" href="$class_bad_primitive_token.html" title="Base class for all primitive tokens" alt="" coords="7,171,137,197"/>
-<area shape="rect" id="node3" href="$class_bad_token.html" title="Base Class for All tokens." alt="" coords="32,95,112,121"/>
-<area shape="rect" id="node4" href="$class_bad_source_position.html" title="Describes a specific position inside a source file" alt="" coords="5,5,139,32"/>
-</map>

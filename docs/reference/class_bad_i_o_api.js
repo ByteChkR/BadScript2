@@ -6,6 +6,6 @@ var class_bad_i_o_api =
     [ "CreateDirectory", "class_bad_i_o_api.html#a9d85f2747c5577a34d71dc5593ad04d0", null ],
     [ "CreateFile", "class_bad_i_o_api.html#a1cf3f75d056872afe3ca20b816e69ede", null ],
     [ "CreatePath", "class_bad_i_o_api.html#a0dd80019dd05da855d436b0a729eb595", null ],
-    [ "Load", "class_bad_i_o_api.html#ae6e97d60bdb33c63f43ee734b7842c7d", null ],
+    [ "LoadApi", "class_bad_i_o_api.html#acc4773eba9b171c14aca84628f2093f7", null ],
     [ "m_FileSystem", "class_bad_i_o_api.html#a0c13ddff04d3ce3c598a7f8ef5454a8d", null ]
 ];

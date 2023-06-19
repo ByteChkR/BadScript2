@@ -1,4 +1,0 @@
-<map id="BadAssignExpression" name="BadAssignExpression">
-<area shape="rect" id="node1" title="Implements the Assign Expression &lt;Left&gt; = &lt;Right&gt;" alt="" coords="5,80,156,107"/>
-<area shape="rect" id="node2" href="$class_bad_expression.html" title="Base Implementation for all Expressions used inside the Script" alt="" coords="25,5,136,32"/>
-</map>
