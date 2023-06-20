@@ -1,9 +1,18 @@
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
+/// <summary>
+/// Gets used to disconnect the client and the server
+/// </summary>
 public class BadConsoleDisconnectPacket : BadConsolePacket
 {
+	/// <summary>
+	/// Static Instance of this Packet
+	/// </summary>
 	public static readonly BadConsoleDisconnectPacket Packet = new BadConsoleDisconnectPacket();
 
+	/// <summary>
+	/// Private Constructor
+	/// </summary>
 	private BadConsoleDisconnectPacket() { }
 
 	public override byte[] Serialize()
@@ -14,6 +23,11 @@ public class BadConsoleDisconnectPacket : BadConsolePacket
 		};
 	}
 
+	/// <summary>
+	/// Deserializes the Packet
+	/// </summary>
+	/// <param name="data">The Data Array</param>
+	/// <returns>Bad Console Packet instance</returns>
 	public new static BadConsoleDisconnectPacket Deserialize(byte[] data)
 	{
 		return Packet;

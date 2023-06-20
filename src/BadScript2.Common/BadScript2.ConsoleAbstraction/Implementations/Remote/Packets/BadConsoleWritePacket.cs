@@ -4,18 +4,37 @@ using System.Text;
 
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
+/// <summary>
+/// Gets sent to the client to write a message to the console
+/// </summary>
 public class BadConsoleWritePacket : BadConsolePacket
 {
+	/// <summary>
+	/// Constructs a new BadConsoleWritePacket instance
+	/// </summary>
+	/// <param name="isWriteLine">Should a newline be appended?</param>
+	/// <param name="message">The Message to be written</param>
 	public BadConsoleWritePacket(bool isWriteLine, string message)
 	{
 		IsWriteLine = isWriteLine;
 		Message = message;
 	}
 
+	/// <summary>
+	/// Should a newline be appended?
+	/// </summary>
 	public bool IsWriteLine { get; }
 
+	/// <summary>
+	/// The Message to be written
+	/// </summary>
 	public string Message { get; }
 
+	/// <summary>
+	/// Deserializes the Packet
+	/// </summary>
+	/// <param name="data">The Data Array</param>
+	/// <returns>Bad Console Packet instance</returns>
 	public new static BadConsoleWritePacket Deserialize(byte[] data)
 	{
 		bool isWriteLine = data[1] == 1;

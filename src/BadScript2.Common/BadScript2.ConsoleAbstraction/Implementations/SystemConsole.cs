@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace BadScript2.ConsoleAbstraction.Implementations;
 
+/// <summary>
+/// Implements a wrapper for the default system console
+/// </summary>
 public class SystemConsole : IBadConsole
 {
 	public void Write(string str)
