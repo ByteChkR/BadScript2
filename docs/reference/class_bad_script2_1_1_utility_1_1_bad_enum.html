@@ -96,17 +96,23 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_utility_1_1_bad_
   <div class="headertitle"><div class="title">BadScript2.Utility.BadEnum Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implements Enum functions that are missing in .NET Standard 2.0.  
+ <a href="class_bad_script2_1_1_utility_1_1_bad_enum.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a5a75d026dbb59e3aa4d17364804cb1"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_utility_1_1_bad_enum.html#a1a5a75d026dbb59e3aa4d17364804cb1">Parse&lt; T &gt;</a> (string value, bool ignoreCase)</td></tr>
+<tr class="memdesc:a1a5a75d026dbb59e3aa4d17364804cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a string to an enum.  <br /></td></tr>
 <tr class="separator:a1a5a75d026dbb59e3aa4d17364804cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02e79ff4e8baae73c58b44eb7cdae10a"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_utility_1_1_bad_enum.html#a02e79ff4e8baae73c58b44eb7cdae10a">Parse&lt; T &gt;</a> (string value)</td></tr>
+<tr class="memdesc:a02e79ff4e8baae73c58b44eb7cdae10a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a string to an enum.  <br /></td></tr>
 <tr class="separator:a02e79ff4e8baae73c58b44eb7cdae10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_enum_8cs_source.html#l00003">3</a> of file <a class="el" href="_bad_enum_8cs_source.html">BadEnum.cs</a>.</p>
+<div class="textblock"><p>Implements Enum functions that are missing in .NET Standard 2.0. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_enum_8cs_source.html#l00006">6</a> of file <a class="el" href="_bad_enum_8cs_source.html">BadEnum.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a02e79ff4e8baae73c58b44eb7cdae10a" name="a02e79ff4e8baae73c58b44eb7cdae10a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02e79ff4e8baae73c58b44eb7cdae10a">&#9670;&#160;</a></span>Parse&lt; T &gt;() <span class="overload">[1/2]</span></h2>
@@ -131,6 +137,21 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Parses a string to an enum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The String Value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Enum Type</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The Enum Value</dd></dl>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
@@ -140,11 +161,11 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 </div>
 
-<p class="definition">Definition at line <a class="el" href="_bad_enum_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_enum_8cs_source.html">BadEnum.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   10</span>                                                   : Enum</div>
-<div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        <span class="keywordflow">return</span> (T)Enum.Parse(typeof(T), value);</div>
-<div class="line"><span class="lineno">   13</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_enum_8cs_source.html#l00026">26</a> of file <a class="el" href="_bad_enum_8cs_source.html">BadEnum.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>                                                   : Enum</div>
+<div class="line"><span class="lineno">   27</span>    {</div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">return</span> (T)Enum.Parse(typeof(T), value);</div>
+<div class="line"><span class="lineno">   29</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -181,6 +202,22 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Parses a string to an enum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The String Value</td></tr>
+    <tr><td class="paramname">ignoreCase</td><td>Should we ignore case?</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Enum Type</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The Enum Value</dd></dl>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
@@ -190,11 +227,11 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 </div>
 
-<p class="definition">Definition at line <a class="el" href="_bad_enum_8cs_source.html#l00005">5</a> of file <a class="el" href="_bad_enum_8cs_source.html">BadEnum.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    5</span>                                                                    : Enum</div>
-<div class="line"><span class="lineno">    6</span>    {</div>
-<div class="line"><span class="lineno">    7</span>        <span class="keywordflow">return</span> (T)Enum.Parse(typeof(T), value, ignoreCase);</div>
-<div class="line"><span class="lineno">    8</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_enum_8cs_source.html#l00015">15</a> of file <a class="el" href="_bad_enum_8cs_source.html">BadEnum.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   15</span>                                                                    : Enum</div>
+<div class="line"><span class="lineno">   16</span>    {</div>
+<div class="line"><span class="lineno">   17</span>        <span class="keywordflow">return</span> (T)Enum.Parse(typeof(T), value, ignoreCase);</div>
+<div class="line"><span class="lineno">   18</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

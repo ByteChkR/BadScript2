@@ -98,6 +98,9 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_utility_1_1_bad_
   <div class="headertitle"><div class="title">BadScript2.Utility.BadHashCode Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implements Combination of HashCode Functions Taken from decompiled source of System.HashCode This exists because the System.HashCode implementation is not available in .NET Standard 2.0.  
+ <a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -163,8 +166,9 @@ Static Private Attributes</h2></td></tr>
 <tr class="separator:a2caa899d1ebe05321e6ac55c00b14362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00005">5</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="textblock"><p>Implements Combination of HashCode Functions Taken from decompiled source of System.HashCode This exists because the System.HashCode implementation is not available in .NET Standard 2.0. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a1322c00a045b4cee48ecb3b9baec843d" name="a1322c00a045b4cee48ecb3b9baec843d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1322c00a045b4cee48ecb3b9baec843d">&#9670;&#160;</a></span>Combine&lt; T1 &gt;()</h2>
@@ -190,29 +194,29 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00083">83</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   84</span>    {</div>
-<div class="line"><span class="lineno">   85</span>        <span class="comment">// Provide a way of diffusing bits from something with a limited</span></div>
-<div class="line"><span class="lineno">   86</span>        <span class="comment">// input hash space. For example, many enums only have a few</span></div>
-<div class="line"><span class="lineno">   87</span>        <span class="comment">// possible hashes, only using the bottom few bits of the code. Some</span></div>
-<div class="line"><span class="lineno">   88</span>        <span class="comment">// collections are built on the assumption that hashes are spread</span></div>
-<div class="line"><span class="lineno">   89</span>        <span class="comment">// over a larger space, so diffusing the bits may help the</span></div>
-<div class="line"><span class="lineno">   90</span>        <span class="comment">// collection work more efficiently.</span></div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">   93</span> </div>
-<div class="line"><span class="lineno">   94</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">MixEmptyState</a>();</div>
-<div class="line"><span class="lineno">   95</span>        hash += 4;</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00088">88</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>    {</div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment">// Provide a way of diffusing bits from something with a limited</span></div>
+<div class="line"><span class="lineno">   91</span>        <span class="comment">// input hash space. For example, many enums only have a few</span></div>
+<div class="line"><span class="lineno">   92</span>        <span class="comment">// possible hashes, only using the bottom few bits of the code. Some</span></div>
+<div class="line"><span class="lineno">   93</span>        <span class="comment">// collections are built on the assumption that hashes are spread</span></div>
+<div class="line"><span class="lineno">   94</span>        <span class="comment">// over a larger space, so diffusing the bits may help the</span></div>
+<div class="line"><span class="lineno">   95</span>        <span class="comment">// collection work more efficiently.</span></div>
 <div class="line"><span class="lineno">   96</span> </div>
-<div class="line"><span class="lineno">   97</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc1);</div>
+<div class="line"><span class="lineno">   97</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
 <div class="line"><span class="lineno">   98</span> </div>
-<div class="line"><span class="lineno">   99</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
-<div class="line"><span class="lineno">  100</span> </div>
-<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  102</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a0de061f096272d68fe05b6a975a979bd"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">BadScript2.Utility.BadHashCode.MixEmptyState</a></div><div class="ttdeci">static uint MixEmptyState()</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00320">BadHashCode.cs:320</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a3d0b407793284646cff735f9e85404f7"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">BadScript2.Utility.BadHashCode.QueueRound</a></div><div class="ttdeci">static uint QueueRound(uint hash, uint queuedValue)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00309">BadHashCode.cs:309</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a7f9fb3c741f5b645ae44aed5aae2b8a5"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">BadScript2.Utility.BadHashCode.MixFinal</a></div><div class="ttdeci">static uint MixFinal(uint hash)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00326">BadHashCode.cs:326</a></div></div>
+<div class="line"><span class="lineno">   99</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">MixEmptyState</a>();</div>
+<div class="line"><span class="lineno">  100</span>        hash += 4;</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc1);</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  107</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a0de061f096272d68fe05b6a975a979bd"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">BadScript2.Utility.BadHashCode.MixEmptyState</a></div><div class="ttdeci">static uint MixEmptyState()</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00325">BadHashCode.cs:325</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a3d0b407793284646cff735f9e85404f7"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">BadScript2.Utility.BadHashCode.QueueRound</a></div><div class="ttdeci">static uint QueueRound(uint hash, uint queuedValue)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00314">BadHashCode.cs:314</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a7f9fb3c741f5b645ae44aed5aae2b8a5"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">BadScript2.Utility.BadHashCode.MixFinal</a></div><div class="ttdeci">static uint MixFinal(uint hash)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00331">BadHashCode.cs:331</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -250,21 +254,21 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00104">104</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>    {</div>
-<div class="line"><span class="lineno">  106</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  107</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  108</span> </div>
-<div class="line"><span class="lineno">  109</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">MixEmptyState</a>();</div>
-<div class="line"><span class="lineno">  110</span>        hash += 8;</div>
-<div class="line"><span class="lineno">  111</span> </div>
-<div class="line"><span class="lineno">  112</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc1);</div>
-<div class="line"><span class="lineno">  113</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc2);</div>
-<div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00109">109</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  110</span>    {</div>
+<div class="line"><span class="lineno">  111</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  112</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">MixEmptyState</a>();</div>
+<div class="line"><span class="lineno">  115</span>        hash += 8;</div>
 <div class="line"><span class="lineno">  116</span> </div>
-<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  118</span>    }</div>
+<div class="line"><span class="lineno">  117</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc1);</div>
+<div class="line"><span class="lineno">  118</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc2);</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  123</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -308,23 +312,23 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00120">120</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  121</span>    {</div>
-<div class="line"><span class="lineno">  122</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  123</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  124</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  125</span> </div>
-<div class="line"><span class="lineno">  126</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">MixEmptyState</a>();</div>
-<div class="line"><span class="lineno">  127</span>        hash += 12;</div>
-<div class="line"><span class="lineno">  128</span> </div>
-<div class="line"><span class="lineno">  129</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc1);</div>
-<div class="line"><span class="lineno">  130</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc2);</div>
-<div class="line"><span class="lineno">  131</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc3);</div>
-<div class="line"><span class="lineno">  132</span> </div>
-<div class="line"><span class="lineno">  133</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
-<div class="line"><span class="lineno">  134</span> </div>
-<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  136</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00125">125</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  126</span>    {</div>
+<div class="line"><span class="lineno">  127</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  128</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  129</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  130</span> </div>
+<div class="line"><span class="lineno">  131</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0de061f096272d68fe05b6a975a979bd">MixEmptyState</a>();</div>
+<div class="line"><span class="lineno">  132</span>        hash += 12;</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc1);</div>
+<div class="line"><span class="lineno">  135</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc2);</div>
+<div class="line"><span class="lineno">  136</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc3);</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -374,30 +378,30 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00138">138</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  139</span>    {</div>
-<div class="line"><span class="lineno">  140</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  141</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  142</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  143</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  144</span> </div>
-<div class="line"><span class="lineno">  145</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
-<div class="line"><span class="lineno">  146</span> </div>
-<div class="line"><span class="lineno">  147</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
-<div class="line"><span class="lineno">  148</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
-<div class="line"><span class="lineno">  149</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
-<div class="line"><span class="lineno">  150</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00143">143</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  144</span>    {</div>
+<div class="line"><span class="lineno">  145</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  146</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  147</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  148</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
 <div class="line"><span class="lineno">  151</span> </div>
-<div class="line"><span class="lineno">  152</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
-<div class="line"><span class="lineno">  153</span>        hash += 16;</div>
-<div class="line"><span class="lineno">  154</span> </div>
-<div class="line"><span class="lineno">  155</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  152</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
+<div class="line"><span class="lineno">  153</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
+<div class="line"><span class="lineno">  154</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
+<div class="line"><span class="lineno">  155</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
 <div class="line"><span class="lineno">  156</span> </div>
-<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  158</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a3a5d46f2d274b3a849fbe11627b00d76"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">BadScript2.Utility.BadHashCode.MixState</a></div><div class="ttdeci">static uint MixState(uint v1, uint v2, uint v3, uint v4)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00315">BadHashCode.cs:315</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a7475ff6eeb8483d372888062f796d2eb"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">BadScript2.Utility.BadHashCode.Round</a></div><div class="ttdeci">static uint Round(uint hash, uint input)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00303">BadHashCode.cs:303</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a816343592aadc699e96b4ef3a508ef21"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">BadScript2.Utility.BadHashCode.Initialize</a></div><div class="ttdeci">static void Initialize(out uint v1, out uint v2, out uint v3, out uint v4)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00294">BadHashCode.cs:294</a></div></div>
+<div class="line"><span class="lineno">  157</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
+<div class="line"><span class="lineno">  158</span>        hash += 16;</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  163</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a3a5d46f2d274b3a849fbe11627b00d76"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">BadScript2.Utility.BadHashCode.MixState</a></div><div class="ttdeci">static uint MixState(uint v1, uint v2, uint v3, uint v4)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00320">BadHashCode.cs:320</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a7475ff6eeb8483d372888062f796d2eb"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">BadScript2.Utility.BadHashCode.Round</a></div><div class="ttdeci">static uint Round(uint hash, uint input)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00308">BadHashCode.cs:308</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a816343592aadc699e96b4ef3a508ef21"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">BadScript2.Utility.BadHashCode.Initialize</a></div><div class="ttdeci">static void Initialize(out uint v1, out uint v2, out uint v3, out uint v4)</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00299">BadHashCode.cs:299</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -453,30 +457,30 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00160">160</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  161</span>    {</div>
-<div class="line"><span class="lineno">  162</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  163</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  164</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  165</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  166</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  167</span> </div>
-<div class="line"><span class="lineno">  168</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
-<div class="line"><span class="lineno">  169</span> </div>
-<div class="line"><span class="lineno">  170</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
-<div class="line"><span class="lineno">  171</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
-<div class="line"><span class="lineno">  172</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
-<div class="line"><span class="lineno">  173</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00165">165</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  166</span>    {</div>
+<div class="line"><span class="lineno">  167</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  168</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  169</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  170</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  171</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
 <div class="line"><span class="lineno">  174</span> </div>
-<div class="line"><span class="lineno">  175</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
-<div class="line"><span class="lineno">  176</span>        hash += 20;</div>
-<div class="line"><span class="lineno">  177</span> </div>
-<div class="line"><span class="lineno">  178</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc5);</div>
+<div class="line"><span class="lineno">  175</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
+<div class="line"><span class="lineno">  176</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
+<div class="line"><span class="lineno">  177</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
+<div class="line"><span class="lineno">  178</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
 <div class="line"><span class="lineno">  179</span> </div>
-<div class="line"><span class="lineno">  180</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
-<div class="line"><span class="lineno">  181</span> </div>
-<div class="line"><span class="lineno">  182</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  183</span>    }</div>
+<div class="line"><span class="lineno">  180</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
+<div class="line"><span class="lineno">  181</span>        hash += 20;</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc5);</div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  188</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -538,32 +542,32 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00185">185</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  192</span>    {</div>
-<div class="line"><span class="lineno">  193</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  194</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  195</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  196</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  197</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  198</span>        uint hc6 = (uint)(value6?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  199</span> </div>
-<div class="line"><span class="lineno">  200</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
-<div class="line"><span class="lineno">  201</span> </div>
-<div class="line"><span class="lineno">  202</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
-<div class="line"><span class="lineno">  203</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
-<div class="line"><span class="lineno">  204</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
-<div class="line"><span class="lineno">  205</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00190">190</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  197</span>    {</div>
+<div class="line"><span class="lineno">  198</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  199</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  200</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  201</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  202</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  203</span>        uint hc6 = (uint)(value6?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  204</span> </div>
+<div class="line"><span class="lineno">  205</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
 <div class="line"><span class="lineno">  206</span> </div>
-<div class="line"><span class="lineno">  207</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
-<div class="line"><span class="lineno">  208</span>        hash += 24;</div>
-<div class="line"><span class="lineno">  209</span> </div>
-<div class="line"><span class="lineno">  210</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc5);</div>
-<div class="line"><span class="lineno">  211</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc6);</div>
-<div class="line"><span class="lineno">  212</span> </div>
-<div class="line"><span class="lineno">  213</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  207</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
+<div class="line"><span class="lineno">  208</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
+<div class="line"><span class="lineno">  209</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
+<div class="line"><span class="lineno">  210</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<div class="line"><span class="lineno">  211</span> </div>
+<div class="line"><span class="lineno">  212</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
+<div class="line"><span class="lineno">  213</span>        hash += 24;</div>
 <div class="line"><span class="lineno">  214</span> </div>
-<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  216</span>    }</div>
+<div class="line"><span class="lineno">  215</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc5);</div>
+<div class="line"><span class="lineno">  216</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc6);</div>
+<div class="line"><span class="lineno">  217</span> </div>
+<div class="line"><span class="lineno">  218</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  219</span> </div>
+<div class="line"><span class="lineno">  220</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  221</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -631,34 +635,34 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00218">218</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  226</span>    {</div>
-<div class="line"><span class="lineno">  227</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  228</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  229</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  230</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  231</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  232</span>        uint hc6 = (uint)(value6?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  233</span>        uint hc7 = (uint)(value7?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  234</span> </div>
-<div class="line"><span class="lineno">  235</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
-<div class="line"><span class="lineno">  236</span> </div>
-<div class="line"><span class="lineno">  237</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
-<div class="line"><span class="lineno">  238</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
-<div class="line"><span class="lineno">  239</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
-<div class="line"><span class="lineno">  240</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00223">223</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  231</span>    {</div>
+<div class="line"><span class="lineno">  232</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  233</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  234</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  235</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  236</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  237</span>        uint hc6 = (uint)(value6?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  238</span>        uint hc7 = (uint)(value7?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  239</span> </div>
+<div class="line"><span class="lineno">  240</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
 <div class="line"><span class="lineno">  241</span> </div>
-<div class="line"><span class="lineno">  242</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
-<div class="line"><span class="lineno">  243</span>        hash += 28;</div>
-<div class="line"><span class="lineno">  244</span> </div>
-<div class="line"><span class="lineno">  245</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc5);</div>
-<div class="line"><span class="lineno">  246</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc6);</div>
-<div class="line"><span class="lineno">  247</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc7);</div>
-<div class="line"><span class="lineno">  248</span> </div>
-<div class="line"><span class="lineno">  249</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
-<div class="line"><span class="lineno">  250</span> </div>
-<div class="line"><span class="lineno">  251</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  252</span>    }</div>
+<div class="line"><span class="lineno">  242</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
+<div class="line"><span class="lineno">  243</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
+<div class="line"><span class="lineno">  244</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
+<div class="line"><span class="lineno">  245</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<div class="line"><span class="lineno">  246</span> </div>
+<div class="line"><span class="lineno">  247</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
+<div class="line"><span class="lineno">  248</span>        hash += 28;</div>
+<div class="line"><span class="lineno">  249</span> </div>
+<div class="line"><span class="lineno">  250</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc5);</div>
+<div class="line"><span class="lineno">  251</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc6);</div>
+<div class="line"><span class="lineno">  252</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3d0b407793284646cff735f9e85404f7">QueueRound</a>(hash, hc7);</div>
+<div class="line"><span class="lineno">  253</span> </div>
+<div class="line"><span class="lineno">  254</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  255</span> </div>
+<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  257</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -732,36 +736,36 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00254">254</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  263</span>    {</div>
-<div class="line"><span class="lineno">  264</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  265</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  266</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  267</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  268</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  269</span>        uint hc6 = (uint)(value6?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  270</span>        uint hc7 = (uint)(value7?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  271</span>        uint hc8 = (uint)(value8?.GetHashCode() ?? 0);</div>
-<div class="line"><span class="lineno">  272</span> </div>
-<div class="line"><span class="lineno">  273</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
-<div class="line"><span class="lineno">  274</span> </div>
-<div class="line"><span class="lineno">  275</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
-<div class="line"><span class="lineno">  276</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
-<div class="line"><span class="lineno">  277</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
-<div class="line"><span class="lineno">  278</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00259">259</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  268</span>    {</div>
+<div class="line"><span class="lineno">  269</span>        uint hc1 = (uint)(value1?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  270</span>        uint hc2 = (uint)(value2?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  271</span>        uint hc3 = (uint)(value3?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  272</span>        uint hc4 = (uint)(value4?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  273</span>        uint hc5 = (uint)(value5?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  274</span>        uint hc6 = (uint)(value6?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  275</span>        uint hc7 = (uint)(value7?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  276</span>        uint hc8 = (uint)(value8?.GetHashCode() ?? 0);</div>
+<div class="line"><span class="lineno">  277</span> </div>
+<div class="line"><span class="lineno">  278</span>        <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a816343592aadc699e96b4ef3a508ef21">Initialize</a>(out uint v1, out uint v2, out uint v3, out uint v4);</div>
 <div class="line"><span class="lineno">  279</span> </div>
-<div class="line"><span class="lineno">  280</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc5);</div>
-<div class="line"><span class="lineno">  281</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc6);</div>
-<div class="line"><span class="lineno">  282</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc7);</div>
-<div class="line"><span class="lineno">  283</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc8);</div>
+<div class="line"><span class="lineno">  280</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc1);</div>
+<div class="line"><span class="lineno">  281</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc2);</div>
+<div class="line"><span class="lineno">  282</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc3);</div>
+<div class="line"><span class="lineno">  283</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc4);</div>
 <div class="line"><span class="lineno">  284</span> </div>
-<div class="line"><span class="lineno">  285</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
-<div class="line"><span class="lineno">  286</span>        hash += 32;</div>
-<div class="line"><span class="lineno">  287</span> </div>
-<div class="line"><span class="lineno">  288</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  285</span>        v1 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v1, hc5);</div>
+<div class="line"><span class="lineno">  286</span>        v2 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v2, hc6);</div>
+<div class="line"><span class="lineno">  287</span>        v3 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v3, hc7);</div>
+<div class="line"><span class="lineno">  288</span>        v4 = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7475ff6eeb8483d372888062f796d2eb">Round</a>(v4, hc8);</div>
 <div class="line"><span class="lineno">  289</span> </div>
-<div class="line"><span class="lineno">  290</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
-<div class="line"><span class="lineno">  291</span>    }</div>
+<div class="line"><span class="lineno">  290</span>        uint hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a3a5d46f2d274b3a849fbe11627b00d76">MixState</a>(v1, v2, v3, v4);</div>
+<div class="line"><span class="lineno">  291</span>        hash += 32;</div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span>        hash = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a7f9fb3c741f5b645ae44aed5aae2b8a5">MixFinal</a>(hash);</div>
+<div class="line"><span class="lineno">  294</span> </div>
+<div class="line"><span class="lineno">  295</span>        <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)hash;</div>
+<div class="line"><span class="lineno">  296</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -788,10 +792,10 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00078">78</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">return</span> (uint)<span class="keyword">new</span> Random().Next();</div>
-<div class="line"><span class="lineno">   81</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00083">83</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   84</span>    {</div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">return</span> (uint)<span class="keyword">new</span> Random().Next();</div>
+<div class="line"><span class="lineno">   86</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -841,16 +845,16 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00294">294</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  295</span>    {</div>
-<div class="line"><span class="lineno">  296</span>        v1 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">Prime1</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>;</div>
-<div class="line"><span class="lineno">  297</span>        v2 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>;</div>
-<div class="line"><span class="lineno">  298</span>        v3 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a>;</div>
-<div class="line"><span class="lineno">  299</span>        v4 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> - <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">Prime1</a>;</div>
-<div class="line"><span class="lineno">  300</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a2525a5bd06abe25c91894893c879a3a4"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">BadScript2.Utility.BadHashCode.Prime2</a></div><div class="ttdeci">const uint Prime2</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00008">BadHashCode.cs:8</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a2a94430506593312170630b047ae9c68"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">BadScript2.Utility.BadHashCode.Prime1</a></div><div class="ttdeci">const uint Prime1</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00007">BadHashCode.cs:7</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a2caa899d1ebe05321e6ac55c00b14362"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">BadScript2.Utility.BadHashCode.s_seed</a></div><div class="ttdeci">static readonly uint s_seed</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00012">BadHashCode.cs:12</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00299">299</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  300</span>    {</div>
+<div class="line"><span class="lineno">  301</span>        v1 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">Prime1</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>;</div>
+<div class="line"><span class="lineno">  302</span>        v2 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>;</div>
+<div class="line"><span class="lineno">  303</span>        v3 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a>;</div>
+<div class="line"><span class="lineno">  304</span>        v4 = <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> - <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">Prime1</a>;</div>
+<div class="line"><span class="lineno">  305</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a2525a5bd06abe25c91894893c879a3a4"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">BadScript2.Utility.BadHashCode.Prime2</a></div><div class="ttdeci">const uint Prime2</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00013">BadHashCode.cs:13</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a2a94430506593312170630b047ae9c68"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">BadScript2.Utility.BadHashCode.Prime1</a></div><div class="ttdeci">const uint Prime1</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00012">BadHashCode.cs:12</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a2caa899d1ebe05321e6ac55c00b14362"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">BadScript2.Utility.BadHashCode.s_seed</a></div><div class="ttdeci">static readonly uint s_seed</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00017">BadHashCode.cs:17</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -877,11 +881,11 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00320">320</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  321</span>    {</div>
-<div class="line"><span class="lineno">  322</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a70e04ada2b97830ee5a50787b6065752">Prime5</a>;</div>
-<div class="line"><span class="lineno">  323</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a70e04ada2b97830ee5a50787b6065752"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a70e04ada2b97830ee5a50787b6065752">BadScript2.Utility.BadHashCode.Prime5</a></div><div class="ttdeci">const uint Prime5</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00011">BadHashCode.cs:11</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00325">325</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  326</span>    {</div>
+<div class="line"><span class="lineno">  327</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2caa899d1ebe05321e6ac55c00b14362">s_seed</a> + <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a70e04ada2b97830ee5a50787b6065752">Prime5</a>;</div>
+<div class="line"><span class="lineno">  328</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a70e04ada2b97830ee5a50787b6065752"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a70e04ada2b97830ee5a50787b6065752">BadScript2.Utility.BadHashCode.Prime5</a></div><div class="ttdeci">const uint Prime5</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00016">BadHashCode.cs:16</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -909,17 +913,17 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00326">326</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  327</span>    {</div>
-<div class="line"><span class="lineno">  328</span>        hash ^= hash &gt;&gt; 15;</div>
-<div class="line"><span class="lineno">  329</span>        hash *= <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>;</div>
-<div class="line"><span class="lineno">  330</span>        hash ^= hash &gt;&gt; 13;</div>
-<div class="line"><span class="lineno">  331</span>        hash *= <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#abd34b9eb767fe432728e4009f72d3857">Prime3</a>;</div>
-<div class="line"><span class="lineno">  332</span>        hash ^= hash &gt;&gt; 16;</div>
-<div class="line"><span class="lineno">  333</span> </div>
-<div class="line"><span class="lineno">  334</span>        <span class="keywordflow">return</span> hash;</div>
-<div class="line"><span class="lineno">  335</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_abd34b9eb767fe432728e4009f72d3857"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#abd34b9eb767fe432728e4009f72d3857">BadScript2.Utility.BadHashCode.Prime3</a></div><div class="ttdeci">const uint Prime3</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00009">BadHashCode.cs:9</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00331">331</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  332</span>    {</div>
+<div class="line"><span class="lineno">  333</span>        hash ^= hash &gt;&gt; 15;</div>
+<div class="line"><span class="lineno">  334</span>        hash *= <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>;</div>
+<div class="line"><span class="lineno">  335</span>        hash ^= hash &gt;&gt; 13;</div>
+<div class="line"><span class="lineno">  336</span>        hash *= <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#abd34b9eb767fe432728e4009f72d3857">Prime3</a>;</div>
+<div class="line"><span class="lineno">  337</span>        hash ^= hash &gt;&gt; 16;</div>
+<div class="line"><span class="lineno">  338</span> </div>
+<div class="line"><span class="lineno">  339</span>        <span class="keywordflow">return</span> hash;</div>
+<div class="line"><span class="lineno">  340</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_abd34b9eb767fe432728e4009f72d3857"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#abd34b9eb767fe432728e4009f72d3857">BadScript2.Utility.BadHashCode.Prime3</a></div><div class="ttdeci">const uint Prime3</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00014">BadHashCode.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -969,11 +973,11 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00315">315</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  316</span>    {</div>
-<div class="line"><span class="lineno">  317</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v1, 1) + <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v2, 7) + <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v3, 12) + <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v4, 18);</div>
-<div class="line"><span class="lineno">  318</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a8cc0606e6339662ff23c4541dafe027c"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">BadScript2.Utility.BadHashCode.RotateLeft</a></div><div class="ttdeci">static uint RotateLeft(uint value, int offset)</div><div class="ttdoc">Rotates the specified value left by the specified number of bits. Similar in behavior to the x86 inst...</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00025">BadHashCode.cs:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00320">320</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  321</span>    {</div>
+<div class="line"><span class="lineno">  322</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v1, 1) + <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v2, 7) + <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v3, 12) + <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(v4, 18);</div>
+<div class="line"><span class="lineno">  323</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a8cc0606e6339662ff23c4541dafe027c"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">BadScript2.Utility.BadHashCode.RotateLeft</a></div><div class="ttdeci">static uint RotateLeft(uint value, int offset)</div><div class="ttdoc">Rotates the specified value left by the specified number of bits. Similar in behavior to the x86 inst...</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00030">BadHashCode.cs:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1011,11 +1015,11 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00309">309</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  310</span>    {</div>
-<div class="line"><span class="lineno">  311</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(hash + queuedValue * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#abd34b9eb767fe432728e4009f72d3857">Prime3</a>, 17) * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0b2cdf3bbc607341e1c601c5ec54fe63">Prime4</a>;</div>
-<div class="line"><span class="lineno">  312</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a0b2cdf3bbc607341e1c601c5ec54fe63"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0b2cdf3bbc607341e1c601c5ec54fe63">BadScript2.Utility.BadHashCode.Prime4</a></div><div class="ttdeci">const uint Prime4</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00010">BadHashCode.cs:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00314">314</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  315</span>    {</div>
+<div class="line"><span class="lineno">  316</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(hash + queuedValue * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#abd34b9eb767fe432728e4009f72d3857">Prime3</a>, 17) * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0b2cdf3bbc607341e1c601c5ec54fe63">Prime4</a>;</div>
+<div class="line"><span class="lineno">  317</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_bad_hash_code_html_a0b2cdf3bbc607341e1c601c5ec54fe63"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a0b2cdf3bbc607341e1c601c5ec54fe63">BadScript2.Utility.BadHashCode.Prime4</a></div><div class="ttdeci">const uint Prime4</div><div class="ttdef"><b>Definition</b> <a href="_bad_hash_code_8cs_source.html#l00015">BadHashCode.cs:15</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1063,10 +1067,10 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The rotated value.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00025">25</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   26</span>    {</div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">return</span> (value &lt;&lt; offset) | (value &gt;&gt; (32 - offset));</div>
-<div class="line"><span class="lineno">   28</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00030">30</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>    {</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">return</span> (value &lt;&lt; offset) | (value &gt;&gt; (32 - offset));</div>
+<div class="line"><span class="lineno">   33</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1114,10 +1118,10 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The rotated value.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00041">41</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> (value &lt;&lt; offset) | (value &gt;&gt; (64 - offset));</div>
-<div class="line"><span class="lineno">   44</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00046">46</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> (value &lt;&lt; offset) | (value &gt;&gt; (64 - offset));</div>
+<div class="line"><span class="lineno">   49</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1165,10 +1169,10 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The rotated value.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00057">57</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> (value &gt;&gt; offset) | (value &lt;&lt; (32 - offset));</div>
-<div class="line"><span class="lineno">   60</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00062">62</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">return</span> (value &gt;&gt; offset) | (value &lt;&lt; (32 - offset));</div>
+<div class="line"><span class="lineno">   65</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1216,10 +1220,10 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The rotated value.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00073">73</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   74</span>    {</div>
-<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">return</span> (value &gt;&gt; offset) | (value &lt;&lt; (64 - offset));</div>
-<div class="line"><span class="lineno">   76</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00078">78</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
+<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">return</span> (value &gt;&gt; offset) | (value &lt;&lt; (64 - offset));</div>
+<div class="line"><span class="lineno">   81</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1257,10 +1261,10 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00303">303</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  304</span>    {</div>
-<div class="line"><span class="lineno">  305</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(hash + input * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>, 13) * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">Prime1</a>;</div>
-<div class="line"><span class="lineno">  306</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00308">308</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  309</span>    {</div>
+<div class="line"><span class="lineno">  310</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a8cc0606e6339662ff23c4541dafe027c">RotateLeft</a>(hash + input * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2525a5bd06abe25c91894893c879a3a4">Prime2</a>, 13) * <a class="code hl_variable" href="class_bad_script2_1_1_utility_1_1_bad_hash_code.html#a2a94430506593312170630b047ae9c68">Prime1</a>;</div>
+<div class="line"><span class="lineno">  311</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1285,7 +1289,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00007">7</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 
 </div>
 </div>
@@ -1309,7 +1313,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 
 </div>
 </div>
@@ -1333,7 +1337,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 
 </div>
 </div>
@@ -1357,7 +1361,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00015">15</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 
 </div>
 </div>
@@ -1381,7 +1385,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 
 </div>
 </div>
@@ -1405,7 +1409,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_hash_code_8cs_source.html#l00017">17</a> of file <a class="el" href="_bad_hash_code_8cs_source.html">BadHashCode.cs</a>.</p>
 
 </div>
 </div>

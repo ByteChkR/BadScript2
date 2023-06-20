@@ -96,21 +96,29 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_utility_1_1_bad_
   <div class="headertitle"><div class="title">BadScript2.Utility.BadExtensions Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implements Extensions that aim to fix api differences between .Net Standard and .Net/.Net Framework.  
+ <a href="class_bad_script2_1_1_utility_1_1_bad_extensions.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ab3e250837a58249fb8c1a11ba1bd8d90"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_utility_1_1_bad_extensions.html#ab3e250837a58249fb8c1a11ba1bd8d90">IsCompletedSuccessfully</a> (this Task task)</td></tr>
+<tr class="memdesc:ab3e250837a58249fb8c1a11ba1bd8d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Task is completed successfully.  <br /></td></tr>
 <tr class="separator:ab3e250837a58249fb8c1a11ba1bd8d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b0624e5ad6773c911ffd676d00d370f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_utility_1_1_bad_extensions.html#a6b0624e5ad6773c911ffd676d00d370f">EndsWith</a> (this string str, char c)</td></tr>
+<tr class="memdesc:a6b0624e5ad6773c911ffd676d00d370f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the string ends with the given character.  <br /></td></tr>
 <tr class="separator:a6b0624e5ad6773c911ffd676d00d370f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab72ce86e08797524d10fa27bf744627d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_utility_1_1_bad_extensions.html#ab72ce86e08797524d10fa27bf744627d">StartsWith</a> (this string str, char c)</td></tr>
+<tr class="memdesc:ab72ce86e08797524d10fa27bf744627d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the string starts with the given character.  <br /></td></tr>
 <tr class="separator:ab72ce86e08797524d10fa27bf744627d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42e53225a5bfafe17c0619ff3ab86c0c"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_utility_1_1_bad_extensions.html#a42e53225a5bfafe17c0619ff3ab86c0c">SkipLast&lt; T &gt;</a> (this IEnumerable&lt; T &gt; e, int count)</td></tr>
+<tr class="memdesc:a42e53225a5bfafe17c0619ff3ab86c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips the last n elements of an IEnumerable.  <br /></td></tr>
 <tr class="separator:a42e53225a5bfafe17c0619ff3ab86c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00003">3</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
+<div class="textblock"><p>Implements Extensions that aim to fix api differences between .Net Standard and .Net/.Net Framework. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00006">6</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6b0624e5ad6773c911ffd676d00d370f" name="a6b0624e5ad6773c911ffd676d00d370f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b0624e5ad6773c911ffd676d00d370f">&#9670;&#160;</a></span>EndsWith()</h2>
@@ -146,10 +154,20 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        <span class="keywordflow">return</span> str[str.Length - 1] == c;</div>
-<div class="line"><span class="lineno">   13</span>    }</div>
+<p>Returns true if the string ends with the given character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The String</td></tr>
+    <tr><td class="paramname">c</td><td>The Character</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if string ends with character</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00024">24</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>    {</div>
+<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">return</span> str[str.Length - 1] == c;</div>
+<div class="line"><span class="lineno">   27</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -177,10 +195,19 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00005">5</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    6</span>    {</div>
-<div class="line"><span class="lineno">    7</span>        <span class="keywordflow">return</span> task.Status == TaskStatus.RanToCompletion;</div>
-<div class="line"><span class="lineno">    8</span>    }</div>
+<p>Returns true if the Task is completed successfully. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">task</td><td>The Task</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if completed successfully</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>    {</div>
+<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">return</span> task.Status == TaskStatus.RanToCompletion;</div>
+<div class="line"><span class="lineno">   16</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -218,25 +245,41 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00020">20</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   21</span>    {</div>
-<div class="line"><span class="lineno">   22</span>        Queue&lt;T&gt; q = <span class="keyword">new</span> Queue&lt;T&gt;(count + 1);</div>
-<div class="line"><span class="lineno">   23</span> </div>
-<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">foreach</span> (T item <span class="keywordflow">in</span> e)</div>
-<div class="line"><span class="lineno">   25</span>        {</div>
-<div class="line"><span class="lineno">   26</span>            <span class="keywordflow">if</span> (q.Count == count + 1)</div>
-<div class="line"><span class="lineno">   27</span>            {</div>
-<div class="line"><span class="lineno">   28</span>                yield <span class="keywordflow">return</span> q.Dequeue();</div>
-<div class="line"><span class="lineno">   29</span>            }</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>            q.Enqueue(item);</div>
-<div class="line"><span class="lineno">   32</span>        }</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> (q.Count == count + 1)</div>
-<div class="line"><span class="lineno">   35</span>        {</div>
-<div class="line"><span class="lineno">   36</span>            yield <span class="keywordflow">return</span> q.Dequeue();</div>
-<div class="line"><span class="lineno">   37</span>        }</div>
-<div class="line"><span class="lineno">   38</span>    }</div>
+<p>Skips the last n elements of an IEnumerable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The Enumerable</td></tr>
+    <tr><td class="paramname">count</td><td>The amount of elements to skip</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Element Type</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enumerable with the last 'count' elements removed</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00047">47</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        Queue&lt;T&gt; q = <span class="keyword">new</span> Queue&lt;T&gt;(count + 1);</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">foreach</span> (T item <span class="keywordflow">in</span> e)</div>
+<div class="line"><span class="lineno">   52</span>        {</div>
+<div class="line"><span class="lineno">   53</span>            <span class="keywordflow">if</span> (q.Count == count + 1)</div>
+<div class="line"><span class="lineno">   54</span>            {</div>
+<div class="line"><span class="lineno">   55</span>                yield <span class="keywordflow">return</span> q.Dequeue();</div>
+<div class="line"><span class="lineno">   56</span>            }</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>            q.Enqueue(item);</div>
+<div class="line"><span class="lineno">   59</span>        }</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">if</span> (q.Count == count + 1)</div>
+<div class="line"><span class="lineno">   62</span>        {</div>
+<div class="line"><span class="lineno">   63</span>            yield <span class="keywordflow">return</span> q.Dequeue();</div>
+<div class="line"><span class="lineno">   64</span>        }</div>
+<div class="line"><span class="lineno">   65</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,10 +317,20 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00015">15</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   16</span>    {</div>
-<div class="line"><span class="lineno">   17</span>        <span class="keywordflow">return</span> str[0] == c;</div>
-<div class="line"><span class="lineno">   18</span>    }</div>
+<p>Returns true if the string starts with the given character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The String</td></tr>
+    <tr><td class="paramname">c</td><td>The Character</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if string starts with character</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_bad_extensions_8cs_source.html#l00035">35</a> of file <a class="el" href="_bad_extensions_8cs_source.html">BadExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>    {</div>
+<div class="line"><span class="lineno">   37</span>        <span class="keywordflow">return</span> str[0] == c;</div>
+<div class="line"><span class="lineno">   38</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

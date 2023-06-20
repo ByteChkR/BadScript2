@@ -97,6 +97,9 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_utility_1_1_linq
   <div class="headertitle"><div class="title">BadScript2.Utility.Linq.BadLinqExtensions Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implements LINQ Extensions.  
+ <a href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -147,8 +150,9 @@ Static Private Member Functions</h2></td></tr>
 <tr class="separator:a53caa8256a97de4d5593dfd1041b927b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="textblock"><p>Implements LINQ Extensions. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0bf62177d117605996f24e3d4b1722b1" name="a0bf62177d117605996f24e3d4b1722b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0bf62177d117605996f24e3d4b1722b1">&#9670;&#160;</a></span>All()</h2>
@@ -184,21 +188,21 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00292">292</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  293</span>    {</div>
-<div class="line"><span class="lineno">  294</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  295</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  296</span> </div>
-<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  298</span>        {</div>
-<div class="line"><span class="lineno">  299</span>            <span class="keywordflow">if</span> (!BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  300</span>            {</div>
-<div class="line"><span class="lineno">  301</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  302</span>            }</div>
-<div class="line"><span class="lineno">  303</span>        }</div>
-<div class="line"><span class="lineno">  304</span> </div>
-<div class="line"><span class="lineno">  305</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  306</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00295">295</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  296</span>    {</div>
+<div class="line"><span class="lineno">  297</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  298</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  299</span> </div>
+<div class="line"><span class="lineno">  300</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  301</span>        {</div>
+<div class="line"><span class="lineno">  302</span>            <span class="keywordflow">if</span> (!BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  303</span>            {</div>
+<div class="line"><span class="lineno">  304</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  305</span>            }</div>
+<div class="line"><span class="lineno">  306</span>        }</div>
+<div class="line"><span class="lineno">  307</span> </div>
+<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  309</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadScript2.Parser.Expressions.BadExpression</a></div><div class="ttdoc">Base Implementation for all Expressions used inside the Script.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_8cs_source.html#l00014">BadExpression.cs:15</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -227,15 +231,15 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00308">308</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  309</span>    {</div>
-<div class="line"><span class="lineno">  310</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  311</span>        {</div>
-<div class="line"><span class="lineno">  312</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  313</span>        }</div>
-<div class="line"><span class="lineno">  314</span> </div>
-<div class="line"><span class="lineno">  315</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  316</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00311">311</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  312</span>    {</div>
+<div class="line"><span class="lineno">  313</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  314</span>        {</div>
+<div class="line"><span class="lineno">  315</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  316</span>        }</div>
+<div class="line"><span class="lineno">  317</span> </div>
+<div class="line"><span class="lineno">  318</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  319</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -273,21 +277,21 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00318">318</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  319</span>    {</div>
-<div class="line"><span class="lineno">  320</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  321</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  322</span> </div>
-<div class="line"><span class="lineno">  323</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  324</span>        {</div>
-<div class="line"><span class="lineno">  325</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  326</span>            {</div>
-<div class="line"><span class="lineno">  327</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  328</span>            }</div>
-<div class="line"><span class="lineno">  329</span>        }</div>
-<div class="line"><span class="lineno">  330</span> </div>
-<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  332</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00321">321</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  322</span>    {</div>
+<div class="line"><span class="lineno">  323</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  324</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  325</span> </div>
+<div class="line"><span class="lineno">  326</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  327</span>        {</div>
+<div class="line"><span class="lineno">  328</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  329</span>            {</div>
+<div class="line"><span class="lineno">  330</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  331</span>            }</div>
+<div class="line"><span class="lineno">  332</span>        }</div>
+<div class="line"><span class="lineno">  333</span> </div>
+<div class="line"><span class="lineno">  334</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  335</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -325,21 +329,21 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00089">89</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   90</span>    {</div>
-<div class="line"><span class="lineno">   91</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">   92</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">   93</span> </div>
-<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">   95</span>        {</div>
-<div class="line"><span class="lineno">   96</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">   97</span>            {</div>
-<div class="line"><span class="lineno">   98</span>                <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">   99</span>            }</div>
-<div class="line"><span class="lineno">  100</span>        }</div>
-<div class="line"><span class="lineno">  101</span> </div>
-<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;No matching element found&quot;</span>);</div>
-<div class="line"><span class="lineno">  103</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00092">92</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   93</span>    {</div>
+<div class="line"><span class="lineno">   94</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">   95</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">   98</span>        {</div>
+<div class="line"><span class="lineno">   99</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  100</span>            {</div>
+<div class="line"><span class="lineno">  101</span>                <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  102</span>            }</div>
+<div class="line"><span class="lineno">  103</span>        }</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;No matching element found&quot;</span>);</div>
+<div class="line"><span class="lineno">  106</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -367,15 +371,15 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00063">63</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   64</span>    {</div>
-<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">   66</span>        {</div>
-<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">   68</span>        }</div>
-<div class="line"><span class="lineno">   69</span> </div>
-<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   71</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00066">66</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>    {</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">   69</span>        {</div>
+<div class="line"><span class="lineno">   70</span>            <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">   71</span>        }</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   74</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -413,21 +417,21 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00073">73</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   74</span>    {</div>
-<div class="line"><span class="lineno">   75</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">   76</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">   77</span> </div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">   79</span>        {</div>
-<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">   81</span>            {</div>
-<div class="line"><span class="lineno">   82</span>                <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">   83</span>            }</div>
-<div class="line"><span class="lineno">   84</span>        }</div>
-<div class="line"><span class="lineno">   85</span> </div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">   87</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00076">76</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   77</span>    {</div>
+<div class="line"><span class="lineno">   78</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">   79</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">   82</span>        {</div>
+<div class="line"><span class="lineno">   83</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">   84</span>            {</div>
+<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">   86</span>            }</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">   90</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -471,40 +475,40 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00028">28</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>    {</div>
-<div class="line"><span class="lineno">   30</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx = BadLinqCommon.PredicateContextOptions.Build();</div>
-<div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> bo)</div>
-<div class="line"><span class="lineno">   33</span>        {</div>
-<div class="line"><span class="lineno">   34</span>            ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(varName, bo);</div>
-<div class="line"><span class="lineno">   35</span>        }</div>
-<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   37</span>        {</div>
-<div class="line"><span class="lineno">   38</span>            <span class="keywordflow">if</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a44e2252a16f64cf24528ca6dd1828ad3">CanWrap</a>(o))</div>
-<div class="line"><span class="lineno">   39</span>            {</div>
-<div class="line"><span class="lineno">   40</span>                ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(varName, <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.Wrap(o));</div>
-<div class="line"><span class="lineno">   41</span>            }</div>
-<div class="line"><span class="lineno">   42</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">   43</span>            {</div>
-<div class="line"><span class="lineno">   44</span>                ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(varName, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object.html">BadReflectedObject</a>(o!));</div>
-<div class="line"><span class="lineno">   45</span>            }</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
-<div class="line"><span class="lineno">   47</span> </div>
-<div class="line"><span class="lineno">   48</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> r = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o1 <span class="keywordflow">in</span> query.<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#ae6bf28dcb34eac4a4ed5ae8536a11f2b">Execute</a>(ctx))</div>
-<div class="line"><span class="lineno">   51</span>        {</div>
-<div class="line"><span class="lineno">   52</span>            <span class="keywordflow">if</span> (ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">IsError</a>)</div>
-<div class="line"><span class="lineno">   53</span>            {</div>
-<div class="line"><span class="lineno">   54</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception($<span class="stringliteral">&quot;Error in LINQ Select: {varName} =&gt; {query} : {ctx.Scope.Error!.ToSafeString()}&quot;</span>);</div>
-<div class="line"><span class="lineno">   55</span>            }</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>            r = o1;</div>
-<div class="line"><span class="lineno">   58</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00031">31</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>    {</div>
+<div class="line"><span class="lineno">   33</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx = BadLinqCommon.PredicateContextOptions.Build();</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> bo)</div>
+<div class="line"><span class="lineno">   36</span>        {</div>
+<div class="line"><span class="lineno">   37</span>            ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(varName, bo);</div>
+<div class="line"><span class="lineno">   38</span>        }</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   40</span>        {</div>
+<div class="line"><span class="lineno">   41</span>            <span class="keywordflow">if</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a44e2252a16f64cf24528ca6dd1828ad3">CanWrap</a>(o))</div>
+<div class="line"><span class="lineno">   42</span>            {</div>
+<div class="line"><span class="lineno">   43</span>                ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(varName, <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.Wrap(o));</div>
+<div class="line"><span class="lineno">   44</span>            }</div>
+<div class="line"><span class="lineno">   45</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   46</span>            {</div>
+<div class="line"><span class="lineno">   47</span>                ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(varName, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object.html">BadReflectedObject</a>(o!));</div>
+<div class="line"><span class="lineno">   48</span>            }</div>
+<div class="line"><span class="lineno">   49</span>        }</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> r = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o1 <span class="keywordflow">in</span> query.<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#ae6bf28dcb34eac4a4ed5ae8536a11f2b">Execute</a>(ctx))</div>
+<div class="line"><span class="lineno">   54</span>        {</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">if</span> (ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">IsError</a>)</div>
+<div class="line"><span class="lineno">   56</span>            {</div>
+<div class="line"><span class="lineno">   57</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception($<span class="stringliteral">&quot;Error in LINQ Select: {varName} =&gt; {query} : {ctx.Scope.Error!.ToSafeString()}&quot;</span>);</div>
+<div class="line"><span class="lineno">   58</span>            }</div>
 <div class="line"><span class="lineno">   59</span> </div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">return</span> r.Dereference().Unpack();</div>
-<div class="line"><span class="lineno">   61</span>    }</div>
+<div class="line"><span class="lineno">   60</span>            r = o1;</div>
+<div class="line"><span class="lineno">   61</span>        }</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">return</span> r.Dereference().Unpack();</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html_ae6bf28dcb34eac4a4ed5ae8536a11f2b"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#ae6bf28dcb34eac4a4ed5ae8536a11f2b">BadScript2.Parser.Expressions.BadExpression.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(BadExecutionContext context)</div><div class="ttdoc">Evaluates the Expression within the current Execution Context.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_8cs_source.html#l00071">BadExpression.cs:71</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadScript2.Runtime.BadExecutionContext</a></div><div class="ttdoc">The Execution Context. Every execution of a script needs a context the script is running in....</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_8cs_source.html#l00011">BadExecutionContext.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html_a8e6932a396747cfaf3c7ad87d71543dd"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">BadScript2.Runtime.BadExecutionContext.Scope</a></div><div class="ttdeci">BadScope Scope</div><div class="ttdoc">The Root Scope of the Context.</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_8cs_source.html#l00025">BadExecutionContext.cs:25</a></div></div>
@@ -551,23 +555,23 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00122">122</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  123</span>    {</div>
-<div class="line"><span class="lineno">  124</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  125</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  126</span> </div>
-<div class="line"><span class="lineno">  127</span>        <span class="keywordtype">object</span>? last = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">  128</span> </div>
-<div class="line"><span class="lineno">  129</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  130</span>        {</div>
-<div class="line"><span class="lineno">  131</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  132</span>            {</div>
-<div class="line"><span class="lineno">  133</span>                last = o;</div>
-<div class="line"><span class="lineno">  134</span>            }</div>
-<div class="line"><span class="lineno">  135</span>        }</div>
-<div class="line"><span class="lineno">  136</span> </div>
-<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">return</span> last ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;No matching element found&quot;</span>);</div>
-<div class="line"><span class="lineno">  138</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00125">125</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  126</span>    {</div>
+<div class="line"><span class="lineno">  127</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  128</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  129</span> </div>
+<div class="line"><span class="lineno">  130</span>        <span class="keywordtype">object</span>? last = <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  133</span>        {</div>
+<div class="line"><span class="lineno">  134</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  135</span>            {</div>
+<div class="line"><span class="lineno">  136</span>                last = o;</div>
+<div class="line"><span class="lineno">  137</span>            }</div>
+<div class="line"><span class="lineno">  138</span>        }</div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">return</span> last ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;No matching element found&quot;</span>);</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -605,22 +609,22 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00105">105</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  106</span>    {</div>
-<div class="line"><span class="lineno">  107</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  108</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  109</span>        <span class="keywordtype">object</span>? last = <span class="keyword">null</span>;</div>
-<div class="line"><span class="lineno">  110</span> </div>
-<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  112</span>        {</div>
-<div class="line"><span class="lineno">  113</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  114</span>            {</div>
-<div class="line"><span class="lineno">  115</span>                last = o;</div>
-<div class="line"><span class="lineno">  116</span>            }</div>
-<div class="line"><span class="lineno">  117</span>        }</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">return</span> last;</div>
-<div class="line"><span class="lineno">  120</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00108">108</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  109</span>    {</div>
+<div class="line"><span class="lineno">  110</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  111</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordtype">object</span>? last = <span class="keyword">null</span>;</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  115</span>        {</div>
+<div class="line"><span class="lineno">  116</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  117</span>            {</div>
+<div class="line"><span class="lineno">  118</span>                last = o;</div>
+<div class="line"><span class="lineno">  119</span>            }</div>
+<div class="line"><span class="lineno">  120</span>        }</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">return</span> last;</div>
+<div class="line"><span class="lineno">  123</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -658,16 +662,16 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00234">234</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  235</span>    {</div>
-<div class="line"><span class="lineno">  236</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  237</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  238</span> </div>
-<div class="line"><span class="lineno">  239</span>        IEnumerable&lt;object&gt; e = enumerable.Cast&lt;<span class="keywordtype">object</span>&gt;();</div>
-<div class="line"><span class="lineno">  240</span> </div>
-<div class="line"><span class="lineno">  241</span>        <span class="keywordflow">return</span> e.OrderBy(o =&gt; <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o));</div>
-<div class="line"><span class="lineno">  242</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions_html_a53caa8256a97de4d5593dfd1041b927b"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">BadScript2.Utility.Linq.BadLinqExtensions.InnerSelect</a></div><div class="ttdeci">static ? object InnerSelect(string varName, BadExpression query, object? o)</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00028">BadLinqExtensions.cs:28</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00237">237</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  238</span>    {</div>
+<div class="line"><span class="lineno">  239</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  240</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  241</span> </div>
+<div class="line"><span class="lineno">  242</span>        IEnumerable&lt;object&gt; e = enumerable.Cast&lt;<span class="keywordtype">object</span>&gt;();</div>
+<div class="line"><span class="lineno">  243</span> </div>
+<div class="line"><span class="lineno">  244</span>        <span class="keywordflow">return</span> e.OrderBy(o =&gt; <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o));</div>
+<div class="line"><span class="lineno">  245</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions_html_a53caa8256a97de4d5593dfd1041b927b"><div class="ttname"><a href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">BadScript2.Utility.Linq.BadLinqExtensions.InnerSelect</a></div><div class="ttdeci">static ? object InnerSelect(string varName, BadExpression query, object? o)</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00031">BadLinqExtensions.cs:31</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -705,15 +709,15 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00244">244</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  245</span>    {</div>
-<div class="line"><span class="lineno">  246</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  247</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  248</span> </div>
-<div class="line"><span class="lineno">  249</span>        IEnumerable&lt;object&gt; e = enumerable.Cast&lt;<span class="keywordtype">object</span>&gt;();</div>
-<div class="line"><span class="lineno">  250</span> </div>
-<div class="line"><span class="lineno">  251</span>        <span class="keywordflow">return</span> e.OrderByDescending(o =&gt; <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o));</div>
-<div class="line"><span class="lineno">  252</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00247">247</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  248</span>    {</div>
+<div class="line"><span class="lineno">  249</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  250</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  251</span> </div>
+<div class="line"><span class="lineno">  252</span>        IEnumerable&lt;object&gt; e = enumerable.Cast&lt;<span class="keywordtype">object</span>&gt;();</div>
+<div class="line"><span class="lineno">  253</span> </div>
+<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">return</span> e.OrderByDescending(o =&gt; <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o));</div>
+<div class="line"><span class="lineno">  255</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -751,16 +755,16 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00223">223</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  224</span>    {</div>
-<div class="line"><span class="lineno">  225</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  226</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  227</span> </div>
-<div class="line"><span class="lineno">  228</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  229</span>        {</div>
-<div class="line"><span class="lineno">  230</span>            yield <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o);</div>
-<div class="line"><span class="lineno">  231</span>        }</div>
-<div class="line"><span class="lineno">  232</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00226">226</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  227</span>    {</div>
+<div class="line"><span class="lineno">  228</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  229</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  230</span> </div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  232</span>        {</div>
+<div class="line"><span class="lineno">  233</span>            yield <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o);</div>
+<div class="line"><span class="lineno">  234</span>        }</div>
+<div class="line"><span class="lineno">  235</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -798,26 +802,26 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00202">202</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  203</span>    {</div>
-<div class="line"><span class="lineno">  204</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  205</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  206</span> </div>
-<div class="line"><span class="lineno">  207</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  208</span>        {</div>
-<div class="line"><span class="lineno">  209</span>            <span class="keywordtype">object</span>? e = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o);</div>
-<div class="line"><span class="lineno">  210</span> </div>
-<div class="line"><span class="lineno">  211</span>            <span class="keywordflow">if</span> (e is not IEnumerable en)</div>
-<div class="line"><span class="lineno">  212</span>            {</div>
-<div class="line"><span class="lineno">  213</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;SelectMany must return an IEnumerable&quot;</span>);</div>
-<div class="line"><span class="lineno">  214</span>            }</div>
-<div class="line"><span class="lineno">  215</span> </div>
-<div class="line"><span class="lineno">  216</span>            <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o1 <span class="keywordflow">in</span> en)</div>
-<div class="line"><span class="lineno">  217</span>            {</div>
-<div class="line"><span class="lineno">  218</span>                yield <span class="keywordflow">return</span> o1;</div>
-<div class="line"><span class="lineno">  219</span>            }</div>
-<div class="line"><span class="lineno">  220</span>        }</div>
-<div class="line"><span class="lineno">  221</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00205">205</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  206</span>    {</div>
+<div class="line"><span class="lineno">  207</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  208</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  209</span> </div>
+<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  211</span>        {</div>
+<div class="line"><span class="lineno">  212</span>            <span class="keywordtype">object</span>? e = <a class="code hl_function" href="class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_extensions.html#a53caa8256a97de4d5593dfd1041b927b">InnerSelect</a>(varName, query, o);</div>
+<div class="line"><span class="lineno">  213</span> </div>
+<div class="line"><span class="lineno">  214</span>            <span class="keywordflow">if</span> (e is not IEnumerable en)</div>
+<div class="line"><span class="lineno">  215</span>            {</div>
+<div class="line"><span class="lineno">  216</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;SelectMany must return an IEnumerable&quot;</span>);</div>
+<div class="line"><span class="lineno">  217</span>            }</div>
+<div class="line"><span class="lineno">  218</span> </div>
+<div class="line"><span class="lineno">  219</span>            <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o1 <span class="keywordflow">in</span> en)</div>
+<div class="line"><span class="lineno">  220</span>            {</div>
+<div class="line"><span class="lineno">  221</span>                yield <span class="keywordflow">return</span> o1;</div>
+<div class="line"><span class="lineno">  222</span>            }</div>
+<div class="line"><span class="lineno">  223</span>        }</div>
+<div class="line"><span class="lineno">  224</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -855,20 +859,20 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00157">157</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  158</span>    {</div>
-<div class="line"><span class="lineno">  159</span>        <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><span class="lineno">  160</span> </div>
-<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  162</span>        {</div>
-<div class="line"><span class="lineno">  163</span>            <span class="keywordflow">if</span> (i &gt;= count)</div>
-<div class="line"><span class="lineno">  164</span>            {</div>
-<div class="line"><span class="lineno">  165</span>                yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">  166</span>            }</div>
-<div class="line"><span class="lineno">  167</span> </div>
-<div class="line"><span class="lineno">  168</span>            i++;</div>
-<div class="line"><span class="lineno">  169</span>        }</div>
-<div class="line"><span class="lineno">  170</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00160">160</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  161</span>    {</div>
+<div class="line"><span class="lineno">  162</span>        <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  165</span>        {</div>
+<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">if</span> (i &gt;= count)</div>
+<div class="line"><span class="lineno">  167</span>            {</div>
+<div class="line"><span class="lineno">  168</span>                yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  169</span>            }</div>
+<div class="line"><span class="lineno">  170</span> </div>
+<div class="line"><span class="lineno">  171</span>            i++;</div>
+<div class="line"><span class="lineno">  172</span>        }</div>
+<div class="line"><span class="lineno">  173</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -906,20 +910,20 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00187">187</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  188</span>    {</div>
-<div class="line"><span class="lineno">  189</span>        List&lt;object&gt; l = <span class="keyword">new</span> List&lt;object&gt;();</div>
-<div class="line"><span class="lineno">  190</span> </div>
-<div class="line"><span class="lineno">  191</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  192</span>        {</div>
-<div class="line"><span class="lineno">  193</span>            l.Add(o);</div>
-<div class="line"><span class="lineno">  194</span>        }</div>
-<div class="line"><span class="lineno">  195</span> </div>
-<div class="line"><span class="lineno">  196</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; l.Count - count; i++)</div>
-<div class="line"><span class="lineno">  197</span>        {</div>
-<div class="line"><span class="lineno">  198</span>            yield <span class="keywordflow">return</span> l[i];</div>
-<div class="line"><span class="lineno">  199</span>        }</div>
-<div class="line"><span class="lineno">  200</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00190">190</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  191</span>    {</div>
+<div class="line"><span class="lineno">  192</span>        List&lt;object&gt; l = <span class="keyword">new</span> List&lt;object&gt;();</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  195</span>        {</div>
+<div class="line"><span class="lineno">  196</span>            l.Add(o);</div>
+<div class="line"><span class="lineno">  197</span>        }</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; l.Count - count; i++)</div>
+<div class="line"><span class="lineno">  200</span>        {</div>
+<div class="line"><span class="lineno">  201</span>            yield <span class="keywordflow">return</span> l[i];</div>
+<div class="line"><span class="lineno">  202</span>        }</div>
+<div class="line"><span class="lineno">  203</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -957,24 +961,24 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00255">255</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  256</span>    {</div>
-<div class="line"><span class="lineno">  257</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  258</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  259</span>        <span class="keywordtype">bool</span> skip = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  260</span> </div>
-<div class="line"><span class="lineno">  261</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  262</span>        {</div>
-<div class="line"><span class="lineno">  263</span>            <span class="keywordflow">if</span> (skip &amp;&amp; BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  264</span>            {</div>
-<div class="line"><span class="lineno">  265</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><span class="lineno">  266</span>            }</div>
-<div class="line"><span class="lineno">  267</span> </div>
-<div class="line"><span class="lineno">  268</span>            skip = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  269</span> </div>
-<div class="line"><span class="lineno">  270</span>            yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">  271</span>        }</div>
-<div class="line"><span class="lineno">  272</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00258">258</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  259</span>    {</div>
+<div class="line"><span class="lineno">  260</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  261</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  262</span>        <span class="keywordtype">bool</span> skip = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  263</span> </div>
+<div class="line"><span class="lineno">  264</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  265</span>        {</div>
+<div class="line"><span class="lineno">  266</span>            <span class="keywordflow">if</span> (skip &amp;&amp; BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  267</span>            {</div>
+<div class="line"><span class="lineno">  268</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  269</span>            }</div>
+<div class="line"><span class="lineno">  270</span> </div>
+<div class="line"><span class="lineno">  271</span>            skip = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  272</span> </div>
+<div class="line"><span class="lineno">  273</span>            yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  274</span>        }</div>
+<div class="line"><span class="lineno">  275</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1012,22 +1016,22 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00140">140</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  141</span>    {</div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><span class="lineno">  143</span> </div>
-<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  145</span>        {</div>
-<div class="line"><span class="lineno">  146</span>            <span class="keywordflow">if</span> (i &gt;= count)</div>
-<div class="line"><span class="lineno">  147</span>            {</div>
-<div class="line"><span class="lineno">  148</span>                yield <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  149</span>            }</div>
-<div class="line"><span class="lineno">  150</span> </div>
-<div class="line"><span class="lineno">  151</span>            yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">  152</span> </div>
-<div class="line"><span class="lineno">  153</span>            i++;</div>
-<div class="line"><span class="lineno">  154</span>        }</div>
-<div class="line"><span class="lineno">  155</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00143">143</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  144</span>    {</div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  148</span>        {</div>
+<div class="line"><span class="lineno">  149</span>            <span class="keywordflow">if</span> (i &gt;= count)</div>
+<div class="line"><span class="lineno">  150</span>            {</div>
+<div class="line"><span class="lineno">  151</span>                yield <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  152</span>            }</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>            yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span>            i++;</div>
+<div class="line"><span class="lineno">  157</span>        }</div>
+<div class="line"><span class="lineno">  158</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1065,20 +1069,20 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00172">172</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  173</span>    {</div>
-<div class="line"><span class="lineno">  174</span>        List&lt;object&gt; l = <span class="keyword">new</span> List&lt;object&gt;();</div>
-<div class="line"><span class="lineno">  175</span> </div>
-<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  177</span>        {</div>
-<div class="line"><span class="lineno">  178</span>            l.Add(o);</div>
-<div class="line"><span class="lineno">  179</span>        }</div>
-<div class="line"><span class="lineno">  180</span> </div>
-<div class="line"><span class="lineno">  181</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = l.Count - count; i &lt; l.Count; i++)</div>
-<div class="line"><span class="lineno">  182</span>        {</div>
-<div class="line"><span class="lineno">  183</span>            yield <span class="keywordflow">return</span> l[i];</div>
-<div class="line"><span class="lineno">  184</span>        }</div>
-<div class="line"><span class="lineno">  185</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00175">175</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>    {</div>
+<div class="line"><span class="lineno">  177</span>        List&lt;object&gt; l = <span class="keyword">new</span> List&lt;object&gt;();</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  180</span>        {</div>
+<div class="line"><span class="lineno">  181</span>            l.Add(o);</div>
+<div class="line"><span class="lineno">  182</span>        }</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = l.Count - count; i &lt; l.Count; i++)</div>
+<div class="line"><span class="lineno">  185</span>        {</div>
+<div class="line"><span class="lineno">  186</span>            yield <span class="keywordflow">return</span> l[i];</div>
+<div class="line"><span class="lineno">  187</span>        }</div>
+<div class="line"><span class="lineno">  188</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1116,23 +1120,23 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00274">274</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  275</span>    {</div>
-<div class="line"><span class="lineno">  276</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  277</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  278</span> </div>
-<div class="line"><span class="lineno">  279</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  280</span>        {</div>
-<div class="line"><span class="lineno">  281</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  282</span>            {</div>
-<div class="line"><span class="lineno">  283</span>                yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">  284</span>            }</div>
-<div class="line"><span class="lineno">  285</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  286</span>            {</div>
-<div class="line"><span class="lineno">  287</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  288</span>            }</div>
-<div class="line"><span class="lineno">  289</span>        }</div>
-<div class="line"><span class="lineno">  290</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00277">277</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  278</span>    {</div>
+<div class="line"><span class="lineno">  279</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  280</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  281</span> </div>
+<div class="line"><span class="lineno">  282</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  283</span>        {</div>
+<div class="line"><span class="lineno">  284</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  285</span>            {</div>
+<div class="line"><span class="lineno">  286</span>                yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  287</span>            }</div>
+<div class="line"><span class="lineno">  288</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  289</span>            {</div>
+<div class="line"><span class="lineno">  290</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  291</span>            }</div>
+<div class="line"><span class="lineno">  292</span>        }</div>
+<div class="line"><span class="lineno">  293</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1160,20 +1164,20 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span>    {</div>
-<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">if</span> (obj.CanUnwrap())</div>
-<div class="line"><span class="lineno">   16</span>        {</div>
-<div class="line"><span class="lineno">   17</span>            <span class="keywordflow">return</span> obj.Unwrap();</div>
-<div class="line"><span class="lineno">   18</span>        }</div>
-<div class="line"><span class="lineno">   19</span> </div>
-<div class="line"><span class="lineno">   20</span>        <span class="keywordflow">if</span> (obj is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object.html">BadReflectedObject</a> ro)</div>
-<div class="line"><span class="lineno">   21</span>        {</div>
-<div class="line"><span class="lineno">   22</span>            <span class="keywordflow">return</span> ro.Instance;</div>
-<div class="line"><span class="lineno">   23</span>        }</div>
-<div class="line"><span class="lineno">   24</span> </div>
-<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">return</span> obj;</div>
-<div class="line"><span class="lineno">   26</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>    {</div>
+<div class="line"><span class="lineno">   18</span>        <span class="keywordflow">if</span> (obj.CanUnwrap())</div>
+<div class="line"><span class="lineno">   19</span>        {</div>
+<div class="line"><span class="lineno">   20</span>            <span class="keywordflow">return</span> obj.Unwrap();</div>
+<div class="line"><span class="lineno">   21</span>        }</div>
+<div class="line"><span class="lineno">   22</span> </div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">if</span> (obj is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object.html">BadReflectedObject</a> ro)</div>
+<div class="line"><span class="lineno">   24</span>        {</div>
+<div class="line"><span class="lineno">   25</span>            <span class="keywordflow">return</span> ro.Instance;</div>
+<div class="line"><span class="lineno">   26</span>        }</div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">return</span> obj;</div>
+<div class="line"><span class="lineno">   29</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1211,19 +1215,19 @@ Static Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00334">334</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  335</span>    {</div>
-<div class="line"><span class="lineno">  336</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
-<div class="line"><span class="lineno">  337</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
-<div class="line"><span class="lineno">  338</span> </div>
-<div class="line"><span class="lineno">  339</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
-<div class="line"><span class="lineno">  340</span>        {</div>
-<div class="line"><span class="lineno">  341</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
-<div class="line"><span class="lineno">  342</span>            {</div>
-<div class="line"><span class="lineno">  343</span>                yield <span class="keywordflow">return</span> o;</div>
-<div class="line"><span class="lineno">  344</span>            }</div>
-<div class="line"><span class="lineno">  345</span>        }</div>
-<div class="line"><span class="lineno">  346</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html#l00337">337</a> of file <a class="el" href="_bad_script2_2_utility_2_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  338</span>    {</div>
+<div class="line"><span class="lineno">  339</span>        (<span class="keywordtype">string</span> varName, <span class="keywordtype">string</span> queryStr) = BadLinqCommon.ParsePredicate(predicate);</div>
+<div class="line"><span class="lineno">  340</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> query = BadLinqCommon.Parse(queryStr).First();</div>
+<div class="line"><span class="lineno">  341</span> </div>
+<div class="line"><span class="lineno">  342</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">object</span> o <span class="keywordflow">in</span> enumerable)</div>
+<div class="line"><span class="lineno">  343</span>        {</div>
+<div class="line"><span class="lineno">  344</span>            <span class="keywordflow">if</span> (BadLinqCommon.InnerWhere(varName, query, o))</div>
+<div class="line"><span class="lineno">  345</span>            {</div>
+<div class="line"><span class="lineno">  346</span>                yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  347</span>            }</div>
+<div class="line"><span class="lineno">  348</span>        }</div>
+<div class="line"><span class="lineno">  349</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
