@@ -4,6 +4,10 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 
 public class BadLogicAssignOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogicAssignOrExpression>
 {
+	protected override bool EmitLeft => false;
+
+	protected override bool EmitRight => false;
+
 	public override IEnumerable<BadInstruction> CompileBinary(
 		BadCompiler compiler,
 		BadLogicAssignOrExpression expression)

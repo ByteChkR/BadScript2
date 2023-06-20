@@ -7,6 +7,10 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
 {
 	protected virtual bool IsLeftAssociative => true;
 
+	protected virtual bool EmitLeft => true;
+
+	protected virtual bool EmitRight => true;
+
 	/// <summary>
 	///     Compiles a Binary Expression
 	/// </summary>
@@ -19,26 +23,38 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
 	{
 		if (IsLeftAssociative)
 		{
-			foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+			if (EmitLeft)
 			{
-				yield return instruction;
+				foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+				{
+					yield return instruction;
+				}
 			}
 
-			foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+			if (EmitRight)
 			{
-				yield return instruction;
+				foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+				{
+					yield return instruction;
+				}
 			}
 		}
 		else
 		{
-			foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+			if (EmitRight)
 			{
-				yield return instruction;
+				foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+				{
+					yield return instruction;
+				}
 			}
 
-			foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+			if (EmitLeft)
 			{
-				yield return instruction;
+				foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+				{
+					yield return instruction;
+				}
 			}
 		}
 
