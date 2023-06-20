@@ -2,6 +2,7 @@ using System.Text;
 
 using BadScript2.Common;
 using BadScript2.Runtime;
+using BadScript2.Runtime.VirtualMachine;
 using BadScript2.Utility;
 
 namespace BadScript2.Debugging;
@@ -79,7 +80,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 		for (int i = 0; i < lines.Length; i++)
 		{
 			int ln = topInSource + i;
-			string line = lines[i].Trim();
+			string line = lines[i];
 			sb.AppendLine($"{(lineInSource == ln ? ">>" : ln)}\t| {line}");
 		}
 

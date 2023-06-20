@@ -1,3 +1,6 @@
+using System.Text;
+
+using BadScript2.Debugging;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
 using BadScript2.Parser.Expressions.Binary;
@@ -38,6 +41,10 @@ public class BadRuntimeVirtualMachine
 		{
 			BadInstruction instr = m_Instructions[m_InstructionPointer];
 			BadExecutionContext ctx = m_ContextStack.Peek().Context;
+			if (BadDebugger.IsAttached)
+			{
+				BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
+			}
 
 			if (ctx.Scope.ReturnValue != null)
 			{

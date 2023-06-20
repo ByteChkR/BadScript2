@@ -19,7 +19,7 @@ public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSe
 	/// The File Path to the Debugger
 	/// </summary>
 	private BadEditableSetting<BadScriptDebuggerSettings, string> m_DebuggerPath =
-		new BadEditableSetting<BadScriptDebuggerSettings, string>(nameof(DebuggerPath), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Debugger.bs"));
+		new BadEditableSetting<BadScriptDebuggerSettings, string>("Path", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "subsystems", "run", "Debugger.bs"));
 	
 	/// <summary>
 	/// The File Path to the Debugger

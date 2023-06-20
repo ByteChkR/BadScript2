@@ -49,7 +49,7 @@ public class BadOperatorTable
 		new BadNullCoalescingAssignOperator(),
 		new BadNullCoalescingOperator(),
 		new BadTernaryOperator(),
-		new BadInOperator(),
+		new BadInOperator()
 	};
 
 	/// <summary>

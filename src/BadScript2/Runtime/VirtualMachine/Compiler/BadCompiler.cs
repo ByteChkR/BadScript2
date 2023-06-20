@@ -213,6 +213,9 @@ public class BadCompiler
 		},
 		{
 			typeof(BadTryCatchExpression), new BadTryCatchExpressionCompiler()
+		},
+		{
+			typeof(BadInExpression), new BadInExpressionCompiler()
 		}
 	};
 

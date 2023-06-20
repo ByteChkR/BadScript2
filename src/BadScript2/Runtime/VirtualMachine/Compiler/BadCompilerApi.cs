@@ -25,11 +25,7 @@ public class BadCompilerApi : BadInteropApi
 		bool useOverride)
 	{
 		BadInstruction[] instrs = compiler.Compile(func.Body).ToArray();
-		//int current = 0;
-		// foreach (BadInstruction instruction in instrs)
-		// {
-		//     Console.WriteLine($"{current++}\t: {instruction}");
-		// }
+		
 
 		return new BadCompiledFunction(instrs,
 			useOverride,

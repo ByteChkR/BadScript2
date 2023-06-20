@@ -10,7 +10,7 @@ public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new
     private readonly string m_Name;
     private BadSettings? m_SettingsObj;
 
-    public BadEditableSetting(string name, TValue? defaultValue = default)
+    public BadEditableSetting(string name, TValue? defaultValue = default(TValue?))
     {
         m_Name = name;
         m_DefaultValue = defaultValue;
