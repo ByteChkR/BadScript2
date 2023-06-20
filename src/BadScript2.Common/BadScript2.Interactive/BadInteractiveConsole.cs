@@ -11,13 +11,34 @@ using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Interactive;
 
+/// <summary>
+/// Implements an Interactive Console for the BadScript Language
+/// </summary>
 public class BadInteractiveConsole
 {
+	/// <summary>
+	/// The Interactive API
+	/// </summary>
 	private readonly BadInteractiveConsoleApi m_Api;
+	/// <summary>
+	/// The Execution Context Options
+	/// </summary>
 	private readonly BadExecutionContextOptions m_Options;
+	/// <summary>
+	/// The Task runner
+	/// </summary>
 	private readonly BadTaskRunner m_Runner;
+	/// <summary>
+	/// The Execution Context
+	/// </summary>
 	private BadExecutionContext? m_Context;
 
+	/// <summary>
+	/// Constructs a new BadInteractiveConsole instance
+	/// </summary>
+	/// <param name="options">The Execution Context Options</param>
+	/// <param name="runner">The Task runner</param>
+	/// <param name="files">The Files that are loaded before the interactive session begins</param>
 	public BadInteractiveConsole(BadExecutionContextOptions options, BadTaskRunner runner, IEnumerable<string> files)
 	{
 		m_Runner = runner;
@@ -31,12 +52,25 @@ public class BadInteractiveConsole
 		}
 	}
 
+	/// <summary>
+	/// The Current Scope of the Interactive Console
+	/// </summary>
 	public BadScope? CurrentScope => m_Context?.Scope;
 
+	/// <summary>
+	/// If true, the Interactive Console will catch and print errors
+	/// </summary>
 	public bool CatchErrors { get; set; }
 
+	/// <summary>
+	/// If true, the Interactive Console will pre-parse the input before executing it
+	/// </summary>
 	public bool PreParse { get; set; }
 
+	/// <summary>
+	/// Creates a new Execution Context with the Interactive Console Api
+	/// </summary>
+	/// <returns>Execution Context</returns>
 	private BadExecutionContext CreateContext()
 	{
 		BadTable apiTable = new BadTable();
@@ -51,12 +85,20 @@ public class BadInteractiveConsole
 	}
 
 
+	/// <summary>
+	/// Resets the Current Context
+	/// </summary>
 	public void Reset()
 	{
 		m_Context = CreateContext();
 	}
 
-
+	/// <summary>
+	/// Loads a File isolated from the Interactive Session
+	/// </summary>
+	/// <param name="file">The File to be Executed</param>
+	/// <returns>Result of the Execution</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the context was not initialized</exception>
 	public BadObject LoadIsolated(string file)
 	{
 		if (m_Context == null)
@@ -75,12 +117,22 @@ public class BadInteractiveConsole
 		return current.Scope.ReturnValue ?? current.Scope.GetTable();
 	}
 
+	/// <summary>
+	/// Loads a File into the Interactive Session
+	/// </summary>
+	/// <param name="file">The File to be Loaded</param>
 	public void Load(string file)
 	{
 		BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
 		Run(parser.Parse());
 	}
 
+	/// <summary>
+	/// The Routine that is used to execute the Interactive Session
+	/// </summary>
+	/// <param name="expressions">The Expressions to be executed</param>
+	/// <returns>Enumeration of objects</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the context was not initialized</exception>
 	private IEnumerable<object?> RunRoutine(IEnumerable<BadExpression> expressions)
 	{
 		IEnumerable<BadExpression> exprs = expressions;
@@ -117,6 +169,11 @@ public class BadInteractiveConsole
 		}
 	}
 
+	/// <summary>
+	/// Runs a set of Expressions
+	/// </summary>
+	/// <param name="expressions">The Expressions to be Executed</param>
+	/// <exception cref="BadRuntimeException">Gets raised if the context was not initialized</exception>
 	private void Run(IEnumerable<BadExpression> expressions)
 	{
 		IEnumerable<BadExpression> exprs = expressions;
@@ -168,6 +225,12 @@ public class BadInteractiveConsole
 		}
 	}
 
+	/// <summary>
+	/// Runs a set of Expressions isolated from the Interactive Session
+	/// </summary>
+	/// <param name="code">The Source Code</param>
+	/// <returns>The Results of the Execution</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the context was not initialized</exception>
 	public IEnumerable<object?> RunIsolatedRoutine(string code)
 	{
 		if (m_Context == null)
@@ -187,6 +250,12 @@ public class BadInteractiveConsole
 		m_Context = ctx;
 	}
 
+	/// <summary>
+	/// Runs a set of Expressions isolated from the Interactive Session
+	/// </summary>
+	/// <param name="code">The Source Code</param>
+	/// <returns>The Result of the Execution</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the context was not initialized</exception>
 	public BadObject RunIsolated(string code)
 	{
 		if (m_Context == null)
@@ -204,6 +273,10 @@ public class BadInteractiveConsole
 		return current.Scope.ReturnValue ?? current.Scope.GetTable();
 	}
 
+	/// <summary>
+	/// Runs a set of Expressions
+	/// </summary>
+	/// <param name="code">The Source Code</param>
 	public void Run(string code)
 	{
 		BadSourceParser parser = BadSourceParser.Create("<stdin>", code);
