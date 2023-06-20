@@ -36,7 +36,7 @@ public class MyCustomApi : BadInteropApi
         BadTable table = new BadTable();
         table.SetProperty("Nested", "Table");
         target.SetProperty("MyTable", table);
-        
+
         //It is possible to add a function the "oldschool" way.
         //This allows for maximum flexibility but is also the most verbose
         target.SetProperty(
@@ -49,18 +49,21 @@ public class MyCustomApi : BadInteropApi
                     if (args[0] is not IBadString name)
                     {
                         ctx.Scope.SetError("Invalid Type for 'name' Expected String", null);
+
                         return BadObject.Null;
                     }
 
                     string desc = "";
+
                     //Second argument can be null. So we need to check for that
                     if (args.Length == 2 && args[1] != BadObject.Null)
                     {
                         //We dont need to check the type. as it is checked by the runtime.
                         desc = ((IBadString)args[1]).Value;
                     }
-                    
+
                     Console.WriteLine("Name: {0} Description: {1}", name.Value, desc);
+
                     return BadObject.Null;
                 },
                 "name", //Implicit Cast

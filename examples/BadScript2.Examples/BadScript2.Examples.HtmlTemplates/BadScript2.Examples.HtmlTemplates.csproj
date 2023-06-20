@@ -8,29 +8,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\src\BadHtml\BadHtml.csproj" />
-      <ProjectReference Include="..\..\..\src\BadScript2.Interop\BadScript2.Interop.Html\BadScript2.Interop.Html.csproj" />
+        <ProjectReference Include="..\..\..\src\BadHtml\BadHtml.csproj"/>
+        <ProjectReference Include="..\..\..\src\BadScript2.Interop\BadScript2.Interop.Html\BadScript2.Interop.Html.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="templates\OrderItem.bhtml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="templates\OrderTotal.bhtml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="templates\template.bhtml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="templates\data.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="templates\docs.bhtml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="templates\food.bhtml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="templates\OrderItem.bhtml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\OrderTotal.bhtml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\template.bhtml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\data.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\docs.bhtml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\food.bhtml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
