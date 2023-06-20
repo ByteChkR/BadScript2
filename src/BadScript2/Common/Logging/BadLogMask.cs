@@ -56,7 +56,7 @@ public class BadLogMask
 	/// <returns>An instance of the log mask object</returns>
 	public static BadLogMask Register(string name)
 	{
-		ulong value = (ulong)1 << s_Masks.Count;
+		ulong value = (ulong)1 << (s_Masks.Count - 1);
 		s_Masks.Add(name, value);
 
 		return new BadLogMask(value);

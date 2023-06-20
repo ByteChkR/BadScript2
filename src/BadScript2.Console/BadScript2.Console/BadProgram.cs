@@ -64,6 +64,8 @@ internal static class BadProgram
 	/// <returns>Return Code</returns>
 	private static int Main(string[] args)
 	{
+		BadSettingsProvider.SetRootSettings(new BadSettings()); //Set Root Settings to Empty Settings
+
 		if (args.Contains("--logmask"))
 		{
 			int idx = Array.IndexOf(args, "--logmask");
@@ -75,6 +77,10 @@ internal static class BadProgram
 					BadLogMask.GetMask(mask.Split(';').Select(x => (BadLogMask)x).ToArray());
 				args = args.Where((_, i) => i != idx && i != idx + 1).ToArray();
 			}
+		}
+		else
+		{
+			BadLogWriterSettings.Instance.Mask = "Settings";
 		}
 
 		using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();
