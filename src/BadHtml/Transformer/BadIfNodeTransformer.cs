@@ -7,6 +7,9 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Implements the 'bs:if' node transformer
+/// </summary>
 public class BadIfNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)

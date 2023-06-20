@@ -9,10 +9,19 @@ using HtmlAgilityPack;
 
 namespace BadHtml;
 
+
+/// <summary>
+/// Base class of all Node transformers
+/// </summary>
 public abstract class BadHtmlNodeTransformer
 {
+	/// <summary>
+	/// List of all node transformers used in the engine
+	/// </summary>
 	private static readonly List<BadHtmlNodeTransformer> s_Transformers = new List<BadHtmlNodeTransformer>
 	{
+		new BadImportTemplateNodeTransformer(),
+		new BadImportFileNodeTransformer(),
 		new BadExecuteScriptNodeTransformer(),
 		new BadForEachNodeTransformer(),
 		new BadWhileNodeTransformer(),
@@ -24,11 +33,25 @@ public abstract class BadHtmlNodeTransformer
 		new BadCopyNodeTransformer()
 	};
 
+	/// <summary>
+	/// Returns true if the transformer can transform the specified node
+	/// </summary>
+	/// <param name="context">The Html Context</param>
+	/// <returns>True if can transform node</returns>
 	public abstract bool CanTransform(BadHtmlContext context);
 
+	/// <summary>
+	/// Transforms the input node
+	/// </summary>
+	/// <param name="context">The Html Context</param>
 	public abstract void TransformNode(BadHtmlContext context);
 
-	protected static void TransformAttributes(BadHtmlContext context, HtmlNode node)
+	/// <summary>
+	/// Transforms all attributes of the input node and writes it to the specified output node
+	/// </summary>
+	/// <param name="context">The Html Context</param>
+	/// <param name="outputNode">The Output Node</param>
+	protected static void TransformAttributes(BadHtmlContext context, HtmlNode outputNode)
 	{
 		foreach (HtmlAttribute attribute in context.InputNode.Attributes)
 		{
@@ -42,10 +65,15 @@ public abstract class BadHtmlNodeTransformer
 			BadObject result = context.ParseAndExecute("$\"" + value + '"', context.CreateAttributePosition(attribute));
 
 			//Set Attribute Value
-			node.Attributes[attribute.Name].Value = result.ToString();
+			outputNode.Attributes[attribute.Name].Value = result.ToString();
 		}
 	}
 
+	/// <summary>
+	/// Transforms the input node with one of the registered transformers
+	/// </summary>
+	/// <param name="context">The Html Context</param>
+	/// <exception cref="InvalidOperationException">Gets raised if the node can not be transformed</exception>
 	public static void Transform(BadHtmlContext context)
 	{
 		foreach (BadHtmlNodeTransformer transformer in s_Transformers)

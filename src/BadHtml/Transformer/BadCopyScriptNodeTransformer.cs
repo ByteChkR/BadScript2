@@ -2,6 +2,9 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Copies the current script node to the output if the lang attribute is not bs2
+/// </summary>
 public class BadCopyScriptNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)

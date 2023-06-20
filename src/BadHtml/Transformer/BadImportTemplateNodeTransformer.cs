@@ -7,6 +7,9 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Imports the template specified in the path attribute of the current bs:template node
+/// </summary>
 public class BadImportTemplateNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)

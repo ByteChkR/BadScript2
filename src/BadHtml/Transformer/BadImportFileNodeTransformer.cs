@@ -5,6 +5,9 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Imports the file specified in the path attribute of the current bs:import node
+/// </summary>
 public class BadImportFileNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)

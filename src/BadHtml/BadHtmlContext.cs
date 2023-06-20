@@ -13,15 +13,46 @@ using HtmlAgilityPack;
 
 namespace BadHtml;
 
+/// <summary>
+/// Implements the Html Context for the Transformation Process
+/// </summary>
 public class BadHtmlContext
 {
+	/// <summary>
+	/// The Execution Context that is used to evaluate badscript code
+	/// </summary>
 	public readonly BadExecutionContext ExecutionContext;
+	
+	/// <summary>
+	/// The File Path of the Template
+	/// </summary>
 	public readonly string FilePath;
+	/// <summary>
+	/// The Current Input Node
+	/// </summary>
 	public readonly HtmlNode InputNode;
+	/// <summary>
+	/// The Html Template Options
+	/// </summary>
 	public readonly BadHtmlTemplateOptions Options;
+	/// <summary>
+	/// The Current Output Node
+	/// </summary>
 	public readonly HtmlNode OutputNode;
+	/// <summary>
+	/// The Source Code of the Template
+	/// </summary>
 	public readonly string Source;
 
+	/// <summary>
+	/// Constructs a new Html Context
+	/// </summary>
+	/// <param name="inputNode">The Input Node</param>
+	/// <param name="outputNode">The Output Node</param>
+	/// <param name="executionContext">The Execution Context</param>
+	/// <param name="filePath">The File Path of the Template</param>
+	/// <param name="source">The Source of the Template</param>
+	/// <param name="options">The Html Template Options</param>
 	public BadHtmlContext(
 		HtmlNode inputNode,
 		HtmlNode outputNode,
@@ -38,10 +69,23 @@ public class BadHtmlContext
 		Options = options;
 	}
 
+	/// <summary>
+	/// The Input Document
+	/// </summary>
 	public HtmlDocument InputDocument => InputNode.OwnerDocument;
 
+	/// <summary>
+	/// The Output Document
+	/// </summary>
 	public HtmlDocument OutputDocument => OutputNode.OwnerDocument;
 
+	/// <summary>
+	/// Creates a child context with the specified input, output node and optional execution context
+	/// </summary>
+	/// <param name="inputNode">The Input Node</param>
+	/// <param name="outputNode">The Output Node</param>
+	/// <param name="executionContext">The Optional Execution Context. If not specified, the context will be inherited from this instance</param>
+	/// <returns>Child Context</returns>
 	public BadHtmlContext CreateChild(
 		HtmlNode inputNode,
 		HtmlNode outputNode,
@@ -55,21 +99,39 @@ public class BadHtmlContext
 			Options);
 	}
 
+	/// <summary>
+	/// Creates the Source Position of the specified Attribute
+	/// </summary>
+	/// <param name="attribute">The Attribute</param>
+	/// <returns>Source Position</returns>
 	public BadSourcePosition CreateAttributePosition(HtmlAttribute attribute)
 	{
 		return new BadSourcePosition(FilePath, Source, attribute.ValueStartIndex, attribute.Value.Length);
 	}
 
+	/// <summary>
+	/// Creates the Source Position of the current Input Nodes Inner Content
+	/// </summary>
+	/// <returns>Source Position</returns>
 	public BadSourcePosition CreateInnerPosition()
 	{
 		return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
 	}
 
+	/// <summary>
+	/// Creates the Source Position of the current Input Nodes Outer Content
+	/// </summary>
+	/// <returns>Source Position</returns>
 	public BadSourcePosition CreateOuterPosition()
 	{
 		return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
 	}
 
+	/// <summary>
+	/// Returns an enumeration of all expressions in the specified expressions and their descendants
+	/// </summary>
+	/// <param name="expressions">The Expression Enumeration</param>
+	/// <returns>Enumeration of all Expressions in the Tree</returns>
 	private IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
 	{
 		foreach (BadExpression expression in expressions)
@@ -81,6 +143,13 @@ public class BadHtmlContext
 		}
 	}
 
+	/// <summary>
+	/// Parses the specified code and returns the expressions with their positions set to the specified position
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>Parsed Expressions</returns>
+	/// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
 	public BadExpression[] Parse(string code, BadSourcePosition pos)
 	{
 		try
@@ -110,6 +179,12 @@ public class BadHtmlContext
 		}
 	}
 
+	/// <summary>
+	/// Executes the specified expressions
+	/// </summary>
+	/// <param name="expressions">The Expressions</param>
+	/// <returns>The Result of the Execution</returns>
+	/// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
 	public BadObject Execute(BadExpression[] expressions)
 	{
 		BadObject result = ExecutionContext.ExecuteScript(expressions);
@@ -122,6 +197,12 @@ public class BadHtmlContext
 		return result.Dereference();
 	}
 
+	/// <summary>
+	/// Parses and executes the specified code
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>The Result of the Execution</returns>
 	public BadObject ParseAndExecute(string code, BadSourcePosition pos)
 	{
 		BadExpression[] expressions = Parse(code, pos);

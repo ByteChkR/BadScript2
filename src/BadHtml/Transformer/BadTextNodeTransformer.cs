@@ -6,6 +6,10 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Implements a BadScript Text Node Transformer
+/// Copies the text nodes to the output and evaluates them with BadScript
+/// </summary>
 public class BadTextNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)

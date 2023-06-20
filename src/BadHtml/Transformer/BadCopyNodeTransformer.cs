@@ -2,6 +2,10 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Copies the current node to the output and transforms the attributes
+/// This is the default transformer.
+/// </summary>
 public class BadCopyNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)

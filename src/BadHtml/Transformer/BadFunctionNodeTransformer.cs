@@ -12,6 +12,9 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Implements a BadScript Function Node Transformer
+/// </summary>
 public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 {
 	public override bool CanTransform(BadHtmlContext context)
@@ -19,21 +22,43 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 		return context.InputNode.Name == "bs:function";
 	}
 
+	/// <summary>
+	/// Returns true if the specified parameter is optional
+	/// </summary>
+	/// <param name="value">The Parameter Value</param>
+	/// <returns>True if Optional</returns>
 	private bool IsOptional(string value)
 	{
 		return value.EndsWith("?") || value.EndsWith("?!");
 	}
 
+	/// <summary>
+	/// Returns true if the specified parameter is null checked
+	/// </summary>
+	/// <param name="value">The Parameter Value</param>
+	/// <returns>True if null checked</returns>
 	private bool IsNullChecked(string value)
 	{
 		return value.EndsWith("!") || value.EndsWith("!?");
 	}
 
+	/// <summary>
+	/// Returns true if the specified parameter is the rest argument
+	/// </summary>
+	/// <param name="value">The Parameter Value</param>
+	/// <returns>True if rest argument</returns>
 	private bool IsRestArgs(string value)
 	{
 		return value.EndsWith("*");
 	}
 
+	/// <summary>
+	/// Returns the Parameter Type for the specified attribute
+	/// </summary>
+	/// <param name="context">The Html Context</param>
+	/// <param name="attribute">The Parameter Attribute</param>
+	/// <returns>Expression that evaluates to a Bad Type</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the Parameter Type could not be parsed.</exception>
 	private BadExpression? GetParameterType(BadHtmlContext context, HtmlAttribute attribute)
 	{
 		string name = attribute.Value;
@@ -98,6 +123,15 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 			new BadPropertyInfo(func.GetPrototype(), true));
 	}
 
+	/// <summary>
+	/// Invokes the specified function
+	/// </summary>
+	/// <param name="name">Function Name</param>
+	/// <param name="context">Html Context</param>
+	/// <param name="parameters">The Function Parameters</param>
+	/// <param name="caller">The Caller Context</param>
+	/// <param name="arguments">The Function Arguments</param>
+	/// <returns>The Result of the Function Invocation</returns>
 	private BadObject InvokeFunction(
 		string name,
 		BadHtmlContext context,

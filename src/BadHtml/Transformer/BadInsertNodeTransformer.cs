@@ -7,6 +7,9 @@ using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
 
+/// <summary>
+/// Implements the bs:insert node transformer. That inserts the inner content of the node into the specified location.
+/// </summary>
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
     public override bool CanTransform(BadHtmlContext context)
@@ -15,6 +18,13 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
     }
 
 
+    /// <summary>
+    /// Returns all nodes that match the specified path
+    /// </summary>
+    /// <param name="context">The Html Context</param>
+    /// <param name="path">The XPath</param>
+    /// <param name="global">If true, the search starts relative to the document node</param>
+    /// <returns>Enumeration of Matching Nodes</returns>
     private IEnumerable<HtmlNode> GetNodes(BadHtmlContext context, string path, bool global)
     {
         if (path.StartsWith("#"))
