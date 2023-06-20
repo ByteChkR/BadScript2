@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['variabledefinitionkey_0',['VariableDefinitionKey',['../class_bad_script2_1_1_common_1_1_bad_static_keys.html#acde58d4239d2ad0521f819a72c17c4bf',1,'BadScript2::Common::BadStaticKeys']]],
-  ['varname_1',['varName',['../class_bad_script2_1_1_utility_1_1_linq_1_1_bad_linq_common.html#a264dae1e32929ff784cdb65a6b27bed7',1,'BadScript2::Utility::Linq::BadLinqCommon']]]
+  ['variabledefinitionkey_0',['VariableDefinitionKey',['../class_bad_static_keys.html#a51556d3ba0c054c99e5b288a2b3355bb',1,'BadStaticKeys']]],
+  ['varname_1',['varName',['../class_bad_linq_common.html#aee56e2d4e2b140ab4e501b914f8a0242',1,'BadLinqCommon']]]
 ];

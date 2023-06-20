@@ -1,4 +1,4 @@
 var _bad_break_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow.BadBreakExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_cont8a57916071b3030a99d0dc359a1b058a.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_cont8a57916071b3030a99d0dc359a1b058a" ]
+    [ "BadBreakExpressionCompiler", "class_bad_break_expression_compiler.html", "class_bad_break_expression_compiler" ]
 ];

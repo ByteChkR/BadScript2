@@ -1,4 +1,4 @@
 var _bad_logic_assign_and_expression_8cs =
 [
-    [ "BadScript2.Parser.Expressions.Binary.Logic.Assign.BadLogicAssignAndExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_and_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_assign_1_1_bad_logic_assign_and_expression" ]
+    [ "BadLogicAssignAndExpression", "class_bad_logic_assign_and_expression.html", "class_bad_logic_assign_and_expression" ]
 ];

@@ -1,4 +1,4 @@
 var _bad_network_console_client_list_command_8cs =
 [
-    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands.BadNetworkConsoleClientListCommand", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commandsbe85ba252174efdf3e536a78ca5e9cd8.html", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commandsbe85ba252174efdf3e536a78ca5e9cd8" ]
+    [ "BadNetworkConsoleClientListCommand", "class_bad_network_console_client_list_command.html", "class_bad_network_console_client_list_command" ]
 ];

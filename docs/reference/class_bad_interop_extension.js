@@ -1,0 +1,25 @@
+var class_bad_interop_extension =
+[
+    [ "AddExtension< T >", "class_bad_interop_extension.html#aa45eedf467246e8e960e655e6feddea0", null ],
+    [ "AddExtensions", "class_bad_interop_extension.html#a65e7f003b21c02797abadcef22e6c336", null ],
+    [ "GetExtensionNames", "class_bad_interop_extension.html#a7620d01d75b2e14dd76210935176327e", null ],
+    [ "GetExtensionNames", "class_bad_interop_extension.html#a02a5094d5d3f05d2dc70a399c5e21d69", null ],
+    [ "GetObject", "class_bad_interop_extension.html#a57f5c10da9b8e0c85f7a360d964ff4ee", null ],
+    [ "GetObject< T >", "class_bad_interop_extension.html#aef4b0ebc84f541824f59be577bc7fd1d", null ],
+    [ "GetObjectReference", "class_bad_interop_extension.html#a9344b314e00f05c2b25bf60308208c7f", null ],
+    [ "GetTypeExtensions", "class_bad_interop_extension.html#a72ef4c91036141ee05b14a2cf282f870", null ],
+    [ "HasGlobalExtensions", "class_bad_interop_extension.html#a1ae790f2d054d2334d7c0fb7b60ed0a6", null ],
+    [ "HasObject", "class_bad_interop_extension.html#a7fa1fa5fda13433d06fd6e008f41e2be", null ],
+    [ "HasObject< T >", "class_bad_interop_extension.html#a97fc0368db5675300e14edc2f0c74655", null ],
+    [ "HasTypeExtensions", "class_bad_interop_extension.html#a520b376a11c8af96434765a297fb636b", null ],
+    [ "Initialize", "class_bad_interop_extension.html#a73fe8394f592dccf234b08ddda5f1b70", null ],
+    [ "RegisterGlobal", "class_bad_interop_extension.html#ac750205b4bf5d8704011bad98c04fc16", null ],
+    [ "RegisterGlobal", "class_bad_interop_extension.html#a2d3455805d8b7baecbe712ae3d797ddb", null ],
+    [ "RegisterObject", "class_bad_interop_extension.html#a183f5d2aec9e086f4a3cb958c1add638", null ],
+    [ "RegisterObject", "class_bad_interop_extension.html#af8acbe3181f36046bd2be6df97cfd328", null ],
+    [ "RegisterObject< T >", "class_bad_interop_extension.html#af8fdd539ac1901f43838c0ac573c0fa4", null ],
+    [ "s_ActiveExtensions", "class_bad_interop_extension.html#a10dd9f642fa5a96b673cedbe5cda4bb2", null ],
+    [ "s_GlobalExtensions", "class_bad_interop_extension.html#acef8270b05a8f3763c5e45c6c19070f7", null ],
+    [ "s_ObjectExtensions", "class_bad_interop_extension.html#a460a12d7113c15a29fa25fe7bfee3d46", null ],
+    [ "s_StaticExtensionCache", "class_bad_interop_extension.html#a2781bdc30e3b5e730ca13f286f116a1b", null ]
+];

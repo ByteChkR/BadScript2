@@ -1,4 +1,4 @@
 var _bad_array_access_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access.BadArrayAccessExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_acce337d215ea1f08b9adcfc781faaadd67f.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_acce337d215ea1f08b9adcfc781faaadd67f" ]
+    [ "BadArrayAccessExpressionCompiler", "class_bad_array_access_expression_compiler.html", "class_bad_array_access_expression_compiler" ]
 ];

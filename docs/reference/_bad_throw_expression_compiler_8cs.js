@@ -1,4 +1,4 @@
 var _bad_throw_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow.BadThrowExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_contf6b334032bc14b3897aaa0666775c912.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_contf6b334032bc14b3897aaa0666775c912" ]
+    [ "BadThrowExpressionCompiler", "class_bad_throw_expression_compiler.html", "class_bad_throw_expression_compiler" ]
 ];

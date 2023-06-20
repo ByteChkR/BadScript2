@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['zlibcompress_0',['ZLibCompress',['../class_bad_script2_1_1_interop_1_1_compression_1_1_bad_compression_api.html#a6b123fdb600900a66b48e923199de4ea',1,'BadScript2::Interop::Compression::BadCompressionApi']]],
-  ['zlibdecompress_1',['ZLibDecompress',['../class_bad_script2_1_1_interop_1_1_compression_1_1_bad_compression_api.html#a3e52bb2606479c0693128ba4c6bae3d6',1,'BadScript2::Interop::Compression::BadCompressionApi']]]
+  ['xor_0',['XOr',['../class_bad_logic_x_or_expression.html#add6437641fa92c5a6c0fcee4547fc523',1,'BadLogicXOrExpression.XOr()'],['../_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba1d8245436eb077d4d5589d24a79c15a1',1,'XOr():&#160;BadOpCode.cs']]],
+  ['xorassign_1',['XOrAssign',['../_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fba2b8a174252822d57b70a29546bd2e8d8',1,'BadOpCode.cs']]]
 ];

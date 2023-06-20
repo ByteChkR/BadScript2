@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['badconsolepackettype_0',['BadConsolePacketType',['../namespace_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets.html#ad0c8714831b4aced41dc4acdfe75759a',1,'BadScript2::ConsoleAbstraction::Implementations::Remote::Packets']]],
-  ['badfunctioncompilelevel_1',['BadFunctionCompileLevel',['../namespace_bad_script2_1_1_parser_1_1_expressions_1_1_function.html#a827237371aa0d2f737b6c3dcc270ba4d',1,'BadScript2::Parser::Expressions::Function']]],
-  ['badlogtype_2',['BadLogType',['../namespace_bad_script2_1_1_common_1_1_logging.html#ab226e519c81cc055077edd237cf10ba5',1,'BadScript2::Common::Logging']]],
-  ['badopcode_3',['BadOpCode',['../namespace_bad_script2_1_1_runtime_1_1_virtual_machine.html#add29ff78e12642e6225e159b1a4b895b',1,'BadScript2::Runtime::VirtualMachine']]],
-  ['badprimitivetype_4',['BadPrimitiveType',['../namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13',1,'BadScript2::Common']]],
-  ['badpropertyvisibility_5',['BadPropertyVisibility',['../namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5',1,'BadScript2::Runtime::Objects::Types']]],
-  ['badscopeflags_6',['BadScopeFlags',['../namespace_bad_script2_1_1_runtime.html#abaabc720fc823abd09df89427aeaf3dc',1,'BadScript2::Runtime']]],
-  ['badwritemode_7',['BadWriteMode',['../namespace_bad_script2_1_1_i_o.html#a3ff4e9fbc45b7db189c59e2d11f824bc',1,'BadScript2::IO']]]
+  ['badconsolepackettype_0',['BadConsolePacketType',['../_bad_console_packet_type_8cs.html#aed8ac299b66a2cb6a644c0035931b53f',1,'BadConsolePacketType.cs']]],
+  ['badfunctioncompilelevel_1',['BadFunctionCompileLevel',['../_bad_function_compile_level_8cs.html#a2dc6c0b361a8bb71046ad0cd6e4e0c36',1,'BadFunctionCompileLevel.cs']]],
+  ['badlogtype_2',['BadLogType',['../_bad_log_type_8cs.html#a4beb58aa53324a3ed6f724aaf961cccd',1,'BadLogType.cs']]],
+  ['badopcode_3',['BadOpCode',['../_bad_op_code_8cs.html#a0645608500ba9d0b499913bae9eb18fb',1,'BadOpCode.cs']]],
+  ['badprimitivetype_4',['BadPrimitiveType',['../_bad_primitive_type_8cs.html#a0be5500e0e1e098c7462e73f9d3b5642',1,'BadPrimitiveType.cs']]],
+  ['badpropertyvisibility_5',['BadPropertyVisibility',['../_bad_property_visibility_8cs.html#a978851792895b8163321de7f20256db2',1,'BadPropertyVisibility.cs']]],
+  ['badscopeflags_6',['BadScopeFlags',['../_bad_scope_flags_8cs.html#aa74719b6a994ca97e13e3fd4ae0795ef',1,'BadScopeFlags.cs']]],
+  ['badwritemode_7',['BadWriteMode',['../_bad_write_mode_8cs.html#a86d6651a61719e61c677120c4cb2fbc6',1,'BadWriteMode.cs']]]
 ];

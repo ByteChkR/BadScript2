@@ -1,4 +1,4 @@
 var _bad_divide_assign_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Assign.BadDivideAssignExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina452a0a84498dce02090501986566b450.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina452a0a84498dce02090501986566b450" ]
+    [ "BadDivideAssignExpressionCompiler", "class_bad_divide_assign_expression_compiler.html", "class_bad_divide_assign_expression_compiler" ]
 ];

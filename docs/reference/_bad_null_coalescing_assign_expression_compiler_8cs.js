@@ -1,4 +1,4 @@
 var _bad_null_coalescing_assign_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access.BadNullCoalescingAssignExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_acce713d18d69d7ad999e171cd6092d50323.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_acce713d18d69d7ad999e171cd6092d50323" ]
+    [ "BadNullCoalescingAssignExpressionCompiler", "class_bad_null_coalescing_assign_expression_compiler.html", "class_bad_null_coalescing_assign_expression_compiler" ]
 ];

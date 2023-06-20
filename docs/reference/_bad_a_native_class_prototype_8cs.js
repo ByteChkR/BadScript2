@@ -1,4 +1,4 @@
 var _bad_a_native_class_prototype_8cs =
 [
-    [ "BadScript2.Runtime.Objects.Types.BadANativeClassPrototype", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_a_native_class_prototype.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_a_native_class_prototype" ]
+    [ "BadANativeClassPrototype", "class_bad_a_native_class_prototype.html", "class_bad_a_native_class_prototype" ]
 ];

@@ -1,4 +1,4 @@
 var _bad_post_increment_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Atomic.BadPostIncrementExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaa2458041045970da3866f0f535e53155.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaa2458041045970da3866f0f535e53155" ]
+    [ "BadPostIncrementExpressionCompiler", "class_bad_post_increment_expression_compiler.html", "class_bad_post_increment_expression_compiler" ]
 ];

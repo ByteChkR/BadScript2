@@ -1,4 +1,4 @@
 var _bad_network_console_client_disconnect_command_8cs =
 [
-    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands.BadNetworkConsoleClientDisconnectCommand", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commands2b646e7d2dbedb2bb3aaee5bbd4d26d0.html", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commands2b646e7d2dbedb2bb3aaee5bbd4d26d0" ]
+    [ "BadNetworkConsoleClientDisconnectCommand", "class_bad_network_console_client_disconnect_command.html", "class_bad_network_console_client_disconnect_command" ]
 ];

@@ -1,4 +1,4 @@
 var _bad_pre_decrement_expression_8cs =
 [
-    [ "BadScript2.Parser.Expressions.Binary.Math.Atomic.BadPreDecrementExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_expression" ]
+    [ "BadPreDecrementExpression", "class_bad_pre_decrement_expression.html", "class_bad_pre_decrement_expression" ]
 ];

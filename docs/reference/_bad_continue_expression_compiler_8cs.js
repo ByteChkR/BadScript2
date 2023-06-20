@@ -1,4 +1,4 @@
 var _bad_continue_expression_compiler_8cs =
 [
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow.BadContinueExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_contcece11796f417ed4d5903343657c93b8.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_contcece11796f417ed4d5903343657c93b8" ]
+    [ "BadContinueExpressionCompiler", "class_bad_continue_expression_compiler.html", "class_bad_continue_expression_compiler" ]
 ];

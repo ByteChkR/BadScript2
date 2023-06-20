@@ -1,4 +1,4 @@
 var _bad_console_hello_packet_8cs =
 [
-    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.Packets.BadConsoleHelloPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet.html", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet" ]
+    [ "BadConsoleHelloPacket", "class_bad_console_hello_packet.html", "class_bad_console_hello_packet" ]
 ];
