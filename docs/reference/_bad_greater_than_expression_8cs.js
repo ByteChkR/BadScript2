@@ -1,4 +1,4 @@
 var _bad_greater_than_expression_8cs =
 [
-    [ "BadGreaterThanExpression", "class_bad_greater_than_expression.html", "class_bad_greater_than_expression" ]
+    [ "BadScript2.Parser.Expressions.Binary.Comparison.BadGreaterThanExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_greater_than_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_greater_than_expression" ]
 ];

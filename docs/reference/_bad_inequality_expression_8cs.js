@@ -1,4 +1,4 @@
 var _bad_inequality_expression_8cs =
 [
-    [ "BadInequalityExpression", "class_bad_inequality_expression.html", "class_bad_inequality_expression" ]
+    [ "BadScript2.Parser.Expressions.Binary.Comparison.BadInequalityExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_inequality_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_inequality_expression" ]
 ];

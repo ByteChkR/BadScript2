@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readlineasyncrunnable_0',['ReadLineAsyncRunnable',['../class_bad_console_api_1_1_read_line_async_runnable.html',1,'BadConsoleApi']]]
+  ['mycustomapi_0',['MyCustomApi',['../class_bad_script2_1_1_examples_1_1_custom_api_1_1_my_custom_api.html',1,'BadScript2::Examples::CustomApi']]]
 ];

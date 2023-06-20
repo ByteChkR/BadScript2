@@ -1,4 +1,4 @@
 var _bad_linq_query_take_while_command_8cs =
 [
-    [ "BadLinqQueryTakeWhileCommand", "class_bad_linq_query_take_while_command.html", "class_bad_linq_query_take_while_command" ]
+    [ "BadScript2.Utility.Linq.Queries.Commands.BadLinqQueryTakeWhileCommand", "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_take_while_command.html", "class_bad_script2_1_1_utility_1_1_linq_1_1_queries_1_1_commands_1_1_bad_linq_query_take_while_command" ]
 ];

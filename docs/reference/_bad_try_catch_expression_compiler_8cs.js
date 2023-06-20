@@ -1,4 +1,4 @@
 var _bad_try_catch_expression_compiler_8cs =
 [
-    [ "BadTryCatchExpressionCompiler", "class_bad_try_catch_expression_compiler.html", "class_bad_try_catch_expression_compiler" ]
+    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block.BadTryCatchExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_blocb5615793cf39e28b6a2fd6f46743db7f.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_blocb5615793cf39e28b6a2fd6f46743db7f" ]
 ];

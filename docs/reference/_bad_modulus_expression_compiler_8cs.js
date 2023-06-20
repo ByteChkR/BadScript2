@@ -1,4 +1,4 @@
 var _bad_modulus_expression_compiler_8cs =
 [
-    [ "BadModulusExpressionCompiler", "class_bad_modulus_expression_compiler.html", "class_bad_modulus_expression_compiler" ]
+    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.BadModulusExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaa1a9543674fa3bedbd5ca234ac750dd3.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaa1a9543674fa3bedbd5ca234ac750dd3" ]
 ];

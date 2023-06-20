@@ -1,4 +1,4 @@
 var _bad_multiply_assign_operator_8cs =
 [
-    [ "BadMultiplyAssignOperator", "class_bad_multiply_assign_operator.html", "class_bad_multiply_assign_operator" ]
+    [ "BadScript2.Parser.Operators.Binary.Math.Assign.BadMultiplyAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_operator" ]
 ];

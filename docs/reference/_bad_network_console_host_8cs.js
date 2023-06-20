@@ -1,4 +1,4 @@
 var _bad_network_console_host_8cs =
 [
-    [ "BadNetworkConsoleHost", "class_bad_network_console_host.html", "class_bad_network_console_host" ]
+    [ "BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host" ]
 ];

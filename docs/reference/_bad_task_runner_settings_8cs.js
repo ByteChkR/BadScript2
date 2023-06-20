@@ -1,4 +1,4 @@
 var _bad_task_runner_settings_8cs =
 [
-    [ "BadTaskRunnerSettings", "class_bad_task_runner_settings.html", "class_bad_task_runner_settings" ]
+    [ "BadScript2.Interop.Common.Task.BadTaskRunnerSettings", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_runner_settings.html", "class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_runner_settings" ]
 ];

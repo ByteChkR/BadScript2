@@ -1,4 +1,4 @@
 var _bad_return_expression_compiler_8cs =
 [
-    [ "BadReturnExpressionCompiler", "class_bad_return_expression_compiler.html", "class_bad_return_expression_compiler" ]
+    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow.BadReturnExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_cont7263f8948ba5eb0028906f71263114f6.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_cont7263f8948ba5eb0028906f71263114f6" ]
 ];

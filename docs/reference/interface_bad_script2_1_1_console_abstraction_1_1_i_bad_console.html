@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BadScript2 Reference Documentation: BadScript2.ConsoleAbstraction.IBadConsole Interface Reference</title>
+<title>BadScript 2: BadScript2.ConsoleAbstraction.IBadConsole Interface Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,8 +24,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="Logo_128px.png"/></td>
   <td id="projectalign">
-   <div id="projectname">BadScript2 Reference Documentation
+   <div id="projectname">BadScript 2
    </div>
   </td>
  </tr>
@@ -96,40 +97,51 @@ $(document).ready(function(){initNavTree('interface_bad_script2_1_1_console_abst
   <div class="headertitle"><div class="title">BadScript2.ConsoleAbstraction.IBadConsole Interface Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Interface that abstracts the console.  
+ <a href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for BadScript2.ConsoleAbstraction.IBadConsole:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.png" usemap="#BadScript2.ConsoleAbstraction.IBadConsole_map" alt=""/>
   <map id="BadScript2.ConsoleAbstraction.IBadConsole_map" name="BadScript2.ConsoleAbstraction.IBadConsole_map">
-<area href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html" alt="BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost" shape="rect" coords="0,56,468,80"/>
-<area href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html" alt="BadScript2.ConsoleAbstraction.Implementations.SystemConsole" shape="rect" coords="478,56,946,80"/>
+<area href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html" title="Implements a Host for the Remote Console." alt="BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost" shape="rect" coords="0,56,468,80"/>
+<area href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html" title="Implements a wrapper for the default system console." alt="BadScript2.ConsoleAbstraction.Implementations.SystemConsole" shape="rect" coords="478,56,946,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a454ec313da60437ebce339749ecc9335"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#a454ec313da60437ebce339749ecc9335">Write</a> (string str)</td></tr>
+<tr class="memdesc:a454ec313da60437ebce339749ecc9335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a string to the console.  <br /></td></tr>
 <tr class="separator:a454ec313da60437ebce339749ecc9335"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12f516a578482319cd7404bd75e50231"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#a12f516a578482319cd7404bd75e50231">WriteLine</a> (string str)</td></tr>
+<tr class="memdesc:a12f516a578482319cd7404bd75e50231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a string to the console and appends a newline.  <br /></td></tr>
 <tr class="separator:a12f516a578482319cd7404bd75e50231"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19fdafe83f5d912655e854d782d62c35"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#a19fdafe83f5d912655e854d782d62c35">ReadLine</a> ()</td></tr>
+<tr class="memdesc:a19fdafe83f5d912655e854d782d62c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a line from the console.  <br /></td></tr>
 <tr class="separator:a19fdafe83f5d912655e854d782d62c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab49afc2f3749227ddcc8f13eaa154dc"><td class="memItemLeft" align="right" valign="top">Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#aab49afc2f3749227ddcc8f13eaa154dc">ReadLineAsync</a> ()</td></tr>
+<tr class="memdesc:aab49afc2f3749227ddcc8f13eaa154dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a line from the console asynchronously.  <br /></td></tr>
 <tr class="separator:aab49afc2f3749227ddcc8f13eaa154dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52e4126c86b17b194ffcc592efe8417f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#a52e4126c86b17b194ffcc592efe8417f">Clear</a> ()</td></tr>
+<tr class="memdesc:a52e4126c86b17b194ffcc592efe8417f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the console.  <br /></td></tr>
 <tr class="separator:a52e4126c86b17b194ffcc592efe8417f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a70e6da6fc7026fda022b433b7951db46"><td class="memItemLeft" align="right" valign="top">ConsoleColor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#a70e6da6fc7026fda022b433b7951db46">ForegroundColor</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a70e6da6fc7026fda022b433b7951db46"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Foreground Color.  <br /></td></tr>
 <tr class="separator:a70e6da6fc7026fda022b433b7951db46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a7e2b166d2d26eef7e494d3bb0dddc0"><td class="memItemLeft" align="right" valign="top">ConsoleColor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_console_abstraction_1_1_i_bad_console.html#a9a7e2b166d2d26eef7e494d3bb0dddc0">BackgroundColor</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a9a7e2b166d2d26eef7e494d3bb0dddc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Background Color.  <br /></td></tr>
 <tr class="separator:a9a7e2b166d2d26eef7e494d3bb0dddc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_i_bad_console_8cs_source.html#l00006">6</a> of file <a class="el" href="_i_bad_console_8cs_source.html">IBadConsole.cs</a>.</p>
+<div class="textblock"><p>Interface that abstracts the console. </p>
+
+<p class="definition">Definition at line <a class="el" href="_i_bad_console_8cs_source.html#l00009">9</a> of file <a class="el" href="_i_bad_console_8cs_source.html">IBadConsole.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a52e4126c86b17b194ffcc592efe8417f" name="a52e4126c86b17b194ffcc592efe8417f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52e4126c86b17b194ffcc592efe8417f">&#9670;&#160;</a></span>Clear()</h2>
@@ -145,6 +157,8 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Clears the console. </p>
 
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#a60a043ab0e98f4a57c26c5b7cf9ec680">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#ab81fdb06e11a3331123116c1fd369aa9">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
@@ -165,6 +179,9 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Reads a line from the console. </p>
+<dl class="section return"><dt>Returns</dt><dd>The line that was read</dd></dl>
+
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#aa21463fd223c1e69d9b78e681beeda5f">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#a1a0a637d711414c61884b83c77a37ec4">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
 </div>
@@ -183,6 +200,9 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reads a line from the console asynchronously. </p>
+<dl class="section return"><dt>Returns</dt><dd>The line that was read</dd></dl>
 
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#aa2577b1ebb55f5548dff23241875f1b5">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#ad242c120a30261fefef3cbf9054a509b">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
@@ -204,6 +224,14 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Writes a string to the console. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to be written</td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#ad35d6eb31a42a06197a17eeb06dc5352">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#ac0bd698be6e6d974c00414d59b3bd625">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
 </div>
@@ -223,6 +251,14 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Writes a string to the console and appends a newline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to be written</td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#aae53955256732d90685ee4fd0d1b1a27">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#a8514c30e4efa2a6c82f9d60e4c4c4634">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
@@ -249,10 +285,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>The Background Color. </p>
+
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#a6cf31c340d049caeda38c4898915ecff">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#a8e1ace6a876c72596de915269dfc8721">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_bad_console_8cs_source.html#l00010">10</a> of file <a class="el" href="_i_bad_console_8cs_source.html">IBadConsole.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   10</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="_i_bad_console_8cs_source.html#l00019">19</a> of file <a class="el" href="_i_bad_console_8cs_source.html">IBadConsole.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -276,10 +314,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>The Foreground Color. </p>
+
 <p>Implemented in <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_host.html#ad5e5445f13a6608df071eb72903e077a">BadScript2.ConsoleAbstraction.Implementations.Remote.BadNetworkConsoleHost</a>, and <a class="el" href="class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_system_console.html#a4e2c9a7ec66624edba34eaacfe416ad7">BadScript2.ConsoleAbstraction.Implementations.SystemConsole</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_bad_console_8cs_source.html#l00008">8</a> of file <a class="el" href="_i_bad_console_8cs_source.html">IBadConsole.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    8</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="_i_bad_console_8cs_source.html#l00014">14</a> of file <a class="el" href="_i_bad_console_8cs_source.html">IBadConsole.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>

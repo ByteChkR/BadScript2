@@ -1,4 +1,4 @@
 var _bad_boolean_expression_compiler_8cs =
 [
-    [ "BadBooleanExpressionCompiler", "class_bad_boolean_expression_compiler.html", "class_bad_boolean_expression_compiler" ]
+    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant.BadBooleanExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_conse380121ac7a93c46ac3d07e6ef016bef.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_conse380121ac7a93c46ac3d07e6ef016bef" ]
 ];

@@ -6,6 +6,7 @@ var namespace_bad_script2 =
     [ "ConsoleCore", "namespace_bad_script2_1_1_console_core.html", "namespace_bad_script2_1_1_console_core" ],
     [ "Debugger", "namespace_bad_script2_1_1_debugger.html", "namespace_bad_script2_1_1_debugger" ],
     [ "Debugging", "namespace_bad_script2_1_1_debugging.html", "namespace_bad_script2_1_1_debugging" ],
+    [ "Examples", "namespace_bad_script2_1_1_examples.html", "namespace_bad_script2_1_1_examples" ],
     [ "Interactive", "namespace_bad_script2_1_1_interactive.html", "namespace_bad_script2_1_1_interactive" ],
     [ "Interop", "namespace_bad_script2_1_1_interop.html", "namespace_bad_script2_1_1_interop" ],
     [ "IO", "namespace_bad_script2_1_1_i_o.html", "namespace_bad_script2_1_1_i_o" ],
