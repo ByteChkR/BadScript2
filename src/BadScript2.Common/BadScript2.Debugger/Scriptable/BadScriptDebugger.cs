@@ -49,14 +49,8 @@ public class BadScriptDebugger : IBadDebugger
 		m_Options = options;
 		m_Options.AddApi(new BadScriptDebuggerApi(this));
 
-		if (BadScriptDebuggerSettings.Instance.DebuggerPath == null)
-		{
-			BadLogger.Warn("Debugger path not set, debugger will not be available", "Debugger");
-		}
-		else
-		{
-			LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
-		}
+		
+		LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
 	}
 
 	public void Step(BadDebuggerStep stepInfo)

@@ -110,11 +110,11 @@ public class BadTable : BadObject, IBadEnumerable
 			() => InnerTable[propName],
 			(o, t) =>
 			{
-				if (InnerTable.ContainsKey(propName))
+				if (InnerTable.TryGetValue(propName, out BadObject? propValue))
 				{
 					BadPropertyInfo info = GetPropertyInfo(propName);
 
-					if (InnerTable[propName] != Null && info.IsReadOnly)
+					if (propValue != Null && info.IsReadOnly)
 					{
 						throw new BadRuntimeException($"{propName} is read-only");
 					}
