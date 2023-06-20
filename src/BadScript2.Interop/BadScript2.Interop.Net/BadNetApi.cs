@@ -5,8 +5,14 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.Net;
 
+/// <summary>
+/// Implements the "Net" Api
+/// </summary>
 public class BadNetApi : BadInteropApi
 {
+	/// <summary>
+	/// Public Constructor
+	/// </summary>
 	public BadNetApi() : base("Net") { }
 
 	protected override void LoadApi(BadTable target)
@@ -18,6 +24,12 @@ public class BadNetApi : BadInteropApi
 	}
 
 
+	/// <summary>
+	/// Creates a new BadTask that performs a POST request to the given url with the given content
+	/// </summary>
+	/// <param name="url">Url</param>
+	/// <param name="content">Body</param>
+	/// <returns>Awaitable Task</returns>
 	private BadTask Post(string url, string content)
 	{
 		HttpClient cl = new HttpClient();
@@ -26,6 +38,11 @@ public class BadNetApi : BadInteropApi
 			$"Net.Post(\"{url}\")");
 	}
 
+	/// <summary>
+	/// Creates a new BadTask that performs a GET request to the given url
+	/// </summary>
+	/// <param name="url">Url</param>
+	/// <returns>Awaitable Task</returns>
 	private BadTask Get(string url)
 	{
 		HttpClient cl = new HttpClient();

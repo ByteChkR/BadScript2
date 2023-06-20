@@ -10,10 +10,20 @@ using NUnit.Framework;
 
 namespace BadScript2.Interop.NUnit;
 
+/// <summary>
+/// Implements the "NUnit" Api
+/// </summary>
 public class BadNUnitApi : BadInteropApi
 {
+	/// <summary>
+	/// Public Constructor
+	/// </summary>
 	public BadNUnitApi() : base("NUnit") { }
 
+	/// <summary>
+	/// Creates the Assert Api
+	/// </summary>
+	/// <returns>Table containing all assert functions</returns>
 	private static BadTable MakeAssert()
 	{
 		BadTable assert = new BadTable();
@@ -49,6 +59,7 @@ public class BadNUnitApi : BadInteropApi
 		target.SetProperty("Assert", MakeAssert());
 	}
 
+	
 	private static void Assert_Throws(BadExecutionContext ctx, BadFunction func, string message)
 	{
 		Assert.Throws<BadRuntimeException>(() =>

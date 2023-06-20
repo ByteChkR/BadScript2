@@ -5,6 +5,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.Net;
 
+/// <summary>
+/// Implements Extensions for the "Net" Api
+/// </summary>
 public class BadNetInteropExtensions : BadInteropExtension
 {
 	protected override void AddExtensions()
@@ -29,6 +32,11 @@ public class BadNetInteropExtensions : BadInteropExtension
 				_ => Content_ReadAsArray(c)));
 	}
 
+	/// <summary>
+	/// Reads the content as a string
+	/// </summary>
+	/// <param name="content">The Http Content</param>
+	/// <returns>Awaitable Task with result string</returns>
 	private BadTask Content_ReadAsString(HttpContent content)
 	{
 		Task<string> task = content.ReadAsStringAsync();
@@ -36,6 +44,11 @@ public class BadNetInteropExtensions : BadInteropExtension
 		return new BadTask(BadTaskUtils.WaitForTask(task), "HttpContent.ReadAsString");
 	}
 
+	/// <summary>
+	/// Reads the content as array
+	/// </summary>
+	/// <param name="content">The Http Content</param>
+	/// <returns>Awaitable Task with result array</returns>
 	private BadTask Content_ReadAsArray(HttpContent content)
 	{
 		Task<byte[]> task = content.ReadAsByteArrayAsync();

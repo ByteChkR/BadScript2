@@ -14,17 +14,39 @@ using NUnit.Framework;
 
 namespace BadScript2.Interop.NUnit;
 
+/// <summary>
+/// The Class that does the actual testing
+/// </summary>
 public class BadUnitTests
 {
+	/// <summary>
+	/// Default Unit Test Context
+	/// </summary>
 	private static BadUnitTestContext? s_Context;
+	/// <summary>
+	/// Unit Test Context with optimizations enabled
+	/// </summary>
 	private static BadUnitTestContext? s_OptimizedContext;
+	/// <summary>
+	/// Unit Test Context with compiled functions
+	/// </summary>
 	private static BadUnitTestContext? s_CompiledContext;
+	/// <summary>
+	/// Unit Test Context with optimized compiled functions
+	/// </summary>
 	private static BadUnitTestContext? s_CompiledOptimizedContext;
 
+	/// <summary>
+	/// The Directory containing thte test files
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the directory is not set.</exception>
 	private static string TestDirectory =>
 		BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Test.TestDirectory") ??
 		throw new BadRuntimeException("Test directory not found");
 
+	/// <summary>
+	/// Default Unit Test Context
+	/// </summary>
 	private static BadUnitTestContext Context
 	{
 		get
@@ -52,6 +74,9 @@ public class BadUnitTests
 		}
 	}
 
+	/// <summary>
+	/// The Unit Test Context with optimizations enabled
+	/// </summary>
 	private static BadUnitTestContext OptimizedContext
 	{
 		get
@@ -79,6 +104,9 @@ public class BadUnitTests
 		}
 	}
 
+	/// <summary>
+	/// The Unit Test Context with compiled functions
+	/// </summary>
 	private static BadUnitTestContext CompiledContext
 	{
 		get
@@ -106,6 +134,9 @@ public class BadUnitTests
 		}
 	}
 
+	/// <summary>
+	/// The Unit Test Context with optimized compiled functions
+	/// </summary>
 	private static BadUnitTestContext CompiledOptimizedContext
 	{
 		get
@@ -133,6 +164,9 @@ public class BadUnitTests
 		}
 	}
 
+	/// <summary>
+	/// Runs the Setup for the Unit Tests
+	/// </summary>
 	[SetUp]
 	public void Setup()
 	{
@@ -144,17 +178,32 @@ public class BadUnitTests
 		CompiledOptimizedContext.Setup();
 	}
 
+	/// <summary>
+	/// Gets all default Unit Test Cases
+	/// </summary>
+	/// <returns>Array of TestCases</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the Context is not initialized</exception>
 	public static BadNUnitTestCase[] GetTestCases()
 	{
 		return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
 	}
 
 
+	/// <summary>
+	/// Gets all optimized Unit Test Cases
+	/// </summary>
+	/// <returns>Array of TestCases</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the Context is not initialized</exception>
 	public static BadNUnitTestCase[] GetOptimizedTestCases()
 	{
 		return OptimizedContext?.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
 	}
 
+	/// <summary>
+	/// Gets all compiled Unit Test Cases
+	/// </summary>
+	/// <returns>Array of TestCases</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the Context is not initialized</exception>
 	public static BadNUnitTestCase[] GetCompiledTestCases()
 	{
 		if (CompiledContext == null)
@@ -175,6 +224,11 @@ public class BadUnitTests
 			.ToArray();
 	}
 
+	/// <summary>
+	/// Gets all compiled optimized Unit Test Cases
+	/// </summary>
+	/// <returns>Array of TestCases</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the Context is not initialized</exception>
 	public static BadNUnitTestCase[] GetCompiledOptimizedTestCases()
 	{
 		if (CompiledOptimizedContext == null)
@@ -196,24 +250,40 @@ public class BadUnitTests
 	}
 
 
+	/// <summary>
+	/// Runs a default Unit Test Case
+	/// </summary>
+	/// <param name="testCase">Test Case</param>
 	[TestCaseSource(nameof(GetTestCases))]
 	public void Test(BadNUnitTestCase testCase)
 	{
 		Context.Run(testCase);
 	}
 
+	/// <summary>
+	/// Runs an optimized Unit Test Case
+	/// </summary>
+	/// <param name="testCase">Test Case</param>
 	[TestCaseSource(nameof(GetOptimizedTestCases))]
 	public void TestOptimized(BadNUnitTestCase testCase)
 	{
 		OptimizedContext.Run(testCase);
 	}
 
+	/// <summary>
+	/// Runs a compiled Unit Test Case
+	/// </summary>
+	/// <param name="testCase">Test Case</param>
 	[TestCaseSource(nameof(GetCompiledTestCases))]
 	public void TestCompiled(BadNUnitTestCase testCase)
 	{
 		CompiledContext.Run(testCase);
 	}
 
+	/// <summary>
+	/// Runs a compiled optimized Unit Test Case
+	/// </summary>
+	/// <param name="testCase">Test Case</param>
 	[TestCaseSource(nameof(GetCompiledOptimizedTestCases))]
 	public void TestCompiledOptimized(BadNUnitTestCase testCase)
 	{
@@ -221,6 +291,9 @@ public class BadUnitTests
 	}
 
 
+	/// <summary>
+	/// Runs the Teardown for the Unit Tests
+	/// </summary>
 	[TearDown]
 	public void TearDown()
 	{

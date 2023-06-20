@@ -10,9 +10,21 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Utility;
 
 namespace BadScript2.Interop.Linq;
-
+/// <summary>
+///     Implements Linq Extensions
+/// </summary>
 public class BadLinqExtensions : BadInteropExtension
 {
+	
+
+	/// <summary>
+	/// Invokes the given function with the given arguments and unpacks the result to Type T
+	/// </summary>
+	/// <param name="func">Function</param>
+	/// <param name="ctx">Execution Context</param>
+	/// <param name="args">Arguments</param>
+	/// <typeparam name="T">The Type to unpack to.</typeparam>
+	/// <returns>Result of the Invocation</returns>
 	private static T Invoke<T>(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
 	{
 		BadObject o = BadObject.Null;
@@ -25,6 +37,13 @@ public class BadLinqExtensions : BadInteropExtension
 		return o.Dereference().Unwrap<T>();
 	}
 
+	/// <summary>
+	/// Invokes the given function with the given arguments
+	/// </summary>
+	/// <param name="func">Function</param>
+	/// <param name="ctx">Execution Context</param>
+	/// <param name="args">Arguments</param>
+	/// <returns>Result of the Invocation</returns>
 	private static BadObject Invoke(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
 	{
 		BadObject o = BadObject.Null;
@@ -37,17 +56,39 @@ public class BadLinqExtensions : BadInteropExtension
 		return o.Dereference();
 	}
 
-	private static BadObject Select(BadExecutionContext context, IBadEnumerable e, BadFunction selector)
+	/// <summary>
+	/// Selects elements of the given enumerable with the given selector function
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="selector">The Filter Function</param>
+	/// <returns>Enumeration</returns>
+	private static BadObject Select(BadExecutionContext ctx, IBadEnumerable e, BadFunction selector)
 	{
-		return new BadInteropEnumerable(e.Select(x => Invoke(selector, context, x)));
+		return new BadInteropEnumerable(e.Select(x => Invoke(selector, ctx, x)));
 	}
 
-	private static BadObject Where(BadExecutionContext context, IBadEnumerable e, BadFunction filter)
+	/// <summary>
+	/// Filters the given enumerable with the given filter function
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="filter">The Filter Function</param>
+	/// <returns>Filtered Enumeration</returns>
+	private static BadObject Where(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)
 	{
-		return new BadInteropEnumerable(e.Where(x => Invoke<bool>(filter, context, x)));
+		return new BadInteropEnumerable(e.Where(x => Invoke<bool>(filter, ctx, x)));
 	}
 
-	private static BadObject First(BadExecutionContext context, IBadEnumerable e, BadObject o)
+	/// <summary>
+	/// Gets the first element in the enumerable that satisfies the given filter
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="o">The (optional) Filter Function</param>
+	/// <returns>First element</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
+	private static BadObject First(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
 	{
 		if (o == BadObject.Null)
 		{
@@ -56,13 +97,21 @@ public class BadLinqExtensions : BadInteropExtension
 
 		if (o is BadFunction filter)
 		{
-			return e.First(x => Invoke<bool>(filter, context, x));
+			return e.First(x => Invoke<bool>(filter, ctx, x));
 		}
 
 		throw new BadRuntimeException("Invalid Filter");
 	}
 
-	private static BadObject FirstOrDefault(BadExecutionContext context, IBadEnumerable e, BadObject o)
+	/// <summary>
+	/// Gets the first element in the enumerable that satisfies the given filter
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="o">The (optional) Filter Function</param>
+	/// <returns>First element or null</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
+	private static BadObject FirstOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
 	{
 		if (o == BadObject.Null)
 		{
@@ -71,13 +120,21 @@ public class BadLinqExtensions : BadInteropExtension
 
 		if (o is BadFunction filter)
 		{
-			return e.FirstOrDefault(x => Invoke<bool>(filter, context, x)) ?? BadObject.Null;
+			return e.FirstOrDefault(x => Invoke<bool>(filter, ctx, x)) ?? BadObject.Null;
 		}
 
 		throw new BadRuntimeException("Invalid Filter");
 	}
 
-	private static BadObject Last(BadExecutionContext context, IBadEnumerable e, BadObject o)
+	/// <summary>
+	/// Gets the last element in the enumerable that satisfies the given filter
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="o">The (optional) Filter Function</param>
+	/// <returns>Last element</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
+	private static BadObject Last(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
 	{
 		if (o == BadObject.Null)
 		{
@@ -86,13 +143,21 @@ public class BadLinqExtensions : BadInteropExtension
 
 		if (o is BadFunction filter)
 		{
-			return e.Last(x => Invoke<bool>(filter, context, x));
+			return e.Last(x => Invoke<bool>(filter, ctx, x));
 		}
 
 		throw new BadRuntimeException("Invalid Filter");
 	}
 
-	private static BadObject LastOrDefault(BadExecutionContext context, IBadEnumerable e, BadObject o)
+	/// <summary>
+	/// Gets the last element in the enumerable that satisfies the given filter
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="o">The (optional) Filter Function</param>
+	/// <returns>Last element or null</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
+	private static BadObject LastOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
 	{
 		if (o == BadObject.Null)
 		{
@@ -101,13 +166,21 @@ public class BadLinqExtensions : BadInteropExtension
 
 		if (o is BadFunction filter)
 		{
-			return e.LastOrDefault(x => Invoke<bool>(filter, context, x)) ?? BadObject.Null;
+			return e.LastOrDefault(x => Invoke<bool>(filter, ctx, x)) ?? BadObject.Null;
 		}
 
 		throw new BadRuntimeException("Invalid Filter");
 	}
 
-	private static BadObject Any(BadExecutionContext context, IBadEnumerable e, BadObject o)
+	/// <summary>
+	/// Checks if any element matches the given filter
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="o">The (optional) Filter Function</param>
+	/// <returns>True if any element satisfies the filter</returns>
+	/// <exception cref="BadRuntimeException"></exception>
+	private static BadObject Any(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
 	{
 		if (o == BadObject.Null)
 		{
@@ -116,27 +189,56 @@ public class BadLinqExtensions : BadInteropExtension
 
 		if (o is BadFunction filter)
 		{
-			return e.Any(x => Invoke<bool>(filter, context, x));
+			return e.Any(x => Invoke<bool>(filter, ctx, x));
 		}
 
 		throw new BadRuntimeException("Invalid Filter");
 	}
 
-	private static BadObject Append(BadExecutionContext context, IBadEnumerable e, BadObject obj)
+	/// <summary>
+	/// Appends an Object to the Enumerable
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="obj">The Object to Append</param>
+	/// <returns>New Enumeration</returns>
+	private static BadObject Append(BadExecutionContext ctx, IBadEnumerable e, BadObject obj)
 	{
 		return new BadInteropEnumerable(e.Append(obj));
 	}
 
-	private static BadObject Concat(BadExecutionContext context, IBadEnumerable e1, IBadEnumerable e2)
+	/// <summary>
+	/// Concatenates two Enumerables
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e1">The First Enumerable</param>
+	/// <param name="e2">The Second Enumerable</param>
+	/// <returns>Enumerable</returns>
+	private static BadObject Concat(BadExecutionContext ctx, IBadEnumerable e1, IBadEnumerable e2)
 	{
 		return new BadInteropEnumerable(e1.Concat(e2));
 	}
 
-	private static BadObject All(BadExecutionContext context, IBadEnumerable e, BadFunction filter)
+	/// <summary>
+	/// Checks if all elements match the given filter
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="filter">The Filter Function</param>
+	/// <returns>True if all elements satisfy the filter</returns>
+	private static BadObject All(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)
 	{
-		return e.All(x => Invoke<bool>(filter, context, x));
+		return e.All(x => Invoke<bool>(filter, ctx, x));
 	}
 
+	/// <summary>
+	/// Counts all Elements
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="predicate">(Optional) Predicate Function. If specified, only counts the elements that this predicate matches</param>
+	/// <returns>Number of Elements in the Enumerable</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
 	private static BadObject Count(BadExecutionContext ctx, IBadEnumerable e, BadObject predicate)
 	{
 		if (predicate == BadObject.Null)
@@ -152,16 +254,38 @@ public class BadLinqExtensions : BadInteropExtension
 		throw new BadRuntimeException("Invalid Predicate");
 	}
 
+	/// <summary>
+	/// Implementation for 'ElementAt' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="index">Index of the element to return</param>
+	/// <returns>The element at the index</returns>
 	private static BadObject ElementAt(BadExecutionContext ctx, IBadEnumerable e, decimal index)
 	{
 		return e.ElementAt((int)index);
 	}
 
+	/// <summary>
+	/// Implementation for 'ElementAtOrDefault' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="index">Index of the element to return</param>
+	/// <returns>The element at the index or BadObject.Null</returns>
 	private static BadObject ElementAtOrDefault(BadExecutionContext ctx, IBadEnumerable e, decimal index)
 	{
 		return e.ElementAtOrDefault((int)index) ?? BadObject.Null;
 	}
 
+	/// <summary>
+	/// Implementation for 'ToTable' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="keySelector">Key Selector Function</param>
+	/// <param name="valueSelector">Value Selector Function</param>
+	/// <returns>Bad Table</returns>
 	private static BadObject ToTable(
 		BadExecutionContext ctx,
 		IBadEnumerable e,
@@ -171,26 +295,58 @@ public class BadLinqExtensions : BadInteropExtension
 		return new BadTable(e.ToDictionary(v => Invoke(keySelector, ctx, v), v => Invoke(valueSelector, ctx, v)));
 	}
 
+
+	/// <summary>
+	/// Implementation for 'Skip' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="index">The Amount of items to skip</param>
+	/// <returns>Enumeration</returns>
 	private static BadObject Skip(BadExecutionContext ctx, IBadEnumerable e, decimal index)
 	{
 		return new BadInteropEnumerable(e.Skip((int)index));
 	}
 
+	/// <summary>
+	/// Implementation for 'Take' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="index">The Amount of items to take</param>
+	/// <returns>Enumeration</returns>
 	private static BadObject Take(BadExecutionContext ctx, IBadEnumerable e, decimal index)
 	{
 		return new BadInteropEnumerable(e.Take((int)index));
 	}
 
+	/// <summary>
+	/// Implementation for 'SkipLast' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="index">The Amount of items to skip</param>
+	/// <returns>Enumeration</returns>
 	private static BadObject SkipLast(BadExecutionContext ctx, IBadEnumerable e, decimal index)
 	{
 		return new BadInteropEnumerable(e.SkipLast((int)index));
 	}
 
+	/// <summary>
+	/// Implementation for 'ToArray' function.
+	/// </summary>
+	/// <param name="e">The Enumerable</param>
+	/// <returns>BadArray</returns>
 	private static BadObject ToArray(IBadEnumerable e)
 	{
 		return new BadArray(e.ToList());
 	}
 
+	/// <summary>
+	/// Implementation for 'Reverse' function.
+	/// </summary>
+	/// <param name="e">The Enumerable</param>
+	/// <returns>Enumeration</returns>
 	private static BadObject Reverse(IBadEnumerable e)
 	{
 		return new BadInteropEnumerable(e.Reverse());
@@ -244,6 +400,13 @@ public class BadLinqExtensions : BadInteropExtension
 				(c, ks, vs) => ToTable(c, e, ks, vs)));
 	}
 
+	/// <summary>
+	/// Implementation for 'OrderBy' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="function">The Selector Function</param>
+	/// <returns>Enumeration</returns>
 	private BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
 	{
 		return new BadInteropEnumerable(e.OrderBy(o =>
@@ -263,11 +426,23 @@ public class BadLinqExtensions : BadInteropExtension
 		}));
 	}
 
+	/// <summary>
+	/// Shorthand Wrapper for RegisterObject.
+	/// Registers a Linq Function that takes a IBadEnumerable object and returns a BadObject.
+	/// </summary>
+	/// <param name="name">Name of the Function</param>
+	/// <param name="func">Function</param>
 	private static void Register(string name, Func<BadExecutionContext, IBadEnumerable, BadObject> func)
 	{
 		RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction(name, c => func(c, o)));
 	}
 
+	/// <summary>
+	/// Shorthand Wrapper for RegisterObject.
+	/// Registers a Linq Function that takes a IBadEnumerable object, an arbitrary object and returns a BadObject.
+	/// </summary>
+	/// <param name="name">Name of the Function</param>
+	/// <param name="func">Function</param>
 	private static void Register<T>(string name, Func<BadExecutionContext, IBadEnumerable, T, BadObject> func)
 	{
 		RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a)));

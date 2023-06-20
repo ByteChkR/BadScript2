@@ -6,8 +6,14 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.NetHost;
 
+/// <summary>
+/// Implements the "NetHost" Api
+/// </summary>
 public class BadNetHostApi : BadInteropApi
 {
+	/// <summary>
+	/// Public Constructor
+	/// </summary>
 	public BadNetHostApi() : base("NetHost") { }
 
 

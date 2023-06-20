@@ -16,8 +16,16 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.NetHost;
 
+/// <summary>
+/// Implements Extensions for the "NetHost" Api
+/// </summary>
 public class BadNetHostExtensions : BadInteropExtension
 {
+	/// <summary>
+	/// Creates a table from a name value collection
+	/// </summary>
+	/// <param name="headers">The Collection</param>
+	/// <returns>Table</returns>
 	private static BadTable CreateNameValueTable(NameValueCollection headers)
 	{
 		BadTable t = new BadTable();
@@ -30,6 +38,11 @@ public class BadNetHostExtensions : BadInteropExtension
 		return t;
 	}
 
+	/// <summary>
+	/// Creates a Cookie Table from the Cookie Collection
+	/// </summary>
+	/// <param name="cookies">The Collection</param>
+	/// <returns>A Cookie Table</returns>
 	private static BadArray CreateCookieTable(CookieCollection cookies)
 	{
 		BadArray table = new BadArray();
@@ -42,6 +55,12 @@ public class BadNetHostExtensions : BadInteropExtension
 		return table;
 	}
 
+	/// <summary>
+	/// Copies the Headers from the BadScript Table to the Http Header Table
+	/// </summary>
+	/// <param name="dst">The Destination Table</param>
+	/// <param name="src">The Source Table</param>
+	/// <exception cref="BadRuntimeException">Gets raised if the Source Table contains invalid object keys</exception>
 	private static void CopyHeaderTable(NameValueCollection dst, BadTable src)
 	{
 		foreach (KeyValuePair<BadObject, BadObject> kvp in src.InnerTable)
@@ -55,7 +74,13 @@ public class BadNetHostExtensions : BadInteropExtension
 		}
 	}
 
-	private BadTable CreateInputTable(Stream content, Encoding enc)
+	/// <summary>
+	/// Creates an Http Content Table
+	/// </summary>
+	/// <param name="content">The Content Stream</param>
+	/// <param name="enc">The Encoding</param>
+	/// <returns>Http Response Table</returns>
+	private BadTable CreateContentTable(Stream content, Encoding enc)
 	{
 		BadTable table = new BadTable();
 		table.SetFunction("AsString",
@@ -82,12 +107,18 @@ public class BadNetHostExtensions : BadInteropExtension
 		return table;
 	}
 
+	/// <summary>
+	/// Adds Extensions for the BadHttpContext Object
+	/// </summary>
 	private void AddContextExtensions()
 	{
 		RegisterObject<BadHttpContext>("Request", c => new BadHttpRequest(c.Context.Request));
 		RegisterObject<BadHttpContext>("Response", c => CreateResponseTable(c.Context.Response));
 	}
 
+	/// <summary>
+	/// Adds Extensions for the BadHttpRequest Object
+	/// </summary>
 	private void AddRequestExtensions()
 	{
 		RegisterObject<BadHttpRequest>("ContentLength", r => r.Request.ContentLength64);
@@ -116,9 +147,14 @@ public class BadNetHostExtensions : BadInteropExtension
 		RegisterObject<BadHttpRequest>("ContentEncoding", r => r.Request.ContentEncoding.EncodingName);
 		RegisterObject<BadHttpRequest>("Cookies", r => CreateCookieTable(r.Request.Cookies));
 		RegisterObject<BadHttpRequest>("Content",
-			r => CreateInputTable(r.Request.InputStream, r.Request.ContentEncoding));
+			r => CreateContentTable(r.Request.InputStream, r.Request.ContentEncoding));
 	}
 
+	/// <summary>
+	/// Creates a Response Table for the given Response Object
+	/// </summary>
+	/// <param name="resp">Resonse Object</param>
+	/// <returns>Response Table</returns>
 	private BadTable CreateResponseTable(HttpListenerResponse resp)
 	{
 		BadTable table = new BadTable();
