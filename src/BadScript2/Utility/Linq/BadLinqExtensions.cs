@@ -8,6 +8,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Utility.Linq;
 
+/// <summary>
+/// Implements LINQ Extensions
+/// </summary>
 public static class BadLinqExtensions
 {
 	private static object? Unpack(this BadObject obj)

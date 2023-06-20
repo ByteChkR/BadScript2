@@ -11,6 +11,9 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Utility.Linq;
 
+/// <summary>
+/// Implements Common Functionality to parse Linq Queries in BadScript2
+/// </summary>
 internal static class BadLinqCommon
 {
 	public static readonly BadExecutionContextOptions PredicateContextOptions = new BadExecutionContextOptions();

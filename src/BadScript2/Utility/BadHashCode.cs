@@ -2,6 +2,11 @@ using System.Runtime.CompilerServices;
 
 namespace BadScript2.Utility;
 
+/// <summary>
+/// Implements Combination of HashCode Functions
+/// Taken from decompiled source of System.HashCode
+/// This exists because the System.HashCode implementation is not available in .NET Standard 2.0
+/// </summary>
 public static class BadHashCode
 {
 	private const uint Prime1 = 2654435761U;

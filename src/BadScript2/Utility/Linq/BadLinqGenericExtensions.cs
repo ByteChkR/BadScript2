@@ -8,6 +8,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Utility.Linq;
 
+/// <summary>
+/// Implements Generic LINQ Extensions
+/// </summary>
 public static class BadLinqGenericExtensions
 {
 	private static TOut InnerSelect<T, TOut>(string varName, BadExpression query, T o)
