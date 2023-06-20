@@ -5,10 +5,24 @@ using BadScript2.Debugging;
 
 namespace BadScript2.Debugger;
 
+/// <summary>
+/// Implements a Simple Console Debugger
+/// </summary>
 public class BadConsoleDebugger : IBadDebugger
 {
+	/// <summary>
+	/// The List of Ignored Files
+	/// </summary>
 	private static readonly List<string> s_IgnoredFiles = new List<string>();
+	
+	/// <summary>
+	/// The last source line that was printed
+	/// </summary>
 	private int m_LastLine = -1;
+	
+	/// <summary>
+	/// The Last source code that was printed
+	/// </summary>
 	private string? m_LastSource;
 
 	public void Step(BadDebuggerStep stepInfo)

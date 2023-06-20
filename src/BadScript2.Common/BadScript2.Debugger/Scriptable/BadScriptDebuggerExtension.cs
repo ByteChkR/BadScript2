@@ -7,6 +7,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Debugger.Scriptable;
 
+/// <summary>
+/// Implements Interop Extensions for the Debugger Objects
+/// </summary>
 public class BadScriptDebuggerExtension : BadInteropExtension
 {
 	protected override void AddExtensions()

@@ -10,12 +10,29 @@ using BadScript2.Runtime;
 
 namespace BadScript2.Debugger.Scriptable;
 
+/// <summary>
+/// Implements a Scriptable Debugger
+/// </summary>
 public class BadScriptDebugger : IBadDebugger
 {
+	/// <summary>
+	/// The Line Numbers/Positions for the Debugger
+	/// </summary>
 	private readonly Dictionary<string, int> m_LineNumbers = new Dictionary<string, int>();
+	/// <summary>
+	/// The Debugger Execution Context Options
+	/// </summary>
 	private readonly BadExecutionContextOptions m_Options;
+	/// <summary>
+	/// The Files that are already seen by the Debugger
+	/// </summary>
 	private readonly List<string> m_SeenFiles = new List<string>();
 
+	/// <summary>
+	/// Constructs a new BadScriptDebugger instance
+	/// </summary>
+	/// <param name="options">The Context Options</param>
+	/// <param name="debuggerPath">The File Path to the Debugger</param>
 	public BadScriptDebugger(BadExecutionContextOptions options, string debuggerPath)
 	{
 		m_Options = options;
@@ -23,6 +40,10 @@ public class BadScriptDebugger : IBadDebugger
 		LoadDebugger(debuggerPath);
 	}
 
+	/// <summary>
+	/// Constructs a new BadScriptDebugger instance
+	/// </summary>
+	/// <param name="options">The Context Options</param>
 	public BadScriptDebugger(BadExecutionContextOptions options)
 	{
 		m_Options = options;
@@ -59,6 +80,10 @@ public class BadScriptDebugger : IBadDebugger
 		OnStep?.Invoke(stepInfo);
 	}
 
+	/// <summary>
+	/// Loads the Debugger from the given File Path
+	/// </summary>
+	/// <param name="path">The File Path</param>
 	private void LoadDebugger(string path)
 	{
 		BadExecutionContext ctx = m_Options.Build();
@@ -66,7 +91,13 @@ public class BadScriptDebugger : IBadDebugger
 			BadOperatorTable.Instance).Parse());
 	}
 
+	/// <summary>
+	/// Event that gets called on every debugger step
+	/// </summary>
 	public event Action<BadDebuggerStep>? OnStep;
 
+	/// <summary>
+	/// Event that gets called when a new file is loaded.
+	/// </summary>
 	public event Action<string>? OnFileLoaded;
 }
