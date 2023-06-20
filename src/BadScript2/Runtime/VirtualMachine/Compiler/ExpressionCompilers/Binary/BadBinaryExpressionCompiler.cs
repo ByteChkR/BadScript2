@@ -5,6 +5,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
 	where T : BadBinaryExpression
 {
+	protected virtual bool IsLeftAssociative => true;
+
 	/// <summary>
 	///     Compiles a Binary Expression
 	/// </summary>
@@ -15,14 +17,29 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
 
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, T expression)
 	{
-		foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+		if (IsLeftAssociative)
 		{
-			yield return instruction;
-		}
+			foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+			{
+				yield return instruction;
+			}
 
-		foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+			foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+			{
+				yield return instruction;
+			}
+		}
+		else
 		{
-			yield return instruction;
+			foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+			{
+				yield return instruction;
+			}
+
+			foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+			{
+				yield return instruction;
+			}
 		}
 
 		foreach (BadInstruction instruction in CompileBinary(compiler, expression))
