@@ -1,0 +1,10 @@
+function()
+{
+
+	function Version(args)
+	{
+		Console.WriteLine("$(AppInfo.Name)@$(AppInfo.Version)");
+	}
+
+	Commands.Add("version", Version, "Displays the current Package Manager Version");
+}();

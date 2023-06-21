@@ -1,0 +1,26 @@
+{
+	"System": {
+		"Type": "Library",
+		"Tags": {
+			"latest": "0.0.0.2",
+			"0.0.0.1": {},
+			"0.0.0.2": {}
+		}
+	},
+	"TestApp": {
+		"Type": "App",
+		"Tags": {
+			"latest": "0.0.0.2",
+			"0.0.0.1": {
+				"Dependencies": [
+					{"Name": "System", "Tag": "0.0.0.1"}
+				]
+			},
+			"0.0.0.2": {
+				"Dependencies": [
+					{"Name": "System", "Tag": "0.0.0.2"}
+				]
+			}
+		}
+	}
+}

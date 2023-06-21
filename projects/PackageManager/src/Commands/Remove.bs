@@ -1,0 +1,46 @@
+function()
+{
+
+	function RemovePackage(args)
+	{
+		throw "Not implemented";
+	}
+
+	function RemoveOrigin(args)
+	{
+		if(args.Length != 1)
+		{
+			Console.WriteLine("Invalid Argument Count. Expected pm remove origin <name>");
+		}
+
+		const name = args[0];
+		
+		Config.Origins.Remove(name);
+	}
+
+	function Remove(args)
+	{
+		if(args.Length == 0)
+		{
+			Console.WriteLine("Invalid Argument Count. Expected 'package' or 'origin' as argument");
+			return;
+		}
+
+		const type = args[0];
+		if(type == "package")
+		{
+			RemovePackage(args.Skip(1).ToArray());
+		}
+		else if(type == "origin")
+		{
+			RemoveOrigin(args.Skip(1).ToArray());
+		}
+		else
+		{
+			Console.WriteLine($"Invalid Argument. Expected 'package' or 'origin' as argument but got '{type}'");
+			return;
+		}
+	}
+
+	Commands.Add("remove", Remove, "Removes Packages or Origins");
+}();

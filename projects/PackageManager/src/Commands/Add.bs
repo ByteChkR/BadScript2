@@ -1,0 +1,134 @@
+function()
+{
+
+	function InstallPackageLocal(package, originName, origin)
+	{
+		const packageName = $"{package.Name}@{package.Tag}";
+		const sourcePath = IO.Path.Combine(origin.Url, "data", $"{packageName}.bs");
+		if(!IO.File.Exists(sourcePath))
+		{
+			throw $"Package '{packageName}' could not be found";
+		}
+
+		const destinationPath = Config.GetPackageInstallPath(package.Type, package.Name, package.Tag);
+
+		Config.Packages.Add(package.Name, package.Type, package.Tag, originName, package.DependentOf, package.Dependencies);
+		if(IO.File.Exists(destinationPath) && package.Type == "Library")
+		{
+			Console.WriteLine($"Package '{destinationPath}' already exists");
+			return;
+		}
+
+		Console.WriteLine($"[{originName}] Installing {package.Type} {packageName}");
+		IO.File.Copy(sourcePath, destinationPath);
+
+	}
+
+	function InstallPackageRemote(package, originName, origin)
+	{
+		throw "Not Implemented";
+	}
+
+	function InstallPackage(package, originName, origin)
+	{
+		if(origin.Type == "local")
+		{
+			InstallPackageLocal(package, originName, origin);
+		}
+		else if(origin.Type == "remote")
+		{
+			InstallPackageRemote(package, originName, origin);
+		}
+		else
+		{
+			throw $"Unknown Origin Type: {origin.Type}";
+		}
+	}
+
+	function ProcessInstallList(installList, originName, origin)
+	{
+		foreach(package in installList)
+		{
+			InstallPackage(package, originName, origin);
+		}
+	}
+
+	function AddPackage(args)
+	{
+
+		if(args.Length < 1 || args.Length > 2)
+		{
+			Console.WriteLine("Invalid Argument Count. Expected pm add package <name> [<tag>]");
+			return;
+		}
+		const name = args[0];
+		let tag = "latest";
+		if(args.Length == 2)
+		{
+			tag = args[1];
+		}
+
+		const ctx = Config.Origins.CreateSearchContext(name);
+		if(ctx == null)
+		{
+			Console.WriteLine($"Could not find Package with name {name}.");
+			return;
+		}
+
+		const installList = ctx.BuildInstallList(name, tag);
+		const originName = ctx.GetOrigin();
+		const origin = Config.Origins.Get(originName);
+
+		ProcessInstallList(installList, originName, origin);
+	}
+
+	function AddOrigin(args)
+	{
+		if(args.Length != 2)
+		{
+			Console.WriteLine("Invalid Argument Count. Expected pm add origin <name> <url>");
+			return;
+		}
+
+		const name = args[0];
+		let url = args[1];
+		const type;
+		if(url.StartsWith("http://") || url.StartsWith("https://"))
+		{
+			type = "remote";
+		}
+		else
+		{
+			type = "local";
+			url = IO.Path.GetFullPath(url);
+		}
+
+		Config.Origins.Add(name, url, type);
+	}
+
+	function Add(args)
+	{
+		if(args.Length == 0)
+		{
+			Console.WriteLine("Invalid Argument Count. Expected 'package' or 'origin' as argument");
+			return;
+		}
+
+		const type = args[0];
+		if(type == "package")
+		{
+			AddPackage(args.Skip(1).ToArray());
+		}
+		else if(type == "origin")
+		{
+			AddOrigin(args.Skip(1).ToArray());
+		}
+		else
+		{
+			Console.WriteLine($"Invalid Argument. Expected 'package' or 'origin' as argument but got '{type}'");
+			return;
+		}
+	}
+
+	Commands.Add("add", Add, "Adds Packages or Origins");
+}();

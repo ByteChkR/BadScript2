@@ -1,0 +1,25 @@
+
+
+function()
+{
+	
+	const args = $(Environment.Runtime).GetArguments();
+	if(args.Length == 0)
+	{
+		Commands.WriteHelp();
+		return;
+	}
+
+	const commandName = args[0];
+	const command = Commands.Get(commandName);
+	if(command == null)
+	{
+		Commands.WriteHelp(commandName);
+		return;
+	}
+
+	args.RemoveAt(0);
+
+	command.Invoke(args);
+
+}();

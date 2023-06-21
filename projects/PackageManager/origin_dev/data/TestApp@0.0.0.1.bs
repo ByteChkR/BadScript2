@@ -1,0 +1,4 @@
+const Package = Runtime.Import("Package");
+const System = Package.Import("System@0.0.0.1");
+
+Console.WriteLine("Hello From TestApp 0.0.0.1");

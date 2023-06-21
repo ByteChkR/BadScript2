@@ -1,0 +1,65 @@
+
+const Commands;
+
+
+
+function()
+{
+	
+	class ConsoleCommand
+	{
+		const _name;
+		const _help;
+		const _func;
+		function ConsoleCommand(name, func, help?)
+		{
+			_name = name;
+			_func = func;
+			_help = help ?? "No Help Text provided.";
+		}
+
+		function GetHelp() => _help;
+		function GetName() => _name;
+		function Invoke(args) => _func(args);
+	}
+	
+	class ConsoleCommandList
+	{
+		const _list = [];
+		
+		function Has(name) => Get(name) != null;
+
+		function Get(name) => _list.FirstOrDefault(x => x.GetName() == name);
+
+		function Add(name, func, help?)
+		{
+			if(Has(name))
+			{
+				throw $"A command with the name {name} already exists";
+			}
+
+			_list.Add(new ConsoleCommand(name, func, help));
+		}
+
+		function WriteHelp(name?)
+		{
+			let cmds = _list;
+			if(name != null)
+			{
+				cmds = _list.Where(x=>x.GetName().StartsWith(name)).ToArray();
+			}
+
+			if(cmds.Length == 0)
+			{
+				Console.WriteLine("No Commands found!");
+			}
+			foreach(cmd in cmds)
+			{
+				Console.WriteLine($"{cmd.GetName()} : {cmd.GetHelp()}");
+			}
+		}
+	}
+
+	Commands = new ConsoleCommandList();
+
+}();
