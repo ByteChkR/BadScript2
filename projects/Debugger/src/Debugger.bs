@@ -4,6 +4,27 @@ let stepMode = true;
 const commands = {}
 const breakPoints = [];
 
+class DebuggerCommand
+{
+	const _func;
+	const _helpText;
+	function DebuggerCommand(func, helpText)
+	{
+		_func = func;
+		_helpText = helpText;
+	}
+
+	function Invoke(step, cmd)
+	{
+		return _func(step, cmd);
+	}
+
+	function GetHelp()
+	{
+		return _helpText;
+	}
+}
+
 class BreakPoint
 {
 	let File;
@@ -26,7 +47,7 @@ class BreakPoint
 
 function ExecuteCommand(step, name, cmd)
 {
-	commands[name](step, cmd);
+	commands[name].Invoke(step, cmd);
 }
 
 function FindCommand(cmd)
@@ -167,7 +188,7 @@ function Help(step, cmd)
 	let s = "Help:\n";
 	foreach(key in commands.Keys)
 	{
-		s += $"\t{key}\n"
+		s += $"\t{key}: {commands[key].GetHelp()}\n";
 	}
 
 	Console.WriteLine(s);
@@ -192,17 +213,17 @@ function EvaluateInStep(step, cmd)
 	Console.WriteLine($"Return: {step.Evaluate(src)}");
 }
 
-commands["help"] = Help;
-commands["step"] = ToggleStep;
-commands["sbp"] = SetBreakPoint;
-commands["ubp"] = UnsetBreakPoint;
-commands["lbp"] = ListBreakPoints;
-commands["view"] = ViewSource;
-commands["eval"] = EvaluateInStep
+commands["help"] = new DebuggerCommand(Help, "Displays this help text.");
+commands["step"] = new DebuggerCommand(ToggleStep, "Toggles the Step Mode");
+commands["sbp"] = new DebuggerCommand(SetBreakPoint, "Sets a breakpoint. Usage: sbp [<line> | <file> <line> | <file> <line> <condition>]");
+commands["ubp"] = new DebuggerCommand(UnsetBreakPoint, "Unsets a breakpoint. Usage: ubp <file> <line>");
+commands["lbp"] = new DebuggerCommand(ListBreakPoints, "Lists all Breakpoints.");
+commands["view"] = new DebuggerCommand(ViewSource, "Displays the Source Code with the current position of execution.");
+commands["eval"] = new DebuggerCommand(EvaluateInStep, "Evaluates the specified expression. Usage: eval <expr>");
 
 function OnLoadFile(file)
 {
-	if(file != "<debugger>" && !files.Contains(file) && file != Debugger.DebuggerPath.Replace("\\", "/"))
+	if(!files.Contains(file) && file != Debugger.DebuggerPath.Replace("\\", "/"))
 	{
 		DisplayLoadFileDialog(file);
 	}	

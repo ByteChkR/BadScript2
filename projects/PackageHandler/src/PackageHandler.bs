@@ -1,5 +1,4 @@
 
-Console.WriteLine("Loading Package Handler");
 
 const libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
 
