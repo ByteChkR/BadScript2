@@ -388,7 +388,7 @@ public class BadLinqExtensions : BadInteropExtension
 				new BadFunctionParameter("selector", true, false, false, null)));
 		RegisterObject<IBadEnumerable>("Any",
 			e => new BadInteropFunction("Any",
-				(c, args) => FirstOrDefault(c, e, args[0]),
+				(c, args) => Any(c, e, args[0]),
 				new BadFunctionParameter("filter", true, false, false, null)));
 		RegisterObject<IBadEnumerable>("Count",
 			e => new BadInteropFunction("Count",
