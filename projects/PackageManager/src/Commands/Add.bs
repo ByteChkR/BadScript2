@@ -19,14 +19,30 @@ function()
 			return;
 		}
 
-		Console.WriteLine($"[{originName}] Installing {package.Type} {packageName}");
+		Console.WriteLine($"Installing {package.Type} {packageName}");
 		IO.File.Copy(sourcePath, destinationPath);
 
 	}
 
 	function InstallPackageRemote(package, originName, origin)
 	{
-		throw "Not Implemented";
+		const packageName = $"{package.Name}@{package.Tag}";
+		const sourcePath = origin.Url + "/data/" + $"{packageName}.bs";
+
+		Console.WriteLine($"Downloading Package: {sourcePath}");
+		const response = await Net.Get(sourcePath);
+		const content = await response.Content.ReadAsString();
+		const destinationPath = Config.GetPackageInstallPath(package.Type, package.Name, package.Tag);
+
+		Config.Packages.Add(package.Name, package.Type, package.Tag, originName, package.DependentOf, package.Dependencies);
+		if(IO.File.Exists(destinationPath) && package.Type == "Library")
+		{
+			Console.WriteLine($"Package '{destinationPath}' already exists");
+			return;
+		}
+
+		IO.File.WriteAllText(destinationPath, content);
+
 	}
 
 	function InstallPackage(package, originName, origin)
@@ -53,6 +69,35 @@ function()
 		}
 	}
 
+	function InnerAddPackage(name, tag)
+	{
+		const package = Config.Packages.GetAll(name);
+		//Check if package type is app and another version of this package is installed
+		if(package != null && package.Type == "App")
+		{
+			foreach(t in package.Tags.Keys)
+			{
+				if(tag != t)
+				{
+					//Uninstall all other versions of this app
+					PackageApi.Remove(name, t);
+				}
+			}
+		}
+		const ctx = Config.Origins.CreateSearchContext(name);
+		if(ctx == null)
+		{
+			Console.WriteLine($"Could not find Package with name {name}.");
+			return;
+		}
+
+		const installList = ctx.BuildInstallList(name, tag);
+		const originName = ctx.GetOrigin();
+		const origin = Config.Origins.Get(originName);
+
+		ProcessInstallList(installList, originName, origin);
+	}
+
 	function AddPackage(args)
 	{
 
@@ -68,18 +113,7 @@ function()
 			tag = args[1];
 		}
 
-		const ctx = Config.Origins.CreateSearchContext(name);
-		if(ctx == null)
-		{
-			Console.WriteLine($"Could not find Package with name {name}.");
-			return;
-		}
-
-		const installList = ctx.BuildInstallList(name, tag);
-		const originName = ctx.GetOrigin();
-		const origin = Config.Origins.Get(originName);
-
-		ProcessInstallList(installList, originName, origin);
+		InnerAddPackage(name, tag);
 	}
 
 	function AddOrigin(args)
@@ -131,4 +165,5 @@ function()
 	}
 
 	Commands.Add("add", Add, "Adds Packages or Origins");
+	PackageApi.Add = InnerAddPackage;
 }();

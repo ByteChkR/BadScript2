@@ -1,0 +1,43 @@
+
+
+function PublishApp()
+{
+	try
+    {
+
+		const file = Context.BuildInfo.OutputFile;
+		const repo = Context.PackageInfo.Repository;
+		const name = Context.AppInfo.Name;
+		const tag = Context.AppInfo.Version;
+		const bs = Runtime.GetRuntimeAssemblyPath();
+		let args = $"pm publish Library {repo} {name} {tag} {file}";
+		
+		if("Dependencies" in Context.PackageInfo)
+		{
+			foreach(dependency in Context.PackageInfo.Dependencies)
+			{
+				args += $" {dependency}";
+			}
+		}
+
+		Console.WriteLine($"Running '{bs} {args}'");
+
+	     
+        const proc = OS.Run(bs, args, IO.Directory.GetCurrentDirectory(), false, true);
+    
+        const exitCode = await proc.Awaitable;
+        
+        if(exitCode != -1)
+        {
+            Console.WriteLine("Could not publish app: exit code " + exitCode);
+        }
+	}
+    catch (e)
+    {
+        Console.WriteLine("Could not publish app");
+        Console.WriteLine(e);    
+    }
+}
+
+
+PublishApp();

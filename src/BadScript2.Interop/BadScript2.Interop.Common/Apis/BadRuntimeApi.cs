@@ -1,3 +1,6 @@
+using System.Reflection;
+using System.Runtime.InteropServices;
+
 using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
@@ -210,6 +213,21 @@ public class BadRuntimeApi : BadInteropApi
 		target.SetFunction("GetTimeNow", GetTimeNow);
 		target.SetFunction("GetNativeTypes",
 			_ => new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList()));
+		target.SetFunction("GetRuntimeAssemblyPath",
+			() =>
+			{
+				string path;
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+				{
+					path= Path.ChangeExtension(Assembly.GetEntryAssembly().Location, "exe");
+				}
+				else
+				{
+					path = Path.ChangeExtension(Assembly.GetEntryAssembly().Location, "");
+				}
+
+				return path;
+			});
 	}
 
 

@@ -80,7 +80,8 @@ public class BadIOApi : BadInteropApi
 				return BadObject.Null;
 			});
 
-		t.SetFunction<string>("Exists", s => m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s));
+		t.SetFunction<string>("Exists", s => 
+			m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s));
 		t.SetFunction<string, bool>("Delete",
 			m_FileSystem.DeleteDirectory);
 

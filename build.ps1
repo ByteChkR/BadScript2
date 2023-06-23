@@ -19,7 +19,10 @@ else {
 }
 
 function Build-Language {
-    Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Project 20%" -PercentComplete 20
+    Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Project 10%" -PercentComplete 10
+    if (Test-Path "build") {
+        Remove-Item "build" -Force -Recurse
+    }
     cd src/BadScript2.Console/BadScript2.Console
     dotnet publish -o ../../../build -c $config --os $os
     cd ../../..
@@ -28,15 +31,23 @@ function Build-Language {
 
 function Build-Projects {
     cd projects
-    cd BuildSystem
+    cd PackageManager
+    Write-Progress -Activity "BadScript2 Build" -Status "Build App 'PackageManager' 15%" -PercentComplete 15
+    . $bs build ReleaseApp
+    Write-Progress -Activity "BadScript2 Build" -Status "Setup App 'PackageManager' 20%" -PercentComplete 20
+    . $bs pm add origin Byt3_Local ../../docs/core_repo
+    . $bs pm add origin Byt3 https://bytechkr.github.io/BadScript2/core_repo
+    Write-Progress -Activity "BadScript2 Build" -Status "Rebuild App 'PackageManager' 25%" -PercentComplete 25
+    . $bs build PublishApp
+    cd ../BuildSystem
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'BuildSystem' 30%" -PercentComplete 30
-    . $bs build ReleaseLib
+    . $bs build PublishLib
     cd ../BuildSystem.Console
     Write-Progress -Activity "BadScript2 Build" -Status "Build App 'BuildSystem.Console' 40%" -PercentComplete 40
-    . $bs build ReleaseApp
+    . $bs build PublishApp
     cd ../VersionChange
     Write-Progress -Activity "BadScript2 Build" -Status "Build App 'VersionChange' 45%" -PercentComplete 45
-    . $bs build ReleaseApp
+    . $bs build PublishApp
     cd ../Debugger
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'Debugger' 50%" -PercentComplete 50
     . $bs build ReleaseRun
@@ -45,19 +56,19 @@ function Build-Projects {
     . $bs build ReleaseStartup
     cd ../System
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'System' 70%" -PercentComplete 70
-    . $bs build ReleaseLib
+    . $bs build PublishLib
     cd ../WebFramework
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'WebFramework' 80%" -PercentComplete 80
-    . $bs build ReleaseLib
+    . $bs build PublishLib
     cd ../HighscoreApi
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'HighscoreApi' 90%" -PercentComplete 90
-    . $bs build ReleaseLib
+    . $bs build PublishLib
     cd ../HighscoreApi.Console
     Write-Progress -Activity "BadScript2 Build" -Status "Build App 'HighscoreApi.Console' 95%" -PercentComplete 95
-    . $bs build ReleaseApp
+    . $bs build PublishApp
     cd ../CommandlineParser
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'CommandlineParser' 100%" -PercentComplete 100
-    . $bs build ReleaseLib
+    . $bs build PublishLib
     cd ../..
 }
 

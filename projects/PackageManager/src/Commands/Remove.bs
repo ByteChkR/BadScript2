@@ -1,9 +1,72 @@
+
+
 function()
 {
 
+	function RemoveFromDependents(package, name, tag)
+	{
+		package.DependentOf = package.DependentOf.Where(x=>x.Name != name && x.Tag != tag).ToArray();
+		Config.Packages.Save();
+	}
+	function InnerRemovePackage(name, tag)
+	{
+		const package = Config.Packages.Get(name, tag);
+		//1. Check if the package can be safely removed
+		//	a. The Package needs to have no dependents
+		if(package.DependentOf.Length != 0)
+		{
+			Console.WriteLine($"Can not remove package: {name}@{tag} because it is a dependency of:");
+			foreach(dep in package.DependentOf)
+			{
+				Console.WriteLine($"\t- {dep.Name}@{dep.Tag}");
+			}
+			return;
+		}
+
+		//2. Remove Dependencies
+		//	a. Remove this package from the dependents of the dependencies
+		//	b. If dependency has dependent other than the parent package, leave the package installed
+		foreach(dep in package.Dependencies)
+		{
+			const depPackage = Config.Packages.Get(dep.Name, dep.Tag);
+			RemoveFromDependents(depPackage, name, tag);
+			if(depPackage.DependentOf.Length == 0)
+			{
+				InnerRemovePackage(dep.Name, dep.Tag);
+			}
+		}
+		//3. Remove Actual Package
+		Console.WriteLine($"Removing Package {name}@{tag}");
+		IO.File.Delete(Config.GetPackageInstallPath(Config.Packages.GetAll(name).Type, name, tag));
+		Config.Packages.Remove(name, tag);
+	}
+
 	function RemovePackage(args)
 	{
-		throw "Not implemented";
+		foreach(package in args)
+		{
+			if(package.Contains("@"))
+			{
+				const parts = package.Split("@");
+				InnerRemovePackage(parts[0], parts[1]);
+			}
+			else
+			{
+				//Get All Tags
+				const p = Config.Packages.GetAll(package);
+				if(p == null)
+				{
+					Console.WriteLine($"Package with name '{package}' could not be found!");
+				}
+				else
+				{
+					foreach(tag in p.Tags.Keys)
+					{
+						InnerRemovePackage(package, tag);
+					}
+				}
+			}
+		}
 	}
 
 	function RemoveOrigin(args)
@@ -43,4 +106,5 @@ function()
 	}
 
 	Commands.Add("remove", Remove, "Removes Packages or Origins");
+	PackageApi.Remove = InnerRemovePackage;
 }();

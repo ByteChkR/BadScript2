@@ -23,7 +23,17 @@ function()
 	function UpdateOriginRemote(name, origin)
 	{
 		Console.WriteLine($"Updating Origin: {origin.Type} {name}: {origin.Url}");
-		throw "Not Implemented";
+		const localPackagePath = Config.Origins.GetPackageListPath(name);
+
+		const packagePath = $"{origin.Url}/packages.json";
+		const response = await Net.Get(packagePath);
+		const content = await response.Content.ReadAsString();
+		if(IO.File.Exists(localPackagePath))
+		{
+			IO.File.Delete(localPackagePath);
+		}
+
+		IO.File.WriteAllText(localPackagePath, content);	
 	}
 
 	function UpdateOrigin(name, origin)
