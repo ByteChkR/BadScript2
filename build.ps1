@@ -67,17 +67,13 @@ if ($writeLog -eq $true) {
     echo "Building Language for OS: '$os' with Config: '$config'.."
     Build-Language
     echo "Building BadScript2 Projects"
-    if($noProjects -eq $false) {
-        Build-Projects   
-    }
+    Build-Projects
 }
 else {
     echo "Building Language for OS: '$os' with Config: '$config'.."
     $null = Build-Language
     echo "Building BadScript2 Projects"
-    if($noProjects -eq $false) {
-        $null = Build-Projects   
-    }
+    $null = Build-Projects
 }
 
 Write-Progress -Activity "BadScript2 Build" -Complete
