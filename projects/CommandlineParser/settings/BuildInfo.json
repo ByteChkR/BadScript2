@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/CommandlineParser.bs"
+	"OutputFile": "./bin/CommandlineParser.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

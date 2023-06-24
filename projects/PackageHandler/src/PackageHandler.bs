@@ -36,7 +36,14 @@ function FindFile(packageName!)
 
 function Import(str!)
 {
-	if(!Runtime.HasPackage(str))
+
+	let name = str;
+	if(str.Contains("@"))
+	{
+		name = str.Split("@")[0];
+	}
+
+	if(!Runtime.HasPackage(name))
 	{
 		let file = FindFile(str);
 		Console.WriteLine($"Loading package '{str}' from '{file}'");
@@ -51,7 +58,7 @@ function Import(str!)
 		Runtime.Evaluate(src, file);
 	}
 
-	return Runtime.Import(str);
+	return Runtime.Import(name);
 }
 
 

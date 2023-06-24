@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/vchange.bs"
+	"OutputFile": "./bin/vchange.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

@@ -1,6 +1,6 @@
 
 #import Package from Runtime
-#import HighscoreApi from Package
+#import HighscoreApi@latest from Package
 
 
 const args = Runtime.GetArguments();

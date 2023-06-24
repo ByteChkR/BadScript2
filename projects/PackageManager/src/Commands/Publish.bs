@@ -1,7 +1,21 @@
 
 function()
 {
-	
+	function ResolveTag(packages, name, tag)
+	{
+		if(name in packages)
+		{
+			const package = packages[name];
+			//while the package tag refers to another package tag, follow
+			while(Runtime.Native.IsString(package.Tags[tag]))
+			{
+				tag = package.Tags[tag];
+			}
+
+			return tag;
+		}
+		return null;
+	}
 
 	function Publish(args)
 	{
@@ -28,7 +42,7 @@ function()
 		const packagePath = IO.Path.Combine(origin.Url, "packages.json");
 		if(!IO.File.Exists(packagePath))
 		{
-			throw "Package File does not exist!";
+			throw $"Package File '{packagePath}' does not exist!";
 		}
 
 		const packageListing = Json.FromJson(IO.File.ReadAllText(packagePath));
@@ -90,6 +104,7 @@ function()
 					depName = dependency;
 					depTag = "latest";
 				}
+
 				tagObj.Dependencies.Add({Name: depName, Tag: depTag});
 			}
 		}

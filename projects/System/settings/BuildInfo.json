@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/System.bs"
+	"OutputFile": "./bin/System.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

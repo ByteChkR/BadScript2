@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/hsapi.bs"
+	"OutputFile": "./bin/hsapi.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }
