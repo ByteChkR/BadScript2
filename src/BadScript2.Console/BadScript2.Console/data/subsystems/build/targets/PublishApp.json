@@ -2,5 +2,5 @@
   "Name": "PublishApp",
   "Description": "Publishes the output App to the repository in options AppInfo.Repository",
   "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/PublishApp.bs",
-  "Dependencies": ["ReleaseApp"]
+  "Dependencies": ["Release"]
 }

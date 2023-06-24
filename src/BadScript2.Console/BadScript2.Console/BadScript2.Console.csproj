@@ -574,5 +574,11 @@
     <None Update="data\subsystems\build\targets\PublishLib.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\subsystems\build\scripts\ChangeVersion.bs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\targets\ChangeVersion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,0 +1,41 @@
+
+
+function ChangeVersion()
+{
+	if(!("BuildInfo" in Context))
+	{
+		Console.WriteLine("Build Info Not Found");
+		return;
+	}
+	if(!("AppInfo" in Context))
+	{
+		Console.WriteLine("App Info Not Found");
+		return;
+	}
+
+	if(!("VersionChange" in Context.BuildInfo))
+	{
+		Console.WriteLine("VersionChange Property not found in BuildInfo");
+		return;
+	}
+	if(!("Version" in Context.AppInfo))
+	{
+		Console.WriteLine("Version Property not found in AppInfo");
+		return;
+	}
+
+	const curVer = new Version(Context.AppInfo.Version);
+	const verChange = Context.BuildInfo.VersionChange;
+
+	const newVer = curVer.ChangeVersion(verChange);
+	Console.WriteLine($"New Version: {newVer}");
+
+	Context.AppInfo.Version = newVer.ToString();
+
+	Console.WriteLine($"Saving: {Context.AppInfo}");
+	IO.File.WriteAllText("./settings/AppInfo.json", Json.ToJson(Context.AppInfo));
+}
+
+
+
+ChangeVersion();
