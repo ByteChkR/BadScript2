@@ -36,6 +36,7 @@ function Build-Projects {
     . $bs build ReleaseApp
     Write-Progress -Activity "BadScript2 Build" -Status "Setup App 'PackageManager' 30%" -PercentComplete 30
     . $bs pm add origin Byt3 https://bytechkr.github.io/BadScript2/core_repo
+    . $bs pm update
     cd ../BuildSystem
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'BuildSystem' 40%" -PercentComplete 40
     . $bs build ReleaseLib
