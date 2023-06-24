@@ -1,4 +1,4 @@
-param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $noProjects=$false, [Switch] $noPublish=$false)
+param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $publishProjects=$false, [Switch] $noPublish=$false)
 
 
 if ($IsWindows) {
@@ -52,7 +52,7 @@ function Build-Projects {
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'System' 100%" -PercentComplete 100
     . $bs build ReleaseLib
     cd ..
-    if ($noPublish -eq $false) {
+    if ($publishProjects -eq $true) {
         if ($writeLog -eq $true) {
             . ./publish.ps1 -writeLog
         }
