@@ -100,6 +100,10 @@ public class BadCompiler
 		{
 			typeof(BadMultiplyExpression), new BadMultiplyExpressionCompiler()
 		},
+		{typeof(BadExponentiationExpression), new BadExponentiationExpressionCompiler()},
+		{typeof(BadDeleteExpression), new BadDeleteExpressionCompiler()},
+		{typeof(BadInstanceOfExpression), new BadInstanceOfExpressionCompiler()},
+		{typeof(BadTypeOfExpression), new BadTypeOfExpressionCompiler()},
 		{
 			typeof(BadDivideExpression), new BadDivideExpressionCompiler()
 		},

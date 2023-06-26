@@ -60,6 +60,7 @@ public static class BadStaticKeys
 	public static readonly string AddAssignOperatorName = "op_AddAssign";
 	public static readonly string SubtractAssignOperatorName = "op_SubtractAssign";
 	public static readonly string MultiplyAssignOperatorName = "op_MultiplyAssign";
+	public static readonly string ExponentiationAssignOperatorName = "op_ExponentiationAssign";
 	public static readonly string DivideAssignOperatorName = "op_DivideAssign";
 	public static readonly string ModuloAssignOperatorName = "op_ModuloAssign";
 

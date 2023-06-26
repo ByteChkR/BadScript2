@@ -13,6 +13,11 @@ public abstract class BadObjectReference : BadObject
 	/// </summary>
 	/// <returns>Referenced Object</returns>
 	public abstract BadObject Resolve();
+	
+	/// <summary>
+	/// Deletes the Reference from the Referenced Object
+	/// </summary>
+	public abstract void Delete();
 
 	/// <summary>
 	///     Sets the Referenced Object to a new Value
@@ -27,13 +32,15 @@ public abstract class BadObjectReference : BadObject
 	/// <param name="refText">Text used for debugging</param>
 	/// <param name="getter">Getter of the Property</param>
 	/// <param name="setter">(optional) Setter of the Property</param>
+	/// <param name="delete">The Delete Function of the Reference</param>
 	/// <returns>Reference Instance</returns>
 	public static BadObjectReference Make(
 		string refText,
 		Func<BadObject> getter,
-		Action<BadObject, BadPropertyInfo?>? setter = null)
+		Action<BadObject, BadPropertyInfo?>? setter = null,
+		Action? delete = null)
 	{
-		return new BadObjectReferenceImpl(refText, getter, setter);
+		return new BadObjectReferenceImpl(refText, getter, setter, delete);
 	}
 
 	/// <summary>
@@ -55,6 +62,11 @@ public abstract class BadObjectReference : BadObject
 		///     The Setter of the Reference
 		/// </summary>
 		private readonly Action<BadObject, BadPropertyInfo?>? m_Setter;
+		
+		/// <summary>
+		/// Deletes the Reference from the Referenced Object
+		/// </summary>
+		private readonly Action? m_Delete;
 
 		/// <summary>
 		///     Creates a new Reference Object
@@ -62,13 +74,16 @@ public abstract class BadObjectReference : BadObject
 		/// <param name="refText">The Reference Debug Text</param>
 		/// <param name="getter">Getter of the Reference</param>
 		/// <param name="setter">Setter of the Reference</param>
+		/// <param name="delete">The Delete Function of the Reference</param>
 		public BadObjectReferenceImpl(
 			string refText,
 			Func<BadObject> getter,
-			Action<BadObject, BadPropertyInfo?>? setter)
+			Action<BadObject, BadPropertyInfo?>? setter,
+			Action? delete)
 		{
 			m_Getter = getter;
 			m_Setter = setter;
+			m_Delete = delete;
 			m_RefText = refText;
 		}
 
@@ -95,6 +110,15 @@ public abstract class BadObjectReference : BadObject
 		public override string ToSafeString(List<BadObject> done)
 		{
 			return m_RefText;
+		}
+
+		public override void Delete()
+		{
+			if(m_Delete == null)
+			{
+				throw new BadRuntimeException("Cannot set delete " + m_RefText + " because it is read-only");
+			}
+			m_Delete.Invoke();
 		}
 	}
 }

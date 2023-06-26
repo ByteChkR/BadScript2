@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_InstanceOfOperator()
+{
+	Assert.AreEqual("" instanceof string, true, "\"\" instanceof string");
+	Assert.AreEqual(false instanceof bool, true, "false instanceof bool");
+	Assert.AreEqual(10 instanceof num, true, "10 instanceof num");
+	Assert.AreEqual([] instanceof Array, true, "[] == instanceof Array");
+	Assert.AreEqual({} instanceof Table, true, "{} == instanceof Table");
+	Assert.AreEqual(Test_InstanceOfOperator instanceof Function, true, "Test_InstanceOfOperator == instanceof Function");
+}
+
+NUnit.AddTest(Test_InstanceOfOperator, "Custom Operator 'instanceof' tests");

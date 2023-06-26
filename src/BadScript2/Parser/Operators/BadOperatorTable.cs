@@ -1,3 +1,4 @@
+using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Operators.Binary;
 using BadScript2.Parser.Operators.Binary.Comparison;
 using BadScript2.Parser.Operators.Binary.Logic;
@@ -23,6 +24,7 @@ public class BadOperatorTable
 		new BadAddAssignOperator(),
 		new BadModulusAssignOperator(),
 		new BadSubtractAssignOperator(),
+		new BadExponentiationAssignOperator(),
 		new BadMultiplyAssignOperator(),
 		new BadDivideAssignOperator(),
 		new BadRangeOperator(),
@@ -36,6 +38,7 @@ public class BadOperatorTable
 		new BadAddOperator(),
 		new BadModulusOperator(),
 		new BadSubtractOperator(),
+		new BadExponentiationOperator(),
 		new BadMultiplyOperator(),
 		new BadDivideOperator(),
 		new BadAssignOperator(),
@@ -49,6 +52,7 @@ public class BadOperatorTable
 		new BadNullCoalescingAssignOperator(),
 		new BadNullCoalescingOperator(),
 		new BadTernaryOperator(),
+		new BadInstanceOfExpressionOperator(),
 		new BadInOperator()
 	};
 
@@ -65,7 +69,11 @@ public class BadOperatorTable
 	/// <summary>
 	///     List of Value Parsers
 	/// </summary>
-	private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>();
+	private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>
+	{
+		new BadDeleteExpressionParser(),
+		new BadTypeOfExpressionParser()
+	};
 
 	/// <summary>
 	///     Private Constructor

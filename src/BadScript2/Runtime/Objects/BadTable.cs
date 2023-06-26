@@ -137,6 +137,10 @@ public class BadTable : BadObject, IBadEnumerable
 				}
 
 				InnerTable[propName] = o;
+			},
+			() =>
+			{
+				InnerTable.Remove(propName);
 			});
 	}
 

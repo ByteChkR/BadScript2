@@ -1,5 +1,3 @@
-using System.Text;
-
 using BadScript2.Debugging;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
@@ -41,6 +39,7 @@ public class BadRuntimeVirtualMachine
 		{
 			BadInstruction instr = m_Instructions[m_InstructionPointer];
 			BadExecutionContext ctx = m_ContextStack.Peek().Context;
+
 			if (BadDebugger.IsAttached)
 			{
 				BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
@@ -570,6 +569,14 @@ public class BadRuntimeVirtualMachine
 
 					break;
 				}
+				case BadOpCode.Exp:
+				{
+					BadObject right = m_ArgumentStack.Pop().Dereference();
+					BadObject left = m_ArgumentStack.Pop().Dereference();
+					m_ArgumentStack.Push(BadExponentiationExpression.Exp(left, right, instr.Position));
+
+					break;
+				}
 				case BadOpCode.Div:
 				{
 					BadObject right = m_ArgumentStack.Pop().Dereference();
@@ -676,6 +683,44 @@ public class BadRuntimeVirtualMachine
 					m_ArgumentStack.Clear();
 
 					break;
+				case BadOpCode.TypeOf:
+				{
+					m_ArgumentStack.Push(m_ArgumentStack.Pop().Dereference().GetPrototype());
+
+					break;
+				}
+				case BadOpCode.InstanceOf:
+				{
+					
+					BadObject right = m_ArgumentStack.Pop().Dereference();
+					BadObject left = m_ArgumentStack.Pop().Dereference();
+
+					if (right is not BadClassPrototype type)
+					{
+						throw BadRuntimeException.Create(ctx.Scope,
+							"Cannot check if an object is an instance of a non-class object.",
+							instr.Position);
+					}
+					
+					m_ArgumentStack.Push(type.IsSuperClassOf(left.GetPrototype()));
+					
+					break;
+				}
+				case BadOpCode.Delete:
+				{
+					BadObject? obj = m_ArgumentStack.Pop();
+
+					if (obj is not BadObjectReference r)
+					{
+						throw BadRuntimeException.Create(ctx.Scope,
+							"Cannot delete a non-reference object.",
+							instr.Position);
+					}
+
+					r.Delete();
+
+					break;
+				}
 				case BadOpCode.Equals:
 				{
 					BadObject right = m_ArgumentStack.Pop().Dereference();
