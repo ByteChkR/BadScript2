@@ -1,6 +1,6 @@
 
 #import Package from Runtime
-#import WebFramework from Package
+#import WebFramework@latest from Package
 
 @|
 	Stores highscores by name in memory

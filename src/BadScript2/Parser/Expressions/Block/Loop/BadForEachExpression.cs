@@ -116,6 +116,12 @@ public class BadForEachExpression : BadExpression
 
 			yield return o;
 		}
+		
+		if (context.Scope.IsError)
+		{
+				
+			yield break;
+		}
 
 		target = target.Dereference();
 
@@ -215,6 +221,13 @@ public class BadForEachExpression : BadExpression
 				cond = o;
 
 				yield return o;
+			}
+			
+			
+			if(loopContext.Scope.IsError)
+			{
+				
+				yield break;
 			}
 
 			bRet = cond.Dereference() as IBadBoolean ??

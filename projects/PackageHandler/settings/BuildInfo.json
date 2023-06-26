@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/PackageHandler.bs"
+	"OutputFile": "./bin/PackageHandler.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

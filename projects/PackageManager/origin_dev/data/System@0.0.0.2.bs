@@ -1,3 +1,0 @@
-Console.WriteLine("Hello From System 0.0.0.2");
-
-Runtime.Export("System@0.0.0.2", {});

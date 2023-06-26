@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/Debugger.bs"
+	"OutputFile": "./bin/Debugger.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

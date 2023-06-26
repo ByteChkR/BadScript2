@@ -7,8 +7,8 @@
     <AssemblyName>bs</AssemblyName>
     <RootNamespace>BadScript2.Console</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <AssemblyVersion>2023.6.19.0</AssemblyVersion>
-    <FileVersion>2023.6.19.0</FileVersion>
+    <AssemblyVersion>2023.6.24.0</AssemblyVersion>
+    <FileVersion>2023.6.24.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BadScript2.Interop\BadScript2.Interop.Html\BadScript2.Interop.Html.csproj" />
@@ -560,6 +560,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\subsystems\test\operators\TestInOperator.bs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\scripts\PublishApp.bs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\scripts\PublishLib.bs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\targets\PublishApp.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\targets\PublishLib.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\scripts\ChangeVersion.bs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\subsystems\build\targets\ChangeVersion.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

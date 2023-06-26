@@ -28,17 +28,18 @@ function ProcessImports()
 			reader.Eat("#import");
 			reader.SkipWhiteSpace();
 			let importName = reader.ParseWord();
-			let defineVar = !imports.Contains(importName);
+			let defineVarName = importName.Split("@")[0];
+			let defineVar = !imports.Contains(defineVarName);
 
 			reader.SkipWhiteSpace();
 			reader.Eat("from");
 			reader.SkipWhiteSpace();
 			let importer = reader.ParseWord();
-			let insert = $"function(){{{importName} = {importer}.Import(\"{importName}\");}}();";
+			let insert = $"function(){{{defineVarName} = {importer}.Import(\"{importName}\");}}();";
 			if(defineVar)
 			{
-				imports.Add(importName);
-				insert = $"let {importName};" + insert;
+				imports.Add(defineVarName);
+				insert = $"let {defineVarName};" + insert;
 			}
 			Console.WriteLine($"Processing import '{importName}' from '{importer}'");
 			newSrc += insert;

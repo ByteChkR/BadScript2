@@ -1,0 +1,58 @@
+{
+  "pm": {
+    "Type": "App",
+    "Tags": {
+      "2023.6.24.45": {},
+      "latest": "2023.6.24.45"
+    }
+  },
+  "vchange": {
+    "Type": "App",
+    "Tags": {
+      "2023.6.24.18": {},
+      "latest": "2023.6.24.18"
+    }
+  },
+  "WebFramework": {
+    "Type": "Library",
+    "Tags": {
+      "2023.6.24.9": {},
+      "latest": "2023.6.24.9"
+    }
+  },
+  "HighscoreApi": {
+    "Type": "Library",
+    "Tags": {
+      "2023.6.24.11": {
+        "Dependencies": [
+          {
+            "Name": "WebFramework",
+            "Tag": "latest"
+          }
+        ]
+      },
+      "latest": "2023.6.24.11"
+    }
+  },
+  "hsapi": {
+    "Type": "App",
+    "Tags": {
+      "2023.6.24.11": {
+        "Dependencies": [
+          {
+            "Name": "HighscoreApi",
+            "Tag": "latest"
+          }
+        ]
+      },
+      "latest": "2023.6.24.11"
+    }
+  },
+  "CommandlineParser": {
+    "Type": "Library",
+    "Tags": {
+      "2023.6.24.11": {},
+      "latest": "2023.6.24.11"
+    }
+  }
+}

@@ -97,8 +97,15 @@ public class BadWhileExpression : BadExpression
 		foreach (BadObject o in Condition.Execute(context))
 		{
 			cond = o;
-
+			
 			yield return o;
+		}
+		
+		
+		if (context.Scope.IsError)
+		{
+				
+			yield break;
 		}
 
 		IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
@@ -126,6 +133,13 @@ public class BadWhileExpression : BadExpression
 				cond = o;
 
 				yield return o;
+			}
+			
+			
+			if (loopContext.Scope.IsError)
+			{
+				
+				yield break;
 			}
 
 			bRet = cond.Dereference() as IBadBoolean ??

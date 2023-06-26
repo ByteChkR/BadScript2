@@ -1,0 +1,17 @@
+
+function()
+{
+	function Upgrade(args)
+	{
+		const packages = Config.Packages.GetPackages();
+		foreach(name in packages.Keys)
+		{
+			const package = packages[name];
+			if(package.Type == "App")
+			{
+				PackageApi.Add(name, "latest");
+			}
+		}
+	}
+	Commands.Add("upgrade", Upgrade, "Upgrades Installed Apps");
+}();

@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/WebFramework.bs"
+	"OutputFile": "./bin/WebFramework.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

@@ -1,3 +1,4 @@
 {
-	"OutputFile": "./bin/HighscoreApi.bs"
+	"OutputFile": "./bin/HighscoreApi.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

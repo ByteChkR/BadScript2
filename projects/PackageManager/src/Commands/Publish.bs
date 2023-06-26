@@ -1,0 +1,129 @@
+
+function()
+{
+	function ResolveTag(packages, name, tag)
+	{
+		if(name in packages)
+		{
+			const package = packages[name];
+			//while the package tag refers to another package tag, follow
+			while(Runtime.Native.IsString(package.Tags[tag]))
+			{
+				tag = package.Tags[tag];
+			}
+
+			return tag;
+		}
+		return null;
+	}
+
+	function Publish(args)
+	{
+		if(args.Length < 5)
+		{
+			Console.WriteLine("Expected arguments type origin name tag sourceFile [<dep[@tag]>]");
+			return;
+		}
+
+		//Check if origin is remote
+		//	throw
+		const origin = Config.Origins.Get(args[1]);
+
+		if(origin == null)
+		{
+			throw $"Origin {args[1]} not found";
+		}
+
+		if(origin.Type == "remote")
+		{
+			throw $"Publishing to a remote origin is not supported!";
+		}
+
+		const packagePath = IO.Path.Combine(origin.Url, "packages.json");
+		if(!IO.File.Exists(packagePath))
+		{
+			throw $"Package File '{packagePath}' does not exist!";
+		}
+
+		const packageListing = Json.FromJson(IO.File.ReadAllText(packagePath));
+		const packageType = args[0];
+		const name = args[2];
+		const tag = args[3];
+		const file = args[4];
+		if(!IO.File.Exists(file))
+		{
+			throw $"File '{file}' does not exist.";
+		}
+
+		const package;
+		if(name in packageListing)
+		{
+			package = packageListing[name];
+		}
+		else
+		{
+			package = {
+				Type: packageType,
+				Tags: {}
+			}
+			packageListing[name] = package;
+		}
+
+		if(tag == "latest")
+		{
+			throw "Can not publish to tag 'latest' directly. It will be updated automatically";
+		}
+
+		const tagObj;
+		if(tag in package.Tags)
+		{
+			throw $"Tag {tag} does already exist!";
+		}
+		else
+		{
+			tagObj = {}
+			package.Tags[tag] = tagObj;
+		}
+
+		const dependencies = args.Skip(5).ToArray();
+		if(dependencies.Length != 0)
+		{
+			tagObj.Dependencies = [];
+			foreach(dependency in dependencies)
+			{
+				const depName;
+				const depTag;
+				if(dependency.Contains("@"))
+				{
+					const parts = dependency.Split("@");
+					depName = parts[0];
+					depTag = parts[1];
+				}
+				else
+				{
+					depName = dependency;
+					depTag = "latest";
+				}
+
+				tagObj.Dependencies.Add({Name: depName, Tag: depTag});
+			}
+		}
+
+		package.Tags.latest = tag;
+		
+		IO.File.WriteAllText(packagePath, Json.ToJson(packageListing));
+
+		const dataPath = IO.Path.Combine(origin.Url, "data");
+		if(!IO.Directory.Exists(dataPath))
+		{
+			IO.Directory.CreateDirectory(dataPath);
+		}
+
+		const dstPath = IO.Path.Combine(dataPath, $"{name}@{tag}.bs");
+		IO.File.Copy(file, dstPath);
+	}
+
+
+	Commands.Add("publish", Publish, "Publishes a Package to an Origin");
+
+}();

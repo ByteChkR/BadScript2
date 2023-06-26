@@ -1,4 +1,5 @@
 const Config = {}
+const PackageApi = {}
 
 function() 
 {
@@ -53,10 +54,18 @@ function()
 
 	class OriginList
 	{
-		const _origins;
+		let _origins;
 		function OriginList(origins)
 		{
 			_origins = origins;
+		}
+
+
+		function Save() => SaveOriginsFile(_origins);
+
+		function Reload()
+		{
+			_origins = LoadOriginsFile();
 		}
 
 		function GetOrigins() => _origins;
@@ -76,7 +85,7 @@ function()
 		{
 			if(Has(name))
 			{
-				throw $"Origin with name {name} already exists!";
+				Console.WriteLine($"Origin with name {name} already exists. Aborting...");
 			}
 
 			_origins[name] = {Url: url, Type: type}
@@ -99,8 +108,33 @@ function()
 
 		function CreateSearchContext(packageName)
 		{
+
+			//First Check all Local Origins(they have priority)
 			foreach(originName in _origins.Keys)
 			{
+				const origin = _origins[originName];
+				if(origin.Type == "local")
+				{
+					const packageListPath = GetPackageListPath(originName);
+					if(IO.File.Exists(packageListPath))
+					{
+						const searchContext = new PackageSearchContext(Json.FromJson(IO.File.ReadAllText(packageListPath)), originName);
+						if(searchContext.Has(packageName))
+						{
+							return searchContext;
+						}
+					}
+				}
+			}
+
+			//If the package does not exist on a local origin check all other origins
+			foreach(originName in _origins.Keys)
+			{
+				const origin = _origins[originName];
+				if(origin.Type == "local")
+				{
+					continue;
+				}
 				const packageListPath = GetPackageListPath(originName);
 				if(IO.File.Exists(packageListPath))
 				{
@@ -124,6 +158,9 @@ function()
 			_originName = originName;
 			_packages = packages;
 		}
+
+
+
 		function GetOrigin() => _originName;
 		function Has(name) => Get(name) != null;
 		function Get(name)
@@ -145,6 +182,7 @@ function()
 			return Runtime.Native.IsString(package.Tags[tag]);
 		}
 
+
 		function ResolveTag(package, tag)
 		{
 			let result = tag;
@@ -164,6 +202,7 @@ function()
 				throw $"Package with the name {name} does not exist";
 			}
 
+			const isLatest = tag == "latest";
 			tag = ResolveTag(package, tag ?? "latest");
 			deps ??= [];
 
@@ -176,7 +215,7 @@ function()
 				}
 				return deps;
 			}
-			const installEntry = {Name: name, Tag: tag, Type: package.Type, DependentOf: [], Dependencies: []}
+			const installEntry = {Name: name, Tag: tag, Type: package.Type, DependentOf: [], Dependencies: [], IsLatest: isLatest}
 			deps.Add(installEntry);
 
 			if(parent != null)
@@ -201,14 +240,29 @@ function()
 
 	class PackageList
 	{
-		const _packages;
+		let _packages;
 		function PackageList(packages)
 		{
 			_packages = packages;
 		}
 
+		function Reload()
+		{
+			_packages = LoadPackageFile();
+		}
+
+		function Save() => SavePackageFile(_packages);
 
 		function GetPackages() => _packages;
+
+		function GetAll(name)
+		{
+			if(name in _packages)
+			{
+				return _packages[name];
+			}
+			return null;
+		}
 
 		function Has(name, tag) => Get(name, tag) != null;
 
@@ -223,6 +277,23 @@ function()
 				}
 			}
 			return null;
+		}
+
+		function Remove(name, tag)
+		{
+			if(name in _packages)
+			{
+				const package = _packages[name];
+				if(tag in package.Tags)
+				{
+					package.Tags.RemoveKey(tag);
+					if(package.Tags.Keys.Length == 0)
+					{
+						_packages.RemoveKey(name);
+					}
+				}
+			}
+			SavePackageFile(_packages);
 		}
 
 		function Add(name, type, tag, origin, dependentOf, dependencies)

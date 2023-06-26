@@ -1,0 +1,5 @@
+{
+  "Name": "ChangeVersion",
+  "Description": "Changes the AppInfo.Version string according to the BuildInfo.VersionChange string",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/ChangeVersion.bs"
+}
