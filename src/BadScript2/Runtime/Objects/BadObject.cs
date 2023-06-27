@@ -27,6 +27,10 @@ public abstract class BadObject
 
 	public static BadObject Wrap<T>(T obj, bool allowNative = true)
 	{
+		if(obj is BadObject bObj)
+		{
+			return bObj;
+		}
 		if (obj is bool b)
 		{
 			if (b)
