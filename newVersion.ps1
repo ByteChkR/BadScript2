@@ -1,4 +1,4 @@
-. ./build.ps1 -publishProjects
+. ./build.ps1 -publishProjects -config Release
 cd build
 . ./BSShell.ps1
 cd ../src

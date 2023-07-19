@@ -7,8 +7,8 @@
     <AssemblyName>bs</AssemblyName>
     <RootNamespace>BadScript2.Console</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <AssemblyVersion>2023.6.24.0</AssemblyVersion>
-    <FileVersion>2023.6.24.0</FileVersion>
+    <AssemblyVersion>2023.7.19.0</AssemblyVersion>
+    <FileVersion>2023.7.19.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BadScript2.Interop\BadScript2.Interop.Html\BadScript2.Interop.Html.csproj" />
