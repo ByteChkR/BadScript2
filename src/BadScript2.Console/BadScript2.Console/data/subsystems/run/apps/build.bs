@@ -37,7 +37,7 @@ foreach(target in targets)
 		DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
 		StartTarget: target,
 		Environment: {Runtime: "Runtime"}
-	}
+	};
 	bs.AddTargetSource("./targets", context);
 	bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);
 	bs.Run(target, context);

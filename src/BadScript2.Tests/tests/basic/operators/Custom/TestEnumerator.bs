@@ -8,7 +8,7 @@ function MakeEnumerator()
 		length: 3,
 		MoveNext: function() => e.index++ < e.length,
 		GetCurrent: function() => e.index
-	}
+	};
 	return e;
 }
 

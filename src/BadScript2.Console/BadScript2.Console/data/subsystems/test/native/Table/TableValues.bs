@@ -6,7 +6,7 @@ function Test_TableValues()
 {
 	let self = {
 		A: true
-	}
+	};
 
 	Assert.IsTrue(self.Values.Length == 1, "Values count is wrong");
 	Assert.IsTrue(self.Values[0], "Values[0] != true");

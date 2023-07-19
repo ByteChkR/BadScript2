@@ -3,7 +3,7 @@ let Assert = NUnit.Assert;
 
 const t = {
 	op_Equal: other => other == true
-}
+};
 function Test_Equal()
 {
 

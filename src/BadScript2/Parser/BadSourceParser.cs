@@ -1192,6 +1192,55 @@ public class BadSourceParser
 			Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
 	}
 
+	private List<BadExpression> ParseBlock(int start, out bool isSingleLine)
+	{
+		Reader.SkipNonToken();
+
+		List<BadExpression> block = new List<BadExpression>();
+
+		if (Reader.Is('{'))
+		{
+			isSingleLine = false;
+			Reader.Eat('{');
+			Reader.SkipNonToken();
+
+			while (!Reader.Is(BadStaticKeys.BlockEndKey))
+			{
+				Reader.SkipNonToken();
+				BadExpression expr = ParseExpression();
+				block.Add(expr);
+				Reader.SkipNonToken();
+
+				if (!RequireSemicolon(expr))
+				{
+					continue;
+				}
+
+				Reader.Eat(BadStaticKeys.StatementEndKey);
+				Reader.SkipNonToken();
+			}
+
+			Reader.Eat(BadStaticKeys.BlockEndKey);
+		}
+		else
+		{
+			isSingleLine = true;
+			BadExpression expr = ParseExpression();
+
+			if (RequireSemicolon(expr))
+			{
+				Reader.Eat(BadStaticKeys.StatementEndKey);
+			}
+
+			Reader.SkipNonToken();
+			block.Add(expr);
+		}
+
+		Reader.SkipNonToken();
+
+		return block;
+	}
+
 	/// <summary>
 	///     Parses a Block. Moves the reader to the next token.
 	/// </summary>
@@ -1202,7 +1251,7 @@ public class BadSourceParser
 	///     Gets Raised if there is no block start character and no single-line block start
 	///     sequence.
 	/// </exception>
-	private List<BadExpression> ParseBlock(int start, out bool isSingleLine)
+	private List<BadExpression> ParseFunctionBlock(int start, out bool isSingleLine)
 	{
 		Reader.SkipNonToken();
 
@@ -1223,14 +1272,16 @@ public class BadSourceParser
 			while (!Reader.Is(BadStaticKeys.BlockEndKey))
 			{
 				Reader.SkipNonToken();
-				block.Add(ParseExpression());
+				BadExpression expr = ParseExpression();
+				block.Add(expr);
 				Reader.SkipNonToken();
 
-				if (!Reader.Last(BadStaticKeys.BlockEndKey) && Reader.Is(BadStaticKeys.StatementEndKey))
+				if (!RequireSemicolon(expr))
 				{
-					Reader.Eat(BadStaticKeys.StatementEndKey);
+					continue;
 				}
 
+				Reader.Eat(BadStaticKeys.StatementEndKey);
 				Reader.SkipNonToken();
 			}
 
@@ -1513,7 +1564,7 @@ public class BadSourceParser
 	{
 		BadMetaData? meta = m_MetaData;
 		m_MetaData = null;
-		List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
+		List<BadExpression> block = ParseFunctionBlock(start, out bool isSingleLine);
 
 		if (isSingleLine)
 		{
@@ -1528,6 +1579,7 @@ public class BadSourceParser
 				Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
 				isConstant,
 				meta,
+				isSingleLine,
 				compileLevel,
 				functionReturn);
 		}
@@ -1538,6 +1590,7 @@ public class BadSourceParser
 			Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
 			isConstant,
 			meta,
+			isSingleLine,
 			compileLevel,
 			functionReturn);
 	}
@@ -1599,6 +1652,22 @@ public class BadSourceParser
 		return ParseFunction(start, functionName, functionReturn, isConstant, compileLevel, parameters);
 	}
 
+	private bool RequireSemicolon(BadExpression expr)
+	{
+		return expr is not (
+			BadClassPrototypeExpression or
+			BadIfExpression or
+			BadForExpression or
+			BadWhileExpression or
+			BadForEachExpression or
+			BadTryCatchExpression or
+			BadLockExpression or
+			BadFunctionExpression
+			{
+				IsSingleLine: false
+			});
+	}
+
 	/// <summary>
 	///     Parses the File from start to end.
 	/// </summary>
@@ -1613,11 +1682,16 @@ public class BadSourceParser
 			BadExpression expr = ParseExpression();
 			Reader.SkipNonToken();
 
-			if (!Reader.Last(BadStaticKeys.BlockEndKey) && Reader.Is(BadStaticKeys.StatementEndKey))
+			if (!RequireSemicolon(expr))
 			{
-				Reader.Eat(BadStaticKeys.StatementEndKey);
+				Reader.SkipNonToken();
+
+				yield return expr;
+
+				continue;
 			}
 
+			Reader.Eat(BadStaticKeys.StatementEndKey);
 			Reader.SkipNonToken();
 
 			yield return expr;

@@ -48,8 +48,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9B36C1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Html", "BadScript2.Interop\BadScript2.Interop.Html\BadScript2.Interop.Html.csproj", "{0A0A613B-397A-44E9-A352-5C4031994256}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.SourceGenerators", "BadScript2.SourceGenerators\BadScript2.SourceGenerators.csproj", "{13EE82E2-C7C2-4E90-B1D2-5B2DC6BDDAE4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,10 +130,6 @@ Global
 		{0A0A613B-397A-44E9-A352-5C4031994256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0A613B-397A-44E9-A352-5C4031994256}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0A613B-397A-44E9-A352-5C4031994256}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13EE82E2-C7C2-4E90-B1D2-5B2DC6BDDAE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13EE82E2-C7C2-4E90-B1D2-5B2DC6BDDAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13EE82E2-C7C2-4E90-B1D2-5B2DC6BDDAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13EE82E2-C7C2-4E90-B1D2-5B2DC6BDDAE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4EB6C75-A26C-4E1B-89F9-B630AAA9A848} = {A73351E3-752B-4A73-8EEC-7C3364A18F95}

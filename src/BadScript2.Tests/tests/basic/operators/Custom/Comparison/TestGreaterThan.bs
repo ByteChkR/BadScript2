@@ -2,7 +2,7 @@
 let Assert = NUnit.Assert;
 const t = {
 	op_Greater: other => other > 10
-}
+};
 
 function Test_GreaterThan()
 {

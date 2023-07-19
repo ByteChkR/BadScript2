@@ -143,7 +143,7 @@ function CommandlineArgument GetArgObject(Array arguments!, string name!)
 
 function Table GetFlagTable(Array arguments!)
 {
-	const r = {}
+	const r = {};
 	for(let num i = 0; i < arguments.Length; i++)
 	{
 		const CommandlineArgument arg = arguments[i];
@@ -157,7 +157,7 @@ function Table GetFlagTable(Array arguments!)
 
 function Table GetAliases(Array arguments!)
 {
-	const r = {}
+	const r = {};
 	foreach(arg in arguments)
 	{
 		if(arg.Short != null)
@@ -170,7 +170,7 @@ function Table GetAliases(Array arguments!)
 
 function Table ParseValues(Array args!, Array arguments!)
 {
-	const Table result = {}
+	const Table result = {};
 
 	for(let num i = 0; i < args.Length - 1; i++)
 	{

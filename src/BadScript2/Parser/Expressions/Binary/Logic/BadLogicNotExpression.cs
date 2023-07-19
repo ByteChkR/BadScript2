@@ -62,8 +62,11 @@ public class BadLogicNotExpression : BadExpression
 		{
 			r = o;
 		}
-		
-		if(context?.Scope.IsError ?? false)yield break;
+
+		if (context?.Scope.IsError ?? false)
+		{
+			yield break;
+		}
 
 		r = r.Dereference();
 

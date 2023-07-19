@@ -6,7 +6,7 @@ function Test_TableRemoveKey()
 {
 	let self = {
 		A: true
-	}
+	};
 
 	self.RemoveKey("A");
 

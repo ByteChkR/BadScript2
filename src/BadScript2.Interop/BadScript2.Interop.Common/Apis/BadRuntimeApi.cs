@@ -432,7 +432,20 @@ public class BadRuntimeApi : BadInteropApi
 		}
 
 
-		return new BadTask(new BadInteropRunnable(ctx.Execute(exprs).GetEnumerator(), setLastAsReturnB.Value),
+		return new BadTask(new BadInteropRunnable(SafeExecute(ctx.Execute(exprs), ctx).GetEnumerator(), setLastAsReturnB.Value),
 			"EvaluateAsync");
+	}
+
+	private IEnumerable<BadObject> SafeExecute(IEnumerable<BadObject> script, BadExecutionContext ctx)
+	{
+		foreach (BadObject o in script)
+		{
+			if (ctx.Scope.IsError)
+			{
+				throw new BadRuntimeErrorException(ctx.Scope.Error);
+			}
+
+			yield return o;
+		}
 	}
 }

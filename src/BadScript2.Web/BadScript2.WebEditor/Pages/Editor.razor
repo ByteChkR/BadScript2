@@ -373,8 +373,7 @@
     {
         Console.WriteLine("Editor loaded for file: " + file);
         string lang = "badscript";
-        if (!file.EndsWith(".bs"))
-            lang = Path.GetExtension(file).Remove(0, 1);
+        if (!file.EndsWith(".bs")) lang = Path.GetExtension(file).Remove(0, 1);
         editor.Open(BadFileSystem.ReadAllText(file), lang);
         m_OpenFiles[file] = editor;
 
@@ -489,8 +488,7 @@
     if (query.AllKeys.Any(x => x == "fs"))
     {
         string[]? urls = query.GetValues("fs")?.Select(x => Encoding.UTF8.GetString(Convert.FromBase64String(x))).ToArray();
-        if (urls == null)
-            return;
+        if (urls == null) return;
 
         Console.WriteLine("Urls Specified in parameter: " + string.Join(", ", urls));
         foreach (string url in urls)

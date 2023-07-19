@@ -116,7 +116,7 @@ class BuildTargetLoader
 	|@
 	function ResolveTable(Table context!, Table table)
 	{
-		const t = {}
+		const t = {};
 		foreach(key in table.Keys)
 		{
 			t[Resolve(context, key)] = Resolve(context, table[key]);

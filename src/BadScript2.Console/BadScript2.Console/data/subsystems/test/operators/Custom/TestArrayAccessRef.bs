@@ -6,9 +6,9 @@ let array = [1, 2, 3];
 let a = {
 	op_ArrayAccess: function(index)
 	{
-		return ref array[index]
+		return ref array[index];
 	}
-}
+};
 function Test_CustomArrayAccess()
 {
 

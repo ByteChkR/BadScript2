@@ -1,4 +1,4 @@
-param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $publishProjects=$false, [Switch] $noPublish=$false)
+param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $publishProjects=$false, [Switch] $noBuild=$false)
 
 
 if ($IsWindows) {
@@ -19,17 +19,22 @@ else {
 }
 
 function Build-Language {
-    Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Project 10%" -PercentComplete 10
-    if (Test-Path "build") {
-        Remove-Item "build" -Force -Recurse
+    if ($noBuild -eq $false)
+    {
+        echo "Building Language for OS: '$os' with Config: '$config'.."
+        Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Project 10%" -PercentComplete 10
+        if (Test-Path "build") {
+            Remove-Item "build" -Force -Recurse
+        }
+        cd src/BadScript2.Console/BadScript2.Console
+        dotnet publish -o ../../../build -c $config --os $os
+        cd ../../..
+        cp _copy_to_build/* build/
     }
-    cd src/BadScript2.Console/BadScript2.Console
-    dotnet publish -o ../../../build -c $config --os $os
-    cd ../../..
-    cp _copy_to_build/* build/
 }
 
 function Build-Projects {
+    echo "Building BadScript2 Projects"
     cd projects
     cd PackageManager
     Write-Progress -Activity "BadScript2 Build" -Status "Build App 'PackageManager' 20%" -PercentComplete 20
@@ -65,15 +70,11 @@ function Build-Projects {
 }
 
 if ($writeLog -eq $true) {
-    echo "Building Language for OS: '$os' with Config: '$config'.."
     Build-Language
-    echo "Building BadScript2 Projects"
     Build-Projects
 }
 else {
-    echo "Building Language for OS: '$os' with Config: '$config'.."
     $null = Build-Language
-    echo "Building BadScript2 Projects"
     $null = Build-Projects
 }
 

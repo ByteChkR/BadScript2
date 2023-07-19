@@ -2,7 +2,7 @@
 
 const libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
 
-const libLoaders = {}
+const libLoaders = {};
 libLoaders[".bs"] = function(file) => IO.File.ReadAllText(file);
 libLoaders[".defl"] = function(file) => Compression.Deflate.Decompress(IO.File.ReadAllBytes(file));
 libLoaders[".gzip"] = function(file) => Compression.GZip.Decompress(IO.File.ReadAllBytes(file));

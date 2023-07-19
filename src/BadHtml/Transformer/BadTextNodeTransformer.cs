@@ -30,7 +30,7 @@ public class BadTextNodeTransformer : BadHtmlNodeTransformer
 		}
 
 		//Get Text and Replace all newlines with spaces
-		string text = "$@\"" + context.InputNode.InnerText + '"';
+		string text = "$@\"" + context.InputNode.InnerText + "\";";
 
 		//Evaluate Text with BadScript
 		BadObject result = context.ParseAndExecute(text, context.CreateInnerPosition());

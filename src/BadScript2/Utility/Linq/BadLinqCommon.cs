@@ -87,6 +87,6 @@ internal static class BadLinqCommon
 
 	public static IEnumerable<BadExpression> Parse(string src)
 	{
-		return new BadSourceParser(new BadSourceReader("<nofile>", src), BadOperatorTable.Instance).Parse();
+		return new BadSourceParser(new BadSourceReader("<nofile>", src+ ';'), BadOperatorTable.Instance).Parse();
 	}
 }

@@ -3,13 +3,13 @@ const SECTION_TYPES = {
 	CLASS_DEFINITION: "class-definition",
 	NAMESPACE: "namespace",
 	CLASS_INSTANCE: "class-instance"
-}
+};
 
 const PROPERTY_TYPES = {
 	FUNCTION: "function",
 	VALUE: "value",
 	CLASS_DEFINITION_BASE: "class-definition-base"
-}
+};
 
 function IsSection(model)
 {
@@ -26,7 +26,7 @@ function CreateProperty(name, model)
 	Console.WriteLine($"Creating Property for '{name}'");
 	if(Runtime.Native.IsFunction(model))
 	{
-		const result = { Name: name, Type: PROPERTY_TYPES.FUNCTION }
+		const result = { Name: name, Type: PROPERTY_TYPES.FUNCTION };
 		result.OriginalName = model.Name;
 		result.Parameters = [];
 		result.Return = model.Meta.Return;
@@ -56,7 +56,7 @@ function CreateProperty(name, model)
 		return result;
 	}
 
-	return { Name: name, Type: PROPERTY_TYPES.VALUE, Value: model }
+	return { Name: name, Type: PROPERTY_TYPES.VALUE, Value: model };
 }
 
 function IsInternalClassMember(name)
@@ -172,7 +172,7 @@ function CreateSection(name, model, isClassScope?, logBaseMember?)
 		SectionType: SECTION_TYPES.NAMESPACE,
 		Sections: CreateSections(model, blockInternalClassMembers),
 		Properties: CreateProperties(model, blockInternalClassMembers, logBaseMember)
-	}
+	};
 	return result;
 }
 
@@ -202,7 +202,7 @@ function Main(args)
 				SectionType: SECTION_TYPES.NAMESPACE,
 				Sections: sections,
 				Properties: []
-			}
+			};
 			IO.File.WriteAllText("./.bsdoc.json", Json.ToJson(result));
 			return;
 		}

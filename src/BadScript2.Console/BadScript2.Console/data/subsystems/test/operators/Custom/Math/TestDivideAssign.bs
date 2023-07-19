@@ -4,12 +4,12 @@ let Assert = NUnit.Assert;
 let i = 10;
 let a = {
 	op_DivideAssign: function(right) => i = i / right
-}
+};
 function Test()
 {
 
 
-	a /= 10
+	a /= 10;
 	Assert.AreEqual(i, 1, "a /= 10");
 }
 

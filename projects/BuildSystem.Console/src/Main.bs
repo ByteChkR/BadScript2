@@ -52,7 +52,7 @@ foreach(target in targets)
 		DEFAULT_TARGET_PATH: $(FILESYSTEM_API).Path.Combine($(START_DIR), "data", "subsystems", "build", "targets"),
 		StartTarget: target,
 		Environment: {Runtime: "$(Environment.Runtime)"}
-	}
+	};
 	bs.AddTargetSource("./targets", context);
 	bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);
 	bs.Run(target, context);

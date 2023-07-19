@@ -4,7 +4,7 @@ let Assert = NUnit.Assert;
 const o = {
 	A: null,
 	B: true
-}
+};
 
 function Test_InOperatorConstant()
 {

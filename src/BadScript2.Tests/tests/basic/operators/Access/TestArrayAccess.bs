@@ -7,7 +7,7 @@ function Test_ArrayAccess()
 	let a = [1, 2, 3];
 	Assert.AreEqual(a[2], 3, "a[2] == 3");
 
-	a = { A: 2 }
+	a = { A: 2 };
 	Assert.AreEqual(a["A"], 2, "a[\"A\"] == 2");
 }
 

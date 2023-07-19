@@ -21,11 +21,11 @@ function Primes()
 		return {
 			GetCurrent: GetCurrent,
 			MoveNext: MoveNext
-		}
+		};
 	}
 	return {
 		GetEnumerator: GetEnumerator
-	}
+	};
 }
 
 @|
@@ -42,11 +42,11 @@ function Infinite(obj)
 		return {
 			GetCurrent: GetCurrent,
 			MoveNext: MoveNext
-		}
+		};
 	}
 	return {
 		GetEnumerator: GetEnumerator
-	}
+	};
 }
 
 @|
@@ -75,11 +75,11 @@ function Repeat(obj, num)
 		return {
 			GetCurrent: GetCurrent,
 			MoveNext: MoveNext
-		}
+		};
 	}
 	return {
 		GetEnumerator: GetEnumerator
-	}
+	};
 }
 
 @|
@@ -117,12 +117,12 @@ function Range(from, to, step?)
 		return {
 			GetCurrent: GetCurrent,
 			MoveNext: MoveNext
-		}
+		};
 	}
 
 	return {
 		GetEnumerator: GetEnumerator
-	}
+	};
 }
 
 
@@ -131,4 +131,4 @@ const Enumerables = {
 	Repeat: Repeat,
 	Infinite: Infinite,
 	Primes: Primes
-}
+};

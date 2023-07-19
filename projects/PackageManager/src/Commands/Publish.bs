@@ -65,7 +65,7 @@ function()
 			package = {
 				Type: packageType,
 				Tags: {}
-			}
+			};
 			packageListing[name] = package;
 		}
 
@@ -81,7 +81,7 @@ function()
 		}
 		else
 		{
-			tagObj = {}
+			tagObj = {};
 			package.Tags[tag] = tagObj;
 		}
 

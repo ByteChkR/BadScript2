@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_MathExponent()
+{
+	Assert.AreEqual(2 ** 2, 4, "2 ** 2 == 4");
+	Assert.AreEqual(3 ** 4, 81, "3 ** 4 == 81");
+	Assert.AreEqual(10 ** -2, 0.01, "10 ** -1 == 0.01");
+}
+
+NUnit.AddTest(Test_MathExponent, "Operator '**' tests");

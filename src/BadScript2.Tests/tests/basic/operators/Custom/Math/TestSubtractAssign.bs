@@ -4,12 +4,12 @@ let Assert = NUnit.Assert;
 let i = 2;
 let a = {
 	op_SubtractAssign: function(right) => i = i - right
-}
+};
 
 function Test()
 {
 	
-	a -= 1
+	a -= 1;
 	Assert.AreEqual(i, 1, "a -= 1");
 }
 

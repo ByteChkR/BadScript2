@@ -10,7 +10,7 @@ function Test_Break()
 	{
 		s += i;
 		i++;
-		if(i >= 5) => break;
+		if(i >= 5) break;
 	}
 
 	return s;

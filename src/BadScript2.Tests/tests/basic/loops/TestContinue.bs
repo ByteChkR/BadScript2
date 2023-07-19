@@ -7,10 +7,7 @@ function Test_Continue()
 	let s = 0;
 	for(let i = 0; i < 5; i++)
 	{
-		if(i == 4)
-		{
-			continue;
-		}
+		if(i == 4) continue;
 		s += i;
 	}
 	return s;

@@ -88,5 +88,5 @@ class Event
 }
 
 
-const Events = { Event: Event }
+const Events = { Event: Event };
 

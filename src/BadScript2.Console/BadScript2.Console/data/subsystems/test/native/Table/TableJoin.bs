@@ -6,16 +6,16 @@ function Test_TableJoin()
 {
 	let self = {
 		A: true
-	}
+	};
 
 	const other1 = {
 		A: false,
 		B: false
-	}
+	};
 	const other2 = {
 		B: true,
 		C: false
-	}
+	};
 
 	self.Join(false, other1, other2);
 
@@ -31,16 +31,16 @@ function Test_TableJoinOverwrite()
 {
 	let self = {
 		A: true
-	}
+	};
 
 	const other1 = {
 		A: false,
 		B: false
-	}
+	};
 	const other2 = {
 		B: true,
 		C: false
-	}
+	};
 
 	self.Join(true, other1, other2);
 

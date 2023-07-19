@@ -10,7 +10,7 @@ function Test_Return()
 	{
 		s += i;
 		i++;
-		if(i >= 5) => return s;
+		if(i >= 5) return s;
 	}
 }
 

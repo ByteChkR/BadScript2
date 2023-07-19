@@ -4,7 +4,7 @@ let Assert = NUnit.Assert;
 let array = [1, 2, 3];
 let a = {
 	op_ArrayAccessReverse: function(index) => array[^index]
-}
+};
 function Test_CustomReverseArrayAccess()
 {
 	

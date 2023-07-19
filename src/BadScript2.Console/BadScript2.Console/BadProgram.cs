@@ -22,7 +22,6 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
-using BadScript2.SourceGenerators;
 
 namespace BadScript2.Console;
 

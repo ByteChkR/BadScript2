@@ -4,7 +4,7 @@ let Assert = NUnit.Assert;
 
 function Test_MemberAccess()
 {
-	let a = { A: 2 }
+	let a = { A: 2 };
 	Assert.AreEqual(a.A, 2, "a.A == 2");
 }
 

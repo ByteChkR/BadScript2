@@ -8,7 +8,7 @@ let Native = $(Environment.Runtime).Native;
 |@
 function IsString(obj)
 {
-	if(obj == null || !Native.IsString(obj)) => throw "Expected String";
+	if(obj == null || !Native.IsString(obj)) throw "Expected String";
 }
 
 @|
@@ -18,7 +18,7 @@ function IsString(obj)
 |@
 function IsBoolean(obj)
 {
-	if(obj == null || !Native.IsBoolean(obj)) => throw "Expected Boolean";
+	if(obj == null || !Native.IsBoolean(obj)) throw "Expected Boolean";
 }
 
 
@@ -29,7 +29,7 @@ function IsBoolean(obj)
 |@
 function IsNumber(obj)
 {
-	if(obj == null || !Native.IsNumber(obj)) => throw "Expected Number";
+	if(obj == null || !Native.IsNumber(obj)) throw "Expected Number";
 }
 
 
@@ -40,7 +40,7 @@ function IsNumber(obj)
 |@
 function IsArray(obj)
 {
-	if(obj == null || !Native.IsArray(obj)) => throw "Expected Array";
+	if(obj == null || !Native.IsArray(obj)) throw "Expected Array";
 }
 
 @|
@@ -50,7 +50,7 @@ function IsArray(obj)
 |@
 function IsTable(obj)
 {
-	if(obj == null || !Native.IsTable(obj)) => throw "Expected Table";
+	if(obj == null || !Native.IsTable(obj)) throw "Expected Table";
 }
 
 @|
@@ -60,7 +60,7 @@ function IsTable(obj)
 |@
 function IsFunction(obj)
 {
-	if(obj == null || !Native.IsFunction(obj)) => throw "Expected Function";
+	if(obj == null || !Native.IsFunction(obj)) throw "Expected Function";
 }
 
 
@@ -71,7 +71,7 @@ function IsFunction(obj)
 |@
 function IsEnumerable(obj)
 {
-	if(obj == null || !Native.IsEnumerable(obj)) => throw "Expected Enumerable";
+	if(obj == null || !Native.IsEnumerable(obj)) throw "Expected Enumerable";
 }
 
 
@@ -82,7 +82,7 @@ function IsEnumerable(obj)
 |@
 function IsEnumerator(obj)
 {
-	if(obj == null || !Native.IsEnumerator(obj)) => throw "Expected Enumerator";
+	if(obj == null || !Native.IsEnumerator(obj)) throw "Expected Enumerator";
 }
 
 const Assert = {
@@ -94,4 +94,4 @@ const Assert = {
 	IsFunction: IsFunction,
 	IsEnumerator: IsEnumerator,
 	IsEnumerable: IsEnumerable
-}
+};

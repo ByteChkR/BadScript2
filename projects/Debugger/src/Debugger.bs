@@ -1,7 +1,7 @@
 
 const files = [];
 let stepMode = true;
-const commands = {}
+const commands = {};
 const breakPoints = [];
 
 class DebuggerCommand

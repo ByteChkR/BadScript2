@@ -1,5 +1,5 @@
-const Config = {}
-const PackageApi = {}
+const Config = {};
+const PackageApi = {};
 
 function() 
 {
@@ -19,7 +19,7 @@ function()
 
 	function LoadPackageFile()
 	{
-		let package = {}
+		let package = {};
 		if(IO.File.Exists(packageFile))
 		{
 			package = Json.FromJson(IO.File.ReadAllText(packageFile));
@@ -39,7 +39,7 @@ function()
 
 	function LoadOriginsFile()
 	{
-		let origins = {}
+		let origins = {};
 		if(IO.File.Exists(originFile))
 		{
 			origins = Json.FromJson(IO.File.ReadAllText(originFile));
@@ -88,7 +88,7 @@ function()
 				Console.WriteLine($"Origin with name {name} already exists. Aborting...");
 			}
 
-			_origins[name] = {Url: url, Type: type}
+			_origins[name] = {Url: url, Type: type};
 			SaveOriginsFile(_origins);
 		}
 
@@ -215,7 +215,7 @@ function()
 				}
 				return deps;
 			}
-			const installEntry = {Name: name, Tag: tag, Type: package.Type, DependentOf: [], Dependencies: [], IsLatest: isLatest}
+			const installEntry = {Name: name, Tag: tag, Type: package.Type, DependentOf: [], Dependencies: [], IsLatest: isLatest};
 			deps.Add(installEntry);
 
 			if(parent != null)
@@ -315,10 +315,10 @@ function()
 
 			if(type != "Library" || !(name in _packages))
 			{
-				_packages[name] = {Tags: {}, Type: type}
+				_packages[name] = {Tags: {}, Type: type};
 			}
 
-			_packages[name].Tags[tag] = {Origin: origin, DependentOf: dependentOf, Dependencies: dependencies}
+			_packages[name].Tags[tag] = {Origin: origin, DependentOf: dependentOf, Dependencies: dependencies};
 
 			SavePackageFile(_packages);
 		}

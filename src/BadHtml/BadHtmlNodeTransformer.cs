@@ -62,7 +62,7 @@ public abstract class BadHtmlNodeTransformer
 			value = value.Replace("\n", " ").Replace("\r", " ");
 
 			//Evaluate Attribute Value with BadScript
-			BadObject result = context.ParseAndExecute("$\"" + value + '"', context.CreateAttributePosition(attribute));
+			BadObject result = context.ParseAndExecute("$\"" + value + "\";", context.CreateAttributePosition(attribute));
 
 			//Set Attribute Value
 			outputNode.Attributes[attribute.Name].Value = result.ToString();

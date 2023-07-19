@@ -75,7 +75,7 @@ compiled fast function ReadUntil(reader, char)
 function Evaluate(expr)
 {
 	const scope = new Scope("#if eval", Context);
-	return await Runtime.EvaluateAsync(expr, "<#if eval>", true, scope, true);
+	return await Runtime.EvaluateAsync(expr+";", "<#if eval>", true, scope, true);
 }
 
 function ProcessDirectives()
@@ -115,7 +115,7 @@ function ProcessDirectives()
 			const name = reader.ParseWord();
 			reader.SkipWhiteSpace();
 			const valueStr = ReadUntil(reader, "\n");
-			const value = Evaluate(valueStr)
+			const value = Evaluate(valueStr);
 			Console.WriteLine($"#define {name} = {value}");
 			Context[name] = value;
 		}

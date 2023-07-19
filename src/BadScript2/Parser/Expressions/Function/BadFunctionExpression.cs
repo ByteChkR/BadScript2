@@ -24,6 +24,7 @@ public class BadFunctionExpression : BadExpression
 
 
 	private readonly BadMetaData? m_MetaData;
+	public bool IsSingleLine { get; }
 
 	/// <summary>
 	///     The Function parameters
@@ -47,6 +48,7 @@ public class BadFunctionExpression : BadExpression
 		BadSourcePosition position,
 		bool isConstant,
 		BadMetaData? metaData,
+		bool isSingleLine,
 		BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
 		BadExpression? typeExpr = null) :
 		base(false, position)
@@ -57,6 +59,7 @@ public class BadFunctionExpression : BadExpression
 		TypeExpression = typeExpr;
 		IsConstantFunction = isConstant;
 		m_MetaData = metaData;
+		IsSingleLine = isSingleLine;
 		CompileLevel = compileLevel;
 	}
 

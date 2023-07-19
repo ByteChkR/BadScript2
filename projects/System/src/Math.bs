@@ -56,5 +56,5 @@ const compiled fast function IsPrime(num n)
 const SysMath = {
 	IsPrime: IsPrime,
 	Sum: Sum
-}
+};
 
