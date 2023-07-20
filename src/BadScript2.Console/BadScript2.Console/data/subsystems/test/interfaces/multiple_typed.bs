@@ -1,0 +1,34 @@
+let Assert = NUnit.Assert;
+
+function Test_Interface_MultipleTyped()
+{
+	interface IA
+	{
+		bool F();
+	}
+	interface IB
+	{
+		bool G();
+	}
+	class C : IA, IB
+	{
+		function bool F()
+		{
+			return true;
+		}
+
+		function bool G()
+		{
+			return F();
+		}
+	}
+
+	const IB i = new C();
+	const f = i.F();
+	const g = i.G();
+	Assert.IsTrue(f && g, "Interface Function did not return true");
+}
+
+NUnit.AddTest(Test_Interface_MultipleTyped, "Interface Multiple Typed");
+
+

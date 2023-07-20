@@ -1,0 +1,36 @@
+let Assert = NUnit.Assert;
+
+function Test_Interface_MultipleChainTypedArguments()
+{
+	interface IA
+	{
+		bool F(num n!, bool compute?);
+	}
+	interface IB : IA
+	{
+		bool G(num n!, bool compute?);
+	}
+	class C : IB
+	{
+		function bool F(num n!, bool compute?)
+		{
+			if(compute == false) return true;
+			return n == 10;
+		}
+
+		function bool G(num n!, bool compute?)
+		{
+			return F(n, compute);
+		}
+	}
+
+	const IB i = new C();
+	const f = i.F(10) && i.F(1, false);
+	const g = i.G(10) && i.G(1, false);
+	Assert.IsTrue(f, "Interface Function F did not return true");
+	Assert.IsTrue(g, "Interface Function G did not return true");
+}
+
+NUnit.AddTest(Test_Interface_MultipleChainTypedArguments, "Interface Multiple Chain Typed Arguments");
+
+

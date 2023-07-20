@@ -109,6 +109,7 @@ public abstract class BadClassPrototype : BadObject
 
 		return false;
 	}
+	
 
 	public override string ToSafeString(List<BadObject> done)
 	{

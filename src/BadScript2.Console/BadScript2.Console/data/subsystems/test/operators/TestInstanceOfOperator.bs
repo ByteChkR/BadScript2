@@ -13,3 +13,38 @@ function Test_InstanceOfOperator()
 }
 
 NUnit.AddTest(Test_InstanceOfOperator, "Custom Operator 'instanceof' tests");
+
+function Test_InstanceOfOperator_Interface()
+{
+	interface I {}
+	class C : I {}
+	const c = new C();
+	Assert.IsTrue(c instanceof I, "C instanceof I");
+}
+
+NUnit.AddTest(Test_InstanceOfOperator_Interface, "Custom Operator 'instanceof' tests: interfaces");
+
+
+function Test_InstanceOfOperator_InterfaceNested()
+{
+	interface IA {}
+	interface IB : IA {}
+	class C : IB {}
+	const c = new C();
+	Assert.IsTrue(c instanceof IB, "C instanceof IB");
+	Assert.IsTrue(c instanceof IA, "C instanceof IA");
+}
+
+NUnit.AddTest(Test_InstanceOfOperator_InterfaceNested, "Custom Operator 'instanceof' tests: nested interfaces");
+
+function Test_InstanceOfOperator_InterfaceMultiple()
+{
+	interface IA {}
+	interface IB {}
+	class C : IA, IB {}
+	const c = new C();
+	Assert.IsTrue(c instanceof IB, "C instanceof IB");
+	Assert.IsTrue(c instanceof IA, "C instanceof IA");
+}
+
+NUnit.AddTest(Test_InstanceOfOperator_InterfaceMultiple, "Custom Operator 'instanceof' tests: multiple interfaces");

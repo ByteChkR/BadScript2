@@ -1,0 +1,34 @@
+let Assert = NUnit.Assert;
+
+function Test_Interface_Multiple()
+{
+	interface IA
+	{
+		F();
+	}
+	interface IB : IA
+	{
+		G();
+	}
+	class C : IB
+	{
+		function F()
+		{
+			return true;
+		}
+
+		function G()
+		{
+			return F();
+		}
+	}
+
+	const IA i = new C();
+	const f = i.F();
+	const g = i.G();
+	Assert.IsTrue(f && g, "Interface Function did not return true");
+}
+
+NUnit.AddTest(Test_Interface_Multiple, "Interface Multiple Chain");
+
+
