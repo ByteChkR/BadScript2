@@ -41,7 +41,8 @@ public class BadExpressionFunction : BadFunction
 		BadFunctionParameter[] parameters,
 		BadSourcePosition position,
 		bool isConstant,
-		BadMetaData? metaData) : base(name, isConstant, parameters)
+		bool isStatic,
+		BadMetaData? metaData) : base(name, isConstant, isStatic, parameters)
 	{
 		m_Body = expressions;
 		Position = position;
@@ -59,7 +60,7 @@ public class BadExpressionFunction : BadFunction
 
 	public override BadFunction BindParentScope(BadScope scope)
 	{
-		return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant, MetaData);
+		return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant, IsStatic, MetaData);
 	}
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)

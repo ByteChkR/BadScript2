@@ -6,6 +6,106 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary;
+public class BadUnaryUnpackExpression : BadExpression
+{
+	public readonly BadExpression Right;
+
+
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
+
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadTable result = context.Scope.GetTable();
+		BadObject right = BadObject.Null;
+
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
+
+			yield return o;
+		}
+
+		right = right.Dereference();
+
+		if (right is not BadTable rightT)
+		{
+			throw new BadRuntimeException("Unpack operator requires 1 table", Position);
+		}
+
+		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+		{
+			result.InnerTable[o.Key] = o.Value;
+			result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
+		}
+
+		yield return result;
+	}
+
+	public BadUnaryUnpackExpression(BadExpression right) : base(right.IsConstant, right.Position)
+	{
+		Right = right;
+	}
+}
+public class BadBinaryUnpackExpression : BadBinaryExpression
+{
+	public BadBinaryUnpackExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
+
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadTable result = new BadTable();
+		BadObject left = BadObject.Null;
+		BadObject right = BadObject.Null;
+
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
+
+			yield return o;
+		}
+
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
+
+			yield return o;
+		}
+
+		left = left.Dereference();
+		right = right.Dereference();
+
+		if (left is not BadTable leftT || right is not BadTable rightT)
+		{
+			throw new BadRuntimeException("Unpack operator requires 2 tables", Position);
+		}
+
+		foreach (KeyValuePair<BadObject, BadObject> o in leftT.InnerTable)
+		{
+			result.InnerTable[o.Key] = o.Value;
+			result.PropertyInfos[o.Key] = leftT.PropertyInfos[o.Key];
+		}
+
+		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+		{
+			result.InnerTable[o.Key] = o.Value;
+			result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
+		}
+
+		yield return result;
+	}
+
+	protected override string GetSymbol()
+	{
+		return "...";
+	}
+}
 
 /// <summary>
 ///     Implements the Range Expression

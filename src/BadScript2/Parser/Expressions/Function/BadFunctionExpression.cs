@@ -49,6 +49,7 @@ public class BadFunctionExpression : BadExpression
 		bool isConstant,
 		BadMetaData? metaData,
 		bool isSingleLine,
+		bool isStatic,
 		BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
 		BadExpression? typeExpr = null) :
 		base(false, position)
@@ -60,6 +61,7 @@ public class BadFunctionExpression : BadExpression
 		IsConstantFunction = isConstant;
 		m_MetaData = metaData;
 		IsSingleLine = isSingleLine;
+		IsStatic = isStatic;
 		CompileLevel = compileLevel;
 	}
 
@@ -67,6 +69,8 @@ public class BadFunctionExpression : BadExpression
 	///     Indicates if this function can not be overwritten by another object
 	/// </summary>
 	public bool IsConstantFunction { get; }
+	
+	public bool IsStatic { get;  }
 
 	/// <summary>
 	///     The (optional) Type Expression that is used to type-check the return value
@@ -181,6 +185,7 @@ public class BadFunctionExpression : BadExpression
 			m_Parameters.Select(x => x.Initialize(context)).ToArray(),
 			Position,
 			IsConstantFunction,
+			IsStatic,
 			m_MetaData);
 
 		BadFunction fFinal = f;

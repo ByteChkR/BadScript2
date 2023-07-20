@@ -22,6 +22,7 @@ public class BadHtmlApi : BadInteropApi
             new BadInteropFunction(
                 "Run",
                 RunTemplate,
+                false,
                 new BadFunctionParameter("file", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
                 new BadFunctionParameter("model", true, false, false),
                 new BadFunctionParameter("skipEmptyTextNodes", true, true, false, null, BadNativeClassBuilder.GetNative("bool"))

@@ -20,9 +20,11 @@ public class BadCompiledFunction : BadFunction
 		BadSourcePosition position,
 		BadWordToken? name,
 		bool isConstant,
+		bool isStatic,
 		BadMetaData? metaData,
 		params BadFunctionParameter[] parameters) : base(name,
 		isConstant,
+		isStatic,
 		parameters)
 	{
 		m_Instructions = instructions;

@@ -26,6 +26,7 @@ public static class BadStaticKeys
 	public static readonly string MultiLineCommentEnd = "*/";
 	public static readonly string VariableDefinitionKey = "let";
 	public static readonly string ConstantDefinitionKey = "const";
+	public static readonly string StaticDefinitionKey = "static";
 	public static readonly string CompiledDefinitionKey = "compiled";
 	public static readonly string CompiledFastDefinitionKey = "fast";
 	public static readonly string LockKey = "lock";
@@ -35,6 +36,7 @@ public static class BadStaticKeys
 	public static readonly string NewKey = "new";
 	public static readonly string FunctionKey = "function";
 	public static readonly string ClassKey = "class";
+	public static readonly string InterfaceKey = "interface";
 	public static readonly string While = "while";
 	public static readonly string ReturnKey = "return";
 	public static readonly string RefKey = "ref";

@@ -55,6 +55,7 @@ public class BadNUnitConsoleApi : BadInteropApi
 
 					return BadObject.Null;
 				},
+				false,
 				"func",
 				"name",
 				new BadFunctionParameter("allowCompile", true, false, false)));

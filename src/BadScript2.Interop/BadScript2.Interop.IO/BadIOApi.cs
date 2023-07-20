@@ -49,7 +49,7 @@ public class BadIOApi : BadInteropApi
 		t.SetFunction<string>("GetStartupPath", (_, _) => m_FileSystem.GetStartupDirectory());
 		t.SetFunction<string, string>("ChangeExtension", (_, s, ext) => Path.ChangeExtension(s, ext));
 		t.SetProperty("Combine",
-			new BadInteropFunction("Combine", Combine, new BadFunctionParameter("parts", false, false, true)));
+			new BadInteropFunction("Combine", Combine, false, new BadFunctionParameter("parts", false, false, true)));
 
 		return t;
 	}

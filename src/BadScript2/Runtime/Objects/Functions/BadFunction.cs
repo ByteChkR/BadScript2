@@ -19,6 +19,8 @@ public abstract class BadFunction : BadObject
 	///     The Result Cache
 	/// </summary>
 	private readonly Dictionary<int, BadObject> m_Cache = new Dictionary<int, BadObject>();
+	
+	public bool IsStatic { get; }
 
 	/// <summary>
 	///     Creates a new Function
@@ -26,10 +28,11 @@ public abstract class BadFunction : BadObject
 	/// <param name="name">(optional) Function Name</param>
 	/// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
 	/// <param name="parameters">The function parameters</param>
-	protected BadFunction(BadWordToken? name, bool isConstant, params BadFunctionParameter[] parameters)
+	protected BadFunction(BadWordToken? name, bool isConstant, bool isStatic, params BadFunctionParameter[] parameters)
 	{
 		Name = name;
 		IsConstant = isConstant;
+		IsStatic = isStatic;
 		Parameters = parameters;
 	}
 

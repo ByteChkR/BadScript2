@@ -20,6 +20,8 @@ public class BadExpressionClassPrototype : BadClassPrototype
 	/// </summary>
 	private readonly BadScope m_ParentScope;
 
+	private readonly BadScope m_StaticScope;
+
 
 	/// <summary>
 	///     Creates a new BadExpressionClassPrototype
@@ -33,10 +35,14 @@ public class BadExpressionClassPrototype : BadClassPrototype
 		BadScope parentScope,
 		BadExpression[] body,
 		BadClassPrototype? baseClass,
-		BadMetaData? meta) : base(name, baseClass, meta)
+		BadInterfacePrototype[] interfaces,
+		BadMetaData? meta,
+		BadScope staticScope) : base(name, baseClass, interfaces, meta)
 	{
 		m_ParentScope = parentScope;
 		m_Body = body;
+		m_StaticScope = staticScope;
+		//TODO: Validate interfaces before creating the class prototype? Might be faster :)
 	}
 
 
@@ -76,8 +82,31 @@ public class BadExpressionClassPrototype : BadClassPrototype
 		if (setThis)
 		{
 			thisInstance.SetThis();
+
+			if (Interfaces.Count != 0)
+			{
+				BadInterfaceValidatorResult result = thisInstance.Validate(Interfaces);
+
+				if (!result.IsValid)
+				{
+					throw new BadRuntimeException($"Class '{Name}' does not implement all required interfaces.\n{result}");
+				}
+			}
 		}
 
+
 		yield return thisInstance;
+	}
+
+	public override bool HasProperty(BadObject propName)
+	{
+		return m_StaticScope.HasLocal(propName) || base.HasProperty(propName);
+	}
+
+	public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+	{
+		return m_StaticScope.HasLocal(propName) ?
+			m_StaticScope.GetVariable(propName, caller ?? m_ParentScope) :
+			base.GetProperty(propName, caller);
 	}
 }

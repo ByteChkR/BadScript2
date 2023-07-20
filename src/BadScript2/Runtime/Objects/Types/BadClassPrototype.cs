@@ -19,6 +19,8 @@ public abstract class BadClassPrototype : BadObject
 	/// </summary>
 	protected readonly BadClassPrototype? BaseClass;
 
+	private readonly BadInterfacePrototype[] m_Interfaces;
+
 	public readonly BadMetaData MetaData;
 
 	/// <summary>
@@ -26,12 +28,19 @@ public abstract class BadClassPrototype : BadObject
 	/// </summary>
 	/// <param name="name">Class Name</param>
 	/// <param name="baseClass">Base Class Prototype</param>
-	protected BadClassPrototype(string name, BadClassPrototype? baseClass, BadMetaData? metaData)
+	protected BadClassPrototype(
+		string name,
+		BadClassPrototype? baseClass,
+		BadInterfacePrototype[] interfaces,
+		BadMetaData? metaData)
 	{
 		Name = name;
 		BaseClass = baseClass;
+		m_Interfaces = interfaces;
 		MetaData = metaData ?? BadMetaData.Empty;
 	}
+
+	public IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_Interfaces;
 
 	/// <summary>
 	///     The Name of the Type
@@ -64,9 +73,21 @@ public abstract class BadClassPrototype : BadObject
 	/// </summary>
 	/// <param name="proto">The Other Class</param>
 	/// <returns>true if the Class is a Subclass of the given Class</returns>
-	public bool IsSuperClassOf(BadClassPrototype proto)
+	public virtual bool IsSuperClassOf(BadClassPrototype proto)
 	{
-		return proto == this || (BaseClass?.IsSuperClassOf(proto) ?? false);
+		if (proto == this)
+		{
+			return true;
+		}
+
+		bool isBaseSuper = proto.BaseClass != null && IsSuperClassOf(proto.BaseClass);
+		
+		if (isBaseSuper)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/// <summary>
@@ -91,6 +112,6 @@ public abstract class BadClassPrototype : BadObject
 
 	public override string ToSafeString(List<BadObject> done)
 	{
-		return $"prototype {Name}";
+		return $"class {Name}";
 	}
 }

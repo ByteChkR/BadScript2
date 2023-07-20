@@ -20,9 +20,9 @@ public class BadReflectedEnumeratorMethod : BadReflectedMethod
 		}
 	}
 
-	public override BadObject Get(object instance)
+	public override BadObject Get(object? instance)
 	{
 		return new BadInteropFunction("GetEnumerator",
-			_ => new BadInteropEnumerator(GetEnumerable(instance).GetEnumerator()));
+			_ => new BadInteropEnumerator(GetEnumerable(instance!).GetEnumerator()), false);
 	}
 }

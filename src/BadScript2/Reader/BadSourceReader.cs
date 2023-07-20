@@ -17,6 +17,8 @@ public class BadSourceReader
 
 	private readonly int m_StartIndex;
 
+	public string Preview => IsEof() ? "END OF FILE" : Source.Substring(CurrentIndex);
+
 
 	public BadSourceReader(string fileName, string source, int start, int end)
 	{

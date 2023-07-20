@@ -13,6 +13,7 @@ public class BadDynamicInteropFunction : BadFunction
 		Func<BadExecutionContext, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
+		false,
 		parameters)
 	{
 		m_Func = func;
@@ -22,6 +23,7 @@ public class BadDynamicInteropFunction : BadFunction
 		BadWordToken? name,
 		Action<BadExecutionContext> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -37,6 +39,7 @@ public class BadDynamicInteropFunction : BadFunction
 		BadWordToken? name,
 		Action func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -77,6 +80,7 @@ public class BadDynamicInteropFunction<T> : BadFunction
 		Func<BadExecutionContext, T, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
+		false,
 		parameters)
 	{
 		m_Func = func;
@@ -110,6 +114,7 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -147,6 +152,7 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -187,6 +193,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -229,6 +236,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -273,6 +281,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -319,6 +328,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -367,6 +377,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -417,6 +428,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -469,6 +481,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -523,6 +536,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -579,6 +593,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -638,6 +653,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -699,6 +715,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{
@@ -763,6 +780,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, BadObject> func,
 		params BadFunctionParameter[] parameters) : base(name,
+		false,
 		false,
 		parameters)
 	{

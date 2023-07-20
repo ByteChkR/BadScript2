@@ -56,8 +56,9 @@ public class BadClass : BadObject
 	/// <returns>True if the given object is an instance of the specified prototype</returns>
 	public bool InheritsFrom(BadClassPrototype proto)
 	{
-		return Prototype == proto || (m_BaseClass != null && m_BaseClass.InheritsFrom(proto));
+		return proto.IsSuperClassOf(Prototype);
 	}
+
 
 	/// <summary>
 	///     Sets the 'this' parameter of the class scope to be this instance

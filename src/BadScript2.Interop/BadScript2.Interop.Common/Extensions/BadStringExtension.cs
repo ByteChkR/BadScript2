@@ -72,11 +72,13 @@ public class BadStringExtension : BadInteropExtension
 		RegisterObject<string>("Format",
 			s => new BadInteropFunction("Format",
 				args => string.Format(s, args.Cast<object?>().ToArray()),
+				false,
 				new BadFunctionParameter("args", false, false, true)));
 
 		RegisterObject<string>("Split",
 			s => new BadInteropFunction("Split",
 				args => StringSplit(s, args[0], args.Length == 2 ? args[1] : BadObject.Null),
+				false,
 				"splitStr",
 				new BadFunctionParameter("skipEmpty", true, false, false)));
 

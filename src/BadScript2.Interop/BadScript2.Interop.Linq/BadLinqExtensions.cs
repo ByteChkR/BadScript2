@@ -370,29 +370,35 @@ public class BadLinqExtensions : BadInteropExtension
 		RegisterObject<IBadEnumerable>("First",
 			e => new BadInteropFunction("First",
 				(c, args) => First(c, e, args[0]),
+				false,
 				new BadFunctionParameter("selector", true, false, false, null)));
 
 		RegisterObject<IBadEnumerable>("FirstOrDefault",
 			e => new BadInteropFunction("FirstOrDefault",
 				(c, args) => FirstOrDefault(c, e, args[0]),
+				false,
 				new BadFunctionParameter("selector", true, false, false, null)));
 
 		RegisterObject<IBadEnumerable>("Last",
 			e => new BadInteropFunction("Last",
 				(c, args) => Last(c, e, args[0]),
+				false,
 				new BadFunctionParameter("selector", true, false, false, null)));
 
 		RegisterObject<IBadEnumerable>("LastOrDefault",
 			e => new BadInteropFunction("LastOrDefault",
 				(c, args) => LastOrDefault(c, e, args[0]),
+				false,
 				new BadFunctionParameter("selector", true, false, false, null)));
 		RegisterObject<IBadEnumerable>("Any",
 			e => new BadInteropFunction("Any",
 				(c, args) => Any(c, e, args[0]),
+				false,
 				new BadFunctionParameter("filter", true, false, false, null)));
 		RegisterObject<IBadEnumerable>("Count",
 			e => new BadInteropFunction("Count",
 				(c, args) => Count(c, e, args[0]),
+				false,
 				new BadFunctionParameter("predicate", true, false, false, null)));
 
 		RegisterObject<IBadEnumerable>("ToTable",

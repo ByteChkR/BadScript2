@@ -13,7 +13,7 @@ public class BadAwaitValueParser : BadValueParser
 {
 	public override bool IsValue(BadSourceParser parser)
 	{
-		return parser.Reader.Is("await");
+		return parser.Reader.IsKey("await");
 	}
 
 	public override BadExpression ParseValue(BadSourceParser parser)

@@ -33,6 +33,7 @@ public class BadCompilerApi : BadInteropApi
 			func.Position,
 			func.Name,
 			func.IsConstant,
+			func.IsStatic,
 			func.MetaData,
 			func.Parameters);
 	}

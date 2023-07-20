@@ -46,6 +46,7 @@ public class BadTableExtension : BadInteropExtension
 		RegisterObject<BadTable>("Join",
 			t => new BadInteropFunction("Join",
 				(c, a) => JoinTable(c, t, a),
+				false,
 				new BadFunctionParameter("overwrite",
 					false,
 					true,

@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions;
+using BadScript2.Reader;
 
 namespace BadScript2.Parser.Operators;
 
@@ -9,7 +10,7 @@ public class BadDeleteExpressionParser : BadValueParser
 
 	public override bool IsValue(BadSourceParser parser)
 	{
-		return parser.Reader.Is("delete");
+		return parser.Reader.IsKey("delete");
 	}
 
 	public override BadExpression ParseValue(BadSourceParser parser)

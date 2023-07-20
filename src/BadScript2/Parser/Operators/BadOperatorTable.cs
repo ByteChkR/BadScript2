@@ -27,6 +27,7 @@ public class BadOperatorTable
 		new BadExponentiationAssignOperator(),
 		new BadMultiplyAssignOperator(),
 		new BadDivideAssignOperator(),
+		new BadBinaryUnpackOperator(),
 		new BadRangeOperator(),
 		new BadMemberAccessOperator(),
 		new BadEqualityOperator(),
@@ -63,7 +64,8 @@ public class BadOperatorTable
 	{
 		new BadLogicNotOperator(),
 		new BadPreDecrementOperator(),
-		new BadPreIncrementOperator()
+		new BadPreIncrementOperator(),
+		new BadUnaryUnpackOperator()
 	};
 
 	/// <summary>

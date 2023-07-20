@@ -24,11 +24,13 @@ public class BadReflectedMethod : BadReflectedMember
 		m_Methods.Add(method);
 	}
 
-	private BadFunction CreateFunction(object instance)
+	private BadFunction CreateFunction(object? instance)
 	{
+		bool isStatic = instance == null;
 		return new BadInteropFunction(Name,
 			args => Invoke(instance, args),
-			new BadFunctionParameter("args", false, false, true, null));
+			isStatic,
+			new BadFunctionParameter("args", false, false, true));
 	}
 
 	private bool CanConvert(BadObject o, Type t)
@@ -90,10 +92,14 @@ public class BadReflectedMethod : BadReflectedMember
 		throw new BadRuntimeException("Cannot convert object");
 	}
 
-	private object?[] FindImplementation(BadObject[] args, out MethodInfo info)
+	private object?[] FindImplementation(object? instance, BadObject[] args, out MethodInfo info)
 	{
 		foreach (MethodInfo method in m_Methods)
 		{
+			if((instance == null && !method.IsStatic) || (instance != null && method.IsStatic))
+			{
+				continue;
+			}
 			ParameterInfo[] parameters = method.GetParameters();
 
 			if (parameters.Length != args.Length)
@@ -132,19 +138,19 @@ public class BadReflectedMethod : BadReflectedMember
 		throw new BadRuntimeException("No matching method found");
 	}
 
-	private BadObject Invoke(object instance, BadObject[] args)
+	private BadObject Invoke(object? instance, BadObject[] args)
 	{
-		object?[] implArgs = FindImplementation(args, out MethodInfo info);
+		object?[] implArgs = FindImplementation(instance, args, out MethodInfo info);
 
 		return Wrap(info.Invoke(instance, implArgs));
 	}
 
-	public override BadObject Get(object instance)
+	public override BadObject Get(object? instance)
 	{
 		return CreateFunction(instance);
 	}
 
-	public override void Set(object instance, BadObject o)
+	public override void Set(object? instance, BadObject o)
 	{
 		throw new BadRuntimeException("Can not set a value to a method");
 	}

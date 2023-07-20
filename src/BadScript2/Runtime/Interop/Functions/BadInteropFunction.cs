@@ -11,7 +11,8 @@ public class BadInteropFunction : BadFunction
 	public BadInteropFunction(
 		BadWordToken? name,
 		Func<BadObject[], BadObject> func,
-		params BadFunctionParameter[] parameters) : base(name, false, parameters)
+		bool isStatic,
+		params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
 	{
 		m_Func = (_, args) => func(args);
 	}
@@ -19,16 +20,18 @@ public class BadInteropFunction : BadFunction
 	public BadInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, BadObject[], BadObject> func,
-		params BadFunctionParameter[] parameters) : base(name, false, parameters)
+		bool isStatic,
+		params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
 	{
 		m_Func = func;
 	}
 
 
-	public static BadInteropFunction Create(Func<BadObject[], BadObject> func, params string[] names)
+	public static BadInteropFunction Create(Func<BadObject[], BadObject> func, bool isStatic, params string[] names)
 	{
 		BadInteropFunction function = new BadInteropFunction(null,
 			func,
+			isStatic,
 			names.Select(x => (BadFunctionParameter)x).ToArray());
 
 		return function;

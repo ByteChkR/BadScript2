@@ -1,0 +1,35 @@
+let Assert = NUnit.Assert;
+
+function Test_Interface_Multiple()
+{
+	interface IA
+	{
+		F(n!, compute?);
+	}
+	interface IB
+	{
+		G(n!, compute?);
+	}
+	class C : IA, IB
+	{
+		function F(n!, compute?)
+		{
+			if(compute == false) return true;
+			return n == 10;
+		}
+
+		function G(n!, compute?)
+		{
+			return F(n, compute);
+		}
+	}
+
+	const IB i = new C();
+	const f = i.F(10) && i.F(1, false);
+	const g = i.G(10) && i.G(1, false);
+	Assert.IsTrue(f && g, "Interface Function did not return true");
+}
+
+NUnit.AddTest(Test_Interface_Multiple, "Interface Multiple Arguments");
+
+

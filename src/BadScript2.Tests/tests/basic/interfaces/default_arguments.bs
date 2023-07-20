@@ -1,0 +1,25 @@
+let Assert = NUnit.Assert;
+
+function Test_Interface()
+{
+	interface I
+	{
+		F(n!, compute?);
+	}
+	class C : I
+	{
+		function F(n!, compute?)
+		{
+			if(compute == false) return true;
+			return n == 10;
+		}
+	}
+
+	const I i = new C();
+	const c = i.F(10) && i.F(1, false);
+	Assert.IsTrue(c, "Interface Function did not return true");
+}
+
+NUnit.AddTest(Test_Interface, "Interface Default Arguments");
+
+

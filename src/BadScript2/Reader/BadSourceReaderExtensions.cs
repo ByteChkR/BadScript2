@@ -36,6 +36,16 @@ public static class BadSourceReaderExtensions
 		       reader.GetCurrentChar(offset) == '_';
 	}
 
+	public static bool IsKey(this BadSourceReader reader,char c, int offset = 0)
+	{
+		return reader.Is(c, offset) && !reader.IsWordChar(offset + 1);
+	}
+	
+	public static bool IsKey(this BadSourceReader reader,string s, int offset = 0)
+	{
+		return reader.Is(s, offset) && !reader.IsWordChar(offset + s.Length);
+	}
+
 	/// <summary>
 	///     Returns true if the Current Character is a String Quote Character
 	/// </summary>
@@ -283,7 +293,8 @@ public static class BadSourceReaderExtensions
 	/// <returns>The Bad Symbol Token if one of the Symbols was matched to the Current Character Sequence. Null otherwise</returns>
 	public static BadSymbolToken? TryParseSymbols(this BadSourceReader reader, IEnumerable<string> symbols)
 	{
-		string? symbol = symbols.FirstOrDefault(x => reader.Is(x));
+		string? symbol =
+			symbols.FirstOrDefault(x => x.All(c => char.IsLetter(c) || c == '_') ? reader.IsKey(x) : reader.Is(x));
 
 		if (symbol == null)
 		{

@@ -19,6 +19,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Reader.Token.Primitive;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser;
 
@@ -130,12 +131,12 @@ public class BadSourceParser
 			Reader.SkipNonToken();
 			conditionMap[condition] = block.ToArray();
 
-			if (Reader.Is(BadStaticKeys.ElseKey))
+			if (Reader.IsKey(BadStaticKeys.ElseKey))
 			{
 				Reader.Eat(BadStaticKeys.ElseKey);
 				isElse = true;
 				Reader.SkipNonToken();
-				readNext = Reader.Is(BadStaticKeys.IfKey);
+				readNext = Reader.IsKey(BadStaticKeys.IfKey);
 			}
 		}
 		while (readNext);
@@ -411,7 +412,7 @@ public class BadSourceParser
 				}
 				else
 				{
-					return ParseFunction(start, null, null, false, BadFunctionCompileLevel.None, p);
+					return ParseFunction(start, null, null, false, false, BadFunctionCompileLevel.None, p);
 				}
 			}
 			catch (Exception)
@@ -504,27 +505,27 @@ public class BadSourceParser
 				Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
 		}
 
-		if (Reader.Is(BadStaticKeys.LockKey))
+		if (Reader.IsKey(BadStaticKeys.LockKey))
 		{
 			return ParseLock();
 		}
 
-		if (Reader.Is(BadStaticKeys.ForEachKey))
+		if (Reader.IsKey(BadStaticKeys.ForEachKey))
 		{
 			return ParseForEach();
 		}
 
-		if (Reader.Is(BadStaticKeys.ForKey))
+		if (Reader.IsKey(BadStaticKeys.ForKey))
 		{
 			return ParseFor();
 		}
 
-		if (Reader.Is(BadStaticKeys.IfKey))
+		if (Reader.IsKey(BadStaticKeys.IfKey))
 		{
 			return ParseIf();
 		}
 
-		if (Reader.Is(BadStaticKeys.ContinueKey))
+		if (Reader.IsKey(BadStaticKeys.ContinueKey))
 		{
 			BadSourcePosition pos = Reader.Eat(BadStaticKeys.ContinueKey);
 
@@ -540,7 +541,7 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.Is(BadStaticKeys.BreakKey))
+		if (Reader.IsKey(BadStaticKeys.BreakKey))
 		{
 			BadSourcePosition pos = Reader.Eat(BadStaticKeys.BreakKey);
 
@@ -556,7 +557,7 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.Is(BadStaticKeys.ThrowKey))
+		if (Reader.IsKey(BadStaticKeys.ThrowKey))
 		{
 			BadSourcePosition pos = Reader.Eat(BadStaticKeys.ThrowKey);
 
@@ -570,7 +571,7 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.Is(BadStaticKeys.ReturnKey))
+		if (Reader.IsKey(BadStaticKeys.ReturnKey))
 		{
 			BadSourcePosition pos = Reader.Eat(BadStaticKeys.ReturnKey);
 
@@ -588,7 +589,7 @@ public class BadSourceParser
 					return new BadReturnExpression(null, pos, false);
 				}
 
-				if (Reader.Is(BadStaticKeys.RefKey))
+				if (Reader.IsKey(BadStaticKeys.RefKey))
 				{
 					isRef = true;
 					Reader.Eat(BadStaticKeys.RefKey);
@@ -601,8 +602,8 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.Is(BadStaticKeys.True) ||
-		    Reader.Is(BadStaticKeys.False))
+		if (Reader.IsKey(BadStaticKeys.True) ||
+		    Reader.IsKey(BadStaticKeys.False))
 		{
 			BadBooleanToken token = Reader.ParseBoolean();
 
@@ -617,25 +618,32 @@ public class BadSourceParser
 		}
 
 		bool isConstant = false;
+		bool isStatic = false;
 		BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None;
 		int constStart = Reader.CurrentIndex;
 
-		if (Reader.Is(BadStaticKeys.ConstantDefinitionKey))
+		if (Reader.IsKey(BadStaticKeys.ConstantDefinitionKey))
 		{
 			isConstant = true;
 			Reader.Eat(BadStaticKeys.ConstantDefinitionKey);
 			Reader.SkipNonToken();
 		}
+		else if (Reader.IsKey(BadStaticKeys.StaticDefinitionKey))
+		{
+			isStatic = true;
+			Reader.Eat(BadStaticKeys.StaticDefinitionKey);
+			Reader.SkipNonToken();
+		}
 
 		int compiledStart = Reader.CurrentIndex;
 
-		if (Reader.Is(BadStaticKeys.CompiledDefinitionKey))
+		if (Reader.IsKey(BadStaticKeys.CompiledDefinitionKey))
 		{
 			compileLevel = BadFunctionCompileLevel.Compiled;
 			Reader.Eat(BadStaticKeys.CompiledDefinitionKey);
 			Reader.SkipNonToken();
 
-			if (Reader.Is(BadStaticKeys.CompiledFastDefinitionKey))
+			if (Reader.IsKey(BadStaticKeys.CompiledFastDefinitionKey))
 			{
 				compileLevel = BadFunctionCompileLevel.CompiledFast;
 				Reader.Eat(BadStaticKeys.CompiledFastDefinitionKey);
@@ -643,9 +651,9 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.Is(BadStaticKeys.FunctionKey))
+		if (Reader.IsKey(BadStaticKeys.FunctionKey))
 		{
-			return ParseFunction(isConstant, compileLevel);
+			return ParseFunction(isConstant, isStatic, compileLevel);
 		}
 
 		if (compileLevel != BadFunctionCompileLevel.None || isConstant)
@@ -660,27 +668,31 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.Is(BadStaticKeys.ClassKey) && Reader.IsWhiteSpace(BadStaticKeys.ClassKey.Length))
+		if (Reader.IsKey(BadStaticKeys.ClassKey))
 		{
 			return ParseClass();
 		}
+		if (Reader.IsKey(BadStaticKeys.InterfaceKey))
+		{
+			return ParseInterface();
+		}
 
-		if (Reader.Is(BadStaticKeys.NewKey) && Reader.IsWhiteSpace(BadStaticKeys.NewKey.Length))
+		if (Reader.IsKey(BadStaticKeys.NewKey))
 		{
 			return ParseNew();
 		}
 
-		if (Reader.Is(BadStaticKeys.TryKey))
+		if (Reader.IsKey(BadStaticKeys.TryKey))
 		{
 			return ParseTry();
 		}
 
-		if (Reader.Is(BadStaticKeys.While))
+		if (Reader.IsKey(BadStaticKeys.While))
 		{
 			return ParseWhile();
 		}
 
-		if (Reader.Is(BadStaticKeys.Null))
+		if (Reader.IsKey(BadStaticKeys.Null))
 		{
 			BadNullToken token = Reader.ParseNull();
 
@@ -826,6 +838,7 @@ public class BadSourceParser
 						null,
 						null,
 						false,
+						isStatic,
 						BadFunctionCompileLevel.None,
 						new List<BadFunctionParameter>
 						{
@@ -1361,6 +1374,122 @@ public class BadSourceParser
 		return new BadNewExpression(invoc, Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
 	}
 
+	private BadInterfaceFunctionConstraint ParseInterfaceFunctionConstraint()
+	{
+		//Parse Type
+		//if is word start
+		//Parse Name
+		//else
+		//Type = null & Name = Type
+		//Parse Parameters
+		
+		BadMetaData? meta = m_MetaData;
+		m_MetaData = null;
+		int start = Reader.CurrentIndex;
+		string? functionName = null;
+		BadExpression? functionReturn = null;
+
+		if (!Reader.Is('('))
+		{
+			BadExpression functionNameExpr = ParseValue(0);
+			Reader.SkipNonToken();
+
+			while (Reader.Is("."))
+			{
+				Reader.Eat(".");
+				BadWordToken right = Reader.ParseWord();
+				functionNameExpr = new BadMemberAccessExpression(functionNameExpr,
+					right,
+					functionNameExpr.Position.Combine(right.SourcePosition));
+				Reader.SkipNonToken();
+			}
+
+			Reader.SkipNonToken();
+
+			if (!Reader.Is('('))
+			{
+				functionReturn = functionNameExpr;
+				functionName = Reader.ParseWord().Text;
+			}
+			else
+			{
+				if (functionNameExpr is not BadVariableExpression expr)
+				{
+					throw new BadParserException("Expected Variable Expression",
+						functionNameExpr.Position);
+				}
+
+				functionName = expr.Name;
+			}
+		}
+
+		List<BadFunctionParameter> parameters = ParseParameters(start);
+		
+		Reader.SkipNonToken();
+		
+		Reader.Eat(BadStaticKeys.StatementEndKey);
+
+		if (functionName == null)
+		{
+			throw new BadParserException("Expected Function Name", Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
+		}
+
+		return new BadInterfaceFunctionConstraint(functionName, functionReturn, parameters.ToArray());
+	}
+	
+	private BadInterfacePrototypeExpression ParseInterface()
+	{
+		BadMetaData? meta = m_MetaData;
+		m_MetaData = null;
+		int start = Reader.CurrentIndex;
+		Reader.Eat(BadStaticKeys.InterfaceKey);
+		Reader.SkipNonToken();
+		BadWordToken name = Reader.ParseWord();
+		Reader.SkipNonToken();
+		List<BadExpression> interfaces = new List<BadExpression>();
+
+		if (Reader.Is(':'))
+		{
+			Reader.Eat(':');
+
+			while (!Reader.IsEof())
+			{
+				Reader.SkipNonToken();
+				interfaces.Add(ParseExpression());
+				Reader.SkipNonToken();
+
+				if (!Reader.Is(','))
+				{
+					break;
+				}
+				Reader.Eat(',');
+				Reader.SkipNonToken();
+			}
+		}
+
+		Reader.Eat('{');
+		Reader.SkipNonToken();
+		List<BadInterfaceFunctionConstraint> constraints = new List<BadInterfaceFunctionConstraint>();
+		while (!Reader.Is('}'))
+		{
+			Reader.SkipNonToken();
+			BadInterfaceFunctionConstraint expr = ParseInterfaceFunctionConstraint();
+			
+			constraints.Add(expr);
+
+			Reader.SkipNonToken();
+		}
+
+		Reader.Eat('}');
+		Reader.SkipNonToken();
+
+		return new BadInterfacePrototypeExpression(name.Text,
+			constraints.ToArray(),
+			interfaces.ToArray(),
+			meta,
+			Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
+	}
+
 	/// <summary>
 	///     Parses a Class Structure. Moves the reader to the next token.
 	/// </summary>
@@ -1374,27 +1503,52 @@ public class BadSourceParser
 		Reader.SkipNonToken();
 		BadWordToken name = Reader.ParseWord();
 		Reader.SkipNonToken();
-		BadExpression? baseClass = null;
+		List<BadExpression> baseClasses = new List<BadExpression>();
 
 		if (Reader.Is(':'))
 		{
 			Reader.Eat(':');
-			Reader.SkipNonToken();
-			baseClass = ParseExpression();
-			Reader.SkipNonToken();
+
+			while (!Reader.IsEof())
+			{
+				Reader.SkipNonToken();
+				baseClasses.Add(ParseExpression());
+				Reader.SkipNonToken();
+
+				if (!Reader.Is(','))
+				{
+					break;
+				}
+				Reader.Eat(',');
+				Reader.SkipNonToken();
+			}
 		}
 
 		Reader.Eat('{');
 		Reader.SkipNonToken();
 		List<BadExpression> members = new List<BadExpression>();
+		List<BadExpression> staticMembers = new List<BadExpression>();
 
 		while (!Reader.Is('}'))
 		{
 			Reader.SkipNonToken();
-			members.Add(ParseExpression());
+			BadExpression expr = ParseExpression();
+
+			if (expr is BadFunctionExpression
+			    {
+				    IsStatic: true
+			    })
+			{
+				staticMembers.Add(expr);
+			}
+			else
+			{
+				members.Add(expr);
+			}
+
 			Reader.SkipNonToken();
 
-			if (!Reader.Last('}') && Reader.Is(BadStaticKeys.StatementEndKey))
+			if (RequireSemicolon(expr))
 			{
 				Reader.Eat(BadStaticKeys.StatementEndKey);
 			}
@@ -1407,7 +1561,8 @@ public class BadSourceParser
 
 		return new BadClassPrototypeExpression(name.Text,
 			members.ToArray(),
-			baseClass,
+			staticMembers.ToArray(),
+			baseClasses.ToArray(),
 			Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
 			meta);
 	}
@@ -1559,6 +1714,7 @@ public class BadSourceParser
 		string? functionName,
 		BadExpression? functionReturn,
 		bool isConstant,
+		bool isStatic,
 		BadFunctionCompileLevel compileLevel,
 		List<BadFunctionParameter> parameters)
 	{
@@ -1580,6 +1736,7 @@ public class BadSourceParser
 				isConstant,
 				meta,
 				isSingleLine,
+				isStatic,
 				compileLevel,
 				functionReturn);
 		}
@@ -1591,6 +1748,7 @@ public class BadSourceParser
 			isConstant,
 			meta,
 			isSingleLine,
+			isStatic,
 			compileLevel,
 			functionReturn);
 	}
@@ -1604,7 +1762,7 @@ public class BadSourceParser
 	/// </param>
 	/// <returns>Instance of BadFunctionExpression</returns>
 	/// <exception cref="BadParserException">Gets raised if the function header is invalid.</exception>
-	private BadFunctionExpression ParseFunction(bool isConstant, BadFunctionCompileLevel compileLevel)
+	private BadFunctionExpression ParseFunction(bool isConstant, bool isStatic, BadFunctionCompileLevel compileLevel)
 	{
 		int start = Reader.CurrentIndex;
 		Reader.Eat(BadStaticKeys.FunctionKey);
@@ -1649,12 +1807,13 @@ public class BadSourceParser
 
 		List<BadFunctionParameter> parameters = ParseParameters(start);
 
-		return ParseFunction(start, functionName, functionReturn, isConstant, compileLevel, parameters);
+		return ParseFunction(start, functionName, functionReturn, isConstant, isStatic, compileLevel, parameters);
 	}
 
 	private bool RequireSemicolon(BadExpression expr)
 	{
 		return expr is not (
+			BadInterfacePrototypeExpression or
 			BadClassPrototypeExpression or
 			BadIfExpression or
 			BadForExpression or
@@ -1698,3 +1857,4 @@ public class BadSourceParser
 		}
 	}
 }
+

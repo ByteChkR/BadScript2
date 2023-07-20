@@ -116,6 +116,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 
 		BadInteropFunction func = new BadInteropFunction(nameAttribute.Value,
 			(ctx, args) => InvokeFunction(nameAttribute.Value, context, parameters, ctx, args),
+			false,
 			parameters);
 		context.ExecutionContext.Scope.DefineVariable(nameAttribute.Value,
 			func,
