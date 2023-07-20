@@ -7,7 +7,6 @@
     "CombineSources",
     "ProcessDirectives",
     "ProcessImports",
-    "ProcessEvals",
-    "ChangeVersion"
+    "ProcessEvals"
   ]
 }

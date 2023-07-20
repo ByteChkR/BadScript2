@@ -2,5 +2,10 @@
   "Name": "PublishLib",
   "Description": "Publishes the output Library to the repository in options AppInfo.Repository",
   "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/PublishLib.bs",
-  "Dependencies": ["Release"]
+  "Dependencies": [
+    "Build",
+    "ChangeVersion",
+    "Minify",
+    "SaveToOutput"
+  ]
 }
