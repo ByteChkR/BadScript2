@@ -473,22 +473,10 @@ public class BadScope : BadObject
 
 	public static BadPropertyVisibility GetPropertyVisibility(BadObject propName)
 	{
-		if (propName is not IBadString s)
-		{
-			return BadPropertyVisibility.Public;
-		}
-
-		if (s.Value.StartsWith("__"))
-		{
-			return BadPropertyVisibility.Private;
-		}
-
-		if (s.Value.StartsWith("_"))
-		{
-			return BadPropertyVisibility.Protected;
-		}
-
-		return BadPropertyVisibility.Public;
+		return propName is not IBadString s || !s.Value.StartsWith("_") ? 
+			BadPropertyVisibility.Public :
+			s.Value.StartsWith("__") ? 
+					BadPropertyVisibility.Private : BadPropertyVisibility.Protected;
 	}
 
 	public bool IsVisibleParentOf(BadScope scope)

@@ -134,6 +134,7 @@ public class BadSourcePosition
 		return Source.Substring(start, end - start);
 	}
 
+	private string? m_PositionInfo;
 	/// <summary>
 	///     Returns position info.
 	///     Format: file://[FileName] : Line [Line]
@@ -141,17 +142,23 @@ public class BadSourcePosition
 	/// <returns>String Representation</returns>
 	public string GetPositionInfo()
 	{
-		int line = 1;
-
-		for (int i = 0; i < Index; i++)
+		if (m_PositionInfo == null)
 		{
-			if (Source[i] == '\n')
+			int line = 1;
+
+			for (int i = 0; i < Index; i++)
 			{
-				line++;
+				if (Source[i] == '\n')
+				{
+					line++;
+				}
 			}
+
+			m_PositionInfo= $"file://{FileName} : Line {line}";
 		}
 
-		return $"file://{FileName} : Line {line}";
+		return m_PositionInfo;
+
 	}
 
 	/// <summary>
