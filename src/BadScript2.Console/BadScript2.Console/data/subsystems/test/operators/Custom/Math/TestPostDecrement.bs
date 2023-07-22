@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+let i = 2;
+let a = {
+	op_PostDecrement: function() => i--
+};
+
+function Test()
+{
+	Assert.AreEqual(a--, 2, "a--");
+	Assert.AreEqual(i, 1, "i == 1");
+}
+
+NUnit.AddTest(Test, "Custom Operator '--_post' tests");
