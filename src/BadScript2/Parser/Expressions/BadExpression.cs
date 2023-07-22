@@ -142,4 +142,24 @@ public abstract class BadExpression
 			yield return o;
 		}
 	}
+	
+	protected static IEnumerable<BadObject> ExecuteOperatorOverride(
+		BadObject left,
+		BadExecutionContext context,
+		string name,
+		BadSourcePosition position)
+	{
+		BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
+
+		if (func == null)
+		{
+			throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
+				position);
+		}
+
+		foreach (BadObject o in func.Invoke(Array.Empty<BadObject>(), context))
+		{
+			yield return o;
+		}
+	}
 }

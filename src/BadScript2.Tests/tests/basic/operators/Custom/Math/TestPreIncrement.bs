@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+let i = 2;
+let a = {
+	op_PreIncrement: function() => ++i
+};
+
+function Test()
+{
+	Assert.AreEqual(++a, 3, "++a");
+	Assert.AreEqual(i, 3, "i == 3");
+}
+
+NUnit.AddTest(Test, "Custom Operator '++_pre' tests");

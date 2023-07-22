@@ -1,3 +1,5 @@
+using System.Collections;
+
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -50,6 +52,29 @@ public class BadPostDecrementExpression : BadExpression
 		return value;
 	}
 
+	public static IEnumerable<BadObject> DecrementWithOverride(
+		BadExecutionContext context,
+		BadObjectReference leftRef,
+		BadSourcePosition position)
+	{
+		BadObject left = leftRef.Dereference();
+
+		if (left.HasProperty(BadStaticKeys.PostDecrementOperatorName))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(left,
+				         context,
+				         BadStaticKeys.PostDecrementOperatorName,
+				         position))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return Decrement(leftRef, position);
+		}
+	}
+	
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadObject left = BadObject.Null;
@@ -67,6 +92,9 @@ public class BadPostDecrementExpression : BadExpression
 		}
 
 
-		yield return Decrement(leftRef, Position);
+		foreach (BadObject o in DecrementWithOverride(context, leftRef, Position))
+		{
+			yield return o;
+		}
 	}
 }

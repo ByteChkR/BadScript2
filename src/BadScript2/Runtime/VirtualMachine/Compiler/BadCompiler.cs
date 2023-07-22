@@ -271,8 +271,6 @@ public class BadCompiler
 	public static IEnumerable<BadInstruction> Compile(string src)
 	{
 		BadSourceParser parser = BadSourceParser.Create("<nofile>", src);
-		BadCompiler compiler = new BadCompiler();
-
-		return compiler.Compile(parser.Parse());
+		return Instance.Compile(parser.Parse());
 	}
 }
