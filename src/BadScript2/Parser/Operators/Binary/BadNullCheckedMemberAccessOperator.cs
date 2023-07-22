@@ -15,10 +15,10 @@ public class BadNullCheckedMemberAccessOperator : BadBinaryOperator
 	/// </summary>
 	public BadNullCheckedMemberAccessOperator() : base(2, "?.") { }
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		BadWordToken right = parser.Reader.ParseWord();
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        BadWordToken right = parser.Reader.ParseWord();
 
-		return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition), true);
-	}
+        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition), true);
+    }
 }

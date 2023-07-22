@@ -13,33 +13,33 @@ public class BadConsoleLogWriter : BadLogWriter
 	/// <param name="log">The log to be written</param>
 	/// <exception cref="ArgumentOutOfRangeException">Gets raised if the BadLogType is unsupported</exception>
 	protected override void Write(BadLog log)
-	{
-		ConsoleColor fg = BadConsole.ForegroundColor;
-		ConsoleColor bg = BadConsole.BackgroundColor;
+    {
+        ConsoleColor fg = BadConsole.ForegroundColor;
+        ConsoleColor bg = BadConsole.BackgroundColor;
 
-		switch (log.Type)
-		{
-			case BadLogType.Log:
-				BadConsole.ForegroundColor = BadLoggerSettings.Instance.LogForegroundColor;
-				BadConsole.BackgroundColor = BadLoggerSettings.Instance.LogBackgroundColor;
+        switch (log.Type)
+        {
+            case BadLogType.Log:
+                BadConsole.ForegroundColor = BadLoggerSettings.Instance.LogForegroundColor;
+                BadConsole.BackgroundColor = BadLoggerSettings.Instance.LogBackgroundColor;
 
-				break;
-			case BadLogType.Warning:
-				BadConsole.ForegroundColor = BadLoggerSettings.Instance.WarnForegroundColor;
-				BadConsole.BackgroundColor = BadLoggerSettings.Instance.WarnBackgroundColor;
+                break;
+            case BadLogType.Warning:
+                BadConsole.ForegroundColor = BadLoggerSettings.Instance.WarnForegroundColor;
+                BadConsole.BackgroundColor = BadLoggerSettings.Instance.WarnBackgroundColor;
 
-				break;
-			case BadLogType.Error:
-				BadConsole.ForegroundColor = BadLoggerSettings.Instance.ErrorForegroundColor;
-				BadConsole.BackgroundColor = BadLoggerSettings.Instance.ErrorBackgroundColor;
+                break;
+            case BadLogType.Error:
+                BadConsole.ForegroundColor = BadLoggerSettings.Instance.ErrorForegroundColor;
+                BadConsole.BackgroundColor = BadLoggerSettings.Instance.ErrorBackgroundColor;
 
-				break;
-			default:
-				throw new ArgumentOutOfRangeException();
-		}
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
 
-		BadConsole.WriteLine(log.ToString());
-		BadConsole.ForegroundColor = fg;
-		BadConsole.BackgroundColor = bg;
-	}
+        BadConsole.WriteLine(log.ToString());
+        BadConsole.ForegroundColor = fg;
+        BadConsole.BackgroundColor = bg;
+    }
 }

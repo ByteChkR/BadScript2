@@ -1,7 +1,4 @@
-using BadScript2.Runtime.Error;
 using BadScript2.Settings;
-
-using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Runtime.Settings;
 

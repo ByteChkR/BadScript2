@@ -14,13 +14,13 @@ public static class BadCommonInterop
 	///     All Common Interop Apis
 	/// </summary>
 	private static readonly BadInteropApi[] s_CommonApis =
-	{
-		new BadConsoleApi(),
-		new BadRuntimeApi(),
-		new BadMathApi(),
-		new BadOperatingSystemApi(),
-		new BadXmlApi()
-	};
+    {
+        new BadConsoleApi(),
+        new BadRuntimeApi(),
+        new BadMathApi(),
+        new BadOperatingSystemApi(),
+        new BadXmlApi(),
+    };
 
 	/// <summary>
 	///     All Common Interop Apis
@@ -31,14 +31,14 @@ public static class BadCommonInterop
 	///     Adds all Common Interop Extensions to the BadScript Runtime
 	/// </summary>
 	public static void AddExtensions()
-	{
-		BadInteropExtension.AddExtension<BadObjectExtension>();
-		BadInteropExtension.AddExtension<BadStringExtension>();
-		BadInteropExtension.AddExtension<BadTableExtension>();
-		BadInteropExtension.AddExtension<BadScopeExtension>();
-		BadInteropExtension.AddExtension<BadArrayExtension>();
-		BadInteropExtension.AddExtension<BadFunctionExtension>();
-		BadInteropExtension.AddExtension<BadTypeSystemExtension>();
-		BadInteropExtension.AddExtension<BadTaskExtensions>();
-	}
+    {
+        BadInteropExtension.AddExtension<BadObjectExtension>();
+        BadInteropExtension.AddExtension<BadStringExtension>();
+        BadInteropExtension.AddExtension<BadTableExtension>();
+        BadInteropExtension.AddExtension<BadScopeExtension>();
+        BadInteropExtension.AddExtension<BadArrayExtension>();
+        BadInteropExtension.AddExtension<BadFunctionExtension>();
+        BadInteropExtension.AddExtension<BadTypeSystemExtension>();
+        BadInteropExtension.AddExtension<BadTaskExtensions>();
+    }
 }

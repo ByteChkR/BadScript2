@@ -6,47 +6,49 @@ namespace BadScript2.Runtime.Interop.Functions;
 
 public class BadInteropFunction : BadFunction
 {
-	private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;
+    private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;
 
-	public BadInteropFunction(
-		BadWordToken? name,
-		Func<BadObject[], BadObject> func,
-		bool isStatic,
-		params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
-	{
-		m_Func = (_, args) => func(args);
-	}
+    public BadInteropFunction(
+        BadWordToken? name,
+        Func<BadObject[], BadObject> func,
+        bool isStatic,
+        params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
+    {
+        m_Func = (_, args) => func(args);
+    }
 
-	public BadInteropFunction(
-		BadWordToken? name,
-		Func<BadExecutionContext, BadObject[], BadObject> func,
-		bool isStatic,
-		params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
-	{
-		m_Func = func;
-	}
-
-
-	public static BadInteropFunction Create(Func<BadObject[], BadObject> func, bool isStatic, params string[] names)
-	{
-		BadInteropFunction function = new BadInteropFunction(null,
-			func,
-			isStatic,
-			names.Select(x => (BadFunctionParameter)x).ToArray());
-
-		return function;
-	}
+    public BadInteropFunction(
+        BadWordToken? name,
+        Func<BadExecutionContext, BadObject[], BadObject> func,
+        bool isStatic,
+        params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
+    {
+        m_Func = func;
+    }
 
 
-	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
-	{
-		CheckParameters(args);
+    public static BadInteropFunction Create(Func<BadObject[], BadObject> func, bool isStatic, params string[] names)
+    {
+        BadInteropFunction function = new BadInteropFunction(
+            null,
+            func,
+            isStatic,
+            names.Select(x => (BadFunctionParameter)x).ToArray()
+        );
 
-		yield return m_Func.Invoke(caller, args);
-	}
+        return function;
+    }
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		return "<interop> " + base.ToSafeString(done);
-	}
+
+    protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
+    {
+        CheckParameters(args);
+
+        yield return m_Func.Invoke(caller, args);
+    }
+
+    public override string ToSafeString(List<BadObject> done)
+    {
+        return "<interop> " + base.ToSafeString(done);
+    }
 }

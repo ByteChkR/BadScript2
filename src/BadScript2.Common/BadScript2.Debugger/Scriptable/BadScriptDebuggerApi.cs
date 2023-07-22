@@ -9,68 +9,72 @@ using BadScript2.Runtime.Objects.Functions;
 namespace BadScript2.Debugger.Scriptable;
 
 /// <summary>
-/// Implements the Debugger API for the Scriptable Debugger
+///     Implements the Debugger API for the Scriptable Debugger
 /// </summary>
 public class BadScriptDebuggerApi : BadInteropApi
 {
 	/// <summary>
-	/// The Debugger Instance
+	///     The Debugger Instance
 	/// </summary>
 	private readonly BadScriptDebugger m_Debugger;
 
 	/// <summary>
-	/// Constructs a new BadScriptDebuggerApi instance
+	///     Constructs a new BadScriptDebuggerApi instance
 	/// </summary>
 	/// <param name="debugger">The Debugger Instance</param>
 	public BadScriptDebuggerApi(BadScriptDebugger debugger) : base("Debugger")
-	{
-		m_Debugger = debugger;
-	}
+    {
+        m_Debugger = debugger;
+    }
 
 	/// <summary>
-	/// Registers a Function to the OnStep Event
+	///     Registers a Function to the OnStep Event
 	/// </summary>
 	/// <param name="context">The Execution Context</param>
 	/// <param name="func">The Function to be registered</param>
 	public void RegisterStep(BadExecutionContext context, BadFunction func)
-	{
-		m_Debugger.OnStep += s =>
-		{
-			foreach (BadObject _ in func.Invoke(new[]
-				         {
-					         BadObject.Wrap(s)
-				         },
-				         context))
-			{
-				//Execute
-			}
-		};
-	}
+    {
+        m_Debugger.OnStep += s =>
+        {
+            foreach (BadObject _ in func.Invoke(
+                         new[]
+                         {
+                             BadObject.Wrap(s),
+                         },
+                         context
+                     ))
+            {
+                //Execute
+            }
+        };
+    }
 
 	/// <summary>
-	/// Registers a Function to the OnFileLoaded Event
+	///     Registers a Function to the OnFileLoaded Event
 	/// </summary>
 	/// <param name="context">The Execution Context</param>
 	/// <param name="func">The Function to be registered</param>
 	public void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)
-	{
-		m_Debugger.OnFileLoaded += s =>
-		{
-			foreach (BadObject _ in func.Invoke(new BadObject[]
-				         {
-					         s
-				         },
-				         context))
-			{
-				//Execute
-			}
-		};
-	}
+    {
+        m_Debugger.OnFileLoaded += s =>
+        {
+            foreach (BadObject _ in func.Invoke(
+                         new BadObject[]
+                         {
+                             s,
+                         },
+                         context
+                     ))
+            {
+                //Execute
+            }
+        };
+    }
 
-	protected override void LoadApi(BadTable target)
-	{
-		target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
-		target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);
-		target.SetProperty("DebuggerPath", Path.GetFullPath(BadScriptDebuggerSettings.Instance.DebuggerPath!));
-	}
+    protected override void LoadApi(BadTable target)
+    {
+        target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
+        target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);
+        target.SetProperty("DebuggerPath", Path.GetFullPath(BadScriptDebuggerSettings.Instance.DebuggerPath!));
+    }
 }

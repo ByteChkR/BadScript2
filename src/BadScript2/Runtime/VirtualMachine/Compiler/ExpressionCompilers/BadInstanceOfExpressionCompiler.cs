@@ -5,8 +5,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 public class BadInstanceOfExpressionCompiler : BadBinaryExpressionCompiler<BadInstanceOfExpression>
 {
-	public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadInstanceOfExpression expression)
-	{
-		yield return new BadInstruction(BadOpCode.InstanceOf, expression.Position);
-	}
+    public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadInstanceOfExpression expression)
+    {
+        yield return new BadInstruction(BadOpCode.InstanceOf, expression.Position);
+    }
 }

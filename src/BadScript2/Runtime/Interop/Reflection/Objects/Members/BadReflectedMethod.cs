@@ -9,149 +9,153 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 public class BadReflectedMethod : BadReflectedMember
 {
-	private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();
+    private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();
 
-	public BadReflectedMethod(MethodInfo method) : base(method.Name)
-	{
-		m_Methods.Add(method);
-	}
+    public BadReflectedMethod(MethodInfo method) : base(method.Name)
+    {
+        m_Methods.Add(method);
+    }
 
-	public override bool IsReadOnly => true;
+    public override bool IsReadOnly => true;
 
 
-	public void AddMethod(MethodInfo method)
-	{
-		m_Methods.Add(method);
-	}
+    public void AddMethod(MethodInfo method)
+    {
+        m_Methods.Add(method);
+    }
 
-	private BadFunction CreateFunction(object? instance)
-	{
-		bool isStatic = instance == null;
-		return new BadInteropFunction(Name,
-			args => Invoke(instance, args),
-			isStatic,
-			new BadFunctionParameter("args", false, false, true));
-	}
+    private BadFunction CreateFunction(object? instance)
+    {
+        bool isStatic = instance == null;
 
-	private bool CanConvert(BadObject o, Type t)
-	{
-		if (o.CanUnwrap())
-		{
-			object? obj = o.Unwrap();
+        return new BadInteropFunction(
+            Name,
+            args => Invoke(instance, args),
+            isStatic,
+            new BadFunctionParameter("args", false, false, true)
+        );
+    }
 
-			if (obj == null)
-			{
-				return !t.IsValueType;
-			}
+    private bool CanConvert(BadObject o, Type t)
+    {
+        if (o.CanUnwrap())
+        {
+            object? obj = o.Unwrap();
 
-			return t.IsInstanceOfType(obj) || (t.IsNumericType() && obj.GetType().IsNumericType());
-		}
+            if (obj == null)
+            {
+                return !t.IsValueType;
+            }
 
-		if (o is BadReflectedObject ro)
-		{
-			object obj = ro.Instance;
+            return t.IsInstanceOfType(obj) || t.IsNumericType() && obj.GetType().IsNumericType();
+        }
 
-			return t.IsInstanceOfType(obj);
-		}
+        if (o is BadReflectedObject ro)
+        {
+            object obj = ro.Instance;
 
-		return false;
-	}
+            return t.IsInstanceOfType(obj);
+        }
 
-	private object? ConvertObject(BadObject o, Type t)
-	{
-		object? obj;
+        return false;
+    }
 
-		if (o.CanUnwrap())
-		{
-			obj = o.Unwrap();
-		}
-		else if (o is BadReflectedObject ro)
-		{
-			obj = ro.Instance;
-		}
-		else
-		{
-			throw new BadRuntimeException("Cannot convert object");
-		}
+    private object? ConvertObject(BadObject o, Type t)
+    {
+        object? obj;
 
-		if (obj == null)
-		{
-			return null;
-		}
+        if (o.CanUnwrap())
+        {
+            obj = o.Unwrap();
+        }
+        else if (o is BadReflectedObject ro)
+        {
+            obj = ro.Instance;
+        }
+        else
+        {
+            throw new BadRuntimeException("Cannot convert object");
+        }
 
-		if (t.IsInstanceOfType(obj))
-		{
-			return obj;
-		}
+        if (obj == null)
+        {
+            return null;
+        }
 
-		if (t.IsNumericType())
-		{
-			return Convert.ChangeType(obj, t);
-		}
+        if (t.IsInstanceOfType(obj))
+        {
+            return obj;
+        }
 
-		throw new BadRuntimeException("Cannot convert object");
-	}
+        if (t.IsNumericType())
+        {
+            return Convert.ChangeType(obj, t);
+        }
 
-	private object?[] FindImplementation(object? instance, BadObject[] args, out MethodInfo info)
-	{
-		foreach (MethodInfo method in m_Methods)
-		{
-			if((instance == null && !method.IsStatic) || (instance != null && method.IsStatic))
-			{
-				continue;
-			}
-			ParameterInfo[] parameters = method.GetParameters();
+        throw new BadRuntimeException("Cannot convert object");
+    }
 
-			if (parameters.Length != args.Length)
-			{
-				continue;
-			}
+    private object?[] FindImplementation(object? instance, BadObject[] args, out MethodInfo info)
+    {
+        foreach (MethodInfo method in m_Methods)
+        {
+            if (instance == null && !method.IsStatic || instance != null && method.IsStatic)
+            {
+                continue;
+            }
 
-			object?[] converted = new object?[args.Length];
-			bool skipThis = false;
+            ParameterInfo[] parameters = method.GetParameters();
 
-			for (int i = 0; i < parameters.Length; i++)
-			{
-				ParameterInfo parameter = parameters[i];
-				BadObject argument = args[i];
+            if (parameters.Length != args.Length)
+            {
+                continue;
+            }
 
-				if (!CanConvert(argument, parameter.ParameterType))
-				{
-					skipThis = true;
+            object?[] converted = new object?[args.Length];
+            bool skipThis = false;
 
-					break;
-				}
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                ParameterInfo parameter = parameters[i];
+                BadObject argument = args[i];
 
-				converted[i] = ConvertObject(argument, parameter.ParameterType);
-			}
+                if (!CanConvert(argument, parameter.ParameterType))
+                {
+                    skipThis = true;
 
-			if (skipThis)
-			{
-				continue;
-			}
+                    break;
+                }
 
-			info = method;
+                converted[i] = ConvertObject(argument, parameter.ParameterType);
+            }
 
-			return converted;
-		}
+            if (skipThis)
+            {
+                continue;
+            }
 
-		throw new BadRuntimeException("No matching method found");
-	}
+            info = method;
 
-	private BadObject Invoke(object? instance, BadObject[] args)
-	{
-		object?[] implArgs = FindImplementation(instance, args, out MethodInfo info);
+            return converted;
+        }
 
-		return Wrap(info.Invoke(instance, implArgs));
-	}
+        throw new BadRuntimeException("No matching method found");
+    }
 
-	public override BadObject Get(object? instance)
-	{
-		return CreateFunction(instance);
-	}
+    private BadObject Invoke(object? instance, BadObject[] args)
+    {
+        object?[] implArgs = FindImplementation(instance, args, out MethodInfo info);
 
-	public override void Set(object? instance, BadObject o)
-	{
-		throw new BadRuntimeException("Can not set a value to a method");
-	}
+        return Wrap(info.Invoke(instance, implArgs));
+    }
+
+    public override BadObject Get(object? instance)
+    {
+        return CreateFunction(instance);
+    }
+
+    public override void Set(object? instance, BadObject o)
+    {
+        throw new BadRuntimeException("Can not set a value to a method");
+    }
 }

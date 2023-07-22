@@ -37,203 +37,209 @@ public class BadForEachExpression : BadExpression
 	/// <param name="body">The Loop Body</param>
 	/// <param name="position">The Source Position of the Expression</param>
 	public BadForEachExpression(
-		BadExpression target,
-		BadWordToken loopVariable,
-		BadExpression[] body,
-		BadSourcePosition position) : base(false,
-		position)
-	{
-		Target = target;
-		LoopVariable = loopVariable;
-		m_Body = body;
-	}
+        BadExpression target,
+        BadWordToken loopVariable,
+        BadExpression[] body,
+        BadSourcePosition position) : base(
+        false,
+        position
+    )
+    {
+        Target = target;
+        LoopVariable = loopVariable;
+        m_Body = body;
+    }
 
-	public IEnumerable<BadExpression> Body => m_Body;
+    public IEnumerable<BadExpression> Body => m_Body;
 
-	public override void Optimize()
-	{
-		Target = BadExpressionOptimizer.Optimize(Target);
+    public override void Optimize()
+    {
+        Target = BadExpressionOptimizer.Optimize(Target);
 
-		for (int i = 0; i < m_Body.Length; i++)
-		{
-			m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
-		}
-	}
+        for (int i = 0; i < m_Body.Length; i++)
+        {
+            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+        }
+    }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression expression in Target.GetDescendantsAndSelf())
-		{
-			yield return expression;
-		}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression expression in Target.GetDescendantsAndSelf())
+        {
+            yield return expression;
+        }
 
-		foreach (BadExpression expression in m_Body)
-		{
-			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-			{
-				yield return descendant;
-			}
-		}
-	}
+        foreach (BadExpression expression in m_Body)
+        {
+            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+            {
+                yield return descendant;
+            }
+        }
+    }
 
-	/// <summary>
-	///     Helper Function that returns the MoveNext/GetCurrent function of the Target
-	/// </summary>
-	/// <param name="target">The loop target</param>
-	/// <returns>Tuple of Functions used in the for each loop</returns>
-	/// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
-	private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
-	{
-		if (target.HasProperty("MoveNext"))
-		{
-			BadFunction? moveNext = target.GetProperty("MoveNext", context.Scope).Dereference() as BadFunction;
+    /// <summary>
+    ///     Helper Function that returns the MoveNext/GetCurrent function of the Target
+    /// </summary>
+    /// <param name="target">The loop target</param>
+    /// <returns>Tuple of Functions used in the for each loop</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
+    private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
+    {
+        if (target.HasProperty("MoveNext"))
+        {
+            BadFunction? moveNext = target.GetProperty("MoveNext", context.Scope).Dereference() as BadFunction;
 
-			if (moveNext != null)
-			{
-				if (target.HasProperty("GetCurrent"))
-				{
-					BadFunction? getCurrent =
-						target.GetProperty("GetCurrent", context.Scope).Dereference() as BadFunction;
+            if (moveNext != null)
+            {
+                if (target.HasProperty("GetCurrent"))
+                {
+                    BadFunction? getCurrent =
+                        target.GetProperty("GetCurrent", context.Scope).Dereference() as BadFunction;
 
-					if (getCurrent != null)
-					{
-						return (moveNext, getCurrent);
-					}
-				}
-			}
-		}
+                    if (getCurrent != null)
+                    {
+                        return (moveNext, getCurrent);
+                    }
+                }
+            }
+        }
 
-		throw new BadRuntimeException("Invalid enumerator", Position);
-	}
+        throw new BadRuntimeException("Invalid enumerator", Position);
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject target = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject target = BadObject.Null;
 
-		foreach (BadObject o in Target.Execute(context))
-		{
-			target = o;
+        foreach (BadObject o in Target.Execute(context))
+        {
+            target = o;
 
-			yield return o;
-		}
-		
-		if (context.Scope.IsError)
-		{
-				
-			yield break;
-		}
+            yield return o;
+        }
 
-		target = target.Dereference();
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		if (target.HasProperty("GetEnumerator"))
-		{
-			BadFunction? getEnumerator =
-				target.GetProperty("GetEnumerator", context.Scope).Dereference() as BadFunction;
+        target = target.Dereference();
 
-			if (getEnumerator == null)
-			{
-				throw new BadRuntimeException("Invalid enumerator", Position);
-			}
+        if (target.HasProperty("GetEnumerator"))
+        {
+            BadFunction? getEnumerator =
+                target.GetProperty("GetEnumerator", context.Scope).Dereference() as BadFunction;
 
-			BadObject newTarget = BadObject.Null;
+            if (getEnumerator == null)
+            {
+                throw new BadRuntimeException("Invalid enumerator", Position);
+            }
 
-			foreach (BadObject o in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
-			{
-				yield return o;
+            BadObject newTarget = BadObject.Null;
 
-				newTarget = o;
-			}
+            foreach (BadObject o in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
+            {
+                yield return o;
 
-			if (context.Scope.IsError)
-			{
-				yield break;
-			}
+                newTarget = o;
+            }
 
-			if (newTarget == BadObject.Null)
-			{
-				throw BadRuntimeException.Create(context.Scope, $"Invalid enumerator: {target}", Position);
-			}
+            if (context.Scope.IsError)
+            {
+                yield break;
+            }
 
-			target = newTarget.Dereference();
-		}
+            if (newTarget == BadObject.Null)
+            {
+                throw BadRuntimeException.Create(context.Scope, $"Invalid enumerator: {target}", Position);
+            }
 
-		(BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context);
+            target = newTarget.Dereference();
+        }
 
-		if (context.Scope.IsError)
-		{
-			yield break;
-		}
+        (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context);
 
-		BadObject cond = BadObject.Null;
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), context))
-		{
-			cond = o;
+        BadObject cond = BadObject.Null;
 
-			yield return o;
-		}
+        foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), context))
+        {
+            cond = o;
 
-		if (context.Scope.IsError)
-		{
-			yield break;
-		}
+            yield return o;
+        }
 
-		IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-		                   throw new BadRuntimeException("While Condition is not a boolean", Position);
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		while (bRet.Value)
-		{
-			BadExecutionContext loopContext = new BadExecutionContext(context.Scope.CreateChild("ForEachLoop",
-				context.Scope,
-				null,
-				BadScopeFlags.Breakable | BadScopeFlags.Continuable));
+        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+                           throw new BadRuntimeException("While Condition is not a boolean", Position);
 
-			BadObject current = BadObject.Null;
+        while (bRet.Value)
+        {
+            BadExecutionContext loopContext = new BadExecutionContext(
+                context.Scope.CreateChild(
+                    "ForEachLoop",
+                    context.Scope,
+                    null,
+                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                )
+            );
 
-			foreach (BadObject o in getCurrent.Invoke(Array.Empty<BadObject>(), loopContext))
-			{
-				current = o;
+            BadObject current = BadObject.Null;
 
-				yield return o;
-			}
+            foreach (BadObject o in getCurrent.Invoke(Array.Empty<BadObject>(), loopContext))
+            {
+                current = o;
 
-			if (loopContext.Scope.IsError)
-			{
-				yield break;
-			}
+                yield return o;
+            }
 
-			current = current.Dereference();
+            if (loopContext.Scope.IsError)
+            {
+                yield break;
+            }
 
-			loopContext.Scope.DefineVariable(LoopVariable.Text, current);
+            current = current.Dereference();
 
-			foreach (BadObject o in loopContext.Execute(m_Body))
-			{
-				yield return o;
-			}
+            loopContext.Scope.DefineVariable(LoopVariable.Text, current);
 
-			if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-			{
-				break;
-			}
+            foreach (BadObject o in loopContext.Execute(m_Body))
+            {
+                yield return o;
+            }
 
-			foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
-			{
-				cond = o;
+            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+            {
+                break;
+            }
 
-				yield return o;
-			}
-			
-			
-			if(loopContext.Scope.IsError)
-			{
-				
-				yield break;
-			}
+            foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
+            {
+                cond = o;
 
-			bRet = cond.Dereference() as IBadBoolean ??
-			       throw BadRuntimeException.Create(context.Scope,
-				       "Enumerator MoveNext did not return a boolean",
-				       Position);
-		}
-	}
+                yield return o;
+            }
+
+
+            if (loopContext.Scope.IsError)
+            {
+                yield break;
+            }
+
+            bRet = cond.Dereference() as IBadBoolean ??
+                   throw BadRuntimeException.Create(
+                       context.Scope,
+                       "Enumerator MoveNext did not return a boolean",
+                       Position
+                   );
+        }
+    }
 }

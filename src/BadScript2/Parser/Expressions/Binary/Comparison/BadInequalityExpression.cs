@@ -15,9 +15,11 @@ public class BadInequalityExpression : BadBinaryExpression
 	/// <param name="left">Left side of the Expression</param>
 	/// <param name="right">Right side of the Expression</param>
 	/// <param name="position">Source position of the Expression</param>
-	public BadInequalityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
-		right,
-		position) { }
+	public BadInequalityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        left,
+        right,
+        position
+    ) { }
 
 	/// <summary>
 	///     Returns True if the two Objects are not equal
@@ -26,81 +28,85 @@ public class BadInequalityExpression : BadBinaryExpression
 	/// <param name="right">Right Object</param>
 	/// <returns>True if the Objects are not Equal. False Otherwise</returns>
 	public static BadObject NotEqual(BadObject left, BadObject right)
-	{
-		if (!left.Equals(right))
-		{
-			return BadObject.True;
-		}
+    {
+        if (!left.Equals(right))
+        {
+            return BadObject.True;
+        }
 
-		return BadObject.False;
-	}
+        return BadObject.False;
+    }
 
-	public static IEnumerable<BadObject> NotEqualWithOverride(
-		BadExecutionContext caller,
-		BadObject left,
-		BadObject right,
-		BadSourcePosition position)
-	{
-		if (left.HasProperty(BadStaticKeys.NotEqualOperatorName))
-		{
-			foreach (BadObject o in ExecuteOperatorOverride(left,
-				         right,
-				         caller,
-				         BadStaticKeys.NotEqualOperatorName,
-				         position))
-			{
-				yield return o;
-			}
-		}
-		else if (right.HasProperty(BadStaticKeys.NotEqualOperatorName))
-		{
-			foreach (BadObject o in ExecuteOperatorOverride(right,
-				         left,
-				         caller,
-				         BadStaticKeys.NotEqualOperatorName,
-				         position))
-			{
-				yield return o;
-			}
-		}
-		else
+    public static IEnumerable<BadObject> NotEqualWithOverride(
+        BadExecutionContext caller,
+        BadObject left,
+        BadObject right,
+        BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.NotEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(
+                         left,
+                         right,
+                         caller,
+                         BadStaticKeys.NotEqualOperatorName,
+                         position
+                     ))
+            {
+                yield return o;
+            }
+        }
+        else if (right.HasProperty(BadStaticKeys.NotEqualOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(
+                         right,
+                         left,
+                         caller,
+                         BadStaticKeys.NotEqualOperatorName,
+                         position
+                     ))
+            {
+                yield return o;
+            }
+        }
+        else
 
-		{
-			yield return NotEqual(left, right);
-		}
-	}
+        {
+            yield return NotEqual(left, right);
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject left = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
 
-		foreach (BadObject o in Left.Execute(context))
-		{
-			left = o;
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		left = left.Dereference();
-		BadObject right = BadObject.Null;
+        left = left.Dereference();
+        BadObject right = BadObject.Null;
 
-		foreach (BadObject o in Right.Execute(context))
-		{
-			right = o;
+        foreach (BadObject o in Right.Execute(context))
+        {
+            right = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		right = right.Dereference();
+        right = right.Dereference();
 
-		foreach (BadObject? o in NotEqualWithOverride(context, left, right, Position))
-		{
-			yield return o;
-		}
-	}
+        foreach (BadObject? o in NotEqualWithOverride(context, left, right, Position))
+        {
+            yield return o;
+        }
+    }
 
-	protected override string GetSymbol()
-	{
-		return "!=";
-	}
+    protected override string GetSymbol()
+    {
+        return "!=";
+    }
 }

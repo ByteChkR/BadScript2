@@ -24,33 +24,33 @@ public static class BadDebugger
 	/// <param name="debugger">The debugger to attach.</param>
 	/// <exception cref="BadRuntimeException">Gets raised if there is already a debugger attached</exception>
 	public static void Attach(IBadDebugger debugger)
-	{
-		if (IsAttached)
-		{
-			throw new BadRuntimeException("Already a Debugger Attached");
-		}
+    {
+        if (IsAttached)
+        {
+            throw new BadRuntimeException("Already a Debugger Attached");
+        }
 
-		IsAttached = true;
-		s_Debugger = debugger;
-		BadLogger.Warn($"Debugger '{debugger}' is Attached");
-	}
+        IsAttached = true;
+        s_Debugger = debugger;
+        BadLogger.Warn($"Debugger '{debugger}' is Attached");
+    }
 
 	/// <summary>
 	///     Detaches the debugger from the system.
 	/// </summary>
 	public static void Detach()
-	{
-		BadLogger.Warn($"Debugger '{s_Debugger}' is Detached");
-		IsAttached = false;
-		s_Debugger = null;
-	}
+    {
+        BadLogger.Warn($"Debugger '{s_Debugger}' is Detached");
+        IsAttached = false;
+        s_Debugger = null;
+    }
 
 	/// <summary>
 	///     Sends a step event to the debugger.
 	/// </summary>
 	/// <param name="stepInfo">The Step info</param>
 	internal static void Step(BadDebuggerStep stepInfo)
-	{
-		s_Debugger?.Step(stepInfo);
-	}
+    {
+        s_Debugger?.Step(stepInfo);
+    }
 }

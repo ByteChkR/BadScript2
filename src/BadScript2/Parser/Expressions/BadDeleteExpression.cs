@@ -7,44 +7,44 @@ namespace BadScript2.Parser.Expressions;
 
 public class BadDeleteExpression : BadExpression
 {
-	public readonly BadExpression Expression;
+    public readonly BadExpression Expression;
 
-	public BadDeleteExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
-	{
-		Expression = expression;
-	}
+    public BadDeleteExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
+    {
+        Expression = expression;
+    }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression e in Expression.GetDescendantsAndSelf())
-		{
-			yield return e;
-		}
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression e in Expression.GetDescendantsAndSelf())
+        {
+            yield return e;
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject? obj = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject? obj = BadObject.Null;
 
-		foreach (BadObject o in Expression.Execute(context))
-		{
-			obj = o;
+        foreach (BadObject o in Expression.Execute(context))
+        {
+            obj = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		if (context.Scope.IsError)
-		{
-			yield break;
-		}
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		if (obj is not BadObjectReference r)
-		{
-			throw BadRuntimeException.Create(context.Scope, $"Cannot delete {Expression}", Position);
-		}
+        if (obj is not BadObjectReference r)
+        {
+            throw BadRuntimeException.Create(context.Scope, $"Cannot delete {Expression}", Position);
+        }
 
-		r.Delete();
+        r.Delete();
 
-		yield return BadObject.Null;
-	}
+        yield return BadObject.Null;
+    }
 }

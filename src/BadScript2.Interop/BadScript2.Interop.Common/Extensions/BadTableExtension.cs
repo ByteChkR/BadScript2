@@ -15,119 +15,137 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadTableExtension : BadInteropExtension
 {
-	protected override void AddExtensions()
-	{
-		RegisterObject<BadTable>("RemoveKey",
-			o => new BadDynamicInteropFunction<BadObject>("RemoveKey",
-				(_, k) => RemoveKey(o, k),
-				"key"));
+    protected override void AddExtensions()
+    {
+        RegisterObject<BadTable>(
+            "RemoveKey",
+            o => new BadDynamicInteropFunction<BadObject>(
+                "RemoveKey",
+                (_, k) => RemoveKey(o, k),
+                "key"
+            )
+        );
 
-		RegisterObject<BadTable>("MakeReadOnly",
-			table => new BadDynamicInteropFunction("MakeReadOnly",
-				_ =>
-				{
-					foreach (BadObject key in table.InnerTable.Keys)
-					{
-						table.PropertyInfos[key].IsReadOnly = true;
-					}
+        RegisterObject<BadTable>(
+            "MakeReadOnly",
+            table => new BadDynamicInteropFunction(
+                "MakeReadOnly",
+                _ =>
+                {
+                    foreach (BadObject key in table.InnerTable.Keys)
+                    {
+                        table.PropertyInfos[key].IsReadOnly = true;
+                    }
 
-					return BadObject.Null;
-				}));
+                    return BadObject.Null;
+                }
+            )
+        );
 
-		RegisterObject<BadTable>(BadStaticKeys.ArrayAccessOperatorName,
-			t => new BadDynamicInteropFunction<BadObject>(BadStaticKeys.ArrayAccessOperatorName,
-				(c, o) => t.GetProperty(o, c.Scope),
-				"key"));
+        RegisterObject<BadTable>(
+            BadStaticKeys.ArrayAccessOperatorName,
+            t => new BadDynamicInteropFunction<BadObject>(
+                BadStaticKeys.ArrayAccessOperatorName,
+                (c, o) => t.GetProperty(o, c.Scope),
+                "key"
+            )
+        );
 
-		RegisterObject<BadTable>("Keys", Keys);
-		RegisterObject<BadTable>("Values", Values);
-		RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
+        RegisterObject<BadTable>("Keys", Keys);
+        RegisterObject<BadTable>("Values", Values);
+        RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
 
-		RegisterObject<BadTable>("Join",
-			t => new BadInteropFunction("Join",
-				(c, a) => JoinTable(c, t, a),
-				false,
-				new BadFunctionParameter("overwrite",
-					false,
-					true,
-					false,
-					null,
-					BadNativeClassBuilder.GetNative("bool")),
-				new BadFunctionParameter("others", false, true, true, null)));
-	}
+        RegisterObject<BadTable>(
+            "Join",
+            t => new BadInteropFunction(
+                "Join",
+                (c, a) => JoinTable(c, t, a),
+                false,
+                new BadFunctionParameter(
+                    "overwrite",
+                    false,
+                    true,
+                    false,
+                    null,
+                    BadNativeClassBuilder.GetNative("bool")
+                ),
+                new BadFunctionParameter("others", false, true, true, null)
+            )
+        );
+    }
 
-	/// <summary>
-	///     Joins two or more tables together
-	/// </summary>
-	/// <param name="ctx">The Execution Context</param>
-	/// <param name="self">The 'self' table</param>
-	/// <param name="args">The Arguments</param>
-	/// <returns>The 'self' table</returns>
-	/// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
-	private BadObject JoinTable(BadExecutionContext ctx, BadTable self, BadObject[] args)
-	{
-		if (args.Length == 0)
-		{
-			throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
-		}
+    /// <summary>
+    ///     Joins two or more tables together
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="self">The 'self' table</param>
+    /// <param name="args">The Arguments</param>
+    /// <returns>The 'self' table</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
+    private BadObject JoinTable(BadExecutionContext ctx, BadTable self, BadObject[] args)
+    {
+        if (args.Length == 0)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
+        }
 
-		BadObject overwrite = args[0];
-		BadObject[] others = args.Skip(1).ToArray();
+        BadObject overwrite = args[0];
+        BadObject[] others = args.Skip(1).ToArray();
 
-		if (overwrite is not IBadBoolean ov)
-		{
-			throw BadRuntimeException.Create(ctx.Scope, "Overwrite is not a boolean value");
-		}
+        if (overwrite is not IBadBoolean ov)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Overwrite is not a boolean value");
+        }
 
-		foreach (BadObject o in others)
-		{
-			if (o is not BadTable other)
-			{
-				throw BadRuntimeException.Create(ctx.Scope, "Others can only be tables");
-			}
+        foreach (BadObject o in others)
+        {
+            if (o is not BadTable other)
+            {
+                throw BadRuntimeException.Create(ctx.Scope, "Others can only be tables");
+            }
 
-			foreach (KeyValuePair<BadObject, BadObject> kvp in other.InnerTable)
-			{
-				if (ov.Value || !self.InnerTable.ContainsKey(kvp.Key))
-				{
-					self.GetProperty(kvp.Key, ctx.Scope).Set(kvp.Value);
-				}
-			}
-		}
+            foreach (KeyValuePair<BadObject, BadObject> kvp in other.InnerTable)
+            {
+                if (ov.Value || !self.InnerTable.ContainsKey(kvp.Key))
+                {
+                    self.GetProperty(kvp.Key, ctx.Scope).Set(kvp.Value);
+                }
+            }
+        }
 
-		return self;
-	}
+        return self;
+    }
 
-	/// <summary>
-	///     Removes a key from the table
-	/// </summary>
-	/// <param name="table">Table</param>
-	/// <param name="key">Key</param>
-	/// <returns>NULL</returns>
-	private static BadObject RemoveKey(BadTable table, BadObject key)
-	{
-		table.RemoveKey(key);
+    /// <summary>
+    ///     Removes a key from the table
+    /// </summary>
+    /// <param name="table">Table</param>
+    /// <param name="key">Key</param>
+    /// <returns>NULL</returns>
+    private static BadObject RemoveKey(BadTable table, BadObject key)
+    {
+        table.RemoveKey(key);
 
-		return BadObject.Null;
-	}
+        return BadObject.Null;
+    }
 
-	/// <summary>
-	///     Returns the Keys of the Table
-	/// </summary>
-	/// <param name="table">Table</param>
-	/// <returns>Array of keys</returns>
-	private static BadObject Keys(BadTable table)
-	{
-		return new BadArray(table.InnerTable.Keys.ToList());
-	}
+    /// <summary>
+    ///     Returns the Keys of the Table
+    /// </summary>
+    /// <param name="table">Table</param>
+    /// <returns>Array of keys</returns>
+    private static BadObject Keys(BadTable table)
+    {
+        return new BadArray(table.InnerTable.Keys.ToList());
+    }
 
-	/// <summary>
-	///     Returns the Values of the Table
-	/// </summary>
-	/// <param name="table">Table</param>
-	/// <returns>Array of Values</returns>
-	private static BadObject Values(BadTable table)
-	{
-		return new BadArray(table.InnerTable.Values.ToList());
-	}
+    /// <summary>
+    ///     Returns the Values of the Table
+    /// </summary>
+    /// <param name="table">Table</param>
+    /// <returns>Array of Values</returns>
+    private static BadObject Values(BadTable table)
+    {
+        return new BadArray(table.InnerTable.Values.ToList());
+    }
 }

@@ -28,60 +28,60 @@ public class BadLockExpression : BadExpression
 	/// <param name="lockExpression">The expression to lock on</param>
 	/// <param name="block">The Block Body</param>
 	public BadLockExpression(
-		BadSourcePosition position,
-		BadExpression lockExpression,
-		BadExpression[] block) : base(false, position)
-	{
-		LockExpression = lockExpression;
-		m_Block = block;
-	}
+        BadSourcePosition position,
+        BadExpression lockExpression,
+        BadExpression[] block) : base(false, position)
+    {
+        LockExpression = lockExpression;
+        m_Block = block;
+    }
 
-	public IEnumerable<BadExpression> Block => m_Block;
+    public IEnumerable<BadExpression> Block => m_Block;
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression expression in LockExpression.GetDescendantsAndSelf())
-		{
-			yield return expression;
-		}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression expression in LockExpression.GetDescendantsAndSelf())
+        {
+            yield return expression;
+        }
 
-		foreach (BadExpression expression in m_Block)
-		{
-			foreach (BadExpression e in expression.GetDescendantsAndSelf())
-			{
-				yield return e;
-			}
-		}
-	}
+        foreach (BadExpression expression in m_Block)
+        {
+            foreach (BadExpression e in expression.GetDescendantsAndSelf())
+            {
+                yield return e;
+            }
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject lockObj = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject lockObj = BadObject.Null;
 
-		foreach (BadObject o in LockExpression.Execute(context))
-		{
-			lockObj = o;
+        foreach (BadObject o in LockExpression.Execute(context))
+        {
+            lockObj = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		lockObj = lockObj.Dereference();
+        lockObj = lockObj.Dereference();
 
-		if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
-		{
-			throw new BadRuntimeException("Lock object must be of type Array, Object or Class", Position);
-		}
+        if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
+        {
+            throw new BadRuntimeException("Lock object must be of type Array, Object or Class", Position);
+        }
 
-		while (!BadLockList.Instance.TryAquire(lockObj))
-		{
-			yield return BadObject.Null;
-		}
+        while (!BadLockList.Instance.TryAquire(lockObj))
+        {
+            yield return BadObject.Null;
+        }
 
-		foreach (BadObject o in context.Execute(m_Block))
-		{
-			yield return o;
-		}
+        foreach (BadObject o in context.Execute(m_Block))
+        {
+            yield return o;
+        }
 
-		BadLockList.Instance.Release(lockObj);
-	}
+        BadLockList.Instance.Release(lockObj);
+    }
 }

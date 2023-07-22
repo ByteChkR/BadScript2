@@ -23,16 +23,18 @@ public class BadMemberAccessExpression : BadExpression
 	///     BadObject.Null
 	/// </param>
 	public BadMemberAccessExpression(
-		BadExpression left,
-		BadWordToken right,
-		BadSourcePosition position,
-		bool nullChecked = false) : base(false,
-		position)
-	{
-		Left = left;
-		Right = right;
-		NullChecked = nullChecked;
-	}
+        BadExpression left,
+        BadWordToken right,
+        BadSourcePosition position,
+        bool nullChecked = false) : base(
+        false,
+        position
+    )
+    {
+        Left = left;
+        Right = right;
+        NullChecked = nullChecked;
+    }
 
 	/// <summary>
 	///     Property that indicates if the result of the left side of the expression should be null-checked.
@@ -49,47 +51,47 @@ public class BadMemberAccessExpression : BadExpression
 	/// </summary>
 	public BadWordToken Right { get; }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression expression in Left.GetDescendantsAndSelf())
-		{
-			yield return expression;
-		}
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+        {
+            yield return expression;
+        }
+    }
 
-	public override void Optimize()
-	{
-		Left = BadExpressionOptimizer.Optimize(Left);
-	}
+    public override void Optimize()
+    {
+        Left = BadExpressionOptimizer.Optimize(Left);
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject left = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
 
-		foreach (BadObject o in Left.Execute(context))
-		{
-			left = o;
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		left = left.Dereference();
+        left = left.Dereference();
 
-		if (NullChecked && left.Equals(BadObject.Null))
-		{
-			yield return BadObject.Null;
-		}
-		else
-		{
-			BadObject ret = left.GetProperty(BadObject.Wrap(Right.Text), context.Scope);
+        if (NullChecked && left.Equals(BadObject.Null))
+        {
+            yield return BadObject.Null;
+        }
+        else
+        {
+            BadObject ret = left.GetProperty(BadObject.Wrap(Right.Text), context.Scope);
 
-			yield return ret;
-		}
-	}
+            yield return ret;
+        }
+    }
 
 
-	public override string ToString()
-	{
-		return $"({Left}{(NullChecked ? "?" : "")}.{Right})";
-	}
+    public override string ToString()
+    {
+        return $"({Left}{(NullChecked ? "?" : "")}.{Right})";
+    }
 }

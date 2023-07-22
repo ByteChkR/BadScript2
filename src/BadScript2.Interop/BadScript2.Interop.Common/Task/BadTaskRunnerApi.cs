@@ -21,43 +21,43 @@ public class BadTaskRunnerApi : BadInteropApi
 	/// </summary>
 	/// <param name="runner">Task Runner Instance</param>
 	public BadTaskRunnerApi(BadTaskRunner runner) : base("Concurrent")
-	{
-		m_Runner = runner;
-	}
+    {
+        m_Runner = runner;
+    }
 
-	protected override void LoadApi(BadTable target)
-	{
-		target.SetFunction<BadTask>("Run", AddTask);
-		target.SetFunction("GetCurrent", GetCurrentTask);
-		target.SetFunction<BadFunction>("Create", CreateTask);
-	}
+    protected override void LoadApi(BadTable target)
+    {
+        target.SetFunction<BadTask>("Run", AddTask);
+        target.SetFunction("GetCurrent", GetCurrentTask);
+        target.SetFunction<BadFunction>("Create", CreateTask);
+    }
 
-	/// <summary>
-	///     Returns the Current Task
-	/// </summary>
-	/// <returns>Task</returns>
-	private BadObject GetCurrentTask()
-	{
-		return m_Runner.Current ?? BadObject.Null;
-	}
+    /// <summary>
+    ///     Returns the Current Task
+    /// </summary>
+    /// <returns>Task</returns>
+    private BadObject GetCurrentTask()
+    {
+        return m_Runner.Current ?? BadObject.Null;
+    }
 
-	/// <summary>
-	///     Adds a Task to the Runner
-	/// </summary>
-	/// <param name="task">Task</param>
-	private void AddTask(BadTask task)
-	{
-		m_Runner.AddTask(task, true);
-	}
+    /// <summary>
+    ///     Adds a Task to the Runner
+    /// </summary>
+    /// <param name="task">Task</param>
+    private void AddTask(BadTask task)
+    {
+        m_Runner.AddTask(task, true);
+    }
 
-	/// <summary>
-	///     Creates a new Task
-	/// </summary>
-	/// <param name="caller">Caller Context</param>
-	/// <param name="func">Function</param>
-	/// <returns>Task</returns>
-	private BadObject CreateTask(BadExecutionContext caller, BadFunction func)
-	{
-		return BadTask.Create(func, caller, null);
-	}
+    /// <summary>
+    ///     Creates a new Task
+    /// </summary>
+    /// <param name="caller">Caller Context</param>
+    /// <param name="func">Function</param>
+    /// <returns>Task</returns>
+    private BadObject CreateTask(BadExecutionContext caller, BadFunction func)
+    {
+        return BadTask.Create(func, caller, null);
+    }
 }

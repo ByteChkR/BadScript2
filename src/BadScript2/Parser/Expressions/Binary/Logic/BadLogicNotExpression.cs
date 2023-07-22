@@ -82,7 +82,7 @@ public class BadLogicNotExpression : BadExpression
             r = o;
         }
 
-        if (context?.Scope.IsError ?? false)
+        if (context.Scope.IsError)
         {
             yield break;
         }

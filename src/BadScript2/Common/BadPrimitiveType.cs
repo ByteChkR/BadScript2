@@ -5,8 +5,8 @@ namespace BadScript2.Common;
 /// </summary>
 public enum BadPrimitiveType
 {
-	Boolean,
-	Number,
-	String,
-	Null
+    Boolean,
+    Number,
+    String,
+    Null,
 }

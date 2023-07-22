@@ -8,7 +8,7 @@ using HtmlAgilityPack;
 namespace BadHtml.Transformer;
 
 /// <summary>
-/// Implements the bs:insert node transformer. That inserts the inner content of the node into the specified location.
+///     Implements the bs:insert node transformer. That inserts the inner content of the node into the specified location.
 /// </summary>
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
@@ -19,7 +19,7 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 
 
     /// <summary>
-    /// Returns all nodes that match the specified path
+    ///     Returns all nodes that match the specified path
     /// </summary>
     /// <param name="context">The Html Context</param>
     /// <param name="path">The XPath</param>

@@ -5,6 +5,6 @@ namespace BadScript2.IO;
 /// </summary>
 public enum BadWriteMode
 {
-	CreateNew,
-	Append
+    CreateNew,
+    Append,
 }

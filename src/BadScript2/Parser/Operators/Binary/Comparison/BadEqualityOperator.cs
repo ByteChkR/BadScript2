@@ -13,10 +13,10 @@ public class BadEqualityOperator : BadBinaryOperator
 	/// </summary>
 	public BadEqualityOperator() : base(9, "==") { }
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadEqualityExpression(left, right, left.Position.Combine(right.Position));
-	}
+        return new BadEqualityExpression(left, right, left.Position.Combine(right.Position));
+    }
 }

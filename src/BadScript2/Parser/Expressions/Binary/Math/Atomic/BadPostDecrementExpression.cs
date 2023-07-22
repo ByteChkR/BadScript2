@@ -1,5 +1,3 @@
-using System.Collections;
-
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -23,78 +21,82 @@ public class BadPostDecrementExpression : BadExpression
 	/// </summary>
 	/// <param name="left">Left side of the Expression</param>
 	/// <param name="position">Source position of the Expression</param>
-	public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
-		position)
-	{
-		Left = left;
-	}
+	public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(
+        left.IsConstant,
+        position
+    )
+    {
+        Left = left;
+    }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
-		{
-			yield return expression;
-		}
-	}
-
-
-	public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
-	{
-		BadObject value = reference.Dereference();
-
-		if (value is not IBadNumber leftNumber)
-		{
-			throw new BadRuntimeException("Left side of -- must be a number", position);
-		}
-
-		reference.Set(leftNumber.Value - 1);
-
-		return value;
-	}
-
-	public static IEnumerable<BadObject> DecrementWithOverride(
-		BadExecutionContext context,
-		BadObjectReference leftRef,
-		BadSourcePosition position)
-	{
-		BadObject left = leftRef.Dereference();
-
-		if (left.HasProperty(BadStaticKeys.PostDecrementOperatorName))
-		{
-			foreach (BadObject o in ExecuteOperatorOverride(left,
-				         context,
-				         BadStaticKeys.PostDecrementOperatorName,
-				         position))
-			{
-				yield return o;
-			}
-		}
-		else
-		{
-			yield return Decrement(leftRef, position);
-		}
-	}
-	
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject left = BadObject.Null;
-
-		foreach (BadObject o in Left.Execute(context))
-		{
-			left = o;
-
-			yield return o;
-		}
-
-		if (left is not BadObjectReference leftRef)
-		{
-			throw new BadRuntimeException("Left side of -- must be a reference", Position);
-		}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
+        {
+            yield return expression;
+        }
+    }
 
 
-		foreach (BadObject o in DecrementWithOverride(context, leftRef, Position))
-		{
-			yield return o;
-		}
-	}
+    public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
+    {
+        BadObject value = reference.Dereference();
+
+        if (value is not IBadNumber leftNumber)
+        {
+            throw new BadRuntimeException("Left side of -- must be a number", position);
+        }
+
+        reference.Set(leftNumber.Value - 1);
+
+        return value;
+    }
+
+    public static IEnumerable<BadObject> DecrementWithOverride(
+        BadExecutionContext context,
+        BadObjectReference leftRef,
+        BadSourcePosition position)
+    {
+        BadObject left = leftRef.Dereference();
+
+        if (left.HasProperty(BadStaticKeys.PostDecrementOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(
+                         left,
+                         context,
+                         BadStaticKeys.PostDecrementOperatorName,
+                         position
+                     ))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return Decrement(leftRef, position);
+        }
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
+
+            yield return o;
+        }
+
+        if (left is not BadObjectReference leftRef)
+        {
+            throw new BadRuntimeException("Left side of -- must be a reference", Position);
+        }
+
+
+        foreach (BadObject o in DecrementWithOverride(context, leftRef, Position))
+        {
+            yield return o;
+        }
+    }
 }
