@@ -32,8 +32,10 @@ public class BadCompiledFunction : BadFunction
 		m_ParentScope = parentScope;
 		m_Position = position;
 		MetaData = metaData ?? BadMetaData.Empty;
+		m_StringSignature = MakeSignature();
 	}
 
+	private string m_StringSignature;
 	public override BadMetaData MetaData { get; }
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -65,15 +67,19 @@ public class BadCompiledFunction : BadFunction
 		}
 	}
 
-	public override string ToString()
+	private string MakeSignature()
 	{
 		string str = base.ToString() + " at " + m_Position.GetPositionInfo() + '\n';
-
-		for (int i = 0; i < m_Instructions.Length; i++)
-		{
-			str += i + ":\t" + m_Instructions[i] + '\n';
-		}
-
-		return str;
+        
+        		for (int i = 0; i < m_Instructions.Length; i++)
+        		{
+        			str += i + ":\t" + m_Instructions[i] + '\n';
+        		}
+        
+        		return str;
+	}
+	public override string ToString()
+	{
+		return m_StringSignature;
 	}
 }

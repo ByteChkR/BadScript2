@@ -48,6 +48,7 @@ public class BadExpressionFunction : BadFunction
 		Position = position;
 		ParentScope = parentScope;
 		MetaData = metaData ?? BadMetaData.Empty;
+		m_FuncString = base.ToString() + " at " + Position.GetPositionInfo();
 	}
 
 	/// <summary>
@@ -91,8 +92,9 @@ public class BadExpressionFunction : BadFunction
 		}
 	}
 
+	private readonly string m_FuncString;
 	public override string ToString()
 	{
-		return base.ToString() + " at " + Position.GetPositionInfo();
+		return m_FuncString;
 	}
 }

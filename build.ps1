@@ -83,4 +83,5 @@ Write-Progress -Activity "BadScript2 Build" -Complete
 if ($noTests -eq $false)
 {
     . $bs test
+    Remove-Item "TestResult.xml"
 }
