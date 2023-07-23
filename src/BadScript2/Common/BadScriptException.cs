@@ -1,5 +1,8 @@
 namespace BadScript2.Common;
 
+/// <summary>
+/// The base class of all BadScript Exceptions
+/// </summary>
 public abstract class BadScriptException : Exception
 {
 	protected BadScriptException(string message) : base(message)

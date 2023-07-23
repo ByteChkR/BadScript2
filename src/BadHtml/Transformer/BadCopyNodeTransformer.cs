@@ -1,5 +1,7 @@
 using HtmlAgilityPack;
-
+///<summary>
+///	Implementations of Html Node Transformers that are used in the Transformation Process
+/// </summary>
 namespace BadHtml.Transformer;
 
 /// <summary>

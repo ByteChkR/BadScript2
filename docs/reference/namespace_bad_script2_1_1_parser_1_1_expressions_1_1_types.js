@@ -1,5 +1,7 @@
 var namespace_bad_script2_1_1_parser_1_1_expressions_1_1_types =
 [
     [ "BadClassPrototypeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_class_prototype_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_class_prototype_expression" ],
+    [ "BadInterfaceFunctionConstraint", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_function_constraint.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_function_constraint" ],
+    [ "BadInterfacePrototypeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_prototype_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_prototype_expression" ],
     [ "BadNewExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_new_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_new_expression" ]
 ];

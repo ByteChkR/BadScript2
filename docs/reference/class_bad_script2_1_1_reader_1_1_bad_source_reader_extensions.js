@@ -1,6 +1,8 @@
 var class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions =
 [
     [ "IsDigit", "class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#a01e186b307e56376b0dfdc6f3509b374", null ],
+    [ "IsKey", "class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#aed8c16976dee8025f3641e0e439041d4", null ],
+    [ "IsKey", "class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#a4de532b81794635ec97929e178c87fcf", null ],
     [ "IsNewLine", "class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#a3e31aa47fc5b204409df830e37d66b76", null ],
     [ "IsNumberStart", "class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#a9f1fbb1e9b5384d45baf0b845d8bd33e", null ],
     [ "IsStringQuote", "class_bad_script2_1_1_reader_1_1_bad_source_reader_extensions.html#ac695bb150027dfb706e19692a91d5d39", null ],

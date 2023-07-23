@@ -247,6 +247,7 @@ var annotated_dup =
               [ "Assign", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign.html", [
                 [ "BadAddAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_add_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_add_assign_expression" ],
                 [ "BadDivideAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_divide_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_divide_assign_expression" ],
+                [ "BadExponentiationAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_exponentiation_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_exponentiation_assign_expression" ],
                 [ "BadModulusAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_expression" ],
                 [ "BadMultiplyAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_expression" ],
                 [ "BadSubtractAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_subtract_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_assign_1_1_bad_subtract_assign_expression" ]
@@ -259,14 +260,17 @@ var annotated_dup =
               ] ],
               [ "BadAddExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_add_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_add_expression" ],
               [ "BadDivideExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_divide_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_divide_expression" ],
+              [ "BadExponentiationExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_exponentiation_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_exponentiation_expression" ],
               [ "BadModulusExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_modulus_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_modulus_expression" ],
               [ "BadMultiplyExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_multiply_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_multiply_expression" ],
               [ "BadSubtractExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_subtract_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_math_1_1_bad_subtract_expression" ]
             ] ],
             [ "BadAssignExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_assign_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_assign_expression" ],
             [ "BadBinaryExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_binary_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_binary_expression" ],
+            [ "BadBinaryUnpackExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_binary_unpack_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_binary_unpack_expression" ],
             [ "BadInExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression" ],
-            [ "BadRangeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_range_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_range_expression" ]
+            [ "BadRangeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_range_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_range_expression" ],
+            [ "BadUnaryUnpackExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_unary_unpack_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_unary_unpack_expression" ]
           ] ],
           [ "Block", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_block.html", [
             [ "Lock", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_lock.html", [
@@ -303,6 +307,8 @@ var annotated_dup =
           ] ],
           [ "Types", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_types.html", [
             [ "BadClassPrototypeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_class_prototype_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_class_prototype_expression" ],
+            [ "BadInterfaceFunctionConstraint", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_function_constraint.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_function_constraint" ],
+            [ "BadInterfacePrototypeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_prototype_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_prototype_expression" ],
             [ "BadNewExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_new_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_new_expression" ]
           ] ],
           [ "Variables", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_variables.html", [
@@ -310,7 +316,10 @@ var annotated_dup =
             [ "BadVariableDefinitionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression" ],
             [ "BadVariableExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_expression" ]
           ] ],
-          [ "BadExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression" ]
+          [ "BadDeleteExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_delete_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_delete_expression" ],
+          [ "BadExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression" ],
+          [ "BadInstanceOfExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_instance_of_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_instance_of_expression" ],
+          [ "BadTypeOfExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_type_of_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_type_of_expression" ]
         ] ],
         [ "Operators", "namespace_bad_script2_1_1_parser_1_1_operators.html", [
           [ "Binary", "namespace_bad_script2_1_1_parser_1_1_operators_1_1_binary.html", [
@@ -337,6 +346,7 @@ var annotated_dup =
               [ "Assign", "namespace_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign.html", [
                 [ "BadAddAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_add_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_add_assign_operator" ],
                 [ "BadDivideAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_divide_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_divide_assign_operator" ],
+                [ "BadExponentiationAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_exponentiation_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_exponentiation_assign_operator" ],
                 [ "BadModulusAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_modulus_assign_operator" ],
                 [ "BadMultiplyAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_multiply_assign_operator" ],
                 [ "BadSubtractAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_subtract_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_assign_1_1_bad_subtract_assign_operator" ]
@@ -349,22 +359,28 @@ var annotated_dup =
               ] ],
               [ "BadAddOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_add_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_add_operator" ],
               [ "BadDivideOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_divide_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_divide_operator" ],
+              [ "BadExponentiationOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_exponentiation_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_exponentiation_operator" ],
               [ "BadModulusOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_modulus_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_modulus_operator" ],
               [ "BadMultiplyOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_multiply_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_multiply_operator" ],
               [ "BadSubtractOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_subtract_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_bad_subtract_operator" ]
             ] ],
             [ "BadAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_assign_operator" ],
+            [ "BadBinaryUnpackOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_binary_unpack_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_binary_unpack_operator" ],
             [ "BadInOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_in_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_in_operator" ],
             [ "BadMemberAccessOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_member_access_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_member_access_operator" ],
             [ "BadNullCheckedMemberAccessOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_checked_member_access_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_checked_member_access_operator" ],
             [ "BadNullCoalescingAssignOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_coalescing_assign_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_coalescing_assign_operator" ],
             [ "BadNullCoalescingOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_coalescing_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_null_coalescing_operator" ],
             [ "BadRangeOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_range_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_range_operator" ],
-            [ "BadTernaryOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_ternary_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_ternary_operator" ]
+            [ "BadTernaryOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_ternary_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_ternary_operator" ],
+            [ "BadUnaryUnpackOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_unary_unpack_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_unary_unpack_operator" ]
           ] ],
           [ "BadBinaryOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator" ],
+          [ "BadDeleteExpressionParser", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_delete_expression_parser.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_delete_expression_parser" ],
+          [ "BadInstanceOfExpressionOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_instance_of_expression_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_instance_of_expression_operator" ],
           [ "BadOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator" ],
           [ "BadOperatorTable", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator_table.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator_table" ],
+          [ "BadTypeOfExpressionParser", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_type_of_expression_parser.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_type_of_expression_parser" ],
           [ "BadUnaryPrefixOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_unary_prefix_operator.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_unary_prefix_operator" ],
           [ "BadValueParser", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_value_parser.html", "class_bad_script2_1_1_parser_1_1_operators_1_1_bad_value_parser" ]
         ] ],
@@ -450,6 +466,10 @@ var annotated_dup =
             [ "BadClass", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class" ],
             [ "BadClassPrototype", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype" ],
             [ "BadExpressionClassPrototype", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_expression_class_prototype.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_expression_class_prototype" ],
+            [ "BadInterfaceConstraint", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_constraint.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_constraint" ],
+            [ "BadInterfacePrototype", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype" ],
+            [ "BadInterfaceTools", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_tools.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_tools" ],
+            [ "BadInterfaceValidatorError", "struct_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_validator_error.html", "struct_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_validator_error" ],
             [ "BadNativeClassBuilder", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder" ],
             [ "BadNativeClassHelper", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_helper.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_helper" ],
             [ "BadNativeClassPrototype", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_prototype.html", "class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_prototype" ]
@@ -512,12 +532,14 @@ var annotated_dup =
                   ] ],
                   [ "BadAddExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina2849bc23c82b1104f2c1c43a974315be.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina2849bc23c82b1104f2c1c43a974315be" ],
                   [ "BadDivideExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina1a38569faa1bdc870a96b927fe075904.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina1a38569faa1bdc870a96b927fe075904" ],
+                  [ "BadExponentiationExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binac3859771de794a2940b0f504d67dcfd1.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binac3859771de794a2940b0f504d67dcfd1" ],
                   [ "BadModulusExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaa1a9543674fa3bedbd5ca234ac750dd3.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaa1a9543674fa3bedbd5ca234ac750dd3" ],
                   [ "BadMultiplyExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaf75be5f2522cbd67cd3bbc95c15d5de5.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaf75be5f2522cbd67cd3bbc95c15d5de5" ],
                   [ "BadSubtractExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina61401c45f7b559c315592c9428f6efae.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina61401c45f7b559c315592c9428f6efae" ]
                 ] ],
                 [ "BadAssignExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina044bd603711fb91763983be1c6d3ed92.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina044bd603711fb91763983be1c6d3ed92" ],
                 [ "BadBinaryExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86" ],
+                [ "BadInExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaaa34478adead250269cddcdaba96a08a.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binaaa34478adead250269cddcdaba96a08a" ],
                 [ "BadRangeExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina5fd63210826c64ef76edcf245e5db36d.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina5fd63210826c64ef76edcf245e5db36d" ]
               ] ],
               [ "Block", "namespace_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_block.html", [
@@ -554,7 +576,10 @@ var annotated_dup =
                 [ "BadVariableDefinitionExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_vari812f8bfa8d695c93c83e0c92e16aa496.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_vari812f8bfa8d695c93c83e0c92e16aa496" ],
                 [ "BadVariableExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_varic34961cc820320643f541b78bac18584.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_varic34961cc820320643f541b78bac18584" ]
               ] ],
+              [ "BadDeleteExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_delete_expression_compiler.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_delete_expression_compiler" ],
               [ "BadExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_expression_compiler.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_expression_compiler" ],
+              [ "BadInstanceOfExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_instance_of_expression_compiler.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_instance_of_expression_compiler" ],
+              [ "BadTypeOfExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_type_of_expression_compiler.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_type_of_expression_compiler" ],
               [ "IBadExpressionCompiler", "interface_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_i_bad_expression_compiler.html", "interface_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_i_bad_expression_compiler" ]
             ] ],
             [ "BadCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler" ],

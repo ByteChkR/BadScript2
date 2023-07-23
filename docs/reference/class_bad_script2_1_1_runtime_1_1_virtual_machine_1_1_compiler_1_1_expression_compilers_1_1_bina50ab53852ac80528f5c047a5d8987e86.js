@@ -1,5 +1,8 @@
 var class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86 =
 [
     [ "Compile", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#ad5c07138ba8d740d22b11f9c38173779", null ],
-    [ "CompileBinary", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a5b1848ac60982839fdb69dc8d769c1df", null ]
+    [ "CompileBinary", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a5b1848ac60982839fdb69dc8d769c1df", null ],
+    [ "EmitLeft", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a44f242fd48e4459ea2184f6737212592", null ],
+    [ "EmitRight", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#ad93cd01b7ec999500c5fd38e8d1fce7f", null ],
+    [ "IsLeftAssociative", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a13bf81d981a7886083f6f8be16c833e8", null ]
 ];

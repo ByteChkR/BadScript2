@@ -1,0 +1,4 @@
+var _bad_interface_prototype_expression_8cs =
+[
+    [ "BadScript2.Parser.Expressions.Types.BadInterfacePrototypeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_prototype_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_types_1_1_bad_interface_prototype_expression" ]
+];

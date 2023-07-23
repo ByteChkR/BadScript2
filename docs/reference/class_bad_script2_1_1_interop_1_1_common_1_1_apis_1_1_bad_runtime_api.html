@@ -210,6 +210,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a4f54569796a2c719dacd48c997931561"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f54569796a2c719dacd48c997931561">EvaluateAsync</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> caller, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> str, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> fileObj, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> optimizeExpr, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> scope, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> setLastAsReturn)</td></tr>
 <tr class="memdesc:a4f54569796a2c719dacd48c997931561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a string.  <br /></td></tr>
 <tr class="separator:a4f54569796a2c719dacd48c997931561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c678ace7290202a09cfd4a9c5191a9a"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a2c678ace7290202a09cfd4a9c5191a9a">SafeExecute</a> (IEnumerable&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; script, <a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx)</td></tr>
+<tr class="separator:a2c678ace7290202a09cfd4a9c5191a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -226,7 +228,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements the "Runtime" API. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00021">21</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00024">24</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad633a69cf66bca27d9e792628a5c29e6" name="ad633a69cf66bca27d9e792628a5c29e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad633a69cf66bca27d9e792628a5c29e6">&#9670;&#160;</a></span>BadRuntimeApi()</h2>
@@ -245,8 +247,8 @@ Private Attributes</h2></td></tr>
 
 <p>Constructs a new Runtime API Instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00031">31</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span>: base(<span class="stringliteral">&quot;Runtime&quot;</span>) { }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00034">34</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>: base(<span class="stringliteral">&quot;Runtime&quot;</span>) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -322,47 +324,47 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00308">308</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  314</span>    {</div>
-<div class="line"><span class="lineno">  315</span>        <span class="keywordflow">if</span> (str is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> src)</div>
-<div class="line"><span class="lineno">  316</span>        {</div>
-<div class="line"><span class="lineno">  317</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;src&#39; is not a string {str}&quot;</span>);</div>
-<div class="line"><span class="lineno">  318</span>        }</div>
-<div class="line"><span class="lineno">  319</span> </div>
-<div class="line"><span class="lineno">  320</span>        <span class="keywordflow">if</span> (optimizeExpr is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> optimizeE)</div>
-<div class="line"><span class="lineno">  321</span>        {</div>
-<div class="line"><span class="lineno">  322</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;optimize&#39; is not a boolean {optimizeExpr}&quot;</span>);</div>
-<div class="line"><span class="lineno">  323</span>        }</div>
-<div class="line"><span class="lineno">  324</span> </div>
-<div class="line"><span class="lineno">  325</span>        <span class="keywordtype">string</span> file = <span class="stringliteral">&quot;&lt;eval&gt;&quot;</span>;</div>
-<div class="line"><span class="lineno">  326</span> </div>
-<div class="line"><span class="lineno">  327</span>        <span class="keywordflow">if</span> (fileObj is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> fileStr)</div>
-<div class="line"><span class="lineno">  328</span>        {</div>
-<div class="line"><span class="lineno">  329</span>            file = fileStr.Value;</div>
-<div class="line"><span class="lineno">  330</span>        }</div>
-<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fileObj != <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  332</span>        {</div>
-<div class="line"><span class="lineno">  333</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Evaluate: Argument &#39;fileObj&#39; is not a string&quot;</span>);</div>
-<div class="line"><span class="lineno">  334</span>        }</div>
-<div class="line"><span class="lineno">  335</span> </div>
-<div class="line"><span class="lineno">  336</span> </div>
-<div class="line"><span class="lineno">  337</span>        <span class="keywordtype">bool</span> optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization &amp;&amp; optimizeE.Value;</div>
-<div class="line"><span class="lineno">  338</span> </div>
-<div class="line"><span class="lineno">  339</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx =</div>
-<div class="line"><span class="lineno">  340</span>            scope == BadObject.Null || scope is not <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html">BadScope</a> sc ?</div>
-<div class="line"><span class="lineno">  341</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0608d996af81ae77833908b179646774">GetRootScope</a>()</div>
-<div class="line"><span class="lineno">  342</span>                    .<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a09a1700ff688a855d00167771fa7b53f">CreateChild</a>(<span class="stringliteral">&quot;&lt;EvaluateAsync&gt;&quot;</span>, caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>, <span class="keyword">null</span>)) :</div>
-<div class="line"><span class="lineno">  343</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(sc);</div>
-<div class="line"><span class="lineno">  344</span> </div>
-<div class="line"><span class="lineno">  345</span>        IEnumerable&lt;BadExpression&gt; exprs = <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html">BadSourceParser</a>.<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a35cbd92aca569bb75da234489c20a03b">Create</a>(file, src.Value).<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ae135a21ef787bb9e11710811235d56a6">Parse</a>();</div>
-<div class="line"><span class="lineno">  346</span> </div>
-<div class="line"><span class="lineno">  347</span>        <span class="keywordflow">if</span> (optimize)</div>
-<div class="line"><span class="lineno">  348</span>        {</div>
-<div class="line"><span class="lineno">  349</span>            exprs = <a class="code hl_class" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html">BadExpressionOptimizer</a>.<a class="code hl_function" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html#aa3e9ee8d9bc4adf494d1c0ddb6466cb7">Optimize</a>(exprs);</div>
-<div class="line"><span class="lineno">  350</span>        }</div>
-<div class="line"><span class="lineno">  351</span> </div>
-<div class="line"><span class="lineno">  352</span>        <span class="keywordflow">return</span> ctx.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#ad17590c75a832b09ad28d71806263f25">Run</a>(exprs) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">  353</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00329">329</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  335</span>    {</div>
+<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span> (str is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> src)</div>
+<div class="line"><span class="lineno">  337</span>        {</div>
+<div class="line"><span class="lineno">  338</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;src&#39; is not a string {str}&quot;</span>);</div>
+<div class="line"><span class="lineno">  339</span>        }</div>
+<div class="line"><span class="lineno">  340</span> </div>
+<div class="line"><span class="lineno">  341</span>        <span class="keywordflow">if</span> (optimizeExpr is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> optimizeE)</div>
+<div class="line"><span class="lineno">  342</span>        {</div>
+<div class="line"><span class="lineno">  343</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;optimize&#39; is not a boolean {optimizeExpr}&quot;</span>);</div>
+<div class="line"><span class="lineno">  344</span>        }</div>
+<div class="line"><span class="lineno">  345</span> </div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordtype">string</span> file = <span class="stringliteral">&quot;&lt;eval&gt;&quot;</span>;</div>
+<div class="line"><span class="lineno">  347</span> </div>
+<div class="line"><span class="lineno">  348</span>        <span class="keywordflow">if</span> (fileObj is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> fileStr)</div>
+<div class="line"><span class="lineno">  349</span>        {</div>
+<div class="line"><span class="lineno">  350</span>            file = fileStr.Value;</div>
+<div class="line"><span class="lineno">  351</span>        }</div>
+<div class="line"><span class="lineno">  352</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fileObj != <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  353</span>        {</div>
+<div class="line"><span class="lineno">  354</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Evaluate: Argument &#39;fileObj&#39; is not a string&quot;</span>);</div>
+<div class="line"><span class="lineno">  355</span>        }</div>
+<div class="line"><span class="lineno">  356</span> </div>
+<div class="line"><span class="lineno">  357</span> </div>
+<div class="line"><span class="lineno">  358</span>        <span class="keywordtype">bool</span> optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization &amp;&amp; optimizeE.Value;</div>
+<div class="line"><span class="lineno">  359</span> </div>
+<div class="line"><span class="lineno">  360</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx =</div>
+<div class="line"><span class="lineno">  361</span>            scope == BadObject.Null || scope is not <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html">BadScope</a> sc ?</div>
+<div class="line"><span class="lineno">  362</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0608d996af81ae77833908b179646774">GetRootScope</a>()</div>
+<div class="line"><span class="lineno">  363</span>                    .<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a09a1700ff688a855d00167771fa7b53f">CreateChild</a>(<span class="stringliteral">&quot;&lt;EvaluateAsync&gt;&quot;</span>, caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>, <span class="keyword">null</span>)) :</div>
+<div class="line"><span class="lineno">  364</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(sc);</div>
+<div class="line"><span class="lineno">  365</span> </div>
+<div class="line"><span class="lineno">  366</span>        IEnumerable&lt;BadExpression&gt; exprs = <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html">BadSourceParser</a>.<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a35cbd92aca569bb75da234489c20a03b">Create</a>(file, src.Value).<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ae135a21ef787bb9e11710811235d56a6">Parse</a>();</div>
+<div class="line"><span class="lineno">  367</span> </div>
+<div class="line"><span class="lineno">  368</span>        <span class="keywordflow">if</span> (optimize)</div>
+<div class="line"><span class="lineno">  369</span>        {</div>
+<div class="line"><span class="lineno">  370</span>            exprs = <a class="code hl_class" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html">BadExpressionOptimizer</a>.<a class="code hl_function" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html#aa3e9ee8d9bc4adf494d1c0ddb6466cb7">Optimize</a>(exprs);</div>
+<div class="line"><span class="lineno">  371</span>        }</div>
+<div class="line"><span class="lineno">  372</span> </div>
+<div class="line"><span class="lineno">  373</span>        <span class="keywordflow">return</span> ctx.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#ad17590c75a832b09ad28d71806263f25">Run</a>(exprs) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">  374</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer_html"><div class="ttname"><a href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html">BadScript2.Optimizations.BadExpressionOptimizer</a></div><div class="ttdoc">Implements a simple constant folding optimization.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_optimizer_8cs_source.html#l00011">BadExpressionOptimizer.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer_html_aa3e9ee8d9bc4adf494d1c0ddb6466cb7"><div class="ttname"><a href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html#aa3e9ee8d9bc4adf494d1c0ddb6466cb7">BadScript2.Optimizations.BadExpressionOptimizer.Optimize</a></div><div class="ttdeci">static BadExpression Optimize(BadExpression expr)</div><div class="ttdoc">Optimizes the given expression.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_optimizer_8cs_source.html#l00018">BadExpressionOptimizer.cs:18</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_bad_source_parser_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html">BadScript2.Parser.BadSourceParser</a></div><div class="ttdoc">The Parser of the Language. It turns Source Code into an Expression Tree.</div><div class="ttdef"><b>Definition</b> <a href="_bad_source_parser_8cs_source.html#l00029">BadSourceParser.cs:30</a></div></div>
@@ -460,54 +462,56 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00366">366</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  373</span>    {</div>
-<div class="line"><span class="lineno">  374</span>        <span class="keywordflow">if</span> (str is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> src)</div>
-<div class="line"><span class="lineno">  375</span>        {</div>
-<div class="line"><span class="lineno">  376</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;src&#39; is not a string {str}&quot;</span>);</div>
-<div class="line"><span class="lineno">  377</span>        }</div>
-<div class="line"><span class="lineno">  378</span> </div>
-<div class="line"><span class="lineno">  379</span>        <span class="keywordflow">if</span> (optimizeExpr is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> optimizeE)</div>
-<div class="line"><span class="lineno">  380</span>        {</div>
-<div class="line"><span class="lineno">  381</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;optimize&#39; is not a boolean {optimizeExpr}&quot;</span>);</div>
-<div class="line"><span class="lineno">  382</span>        }</div>
-<div class="line"><span class="lineno">  383</span> </div>
-<div class="line"><span class="lineno">  384</span>        <span class="keywordtype">string</span> file = <span class="stringliteral">&quot;&lt;eval&gt;&quot;</span>;</div>
-<div class="line"><span class="lineno">  385</span> </div>
-<div class="line"><span class="lineno">  386</span>        <span class="keywordflow">if</span> (fileObj is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> fileStr)</div>
-<div class="line"><span class="lineno">  387</span>        {</div>
-<div class="line"><span class="lineno">  388</span>            file = fileStr.Value;</div>
-<div class="line"><span class="lineno">  389</span>        }</div>
-<div class="line"><span class="lineno">  390</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fileObj != <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  391</span>        {</div>
-<div class="line"><span class="lineno">  392</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Evaluate: Argument &#39;fileObj&#39; is not a string&quot;</span>);</div>
-<div class="line"><span class="lineno">  393</span>        }</div>
-<div class="line"><span class="lineno">  394</span> </div>
-<div class="line"><span class="lineno">  395</span>        <span class="keywordflow">if</span> (setLastAsReturn is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> setLastAsReturnB)</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00387">387</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  394</span>    {</div>
+<div class="line"><span class="lineno">  395</span>        <span class="keywordflow">if</span> (str is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> src)</div>
 <div class="line"><span class="lineno">  396</span>        {</div>
-<div class="line"><span class="lineno">  397</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Evaluate: Argument &#39;setLastAsReturn&#39; is not a boolean&quot;</span>);</div>
+<div class="line"><span class="lineno">  397</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;src&#39; is not a string {str}&quot;</span>);</div>
 <div class="line"><span class="lineno">  398</span>        }</div>
 <div class="line"><span class="lineno">  399</span> </div>
-<div class="line"><span class="lineno">  400</span> </div>
-<div class="line"><span class="lineno">  401</span>        <span class="keywordtype">bool</span> optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization &amp;&amp; optimizeE.Value;</div>
-<div class="line"><span class="lineno">  402</span> </div>
-<div class="line"><span class="lineno">  403</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx =</div>
-<div class="line"><span class="lineno">  404</span>            scope == BadObject.Null || scope is not <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html">BadScope</a> sc ?</div>
-<div class="line"><span class="lineno">  405</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0608d996af81ae77833908b179646774">GetRootScope</a>()</div>
-<div class="line"><span class="lineno">  406</span>                    .<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a09a1700ff688a855d00167771fa7b53f">CreateChild</a>(<span class="stringliteral">&quot;&lt;EvaluateAsync&gt;&quot;</span>, caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>, <span class="keyword">null</span>)) :</div>
-<div class="line"><span class="lineno">  407</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(sc);</div>
-<div class="line"><span class="lineno">  408</span> </div>
-<div class="line"><span class="lineno">  409</span>        IEnumerable&lt;BadExpression&gt; exprs = <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html">BadSourceParser</a>.<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a35cbd92aca569bb75da234489c20a03b">Create</a>(file, src.Value).<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ae135a21ef787bb9e11710811235d56a6">Parse</a>();</div>
-<div class="line"><span class="lineno">  410</span> </div>
-<div class="line"><span class="lineno">  411</span>        <span class="keywordflow">if</span> (optimize)</div>
+<div class="line"><span class="lineno">  400</span>        <span class="keywordflow">if</span> (optimizeExpr is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> optimizeE)</div>
+<div class="line"><span class="lineno">  401</span>        {</div>
+<div class="line"><span class="lineno">  402</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>($<span class="stringliteral">&quot;Evaluate: Argument &#39;optimize&#39; is not a boolean {optimizeExpr}&quot;</span>);</div>
+<div class="line"><span class="lineno">  403</span>        }</div>
+<div class="line"><span class="lineno">  404</span> </div>
+<div class="line"><span class="lineno">  405</span>        <span class="keywordtype">string</span> file = <span class="stringliteral">&quot;&lt;eval&gt;&quot;</span>;</div>
+<div class="line"><span class="lineno">  406</span> </div>
+<div class="line"><span class="lineno">  407</span>        <span class="keywordflow">if</span> (fileObj is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a> fileStr)</div>
+<div class="line"><span class="lineno">  408</span>        {</div>
+<div class="line"><span class="lineno">  409</span>            file = fileStr.Value;</div>
+<div class="line"><span class="lineno">  410</span>        }</div>
+<div class="line"><span class="lineno">  411</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fileObj != <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
 <div class="line"><span class="lineno">  412</span>        {</div>
-<div class="line"><span class="lineno">  413</span>            exprs = <a class="code hl_class" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html">BadExpressionOptimizer</a>.<a class="code hl_function" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html#aa3e9ee8d9bc4adf494d1c0ddb6466cb7">Optimize</a>(exprs);</div>
+<div class="line"><span class="lineno">  413</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Evaluate: Argument &#39;fileObj&#39; is not a string&quot;</span>);</div>
 <div class="line"><span class="lineno">  414</span>        }</div>
 <div class="line"><span class="lineno">  415</span> </div>
-<div class="line"><span class="lineno">  416</span> </div>
-<div class="line"><span class="lineno">  417</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html">BadTask</a>(<span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_interop_runnable.html">BadInteropRunnable</a>(ctx.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a3450c466ab8f2d426c29b0595ff3530e">Execute</a>(exprs).GetEnumerator(), setLastAsReturnB.Value),</div>
-<div class="line"><span class="lineno">  418</span>            <span class="stringliteral">&quot;EvaluateAsync&quot;</span>);</div>
-<div class="line"><span class="lineno">  419</span>    }</div>
+<div class="line"><span class="lineno">  416</span>        <span class="keywordflow">if</span> (setLastAsReturn is not <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a> setLastAsReturnB)</div>
+<div class="line"><span class="lineno">  417</span>        {</div>
+<div class="line"><span class="lineno">  418</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Evaluate: Argument &#39;setLastAsReturn&#39; is not a boolean&quot;</span>);</div>
+<div class="line"><span class="lineno">  419</span>        }</div>
+<div class="line"><span class="lineno">  420</span> </div>
+<div class="line"><span class="lineno">  421</span> </div>
+<div class="line"><span class="lineno">  422</span>        <span class="keywordtype">bool</span> optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization &amp;&amp; optimizeE.Value;</div>
+<div class="line"><span class="lineno">  423</span> </div>
+<div class="line"><span class="lineno">  424</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> ctx =</div>
+<div class="line"><span class="lineno">  425</span>            scope == BadObject.Null || scope is not <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html">BadScope</a> sc ?</div>
+<div class="line"><span class="lineno">  426</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0608d996af81ae77833908b179646774">GetRootScope</a>()</div>
+<div class="line"><span class="lineno">  427</span>                    .<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a09a1700ff688a855d00167771fa7b53f">CreateChild</a>(<span class="stringliteral">&quot;&lt;EvaluateAsync&gt;&quot;</span>, caller.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>, <span class="keyword">null</span>)) :</div>
+<div class="line"><span class="lineno">  428</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>(sc);</div>
+<div class="line"><span class="lineno">  429</span> </div>
+<div class="line"><span class="lineno">  430</span>        IEnumerable&lt;BadExpression&gt; exprs = <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html">BadSourceParser</a>.<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#a35cbd92aca569bb75da234489c20a03b">Create</a>(file, src.Value).<a class="code hl_function" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html#ae135a21ef787bb9e11710811235d56a6">Parse</a>();</div>
+<div class="line"><span class="lineno">  431</span> </div>
+<div class="line"><span class="lineno">  432</span>        <span class="keywordflow">if</span> (optimize)</div>
+<div class="line"><span class="lineno">  433</span>        {</div>
+<div class="line"><span class="lineno">  434</span>            exprs = <a class="code hl_class" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html">BadExpressionOptimizer</a>.<a class="code hl_function" href="class_bad_script2_1_1_optimizations_1_1_bad_expression_optimizer.html#aa3e9ee8d9bc4adf494d1c0ddb6466cb7">Optimize</a>(exprs);</div>
+<div class="line"><span class="lineno">  435</span>        }</div>
+<div class="line"><span class="lineno">  436</span> </div>
+<div class="line"><span class="lineno">  437</span> </div>
+<div class="line"><span class="lineno">  438</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html">BadTask</a>(</div>
+<div class="line"><span class="lineno">  439</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_interop_runnable.html">BadInteropRunnable</a>(<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a2c678ace7290202a09cfd4a9c5191a9a">SafeExecute</a>(ctx.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a3450c466ab8f2d426c29b0595ff3530e">Execute</a>(exprs), ctx).GetEnumerator(), setLastAsReturnB.Value),</div>
+<div class="line"><span class="lineno">  440</span>            <span class="stringliteral">&quot;EvaluateAsync&quot;</span>);</div>
+<div class="line"><span class="lineno">  441</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a2c678ace7290202a09cfd4a9c5191a9a"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a2c678ace7290202a09cfd4a9c5191a9a">BadScript2.Interop.Common.Apis.BadRuntimeApi.SafeExecute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; SafeExecute(IEnumerable&lt; BadObject &gt; script, BadExecutionContext ctx)</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00443">BadRuntimeApi.cs:443</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_interop_runnable_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_interop_runnable.html">BadScript2.Interop.Common.Task.BadInteropRunnable</a></div><div class="ttdoc">Implements a Runnable that can return a value.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_runnable_8cs_source.html#l00008">BadInteropRunnable.cs:9</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task.html">BadScript2.Interop.Common.Task.BadTask</a></div><div class="ttdoc">Implements a Task Object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_task_8cs_source.html#l00016">BadTask.cs:17</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html_a3450c466ab8f2d426c29b0595ff3530e"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a3450c466ab8f2d426c29b0595ff3530e">BadScript2.Runtime.BadExecutionContext.Execute</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Execute(IEnumerable&lt; BadExpression &gt; expressions)</div><div class="ttdoc">Executes an enumeration of expressions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_8cs_source.html#l00074">BadExecutionContext.cs:74</a></div></div>
@@ -557,11 +561,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00272">272</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  273</span>    {</div>
-<div class="line"><span class="lineno">  274</span>        <a class="code hl_variable" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">m_Exports</a>.Add(name, obj);</div>
-<div class="line"><span class="lineno">  275</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a206c13f3b2efa0131027efe1d25809bc"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">BadScript2.Interop.Common.Apis.BadRuntimeApi.m_Exports</a></div><div class="ttdeci">readonly Dictionary&lt; string, BadObject &gt; m_Exports</div><div class="ttdoc">The Exported Objects.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00026">BadRuntimeApi.cs:26</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00293">293</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  294</span>    {</div>
+<div class="line"><span class="lineno">  295</span>        <a class="code hl_variable" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">m_Exports</a>.Add(name, obj);</div>
+<div class="line"><span class="lineno">  296</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a206c13f3b2efa0131027efe1d25809bc"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">BadScript2.Interop.Common.Apis.BadRuntimeApi.m_Exports</a></div><div class="ttdeci">readonly Dictionary&lt; string, BadObject &gt; m_Exports</div><div class="ttdoc">The Exported Objects.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00029">BadRuntimeApi.cs:29</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -591,13 +595,13 @@ Private Attributes</h2></td></tr>
 <p>Returns the arguments passed to the script. </p>
 <dl class="section return"><dt>Returns</dt><dd>Array of Arguments</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00260">260</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  261</span>    {</div>
-<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba">StartupArguments</a> == <span class="keyword">null</span> ?</div>
-<div class="line"><span class="lineno">  263</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>() :</div>
-<div class="line"><span class="lineno">  264</span>            new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_property" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba">StartupArguments</a>.Select(x =&gt; (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>)x).ToList());</div>
-<div class="line"><span class="lineno">  265</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a84f488f432ecf8f7c6e15dd14573c1ba"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba">BadScript2.Interop.Common.Apis.BadRuntimeApi.StartupArguments</a></div><div class="ttdeci">static ? IEnumerable&lt; string &gt; StartupArguments</div><div class="ttdoc">The Startup Arguments that were passed to the Runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00036">BadRuntimeApi.cs:36</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00281">281</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  282</span>    {</div>
+<div class="line"><span class="lineno">  283</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba">StartupArguments</a> == <span class="keyword">null</span> ?</div>
+<div class="line"><span class="lineno">  284</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>() :</div>
+<div class="line"><span class="lineno">  285</span>            new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_property" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba">StartupArguments</a>.Select(x =&gt; (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>)x).ToList());</div>
+<div class="line"><span class="lineno">  286</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a84f488f432ecf8f7c6e15dd14573c1ba"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba">BadScript2.Interop.Common.Apis.BadRuntimeApi.StartupArguments</a></div><div class="ttdeci">static ? IEnumerable&lt; string &gt; StartupArguments</div><div class="ttdoc">The Startup Arguments that were passed to the Runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00039">BadRuntimeApi.cs:39</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadScript2.Runtime.Objects.BadArray</a></div><div class="ttdoc">Implements a Dynamic List/Array for the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_array_8cs_source.html#l00012">BadArray.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -635,10 +639,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Array of Extension Names</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00242">242</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  243</span>    {</div>
-<div class="line"><span class="lineno">  244</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a149441f7a50d34b533468d7e4cdf06b7">GetExtensionNames</a>(o).ToList());</div>
-<div class="line"><span class="lineno">  245</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00263">263</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  264</span>    {</div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a149441f7a50d34b533468d7e4cdf06b7">GetExtensionNames</a>(o).ToList());</div>
+<div class="line"><span class="lineno">  266</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadScript2.Runtime.Interop.BadInteropExtension</a></div><div class="ttdoc">Public Extension API for the BS2 Runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_extension_8cs_source.html#l00011">BadInteropExtension.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension_html_a149441f7a50d34b533468d7e4cdf06b7"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a149441f7a50d34b533468d7e4cdf06b7">BadScript2.Runtime.Interop.BadInteropExtension.GetExtensionNames</a></div><div class="ttdeci">static BadObject[] GetExtensionNames()</div><div class="ttdoc">Returns all Global Extension names.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_extension_8cs_source.html#l00040">BadInteropExtension.cs:40</a></div></div>
 </div><!-- fragment -->
@@ -670,10 +674,10 @@ Private Attributes</h2></td></tr>
 <p>Lists all global extension names. </p>
 <dl class="section return"><dt>Returns</dt><dd>Array of Extension Names</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00251">251</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  252</span>    {</div>
-<div class="line"><span class="lineno">  253</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a149441f7a50d34b533468d7e4cdf06b7">GetExtensionNames</a>().ToList());</div>
-<div class="line"><span class="lineno">  254</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00272">272</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  273</span>    {</div>
+<div class="line"><span class="lineno">  274</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a149441f7a50d34b533468d7e4cdf06b7">GetExtensionNames</a>().ToList());</div>
+<div class="line"><span class="lineno">  275</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -703,22 +707,22 @@ Private Attributes</h2></td></tr>
 <p>Returns the Current Time. </p>
 <dl class="section return"><dt>Returns</dt><dd>Bad Table with the Current Time</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00220">220</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  221</span>    {</div>
-<div class="line"><span class="lineno">  222</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>();</div>
-<div class="line"><span class="lineno">  223</span>        DateTime time = DateTime.Now;</div>
-<div class="line"><span class="lineno">  224</span>        table.SetProperty(<span class="stringliteral">&quot;Year&quot;</span>, time.Year);</div>
-<div class="line"><span class="lineno">  225</span>        table.SetProperty(<span class="stringliteral">&quot;Month&quot;</span>, time.Month);</div>
-<div class="line"><span class="lineno">  226</span>        table.SetProperty(<span class="stringliteral">&quot;Day&quot;</span>, time.Day);</div>
-<div class="line"><span class="lineno">  227</span>        table.SetProperty(<span class="stringliteral">&quot;Hour&quot;</span>, time.Hour);</div>
-<div class="line"><span class="lineno">  228</span>        table.SetProperty(<span class="stringliteral">&quot;Minute&quot;</span>, time.Minute);</div>
-<div class="line"><span class="lineno">  229</span>        table.SetProperty(<span class="stringliteral">&quot;Second&quot;</span>, time.Second);</div>
-<div class="line"><span class="lineno">  230</span>        table.SetProperty(<span class="stringliteral">&quot;Millisecond&quot;</span>, time.Millisecond);</div>
-<div class="line"><span class="lineno">  231</span>        table.SetProperty(<span class="stringliteral">&quot;UnixTimeMilliseconds&quot;</span>, ((DateTimeOffset)time).ToUnixTimeMilliseconds());</div>
-<div class="line"><span class="lineno">  232</span>        table.SetProperty(<span class="stringliteral">&quot;UnixTimeSeconds&quot;</span>, ((DateTimeOffset)time).ToUnixTimeSeconds());</div>
-<div class="line"><span class="lineno">  233</span> </div>
-<div class="line"><span class="lineno">  234</span>        <span class="keywordflow">return</span> table;</div>
-<div class="line"><span class="lineno">  235</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00241">241</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  242</span>    {</div>
+<div class="line"><span class="lineno">  243</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>();</div>
+<div class="line"><span class="lineno">  244</span>        DateTime time = DateTime.Now;</div>
+<div class="line"><span class="lineno">  245</span>        table.SetProperty(<span class="stringliteral">&quot;Year&quot;</span>, time.Year);</div>
+<div class="line"><span class="lineno">  246</span>        table.SetProperty(<span class="stringliteral">&quot;Month&quot;</span>, time.Month);</div>
+<div class="line"><span class="lineno">  247</span>        table.SetProperty(<span class="stringliteral">&quot;Day&quot;</span>, time.Day);</div>
+<div class="line"><span class="lineno">  248</span>        table.SetProperty(<span class="stringliteral">&quot;Hour&quot;</span>, time.Hour);</div>
+<div class="line"><span class="lineno">  249</span>        table.SetProperty(<span class="stringliteral">&quot;Minute&quot;</span>, time.Minute);</div>
+<div class="line"><span class="lineno">  250</span>        table.SetProperty(<span class="stringliteral">&quot;Second&quot;</span>, time.Second);</div>
+<div class="line"><span class="lineno">  251</span>        table.SetProperty(<span class="stringliteral">&quot;Millisecond&quot;</span>, time.Millisecond);</div>
+<div class="line"><span class="lineno">  252</span>        table.SetProperty(<span class="stringliteral">&quot;UnixTimeMilliseconds&quot;</span>, ((DateTimeOffset)time).ToUnixTimeMilliseconds());</div>
+<div class="line"><span class="lineno">  253</span>        table.SetProperty(<span class="stringliteral">&quot;UnixTimeSeconds&quot;</span>, ((DateTimeOffset)time).ToUnixTimeSeconds());</div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">return</span> table;</div>
+<div class="line"><span class="lineno">  256</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadScript2.Runtime.Objects.BadTable</a></div><div class="ttdoc">Implements a Table Structure for the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_table_8cs_source.html#l00013">BadTable.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -756,10 +760,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if package exists</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00282">282</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  283</span>    {</div>
-<div class="line"><span class="lineno">  284</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">m_Exports</a>.ContainsKey(name);</div>
-<div class="line"><span class="lineno">  285</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00303">303</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  304</span>    {</div>
+<div class="line"><span class="lineno">  305</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">m_Exports</a>.ContainsKey(name);</div>
+<div class="line"><span class="lineno">  306</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -796,10 +800,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Package</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00292">292</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  293</span>    {</div>
-<div class="line"><span class="lineno">  294</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">m_Exports</a>[name];</div>
-<div class="line"><span class="lineno">  295</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00313">313</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  314</span>    {</div>
+<div class="line"><span class="lineno">  315</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc">m_Exports</a>[name];</div>
+<div class="line"><span class="lineno">  316</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -837,56 +841,74 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_api.html#a2097b05ccc2ed65b86edbe4a2d1c8073">BadScript2.Runtime.Interop.BadInteropApi</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00174">174</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  175</span>    {</div>
-<div class="line"><span class="lineno">  176</span>        target.SetProperty(<span class="stringliteral">&quot;Evaluate&quot;</span>,</div>
-<div class="line"><span class="lineno">  177</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Evaluate&quot;</span>,</div>
-<div class="line"><span class="lineno">  178</span>                (ctx, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab6a3daeb8663a7bc049b0e7dd94079e9">Evaluate</a>(ctx,</div>
-<div class="line"><span class="lineno">  179</span>                    args[0],</div>
-<div class="line"><span class="lineno">  180</span>                    args.Length &lt; 2 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a> : args[1],</div>
-<div class="line"><span class="lineno">  181</span>                    args.Length &lt; 3 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.True : args[2],</div>
-<div class="line"><span class="lineno">  182</span>                    args.Length &lt; 4 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_enumvalue" href="namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13abbb93ef26e3c101ff11cdd21cab08a94">Null</a> : args[3]),</div>
-<div class="line"><span class="lineno">  183</span>                <span class="stringliteral">&quot;src&quot;</span>,</div>
-<div class="line"><span class="lineno">  184</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;file&quot;</span>, true, false, false),</div>
-<div class="line"><span class="lineno">  185</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;optimize&quot;</span>, true, false, false),</div>
-<div class="line"><span class="lineno">  186</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;scope&quot;</span>, true, false, false)));</div>
-<div class="line"><span class="lineno">  187</span>        target.SetProperty(<span class="stringliteral">&quot;EvaluateAsync&quot;</span>,</div>
-<div class="line"><span class="lineno">  188</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;EvaluateAsync&quot;</span>,</div>
-<div class="line"><span class="lineno">  189</span>                (ctx, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f54569796a2c719dacd48c997931561">EvaluateAsync</a>(ctx,</div>
-<div class="line"><span class="lineno">  190</span>                    args[0],</div>
-<div class="line"><span class="lineno">  191</span>                    args.Length &lt; 2 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a> : args[1],</div>
-<div class="line"><span class="lineno">  192</span>                    args.Length &lt; 3 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.True : args[2],</div>
-<div class="line"><span class="lineno">  193</span>                    args.Length &lt; 4 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_enumvalue" href="namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13abbb93ef26e3c101ff11cdd21cab08a94">Null</a> : args[3],</div>
-<div class="line"><span class="lineno">  194</span>                    args.Length &lt; 5 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.False : args[4]),</div>
-<div class="line"><span class="lineno">  195</span>                <span class="stringliteral">&quot;src&quot;</span>,</div>
-<div class="line"><span class="lineno">  196</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;file&quot;</span>, true, false, false),</div>
-<div class="line"><span class="lineno">  197</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;optimize&quot;</span>, true, false, false),</div>
-<div class="line"><span class="lineno">  198</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;scope&quot;</span>, true, false, false),</div>
-<div class="line"><span class="lineno">  199</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;setLastAsReturn&quot;</span>, true, false, false)));</div>
-<div class="line"><span class="lineno">  200</span>        target.SetFunction(<span class="stringliteral">&quot;CreateDefaultScope&quot;</span>,</div>
-<div class="line"><span class="lineno">  201</span>            ctx =&gt; ctx.Scope.GetRootScope().CreateChild(<span class="stringliteral">&quot;&lt;customscope&gt;&quot;</span>, ctx.Scope, <span class="keyword">null</span>));</div>
-<div class="line"><span class="lineno">  202</span>        target.SetFunction(<span class="stringliteral">&quot;GetStackTrace&quot;</span>, ctx =&gt; ctx.Scope.GetStackTrace());</div>
-<div class="line"><span class="lineno">  203</span>        target.SetProperty(<span class="stringliteral">&quot;Native&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#af213be5399f84b748c4f549cc5f7f442">MakeNative</a>());</div>
-<div class="line"><span class="lineno">  204</span>        target.SetFunction&lt;string, <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;Export&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a486d6166847bbf06ed67ef3a14d5d5a4">Export</a>);</div>
-<div class="line"><span class="lineno">  205</span>        target.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;Import&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab29b4f30db65409732ae04da86859cce">Import</a>);</div>
-<div class="line"><span class="lineno">  206</span>        target.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;HasPackage&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a67b183f1f2ac91161231168377e6c603">HasPackage</a>);</div>
-<div class="line"><span class="lineno">  207</span>        target.SetFunction(<span class="stringliteral">&quot;GetArguments&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a69c33f34e9ddf22fce49cded90903159">GetArguments</a>);</div>
-<div class="line"><span class="lineno">  208</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;GetExtensionNames&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a860b28a78912dbf164101cfe8a49fc24">GetExtensionNames</a>);</div>
-<div class="line"><span class="lineno">  209</span>        target.SetFunction(<span class="stringliteral">&quot;GetGlobalExtensionNames&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a06bc93235925e52c76720e6dd56199bf">GetGlobalExtensionNames</a>);</div>
-<div class="line"><span class="lineno">  210</span>        target.SetFunction(<span class="stringliteral">&quot;GetTimeNow&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#afe0bd4958ec7a4377a03c8fcdf4d0b3b">GetTimeNow</a>);</div>
-<div class="line"><span class="lineno">  211</span>        target.SetFunction(<span class="stringliteral">&quot;GetNativeTypes&quot;</span>,</div>
-<div class="line"><span class="lineno">  212</span>            _ =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html">BadNativeClassBuilder</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html#ac05cab41b24901fa9abbf6c38c7e0ced">NativeTypes</a>.Cast&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;().ToList()));</div>
-<div class="line"><span class="lineno">  213</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a06bc93235925e52c76720e6dd56199bf"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a06bc93235925e52c76720e6dd56199bf">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetGlobalExtensionNames</a></div><div class="ttdeci">BadObject GetGlobalExtensionNames()</div><div class="ttdoc">Lists all global extension names.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00251">BadRuntimeApi.cs:251</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a486d6166847bbf06ed67ef3a14d5d5a4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a486d6166847bbf06ed67ef3a14d5d5a4">BadScript2.Interop.Common.Apis.BadRuntimeApi.Export</a></div><div class="ttdeci">void Export(string name, BadObject obj)</div><div class="ttdoc">Exports a package.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00272">BadRuntimeApi.cs:272</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a4f54569796a2c719dacd48c997931561"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f54569796a2c719dacd48c997931561">BadScript2.Interop.Common.Apis.BadRuntimeApi.EvaluateAsync</a></div><div class="ttdeci">BadObject EvaluateAsync(BadExecutionContext caller, BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope, BadObject setLastAsReturn)</div><div class="ttdoc">Evaluates a string.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00366">BadRuntimeApi.cs:366</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a67b183f1f2ac91161231168377e6c603"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a67b183f1f2ac91161231168377e6c603">BadScript2.Interop.Common.Apis.BadRuntimeApi.HasPackage</a></div><div class="ttdeci">BadObject HasPackage(string name)</div><div class="ttdoc">Returns true if the given package is exported.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00282">BadRuntimeApi.cs:282</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a69c33f34e9ddf22fce49cded90903159"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a69c33f34e9ddf22fce49cded90903159">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetArguments</a></div><div class="ttdeci">BadObject GetArguments()</div><div class="ttdoc">Returns the arguments passed to the script.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00260">BadRuntimeApi.cs:260</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a860b28a78912dbf164101cfe8a49fc24"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a860b28a78912dbf164101cfe8a49fc24">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetExtensionNames</a></div><div class="ttdeci">BadObject GetExtensionNames(BadObject o)</div><div class="ttdoc">Returns all Extension Names of the given object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00242">BadRuntimeApi.cs:242</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ab29b4f30db65409732ae04da86859cce"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab29b4f30db65409732ae04da86859cce">BadScript2.Interop.Common.Apis.BadRuntimeApi.Import</a></div><div class="ttdeci">BadObject Import(string name)</div><div class="ttdoc">Imports a package.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00292">BadRuntimeApi.cs:292</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ab6a3daeb8663a7bc049b0e7dd94079e9"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab6a3daeb8663a7bc049b0e7dd94079e9">BadScript2.Interop.Common.Apis.BadRuntimeApi.Evaluate</a></div><div class="ttdeci">BadObject Evaluate(BadExecutionContext caller, BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope)</div><div class="ttdoc">DONT USE THIS! USE THE ASYNC VERSION! Evaluates a string.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00308">BadRuntimeApi.cs:308</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_af213be5399f84b748c4f549cc5f7f442"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#af213be5399f84b748c4f549cc5f7f442">BadScript2.Interop.Common.Apis.BadRuntimeApi.MakeNative</a></div><div class="ttdeci">BadTable MakeNative()</div><div class="ttdoc">Creates the &quot;Native&quot; Table.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00042">BadRuntimeApi.cs:42</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_afe0bd4958ec7a4377a03c8fcdf4d0b3b"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#afe0bd4958ec7a4377a03c8fcdf4d0b3b">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetTimeNow</a></div><div class="ttdeci">static BadObject GetTimeNow()</div><div class="ttdoc">Returns the Current Time.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00220">BadRuntimeApi.cs:220</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00177">177</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  178</span>    {</div>
+<div class="line"><span class="lineno">  179</span>        target.SetProperty(<span class="stringliteral">&quot;Evaluate&quot;</span>,</div>
+<div class="line"><span class="lineno">  180</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Evaluate&quot;</span>,</div>
+<div class="line"><span class="lineno">  181</span>                (ctx, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab6a3daeb8663a7bc049b0e7dd94079e9">Evaluate</a>(ctx,</div>
+<div class="line"><span class="lineno">  182</span>                    args[0],</div>
+<div class="line"><span class="lineno">  183</span>                    args.Length &lt; 2 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a> : args[1],</div>
+<div class="line"><span class="lineno">  184</span>                    args.Length &lt; 3 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.True : args[2],</div>
+<div class="line"><span class="lineno">  185</span>                    args.Length &lt; 4 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_enumvalue" href="namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13abbb93ef26e3c101ff11cdd21cab08a94">Null</a> : args[3]),</div>
+<div class="line"><span class="lineno">  186</span>                false,</div>
+<div class="line"><span class="lineno">  187</span>                <span class="stringliteral">&quot;src&quot;</span>,</div>
+<div class="line"><span class="lineno">  188</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;file&quot;</span>, true, false, false),</div>
+<div class="line"><span class="lineno">  189</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;optimize&quot;</span>, true, false, false),</div>
+<div class="line"><span class="lineno">  190</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;scope&quot;</span>, true, false, false)));</div>
+<div class="line"><span class="lineno">  191</span>        target.SetProperty(<span class="stringliteral">&quot;EvaluateAsync&quot;</span>,</div>
+<div class="line"><span class="lineno">  192</span>            <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;EvaluateAsync&quot;</span>,</div>
+<div class="line"><span class="lineno">  193</span>                (ctx, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f54569796a2c719dacd48c997931561">EvaluateAsync</a>(ctx,</div>
+<div class="line"><span class="lineno">  194</span>                    args[0],</div>
+<div class="line"><span class="lineno">  195</span>                    args.Length &lt; 2 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a> : args[1],</div>
+<div class="line"><span class="lineno">  196</span>                    args.Length &lt; 3 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.True : args[2],</div>
+<div class="line"><span class="lineno">  197</span>                    args.Length &lt; 4 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_enumvalue" href="namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13abbb93ef26e3c101ff11cdd21cab08a94">Null</a> : args[3],</div>
+<div class="line"><span class="lineno">  198</span>                    args.Length &lt; 5 ? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.False : args[4]),</div>
+<div class="line"><span class="lineno">  199</span>                false,</div>
+<div class="line"><span class="lineno">  200</span>                <span class="stringliteral">&quot;src&quot;</span>,</div>
+<div class="line"><span class="lineno">  201</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;file&quot;</span>, true, false, false),</div>
+<div class="line"><span class="lineno">  202</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;optimize&quot;</span>, true, false, false),</div>
+<div class="line"><span class="lineno">  203</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;scope&quot;</span>, true, false, false),</div>
+<div class="line"><span class="lineno">  204</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;setLastAsReturn&quot;</span>, true, false, false)));</div>
+<div class="line"><span class="lineno">  205</span>        target.SetFunction(<span class="stringliteral">&quot;CreateDefaultScope&quot;</span>,</div>
+<div class="line"><span class="lineno">  206</span>            ctx =&gt; ctx.Scope.GetRootScope().CreateChild(<span class="stringliteral">&quot;&lt;customscope&gt;&quot;</span>, ctx.Scope, <span class="keyword">null</span>));</div>
+<div class="line"><span class="lineno">  207</span>        target.SetFunction(<span class="stringliteral">&quot;GetStackTrace&quot;</span>, ctx =&gt; ctx.Scope.GetStackTrace());</div>
+<div class="line"><span class="lineno">  208</span>        target.SetProperty(<span class="stringliteral">&quot;Native&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#af213be5399f84b748c4f549cc5f7f442">MakeNative</a>());</div>
+<div class="line"><span class="lineno">  209</span>        target.SetFunction&lt;string, <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;Export&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a486d6166847bbf06ed67ef3a14d5d5a4">Export</a>);</div>
+<div class="line"><span class="lineno">  210</span>        target.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;Import&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab29b4f30db65409732ae04da86859cce">Import</a>);</div>
+<div class="line"><span class="lineno">  211</span>        target.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;HasPackage&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a67b183f1f2ac91161231168377e6c603">HasPackage</a>);</div>
+<div class="line"><span class="lineno">  212</span>        target.SetFunction(<span class="stringliteral">&quot;GetArguments&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a69c33f34e9ddf22fce49cded90903159">GetArguments</a>);</div>
+<div class="line"><span class="lineno">  213</span>        target.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;GetExtensionNames&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a860b28a78912dbf164101cfe8a49fc24">GetExtensionNames</a>);</div>
+<div class="line"><span class="lineno">  214</span>        target.SetFunction(<span class="stringliteral">&quot;GetGlobalExtensionNames&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a06bc93235925e52c76720e6dd56199bf">GetGlobalExtensionNames</a>);</div>
+<div class="line"><span class="lineno">  215</span>        target.SetFunction(<span class="stringliteral">&quot;GetTimeNow&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#afe0bd4958ec7a4377a03c8fcdf4d0b3b">GetTimeNow</a>);</div>
+<div class="line"><span class="lineno">  216</span>        target.SetFunction(<span class="stringliteral">&quot;GetNativeTypes&quot;</span>,</div>
+<div class="line"><span class="lineno">  217</span>            _ =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html">BadNativeClassBuilder</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html#ac05cab41b24901fa9abbf6c38c7e0ced">NativeTypes</a>.Cast&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;().ToList()));</div>
+<div class="line"><span class="lineno">  218</span>        target.SetFunction(<span class="stringliteral">&quot;GetRuntimeAssemblyPath&quot;</span>,</div>
+<div class="line"><span class="lineno">  219</span>            () =&gt;</div>
+<div class="line"><span class="lineno">  220</span>            {</div>
+<div class="line"><span class="lineno">  221</span>                <span class="keywordtype">string</span> path;</div>
+<div class="line"><span class="lineno">  222</span> </div>
+<div class="line"><span class="lineno">  223</span>                <span class="keywordflow">if</span> (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))</div>
+<div class="line"><span class="lineno">  224</span>                {</div>
+<div class="line"><span class="lineno">  225</span>                    path = Path.ChangeExtension(Assembly.GetEntryAssembly().Location, <span class="stringliteral">&quot;exe&quot;</span>);</div>
+<div class="line"><span class="lineno">  226</span>                }</div>
+<div class="line"><span class="lineno">  227</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  228</span>                {</div>
+<div class="line"><span class="lineno">  229</span>                    path = Path.ChangeExtension(Assembly.GetEntryAssembly().Location, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><span class="lineno">  230</span>                }</div>
+<div class="line"><span class="lineno">  231</span> </div>
+<div class="line"><span class="lineno">  232</span>                <span class="keywordflow">return</span> path;</div>
+<div class="line"><span class="lineno">  233</span>            });</div>
+<div class="line"><span class="lineno">  234</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a06bc93235925e52c76720e6dd56199bf"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a06bc93235925e52c76720e6dd56199bf">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetGlobalExtensionNames</a></div><div class="ttdeci">BadObject GetGlobalExtensionNames()</div><div class="ttdoc">Lists all global extension names.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00272">BadRuntimeApi.cs:272</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a486d6166847bbf06ed67ef3a14d5d5a4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a486d6166847bbf06ed67ef3a14d5d5a4">BadScript2.Interop.Common.Apis.BadRuntimeApi.Export</a></div><div class="ttdeci">void Export(string name, BadObject obj)</div><div class="ttdoc">Exports a package.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00293">BadRuntimeApi.cs:293</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a4f54569796a2c719dacd48c997931561"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f54569796a2c719dacd48c997931561">BadScript2.Interop.Common.Apis.BadRuntimeApi.EvaluateAsync</a></div><div class="ttdeci">BadObject EvaluateAsync(BadExecutionContext caller, BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope, BadObject setLastAsReturn)</div><div class="ttdoc">Evaluates a string.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00387">BadRuntimeApi.cs:387</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a67b183f1f2ac91161231168377e6c603"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a67b183f1f2ac91161231168377e6c603">BadScript2.Interop.Common.Apis.BadRuntimeApi.HasPackage</a></div><div class="ttdeci">BadObject HasPackage(string name)</div><div class="ttdoc">Returns true if the given package is exported.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00303">BadRuntimeApi.cs:303</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a69c33f34e9ddf22fce49cded90903159"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a69c33f34e9ddf22fce49cded90903159">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetArguments</a></div><div class="ttdeci">BadObject GetArguments()</div><div class="ttdoc">Returns the arguments passed to the script.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00281">BadRuntimeApi.cs:281</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a860b28a78912dbf164101cfe8a49fc24"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a860b28a78912dbf164101cfe8a49fc24">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetExtensionNames</a></div><div class="ttdeci">BadObject GetExtensionNames(BadObject o)</div><div class="ttdoc">Returns all Extension Names of the given object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00263">BadRuntimeApi.cs:263</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ab29b4f30db65409732ae04da86859cce"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab29b4f30db65409732ae04da86859cce">BadScript2.Interop.Common.Apis.BadRuntimeApi.Import</a></div><div class="ttdeci">BadObject Import(string name)</div><div class="ttdoc">Imports a package.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00313">BadRuntimeApi.cs:313</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ab6a3daeb8663a7bc049b0e7dd94079e9"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab6a3daeb8663a7bc049b0e7dd94079e9">BadScript2.Interop.Common.Apis.BadRuntimeApi.Evaluate</a></div><div class="ttdeci">BadObject Evaluate(BadExecutionContext caller, BadObject str, BadObject fileObj, BadObject optimizeExpr, BadObject scope)</div><div class="ttdoc">DONT USE THIS! USE THE ASYNC VERSION! Evaluates a string.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00329">BadRuntimeApi.cs:329</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_af213be5399f84b748c4f549cc5f7f442"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#af213be5399f84b748c4f549cc5f7f442">BadScript2.Interop.Common.Apis.BadRuntimeApi.MakeNative</a></div><div class="ttdeci">BadTable MakeNative()</div><div class="ttdoc">Creates the &quot;Native&quot; Table.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00045">BadRuntimeApi.cs:45</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_afe0bd4958ec7a4377a03c8fcdf4d0b3b"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#afe0bd4958ec7a4377a03c8fcdf4d0b3b">BadScript2.Interop.Common.Apis.BadRuntimeApi.GetTimeNow</a></div><div class="ttdeci">static BadObject GetTimeNow()</div><div class="ttdoc">Returns the Current Time.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00241">BadRuntimeApi.cs:241</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadScript2.Runtime.Interop.Functions.BadInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_function_8cs_source.html#l00007">BadInteropFunction.cs:8</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadScript2.Runtime.Objects.Functions.BadFunctionParameter</a></div><div class="ttdoc">Provides function parameter info.</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_parameter_8cs_source.html#l00010">BadFunctionParameter.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html">BadScript2.Runtime.Objects.Types.BadNativeClassBuilder</a></div><div class="ttdoc">Helper Class that Builds a Native Class from a Prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_native_class_builder_8cs_source.html#l00013">BadNativeClassBuilder.cs:14</a></div></div>
@@ -921,36 +943,36 @@ Private Attributes</h2></td></tr>
 <p>Creates the "Native" Table. </p>
 <dl class="section return"><dt>Returns</dt><dd>Bad Table</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00042">42</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
-<div class="line"><span class="lineno">   44</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>();</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>        table.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;ParseNumber&quot;</span>, s =&gt; decimal.Parse(s));</div>
-<div class="line"><span class="lineno">   47</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsNative&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab1cf0cbee809cef4b26cb7424afad7d3">Native_IsNative</a>);</div>
-<div class="line"><span class="lineno">   48</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsFunction&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae44ff35977dba1619c534e05ea79f9b5">Native_IsFunction</a>);</div>
-<div class="line"><span class="lineno">   49</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsTable&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae2fa25e9467aa8f6b18bcc6f0aea8b3f">Native_IsTable</a>);</div>
-<div class="line"><span class="lineno">   50</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsString&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#aa633d4fa2210ae22df03e275258ff965">Native_IsString</a>);</div>
-<div class="line"><span class="lineno">   51</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsNumber&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a10787ab535e4593b5605974487b1ac24">Native_IsNumber</a>);</div>
-<div class="line"><span class="lineno">   52</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsBoolean&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7447a7d81bec24b955b1a59de2db7fd4">Native_IsBoolean</a>);</div>
-<div class="line"><span class="lineno">   53</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsArray&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a5b69f54b29973dca4abfca41b9c8767e">Native_IsArray</a>);</div>
-<div class="line"><span class="lineno">   54</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsEnumerable&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7091e062dd7e016f86bb6014802e81b4">Native_IsEnumerable</a>);</div>
-<div class="line"><span class="lineno">   55</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsEnumerator&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a455b38a32446f8f1277bf24b45a22f2b">Native_IsEnumerator</a>);</div>
-<div class="line"><span class="lineno">   56</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsPrototype&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a48a8d45fcd5a734507774ee9b727d0f2">Native_IsPrototype</a>);</div>
-<div class="line"><span class="lineno">   57</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsPrototypeInstance&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f26953f8c3899bb000178d409fb5774">Native_IsPrototypeInstance</a>);</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> table;</div>
-<div class="line"><span class="lineno">   60</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a10787ab535e4593b5605974487b1ac24"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a10787ab535e4593b5605974487b1ac24">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsNumber</a></div><div class="ttdeci">BadObject Native_IsNumber(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a number.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00128">BadRuntimeApi.cs:128</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a455b38a32446f8f1277bf24b45a22f2b"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a455b38a32446f8f1277bf24b45a22f2b">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsEnumerator</a></div><div class="ttdeci">BadObject Native_IsEnumerator(BadObject arg)</div><div class="ttdoc">Returns true if the given object is an enumerator.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00168">BadRuntimeApi.cs:168</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a48a8d45fcd5a734507774ee9b727d0f2"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a48a8d45fcd5a734507774ee9b727d0f2">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsPrototype</a></div><div class="ttdeci">BadObject Native_IsPrototype(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a class prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00078">BadRuntimeApi.cs:78</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a4f26953f8c3899bb000178d409fb5774"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f26953f8c3899bb000178d409fb5774">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsPrototypeInstance</a></div><div class="ttdeci">BadObject Native_IsPrototypeInstance(BadObject arg)</div><div class="ttdoc">Returns true if the given object is an instance of a class prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00068">BadRuntimeApi.cs:68</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a5b69f54b29973dca4abfca41b9c8767e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a5b69f54b29973dca4abfca41b9c8767e">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsArray</a></div><div class="ttdeci">BadObject Native_IsArray(BadObject arg)</div><div class="ttdoc">Returns true if the given object is an array.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00148">BadRuntimeApi.cs:148</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a7091e062dd7e016f86bb6014802e81b4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7091e062dd7e016f86bb6014802e81b4">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsEnumerable</a></div><div class="ttdeci">BadObject Native_IsEnumerable(BadObject arg)</div><div class="ttdoc">Returns true if the given object is enumerable.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00158">BadRuntimeApi.cs:158</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a7447a7d81bec24b955b1a59de2db7fd4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7447a7d81bec24b955b1a59de2db7fd4">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsBoolean</a></div><div class="ttdeci">BadObject Native_IsBoolean(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a boolean.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00138">BadRuntimeApi.cs:138</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_aa633d4fa2210ae22df03e275258ff965"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#aa633d4fa2210ae22df03e275258ff965">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsString</a></div><div class="ttdeci">BadObject Native_IsString(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a string.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00118">BadRuntimeApi.cs:118</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ab1cf0cbee809cef4b26cb7424afad7d3"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab1cf0cbee809cef4b26cb7424afad7d3">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsNative</a></div><div class="ttdeci">BadObject Native_IsNative(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a native object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00088">BadRuntimeApi.cs:88</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ae2fa25e9467aa8f6b18bcc6f0aea8b3f"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae2fa25e9467aa8f6b18bcc6f0aea8b3f">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsTable</a></div><div class="ttdeci">BadObject Native_IsTable(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a table.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00108">BadRuntimeApi.cs:108</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ae44ff35977dba1619c534e05ea79f9b5"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae44ff35977dba1619c534e05ea79f9b5">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsFunction</a></div><div class="ttdeci">BadObject Native_IsFunction(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00098">BadRuntimeApi.cs:98</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00045">45</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>    {</div>
+<div class="line"><span class="lineno">   47</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a> table = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>();</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        table.SetFunction&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;ParseNumber&quot;</span>, s =&gt; decimal.Parse(s));</div>
+<div class="line"><span class="lineno">   50</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsNative&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab1cf0cbee809cef4b26cb7424afad7d3">Native_IsNative</a>);</div>
+<div class="line"><span class="lineno">   51</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsFunction&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae44ff35977dba1619c534e05ea79f9b5">Native_IsFunction</a>);</div>
+<div class="line"><span class="lineno">   52</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsTable&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae2fa25e9467aa8f6b18bcc6f0aea8b3f">Native_IsTable</a>);</div>
+<div class="line"><span class="lineno">   53</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsString&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#aa633d4fa2210ae22df03e275258ff965">Native_IsString</a>);</div>
+<div class="line"><span class="lineno">   54</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsNumber&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a10787ab535e4593b5605974487b1ac24">Native_IsNumber</a>);</div>
+<div class="line"><span class="lineno">   55</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsBoolean&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7447a7d81bec24b955b1a59de2db7fd4">Native_IsBoolean</a>);</div>
+<div class="line"><span class="lineno">   56</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsArray&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a5b69f54b29973dca4abfca41b9c8767e">Native_IsArray</a>);</div>
+<div class="line"><span class="lineno">   57</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsEnumerable&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7091e062dd7e016f86bb6014802e81b4">Native_IsEnumerable</a>);</div>
+<div class="line"><span class="lineno">   58</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsEnumerator&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a455b38a32446f8f1277bf24b45a22f2b">Native_IsEnumerator</a>);</div>
+<div class="line"><span class="lineno">   59</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsPrototype&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a48a8d45fcd5a734507774ee9b727d0f2">Native_IsPrototype</a>);</div>
+<div class="line"><span class="lineno">   60</span>        table.SetFunction&lt;<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&gt;(<span class="stringliteral">&quot;IsPrototypeInstance&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f26953f8c3899bb000178d409fb5774">Native_IsPrototypeInstance</a>);</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> table;</div>
+<div class="line"><span class="lineno">   63</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a10787ab535e4593b5605974487b1ac24"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a10787ab535e4593b5605974487b1ac24">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsNumber</a></div><div class="ttdeci">BadObject Native_IsNumber(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a number.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00131">BadRuntimeApi.cs:131</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a455b38a32446f8f1277bf24b45a22f2b"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a455b38a32446f8f1277bf24b45a22f2b">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsEnumerator</a></div><div class="ttdeci">BadObject Native_IsEnumerator(BadObject arg)</div><div class="ttdoc">Returns true if the given object is an enumerator.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00171">BadRuntimeApi.cs:171</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a48a8d45fcd5a734507774ee9b727d0f2"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a48a8d45fcd5a734507774ee9b727d0f2">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsPrototype</a></div><div class="ttdeci">BadObject Native_IsPrototype(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a class prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00081">BadRuntimeApi.cs:81</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a4f26953f8c3899bb000178d409fb5774"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f26953f8c3899bb000178d409fb5774">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsPrototypeInstance</a></div><div class="ttdeci">BadObject Native_IsPrototypeInstance(BadObject arg)</div><div class="ttdoc">Returns true if the given object is an instance of a class prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00071">BadRuntimeApi.cs:71</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a5b69f54b29973dca4abfca41b9c8767e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a5b69f54b29973dca4abfca41b9c8767e">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsArray</a></div><div class="ttdeci">BadObject Native_IsArray(BadObject arg)</div><div class="ttdoc">Returns true if the given object is an array.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00151">BadRuntimeApi.cs:151</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a7091e062dd7e016f86bb6014802e81b4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7091e062dd7e016f86bb6014802e81b4">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsEnumerable</a></div><div class="ttdeci">BadObject Native_IsEnumerable(BadObject arg)</div><div class="ttdoc">Returns true if the given object is enumerable.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00161">BadRuntimeApi.cs:161</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_a7447a7d81bec24b955b1a59de2db7fd4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a7447a7d81bec24b955b1a59de2db7fd4">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsBoolean</a></div><div class="ttdeci">BadObject Native_IsBoolean(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a boolean.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00141">BadRuntimeApi.cs:141</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_aa633d4fa2210ae22df03e275258ff965"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#aa633d4fa2210ae22df03e275258ff965">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsString</a></div><div class="ttdeci">BadObject Native_IsString(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a string.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00121">BadRuntimeApi.cs:121</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ab1cf0cbee809cef4b26cb7424afad7d3"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ab1cf0cbee809cef4b26cb7424afad7d3">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsNative</a></div><div class="ttdeci">BadObject Native_IsNative(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a native object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00091">BadRuntimeApi.cs:91</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ae2fa25e9467aa8f6b18bcc6f0aea8b3f"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae2fa25e9467aa8f6b18bcc6f0aea8b3f">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsTable</a></div><div class="ttdeci">BadObject Native_IsTable(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a table.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00111">BadRuntimeApi.cs:111</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api_html_ae44ff35977dba1619c534e05ea79f9b5"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae44ff35977dba1619c534e05ea79f9b5">BadScript2.Interop.Common.Apis.BadRuntimeApi.Native_IsFunction</a></div><div class="ttdeci">BadObject Native_IsFunction(BadObject arg)</div><div class="ttdoc">Returns true if the given object is a function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_api_8cs_source.html#l00101">BadRuntimeApi.cs:101</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -987,10 +1009,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00148">148</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  149</span>    {</div>
-<div class="line"><span class="lineno">  150</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>;</div>
-<div class="line"><span class="lineno">  151</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00151">151</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  152</span>    {</div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>;</div>
+<div class="line"><span class="lineno">  154</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1027,10 +1049,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00138">138</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  139</span>    {</div>
-<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a>;</div>
-<div class="line"><span class="lineno">  141</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00141">141</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  142</span>    {</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_boolean.html">IBadBoolean</a>;</div>
+<div class="line"><span class="lineno">  144</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1067,11 +1089,11 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00158">158</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  159</span>    {</div>
-<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">return</span> arg.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">HasProperty</a>(<span class="stringliteral">&quot;GetEnumerator&quot;</span>);</div>
-<div class="line"><span class="lineno">  161</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_a9d8c41acbbe7784ff2f040c166ba54d4"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">BadScript2.Runtime.Objects.BadObject.HasProperty</a></div><div class="ttdeci">virtual bool HasProperty(BadObject propName)</div><div class="ttdoc">Returns true if the object contains a given property or there exists an extension for the current Ins...</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00084">BadObject.cs:84</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00161">161</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span>    {</div>
+<div class="line"><span class="lineno">  163</span>        <span class="keywordflow">return</span> arg.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">HasProperty</a>(<span class="stringliteral">&quot;GetEnumerator&quot;</span>);</div>
+<div class="line"><span class="lineno">  164</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_a9d8c41acbbe7784ff2f040c166ba54d4"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">BadScript2.Runtime.Objects.BadObject.HasProperty</a></div><div class="ttdeci">virtual bool HasProperty(BadObject propName)</div><div class="ttdoc">Returns true if the object contains a given property or there exists an extension for the current Ins...</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00089">BadObject.cs:89</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1108,10 +1130,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00168">168</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  169</span>    {</div>
-<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">return</span> arg.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">HasProperty</a>(<span class="stringliteral">&quot;GetCurrent&quot;</span>) &amp;&amp; arg.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">HasProperty</a>(<span class="stringliteral">&quot;MoveNext&quot;</span>);</div>
-<div class="line"><span class="lineno">  171</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00171">171</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  172</span>    {</div>
+<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">return</span> arg.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">HasProperty</a>(<span class="stringliteral">&quot;GetCurrent&quot;</span>) &amp;&amp; arg.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">HasProperty</a>(<span class="stringliteral">&quot;MoveNext&quot;</span>);</div>
+<div class="line"><span class="lineno">  174</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1148,10 +1170,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00098">98</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
-<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a>;</div>
-<div class="line"><span class="lineno">  101</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00101">101</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>    {</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a>;</div>
+<div class="line"><span class="lineno">  104</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadScript2.Runtime.Objects.Functions.BadFunction</a></div><div class="ttdoc">Implements a function that can be called from the script.</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_8cs_source.html#l00016">BadFunction.cs:17</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1189,10 +1211,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00088">88</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   89</span>    {</div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html">IBadNative</a>;</div>
-<div class="line"><span class="lineno">   91</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00091">91</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>    {</div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html">IBadNative</a>;</div>
+<div class="line"><span class="lineno">   94</span>    }</div>
 <div class="ttc" id="ainterface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native_html"><div class="ttname"><a href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_native.html">BadScript2.Runtime.Objects.Native.IBadNative</a></div><div class="ttdoc">Defines properties for Native Types.</div><div class="ttdef"><b>Definition</b> <a href="_i_bad_native_8cs_source.html#l00006">IBadNative.cs:7</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1230,10 +1252,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00128">128</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  129</span>    {</div>
-<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html">IBadNumber</a>;</div>
-<div class="line"><span class="lineno">  131</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00131">131</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  132</span>    {</div>
+<div class="line"><span class="lineno">  133</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html">IBadNumber</a>;</div>
+<div class="line"><span class="lineno">  134</span>    }</div>
 <div class="ttc" id="ainterface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number_html"><div class="ttname"><a href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_number.html">BadScript2.Runtime.Objects.Native.IBadNumber</a></div><div class="ttdoc">Implements the Interface for Native Numbers.</div><div class="ttdef"><b>Definition</b> <a href="_i_bad_number_8cs_source.html#l00006">IBadNumber.cs:7</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1271,10 +1293,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00078">78</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>;</div>
-<div class="line"><span class="lineno">   81</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00081">81</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   82</span>    {</div>
+<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>;</div>
+<div class="line"><span class="lineno">   84</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadScript2.Runtime.Objects.Types.BadClassPrototype</a></div><div class="ttdoc">Implements a Class Prototype for the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00009">BadClassPrototype.cs:10</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1312,10 +1334,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00068">68</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   69</span>    {</div>
-<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html">BadClass</a>;</div>
-<div class="line"><span class="lineno">   71</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00071">71</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html">BadClass</a>;</div>
+<div class="line"><span class="lineno">   74</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html">BadScript2.Runtime.Objects.Types.BadClass</a></div><div class="ttdoc">Implements a Type Instance in the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00009">BadClass.cs:10</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1353,10 +1375,10 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00118">118</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  119</span>    {</div>
-<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a>;</div>
-<div class="line"><span class="lineno">  121</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00121">121</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  122</span>    {</div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">return</span> arg is <a class="code hl_interface" href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">IBadString</a>;</div>
+<div class="line"><span class="lineno">  124</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1393,10 +1415,62 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00108">108</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  109</span>    {</div>
-<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>;</div>
-<div class="line"><span class="lineno">  111</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00111">111</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  112</span>    {</div>
+<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">return</span> arg is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>;</div>
+<div class="line"><span class="lineno">  114</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2c678ace7290202a09cfd4a9c5191a9a" name="a2c678ace7290202a09cfd4a9c5191a9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c678ace7290202a09cfd4a9c5191a9a">&#9670;&#160;</a></span>SafeExecute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IEnumerable&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; BadScript2.Interop.Common.Apis.BadRuntimeApi.SafeExecute </td>
+          <td>(</td>
+          <td class="paramtype">IEnumerable&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt;&#160;</td>
+          <td class="paramname"><em>script</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a>&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00443">443</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  444</span>    {</div>
+<div class="line"><span class="lineno">  445</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o <span class="keywordflow">in</span> script)</div>
+<div class="line"><span class="lineno">  446</span>        {</div>
+<div class="line"><span class="lineno">  447</span>            <span class="keywordflow">if</span> (ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">IsError</a>)</div>
+<div class="line"><span class="lineno">  448</span>            {</div>
+<div class="line"><span class="lineno">  449</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error_exception.html">BadRuntimeErrorException</a>(ctx.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a23cb83011dce4b97d7dceaecc6d76be6">Error</a>);</div>
+<div class="line"><span class="lineno">  450</span>            }</div>
+<div class="line"><span class="lineno">  451</span> </div>
+<div class="line"><span class="lineno">  452</span>            yield <span class="keywordflow">return</span> o;</div>
+<div class="line"><span class="lineno">  453</span>        }</div>
+<div class="line"><span class="lineno">  454</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_a0138f9b8274db24314c779fa6c9e1148"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0138f9b8274db24314c779fa6c9e1148">BadScript2.Runtime.BadScope.IsError</a></div><div class="ttdeci">bool IsError</div><div class="ttdoc">Is true if the Scope encountered an error.</div><div class="ttdef"><b>Definition</b> <a href="_bad_scope_8cs_source.html#l00113">BadScope.cs:113</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_a23cb83011dce4b97d7dceaecc6d76be6"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a23cb83011dce4b97d7dceaecc6d76be6">BadScript2.Runtime.BadScope.Error</a></div><div class="ttdeci">BadRuntimeError? Error</div><div class="ttdoc">The Runtime Error that occured in the Scope.</div><div class="ttdef"><b>Definition</b> <a href="_bad_scope_8cs_source.html#l00123">BadScope.cs:123</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_error_exception.html">BadScript2.Runtime.Error.BadRuntimeErrorException</a></div><div class="ttdoc">Gets thrown if the runtime encounters an error.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_error_exception_8cs_source.html#l00008">BadRuntimeErrorException.cs:9</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1423,7 +1497,7 @@ Private Attributes</h2></td></tr>
 
 <p>The Exported Objects. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00026">26</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00029">29</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
 
 </div>
 </div>
@@ -1450,8 +1524,8 @@ Private Attributes</h2></td></tr>
 
 <p>The Startup Arguments that were passed to the Runtime. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00036">36</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   36</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_runtime_api_8cs_source.html#l00039">39</a> of file <a class="el" href="_bad_runtime_api_8cs_source.html">BadRuntimeApi.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{ <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -427,8 +427,8 @@ Private Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">  131</span> </div>
 <div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> lns.ToArray();</div>
 <div class="line"><span class="lineno">  133</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_source_position_html_a4cad503a19117b940326cd9a4bff0dd3"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_source_position.html#a4cad503a19117b940326cd9a4bff0dd3">BadScript2.Common.BadSourcePosition.Index</a></div><div class="ttdeci">int Index</div><div class="ttdoc">The Start Index of the Position.</div><div class="ttdef"><b>Definition</b> <a href="_bad_source_position_8cs_source.html#l00062">BadSourcePosition.cs:62</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_source_position_html_a67f8312ad922c2642f5426b38814a495"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_source_position.html#a67f8312ad922c2642f5426b38814a495">BadScript2.Common.BadSourcePosition.Source</a></div><div class="ttdeci">string Source</div><div class="ttdoc">The Source Code.</div><div class="ttdef"><b>Definition</b> <a href="_bad_source_position_8cs_source.html#l00057">BadSourcePosition.cs:57</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_source_position_html_a4cad503a19117b940326cd9a4bff0dd3"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_source_position.html#a4cad503a19117b940326cd9a4bff0dd3">BadScript2.Common.BadSourcePosition.Index</a></div><div class="ttdeci">int Index</div><div class="ttdoc">The Start Index of the Position.</div><div class="ttdef"><b>Definition</b> <a href="_bad_source_position_8cs_source.html#l00064">BadSourcePosition.cs:64</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_source_position_html_a67f8312ad922c2642f5426b38814a495"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_source_position.html#a67f8312ad922c2642f5426b38814a495">BadScript2.Common.BadSourcePosition.Source</a></div><div class="ttdeci">string Source</div><div class="ttdoc">The Source Code.</div><div class="ttdef"><b>Definition</b> <a href="_bad_source_position_8cs_source.html#l00059">BadSourcePosition.cs:59</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -490,7 +490,7 @@ Private Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   79</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; lines.Length; i++)</div>
 <div class="line"><span class="lineno">   80</span>        {</div>
 <div class="line"><span class="lineno">   81</span>            <span class="keywordtype">int</span> ln = topInSource + i;</div>
-<div class="line"><span class="lineno">   82</span>            <span class="keywordtype">string</span> line = lines[i].Trim();</div>
+<div class="line"><span class="lineno">   82</span>            <span class="keywordtype">string</span> line = lines[i];</div>
 <div class="line"><span class="lineno">   83</span>            sb.AppendLine($<span class="stringliteral">&quot;{(lineInSource == ln ? &quot;</span>&gt;&gt;<span class="stringliteral">&quot; : ln)}\t| {line}&quot;</span>);</div>
 <div class="line"><span class="lineno">   84</span>        }</div>
 <div class="line"><span class="lineno">   85</span> </div>

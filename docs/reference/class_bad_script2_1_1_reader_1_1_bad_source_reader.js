@@ -31,5 +31,6 @@ var class_bad_script2_1_1_reader_1_1_bad_source_reader =
     [ "CurrentChar", "class_bad_script2_1_1_reader_1_1_bad_source_reader.html#aa20c73f82ef2b1d232c8a347fb2670bb", null ],
     [ "CurrentIndex", "class_bad_script2_1_1_reader_1_1_bad_source_reader.html#a7d3d143863f96caa68733f55bc07494d", null ],
     [ "FileName", "class_bad_script2_1_1_reader_1_1_bad_source_reader.html#ac7bdfff0d8e5978882d5465e0dec79c3", null ],
+    [ "Preview", "class_bad_script2_1_1_reader_1_1_bad_source_reader.html#ad7bbd1153777182fbd4568b3fcc0f95d", null ],
     [ "Source", "class_bad_script2_1_1_reader_1_1_bad_source_reader.html#ac18bd8c264e0a209abc99b431ca06bc7", null ]
 ];

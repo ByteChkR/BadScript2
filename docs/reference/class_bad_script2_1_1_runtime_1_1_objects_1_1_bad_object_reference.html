@@ -123,6 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a84b059a698676d82d9f8df2ef824c25d"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a84b059a698676d82d9f8df2ef824c25d">Resolve</a> ()</td></tr>
 <tr class="memdesc:a84b059a698676d82d9f8df2ef824c25d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Referenced Object.  <br /></td></tr>
 <tr class="separator:a84b059a698676d82d9f8df2ef824c25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907a3ea9aaee9ea8e4373c2dee55b8d3"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a907a3ea9aaee9ea8e4373c2dee55b8d3">Delete</a> ()</td></tr>
+<tr class="memdesc:a907a3ea9aaee9ea8e4373c2dee55b8d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the Reference from the Referenced Object.  <br /></td></tr>
+<tr class="separator:a907a3ea9aaee9ea8e4373c2dee55b8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43241d5f11c0241b73b5a1b1503f5488"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a43241d5f11c0241b73b5a1b1503f5488">Set</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>? info=null)</td></tr>
 <tr class="memdesc:a43241d5f11c0241b73b5a1b1503f5488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Referenced Object to a new Value.  <br /></td></tr>
 <tr class="separator:a43241d5f11c0241b73b5a1b1503f5488"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,9 +148,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a286117f66bc34ca22ed94d8f90c74663"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html">BadObjectReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a286117f66bc34ca22ed94d8f90c74663">Make</a> (string refText, Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; getter, Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;? setter=null)</td></tr>
-<tr class="memdesc:a286117f66bc34ca22ed94d8f90c74663"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Reference Object.  <br /></td></tr>
-<tr class="separator:a286117f66bc34ca22ed94d8f90c74663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21fa4a01bbdade63cd15a0931df421b2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html">BadObjectReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a21fa4a01bbdade63cd15a0931df421b2">Make</a> (string refText, Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; getter, Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;? setter=null, Action? delete=null)</td></tr>
+<tr class="memdesc:a21fa4a01bbdade63cd15a0931df421b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Reference Object.  <br /></td></tr>
+<tr class="separator:a21fa4a01bbdade63cd15a0931df421b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></td></tr>
 <tr class="memitem:a44e2252a16f64cf24528ca6dd1828ad3 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a44e2252a16f64cf24528ca6dd1828ad3">CanWrap</a> (object? o)</td></tr>
 <tr class="separator:a44e2252a16f64cf24528ca6dd1828ad3 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,8 +181,37 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a286117f66bc34ca22ed94d8f90c74663" name="a286117f66bc34ca22ed94d8f90c74663"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a286117f66bc34ca22ed94d8f90c74663">&#9670;&#160;</a></span>Make()</h2>
+<a id="a907a3ea9aaee9ea8e4373c2dee55b8d3" name="a907a3ea9aaee9ea8e4373c2dee55b8d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907a3ea9aaee9ea8e4373c2dee55b8d3">&#9670;&#160;</a></span>Delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">abstract void BadScript2.Runtime.Objects.BadObjectReference.Delete </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deletes the Reference from the Referenced Object. </p>
+
+<p>Implemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a647d1240da85fe1f770bcb227715e105">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl</a>.</p>
+
+</div>
+</div>
+<a id="a21fa4a01bbdade63cd15a0931df421b2" name="a21fa4a01bbdade63cd15a0931df421b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21fa4a01bbdade63cd15a0931df421b2">&#9670;&#160;</a></span>Make()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +235,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;?&#160;</td>
-          <td class="paramname"><em>setter</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>setter</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action?&#160;</td>
+          <td class="paramname"><em>delete</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -224,15 +262,16 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">refText</td><td>Text used for debugging</td></tr>
     <tr><td class="paramname">getter</td><td>Getter of the Property</td></tr>
     <tr><td class="paramname">setter</td><td>(optional) Setter of the Property</td></tr>
+    <tr><td class="paramname">delete</td><td>The Delete Function of the Reference</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference Instance</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00031">31</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   35</span>    {</div>
-<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> BadObjectReferenceImpl(refText, getter, setter);</div>
-<div class="line"><span class="lineno">   37</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00037">37</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> BadObjectReferenceImpl(refText, getter, setter, <span class="keyword">delete</span>);</div>
+<div class="line"><span class="lineno">   44</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

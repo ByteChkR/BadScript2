@@ -3,8 +3,14 @@ using BadScript2.Parser.Expressions.Binary;
 
 namespace BadScript2.Parser.Operators.Binary;
 
+/// <summary>
+/// Implements the 'in' operator.
+/// </summary>
 public class BadInOperator : BadBinaryOperator
 {
+	/// <summary>
+	/// Creates a new 'in' operator
+	/// </summary>
 	public BadInOperator() : base(15, "in") { }
 
 	public override BadExpression Parse(BadExpression left, BadSourceParser parser)

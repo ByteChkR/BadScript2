@@ -113,9 +113,9 @@ Inheritance diagram for BadScript2.Runtime.Objects.BadObjectReference.BadObjectR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a11dbd008a2c634e98720a3600103101c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a11dbd008a2c634e98720a3600103101c">BadObjectReferenceImpl</a> (string refText, Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; getter, Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;? setter)</td></tr>
-<tr class="memdesc:a11dbd008a2c634e98720a3600103101c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Reference Object.  <br /></td></tr>
-<tr class="separator:a11dbd008a2c634e98720a3600103101c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ae44021b10b73531e846f0068e6d44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a55ae44021b10b73531e846f0068e6d44">BadObjectReferenceImpl</a> (string refText, Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; getter, Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;? setter, Action? delete)</td></tr>
+<tr class="memdesc:a55ae44021b10b73531e846f0068e6d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Reference Object.  <br /></td></tr>
+<tr class="separator:a55ae44021b10b73531e846f0068e6d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a094a4bb8ca0ca851d7728fa9c2d88cd6"><td class="memItemLeft" align="right" valign="top">override <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a094a4bb8ca0ca851d7728fa9c2d88cd6">GetPrototype</a> ()</td></tr>
 <tr class="memdesc:a094a4bb8ca0ca851d7728fa9c2d88cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Prototype of this Object.  <br /></td></tr>
 <tr class="separator:a094a4bb8ca0ca851d7728fa9c2d88cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,9 +128,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5ed17345e6e9a578a64dff8cc511cd6d"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5ed17345e6e9a578a64dff8cc511cd6d">ToSafeString</a> (List&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; done)</td></tr>
 <tr class="memdesc:a5ed17345e6e9a578a64dff8cc511cd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a String Representation of this Object. This function is recursion proof and supports circular references.  <br /></td></tr>
 <tr class="separator:a5ed17345e6e9a578a64dff8cc511cd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647d1240da85fe1f770bcb227715e105"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a647d1240da85fe1f770bcb227715e105">Delete</a> ()</td></tr>
+<tr class="memdesc:a647d1240da85fe1f770bcb227715e105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the Reference from the Referenced Object.  <br /></td></tr>
+<tr class="separator:a647d1240da85fe1f770bcb227715e105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84b059a698676d82d9f8df2ef824c25d"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a84b059a698676d82d9f8df2ef824c25d">Resolve</a> ()</td></tr>
 <tr class="memdesc:a84b059a698676d82d9f8df2ef824c25d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Referenced Object.  <br /></td></tr>
 <tr class="separator:a84b059a698676d82d9f8df2ef824c25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907a3ea9aaee9ea8e4373c2dee55b8d3"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a907a3ea9aaee9ea8e4373c2dee55b8d3">Delete</a> ()</td></tr>
+<tr class="memdesc:a907a3ea9aaee9ea8e4373c2dee55b8d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the Reference from the Referenced Object.  <br /></td></tr>
+<tr class="separator:a907a3ea9aaee9ea8e4373c2dee55b8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43241d5f11c0241b73b5a1b1503f5488"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a43241d5f11c0241b73b5a1b1503f5488">Set</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>? info=null)</td></tr>
 <tr class="memdesc:a43241d5f11c0241b73b5a1b1503f5488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Referenced Object to a new Value.  <br /></td></tr>
 <tr class="separator:a43241d5f11c0241b73b5a1b1503f5488"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +159,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a7f687857830b8b94726c5533e7d7b978"><td class="memItemLeft" align="right" valign="top">readonly? Action&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a7f687857830b8b94726c5533e7d7b978">m_Delete</a></td></tr>
+<tr class="memdesc:a7f687857830b8b94726c5533e7d7b978"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the Reference from the Referenced Object.  <br /></td></tr>
+<tr class="separator:a7f687857830b8b94726c5533e7d7b978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a486d879e151db7cfda453cbde852e0fc"><td class="memItemLeft" align="right" valign="top">readonly Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a></td></tr>
 <tr class="memdesc:a486d879e151db7cfda453cbde852e0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Getter of the Reference.  <br /></td></tr>
 <tr class="separator:a486d879e151db7cfda453cbde852e0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,9 +175,9 @@ Private Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html">BadScript2.Runtime.Objects.BadObjectReference</a></td></tr>
-<tr class="memitem:a286117f66bc34ca22ed94d8f90c74663 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html">BadObjectReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a286117f66bc34ca22ed94d8f90c74663">Make</a> (string refText, Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; getter, Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;? setter=null)</td></tr>
-<tr class="memdesc:a286117f66bc34ca22ed94d8f90c74663 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Reference Object.  <br /></td></tr>
-<tr class="separator:a286117f66bc34ca22ed94d8f90c74663 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21fa4a01bbdade63cd15a0931df421b2 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html">BadObjectReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a21fa4a01bbdade63cd15a0931df421b2">Make</a> (string refText, Func&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt; getter, Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;? setter=null, Action? delete=null)</td></tr>
+<tr class="memdesc:a21fa4a01bbdade63cd15a0931df421b2 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Reference Object.  <br /></td></tr>
+<tr class="separator:a21fa4a01bbdade63cd15a0931df421b2 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></td></tr>
 <tr class="memitem:a44e2252a16f64cf24528ca6dd1828ad3 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a44e2252a16f64cf24528ca6dd1828ad3">CanWrap</a> (object? o)</td></tr>
 <tr class="separator:a44e2252a16f64cf24528ca6dd1828ad3 inherit pub_static_methods_class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,10 +203,10 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements a Reference Object. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00042">42</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00049">49</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a11dbd008a2c634e98720a3600103101c" name="a11dbd008a2c634e98720a3600103101c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11dbd008a2c634e98720a3600103101c">&#9670;&#160;</a></span>BadObjectReferenceImpl()</h2>
+<a id="a55ae44021b10b73531e846f0068e6d44" name="a55ae44021b10b73531e846f0068e6d44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55ae44021b10b73531e846f0068e6d44">&#9670;&#160;</a></span>BadObjectReferenceImpl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +227,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Action&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>?&gt;?&#160;</td>
-          <td class="paramname"><em>setter</em>&#160;</td>
+          <td class="paramname"><em>setter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action?&#160;</td>
+          <td class="paramname"><em>delete</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -234,23 +249,66 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">refText</td><td>The Reference Debug Text</td></tr>
     <tr><td class="paramname">getter</td><td>Getter of the Reference</td></tr>
     <tr><td class="paramname">setter</td><td>Setter of the Reference</td></tr>
+    <tr><td class="paramname">delete</td><td>The Delete Function of the Reference</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00065">65</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   69</span>        {</div>
-<div class="line"><span class="lineno">   70</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a> = getter;</div>
-<div class="line"><span class="lineno">   71</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">m_Setter</a> = setter;</div>
-<div class="line"><span class="lineno">   72</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a> = refText;</div>
-<div class="line"><span class="lineno">   73</span>        }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_a486d879e151db7cfda453cbde852e0fc"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_Getter</a></div><div class="ttdeci">readonly Func&lt; BadObject &gt; m_Getter</div><div class="ttdoc">The Getter of the Reference.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00047">BadObjectReference.cs:47</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_a5a8c81383cb3b4e079dd70e494ae606d"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_Setter</a></div><div class="ttdeci">readonly? Action&lt; BadObject, BadPropertyInfo?&gt; m_Setter</div><div class="ttdoc">The Setter of the Reference.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00057">BadObjectReference.cs:57</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_aef3890e3609e6c002cecd017bbc24b2b"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_RefText</a></div><div class="ttdeci">readonly string m_RefText</div><div class="ttdoc">The Debug Text.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00052">BadObjectReference.cs:52</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00078">78</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   83</span>        {</div>
+<div class="line"><span class="lineno">   84</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a> = getter;</div>
+<div class="line"><span class="lineno">   85</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">m_Setter</a> = setter;</div>
+<div class="line"><span class="lineno">   86</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a7f687857830b8b94726c5533e7d7b978">m_Delete</a> = <span class="keyword">delete</span>;</div>
+<div class="line"><span class="lineno">   87</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a> = refText;</div>
+<div class="line"><span class="lineno">   88</span>        }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_a486d879e151db7cfda453cbde852e0fc"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_Getter</a></div><div class="ttdeci">readonly Func&lt; BadObject &gt; m_Getter</div><div class="ttdoc">The Getter of the Reference.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00059">BadObjectReference.cs:59</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_a5a8c81383cb3b4e079dd70e494ae606d"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_Setter</a></div><div class="ttdeci">readonly? Action&lt; BadObject, BadPropertyInfo?&gt; m_Setter</div><div class="ttdoc">The Setter of the Reference.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00069">BadObjectReference.cs:69</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_a7f687857830b8b94726c5533e7d7b978"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a7f687857830b8b94726c5533e7d7b978">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_Delete</a></div><div class="ttdeci">readonly? Action m_Delete</div><div class="ttdoc">Deletes the Reference from the Referenced Object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00054">BadObjectReference.cs:54</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl_html_aef3890e3609e6c002cecd017bbc24b2b"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_RefText</a></div><div class="ttdeci">readonly string m_RefText</div><div class="ttdoc">The Debug Text.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_reference_8cs_source.html#l00064">BadObjectReference.cs:64</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a647d1240da85fe1f770bcb227715e105" name="a647d1240da85fe1f770bcb227715e105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647d1240da85fe1f770bcb227715e105">&#9670;&#160;</a></span>Delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.Delete </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deletes the Reference from the Referenced Object. </p>
+
+<p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a907a3ea9aaee9ea8e4373c2dee55b8d3">BadScript2.Runtime.Objects.BadObjectReference</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00115">115</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  116</span>        {</div>
+<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a7f687857830b8b94726c5533e7d7b978">m_Delete</a> == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  118</span>            {</div>
+<div class="line"><span class="lineno">  119</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Cannot set delete &quot;</span> + <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a> + <span class="stringliteral">&quot; because it is read-only&quot;</span>);</div>
+<div class="line"><span class="lineno">  120</span>            }</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a7f687857830b8b94726c5533e7d7b978">m_Delete</a>.Invoke();</div>
+<div class="line"><span class="lineno">  123</span>        }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadScript2.Runtime.Error.BadRuntimeException</a></div><div class="ttdoc">Gets thrown by the runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_exception_8cs_source.html#l00009">BadRuntimeException.cs:10</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a094a4bb8ca0ca851d7728fa9c2d88cd6" name="a094a4bb8ca0ca851d7728fa9c2d88cd6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a094a4bb8ca0ca851d7728fa9c2d88cd6">&#9670;&#160;</a></span>GetPrototype()</h2>
 
@@ -279,10 +337,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ad8efab3ab71098ae5f3427f241f08632">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00075">75</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   76</span>        {</div>
-<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a>().GetPrototype();</div>
-<div class="line"><span class="lineno">   78</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00090">90</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>        {</div>
+<div class="line"><span class="lineno">   92</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a>().GetPrototype();</div>
+<div class="line"><span class="lineno">   93</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -314,10 +372,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a84b059a698676d82d9f8df2ef824c25d">BadScript2.Runtime.Objects.BadObjectReference</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00080">80</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   81</span>        {</div>
-<div class="line"><span class="lineno">   82</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a>();</div>
-<div class="line"><span class="lineno">   83</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00095">95</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>        {</div>
+<div class="line"><span class="lineno">   97</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a486d879e151db7cfda453cbde852e0fc">m_Getter</a>();</div>
+<div class="line"><span class="lineno">   98</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -366,16 +424,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference.html#a43241d5f11c0241b73b5a1b1503f5488">BadScript2.Runtime.Objects.BadObjectReference</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00085">85</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   86</span>        {</div>
-<div class="line"><span class="lineno">   87</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">m_Setter</a> == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   88</span>            {</div>
-<div class="line"><span class="lineno">   89</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Cannot set reference &quot;</span> + <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a> + <span class="stringliteral">&quot; because it is read-only&quot;</span>);</div>
-<div class="line"><span class="lineno">   90</span>            }</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">m_Setter</a>(obj, info);</div>
-<div class="line"><span class="lineno">   93</span>        }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadScript2.Runtime.Error.BadRuntimeException</a></div><div class="ttdoc">Gets thrown by the runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_exception_8cs_source.html#l00009">BadRuntimeException.cs:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00100">100</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>        {</div>
+<div class="line"><span class="lineno">  102</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">m_Setter</a> == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  103</span>            {</div>
+<div class="line"><span class="lineno">  104</span>                <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Cannot set reference &quot;</span> + <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a> + <span class="stringliteral">&quot; because it is read-only&quot;</span>);</div>
+<div class="line"><span class="lineno">  105</span>            }</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>            <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#a5a8c81383cb3b4e079dd70e494ae606d">m_Setter</a>(obj, info);</div>
+<div class="line"><span class="lineno">  108</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -414,14 +471,40 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#adc2df03faa63ea48cf7dcf2f478d7ca7">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00095">95</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   96</span>        {</div>
-<div class="line"><span class="lineno">   97</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a>;</div>
-<div class="line"><span class="lineno">   98</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00110">110</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>        {</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_reference_1_1_bad_object_reference_impl.html#aef3890e3609e6c002cecd017bbc24b2b">m_RefText</a>;</div>
+<div class="line"><span class="lineno">  113</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7f687857830b8b94726c5533e7d7b978" name="a7f687857830b8b94726c5533e7d7b978"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f687857830b8b94726c5533e7d7b978">&#9670;&#160;</a></span>m_Delete</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly? Action BadScript2.Runtime.Objects.BadObjectReference.BadObjectReferenceImpl.m_Delete</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deletes the Reference from the Referenced Object. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00054">54</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+
+</div>
+</div>
 <a id="a486d879e151db7cfda453cbde852e0fc" name="a486d879e151db7cfda453cbde852e0fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a486d879e151db7cfda453cbde852e0fc">&#9670;&#160;</a></span>m_Getter</h2>
 
@@ -444,7 +527,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The Getter of the Reference. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00047">47</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00059">59</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
 
 </div>
 </div>
@@ -470,7 +553,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The Debug Text. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00052">52</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00064">64</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
 
 </div>
 </div>
@@ -496,7 +579,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The Setter of the Reference. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00057">57</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_object_reference_8cs_source.html#l00069">69</a> of file <a class="el" href="_bad_object_reference_8cs_source.html">BadObjectReference.cs</a>.</p>
 
 </div>
 </div>

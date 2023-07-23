@@ -138,7 +138,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Copies the current node to the output and transforms the attributes This is the default transformer. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_copy_node_transformer_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_copy_node_transformer_8cs_source.html">BadCopyNodeTransformer.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_copy_node_transformer_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_copy_node_transformer_8cs_source.html">BadCopyNodeTransformer.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="afc7d65369c32cd896e614cedd75e4690" name="afc7d65369c32cd896e614cedd75e4690"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc7d65369c32cd896e614cedd75e4690">&#9670;&#160;</a></span>CanTransform()</h2>
@@ -175,10 +175,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_html_1_1_bad_html_node_transformer.html#a27261a95a1ad21139eca65f40d97e4e5">BadHtml.BadHtmlNodeTransformer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_copy_node_transformer_8cs_source.html#l00011">11</a> of file <a class="el" href="_bad_copy_node_transformer_8cs_source.html">BadCopyNodeTransformer.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   12</span>    {</div>
-<div class="line"><span class="lineno">   13</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   14</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_copy_node_transformer_8cs_source.html#l00013">13</a> of file <a class="el" href="_bad_copy_node_transformer_8cs_source.html">BadCopyNodeTransformer.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>    {</div>
+<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   16</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -216,25 +216,25 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_html_1_1_bad_html_node_transformer.html#aaff07f0bc6f32f3983040aaa2950570f">BadHtml.BadHtmlNodeTransformer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_copy_node_transformer_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_copy_node_transformer_8cs_source.html">BadCopyNodeTransformer.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   17</span>    {</div>
-<div class="line"><span class="lineno">   18</span>        <span class="comment">//Clone Node(not children)</span></div>
-<div class="line"><span class="lineno">   19</span>        HtmlNode? node = context.InputNode.CloneNode(<span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">   20</span> </div>
-<div class="line"><span class="lineno">   21</span>        <span class="comment">//Append Node to output</span></div>
-<div class="line"><span class="lineno">   22</span>        context.OutputNode.AppendChild(node);</div>
-<div class="line"><span class="lineno">   23</span> </div>
-<div class="line"><span class="lineno">   24</span>        <a class="code hl_function" href="class_bad_html_1_1_bad_html_node_transformer.html#a31bf701a9228233f2a663fc0753e668b">TransformAttributes</a>(context, node);</div>
+<p class="definition">Definition at line <a class="el" href="_bad_copy_node_transformer_8cs_source.html#l00018">18</a> of file <a class="el" href="_bad_copy_node_transformer_8cs_source.html">BadCopyNodeTransformer.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   19</span>    {</div>
+<div class="line"><span class="lineno">   20</span>        <span class="comment">//Clone Node(not children)</span></div>
+<div class="line"><span class="lineno">   21</span>        HtmlNode? node = context.InputNode.CloneNode(<span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   22</span> </div>
+<div class="line"><span class="lineno">   23</span>        <span class="comment">//Append Node to output</span></div>
+<div class="line"><span class="lineno">   24</span>        context.OutputNode.AppendChild(node);</div>
 <div class="line"><span class="lineno">   25</span> </div>
-<div class="line"><span class="lineno">   26</span>        <span class="comment">//Iterate through children</span></div>
-<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">foreach</span> (HtmlNode? child <span class="keywordflow">in</span> context.InputNode.ChildNodes)</div>
-<div class="line"><span class="lineno">   28</span>        {</div>
-<div class="line"><span class="lineno">   29</span>            BadHtmlContext childContext = context.CreateChild(child, node);</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>            <a class="code hl_function" href="class_bad_html_1_1_bad_html_node_transformer.html#ae63c02f333171ab0ef7a14fc492f2c78">Transform</a>(childContext);</div>
-<div class="line"><span class="lineno">   32</span>        }</div>
-<div class="line"><span class="lineno">   33</span>    }</div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_node_transformer_html_a31bf701a9228233f2a663fc0753e668b"><div class="ttname"><a href="class_bad_html_1_1_bad_html_node_transformer.html#a31bf701a9228233f2a663fc0753e668b">BadHtml.BadHtmlNodeTransformer.TransformAttributes</a></div><div class="ttdeci">static void TransformAttributes(BadHtmlContext context, HtmlNode outputNode)</div><div class="ttdoc">Transforms all attributes of the input node and writes it to the specified output node.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_node_transformer_8cs_source.html#l00054">BadHtmlNodeTransformer.cs:54</a></div></div>
+<div class="line"><span class="lineno">   26</span>        <a class="code hl_function" href="class_bad_html_1_1_bad_html_node_transformer.html#a31bf701a9228233f2a663fc0753e668b">TransformAttributes</a>(context, node);</div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span>        <span class="comment">//Iterate through children</span></div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">foreach</span> (HtmlNode? child <span class="keywordflow">in</span> context.InputNode.ChildNodes)</div>
+<div class="line"><span class="lineno">   30</span>        {</div>
+<div class="line"><span class="lineno">   31</span>            BadHtmlContext childContext = context.CreateChild(child, node);</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>            <a class="code hl_function" href="class_bad_html_1_1_bad_html_node_transformer.html#ae63c02f333171ab0ef7a14fc492f2c78">Transform</a>(childContext);</div>
+<div class="line"><span class="lineno">   34</span>        }</div>
+<div class="line"><span class="lineno">   35</span>    }</div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_node_transformer_html_a31bf701a9228233f2a663fc0753e668b"><div class="ttname"><a href="class_bad_html_1_1_bad_html_node_transformer.html#a31bf701a9228233f2a663fc0753e668b">BadHtml.BadHtmlNodeTransformer.TransformAttributes</a></div><div class="ttdeci">static void TransformAttributes(BadHtmlContext context, HtmlNode outputNode)</div><div class="ttdoc">Transforms all attributes of the input node and writes it to the specified output node.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_node_transformer_8cs_source.html#l00053">BadHtmlNodeTransformer.cs:53</a></div></div>
 <div class="ttc" id="aclass_bad_html_1_1_bad_html_node_transformer_html_ae63c02f333171ab0ef7a14fc492f2c78"><div class="ttname"><a href="class_bad_html_1_1_bad_html_node_transformer.html#ae63c02f333171ab0ef7a14fc492f2c78">BadHtml.BadHtmlNodeTransformer.Transform</a></div><div class="ttdeci">static void Transform(BadHtmlContext context)</div><div class="ttdoc">Transforms the input node with one of the registered transformers.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_node_transformer_8cs_source.html#l00077">BadHtmlNodeTransformer.cs:77</a></div></div>
 </div><!-- fragment -->
 </div>

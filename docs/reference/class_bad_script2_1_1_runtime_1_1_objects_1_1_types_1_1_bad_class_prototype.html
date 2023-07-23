@@ -97,6 +97,7 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_runtime_1_1_obje
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">BadScript2.Runtime.Objects.Types.BadClassPrototype Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -110,9 +111,10 @@ Inheritance diagram for BadScript2.Runtime.Objects.Types.BadClassPrototype:</div
  <div class="center">
   <img src="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.png" usemap="#BadScript2.Runtime.Objects.Types.BadClassPrototype_map" alt=""/>
   <map id="BadScript2.Runtime.Objects.Types.BadClassPrototype_map" name="BadScript2.Runtime.Objects.Types.BadClassPrototype_map">
-<area href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" alt="BadScript2.Runtime.Objects.BadObject" shape="rect" coords="452,0,894,24"/>
+<area href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html" alt="BadScript2.Runtime.Objects.BadObject" shape="rect" coords="678,0,1120,24"/>
 <area href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_a_native_class_prototype.html" title="Implements a Native Class Prototype." alt="BadScript2.Runtime.Objects.Types.BadANativeClassPrototype" shape="rect" coords="226,112,668,136"/>
 <area href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_expression_class_prototype.html" title="Implements a Class Prototype created from Bad Expressions(e.g. Source Code)" alt="BadScript2.Runtime.Objects.Types.BadExpressionClassPrototype" shape="rect" coords="678,112,1120,136"/>
+<area href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html" title="Implements a BadScript Interface Prototype." alt="BadScript2.Runtime.Objects.Types.BadInterfacePrototype" shape="rect" coords="1130,112,1572,136"/>
 <area href="class_bad_script2_1_1_runtime_1_1_interop_1_1_reflection_1_1_objects_1_1_bad_reflected_object_prototype.html" alt="BadScript2.Runtime.Interop.Reflection.Objects.BadReflectedObjectPrototype" shape="rect" coords="0,168,442,192"/>
 <area href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_prototype.html" title="Implements a Native Class Prototype." alt="BadScript2.Runtime.Objects.Types.BadNativeClassPrototype&lt; T &gt;" shape="rect" coords="452,168,894,192"/>
   </map>
@@ -128,9 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a052874e95a662e57b203294e17715dcc"><td class="memItemLeft" align="right" valign="top">abstract IEnumerable&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a052874e95a662e57b203294e17715dcc">CreateInstance</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> caller, bool setThis=true)</td></tr>
 <tr class="memdesc:a052874e95a662e57b203294e17715dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an Instance of the Class.  <br /></td></tr>
 <tr class="separator:a052874e95a662e57b203294e17715dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f4e337f25850d71006fd335864025a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af8f4e337f25850d71006fd335864025a">IsSuperClassOf</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a> proto)</td></tr>
-<tr class="memdesc:af8f4e337f25850d71006fd335864025a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Class is a Subclass of the given Class.  <br /></td></tr>
-<tr class="separator:af8f4e337f25850d71006fd335864025a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7ecc26e899fe92cdbc104346d5e1102"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#aa7ecc26e899fe92cdbc104346d5e1102">IsSuperClassOf</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a> proto)</td></tr>
+<tr class="memdesc:aa7ecc26e899fe92cdbc104346d5e1102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Class is a Subclass of the given Class.  <br /></td></tr>
+<tr class="separator:aa7ecc26e899fe92cdbc104346d5e1102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12ddfd651be8e734bf34f560b5eaa024"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a12ddfd651be8e734bf34f560b5eaa024">IsAssignableFrom</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj)</td></tr>
 <tr class="memdesc:a12ddfd651be8e734bf34f560b5eaa024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the provided object is an instance of this class or a subclass of this class.  <br /></td></tr>
 <tr class="separator:a12ddfd651be8e734bf34f560b5eaa024"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,9 +176,9 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa694628e90117d17dd284bcd9f8be2e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#aa694628e90117d17dd284bcd9f8be2e4">BadClassPrototype</a> (string name, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>? baseClass, <a class="el" href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html">BadMetaData</a>? metaData)</td></tr>
-<tr class="memdesc:aa694628e90117d17dd284bcd9f8be2e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Class Prototype.  <br /></td></tr>
-<tr class="separator:aa694628e90117d17dd284bcd9f8be2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35ee83e2894d5265ffc88c80a42f0b92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a35ee83e2894d5265ffc88c80a42f0b92">BadClassPrototype</a> (string name, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>? baseClass, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html">BadInterfacePrototype</a>[] interfaces, <a class="el" href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html">BadMetaData</a>? metaData)</td></tr>
+<tr class="memdesc:a35ee83e2894d5265ffc88c80a42f0b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Class Prototype.  <br /></td></tr>
+<tr class="separator:a35ee83e2894d5265ffc88c80a42f0b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -186,9 +188,16 @@ Protected Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a117e60498bfe539285a790a293705e45"><td class="memItemLeft" align="right" valign="top">IReadOnlyCollection&lt; <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html">BadInterfacePrototype</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a117e60498bfe539285a790a293705e45">Interfaces</a><code> [get]</code></td></tr>
+<tr class="separator:a117e60498bfe539285a790a293705e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4185eee38e2b20dae2166fc20b39d821"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">Name</a><code> [get]</code></td></tr>
 <tr class="memdesc:a4185eee38e2b20dae2166fc20b39d821"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Name of the Type.  <br /></td></tr>
 <tr class="separator:a4185eee38e2b20dae2166fc20b39d821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7877a6b239ce884ab4f76e5dab950c4d"><td class="memItemLeft" align="right" valign="top">readonly <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html">BadInterfacePrototype</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a7877a6b239ce884ab4f76e5dab950c4d">m_Interfaces</a></td></tr>
+<tr class="separator:a7877a6b239ce884ab4f76e5dab950c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -212,8 +221,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa694628e90117d17dd284bcd9f8be2e4" name="aa694628e90117d17dd284bcd9f8be2e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa694628e90117d17dd284bcd9f8be2e4">&#9670;&#160;</a></span>BadClassPrototype()</h2>
+<a id="a35ee83e2894d5265ffc88c80a42f0b92" name="a35ee83e2894d5265ffc88c80a42f0b92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35ee83e2894d5265ffc88c80a42f0b92">&#9670;&#160;</a></span>BadClassPrototype()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,6 +241,12 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>?&#160;</td>
           <td class="paramname"><em>baseClass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html">BadInterfacePrototype</a>[]&#160;</td>
+          <td class="paramname"><em>interfaces</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -261,16 +276,18 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00029">29</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   30</span>    {</div>
-<div class="line"><span class="lineno">   31</span>        <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">Name</a> = name;</div>
-<div class="line"><span class="lineno">   32</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af35b86d65171a22c761fab52da9ba4f3">BaseClass</a> = baseClass;</div>
-<div class="line"><span class="lineno">   33</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#ab708c2e09ff8bc382b2f0e563ee6e2c4">MetaData</a> = metaData ?? <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html">BadMetaData</a>.<a class="code hl_variable" href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html#aeff134905f609410557d90c335e75825">Empty</a>;</div>
-<div class="line"><span class="lineno">   34</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_bad_meta_data_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html">BadScript2.Parser.BadMetaData</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_meta_data_8cs_source.html#l00010">BadMetaData.cs:11</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_bad_meta_data_html_aeff134905f609410557d90c335e75825"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html#aeff134905f609410557d90c335e75825">BadScript2.Parser.BadMetaData.Empty</a></div><div class="ttdeci">static readonly BadMetaData Empty</div><div class="ttdef"><b>Definition</b> <a href="_bad_meta_data_8cs_source.html#l00012">BadMetaData.cs:12</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_a4185eee38e2b20dae2166fc20b39d821"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">BadScript2.Runtime.Objects.Types.BadClassPrototype.Name</a></div><div class="ttdeci">string Name</div><div class="ttdoc">The Name of the Type.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00039">BadClassPrototype.cs:39</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_ab708c2e09ff8bc382b2f0e563ee6e2c4"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#ab708c2e09ff8bc382b2f0e563ee6e2c4">BadScript2.Runtime.Objects.Types.BadClassPrototype.MetaData</a></div><div class="ttdeci">readonly BadMetaData MetaData</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00022">BadClassPrototype.cs:22</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00031">31</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>    {</div>
+<div class="line"><span class="lineno">   37</span>        <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">Name</a> = name;</div>
+<div class="line"><span class="lineno">   38</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af35b86d65171a22c761fab52da9ba4f3">BaseClass</a> = baseClass;</div>
+<div class="line"><span class="lineno">   39</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a7877a6b239ce884ab4f76e5dab950c4d">m_Interfaces</a> = interfaces;</div>
+<div class="line"><span class="lineno">   40</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#ab708c2e09ff8bc382b2f0e563ee6e2c4">MetaData</a> = metaData ?? <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html">BadMetaData</a>.<a class="code hl_variable" href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html#aeff134905f609410557d90c335e75825">Empty</a>;</div>
+<div class="line"><span class="lineno">   41</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_bad_meta_data_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html">BadScript2.Parser.BadMetaData</a></div><div class="ttdoc">Implements a Meta Data container for an expression.</div><div class="ttdef"><b>Definition</b> <a href="_bad_meta_data_8cs_source.html#l00012">BadMetaData.cs:13</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_bad_meta_data_html_aeff134905f609410557d90c335e75825"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_bad_meta_data.html#aeff134905f609410557d90c335e75825">BadScript2.Parser.BadMetaData.Empty</a></div><div class="ttdeci">static readonly BadMetaData Empty</div><div class="ttdoc">An empty Meta Data object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_meta_data_8cs_source.html#l00017">BadMetaData.cs:17</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_a4185eee38e2b20dae2166fc20b39d821"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a4185eee38e2b20dae2166fc20b39d821">BadScript2.Runtime.Objects.Types.BadClassPrototype.Name</a></div><div class="ttdeci">string Name</div><div class="ttdoc">The Name of the Type.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00048">BadClassPrototype.cs:48</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_a7877a6b239ce884ab4f76e5dab950c4d"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a7877a6b239ce884ab4f76e5dab950c4d">BadScript2.Runtime.Objects.Types.BadClassPrototype.m_Interfaces</a></div><div class="ttdeci">readonly BadInterfacePrototype[] m_Interfaces</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00022">BadClassPrototype.cs:22</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_ab708c2e09ff8bc382b2f0e563ee6e2c4"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#ab708c2e09ff8bc382b2f0e563ee6e2c4">BadScript2.Runtime.Objects.Types.BadClassPrototype.MetaData</a></div><div class="ttdeci">readonly BadMetaData MetaData</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00024">BadClassPrototype.cs:24</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_af35b86d65171a22c761fab52da9ba4f3"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af35b86d65171a22c761fab52da9ba4f3">BadScript2.Runtime.Objects.Types.BadClassPrototype.BaseClass</a></div><div class="ttdeci">readonly? BadClassPrototype BaseClass</div><div class="ttdoc">The Base Class of the Prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00020">BadClassPrototype.cs:20</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -320,7 +337,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p>Implemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_a_native_class_prototype.html#ac8a11d01b7bb27e869f8ffe40dcd5ef3">BadScript2.Runtime.Objects.Types.BadANativeClassPrototype</a>, and <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_expression_class_prototype.html#a9022be2b6ff3ec71639832c9254d5cd8">BadScript2.Runtime.Objects.Types.BadExpressionClassPrototype</a>.</p>
+<p>Implemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_a_native_class_prototype.html#ac8a11d01b7bb27e869f8ffe40dcd5ef3">BadScript2.Runtime.Objects.Types.BadANativeClassPrototype</a>, <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_expression_class_prototype.html#a9022be2b6ff3ec71639832c9254d5cd8">BadScript2.Runtime.Objects.Types.BadExpressionClassPrototype</a>, and <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html#aa3a68f9fb5f2e9306f3fd8465bb4d559">BadScript2.Runtime.Objects.Types.BadInterfacePrototype</a>.</p>
 
 </div>
 </div>
@@ -339,10 +356,10 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00041">41</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af35b86d65171a22c761fab52da9ba4f3">BaseClass</a>;</div>
-<div class="line"><span class="lineno">   44</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00050">50</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>    {</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af35b86d65171a22c761fab52da9ba4f3">BaseClass</a>;</div>
+<div class="line"><span class="lineno">   53</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -374,10 +391,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ad8efab3ab71098ae5f3427f241f08632">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00046">46</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a2fca6aba25777139c3ac5435983d418e">Prototype</a>;</div>
-<div class="line"><span class="lineno">   49</span>    }</div>
+<p>Reimplemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html#aeda262458c32b2f87d5ef2b47ea6d928">BadScript2.Runtime.Objects.Types.BadInterfacePrototype</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00055">55</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>    {</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a2fca6aba25777139c3ac5435983d418e">Prototype</a>;</div>
+<div class="line"><span class="lineno">   58</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_a2fca6aba25777139c3ac5435983d418e"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#a2fca6aba25777139c3ac5435983d418e">BadScript2.Runtime.Objects.Types.BadClassPrototype.Prototype</a></div><div class="ttdeci">static readonly BadClassPrototype Prototype</div><div class="ttdoc">The Prototype of the ClassPrototype(can not be used)</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00014">BadClassPrototype.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -417,38 +436,46 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_prototype.html#af7d8e54e2cf57cad8d87d9377f0e3b8f">BadScript2.Runtime.Objects.Types.BadNativeClassPrototype&lt; T &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00077">77</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
-<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">if</span> (obj == <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">   80</span>        {</div>
-<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   82</span>        }</div>
-<div class="line"><span class="lineno">   83</span> </div>
-<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">if</span> (obj is BadClass cls)</div>
-<div class="line"><span class="lineno">   85</span>        {</div>
-<div class="line"><span class="lineno">   86</span>            <span class="keywordflow">return</span> cls.InheritsFrom(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   90</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00098">98</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   99</span>    {</div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">if</span> (obj == <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  101</span>        {</div>
+<div class="line"><span class="lineno">  102</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  103</span>        }</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">if</span> (obj is BadClass cls)</div>
+<div class="line"><span class="lineno">  106</span>        {</div>
+<div class="line"><span class="lineno">  107</span>            <span class="keywordflow">return</span> cls.InheritsFrom(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  108</span>        }</div>
+<div class="line"><span class="lineno">  109</span> </div>
+<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  111</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_ac71bfcf96e046f575f0bd000c876c307"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">BadScript2.Runtime.Objects.BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00013">BadObject.cs:13</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="af8f4e337f25850d71006fd335864025a" name="af8f4e337f25850d71006fd335864025a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8f4e337f25850d71006fd335864025a">&#9670;&#160;</a></span>IsSuperClassOf()</h2>
+<a id="aa7ecc26e899fe92cdbc104346d5e1102" name="aa7ecc26e899fe92cdbc104346d5e1102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7ecc26e899fe92cdbc104346d5e1102">&#9670;&#160;</a></span>IsSuperClassOf()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool BadScript2.Runtime.Objects.Types.BadClassPrototype.IsSuperClassOf </td>
+          <td class="memname">virtual bool BadScript2.Runtime.Objects.Types.BadClassPrototype.IsSuperClassOf </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html">BadClassPrototype</a>&#160;</td>
           <td class="paramname"><em>proto</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the Class is a Subclass of the given Class. </p>
@@ -460,11 +487,25 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the Class is a Subclass of the given Class</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00067">67</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>    {</div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">return</span> proto == <span class="keyword">this</span> || (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af35b86d65171a22c761fab52da9ba4f3">BaseClass</a>?.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af8f4e337f25850d71006fd335864025a">IsSuperClassOf</a>(proto) ?? <span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">   70</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_af8f4e337f25850d71006fd335864025a"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#af8f4e337f25850d71006fd335864025a">BadScript2.Runtime.Objects.Types.BadClassPrototype.IsSuperClassOf</a></div><div class="ttdeci">bool IsSuperClassOf(BadClassPrototype proto)</div><div class="ttdoc">Returns true if the Class is a Subclass of the given Class.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00067">BadClassPrototype.cs:67</a></div></div>
+<p>Reimplemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html#a0c40382cd8c3b3d1ea6f6efcc83af72e">BadScript2.Runtime.Objects.Types.BadInterfacePrototype</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00076">76</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   77</span>    {</div>
+<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (proto == <span class="keyword">this</span>)</div>
+<div class="line"><span class="lineno">   79</span>        {</div>
+<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   81</span>        }</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>        <span class="keywordtype">bool</span> isBaseSuper = proto.BaseClass != <span class="keyword">null</span> &amp;&amp; <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#aa7ecc26e899fe92cdbc104346d5e1102">IsSuperClassOf</a>(proto.BaseClass);</div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">if</span> (isBaseSuper)</div>
+<div class="line"><span class="lineno">   86</span>        {</div>
+<div class="line"><span class="lineno">   87</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   88</span>        }</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   91</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype_html_aa7ecc26e899fe92cdbc104346d5e1102"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_prototype.html#aa7ecc26e899fe92cdbc104346d5e1102">BadScript2.Runtime.Objects.Types.BadClassPrototype.IsSuperClassOf</a></div><div class="ttdeci">virtual bool IsSuperClassOf(BadClassPrototype proto)</div><div class="ttdoc">Returns true if the Class is a Subclass of the given Class.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_prototype_8cs_source.html#l00076">BadClassPrototype.cs:76</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -503,10 +544,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#adc2df03faa63ea48cf7dcf2f478d7ca7">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00092">92</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   93</span>    {</div>
-<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">return</span> $<span class="stringliteral">&quot;prototype {Name}&quot;</span>;</div>
-<div class="line"><span class="lineno">   95</span>    }</div>
+<p>Reimplemented in <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html#abde29bd2dea63ced6849719bdcc98dec">BadScript2.Runtime.Objects.Types.BadInterfacePrototype</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00114">114</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  115</span>    {</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> $<span class="stringliteral">&quot;class {Name}&quot;</span>;</div>
+<div class="line"><span class="lineno">  117</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -537,6 +580,30 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a7877a6b239ce884ab4f76e5dab950c4d" name="a7877a6b239ce884ab4f76e5dab950c4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7877a6b239ce884ab4f76e5dab950c4d">&#9670;&#160;</a></span>m_Interfaces</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html">BadInterfacePrototype</a> [] BadScript2.Runtime.Objects.Types.BadClassPrototype.m_Interfaces</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00022">22</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+
+</div>
+</div>
 <a id="ab708c2e09ff8bc382b2f0e563ee6e2c4" name="ab708c2e09ff8bc382b2f0e563ee6e2c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab708c2e09ff8bc382b2f0e563ee6e2c4">&#9670;&#160;</a></span>MetaData</h2>
 
@@ -549,7 +616,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00022">22</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00024">24</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
 
 </div>
 </div>
@@ -582,6 +649,30 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a117e60498bfe539285a790a293705e45" name="a117e60498bfe539285a790a293705e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a117e60498bfe539285a790a293705e45">&#9670;&#160;</a></span>Interfaces</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IReadOnlyCollection&lt;<a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_interface_prototype.html">BadInterfacePrototype</a>&gt; BadScript2.Runtime.Objects.Types.BadClassPrototype.Interfaces</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00043">43</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+
+</div>
+</div>
 <a id="a4185eee38e2b20dae2166fc20b39d821" name="a4185eee38e2b20dae2166fc20b39d821"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4185eee38e2b20dae2166fc20b39d821">&#9670;&#160;</a></span>Name</h2>
 
@@ -604,8 +695,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The Name of the Type. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00039">39</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   39</span>{ <span class="keyword">get</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_prototype_8cs_source.html#l00048">48</a> of file <a class="el" href="_bad_class_prototype_8cs_source.html">BadClassPrototype.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>{ <span class="keyword">get</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>

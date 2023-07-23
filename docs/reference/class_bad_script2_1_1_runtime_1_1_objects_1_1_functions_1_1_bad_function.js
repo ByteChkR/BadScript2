@@ -1,6 +1,6 @@
 var class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function =
 [
-    [ "BadFunction", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a165036ffecd79890a46de0c2d8fde758", null ],
+    [ "BadFunction", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a223ea450b72ebcdb151493ed8c726e63", null ],
     [ "ApplyParameters", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#aa5f2f4d06411505fba82b1a3a9ba55a3", null ],
     [ "ApplyParameters", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a8f9b79d8ca22c7be9d329ed572090ef5", null ],
     [ "BindParentScope", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a17841f690a459c813efca43ee618a2c3", null ],
@@ -14,6 +14,7 @@ var class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function =
     [ "ToSafeString", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a84ec0b144fa5e605b13c4d2cc4c26619", null ],
     [ "m_Cache", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a0b1087c13a536859f18e959e109c92ab", null ],
     [ "IsConstant", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#adb7c80748100b94867ee9b613fcede9c", null ],
+    [ "IsStatic", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#aec11b2fde5d87bfdf138d10ad3389e7d", null ],
     [ "MetaData", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#af342a0f44914077e98aa22f12684689d", null ],
     [ "Name", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a3d03b0ed9a0271cd34f400c7d2c85b88", null ],
     [ "Parameters", "class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a0e2de340e1b39c62a4f2ec24bc83ebd5", null ]

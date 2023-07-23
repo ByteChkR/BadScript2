@@ -6,11 +6,30 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Math.Assign;
 
+/// <summary>
+/// Implements the Exponentiation Assign Expression
+/// </summary>
 public class BadExponentiationAssignExpression : BadBinaryExpression
 {
+	/// <summary>
+	/// Creates a new Exponentiation Assign Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
 	public BadExponentiationAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) :
 		base(left, right, position) { }
 
+	/// <summary>
+	/// Implements the logic of the Exponentiation Operator
+	/// </summary>
+	/// <param name="leftRef">Left Reference</param>
+	/// <param name="left">Left Value</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	/// <param name="symbol">The Expression Symbol</param>
+	/// <returns>The Result of the Operation</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the given values are not of type IBadNumber</exception>
 	public static BadObject Exp(
 		BadObjectReference leftRef,
 		BadObject left,
@@ -29,6 +48,15 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
 		throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
 	}
 
+	/// <summary>
+	/// Runs the Exponentiation Operator on the given objects.
+	/// </summary>
+	/// <param name="context">The Execution Context</param>
+	/// <param name="leftRef">Left Reference</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	/// <param name="symbol">The Expression Symbol</param>
+	/// <returns>Enumerable of which the last element is the result of the operation</returns>
 	public static IEnumerable<BadObject> ExpWithOverride(
 		BadExecutionContext context,
 		BadObjectReference leftRef,

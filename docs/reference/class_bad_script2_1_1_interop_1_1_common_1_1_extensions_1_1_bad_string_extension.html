@@ -221,95 +221,97 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   72</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Format&quot;</span>,</div>
 <div class="line"><span class="lineno">   73</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Format&quot;</span>,</div>
 <div class="line"><span class="lineno">   74</span>                args =&gt; <span class="keywordtype">string</span>.Format(s, args.Cast&lt;<span class="keywordtype">object</span>?&gt;().ToArray()),</div>
-<div class="line"><span class="lineno">   75</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;args&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>)));</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Split&quot;</span>,</div>
-<div class="line"><span class="lineno">   78</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Split&quot;</span>,</div>
-<div class="line"><span class="lineno">   79</span>                args =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html#ae01ec455fc3891ec036c37f1d9f57e4f">StringSplit</a>(s, args[0], args.Length == 2 ? args[1] : <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_enumvalue" href="namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13abbb93ef26e3c101ff11cdd21cab08a94">Null</a>),</div>
-<div class="line"><span class="lineno">   80</span>                <span class="stringliteral">&quot;splitStr&quot;</span>,</div>
-<div class="line"><span class="lineno">   81</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;skipEmpty&quot;</span>, true, false, false)));</div>
-<div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>        <span class="comment">//Substring</span></div>
-<div class="line"><span class="lineno">   84</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Substring&quot;</span>,</div>
-<div class="line"><span class="lineno">   85</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal, decimal&gt;</a>(<span class="stringliteral">&quot;Substring&quot;</span>,</div>
-<div class="line"><span class="lineno">   86</span>                (_, start, end) =&gt; s.Substring((<span class="keywordtype">int</span>)start, (<span class="keywordtype">int</span>)end),</div>
-<div class="line"><span class="lineno">   87</span>                <span class="stringliteral">&quot;start&quot;</span>,</div>
-<div class="line"><span class="lineno">   88</span>                <span class="stringliteral">&quot;end&quot;</span>));</div>
-<div class="line"><span class="lineno">   89</span> </div>
-<div class="line"><span class="lineno">   90</span>        <span class="comment">//IndexOf</span></div>
-<div class="line"><span class="lineno">   91</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;IndexOf&quot;</span>,</div>
-<div class="line"><span class="lineno">   92</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;IndexOf&quot;</span>,</div>
-<div class="line"><span class="lineno">   93</span>                (_, str) =&gt; (decimal)s.IndexOf(str, StringComparison.Ordinal)));</div>
-<div class="line"><span class="lineno">   94</span> </div>
-<div class="line"><span class="lineno">   95</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Contains&quot;</span>,</div>
-<div class="line"><span class="lineno">   96</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;Contains&quot;</span>,</div>
-<div class="line"><span class="lineno">   97</span>                (_, str) =&gt; s.Contains(str)));</div>
-<div class="line"><span class="lineno">   98</span> </div>
-<div class="line"><span class="lineno">   99</span>        <span class="comment">//LastIndexOf</span></div>
-<div class="line"><span class="lineno">  100</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;LastIndexOf&quot;</span>,</div>
-<div class="line"><span class="lineno">  101</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;LastIndexOf&quot;</span>,</div>
-<div class="line"><span class="lineno">  102</span>                (_, str) =&gt; (decimal)s.LastIndexOf(str, StringComparison.Ordinal)));</div>
-<div class="line"><span class="lineno">  103</span> </div>
-<div class="line"><span class="lineno">  104</span>        <span class="comment">//Replace</span></div>
-<div class="line"><span class="lineno">  105</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Replace&quot;</span>,</div>
-<div class="line"><span class="lineno">  106</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string, string&gt;</a>(<span class="stringliteral">&quot;Replace&quot;</span>,</div>
-<div class="line"><span class="lineno">  107</span>                (_, oldStr, newStr) =&gt; s.Replace(oldStr, newStr)));</div>
-<div class="line"><span class="lineno">  108</span> </div>
-<div class="line"><span class="lineno">  109</span>        <span class="comment">//Trim</span></div>
-<div class="line"><span class="lineno">  110</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Trim&quot;</span>,</div>
-<div class="line"><span class="lineno">  111</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(<span class="stringliteral">&quot;Trim&quot;</span>,</div>
-<div class="line"><span class="lineno">  112</span>                _ =&gt; s.Trim()));</div>
-<div class="line"><span class="lineno">  113</span> </div>
-<div class="line"><span class="lineno">  114</span>        <span class="comment">//TrimStart</span></div>
-<div class="line"><span class="lineno">  115</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;TrimStart&quot;</span>,</div>
-<div class="line"><span class="lineno">  116</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(<span class="stringliteral">&quot;TrimStart&quot;</span>,</div>
-<div class="line"><span class="lineno">  117</span>                _ =&gt; s.TrimStart()));</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>        <span class="comment">//TrimEnd</span></div>
-<div class="line"><span class="lineno">  120</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;TrimEnd&quot;</span>,</div>
-<div class="line"><span class="lineno">  121</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(<span class="stringliteral">&quot;TrimEnd&quot;</span>,</div>
-<div class="line"><span class="lineno">  122</span>                _ =&gt; s.TrimEnd()));</div>
-<div class="line"><span class="lineno">  123</span> </div>
-<div class="line"><span class="lineno">  124</span>        <span class="comment">//PadLeft</span></div>
-<div class="line"><span class="lineno">  125</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;PadLeft&quot;</span>,</div>
-<div class="line"><span class="lineno">  126</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal&gt;</a>(<span class="stringliteral">&quot;PadLeft&quot;</span>,</div>
-<div class="line"><span class="lineno">  127</span>                (_, padding) =&gt; s.PadLeft((<span class="keywordtype">int</span>)padding),</div>
-<div class="line"><span class="lineno">  128</span>                <span class="stringliteral">&quot;padding&quot;</span>));</div>
-<div class="line"><span class="lineno">  129</span> </div>
-<div class="line"><span class="lineno">  130</span>        <span class="comment">//PadRight</span></div>
-<div class="line"><span class="lineno">  131</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;PadRight&quot;</span>,</div>
-<div class="line"><span class="lineno">  132</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal&gt;</a>(<span class="stringliteral">&quot;PadRight&quot;</span>,</div>
-<div class="line"><span class="lineno">  133</span>                (_, padding) =&gt; s.PadRight((<span class="keywordtype">int</span>)padding),</div>
-<div class="line"><span class="lineno">  134</span>                <span class="stringliteral">&quot;padding&quot;</span>));</div>
-<div class="line"><span class="lineno">  135</span> </div>
-<div class="line"><span class="lineno">  136</span>        <span class="comment">//Remove</span></div>
-<div class="line"><span class="lineno">  137</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Remove&quot;</span>,</div>
-<div class="line"><span class="lineno">  138</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal, decimal&gt;</a>(<span class="stringliteral">&quot;Remove&quot;</span>,</div>
-<div class="line"><span class="lineno">  139</span>                (_, start, count) =&gt; s.Remove((<span class="keywordtype">int</span>)start, (<span class="keywordtype">int</span>)count),</div>
-<div class="line"><span class="lineno">  140</span>                <span class="stringliteral">&quot;start&quot;</span>,</div>
-<div class="line"><span class="lineno">  141</span>                <span class="stringliteral">&quot;count&quot;</span>));</div>
-<div class="line"><span class="lineno">  142</span> </div>
-<div class="line"><span class="lineno">  143</span>        <span class="comment">//Insert</span></div>
-<div class="line"><span class="lineno">  144</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Insert&quot;</span>,</div>
-<div class="line"><span class="lineno">  145</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal, string&gt;</a>(<span class="stringliteral">&quot;Insert&quot;</span>,</div>
-<div class="line"><span class="lineno">  146</span>                (_, index, str) =&gt; s.Insert((<span class="keywordtype">int</span>)index, str),</div>
-<div class="line"><span class="lineno">  147</span>                <span class="stringliteral">&quot;index&quot;</span>,</div>
-<div class="line"><span class="lineno">  148</span>                <span class="stringliteral">&quot;str&quot;</span>));</div>
-<div class="line"><span class="lineno">  149</span> </div>
-<div class="line"><span class="lineno">  150</span>        <span class="comment">//EndsWith</span></div>
-<div class="line"><span class="lineno">  151</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;EndsWith&quot;</span>,</div>
-<div class="line"><span class="lineno">  152</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;EndsWith&quot;</span>,</div>
-<div class="line"><span class="lineno">  153</span>                (_, str) =&gt; s.EndsWith(str, StringComparison.Ordinal)));</div>
-<div class="line"><span class="lineno">  154</span> </div>
-<div class="line"><span class="lineno">  155</span>        <span class="comment">//StartsWith</span></div>
-<div class="line"><span class="lineno">  156</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;StartsWith&quot;</span>,</div>
-<div class="line"><span class="lineno">  157</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;StartsWith&quot;</span>,</div>
-<div class="line"><span class="lineno">  158</span>                (_, str) =&gt; s.StartsWith(str, StringComparison.Ordinal)));</div>
-<div class="line"><span class="lineno">  159</span>    }</div>
+<div class="line"><span class="lineno">   75</span>                <span class="keyword">false</span>,</div>
+<div class="line"><span class="lineno">   76</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;args&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>)));</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Split&quot;</span>,</div>
+<div class="line"><span class="lineno">   79</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Split&quot;</span>,</div>
+<div class="line"><span class="lineno">   80</span>                args =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html#ae01ec455fc3891ec036c37f1d9f57e4f">StringSplit</a>(s, args[0], args.Length == 2 ? args[1] : <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_enumvalue" href="namespace_bad_script2_1_1_common.html#aec87dccdbe0dc5228038ac369d370e13abbb93ef26e3c101ff11cdd21cab08a94">Null</a>),</div>
+<div class="line"><span class="lineno">   81</span>                false,</div>
+<div class="line"><span class="lineno">   82</span>                <span class="stringliteral">&quot;splitStr&quot;</span>,</div>
+<div class="line"><span class="lineno">   83</span>                new <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;skipEmpty&quot;</span>, true, false, false)));</div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>        <span class="comment">//Substring</span></div>
+<div class="line"><span class="lineno">   86</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Substring&quot;</span>,</div>
+<div class="line"><span class="lineno">   87</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal, decimal&gt;</a>(<span class="stringliteral">&quot;Substring&quot;</span>,</div>
+<div class="line"><span class="lineno">   88</span>                (_, start, end) =&gt; s.Substring((<span class="keywordtype">int</span>)start, (<span class="keywordtype">int</span>)end),</div>
+<div class="line"><span class="lineno">   89</span>                <span class="stringliteral">&quot;start&quot;</span>,</div>
+<div class="line"><span class="lineno">   90</span>                <span class="stringliteral">&quot;end&quot;</span>));</div>
+<div class="line"><span class="lineno">   91</span> </div>
+<div class="line"><span class="lineno">   92</span>        <span class="comment">//IndexOf</span></div>
+<div class="line"><span class="lineno">   93</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;IndexOf&quot;</span>,</div>
+<div class="line"><span class="lineno">   94</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;IndexOf&quot;</span>,</div>
+<div class="line"><span class="lineno">   95</span>                (_, str) =&gt; (decimal)s.IndexOf(str, StringComparison.Ordinal)));</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Contains&quot;</span>,</div>
+<div class="line"><span class="lineno">   98</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;Contains&quot;</span>,</div>
+<div class="line"><span class="lineno">   99</span>                (_, str) =&gt; s.Contains(str)));</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>        <span class="comment">//LastIndexOf</span></div>
+<div class="line"><span class="lineno">  102</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;LastIndexOf&quot;</span>,</div>
+<div class="line"><span class="lineno">  103</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;LastIndexOf&quot;</span>,</div>
+<div class="line"><span class="lineno">  104</span>                (_, str) =&gt; (decimal)s.LastIndexOf(str, StringComparison.Ordinal)));</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>        <span class="comment">//Replace</span></div>
+<div class="line"><span class="lineno">  107</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Replace&quot;</span>,</div>
+<div class="line"><span class="lineno">  108</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string, string&gt;</a>(<span class="stringliteral">&quot;Replace&quot;</span>,</div>
+<div class="line"><span class="lineno">  109</span>                (_, oldStr, newStr) =&gt; s.Replace(oldStr, newStr)));</div>
+<div class="line"><span class="lineno">  110</span> </div>
+<div class="line"><span class="lineno">  111</span>        <span class="comment">//Trim</span></div>
+<div class="line"><span class="lineno">  112</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Trim&quot;</span>,</div>
+<div class="line"><span class="lineno">  113</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(<span class="stringliteral">&quot;Trim&quot;</span>,</div>
+<div class="line"><span class="lineno">  114</span>                _ =&gt; s.Trim()));</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        <span class="comment">//TrimStart</span></div>
+<div class="line"><span class="lineno">  117</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;TrimStart&quot;</span>,</div>
+<div class="line"><span class="lineno">  118</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(<span class="stringliteral">&quot;TrimStart&quot;</span>,</div>
+<div class="line"><span class="lineno">  119</span>                _ =&gt; s.TrimStart()));</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>        <span class="comment">//TrimEnd</span></div>
+<div class="line"><span class="lineno">  122</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;TrimEnd&quot;</span>,</div>
+<div class="line"><span class="lineno">  123</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(<span class="stringliteral">&quot;TrimEnd&quot;</span>,</div>
+<div class="line"><span class="lineno">  124</span>                _ =&gt; s.TrimEnd()));</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>        <span class="comment">//PadLeft</span></div>
+<div class="line"><span class="lineno">  127</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;PadLeft&quot;</span>,</div>
+<div class="line"><span class="lineno">  128</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal&gt;</a>(<span class="stringliteral">&quot;PadLeft&quot;</span>,</div>
+<div class="line"><span class="lineno">  129</span>                (_, padding) =&gt; s.PadLeft((<span class="keywordtype">int</span>)padding),</div>
+<div class="line"><span class="lineno">  130</span>                <span class="stringliteral">&quot;padding&quot;</span>));</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>        <span class="comment">//PadRight</span></div>
+<div class="line"><span class="lineno">  133</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;PadRight&quot;</span>,</div>
+<div class="line"><span class="lineno">  134</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal&gt;</a>(<span class="stringliteral">&quot;PadRight&quot;</span>,</div>
+<div class="line"><span class="lineno">  135</span>                (_, padding) =&gt; s.PadRight((<span class="keywordtype">int</span>)padding),</div>
+<div class="line"><span class="lineno">  136</span>                <span class="stringliteral">&quot;padding&quot;</span>));</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>        <span class="comment">//Remove</span></div>
+<div class="line"><span class="lineno">  139</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Remove&quot;</span>,</div>
+<div class="line"><span class="lineno">  140</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal, decimal&gt;</a>(<span class="stringliteral">&quot;Remove&quot;</span>,</div>
+<div class="line"><span class="lineno">  141</span>                (_, start, count) =&gt; s.Remove((<span class="keywordtype">int</span>)start, (<span class="keywordtype">int</span>)count),</div>
+<div class="line"><span class="lineno">  142</span>                <span class="stringliteral">&quot;start&quot;</span>,</div>
+<div class="line"><span class="lineno">  143</span>                <span class="stringliteral">&quot;count&quot;</span>));</div>
+<div class="line"><span class="lineno">  144</span> </div>
+<div class="line"><span class="lineno">  145</span>        <span class="comment">//Insert</span></div>
+<div class="line"><span class="lineno">  146</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;Insert&quot;</span>,</div>
+<div class="line"><span class="lineno">  147</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;decimal, string&gt;</a>(<span class="stringliteral">&quot;Insert&quot;</span>,</div>
+<div class="line"><span class="lineno">  148</span>                (_, index, str) =&gt; s.Insert((<span class="keywordtype">int</span>)index, str),</div>
+<div class="line"><span class="lineno">  149</span>                <span class="stringliteral">&quot;index&quot;</span>,</div>
+<div class="line"><span class="lineno">  150</span>                <span class="stringliteral">&quot;str&quot;</span>));</div>
+<div class="line"><span class="lineno">  151</span> </div>
+<div class="line"><span class="lineno">  152</span>        <span class="comment">//EndsWith</span></div>
+<div class="line"><span class="lineno">  153</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;EndsWith&quot;</span>,</div>
+<div class="line"><span class="lineno">  154</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;EndsWith&quot;</span>,</div>
+<div class="line"><span class="lineno">  155</span>                (_, str) =&gt; s.EndsWith(str, StringComparison.Ordinal)));</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>        <span class="comment">//StartsWith</span></div>
+<div class="line"><span class="lineno">  158</span>        RegisterObject&lt;string&gt;(<span class="stringliteral">&quot;StartsWith&quot;</span>,</div>
+<div class="line"><span class="lineno">  159</span>            s =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;string&gt;</a>(<span class="stringliteral">&quot;StartsWith&quot;</span>,</div>
+<div class="line"><span class="lineno">  160</span>                (_, str) =&gt; s.StartsWith(str, StringComparison.Ordinal)));</div>
+<div class="line"><span class="lineno">  161</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_static_keys_html"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_static_keys.html">BadScript2.Common.BadStaticKeys</a></div><div class="ttdoc">Contains Static Data for the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_static_keys_8cs_source.html#l00006">BadStaticKeys.cs:7</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_static_keys_html_a3ff7420d703a976b67de0d8aa3aa0a96"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_static_keys.html#a3ff7420d703a976b67de0d8aa3aa0a96">BadScript2.Common.BadStaticKeys.ArrayAccessOperatorName</a></div><div class="ttdeci">static readonly string ArrayAccessOperatorName</div><div class="ttdef"><b>Definition</b> <a href="_bad_static_keys_8cs_source.html#l00057">BadStaticKeys.cs:57</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_bad_static_keys_html_a3ff7420d703a976b67de0d8aa3aa0a96"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_bad_static_keys.html#a3ff7420d703a976b67de0d8aa3aa0a96">BadScript2.Common.BadStaticKeys.ArrayAccessOperatorName</a></div><div class="ttdeci">static readonly string ArrayAccessOperatorName</div><div class="ttdef"><b>Definition</b> <a href="_bad_static_keys_8cs_source.html#l00059">BadStaticKeys.cs:59</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension_html_ae01ec455fc3891ec036c37f1d9f57e4f"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_extensions_1_1_bad_string_extension.html#ae01ec455fc3891ec036c37f1d9f57e4f">BadScript2.Interop.Common.Extensions.BadStringExtension.StringSplit</a></div><div class="ttdeci">BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)</div><div class="ttdoc">Split a string into an array.</div><div class="ttdef"><b>Definition</b> <a href="_bad_string_extension_8cs_source.html#l00024">BadStringExtension.cs:24</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadScript2.Runtime.Interop.Functions.BadDynamicInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_dynamic_interop_function_8cs_source.html#l00757">BadDynamicInteropFunction.cs:758</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadScript2.Runtime.Interop.Functions.BadDynamicInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_dynamic_interop_function_8cs_source.html#l00774">BadDynamicInteropFunction.cs:775</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadScript2.Runtime.Interop.Functions.BadInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_function_8cs_source.html#l00007">BadInteropFunction.cs:8</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00010">BadObject.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadScript2.Runtime.Objects.Functions.BadFunctionParameter</a></div><div class="ttdoc">Provides function parameter info.</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_parameter_8cs_source.html#l00010">BadFunctionParameter.cs:11</a></div></div>

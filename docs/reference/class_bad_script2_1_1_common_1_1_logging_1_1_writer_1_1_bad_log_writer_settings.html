@@ -153,7 +153,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains settings for all log writers. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_log_writer_settings_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_log_writer_settings_8cs_source.html">BadLogWriterSettings.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_log_writer_settings_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_log_writer_settings_8cs_source.html">BadLogWriterSettings.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3080a314cfbedd7c4b918195054070e8" name="a3080a314cfbedd7c4b918195054070e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3080a314cfbedd7c4b918195054070e8">&#9670;&#160;</a></span>BadLogWriterSettings()</h2>
@@ -197,9 +197,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">        <span class="keyword">new</span> BadEditableSetting&lt;BadLogWriterSettings, string[]&gt;(nameof(<a class="code hl_property" href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#ac3ac5e738a02ec479a0d624843868693">Mask</a>), BadLogMask.All.GetNames())</div>
-<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings_html_ac3ac5e738a02ec479a0d624843868693"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#ac3ac5e738a02ec479a0d624843868693">BadScript2.Common.Logging.Writer.BadLogWriterSettings.Mask</a></div><div class="ttdeci">BadLogMask Mask</div><div class="ttdef"><b>Definition</b> <a href="_bad_log_writer_settings_8cs_source.html#l00019">BadLogWriterSettings.cs:20</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings_html_ac3ac5e738a02ec479a0d624843868693"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#ac3ac5e738a02ec479a0d624843868693">BadScript2.Common.Logging.Writer.BadLogWriterSettings.Mask</a></div><div class="ttdeci">BadLogMask Mask</div><div class="ttdef"><b>Definition</b> <a href="_bad_log_writer_settings_8cs_source.html#l00015">BadLogWriterSettings.cs:16</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_bad_log_writer_settings_8cs_source.html#l00017">17</a> of file <a class="el" href="_bad_log_writer_settings_8cs_source.html">BadLogWriterSettings.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_log_writer_settings_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_log_writer_settings_8cs_source.html">BadLogWriterSettings.cs</a>.</p>
 
 </div>
 </div>
@@ -224,12 +224,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_log_writer_settings_8cs_source.html#l00019">19</a> of file <a class="el" href="_bad_log_writer_settings_8cs_source.html">BadLogWriterSettings.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   20</span>    {</div>
-<div class="line"><span class="lineno">   21</span>        <span class="keyword">get</span> =&gt; BadLogMask.GetMask(<a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#a6e28997eae3319776ae8164f12faf3f3">m_Mask</a>.GetValue()!.Select(x =&gt; (BadLogMask)x).ToArray());</div>
-<div class="line"><span class="lineno">   22</span>        <span class="keyword">set</span> =&gt; <a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#a6e28997eae3319776ae8164f12faf3f3">m_Mask</a>.Set(value.GetNames());</div>
-<div class="line"><span class="lineno">   23</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings_html_a6e28997eae3319776ae8164f12faf3f3"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#a6e28997eae3319776ae8164f12faf3f3">BadScript2.Common.Logging.Writer.BadLogWriterSettings.m_Mask</a></div><div class="ttdeci">readonly BadEditableSetting&lt; BadLogWriterSettings, string[]&gt; m_Mask</div><div class="ttdef"><b>Definition</b> <a href="_bad_log_writer_settings_8cs_source.html#l00017">BadLogWriterSettings.cs:17</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_log_writer_settings_8cs_source.html#l00015">15</a> of file <a class="el" href="_bad_log_writer_settings_8cs_source.html">BadLogWriterSettings.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>    {</div>
+<div class="line"><span class="lineno">   17</span>        <span class="keyword">get</span> =&gt; BadLogMask.GetMask(<a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#a6e28997eae3319776ae8164f12faf3f3">m_Mask</a>.GetValue()!.Select(x =&gt; (BadLogMask)x).ToArray());</div>
+<div class="line"><span class="lineno">   18</span>        <span class="keyword">set</span> =&gt; <a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#a6e28997eae3319776ae8164f12faf3f3">m_Mask</a>.Set(value.GetNames());</div>
+<div class="line"><span class="lineno">   19</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings_html_a6e28997eae3319776ae8164f12faf3f3"><div class="ttname"><a href="class_bad_script2_1_1_common_1_1_logging_1_1_writer_1_1_bad_log_writer_settings.html#a6e28997eae3319776ae8164f12faf3f3">BadScript2.Common.Logging.Writer.BadLogWriterSettings.m_Mask</a></div><div class="ttdeci">readonly BadEditableSetting&lt; BadLogWriterSettings, string[]&gt; m_Mask</div><div class="ttdef"><b>Definition</b> <a href="_bad_log_writer_settings_8cs_source.html#l00010">BadLogWriterSettings.cs:10</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

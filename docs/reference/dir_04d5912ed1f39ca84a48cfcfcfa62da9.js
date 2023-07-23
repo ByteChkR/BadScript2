@@ -8,5 +8,8 @@ var dir_04d5912ed1f39ca84a48cfcfcfa62da9 =
     [ "Function", "dir_7cfefa98a991f5fe19a77986b4fdc0ed.html", "dir_7cfefa98a991f5fe19a77986b4fdc0ed" ],
     [ "Types", "dir_58e4bada39ca5b3287f9c3905703a8be.html", "dir_58e4bada39ca5b3287f9c3905703a8be" ],
     [ "Variables", "dir_37168cc4bcde3df73397bc319ce3d9b7.html", "dir_37168cc4bcde3df73397bc319ce3d9b7" ],
-    [ "BadExpression.cs", "_bad_expression_8cs.html", "_bad_expression_8cs" ]
+    [ "BadDeleteExpression.cs", "_bad_delete_expression_8cs.html", "_bad_delete_expression_8cs" ],
+    [ "BadExpression.cs", "_bad_expression_8cs.html", "_bad_expression_8cs" ],
+    [ "BadInstanceOfExpression.cs", "_bad_instance_of_expression_8cs.html", "_bad_instance_of_expression_8cs" ],
+    [ "BadTypeOfExpression.cs", "_bad_type_of_expression_8cs.html", "_bad_type_of_expression_8cs" ]
 ];

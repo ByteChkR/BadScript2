@@ -6,8 +6,17 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary.Math;
 
+/// <summary>
+/// Implements the Exponentiation Expression
+/// </summary>
 public class BadExponentiationExpression : BadBinaryExpression
 {
+	/// <summary>
+	/// Creates a new Exponentiation Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
 	public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
@@ -41,6 +50,14 @@ public class BadExponentiationExpression : BadBinaryExpression
 		}
 	}
 
+	/// <summary>
+	/// Runs the Exponentiation Operator on the given objects.
+	/// </summary>
+	/// <param name="context">The Execution Context</param>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	/// <returns>Enumerable of which the last element is the result of the operation</returns>
 	public static IEnumerable<BadObject> ExpWithOverride(
 		BadExecutionContext context,
 		BadObject left,
@@ -64,7 +81,15 @@ public class BadExponentiationExpression : BadBinaryExpression
 		}
 	}
 
-	public static BadObject Exp(BadObject left, BadObject right, BadSourcePosition pos)
+	/// <summary>
+	/// Implements the logic of the Exponentiation Operator
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	/// <returns>The Result of the Operation</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the given values are not of type IBadNumber</exception>
+	public static BadObject Exp(BadObject left, BadObject right, BadSourcePosition position)
 	{
 		if (left is IBadNumber lNum)
 		{
@@ -74,7 +99,7 @@ public class BadExponentiationExpression : BadBinaryExpression
 			}
 		}
 
-		throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", pos);
+		throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", position);
 	}
 
 

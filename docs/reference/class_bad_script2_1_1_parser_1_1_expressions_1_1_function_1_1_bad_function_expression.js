@@ -1,6 +1,6 @@
 var class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression =
 [
-    [ "BadFunctionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a744539c3b2323356c2259f2e106a8ccf", null ],
+    [ "BadFunctionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a1804c0cf831e95a39b82b8d31c7c5f2b", null ],
     [ "GetDescendants", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a076dbde694eaaf951657795a3ad64429", null ],
     [ "GetHeader", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#aba271a442f48135b93823b6c7540982c", null ],
     [ "InnerExecute", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a4ee432c6634d6dc309bd9942cc3670b8", null ],
@@ -12,6 +12,8 @@ var class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_e
     [ "Body", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#af9ba5120f481e303d912b46757d71640", null ],
     [ "CompileLevel", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a23ff9dbcb29dc3a202dbcda3b1a152af", null ],
     [ "IsConstantFunction", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#af00e575f83074db9463785140498a419", null ],
+    [ "IsSingleLine", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a5da9e2b5f5c4c83a96e33652f98cbb64", null ],
+    [ "IsStatic", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a644dcdd0ee744456eb49c9f4417b34bd", null ],
     [ "Name", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#acf654fb9f1a57e8ea91cae7e9c77233d", null ],
     [ "Parameters", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a242b2720e2fa6750fe12084399b31b6d", null ],
     [ "TypeExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_function_1_1_bad_function_expression.html#a2cfd27edc27c0593ab3bc52938fb22ee", null ]

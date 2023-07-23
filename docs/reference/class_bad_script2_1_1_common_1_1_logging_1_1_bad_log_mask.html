@@ -718,7 +718,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_log_mask_8cs_source.html#l00057">57</a> of file <a class="el" href="_bad_log_mask_8cs_source.html">BadLogMask.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
-<div class="line"><span class="lineno">   59</span>        ulong value = (ulong)1 &lt;&lt; <a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#a27edf6141ecd1221f3fda79fde3aad89">s_Masks</a>.Count;</div>
+<div class="line"><span class="lineno">   59</span>        ulong value = (ulong)1 &lt;&lt; (<a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#a27edf6141ecd1221f3fda79fde3aad89">s_Masks</a>.Count - 1);</div>
 <div class="line"><span class="lineno">   60</span>        <a class="code hl_variable" href="class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#a27edf6141ecd1221f3fda79fde3aad89">s_Masks</a>.Add(name, value);</div>
 <div class="line"><span class="lineno">   61</span> </div>
 <div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_script2_1_1_common_1_1_logging_1_1_bad_log_mask.html#a9b02de4a9b8f96dab86a1080a441f68c">BadLogMask</a>(value);</div>

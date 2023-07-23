@@ -229,7 +229,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   30</span>        }</div>
 <div class="line"><span class="lineno">   31</span> </div>
 <div class="line"><span class="lineno">   32</span>        <span class="comment">//Get Text and Replace all newlines with spaces</span></div>
-<div class="line"><span class="lineno">   33</span>        <span class="keywordtype">string</span> text = <span class="stringliteral">&quot;$@\&quot;&quot;</span> + context.InputNode.InnerText + <span class="charliteral">&#39;&quot;&#39;</span>;</div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordtype">string</span> text = <span class="stringliteral">&quot;$@\&quot;&quot;</span> + context.InputNode.InnerText + <span class="stringliteral">&quot;\&quot;;&quot;</span>;</div>
 <div class="line"><span class="lineno">   34</span> </div>
 <div class="line"><span class="lineno">   35</span>        <span class="comment">//Evaluate Text with BadScript</span></div>
 <div class="line"><span class="lineno">   36</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> result = context.ParseAndExecute(text, context.CreateInnerPosition());</div>
@@ -246,7 +246,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><span class="lineno">   47</span>        context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(resultStr.Value));</div>
 <div class="line"><span class="lineno">   48</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00010">BadObject.cs:11</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_a514892af1d595c521087bb8711c7bd51"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a514892af1d595c521087bb8711c7bd51">BadScript2.Runtime.Objects.BadObject.ToString</a></div><div class="ttdeci">override string ToString()</div><div class="ttdoc">Returns a String Representation of this Object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00140">BadObject.cs:140</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_a514892af1d595c521087bb8711c7bd51"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a514892af1d595c521087bb8711c7bd51">BadScript2.Runtime.Objects.BadObject.ToString</a></div><div class="ttdeci">override string ToString()</div><div class="ttdoc">Returns a String Representation of this Object.</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00145">BadObject.cs:145</a></div></div>
 <div class="ttc" id="ainterface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string_html"><div class="ttname"><a href="interface_bad_script2_1_1_runtime_1_1_objects_1_1_native_1_1_i_bad_string.html">BadScript2.Runtime.Objects.Native.IBadString</a></div><div class="ttdoc">Implements the Interface for Native Strings.</div><div class="ttdef"><b>Definition</b> <a href="_i_bad_string_8cs_source.html#l00006">IBadString.cs:7</a></div></div>
 </div><!-- fragment -->
 </div>

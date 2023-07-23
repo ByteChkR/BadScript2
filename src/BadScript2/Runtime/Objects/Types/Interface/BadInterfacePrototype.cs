@@ -3,16 +3,27 @@ using BadScript2.Runtime.Error;
 
 namespace BadScript2.Runtime.Objects.Types;
 
-public abstract class BadInterfaceConstraint
-{
-	public abstract void Validate(BadClass obj, List<BadInterfaceValidatorError> errors);
-}
-
+/// <summary>
+/// Implements a BadScript Interface Prototype
+/// </summary>
 public class BadInterfacePrototype : BadClassPrototype
 {
+	/// <summary>
+	/// Backing Function of the Constraints Property
+	/// </summary>
 	private readonly Func<BadInterfaceConstraint[]> m_ConstraintsFunc;
+	/// <summary>
+	/// The Constraints of this Interface
+	/// </summary>
 	private BadInterfaceConstraint[]? m_Constraints;
 
+	/// <summary>
+	/// Creates a new Interface Prototype
+	/// </summary>
+	/// <param name="name">The Name of the Interface</param>
+	/// <param name="interfaces">The Interfaces this Interface extends</param>
+	/// <param name="metaData">The Meta Data of the Interface</param>
+	/// <param name="constraints">The Constraints of the Interface</param>
 	public BadInterfacePrototype(
 		string name,
 		BadInterfacePrototype[] interfaces,
@@ -25,6 +36,9 @@ public class BadInterfacePrototype : BadClassPrototype
 		m_ConstraintsFunc = constraints;
 	}
 
+	/// <summary>
+	/// The Constraints of this Interface
+	/// </summary>
 	public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
 
 	public override BadClassPrototype GetPrototype()

@@ -2,18 +2,32 @@ using System.CodeDom.Compiler;
 
 namespace BadScript2.Runtime.Objects.Types;
 
+/// <summary>
+/// Contains information about the validation process for an object.
+/// </summary>
 public readonly struct BadInterfaceValidatorResult
 {
+	/// <summary>
+	/// Is true if the object satisfies all constraints from all interfaces.
+	/// </summary>
 	public bool IsValid { get; }
 
+	/// <summary>
+	/// The errors that occured during the validation process.
+	/// </summary>
 	private readonly BadInterfaceValidatorError[] m_Errors;
 
+	/// <summary>
+	/// Creates a new result.
+	/// </summary>
+	/// <param name="errors"></param>
 	public BadInterfaceValidatorResult(params BadInterfaceValidatorError[] errors)
 	{
 		IsValid = errors.Length == 0;
 		m_Errors = errors;
 	}
 
+	
 	public override string ToString()
 	{
 		IndentedTextWriter writer = new IndentedTextWriter(new StringWriter());

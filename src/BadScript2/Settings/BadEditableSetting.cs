@@ -4,18 +4,41 @@ using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Settings;
 
+/// <summary>
+/// Implements an Editable Setting
+/// </summary>
+/// <typeparam name="T">The Type that has the setting</typeparam>
+/// <typeparam name="TValue">The Type of the value of the setting</typeparam>
 public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new()
 {
+	/// <summary>
+	/// The Default Value of the Setting
+	/// </summary>
 	private readonly TValue? m_DefaultValue;
+	/// <summary>
+	/// The Name of the Setting
+	/// </summary>
 	private readonly string m_Name;
+	/// <summary>
+	/// The Settings Object
+	/// </summary>
 	private BadSettings? m_SettingsObj;
 
+	/// <summary>
+	/// Creates a new Editable Setting
+	/// </summary>
+	/// <param name="name">The Name of the Setting</param>
+	/// <param name="defaultValue">The Default Value of the Setting</param>
 	public BadEditableSetting(string name, TValue? defaultValue = default(TValue?))
 	{
 		m_Name = name;
 		m_DefaultValue = defaultValue;
 	}
 
+	/// <summary>
+	/// Returns the settings object of the Editable Setting
+	/// </summary>
+	/// <returns>The settings object of the Editable Setting</returns>
 	public BadSettings? Get()
 	{
 		if (m_SettingsObj == null &&
@@ -36,6 +59,10 @@ public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new
 		return m_SettingsObj;
 	}
 
+	/// <summary>
+	/// Returns the value of the Editable Setting
+	/// </summary>
+	/// <returns>The value of the Editable Setting</returns>
 	public TValue? GetValue()
 	{
 		BadSettings? setting = Get();
@@ -50,6 +77,11 @@ public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new
 		return value ?? m_DefaultValue;
 	}
 
+	/// <summary>
+	/// Sets the value of the Editable Setting
+	/// </summary>
+	/// <param name="value">The value to set</param>
+	/// <exception cref="BadRuntimeException">If the Settings Object is null</exception>
 	public void Set(TValue? value)
 	{
 		BadSettings? settings = Get();

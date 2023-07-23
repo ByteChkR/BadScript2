@@ -183,10 +183,10 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00032">32</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>    {</div>
-<div class="line"><span class="lineno">   34</span>        <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">m_FilePath</a> = filePath;</div>
-<div class="line"><span class="lineno">   35</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00028">28</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>    {</div>
+<div class="line"><span class="lineno">   30</span>        <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">m_FilePath</a> = filePath;</div>
+<div class="line"><span class="lineno">   31</span>    }</div>
 <div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a1c8da30caec128d45781383df4edb7ec"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">BadHtml.BadHtmlTemplate.m_FilePath</a></div><div class="ttdeci">readonly string m_FilePath</div><div class="ttdoc">The Filepath of the Template.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00017">BadHtmlTemplate.cs:17</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -225,11 +225,11 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A Html Template Instance</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00106">106</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  107</span>    {</div>
-<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#ad592760e581029f8b0b2e704e37461e3">BadHtmlTemplate</a>(file);</div>
-<div class="line"><span class="lineno">  109</span>    }</div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_ad592760e581029f8b0b2e704e37461e3"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#ad592760e581029f8b0b2e704e37461e3">BadHtml.BadHtmlTemplate.BadHtmlTemplate</a></div><div class="ttdeci">BadHtmlTemplate(string filePath)</div><div class="ttdoc">Constructs a new Template.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00032">BadHtmlTemplate.cs:32</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00110">110</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>    {</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#ad592760e581029f8b0b2e704e37461e3">BadHtmlTemplate</a>(file);</div>
+<div class="line"><span class="lineno">  113</span>    }</div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_ad592760e581029f8b0b2e704e37461e3"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#ad592760e581029f8b0b2e704e37461e3">BadHtml.BadHtmlTemplate.BadHtmlTemplate</a></div><div class="ttdeci">BadHtmlTemplate(string filePath)</div><div class="ttdoc">Constructs a new Template.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00028">BadHtmlTemplate.cs:28</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -259,17 +259,17 @@ Private Attributes</h2></td></tr>
 <p>Returns the source code of the template. Loads the source code if it is not loaded yet. </p>
 <dl class="section return"><dt>Returns</dt><dd>Template Source</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00041">41</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   42</span>    {</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">m_Source</a> == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   44</span>        {</div>
-<div class="line"><span class="lineno">   45</span>            <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a251ba5430aa6ffade3c76747f7353fa6">Reload</a>();</div>
-<div class="line"><span class="lineno">   46</span>        }</div>
-<div class="line"><span class="lineno">   47</span> </div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">m_Source</a>!;</div>
-<div class="line"><span class="lineno">   49</span>    }</div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a251ba5430aa6ffade3c76747f7353fa6"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a251ba5430aa6ffade3c76747f7353fa6">BadHtml.BadHtmlTemplate.Reload</a></div><div class="ttdeci">void Reload()</div><div class="ttdoc">Reloads the Template Source.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00054">BadHtmlTemplate.cs:54</a></div></div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a9fb909c832fb02f4f520f6e22de64322"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">BadHtml.BadHtmlTemplate.m_Source</a></div><div class="ttdeci">string? m_Source</div><div class="ttdoc">The Source code of the Template(gets loaded on first template run)</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00026">BadHtmlTemplate.cs:26</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00042">42</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>    {</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">m_Source</a> == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   45</span>        {</div>
+<div class="line"><span class="lineno">   46</span>            <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a251ba5430aa6ffade3c76747f7353fa6">Reload</a>();</div>
+<div class="line"><span class="lineno">   47</span>        }</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">m_Source</a>!;</div>
+<div class="line"><span class="lineno">   50</span>    }</div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a251ba5430aa6ffade3c76747f7353fa6"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a251ba5430aa6ffade3c76747f7353fa6">BadHtml.BadHtmlTemplate.Reload</a></div><div class="ttdeci">void Reload()</div><div class="ttdoc">Reloads the Template Source.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00055">BadHtmlTemplate.cs:55</a></div></div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a9fb909c832fb02f4f520f6e22de64322"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">BadHtml.BadHtmlTemplate.m_Source</a></div><div class="ttdeci">string? m_Source</div><div class="ttdoc">The Source code of the Template(gets loaded on first template run)</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00022">BadHtmlTemplate.cs:22</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -290,10 +290,10 @@ Private Attributes</h2></td></tr>
 
 <p>Reloads the Template Source. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00054">54</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>    {</div>
-<div class="line"><span class="lineno">   56</span>        <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">m_Source</a> = <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_function" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#a1fc03c0e963ad5abbaa77ea7235c506b">ReadAllText</a>(<a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">m_FilePath</a>);</div>
-<div class="line"><span class="lineno">   57</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00055">55</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>    {</div>
+<div class="line"><span class="lineno">   57</span>        <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a9fb909c832fb02f4f520f6e22de64322">m_Source</a> = <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_function" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#a1fc03c0e963ad5abbaa77ea7235c506b">ReadAllText</a>(<a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">m_FilePath</a>);</div>
+<div class="line"><span class="lineno">   58</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_bad_file_system_html"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadScript2.IO.BadFileSystem</a></div><div class="ttdoc">Public interface for the filesystem abstraction of the BadScript Engine.</div><div class="ttdef"><b>Definition</b> <a href="_bad_file_system_8cs_source.html#l00006">BadFileSystem.cs:7</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_bad_file_system_html_a1fc03c0e963ad5abbaa77ea7235c506b"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#a1fc03c0e963ad5abbaa77ea7235c506b">BadScript2.IO.BadFileSystem.ReadAllText</a></div><div class="ttdeci">static string ReadAllText(this IFileSystem fileSystem, string path)</div><div class="ttdef"><b>Definition</b> <a href="_bad_file_system_8cs_source.html#l00046">BadFileSystem.cs:46</a></div></div>
 </div><!-- fragment -->
@@ -342,11 +342,11 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The Html Source of the Generated Document</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00096">96</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   97</span>    {</div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">RunTemplate</a>(model, options, caller).DocumentNode.OuterHtml;</div>
-<div class="line"><span class="lineno">   99</span>    }</div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a2a8196d9275fa2a3777c143dac52404b"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">BadHtml.BadHtmlTemplate.RunTemplate</a></div><div class="ttdeci">HtmlDocument RunTemplate(object? model=null, BadHtmlTemplateOptions? options=null, BadScope? caller=null)</div><div class="ttdoc">Runs the Template with the specified arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00066">BadHtmlTemplate.cs:66</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00100">100</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>    {</div>
+<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">RunTemplate</a>(model, options, caller).DocumentNode.OuterHtml;</div>
+<div class="line"><span class="lineno">  103</span>    }</div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a2a8196d9275fa2a3777c143dac52404b"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">BadHtml.BadHtmlTemplate.RunTemplate</a></div><div class="ttdeci">HtmlDocument RunTemplate(object? model=null, BadHtmlTemplateOptions? options=null, BadScope? caller=null)</div><div class="ttdoc">Runs the Template with the specified arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00067">BadHtmlTemplate.cs:67</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -393,36 +393,36 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The Html Document that was generated</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00066">66</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   67</span>    {</div>
-<div class="line"><span class="lineno">   68</span>        options ??= <span class="keyword">new</span> BadHtmlTemplateOptions();</div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordtype">string</span> src = <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a6ad3b3016305d356135b055206cd1bcd">GetSource</a>();</div>
-<div class="line"><span class="lineno">   70</span>        HtmlDocument input = <span class="keyword">new</span> HtmlDocument();</div>
-<div class="line"><span class="lineno">   71</span>        input.LoadHtml(src);</div>
-<div class="line"><span class="lineno">   72</span>        HtmlDocument output = <span class="keyword">new</span> HtmlDocument();</div>
-<div class="line"><span class="lineno">   73</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> executionContext = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html">BadExecutionContextOptions</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a76e26eda298555081c0bb39a2bdfb80c">Default</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a3ef813c83e89cd0ffb401e858afe2c8b">Build</a>();</div>
-<div class="line"><span class="lineno">   74</span>        executionContext.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#ad2df3f2ab04a9bd7aeb58a50bd6a20d3">SetCaller</a>(caller);</div>
-<div class="line"><span class="lineno">   75</span> </div>
-<div class="line"><span class="lineno">   76</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> mod = model as <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.Wrap(model);</div>
-<div class="line"><span class="lineno">   77</span>        executionContext.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(<span class="stringliteral">&quot;Model&quot;</span>, mod, executionContext.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>(<span class="keyword">null</span>, <span class="keyword">true</span>));</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">foreach</span> (HtmlNode node <span class="keywordflow">in</span> input.DocumentNode.ChildNodes)</div>
-<div class="line"><span class="lineno">   80</span>        {</div>
-<div class="line"><span class="lineno">   81</span>            BadHtmlContext ctx =</div>
-<div class="line"><span class="lineno">   82</span>                <span class="keyword">new</span> BadHtmlContext(node, output.DocumentNode, executionContext, <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">m_FilePath</a>, src, options);</div>
-<div class="line"><span class="lineno">   83</span>            BadHtmlNodeTransformer.Transform(ctx);</div>
-<div class="line"><span class="lineno">   84</span>        }</div>
-<div class="line"><span class="lineno">   85</span> </div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">return</span> output;</div>
-<div class="line"><span class="lineno">   87</span>    }</div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a6ad3b3016305d356135b055206cd1bcd"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a6ad3b3016305d356135b055206cd1bcd">BadHtml.BadHtmlTemplate.GetSource</a></div><div class="ttdeci">string GetSource()</div><div class="ttdoc">Returns the source code of the template. Loads the source code if it is not loaded yet.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00041">BadHtmlTemplate.cs:41</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00067">67</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>    {</div>
+<div class="line"><span class="lineno">   72</span>        options ??= <span class="keyword">new</span> BadHtmlTemplateOptions();</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordtype">string</span> src = <a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a6ad3b3016305d356135b055206cd1bcd">GetSource</a>();</div>
+<div class="line"><span class="lineno">   74</span>        HtmlDocument input = <span class="keyword">new</span> HtmlDocument();</div>
+<div class="line"><span class="lineno">   75</span>        input.LoadHtml(src);</div>
+<div class="line"><span class="lineno">   76</span>        HtmlDocument output = <span class="keyword">new</span> HtmlDocument();</div>
+<div class="line"><span class="lineno">   77</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadExecutionContext</a> executionContext = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html">BadExecutionContextOptions</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a76e26eda298555081c0bb39a2bdfb80c">Default</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a3ef813c83e89cd0ffb401e858afe2c8b">Build</a>();</div>
+<div class="line"><span class="lineno">   78</span>        executionContext.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#ad2df3f2ab04a9bd7aeb58a50bd6a20d3">SetCaller</a>(caller);</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> mod = model as <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.Wrap(model);</div>
+<div class="line"><span class="lineno">   81</span>        executionContext.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">DefineVariable</a>(<span class="stringliteral">&quot;Model&quot;</span>, mod, executionContext.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">Scope</a>, <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadPropertyInfo</a>(<span class="keyword">null</span>, <span class="keyword">true</span>));</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">foreach</span> (HtmlNode node <span class="keywordflow">in</span> input.DocumentNode.ChildNodes)</div>
+<div class="line"><span class="lineno">   84</span>        {</div>
+<div class="line"><span class="lineno">   85</span>            BadHtmlContext ctx =</div>
+<div class="line"><span class="lineno">   86</span>                <span class="keyword">new</span> BadHtmlContext(node, output.DocumentNode, executionContext, <a class="code hl_variable" href="class_bad_html_1_1_bad_html_template.html#a1c8da30caec128d45781383df4edb7ec">m_FilePath</a>, src, options);</div>
+<div class="line"><span class="lineno">   87</span>            BadHtmlNodeTransformer.Transform(ctx);</div>
+<div class="line"><span class="lineno">   88</span>        }</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">return</span> output;</div>
+<div class="line"><span class="lineno">   91</span>    }</div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a6ad3b3016305d356135b055206cd1bcd"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a6ad3b3016305d356135b055206cd1bcd">BadHtml.BadHtmlTemplate.GetSource</a></div><div class="ttdeci">string GetSource()</div><div class="ttdoc">Returns the source code of the template. Loads the source code if it is not loaded yet.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00042">BadHtmlTemplate.cs:42</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html">BadScript2.Runtime.BadExecutionContext</a></div><div class="ttdoc">The Execution Context. Every execution of a script needs a context the script is running in....</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_8cs_source.html#l00011">BadExecutionContext.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_html_a8e6932a396747cfaf3c7ad87d71543dd"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context.html#a8e6932a396747cfaf3c7ad87d71543dd">BadScript2.Runtime.BadExecutionContext.Scope</a></div><div class="ttdeci">BadScope Scope</div><div class="ttdoc">The Root Scope of the Context.</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_8cs_source.html#l00025">BadExecutionContext.cs:25</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_options_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html">BadScript2.Runtime.BadExecutionContextOptions</a></div><div class="ttdoc">Provides settings for creating a new BadExecutionContext</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_options_8cs_source.html#l00010">BadExecutionContextOptions.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_options_html_a3ef813c83e89cd0ffb401e858afe2c8b"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a3ef813c83e89cd0ffb401e858afe2c8b">BadScript2.Runtime.BadExecutionContextOptions.Build</a></div><div class="ttdeci">BadExecutionContext Build()</div><div class="ttdoc">Builds a new BadExecutionContext with the options provided in this Options Instance.</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_options_8cs_source.html#l00062">BadExecutionContextOptions.cs:62</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_execution_context_options_html_a76e26eda298555081c0bb39a2bdfb80c"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_execution_context_options.html#a76e26eda298555081c0bb39a2bdfb80c">BadScript2.Runtime.BadExecutionContextOptions.Default</a></div><div class="ttdeci">static readonly BadExecutionContextOptions Default</div><div class="ttdoc">The Default Options.</div><div class="ttdef"><b>Definition</b> <a href="_bad_execution_context_options_8cs_source.html#l00015">BadExecutionContextOptions.cs:15</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_a0545cc2c6276bd5f5c9b692eadf34162"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a0545cc2c6276bd5f5c9b692eadf34162">BadScript2.Runtime.BadScope.DefineVariable</a></div><div class="ttdeci">void DefineVariable(BadObject name, BadObject value, BadScope? caller=null, BadPropertyInfo? info=null)</div><div class="ttdoc">Defines a new Variable in the current scope.</div><div class="ttdef"><b>Definition</b> <a href="_bad_scope_8cs_source.html#l00443">BadScope.cs:443</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_ad2df3f2ab04a9bd7aeb58a50bd6a20d3"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#ad2df3f2ab04a9bd7aeb58a50bd6a20d3">BadScript2.Runtime.BadScope.SetCaller</a></div><div class="ttdeci">void SetCaller(BadScope? caller)</div><div class="ttdef"><b>Definition</b> <a href="_bad_scope_8cs_source.html#l00018">BadScope.cs:18</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_ad2df3f2ab04a9bd7aeb58a50bd6a20d3"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#ad2df3f2ab04a9bd7aeb58a50bd6a20d3">BadScript2.Runtime.BadScope.SetCaller</a></div><div class="ttdeci">void SetCaller(BadScope? caller)</div><div class="ttdef"><b>Definition</b> <a href="_bad_scope_8cs_source.html#l00159">BadScope.cs:159</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00010">BadObject.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_property_info.html">BadScript2.Runtime.Objects.BadPropertyInfo</a></div><div class="ttdoc">Stores Meta Information about a Property.</div><div class="ttdef"><b>Definition</b> <a href="_bad_property_info_8cs_source.html#l00008">BadPropertyInfo.cs:9</a></div></div>
 </div><!-- fragment -->
@@ -477,7 +477,7 @@ Private Attributes</h2></td></tr>
 
 <p>The Source code of the Template(gets loaded on first template run) </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00026">26</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00022">22</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
 
 </div>
 </div>
@@ -504,7 +504,7 @@ Private Attributes</h2></td></tr>
 
 <p>The Filepath of the Template. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00021">21</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_html_template_8cs_source.html#l00036">36</a> of file <a class="el" href="_bad_html_template_8cs_source.html">BadHtmlTemplate.cs</a>.</p>
 
 </div>
 </div>

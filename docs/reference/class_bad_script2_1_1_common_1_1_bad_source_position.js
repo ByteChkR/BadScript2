@@ -10,6 +10,7 @@ var class_bad_script2_1_1_common_1_1_bad_source_position =
     [ "GetExcerpt", "class_bad_script2_1_1_common_1_1_bad_source_position.html#a653b2a35bd1b9b86c9ee2fc52ea1a529", null ],
     [ "GetExcerpt", "class_bad_script2_1_1_common_1_1_bad_source_position.html#aa3ab5ed3b0ae20809843faf9aec63260", null ],
     [ "GetPositionInfo", "class_bad_script2_1_1_common_1_1_bad_source_position.html#a0d29d3da3402a4ab30dd1a03c1b6fcfa", null ],
+    [ "m_PositionInfo", "class_bad_script2_1_1_common_1_1_bad_source_position.html#ad5fc25b3424482288c7f594da88cf728", null ],
     [ "FileName", "class_bad_script2_1_1_common_1_1_bad_source_position.html#ad821dfdebc99abf226c89fc169cab4b5", null ],
     [ "Index", "class_bad_script2_1_1_common_1_1_bad_source_position.html#a4cad503a19117b940326cd9a4bff0dd3", null ],
     [ "Length", "class_bad_script2_1_1_common_1_1_bad_source_position.html#afc2b2ce65935d82e562edb7b3cfd2d97", null ],

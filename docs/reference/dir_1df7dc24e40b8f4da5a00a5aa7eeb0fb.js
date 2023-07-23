@@ -8,6 +8,9 @@ var dir_1df7dc24e40b8f4da5a00a5aa7eeb0fb =
     [ "Function", "dir_bfbcef6bda67a442aa7b070c3658a58c.html", "dir_bfbcef6bda67a442aa7b070c3658a58c" ],
     [ "Types", "dir_401c29db6e8d59fb3f4508718761b53d.html", "dir_401c29db6e8d59fb3f4508718761b53d" ],
     [ "Variables", "dir_5b8c2e4c68b2d2b8ae4f45afca967514.html", "dir_5b8c2e4c68b2d2b8ae4f45afca967514" ],
+    [ "BadDeleteExpressionCompiler.cs", "_bad_delete_expression_compiler_8cs.html", "_bad_delete_expression_compiler_8cs" ],
     [ "BadExpressionCompiler.cs", "_bad_expression_compiler_8cs.html", "_bad_expression_compiler_8cs" ],
+    [ "BadInstanceOfExpressionCompiler.cs", "_bad_instance_of_expression_compiler_8cs.html", "_bad_instance_of_expression_compiler_8cs" ],
+    [ "BadTypeOfExpressionCompiler.cs", "_bad_type_of_expression_compiler_8cs.html", "_bad_type_of_expression_compiler_8cs" ],
     [ "IBadExpressionCompiler.cs", "_i_bad_expression_compiler_8cs.html", "_i_bad_expression_compiler_8cs" ]
 ];

@@ -11,6 +11,9 @@ using BadScript2.Runtime.Objects;
 
 using HtmlAgilityPack;
 
+///<summary>
+///	A Html Template Generator based on BadScript2
+/// </summary>
 namespace BadHtml;
 
 /// <summary>

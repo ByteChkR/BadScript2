@@ -1,15 +1,23 @@
 namespace BadScript2.Runtime.Objects.Types;
 
+/// <summary>
+/// Extension Methods for BadInterface
+/// </summary>
 public static class BadInterfaceTools
 {
-	public static IEnumerable<BadInterfacePrototype> GetAllInterfaces(this BadClassPrototype interfce)
+	/// <summary>
+	/// Returns all Interfaces implemented by this Type
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns>Enumeration of Interface Prototypes</returns>
+	public static IEnumerable<BadInterfacePrototype> GetAllInterfaces(this BadClassPrototype type)
 	{
-		if (interfce is BadInterfacePrototype interfacePrototype)
+		if (type is BadInterfacePrototype interfacePrototype)
 		{
 			yield return interfacePrototype;
 		}
 
-		BadClassPrototype? baseClass = interfce.GetBaseClass();
+		BadClassPrototype? baseClass = type.GetBaseClass();
 
 		if (baseClass != null)
 		{
@@ -19,7 +27,7 @@ public static class BadInterfaceTools
 			}
 		}
 
-		foreach (BadInterfacePrototype? i in interfce.Interfaces)
+		foreach (BadInterfacePrototype? i in type.Interfaces)
 		{
 			foreach (BadInterfacePrototype x in i.GetAllInterfaces())
 			{
@@ -28,6 +36,12 @@ public static class BadInterfaceTools
 		}
 	}
 
+	/// <summary>
+	/// Validates a given Object against a set of Interfaces
+	/// </summary>
+	/// <param name="instance">The Object to validate</param>
+	/// <param name="interfaces">The Interfaces to validate against</param>
+	/// <returns>Validation Result</returns>
 	public static BadInterfaceValidatorResult Validate(
 		this BadClass instance,
 		IEnumerable<BadInterfacePrototype> interfaces)

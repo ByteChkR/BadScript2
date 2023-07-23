@@ -244,7 +244,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements Linq Extensions. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00017">17</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad97b6d64dea410dfceec551779c9df4c" name="ad97b6d64dea410dfceec551779c9df4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad97b6d64dea410dfceec551779c9df4c">&#9670;&#160;</a></span>AddExtensions()</h2>
@@ -273,74 +273,81 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a721b96dc1b7b60feb442703eda7baa4c">BadScript2.Runtime.Interop.BadInteropExtension</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00355">355</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  356</span>    {</div>
-<div class="line"><span class="lineno">  357</span>        <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72">Register</a>(<span class="stringliteral">&quot;ToArray&quot;</span>, (_, e) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ae4f767a6b2ce4f04e7095bb28aaa0d0e">ToArray</a>(e));</div>
-<div class="line"><span class="lineno">  358</span>        <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72">Register</a>(<span class="stringliteral">&quot;Reverse&quot;</span>, (_, e) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3058b90898d09f68d48f8fe433bd53e4">Reverse</a>(e));</div>
-<div class="line"><span class="lineno">  359</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;Select&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#acaf5cf897614b7441435820119102d5a">Select</a>);</div>
-<div class="line"><span class="lineno">  360</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;Where&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a9f5dea16c29ac84f9c532825006950ef">Where</a>);</div>
-<div class="line"><span class="lineno">  361</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;All&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a65079afb0e44929808c52a9ab9de2110">All</a>);</div>
-<div class="line"><span class="lineno">  362</span>        Register&lt;BadObject&gt;(<span class="stringliteral">&quot;Append&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab2fe3ffeb5ebdc1b7247a916f208d3af">Append</a>);</div>
-<div class="line"><span class="lineno">  363</span>        Register&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Concat&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a5b7291de89d4afa1f0bb3d3a37cb98f9">Concat</a>);</div>
-<div class="line"><span class="lineno">  364</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;ElementAt&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abfbfa84a30d52b500005386c73655f6b">ElementAt</a>);</div>
-<div class="line"><span class="lineno">  365</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;ElementAtOrDefault&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a30e86920b05c8c55eef2a4a0bb148509">ElementAtOrDefault</a>);</div>
-<div class="line"><span class="lineno">  366</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;Skip&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a47415d111b772649108f17ebae245e4f">Skip</a>);</div>
-<div class="line"><span class="lineno">  367</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;SkipLast&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#adaedcec142a1f097d1b1390294890669">SkipLast</a>);</div>
-<div class="line"><span class="lineno">  368</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;Take&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7b43ab398b24d572ca4651fbdeabfbf8">Take</a>);</div>
-<div class="line"><span class="lineno">  369</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;OrderBy&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a6aa64c222288f4c0d6070138e14ce079">OrderBy</a>);</div>
-<div class="line"><span class="lineno">  370</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;First&quot;</span>,</div>
-<div class="line"><span class="lineno">  371</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;First&quot;</span>,</div>
-<div class="line"><span class="lineno">  372</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a903db490d4ab3dabf750eb447e120b4e">First</a>(c, e, args[0]),</div>
-<div class="line"><span class="lineno">  373</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
-<div class="line"><span class="lineno">  374</span> </div>
-<div class="line"><span class="lineno">  375</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;FirstOrDefault&quot;</span>,</div>
-<div class="line"><span class="lineno">  376</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;FirstOrDefault&quot;</span>,</div>
-<div class="line"><span class="lineno">  377</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a35fa3cac03f75edf64ab1735c71d9672">FirstOrDefault</a>(c, e, args[0]),</div>
-<div class="line"><span class="lineno">  378</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
-<div class="line"><span class="lineno">  379</span> </div>
-<div class="line"><span class="lineno">  380</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Last&quot;</span>,</div>
-<div class="line"><span class="lineno">  381</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Last&quot;</span>,</div>
-<div class="line"><span class="lineno">  382</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7722d191c4f8de8e591d8df511c7b240">Last</a>(c, e, args[0]),</div>
-<div class="line"><span class="lineno">  383</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
-<div class="line"><span class="lineno">  384</span> </div>
-<div class="line"><span class="lineno">  385</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;LastOrDefault&quot;</span>,</div>
-<div class="line"><span class="lineno">  386</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;LastOrDefault&quot;</span>,</div>
-<div class="line"><span class="lineno">  387</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a995392bbefdfaba561d8f64cd1a6049a">LastOrDefault</a>(c, e, args[0]),</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00357">357</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  358</span>    {</div>
+<div class="line"><span class="lineno">  359</span>        <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72">Register</a>(<span class="stringliteral">&quot;ToArray&quot;</span>, (_, e) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ae4f767a6b2ce4f04e7095bb28aaa0d0e">ToArray</a>(e));</div>
+<div class="line"><span class="lineno">  360</span>        <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72">Register</a>(<span class="stringliteral">&quot;Reverse&quot;</span>, (_, e) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3058b90898d09f68d48f8fe433bd53e4">Reverse</a>(e));</div>
+<div class="line"><span class="lineno">  361</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;Select&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#acaf5cf897614b7441435820119102d5a">Select</a>);</div>
+<div class="line"><span class="lineno">  362</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;Where&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a9f5dea16c29ac84f9c532825006950ef">Where</a>);</div>
+<div class="line"><span class="lineno">  363</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;All&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a65079afb0e44929808c52a9ab9de2110">All</a>);</div>
+<div class="line"><span class="lineno">  364</span>        Register&lt;BadObject&gt;(<span class="stringliteral">&quot;Append&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab2fe3ffeb5ebdc1b7247a916f208d3af">Append</a>);</div>
+<div class="line"><span class="lineno">  365</span>        Register&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Concat&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a5b7291de89d4afa1f0bb3d3a37cb98f9">Concat</a>);</div>
+<div class="line"><span class="lineno">  366</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;ElementAt&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abfbfa84a30d52b500005386c73655f6b">ElementAt</a>);</div>
+<div class="line"><span class="lineno">  367</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;ElementAtOrDefault&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a30e86920b05c8c55eef2a4a0bb148509">ElementAtOrDefault</a>);</div>
+<div class="line"><span class="lineno">  368</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;Skip&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a47415d111b772649108f17ebae245e4f">Skip</a>);</div>
+<div class="line"><span class="lineno">  369</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;SkipLast&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#adaedcec142a1f097d1b1390294890669">SkipLast</a>);</div>
+<div class="line"><span class="lineno">  370</span>        Register&lt;decimal&gt;(<span class="stringliteral">&quot;Take&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7b43ab398b24d572ca4651fbdeabfbf8">Take</a>);</div>
+<div class="line"><span class="lineno">  371</span>        Register&lt;BadFunction&gt;(<span class="stringliteral">&quot;OrderBy&quot;</span>, <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a6aa64c222288f4c0d6070138e14ce079">OrderBy</a>);</div>
+<div class="line"><span class="lineno">  372</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;First&quot;</span>,</div>
+<div class="line"><span class="lineno">  373</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;First&quot;</span>,</div>
+<div class="line"><span class="lineno">  374</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a903db490d4ab3dabf750eb447e120b4e">First</a>(c, e, args[0]),</div>
+<div class="line"><span class="lineno">  375</span>                <span class="keyword">false</span>,</div>
+<div class="line"><span class="lineno">  376</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
+<div class="line"><span class="lineno">  377</span> </div>
+<div class="line"><span class="lineno">  378</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;FirstOrDefault&quot;</span>,</div>
+<div class="line"><span class="lineno">  379</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;FirstOrDefault&quot;</span>,</div>
+<div class="line"><span class="lineno">  380</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a35fa3cac03f75edf64ab1735c71d9672">FirstOrDefault</a>(c, e, args[0]),</div>
+<div class="line"><span class="lineno">  381</span>                <span class="keyword">false</span>,</div>
+<div class="line"><span class="lineno">  382</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
+<div class="line"><span class="lineno">  383</span> </div>
+<div class="line"><span class="lineno">  384</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Last&quot;</span>,</div>
+<div class="line"><span class="lineno">  385</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Last&quot;</span>,</div>
+<div class="line"><span class="lineno">  386</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7722d191c4f8de8e591d8df511c7b240">Last</a>(c, e, args[0]),</div>
+<div class="line"><span class="lineno">  387</span>                <span class="keyword">false</span>,</div>
 <div class="line"><span class="lineno">  388</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
-<div class="line"><span class="lineno">  389</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Any&quot;</span>,</div>
-<div class="line"><span class="lineno">  390</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Any&quot;</span>,</div>
-<div class="line"><span class="lineno">  391</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a35fa3cac03f75edf64ab1735c71d9672">FirstOrDefault</a>(c, e, args[0]),</div>
-<div class="line"><span class="lineno">  392</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;filter&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
-<div class="line"><span class="lineno">  393</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Count&quot;</span>,</div>
-<div class="line"><span class="lineno">  394</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Count&quot;</span>,</div>
-<div class="line"><span class="lineno">  395</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abe7321be594d17ccc757d1f64d68b53e">Count</a>(c, e, args[0]),</div>
-<div class="line"><span class="lineno">  396</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;predicate&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
-<div class="line"><span class="lineno">  397</span> </div>
-<div class="line"><span class="lineno">  398</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;ToTable&quot;</span>,</div>
-<div class="line"><span class="lineno">  399</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;BadFunction, BadFunction&gt;</a>(<span class="stringliteral">&quot;ToTable&quot;</span>,</div>
-<div class="line"><span class="lineno">  400</span>                (c, ks, vs) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#aa4d5ba329dbe3c202e93e5da8c1dc0c2">ToTable</a>(c, e, ks, vs)));</div>
-<div class="line"><span class="lineno">  401</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a3058b90898d09f68d48f8fe433bd53e4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3058b90898d09f68d48f8fe433bd53e4">BadScript2.Interop.Linq.BadLinqExtensions.Reverse</a></div><div class="ttdeci">static BadObject Reverse(IBadEnumerable e)</div><div class="ttdoc">Implementation for 'Reverse' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00350">BadLinqExtensions.cs:350</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a30e86920b05c8c55eef2a4a0bb148509"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a30e86920b05c8c55eef2a4a0bb148509">BadScript2.Interop.Linq.BadLinqExtensions.ElementAtOrDefault</a></div><div class="ttdeci">static BadObject ElementAtOrDefault(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'ElementAtOrDefault' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00276">BadLinqExtensions.cs:276</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a35fa3cac03f75edf64ab1735c71d9672"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a35fa3cac03f75edf64ab1735c71d9672">BadScript2.Interop.Linq.BadLinqExtensions.FirstOrDefault</a></div><div class="ttdeci">static BadObject FirstOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the first element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00114">BadLinqExtensions.cs:114</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a47415d111b772649108f17ebae245e4f"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a47415d111b772649108f17ebae245e4f">BadScript2.Interop.Linq.BadLinqExtensions.Skip</a></div><div class="ttdeci">static BadObject Skip(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'Skip' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00306">BadLinqExtensions.cs:306</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a5b7291de89d4afa1f0bb3d3a37cb98f9"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a5b7291de89d4afa1f0bb3d3a37cb98f9">BadScript2.Interop.Linq.BadLinqExtensions.Concat</a></div><div class="ttdeci">static BadObject Concat(BadExecutionContext ctx, IBadEnumerable e1, IBadEnumerable e2)</div><div class="ttdoc">Concatenates two Enumerables.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00217">BadLinqExtensions.cs:217</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a65079afb0e44929808c52a9ab9de2110"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a65079afb0e44929808c52a9ab9de2110">BadScript2.Interop.Linq.BadLinqExtensions.All</a></div><div class="ttdeci">static BadObject All(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)</div><div class="ttdoc">Checks if all elements match the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00229">BadLinqExtensions.cs:229</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a6aa64c222288f4c0d6070138e14ce079"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a6aa64c222288f4c0d6070138e14ce079">BadScript2.Interop.Linq.BadLinqExtensions.OrderBy</a></div><div class="ttdeci">BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)</div><div class="ttdoc">Implementation for 'OrderBy' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00410">BadLinqExtensions.cs:410</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a7722d191c4f8de8e591d8df511c7b240"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7722d191c4f8de8e591d8df511c7b240">BadScript2.Interop.Linq.BadLinqExtensions.Last</a></div><div class="ttdeci">static BadObject Last(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the last element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00137">BadLinqExtensions.cs:137</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a7b43ab398b24d572ca4651fbdeabfbf8"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7b43ab398b24d572ca4651fbdeabfbf8">BadScript2.Interop.Linq.BadLinqExtensions.Take</a></div><div class="ttdeci">static BadObject Take(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'Take' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00318">BadLinqExtensions.cs:318</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a903db490d4ab3dabf750eb447e120b4e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a903db490d4ab3dabf750eb447e120b4e">BadScript2.Interop.Linq.BadLinqExtensions.First</a></div><div class="ttdeci">static BadObject First(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the first element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00091">BadLinqExtensions.cs:91</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a995392bbefdfaba561d8f64cd1a6049a"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a995392bbefdfaba561d8f64cd1a6049a">BadScript2.Interop.Linq.BadLinqExtensions.LastOrDefault</a></div><div class="ttdeci">static BadObject LastOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the last element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00160">BadLinqExtensions.cs:160</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a9f5dea16c29ac84f9c532825006950ef"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a9f5dea16c29ac84f9c532825006950ef">BadScript2.Interop.Linq.BadLinqExtensions.Where</a></div><div class="ttdeci">static BadObject Where(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)</div><div class="ttdoc">Filters the given enumerable with the given filter function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00078">BadLinqExtensions.cs:78</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_aa4d5ba329dbe3c202e93e5da8c1dc0c2"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#aa4d5ba329dbe3c202e93e5da8c1dc0c2">BadScript2.Interop.Linq.BadLinqExtensions.ToTable</a></div><div class="ttdeci">static BadObject ToTable(BadExecutionContext ctx, IBadEnumerable e, BadFunction keySelector, BadFunction valueSelector)</div><div class="ttdoc">Implementation for 'ToTable' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00289">BadLinqExtensions.cs:289</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_ab2fe3ffeb5ebdc1b7247a916f208d3af"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab2fe3ffeb5ebdc1b7247a916f208d3af">BadScript2.Interop.Linq.BadLinqExtensions.Append</a></div><div class="ttdeci">static BadObject Append(BadExecutionContext ctx, IBadEnumerable e, BadObject obj)</div><div class="ttdoc">Appends an Object to the Enumerable.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00205">BadLinqExtensions.cs:205</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_ab7edc8245f42e3f65f9e373747b3ce72"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72">BadScript2.Interop.Linq.BadLinqExtensions.Register</a></div><div class="ttdeci">static void Register(string name, Func&lt; BadExecutionContext, IBadEnumerable, BadObject &gt; func)</div><div class="ttdoc">Shorthand Wrapper for RegisterObject. Registers a Linq Function that takes a IBadEnumerable object an...</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00435">BadLinqExtensions.cs:435</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_abe7321be594d17ccc757d1f64d68b53e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abe7321be594d17ccc757d1f64d68b53e">BadScript2.Interop.Linq.BadLinqExtensions.Count</a></div><div class="ttdeci">static BadObject Count(BadExecutionContext ctx, IBadEnumerable e, BadObject predicate)</div><div class="ttdoc">Counts all Elements.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00242">BadLinqExtensions.cs:242</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_abfbfa84a30d52b500005386c73655f6b"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abfbfa84a30d52b500005386c73655f6b">BadScript2.Interop.Linq.BadLinqExtensions.ElementAt</a></div><div class="ttdeci">static BadObject ElementAt(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'ElementAt' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00264">BadLinqExtensions.cs:264</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_acaf5cf897614b7441435820119102d5a"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#acaf5cf897614b7441435820119102d5a">BadScript2.Interop.Linq.BadLinqExtensions.Select</a></div><div class="ttdeci">static BadObject Select(BadExecutionContext ctx, IBadEnumerable e, BadFunction selector)</div><div class="ttdoc">Selects elements of the given enumerable with the given selector function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00066">BadLinqExtensions.cs:66</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_adaedcec142a1f097d1b1390294890669"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#adaedcec142a1f097d1b1390294890669">BadScript2.Interop.Linq.BadLinqExtensions.SkipLast</a></div><div class="ttdeci">static BadObject SkipLast(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'SkipLast' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00330">BadLinqExtensions.cs:330</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_ae4f767a6b2ce4f04e7095bb28aaa0d0e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ae4f767a6b2ce4f04e7095bb28aaa0d0e">BadScript2.Interop.Linq.BadLinqExtensions.ToArray</a></div><div class="ttdeci">static BadObject ToArray(IBadEnumerable e)</div><div class="ttdoc">Implementation for 'ToArray' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00340">BadLinqExtensions.cs:340</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadScript2.Runtime.Interop.Functions.BadDynamicInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_dynamic_interop_function_8cs_source.html#l00757">BadDynamicInteropFunction.cs:758</a></div></div>
+<div class="line"><span class="lineno">  389</span> </div>
+<div class="line"><span class="lineno">  390</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;LastOrDefault&quot;</span>,</div>
+<div class="line"><span class="lineno">  391</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;LastOrDefault&quot;</span>,</div>
+<div class="line"><span class="lineno">  392</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a995392bbefdfaba561d8f64cd1a6049a">LastOrDefault</a>(c, e, args[0]),</div>
+<div class="line"><span class="lineno">  393</span>                <span class="keyword">false</span>,</div>
+<div class="line"><span class="lineno">  394</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;selector&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
+<div class="line"><span class="lineno">  395</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Any&quot;</span>,</div>
+<div class="line"><span class="lineno">  396</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Any&quot;</span>,</div>
+<div class="line"><span class="lineno">  397</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3e7751e272452577d88a24dac3773071">Any</a>(c, e, args[0]),</div>
+<div class="line"><span class="lineno">  398</span>                <span class="keyword">false</span>,</div>
+<div class="line"><span class="lineno">  399</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;filter&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
+<div class="line"><span class="lineno">  400</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;Count&quot;</span>,</div>
+<div class="line"><span class="lineno">  401</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;Count&quot;</span>,</div>
+<div class="line"><span class="lineno">  402</span>                (c, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abe7321be594d17ccc757d1f64d68b53e">Count</a>(c, e, args[0]),</div>
+<div class="line"><span class="lineno">  403</span>                <span class="keyword">false</span>,</div>
+<div class="line"><span class="lineno">  404</span>                <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadFunctionParameter</a>(<span class="stringliteral">&quot;predicate&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>)));</div>
+<div class="line"><span class="lineno">  405</span> </div>
+<div class="line"><span class="lineno">  406</span>        RegisterObject&lt;IBadEnumerable&gt;(<span class="stringliteral">&quot;ToTable&quot;</span>,</div>
+<div class="line"><span class="lineno">  407</span>            e =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;BadFunction, BadFunction&gt;</a>(<span class="stringliteral">&quot;ToTable&quot;</span>,</div>
+<div class="line"><span class="lineno">  408</span>                (c, ks, vs) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#aa4d5ba329dbe3c202e93e5da8c1dc0c2">ToTable</a>(c, e, ks, vs)));</div>
+<div class="line"><span class="lineno">  409</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a3058b90898d09f68d48f8fe433bd53e4"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3058b90898d09f68d48f8fe433bd53e4">BadScript2.Interop.Linq.BadLinqExtensions.Reverse</a></div><div class="ttdeci">static BadObject Reverse(IBadEnumerable e)</div><div class="ttdoc">Implementation for 'Reverse' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00352">BadLinqExtensions.cs:352</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a30e86920b05c8c55eef2a4a0bb148509"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a30e86920b05c8c55eef2a4a0bb148509">BadScript2.Interop.Linq.BadLinqExtensions.ElementAtOrDefault</a></div><div class="ttdeci">static BadObject ElementAtOrDefault(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'ElementAtOrDefault' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00278">BadLinqExtensions.cs:278</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a35fa3cac03f75edf64ab1735c71d9672"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a35fa3cac03f75edf64ab1735c71d9672">BadScript2.Interop.Linq.BadLinqExtensions.FirstOrDefault</a></div><div class="ttdeci">static BadObject FirstOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the first element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00113">BadLinqExtensions.cs:113</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a3e7751e272452577d88a24dac3773071"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a3e7751e272452577d88a24dac3773071">BadScript2.Interop.Linq.BadLinqExtensions.Any</a></div><div class="ttdeci">static BadObject Any(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Checks if any element matches the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00182">BadLinqExtensions.cs:182</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a47415d111b772649108f17ebae245e4f"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a47415d111b772649108f17ebae245e4f">BadScript2.Interop.Linq.BadLinqExtensions.Skip</a></div><div class="ttdeci">static BadObject Skip(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'Skip' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00308">BadLinqExtensions.cs:308</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a5b7291de89d4afa1f0bb3d3a37cb98f9"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a5b7291de89d4afa1f0bb3d3a37cb98f9">BadScript2.Interop.Linq.BadLinqExtensions.Concat</a></div><div class="ttdeci">static BadObject Concat(BadExecutionContext ctx, IBadEnumerable e1, IBadEnumerable e2)</div><div class="ttdoc">Concatenates two Enumerables.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00216">BadLinqExtensions.cs:216</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a65079afb0e44929808c52a9ab9de2110"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a65079afb0e44929808c52a9ab9de2110">BadScript2.Interop.Linq.BadLinqExtensions.All</a></div><div class="ttdeci">static BadObject All(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)</div><div class="ttdoc">Checks if all elements match the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00228">BadLinqExtensions.cs:228</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a6aa64c222288f4c0d6070138e14ce079"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a6aa64c222288f4c0d6070138e14ce079">BadScript2.Interop.Linq.BadLinqExtensions.OrderBy</a></div><div class="ttdeci">BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)</div><div class="ttdoc">Implementation for 'OrderBy' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00418">BadLinqExtensions.cs:418</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a7722d191c4f8de8e591d8df511c7b240"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7722d191c4f8de8e591d8df511c7b240">BadScript2.Interop.Linq.BadLinqExtensions.Last</a></div><div class="ttdeci">static BadObject Last(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the last element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00136">BadLinqExtensions.cs:136</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a7b43ab398b24d572ca4651fbdeabfbf8"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a7b43ab398b24d572ca4651fbdeabfbf8">BadScript2.Interop.Linq.BadLinqExtensions.Take</a></div><div class="ttdeci">static BadObject Take(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'Take' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00320">BadLinqExtensions.cs:320</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a903db490d4ab3dabf750eb447e120b4e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a903db490d4ab3dabf750eb447e120b4e">BadScript2.Interop.Linq.BadLinqExtensions.First</a></div><div class="ttdeci">static BadObject First(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the first element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00090">BadLinqExtensions.cs:90</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a995392bbefdfaba561d8f64cd1a6049a"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a995392bbefdfaba561d8f64cd1a6049a">BadScript2.Interop.Linq.BadLinqExtensions.LastOrDefault</a></div><div class="ttdeci">static BadObject LastOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)</div><div class="ttdoc">Gets the last element in the enumerable that satisfies the given filter.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00159">BadLinqExtensions.cs:159</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a9f5dea16c29ac84f9c532825006950ef"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a9f5dea16c29ac84f9c532825006950ef">BadScript2.Interop.Linq.BadLinqExtensions.Where</a></div><div class="ttdeci">static BadObject Where(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)</div><div class="ttdoc">Filters the given enumerable with the given filter function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00077">BadLinqExtensions.cs:77</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_aa4d5ba329dbe3c202e93e5da8c1dc0c2"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#aa4d5ba329dbe3c202e93e5da8c1dc0c2">BadScript2.Interop.Linq.BadLinqExtensions.ToTable</a></div><div class="ttdeci">static BadObject ToTable(BadExecutionContext ctx, IBadEnumerable e, BadFunction keySelector, BadFunction valueSelector)</div><div class="ttdoc">Implementation for 'ToTable' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00291">BadLinqExtensions.cs:291</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_ab2fe3ffeb5ebdc1b7247a916f208d3af"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab2fe3ffeb5ebdc1b7247a916f208d3af">BadScript2.Interop.Linq.BadLinqExtensions.Append</a></div><div class="ttdeci">static BadObject Append(BadExecutionContext ctx, IBadEnumerable e, BadObject obj)</div><div class="ttdoc">Appends an Object to the Enumerable.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00204">BadLinqExtensions.cs:204</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_ab7edc8245f42e3f65f9e373747b3ce72"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ab7edc8245f42e3f65f9e373747b3ce72">BadScript2.Interop.Linq.BadLinqExtensions.Register</a></div><div class="ttdeci">static void Register(string name, Func&lt; BadExecutionContext, IBadEnumerable, BadObject &gt; func)</div><div class="ttdoc">Shorthand Wrapper for RegisterObject. Registers a Linq Function that takes a IBadEnumerable object an...</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00443">BadLinqExtensions.cs:443</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_abe7321be594d17ccc757d1f64d68b53e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abe7321be594d17ccc757d1f64d68b53e">BadScript2.Interop.Linq.BadLinqExtensions.Count</a></div><div class="ttdeci">static BadObject Count(BadExecutionContext ctx, IBadEnumerable e, BadObject predicate)</div><div class="ttdoc">Counts all Elements.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00244">BadLinqExtensions.cs:244</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_abfbfa84a30d52b500005386c73655f6b"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#abfbfa84a30d52b500005386c73655f6b">BadScript2.Interop.Linq.BadLinqExtensions.ElementAt</a></div><div class="ttdeci">static BadObject ElementAt(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'ElementAt' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00266">BadLinqExtensions.cs:266</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_acaf5cf897614b7441435820119102d5a"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#acaf5cf897614b7441435820119102d5a">BadScript2.Interop.Linq.BadLinqExtensions.Select</a></div><div class="ttdeci">static BadObject Select(BadExecutionContext ctx, IBadEnumerable e, BadFunction selector)</div><div class="ttdoc">Selects elements of the given enumerable with the given selector function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00065">BadLinqExtensions.cs:65</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_adaedcec142a1f097d1b1390294890669"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#adaedcec142a1f097d1b1390294890669">BadScript2.Interop.Linq.BadLinqExtensions.SkipLast</a></div><div class="ttdeci">static BadObject SkipLast(BadExecutionContext ctx, IBadEnumerable e, decimal index)</div><div class="ttdoc">Implementation for 'SkipLast' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00332">BadLinqExtensions.cs:332</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_ae4f767a6b2ce4f04e7095bb28aaa0d0e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#ae4f767a6b2ce4f04e7095bb28aaa0d0e">BadScript2.Interop.Linq.BadLinqExtensions.ToArray</a></div><div class="ttdeci">static BadObject ToArray(IBadEnumerable e)</div><div class="ttdoc">Implementation for 'ToArray' function.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00342">BadLinqExtensions.cs:342</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadScript2.Runtime.Interop.Functions.BadDynamicInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_dynamic_interop_function_8cs_source.html#l00774">BadDynamicInteropFunction.cs:775</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadScript2.Runtime.Interop.Functions.BadInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_function_8cs_source.html#l00007">BadInteropFunction.cs:8</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_parameter.html">BadScript2.Runtime.Objects.Functions.BadFunctionParameter</a></div><div class="ttdoc">Provides function parameter info.</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_parameter_8cs_source.html#l00010">BadFunctionParameter.cs:11</a></div></div>
 </div><!-- fragment -->
@@ -397,10 +404,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if all elements satisfy the filter</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00229">229</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  230</span>    {</div>
-<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">return</span> e.All(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
-<div class="line"><span class="lineno">  232</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00228">228</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  229</span>    {</div>
+<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">return</span> e.All(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
+<div class="line"><span class="lineno">  231</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -461,20 +468,20 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00183">183</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  184</span>    {</div>
-<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  186</span>        {</div>
-<div class="line"><span class="lineno">  187</span>            <span class="keywordflow">return</span> e.Any();</div>
-<div class="line"><span class="lineno">  188</span>        }</div>
-<div class="line"><span class="lineno">  189</span> </div>
-<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
-<div class="line"><span class="lineno">  191</span>        {</div>
-<div class="line"><span class="lineno">  192</span>            <span class="keywordflow">return</span> e.Any(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
-<div class="line"><span class="lineno">  193</span>        }</div>
-<div class="line"><span class="lineno">  194</span> </div>
-<div class="line"><span class="lineno">  195</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
-<div class="line"><span class="lineno">  196</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00182">182</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  183</span>    {</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  185</span>        {</div>
+<div class="line"><span class="lineno">  186</span>            <span class="keywordflow">return</span> e.Any();</div>
+<div class="line"><span class="lineno">  187</span>        }</div>
+<div class="line"><span class="lineno">  188</span> </div>
+<div class="line"><span class="lineno">  189</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
+<div class="line"><span class="lineno">  190</span>        {</div>
+<div class="line"><span class="lineno">  191</span>            <span class="keywordflow">return</span> e.Any(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
+<div class="line"><span class="lineno">  192</span>        }</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
+<div class="line"><span class="lineno">  195</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadScript2.Runtime.Error.BadRuntimeException</a></div><div class="ttdoc">Gets thrown by the runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_exception_8cs_source.html#l00009">BadRuntimeException.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadScript2.Runtime.Objects.BadObject</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00010">BadObject.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object_html_ac71bfcf96e046f575f0bd000c876c307"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">BadScript2.Runtime.Objects.BadObject.Null</a></div><div class="ttdeci">static readonly BadObject Null</div><div class="ttdef"><b>Definition</b> <a href="_bad_object_8cs_source.html#l00013">BadObject.cs:13</a></div></div>
@@ -533,10 +540,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>New Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00205">205</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  206</span>    {</div>
-<div class="line"><span class="lineno">  207</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Append(obj));</div>
-<div class="line"><span class="lineno">  208</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00204">204</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>    {</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Append(obj));</div>
+<div class="line"><span class="lineno">  207</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadScript2.Runtime.Interop.BadInteropEnumerable</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_enumerable_8cs_source.html#l00012">BadInteropEnumerable.cs:13</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -592,10 +599,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumerable</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00217">217</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  218</span>    {</div>
-<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e1.Concat(e2));</div>
-<div class="line"><span class="lineno">  220</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00216">216</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  217</span>    {</div>
+<div class="line"><span class="lineno">  218</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e1.Concat(e2));</div>
+<div class="line"><span class="lineno">  219</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -644,7 +651,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">ctx</td><td>The Execution Context</td></tr>
     <tr><td class="paramname">e</td><td>The Enumerable</td></tr>
-    <tr><td class="paramname">predicate</td><td>(Optional) Predicate Function. If specified, only counts the elements that this predicate matches</td></tr>
+    <tr><td class="paramname">predicate</td><td>(Optional) Predicate Function. If specified, only counts the elements that this predicate matches </td></tr>
   </table>
   </dd>
 </dl>
@@ -656,20 +663,20 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00242">242</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  243</span>    {</div>
-<div class="line"><span class="lineno">  244</span>        <span class="keywordflow">if</span> (predicate == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  245</span>        {</div>
-<div class="line"><span class="lineno">  246</span>            <span class="keywordflow">return</span> e.Count();</div>
-<div class="line"><span class="lineno">  247</span>        }</div>
-<div class="line"><span class="lineno">  248</span> </div>
-<div class="line"><span class="lineno">  249</span>        <span class="keywordflow">if</span> (predicate is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> func)</div>
-<div class="line"><span class="lineno">  250</span>        {</div>
-<div class="line"><span class="lineno">  251</span>            <span class="keywordflow">return</span> e.Count(x =&gt; Invoke&lt;bool&gt;(func, ctx, x));</div>
-<div class="line"><span class="lineno">  252</span>        }</div>
-<div class="line"><span class="lineno">  253</span> </div>
-<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Predicate&quot;</span>);</div>
-<div class="line"><span class="lineno">  255</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00244">244</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  245</span>    {</div>
+<div class="line"><span class="lineno">  246</span>        <span class="keywordflow">if</span> (predicate == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  247</span>        {</div>
+<div class="line"><span class="lineno">  248</span>            <span class="keywordflow">return</span> e.Count();</div>
+<div class="line"><span class="lineno">  249</span>        }</div>
+<div class="line"><span class="lineno">  250</span> </div>
+<div class="line"><span class="lineno">  251</span>        <span class="keywordflow">if</span> (predicate is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> func)</div>
+<div class="line"><span class="lineno">  252</span>        {</div>
+<div class="line"><span class="lineno">  253</span>            <span class="keywordflow">return</span> e.Count(x =&gt; Invoke&lt;bool&gt;(func, ctx, x));</div>
+<div class="line"><span class="lineno">  254</span>        }</div>
+<div class="line"><span class="lineno">  255</span> </div>
+<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Predicate&quot;</span>);</div>
+<div class="line"><span class="lineno">  257</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -724,10 +731,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The element at the index</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00264">264</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  265</span>    {</div>
-<div class="line"><span class="lineno">  266</span>        <span class="keywordflow">return</span> e.ElementAt((<span class="keywordtype">int</span>)index);</div>
-<div class="line"><span class="lineno">  267</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00266">266</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  267</span>    {</div>
+<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">return</span> e.ElementAt((<span class="keywordtype">int</span>)index);</div>
+<div class="line"><span class="lineno">  269</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -782,10 +789,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The element at the index or <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">BadObject.Null</a></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00276">276</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  277</span>    {</div>
-<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">return</span> e.ElementAtOrDefault((<span class="keywordtype">int</span>)index) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">  279</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00278">278</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  279</span>    {</div>
+<div class="line"><span class="lineno">  280</span>        <span class="keywordflow">return</span> e.ElementAtOrDefault((<span class="keywordtype">int</span>)index) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">  281</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -846,20 +853,20 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00091">91</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   92</span>    {</div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">   94</span>        {</div>
-<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">return</span> e.First();</div>
-<div class="line"><span class="lineno">   96</span>        }</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
-<div class="line"><span class="lineno">   99</span>        {</div>
-<div class="line"><span class="lineno">  100</span>            <span class="keywordflow">return</span> e.First(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
-<div class="line"><span class="lineno">  101</span>        }</div>
-<div class="line"><span class="lineno">  102</span> </div>
-<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
-<div class="line"><span class="lineno">  104</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00090">90</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>    {</div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">   93</span>        {</div>
+<div class="line"><span class="lineno">   94</span>            <span class="keywordflow">return</span> e.First();</div>
+<div class="line"><span class="lineno">   95</span>        }</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
+<div class="line"><span class="lineno">   98</span>        {</div>
+<div class="line"><span class="lineno">   99</span>            <span class="keywordflow">return</span> e.First(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
+<div class="line"><span class="lineno">  100</span>        }</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
+<div class="line"><span class="lineno">  103</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -920,20 +927,20 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00114">114</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  115</span>    {</div>
-<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  117</span>        {</div>
-<div class="line"><span class="lineno">  118</span>            <span class="keywordflow">return</span> e.FirstOrDefault() ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">  119</span>        }</div>
-<div class="line"><span class="lineno">  120</span> </div>
-<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
-<div class="line"><span class="lineno">  122</span>        {</div>
-<div class="line"><span class="lineno">  123</span>            <span class="keywordflow">return</span> e.FirstOrDefault(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x)) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">  124</span>        }</div>
-<div class="line"><span class="lineno">  125</span> </div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
-<div class="line"><span class="lineno">  127</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00113">113</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  114</span>    {</div>
+<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  116</span>        {</div>
+<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">return</span> e.FirstOrDefault() ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
+<div class="line"><span class="lineno">  121</span>        {</div>
+<div class="line"><span class="lineno">  122</span>            <span class="keywordflow">return</span> e.FirstOrDefault(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x)) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">  123</span>        }</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
+<div class="line"><span class="lineno">  126</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -988,18 +995,18 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result of the Invocation</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00047">47</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
-<div class="line"><span class="lineno">   49</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">   50</span> </div>
-<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a984479c00d75b3324cc291b1ac601c9b">Invoke</a>(args, ctx))</div>
-<div class="line"><span class="lineno">   52</span>        {</div>
-<div class="line"><span class="lineno">   53</span>            o = obj;</div>
-<div class="line"><span class="lineno">   54</span>        }</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> o.Dereference();</div>
-<div class="line"><span class="lineno">   57</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_html_a984479c00d75b3324cc291b1ac601c9b"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a984479c00d75b3324cc291b1ac601c9b">BadScript2.Runtime.Objects.Functions.BadFunction.Invoke</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Invoke(BadObject[] args, BadExecutionContext caller)</div><div class="ttdoc">Invokes the function with the specified arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_8cs_source.html#l00204">BadFunction.cs:204</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00046">46</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>    {</div>
+<div class="line"><span class="lineno">   48</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a984479c00d75b3324cc291b1ac601c9b">Invoke</a>(args, ctx))</div>
+<div class="line"><span class="lineno">   51</span>        {</div>
+<div class="line"><span class="lineno">   52</span>            o = obj;</div>
+<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">return</span> o.Dereference();</div>
+<div class="line"><span class="lineno">   56</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_html_a984479c00d75b3324cc291b1ac601c9b"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a984479c00d75b3324cc291b1ac601c9b">BadScript2.Runtime.Objects.Functions.BadFunction.Invoke</a></div><div class="ttdeci">IEnumerable&lt; BadObject &gt; Invoke(BadObject[] args, BadExecutionContext caller)</div><div class="ttdoc">Invokes the function with the specified arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_8cs_source.html#l00207">BadFunction.cs:207</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1060,17 +1067,17 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result of the Invocation</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00028">28</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>    {</div>
-<div class="line"><span class="lineno">   30</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a984479c00d75b3324cc291b1ac601c9b">Invoke</a>(args, ctx))</div>
-<div class="line"><span class="lineno">   33</span>        {</div>
-<div class="line"><span class="lineno">   34</span>            o = obj;</div>
-<div class="line"><span class="lineno">   35</span>        }</div>
-<div class="line"><span class="lineno">   36</span> </div>
-<div class="line"><span class="lineno">   37</span>        <span class="keywordflow">return</span> o.Dereference().Unwrap&lt;T&gt;();</div>
-<div class="line"><span class="lineno">   38</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00027">27</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>    {</div>
+<div class="line"><span class="lineno">   29</span>        <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> o = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">foreach</span> (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a> obj <span class="keywordflow">in</span> func.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a984479c00d75b3324cc291b1ac601c9b">Invoke</a>(args, ctx))</div>
+<div class="line"><span class="lineno">   32</span>        {</div>
+<div class="line"><span class="lineno">   33</span>            o = obj;</div>
+<div class="line"><span class="lineno">   34</span>        }</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>        <span class="keywordflow">return</span> o.Dereference().Unwrap&lt;T&gt;();</div>
+<div class="line"><span class="lineno">   37</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1131,20 +1138,20 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00137">137</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  138</span>    {</div>
-<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  140</span>        {</div>
-<div class="line"><span class="lineno">  141</span>            <span class="keywordflow">return</span> e.Last();</div>
-<div class="line"><span class="lineno">  142</span>        }</div>
-<div class="line"><span class="lineno">  143</span> </div>
-<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
-<div class="line"><span class="lineno">  145</span>        {</div>
-<div class="line"><span class="lineno">  146</span>            <span class="keywordflow">return</span> e.Last(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
-<div class="line"><span class="lineno">  147</span>        }</div>
-<div class="line"><span class="lineno">  148</span> </div>
-<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
-<div class="line"><span class="lineno">  150</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00136">136</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  137</span>    {</div>
+<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  139</span>        {</div>
+<div class="line"><span class="lineno">  140</span>            <span class="keywordflow">return</span> e.Last();</div>
+<div class="line"><span class="lineno">  141</span>        }</div>
+<div class="line"><span class="lineno">  142</span> </div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
+<div class="line"><span class="lineno">  144</span>        {</div>
+<div class="line"><span class="lineno">  145</span>            <span class="keywordflow">return</span> e.Last(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x));</div>
+<div class="line"><span class="lineno">  146</span>        }</div>
+<div class="line"><span class="lineno">  147</span> </div>
+<div class="line"><span class="lineno">  148</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
+<div class="line"><span class="lineno">  149</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1205,20 +1212,20 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00160">160</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  161</span>    {</div>
-<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
-<div class="line"><span class="lineno">  163</span>        {</div>
-<div class="line"><span class="lineno">  164</span>            <span class="keywordflow">return</span> e.LastOrDefault() ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">  165</span>        }</div>
-<div class="line"><span class="lineno">  166</span> </div>
-<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
-<div class="line"><span class="lineno">  168</span>        {</div>
-<div class="line"><span class="lineno">  169</span>            <span class="keywordflow">return</span> e.LastOrDefault(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x)) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
-<div class="line"><span class="lineno">  170</span>        }</div>
-<div class="line"><span class="lineno">  171</span> </div>
-<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
-<div class="line"><span class="lineno">  173</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00159">159</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  160</span>    {</div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">if</span> (o == <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>)</div>
+<div class="line"><span class="lineno">  162</span>        {</div>
+<div class="line"><span class="lineno">  163</span>            <span class="keywordflow">return</span> e.LastOrDefault() ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">  164</span>        }</div>
+<div class="line"><span class="lineno">  165</span> </div>
+<div class="line"><span class="lineno">  166</span>        <span class="keywordflow">if</span> (o is <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html">BadFunction</a> filter)</div>
+<div class="line"><span class="lineno">  167</span>        {</div>
+<div class="line"><span class="lineno">  168</span>            <span class="keywordflow">return</span> e.LastOrDefault(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x)) ?? <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html">BadObject</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ac71bfcf96e046f575f0bd000c876c307">Null</a>;</div>
+<div class="line"><span class="lineno">  169</span>        }</div>
+<div class="line"><span class="lineno">  170</span> </div>
+<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Invalid Filter&quot;</span>);</div>
+<div class="line"><span class="lineno">  172</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1273,24 +1280,24 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00410">410</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  411</span>    {</div>
-<div class="line"><span class="lineno">  412</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.OrderBy(o =&gt;</div>
-<div class="line"><span class="lineno">  413</span>        {</div>
-<div class="line"><span class="lineno">  414</span>            BadObject? r = BadObject.Null;</div>
-<div class="line"><span class="lineno">  415</span> </div>
-<div class="line"><span class="lineno">  416</span>            foreach (BadObject o1 in function.Invoke(new[]</div>
-<div class="line"><span class="lineno">  417</span>                         {</div>
-<div class="line"><span class="lineno">  418</span>                             o</div>
-<div class="line"><span class="lineno">  419</span>                         },</div>
-<div class="line"><span class="lineno">  420</span>                         ctx))</div>
-<div class="line"><span class="lineno">  421</span>            {</div>
-<div class="line"><span class="lineno">  422</span>                r = o1;</div>
-<div class="line"><span class="lineno">  423</span>            }</div>
-<div class="line"><span class="lineno">  424</span> </div>
-<div class="line"><span class="lineno">  425</span>            <span class="keywordflow">return</span> r.Dereference();</div>
-<div class="line"><span class="lineno">  426</span>        }));</div>
-<div class="line"><span class="lineno">  427</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00418">418</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  419</span>    {</div>
+<div class="line"><span class="lineno">  420</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.OrderBy(o =&gt;</div>
+<div class="line"><span class="lineno">  421</span>        {</div>
+<div class="line"><span class="lineno">  422</span>            BadObject? r = BadObject.Null;</div>
+<div class="line"><span class="lineno">  423</span> </div>
+<div class="line"><span class="lineno">  424</span>            foreach (BadObject o1 in function.Invoke(new[]</div>
+<div class="line"><span class="lineno">  425</span>                         {</div>
+<div class="line"><span class="lineno">  426</span>                             o</div>
+<div class="line"><span class="lineno">  427</span>                         },</div>
+<div class="line"><span class="lineno">  428</span>                         ctx))</div>
+<div class="line"><span class="lineno">  429</span>            {</div>
+<div class="line"><span class="lineno">  430</span>                r = o1;</div>
+<div class="line"><span class="lineno">  431</span>            }</div>
+<div class="line"><span class="lineno">  432</span> </div>
+<div class="line"><span class="lineno">  433</span>            <span class="keywordflow">return</span> r.Dereference();</div>
+<div class="line"><span class="lineno">  434</span>        }));</div>
+<div class="line"><span class="lineno">  435</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1337,10 +1344,10 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00435">435</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  436</span>    {</div>
-<div class="line"><span class="lineno">  437</span>        RegisterObject&lt;IBadEnumerable&gt;(name, o =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(name, c =&gt; func(c, o)));</div>
-<div class="line"><span class="lineno">  438</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00443">443</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  444</span>    {</div>
+<div class="line"><span class="lineno">  445</span>        RegisterObject&lt;IBadEnumerable&gt;(name, o =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction</a>(name, c =&gt; func(c, o)));</div>
+<div class="line"><span class="lineno">  446</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1387,10 +1394,10 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00446">446</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  447</span>    {</div>
-<div class="line"><span class="lineno">  448</span>        RegisterObject&lt;IBadEnumerable&gt;(name, o =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;T&gt;</a>(name, (c, a) =&gt; func(c, o, a)));</div>
-<div class="line"><span class="lineno">  449</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00454">454</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  455</span>    {</div>
+<div class="line"><span class="lineno">  456</span>        RegisterObject&lt;IBadEnumerable&gt;(name, o =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_dynamic_interop_function.html">BadDynamicInteropFunction&lt;T&gt;</a>(name, (c, a) =&gt; func(c, o, a)));</div>
+<div class="line"><span class="lineno">  457</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1427,10 +1434,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00350">350</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  351</span>    {</div>
-<div class="line"><span class="lineno">  352</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Reverse());</div>
-<div class="line"><span class="lineno">  353</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00352">352</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  353</span>    {</div>
+<div class="line"><span class="lineno">  354</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Reverse());</div>
+<div class="line"><span class="lineno">  355</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1485,11 +1492,11 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00066">66</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   67</span>    {</div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Select(x =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">Invoke</a>(selector, ctx, x)));</div>
-<div class="line"><span class="lineno">   69</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a12affc00df32e5ed79fdb4a8fe07bb16"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">BadScript2.Interop.Linq.BadLinqExtensions.Invoke</a></div><div class="ttdeci">static BadObject Invoke(BadFunction func, BadExecutionContext ctx, params BadObject[] args)</div><div class="ttdoc">Invokes the given function with the given arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00047">BadLinqExtensions.cs:47</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00065">65</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   66</span>    {</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Select(x =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">Invoke</a>(selector, ctx, x)));</div>
+<div class="line"><span class="lineno">   68</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html_a12affc00df32e5ed79fdb4a8fe07bb16"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">BadScript2.Interop.Linq.BadLinqExtensions.Invoke</a></div><div class="ttdeci">static BadObject Invoke(BadFunction func, BadExecutionContext ctx, params BadObject[] args)</div><div class="ttdoc">Invokes the given function with the given arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00046">BadLinqExtensions.cs:46</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1544,10 +1551,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00306">306</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  307</span>    {</div>
-<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Skip((<span class="keywordtype">int</span>)index));</div>
-<div class="line"><span class="lineno">  309</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00308">308</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  309</span>    {</div>
+<div class="line"><span class="lineno">  310</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Skip((<span class="keywordtype">int</span>)index));</div>
+<div class="line"><span class="lineno">  311</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1602,10 +1609,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00330">330</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  331</span>    {</div>
-<div class="line"><span class="lineno">  332</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.SkipLast((<span class="keywordtype">int</span>)index));</div>
-<div class="line"><span class="lineno">  333</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00332">332</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  333</span>    {</div>
+<div class="line"><span class="lineno">  334</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.SkipLast((<span class="keywordtype">int</span>)index));</div>
+<div class="line"><span class="lineno">  335</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1660,10 +1667,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00318">318</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  319</span>    {</div>
-<div class="line"><span class="lineno">  320</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Take((<span class="keywordtype">int</span>)index));</div>
-<div class="line"><span class="lineno">  321</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00320">320</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  321</span>    {</div>
+<div class="line"><span class="lineno">  322</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Take((<span class="keywordtype">int</span>)index));</div>
+<div class="line"><span class="lineno">  323</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1700,10 +1707,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>BadArray</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00340">340</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  341</span>    {</div>
-<div class="line"><span class="lineno">  342</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(e.ToList());</div>
-<div class="line"><span class="lineno">  343</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00342">342</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  343</span>    {</div>
+<div class="line"><span class="lineno">  344</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadArray</a>(e.ToList());</div>
+<div class="line"><span class="lineno">  345</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_array.html">BadScript2.Runtime.Objects.BadArray</a></div><div class="ttdoc">Implements a Dynamic List/Array for the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_array_8cs_source.html#l00012">BadArray.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1766,10 +1773,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Bad Table</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00289">289</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  294</span>    {</div>
-<div class="line"><span class="lineno">  295</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>(e.ToDictionary(v =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">Invoke</a>(keySelector, ctx, v), v =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">Invoke</a>(valueSelector, ctx, v)));</div>
-<div class="line"><span class="lineno">  296</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00291">291</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  296</span>    {</div>
+<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadTable</a>(e.ToDictionary(v =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">Invoke</a>(keySelector, ctx, v), v =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html#a12affc00df32e5ed79fdb4a8fe07bb16">Invoke</a>(valueSelector, ctx, v)));</div>
+<div class="line"><span class="lineno">  298</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html">BadScript2.Runtime.Objects.BadTable</a></div><div class="ttdoc">Implements a Table Structure for the BadScript Language.</div><div class="ttdef"><b>Definition</b> <a href="_bad_table_8cs_source.html#l00013">BadTable.cs:14</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1825,10 +1832,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Filtered Enumeration</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00078">78</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   79</span>    {</div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Where(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x)));</div>
-<div class="line"><span class="lineno">   81</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00077">77</a> of file <a class="el" href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html">BadLinqExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   78</span>    {</div>
+<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_enumerable.html">BadInteropEnumerable</a>(e.Where(x =&gt; Invoke&lt;bool&gt;(filter, ctx, x)));</div>
+<div class="line"><span class="lineno">   80</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

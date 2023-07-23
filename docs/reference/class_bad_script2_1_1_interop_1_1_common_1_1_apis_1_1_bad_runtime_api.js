@@ -23,6 +23,7 @@ var class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api =
     [ "Native_IsPrototypeInstance", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a4f26953f8c3899bb000178d409fb5774", null ],
     [ "Native_IsString", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#aa633d4fa2210ae22df03e275258ff965", null ],
     [ "Native_IsTable", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#ae2fa25e9467aa8f6b18bcc6f0aea8b3f", null ],
+    [ "SafeExecute", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a2c678ace7290202a09cfd4a9c5191a9a", null ],
     [ "m_Exports", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a206c13f3b2efa0131027efe1d25809bc", null ],
     [ "StartupArguments", "class_bad_script2_1_1_interop_1_1_common_1_1_apis_1_1_bad_runtime_api.html#a84f488f432ecf8f7c6e15dd14573c1ba", null ]
 ];

@@ -1,5 +1,7 @@
 namespace BadScript2.ConsoleCore.Systems;
-
+/// <summary>
+///     Implements a the base features of a Console System
+/// </summary>
 public abstract class BadAConsoleSystem
 {
 	/// <summary>

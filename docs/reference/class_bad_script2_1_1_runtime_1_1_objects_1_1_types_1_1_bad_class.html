@@ -306,85 +306,85 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00102">102</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  103</span>    {</div>
-<div class="line"><span class="lineno">  104</span>        <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a> vis = BadScope.GetPropertyVisibility(propName);</div>
-<div class="line"><span class="lineno">  105</span> </div>
-<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">if</span> (caller != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  107</span>        {</div>
-<div class="line"><span class="lineno">  108</span>            <span class="keywordflow">if</span> (caller.ClassObject == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  109</span>            {</div>
-<div class="line"><span class="lineno">  110</span>                visibility = <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Public;</div>
-<div class="line"><span class="lineno">  111</span>            }</div>
-<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (caller.ClassObject == <span class="keyword">this</span>)</div>
-<div class="line"><span class="lineno">  113</span>            {</div>
-<div class="line"><span class="lineno">  114</span>                visibility = <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.All;</div>
-<div class="line"><span class="lineno">  115</span>            }</div>
-<div class="line"><span class="lineno">  116</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (caller.ClassObject.InheritsFrom(<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9">Prototype</a>))</div>
-<div class="line"><span class="lineno">  117</span>            {</div>
-<div class="line"><span class="lineno">  118</span>                visibility = BadPropertyVisibility.Public | <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Protected;</div>
-<div class="line"><span class="lineno">  119</span>            }</div>
-<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  121</span>            {</div>
-<div class="line"><span class="lineno">  122</span>                visibility = <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Public;</div>
-<div class="line"><span class="lineno">  123</span>            }</div>
-<div class="line"><span class="lineno">  124</span>        }</div>
-<div class="line"><span class="lineno">  125</span> </div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a3468fc7fb922f28931c4fe26dde118d0">HasProperty</a>(propName))</div>
-<div class="line"><span class="lineno">  127</span>        {</div>
-<div class="line"><span class="lineno">  128</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html#a90a6a1692a0680b1503414adbeef656d">Create</a>(caller,</div>
-<div class="line"><span class="lineno">  129</span>                $<span class="stringliteral">&quot;Property {propName} not found in class {Name} or any of its base classes&quot;</span>);</div>
-<div class="line"><span class="lineno">  130</span>        }</div>
-<div class="line"><span class="lineno">  131</span> </div>
-<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">if</span> ((vis &amp; visibility) == 0)</div>
-<div class="line"><span class="lineno">  133</span>        {</div>
-<div class="line"><span class="lineno">  134</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html#a90a6a1692a0680b1503414adbeef656d">Create</a>(caller,</div>
-<div class="line"><span class="lineno">  135</span>                $<span class="stringliteral">&quot;Property {Name}.{propName} is not visible from {caller?.Name ?? &quot;</span>global<span class="stringliteral">&quot;}&quot;</span>);</div>
-<div class="line"><span class="lineno">  136</span>        }</div>
-<div class="line"><span class="lineno">  137</span> </div>
-<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable.ContainsKey(propName))</div>
-<div class="line"><span class="lineno">  139</span>        {</div>
-<div class="line"><span class="lineno">  140</span>            <span class="keywordflow">return</span> BadObjectReference.Make($<span class="stringliteral">&quot;{Name}.{propName}&quot;</span>,</div>
-<div class="line"><span class="lineno">  141</span>                () =&gt; <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable[propName],</div>
-<div class="line"><span class="lineno">  142</span>                (o, _) =&gt;</div>
-<div class="line"><span class="lineno">  143</span>                {</div>
-<div class="line"><span class="lineno">  144</span>                    if (Scope.GetTable().InnerTable.ContainsKey(propName))</div>
-<div class="line"><span class="lineno">  145</span>                    {</div>
-<div class="line"><span class="lineno">  146</span>                        BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);</div>
-<div class="line"><span class="lineno">  147</span> </div>
-<div class="line"><span class="lineno">  148</span>                        if (Scope.GetTable().InnerTable[propName] != Null &amp;&amp; info.IsReadOnly)</div>
-<div class="line"><span class="lineno">  149</span>                        {</div>
-<div class="line"><span class="lineno">  150</span>                            throw BadRuntimeException.Create(caller, $<span class="stringliteral">&quot;{Name}.{propName} is read-only&quot;</span>);</div>
-<div class="line"><span class="lineno">  151</span>                        }</div>
-<div class="line"><span class="lineno">  152</span> </div>
-<div class="line"><span class="lineno">  153</span>                        if (info.Type != null &amp;&amp; !info.Type.IsAssignableFrom(o))</div>
-<div class="line"><span class="lineno">  154</span>                        {</div>
-<div class="line"><span class="lineno">  155</span>                            throw BadRuntimeException.Create(caller,</div>
-<div class="line"><span class="lineno">  156</span>                                $<span class="stringliteral">&quot;Cannot assign object {o.GetType().Name} to property &#39;{propName}&#39; of type &#39;{info.Type.Name}&#39;&quot;</span>);</div>
-<div class="line"><span class="lineno">  157</span>                        }</div>
-<div class="line"><span class="lineno">  158</span>                    }</div>
-<div class="line"><span class="lineno">  159</span> </div>
-<div class="line"><span class="lineno">  160</span>                    <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable[propName] = o;</div>
-<div class="line"><span class="lineno">  161</span>                });</div>
-<div class="line"><span class="lineno">  162</span>        }</div>
-<div class="line"><span class="lineno">  163</span> </div>
-<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a> != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  165</span>        {</div>
-<div class="line"><span class="lineno">  166</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a9836544a4f767f854cb9cfb438c8f79e">GetProperty</a>(propName,</div>
-<div class="line"><span class="lineno">  167</span>                visibility &amp; ~<a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Private &amp; <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.All,</div>
-<div class="line"><span class="lineno">  168</span>                caller); <span class="comment">//Allow public, protected</span></div>
-<div class="line"><span class="lineno">  169</span>        }</div>
-<div class="line"><span class="lineno">  170</span> </div>
-<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a3915dcb3ea73cd3f8ddaa068d3ed3371">GetObjectReference</a>(GetType(), propName, <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a587fc486ed8a574df1a20d9477a805e8">SuperClass</a> ?? <span class="keyword">this</span>, caller);</div>
-<div class="line"><span class="lineno">  172</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00103">103</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  104</span>    {</div>
+<div class="line"><span class="lineno">  105</span>        <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a> vis = BadScope.GetPropertyVisibility(propName);</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">if</span> (caller != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  108</span>        {</div>
+<div class="line"><span class="lineno">  109</span>            <span class="keywordflow">if</span> (caller.ClassObject == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  110</span>            {</div>
+<div class="line"><span class="lineno">  111</span>                visibility = <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Public;</div>
+<div class="line"><span class="lineno">  112</span>            }</div>
+<div class="line"><span class="lineno">  113</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (caller.ClassObject == <span class="keyword">this</span>)</div>
+<div class="line"><span class="lineno">  114</span>            {</div>
+<div class="line"><span class="lineno">  115</span>                visibility = <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.All;</div>
+<div class="line"><span class="lineno">  116</span>            }</div>
+<div class="line"><span class="lineno">  117</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (caller.ClassObject.InheritsFrom(<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9">Prototype</a>))</div>
+<div class="line"><span class="lineno">  118</span>            {</div>
+<div class="line"><span class="lineno">  119</span>                visibility = BadPropertyVisibility.Public | <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Protected;</div>
+<div class="line"><span class="lineno">  120</span>            }</div>
+<div class="line"><span class="lineno">  121</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  122</span>            {</div>
+<div class="line"><span class="lineno">  123</span>                visibility = <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Public;</div>
+<div class="line"><span class="lineno">  124</span>            }</div>
+<div class="line"><span class="lineno">  125</span>        }</div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a3468fc7fb922f28931c4fe26dde118d0">HasProperty</a>(propName))</div>
+<div class="line"><span class="lineno">  128</span>        {</div>
+<div class="line"><span class="lineno">  129</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html#a90a6a1692a0680b1503414adbeef656d">Create</a>(caller,</div>
+<div class="line"><span class="lineno">  130</span>                $<span class="stringliteral">&quot;Property {propName} not found in class {Name} or any of its base classes&quot;</span>);</div>
+<div class="line"><span class="lineno">  131</span>        }</div>
+<div class="line"><span class="lineno">  132</span> </div>
+<div class="line"><span class="lineno">  133</span>        <span class="keywordflow">if</span> ((vis &amp; visibility) == 0)</div>
+<div class="line"><span class="lineno">  134</span>        {</div>
+<div class="line"><span class="lineno">  135</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html#a90a6a1692a0680b1503414adbeef656d">Create</a>(caller,</div>
+<div class="line"><span class="lineno">  136</span>                $<span class="stringliteral">&quot;Property {Name}.{propName} is not visible from {caller?.Name ?? &quot;</span>global<span class="stringliteral">&quot;}&quot;</span>);</div>
+<div class="line"><span class="lineno">  137</span>        }</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable.ContainsKey(propName))</div>
+<div class="line"><span class="lineno">  140</span>        {</div>
+<div class="line"><span class="lineno">  141</span>            <span class="keywordflow">return</span> BadObjectReference.Make($<span class="stringliteral">&quot;{Name}.{propName}&quot;</span>,</div>
+<div class="line"><span class="lineno">  142</span>                () =&gt; <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable[propName],</div>
+<div class="line"><span class="lineno">  143</span>                (o, _) =&gt;</div>
+<div class="line"><span class="lineno">  144</span>                {</div>
+<div class="line"><span class="lineno">  145</span>                    if (Scope.GetTable().InnerTable.ContainsKey(propName))</div>
+<div class="line"><span class="lineno">  146</span>                    {</div>
+<div class="line"><span class="lineno">  147</span>                        BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>                        if (Scope.GetTable().InnerTable[propName] != Null &amp;&amp; info.IsReadOnly)</div>
+<div class="line"><span class="lineno">  150</span>                        {</div>
+<div class="line"><span class="lineno">  151</span>                            throw BadRuntimeException.Create(caller, $<span class="stringliteral">&quot;{Name}.{propName} is read-only&quot;</span>);</div>
+<div class="line"><span class="lineno">  152</span>                        }</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>                        if (info.Type != null &amp;&amp; !info.Type.IsAssignableFrom(o))</div>
+<div class="line"><span class="lineno">  155</span>                        {</div>
+<div class="line"><span class="lineno">  156</span>                            throw BadRuntimeException.Create(caller,</div>
+<div class="line"><span class="lineno">  157</span>                                $<span class="stringliteral">&quot;Cannot assign object {o.GetType().Name} to property &#39;{propName}&#39; of type &#39;{info.Type.Name}&#39;&quot;</span>);</div>
+<div class="line"><span class="lineno">  158</span>                        }</div>
+<div class="line"><span class="lineno">  159</span>                    }</div>
+<div class="line"><span class="lineno">  160</span> </div>
+<div class="line"><span class="lineno">  161</span>                    <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable[propName] = o;</div>
+<div class="line"><span class="lineno">  162</span>                });</div>
+<div class="line"><span class="lineno">  163</span>        }</div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a> != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  166</span>        {</div>
+<div class="line"><span class="lineno">  167</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a9836544a4f767f854cb9cfb438c8f79e">GetProperty</a>(propName,</div>
+<div class="line"><span class="lineno">  168</span>                visibility &amp; ~<a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Private &amp; <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.All,</div>
+<div class="line"><span class="lineno">  169</span>                caller); <span class="comment">//Allow public, protected</span></div>
+<div class="line"><span class="lineno">  170</span>        }</div>
+<div class="line"><span class="lineno">  171</span> </div>
+<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a3915dcb3ea73cd3f8ddaa068d3ed3371">GetObjectReference</a>(GetType(), propName, <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a587fc486ed8a574df1a20d9477a805e8">SuperClass</a> ?? <span class="keyword">this</span>, caller);</div>
+<div class="line"><span class="lineno">  173</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_bad_scope_html_a2271fed394984615badc28522a1a0185"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">BadScript2.Runtime.BadScope.GetTable</a></div><div class="ttdeci">BadTable GetTable()</div><div class="ttdoc">Returns the Variable Table of the current scope.</div><div class="ttdef"><b>Definition</b> <a href="_bad_scope_8cs_source.html#l00409">BadScope.cs:409</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadScript2.Runtime.Error.BadRuntimeException</a></div><div class="ttdoc">Gets thrown by the runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_exception_8cs_source.html#l00009">BadRuntimeException.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html_a90a6a1692a0680b1503414adbeef656d"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html#a90a6a1692a0680b1503414adbeef656d">BadScript2.Runtime.Error.BadRuntimeException.Create</a></div><div class="ttdeci">static BadRuntimeException Create(BadScope? scope, string message)</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_exception_8cs_source.html#l00028">BadRuntimeException.cs:28</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadScript2.Runtime.Interop.BadInteropExtension</a></div><div class="ttdoc">Public Extension API for the BS2 Runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_extension_8cs_source.html#l00011">BadInteropExtension.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension_html_a3915dcb3ea73cd3f8ddaa068d3ed3371"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#a3915dcb3ea73cd3f8ddaa068d3ed3371">BadScript2.Runtime.Interop.BadInteropExtension.GetObjectReference</a></div><div class="ttdeci">static BadObjectReference GetObjectReference(Type t, BadObject propName, BadObject instance, BadScope? caller)</div><div class="ttdoc">Returns a reference to the specified extension.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_extension_8cs_source.html#l00240">BadInteropExtension.cs:240</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a3468fc7fb922f28931c4fe26dde118d0"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a3468fc7fb922f28931c4fe26dde118d0">BadScript2.Runtime.Objects.Types.BadClass.HasProperty</a></div><div class="ttdeci">override bool HasProperty(BadObject propName)</div><div class="ttdoc">Returns true if the object contains a given property or there exists an extension for the current Ins...</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00086">BadClass.cs:86</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a3468fc7fb922f28931c4fe26dde118d0"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a3468fc7fb922f28931c4fe26dde118d0">BadScript2.Runtime.Objects.Types.BadClass.HasProperty</a></div><div class="ttdeci">override bool HasProperty(BadObject propName)</div><div class="ttdoc">Returns true if the object contains a given property or there exists an extension for the current Ins...</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00087">BadClass.cs:87</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a587fc486ed8a574df1a20d9477a805e8"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a587fc486ed8a574df1a20d9477a805e8">BadScript2.Runtime.Objects.Types.BadClass.SuperClass</a></div><div class="ttdeci">BadClass? SuperClass</div><div class="ttdoc">The Super Class of this Class(if this class is not at the end of the inheritance chain)</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00049">BadClass.cs:49</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a9836544a4f767f854cb9cfb438c8f79e"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a9836544a4f767f854cb9cfb438c8f79e">BadScript2.Runtime.Objects.Types.BadClass.GetProperty</a></div><div class="ttdeci">BadObjectReference GetProperty(BadObject propName, BadPropertyVisibility visibility, BadScope? caller=null)</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00102">BadClass.cs:102</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a9836544a4f767f854cb9cfb438c8f79e"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a9836544a4f767f854cb9cfb438c8f79e">BadScript2.Runtime.Objects.Types.BadClass.GetProperty</a></div><div class="ttdeci">BadObjectReference GetProperty(BadObject propName, BadPropertyVisibility visibility, BadScope? caller=null)</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00103">BadClass.cs:103</a></div></div>
 <div class="ttc" id="anamespace_bad_script2_1_1_runtime_1_1_objects_1_1_types_html_a85dc616e83431f81973a6ca94c06beb5"><div class="ttname"><a href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadScript2.Runtime.Objects.Types.BadPropertyVisibility</a></div><div class="ttdeci">BadPropertyVisibility</div><div class="ttdef"><b>Definition</b> <a href="_bad_property_visibility_8cs_source.html#l00004">BadPropertyVisibility.cs:5</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -434,10 +434,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a2dcf2352c312b5ad7a519b3cb65c5fc8">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00174">174</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  175</span>    {</div>
-<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a9836544a4f767f854cb9cfb438c8f79e">GetProperty</a>(propName, <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Public, caller);</div>
-<div class="line"><span class="lineno">  177</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00175">175</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>    {</div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a9836544a4f767f854cb9cfb438c8f79e">GetProperty</a>(propName, <a class="code hl_enumeration" href="namespace_bad_script2_1_1_runtime_1_1_objects_1_1_types.html#a85dc616e83431f81973a6ca94c06beb5">BadPropertyVisibility</a>.Public, caller);</div>
+<div class="line"><span class="lineno">  178</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -469,10 +469,10 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#ad8efab3ab71098ae5f3427f241f08632">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00081">81</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   82</span>    {</div>
-<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9">Prototype</a>;</div>
-<div class="line"><span class="lineno">   84</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00082">82</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   83</span>    {</div>
+<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9">Prototype</a>;</div>
+<div class="line"><span class="lineno">   85</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -511,20 +511,20 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#a9d8c41acbbe7784ff2f040c166ba54d4">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00086">86</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   87</span>    {</div>
-<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable.ContainsKey(propName))</div>
-<div class="line"><span class="lineno">   89</span>        {</div>
-<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   91</span>        }</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a> != <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">   94</span>        {</div>
-<div class="line"><span class="lineno">   95</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a3468fc7fb922f28931c4fe26dde118d0">HasProperty</a>(propName);</div>
-<div class="line"><span class="lineno">   96</span>        }</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#abf5d8f105978df9b1a32779a080335c5">HasObject</a>(GetType(), propName);</div>
-<div class="line"><span class="lineno">   99</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00087">87</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   88</span>    {</div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().InnerTable.ContainsKey(propName))</div>
+<div class="line"><span class="lineno">   90</span>        {</div>
+<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a> != <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">   95</span>        {</div>
+<div class="line"><span class="lineno">   96</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a3468fc7fb922f28931c4fe26dde118d0">HasProperty</a>(propName);</div>
+<div class="line"><span class="lineno">   97</span>        }</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadInteropExtension</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#abf5d8f105978df9b1a32779a080335c5">HasObject</a>(GetType(), propName);</div>
+<div class="line"><span class="lineno">  100</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension_html_abf5d8f105978df9b1a32779a080335c5"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html#abf5d8f105978df9b1a32779a080335c5">BadScript2.Runtime.Interop.BadInteropExtension.HasObject</a></div><div class="ttdeci">static bool HasObject(Type t, BadObject propName)</div><div class="ttdoc">Returns True if the specified type has the specified extension.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_extension_8cs_source.html#l00217">BadInteropExtension.cs:217</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -556,9 +556,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00057">57</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   58</span>    {</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9">Prototype</a> == proto || (<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a> != <span class="keyword">null</span> &amp;&amp; <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#abe0b13fc46ef93e96621ecaa7c0639d2">InheritsFrom</a>(proto));</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">return</span> proto.IsSuperClassOf(<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9">Prototype</a>);</div>
 <div class="line"><span class="lineno">   60</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_abe0b13fc46ef93e96621ecaa7c0639d2"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#abe0b13fc46ef93e96621ecaa7c0639d2">BadScript2.Runtime.Objects.Types.BadClass.InheritsFrom</a></div><div class="ttdeci">bool InheritsFrom(BadClassPrototype proto)</div><div class="ttdoc">Returns true if the given object is an instance of the specified prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00057">BadClass.cs:57</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -579,11 +578,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Sets the 'this' parameter of the class scope to be this instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00065">65</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   66</span>    {</div>
-<div class="line"><span class="lineno">   67</span>        <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a01d272f457e932f3e70318a197bbd027">SetThis</a>(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">   68</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a01d272f457e932f3e70318a197bbd027"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a01d272f457e932f3e70318a197bbd027">BadScript2.Runtime.Objects.Types.BadClass.SetThis</a></div><div class="ttdeci">void SetThis()</div><div class="ttdoc">Sets the 'this' parameter of the class scope to be this instance.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00065">BadClass.cs:65</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00066">66</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>    {</div>
+<div class="line"><span class="lineno">   68</span>        <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a01d272f457e932f3e70318a197bbd027">SetThis</a>(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">   69</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class_html_a01d272f457e932f3e70318a197bbd027"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a01d272f457e932f3e70318a197bbd027">BadScript2.Runtime.Objects.Types.BadClass.SetThis</a></div><div class="ttdeci">void SetThis()</div><div class="ttdoc">Sets the 'this' parameter of the class scope to be this instance.</div><div class="ttdef"><b>Definition</b> <a href="_bad_class_8cs_source.html#l00066">BadClass.cs:66</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -619,12 +618,12 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00074">74</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   75</span>    {</div>
-<div class="line"><span class="lineno">   76</span>        <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a587fc486ed8a574df1a20d9477a805e8">SuperClass</a> = thisInstance;</div>
-<div class="line"><span class="lineno">   77</span>        <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().GetProperty(<span class="stringliteral">&quot;this&quot;</span>).Set(thisInstance, <span class="keyword">new</span> BadPropertyInfo(thisInstance.Prototype, <span class="keyword">true</span>));</div>
-<div class="line"><span class="lineno">   78</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>?.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a01d272f457e932f3e70318a197bbd027">SetThis</a>(thisInstance);</div>
-<div class="line"><span class="lineno">   79</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00075">75</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   76</span>    {</div>
+<div class="line"><span class="lineno">   77</span>        <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a587fc486ed8a574df1a20d9477a805e8">SuperClass</a> = thisInstance;</div>
+<div class="line"><span class="lineno">   78</span>        <a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a98473dcadcc0a55cae874d9c3e4b3ff5">Scope</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_bad_scope.html#a2271fed394984615badc28522a1a0185">GetTable</a>().GetProperty(<span class="stringliteral">&quot;this&quot;</span>).Set(thisInstance, <span class="keyword">new</span> BadPropertyInfo(thisInstance.Prototype, <span class="keyword">true</span>));</div>
+<div class="line"><span class="lineno">   79</span>        <a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a80c55436e0a416ebb3c3089ad4a16c3e">m_BaseClass</a>?.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a01d272f457e932f3e70318a197bbd027">SetThis</a>(thisInstance);</div>
+<div class="line"><span class="lineno">   80</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -663,13 +662,13 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_object.html#adc2df03faa63ea48cf7dcf2f478d7ca7">BadScript2.Runtime.Objects.BadObject</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00180">180</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  181</span>    {</div>
-<div class="line"><span class="lineno">  182</span>        done.Add(<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  183</span> </div>
-<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">return</span></div>
-<div class="line"><span class="lineno">  185</span>            $<span class="stringliteral">&quot;class {Name}\n{Scope.ToSafeString(done)}&quot;</span>;</div>
-<div class="line"><span class="lineno">  186</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_class_8cs_source.html#l00181">181</a> of file <a class="el" href="_bad_class_8cs_source.html">BadClass.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  182</span>    {</div>
+<div class="line"><span class="lineno">  183</span>        done.Add(<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">return</span></div>
+<div class="line"><span class="lineno">  186</span>            $<span class="stringliteral">&quot;class {Name}\n{Scope.ToSafeString(done)}&quot;</span>;</div>
+<div class="line"><span class="lineno">  187</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

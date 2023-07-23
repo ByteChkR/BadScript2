@@ -7,7 +7,8 @@ var searchData=
   ['position_4',['Position',['../class_bad_script2_1_1_common_1_1_bad_script_exception.html#ab02e95e35afeadbe261f58f10f3916dc',1,'BadScript2.Common.BadScriptException.Position'],['../class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5',1,'BadScript2.Parser.Expressions.BadExpression.Position']]],
   ['precedence_5',['Precedence',['../class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html#aa41902e1df0a443cc4378a7afda01992',1,'BadScript2::Parser::Operators::BadOperator']]],
   ['preparse_6',['PreParse',['../class_bad_script2_1_1_interactive_1_1_bad_interactive_console.html#aec688afbaf19d0023281eeda0f6b2fd0',1,'BadScript2::Interactive::BadInteractiveConsole']]],
-  ['propertyinfos_7',['PropertyInfos',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html#a0c8c43d7ae97cee5fae8c0374ba5e2a9',1,'BadScript2::Runtime::Objects::BadTable']]],
-  ['propertynames_8',['PropertyNames',['../class_bad_script2_1_1_settings_1_1_bad_settings.html#a30be43d89a7dba9ed79c16e34ffd0c5d',1,'BadScript2::Settings::BadSettings']]],
-  ['prototype_9',['Prototype',['../class_bad_script2_1_1_runtime_1_1_bad_scope.html#a86c370ada1ea787c744b32f7375d79ba',1,'BadScript2.Runtime.BadScope.Prototype'],['../class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9',1,'BadScript2.Runtime.Objects.Types.BadClass.Prototype']]]
+  ['preview_7',['Preview',['../class_bad_script2_1_1_reader_1_1_bad_source_reader.html#ad7bbd1153777182fbd4568b3fcc0f95d',1,'BadScript2::Reader::BadSourceReader']]],
+  ['propertyinfos_8',['PropertyInfos',['../class_bad_script2_1_1_runtime_1_1_objects_1_1_bad_table.html#a0c8c43d7ae97cee5fae8c0374ba5e2a9',1,'BadScript2::Runtime::Objects::BadTable']]],
+  ['propertynames_9',['PropertyNames',['../class_bad_script2_1_1_settings_1_1_bad_settings.html#a30be43d89a7dba9ed79c16e34ffd0c5d',1,'BadScript2::Settings::BadSettings']]],
+  ['prototype_10',['Prototype',['../class_bad_script2_1_1_runtime_1_1_bad_scope.html#a86c370ada1ea787c744b32f7375d79ba',1,'BadScript2.Runtime.BadScope.Prototype'],['../class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_class.html#a38c151ff9d4e88007d4698faf34902a9',1,'BadScript2.Runtime.Objects.Types.BadClass.Prototype']]]
 ];

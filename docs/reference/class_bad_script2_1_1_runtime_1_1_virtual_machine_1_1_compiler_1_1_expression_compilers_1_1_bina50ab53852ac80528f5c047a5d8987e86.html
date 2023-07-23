@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_runtime_1_1_virt
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_binac4dd49a47e6345750b5c18409131b4a2.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -120,6 +121,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad68f22cd6ee1830f6955704b5b5ce76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace9d7ca466331c3e21a8aa83f56fe6eb"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; <a class="el" href="struct_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_instruction.html">BadInstruction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_i_bad_expression_compiler.html#ace9d7ca466331c3e21a8aa83f56fe6eb">Compile</a> (<a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html">BadCompiler</a> compiler, <a class="el" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> expression)</td></tr>
 <tr class="separator:ace9d7ca466331c3e21a8aa83f56fe6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a13bf81d981a7886083f6f8be16c833e8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a13bf81d981a7886083f6f8be16c833e8">IsLeftAssociative</a><code> [get]</code></td></tr>
+<tr class="separator:a13bf81d981a7886083f6f8be16c833e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f242fd48e4459ea2184f6737212592"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a44f242fd48e4459ea2184f6737212592">EmitLeft</a><code> [get]</code></td></tr>
+<tr class="separator:a44f242fd48e4459ea2184f6737212592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad93cd01b7ec999500c5fd38e8d1fce7f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#ad93cd01b7ec999500c5fd38e8d1fce7f">EmitRight</a><code> [get]</code></td></tr>
+<tr class="separator:ad93cd01b7ec999500c5fd38e8d1fce7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="typeconstraint">
@@ -179,24 +189,54 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bad_expression_compiler.html#ad68f22cd6ee1830f6955704b5b5ce76a">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.BadExpressionCompiler&lt; T &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_binary_expression_compiler_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_binary_expression_compiler_8cs_source.html">BadBinaryExpressionCompiler.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   17</span>    {</div>
-<div class="line"><span class="lineno">   18</span>        <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> compiler.Compile(expression.Left))</div>
-<div class="line"><span class="lineno">   19</span>        {</div>
-<div class="line"><span class="lineno">   20</span>            yield <span class="keywordflow">return</span> instruction;</div>
-<div class="line"><span class="lineno">   21</span>        }</div>
-<div class="line"><span class="lineno">   22</span> </div>
-<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> compiler.Compile(expression.Right))</div>
-<div class="line"><span class="lineno">   24</span>        {</div>
-<div class="line"><span class="lineno">   25</span>            yield <span class="keywordflow">return</span> instruction;</div>
-<div class="line"><span class="lineno">   26</span>        }</div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>        <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a5b1848ac60982839fdb69dc8d769c1df">CompileBinary</a>(compiler, expression))</div>
-<div class="line"><span class="lineno">   29</span>        {</div>
-<div class="line"><span class="lineno">   30</span>            yield <span class="keywordflow">return</span> instruction;</div>
-<div class="line"><span class="lineno">   31</span>        }</div>
-<div class="line"><span class="lineno">   32</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_binary_expression_compiler_8cs_source.html#l00022">22</a> of file <a class="el" href="_bad_binary_expression_compiler_8cs_source.html">BadBinaryExpressionCompiler.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>    {</div>
+<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a13bf81d981a7886083f6f8be16c833e8">IsLeftAssociative</a>)</div>
+<div class="line"><span class="lineno">   25</span>        {</div>
+<div class="line"><span class="lineno">   26</span>            <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a44f242fd48e4459ea2184f6737212592">EmitLeft</a>)</div>
+<div class="line"><span class="lineno">   27</span>            {</div>
+<div class="line"><span class="lineno">   28</span>                <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> compiler.Compile(expression.Left))</div>
+<div class="line"><span class="lineno">   29</span>                {</div>
+<div class="line"><span class="lineno">   30</span>                    yield <span class="keywordflow">return</span> instruction;</div>
+<div class="line"><span class="lineno">   31</span>                }</div>
+<div class="line"><span class="lineno">   32</span>            }</div>
+<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   34</span>            <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#ad93cd01b7ec999500c5fd38e8d1fce7f">EmitRight</a>)</div>
+<div class="line"><span class="lineno">   35</span>            {</div>
+<div class="line"><span class="lineno">   36</span>                <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> compiler.Compile(expression.Right))</div>
+<div class="line"><span class="lineno">   37</span>                {</div>
+<div class="line"><span class="lineno">   38</span>                    yield <span class="keywordflow">return</span> instruction;</div>
+<div class="line"><span class="lineno">   39</span>                }</div>
+<div class="line"><span class="lineno">   40</span>            }</div>
+<div class="line"><span class="lineno">   41</span>        }</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   43</span>        {</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#ad93cd01b7ec999500c5fd38e8d1fce7f">EmitRight</a>)</div>
+<div class="line"><span class="lineno">   45</span>            {</div>
+<div class="line"><span class="lineno">   46</span>                <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> compiler.Compile(expression.Right))</div>
+<div class="line"><span class="lineno">   47</span>                {</div>
+<div class="line"><span class="lineno">   48</span>                    yield <span class="keywordflow">return</span> instruction;</div>
+<div class="line"><span class="lineno">   49</span>                }</div>
+<div class="line"><span class="lineno">   50</span>            }</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>            <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a44f242fd48e4459ea2184f6737212592">EmitLeft</a>)</div>
+<div class="line"><span class="lineno">   53</span>            {</div>
+<div class="line"><span class="lineno">   54</span>                <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> compiler.Compile(expression.Left))</div>
+<div class="line"><span class="lineno">   55</span>                {</div>
+<div class="line"><span class="lineno">   56</span>                    yield <span class="keywordflow">return</span> instruction;</div>
+<div class="line"><span class="lineno">   57</span>                }</div>
+<div class="line"><span class="lineno">   58</span>            }</div>
+<div class="line"><span class="lineno">   59</span>        }</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">foreach</span> (BadInstruction instruction <span class="keywordflow">in</span> <a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a5b1848ac60982839fdb69dc8d769c1df">CompileBinary</a>(compiler, expression))</div>
+<div class="line"><span class="lineno">   62</span>        {</div>
+<div class="line"><span class="lineno">   63</span>            yield <span class="keywordflow">return</span> instruction;</div>
+<div class="line"><span class="lineno">   64</span>        }</div>
+<div class="line"><span class="lineno">   65</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86_html_a13bf81d981a7886083f6f8be16c833e8"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a13bf81d981a7886083f6f8be16c833e8">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler.IsLeftAssociative</a></div><div class="ttdeci">virtual bool IsLeftAssociative</div><div class="ttdef"><b>Definition</b> <a href="_bad_binary_expression_compiler_8cs_source.html#l00008">BadBinaryExpressionCompiler.cs:8</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86_html_a44f242fd48e4459ea2184f6737212592"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a44f242fd48e4459ea2184f6737212592">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler.EmitLeft</a></div><div class="ttdeci">virtual bool EmitLeft</div><div class="ttdef"><b>Definition</b> <a href="_bad_binary_expression_compiler_8cs_source.html#l00010">BadBinaryExpressionCompiler.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86_html_a5b1848ac60982839fdb69dc8d769c1df"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#a5b1848ac60982839fdb69dc8d769c1df">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler.CompileBinary</a></div><div class="ttdeci">abstract IEnumerable&lt; BadInstruction &gt; CompileBinary(BadCompiler compiler, T expression)</div><div class="ttdoc">Compiles a Binary Expression.</div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86_html_ad93cd01b7ec999500c5fd38e8d1fce7f"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html#ad93cd01b7ec999500c5fd38e8d1fce7f">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler.EmitRight</a></div><div class="ttdeci">virtual bool EmitRight</div><div class="ttdef"><b>Definition</b> <a href="_bad_binary_expression_compiler_8cs_source.html#l00012">BadBinaryExpressionCompiler.cs:12</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -243,6 +283,79 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a44f242fd48e4459ea2184f6737212592" name="a44f242fd48e4459ea2184f6737212592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44f242fd48e4459ea2184f6737212592">&#9670;&#160;</a></span>EmitLeft</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler</a>&lt; T &gt;.EmitLeft</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_binary_expression_compiler_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_binary_expression_compiler_8cs_source.html">BadBinaryExpressionCompiler.cs</a>.</p>
+
+</div>
+</div>
+<a id="ad93cd01b7ec999500c5fd38e8d1fce7f" name="ad93cd01b7ec999500c5fd38e8d1fce7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad93cd01b7ec999500c5fd38e8d1fce7f">&#9670;&#160;</a></span>EmitRight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler</a>&lt; T &gt;.EmitRight</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_binary_expression_compiler_8cs_source.html#l00012">12</a> of file <a class="el" href="_bad_binary_expression_compiler_8cs_source.html">BadBinaryExpressionCompiler.cs</a>.</p>
+
+</div>
+</div>
+<a id="a13bf81d981a7886083f6f8be16c833e8" name="a13bf81d981a7886083f6f8be16c833e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13bf81d981a7886083f6f8be16c833e8">&#9670;&#160;</a></span>IsLeftAssociative</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_bina50ab53852ac80528f5c047a5d8987e86.html">BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.BadBinaryExpressionCompiler</a>&lt; T &gt;.IsLeftAssociative</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bad_binary_expression_compiler_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_binary_expression_compiler_8cs_source.html">BadBinaryExpressionCompiler.cs</a>.</p>
 
 </div>
 </div>

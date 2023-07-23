@@ -193,27 +193,27 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00252">252</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  253</span>    {</div>
-<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a> == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  255</span>        {</div>
-<div class="line"><span class="lineno">  256</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;CompiledOptimizedContext is null&quot;</span>);</div>
-<div class="line"><span class="lineno">  257</span>        }</div>
-<div class="line"><span class="lineno">  258</span> </div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00253">253</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  254</span>    {</div>
+<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a> == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  256</span>        {</div>
+<div class="line"><span class="lineno">  257</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;CompiledOptimizedContext is null&quot;</span>);</div>
+<div class="line"><span class="lineno">  258</span>        }</div>
 <div class="line"><span class="lineno">  259</span> </div>
-<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>()</div>
-<div class="line"><span class="lineno">  261</span>            .Where(x =&gt; x.AllowCompile)</div>
-<div class="line"><span class="lineno">  262</span>            .Select(x =&gt;</div>
-<div class="line"><span class="lineno">  263</span>            {</div>
-<div class="line"><span class="lineno">  264</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a> func = (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a>)x.Function!;</div>
-<div class="line"><span class="lineno">  265</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function.html">BadCompiledFunction</a> compiled = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html">BadCompilerApi</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html#a40f596d3207b1116ccc0810b570ae2b8">CompileFunction</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html">BadCompiler</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html#a9efa9983a6cec9c1de6f9741b69223d6">Instance</a>, func, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  266</span> </div>
-<div class="line"><span class="lineno">  267</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html">BadNUnitTestCase</a>(compiled, x.TestName, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  268</span>            })</div>
-<div class="line"><span class="lineno">  269</span>            .ToArray();</div>
-<div class="line"><span class="lineno">  270</span>    }</div>
+<div class="line"><span class="lineno">  260</span> </div>
+<div class="line"><span class="lineno">  261</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>()</div>
+<div class="line"><span class="lineno">  262</span>            .Where(x =&gt; x.AllowCompile)</div>
+<div class="line"><span class="lineno">  263</span>            .Select(x =&gt;</div>
+<div class="line"><span class="lineno">  264</span>            {</div>
+<div class="line"><span class="lineno">  265</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a> func = (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a>)x.Function!;</div>
+<div class="line"><span class="lineno">  266</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function.html">BadCompiledFunction</a> compiled = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html">BadCompilerApi</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html#a40f596d3207b1116ccc0810b570ae2b8">CompileFunction</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html">BadCompiler</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html#a9efa9983a6cec9c1de6f9741b69223d6">Instance</a>, func, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  267</span> </div>
+<div class="line"><span class="lineno">  268</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html">BadNUnitTestCase</a>(compiled, x.TestName, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  269</span>            })</div>
+<div class="line"><span class="lineno">  270</span>            .ToArray();</div>
+<div class="line"><span class="lineno">  271</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html">BadScript2.Interop.NUnit.BadNUnitTestCase</a></div><div class="ttdoc">Represents a BadScript NUnit Test Case.</div><div class="ttdef"><b>Definition</b> <a href="_bad_n_unit_test_case_8cs_source.html#l00008">BadNUnitTestCase.cs:9</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_a68d987e4f95688f5053d581a336b73f1"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">BadScript2.Interop.NUnit.BadUnitTestContext.GetTestCases</a></div><div class="ttdeci">BadNUnitTestCase[] GetTestCases()</div><div class="ttdoc">Returns all Test Cases.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00084">BadUnitTestContext.cs:84</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_a68d987e4f95688f5053d581a336b73f1"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">BadScript2.Interop.NUnit.BadUnitTestContext.GetTestCases</a></div><div class="ttdeci">BadNUnitTestCase[] GetTestCases()</div><div class="ttdoc">Returns all Test Cases.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00085">BadUnitTestContext.cs:85</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadScript2.Runtime.Error.BadRuntimeException</a></div><div class="ttdoc">Gets thrown by the runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_runtime_exception_8cs_source.html#l00009">BadRuntimeException.cs:10</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadScript2.Runtime.Objects.Functions.BadExpressionFunction</a></div><div class="ttdoc">The Expression Function Implementation used if a function gets defined in the Source Code.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_function_8cs_source.html#l00011">BadExpressionFunction.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function.html">BadScript2.Runtime.VirtualMachine.BadCompiledFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_compiled_function_8cs_source.html#l00009">BadCompiledFunction.cs:10</a></div></div>
@@ -248,25 +248,25 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00227">227</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  228</span>    {</div>
-<div class="line"><span class="lineno">  229</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a> == <span class="keyword">null</span>)</div>
-<div class="line"><span class="lineno">  230</span>        {</div>
-<div class="line"><span class="lineno">  231</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;CompiledContext is null&quot;</span>);</div>
-<div class="line"><span class="lineno">  232</span>        }</div>
-<div class="line"><span class="lineno">  233</span> </div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00228">228</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  229</span>    {</div>
+<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">if</span> (<a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a> == <span class="keyword">null</span>)</div>
+<div class="line"><span class="lineno">  231</span>        {</div>
+<div class="line"><span class="lineno">  232</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;CompiledContext is null&quot;</span>);</div>
+<div class="line"><span class="lineno">  233</span>        }</div>
 <div class="line"><span class="lineno">  234</span> </div>
-<div class="line"><span class="lineno">  235</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>()</div>
-<div class="line"><span class="lineno">  236</span>            .Where(x =&gt; x.AllowCompile)</div>
-<div class="line"><span class="lineno">  237</span>            .Select(x =&gt;</div>
-<div class="line"><span class="lineno">  238</span>            {</div>
-<div class="line"><span class="lineno">  239</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a> func = (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a>)x.Function!;</div>
-<div class="line"><span class="lineno">  240</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function.html">BadCompiledFunction</a> compiled = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html">BadCompilerApi</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html#a40f596d3207b1116ccc0810b570ae2b8">CompileFunction</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html">BadCompiler</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html#a9efa9983a6cec9c1de6f9741b69223d6">Instance</a>, func, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  241</span> </div>
-<div class="line"><span class="lineno">  242</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html">BadNUnitTestCase</a>(compiled, x.TestName, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  243</span>            })</div>
-<div class="line"><span class="lineno">  244</span>            .ToArray();</div>
-<div class="line"><span class="lineno">  245</span>    }</div>
+<div class="line"><span class="lineno">  235</span> </div>
+<div class="line"><span class="lineno">  236</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>()</div>
+<div class="line"><span class="lineno">  237</span>            .Where(x =&gt; x.AllowCompile)</div>
+<div class="line"><span class="lineno">  238</span>            .Select(x =&gt;</div>
+<div class="line"><span class="lineno">  239</span>            {</div>
+<div class="line"><span class="lineno">  240</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a> func = (<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_expression_function.html">BadExpressionFunction</a>)x.Function!;</div>
+<div class="line"><span class="lineno">  241</span>                <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_bad_compiled_function.html">BadCompiledFunction</a> compiled = <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html">BadCompilerApi</a>.<a class="code hl_function" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler_api.html#a40f596d3207b1116ccc0810b570ae2b8">CompileFunction</a>(<a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html">BadCompiler</a>.<a class="code hl_variable" href="class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_bad_compiler.html#a9efa9983a6cec9c1de6f9741b69223d6">Instance</a>, func, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  242</span> </div>
+<div class="line"><span class="lineno">  243</span>                <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_n_unit_test_case.html">BadNUnitTestCase</a>(compiled, x.TestName, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  244</span>            })</div>
+<div class="line"><span class="lineno">  245</span>            .ToArray();</div>
+<div class="line"><span class="lineno">  246</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_tests_1_1_bad_unit_tests_html_a2fcb5a42fb004c1f96473533d7fb1208"><div class="ttname"><a href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">BadScript2.Tests.BadUnitTests.CompiledContext</a></div><div class="ttdeci">static BadUnitTestContext CompiledContext</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00123">BadUnitTests.cs:124</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -294,10 +294,10 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00247">247</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  248</span>    {</div>
-<div class="line"><span class="lineno">  249</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a6819caa43c4eb269f3ec471416398566">GetFiles</a>(<a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ac317609f224fa46c1eb38fe2a1e9ca1c">HtmlTestDirectory</a>, <span class="stringliteral">&quot;.bhtml&quot;</span>, <span class="keyword">true</span>).ToArray();</div>
-<div class="line"><span class="lineno">  250</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00248">248</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  249</span>    {</div>
+<div class="line"><span class="lineno">  250</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a6819caa43c4eb269f3ec471416398566">GetFiles</a>(<a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ac317609f224fa46c1eb38fe2a1e9ca1c">HtmlTestDirectory</a>, <span class="stringliteral">&quot;.bhtml&quot;</span>, <span class="keyword">true</span>).ToArray();</div>
+<div class="line"><span class="lineno">  251</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_bad_file_system_html"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadScript2.IO.BadFileSystem</a></div><div class="ttdoc">Public interface for the filesystem abstraction of the BadScript Engine.</div><div class="ttdef"><b>Definition</b> <a href="_bad_file_system_8cs_source.html#l00006">BadFileSystem.cs:7</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_i_o_1_1_bad_file_system_html_af458f7d6b081152e89f4cae73215136c"><div class="ttname"><a href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">BadScript2.IO.BadFileSystem.Instance</a></div><div class="ttdeci">static IFileSystem Instance</div><div class="ttdoc">File System implementation.</div><div class="ttdef"><b>Definition</b> <a href="_bad_file_system_8cs_source.html#l00017">BadFileSystem.cs:17</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_tests_1_1_bad_unit_tests_html_ac317609f224fa46c1eb38fe2a1e9ca1c"><div class="ttname"><a href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ac317609f224fa46c1eb38fe2a1e9ca1c">BadScript2.Tests.BadUnitTests.HtmlTestDirectory</a></div><div class="ttdeci">static string HtmlTestDirectory</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00038">BadUnitTests.cs:38</a></div></div>
@@ -328,10 +328,10 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00222">222</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  223</span>    {</div>
-<div class="line"><span class="lineno">  224</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>?.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>() ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;OptimizedContext is null&quot;</span>);</div>
-<div class="line"><span class="lineno">  225</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00223">223</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  224</span>    {</div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>?.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>() ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;OptimizedContext is null&quot;</span>);</div>
+<div class="line"><span class="lineno">  226</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_tests_1_1_bad_unit_tests_html_ad4c96ba4807d7a1d37704ec470e3b2ce"><div class="ttname"><a href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">BadScript2.Tests.BadUnitTests.OptimizedContext</a></div><div class="ttdeci">static BadUnitTestContext OptimizedContext</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00082">BadUnitTests.cs:83</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -359,10 +359,10 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00216">216</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  217</span>    {</div>
-<div class="line"><span class="lineno">  218</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>?.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>() ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Context is null&quot;</span>);</div>
-<div class="line"><span class="lineno">  219</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00217">217</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  218</span>    {</div>
+<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">return</span> <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>?.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a68d987e4f95688f5053d581a336b73f1">GetTestCases</a>() ?? <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_error_1_1_bad_runtime_exception.html">BadRuntimeException</a>(<span class="stringliteral">&quot;Context is null&quot;</span>);</div>
+<div class="line"><span class="lineno">  220</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_tests_1_1_bad_unit_tests_html_a21fbfeabb24223d03d40b4d5cfdc54c3"><div class="ttname"><a href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">BadScript2.Tests.BadUnitTests.Context</a></div><div class="ttdeci">static BadUnitTestContext Context</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00040">BadUnitTests.cs:41</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -391,13 +391,13 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00297">297</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  298</span>    {</div>
-<div class="line"><span class="lineno">  299</span>        HtmlDocument reference = <span class="keyword">new</span> HtmlDocument();</div>
-<div class="line"><span class="lineno">  300</span>        reference.Load(file);</div>
-<div class="line"><span class="lineno">  301</span> </div>
-<div class="line"><span class="lineno">  302</span>        <span class="keywordflow">return</span> reference;</div>
-<div class="line"><span class="lineno">  303</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00298">298</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  299</span>    {</div>
+<div class="line"><span class="lineno">  300</span>        HtmlDocument reference = <span class="keyword">new</span> HtmlDocument();</div>
+<div class="line"><span class="lineno">  301</span>        reference.Load(file);</div>
+<div class="line"><span class="lineno">  302</span> </div>
+<div class="line"><span class="lineno">  303</span>        <span class="keywordflow">return</span> reference;</div>
+<div class="line"><span class="lineno">  304</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -418,14 +418,15 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00206">206</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  207</span>    {</div>
-<div class="line"><span class="lineno">  208</span>        <span class="comment">//Required to get the raw Assert.Pass exception instead of the runtime exception that is caught</span></div>
-<div class="line"><span class="lineno">  209</span>        BadRuntimeSettings.Instance.CatchRuntimeExceptions = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  210</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
-<div class="line"><span class="lineno">  211</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
-<div class="line"><span class="lineno">  212</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
-<div class="line"><span class="lineno">  213</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
-<div class="line"><span class="lineno">  214</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_a197ae39ee973557dc690c844c0d20ff7"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">BadScript2.Interop.NUnit.BadUnitTestContext.Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Runs all Setup Functions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00058">BadUnitTestContext.cs:58</a></div></div>
+<div class="line"><span class="lineno">  208</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
+<div class="line"><span class="lineno">  209</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
+<div class="line"><span class="lineno">  210</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
+<div class="line"><span class="lineno">  211</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">Setup</a>();</div>
+<div class="line"><span class="lineno">  212</span> </div>
+<div class="line"><span class="lineno">  213</span>        <span class="comment">//Required to get the raw Assert.Pass exception instead of the runtime exception that is caught</span></div>
+<div class="line"><span class="lineno">  214</span>        BadRuntimeSettings.Instance.CatchRuntimeExceptions = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  215</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_a197ae39ee973557dc690c844c0d20ff7"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a197ae39ee973557dc690c844c0d20ff7">BadScript2.Interop.NUnit.BadUnitTestContext.Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Runs all Setup Functions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00059">BadUnitTestContext.cs:59</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -444,14 +445,14 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00352">352</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  353</span>    {</div>
-<div class="line"><span class="lineno">  354</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
-<div class="line"><span class="lineno">  355</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
-<div class="line"><span class="lineno">  356</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
-<div class="line"><span class="lineno">  357</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
-<div class="line"><span class="lineno">  358</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_ab8587b9593a7fa243f89ca2f90ba007e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">BadScript2.Interop.NUnit.BadUnitTestContext.Teardown</a></div><div class="ttdeci">void Teardown()</div><div class="ttdoc">Runs all Teardown Functions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00066">BadUnitTestContext.cs:66</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00353">353</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  354</span>    {</div>
+<div class="line"><span class="lineno">  355</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
+<div class="line"><span class="lineno">  356</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
+<div class="line"><span class="lineno">  357</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
+<div class="line"><span class="lineno">  358</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">Teardown</a>();</div>
+<div class="line"><span class="lineno">  359</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_ab8587b9593a7fa243f89ca2f90ba007e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#ab8587b9593a7fa243f89ca2f90ba007e">BadScript2.Interop.NUnit.BadUnitTestContext.Teardown</a></div><div class="ttdeci">void Teardown()</div><div class="ttdoc">Runs all Teardown Functions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00067">BadUnitTestContext.cs:67</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -471,11 +472,11 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00274">274</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  275</span>    {</div>
-<div class="line"><span class="lineno">  276</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
-<div class="line"><span class="lineno">  277</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_a4cd82f5fccaf5d59ff2896749db1f120"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">BadScript2.Interop.NUnit.BadUnitTestContext.Run</a></div><div class="ttdeci">static void Run(IEnumerable&lt; BadObject &gt; enumerable)</div><div class="ttdoc">Runs an enumeration.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00047">BadUnitTestContext.cs:47</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00275">275</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  276</span>    {</div>
+<div class="line"><span class="lineno">  277</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a21fbfeabb24223d03d40b4d5cfdc54c3">Context</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
+<div class="line"><span class="lineno">  278</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_html_a4cd82f5fccaf5d59ff2896749db1f120"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">BadScript2.Interop.NUnit.BadUnitTestContext.Run</a></div><div class="ttdeci">static void Run(IEnumerable&lt; BadObject &gt; enumerable)</div><div class="ttdoc">Runs an enumeration.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_8cs_source.html#l00048">BadUnitTestContext.cs:48</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -495,10 +496,10 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00286">286</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  287</span>    {</div>
-<div class="line"><span class="lineno">  288</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
-<div class="line"><span class="lineno">  289</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00287">287</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  288</span>    {</div>
+<div class="line"><span class="lineno">  289</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a2fcb5a42fb004c1f96473533d7fb1208">CompiledContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
+<div class="line"><span class="lineno">  290</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -518,10 +519,10 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00292">292</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  293</span>    {</div>
-<div class="line"><span class="lineno">  294</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
-<div class="line"><span class="lineno">  295</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00293">293</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  294</span>    {</div>
+<div class="line"><span class="lineno">  295</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a48a1351f9b03a44d97af20aec1c64253">CompiledOptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
+<div class="line"><span class="lineno">  296</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -541,29 +542,29 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00307">307</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  308</span>    {</div>
-<div class="line"><span class="lineno">  309</span>        <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a> options = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a>();</div>
-<div class="line"><span class="lineno">  310</span>        <span class="keywordtype">string</span> referenceFile = Path.ChangeExtension(file, $<span class="stringliteral">&quot;.{(options.SkipEmptyTextNodes ? &quot;</span>skip<span class="stringliteral">&quot; : &quot;</span><span class="keywordflow">default</span><span class="stringliteral">&quot;)}.html&quot;</span>);</div>
-<div class="line"><span class="lineno">  311</span>        HtmlDocument result = <a class="code hl_class" href="class_bad_html_1_1_bad_html_template.html">BadHtmlTemplate</a>.<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a55be91367780fa32c99be34b39be5779">Create</a>(file).<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">RunTemplate</a>(<span class="keyword">null</span>, options);</div>
-<div class="line"><span class="lineno">  312</span> </div>
-<div class="line"><span class="lineno">  313</span>        <span class="keywordflow">if</span> (<a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#aa11eca7eaef423a842b144ee01efc081">Exists</a>(referenceFile))</div>
-<div class="line"><span class="lineno">  314</span>        {</div>
-<div class="line"><span class="lineno">  315</span>            HtmlDocument reference = <a class="code hl_function" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a1218c2379ae6a1b83b2062b56fdaf84e">LoadReference</a>(referenceFile);</div>
-<div class="line"><span class="lineno">  316</span>            Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));</div>
-<div class="line"><span class="lineno">  317</span>        }</div>
-<div class="line"><span class="lineno">  318</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  319</span>        {</div>
-<div class="line"><span class="lineno">  320</span>            <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a46d76865d8de5491428867e541216402">CreateDirectory</a>(Path.GetDirectoryName(referenceFile)!, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  321</span>            result.Save(referenceFile);</div>
-<div class="line"><span class="lineno">  322</span>            Assert.Inconclusive(<span class="stringliteral">&quot;Reference file does not exist. Saving...&quot;</span>);</div>
-<div class="line"><span class="lineno">  323</span>        }</div>
-<div class="line"><span class="lineno">  324</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00308">308</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  309</span>    {</div>
+<div class="line"><span class="lineno">  310</span>        <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a> options = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a>();</div>
+<div class="line"><span class="lineno">  311</span>        <span class="keywordtype">string</span> referenceFile = Path.ChangeExtension(file, $<span class="stringliteral">&quot;.{(options.SkipEmptyTextNodes ? &quot;</span>skip<span class="stringliteral">&quot; : &quot;</span><span class="keywordflow">default</span><span class="stringliteral">&quot;)}.html&quot;</span>);</div>
+<div class="line"><span class="lineno">  312</span>        HtmlDocument result = <a class="code hl_class" href="class_bad_html_1_1_bad_html_template.html">BadHtmlTemplate</a>.<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a55be91367780fa32c99be34b39be5779">Create</a>(file).<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">RunTemplate</a>(<span class="keyword">null</span>, options);</div>
+<div class="line"><span class="lineno">  313</span> </div>
+<div class="line"><span class="lineno">  314</span>        <span class="keywordflow">if</span> (<a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#aa11eca7eaef423a842b144ee01efc081">Exists</a>(referenceFile))</div>
+<div class="line"><span class="lineno">  315</span>        {</div>
+<div class="line"><span class="lineno">  316</span>            HtmlDocument reference = <a class="code hl_function" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a1218c2379ae6a1b83b2062b56fdaf84e">LoadReference</a>(referenceFile);</div>
+<div class="line"><span class="lineno">  317</span>            Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));</div>
+<div class="line"><span class="lineno">  318</span>        }</div>
+<div class="line"><span class="lineno">  319</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  320</span>        {</div>
+<div class="line"><span class="lineno">  321</span>            <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a46d76865d8de5491428867e541216402">CreateDirectory</a>(Path.GetDirectoryName(referenceFile)!, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  322</span>            result.Save(referenceFile);</div>
+<div class="line"><span class="lineno">  323</span>            Assert.Inconclusive(<span class="stringliteral">&quot;Reference file does not exist. Saving...&quot;</span>);</div>
+<div class="line"><span class="lineno">  324</span>        }</div>
+<div class="line"><span class="lineno">  325</span>    }</div>
 <div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html">BadHtml.BadHtmlTemplate</a></div><div class="ttdoc">Implements a Html Template.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00012">BadHtmlTemplate.cs:13</a></div></div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a2a8196d9275fa2a3777c143dac52404b"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">BadHtml.BadHtmlTemplate.RunTemplate</a></div><div class="ttdeci">HtmlDocument RunTemplate(object? model=null, BadHtmlTemplateOptions? options=null, BadScope? caller=null)</div><div class="ttdoc">Runs the Template with the specified arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00066">BadHtmlTemplate.cs:66</a></div></div>
-<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a55be91367780fa32c99be34b39be5779"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a55be91367780fa32c99be34b39be5779">BadHtml.BadHtmlTemplate.Create</a></div><div class="ttdeci">static BadHtmlTemplate Create(string file)</div><div class="ttdoc">Creates a new Template.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00106">BadHtmlTemplate.cs:106</a></div></div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a2a8196d9275fa2a3777c143dac52404b"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">BadHtml.BadHtmlTemplate.RunTemplate</a></div><div class="ttdeci">HtmlDocument RunTemplate(object? model=null, BadHtmlTemplateOptions? options=null, BadScope? caller=null)</div><div class="ttdoc">Runs the Template with the specified arguments.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00067">BadHtmlTemplate.cs:67</a></div></div>
+<div class="ttc" id="aclass_bad_html_1_1_bad_html_template_html_a55be91367780fa32c99be34b39be5779"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template.html#a55be91367780fa32c99be34b39be5779">BadHtml.BadHtmlTemplate.Create</a></div><div class="ttdeci">static BadHtmlTemplate Create(string file)</div><div class="ttdoc">Creates a new Template.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_8cs_source.html#l00110">BadHtmlTemplate.cs:110</a></div></div>
 <div class="ttc" id="aclass_bad_html_1_1_bad_html_template_options_html"><div class="ttname"><a href="class_bad_html_1_1_bad_html_template_options.html">BadHtml.BadHtmlTemplateOptions</a></div><div class="ttdoc">Options for the Html Template Engine.</div><div class="ttdef"><b>Definition</b> <a href="_bad_html_template_options_8cs_source.html#l00006">BadHtmlTemplateOptions.cs:7</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_tests_1_1_bad_unit_tests_html_a1218c2379ae6a1b83b2062b56fdaf84e"><div class="ttname"><a href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a1218c2379ae6a1b83b2062b56fdaf84e">BadScript2.Tests.BadUnitTests.LoadReference</a></div><div class="ttdeci">HtmlDocument LoadReference(string file)</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00297">BadUnitTests.cs:297</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_tests_1_1_bad_unit_tests_html_a1218c2379ae6a1b83b2062b56fdaf84e"><div class="ttname"><a href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a1218c2379ae6a1b83b2062b56fdaf84e">BadScript2.Tests.BadUnitTests.LoadReference</a></div><div class="ttdeci">HtmlDocument LoadReference(string file)</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00298">BadUnitTests.cs:298</a></div></div>
 <div class="ttc" id="ainterface_bad_script2_1_1_i_o_1_1_i_file_system_html_a46d76865d8de5491428867e541216402"><div class="ttname"><a href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a46d76865d8de5491428867e541216402">BadScript2.IO.IFileSystem.CreateDirectory</a></div><div class="ttdeci">void CreateDirectory(string path, bool recursive=false)</div><div class="ttdoc">Creates a new directory.</div></div>
 <div class="ttc" id="ainterface_bad_script2_1_1_i_o_1_1_i_file_system_html_aa11eca7eaef423a842b144ee01efc081"><div class="ttname"><a href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#aa11eca7eaef423a842b144ee01efc081">BadScript2.IO.IFileSystem.Exists</a></div><div class="ttdeci">bool Exists(string path)</div><div class="ttdoc">Returns true if the given path is a file or directory.</div></div>
 </div><!-- fragment -->
@@ -585,27 +586,27 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00328">328</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  329</span>    {</div>
-<div class="line"><span class="lineno">  330</span>        <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a> options = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a></div>
-<div class="line"><span class="lineno">  331</span>        {</div>
-<div class="line"><span class="lineno">  332</span>            SkipEmptyTextNodes = <span class="keyword">true</span></div>
-<div class="line"><span class="lineno">  333</span>        };</div>
-<div class="line"><span class="lineno">  334</span>        <span class="keywordtype">string</span> referenceFile = Path.ChangeExtension(file, $<span class="stringliteral">&quot;.{(options.SkipEmptyTextNodes ? &quot;</span>skip<span class="stringliteral">&quot; : &quot;</span><span class="keywordflow">default</span><span class="stringliteral">&quot;)}.html&quot;</span>);</div>
-<div class="line"><span class="lineno">  335</span>        HtmlDocument result = <a class="code hl_class" href="class_bad_html_1_1_bad_html_template.html">BadHtmlTemplate</a>.<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a55be91367780fa32c99be34b39be5779">Create</a>(file).<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">RunTemplate</a>(<span class="keyword">null</span>, options);</div>
-<div class="line"><span class="lineno">  336</span> </div>
-<div class="line"><span class="lineno">  337</span>        <span class="keywordflow">if</span> (<a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#aa11eca7eaef423a842b144ee01efc081">Exists</a>(referenceFile))</div>
-<div class="line"><span class="lineno">  338</span>        {</div>
-<div class="line"><span class="lineno">  339</span>            HtmlDocument reference = <a class="code hl_function" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a1218c2379ae6a1b83b2062b56fdaf84e">LoadReference</a>(referenceFile);</div>
-<div class="line"><span class="lineno">  340</span>            Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));</div>
-<div class="line"><span class="lineno">  341</span>        }</div>
-<div class="line"><span class="lineno">  342</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  343</span>        {</div>
-<div class="line"><span class="lineno">  344</span>            <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a46d76865d8de5491428867e541216402">CreateDirectory</a>(Path.GetDirectoryName(referenceFile)!, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  345</span>            result.Save(referenceFile);</div>
-<div class="line"><span class="lineno">  346</span>            Assert.Inconclusive(<span class="stringliteral">&quot;Reference file does not exist. Saving...&quot;</span>);</div>
-<div class="line"><span class="lineno">  347</span>        }</div>
-<div class="line"><span class="lineno">  348</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00329">329</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  330</span>    {</div>
+<div class="line"><span class="lineno">  331</span>        <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a> options = <span class="keyword">new</span> <a class="code hl_class" href="class_bad_html_1_1_bad_html_template_options.html">BadHtmlTemplateOptions</a></div>
+<div class="line"><span class="lineno">  332</span>        {</div>
+<div class="line"><span class="lineno">  333</span>            SkipEmptyTextNodes = <span class="keyword">true</span></div>
+<div class="line"><span class="lineno">  334</span>        };</div>
+<div class="line"><span class="lineno">  335</span>        <span class="keywordtype">string</span> referenceFile = Path.ChangeExtension(file, $<span class="stringliteral">&quot;.{(options.SkipEmptyTextNodes ? &quot;</span>skip<span class="stringliteral">&quot; : &quot;</span><span class="keywordflow">default</span><span class="stringliteral">&quot;)}.html&quot;</span>);</div>
+<div class="line"><span class="lineno">  336</span>        HtmlDocument result = <a class="code hl_class" href="class_bad_html_1_1_bad_html_template.html">BadHtmlTemplate</a>.<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a55be91367780fa32c99be34b39be5779">Create</a>(file).<a class="code hl_function" href="class_bad_html_1_1_bad_html_template.html#a2a8196d9275fa2a3777c143dac52404b">RunTemplate</a>(<span class="keyword">null</span>, options);</div>
+<div class="line"><span class="lineno">  337</span> </div>
+<div class="line"><span class="lineno">  338</span>        <span class="keywordflow">if</span> (<a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#aa11eca7eaef423a842b144ee01efc081">Exists</a>(referenceFile))</div>
+<div class="line"><span class="lineno">  339</span>        {</div>
+<div class="line"><span class="lineno">  340</span>            HtmlDocument reference = <a class="code hl_function" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#a1218c2379ae6a1b83b2062b56fdaf84e">LoadReference</a>(referenceFile);</div>
+<div class="line"><span class="lineno">  341</span>            Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));</div>
+<div class="line"><span class="lineno">  342</span>        }</div>
+<div class="line"><span class="lineno">  343</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  344</span>        {</div>
+<div class="line"><span class="lineno">  345</span>            <a class="code hl_class" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html">BadFileSystem</a>.<a class="code hl_property" href="class_bad_script2_1_1_i_o_1_1_bad_file_system.html#af458f7d6b081152e89f4cae73215136c">Instance</a>.<a class="code hl_function" href="interface_bad_script2_1_1_i_o_1_1_i_file_system.html#a46d76865d8de5491428867e541216402">CreateDirectory</a>(Path.GetDirectoryName(referenceFile)!, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  346</span>            result.Save(referenceFile);</div>
+<div class="line"><span class="lineno">  347</span>            Assert.Inconclusive(<span class="stringliteral">&quot;Reference file does not exist. Saving...&quot;</span>);</div>
+<div class="line"><span class="lineno">  348</span>        }</div>
+<div class="line"><span class="lineno">  349</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -625,10 +626,10 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00280">280</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  281</span>    {</div>
-<div class="line"><span class="lineno">  282</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
-<div class="line"><span class="lineno">  283</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html#l00281">281</a> of file <a class="el" href="_bad_script2_8_tests_2_bad_unit_tests_8cs_source.html">BadUnitTests.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  282</span>    {</div>
+<div class="line"><span class="lineno">  283</span>        <a class="code hl_property" href="class_bad_script2_1_1_tests_1_1_bad_unit_tests.html#ad4c96ba4807d7a1d37704ec470e3b2ce">OptimizedContext</a>.<a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context.html#a4cd82f5fccaf5d59ff2896749db1f120">Run</a>(testCase);</div>
+<div class="line"><span class="lineno">  284</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -791,7 +792,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  161</span>        }</div>
 <div class="line"><span class="lineno">  162</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html">BadScript2.ConsoleAbstraction.BadConsole</a></div><div class="ttdoc">Wrapper class for the console abstraction.</div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00011">BadConsole.cs:12</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html_a7227097a0c5cb679a12f57510faaf198"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#a7227097a0c5cb679a12f57510faaf198">BadScript2.ConsoleAbstraction.BadConsole.WriteLine</a></div><div class="ttdeci">static void WriteLine(string str)</div><div class="ttdoc">Writes a string to the console and appends a newline.</div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00077">BadConsole.cs:77</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_console_abstraction_1_1_bad_console_html_a7227097a0c5cb679a12f57510faaf198"><div class="ttname"><a href="class_bad_script2_1_1_console_abstraction_1_1_bad_console.html#a7227097a0c5cb679a12f57510faaf198">BadScript2.ConsoleAbstraction.BadConsole.WriteLine</a></div><div class="ttdeci">static void WriteLine(string str)</div><div class="ttdoc">Writes a string to the console and appends a newline.</div><div class="ttdef"><b>Definition</b> <a href="_bad_console_8cs_source.html#l00076">BadConsole.cs:76</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_debugger_1_1_scriptable_1_1_bad_script_debugger_extension_html"><div class="ttname"><a href="class_bad_script2_1_1_debugger_1_1_scriptable_1_1_bad_script_debugger_extension.html">BadScript2.Debugger.Scriptable.BadScriptDebuggerExtension</a></div><div class="ttdoc">Implements Interop Extensions for the Debugger Objects.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script_debugger_extension_8cs_source.html#l00013">BadScriptDebuggerExtension.cs:14</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html">BadScript2.Interop.Common.BadCommonInterop</a></div><div class="ttdoc">Implements the Common Interop Wrapper.</div><div class="ttdef"><b>Definition</b> <a href="_bad_common_interop_8cs_source.html#l00011">BadCommonInterop.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop_html_a4732a919c3e36e8d1279645254e4e5de"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_bad_common_interop.html#a4732a919c3e36e8d1279645254e4e5de">BadScript2.Interop.Common.BadCommonInterop.AddExtensions</a></div><div class="ttdeci">static void AddExtensions()</div><div class="ttdoc">Adds all Common Interop Extensions to the BadScript Runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_common_interop_8cs_source.html#l00033">BadCommonInterop.cs:33</a></div></div>
@@ -805,7 +806,7 @@ Static Private Attributes</h2></td></tr>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_versioning_1_1_bad_version_html_a5ed922d0f551d5b3d391e80679948b91"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_versioning_1_1_bad_version.html#a5ed922d0f551d5b3d391e80679948b91">BadScript2.Interop.Common.Versioning.BadVersion.Prototype</a></div><div class="ttdeci">static readonly BadClassPrototype Prototype</div><div class="ttdoc">The Version Class Prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_version_8cs_source.html#l00019">BadVersion.cs:19</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_i_o_1_1_bad_i_o_api_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_i_o_1_1_bad_i_o_api.html">BadScript2.Interop.IO.BadIOApi</a></div><div class="ttdoc">Implements the &quot;IO&quot; Api.</div><div class="ttdef"><b>Definition</b> <a href="_bad_i_o_api_8cs_source.html#l00015">BadIOApi.cs:16</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_json_1_1_bad_json_api.html">BadScript2.Interop.Json.BadJsonApi</a></div><div class="ttdoc">Implements the &quot;Json&quot; Api.</div><div class="ttdef"><b>Definition</b> <a href="_bad_json_api_8cs_source.html#l00013">BadJsonApi.cs:14</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html">BadScript2.Interop.Linq.BadLinqExtensions</a></div><div class="ttdoc">Implements Linq Extensions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00016">BadLinqExtensions.cs:17</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_linq_1_1_bad_linq_extensions.html">BadScript2.Interop.Linq.BadLinqExtensions</a></div><div class="ttdoc">Implements Linq Extensions.</div><div class="ttdef"><b>Definition</b> <a href="_bad_script2_8_interop_2_bad_script2_8_interop_8_linq_2_bad_linq_extensions_8cs_source.html#l00017">BadLinqExtensions.cs:18</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_builder_html"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_n_unit_1_1_bad_unit_test_context_builder.html">BadScript2.Interop.NUnit.BadUnitTestContextBuilder</a></div><div class="ttdoc">Builds a BadScript NUnit Test Context.</div><div class="ttdef"><b>Definition</b> <a href="_bad_unit_test_context_builder_8cs_source.html#l00017">BadUnitTestContextBuilder.cs:18</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_bad_interop_extension.html">BadScript2.Runtime.Interop.BadInteropExtension</a></div><div class="ttdoc">Public Extension API for the BS2 Runtime.</div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_extension_8cs_source.html#l00011">BadInteropExtension.cs:12</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_types_1_1_bad_native_class_builder.html">BadScript2.Runtime.Objects.Types.BadNativeClassBuilder</a></div><div class="ttdoc">Helper Class that Builds a Native Class from a Prototype.</div><div class="ttdef"><b>Definition</b> <a href="_bad_native_class_builder_8cs_source.html#l00013">BadNativeClassBuilder.cs:14</a></div></div>

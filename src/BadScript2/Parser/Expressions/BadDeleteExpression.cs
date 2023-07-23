@@ -5,10 +5,21 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions;
 
+/// <summary>
+/// Implements an expression that Deletes an object pointed to by BadObjectReference
+/// </summary>
 public class BadDeleteExpression : BadExpression
 {
+	/// <summary>
+	/// The Key to delete
+	/// </summary>
 	public readonly BadExpression Expression;
 
+	/// <summary>
+	/// Creates a new Delete Expression
+	/// </summary>
+	/// <param name="expression">Key Expression</param>
+	/// <param name="position">Source Position</param>
 	public BadDeleteExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
 	{
 		Expression = expression;

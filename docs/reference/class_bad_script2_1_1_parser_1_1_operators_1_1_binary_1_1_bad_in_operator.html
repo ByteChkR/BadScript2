@@ -96,6 +96,9 @@ $(document).ready(function(){initNavTree('class_bad_script2_1_1_parser_1_1_opera
   <div class="headertitle"><div class="title">BadScript2.Parser.Operators.Binary.BadInOperator Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implements the 'in' operator.  
+ <a href="class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_in_operator.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for BadScript2.Parser.Operators.Binary.BadInOperator:</div>
 <div class="dyncontent">
@@ -110,6 +113,7 @@ Inheritance diagram for BadScript2.Parser.Operators.Binary.BadInOperator:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5ae0453ade77bec9177ef936d259f229"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_in_operator.html#a5ae0453ade77bec9177ef936d259f229">BadInOperator</a> ()</td></tr>
+<tr class="memdesc:a5ae0453ade77bec9177ef936d259f229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new 'in' operator.  <br /></td></tr>
 <tr class="separator:a5ae0453ade77bec9177ef936d259f229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94c67a98a6212c671c3352cf1878a2eb"><td class="memItemLeft" align="right" valign="top">override <a class="el" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_bad_in_operator.html#a94c67a98a6212c671c3352cf1878a2eb">Parse</a> (<a class="el" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> left, <a class="el" href="class_bad_script2_1_1_parser_1_1_bad_source_parser.html">BadSourceParser</a> parser)</td></tr>
 <tr class="memdesc:a94c67a98a6212c671c3352cf1878a2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the operator.  <br /></td></tr>
@@ -137,8 +141,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a5fff44c819f11410023283826b51b979 inherit properties_class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bad_in_operator_8cs_source.html#l00006">6</a> of file <a class="el" href="_bad_in_operator_8cs_source.html">BadInOperator.cs</a>.</p>
+<div class="textblock"><p>Implements the 'in' operator. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_in_operator_8cs_source.html#l00009">9</a> of file <a class="el" href="_bad_in_operator_8cs_source.html">BadInOperator.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5ae0453ade77bec9177ef936d259f229" name="a5ae0453ade77bec9177ef936d259f229"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ae0453ade77bec9177ef936d259f229">&#9670;&#160;</a></span>BadInOperator()</h2>
@@ -155,8 +160,10 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bad_in_operator_8cs_source.html#l00008">8</a> of file <a class="el" href="_bad_in_operator_8cs_source.html">BadInOperator.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    8</span>: base(15, <span class="stringliteral">&quot;in&quot;</span>) { }</div>
+<p>Creates a new 'in' operator. </p>
+
+<p class="definition">Definition at line <a class="el" href="_bad_in_operator_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_in_operator_8cs_source.html">BadInOperator.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>: base(15, <span class="stringliteral">&quot;in&quot;</span>) { }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -207,15 +214,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_bad_script2_1_1_parser_1_1_operators_1_1_bad_binary_operator.html#a8f4ee227c4450a25803bbba33286a8d8">BadScript2.Parser.Operators.BadBinaryOperator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_bad_in_operator_8cs_source.html#l00010">10</a> of file <a class="el" href="_bad_in_operator_8cs_source.html">BadInOperator.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   11</span>    {</div>
-<div class="line"><span class="lineno">   12</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> right = parser.ParseExpression(<span class="keyword">null</span>, <a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html#aa41902e1df0a443cc4378a7afda01992">Precedence</a>);</div>
-<div class="line"><span class="lineno">   13</span> </div>
-<div class="line"><span class="lineno">   14</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression.html">BadInExpression</a>(left, right, left.<a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">Position</a>.Combine(right.<a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">Position</a>));</div>
-<div class="line"><span class="lineno">   15</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_bad_in_operator_8cs_source.html#l00016">16</a> of file <a class="el" href="_bad_in_operator_8cs_source.html">BadInOperator.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>    {</div>
+<div class="line"><span class="lineno">   18</span>        <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadExpression</a> right = parser.ParseExpression(<span class="keyword">null</span>, <a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html#aa41902e1df0a443cc4378a7afda01992">Precedence</a>);</div>
+<div class="line"><span class="lineno">   19</span> </div>
+<div class="line"><span class="lineno">   20</span>        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression.html">BadInExpression</a>(left, right, left.<a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">Position</a>.Combine(right.<a class="code hl_property" href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">Position</a>));</div>
+<div class="line"><span class="lineno">   21</span>    }</div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html">BadScript2.Parser.Expressions.BadExpression</a></div><div class="ttdoc">Base Implementation for all Expressions used inside the Script.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_8cs_source.html#l00014">BadExpression.cs:15</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression_html_a9e99859bd43e7a451c7e0ce2c847d2d5"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_bad_expression.html#a9e99859bd43e7a451c7e0ce2c847d2d5">BadScript2.Parser.Expressions.BadExpression.Position</a></div><div class="ttdeci">BadSourcePosition Position</div><div class="ttdoc">The source Position of the Expression.</div><div class="ttdef"><b>Definition</b> <a href="_bad_expression_8cs_source.html#l00035">BadExpression.cs:35</a></div></div>
-<div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression.html">BadScript2.Parser.Expressions.Binary.BadInExpression</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_in_expression_8cs_source.html#l00009">BadInExpression.cs:10</a></div></div>
+<div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression_html"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_bad_in_expression.html">BadScript2.Parser.Expressions.Binary.BadInExpression</a></div><div class="ttdoc">Implements the 'in' operator. The 'in' operator is used to check if a key is present in an instance o...</div><div class="ttdef"><b>Definition</b> <a href="_bad_in_expression_8cs_source.html#l00010">BadInExpression.cs:11</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator_html_aa41902e1df0a443cc4378a7afda01992"><div class="ttname"><a href="class_bad_script2_1_1_parser_1_1_operators_1_1_bad_operator.html#aa41902e1df0a443cc4378a7afda01992">BadScript2.Parser.Operators.BadOperator.Precedence</a></div><div class="ttdeci">int Precedence</div><div class="ttdoc">The Precedence of the Operator.</div><div class="ttdef"><b>Definition</b> <a href="_bad_operator_8cs_source.html#l00022">BadOperator.cs:22</a></div></div>
 </div><!-- fragment -->
 </div>

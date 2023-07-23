@@ -203,9 +203,12 @@ Additional Inherited Members</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="_bad_task_extensions_8cs_source.html#l00014">14</a> of file <a class="el" href="_bad_task_extensions_8cs_source.html">BadTaskExtensions.cs</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   15</span>    {</div>
 <div class="line"><span class="lineno">   16</span>        RegisterObject&lt;BadFunction&gt;(<span class="stringliteral">&quot;AsTask&quot;</span>,</div>
-<div class="line"><span class="lineno">   17</span>            func =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;AsTask&quot;</span>, (ctx, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html#a15e2b31d56da6104854f4d30cad1436e">AsTask</a>(ctx, func, args), func.Parameters));</div>
-<div class="line"><span class="lineno">   18</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions_html_a15e2b31d56da6104854f4d30cad1436e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html#a15e2b31d56da6104854f4d30cad1436e">BadScript2.Interop.Common.Task.BadTaskExtensions.AsTask</a></div><div class="ttdeci">BadObject AsTask(BadExecutionContext ctx, BadFunction func, BadObject[] args)</div><div class="ttdoc">Converts a Function into a task.</div><div class="ttdef"><b>Definition</b> <a href="_bad_task_extensions_8cs_source.html#l00027">BadTaskExtensions.cs:27</a></div></div>
+<div class="line"><span class="lineno">   17</span>            func =&gt; <span class="keyword">new</span> <a class="code hl_class" href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadInteropFunction</a>(<span class="stringliteral">&quot;AsTask&quot;</span>,</div>
+<div class="line"><span class="lineno">   18</span>                (ctx, args) =&gt; <a class="code hl_function" href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html#a15e2b31d56da6104854f4d30cad1436e">AsTask</a>(ctx, func, args),</div>
+<div class="line"><span class="lineno">   19</span>                func.IsStatic,</div>
+<div class="line"><span class="lineno">   20</span>                func.Parameters));</div>
+<div class="line"><span class="lineno">   21</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions_html_a15e2b31d56da6104854f4d30cad1436e"><div class="ttname"><a href="class_bad_script2_1_1_interop_1_1_common_1_1_task_1_1_bad_task_extensions.html#a15e2b31d56da6104854f4d30cad1436e">BadScript2.Interop.Common.Task.BadTaskExtensions.AsTask</a></div><div class="ttdeci">BadObject AsTask(BadExecutionContext ctx, BadFunction func, BadObject[] args)</div><div class="ttdoc">Converts a Function into a task.</div><div class="ttdef"><b>Definition</b> <a href="_bad_task_extensions_8cs_source.html#l00030">BadTaskExtensions.cs:30</a></div></div>
 <div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function_html"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_bad_interop_function.html">BadScript2.Runtime.Interop.Functions.BadInteropFunction</a></div><div class="ttdef"><b>Definition</b> <a href="_bad_interop_function_8cs_source.html#l00007">BadInteropFunction.cs:8</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -261,11 +264,11 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>BadTask</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bad_task_extensions_8cs_source.html#l00027">27</a> of file <a class="el" href="_bad_task_extensions_8cs_source.html">BadTaskExtensions.cs</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span>    {</div>
-<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">return</span> BadTask.Create(func, ctx, func.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a3d03b0ed9a0271cd34f400c7d2c85b88">Name</a>?.Text, args);</div>
-<div class="line"><span class="lineno">   30</span>    }</div>
-<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_html_a3d03b0ed9a0271cd34f400c7d2c85b88"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a3d03b0ed9a0271cd34f400c7d2c85b88">BadScript2.Runtime.Objects.Functions.BadFunction.Name</a></div><div class="ttdeci">BadWordToken? Name</div><div class="ttdoc">(optional) Name of the Function</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_8cs_source.html#l00046">BadFunction.cs:46</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_bad_task_extensions_8cs_source.html#l00030">30</a> of file <a class="el" href="_bad_task_extensions_8cs_source.html">BadTaskExtensions.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>    {</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">return</span> BadTask.Create(func, ctx, func.<a class="code hl_property" href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a3d03b0ed9a0271cd34f400c7d2c85b88">Name</a>?.Text, args);</div>
+<div class="line"><span class="lineno">   33</span>    }</div>
+<div class="ttc" id="aclass_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function_html_a3d03b0ed9a0271cd34f400c7d2c85b88"><div class="ttname"><a href="class_bad_script2_1_1_runtime_1_1_objects_1_1_functions_1_1_bad_function.html#a3d03b0ed9a0271cd34f400c7d2c85b88">BadScript2.Runtime.Objects.Functions.BadFunction.Name</a></div><div class="ttdeci">BadWordToken? Name</div><div class="ttdoc">(optional) Name of the Function</div><div class="ttdef"><b>Definition</b> <a href="_bad_function_8cs_source.html#l00049">BadFunction.cs:49</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
