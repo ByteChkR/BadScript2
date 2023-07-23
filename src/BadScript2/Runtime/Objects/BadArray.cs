@@ -11,7 +11,9 @@ namespace BadScript2.Runtime.Objects;
 /// </summary>
 public class BadArray : BadObject, IBadEnumerable
 
-{
+{private static BadClassPrototype? s_Prototype;
+
+	public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Array");
     /// <summary>
     ///     Creates a new Instance of the BadScript Array
     /// </summary>
@@ -46,7 +48,7 @@ public class BadArray : BadObject, IBadEnumerable
 
 	public override BadClassPrototype GetPrototype()
 	{
-		return BadNativeClassBuilder.GetNative("Array");
+		return Prototype;
 	}
 
 

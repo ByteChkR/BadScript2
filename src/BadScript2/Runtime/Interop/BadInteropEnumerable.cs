@@ -31,11 +31,11 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 	{
 		return m_Enumerable.GetEnumerator();
 	}
-
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>("Enumerable",
+                                                   			(_, _) => throw new BadRuntimeException("Cannot call method"));
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadInteropEnumerator>("Enumerable",
-			(_, _) => throw new BadRuntimeException("Cannot call method"));
+		return s_Prototype;
 	}
 
 	public override bool HasProperty(BadObject propName)

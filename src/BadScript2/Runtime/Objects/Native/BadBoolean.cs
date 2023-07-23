@@ -15,8 +15,9 @@ public class BadBoolean : BadNative<bool>, IBadBoolean
 
 	bool IBadBoolean.Value => Value;
 
+	private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("bool");
 	public override BadClassPrototype GetPrototype()
 	{
-		return BadNativeClassBuilder.GetNative("bool");
+		return s_Prototype;
 	}
 }

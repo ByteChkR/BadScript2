@@ -37,7 +37,7 @@ public static class BadNativeClassBuilder
     /// <exception cref="BadRuntimeException">Gets raised if the prototype does not exist.</exception>
     public static BadClassPrototype GetNative(string name)
 	{
-		return s_NativeTypes?.FirstOrDefault(x => x.Name == name) ??
+		return s_NativeTypes.FirstOrDefault(x => x.Name == name) ??
 		       throw new BadRuntimeException("Native class not found");
 	}
 

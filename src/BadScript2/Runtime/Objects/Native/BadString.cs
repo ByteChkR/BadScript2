@@ -40,8 +40,9 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
 		return string.Compare(Value, other.Value, StringComparison.Ordinal);
 	}
 
+	private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("string");
 	public override BadClassPrototype GetPrototype()
 	{
-		return BadNativeClassBuilder.GetNative("string");
+		return s_Prototype;
 	}
 }

@@ -12,11 +12,14 @@ namespace BadScript2.Runtime.Objects;
 /// </summary>
 public class BadTable : BadObject, IBadEnumerable
 {
+	private static BadClassPrototype? s_Prototype;
+
+	public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Table");
     /// <summary>
     ///     Creates a new Table Object
     /// </summary>
     public BadTable()
-	{
+    {
 		InnerTable = new Dictionary<BadObject, BadObject>();
 		PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
 	}
@@ -70,7 +73,7 @@ public class BadTable : BadObject, IBadEnumerable
 
 	public override BadClassPrototype GetPrototype()
 	{
-		return BadNativeClassBuilder.GetNative("Table");
+		return Prototype;
 	}
 
     /// <summary>
@@ -101,7 +104,7 @@ public class BadTable : BadObject, IBadEnumerable
 
 	public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
 	{
-		if (BadInteropExtension.HasObject<BadTable>(propName) && !InnerTable.ContainsKey(propName))
+		if (!InnerTable.ContainsKey(propName) && BadInteropExtension.HasObject<BadTable>(propName))
 		{
 			return BadInteropExtension.GetObjectReference(GetType(), propName, this, caller);
 		}

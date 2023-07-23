@@ -9,6 +9,8 @@ namespace BadScript2.Runtime.Objects;
 
 public abstract class BadObject
 {
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNullObject>("null",
+		(_, _) => throw new BadRuntimeException("Cannot call methods on null"));
 	private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
 	public static readonly BadObject Null = new BadNullObject();
 	public static readonly BadObject True = new BadBoolean(true);
@@ -163,8 +165,7 @@ public abstract class BadObject
 
 		public override BadClassPrototype GetPrototype()
 		{
-			return new BadNativeClassPrototype<BadNullObject>("null",
-				(_, _) => throw new BadRuntimeException("Cannot call methods on null"));
+			return s_Prototype;
 		}
 
 		public override string ToSafeString(List<BadObject> done)

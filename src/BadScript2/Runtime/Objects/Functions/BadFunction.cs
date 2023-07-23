@@ -53,9 +53,10 @@ public abstract class BadFunction : BadObject
     /// </summary>
     public BadFunctionParameter[] Parameters { get; }
 
+    private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("Function");
 	public override BadClassPrototype GetPrototype()
 	{
-		return BadNativeClassBuilder.GetNative("Function");
+		return s_Prototype;
 	}
 
     /// <summary>

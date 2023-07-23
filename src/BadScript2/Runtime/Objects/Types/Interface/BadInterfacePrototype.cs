@@ -41,10 +41,11 @@ public class BadInterfacePrototype : BadClassPrototype
 	/// </summary>
 	public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
 
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>("Interface",
+		(_, _) => throw new BadRuntimeException("Interfaces cannot be extended"));
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadClassPrototype>("Interface",
-			(_, _) => throw new BadRuntimeException("Interfaces cannot be extended"));
+		return s_Prototype;
 	}
 
 	public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)

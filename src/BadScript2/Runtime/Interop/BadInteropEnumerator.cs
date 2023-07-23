@@ -63,11 +63,11 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
 	{
 		m_Enumerator.Dispose();
 	}
-
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>("Enumerator",
+                                                   			(_, _) => throw new BadRuntimeException("Cannot call method on enumerator"));
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadInteropEnumerator>("Enumerator",
-			(_, _) => throw new BadRuntimeException("Cannot call method on enumerator"));
+		return s_Prototype;
 	}
 
 	public override bool HasProperty(BadObject propName)

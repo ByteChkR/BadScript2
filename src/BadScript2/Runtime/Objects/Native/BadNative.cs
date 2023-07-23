@@ -98,18 +98,19 @@ public class BadNative<T> : BadObject, IBadNative
 		return obj is IBadNative other && Equals(other);
 	}
 
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNative<T>>(typeof(T).Name,
+	    (_, args) =>
+	    {
+		    if (args.Length != 1 || args[0] is not BadNative<T> t)
+		    {
+			    throw new BadRuntimeException("BadNative<T> constructor takes one argument of type BadNative<T>");
+		    }
+
+		    return t;
+	    });
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadNative<T>>(typeof(T).Name,
-			(_, args) =>
-			{
-				if (args.Length != 1 || args[0] is not BadNative<T> t)
-				{
-					throw new BadRuntimeException("BadNative<T> constructor takes one argument of type BadNative<T>");
-				}
-
-				return t;
-			});
+		return s_Prototype;
 	}
 
 	public override bool HasProperty(BadObject propName)

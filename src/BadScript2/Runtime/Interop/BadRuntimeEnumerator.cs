@@ -82,10 +82,11 @@ public class BadRuntimeEnumerator : BadObject, IBadEnumerator
 		//Nothing to dispose
 	}
 
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeEnumerator>("Enumerator",
+		(_, _) => throw new BadRuntimeException("Cannot call method"));
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadRuntimeEnumerator>("Enumerator",
-			(_, _) => throw new BadRuntimeException("Cannot call method"));
+		return s_Prototype;
 	}
 
 	public override string ToSafeString(List<BadObject> done)

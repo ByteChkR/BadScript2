@@ -36,11 +36,11 @@ public class BadRuntimeEnumerable : BadObject, IBadEnumerable
 	{
 		return GetEnumerator();
 	}
-
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeEnumerable>("Enumerable",
+                                                   			(_, _) => throw new BadRuntimeException("Cannot call method"));
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadRuntimeEnumerable>("Enumerable",
-			(_, _) => throw new BadRuntimeException("Cannot call method"));
+		return s_Prototype;
 	}
 
 	public override string ToSafeString(List<BadObject> done)

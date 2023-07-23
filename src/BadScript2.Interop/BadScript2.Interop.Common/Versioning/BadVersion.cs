@@ -92,9 +92,14 @@ public class BadVersion : BadObject, IBadNative
 
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
+		return s_Prototype;
 	}
 
+	private static readonly BadClassPrototype s_Prototype;
+	static BadVersion()
+	{
+		s_Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
+	}
     /// <summary>
     ///     The Version Constructor
     /// </summary>

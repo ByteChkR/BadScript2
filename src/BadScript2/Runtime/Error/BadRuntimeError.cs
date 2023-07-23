@@ -60,11 +60,11 @@ public class BadRuntimeError : BadObject
 
 		return new BadRuntimeError(inner, e.Message, st);
 	}
-
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeError>("Error",
+                                                   			(_, _) => throw new BadRuntimeException("Error"));
 	public override BadClassPrototype GetPrototype()
 	{
-		return new BadNativeClassPrototype<BadRuntimeError>("Error",
-			(_, _) => throw new BadRuntimeException("Error"));
+		return s_Prototype;
 	}
 
 	public override string ToSafeString(List<BadObject> done)

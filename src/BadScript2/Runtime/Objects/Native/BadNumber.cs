@@ -42,9 +42,10 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
 		return Value.CompareTo(other.Value);
 	}
 
+	private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("num");
 	public override BadClassPrototype GetPrototype()
 	{
-		return BadNativeClassBuilder.GetNative("num");
+		return s_Prototype;
 	}
 
 	public override string ToSafeString(List<BadObject> done)
