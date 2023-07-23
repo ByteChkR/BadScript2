@@ -9,47 +9,49 @@ namespace BadScript2.Parser.Expressions;
 
 public class BadInstanceOfExpression : BadBinaryExpression
 {
-    public BadInstanceOfExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left, right, position) { }
+	public BadInstanceOfExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
+		left = left.Dereference();
+		BadObject right = BadObject.Null;
 
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        right = right.Dereference();
+		right = right.Dereference();
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
+		if (context.Scope.IsError)
+		{
+			yield break;
+		}
 
-        if (right is not BadClassPrototype type)
-        {
-            throw BadRuntimeException.Create(context.Scope, "Right side of instanceof must be a class", Position);
-        }
+		if (right is not BadClassPrototype type)
+		{
+			throw BadRuntimeException.Create(context.Scope, "Right side of instanceof must be a class", Position);
+		}
 
 
-        yield return type.IsSuperClassOf(left.GetPrototype());
-    }
+		yield return type.IsSuperClassOf(left.GetPrototype());
+	}
 
-    protected override string GetSymbol()
-    {
-        return "instanceof";
-    }
+	protected override string GetSymbol()
+	{
+		return "instanceof";
+	}
 }

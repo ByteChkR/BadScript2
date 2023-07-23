@@ -10,97 +10,95 @@ namespace BadScript2.Parser.Expressions.Block;
 /// </summary>
 public class BadTryCatchExpression : BadExpression
 {
-	/// <summary>
-	///     The Variable name of the Exception inside the catch block
-	/// </summary>
-	public readonly string ErrorName;
+    /// <summary>
+    ///     The Variable name of the Exception inside the catch block
+    /// </summary>
+    public readonly string ErrorName;
 
-	/// <summary>
-	///     The Catch Block
-	/// </summary>
-	private readonly BadExpression[] m_CatchExpressions;
+    /// <summary>
+    ///     The Catch Block
+    /// </summary>
+    private readonly BadExpression[] m_CatchExpressions;
 
-	/// <summary>
-	///     The Try Block
-	/// </summary>
-	private readonly BadExpression[] m_Expressions;
+    /// <summary>
+    ///     The Try Block
+    /// </summary>
+    private readonly BadExpression[] m_Expressions;
 
-	/// <summary>
-	///     Constructor for the Try Catch Expression
-	/// </summary>
-	/// <param name="position">Source position of the Expression</param>
-	/// <param name="expressions">The Try Block</param>
-	/// <param name="catchExpressions">The Catch Block</param>
-	/// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
-	public BadTryCatchExpression(
-        BadSourcePosition position,
-        BadExpression[] expressions,
-        BadExpression[] catchExpressions,
-        string errorName) : base(false, position)
-    {
-        m_Expressions = expressions;
-        m_CatchExpressions = catchExpressions;
-        ErrorName = errorName;
-    }
+    /// <summary>
+    ///     Constructor for the Try Catch Expression
+    /// </summary>
+    /// <param name="position">Source position of the Expression</param>
+    /// <param name="expressions">The Try Block</param>
+    /// <param name="catchExpressions">The Catch Block</param>
+    /// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
+    public BadTryCatchExpression(
+		BadSourcePosition position,
+		BadExpression[] expressions,
+		BadExpression[] catchExpressions,
+		string errorName) : base(false, position)
+	{
+		m_Expressions = expressions;
+		m_CatchExpressions = catchExpressions;
+		ErrorName = errorName;
+	}
 
-    public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
+	public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
 
-    public IEnumerable<BadExpression> TryExpressions => m_Expressions;
+	public IEnumerable<BadExpression> TryExpressions => m_Expressions;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_CatchExpressions.Length; i++)
-        {
-            m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
-        }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_CatchExpressions.Length; i++)
+		{
+			m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
+		}
 
-        for (int i = 0; i < m_Expressions.Length; i++)
-        {
-            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
-        }
-    }
+		for (int i = 0; i < m_Expressions.Length; i++)
+		{
+			m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+		}
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        foreach (BadExpression expression in m_Expressions)
-        {
-            foreach (BadExpression e in expression.GetDescendantsAndSelf())
-            {
-                yield return e;
-            }
-        }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in m_Expressions)
+		{
+			foreach (BadExpression e in expression.GetDescendantsAndSelf())
+			{
+				yield return e;
+			}
+		}
 
-        foreach (BadExpression expression in m_CatchExpressions)
-        {
-            foreach (BadExpression e in expression.GetDescendantsAndSelf())
-            {
-                yield return e;
-            }
-        }
-    }
+		foreach (BadExpression expression in m_CatchExpressions)
+		{
+			foreach (BadExpression e in expression.GetDescendantsAndSelf())
+			{
+				yield return e;
+			}
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadExecutionContext tryContext = new BadExecutionContext(
-            context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
-        );
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadExecutionContext tryContext = new BadExecutionContext(
+			context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow));
 
-        foreach (BadObject o in tryContext.Execute(m_Expressions))
-        {
-            yield return o;
-        }
+		foreach (BadObject o in tryContext.Execute(m_Expressions))
+		{
+			yield return o;
+		}
 
-        if (tryContext.Scope.Error != null)
-        {
-            BadExecutionContext catchContext = new BadExecutionContext(
-                context.Scope.CreateChild("CatchBlock", context.Scope, null)
-            );
-            catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
+		if (tryContext.Scope.Error != null)
+		{
+			BadExecutionContext catchContext = new BadExecutionContext(
+				context.Scope.CreateChild("CatchBlock", context.Scope, null));
+			catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
 
-            foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
-            {
-                yield return o;
-            }
-        }
-    }
+			foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
+			{
+				yield return o;
+			}
+		}
+	}
 }

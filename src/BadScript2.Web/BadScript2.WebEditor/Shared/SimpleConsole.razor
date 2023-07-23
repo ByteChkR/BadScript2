@@ -125,8 +125,7 @@
         string cmd = ConsoleInput;
         ConsoleInput = "";
         string[] parts = cmd.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 0)
-            return;
+        if (parts.Length == 0) return;
 
         BadConsoleCommand? command = Commands.FirstOrDefault(x => x.Name == parts[0] || x.Aliases.Contains(parts[0]));
         if (command == null)

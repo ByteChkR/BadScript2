@@ -5,7 +5,7 @@ namespace BadScript2.Common.Logging;
 /// </summary>
 public enum BadLogType
 {
-    Log,
-    Warning,
-    Error,
+	Log,
+	Warning,
+	Error
 }

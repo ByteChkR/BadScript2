@@ -10,18 +10,18 @@ namespace BadScript2.Interop.Net;
 /// </summary>
 public class BadNetApi : BadInteropApi
 {
-	/// <summary>
-	///     Public Constructor
-	/// </summary>
-	public BadNetApi() : base("Net") { }
+    /// <summary>
+    ///     Public Constructor
+    /// </summary>
+    public BadNetApi() : base("Net") { }
 
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetFunction<string>("Get", Get);
-        target.SetFunction<string, string>("Post", Post);
-        target.SetFunction<string>("EncodeUriComponent", s => Uri.EscapeDataString(s));
-        target.SetFunction<string>("DecodeUriComponent", s => Uri.UnescapeDataString(s));
-    }
+	protected override void LoadApi(BadTable target)
+	{
+		target.SetFunction<string>("Get", Get);
+		target.SetFunction<string, string>("Post", Post);
+		target.SetFunction<string>("EncodeUriComponent", s => Uri.EscapeDataString(s));
+		target.SetFunction<string>("DecodeUriComponent", s => Uri.UnescapeDataString(s));
+	}
 
 
     /// <summary>
@@ -31,14 +31,12 @@ public class BadNetApi : BadInteropApi
     /// <param name="content">Body</param>
     /// <returns>Awaitable Task</returns>
     private BadTask Post(string url, string content)
-    {
-        HttpClient cl = new HttpClient();
+	{
+		HttpClient cl = new HttpClient();
 
-        return new BadTask(
-            BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))),
-            $"Net.Post(\"{url}\")"
-        );
-    }
+		return new BadTask(BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))),
+			$"Net.Post(\"{url}\")");
+	}
 
     /// <summary>
     ///     Creates a new BadTask that performs a GET request to the given url
@@ -46,10 +44,10 @@ public class BadNetApi : BadInteropApi
     /// <param name="url">Url</param>
     /// <returns>Awaitable Task</returns>
     private BadTask Get(string url)
-    {
-        HttpClient cl = new HttpClient();
-        Task<HttpResponseMessage>? task = cl.GetAsync(url);
+	{
+		HttpClient cl = new HttpClient();
+		Task<HttpResponseMessage>? task = cl.GetAsync(url);
 
-        return new BadTask(BadTaskUtils.WaitForTask(task), $"Net.Get(\"{url}\")");
-    }
+		return new BadTask(BadTaskUtils.WaitForTask(task), $"Net.Get(\"{url}\")");
+	}
 }

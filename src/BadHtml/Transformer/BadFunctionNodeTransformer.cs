@@ -17,10 +17,10 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
-    {
-        return context.InputNode.Name == "bs:function";
-    }
+	public override bool CanTransform(BadHtmlContext context)
+	{
+		return context.InputNode.Name == "bs:function";
+	}
 
     /// <summary>
     ///     Returns true if the specified parameter is optional
@@ -28,9 +28,9 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// <param name="value">The Parameter Value</param>
     /// <returns>True if Optional</returns>
     private bool IsOptional(string value)
-    {
-        return value.EndsWith("?") || value.EndsWith("?!");
-    }
+	{
+		return value.EndsWith("?") || value.EndsWith("?!");
+	}
 
     /// <summary>
     ///     Returns true if the specified parameter is null checked
@@ -38,9 +38,9 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// <param name="value">The Parameter Value</param>
     /// <returns>True if null checked</returns>
     private bool IsNullChecked(string value)
-    {
-        return value.EndsWith("!") || value.EndsWith("!?");
-    }
+	{
+		return value.EndsWith("!") || value.EndsWith("!?");
+	}
 
     /// <summary>
     ///     Returns true if the specified parameter is the rest argument
@@ -48,9 +48,9 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// <param name="value">The Parameter Value</param>
     /// <returns>True if rest argument</returns>
     private bool IsRestArgs(string value)
-    {
-        return value.EndsWith("*");
-    }
+	{
+		return value.EndsWith("*");
+	}
 
     /// <summary>
     ///     Returns the Parameter Type for the specified attribute
@@ -60,82 +60,69 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// <returns>Expression that evaluates to a Bad Type</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Parameter Type could not be parsed.</exception>
     private BadExpression? GetParameterType(BadHtmlContext context, HtmlAttribute attribute)
-    {
-        string name = attribute.Value;
+	{
+		string name = attribute.Value;
 
-        while (name.EndsWith("*") || name.EndsWith("?") || name.EndsWith("!"))
-        {
-            name = name.Remove(name.Length - 1);
-        }
+		while (name.EndsWith("*") || name.EndsWith("?") || name.EndsWith("!"))
+		{
+			name = name.Remove(name.Length - 1);
+		}
 
-        if (string.IsNullOrEmpty(name))
-        {
-            return null;
-        }
+		if (string.IsNullOrEmpty(name))
+		{
+			return null;
+		}
 
-        BadExpression[] expressions = context.Parse(name, context.CreateAttributePosition(attribute));
+		BadExpression[] expressions = context.Parse(name, context.CreateAttributePosition(attribute));
 
-        if (expressions.Length != 1)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                $"Invalid parameter type expression for parameter {attribute.Name} in 'bs:function' node",
-                context.CreateAttributePosition(attribute)
-            );
-        }
+		if (expressions.Length != 1)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				$"Invalid parameter type expression for parameter {attribute.Name} in 'bs:function' node",
+				context.CreateAttributePosition(attribute));
+		}
 
-        return expressions[0];
-    }
+		return expressions[0];
+	}
 
-    public override void TransformNode(BadHtmlContext context)
-    {
-        HtmlAttribute? nameAttribute = context.InputNode.Attributes["name"];
+	public override void TransformNode(BadHtmlContext context)
+	{
+		HtmlAttribute? nameAttribute = context.InputNode.Attributes["name"];
 
-        if (nameAttribute == null)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'name' attribute in 'bs:function' node",
-                context.CreateOuterPosition()
-            );
-        }
+		if (nameAttribute == null)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Missing 'name' attribute in 'bs:function' node",
+				context.CreateOuterPosition());
+		}
 
-        if (string.IsNullOrEmpty(nameAttribute.Value))
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'name' attribute in 'bs:function' node",
-                context.CreateAttributePosition(nameAttribute)
-            );
-        }
+		if (string.IsNullOrEmpty(nameAttribute.Value))
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Empty 'name' attribute in 'bs:function' node",
+				context.CreateAttributePosition(nameAttribute));
+		}
 
-        IEnumerable<HtmlAttribute> parameterAttributes =
-            context.InputNode.Attributes.Where(x => x.Name.StartsWith("param:"));
+		IEnumerable<HtmlAttribute> parameterAttributes =
+			context.InputNode.Attributes.Where(x => x.Name.StartsWith("param:"));
 
-        BadFunctionParameter[] parameters = parameterAttributes.Select(
-                x => new BadFunctionParameter(
-                    x.Name.Remove(0, "param:".Length),
-                    IsOptional(x.Value),
-                    IsNullChecked(x.Value),
-                    IsRestArgs(x.Value),
-                    GetParameterType(context, x)
-                )
-            )
-            .ToArray();
+		BadFunctionParameter[] parameters = parameterAttributes.Select(x => new BadFunctionParameter(
+				x.Name.Remove(0, "param:".Length),
+				IsOptional(x.Value),
+				IsNullChecked(x.Value),
+				IsRestArgs(x.Value),
+				GetParameterType(context, x)))
+			.ToArray();
 
-        BadInteropFunction func = new BadInteropFunction(
-            nameAttribute.Value,
-            (ctx, args) => InvokeFunction(nameAttribute.Value, context, parameters, ctx, args),
-            false,
-            parameters
-        );
-        context.ExecutionContext.Scope.DefineVariable(
-            nameAttribute.Value,
-            func,
-            context.ExecutionContext.Scope,
-            new BadPropertyInfo(func.GetPrototype(), true)
-        );
-    }
+		BadInteropFunction func = new BadInteropFunction(nameAttribute.Value,
+			(ctx, args) => InvokeFunction(nameAttribute.Value, context, parameters, ctx, args),
+			false,
+			parameters);
+		context.ExecutionContext.Scope.DefineVariable(nameAttribute.Value,
+			func,
+			context.ExecutionContext.Scope,
+			new BadPropertyInfo(func.GetPrototype(), true));
+	}
 
     /// <summary>
     ///     Invokes the specified function
@@ -147,43 +134,35 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// <param name="arguments">The Function Arguments</param>
     /// <returns>The Result of the Function Invocation</returns>
     private BadObject InvokeFunction(
-        string name,
-        BadHtmlContext context,
-        BadFunctionParameter[] parameters,
-        BadExecutionContext caller,
-        BadObject[] arguments)
-    {
-        BadExecutionContext ctx = new BadExecutionContext(
-            context.ExecutionContext.Scope.CreateChild(
-                ToString(),
-                caller.Scope,
-                null,
-                BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
-            )
-        );
+		string name,
+		BadHtmlContext context,
+		BadFunctionParameter[] parameters,
+		BadExecutionContext caller,
+		BadObject[] arguments)
+	{
+		BadExecutionContext ctx = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild(ToString(),
+			caller.Scope,
+			null,
+			BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow));
 
-        HtmlDocument outputDocument = new HtmlDocument();
-        BadFunction.ApplyParameters(
-            BadFunction.GetHeader(name, parameters),
-            parameters,
-            ctx,
-            arguments,
-            context.CreateOuterPosition()
-        );
+		HtmlDocument outputDocument = new HtmlDocument();
+		BadFunction.ApplyParameters(BadFunction.GetHeader(name, parameters),
+			parameters,
+			ctx,
+			arguments,
+			context.CreateOuterPosition());
 
-        foreach (HtmlNode? child in context.InputNode.ChildNodes)
-        {
-            BadHtmlContext childContext = new BadHtmlContext(
-                child,
-                outputDocument.DocumentNode,
-                ctx,
-                context.FilePath,
-                context.Source,
-                context.Options
-            );
-            Transform(childContext);
-        }
+		foreach (HtmlNode? child in context.InputNode.ChildNodes)
+		{
+			BadHtmlContext childContext = new BadHtmlContext(child,
+				outputDocument.DocumentNode,
+				ctx,
+				context.FilePath,
+				context.Source,
+				context.Options);
+			Transform(childContext);
+		}
 
-        return outputDocument.DocumentNode.InnerHtml;
-    }
+		return outputDocument.DocumentNode.InnerHtml;
+	}
 }

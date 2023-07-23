@@ -5,11 +5,11 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 /// </summary>
 public enum BadConsolePacketType : byte
 {
-    Write,
-    Read,
-    Color,
-    Clear,
-    Disconnect,
-    HeartBeat,
-    Hello,
+	Write,
+	Read,
+	Color,
+	Clear,
+	Disconnect,
+	HeartBeat,
+	Hello
 }

@@ -15,17 +15,17 @@ public class BadNetworkConsoleClientListCommand : BadNetworkConsoleClientCommand
 	/// </summary>
 	/// <param name="client">The Client that owns this command</param>
 	public BadNetworkConsoleClientListCommand(BadNetworkConsoleClient client) : base("list")
-    {
-        m_Client = client;
-    }
+	{
+		m_Client = client;
+	}
 
-    public override void Invoke(string args)
-    {
-        BadConsole.WriteLine("Commands:");
+	public override void Invoke(string args)
+	{
+		BadConsole.WriteLine("Commands:");
 
-        foreach (BadNetworkConsoleClientCommand command in m_Client.Commands)
-        {
-            BadConsole.WriteLine('\t' + command.Name);
-        }
-    }
+		foreach (BadNetworkConsoleClientCommand command in m_Client.Commands)
+		{
+			BadConsole.WriteLine('\t' + command.Name);
+		}
+	}
 }

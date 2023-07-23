@@ -13,50 +13,53 @@ namespace BadScript2.Interop.Html;
 
 public class BadHtmlApi : BadInteropApi
 {
-    public BadHtmlApi() : base("BadHtml") { }
+	public BadHtmlApi() : base("BadHtml") { }
 
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetProperty(
-            "Run",
-            new BadInteropFunction(
-                "Run",
-                RunTemplate,
-                false,
-                new BadFunctionParameter("file", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
-                new BadFunctionParameter("model", true, false, false),
-                new BadFunctionParameter("skipEmptyTextNodes", true, true, false, null, BadNativeClassBuilder.GetNative("bool"))
-            )
-        );
-    }
+	protected override void LoadApi(BadTable target)
+	{
+		target.SetProperty("Run",
+			new BadInteropFunction("Run",
+				RunTemplate,
+				false,
+				new BadFunctionParameter("file", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+				new BadFunctionParameter("model", true, false, false),
+				new BadFunctionParameter("skipEmptyTextNodes",
+					true,
+					true,
+					false,
+					null,
+					BadNativeClassBuilder.GetNative("bool"))));
+	}
 
-    private BadObject RunTemplate(BadExecutionContext context, BadObject[] args)
-    {
-        BadObject fileObj = args[0];
-        BadObject model = BadObject.Null;
-        if (args.Length >= 2)
-        {
-            model = args[1];
-        }
+	private BadObject RunTemplate(BadExecutionContext context, BadObject[] args)
+	{
+		BadObject fileObj = args[0];
+		BadObject model = BadObject.Null;
 
-        if (fileObj is not IBadString file)
-        {
-            throw BadRuntimeException.Create(context.Scope, "Invalid file path: " + fileObj);
-        }
+		if (args.Length >= 2)
+		{
+			model = args[1];
+		}
 
-        BadHtmlTemplateOptions options = new BadHtmlTemplateOptions();
-        if (args.Length == 3)
-        {
-            if (args[2] is not IBadBoolean skipEmptyText)
-            {
-                throw BadRuntimeException.Create(context.Scope, "Invalid skipEmptyTextNodes: " + args[2]);
-            }
+		if (fileObj is not IBadString file)
+		{
+			throw BadRuntimeException.Create(context.Scope, "Invalid file path: " + fileObj);
+		}
 
-            options.SkipEmptyTextNodes = skipEmptyText.Value;
-        }
+		BadHtmlTemplateOptions options = new BadHtmlTemplateOptions();
 
-        BadHtmlTemplate template = BadHtmlTemplate.Create(file.Value);
+		if (args.Length == 3)
+		{
+			if (args[2] is not IBadBoolean skipEmptyText)
+			{
+				throw BadRuntimeException.Create(context.Scope, "Invalid skipEmptyTextNodes: " + args[2]);
+			}
 
-        return template.Run(model, options, context.Scope);
-    }
+			options.SkipEmptyTextNodes = skipEmptyText.Value;
+		}
+
+		BadHtmlTemplate template = BadHtmlTemplate.Create(file.Value);
+
+		return template.Run(model, options, context.Scope);
+	}
 }

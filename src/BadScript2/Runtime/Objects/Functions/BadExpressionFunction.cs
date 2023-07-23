@@ -35,20 +35,20 @@ public class BadExpressionFunction : BadFunction
 	/// <param name="position">The Source Position of the Function</param>
 	/// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
 	public BadExpressionFunction(
-        BadScope parentScope,
-        BadWordToken? name,
-        List<BadExpression> expressions,
-        BadFunctionParameter[] parameters,
-        BadSourcePosition position,
-        bool isConstant,
-        bool isStatic,
-        BadMetaData? metaData) : base(name, isConstant, isStatic, parameters)
-    {
-        m_Body = expressions;
-        Position = position;
-        ParentScope = parentScope;
-        MetaData = metaData ?? BadMetaData.Empty;
-    }
+		BadScope parentScope,
+		BadWordToken? name,
+		List<BadExpression> expressions,
+		BadFunctionParameter[] parameters,
+		BadSourcePosition position,
+		bool isConstant,
+		bool isStatic,
+		BadMetaData? metaData) : base(name, isConstant, isStatic, parameters)
+	{
+		m_Body = expressions;
+		Position = position;
+		ParentScope = parentScope;
+		MetaData = metaData ?? BadMetaData.Empty;
+	}
 
 	/// <summary>
 	///     Enumeration of all expressions in the function body
@@ -56,47 +56,43 @@ public class BadExpressionFunction : BadFunction
 	public IEnumerable<BadExpression> Body => m_Body;
 
 
-    public override BadMetaData MetaData { get; }
+	public override BadMetaData MetaData { get; }
 
-    public override BadFunction BindParentScope(BadScope scope)
-    {
-        return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant, IsStatic, MetaData);
-    }
+	public override BadFunction BindParentScope(BadScope scope)
+	{
+		return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant, IsStatic, MetaData);
+	}
 
-    protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
-    {
-        BadExecutionContext ctx = new BadExecutionContext(
-            ParentScope.CreateChild(
-                ToString(),
-                caller.Scope,
-                null,
-                BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
-            )
-        );
-        ApplyParameters(ctx, args, Position);
+	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
+	{
+		BadExecutionContext ctx = new BadExecutionContext(ParentScope.CreateChild(ToString(),
+			caller.Scope,
+			null,
+			BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow));
+		ApplyParameters(ctx, args, Position);
 
-        foreach (BadObject o in ctx.Execute(Body))
-        {
-            yield return o;
-        }
+		foreach (BadObject o in ctx.Execute(Body))
+		{
+			yield return o;
+		}
 
-        if (ctx.Scope.ReturnValue != null)
-        {
-            yield return ctx.Scope.ReturnValue;
-        }
-        else
-        {
-            yield return Null;
-        }
+		if (ctx.Scope.ReturnValue != null)
+		{
+			yield return ctx.Scope.ReturnValue;
+		}
+		else
+		{
+			yield return Null;
+		}
 
-        if (ctx.Scope.Error != null)
-        {
-            caller.Scope.SetErrorObject(ctx.Scope.Error);
-        }
-    }
+		if (ctx.Scope.Error != null)
+		{
+			caller.Scope.SetErrorObject(ctx.Scope.Error);
+		}
+	}
 
-    public override string ToString()
-    {
-        return base.ToString() + " at " + Position.GetPositionInfo();
-    }
+	public override string ToString()
+	{
+		return base.ToString() + " at " + Position.GetPositionInfo();
+	}
 }

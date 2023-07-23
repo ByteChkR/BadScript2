@@ -11,9 +11,9 @@ public static class BadExtensions
 	/// <param name="task">The Task</param>
 	/// <returns>True if completed successfully</returns>
 	public static bool IsCompletedSuccessfully(this Task task)
-    {
-        return task.Status == TaskStatus.RanToCompletion;
-    }
+	{
+		return task.Status == TaskStatus.RanToCompletion;
+	}
 
 	/// <summary>
 	///     Returns true if the string ends with the given character
@@ -22,9 +22,9 @@ public static class BadExtensions
 	/// <param name="c">The Character</param>
 	/// <returns>True if string ends with character</returns>
 	public static bool EndsWith(this string str, char c)
-    {
-        return str[str.Length - 1] == c;
-    }
+	{
+		return str[str.Length - 1] == c;
+	}
 
 	/// <summary>
 	///     Returns true if the string starts with the given character
@@ -33,9 +33,9 @@ public static class BadExtensions
 	/// <param name="c">The Character</param>
 	/// <returns>True if string starts with character</returns>
 	public static bool StartsWith(this string str, char c)
-    {
-        return str[0] == c;
-    }
+	{
+		return str[0] == c;
+	}
 
 	/// <summary>
 	///     Skips the last n elements of an IEnumerable
@@ -45,22 +45,22 @@ public static class BadExtensions
 	/// <typeparam name="T">Element Type</typeparam>
 	/// <returns>Enumerable with the last 'count' elements removed</returns>
 	public static IEnumerable<T> SkipLast<T>(this IEnumerable<T> e, int count)
-    {
-        Queue<T> q = new Queue<T>(count + 1);
+	{
+		Queue<T> q = new Queue<T>(count + 1);
 
-        foreach (T item in e)
-        {
-            if (q.Count == count + 1)
-            {
-                yield return q.Dequeue();
-            }
+		foreach (T item in e)
+		{
+			if (q.Count == count + 1)
+			{
+				yield return q.Dequeue();
+			}
 
-            q.Enqueue(item);
-        }
+			q.Enqueue(item);
+		}
 
-        if (q.Count == count + 1)
-        {
-            yield return q.Dequeue();
-        }
-    }
+		if (q.Count == count + 1)
+		{
+			yield return q.Dequeue();
+		}
+	}
 }

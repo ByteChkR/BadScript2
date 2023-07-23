@@ -15,9 +15,9 @@ public class BadExecutionContext
 	/// </summary>
 	/// <param name="scope">The Root Scope</param>
 	public BadExecutionContext(BadScope scope)
-    {
-        Scope = scope;
-    }
+	{
+		Scope = scope;
+	}
 
 	/// <summary>
 	///     The Root Scope of the Context
@@ -29,9 +29,9 @@ public class BadExecutionContext
 	/// </summary>
 	/// <returns>New (empty) instance.</returns>
 	public static BadExecutionContext Create()
-    {
-        return new BadExecutionContext(new BadScope("<root>"));
-    }
+	{
+		return new BadExecutionContext(new BadScope("<root>"));
+	}
 
 
 	/// <summary>
@@ -40,61 +40,61 @@ public class BadExecutionContext
 	/// <param name="expressions">Expression Enumeration</param>
 	/// <returns>The Return Value. Null if no return value was set.</returns>
 	public BadObject? Run(IEnumerable<BadExpression> expressions)
-    {
-        foreach (BadObject o in Execute(expressions))
-        {
-            //Execute
-        }
+	{
+		foreach (BadObject o in Execute(expressions))
+		{
+			//Execute
+		}
 
-        if (Scope.ReturnValue != null)
-        {
-            return Scope.ReturnValue;
-        }
+		if (Scope.ReturnValue != null)
+		{
+			return Scope.ReturnValue;
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public BadObject ExecuteScript(IEnumerable<BadExpression> expressions)
-    {
-        BadObject result = BadObject.Null;
+	public BadObject ExecuteScript(IEnumerable<BadExpression> expressions)
+	{
+		BadObject result = BadObject.Null;
 
-        foreach (BadObject o in Execute(expressions))
-        {
-            result = o;
-        }
+		foreach (BadObject o in Execute(expressions))
+		{
+			result = o;
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /// <summary>
-    ///     Executes an enumeration of expressions.
-    /// </summary>
-    /// <param name="expressions">Expression Enumeration</param>
-    /// <returns>Enumeration of the resulting objects</returns>
-    public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
-    {
-        foreach (BadExpression expression in expressions)
-        {
-            foreach (BadObject o in Execute(expression))
-            {
-                yield return o;
-            }
-        }
-    }
+	/// <summary>
+	///     Executes an enumeration of expressions.
+	/// </summary>
+	/// <param name="expressions">Expression Enumeration</param>
+	/// <returns>Enumeration of the resulting objects</returns>
+	public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
+	{
+		foreach (BadExpression expression in expressions)
+		{
+			foreach (BadObject o in Execute(expression))
+			{
+				yield return o;
+			}
+		}
+	}
 
-    public IEnumerable<BadObject> Execute(BadExpression expression)
-    {
-        foreach (BadObject o in expression.Execute(this))
-        {
-            yield return o;
+	public IEnumerable<BadObject> Execute(BadExpression expression)
+	{
+		foreach (BadObject o in expression.Execute(this))
+		{
+			yield return o;
 
-            if (Scope.ReturnValue != null ||
-                Scope.IsBreak ||
-                Scope.IsContinue ||
-                Scope.IsError)
-            {
-                yield break;
-            }
-        }
-    }
+			if (Scope.ReturnValue != null ||
+			    Scope.IsBreak ||
+			    Scope.IsContinue ||
+			    Scope.IsError)
+			{
+				yield break;
+			}
+		}
+	}
 }
