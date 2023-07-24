@@ -1,7 +1,7 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 
-namespace BadScript2.Runtime.Objects.Types;
+namespace BadScript2.Runtime.Objects.Types.Interface;
 
 /// <summary>
 /// Implements a BadScript Interface Prototype

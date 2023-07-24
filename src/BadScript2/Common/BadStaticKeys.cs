@@ -86,4 +86,36 @@ public static class BadStaticKeys
 	public static readonly string PostIncrementOperatorName = "op_PostIncrement";
 	public static readonly string PreDecrementOperatorName = "op_PreDecrement";
 	public static readonly string PreIncrementOperatorName = "op_PreIncrement";
+
+	public static IEnumerable<string> ReservedKeywords { get; set; } = new[]
+	{
+		VariableDefinitionKey,
+		ConstantDefinitionKey,
+		StaticDefinitionKey,
+		LockKey,
+		True,
+		False,
+		Null,
+		NewKey,
+		FunctionKey,
+		ClassKey,
+		InterfaceKey,
+		While,
+		ReturnKey,
+		BreakKey,
+		ContinueKey,
+		ThrowKey,
+		IfKey,
+		ElseKey,
+		ForKey,
+		ForEachKey,
+		TryKey,
+		CatchKey,
+		RefKey
+	};
+
+	public static bool IsReservedKeyword(string keyword)
+	{
+		return ReservedKeywords.Contains(keyword);
+	}
 }

@@ -1,4 +1,4 @@
-namespace BadScript2.Runtime.Objects.Types;
+namespace BadScript2.Runtime.Objects.Types.Interface;
 
 /// <summary>
 /// Extension Methods for BadInterface

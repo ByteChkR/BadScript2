@@ -1,5 +1,6 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Objects.Types;
 

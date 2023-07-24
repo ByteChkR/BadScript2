@@ -1,6 +1,6 @@
 using System.CodeDom.Compiler;
 
-namespace BadScript2.Runtime.Objects.Types;
+namespace BadScript2.Runtime.Objects.Types.Interface;
 
 /// <summary>
 /// Contains information about the validation process for an object.

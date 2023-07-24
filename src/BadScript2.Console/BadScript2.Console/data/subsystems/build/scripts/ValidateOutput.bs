@@ -1,0 +1,19 @@
+
+const Package = Runtime.Import("Package");
+const System = Package.Import("System");
+
+function ValidateOutput()
+{
+	if(!("AppInfo" in Context))
+	{
+		Console.WriteLine("App Info Not Found");
+		return;
+	}
+	Console.WriteLine("Validate Build Output");
+	const src = Context.SourceCode;
+	const result = Runtime.Validate(src, $"{Context.AppInfo.Name}@{Context.AppInfo.Version}");
+	Console.WriteLine(result.GetMessageString());
+}
+
+
+ValidateOutput();

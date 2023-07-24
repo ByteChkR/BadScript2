@@ -2,9 +2,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 using BadScript2.Interop.Common.Task;
+using BadScript2.IO;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
+using BadScript2.Parser.Validation;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -231,6 +233,32 @@ public class BadRuntimeApi : BadInteropApi
 
 				return path;
 			});
+
+		target.SetFunction<string, string>("Validate", ValidateSource);
+	}
+
+	private static BadObject ValidateSource(string source, string file)
+	{
+		BadExpressionValidatorContext result =
+			BadExpressionValidatorContext.Validate(
+				BadSourceParser.Parse(file, source));
+		BadTable ret = new BadTable();
+		ret.SetProperty("IsError", result.IsError);
+		ret.SetProperty("Messages",
+			new BadArray(result.Messages.Select(x =>
+				{
+					BadTable msg = new BadTable();
+					msg.SetProperty("Message", x.Message);
+					msg.SetProperty("Validator", x.Validator.ToString());
+					msg.SetProperty("Type", x.Type.ToString());
+					msg.SetProperty("Position", x.Expression.Position.ToString());
+
+					return (BadObject)msg;
+				})
+				.ToList()));
+		ret.SetFunction("GetMessageString", () => result.ToString());
+
+		return ret;
 	}
 
 
