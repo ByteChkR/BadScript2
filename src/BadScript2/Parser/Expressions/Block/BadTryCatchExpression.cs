@@ -87,18 +87,21 @@ public class BadTryCatchExpression : BadExpression
 		foreach (BadObject o in tryContext.Execute(m_Expressions))
 		{
 			yield return o;
+			
 		}
-
 		if (tryContext.Scope.Error != null)
 		{
 			BadExecutionContext catchContext = new BadExecutionContext(
 				context.Scope.CreateChild("CatchBlock", context.Scope, null));
 			catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
 
-			foreach (BadObject o in catchContext.Execute(m_CatchExpressions))
+			foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
 			{
-				yield return o;
+				yield return e;
 			}
 		}
+		
+
+		
 	}
 }

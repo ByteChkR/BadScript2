@@ -160,7 +160,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 			}
 
 			BadTaskRunner.Instance.AddTask(
-				new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs)).GetEnumerator()), "Main"),
+				new BadTask(new BadInteropRunnable(Run(context, context.Execute(exprs.ToArray())).GetEnumerator()), "Main"),
 				true);
 
 

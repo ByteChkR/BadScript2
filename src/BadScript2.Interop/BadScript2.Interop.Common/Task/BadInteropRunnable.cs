@@ -1,3 +1,4 @@
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.Common.Task;

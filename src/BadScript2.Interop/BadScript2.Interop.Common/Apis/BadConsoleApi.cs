@@ -1,5 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
@@ -210,5 +211,6 @@ public class BadConsoleApi : BadInteropApi
 		{
 			return m_Return;
 		}
+
 	}
 }

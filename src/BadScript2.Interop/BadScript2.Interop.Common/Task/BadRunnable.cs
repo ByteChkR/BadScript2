@@ -1,4 +1,5 @@
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
@@ -9,6 +10,9 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public abstract class BadRunnable
 {
+	
+	public BadRuntimeError? Error { get; private set; }
+	
 	/// <summary>
 	///     Empty Runnable
 	/// </summary>
@@ -24,7 +28,11 @@ public abstract class BadRunnable
 	/// </summary>
 	/// <returns>The Return Value</returns>
 	public abstract BadObject GetReturn();
-
+	
+	public void SetError(BadRuntimeError err)
+	{
+		Error = err;
+	}
 
 	/// <summary>
 	///     Creates a Runnable from an Enumeration
@@ -69,6 +77,7 @@ public abstract class BadRunnable
 		{
 			return BadObject.Null;
 		}
+
 	}
 
 
@@ -92,6 +101,7 @@ public abstract class BadRunnable
 		{
 			return BadObject.Null;
 		}
+
 	}
 
 	/// <summary>
@@ -103,6 +113,8 @@ public abstract class BadRunnable
 		///     The Return Value
 		/// </summary>
 		private BadObject m_ReturnValue = BadObject.Null;
+		
+		private BadExecutionContext m_ExecutionContext;
 
 		/// <summary>
 		///     Constructor
@@ -112,6 +124,7 @@ public abstract class BadRunnable
 		/// <param name="args">Function Arguments</param>
 		public BadFunctionRunnable(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
 		{
+			m_ExecutionContext = ctx;
 			Enumerator = RunnableFunction(func, ctx, args).GetEnumerator();
 		}
 
@@ -146,5 +159,6 @@ public abstract class BadRunnable
 		{
 			return m_ReturnValue;
 		}
+
 	}
 }

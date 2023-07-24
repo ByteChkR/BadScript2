@@ -2,7 +2,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 using BadScript2.Interop.Common.Task;
-using BadScript2.IO;
 using BadScript2.Optimizations;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -240,8 +239,7 @@ public class BadRuntimeApi : BadInteropApi
 	private static BadObject ValidateSource(string source, string file)
 	{
 		BadExpressionValidatorContext result =
-			BadExpressionValidatorContext.Validate(
-				BadSourceParser.Parse(file, source));
+			BadExpressionValidatorContext.Validate(BadSourceParser.Parse(file, source));
 		BadTable ret = new BadTable();
 		ret.SetProperty("IsError", result.IsError);
 		ret.SetProperty("Messages",
@@ -452,7 +450,7 @@ public class BadRuntimeApi : BadInteropApi
 		BadExecutionContext ctx =
 			scope == BadObject.Null || scope is not BadScope sc ?
 				new BadExecutionContext(caller.Scope.GetRootScope()
-					.CreateChild("<EvaluateAsync>", caller.Scope, null)) :
+					.CreateChild("<EvaluateAsync>", caller.Scope, null, BadScopeFlags.CaptureThrow)) :
 				new BadExecutionContext(sc);
 
 		IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
@@ -462,19 +460,24 @@ public class BadRuntimeApi : BadInteropApi
 			exprs = BadExpressionOptimizer.Optimize(exprs);
 		}
 
-
-		return new BadTask(
-			new BadInteropRunnable(SafeExecute(ctx.Execute(exprs), ctx).GetEnumerator(), setLastAsReturnB.Value),
+		BadTask task = null!;
+		task = new BadTask(new BadInteropRunnable(SafeExecute(ctx.Execute(exprs), ctx, () => task).GetEnumerator(),
+				setLastAsReturnB.Value),
 			"EvaluateAsync");
+
+		return task;
 	}
 
-	private IEnumerable<BadObject> SafeExecute(IEnumerable<BadObject> script, BadExecutionContext ctx)
+	private IEnumerable<BadObject> SafeExecute(
+		IEnumerable<BadObject> script,
+		BadExecutionContext ctx,
+		Func<BadTask> getTask)
 	{
 		foreach (BadObject o in script)
 		{
 			if (ctx.Scope.IsError)
 			{
-				throw new BadRuntimeErrorException(ctx.Scope.Error);
+				getTask().Runnable.SetError(ctx.Scope.Error!);
 			}
 
 			yield return o;
