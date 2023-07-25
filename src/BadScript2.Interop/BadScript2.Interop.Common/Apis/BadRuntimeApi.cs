@@ -234,6 +234,7 @@ public class BadRuntimeApi : BadInteropApi
 			});
 
 		target.SetFunction<string, string>("Validate", ValidateSource);
+		target.SetFunction("NewGuid", () => Guid.NewGuid().ToString());
 	}
 
 	private static BadObject ValidateSource(string source, string file)

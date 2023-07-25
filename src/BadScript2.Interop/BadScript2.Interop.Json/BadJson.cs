@@ -168,7 +168,7 @@ public static class BadJson
 			case JTokenType.Guid:
 				return value.Value!.ToString();
 			case JTokenType.Date:
-				return value.Value!.ToString();
+				return (value.Value<DateTime>()).ToString("O");
 			case JTokenType.Null:
 				return BadObject.Null;
 			default:
