@@ -214,6 +214,7 @@ public class BadRuntimeApi : BadInteropApi
 		target.SetFunction<BadObject>("GetExtensionNames", GetExtensionNames);
 		target.SetFunction("GetGlobalExtensionNames", GetGlobalExtensionNames);
 		target.SetFunction("GetTimeNow", GetTimeNow);
+		target.SetFunction<string>("ParseDate", ParseDate);
 		target.SetFunction("GetNativeTypes",
 			_ => new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList()));
 		target.SetFunction("GetRuntimeAssemblyPath",
@@ -260,15 +261,16 @@ public class BadRuntimeApi : BadInteropApi
 		return ret;
 	}
 
+	private static BadObject ParseDate(string date)
+	{
+		var d = DateTime.Parse(date);
 
-	/// <summary>
-	///     Returns the Current Time
-	/// </summary>
-	/// <returns>Bad Table with the Current Time</returns>
-	private static BadObject GetTimeNow()
+		return GetDateTime(d);
+	}
+
+	private static BadObject GetDateTime(DateTime time)
 	{
 		BadTable table = new BadTable();
-		DateTime time = DateTime.Now;
 		table.SetProperty("Year", time.Year);
 		table.SetProperty("Month", time.Month);
 		table.SetProperty("Day", time.Day);
@@ -278,8 +280,38 @@ public class BadRuntimeApi : BadInteropApi
 		table.SetProperty("Millisecond", time.Millisecond);
 		table.SetProperty("UnixTimeMilliseconds", ((DateTimeOffset)time).ToUnixTimeMilliseconds());
 		table.SetProperty("UnixTimeSeconds", ((DateTimeOffset)time).ToUnixTimeSeconds());
+		table.SetFunction("ToShortTimeString", () => CreateDate(table).ToShortTimeString());
+		table.SetFunction("ToShortDateString", () => CreateDate(table).ToShortDateString());
+		table.SetFunction("ToLongTimeString", () => CreateDate(table).ToLongTimeString());
+		table.SetFunction("ToLongDateString", () => CreateDate(table).ToLongDateString());
+		table.SetFunction<string>("Format", (f) => CreateDate(table).ToString(f));
 
 		return table;
+	}
+
+	private static DateTime CreateDate(BadTable dateTable)
+	{
+		//Convert Year, Month,Day, Hour,Minute, Second, Millisecond from IBadNumber to int
+		var year = (int)((IBadNumber)dateTable.InnerTable["Year"]).Value;
+		var month = (int)((IBadNumber)dateTable.InnerTable["Month"]).Value;
+		var day = (int)((IBadNumber)dateTable.InnerTable["Day"]).Value;
+		var hour = (int)((IBadNumber)dateTable.InnerTable["Hour"]).Value;
+		var minute = (int)((IBadNumber)dateTable.InnerTable["Minute"]).Value;
+		var second = (int)((IBadNumber)dateTable.InnerTable["Second"]).Value;
+		var millisecond = (int)((IBadNumber)dateTable.InnerTable["Millisecond"]).Value;
+		//Create Date Time from the given values
+		var dateTime = new DateTime(year, month, day, hour, minute, second, millisecond);
+
+		return dateTime;
+	}
+	
+	/// <summary>
+	///     Returns the Current Time
+	/// </summary>
+	/// <returns>Bad Table with the Current Time</returns>
+	private static BadObject GetTimeNow()
+	{
+		return GetDateTime(DateTime.Now);
 	}
 
 	/// <summary>
