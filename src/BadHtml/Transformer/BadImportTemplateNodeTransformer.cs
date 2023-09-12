@@ -47,7 +47,7 @@ public class BadImportTemplateNodeTransformer : BadHtmlNodeTransformer
 
 		BadObject modelObj = model == null ?
 			BadObject.Null :
-			context.ParseAndExecute(model, context.CreateAttributePosition(modelAttribute!));
+			context.ParseAndExecuteSingle(model, context.CreateAttributePosition(modelAttribute!));
 
 		BadHtmlTemplate template = BadHtmlTemplate.Create(path);
 		HtmlDocument res = template.RunTemplate(modelObj, context.Options);

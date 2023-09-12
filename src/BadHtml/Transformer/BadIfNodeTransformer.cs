@@ -35,7 +35,7 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 				context.CreateAttributePosition(conditionAttribute));
 		}
 
-		BadObject resultObj = context.ParseAndExecute(conditionAttribute.Value,
+		BadObject resultObj = context.ParseAndExecuteSingle(conditionAttribute.Value,
 			context.CreateAttributePosition(conditionAttribute));
 
 		if (resultObj is not IBadBoolean result)

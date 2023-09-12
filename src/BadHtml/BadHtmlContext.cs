@@ -152,6 +152,34 @@ public class BadHtmlContext
 			}
 		}
 	}
+	public BadExpression ParseSingle(string code, BadSourcePosition pos)
+	{
+		try
+		{
+			var parser = BadSourceParser.Create(FilePath, code);
+			BadExpression expression = parser.ParseExpression();
+			foreach (BadExpression expr in expression.GetDescendantsAndSelf())
+			{
+				BadSourcePosition newPosition = BadSourcePosition.Create(FilePath,
+					Source,
+					pos.Index + expr.Position.Index,
+					expr.Position.Length);
+				expr.SetPosition(newPosition);
+			}
+
+			return expression;
+		}
+		catch (BadSourceReaderException e)
+		{
+			if (e.Position == null)
+			{
+				throw new BadSourceReaderException(e.OriginalMessage, pos);
+			}
+
+			throw new BadSourceReaderException(e.OriginalMessage,
+				BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length));
+		}
+	}
 
 	/// <summary>
 	///     Parses the specified code and returns the expressions with their positions set to the specified position
@@ -207,6 +235,17 @@ public class BadHtmlContext
 		return result.Dereference();
 	}
 
+	public BadObject Execute(BadExpression expression)
+	{
+		BadObject result = ExecutionContext.ExecuteScript(expression);
+		if (ExecutionContext.Scope.IsError)
+		{
+			throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
+		}
+
+		return result.Dereference();
+	}
+
 	/// <summary>
 	///     Parses and executes the specified code
 	/// </summary>
@@ -218,5 +257,12 @@ public class BadHtmlContext
 		BadExpression[] expressions = Parse(code, pos);
 
 		return Execute(expressions);
+	}
+
+	public BadObject ParseAndExecuteSingle(string code, BadSourcePosition pos)
+	{
+		BadExpression expression = ParseSingle(code, pos);
+
+		return Execute(expression);
 	}
 }

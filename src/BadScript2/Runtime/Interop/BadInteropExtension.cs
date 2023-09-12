@@ -256,17 +256,17 @@ public abstract class BadInteropExtension
 	/// <returns>Object Instance</returns>
 	public static BadObject GetObject(Type t, BadObject propName, BadObject instance, BadScope? caller)
 	{
-		if (HasGlobalExtensions(propName))
-		{
-			return s_GlobalExtensions[propName](instance);
-		}
-
+		
 
 		Dictionary<BadObject, Func<BadObject, BadObject>> ext = GetTypeExtensions(t);
 
 		if (ext.ContainsKey(propName))
 		{
 			return ext[propName](instance);
+		}
+		if (HasGlobalExtensions(propName))
+		{
+			return s_GlobalExtensions[propName](instance);
 		}
 
 		throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}");

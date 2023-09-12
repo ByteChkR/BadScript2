@@ -51,6 +51,7 @@ public class BadStringExtension : BadInteropExtension
 			.ToList());
 	}
 
+
 	protected override void AddExtensions()
 	{
 		RegisterObject<string>("ToLower",

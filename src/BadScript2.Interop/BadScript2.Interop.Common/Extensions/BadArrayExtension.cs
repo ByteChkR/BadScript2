@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.Common.Extensions;
 

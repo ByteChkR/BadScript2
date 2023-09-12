@@ -74,7 +74,7 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
 				context.CreateAttributePosition(itemAttribute));
 		}
 
-		BadObject enumeration = context.ParseAndExecute(enumerationAttribute.Value,
+		BadObject enumeration = context.ParseAndExecuteSingle(enumerationAttribute.Value,
 			context.CreateAttributePosition(enumerationAttribute));
 
 		if (enumeration is IBadEnumerable badEnumerable)

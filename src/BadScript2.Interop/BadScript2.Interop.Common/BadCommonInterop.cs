@@ -34,6 +34,7 @@ public static class BadCommonInterop
 	{
 		BadInteropExtension.AddExtension<BadObjectExtension>();
 		BadInteropExtension.AddExtension<BadStringExtension>();
+		BadInteropExtension.AddExtension<BadNumberExtension>();
 		BadInteropExtension.AddExtension<BadTableExtension>();
 		BadInteropExtension.AddExtension<BadScopeExtension>();
 		BadInteropExtension.AddExtension<BadArrayExtension>();
