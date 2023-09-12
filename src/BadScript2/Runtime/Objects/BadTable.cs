@@ -14,21 +14,20 @@ public class BadTable : BadObject, IBadEnumerable
 {
 	private static BadClassPrototype? s_Prototype;
 
-	public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Table");
-    /// <summary>
-    ///     Creates a new Table Object
-    /// </summary>
-    public BadTable()
-    {
+	/// <summary>
+	///     Creates a new Table Object
+	/// </summary>
+	public BadTable()
+	{
 		InnerTable = new Dictionary<BadObject, BadObject>();
 		PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
 	}
 
-    /// <summary>
-    ///     Creates a new Table Object
-    /// </summary>
-    /// <param name="table">The Initial Values of the Table</param>
-    public BadTable(Dictionary<BadObject, BadObject> table)
+	/// <summary>
+	///     Creates a new Table Object
+	/// </summary>
+	/// <param name="table">The Initial Values of the Table</param>
+	public BadTable(Dictionary<BadObject, BadObject> table)
 	{
 		InnerTable = table;
 		PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
@@ -39,15 +38,17 @@ public class BadTable : BadObject, IBadEnumerable
 		}
 	}
 
-    /// <summary>
-    ///     The Inner Table for this Object
-    /// </summary>
-    public Dictionary<BadObject, BadObject> InnerTable { get; }
+	public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Table");
 
-    /// <summary>
-    ///     A Table of additional property information
-    /// </summary>
-    public Dictionary<BadObject, BadPropertyInfo> PropertyInfos { get; }
+	/// <summary>
+	///     The Inner Table for this Object
+	/// </summary>
+	public Dictionary<BadObject, BadObject> InnerTable { get; }
+
+	/// <summary>
+	///     A Table of additional property information
+	/// </summary>
+	public Dictionary<BadObject, BadPropertyInfo> PropertyInfos { get; }
 
 	public IEnumerator<BadObject> GetEnumerator()
 	{
@@ -76,21 +77,21 @@ public class BadTable : BadObject, IBadEnumerable
 		return Prototype;
 	}
 
-    /// <summary>
-    ///     Returns Property Information for a given Key
-    /// </summary>
-    /// <param name="propName">Property Name</param>
-    /// <returns>Property Info</returns>
-    public BadPropertyInfo GetPropertyInfo(BadObject propName)
+	/// <summary>
+	///     Returns Property Information for a given Key
+	/// </summary>
+	/// <param name="propName">Property Name</param>
+	/// <returns>Property Info</returns>
+	public BadPropertyInfo GetPropertyInfo(BadObject propName)
 	{
 		return PropertyInfos[propName];
 	}
 
-    /// <summary>
-    ///     Removes a Property from the Table
-    /// </summary>
-    /// <param name="key">Property Key</param>
-    public void RemoveKey(BadObject key)
+	/// <summary>
+	///     Removes a Property from the Table
+	/// </summary>
+	/// <param name="key">Property Key</param>
+	public void RemoveKey(BadObject key)
 	{
 		PropertyInfos.Remove(key);
 		InnerTable.Remove(key);
@@ -101,6 +102,8 @@ public class BadTable : BadObject, IBadEnumerable
 	{
 		return InnerTable.ContainsKey(propName) || BadInteropExtension.HasObject<BadTable>(propName);
 	}
+
+	
 
 	public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
 	{
