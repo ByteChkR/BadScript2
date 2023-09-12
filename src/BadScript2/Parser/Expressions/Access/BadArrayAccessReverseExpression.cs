@@ -11,7 +11,7 @@ namespace BadScript2.Parser.Expressions.Access;
 ///     Implements the Reverse Array Access to set or get properties from an object.
 ///     <Left>[^<Right>]
 /// </summary>
-public class BadArrayAccessReverseExpression : BadExpression
+public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpression
 {
     /// <summary>
     ///     Arguments of the array access.
@@ -21,7 +21,7 @@ public class BadArrayAccessReverseExpression : BadExpression
     /// <summary>
     ///     Indicates if the expression will be null-checked by the runtime
     /// </summary>
-    public readonly bool NullChecked;
+    public bool NullChecked { get; }
 
     /// <summary>
     ///     Constructor of the Array Access Expression
@@ -153,4 +153,5 @@ public class BadArrayAccessReverseExpression : BadExpression
 			yield return o;
 		}
 	}
+
 }

@@ -12,6 +12,9 @@ public class BadHtmlSystemSettings
 	/// </summary>
 	[Option('f', "files", Required = false, HelpText = "The files to run.")]
 	public IEnumerable<string> Files { get; set; } = Enumerable.Empty<string>();
+	
+	[Option("model", Required = false, HelpText = "The Model that the templates will use")]
+	public string Model { get; set; } = string.Empty;
 
 	/// <summary>
 	///     If Enabled, the Debugger will be attached to the process

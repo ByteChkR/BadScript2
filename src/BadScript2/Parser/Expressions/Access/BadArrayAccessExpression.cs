@@ -7,11 +7,16 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser.Expressions.Access;
 
+public interface IBadAccessExpression
+{
+	bool NullChecked { get; }
+}
+
 /// <summary>
 ///     Implements the Array Access to set or get properties from an object.
 ///     <Left>[<Right>]
 /// </summary>
-public class BadArrayAccessExpression : BadExpression
+public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
 {
     /// <summary>
     ///     Arguments of the array access.

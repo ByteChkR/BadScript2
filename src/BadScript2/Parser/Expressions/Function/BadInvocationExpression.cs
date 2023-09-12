@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Parser.Expressions.Access;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -167,6 +168,12 @@ public class BadInvocationExpression : BadExpression
 		}
 
 		left = left.Dereference();
+
+		if (Left is IBadAccessExpression mae && mae.NullChecked && left.Equals(BadObject.Null))
+		{
+			yield return BadObject.Null;
+			yield break;
+		}
 
 		List<BadObject> args = new List<BadObject>();
 

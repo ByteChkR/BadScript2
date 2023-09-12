@@ -97,7 +97,7 @@ function IsBreakPoint(step)
 function ToggleStep(step, cmd)
 {
 	stepMode = !stepMode;
-	Console.WriteLine($"Step Mode: {stepMode}")
+	Console.WriteLine($"Step Mode: {stepMode}");
 }
 
 function UnsetBreakPoint(step, cmd)
@@ -167,7 +167,7 @@ function Help(step, cmd)
 	let s = "Help:\n";
 	foreach(key in commands.Keys)
 	{
-		s += $"\t{key}\n"
+		s += $"\t{key}\n";
 	}
 
 	Console.WriteLine(s);
@@ -198,7 +198,7 @@ commands["sbp"] = SetBreakPoint;
 commands["ubp"] = UnsetBreakPoint;
 commands["lbp"] = ListBreakPoints;
 commands["view"] = ViewSource;
-commands["eval"] = EvaluateInStep
+commands["eval"] = EvaluateInStep; 
 
 function OnLoadFile(file)
 {

@@ -7,8 +7,10 @@ using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleAbstraction.Implementations.Remote;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
+using BadScript2.Interop.Json;
 using BadScript2.IO;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
 
 namespace BadScript2.ConsoleCore.Systems.Html;
@@ -62,10 +64,16 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 			SkipEmptyTextNodes = settings.SkipEmptyTextNodes
 		};
 
+		BadObject model = new BadTable();
+		if (!string.IsNullOrEmpty(settings.Model))
+		{
+			model = BadJson.FromJson(File.ReadAllText(settings.Model));
+		}
+
 		foreach (string file in settings.Files)
 		{
 			string outFile = Path.ChangeExtension(file, "html");
-			string htmlString = BadHtmlTemplate.Create(file).Run(null, opts);
+			string htmlString = BadHtmlTemplate.Create(file).Run(model, opts);
 
 			int originalSize = htmlString.Length;
 
