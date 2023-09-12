@@ -7,7 +7,6 @@ using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.Common.Versioning;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
-using BadScript2.Interop.Linq;
 using BadScript2.Interop.NUnit;
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
@@ -20,6 +19,8 @@ using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
 
 using HtmlAgilityPack;
+
+using BadLinqExtensions = BadScript2.Interop.Linq.BadLinqExtensions;
 
 namespace BadScript2.Tests;
 

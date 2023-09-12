@@ -16,7 +16,10 @@
         <PackageReference Include="coverlet.collector" Version="3.1.2"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\BadScript2.Console\BadScript2.Console\BadScript2.Console.csproj"/>
+        <ProjectReference Include="..\BadHtml\BadHtml.csproj" />
+        <ProjectReference Include="..\BadScript2.Common\BadScript2.Debugger\BadScript2.Debugger.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj" />
+        <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj" />
         <ProjectReference Include="..\BadScript2.Interop\BadScript2.Interop.NUnit\BadScript2.Interop.NUnit.csproj"/>
         <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
