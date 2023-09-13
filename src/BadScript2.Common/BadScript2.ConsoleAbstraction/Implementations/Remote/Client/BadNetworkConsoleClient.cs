@@ -268,6 +268,10 @@ public class BadNetworkConsoleClient
 
 			string message = task.Result;
 
+			if (message == null)
+			{
+				message = "client::disconnect";
+			}
 
 			if (message.StartsWith("client::"))
 			{
