@@ -74,7 +74,7 @@ public class BadHtmlTemplate
 		HtmlDocument input = new HtmlDocument();
 		input.LoadHtml(src);
 		HtmlDocument output = new HtmlDocument();
-		BadExecutionContext executionContext = BadExecutionContextOptions.Default.Build();
+		BadExecutionContext executionContext = (options.ContextOptions ?? BadExecutionContextOptions.Default).Build();
 		executionContext.Scope.SetCaller(caller);
 
 		BadObject mod = model as BadObject ?? BadObject.Wrap(model);
