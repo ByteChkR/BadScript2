@@ -1,3 +1,5 @@
+using System.Xml;
+
 using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
@@ -29,6 +31,8 @@ public class BadHtmlTemplate
 	{
 		m_FilePath = filePath;
 	}
+
+	
 
 	/// <summary>
 	///     The Filepath of the Template
@@ -72,8 +76,11 @@ public class BadHtmlTemplate
 		options ??= new BadHtmlTemplateOptions();
 		string src = GetSource();
 		HtmlDocument input = new HtmlDocument();
+		input.OptionUseIdAttribute = true;
 		input.LoadHtml(src);
 		HtmlDocument output = new HtmlDocument();
+		output.OptionUseIdAttribute = true;
+		output.LoadHtml("");
 		BadExecutionContext executionContext = (options.ContextOptions ?? BadExecutionContextOptions.Default).Build();
 		executionContext.Scope.SetCaller(caller);
 

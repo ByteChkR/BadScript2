@@ -19,6 +19,7 @@ public abstract class BadHtmlNodeTransformer
 	/// </summary>
 	private static readonly List<BadHtmlNodeTransformer> s_Transformers = new List<BadHtmlNodeTransformer>
 	{
+		new BadInsertNodeTransformer(),
 		new BadImportTemplateNodeTransformer(),
 		new BadImportFileNodeTransformer(),
 		new BadExecuteScriptNodeTransformer(),

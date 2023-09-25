@@ -146,6 +146,8 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 			BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow));
 
 		HtmlDocument outputDocument = new HtmlDocument();
+		outputDocument.OptionUseIdAttribute = true;
+		outputDocument.LoadHtml("");
 		BadFunction.ApplyParameters(BadFunction.GetHeader(name, parameters),
 			parameters,
 			ctx,
