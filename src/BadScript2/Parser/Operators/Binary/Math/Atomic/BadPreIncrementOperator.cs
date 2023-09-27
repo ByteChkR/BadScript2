@@ -14,10 +14,10 @@ public class BadPreIncrementOperator : BadUnaryPrefixOperator
 	public BadPreIncrementOperator() : base(2, "++") { }
 
 
-	public override BadExpression Parse(BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadPreIncrementExpression(right, right.Position);
-	}
+        return new BadPreIncrementExpression(right, right.Position);
+    }
 }

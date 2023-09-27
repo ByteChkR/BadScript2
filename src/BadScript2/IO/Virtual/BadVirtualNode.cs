@@ -11,10 +11,10 @@ public abstract class BadVirtualNode
 	/// <param name="name">Node Name</param>
 	/// <param name="parent">Parent Directory</param>
 	protected BadVirtualNode(string name, BadVirtualDirectory? parent)
-	{
-		Name = name;
-		Parent = parent;
-	}
+    {
+        Name = name;
+        Parent = parent;
+    }
 
 	/// <summary>
 	///     Node Name

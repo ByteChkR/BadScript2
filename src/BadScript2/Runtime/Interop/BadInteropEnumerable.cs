@@ -11,57 +11,63 @@ namespace BadScript2.Runtime.Interop;
 
 public class BadInteropEnumerable : BadObject, IBadEnumerable
 {
-	private readonly IEnumerable<BadObject> m_Enumerable;
-	private readonly BadFunction m_Func;
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
+        "Enumerable",
+        (_, _) => throw new BadRuntimeException("Cannot call method")
+    );
 
-	public BadInteropEnumerable(IEnumerable<BadObject> enumerable)
-	{
-		m_Enumerable = enumerable;
+    private readonly IEnumerable<BadObject> m_Enumerable;
+    private readonly BadFunction m_Func;
 
-		m_Func = new BadDynamicInteropFunction("GetEnumerator",
-			c => new BadInteropEnumerator(m_Enumerable.GetEnumerator()));
-	}
+    public BadInteropEnumerable(IEnumerable<BadObject> enumerable)
+    {
+        m_Enumerable = enumerable;
 
-	public IEnumerator<BadObject> GetEnumerator()
-	{
-		return m_Enumerable.GetEnumerator();
-	}
+        m_Func = new BadDynamicInteropFunction(
+            "GetEnumerator",
+            c => new BadInteropEnumerator(m_Enumerable.GetEnumerator())
+        );
+    }
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return m_Enumerable.GetEnumerator();
-	}
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>("Enumerable",
-                                                   			(_, _) => throw new BadRuntimeException("Cannot call method"));
-	public override BadClassPrototype GetPrototype()
-	{
-		return s_Prototype;
-	}
+    public IEnumerator<BadObject> GetEnumerator()
+    {
+        return m_Enumerable.GetEnumerator();
+    }
 
-	public override bool HasProperty(BadObject propName)
-	{
-		return propName is IBadString
-		       {
-			       Value: "GetEnumerator"
-		       } ||
-		       base.HasProperty(propName);
-	}
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return m_Enumerable.GetEnumerator();
+    }
 
-	public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
-	{
-		if (propName is IBadString
-		    {
-			    Value: "GetEnumerator"
-		    })
-		{
-			return BadObjectReference.Make("GetEnumerator", () => m_Func);
-		}
+    public override BadClassPrototype GetPrototype()
+    {
+        return s_Prototype;
+    }
 
-		return base.GetProperty(propName, caller);
-	}
+    public override bool HasProperty(BadObject propName)
+    {
+        return propName is IBadString
+               {
+                   Value: "GetEnumerator",
+               } ||
+               base.HasProperty(propName);
+    }
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		return "BadInteropEnumerable";
-	}
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    {
+        if (propName is IBadString
+            {
+                Value: "GetEnumerator",
+            })
+        {
+            return BadObjectReference.Make("GetEnumerator", () => m_Func);
+        }
+
+        return base.GetProperty(propName, caller);
+    }
+
+    public override string ToSafeString(List<BadObject> done)
+    {
+        return "BadInteropEnumerable";
+    }
 }

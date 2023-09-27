@@ -10,52 +10,52 @@ namespace BadScript2.Runtime.Interop;
 /// </summary>
 public static class BadInteropHelper
 {
-	public static void SetProperty(
-		this BadObject elem,
-		BadObject propName,
-		BadObject value,
-		BadPropertyInfo? info = null)
-	{
-		elem.GetProperty(propName).Set(value, info);
-	}
+    public static void SetProperty(
+        this BadObject elem,
+        BadObject propName,
+        BadObject value,
+        BadPropertyInfo? info = null)
+    {
+        elem.GetProperty(propName).Set(value, info);
+    }
 
-	public static bool CanUnwrap(this BadObject obj)
-	{
-		return obj is IBadNative;
-	}
+    public static bool CanUnwrap(this BadObject obj)
+    {
+        return obj is IBadNative;
+    }
 
-	public static object? Unwrap(this BadObject obj, BadScope? caller = null)
-	{
-		if (obj is IBadNative native)
-		{
-			return native.Value;
-		}
+    public static object? Unwrap(this BadObject obj, BadScope? caller = null)
+    {
+        if (obj is IBadNative native)
+        {
+            return native.Value;
+        }
 
-		throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}'");
-	}
+        throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}'");
+    }
 
-	public static T Unwrap<T>(this BadObject obj, BadScope? caller = null)
-	{
-		if (obj is T t)
-		{
-			return t;
-		}
+    public static T Unwrap<T>(this BadObject obj, BadScope? caller = null)
+    {
+        if (obj is T t)
+        {
+            return t;
+        }
 
-		if (obj is IBadString str && typeof(T) == typeof(string))
-		{
-			return (T)(object)str.Value;
-		}
+        if (obj is IBadString str && typeof(T) == typeof(string))
+        {
+            return (T)(object)str.Value;
+        }
 
-		if (obj is IBadNumber num && typeof(T).IsNumericType())
-		{
-			return (T)Convert.ChangeType(num.Value, typeof(T));
-		}
+        if (obj is IBadNumber num && typeof(T).IsNumericType())
+        {
+            return (T)Convert.ChangeType(num.Value, typeof(T));
+        }
 
-		if (obj is BadNative<T> n)
-		{
-			return n.Value;
-		}
+        if (obj is BadNative<T> n)
+        {
+            return n.Value;
+        }
 
-		throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + typeof(T));
-	}
+        throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + typeof(T));
+    }
 }

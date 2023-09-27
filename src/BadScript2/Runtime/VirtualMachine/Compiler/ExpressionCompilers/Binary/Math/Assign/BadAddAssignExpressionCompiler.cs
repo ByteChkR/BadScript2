@@ -4,8 +4,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 
 public class BadAddAssignExpressionCompiler : BadBinaryExpressionCompiler<BadAddAssignExpression>
 {
-	public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadAddAssignExpression expression)
-	{
-		yield return new BadInstruction(BadOpCode.AddAssign, expression.Position);
-	}
+    public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadAddAssignExpression expression)
+    {
+        yield return new BadInstruction(BadOpCode.AddAssign, expression.Position);
+    }
 }

@@ -13,55 +13,57 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadRangeExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor of the Range Expression
-    /// </summary>
-    /// <param name="left">Start of the Range</param>
-    /// <param name="right">End of the Range</param>
-    /// <param name="position">Source position of the Expression</param>
-    public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
-		right,
-		position) { }
+	/// <summary>
+	///     Constructor of the Range Expression
+	/// </summary>
+	/// <param name="left">Start of the Range</param>
+	/// <param name="right">End of the Range</param>
+	/// <param name="position">Source position of the Expression</param>
+	public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        left,
+        right,
+        position
+    ) { }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject left = BadObject.Null;
-		BadObject right = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
+        BadObject right = BadObject.Null;
 
-		foreach (BadObject o in Left.Execute(context))
-		{
-			left = o;
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		foreach (BadObject o in Right.Execute(context))
-		{
-			right = o;
+        foreach (BadObject o in Right.Execute(context))
+        {
+            right = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		left = left.Dereference();
-		right = right.Dereference();
+        left = left.Dereference();
+        right = right.Dereference();
 
-		if (left is not IBadNumber lNum)
-		{
-			throw new BadRuntimeException("Left side of range operator is not a number", Position);
-		}
+        if (left is not IBadNumber lNum)
+        {
+            throw new BadRuntimeException("Left side of range operator is not a number", Position);
+        }
 
-		if (right is not IBadNumber rNum)
-		{
-			throw new BadRuntimeException("Right side of range operator is not a number", Position);
-		}
+        if (right is not IBadNumber rNum)
+        {
+            throw new BadRuntimeException("Right side of range operator is not a number", Position);
+        }
 
-		if (lNum.Value > rNum.Value)
-		{
-			throw new BadRuntimeException("Left side of range operator is greater than right side", Position);
-		}
+        if (lNum.Value > rNum.Value)
+        {
+            throw new BadRuntimeException("Left side of range operator is greater than right side", Position);
+        }
 
-		yield return new BadInteropEnumerator(Range(lNum.Value, rNum.Value).GetEnumerator());
-	}
+        yield return new BadInteropEnumerator(Range(lNum.Value, rNum.Value).GetEnumerator());
+    }
 
     /// <summary>
     ///     Returns a range of numbers
@@ -70,15 +72,15 @@ public class BadRangeExpression : BadBinaryExpression
     /// <param name="to">End of the Range(Exclusive></param>
     /// <returns></returns>
     public static IEnumerable<BadObject> Range(decimal from, decimal to)
-	{
-		for (decimal i = from; i < to; i++)
-		{
-			yield return BadObject.Wrap(i);
-		}
-	}
+    {
+        for (decimal i = from; i < to; i++)
+        {
+            yield return BadObject.Wrap(i);
+        }
+    }
 
-	protected override string GetSymbol()
-	{
-		return "..";
-	}
+    protected override string GetSymbol()
+    {
+        return "..";
+    }
 }

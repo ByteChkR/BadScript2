@@ -4,19 +4,19 @@ using BadScript2.Parser.Expressions.Binary.Math.Assign;
 namespace BadScript2.Parser.Operators.Binary.Math.Assign;
 
 /// <summary>
-/// Implements the '**=' operator.
+///     Implements the '**=' operator.
 /// </summary>
 public class BadExponentiationAssignOperator : BadBinaryOperator
 {
 	/// <summary>
-	/// Creates a new '**=' operator
+	///     Creates a new '**=' operator
 	/// </summary>
 	public BadExponentiationAssignOperator() : base(15, "**=") { }
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadExponentiationAssignExpression(left, right, left.Position.Combine(right.Position));
-	}
+        return new BadExponentiationAssignExpression(left, right, left.Position.Combine(right.Position));
+    }
 }

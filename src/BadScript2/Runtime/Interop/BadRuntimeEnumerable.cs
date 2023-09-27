@@ -10,41 +10,45 @@ namespace BadScript2.Runtime.Interop;
 
 public class BadRuntimeEnumerable : BadObject, IBadEnumerable
 {
-	private readonly BadExecutionContext m_Caller;
-	private readonly BadFunction m_GetCurrent;
-	private readonly BadFunction m_MoveNext;
-	private readonly BadSourcePosition m_Position;
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeEnumerable>(
+        "Enumerable",
+        (_, _) => throw new BadRuntimeException("Cannot call method")
+    );
 
-	public BadRuntimeEnumerable(
-		BadFunction moveNext,
-		BadFunction getCurrent,
-		BadExecutionContext caller,
-		BadSourcePosition position)
-	{
-		m_MoveNext = moveNext;
-		m_GetCurrent = getCurrent;
-		m_Caller = caller;
-		m_Position = position;
-	}
+    private readonly BadExecutionContext m_Caller;
+    private readonly BadFunction m_GetCurrent;
+    private readonly BadFunction m_MoveNext;
+    private readonly BadSourcePosition m_Position;
 
-	public IEnumerator<BadObject> GetEnumerator()
-	{
-		return new BadRuntimeEnumerator(m_Caller, m_MoveNext, m_GetCurrent, m_Position);
-	}
+    public BadRuntimeEnumerable(
+        BadFunction moveNext,
+        BadFunction getCurrent,
+        BadExecutionContext caller,
+        BadSourcePosition position)
+    {
+        m_MoveNext = moveNext;
+        m_GetCurrent = getCurrent;
+        m_Caller = caller;
+        m_Position = position;
+    }
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return GetEnumerator();
-	}
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeEnumerable>("Enumerable",
-                                                   			(_, _) => throw new BadRuntimeException("Cannot call method"));
-	public override BadClassPrototype GetPrototype()
-	{
-		return s_Prototype;
-	}
+    public IEnumerator<BadObject> GetEnumerator()
+    {
+        return new BadRuntimeEnumerator(m_Caller, m_MoveNext, m_GetCurrent, m_Position);
+    }
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		throw new NotImplementedException();
-	}
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public override BadClassPrototype GetPrototype()
+    {
+        return s_Prototype;
+    }
+
+    public override string ToSafeString(List<BadObject> done)
+    {
+        throw new NotImplementedException();
+    }
 }

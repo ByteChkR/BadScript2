@@ -7,14 +7,14 @@ namespace BadScript2.Common.Logging.Writer;
 /// </summary>
 public class BadLogWriterSettings : BadSettingsProvider<BadLogWriterSettings>
 {
-	private readonly BadEditableSetting<BadLogWriterSettings, string[]> m_Mask =
-		new BadEditableSetting<BadLogWriterSettings, string[]>(nameof(Mask), BadLogMask.All.GetNames());
+    private readonly BadEditableSetting<BadLogWriterSettings, string[]> m_Mask =
+        new BadEditableSetting<BadLogWriterSettings, string[]>(nameof(Mask), BadLogMask.All.GetNames());
 
-	public BadLogWriterSettings() : base("Logging.Writer") { }
+    public BadLogWriterSettings() : base("Logging.Writer") { }
 
-	public BadLogMask Mask
-	{
-		get => BadLogMask.GetMask(m_Mask.GetValue()!.Select(x => (BadLogMask)x).ToArray());
-		set => m_Mask.Set(value.GetNames());
-	}
+    public BadLogMask Mask
+    {
+        get => BadLogMask.GetMask(m_Mask.GetValue()!.Select(x => (BadLogMask)x).ToArray());
+        set => m_Mask.Set(value.GetNames());
+    }
 }

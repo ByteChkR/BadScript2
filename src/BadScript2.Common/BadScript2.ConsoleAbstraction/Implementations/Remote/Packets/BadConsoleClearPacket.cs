@@ -21,15 +21,15 @@ public class BadConsoleClearPacket : BadConsolePacket
 	/// <param name="data">The Data Array</param>
 	/// <returns>Bad Console Packet instance</returns>
 	public new static BadConsoleClearPacket Deserialize(byte[] data)
-	{
-		return Packet;
-	}
+    {
+        return Packet;
+    }
 
-	public override byte[] Serialize()
-	{
-		return new[]
-		{
-			(byte)BadConsolePacketType.Clear
-		};
-	}
+    public override byte[] Serialize()
+    {
+        return new[]
+        {
+            (byte)BadConsolePacketType.Clear,
+        };
+    }
 }

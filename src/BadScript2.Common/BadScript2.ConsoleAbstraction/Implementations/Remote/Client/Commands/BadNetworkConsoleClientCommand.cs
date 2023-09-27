@@ -10,9 +10,9 @@ public abstract class BadNetworkConsoleClientCommand
 	/// </summary>
 	/// <param name="name">Command Name</param>
 	protected BadNetworkConsoleClientCommand(string name)
-	{
-		Name = name;
-	}
+    {
+        Name = name;
+    }
 
 	/// <summary>
 	///     The Name of the Command

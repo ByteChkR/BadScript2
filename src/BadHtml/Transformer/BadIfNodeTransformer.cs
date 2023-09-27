@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using BadScript2.Runtime;
@@ -51,7 +50,7 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
                 branches.Add((conditionAttribute!, currentBranch));
 
                 currentBranch = new List<HtmlNode>();
-                var nextCondition = child.Attributes["test"];
+                HtmlAttribute? nextCondition = child.Attributes["test"];
 
                 if (conditionAttribute == null)
                 {
@@ -63,13 +62,14 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
                             context.CreateAttributePosition(nextCondition)
                         );
                     }
+
                     throw BadRuntimeException.Create(
                         context.ExecutionContext.Scope,
                         "Found bs:else node after bs:else node without 'test' attribute",
                         context.CreateInnerPosition()
                     );
                 }
-                
+
                 conditionAttribute = child.Attributes["test"];
 
                 if (conditionAttribute != null)
@@ -121,7 +121,7 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 
         return result.Value;
     }
-    
+
     public override void TransformNode(BadHtmlContext context)
     {
         List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches = DissectContent(context, context.InputNode, out IEnumerable<HtmlNode>? elseBranch);

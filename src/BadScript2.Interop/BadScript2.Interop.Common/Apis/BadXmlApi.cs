@@ -23,16 +23,16 @@ public class BadXmlApi : BadInteropApi
 	/// <param name="s">Xml String</param>
 	/// <returns>The XmlDocument wrapped in a Reflected Object</returns>
 	public static BadObject LoadXml(string s)
-	{
-		XmlDocument doc = new XmlDocument();
-		doc.LoadXml(s);
+    {
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(s);
 
 
-		return new BadReflectedObject(doc);
-	}
+        return new BadReflectedObject(doc);
+    }
 
-	protected override void LoadApi(BadTable target)
-	{
-		target.SetFunction<string>("Load", LoadXml);
-	}
+    protected override void LoadApi(BadTable target)
+    {
+        target.SetFunction<string>("Load", LoadXml);
+    }
 }

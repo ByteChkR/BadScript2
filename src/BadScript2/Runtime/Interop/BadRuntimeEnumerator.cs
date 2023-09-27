@@ -11,86 +11,89 @@ namespace BadScript2.Runtime.Interop;
 
 public class BadRuntimeEnumerator : BadObject, IBadEnumerator
 {
-	private readonly BadExecutionContext m_Caller;
-	private readonly BadFunction m_GetCurrent;
-	private readonly BadFunction m_MoveNext;
-	private readonly BadSourcePosition m_Position;
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeEnumerator>(
+        "Enumerator",
+        (_, _) => throw new BadRuntimeException("Cannot call method")
+    );
 
-	public BadRuntimeEnumerator(
-		BadExecutionContext caller,
-		BadFunction moveNext,
-		BadFunction getCurrent,
-		BadSourcePosition position)
-	{
-		m_MoveNext = moveNext;
-		m_GetCurrent = getCurrent;
-		m_Caller = caller;
-		m_Position = position;
-	}
+    private readonly BadExecutionContext m_Caller;
+    private readonly BadFunction m_GetCurrent;
+    private readonly BadFunction m_MoveNext;
+    private readonly BadSourcePosition m_Position;
 
-	public bool MoveNext()
-	{
-		BadObject cond = Null;
+    public BadRuntimeEnumerator(
+        BadExecutionContext caller,
+        BadFunction moveNext,
+        BadFunction getCurrent,
+        BadSourcePosition position)
+    {
+        m_MoveNext = moveNext;
+        m_GetCurrent = getCurrent;
+        m_Caller = caller;
+        m_Position = position;
+    }
 
-		foreach (BadObject o in m_MoveNext.Invoke(Array.Empty<BadObject>(), m_Caller))
-		{
-			cond = o;
-		}
+    public bool MoveNext()
+    {
+        BadObject cond = Null;
 
-		if (m_Caller.Scope.IsError)
-		{
-			throw new BadRuntimeErrorException(m_Caller.Scope.Error);
-		}
+        foreach (BadObject o in m_MoveNext.Invoke(Array.Empty<BadObject>(), m_Caller))
+        {
+            cond = o;
+        }
 
-		IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-		                   throw new BadRuntimeException("While Condition is not a boolean", m_Position);
+        if (m_Caller.Scope.IsError)
+        {
+            throw new BadRuntimeErrorException(m_Caller.Scope.Error);
+        }
 
-		return bRet.Value;
-	}
+        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+                           throw new BadRuntimeException("While Condition is not a boolean", m_Position);
 
-	public void Reset()
-	{
-		throw new NotSupportedException();
-	}
+        return bRet.Value;
+    }
 
-	public BadObject Current
-	{
-		get
-		{
-			BadObject current = Null;
+    public void Reset()
+    {
+        throw new NotSupportedException();
+    }
 
-			foreach (BadObject o in m_GetCurrent.Invoke(Array.Empty<BadObject>(), m_Caller))
-			{
-				current = o;
-			}
+    public BadObject Current
+    {
+        get
+        {
+            BadObject current = Null;
 
-			if (m_Caller.Scope.IsError)
-			{
-				throw new BadRuntimeErrorException(m_Caller.Scope.Error);
-			}
+            foreach (BadObject o in m_GetCurrent.Invoke(Array.Empty<BadObject>(), m_Caller))
+            {
+                current = o;
+            }
 
-			current = current.Dereference();
+            if (m_Caller.Scope.IsError)
+            {
+                throw new BadRuntimeErrorException(m_Caller.Scope.Error);
+            }
 
-			return current;
-		}
-	}
+            current = current.Dereference();
 
-	object IEnumerator.Current => Current;
+            return current;
+        }
+    }
 
-	public void Dispose()
-	{
-		//Nothing to dispose
-	}
+    object IEnumerator.Current => Current;
 
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeEnumerator>("Enumerator",
-		(_, _) => throw new BadRuntimeException("Cannot call method"));
-	public override BadClassPrototype GetPrototype()
-	{
-		return s_Prototype;
-	}
+    public void Dispose()
+    {
+        //Nothing to dispose
+    }
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		return "BadRuntimeEnumerator";
-	}
+    public override BadClassPrototype GetPrototype()
+    {
+        return s_Prototype;
+    }
+
+    public override string ToSafeString(List<BadObject> done)
+    {
+        return "BadRuntimeEnumerator";
+    }
 }

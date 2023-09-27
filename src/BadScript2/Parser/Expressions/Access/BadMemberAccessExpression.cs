@@ -23,21 +23,18 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 	///     BadObject.Null
 	/// </param>
 	public BadMemberAccessExpression(
-		BadExpression left,
-		BadWordToken right,
-		BadSourcePosition position,
-		bool nullChecked = false) : base(false,
-		position)
-	{
-		Left = left;
-		Right = right;
-		NullChecked = nullChecked;
-	}
-
-	/// <summary>
-	///     Property that indicates if the result of the left side of the expression should be null-checked.
-	/// </summary>
-	public bool NullChecked { get; }
+        BadExpression left,
+        BadWordToken right,
+        BadSourcePosition position,
+        bool nullChecked = false) : base(
+        false,
+        position
+    )
+    {
+        Left = left;
+        Right = right;
+        NullChecked = nullChecked;
+    }
 
 	/// <summary>
 	///     Left side of the expression
@@ -49,47 +46,52 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 	/// </summary>
 	public BadWordToken Right { get; }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression expression in Left.GetDescendantsAndSelf())
-		{
-			yield return expression;
-		}
-	}
+	/// <summary>
+	///     Property that indicates if the result of the left side of the expression should be null-checked.
+	/// </summary>
+	public bool NullChecked { get; }
 
-	public override void Optimize()
-	{
-		Left = BadExpressionOptimizer.Optimize(Left);
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression expression in Left.GetDescendantsAndSelf())
+        {
+            yield return expression;
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject left = BadObject.Null;
+    public override void Optimize()
+    {
+        Left = BadExpressionOptimizer.Optimize(Left);
+    }
 
-		foreach (BadObject o in Left.Execute(context))
-		{
-			left = o;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
 
-			yield return o;
-		}
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
 
-		left = left.Dereference();
+            yield return o;
+        }
 
-		if (NullChecked && !left.HasProperty(Right.Text))
-		{
-			yield return BadObject.Null;
-		}
-		else
-		{
-			BadObject ret = left.GetProperty(BadObject.Wrap(Right.Text), context.Scope);
+        left = left.Dereference();
 
-			yield return ret;
-		}
-	}
+        if (NullChecked && !left.HasProperty(Right.Text))
+        {
+            yield return BadObject.Null;
+        }
+        else
+        {
+            BadObject ret = left.GetProperty(BadObject.Wrap(Right.Text), context.Scope);
+
+            yield return ret;
+        }
+    }
 
 
-	public override string ToString()
-	{
-		return $"({Left}{(NullChecked ? "?" : "")}.{Right})";
-	}
+    public override string ToString()
+    {
+        return $"({Left}{(NullChecked ? "?" : "")}.{Right})";
+    }
 }

@@ -11,16 +11,16 @@ public static class BadConsoleDirectories
 	///     The Data Directory
 	/// </summary>
 	public static string DataDirectory
-	{
-		get
-		{
-			string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
+    {
+        get
+        {
+            string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
 
-			BadFileSystem.Instance.CreateDirectory(s);
+            BadFileSystem.Instance.CreateDirectory(s);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
 	/// <summary>
 	///     The Log File

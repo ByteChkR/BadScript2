@@ -10,9 +10,9 @@ internal class BadVirtualFileStream : MemoryStream
 	/// </summary>
 	public event Action? OnDispose;
 
-	protected override void Dispose(bool disposing)
-	{
-		base.Dispose(disposing);
-		OnDispose?.Invoke();
-	}
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        OnDispose?.Invoke();
+    }
 }

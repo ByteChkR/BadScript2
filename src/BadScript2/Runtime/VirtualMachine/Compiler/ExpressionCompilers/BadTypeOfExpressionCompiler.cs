@@ -4,13 +4,13 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 public class BadTypeOfExpressionCompiler : BadExpressionCompiler<BadTypeOfExpression>
 {
-	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTypeOfExpression expression)
-	{
-		foreach (BadInstruction instruction in compiler.Compile(expression.Expression))
-		{
-			yield return instruction;
-		}
+    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTypeOfExpression expression)
+    {
+        foreach (BadInstruction instruction in compiler.Compile(expression.Expression))
+        {
+            yield return instruction;
+        }
 
-		yield return new BadInstruction(BadOpCode.TypeOf, expression.Position);
-	}
+        yield return new BadInstruction(BadOpCode.TypeOf, expression.Position);
+    }
 }
