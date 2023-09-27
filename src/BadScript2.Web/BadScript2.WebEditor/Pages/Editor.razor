@@ -39,6 +39,12 @@
                         <SelectItem Class="import-modal-select-item" TValue="string">@project</SelectItem>
                     }
                 </SelectGroup>
+                <SelectGroup Class="import-modal-select-group" Label="Html Template Images">
+                    @foreach (string project in m_HtmlProjects)
+                    {
+                        <SelectItem Class="import-modal-select-item" TValue="string">@project</SelectItem>
+                    }
+                </SelectGroup>
                 <SelectGroup Class="import-modal-select-group" Label="Documentation Images">
                     @foreach (string project in m_DocumentationProjects)
                     {
@@ -97,7 +103,7 @@
                 @foreach (KeyValuePair<string, CodeEditor?> file in m_OpenFiles)
                 {
                     <TabPanel Style="height: 100%;" Name="@(file.Key)">
-                        <CodeEditor OnEditorInitialized="@(e => InitFileEditor(file.Key, e))"></CodeEditor>
+                        <CodeEditor Language="@(GetLanguage(file.Key))" OnEditorInitialized="@(e => InitFileEditor(file.Key, e))"></CodeEditor>
                     </TabPanel>
                 }
             </Content>
@@ -253,6 +259,11 @@
         "images/CoreProjects.zip"
     };
 
+    private readonly string[] m_HtmlProjects =
+    {
+        "images/html/Empty.zip"
+    };
+
     private readonly string[] m_DocumentationProjects =
     {
         "images/docs/01_Variables.zip",
@@ -368,13 +379,22 @@
 
     private BadVirtualFileSystem FileSystem => (BadFileSystem.Instance as BadVirtualFileSystem)!;
 
+    private string GetLanguage(string file)
+    {
+        string lang = "badscript";
+        if (!file.EndsWith(".bs"))
+            lang = Path.GetExtension(file).Remove(0, 1);
+        if(file.EndsWith(".bhtml") || file.EndsWith(".html"))
+            lang = "html";
+        if(file.EndsWith(".md"))
+            lang = "markdown";
+        return lang;
+    }
 
     private void InitFileEditor(string file, CodeEditor editor)
     {
         Console.WriteLine("Editor loaded for file: " + file);
-        string lang = "badscript";
-        if (!file.EndsWith(".bs"))
-            lang = Path.GetExtension(file).Remove(0, 1);
+        string lang = GetLanguage(file);
         editor.Open(BadFileSystem.ReadAllText(file), lang);
         m_OpenFiles[file] = editor;
 

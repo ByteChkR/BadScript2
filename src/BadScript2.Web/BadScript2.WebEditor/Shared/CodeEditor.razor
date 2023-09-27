@@ -15,11 +15,12 @@
 
     [Parameter]
     public EventCallback<CodeEditor> OnEditorInitialized { get; set; } = EventCallback<CodeEditor>.Empty;
+    [Parameter]
+    public string? Language { get; set; }
 
     private MonacoEditor? m_Editor;
 
     private string? m_Text;
-    private string? m_Language;
 
     protected override void OnInitialized()
     {
@@ -41,7 +42,7 @@
         if (m_Editor == null)
         {
             m_Text = text;
-            m_Language = language;
+            Language = language;
             return;
         }
         TextModel? model = await m_Editor!.GetModel();
@@ -60,10 +61,10 @@
         }
 
         string language = "badscript";
-        if (m_Language != null)
+        if (Language != null)
         {
-            language = m_Language;
-            m_Language = null;
+            language = Language;
+            Language = null;
         }
 
         m_Editor = editor;
