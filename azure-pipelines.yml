@@ -10,7 +10,20 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: UseDotNet@2
+  displayName: Install .NET
+  inputs:
+    packageType: 'sdk'
+    version: 
 - task: DotNetCoreCLI@2
+  displayName: Restore Projects
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    vstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
+- task: DotNetCoreCLI@2
+  displayName: Run Unit Tests
   inputs:
     command: 'test'
     projects: '**/*.csproj'
