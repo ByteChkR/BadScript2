@@ -22,6 +22,6 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: "Publish Documentation Artifact"
   inputs:
-    targetPath: 'docs'
+    targetPath: 'docs/reference'
     artifact: 'badscript2.docs'
     publishLocation: 'pipeline'
