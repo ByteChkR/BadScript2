@@ -7,17 +7,20 @@ if ((Get-Command "git" -ErrorAction SilentlyContinue) -eq $null)
 
 if ((Get-Command "dotnet" -ErrorAction SilentlyContinue) -eq $null) 
 { 
-   Write-Host "Unable to find 'git' in your PATH"
+   Write-Host "Unable to find 'dotnet' in your PATH"
    Exit
 }
 
 if (Test-Path -Path "./BadScript2") {
-    Write-Host "Unable to clone repository. Directory already exists!"
-    Exit
+    Write-Host "Found Installation. Pulling new commits"
+    cd BadScript2
+    git pull --recurse-submodules
+    cd ..
 }
-
-Write-Host "Cloning Repository"
-git clone https://github.com/ByteChkR/BadScript2.git
+else {
+   Write-Host "Cloning Repository"
+   git clone https://EWUIT@dev.azure.com/EWUIT/BadScript2/_git/BadScript2
+}
 
 Write-Host "Building Projects"
 cd BadScript2
