@@ -16,29 +16,14 @@
 
 const args = $(Environment.Runtime).GetArguments();
 
-const targets;
 #if Environment.Runtime == "Runtime"
 {
-	if(args.Length == 0)
-	{
-		targets = ["default"];
-	}
-	else
-	{
-		targets = args;
-	}
+	const targets = args.Length == 0 ? ["default"] : args;
 }
 
 #if Environment.Runtime == "OS"
 {
-	if(args.Length <= 1)
-	{
-		targets = ["default"];
-	}
-	else
-	{
-		targets = args.Skip(1).ToArray();
-	}
+	const targets = args.Length == 0 ? ["default"] : args.Skip(1).ToArray();
 }
 
 $(CONSOLE_API).WriteLine("Targets: " + targets);

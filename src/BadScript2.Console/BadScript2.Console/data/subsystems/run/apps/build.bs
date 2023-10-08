@@ -12,7 +12,7 @@
 
 const args = Runtime.GetArguments();
 
-const targets;
+let targets;
 
 	if(args.Length == 0)
 	{

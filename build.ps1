@@ -40,8 +40,8 @@ function Build-Projects {
     Write-Progress -Activity "BadScript2 Build" -Status "Build App 'PackageManager' 20%" -PercentComplete 20
     . $bs build ReleaseApp
     Write-Progress -Activity "BadScript2 Build" -Status "Setup App 'PackageManager' 30%" -PercentComplete 30
-    . $bs pm add origin Byt3 https://bytechkr.github.io/BadScript2/core_repo
-    . $bs pm update
+    #. $bs pm add origin Byt3 https://bytechkr.github.io/BadScript2/core_repo #Since BS2 is now maintained on Azure, adding the GH Repository does not make sense
+    #. $bs pm update
     cd ../BuildSystem
     Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'BuildSystem' 40%" -PercentComplete 40
     . $bs build ReleaseLib
