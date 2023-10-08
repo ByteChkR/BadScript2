@@ -7,39 +7,39 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadTaskRunner
 {
-	/// <summary>
-	///     The Task Runner Instance
-	/// </summary>
-	public static readonly BadTaskRunner Instance = new BadTaskRunner();
+    /// <summary>
+    ///     The Task Runner Instance
+    /// </summary>
+    public static readonly BadTaskRunner Instance = new BadTaskRunner();
 
-	/// <summary>
-	///     The Task List
-	/// </summary>
-	private readonly List<BadTask> m_TaskList = new List<BadTask>();
+    /// <summary>
+    ///     The Task List
+    /// </summary>
+    private readonly List<BadTask> m_TaskList = new List<BadTask>();
 
-	/// <summary>
-	///     Static Constructor
-	/// </summary>
-	static BadTaskRunner()
+    /// <summary>
+    ///     Static Constructor
+    /// </summary>
+    static BadTaskRunner()
     {
         BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
     }
 
 
-	/// <summary>
-	///     the Current task
-	/// </summary>
-	public BadTask? Current { get; private set; }
+    /// <summary>
+    ///     the Current task
+    /// </summary>
+    public BadTask? Current { get; private set; }
 
-	/// <summary>
-	///     Is true if there are no tasks to run
-	/// </summary>
-	public bool IsIdle => m_TaskList.Count == 0;
+    /// <summary>
+    ///     Is true if there are no tasks to run
+    /// </summary>
+    public bool IsIdle => m_TaskList.Count == 0;
 
-	/// <summary>
-	///     Runs a single step of the Task Runner
-	/// </summary>
-	public void RunStep()
+    /// <summary>
+    ///     Runs a single step of the Task Runner
+    /// </summary>
+    public void RunStep()
     {
         for (int i = m_TaskList.Count - 1; i >= 0; i--)
         {
@@ -99,19 +99,19 @@ public class BadTaskRunner
         }
     }
 
-	/// <summary>
-	///     Clears all Tasks
-	/// </summary>
-	public void Clear()
+    /// <summary>
+    ///     Clears all Tasks
+    /// </summary>
+    public void Clear()
     {
         m_TaskList.Clear();
     }
 
-	/// <summary>
-	///     Clears all Tasks from the given Creator
-	/// </summary>
-	/// <param name="creator">Creator</param>
-	public void ClearTasksFrom(BadTask creator)
+    /// <summary>
+    ///     Clears all Tasks from the given Creator
+    /// </summary>
+    /// <param name="creator">Creator</param>
+    public void ClearTasksFrom(BadTask creator)
     {
         foreach (BadTask task in m_TaskList)
         {
@@ -123,12 +123,12 @@ public class BadTaskRunner
         }
     }
 
-	/// <summary>
-	///     Adds a Task to the Task Runner
-	/// </summary>
-	/// <param name="task">Task</param>
-	/// <param name="runImmediately">Task starts immediately if true</param>
-	public void AddTask(BadTask task, bool runImmediately = false)
+    /// <summary>
+    ///     Adds a Task to the Task Runner
+    /// </summary>
+    /// <param name="task">Task</param>
+    /// <param name="runImmediately">Task starts immediately if true</param>
+    public void AddTask(BadTask task, bool runImmediately = false)
     {
         m_TaskList.Add(task);
         task.SetCreator(Current);

@@ -1,5 +1,4 @@
-﻿using BadScript2.IO;
-using BadScript2.IO.Virtual;
+﻿using BadScript2.IO.Virtual;
 
 using ewu.adam.openkm.rest;
 using ewu.adam.openkm.rest.Bean;

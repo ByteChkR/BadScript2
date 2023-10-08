@@ -7,15 +7,15 @@ namespace BadScript2.IO.Virtual;
 /// </summary>
 public class BadVirtualFileSystem : IFileSystem
 {
-	/// <summary>
-	///     The Root Directory
-	/// </summary>
-	private readonly BadVirtualRoot m_Root = new BadVirtualRoot();
+    /// <summary>
+    ///     The Root Directory
+    /// </summary>
+    private readonly BadVirtualRoot m_Root = new BadVirtualRoot();
 
-	/// <summary>
-	///     The Current Directory
-	/// </summary>
-	private string m_CurrentDirectory = "/";
+    /// <summary>
+    ///     The Current Directory
+    /// </summary>
+    private string m_CurrentDirectory = "/";
 
     public string GetStartupDirectory()
     {

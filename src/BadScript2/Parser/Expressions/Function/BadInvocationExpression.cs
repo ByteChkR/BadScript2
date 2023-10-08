@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Parser.Expressions.Access;
 using BadScript2.Runtime;
@@ -14,18 +13,18 @@ namespace BadScript2.Parser.Expressions.Function;
 /// </summary>
 public class BadInvocationExpression : BadExpression
 {
-	/// <summary>
-	///     The Invocation Arguments
-	/// </summary>
-	private readonly BadExpression[] m_Arguments;
+    /// <summary>
+    ///     The Invocation Arguments
+    /// </summary>
+    private readonly BadExpression[] m_Arguments;
 
-	/// <summary>
-	///     Constructor of the Invocation Expression
-	/// </summary>
-	/// <param name="left">Left Side of the Invocation</param>
-	/// <param name="args">The Invocation Arguments</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Invocation Expression
+    /// </summary>
+    /// <param name="left">Left Side of the Invocation</param>
+    /// <param name="args">The Invocation Arguments</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
         false,
         position
     )
@@ -34,20 +33,20 @@ public class BadInvocationExpression : BadExpression
         m_Arguments = args;
     }
 
-	/// <summary>
-	///     Argument Count of the Invocation
-	/// </summary>
-	public int ArgumentCount => m_Arguments.Length;
+    /// <summary>
+    ///     Argument Count of the Invocation
+    /// </summary>
+    public int ArgumentCount => m_Arguments.Length;
 
-	/// <summary>
-	///     The Arguments of the Invocation
-	/// </summary>
-	public IEnumerable<BadExpression> Arguments => m_Arguments;
+    /// <summary>
+    ///     The Arguments of the Invocation
+    /// </summary>
+    public IEnumerable<BadExpression> Arguments => m_Arguments;
 
-	/// <summary>
-	///     The Left side of the Invocation
-	/// </summary>
-	public BadExpression Left { get; }
+    /// <summary>
+    ///     The Left side of the Invocation
+    /// </summary>
+    public BadExpression Left { get; }
 
     public override void Optimize()
     {

@@ -321,6 +321,7 @@ public class BadUnitTests
             {
                 return s_CompiledOptimizedContext;
             }
+
             BadNativeClassBuilder.AddNative(BadTask.Prototype);
             BadNativeClassBuilder.AddNative(BadVersion.Prototype);
             BadCommonInterop.AddExtensions();

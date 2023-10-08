@@ -30,16 +30,16 @@ namespace BadScript2.Console;
 /// </summary>
 internal static class BadProgram
 {
-	/// <summary>
-	///     Defines the Settings file
-	/// </summary>
-	private const string SETTINGS_FILE = "Settings.json";
+    /// <summary>
+    ///     Defines the Settings file
+    /// </summary>
+    private const string SETTINGS_FILE = "Settings.json";
 
 
-	/// <summary>
-	///     Loads the Settings
-	/// </summary>
-	private static void LoadSettings()
+    /// <summary>
+    ///     Loads the Settings
+    /// </summary>
+    private static void LoadSettings()
     {
         BadLogger.Log("Loading Settings...", "Settings");
         BadSettings consoleSettings = new BadSettings();
@@ -59,12 +59,12 @@ internal static class BadProgram
         BadLogger.Log("Settings loaded!", "Settings");
     }
 
-	/// <summary>
-	///     Entrypoint
-	/// </summary>
-	/// <param name="args">Commandline Arguments</param>
-	/// <returns>Return Code</returns>
-	private static int Main(string[] args)
+    /// <summary>
+    ///     Entrypoint
+    /// </summary>
+    /// <param name="args">Commandline Arguments</param>
+    /// <returns>Return Code</returns>
+    private static int Main(string[] args)
     {
         BadSettingsProvider.SetRootSettings(new BadSettings()); //Set Root Settings to Empty Settings
 

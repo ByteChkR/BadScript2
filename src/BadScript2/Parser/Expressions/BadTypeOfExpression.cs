@@ -9,17 +9,17 @@ namespace BadScript2.Parser.Expressions;
 /// </summary>
 public class BadTypeOfExpression : BadExpression
 {
-	/// <summary>
-	///     The Expression to get the type of
-	/// </summary>
-	public readonly BadExpression Expression;
+    /// <summary>
+    ///     The Expression to get the type of
+    /// </summary>
+    public readonly BadExpression Expression;
 
-	/// <summary>
-	///     Creates a new 'typeof' expression
-	/// </summary>
-	/// <param name="expression">Expression to get the type of</param>
-	/// <param name="position">Source Position</param>
-	public BadTypeOfExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
+    /// <summary>
+    ///     Creates a new 'typeof' expression
+    /// </summary>
+    /// <param name="expression">Expression to get the type of</param>
+    /// <param name="position">Source Position</param>
+    public BadTypeOfExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
     {
         Expression = expression;
     }

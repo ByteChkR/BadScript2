@@ -11,13 +11,13 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 /// </summary>
 public class BadExponentiationExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Creates a new Exponentiation Expression
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">The Source Position</param>
-	public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Creates a new Exponentiation Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">The Source Position</param>
+    public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position

@@ -11,13 +11,13 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 /// </summary>
 public class BadModulusExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor of the Modulus Expression
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadModulusExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Modulus Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadModulusExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position

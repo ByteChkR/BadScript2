@@ -11,9 +11,9 @@ public class BadCompiledFunction : BadFunction
     private readonly BadInstruction[] m_Instructions;
     private readonly BadScope m_ParentScope;
     private readonly BadSourcePosition m_Position;
-    private readonly bool m_UseOverrides;
 
     private readonly string m_StringSignature;
+    private readonly bool m_UseOverrides;
 
     public BadCompiledFunction(
         BadInstruction[] instructions,

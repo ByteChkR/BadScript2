@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
@@ -11,29 +10,29 @@ namespace BadScript2.Parser.Expressions.Block;
 /// </summary>
 public class BadTryCatchExpression : BadExpression
 {
-	/// <summary>
-	///     The Variable name of the Exception inside the catch block
-	/// </summary>
-	public readonly string ErrorName;
+    /// <summary>
+    ///     The Variable name of the Exception inside the catch block
+    /// </summary>
+    public readonly string ErrorName;
 
-	/// <summary>
-	///     The Catch Block
-	/// </summary>
-	private readonly BadExpression[] m_CatchExpressions;
+    /// <summary>
+    ///     The Catch Block
+    /// </summary>
+    private readonly BadExpression[] m_CatchExpressions;
 
-	/// <summary>
-	///     The Try Block
-	/// </summary>
-	private readonly BadExpression[] m_Expressions;
+    /// <summary>
+    ///     The Try Block
+    /// </summary>
+    private readonly BadExpression[] m_Expressions;
 
-	/// <summary>
-	///     Constructor for the Try Catch Expression
-	/// </summary>
-	/// <param name="position">Source position of the Expression</param>
-	/// <param name="expressions">The Try Block</param>
-	/// <param name="catchExpressions">The Catch Block</param>
-	/// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
-	public BadTryCatchExpression(
+    /// <summary>
+    ///     Constructor for the Try Catch Expression
+    /// </summary>
+    /// <param name="position">Source position of the Expression</param>
+    /// <param name="expressions">The Try Block</param>
+    /// <param name="catchExpressions">The Catch Block</param>
+    /// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
+    public BadTryCatchExpression(
         BadSourcePosition position,
         BadExpression[] expressions,
         BadExpression[] catchExpressions,

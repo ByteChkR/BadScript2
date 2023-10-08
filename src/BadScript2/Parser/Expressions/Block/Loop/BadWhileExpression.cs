@@ -1,7 +1,6 @@
 using System.Text;
 
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -15,24 +14,18 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 /// </summary>
 public class BadWhileExpression : BadExpression
 {
-	/// <summary>
-	///     The Loop Body
-	/// </summary>
+    /// <summary>
+    ///     The Loop Body
+    /// </summary>
     private readonly List<BadExpression> m_Body;
 
-    public void SetBody(IEnumerable<BadExpression> body)
-    {
-        m_Body.Clear();
-        m_Body.AddRange(body);
-    }
-
-	/// <summary>
-	///     Constructor of the While Expression
-	/// </summary>
-	/// <param name="condition">The condition of the loop</param>
-	/// <param name="block">The Loop Body</param>
-	/// <param name="position">Source position of the Expression</param>
-	public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the While Expression
+    /// </summary>
+    /// <param name="condition">The condition of the loop</param>
+    /// <param name="block">The Loop Body</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
         false,
         position
     )
@@ -41,15 +34,21 @@ public class BadWhileExpression : BadExpression
         m_Body = block;
     }
 
-	/// <summary>
-	///     The Loop Body
-	/// </summary>
-	public IEnumerable<BadExpression> Body => m_Body;
+    /// <summary>
+    ///     The Loop Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
 
-	/// <summary>
-	///     The Loop Condition
-	/// </summary>
-	public BadExpression Condition { get; private set; }
+    /// <summary>
+    ///     The Loop Condition
+    /// </summary>
+    public BadExpression Condition { get; private set; }
+
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
 
 
     public override void Optimize()

@@ -9,16 +9,16 @@ namespace BadScript2.Interactive;
 /// </summary>
 public class BadInteractiveConsoleApi : BadInteropApi
 {
-	/// <summary>
-	///     The Console Instance
-	/// </summary>
-	private readonly BadInteractiveConsole m_Console;
+    /// <summary>
+    ///     The Console Instance
+    /// </summary>
+    private readonly BadInteractiveConsole m_Console;
 
-	/// <summary>
-	///     Constructs a new BadInteractiveConsoleApi instance
-	/// </summary>
-	/// <param name="console">The Console Instance</param>
-	public BadInteractiveConsoleApi(BadInteractiveConsole console) : base("Interactive")
+    /// <summary>
+    ///     Constructs a new BadInteractiveConsoleApi instance
+    /// </summary>
+    /// <param name="console">The Console Instance</param>
+    public BadInteractiveConsoleApi(BadInteractiveConsole console) : base("Interactive")
     {
         m_Console = console;
     }

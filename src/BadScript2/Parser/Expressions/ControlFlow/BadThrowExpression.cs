@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
@@ -11,12 +10,12 @@ namespace BadScript2.Parser.Expressions.ControlFlow;
 /// </summary>
 public class BadThrowExpression : BadExpression
 {
-	/// <summary>
-	///     Constructor of the Throw Expression
-	/// </summary>
-	/// <param name="right">The Error Object that is thrown</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Throw Expression
+    /// </summary>
+    /// <param name="right">The Error Object that is thrown</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
         false,
         position
     )
@@ -24,10 +23,10 @@ public class BadThrowExpression : BadExpression
         Right = right;
     }
 
-	/// <summary>
-	///     The Error Object that is thrown
-	/// </summary>
-	public BadExpression Right { get; set; }
+    /// <summary>
+    ///     The Error Object that is thrown
+    /// </summary>
+    public BadExpression Right { get; set; }
 
     public override void Optimize()
     {

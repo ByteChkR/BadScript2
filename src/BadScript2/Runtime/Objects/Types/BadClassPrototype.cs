@@ -9,18 +9,18 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public abstract class BadClassPrototype : BadObject
 {
-	/// <summary>
-	///     The Prototype of the ClassPrototype(can not be used)
-	/// </summary>
-	public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>(
+    /// <summary>
+    ///     The Prototype of the ClassPrototype(can not be used)
+    /// </summary>
+    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>(
         "Class",
         (_, _) => throw new BadRuntimeException("Classes cannot be extended")
     );
 
-	/// <summary>
-	///     The Base Class of the Prototype
-	/// </summary>
-	protected readonly BadClassPrototype? BaseClass;
+    /// <summary>
+    ///     The Base Class of the Prototype
+    /// </summary>
+    protected readonly BadClassPrototype? BaseClass;
 
     private readonly BadInterfacePrototype[] m_Interfaces;
 

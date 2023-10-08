@@ -9,14 +9,14 @@ namespace BadScript2.Runtime.Objects.Functions;
 /// </summary>
 public class BadFunctionParameter
 {
-	/// <summary>
-	///     Creates a new Function Parameter Info
-	/// </summary>
-	/// <param name="name">Name of the Parameter</param>
-	/// <param name="isOptional">Indicates if this parameter is optional</param>
-	/// <param name="isNullChecked">Indicates if this parameter is null checked by the runtime</param>
-	/// <param name="isRestArgs">Indicates if this parameter is the rest parameter of the function</param>
-	public BadFunctionParameter(
+    /// <summary>
+    ///     Creates a new Function Parameter Info
+    /// </summary>
+    /// <param name="name">Name of the Parameter</param>
+    /// <param name="isOptional">Indicates if this parameter is optional</param>
+    /// <param name="isNullChecked">Indicates if this parameter is null checked by the runtime</param>
+    /// <param name="isRestArgs">Indicates if this parameter is the rest parameter of the function</param>
+    public BadFunctionParameter(
         string name,
         bool isOptional,
         bool isNullChecked,

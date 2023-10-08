@@ -7,18 +7,18 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadInteropRunnable : BadRunnable
 {
-	/// <summary>
-	///     The Return Value
-	/// </summary>
-	private BadObject m_ReturnValue = BadObject.Null;
+    /// <summary>
+    ///     The Return Value
+    /// </summary>
+    private BadObject m_ReturnValue = BadObject.Null;
 
 
-	/// <summary>
-	///     Creates a new Runnable
-	/// </summary>
-	/// <param name="enumerator">Enumeration</param>
-	/// <param name="setLastAsReturn">Set Last object as return</param>
-	public BadInteropRunnable(IEnumerator<BadObject> enumerator, bool setLastAsReturn = false)
+    /// <summary>
+    ///     Creates a new Runnable
+    /// </summary>
+    /// <param name="enumerator">Enumeration</param>
+    /// <param name="setLastAsReturn">Set Last object as return</param>
+    public BadInteropRunnable(IEnumerator<BadObject> enumerator, bool setLastAsReturn = false)
     {
         Enumerator = setLastAsReturn ? CreateEnumerator(enumerator) : enumerator;
     }

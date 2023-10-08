@@ -11,23 +11,23 @@ namespace BadScript2.Parser.Expressions.Block.Lock;
 /// </summary>
 public class BadLockExpression : BadExpression
 {
-	/// <summary>
-	///     The Expression to lock on
-	/// </summary>
-	public readonly BadExpression LockExpression;
+    /// <summary>
+    ///     The Expression to lock on
+    /// </summary>
+    public readonly BadExpression LockExpression;
 
-	/// <summary>
-	///     The Block Body
-	/// </summary>
-	private readonly BadExpression[] m_Block;
+    /// <summary>
+    ///     The Block Body
+    /// </summary>
+    private readonly BadExpression[] m_Block;
 
-	/// <summary>
-	///     Constructor of the Lock Expression
-	/// </summary>
-	/// <param name="position">Source Position of the Expression</param>
-	/// <param name="lockExpression">The expression to lock on</param>
-	/// <param name="block">The Block Body</param>
-	public BadLockExpression(
+    /// <summary>
+    ///     Constructor of the Lock Expression
+    /// </summary>
+    /// <param name="position">Source Position of the Expression</param>
+    /// <param name="lockExpression">The expression to lock on</param>
+    /// <param name="block">The Block Body</param>
+    public BadLockExpression(
         BadSourcePosition position,
         BadExpression lockExpression,
         BadExpression[] block) : base(false, position)

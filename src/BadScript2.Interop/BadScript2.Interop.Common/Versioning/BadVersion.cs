@@ -12,10 +12,10 @@ namespace BadScript2.Interop.Common.Versioning;
 /// </summary>
 public class BadVersion : BadObject, IBadNative
 {
-	/// <summary>
-	///     The Version Class Prototype
-	/// </summary>
-	public static readonly BadClassPrototype
+    /// <summary>
+    ///     The Version Class Prototype
+    /// </summary>
+    public static readonly BadClassPrototype
         Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 
     private static readonly BadClassPrototype s_Prototype;

@@ -9,11 +9,12 @@ public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimi
 {
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantFoldingOptimization =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantFoldingOptimization");
-    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantSubstitutionOptimization =
-        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantSubstitutionOptimization");
 
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantFunctionCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantFunctionCaching");
+
+    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantSubstitutionOptimization =
+        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantSubstitutionOptimization");
 
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseStaticExtensionCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseStaticExtensionCaching");
@@ -49,14 +50,15 @@ public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimi
     }
 
     /// <summary>
-    /// Allow the runtime to optimize constant expressions to a higher degree than constant folding.
-    /// If enabled, the runtime try to optimize constant expressions that reference constants and variables that are marked as constant.
-    /// Example Input:
+    ///     Allow the runtime to optimize constant expressions to a higher degree than constant folding.
+    ///     If enabled, the runtime try to optimize constant expressions that reference constants and variables that are marked
+    ///     as constant.
+    ///     Example Input:
     ///     const a = 1;
     ///     const b = 2;
     ///     const c = a + b;
     ///     let d = c + 1;
-    /// Example Output:
+    ///     Example Output:
     ///     const a = 1;
     ///     const b = 2;
     ///     const c = 3;
@@ -67,7 +69,7 @@ public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimi
         get => m_UseConstantSubstitutionOptimization.GetValue();
         set => m_UseConstantSubstitutionOptimization.Set(value);
     }
-    
+
     /// <summary>
     ///     Allow the runtime to cache extensions for object types.
     ///     If enabled, the runtime will cache the results of extension lookups for object types.

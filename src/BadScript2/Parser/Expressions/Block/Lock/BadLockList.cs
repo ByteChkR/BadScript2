@@ -8,15 +8,15 @@ namespace BadScript2.Parser.Expressions.Block.Lock;
 /// </summary>
 public class BadLockList
 {
-	/// <summary>
-	///     Instance of the Lock List
-	/// </summary>
-	public static readonly BadLockList Instance = new BadLockList();
+    /// <summary>
+    ///     Instance of the Lock List
+    /// </summary>
+    public static readonly BadLockList Instance = new BadLockList();
 
-	/// <summary>
-	///     Inner List that is used to store the Locks
-	/// </summary>
-	private readonly List<BadObject> m_LockList = new List<BadObject>();
+    /// <summary>
+    ///     Inner List that is used to store the Locks
+    /// </summary>
+    private readonly List<BadObject> m_LockList = new List<BadObject>();
 
     private BadLockList() { }
 

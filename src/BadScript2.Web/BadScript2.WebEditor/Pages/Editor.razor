@@ -1,6 +1,8 @@
 @page "/"
 @using BadScript2.IO
 @using BadScript2.IO.Virtual
+@using BadScript2.Optimizations.Folding
+@using BadScript2.Optimizations.Substitution
 @using BadScript2.Parser
 @using BadScript2.Parser.Expressions
 @using BadScript2.Runtime
@@ -12,8 +14,6 @@
 @using System.Collections.Specialized
 @using System.Web
 @using System.Text
-@using BadScript2.Optimizations.Folding
-@using BadScript2.Optimizations.Substitution
 @inject IJSRuntime JsRuntime
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -104,7 +104,7 @@
                 @foreach (KeyValuePair<string, CodeEditor?> file in m_OpenFiles)
                 {
                     <TabPanel Style="height: 100%;" Name="@(file.Key)">
-                        <CodeEditor Language="@(GetLanguage(file.Key))" OnEditorInitialized="@(e => InitFileEditor(file.Key, e))"></CodeEditor>
+                        <CodeEditor Language="@(GetLanguage(file.Key))" OnEditorInitialized="e => InitFileEditor(file.Key, e)"></CodeEditor>
                     </TabPanel>
                 }
             </Content>
@@ -250,19 +250,19 @@
 
     private readonly string[] m_InternalProjects =
     {
-        "images/bootstrap/RootFS.zip"
+        "images/bootstrap/RootFS.zip",
     };
 
     private readonly string[] m_PrebuiltProjects =
     {
         "images/Minimal.zip",
         "images/EmptyProject.zip",
-        "images/CoreProjects.zip"
+        "images/CoreProjects.zip",
     };
 
     private readonly string[] m_HtmlProjects =
     {
-        "images/html/Empty.zip"
+        "images/html/Empty.zip",
     };
 
     private readonly string[] m_DocumentationProjects =
@@ -271,7 +271,7 @@
         "images/docs/02_Loops.zip",
         "images/docs/03_Arrays.zip",
         "images/docs/04_Tables.zip",
-        "images/docs/05_Functions.zip"
+        "images/docs/05_Functions.zip",
     };
 
 
@@ -385,9 +385,9 @@
         string lang = "badscript";
         if (!file.EndsWith(".bs"))
             lang = Path.GetExtension(file).Remove(0, 1);
-        if(file.EndsWith(".bhtml") || file.EndsWith(".html"))
+        if (file.EndsWith(".bhtml") || file.EndsWith(".html"))
             lang = "html";
-        if(file.EndsWith(".md"))
+        if (file.EndsWith(".md"))
             lang = "markdown";
         return lang;
     }

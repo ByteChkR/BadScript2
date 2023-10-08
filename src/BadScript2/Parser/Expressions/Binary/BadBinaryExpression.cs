@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 
 namespace BadScript2.Parser.Expressions.Binary;
@@ -40,15 +39,15 @@ public abstract class BadBinaryExpression : BadExpression
         Left = BadConstantFoldingOptimizer.Optimize(Left);
         Right = BadConstantFoldingOptimizer.Optimize(Right);
     }
-    
+
     public void SetLeft(BadExpression expr)
-	{
-		Left = expr;
-	}
+    {
+        Left = expr;
+    }
 
     public void SetRight(BadExpression expr)
     {
-	    Right = expr;
+        Right = expr;
     }
 
     /// <summary>

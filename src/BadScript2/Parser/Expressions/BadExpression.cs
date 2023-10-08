@@ -13,31 +13,31 @@ namespace BadScript2.Parser.Expressions;
 /// </summary>
 public abstract class BadExpression
 {
-	/// <summary>
-	///     Constructor
-	/// </summary>
-	/// <param name="isConstant">Indicates if the expression stays constant at all times</param>
-	/// <param name="position">The source Position of the Expression</param>
-	protected BadExpression(bool isConstant, BadSourcePosition position)
+    /// <summary>
+    ///     Constructor
+    /// </summary>
+    /// <param name="isConstant">Indicates if the expression stays constant at all times</param>
+    /// <param name="position">The source Position of the Expression</param>
+    protected BadExpression(bool isConstant, BadSourcePosition position)
     {
         IsConstant = isConstant;
         Position = position;
     }
 
-	/// <summary>
-	///     Indicates if the expression stays constant at all times.
-	/// </summary>
-	public bool IsConstant { get; }
+    /// <summary>
+    ///     Indicates if the expression stays constant at all times.
+    /// </summary>
+    public bool IsConstant { get; }
 
-	/// <summary>
-	///     The source Position of the Expression
-	/// </summary>
-	public BadSourcePosition Position { get; private set; }
+    /// <summary>
+    ///     The source Position of the Expression
+    /// </summary>
+    public BadSourcePosition Position { get; private set; }
 
-	/// <summary>
-	///     Uses the Constant Folding Optimizer to optimize the expression
-	/// </summary>
-	public virtual void Optimize() { }
+    /// <summary>
+    ///     Uses the Constant Folding Optimizer to optimize the expression
+    /// </summary>
+    public virtual void Optimize() { }
 
     public abstract IEnumerable<BadExpression> GetDescendants();
 

@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -13,26 +12,20 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 /// </summary>
 public class BadForExpression : BadExpression
 {
-	/// <summary>
-	///     Loop Body
-	/// </summary>
+    /// <summary>
+    ///     Loop Body
+    /// </summary>
     private readonly List<BadExpression> m_Body;
 
-    public void SetBody(IEnumerable<BadExpression> body)
-    {
-        m_Body.Clear();
-        m_Body.AddRange(body);
-    }
-
-	/// <summary>
-	///     Constructor of the For Expression
-	/// </summary>
-	/// <param name="varDef">The Variable Definition part of the for loop</param>
-	/// <param name="condition">The Exit Condition of the For Loop</param>
-	/// <param name="varIncrement">The Variable Modifier Expression of the For Loop</param>
-	/// <param name="body">The Loop Body</param>
-	/// <param name="position">The source position of the Expression</param>
-	public BadForExpression(
+    /// <summary>
+    ///     Constructor of the For Expression
+    /// </summary>
+    /// <param name="varDef">The Variable Definition part of the for loop</param>
+    /// <param name="condition">The Exit Condition of the For Loop</param>
+    /// <param name="varIncrement">The Variable Modifier Expression of the For Loop</param>
+    /// <param name="body">The Loop Body</param>
+    /// <param name="position">The source position of the Expression</param>
+    public BadForExpression(
         BadExpression varDef,
         BadExpression condition,
         BadExpression varIncrement,
@@ -45,25 +38,31 @@ public class BadForExpression : BadExpression
         m_Body = body.ToList();
     }
 
-	/// <summary>
-	///     Loop Body
-	/// </summary>
-	public IEnumerable<BadExpression> Body => m_Body;
+    /// <summary>
+    ///     Loop Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
 
-	/// <summary>
-	///     The Exit Condition of the For Loop
-	/// </summary>
-	public BadExpression Condition { get; private set; }
+    /// <summary>
+    ///     The Exit Condition of the For Loop
+    /// </summary>
+    public BadExpression Condition { get; private set; }
 
-	/// <summary>
-	///     The Variable Definition part of the for loop
-	/// </summary>
-	public BadExpression VarDef { get; private set; }
+    /// <summary>
+    ///     The Variable Definition part of the for loop
+    /// </summary>
+    public BadExpression VarDef { get; private set; }
 
-	/// <summary>
-	///     The Variable Modifier Expression of the For Loop
-	/// </summary>
-	public BadExpression VarIncrement { get; private set; }
+    /// <summary>
+    ///     The Variable Modifier Expression of the For Loop
+    /// </summary>
+    public BadExpression VarIncrement { get; private set; }
+
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
 
     public override void Optimize()
     {

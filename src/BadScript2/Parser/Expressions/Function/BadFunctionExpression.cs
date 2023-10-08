@@ -1,7 +1,6 @@
 using System.Text;
 
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
@@ -18,10 +17,10 @@ namespace BadScript2.Parser.Expressions.Function;
 /// </summary>
 public class BadFunctionExpression : BadExpression
 {
-	/// <summary>
-	///     The Function Body
-	/// </summary>
-	private readonly List<BadExpression> m_Body;
+    /// <summary>
+    ///     The Function Body
+    /// </summary>
+    private readonly List<BadExpression> m_Body;
 
 
     private readonly BadMetaData? m_MetaData;
@@ -101,6 +100,7 @@ public class BadFunctionExpression : BadExpression
         m_Body.Clear();
         m_Body.AddRange(body);
     }
+
     public override void Optimize()
     {
         for (int i = 0; i < m_Body.Count; i++)

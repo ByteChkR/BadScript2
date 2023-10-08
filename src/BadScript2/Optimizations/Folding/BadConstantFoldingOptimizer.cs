@@ -36,7 +36,7 @@ public static class BadConstantFoldingOptimizer
 	/// <param name="exprs">Expression</param>
 	/// <returns>Optimized Expressions</returns>
 	public static IEnumerable<BadExpression> Optimize(IEnumerable<BadExpression> exprs)
-	{
-		return exprs.Select(Optimize);
-	}
+    {
+        return exprs.Select(Optimize);
+    }
 }

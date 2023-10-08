@@ -172,7 +172,7 @@ public class BadUnitTestContextBuilder
 
         if (optimizeSubstitution)
         {
-	        expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
+            expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
         }
 
         //Create Context

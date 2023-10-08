@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -23,18 +22,6 @@ public class BadClassPrototypeExpression : BadExpression
 
     private readonly BadMetaData? m_MetaData;
     private readonly List<BadExpression> m_StaticBody;
-    
-    public void SetBody(IEnumerable<BadExpression> body)
-    {
-        m_Body.Clear();
-        m_Body.AddRange(body);
-    }
-    
-    public void SetStaticBody(IEnumerable<BadExpression> body)
-    {
-        m_StaticBody.Clear();
-        m_StaticBody.AddRange(body);
-    }
 
     /// <summary>
     ///     Constructor of the Class Prototype Expression
@@ -62,13 +49,25 @@ public class BadClassPrototypeExpression : BadExpression
     ///     The Class Body
     /// </summary>
     public IEnumerable<BadExpression> Body => m_Body;
-    
+
     public IEnumerable<BadExpression> StaticBody => m_StaticBody;
 
     /// <summary>
     ///     The Class Name
     /// </summary>
     public string Name { get; }
+
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
+
+    public void SetStaticBody(IEnumerable<BadExpression> body)
+    {
+        m_StaticBody.Clear();
+        m_StaticBody.AddRange(body);
+    }
 
     public override void Optimize()
     {

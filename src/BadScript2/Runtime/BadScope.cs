@@ -10,10 +10,10 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject
 {
-	/// <summary>
-	///     The Scope Variables
-	/// </summary>
-	private readonly BadTable m_ScopeVariables = new BadTable();
+    /// <summary>
+    ///     The Scope Variables
+    /// </summary>
+    private readonly BadTable m_ScopeVariables = new BadTable();
 
     private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
     private readonly bool m_UseVisibility;

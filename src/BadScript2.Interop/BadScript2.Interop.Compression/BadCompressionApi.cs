@@ -151,7 +151,7 @@ public class BadCompressionApi : BadInteropApi
         zip.SetFunction<string, string>("FromDirectory", FromDirectoryApi);
         zip.SetFunction<string, string>("ToDirectory", ToDirectoryApi);
         target.SetProperty("Zip", zip);
-        
+
         BadTable base64 = new BadTable();
         base64.SetFunction<BadArray>("Encode", Base64Encode);
         base64.SetFunction<IBadString>("Decode", Base64Decode);
@@ -160,12 +160,12 @@ public class BadCompressionApi : BadInteropApi
 
     private static BadObject Base64Encode(BadArray array)
     {
-	    return Convert.ToBase64String(array.InnerArray.Cast<IBadNumber>().Select(x => (byte)x.Value).ToArray());
+        return Convert.ToBase64String(array.InnerArray.Cast<IBadNumber>().Select(x => (byte)x.Value).ToArray());
     }
-    
+
     private static BadObject Base64Decode(IBadString str)
     {
-	    return new BadArray(Convert.FromBase64String(str.Value).Select(x=>(BadObject)(decimal)x).ToList());
+        return new BadArray(Convert.FromBase64String(str.Value).Select(x => (BadObject)(decimal)x).ToList());
     }
 
     /// <summary>

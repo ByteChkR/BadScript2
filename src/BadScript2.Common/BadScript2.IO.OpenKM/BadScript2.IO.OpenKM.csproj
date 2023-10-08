@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\BadScript2\BadScript2.csproj" />
+        <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="ewu.adam.openkm.rest" Version="23.10.5.3" />
+        <PackageReference Include="ewu.adam.openkm.rest" Version="23.10.5.3"/>
     </ItemGroup>
 
 </Project>

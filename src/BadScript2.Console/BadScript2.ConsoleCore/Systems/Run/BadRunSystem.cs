@@ -11,7 +11,6 @@ using BadScript2.Interactive;
 using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
@@ -29,11 +28,11 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
-	/// <summary>
-	///     The Startup Directory where all containing scripts will be loaded at every execution
-	/// </summary>
-	/// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
-	private string StartupDirectory
+    /// <summary>
+    ///     The Startup Directory where all containing scripts will be loaded at every execution
+    /// </summary>
+    /// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
+    private string StartupDirectory
     {
         get
         {

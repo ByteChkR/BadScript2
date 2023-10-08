@@ -15,16 +15,16 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadNUnitApi : BadInteropApi
 {
-	/// <summary>
-	///     Public Constructor
-	/// </summary>
-	public BadNUnitApi() : base("NUnit") { }
+    /// <summary>
+    ///     Public Constructor
+    /// </summary>
+    public BadNUnitApi() : base("NUnit") { }
 
-	/// <summary>
-	///     Creates the Assert Api
-	/// </summary>
-	/// <returns>Table containing all assert functions</returns>
-	private static BadTable MakeAssert()
+    /// <summary>
+    ///     Creates the Assert Api
+    /// </summary>
+    /// <returns>Table containing all assert functions</returns>
+    private static BadTable MakeAssert()
     {
         BadTable assert = new BadTable();
         assert.SetFunction<BadObject, BadObject, string>("AreEqual", Assert_AreEqual);

@@ -15,6 +15,7 @@
 
     [Parameter]
     public EventCallback<CodeEditor> OnEditorInitialized { get; set; } = EventCallback<CodeEditor>.Empty;
+
     [Parameter]
     public string? Language { get; set; }
 
@@ -83,21 +84,21 @@
             FormatOnPaste = true,
             Hover = new EditorHoverOptions
             {
-                Enabled = true
+                Enabled = true,
             },
             InlineHints = new EditorInlineHintsOptions
             {
-                Enabled = true
+                Enabled = true,
             },
             Lightbulb = new EditorLightbulbOptions
             {
-                Enabled = true
+                Enabled = true,
             },
             Links = true,
             ScrollBeyondLastLine = false,
             SmoothScrolling = true,
             Language = language,
-            Value = value
+            Value = value,
         };
     }
 

@@ -1,7 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;

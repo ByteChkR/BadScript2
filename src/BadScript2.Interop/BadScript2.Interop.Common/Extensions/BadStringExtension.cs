@@ -13,15 +13,15 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadStringExtension : BadInteropExtension
 {
-	/// <summary>
-	///     Split a string into an array
-	/// </summary>
-	/// <param name="str">String to Split</param>
-	/// <param name="splitChar">The Split Character</param>
-	/// <param name="skipEmpty">If true, empty parts will be skipped</param>
-	/// <returns>Array of parts</returns>
-	/// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
-	private BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)
+    /// <summary>
+    ///     Split a string into an array
+    /// </summary>
+    /// <param name="str">String to Split</param>
+    /// <param name="splitChar">The Split Character</param>
+    /// <param name="skipEmpty">If true, empty parts will be skipped</param>
+    /// <returns>Array of parts</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
+    private BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)
     {
         if (splitChar is not IBadString splitStr)
         {

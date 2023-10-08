@@ -11,16 +11,16 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadTaskRunnerApi : BadInteropApi
 {
-	/// <summary>
-	///     The Runner Instance
-	/// </summary>
-	private readonly BadTaskRunner m_Runner;
+    /// <summary>
+    ///     The Runner Instance
+    /// </summary>
+    private readonly BadTaskRunner m_Runner;
 
-	/// <summary>
-	///     Creates a new API Instance
-	/// </summary>
-	/// <param name="runner">Task Runner Instance</param>
-	public BadTaskRunnerApi(BadTaskRunner runner) : base("Concurrent")
+    /// <summary>
+    ///     Creates a new API Instance
+    /// </summary>
+    /// <param name="runner">Task Runner Instance</param>
+    public BadTaskRunnerApi(BadTaskRunner runner) : base("Concurrent")
     {
         m_Runner = runner;
     }

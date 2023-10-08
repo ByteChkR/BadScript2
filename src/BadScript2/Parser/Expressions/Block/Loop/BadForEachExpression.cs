@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Optimizations;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
@@ -15,35 +14,29 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 /// </summary>
 public class BadForEachExpression : BadExpression
 {
-	/// <summary>
-	///     The Variable Name of the Current Loop iteration
-	/// </summary>
-	public readonly BadWordToken LoopVariable;
+    /// <summary>
+    ///     The Variable Name of the Current Loop iteration
+    /// </summary>
+    public readonly BadWordToken LoopVariable;
 
-	/// <summary>
-	///     The Loop Body
-	/// </summary>
-	private readonly List<BadExpression> m_Body;
+    /// <summary>
+    ///     The Loop Body
+    /// </summary>
+    private readonly List<BadExpression> m_Body;
 
-    public void SetBody(IEnumerable<BadExpression> body)
-    {
-        m_Body.Clear();
-        m_Body.AddRange(body);
-    }
-    
-	/// <summary>
-	///     The Enumerable/Enumerator Expression of the Loop
-	/// </summary>
-	public BadExpression Target;
+    /// <summary>
+    ///     The Enumerable/Enumerator Expression of the Loop
+    /// </summary>
+    public BadExpression Target;
 
-	/// <summary>
-	///     Constructor of the For Each Expression
-	/// </summary>
-	/// <param name="target">The Enumerable/Enumerator Expression of the Loop</param>
-	/// <param name="loopVariable">The Variable Name of the Current Loop iteration</param>
-	/// <param name="body">The Loop Body</param>
-	/// <param name="position">The Source Position of the Expression</param>
-	public BadForEachExpression(
+    /// <summary>
+    ///     Constructor of the For Each Expression
+    /// </summary>
+    /// <param name="target">The Enumerable/Enumerator Expression of the Loop</param>
+    /// <param name="loopVariable">The Variable Name of the Current Loop iteration</param>
+    /// <param name="body">The Loop Body</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    public BadForEachExpression(
         BadExpression target,
         BadWordToken loopVariable,
         BadExpression[] body,
@@ -58,6 +51,12 @@ public class BadForEachExpression : BadExpression
     }
 
     public IEnumerable<BadExpression> Body => m_Body;
+
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
 
     public override void Optimize()
     {

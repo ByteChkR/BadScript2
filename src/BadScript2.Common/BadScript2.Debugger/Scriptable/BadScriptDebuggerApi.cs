@@ -13,26 +13,26 @@ namespace BadScript2.Debugger.Scriptable;
 /// </summary>
 public class BadScriptDebuggerApi : BadInteropApi
 {
-	/// <summary>
-	///     The Debugger Instance
-	/// </summary>
-	private readonly BadScriptDebugger m_Debugger;
+    /// <summary>
+    ///     The Debugger Instance
+    /// </summary>
+    private readonly BadScriptDebugger m_Debugger;
 
-	/// <summary>
-	///     Constructs a new BadScriptDebuggerApi instance
-	/// </summary>
-	/// <param name="debugger">The Debugger Instance</param>
-	public BadScriptDebuggerApi(BadScriptDebugger debugger) : base("Debugger")
+    /// <summary>
+    ///     Constructs a new BadScriptDebuggerApi instance
+    /// </summary>
+    /// <param name="debugger">The Debugger Instance</param>
+    public BadScriptDebuggerApi(BadScriptDebugger debugger) : base("Debugger")
     {
         m_Debugger = debugger;
     }
 
-	/// <summary>
-	///     Registers a Function to the OnStep Event
-	/// </summary>
-	/// <param name="context">The Execution Context</param>
-	/// <param name="func">The Function to be registered</param>
-	public void RegisterStep(BadExecutionContext context, BadFunction func)
+    /// <summary>
+    ///     Registers a Function to the OnStep Event
+    /// </summary>
+    /// <param name="context">The Execution Context</param>
+    /// <param name="func">The Function to be registered</param>
+    public void RegisterStep(BadExecutionContext context, BadFunction func)
     {
         m_Debugger.OnStep += s =>
         {
@@ -49,12 +49,12 @@ public class BadScriptDebuggerApi : BadInteropApi
         };
     }
 
-	/// <summary>
-	///     Registers a Function to the OnFileLoaded Event
-	/// </summary>
-	/// <param name="context">The Execution Context</param>
-	/// <param name="func">The Function to be registered</param>
-	public void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)
+    /// <summary>
+    ///     Registers a Function to the OnFileLoaded Event
+    /// </summary>
+    /// <param name="context">The Execution Context</param>
+    /// <param name="func">The Function to be registered</param>
+    public void RegisterOnFileLoaded(BadExecutionContext context, BadFunction func)
     {
         m_Debugger.OnFileLoaded += s =>
         {

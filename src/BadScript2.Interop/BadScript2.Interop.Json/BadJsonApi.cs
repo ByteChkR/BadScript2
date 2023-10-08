@@ -12,10 +12,10 @@ namespace BadScript2.Interop.Json;
 /// </summary>
 public class BadJsonApi : BadInteropApi
 {
-	/// <summary>
-	///     Creates a new "Json" Api
-	/// </summary>
-	public BadJsonApi() : base("Json") { }
+    /// <summary>
+    ///     Creates a new "Json" Api
+    /// </summary>
+    public BadJsonApi() : base("Json") { }
 
     protected override void LoadApi(BadTable target)
     {

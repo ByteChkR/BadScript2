@@ -7,12 +7,12 @@ namespace BadScript2.Runtime.Objects.Types;
 public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     where T : BadObject
 {
-	/// <summary>
-	///     Creates a new Native Class Prototype
-	/// </summary>
-	/// <param name="name">Class Name</param>
-	/// <param name="func">Class Constructor</param>
-	public BadNativeClassPrototype(
+    /// <summary>
+    ///     Creates a new Native Class Prototype
+    /// </summary>
+    /// <param name="name">Class Name</param>
+    /// <param name="func">Class Constructor</param>
+    public BadNativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, func) { }
 
