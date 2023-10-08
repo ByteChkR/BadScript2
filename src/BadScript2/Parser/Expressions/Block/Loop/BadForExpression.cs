@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -15,7 +16,13 @@ public class BadForExpression : BadExpression
 	/// <summary>
 	///     Loop Body
 	/// </summary>
-	private readonly BadExpression[] m_Body;
+    private readonly List<BadExpression> m_Body;
+
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
 
 	/// <summary>
 	///     Constructor of the For Expression
@@ -35,7 +42,7 @@ public class BadForExpression : BadExpression
         VarDef = varDef;
         Condition = condition;
         VarIncrement = varIncrement;
-        m_Body = body;
+        m_Body = body.ToList();
     }
 
 	/// <summary>
@@ -60,13 +67,13 @@ public class BadForExpression : BadExpression
 
     public override void Optimize()
     {
-        Condition = BadExpressionOptimizer.Optimize(Condition);
-        VarDef = BadExpressionOptimizer.Optimize(VarDef);
-        VarIncrement = BadExpressionOptimizer.Optimize(VarIncrement);
+        Condition = BadConstantFoldingOptimizer.Optimize(Condition);
+        VarDef = BadConstantFoldingOptimizer.Optimize(VarDef);
+        VarIncrement = BadConstantFoldingOptimizer.Optimize(VarIncrement);
 
-        for (int i = 0; i < m_Body.Length; i++)
+        for (int i = 0; i < m_Body.Count; i++)
         {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+            m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
         }
     }
 

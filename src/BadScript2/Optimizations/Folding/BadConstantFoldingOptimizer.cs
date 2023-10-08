@@ -3,12 +3,12 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime.Objects;
 
-namespace BadScript2.Optimizations;
+namespace BadScript2.Optimizations.Folding;
 
 /// <summary>
 ///     Implements a simple constant folding optimization
 /// </summary>
-public static class BadExpressionOptimizer
+public static class BadConstantFoldingOptimizer
 {
 	/// <summary>
 	///     Optimizes the given expression
@@ -36,10 +36,7 @@ public static class BadExpressionOptimizer
 	/// <param name="exprs">Expression</param>
 	/// <returns>Optimized Expressions</returns>
 	public static IEnumerable<BadExpression> Optimize(IEnumerable<BadExpression> exprs)
-    {
-        foreach (BadExpression expression in exprs)
-        {
-            yield return Optimize(expression);
-        }
-    }
+	{
+		return exprs.Select(Optimize);
+	}
 }

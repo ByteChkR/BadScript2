@@ -2,7 +2,8 @@
   "Runtime": {
     "NativeOptimizations": {
       "UseStringCaching": true,
-      "UseConstantExpressionOptimization": true,
+      "UseConstantFoldingOptimization": true,
+      "UseConstantSubstitutionOptimization": true,
       "UseStaticExtensionCaching": true,
       "UseConstantFunctionCaching": true
     }

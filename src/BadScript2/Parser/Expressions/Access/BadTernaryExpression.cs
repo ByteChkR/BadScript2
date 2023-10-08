@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -66,9 +67,9 @@ public class BadTernaryExpression : BadExpression
 
     public override void Optimize()
     {
-        FalseRet = BadExpressionOptimizer.Optimize(FalseRet);
-        Left = BadExpressionOptimizer.Optimize(Left);
-        TrueRet = BadExpressionOptimizer.Optimize(TrueRet);
+        FalseRet = BadConstantFoldingOptimizer.Optimize(FalseRet);
+        Left = BadConstantFoldingOptimizer.Optimize(Left);
+        TrueRet = BadConstantFoldingOptimizer.Optimize(TrueRet);
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

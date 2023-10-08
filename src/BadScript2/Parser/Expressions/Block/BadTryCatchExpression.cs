@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
@@ -51,12 +52,12 @@ public class BadTryCatchExpression : BadExpression
     {
         for (int i = 0; i < m_CatchExpressions.Length; i++)
         {
-            m_CatchExpressions[i] = BadExpressionOptimizer.Optimize(m_CatchExpressions[i]);
+            m_CatchExpressions[i] = BadConstantFoldingOptimizer.Optimize(m_CatchExpressions[i]);
         }
 
         for (int i = 0; i < m_Expressions.Length; i++)
         {
-            m_Expressions[i] = BadExpressionOptimizer.Optimize(m_Expressions[i]);
+            m_Expressions[i] = BadConstantFoldingOptimizer.Optimize(m_Expressions[i]);
         }
     }
 

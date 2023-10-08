@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -52,8 +53,8 @@ public class BadAssignExpression : BadExpression
 
     public override void Optimize()
     {
-        Left = BadExpressionOptimizer.Optimize(Left);
-        Right = BadExpressionOptimizer.Optimize(Right);
+        Left = BadConstantFoldingOptimizer.Optimize(Left);
+        Right = BadConstantFoldingOptimizer.Optimize(Right);
     }
 
     public override string ToString()

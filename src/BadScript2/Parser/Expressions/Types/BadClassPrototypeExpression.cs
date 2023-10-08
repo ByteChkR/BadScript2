@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -18,10 +19,22 @@ public class BadClassPrototypeExpression : BadExpression
     /// <summary>
     ///     The Class Body
     /// </summary>
-    private readonly BadExpression[] m_Body;
+    private readonly List<BadExpression> m_Body;
 
     private readonly BadMetaData? m_MetaData;
-    private readonly BadExpression[] m_StaticBody;
+    private readonly List<BadExpression> m_StaticBody;
+    
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
+    
+    public void SetStaticBody(IEnumerable<BadExpression> body)
+    {
+        m_StaticBody.Clear();
+        m_StaticBody.AddRange(body);
+    }
 
     /// <summary>
     ///     Constructor of the Class Prototype Expression
@@ -39,16 +52,18 @@ public class BadClassPrototypeExpression : BadExpression
         BadMetaData? metaData) : base(false, position)
     {
         Name = name;
-        m_Body = body;
+        m_Body = new List<BadExpression>(body);
         m_BaseClasses = baseClasses;
         m_MetaData = metaData;
-        m_StaticBody = staticBody;
+        m_StaticBody = new List<BadExpression>(staticBody);
     }
 
     /// <summary>
     ///     The Class Body
     /// </summary>
     public IEnumerable<BadExpression> Body => m_Body;
+    
+    public IEnumerable<BadExpression> StaticBody => m_StaticBody;
 
     /// <summary>
     ///     The Class Name
@@ -57,14 +72,14 @@ public class BadClassPrototypeExpression : BadExpression
 
     public override void Optimize()
     {
-        for (int i = 0; i < m_Body.Length; i++)
+        for (int i = 0; i < m_Body.Count; i++)
         {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+            m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
         }
 
-        for (int i = 0; i < m_StaticBody.Length; i++)
+        for (int i = 0; i < m_StaticBody.Count; i++)
         {
-            m_StaticBody[i] = BadExpressionOptimizer.Optimize(m_StaticBody[i]);
+            m_StaticBody[i] = BadConstantFoldingOptimizer.Optimize(m_StaticBody[i]);
         }
     }
 
@@ -164,7 +179,7 @@ public class BadClassPrototypeExpression : BadExpression
         BadClassPrototype p = new BadExpressionClassPrototype(
             Name,
             context.Scope,
-            m_Body,
+            m_Body.ToArray(),
             basePrototype,
             interfaces,
             m_MetaData,

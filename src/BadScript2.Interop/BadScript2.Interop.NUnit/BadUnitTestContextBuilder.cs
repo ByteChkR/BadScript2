@@ -1,5 +1,6 @@
 using BadScript2.IO;
-using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
+using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
@@ -58,11 +59,11 @@ public class BadUnitTestContextBuilder
 	/// </summary>
 	/// <param name="optimize">Optimize the expressions?</param>
 	/// <param name="files">The Source Files containing the test cases</param>
-	public void Register(bool optimize, params string[] files)
+	public void Register(bool optimizeFolding, bool optimizeSubstitution, params string[] files)
     {
         foreach (string file in files)
         {
-            SetupStage(file, optimize);
+            SetupStage(file, optimizeFolding, optimizeSubstitution);
         }
     }
 
@@ -158,15 +159,20 @@ public class BadUnitTestContextBuilder
 	///     Registering test cases and setup/teardown functions happens here
 	/// </summary>
 	/// <param name="file">The Source File</param>
-	/// <param name="optimize">Optimize the Expressions?</param>
-	private void SetupStage(string file, bool optimize = false)
+	/// <param name="optimizeFolding">Optimize the Expressions?</param>
+	private void SetupStage(string file, bool optimizeFolding = false, bool optimizeSubstitution = false)
     {
         //Load expressions
         IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
 
-        if (optimize)
+        if (optimizeFolding)
         {
-            expressions = BadExpressionOptimizer.Optimize(expressions);
+            expressions = BadConstantFoldingOptimizer.Optimize(expressions);
+        }
+
+        if (optimizeSubstitution)
+        {
+	        expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
         }
 
         //Create Context

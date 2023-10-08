@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 
 namespace BadScript2.Parser.Expressions.Binary;
 
@@ -36,8 +37,18 @@ public abstract class BadBinaryExpression : BadExpression
     /// <inheritdoc cref="!:BadObject.Optimize" />
     public override void Optimize()
     {
-        Left = BadExpressionOptimizer.Optimize(Left);
-        Right = BadExpressionOptimizer.Optimize(Right);
+        Left = BadConstantFoldingOptimizer.Optimize(Left);
+        Right = BadConstantFoldingOptimizer.Optimize(Right);
+    }
+    
+    public void SetLeft(BadExpression expr)
+	{
+		Left = expr;
+	}
+
+    public void SetRight(BadExpression expr)
+    {
+	    Right = expr;
     }
 
     /// <summary>

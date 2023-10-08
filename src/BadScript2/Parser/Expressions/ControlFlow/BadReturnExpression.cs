@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
@@ -35,6 +36,10 @@ public class BadReturnExpression : BadExpression
 	/// </summary>
 	public BadExpression? Right { get; private set; }
 
+    public void SetRight(BadExpression? expr)
+    {
+        Right = expr;
+    }
     public override IEnumerable<BadExpression> GetDescendants()
     {
         if (Right != null)
@@ -50,7 +55,7 @@ public class BadReturnExpression : BadExpression
     {
         if (Right != null)
         {
-            Right = BadExpressionOptimizer.Optimize(Right);
+            Right = BadConstantFoldingOptimizer.Optimize(Right);
         }
     }
 

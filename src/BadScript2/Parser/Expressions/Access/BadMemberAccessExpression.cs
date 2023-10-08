@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
@@ -61,7 +62,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 
     public override void Optimize()
     {
-        Left = BadExpressionOptimizer.Optimize(Left);
+        Left = BadConstantFoldingOptimizer.Optimize(Left);
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

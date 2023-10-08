@@ -35,7 +35,7 @@ public abstract class BadExpression
 	public BadSourcePosition Position { get; private set; }
 
 	/// <summary>
-	///     Optimizes the Expression
+	///     Uses the Constant Folding Optimizer to optimize the expression
 	/// </summary>
 	public virtual void Optimize() { }
 

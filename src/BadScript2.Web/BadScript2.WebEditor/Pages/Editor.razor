@@ -1,7 +1,6 @@
 @page "/"
 @using BadScript2.IO
 @using BadScript2.IO.Virtual
-@using BadScript2.Optimizations
 @using BadScript2.Parser
 @using BadScript2.Parser.Expressions
 @using BadScript2.Runtime
@@ -13,6 +12,8 @@
 @using System.Collections.Specialized
 @using System.Web
 @using System.Text
+@using BadScript2.Optimizations.Folding
+@using BadScript2.Optimizations.Substitution
 @inject IJSRuntime JsRuntime
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -444,9 +445,14 @@
             BadExecutionContext context = CreateOptions().Build();
 
             IEnumerable<BadExpression> exprs = parser.Parse();
-            if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
+            if (BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization)
             {
-                exprs = BadExpressionOptimizer.Optimize(exprs);
+                exprs = BadConstantFoldingOptimizer.Optimize(exprs);
+            }
+
+            if (BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization)
+            {
+                exprs = BadConstantSubstitutionOptimizer.Optimize(exprs);
             }
 
             BadTaskRunner.Instance.AddTask(

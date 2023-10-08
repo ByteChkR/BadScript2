@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Parser.Expressions.Access;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -52,7 +53,7 @@ public class BadInvocationExpression : BadExpression
     {
         for (int i = 0; i < m_Arguments.Length; i++)
         {
-            m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
+            m_Arguments[i] = BadConstantFoldingOptimizer.Optimize(m_Arguments[i]);
         }
     }
 

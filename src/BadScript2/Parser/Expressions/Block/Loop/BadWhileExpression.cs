@@ -2,6 +2,7 @@ using System.Text;
 
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -17,7 +18,13 @@ public class BadWhileExpression : BadExpression
 	/// <summary>
 	///     The Loop Body
 	/// </summary>
-	private readonly List<BadExpression> m_Body;
+    private readonly List<BadExpression> m_Body;
+
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
 
 	/// <summary>
 	///     Constructor of the While Expression
@@ -47,11 +54,11 @@ public class BadWhileExpression : BadExpression
 
     public override void Optimize()
     {
-        Condition = BadExpressionOptimizer.Optimize(Condition);
+        Condition = BadConstantFoldingOptimizer.Optimize(Condition);
 
         for (int i = 0; i < m_Body.Count; i++)
         {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+            m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
         }
     }
 

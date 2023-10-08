@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -22,8 +23,14 @@ public class BadForEachExpression : BadExpression
 	/// <summary>
 	///     The Loop Body
 	/// </summary>
-	private readonly BadExpression[] m_Body;
+	private readonly List<BadExpression> m_Body;
 
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
+    
 	/// <summary>
 	///     The Enumerable/Enumerator Expression of the Loop
 	/// </summary>
@@ -47,18 +54,18 @@ public class BadForEachExpression : BadExpression
     {
         Target = target;
         LoopVariable = loopVariable;
-        m_Body = body;
+        m_Body = body.ToList();
     }
 
     public IEnumerable<BadExpression> Body => m_Body;
 
     public override void Optimize()
     {
-        Target = BadExpressionOptimizer.Optimize(Target);
+        Target = BadConstantFoldingOptimizer.Optimize(Target);
 
-        for (int i = 0; i < m_Body.Length; i++)
+        for (int i = 0; i < m_Body.Count; i++)
         {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+            m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
         }
     }
 

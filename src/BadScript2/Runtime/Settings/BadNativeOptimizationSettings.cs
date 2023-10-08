@@ -7,8 +7,10 @@ namespace BadScript2.Runtime.Settings;
 /// </summary>
 public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimizationSettings>
 {
-    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantExpressionOptimization =
-        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantExpressionOptimization");
+    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantFoldingOptimization =
+        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantFoldingOptimization");
+    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantSubstitutionOptimization =
+        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantSubstitutionOptimization");
 
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantFunctionCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantFunctionCaching");
@@ -40,12 +42,32 @@ public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimi
     ///     Allow the runtime to optimize constant expressions
     ///     If enabled the runtime will try to optimize constant expressions like 1 + 2 to 3
     /// </summary>
-    public bool UseConstantExpressionOptimization
+    public bool UseConstantFoldingOptimization
     {
-        get => m_UseConstantExpressionOptimization.GetValue();
-        set => m_UseConstantExpressionOptimization.Set(value);
+        get => m_UseConstantFoldingOptimization.GetValue();
+        set => m_UseConstantFoldingOptimization.Set(value);
     }
 
+    /// <summary>
+    /// Allow the runtime to optimize constant expressions to a higher degree than constant folding.
+    /// If enabled, the runtime try to optimize constant expressions that reference constants and variables that are marked as constant.
+    /// Example Input:
+    ///     const a = 1;
+    ///     const b = 2;
+    ///     const c = a + b;
+    ///     let d = c + 1;
+    /// Example Output:
+    ///     const a = 1;
+    ///     const b = 2;
+    ///     const c = 3;
+    ///     let d = 4;
+    /// </summary>
+    public bool UseConstantSubstitutionOptimization
+    {
+        get => m_UseConstantSubstitutionOptimization.GetValue();
+        set => m_UseConstantSubstitutionOptimization.Set(value);
+    }
+    
     /// <summary>
     ///     Allow the runtime to cache extensions for object types.
     ///     If enabled, the runtime will cache the results of extension lookups for object types.

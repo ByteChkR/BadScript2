@@ -2,6 +2,7 @@ using System.Text;
 
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -95,11 +96,16 @@ public class BadFunctionExpression : BadExpression
 
     public BadFunctionCompileLevel CompileLevel { get; }
 
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
     public override void Optimize()
     {
         for (int i = 0; i < m_Body.Count; i++)
         {
-            m_Body[i] = BadExpressionOptimizer.Optimize(m_Body[i]);
+            m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
         }
     }
 

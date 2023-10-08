@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
@@ -54,7 +55,7 @@ public class BadTableExpression : BadExpression
 
         foreach (KeyValuePair<BadWordToken, BadExpression> branch in branches)
         {
-            m_Table[branch.Key] = BadExpressionOptimizer.Optimize(branch.Value);
+            m_Table[branch.Key] = BadConstantFoldingOptimizer.Optimize(branch.Value);
         }
     }
 

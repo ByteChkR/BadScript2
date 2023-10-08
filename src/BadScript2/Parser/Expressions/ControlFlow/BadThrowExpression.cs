@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
@@ -30,7 +31,7 @@ public class BadThrowExpression : BadExpression
 
     public override void Optimize()
     {
-        Right = BadExpressionOptimizer.Optimize(Right);
+        Right = BadConstantFoldingOptimizer.Optimize(Right);
     }
 
     public override IEnumerable<BadExpression> GetDescendants()

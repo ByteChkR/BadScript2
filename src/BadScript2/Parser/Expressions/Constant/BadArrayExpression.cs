@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
@@ -39,7 +40,7 @@ public class BadArrayExpression : BadExpression
     {
         for (int i = 0; i < m_InitExpressions.Length; i++)
         {
-            m_InitExpressions[i] = BadExpressionOptimizer.Optimize(m_InitExpressions[i]);
+            m_InitExpressions[i] = BadConstantFoldingOptimizer.Optimize(m_InitExpressions[i]);
         }
     }
 

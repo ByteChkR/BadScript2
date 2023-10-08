@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Validation;
@@ -437,7 +438,7 @@ public class BadRuntimeApi : BadInteropApi
         }
 
 
-        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
+        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimizeE.Value;
 
         BadExecutionContext ctx =
             scope == BadObject.Null || scope is not BadScope sc
@@ -451,7 +452,7 @@ public class BadRuntimeApi : BadInteropApi
 
         if (optimize)
         {
-            exprs = BadExpressionOptimizer.Optimize(exprs);
+            exprs = BadConstantFoldingOptimizer.Optimize(exprs);
         }
 
         return ctx.Run(exprs) ?? BadObject.Null;
@@ -503,7 +504,7 @@ public class BadRuntimeApi : BadInteropApi
         }
 
 
-        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization && optimizeE.Value;
+        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimizeE.Value;
 
         BadExecutionContext ctx =
             scope == BadObject.Null || scope is not BadScope sc
@@ -517,7 +518,7 @@ public class BadRuntimeApi : BadInteropApi
 
         if (optimize)
         {
-            exprs = BadExpressionOptimizer.Optimize(exprs);
+            exprs = BadConstantFoldingOptimizer.Optimize(exprs);
         }
 
         BadTask task = null!;

@@ -12,6 +12,8 @@ using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
+using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
@@ -156,9 +158,14 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
             IEnumerable<BadExpression> exprs = parser.Parse();
 
-            if (BadNativeOptimizationSettings.Instance.UseConstantExpressionOptimization)
+            if (BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization)
             {
-                exprs = BadExpressionOptimizer.Optimize(exprs);
+                exprs = BadConstantFoldingOptimizer.Optimize(exprs);
+            }
+
+            if (BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization)
+            {
+                exprs = BadConstantSubstitutionOptimizer.Optimize(exprs);
             }
 
             BadTaskRunner.Instance.AddTask(

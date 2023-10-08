@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -20,7 +21,24 @@ public class BadIfExpression : BadExpression
 	/// <summary>
 	///     The (optional) Else Branch
 	/// </summary>
-	private readonly BadExpression[]? m_ElseBranch;
+	private List<BadExpression>? m_ElseBranch;
+    
+    public void SetElseBranch(IEnumerable<BadExpression>? branch)
+    {
+        if (branch == null)
+        {
+            m_ElseBranch = null;
+        }
+        else if (m_ElseBranch != null)
+        {
+            m_ElseBranch.Clear();
+            m_ElseBranch.AddRange(branch);
+        }
+        else
+        {
+            m_ElseBranch = new List<BadExpression>(branch);
+        }
+    }
 
 	/// <summary>
 	///     Constructor of the If Expression
@@ -34,7 +52,7 @@ public class BadIfExpression : BadExpression
         BadSourcePosition position) : base(false, position)
     {
         m_ConditionalBranches = branches;
-        m_ElseBranch = elseBranch;
+        m_ElseBranch = elseBranch?.ToList();
     }
 
 	/// <summary>
@@ -54,15 +72,15 @@ public class BadIfExpression : BadExpression
 
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in branches)
         {
-            m_ConditionalBranches[BadExpressionOptimizer.Optimize(branch.Key)] =
-                BadExpressionOptimizer.Optimize(branch.Value).ToArray();
+            m_ConditionalBranches[BadConstantFoldingOptimizer.Optimize(branch.Key)] =
+                BadConstantFoldingOptimizer.Optimize(branch.Value).ToArray();
         }
 
         if (m_ElseBranch != null)
         {
-            for (int i = 0; i < m_ElseBranch.Length; i++)
+            for (int i = 0; i < m_ElseBranch.Count; i++)
             {
-                m_ElseBranch[i] = BadExpressionOptimizer.Optimize(m_ElseBranch[i]);
+                m_ElseBranch[i] = BadConstantFoldingOptimizer.Optimize(m_ElseBranch[i]);
             }
         }
     }

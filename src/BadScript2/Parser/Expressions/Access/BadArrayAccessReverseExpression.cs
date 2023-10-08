@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations;
+using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -72,11 +73,11 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
 
     public override void Optimize()
     {
-        Left = BadExpressionOptimizer.Optimize(Left);
+        Left = BadConstantFoldingOptimizer.Optimize(Left);
 
         for (int i = 0; i < m_Arguments.Length; i++)
         {
-            m_Arguments[i] = BadExpressionOptimizer.Optimize(m_Arguments[i]);
+            m_Arguments[i] = BadConstantFoldingOptimizer.Optimize(m_Arguments[i]);
         }
     }
 
