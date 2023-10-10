@@ -16,7 +16,13 @@ public class BadInvocationExpression : BadExpression
     /// <summary>
     ///     The Invocation Arguments
     /// </summary>
-    private readonly BadExpression[] m_Arguments;
+    private readonly List<BadExpression> m_Arguments;
+
+    public void SetArgs(IEnumerable<BadExpression> exprs)
+    {
+        m_Arguments.Clear();
+        m_Arguments.AddRange(exprs);
+    }
 
     /// <summary>
     ///     Constructor of the Invocation Expression
@@ -30,13 +36,13 @@ public class BadInvocationExpression : BadExpression
     )
     {
         Left = left;
-        m_Arguments = args;
+        m_Arguments = args.ToList();
     }
 
     /// <summary>
     ///     Argument Count of the Invocation
     /// </summary>
-    public int ArgumentCount => m_Arguments.Length;
+    public int ArgumentCount => m_Arguments.Count;
 
     /// <summary>
     ///     The Arguments of the Invocation
@@ -50,7 +56,7 @@ public class BadInvocationExpression : BadExpression
 
     public override void Optimize()
     {
-        for (int i = 0; i < m_Arguments.Length; i++)
+        for (int i = 0; i < m_Arguments.Count; i++)
         {
             m_Arguments[i] = BadConstantFoldingOptimizer.Optimize(m_Arguments[i]);
         }

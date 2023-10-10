@@ -1,3 +1,4 @@
+using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary;
 using BadScript2.Parser.Expressions.Block;
@@ -39,7 +40,10 @@ public static class BadConstantSubstitutionOptimizer
     {
         if (expr is BadVariableExpression vExpr)
         {
-            return scope.GetConstant(vExpr.Name);
+            BadExpression constant = scope.GetConstant(vExpr.Name);
+            BadLogger.Log($"Substituting {expr} => {constant}", "Optimize");
+
+            return constant;
         }
 
         if (expr is BadBinaryExpression binExpr)
@@ -127,6 +131,22 @@ public static class BadConstantSubstitutionOptimizer
                 yield return ifExpr;
             }
 
+            if (expr is BadInvocationExpression invoc)
+            {
+                List<BadExpression> args = new List<BadExpression>();
+                foreach (BadExpression arg in invoc.Arguments)
+                {
+                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                    BadExpression[] newBody = Optimize(childScope, new []{arg}).ToArray();
+                    args.Add(newBody[0]);
+                }
+                invoc.SetArgs(args);
+
+                yield return invoc;
+
+                continue;
+            }
+
             if (expr is BadFunctionExpression func)
             {
                 BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
@@ -143,7 +163,9 @@ public static class BadConstantSubstitutionOptimizer
                 bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, binExpr);
                 if (canBeOptimized)
                 {
+                    BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
                     BadObject obj = Substitute(scope, binExpr).Execute(null!).Last();
+                    BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
 
                     yield return new BadConstantExpression(binExpr.Position, obj);
 
@@ -155,7 +177,9 @@ public static class BadConstantSubstitutionOptimizer
                 bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, rExpr.Right);
                 if (canBeOptimized && rExpr.Right is not IBadNativeExpression)
                 {
+                    BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
                     BadObject obj = Substitute(scope, rExpr.Right).Execute(null!).Last();
+                    BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
                     rExpr.SetRight(new BadConstantExpression(rExpr.Position, obj));
                 }
             }
@@ -165,7 +189,9 @@ public static class BadConstantSubstitutionOptimizer
                 bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, vAssign.Right);
                 if (canBeOptimized && vAssign.Right is not IBadNativeExpression)
                 {
+                    BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
                     BadObject obj = Substitute(scope, vAssign.Right).Execute(null!).Last();
+                    BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
                     vAssign.Right = new BadConstantExpression(vAssign.Position, obj);
                 }
 

@@ -19,7 +19,7 @@ public static class BadConstantFoldingOptimizer
     {
         if (expr is not IBadNativeExpression && expr.IsConstant)
         {
-            BadLogger.Log($"Optimizing Expression: '{expr}'", "Runtime");
+            BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Folding", "Optimize");
             BadObject obj = expr.Execute(null!).Last();
 
             return new BadConstantExpression(expr.Position, obj);

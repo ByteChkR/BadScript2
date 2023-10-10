@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations.Folding;
+using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Validation;
@@ -503,7 +504,8 @@ public class BadRuntimeApi : BadInteropApi
         }
 
 
-        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimizeE.Value;
+        bool optimizeConstantFolding = BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimizeE.Value;
+        bool optimizeConstantSubstitution = BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization && optimizeE.Value;
 
         BadExecutionContext ctx =
             scope == BadObject.Null || scope is not BadScope sc
@@ -515,9 +517,14 @@ public class BadRuntimeApi : BadInteropApi
 
         IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
 
-        if (optimize)
+        if (optimizeConstantFolding)
         {
             exprs = BadConstantFoldingOptimizer.Optimize(exprs);
+        }
+
+        if (optimizeConstantSubstitution)
+        {
+            exprs = BadConstantSubstitutionOptimizer.Optimize(exprs);
         }
 
         BadTask task = null!;

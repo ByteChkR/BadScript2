@@ -82,7 +82,7 @@ internal static class BadProgram
         }
         else
         {
-            BadLogWriterSettings.Instance.Mask = "Settings";
+            BadLogWriterSettings.Instance.Mask = BadLogMask.None;
         }
 
         using BadConsoleLogWriter cWriter = new BadConsoleLogWriter();

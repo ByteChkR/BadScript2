@@ -6,7 +6,8 @@
         "Runtime",
         "Benchmark",
         "Debugger",
-        "Compiler"
+        "Compiler",
+        "Optimize"
       ]
     }
   }
