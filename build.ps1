@@ -1,6 +1,5 @@
 param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $publishProjects=$false, [Switch] $noBuild=$false)
 
-
 if ($IsWindows) {
     $os = "win"
     $bs = "$pwd/build/bs.exe"
