@@ -45,7 +45,7 @@ public static class BadInteropHelper
         {
             return obj;
         }
-        
+
         if (oType.IsGenericType && oType.GetGenericTypeDefinition() == typeof(BadNullable<>))
         {
             Type innerType = oType.GetGenericArguments()[0];
@@ -82,28 +82,30 @@ public static class BadInteropHelper
                     throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + t);
                 }
 
-                var sarr = arr.InnerArray.Select(x => x.Unwrap(t.GetElementType()!, caller)).ToArray();
-                var rarr = Array.CreateInstance(t.GetElementType()!, arr.InnerArray.Count);
+                object[] sarr = arr.InnerArray.Select(x => x.Unwrap(t.GetElementType()!, caller)).ToArray();
+                Array rarr = Array.CreateInstance(t.GetElementType()!, arr.InnerArray.Count);
                 for (int i = 0; i < sarr.Length; i++)
                 {
                     rarr.SetValue(sarr[i], i);
                 }
+
                 return rarr;
             }
 
             if (t.IsGenericType && (t.GetGenericTypeDefinition() == typeof(List<>) || t.GetGenericTypeDefinition() == typeof(IList<>)))
             {
-                var elemType = t.GetGenericArguments()[0];
-                var sarr= arr.InnerArray.Select(x => x.Unwrap(elemType, caller)).ToList();
-                var rarr = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elemType));
-                for (int i = 0; i < sarr.Count; i++)
+                Type elemType = t.GetGenericArguments()[0];
+                IEnumerable<object> sarr = arr.InnerArray.Select(x => x.Unwrap(elemType, caller));
+                IList? rarr = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elemType));
+                foreach (object o in sarr)
                 {
-                    rarr.Add(sarr[i]);
+                    rarr.Add(o);
                 }
 
                 return rarr;
             }
         }
+
         throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + t);
     }
 
@@ -122,6 +124,7 @@ public static class BadInteropHelper
             {
                 return (T)Activator.CreateInstance(typeof(BadNullable<>).MakeGenericType(innerType));
             }
+
             return (T)Activator.CreateInstance(typeof(BadNullable<>).MakeGenericType(innerType), obj.Unwrap(innerType, caller));
         }
 
