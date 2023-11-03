@@ -306,48 +306,74 @@ public class BadRuntimeApi : BadInteropApi
         table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds());
         table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds());
         table.SetProperty("Offset", time.Offset.ToString());
-        
-        table.SetProperty("ToShortTimeString", new BadInteropFunction("ToShortTimeString", 
-            args => CreateDate(
-                    table,  
-                    args.Length < 1 ? null : ((IBadString)args[0]).Value)
-                .ToShortTimeString(), 
-            false, 
-            new BadFunctionParameter("timeZone", true, false, false,null, BadNativeClassBuilder.GetNative("string"))
-        ));
-        table.SetProperty("ToShortDateString", new BadInteropFunction("ToShortDateString", 
-            args => CreateDate(
-                    table,  
-                    args.Length < 1 ? null : ((IBadString)args[0]).Value)
-                .ToShortDateString(), 
-            false, 
-            new BadFunctionParameter("timeZone", true, false, false,null, BadNativeClassBuilder.GetNative("string"))
-        ));
-        table.SetProperty("ToLongTimeString", new BadInteropFunction("ToLongTimeString", 
-            args => CreateDate(
-                    table,  
-                    args.Length < 1 ? null : ((IBadString)args[0]).Value)
-                .ToLongTimeString(), 
-            false, 
-            new BadFunctionParameter("timeZone", true, false, false,null, BadNativeClassBuilder.GetNative("string"))
-        ));
-        table.SetProperty("ToLongDateString", new BadInteropFunction("ToLongDateString", 
-            args => CreateDate(
-                    table,  
-                    args.Length < 1 ? null : ((IBadString)args[0]).Value)
-                .ToLongDateString(), 
-            false, 
-            new BadFunctionParameter("timeZone", true, false, false,null, BadNativeClassBuilder.GetNative("string"))
-        ));
-        table.SetProperty("Format", new BadInteropFunction("Format", 
-            args => CreateDate(
-                table,  
-                args.Length < 2 ? null : ((IBadString)args[1]).Value)
-                .ToString(((IBadString)args[0]).Value), 
-            false, 
-            new BadFunctionParameter("format", false, false, false,null, BadNativeClassBuilder.GetNative("string")),
-            new BadFunctionParameter("timeZone", true, false, false,null, BadNativeClassBuilder.GetNative("string"))
-            ));
+
+        table.SetProperty(
+            "ToShortTimeString",
+            new BadInteropFunction(
+                "ToShortTimeString",
+                args => CreateDate(
+                        table,
+                        args.Length < 1 ? null : ((IBadString)args[0]).Value
+                    )
+                    .ToShortTimeString(),
+                false,
+                new BadFunctionParameter("timeZone", true, false, false, null, BadNativeClassBuilder.GetNative("string"))
+            )
+        );
+        table.SetProperty(
+            "ToShortDateString",
+            new BadInteropFunction(
+                "ToShortDateString",
+                args => CreateDate(
+                        table,
+                        args.Length < 1 ? null : ((IBadString)args[0]).Value
+                    )
+                    .ToShortDateString(),
+                false,
+                new BadFunctionParameter("timeZone", true, false, false, null, BadNativeClassBuilder.GetNative("string"))
+            )
+        );
+        table.SetProperty(
+            "ToLongTimeString",
+            new BadInteropFunction(
+                "ToLongTimeString",
+                args => CreateDate(
+                        table,
+                        args.Length < 1 ? null : ((IBadString)args[0]).Value
+                    )
+                    .ToLongTimeString(),
+                false,
+                new BadFunctionParameter("timeZone", true, false, false, null, BadNativeClassBuilder.GetNative("string"))
+            )
+        );
+        table.SetProperty(
+            "ToLongDateString",
+            new BadInteropFunction(
+                "ToLongDateString",
+                args => CreateDate(
+                        table,
+                        args.Length < 1 ? null : ((IBadString)args[0]).Value
+                    )
+                    .ToLongDateString(),
+                false,
+                new BadFunctionParameter("timeZone", true, false, false, null, BadNativeClassBuilder.GetNative("string"))
+            )
+        );
+        table.SetProperty(
+            "Format",
+            new BadInteropFunction(
+                "Format",
+                args => CreateDate(
+                        table,
+                        args.Length < 2 ? null : ((IBadString)args[1]).Value
+                    )
+                    .ToString(((IBadString)args[0]).Value),
+                false,
+                new BadFunctionParameter("format", false, false, false, null, BadNativeClassBuilder.GetNative("string")),
+                new BadFunctionParameter("timeZone", true, false, false, null, BadNativeClassBuilder.GetNative("string"))
+            )
+        );
+
         return table;
     }
 
@@ -364,9 +390,9 @@ public class BadRuntimeApi : BadInteropApi
         string offset = ((IBadString)dateTable.InnerTable["Offset"]).Value;
 
         //Create Date Time from the given values
-        var dtOffset = new DateTimeOffset(year, month, day, hour, minute, second, millisecond, TimeSpan.Parse(offset));
+        DateTimeOffset dtOffset = new DateTimeOffset(year, month, day, hour, minute, second, millisecond, TimeSpan.Parse(offset));
 
-        var dateTime = dtOffset.DateTime;
+        DateTime dateTime = dtOffset.DateTime;
         if (timeZone != null)
         {
             dateTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTime, timeZone);
