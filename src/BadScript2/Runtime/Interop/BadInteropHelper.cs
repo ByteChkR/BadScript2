@@ -1,3 +1,5 @@
+using System.Collections;
+
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection;
@@ -35,7 +37,7 @@ public static class BadInteropHelper
         throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}'");
     }
 
-    public static object? Unwrap(this BadObject obj, Type t, BadScope? caller = null)
+    public static object Unwrap(this BadObject obj, Type t, BadScope? caller = null)
     {
         Type oType = obj.GetType();
 
@@ -80,12 +82,26 @@ public static class BadInteropHelper
                     throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + t);
                 }
 
-                return arr.InnerArray.Select(x => x.Unwrap(t.GetElementType()!, caller)).ToArray();
+                var sarr = arr.InnerArray.Select(x => x.Unwrap(t.GetElementType()!, caller)).ToArray();
+                var rarr = Array.CreateInstance(t.GetElementType()!, arr.InnerArray.Count);
+                for (int i = 0; i < sarr.Length; i++)
+                {
+                    rarr.SetValue(sarr[i], i);
+                }
+                return rarr;
             }
 
             if (t.IsGenericType && (t.GetGenericTypeDefinition() == typeof(List<>) || t.GetGenericTypeDefinition() == typeof(IList<>)))
             {
-                return arr.InnerArray.Select(x => x.Unwrap(t.GetElementType()!, caller)).ToList();
+                var elemType = t.GetGenericArguments()[0];
+                var sarr= arr.InnerArray.Select(x => x.Unwrap(elemType, caller)).ToList();
+                var rarr = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elemType));
+                for (int i = 0; i < sarr.Count; i++)
+                {
+                    rarr.Add(sarr[i]);
+                }
+
+                return rarr;
             }
         }
         throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + t);
@@ -106,7 +122,6 @@ public static class BadInteropHelper
             {
                 return (T)Activator.CreateInstance(typeof(BadNullable<>).MakeGenericType(innerType));
             }
-
             return (T)Activator.CreateInstance(typeof(BadNullable<>).MakeGenericType(innerType), obj.Unwrap(innerType, caller));
         }
 
