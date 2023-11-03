@@ -70,6 +70,16 @@ public abstract class BadFunction : BadObject
         return this;
     }
 
+    protected BadObject GetParameter(BadObject[] args, int i)
+    {
+        if(args.Length > i)
+        {
+            return args[i].Dereference();
+        }
+
+        return Null;
+    }
+
     /// <summary>
     ///     Checks Parameters for the given function call
     /// </summary>

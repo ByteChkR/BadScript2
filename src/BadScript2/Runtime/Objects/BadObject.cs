@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
@@ -116,6 +117,11 @@ public abstract class BadObject
         return Wrap(b);
     }
 
+    public static implicit operator BadObject(BadNullable<bool> b)
+    {
+        return b.HasValue ? b.Value : Null;
+    }
+
     /// <summary>
     ///     Implicit Converstion from Number to BadObject
     /// </summary>
@@ -126,6 +132,11 @@ public abstract class BadObject
         return Wrap(d);
     }
 
+    public static implicit operator BadObject(BadNullable<decimal> b)
+    {
+        return b.HasValue ? b.Value : Null;
+    }
+
     /// <summary>
     ///     Implicit Converstion from String to BadObject
     /// </summary>
@@ -134,6 +145,11 @@ public abstract class BadObject
     public static implicit operator BadObject(string s)
     {
         return Wrap(s);
+    }
+
+    public static implicit operator BadObject(BadNullable<string> b)
+    {
+        return b.HasValue ? b.Value! : Null;
     }
 
     /// <summary>

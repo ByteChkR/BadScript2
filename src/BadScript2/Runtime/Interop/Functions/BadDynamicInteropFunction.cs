@@ -100,7 +100,7 @@ public class BadDynamicInteropFunction<T> : BadFunction
     {
         CheckParameters(args);
 
-        yield return m_Func.Invoke(caller, args[0].Dereference().Unwrap<T>());
+        yield return m_Func.Invoke(caller, GetParameter(args, 0).Unwrap<T>());
     }
 
     public static implicit operator BadDynamicInteropFunction<T>(Func<BadExecutionContext, T, BadObject> func)
@@ -141,8 +141,8 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>()
         );
     }
 
@@ -185,9 +185,9 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>()
         );
     }
 
@@ -232,10 +232,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>()
         );
     }
 
@@ -281,11 +281,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>()
         );
     }
 
@@ -332,12 +332,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>()
         );
     }
 
@@ -385,13 +385,13 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>()
         );
     }
 
@@ -440,14 +440,14 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>()
         );
     }
 
@@ -497,15 +497,15 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>()
         );
     }
 
@@ -556,16 +556,16 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>(),
-            args[9].Dereference().Unwrap<T10>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>(),
+            GetParameter(args, 9).Unwrap<T10>()
         );
     }
 
@@ -617,17 +617,17 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>(),
-            args[9].Dereference().Unwrap<T10>(),
-            args[10].Dereference().Unwrap<T11>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>(),
+            GetParameter(args, 9).Unwrap<T10>(),
+            GetParameter(args, 10).Unwrap<T11>()
         );
     }
 
@@ -680,18 +680,18 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>(),
-            args[9].Dereference().Unwrap<T10>(),
-            args[10].Dereference().Unwrap<T11>(),
-            args[11].Dereference().Unwrap<T12>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>(),
+            GetParameter(args, 9).Unwrap<T10>(),
+            GetParameter(args, 10).Unwrap<T11>(),
+            GetParameter(args, 11).Unwrap<T12>()
         );
     }
 
@@ -746,19 +746,19 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>(),
-            args[9].Dereference().Unwrap<T10>(),
-            args[10].Dereference().Unwrap<T11>(),
-            args[11].Dereference().Unwrap<T12>(),
-            args[12].Dereference().Unwrap<T13>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>(),
+            GetParameter(args, 9).Unwrap<T10>(),
+            GetParameter(args, 10).Unwrap<T11>(),
+            GetParameter(args, 11).Unwrap<T12>(),
+            GetParameter(args, 12).Unwrap<T13>()
         );
     }
 
@@ -814,20 +814,20 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>(),
-            args[9].Dereference().Unwrap<T10>(),
-            args[10].Dereference().Unwrap<T11>(),
-            args[11].Dereference().Unwrap<T12>(),
-            args[12].Dereference().Unwrap<T13>(),
-            args[13].Dereference().Unwrap<T14>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>(),
+            GetParameter(args, 9).Unwrap<T10>(),
+            GetParameter(args, 10).Unwrap<T11>(),
+            GetParameter(args, 11).Unwrap<T12>(),
+            GetParameter(args, 12).Unwrap<T13>(),
+            GetParameter(args, 13).Unwrap<T14>()
         );
     }
 
@@ -885,21 +885,21 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
         yield return m_Func.Invoke(
             caller,
-            args[0].Dereference().Unwrap<T1>(),
-            args[1].Dereference().Unwrap<T2>(),
-            args[2].Dereference().Unwrap<T3>(),
-            args[3].Dereference().Unwrap<T4>(),
-            args[4].Dereference().Unwrap<T5>(),
-            args[5].Dereference().Unwrap<T6>(),
-            args[6].Dereference().Unwrap<T7>(),
-            args[7].Dereference().Unwrap<T8>(),
-            args[8].Dereference().Unwrap<T9>(),
-            args[9].Dereference().Unwrap<T10>(),
-            args[10].Dereference().Unwrap<T11>(),
-            args[11].Dereference().Unwrap<T12>(),
-            args[12].Dereference().Unwrap<T13>(),
-            args[13].Dereference().Unwrap<T14>(),
-            args[14].Dereference().Unwrap<T15>()
+            GetParameter(args, 0).Unwrap<T1>(),
+            GetParameter(args, 1).Unwrap<T2>(),
+            GetParameter(args, 2).Unwrap<T3>(),
+            GetParameter(args, 3).Unwrap<T4>(),
+            GetParameter(args, 4).Unwrap<T5>(),
+            GetParameter(args, 5).Unwrap<T6>(),
+            GetParameter(args, 6).Unwrap<T7>(),
+            GetParameter(args, 7).Unwrap<T8>(),
+            GetParameter(args, 8).Unwrap<T9>(),
+            GetParameter(args, 9).Unwrap<T10>(),
+            GetParameter(args, 10).Unwrap<T11>(),
+            GetParameter(args, 11).Unwrap<T12>(),
+            GetParameter(args, 12).Unwrap<T13>(),
+            GetParameter(args, 13).Unwrap<T14>(),
+            GetParameter(args, 14).Unwrap<T15>()
         );
     }
 
