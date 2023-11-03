@@ -48,10 +48,6 @@ public static partial class BadDynamicFunctionExtensions
                 isNullable = true;
                 type = type.GetGenericArguments()[0];
             }
-            else if (type == typeof(BadObject))
-            {
-                isNullable = true;
-            }
             bool optional = canBeOptional && isNullable;
             bool nullChecked = !isNullable;
             BadClassPrototype? bType = TryConvertType(type);
