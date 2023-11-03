@@ -146,25 +146,6 @@ public class BadOpenKmFileSystem : IFileSystem
         if (IsDirectory(src))
         {
             throw new NotSupportedException("At the moment, copying directories is not supported. (need to implement recursive move files)");
-            string parentDst = MakeFullPath(Path.GetDirectoryName(dst));
-            if (Exists(dst))
-            {
-                if (!IsDirectory(dst))
-                {
-                    throw new Exception("Target is a file");
-                }
-
-                if (!overwrite)
-                {
-                    throw new Exception("Target already exists");
-                }
-
-                m_Webservice.CopyFolder(src, parentDst).Wait();
-            }
-            else
-            {
-                m_Webservice.CopyFolder(src, parentDst).Wait();
-            }
         }
 
         if (!Exists(dst))
@@ -203,26 +184,6 @@ public class BadOpenKmFileSystem : IFileSystem
         if (IsDirectory(src))
         {
             throw new NotSupportedException("At the moment, moving directories is not supported. (need to implement recursive move files)");
-            string parentDst = MakeFullPath(Path.GetDirectoryName(dst));
-            if (Exists(dst))
-            {
-                if (!IsDirectory(dst))
-                {
-                    throw new Exception("Target is a file");
-                }
-
-                if (!overwrite)
-                {
-                    throw new Exception("Target already exists");
-                }
-
-                m_Webservice.DeleteFolder(dst);
-                m_Webservice.MoveFolder(src, parentDst).Wait();
-            }
-            else
-            {
-                m_Webservice.MoveFolder(src, parentDst).Wait();
-            }
         }
 
         if (!Exists(dst))

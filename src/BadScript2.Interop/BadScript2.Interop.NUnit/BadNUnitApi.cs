@@ -27,14 +27,14 @@ public class BadNUnitApi : BadInteropApi
     private static BadTable MakeAssert()
     {
         BadTable assert = new BadTable();
-        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreEqual", (a, b, c) => Assert_AreEqual(a, b, c));
-        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreNotEqual",(a, b, c) => Assert_AreNotEqual(a, b, c));
-        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreSame",(a, b, c) => Assert_AreSame(a, b, c));
-        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreNotSame", (a, b, c) =>Assert_AreNotSame(a, b, c));
-        assert.SetFunction<BadNullable<BadObject>, string>("IsTrue", (a,b) => Assert_IsTrue(a, b));
-        assert.SetFunction<BadNullable<BadObject>, string>("IsFalse", (a,b) => Assert_IsFalse(a, b));
-        assert.SetFunction<BadNullable<BadObject>, string>("IsNull", (a,b) => Assert_IsNull(a, b));
-        assert.SetFunction<BadNullable<BadObject>, string>("IsNotNull", (a,b) => Assert_IsNotNull(a, b));
+        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreEqual", (a, b, c) => Assert_AreEqual(a!, b!, c));
+        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreNotEqual",(a, b, c) => Assert_AreNotEqual(a!, b!, c));
+        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreSame",(a, b, c) => Assert_AreSame(a!, b!, c));
+        assert.SetFunction<BadNullable<BadObject>, BadNullable<BadObject>, string>("AreNotSame", (a, b, c) =>Assert_AreNotSame(a!, b!, c));
+        assert.SetFunction<BadNullable<BadObject>, string>("IsTrue", (a,b) => Assert_IsTrue(a!, b));
+        assert.SetFunction<BadNullable<BadObject>, string>("IsFalse", (a,b) => Assert_IsFalse(a!, b));
+        assert.SetFunction<BadNullable<BadObject>, string>("IsNull", (a,b) => Assert_IsNull(a!, b));
+        assert.SetFunction<BadNullable<BadObject>, string>("IsNotNull", (a,b) => Assert_IsNotNull(a!, b));
         assert.SetFunction<string>("Fail", Assert_Fail);
         assert.SetFunction<string>("Inconclusive", Assert_Inconclusive);
         assert.SetFunction<string>("Ignore", Assert_Ignore);
@@ -43,7 +43,7 @@ public class BadNUnitApi : BadInteropApi
         assert.SetFunction<decimal, decimal, string>("GreaterOrEqual", Assert_GreaterOrEqual);
         assert.SetFunction<decimal, decimal, string>("Less", Assert_Less);
         assert.SetFunction<decimal, decimal, string>("LessOrEqual", Assert_LessOrEqual);
-        assert.SetFunction<BadArray, BadNullable<BadObject>, string>("Contains", (a, b, c) => Assert_Contains(a, b, c));
+        assert.SetFunction<BadArray, BadNullable<BadObject>, string>("Contains", (a, b, c) => Assert_Contains(a, b!, c));
         assert.SetFunction<BadArray, string>("IsEmpty", Assert_IsEmpty);
         assert.SetFunction<decimal, string>("Positive", Assert_Positive);
         assert.SetFunction<decimal, string>("Negative", Assert_Negative);
@@ -65,7 +65,7 @@ public class BadNUnitApi : BadInteropApi
         Assert.Throws<BadRuntimeException>(
             () =>
             {
-                foreach (BadObject o in func.Invoke(Array.Empty<BadObject>(), ctx))
+                foreach (BadObject _ in func.Invoke(Array.Empty<BadObject>(), ctx))
                 {
                     //Do Nothing
                 }
