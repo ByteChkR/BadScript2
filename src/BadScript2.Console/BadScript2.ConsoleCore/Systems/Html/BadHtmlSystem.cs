@@ -20,90 +20,89 @@ namespace BadScript2.ConsoleCore.Systems.Html;
 /// </summary>
 public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 {
-    public override string Name => "html";
+	public override string Name => "html";
 
 
-    public override object? Parse(string[] args)
-    {
-        if (args.Length == 1)
-        {
-            return new BadHtmlSystemSettings
-            {
-                Files = new[]
-                {
-                    args[0],
-                },
-            };
-        }
+	public override object? Parse(string[] args)
+	{
+		if (args.Length == 1)
+		{
+			return new BadHtmlSystemSettings
+			{
+				Files = new[]
+				{
+					args[0]
+				}
+			};
+		}
 
-        return base.Parse(args);
-    }
+		return base.Parse(args);
+	}
 
-    protected override int Run(BadHtmlSystemSettings settings)
-    {
-        BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
-        BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
+	protected override int Run(BadHtmlSystemSettings settings)
+	{
+		BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
+		BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
 
 
-        if (settings.Debug)
-        {
-            BadDebugger.Attach(new BadScriptDebugger(BadExecutionContextOptions.Default));
-        }
+		if (settings.Debug)
+		{
+			BadDebugger.Attach(new BadScriptDebugger(BadExecutionContextOptions.Default));
+		}
 
-        BadNetworkConsoleHost? host = null;
+		BadNetworkConsoleHost? host = null;
 
-        if (settings.RemotePort != -1)
-        {
-            host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
-            host.Start();
-            BadConsole.SetConsole(host);
-        }
+		if (settings.RemotePort != -1)
+		{
+			host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
+			host.Start();
+			BadConsole.SetConsole(host);
+		}
 
-        BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
-        {
-            SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
-        };
+		BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
+		{
+			SkipEmptyTextNodes = settings.SkipEmptyTextNodes
+		};
 
-        BadObject model = new BadTable();
-        if (!string.IsNullOrEmpty(settings.Model))
-        {
-            model = BadJson.FromJson(File.ReadAllText(settings.Model));
-        }
+		BadObject model = new BadTable();
 
-        foreach (string file in settings.Files)
-        {
-            string outFile = Path.ChangeExtension(file, "html");
-            string htmlString = BadHtmlTemplate.Create(file).Run(model, opts);
+		if (!string.IsNullOrEmpty(settings.Model))
+		{
+			model = BadJson.FromJson(File.ReadAllText(settings.Model));
+		}
 
-            int originalSize = htmlString.Length;
+		foreach (string file in settings.Files)
+		{
+			string outFile = Path.ChangeExtension(file, "html");
+			string htmlString = BadHtmlTemplate.Create(file).Run(model, opts);
 
-            if (settings.Minify)
-            {
-                htmlString = htmlString.Replace("\n", " ")
-                    .Replace("\r", " ")
-                    .Replace("\t", " ");
+			int originalSize = htmlString.Length;
 
-                while (htmlString.Contains("  "))
-                {
-                    htmlString = htmlString.Replace("  ", " ");
-                }
+			if (settings.Minify)
+			{
+				htmlString = htmlString.Replace("\n", " ")
+					.Replace("\r", " ")
+					.Replace("\t", " ");
 
-                Console.WriteLine(
-                    "Minified output to {1} characters({0}%)",
-                    Math.Round(htmlString.Length / (float)originalSize * 100, 2),
-                    htmlString.Length
-                );
-            }
-            else
-            {
-                Console.WriteLine("Generated output {0} characters", htmlString.Length);
-            }
+				while (htmlString.Contains("  "))
+				{
+					htmlString = htmlString.Replace("  ", " ");
+				}
 
-            BadFileSystem.WriteAllText(outFile, htmlString);
-        }
+				Console.WriteLine("Minified output to {1} characters({0}%)",
+					Math.Round(htmlString.Length / (float)originalSize * 100, 2),
+					htmlString.Length);
+			}
+			else
+			{
+				Console.WriteLine("Generated output {0} characters", htmlString.Length);
+			}
 
-        host?.Stop();
+			BadFileSystem.WriteAllText(outFile, htmlString);
+		}
 
-        return -1;
-    }
+		host?.Stop();
+
+		return -1;
+	}
 }

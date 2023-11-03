@@ -14,8 +14,8 @@ public class BadPostIncrementOperator : BadBinaryOperator
 	public BadPostIncrementOperator() : base(2, "++") { }
 
 
-    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-    {
-        return new BadPostIncrementExpression(left, left.Position);
-    }
+	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+	{
+		return new BadPostIncrementExpression(left, left.Position);
+	}
 }

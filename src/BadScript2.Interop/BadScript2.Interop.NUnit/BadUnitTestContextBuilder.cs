@@ -42,11 +42,11 @@ public class BadUnitTestContextBuilder
 	/// </summary>
 	/// <param name="apis">The Interop Apis that are available to the Test Context</param>
 	public BadUnitTestContextBuilder(IEnumerable<BadInteropApi> apis)
-    {
-        m_Apis = apis.ToList();
-        m_Apis.Add(new BadNUnitApi());
-        m_Apis.Add(new BadNUnitConsoleApi(this));
-    }
+	{
+		m_Apis = apis.ToList();
+		m_Apis.Add(new BadNUnitApi());
+		m_Apis.Add(new BadNUnitConsoleApi(this));
+	}
 
 	/// <summary>
 	///     Constructs a new BadUnitTestContextBuilder
@@ -60,21 +60,21 @@ public class BadUnitTestContextBuilder
 	/// <param name="optimize">Optimize the expressions?</param>
 	/// <param name="files">The Source Files containing the test cases</param>
 	public void Register(bool optimizeFolding, bool optimizeSubstitution, params string[] files)
-    {
-        foreach (string file in files)
-        {
-            SetupStage(file, optimizeFolding, optimizeSubstitution);
-        }
-    }
+	{
+		foreach (string file in files)
+		{
+			SetupStage(file, optimizeFolding, optimizeSubstitution);
+		}
+	}
 
 	/// <summary>
 	///     Creates a new BadUnitTestContext
 	/// </summary>
 	/// <returns>BadUnitTestContext</returns>
 	public BadUnitTestContext CreateContext()
-    {
-        return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList());
-    }
+	{
+		return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList());
+	}
 
 	/// <summary>
 	///     Adds a Test Case to the Test Context
@@ -84,25 +84,25 @@ public class BadUnitTestContextBuilder
 	/// <param name="allowCompile">Allow compilation of the function?</param>
 	/// <exception cref="InvalidOperationException">Gets raised if the testName is not a string</exception>
 	public void AddTest(BadFunction function, BadObject testName, bool allowCompile = true)
-    {
-        string? name = null;
+	{
+		string? name = null;
 
-        if (testName != BadObject.Null)
-        {
-            name = (testName as IBadString)?.Value ?? throw new InvalidOperationException("Test name must be a string");
-        }
+		if (testName != BadObject.Null)
+		{
+			name = (testName as IBadString)?.Value ?? throw new InvalidOperationException("Test name must be a string");
+		}
 
-        m_Cases.Add(new BadNUnitTestCase(function, name, allowCompile));
-    }
+		m_Cases.Add(new BadNUnitTestCase(function, name, allowCompile));
+	}
 
 	/// <summary>
 	///     Adds a Setup Function to the Test Context
 	/// </summary>
 	/// <param name="function">The Setup Function</param>
 	public void AddSetup(BadFunction function)
-    {
-        m_Setup.Add(function);
-    }
+	{
+		m_Setup.Add(function);
+	}
 
 
 	/// <summary>
@@ -110,19 +110,19 @@ public class BadUnitTestContextBuilder
 	/// </summary>
 	/// <param name="function">The Teardown Function</param>
 	public void AddTeardown(BadFunction function)
-    {
-        m_Teardown.Add(function);
-    }
+	{
+		m_Teardown.Add(function);
+	}
 
 	/// <summary>
 	///     Resets the Builder state
 	/// </summary>
 	public void Reset()
-    {
-        m_Teardown.Clear();
-        m_Setup.Clear();
-        m_Cases.Clear();
-    }
+	{
+		m_Teardown.Clear();
+		m_Setup.Clear();
+		m_Cases.Clear();
+	}
 
 
 	/// <summary>
@@ -130,29 +130,29 @@ public class BadUnitTestContextBuilder
 	/// </summary>
 	/// <param name="context">The Context</param>
 	private void LoadApis(BadExecutionContext context)
-    {
-        foreach (BadInteropApi api in m_Apis)
-        {
-            BadTable target;
+	{
+		foreach (BadInteropApi api in m_Apis)
+		{
+			BadTable target;
 
-            if (context.Scope.HasLocal(api.Name) && context.Scope.GetVariable(api.Name).Dereference() is BadTable table)
-            {
-                target = table;
-            }
-            else
-            {
-                target = new BadTable();
-                context.Scope.DefineVariable(api.Name, target);
-            }
+			if (context.Scope.HasLocal(api.Name) && context.Scope.GetVariable(api.Name).Dereference() is BadTable table)
+			{
+				target = table;
+			}
+			else
+			{
+				target = new BadTable();
+				context.Scope.DefineVariable(api.Name, target);
+			}
 
-            api.Load(target);
-        }
+			api.Load(target);
+		}
 
-        foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
-        {
-            context.Scope.DefineVariable(type.Name, type);
-        }
-    }
+		foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
+		{
+			context.Scope.DefineVariable(type.Name, type);
+		}
+	}
 
 	/// <summary>
 	///     Runs the Setup Stage
@@ -161,26 +161,26 @@ public class BadUnitTestContextBuilder
 	/// <param name="file">The Source File</param>
 	/// <param name="optimizeFolding">Optimize the Expressions?</param>
 	private void SetupStage(string file, bool optimizeFolding = false, bool optimizeSubstitution = false)
-    {
-        //Load expressions
-        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
+	{
+		//Load expressions
+		IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
 
-        if (optimizeFolding)
-        {
-            expressions = BadConstantFoldingOptimizer.Optimize(expressions);
-        }
+		if (optimizeFolding)
+		{
+			expressions = BadConstantFoldingOptimizer.Optimize(expressions);
+		}
 
-        if (optimizeSubstitution)
-        {
-            expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
-        }
+		if (optimizeSubstitution)
+		{
+			expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
+		}
 
-        //Create Context
-        BadExecutionContext context = BadExecutionContext.Create();
+		//Create Context
+		BadExecutionContext context = BadExecutionContext.Create();
 
-        //Add Apis
-        LoadApis(context);
+		//Add Apis
+		LoadApis(context);
 
-        context.Run(expressions);
-    }
+		context.Run(expressions);
+	}
 }

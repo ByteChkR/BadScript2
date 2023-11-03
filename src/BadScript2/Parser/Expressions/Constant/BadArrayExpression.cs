@@ -20,58 +20,56 @@ public class BadArrayExpression : BadExpression
     /// </summary>
     /// <param name="initExpressions">The initializer list of the Array</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
-        false,
-        position
-    )
-    {
-        m_InitExpressions = initExpressions;
-    }
+    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(false,
+		position)
+	{
+		m_InitExpressions = initExpressions;
+	}
 
-    public int Length => m_InitExpressions.Length;
+	public int Length => m_InitExpressions.Length;
 
     /// <summary>
     ///     The Initializer List
     /// </summary>
     public IEnumerable<BadExpression> InitExpressions => m_InitExpressions;
 
-    public override void Optimize()
-    {
-        for (int i = 0; i < m_InitExpressions.Length; i++)
-        {
-            m_InitExpressions[i] = BadConstantFoldingOptimizer.Optimize(m_InitExpressions[i]);
-        }
-    }
+	public override void Optimize()
+	{
+		for (int i = 0; i < m_InitExpressions.Length; i++)
+		{
+			m_InitExpressions[i] = BadConstantFoldingOptimizer.Optimize(m_InitExpressions[i]);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        List<BadObject> array = new List<BadObject>();
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		List<BadObject> array = new List<BadObject>();
 
-        foreach (BadExpression expression in m_InitExpressions)
-        {
-            BadObject o = BadObject.Null;
+		foreach (BadExpression expression in m_InitExpressions)
+		{
+			BadObject o = BadObject.Null;
 
-            foreach (BadObject obj in expression.Execute(context))
-            {
-                o = obj;
+			foreach (BadObject obj in expression.Execute(context))
+			{
+				o = obj;
 
-                yield return o;
-            }
+				yield return o;
+			}
 
-            array.Add(o.Dereference());
-        }
+			array.Add(o.Dereference());
+		}
 
-        yield return new BadArray(array);
-    }
+		yield return new BadArray(array);
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        foreach (BadExpression expression in m_InitExpressions)
-        {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
-        }
-    }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression expression in m_InitExpressions)
+		{
+			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+			{
+				yield return descendant;
+			}
+		}
+	}
 }

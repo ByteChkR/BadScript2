@@ -33,104 +33,89 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
     /// <param name="return">Return Type of the Function</param>
     /// <param name="parameters">The Function Parameters</param>
     public BadInterfaceFunctionConstraint(string name, BadExpression? @return, BadFunctionParameter[] parameters)
-    {
-        Name = name;
-        Return = @return;
-        Parameters = parameters;
-    }
+	{
+		Name = name;
+		Return = @return;
+		Parameters = parameters;
+	}
 
 
-    public override string ToString()
-    {
-        return "FunctionConstraint";
-    }
+	public override string ToString()
+	{
+		return "FunctionConstraint";
+	}
 
-    public override void Validate(BadClass obj, List<BadInterfaceValidatorError> errors)
-    {
-        if (!obj.HasProperty(Name))
-        {
-            errors.Add(new BadInterfaceValidatorError($"Missing Property. Expected {Name}", this));
+	public override void Validate(BadClass obj, List<BadInterfaceValidatorError> errors)
+	{
+		if (!obj.HasProperty(Name))
+		{
+			errors.Add(new BadInterfaceValidatorError($"Missing Property. Expected {Name}", this));
 
-            return;
-        }
+			return;
+		}
 
-        BadObject o = obj.GetProperty(Name).Dereference();
+		BadObject o = obj.GetProperty(Name).Dereference();
 
-        if (o is not BadFunction f)
-        {
-            errors.Add(new BadInterfaceValidatorError($"Property {Name} is not a function", this));
+		if (o is not BadFunction f)
+		{
+			errors.Add(new BadInterfaceValidatorError($"Property {Name} is not a function", this));
 
-            return;
-        }
+			return;
+		}
 
-        if (f.Parameters.Length != Parameters.Length)
-        {
-            errors.Add(
-                new BadInterfaceValidatorError(
-                    $"Parameter Count Mismatch. Expected {Parameters.Length} but got {f.Parameters.Length} in {f}",
-                    this
-                )
-            );
+		if (f.Parameters.Length != Parameters.Length)
+		{
+			errors.Add(new BadInterfaceValidatorError(
+				$"Parameter Count Mismatch. Expected {Parameters.Length} but got {f.Parameters.Length} in {f}",
+				this));
 
-            return;
-        }
+			return;
+		}
 
-        for (int i = 0; i < Parameters.Length; i++)
-        {
-            BadFunctionParameter p = f.Parameters[i];
-            BadFunctionParameter p2 = Parameters[i];
+		for (int i = 0; i < Parameters.Length; i++)
+		{
+			BadFunctionParameter p = f.Parameters[i];
+			BadFunctionParameter p2 = Parameters[i];
 
-            if (p.IsOptional != p2.IsOptional)
-            {
-                errors.Add(
-                    new BadInterfaceValidatorError(
-                        $"{f}: Parameter Optional Flags are not equal. Implementation: {p}, Expectation: {p2}",
-                        this
-                    )
-                );
+			if (p.IsOptional != p2.IsOptional)
+			{
+				errors.Add(new BadInterfaceValidatorError(
+					$"{f}: Parameter Optional Flags are not equal. Implementation: {p}, Expectation: {p2}",
+					this));
 
-                return;
-            }
+				return;
+			}
 
-            if (p.IsNullChecked != p2.IsNullChecked)
-            {
-                errors.Add(
-                    new BadInterfaceValidatorError(
-                        $"{f}: Parameter Null Check Flags are not equal. Implementation: {p}, Expectation: {p2}",
-                        this
-                    )
-                );
+			if (p.IsNullChecked != p2.IsNullChecked)
+			{
+				errors.Add(new BadInterfaceValidatorError(
+					$"{f}: Parameter Null Check Flags are not equal. Implementation: {p}, Expectation: {p2}",
+					this));
 
-                return;
-            }
+				return;
+			}
 
-            if (p.IsRestArgs != p2.IsRestArgs)
-            {
-                errors.Add(
-                    new BadInterfaceValidatorError(
-                        $"{f}: Parameter Rest Args Flags are not equal. Implementation: {p}, Expectation: {p2}",
-                        this
-                    )
-                );
+			if (p.IsRestArgs != p2.IsRestArgs)
+			{
+				errors.Add(new BadInterfaceValidatorError(
+					$"{f}: Parameter Rest Args Flags are not equal. Implementation: {p}, Expectation: {p2}",
+					this));
 
 
-                return;
-            }
+				return;
+			}
 
-            if (p.TypeExpr != null)
-            {
-                if (p2.Type != null && p.Type != p2.Type)
-                {
-                    errors.Add(
-                        new BadInterfaceValidatorError(
-                            $"{f}: Parameter Types not equal. Implementation: {p}, Expectation: {p2}",
-                            this
-                        )
-                    );
+			if (p.TypeExpr != null)
+			{
+				if (p2.Type != null && p.Type != p2.Type)
+				{
+					errors.Add(new BadInterfaceValidatorError(
+						$"{f}: Parameter Types not equal. Implementation: {p}, Expectation: {p2}",
+						this));
 
-                    return;
-                }
-            }
-        }
-    }
+					return;
+				}
+			}
+		}
+	}
 }

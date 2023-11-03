@@ -15,12 +15,12 @@ public class BadNetworkConsoleClientDisconnectCommand : BadNetworkConsoleClientC
 	/// </summary>
 	/// <param name="client">The Client that owns this command</param>
 	public BadNetworkConsoleClientDisconnectCommand(BadNetworkConsoleClient client) : base("disconnect")
-    {
-        m_Client = client;
-    }
+	{
+		m_Client = client;
+	}
 
-    public override void Invoke(string args)
-    {
-        m_Client.Stop();
-    }
+	public override void Invoke(string args)
+	{
+		m_Client.Stop();
+	}
 }

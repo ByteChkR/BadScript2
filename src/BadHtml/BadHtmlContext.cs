@@ -61,20 +61,20 @@ public class BadHtmlContext
 	/// <param name="source">The Source of the Template</param>
 	/// <param name="options">The Html Template Options</param>
 	public BadHtmlContext(
-        HtmlNode inputNode,
-        HtmlNode outputNode,
-        BadExecutionContext executionContext,
-        string filePath,
-        string source,
-        BadHtmlTemplateOptions options)
-    {
-        InputNode = inputNode;
-        OutputNode = outputNode;
-        ExecutionContext = executionContext;
-        FilePath = filePath;
-        Source = source;
-        Options = options;
-    }
+		HtmlNode inputNode,
+		HtmlNode outputNode,
+		BadExecutionContext executionContext,
+		string filePath,
+		string source,
+		BadHtmlTemplateOptions options)
+	{
+		InputNode = inputNode;
+		OutputNode = outputNode;
+		ExecutionContext = executionContext;
+		FilePath = filePath;
+		Source = source;
+		Options = options;
+	}
 
 	/// <summary>
 	///     The Input Document
@@ -97,19 +97,17 @@ public class BadHtmlContext
 	/// </param>
 	/// <returns>Child Context</returns>
 	public BadHtmlContext CreateChild(
-        HtmlNode inputNode,
-        HtmlNode outputNode,
-        BadExecutionContext? executionContext = null)
-    {
-        return new BadHtmlContext(
-            inputNode,
-            outputNode,
-            executionContext ?? ExecutionContext,
-            FilePath,
-            Source,
-            Options
-        );
-    }
+		HtmlNode inputNode,
+		HtmlNode outputNode,
+		BadExecutionContext? executionContext = null)
+	{
+		return new BadHtmlContext(inputNode,
+			outputNode,
+			executionContext ?? ExecutionContext,
+			FilePath,
+			Source,
+			Options);
+	}
 
 	/// <summary>
 	///     Creates the Source Position of the specified Attribute
@@ -117,27 +115,27 @@ public class BadHtmlContext
 	/// <param name="attribute">The Attribute</param>
 	/// <returns>Source Position</returns>
 	public BadSourcePosition CreateAttributePosition(HtmlAttribute attribute)
-    {
-        return new BadSourcePosition(FilePath, Source, attribute.ValueStartIndex, attribute.Value.Length);
-    }
+	{
+		return new BadSourcePosition(FilePath, Source, attribute.ValueStartIndex, attribute.Value.Length);
+	}
 
 	/// <summary>
 	///     Creates the Source Position of the current Input Nodes Inner Content
 	/// </summary>
 	/// <returns>Source Position</returns>
 	public BadSourcePosition CreateInnerPosition()
-    {
-        return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
-    }
+	{
+		return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
+	}
 
 	/// <summary>
 	///     Creates the Source Position of the current Input Nodes Outer Content
 	/// </summary>
 	/// <returns>Source Position</returns>
 	public BadSourcePosition CreateOuterPosition()
-    {
-        return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
-    }
+	{
+		return new BadSourcePosition(FilePath, Source, InputNode.InnerStartIndex, InputNode.InnerLength);
+	}
 
 	/// <summary>
 	///     Returns an enumeration of all expressions in the specified expressions and their descendants
@@ -145,135 +143,129 @@ public class BadHtmlContext
 	/// <param name="expressions">The Expression Enumeration</param>
 	/// <returns>Enumeration of all Expressions in the Tree</returns>
 	private IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
-    {
-        foreach (BadExpression expression in expressions)
-        {
-            foreach (BadExpression innerExpression in expression.GetDescendantsAndSelf())
-            {
-                yield return innerExpression;
-            }
-        }
-    }
+	{
+		foreach (BadExpression expression in expressions)
+		{
+			foreach (BadExpression innerExpression in expression.GetDescendantsAndSelf())
+			{
+				yield return innerExpression;
+			}
+		}
+	}
 
-    public BadExpression ParseSingle(string code, BadSourcePosition pos)
-    {
-        try
-        {
-            BadSourceParser parser = BadSourceParser.Create(FilePath, code);
-            BadExpression expression = parser.ParseExpression();
-            foreach (BadExpression expr in expression.GetDescendantsAndSelf())
-            {
-                BadSourcePosition newPosition = BadSourcePosition.Create(
-                    FilePath,
-                    Source,
-                    pos.Index + expr.Position.Index,
-                    expr.Position.Length
-                );
-                expr.SetPosition(newPosition);
-            }
+	public BadExpression ParseSingle(string code, BadSourcePosition pos)
+	{
+		try
+		{
+			BadSourceParser parser = BadSourceParser.Create(FilePath, code);
+			BadExpression expression = parser.ParseExpression();
 
-            return expression;
-        }
-        catch (BadSourceReaderException e)
-        {
-            if (e.Position == null)
-            {
-                throw new BadSourceReaderException(e.OriginalMessage, pos);
-            }
+			foreach (BadExpression expr in expression.GetDescendantsAndSelf())
+			{
+				BadSourcePosition newPosition = BadSourcePosition.Create(FilePath,
+					Source,
+					pos.Index + expr.Position.Index,
+					expr.Position.Length);
+				expr.SetPosition(newPosition);
+			}
 
-            throw new BadSourceReaderException(
-                e.OriginalMessage,
-                BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length)
-            );
-        }
-    }
+			return expression;
+		}
+		catch (BadSourceReaderException e)
+		{
+			if (e.Position == null)
+			{
+				throw new BadSourceReaderException(e.OriginalMessage, pos);
+			}
 
-    /// <summary>
-    ///     Parses the specified code and returns the expressions with their positions set to the specified position
-    /// </summary>
-    /// <param name="code">The Bad Script Source Code</param>
-    /// <param name="pos">The Source Position of the Code</param>
-    /// <returns>Parsed Expressions</returns>
-    /// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
-    public BadExpression[] Parse(string code, BadSourcePosition pos)
-    {
-        try
-        {
-            BadExpression[] expressions = BadSourceParser.Parse(FilePath, code).ToArray();
+			throw new BadSourceReaderException(e.OriginalMessage,
+				BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length));
+		}
+	}
 
-            foreach (BadExpression expression in VisitAll(expressions))
-            {
-                BadSourcePosition newPosition = BadSourcePosition.Create(
-                    FilePath,
-                    Source,
-                    pos.Index + expression.Position.Index,
-                    expression.Position.Length
-                );
-                expression.SetPosition(newPosition);
-            }
+	/// <summary>
+	///     Parses the specified code and returns the expressions with their positions set to the specified position
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>Parsed Expressions</returns>
+	/// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
+	public BadExpression[] Parse(string code, BadSourcePosition pos)
+	{
+		try
+		{
+			BadExpression[] expressions = BadSourceParser.Parse(FilePath, code).ToArray();
 
-            return expressions;
-        }
-        catch (BadSourceReaderException e)
-        {
-            if (e.Position == null)
-            {
-                throw new BadSourceReaderException(e.OriginalMessage, pos);
-            }
+			foreach (BadExpression expression in VisitAll(expressions))
+			{
+				BadSourcePosition newPosition = BadSourcePosition.Create(FilePath,
+					Source,
+					pos.Index + expression.Position.Index,
+					expression.Position.Length);
+				expression.SetPosition(newPosition);
+			}
 
-            throw new BadSourceReaderException(
-                e.OriginalMessage,
-                BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length)
-            );
-        }
-    }
+			return expressions;
+		}
+		catch (BadSourceReaderException e)
+		{
+			if (e.Position == null)
+			{
+				throw new BadSourceReaderException(e.OriginalMessage, pos);
+			}
 
-    /// <summary>
-    ///     Executes the specified expressions
-    /// </summary>
-    /// <param name="expressions">The Expressions</param>
-    /// <returns>The Result of the Execution</returns>
-    /// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
-    public BadObject Execute(BadExpression[] expressions)
-    {
-        BadObject result = ExecutionContext.ExecuteScript(expressions);
+			throw new BadSourceReaderException(e.OriginalMessage,
+				BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length));
+		}
+	}
 
-        if (ExecutionContext.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
-        }
+	/// <summary>
+	///     Executes the specified expressions
+	/// </summary>
+	/// <param name="expressions">The Expressions</param>
+	/// <returns>The Result of the Execution</returns>
+	/// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
+	public BadObject Execute(BadExpression[] expressions)
+	{
+		BadObject result = ExecutionContext.ExecuteScript(expressions);
 
-        return result.Dereference();
-    }
+		if (ExecutionContext.Scope.IsError)
+		{
+			throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
+		}
 
-    public BadObject Execute(BadExpression expression)
-    {
-        BadObject result = ExecutionContext.ExecuteScript(expression);
-        if (ExecutionContext.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
-        }
+		return result.Dereference();
+	}
 
-        return result.Dereference();
-    }
+	public BadObject Execute(BadExpression expression)
+	{
+		BadObject result = ExecutionContext.ExecuteScript(expression);
 
-    /// <summary>
-    ///     Parses and executes the specified code
-    /// </summary>
-    /// <param name="code">The Bad Script Source Code</param>
-    /// <param name="pos">The Source Position of the Code</param>
-    /// <returns>The Result of the Execution</returns>
-    public BadObject ParseAndExecute(string code, BadSourcePosition pos)
-    {
-        BadExpression[] expressions = Parse(code, pos);
+		if (ExecutionContext.Scope.IsError)
+		{
+			throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
+		}
 
-        return Execute(expressions);
-    }
+		return result.Dereference();
+	}
 
-    public BadObject ParseAndExecuteSingle(string code, BadSourcePosition pos)
-    {
-        BadExpression expression = ParseSingle(code, pos);
+	/// <summary>
+	///     Parses and executes the specified code
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>The Result of the Execution</returns>
+	public BadObject ParseAndExecute(string code, BadSourcePosition pos)
+	{
+		BadExpression[] expressions = Parse(code, pos);
 
-        return Execute(expression);
-    }
+		return Execute(expressions);
+	}
+
+	public BadObject ParseAndExecuteSingle(string code, BadSourcePosition pos)
+	{
+		BadExpression expression = ParseSingle(code, pos);
+
+		return Execute(expression);
+	}
 }

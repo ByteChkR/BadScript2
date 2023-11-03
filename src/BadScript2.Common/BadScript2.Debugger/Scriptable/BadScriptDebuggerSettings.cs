@@ -14,10 +14,8 @@ public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSe
 	///     The File Path to the Debugger
 	/// </summary>
 	private readonly BadEditableSetting<BadScriptDebuggerSettings, string> m_DebuggerPath =
-        new BadEditableSetting<BadScriptDebuggerSettings, string>(
-            "Path",
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "subsystems", "run", "Debugger.bs")
-        );
+		new BadEditableSetting<BadScriptDebuggerSettings, string>("Path",
+			Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "subsystems", "run", "Debugger.bs"));
 
 	/// <summary>
 	///     Constructs a new BadScriptDebuggerSettings instance
@@ -28,8 +26,8 @@ public class BadScriptDebuggerSettings : BadSettingsProvider<BadScriptDebuggerSe
 	///     The File Path to the Debugger
 	/// </summary>
 	public string DebuggerPath
-    {
-        get => m_DebuggerPath.GetValue()!;
-        set => m_DebuggerPath.Set(value);
-    }
+	{
+		get => m_DebuggerPath.GetValue()!;
+		set => m_DebuggerPath.Set(value);
+	}
 }

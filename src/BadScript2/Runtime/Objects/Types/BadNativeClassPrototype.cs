@@ -5,7 +5,7 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 /// <typeparam name="T">Native Type</typeparam>
 public class BadNativeClassPrototype<T> : BadANativeClassPrototype
-    where T : BadObject
+	where T : BadObject
 {
     /// <summary>
     ///     Creates a new Native Class Prototype
@@ -13,21 +13,21 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     /// <param name="name">Class Name</param>
     /// <param name="func">Class Constructor</param>
     public BadNativeClassPrototype(
-        string name,
-        Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, func) { }
+		string name,
+		Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, func) { }
 
-    public override bool IsAssignableFrom(BadObject obj)
-    {
-        if (obj == Null)
-        {
-            return true;
-        }
+	public override bool IsAssignableFrom(BadObject obj)
+	{
+		if (obj == Null)
+		{
+			return true;
+		}
 
-        if (obj is T)
-        {
-            return true;
-        }
+		if (obj is T)
+		{
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

@@ -10,7 +10,7 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public abstract class BadRunnable
 {
-    public BadRuntimeError? Error { get; private set; }
+	public BadRuntimeError? Error { get; private set; }
 
     /// <summary>
     ///     Empty Runnable
@@ -28,10 +28,10 @@ public abstract class BadRunnable
     /// <returns>The Return Value</returns>
     public abstract BadObject GetReturn();
 
-    public void SetError(BadRuntimeError err)
-    {
-        Error = err;
-    }
+	public void SetError(BadRuntimeError err)
+	{
+		Error = err;
+	}
 
     /// <summary>
     ///     Creates a Runnable from an Enumeration
@@ -39,9 +39,9 @@ public abstract class BadRunnable
     /// <param name="e">Enumeration</param>
     /// <returns>Runnable</returns>
     public static BadRunnable Create(IEnumerable<BadObject> e)
-    {
-        return Create(e.GetEnumerator());
-    }
+	{
+		return Create(e.GetEnumerator());
+	}
 
     /// <summary>
     ///     Creates a Runnable from an Enumeration
@@ -49,9 +49,9 @@ public abstract class BadRunnable
     /// <param name="e">Enumerator</param>
     /// <returns>Runnable</returns>
     public static BadRunnable Create(IEnumerator<BadObject> e)
-    {
-        return new BadRunnableImpl(e);
-    }
+	{
+		return new BadRunnableImpl(e);
+	}
 
     /// <summary>
     ///     Creates a Runnable from a Function
@@ -61,52 +61,52 @@ public abstract class BadRunnable
     /// <param name="args">Function Arguments</param>
     /// <returns>Runnable</returns>
     public static BadRunnable Create(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
-    {
-        return new BadFunctionRunnable(func, ctx, args);
-    }
+	{
+		return new BadFunctionRunnable(func, ctx, args);
+	}
 
     /// <summary>
     ///     Implements the 'Empty' Runnable
     /// </summary>
     private class BadEmptyRunnable : BadRunnable
-    {
-        public override IEnumerator<BadObject> Enumerator => Enumerable.Empty<BadObject>().GetEnumerator();
+	{
+		public override IEnumerator<BadObject> Enumerator => Enumerable.Empty<BadObject>().GetEnumerator();
 
-        public override BadObject GetReturn()
-        {
-            return BadObject.Null;
-        }
-    }
+		public override BadObject GetReturn()
+		{
+			return BadObject.Null;
+		}
+	}
 
 
     /// <summary>
     ///     Implements the Runnable
     /// </summary>
     private class BadRunnableImpl : BadRunnable
-    {
+	{
         /// <summary>
         ///     Constructor
         /// </summary>
         /// <param name="enumerator">Enumeration</param>
         public BadRunnableImpl(IEnumerator<BadObject> enumerator)
-        {
-            Enumerator = enumerator;
-        }
+		{
+			Enumerator = enumerator;
+		}
 
-        public override IEnumerator<BadObject> Enumerator { get; }
+		public override IEnumerator<BadObject> Enumerator { get; }
 
-        public override BadObject GetReturn()
-        {
-            return BadObject.Null;
-        }
-    }
+		public override BadObject GetReturn()
+		{
+			return BadObject.Null;
+		}
+	}
 
     /// <summary>
     ///     Implements a Function Runnable
     /// </summary>
     private class BadFunctionRunnable : BadRunnable
-    {
-        private BadExecutionContext m_ExecutionContext;
+	{
+		private BadExecutionContext m_ExecutionContext;
 
         /// <summary>
         ///     The Return Value
@@ -120,12 +120,12 @@ public abstract class BadRunnable
         /// <param name="ctx">Execution Context</param>
         /// <param name="args">Function Arguments</param>
         public BadFunctionRunnable(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
-        {
-            m_ExecutionContext = ctx;
-            Enumerator = RunnableFunction(func, ctx, args).GetEnumerator();
-        }
+		{
+			m_ExecutionContext = ctx;
+			Enumerator = RunnableFunction(func, ctx, args).GetEnumerator();
+		}
 
-        public override IEnumerator<BadObject> Enumerator { get; }
+		public override IEnumerator<BadObject> Enumerator { get; }
 
 
         /// <summary>
@@ -136,25 +136,25 @@ public abstract class BadRunnable
         /// <param name="args">Function Arguments</param>
         /// <returns>Enumeration</returns>
         private IEnumerable<BadObject> RunnableFunction(
-            BadFunction func,
-            BadExecutionContext ctx,
-            params BadObject[] args)
-        {
-            BadObject obj = BadObject.Null;
+			BadFunction func,
+			BadExecutionContext ctx,
+			params BadObject[] args)
+		{
+			BadObject obj = BadObject.Null;
 
-            foreach (BadObject o in func.Invoke(args, ctx))
-            {
-                obj = o;
+			foreach (BadObject o in func.Invoke(args, ctx))
+			{
+				obj = o;
 
-                yield return o;
-            }
+				yield return o;
+			}
 
-            m_ReturnValue = obj.Dereference();
-        }
+			m_ReturnValue = obj.Dereference();
+		}
 
-        public override BadObject GetReturn()
-        {
-            return m_ReturnValue;
-        }
-    }
+		public override BadObject GetReturn()
+		{
+			return m_ReturnValue;
+		}
+	}
 }

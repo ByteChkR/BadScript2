@@ -8,35 +8,35 @@ namespace BadScript2.Reader;
 /// </summary>
 public class BadSourceReader
 {
-    private readonly int m_EndIndex;
+	private readonly int m_EndIndex;
 
     /// <summary>
     ///     The Source Code
     /// </summary>
     private readonly string m_Source;
 
-    private readonly int m_StartIndex;
+	private readonly int m_StartIndex;
 
 
-    public BadSourceReader(string fileName, string source, int start, int end)
-    {
-        FileName = fileName;
-        m_Source = source;
+	public BadSourceReader(string fileName, string source, int start, int end)
+	{
+		FileName = fileName;
+		m_Source = source;
 
-        if (start < 0 || start >= end)
-        {
-            throw new ArgumentOutOfRangeException(nameof(start));
-        }
+		if (start < 0 || start >= end)
+		{
+			throw new ArgumentOutOfRangeException(nameof(start));
+		}
 
-        if (end > source.Length)
-        {
-            throw new ArgumentOutOfRangeException(nameof(end));
-        }
+		if (end > source.Length)
+		{
+			throw new ArgumentOutOfRangeException(nameof(end));
+		}
 
-        m_StartIndex = start;
-        m_EndIndex = end;
-        CurrentIndex = start;
-    }
+		m_StartIndex = start;
+		m_EndIndex = end;
+		CurrentIndex = start;
+	}
 
     /// <summary>
     ///     Creates a new Source Code Reader
@@ -45,9 +45,9 @@ public class BadSourceReader
     /// <param name="source">The Source Code</param>
     public BadSourceReader(string fileName, string source) : this(fileName, source, 0, source.Length) { }
 
-    public string Preview => IsEof() ? "END OF FILE" : Source.Substring(CurrentIndex);
+	public string Preview => IsEof() ? "END OF FILE" : Source.Substring(CurrentIndex);
 
-    public string Source => m_Source.Substring(m_StartIndex, m_EndIndex - m_StartIndex);
+	public string Source => m_Source.Substring(m_StartIndex, m_EndIndex - m_StartIndex);
 
     /// <summary>
     ///     The Filename of the Source Code
@@ -69,9 +69,9 @@ public class BadSourceReader
     /// </summary>
     /// <param name="index">The new Index</param>
     public void SetPosition(int index)
-    {
-        CurrentIndex = index;
-    }
+	{
+		CurrentIndex = index;
+	}
 
     /// <summary>
     ///     Creates a new Source Code Reader from a File
@@ -79,9 +79,9 @@ public class BadSourceReader
     /// <param name="fileName">The File Name</param>
     /// <returns>BadSourceReader instance with the contents of the specified file.</returns>
     public static BadSourceReader FromFile(string fileName)
-    {
-        return new BadSourceReader(fileName, BadFileSystem.ReadAllText(fileName));
-    }
+	{
+		return new BadSourceReader(fileName, BadFileSystem.ReadAllText(fileName));
+	}
 
     /// <summary>
     ///     Returns true if the reader is at the end of the source code
@@ -89,9 +89,9 @@ public class BadSourceReader
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Reader is at the end of the source code.</returns>
     public bool IsEof(int offset = 0)
-    {
-        return CurrentIndex + offset >= m_EndIndex && CurrentIndex + offset >= m_StartIndex;
-    }
+	{
+		return CurrentIndex + offset >= m_EndIndex && CurrentIndex + offset >= m_StartIndex;
+	}
 
     /// <summary>
     ///     Creates a source position with the specified length and the current index of the reader.
@@ -99,9 +99,9 @@ public class BadSourceReader
     /// <param name="length">The Length of the Position</param>
     /// <returns>A new BadSourcePosition Instance.</returns>
     public BadSourcePosition MakeSourcePosition(int length)
-    {
-        return MakeSourcePosition(CurrentIndex, length);
-    }
+	{
+		return MakeSourcePosition(CurrentIndex, length);
+	}
 
     /// <summary>
     ///     Creates a source position with the specified length and index.
@@ -110,9 +110,9 @@ public class BadSourceReader
     /// <param name="length">The Length of the Position</param>
     /// <returns>A new BadSourcePosition Instance.</returns>
     public BadSourcePosition MakeSourcePosition(int index, int length)
-    {
-        return BadSourcePosition.Create(FileName, m_Source, index, length);
-    }
+	{
+		return BadSourcePosition.Create(FileName, m_Source, index, length);
+	}
 
     /// <summary>
     ///     Returns the Current Character
@@ -120,17 +120,17 @@ public class BadSourceReader
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>Current Character. EOF if IsEOF(offset) equals true.</returns>
     public char GetCurrentChar(int offset = 0)
-    {
-        return IsEof(offset) ? '\0' : m_Source[CurrentIndex + offset];
-    }
+	{
+		return IsEof(offset) ? '\0' : m_Source[CurrentIndex + offset];
+	}
 
     /// <summary>
     ///     Moves the Reader to the next character in the source code.
     /// </summary>
     public void MoveNext()
-    {
-        CurrentIndex++;
-    }
+	{
+		CurrentIndex++;
+	}
 
     /// <summary>
     ///     Returns true if the current character matches the specified character.
@@ -139,9 +139,9 @@ public class BadSourceReader
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the Character matches the current one.</returns>
     public bool Is(char c, int offset = 0)
-    {
-        return GetCurrentChar(offset) == c;
-    }
+	{
+		return GetCurrentChar(offset) == c;
+	}
 
     /// <summary>
     ///     Returns true if the string matches the specified character.
@@ -150,17 +150,17 @@ public class BadSourceReader
     /// <param name="offset">The Offset from the Current Reader Position</param>
     /// <returns>True if the string matches the current one.</returns>
     public bool Is(string s, int offset = 0)
-    {
-        for (int i = 0; i < s.Length; i++)
-        {
-            if (!Is(s[i], offset + i))
-            {
-                return false;
-            }
-        }
+	{
+		for (int i = 0; i < s.Length; i++)
+		{
+			if (!Is(s[i], offset + i))
+			{
+				return false;
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
     /// <summary>
     ///     Returns true if any of the characters match the specified character.
@@ -168,9 +168,9 @@ public class BadSourceReader
     /// <param name="chars">The Characters to be matched.</param>
     /// <returns>True if any of the characters  matches the current one.</returns>
     public bool Is(params char[] chars)
-    {
-        return Is(0, chars);
-    }
+	{
+		return Is(0, chars);
+	}
 
     /// <summary>
     ///     Returns true if any of the strings match the specified character.
@@ -178,9 +178,9 @@ public class BadSourceReader
     /// <param name="s">The strings to be matched.</param>
     /// <returns>True if any of the strings  matches the current one.</returns>
     public bool Is(params string[] s)
-    {
-        return Is(0, s);
-    }
+	{
+		return Is(0, s);
+	}
 
     /// <summary>
     ///     Returns true if any of the characters match the specified character.
@@ -189,9 +189,9 @@ public class BadSourceReader
     /// <param name="chars">The Characters to be matched.</param>
     /// <returns>True if any of the characters match the current one.</returns>
     public bool Is(int offset, params char[] chars)
-    {
-        return chars.Any(x => Is(x, offset));
-    }
+	{
+		return chars.Any(x => Is(x, offset));
+	}
 
     /// <summary>
     ///     Returns true if any of the strings match the specified String.
@@ -200,9 +200,9 @@ public class BadSourceReader
     /// <param name="s">The strings to be matched.</param>
     /// <returns>True if any of the strings match the current one.</returns>
     public bool Is(int offset, params string[] s)
-    {
-        return s.Any(x => Is(x, offset));
-    }
+	{
+		return s.Any(x => Is(x, offset));
+	}
 
 
     /// <summary>
@@ -212,19 +212,17 @@ public class BadSourceReader
     /// <returns>The Source Position (Current Reader position with length 1) of the Character</returns>
     /// <exception cref="BadSourceReaderException">Gets raised if the character does not match the specified one</exception>
     public BadSourcePosition Eat(char c)
-    {
-        if (!Is(c))
-        {
-            throw new BadSourceReaderException(
-                $"Expected '{c}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                MakeSourcePosition(1)
-            );
-        }
+	{
+		if (!Is(c))
+		{
+			throw new BadSourceReaderException($"Expected '{c}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+				MakeSourcePosition(1));
+		}
 
-        MoveNext();
+		MoveNext();
 
-        return MakeSourcePosition(1);
-    }
+		return MakeSourcePosition(1);
+	}
 
     /// <summary>
     ///     Asserts that the current character matches one of the specified characters.
@@ -233,19 +231,18 @@ public class BadSourceReader
     /// <returns>The Source Position (Current Reader position with length 1) of the Character</returns>
     /// <exception cref="BadSourceReaderException">Gets raised if the character does not match any of the specified ones</exception>
     public BadSourcePosition Eat(params char[] c)
-    {
-        if (c.Any(x => Is(x)))
-        {
-            MoveNext();
+	{
+		if (c.Any(x => Is(x)))
+		{
+			MoveNext();
 
-            return MakeSourcePosition(1);
-        }
+			return MakeSourcePosition(1);
+		}
 
-        throw new BadSourceReaderException(
-            $"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-            MakeSourcePosition(1)
-        );
-    }
+		throw new BadSourceReaderException(
+			$"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+			MakeSourcePosition(1));
+	}
 
     /// <summary>
     ///     Asserts that the current String matches the specified String.
@@ -254,24 +251,22 @@ public class BadSourceReader
     /// <returns>The Source Position (Current Reader position with length of the string) of the Character</returns>
     /// <exception cref="BadSourceReaderException">Gets raised if the String does not match the specified one</exception>
     public BadSourcePosition Eat(string s)
-    {
-        int start = CurrentIndex;
+	{
+		int start = CurrentIndex;
 
-        for (int i = 0; i < s.Length; i++)
-        {
-            if (!Is(s[i]))
-            {
-                throw new BadSourceReaderException(
-                    $"Expected '{s}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                    MakeSourcePosition(start, i)
-                );
-            }
+		for (int i = 0; i < s.Length; i++)
+		{
+			if (!Is(s[i]))
+			{
+				throw new BadSourceReaderException($"Expected '{s}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+					MakeSourcePosition(start, i));
+			}
 
-            MoveNext();
-        }
+			MoveNext();
+		}
 
-        return MakeSourcePosition(start, s.Length);
-    }
+		return MakeSourcePosition(start, s.Length);
+	}
 
     /// <summary>
     ///     Asserts that the current string matches one of the specified strings.
@@ -280,102 +275,101 @@ public class BadSourceReader
     /// <returns>The Source Position (Current Reader position with length of the string) of the string</returns>
     /// <exception cref="BadSourceReaderException">Gets raised if the string does not match any of the specified ones</exception>
     public BadSourcePosition Eat(params string[] s)
-    {
-        string? str = s.FirstOrDefault(x => Is(x));
+	{
+		string? str = s.FirstOrDefault(x => Is(x));
 
-        if (str == null)
-        {
-            throw new BadSourceReaderException(
-                $"Expected '{string.Join("' or '", s)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                MakeSourcePosition(1)
-            );
-        }
+		if (str == null)
+		{
+			throw new BadSourceReaderException(
+				$"Expected '{string.Join("' or '", s)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+				MakeSourcePosition(1));
+		}
 
-        return Eat(str);
-    }
+		return Eat(str);
+	}
 
     /// <summary>
     ///     Skips over any character that is not equal to the specified character.
     /// </summary>
     /// <param name="c">The character to be matched.</param>
     public void Seek(char c)
-    {
-        while (!IsEof() && GetCurrentChar() != c)
-        {
-            MoveNext();
-        }
-    }
+	{
+		while (!IsEof() && GetCurrentChar() != c)
+		{
+			MoveNext();
+		}
+	}
 
     /// <summary>
     ///     Skips over any string that is not equal to the specified string.
     /// </summary>
     /// <param name="s">The string to be matched.</param>
     public void Seek(string s)
-    {
-        while (!IsEof() && !Is(s))
-        {
-            MoveNext();
-        }
-    }
+	{
+		while (!IsEof() && !Is(s))
+		{
+			MoveNext();
+		}
+	}
 
     /// <summary>
     ///     Skips over any character that is not equal to any of the specified characters.
     /// </summary>
     /// <param name="c">The characters to be matched.</param>
     public void Seek(params char[] c)
-    {
-        while (!IsEof() && !Is(c))
-        {
-            MoveNext();
-        }
-    }
+	{
+		while (!IsEof() && !Is(c))
+		{
+			MoveNext();
+		}
+	}
 
     /// <summary>
     ///     Skips over any character that is not equal to any of the specified strings.
     /// </summary>
     /// <param name="s">The strings to be matched.</param>
     public void Seek(params string[] s)
-    {
-        while (!IsEof() && !Is(s))
-        {
-            MoveNext();
-        }
-    }
+	{
+		while (!IsEof() && !Is(s))
+		{
+			MoveNext();
+		}
+	}
 
     /// <summary>
     ///     If the current character is equal to the specified character, it will be skipped.
     /// </summary>
     /// <param name="c">The character to be matched.</param>
     public void Skip(char c)
-    {
-        if (Is(c))
-        {
-            MoveNext();
-        }
-    }
+	{
+		if (Is(c))
+		{
+			MoveNext();
+		}
+	}
 
     /// <summary>
     ///     If the current character is equal to any of the specified characters, it will be skipped.
     /// </summary>
     /// <param name="c">The characters to be matched.</param>
     public void Skip(params char[] c)
-    {
-        bool exit = false;
+	{
+		bool exit = false;
 
-        while (!exit)
-        {
-            exit = true;
+		while (!exit)
+		{
+			exit = true;
 
-            foreach (char ch in c)
-            {
-                if (Is(ch))
-                {
-                    MoveNext();
-                    exit = false;
+			foreach (char ch in c)
+			{
+				if (Is(ch))
+				{
+					MoveNext();
+					exit = false;
 
-                    break;
-                }
-            }
-        }
-    }
+					break;
+				}
+			}
+		}
+	}
 }

@@ -11,5 +11,5 @@ public class BadSettingsSystemSettings
 	///     Name of the Settings to Display
 	/// </summary>
 	[Value(0, Required = true, HelpText = "The name of the setting")]
-    public string Path { get; set; } = "";
+	public string Path { get; set; } = "";
 }
