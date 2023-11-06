@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>BadHtml</id>
+    <version>1.0.0</version>
+    <authors>BadHtml</authors>
+    <icon>Logo.png</icon>
+    <description>Html Templating Engine</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="BadScript2.Debugger" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Common" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.IO" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Json" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Linq" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="HtmlAgilityPack" version="1.11.53" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="./bin/Release/netstandard2.0/BadHtml.dll" target="lib/netstandard2.0/BadHtml.dll" />
+    <file src="../../res/Logo.png" target="Logo.png" />
+  </files>
+</package>

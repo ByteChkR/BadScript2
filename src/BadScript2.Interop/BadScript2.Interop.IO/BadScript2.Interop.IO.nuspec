@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>BadScript2.Interop.IO</id>
+    <version>1.0.0</version>
+    <authors>BadScript2.Interop.IO</authors>
+    <description>IO Api</description>
+    <icon>Logo.png</icon>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="BadScript2.Interop.Common" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.IO.dll" target="lib/netstandard2.0/BadScript2.Interop.IO.dll" />
+    <file src="../../../res/Logo.png" target="Logo.png" />
+  </files>
+</package>
