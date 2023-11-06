@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>BadScript2.Full</id>
+    <authors>BadScript2.Full</authors>
+    <icon>Logo.png</icon>
+    <description>BadScript2 Meta Package</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="BadScript2" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Debugger" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interactive" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.ConsoleAbstraction" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Common" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Compression" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Html" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.IO" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Json" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Linq" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Net" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.NetHost" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.NUnit" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadHtml" version="23.11.6.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <version xmlns="">23.11.6.2</version>
+  </metadata>
+  <files>
+    <file src="../res/Logo.png" target="Logo.png" />
+  </files>
+</package>
