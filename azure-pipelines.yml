@@ -34,18 +34,19 @@ steps:
     command: 'test'
     projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
     testRunTitle: 'Run Unit Tests'
-- task: NuGetCommand@2
-  displayName: Build BadScript2 Packages
+- task: DotNetCoreCLI@2
+  displayName: Pack Nuget Packages
   inputs:
     command: 'pack'
-    packagesToPack: './src/**/*.nuspec'
+    packagesToPack: '**/*.nuspec'
+    includesymbols: true
+    includesource: true
     versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   displayName: Publish Nuget Packages
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
 - task: Bash@3
