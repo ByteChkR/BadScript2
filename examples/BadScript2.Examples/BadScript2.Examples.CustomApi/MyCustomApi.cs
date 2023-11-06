@@ -66,6 +66,7 @@ public class MyCustomApi : BadInteropApi
 
                     return BadObject.Null;
                 },
+                false,
                 "name", //Implicit Cast
                 new BadFunctionParameter( //Explicit Creation of the parameters
                     "description", //Parameter Name
