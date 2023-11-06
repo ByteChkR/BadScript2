@@ -24,6 +24,11 @@ steps:
     feedsToUse: 'select'
     vstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
 - task: DotNetCoreCLI@2
+  displayName: Build Projects
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+- task: DotNetCoreCLI@2
   displayName: Run Unit Tests
   inputs:
     command: 'test'
