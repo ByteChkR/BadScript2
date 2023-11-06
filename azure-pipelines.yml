@@ -29,12 +29,18 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '-c Release'
+- task: PowerShell@2
+  displayName: Update Nuspec Version
+  inputs:
+    filePath: './newNugetVersion.ps1'
+    arguments: '-version $(Build.BuildNumber)'
 - task: DotNetCoreCLI@2
   displayName: Run Unit Tests
   inputs:
     command: 'test'
     projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
     testRunTitle: 'Run Unit Tests'
+
 - task: DotNetCoreCLI@2
   displayName: Pack Nuget Packages
   inputs:
