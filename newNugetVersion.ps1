@@ -1,5 +1,5 @@
 param ($version="(~){yy}.(~){MM}.(~){dd}.+", $sources="./src")
-. ./build.ps1 -noProjects -noTests -writeLog
+. ./build.ps1 -noProjects -noTests
 
 $bs = "$pwd/build/"
 

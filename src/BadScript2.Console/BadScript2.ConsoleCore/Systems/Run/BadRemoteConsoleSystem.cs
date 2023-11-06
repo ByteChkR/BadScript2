@@ -14,6 +14,6 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         BadNetworkConsoleClient client = new BadNetworkConsoleClient(settings.Host, settings.Port);
         client.Start();
 
-        return -1;
+        return 0;
     }
 }

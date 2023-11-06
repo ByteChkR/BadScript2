@@ -190,6 +190,6 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         host?.Stop();
 
-        return -1;
+        return 0;
     }
 }

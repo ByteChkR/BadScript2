@@ -26,8 +26,6 @@ public class BadXmlApi : BadInteropApi
     {
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(s);
-
-
         return new BadReflectedObject(doc);
     }
 

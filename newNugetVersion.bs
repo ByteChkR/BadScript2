@@ -1,4 +1,4 @@
-function FindNode(n, name)
+function FindNode(n, string name!)
 {
 	foreach(node in n)
 	{
@@ -22,7 +22,7 @@ function ChangeVersion(string file!, string versionFormat!)
 	const metadata = FindNode(package, "metadata");
 	if(metadata == null)
 	{
-		Console.WriteLine($"Could not find 'meta' element in {file}::package");
+		Console.WriteLine($"Could not find 'metadata' element in {file}::package");
 		return;
 	}
 
@@ -37,29 +37,94 @@ function ChangeVersion(string file!, string versionFormat!)
 	const version = new Version(versionElement.InnerText);
 	const newVersion = version.ChangeVersion(versionFormat);
 
-	Console.WriteLine($"\t{version} => {newVersion}");
 	versionElement.InnerText = newVersion.ToString();
 	content.Save(file);
+	return newVersion.ToString();
 }
 
+function ChangeDependencies(string file!, Table versionTable!)
+{
+	const content = Xml.Load(IO.File.ReadAllText(file));
+	const name = IO.Path.GetFileNameWithoutExtension(file);
+	const package = FindNode(content, "package");
+	if(package == null)
+	{
+		Console.WriteLine($"Could not find 'package' element in {file}");
+		return;
+	}
+	
+	const metadata = FindNode(package, "metadata");
+	if(metadata == null)
+	{
+		Console.WriteLine($"Could not find 'metadata' element in {file}::package");
+		return;
+	}
 
-function Main(args)
+	const dependenices = FindNode(metadata, "dependencies");
+	if(dependenices == null)
+	{
+		Console.WriteLine($"Could not find 'dependencies' element in {file}::package::metadata");
+		return;
+	}
+
+	let changed = false;
+	foreach(group in dependenices)
+	{
+		foreach(dependency in group)
+		{
+			const id = FindNode(dependency.Attributes, "id");
+			if(id.Value in versionTable)
+			{
+				const version = FindNode(dependency.Attributes, "version");
+				const newVersion = versionTable[id.Value];
+				Console.WriteLine($"{name} Updating Dependency: {id.Value} to {newVersion}");
+				version.Value = newVersion;
+				changed = true;
+			}
+		}
+	}
+
+	if(changed)
+	{
+		content.Save(file);
+	}
+}
+
+function Main(Array args!)
 {
 	const versionFormat = args.Length > 0 ? args[0] : "(~){yyyy}.(~){MM}.(~){dd}.+";
 	const sourceDir = args.Length > 1 ? args[1] : "./src";
+	const specFiles = IO.Directory.GetFiles(sourceDir, ".nuspec", true);
 	Console.WriteLine("Updating Nuget Versions");
-	foreach(file in IO.Directory.GetFiles(sourceDir, ".nuspec", true))
+
+	const versionTable = {};
+
+	foreach(file in specFiles)
 	{
-		Console.WriteLine("Updating File " + file);
+		const name = IO.Path.GetFileNameWithoutExtension(file);
 		try
 		{
-			ChangeVersion(file, versionFormat);
+			versionTable[name] = ChangeVersion(file, versionFormat);
 		}
 		catch(e)
 		{
-			Console.WriteLine($"Error: {e}");
+			throw e;
 		}
-		
+	}
+
+	Console.WriteLine($"New Versions: {versionTable}");
+
+	foreach(file in specFiles)
+	{
+		const name = IO.Path.GetFileNameWithoutExtension(file);
+		try
+		{
+			ChangeDependencies(file, versionTable);
+		}
+		catch(e)
+		{
+			throw e;
+		}
 	}
 }
 

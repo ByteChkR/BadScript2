@@ -18,7 +18,7 @@ public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
         {
             new AutoRun(typeof(BadUnitTests).Assembly).Execute(Array.Empty<string>());
 
-            return -1;
+            return 0;
         }
         catch (Exception e)
         {

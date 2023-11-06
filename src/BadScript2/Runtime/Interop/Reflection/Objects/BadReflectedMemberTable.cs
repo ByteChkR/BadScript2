@@ -72,7 +72,7 @@ public class BadReflectedMemberTable
 
         foreach (MemberInfo info in t.GetMembers())
         {
-            if (info is FieldInfo field)
+            if (info is FieldInfo field && !members.ContainsKey(field.Name))
             {
                 members.Add(field.Name, new BadReflectedField(field));
             }
@@ -85,7 +85,7 @@ public class BadReflectedMemberTable
                         members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(property.GetMethod));
                     }
                 }
-                else
+                else if(!members.ContainsKey(property.Name))
                 {
                     members.Add(property.Name, new BadReflectedProperty(property));
                 }
@@ -100,7 +100,7 @@ public class BadReflectedMemberTable
                 {
                     m.AddMethod(method);
                 }
-                else
+                else if(!members.ContainsKey(method.Name))
                 {
                     members.Add(method.Name, new BadReflectedMethod(method));
                 }

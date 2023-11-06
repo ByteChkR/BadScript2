@@ -105,6 +105,6 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
         host?.Stop();
 
-        return -1;
+        return 0;
     }
 }

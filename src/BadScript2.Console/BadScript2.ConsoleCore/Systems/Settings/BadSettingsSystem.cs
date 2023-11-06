@@ -15,6 +15,6 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
         BadSettings? setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
         BadConsole.WriteLine(setting?.ToString() ?? "null");
 
-        return -1;
+        return 0;
     }
 }
