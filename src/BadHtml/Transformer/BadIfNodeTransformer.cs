@@ -14,157 +14,142 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadIfNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
-    {
-        return context.InputNode.Name == "bs:if";
-    }
+	public override bool CanTransform(BadHtmlContext context)
+	{
+		return context.InputNode.Name == "bs:if";
+	}
 
-    private List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(BadHtmlContext context, HtmlNode node, out IEnumerable<HtmlNode>? elseBranch)
-    {
-        List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches = new List<(HtmlAttribute, IEnumerable<HtmlNode>)>();
-        List<HtmlNode> currentBranch = new List<HtmlNode>();
-        HtmlAttribute? conditionAttribute = node.Attributes["test"];
+	private List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(
+		BadHtmlContext context,
+		HtmlNode node,
+		out IEnumerable<HtmlNode>? elseBranch)
+	{
+		List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches = new List<(HtmlAttribute, IEnumerable<HtmlNode>)>();
+		List<HtmlNode> currentBranch = new List<HtmlNode>();
+		HtmlAttribute? conditionAttribute = node.Attributes["test"];
 
-        if (conditionAttribute == null)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'test' attribute in 'bs:if' node",
-                context.CreateOuterPosition()
-            );
-        }
+		if (conditionAttribute == null)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Missing 'test' attribute in 'bs:if' node",
+				context.CreateOuterPosition());
+		}
 
-        if (string.IsNullOrEmpty(conditionAttribute.Value))
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'test' attribute in 'bs:if' node",
-                context.CreateAttributePosition(conditionAttribute)
-            );
-        }
+		if (string.IsNullOrEmpty(conditionAttribute.Value))
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Empty 'test' attribute in 'bs:if' node",
+				context.CreateAttributePosition(conditionAttribute));
+		}
 
-        foreach (HtmlNode child in node.ChildNodes)
-        {
-            if (child.Name == "bs:else")
-            {
-                branches.Add((conditionAttribute!, currentBranch));
+		foreach (HtmlNode child in node.ChildNodes)
+		{
+			if (child.Name == "bs:else")
+			{
+				branches.Add((conditionAttribute!, currentBranch));
 
-                currentBranch = new List<HtmlNode>();
-                HtmlAttribute? nextCondition = child.Attributes["test"];
+				currentBranch = new List<HtmlNode>();
+				HtmlAttribute? nextCondition = child.Attributes["test"];
 
-                if (conditionAttribute == null)
-                {
-                    if (nextCondition != null)
-                    {
-                        throw BadRuntimeException.Create(
-                            context.ExecutionContext.Scope,
-                            "Found bs:else node with attribute 'test' after bs:else node without 'test' attribute",
-                            context.CreateAttributePosition(nextCondition)
-                        );
-                    }
+				if (conditionAttribute == null)
+				{
+					if (nextCondition != null)
+					{
+						throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+							"Found bs:else node with attribute 'test' after bs:else node without 'test' attribute",
+							context.CreateAttributePosition(nextCondition));
+					}
 
-                    throw BadRuntimeException.Create(
-                        context.ExecutionContext.Scope,
-                        "Found bs:else node after bs:else node without 'test' attribute",
-                        context.CreateInnerPosition()
-                    );
-                }
+					throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+						"Found bs:else node after bs:else node without 'test' attribute",
+						context.CreateInnerPosition());
+				}
 
-                conditionAttribute = child.Attributes["test"];
+				conditionAttribute = child.Attributes["test"];
 
-                if (conditionAttribute != null)
-                {
-                    if (string.IsNullOrEmpty(conditionAttribute.Value))
-                    {
-                        throw BadRuntimeException.Create(
-                            context.ExecutionContext.Scope,
-                            "Empty 'test' attribute in 'bs:else' node",
-                            context.CreateAttributePosition(conditionAttribute)
-                        );
-                    }
-                }
-            }
-            else
-            {
-                currentBranch.Add(child);
-            }
-        }
+				if (conditionAttribute != null)
+				{
+					if (string.IsNullOrEmpty(conditionAttribute.Value))
+					{
+						throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+							"Empty 'test' attribute in 'bs:else' node",
+							context.CreateAttributePosition(conditionAttribute));
+					}
+				}
+			}
+			else
+			{
+				currentBranch.Add(child);
+			}
+		}
 
-        if (conditionAttribute == null)
-        {
-            elseBranch = currentBranch;
-        }
-        else
-        {
-            elseBranch = null;
-            branches.Add((conditionAttribute, currentBranch));
-        }
+		if (conditionAttribute == null)
+		{
+			elseBranch = currentBranch;
+		}
+		else
+		{
+			elseBranch = null;
+			branches.Add((conditionAttribute, currentBranch));
+		}
 
-        return branches;
-    }
+		return branches;
+	}
 
-    private bool EvaluateCondition(BadHtmlContext context, HtmlAttribute conditionAttribute)
-    {
-        BadObject resultObj = context.ParseAndExecuteSingle(
-            conditionAttribute.Value,
-            context.CreateAttributePosition(conditionAttribute)
-        );
+	private bool EvaluateCondition(BadHtmlContext context, HtmlAttribute conditionAttribute)
+	{
+		BadObject resultObj = context.ParseAndExecuteSingle(conditionAttribute.Value,
+			context.CreateAttributePosition(conditionAttribute));
 
-        if (resultObj is not IBadBoolean result)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Result of 'test' attribute in 'bs:if' node is not a boolean",
-                context.CreateAttributePosition(conditionAttribute)
-            );
-        }
+		if (resultObj is not IBadBoolean result)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Result of 'test' attribute in 'bs:if' node is not a boolean",
+				context.CreateAttributePosition(conditionAttribute));
+		}
 
-        return result.Value;
-    }
+		return result.Value;
+	}
 
-    public override void TransformNode(BadHtmlContext context)
-    {
-        List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches = DissectContent(context, context.InputNode, out IEnumerable<HtmlNode>? elseBranch);
+	public override void TransformNode(BadHtmlContext context)
+	{
+		List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches =
+			DissectContent(context, context.InputNode, out IEnumerable<HtmlNode>? elseBranch);
 
-        bool executedAny = false;
-        foreach ((HtmlAttribute condition, IEnumerable<HtmlNode> block) branch in branches)
-        {
-            if (EvaluateCondition(context, branch.condition))
-            {
-                executedAny = true;
-                BadExecutionContext branchContext = new BadExecutionContext(
-                    context.ExecutionContext.Scope.CreateChild(
-                        "bs:if",
-                        context.ExecutionContext.Scope,
-                        null
-                    )
-                );
+		bool executedAny = false;
 
-                foreach (HtmlNode? child in branch.block)
-                {
-                    BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+		foreach ((HtmlAttribute condition, IEnumerable<HtmlNode> block) branch in branches)
+		{
+			if (EvaluateCondition(context, branch.condition))
+			{
+				executedAny = true;
+				BadExecutionContext branchContext = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild(
+					"bs:if",
+					context.ExecutionContext.Scope,
+					null));
 
-                    Transform(childContext);
-                }
-            }
-        }
+				foreach (HtmlNode? child in branch.block)
+				{
+					BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
 
-        if (!executedAny && elseBranch != null)
-        {
-            BadExecutionContext branchContext = new BadExecutionContext(
-                context.ExecutionContext.Scope.CreateChild(
-                    "bs:if",
-                    context.ExecutionContext.Scope,
-                    null
-                )
-            );
+					Transform(childContext);
+				}
+			}
+		}
 
-            foreach (HtmlNode? child in elseBranch)
-            {
-                BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+		if (!executedAny && elseBranch != null)
+		{
+			BadExecutionContext branchContext = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild(
+				"bs:if",
+				context.ExecutionContext.Scope,
+				null));
 
-                Transform(childContext);
-            }
-        }
-    }
+			foreach (HtmlNode? child in elseBranch)
+			{
+				BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+
+				Transform(childContext);
+			}
+		}
+	}
 }

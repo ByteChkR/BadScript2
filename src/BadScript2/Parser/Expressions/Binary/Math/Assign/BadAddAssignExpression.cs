@@ -17,125 +17,121 @@ public class BadAddAssignExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadAddAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadAddAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
 
-    public static BadObject Add(
-        BadObjectReference leftRef,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
-    {
-        if (left is IBadString lStr)
-        {
-            if (right is IBadNative rNative)
-            {
-                BadObject r = BadObject.Wrap(lStr.Value + rNative.Value);
-                leftRef.Set(r);
+	public static BadObject Add(
+		BadObjectReference leftRef,
+		BadObject left,
+		BadObject right,
+		BadSourcePosition position,
+		string symbol)
+	{
+		if (left is IBadString lStr)
+		{
+			if (right is IBadNative rNative)
+			{
+				BadObject r = BadObject.Wrap(lStr.Value + rNative.Value);
+				leftRef.Set(r);
 
-                return r;
-            }
-        }
-        else if (left is IBadNumber lNum)
-        {
-            if (right is IBadString rStr)
-            {
-                BadObject r = BadObject.Wrap(lNum.Value + rStr.Value);
-                leftRef.Set(r);
+				return r;
+			}
+		}
+		else if (left is IBadNumber lNum)
+		{
+			if (right is IBadString rStr)
+			{
+				BadObject r = BadObject.Wrap(lNum.Value + rStr.Value);
+				leftRef.Set(r);
 
-                return r;
-            }
+				return r;
+			}
 
-            if (right is IBadNumber rNum)
-            {
-                BadObject r = BadObject.Wrap(lNum.Value + rNum.Value);
-                leftRef.Set(r);
+			if (right is IBadNumber rNum)
+			{
+				BadObject r = BadObject.Wrap(lNum.Value + rNum.Value);
+				leftRef.Set(r);
 
-                return r;
-            }
-        }
-        else if (left is IBadBoolean lBool)
-        {
-            if (right is IBadString rStr)
-            {
-                BadObject r = BadObject.Wrap(lBool.Value + rStr.Value);
-                leftRef.Set(r);
+				return r;
+			}
+		}
+		else if (left is IBadBoolean lBool)
+		{
+			if (right is IBadString rStr)
+			{
+				BadObject r = BadObject.Wrap(lBool.Value + rStr.Value);
+				leftRef.Set(r);
 
-                return r;
-            }
-        }
+				return r;
+			}
+		}
 
-        throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
-    }
+		throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
+	}
 
-    public static IEnumerable<BadObject> AddWithOverride(
-        BadExecutionContext context,
-        BadObjectReference leftRef,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
-    {
-        BadObject left = leftRef.Dereference();
+	public static IEnumerable<BadObject> AddWithOverride(
+		BadExecutionContext context,
+		BadObjectReference leftRef,
+		BadObject right,
+		BadSourcePosition position,
+		string symbol)
+	{
+		BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.AddAssignOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context,
-                         BadStaticKeys.AddAssignOperatorName,
-                         position
-                     ))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return Add(leftRef, left, right, position, symbol);
-        }
-    }
+		if (left.HasProperty(BadStaticKeys.AddAssignOperatorName))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(left,
+				         right,
+				         context,
+				         BadStaticKeys.AddAssignOperatorName,
+				         position))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return Add(leftRef, left, right, position, symbol);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        if (left is not BadObjectReference leftRef)
-        {
-            throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
-        }
+		if (left is not BadObjectReference leftRef)
+		{
+			throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
+		}
 
-        BadObject right = BadObject.Null;
+		BadObject right = BadObject.Null;
 
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        right = right.Dereference();
+		right = right.Dereference();
 
-        foreach (BadObject o in AddWithOverride(context, leftRef, right, Position, GetSymbol()))
-        {
-            yield return o;
-        }
-    }
+		foreach (BadObject o in AddWithOverride(context, leftRef, right, Position, GetSymbol()))
+		{
+			yield return o;
+		}
+	}
 
-    protected override string GetSymbol()
-    {
-        return "+=";
-    }
+	protected override string GetSymbol()
+	{
+		return "+=";
+	}
 }

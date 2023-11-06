@@ -11,10 +11,10 @@ public readonly struct BadInterfaceValidatorError
 	/// <param name="message">The Error Message</param>
 	/// <param name="constraint">The Constraint that caused the error</param>
 	public BadInterfaceValidatorError(string message, BadInterfaceConstraint constraint)
-    {
-        Message = message;
-        Constraint = constraint;
-    }
+	{
+		Message = message;
+		Constraint = constraint;
+	}
 
 	/// <summary>
 	///     The Error Message
@@ -26,8 +26,8 @@ public readonly struct BadInterfaceValidatorError
 	/// </summary>
 	public BadInterfaceConstraint Constraint { get; }
 
-    public override string ToString()
-    {
-        return $"-- {Constraint} | {Message}";
-    }
+	public override string ToString()
+	{
+		return $"-- {Constraint} | {Message}";
+	}
 }

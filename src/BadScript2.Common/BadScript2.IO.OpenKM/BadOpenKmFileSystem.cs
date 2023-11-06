@@ -7,337 +7,313 @@ namespace BadScript2.IO.OpenKM;
 
 public class BadOpenKmFileSystem : IFileSystem
 {
-    private readonly IOkmWebservice m_Webservice;
-    private Folder m_Current;
+	private readonly IOkmWebservice m_Webservice;
+	private Folder m_Current;
 
-    private string? m_StartupDirectory;
+	private string? m_StartupDirectory;
 
-    public BadOpenKmFileSystem(IOkmWebservice webService)
-    {
-        m_Webservice = webService;
-        m_Current = m_Webservice.GetFolderProperties(GetStartupDirectory()).Result;
-    }
+	public BadOpenKmFileSystem(IOkmWebservice webService)
+	{
+		m_Webservice = webService;
+		m_Current = m_Webservice.GetFolderProperties(GetStartupDirectory()).Result;
+	}
 
-    public BadOpenKmFileSystem(string url, string user, string password) : this(OkmWebserviceFactory.NewInstance(url, user, password)) { }
+	public BadOpenKmFileSystem(string url, string user, string password) : this(
+		OkmWebserviceFactory.NewInstance(url, user, password)) { }
 
-    public string GetStartupDirectory()
-    {
-        if (m_StartupDirectory == null)
-        {
-            m_StartupDirectory = m_Webservice.GetPersonalFolder().Result.path;
-        }
+	public string GetStartupDirectory()
+	{
+		if (m_StartupDirectory == null)
+		{
+			m_StartupDirectory = m_Webservice.GetPersonalFolder().Result.path;
+		}
 
-        return m_StartupDirectory;
-    }
+		return m_StartupDirectory;
+	}
 
-    public bool Exists(string path)
-    {
-        return m_Webservice.HasNode(MakeFullPath(path)).Result;
-    }
+	public bool Exists(string path)
+	{
+		return m_Webservice.HasNode(MakeFullPath(path)).Result;
+	}
 
-    public bool IsFile(string path)
-    {
-        return m_Webservice.IsValidDocument(MakeFullPath(path)).Result;
-    }
+	public bool IsFile(string path)
+	{
+		return m_Webservice.IsValidDocument(MakeFullPath(path)).Result;
+	}
 
-    public bool IsDirectory(string path)
-    {
-        return m_Webservice.IsValidFolder(MakeFullPath(path)).Result;
-    }
+	public bool IsDirectory(string path)
+	{
+		return m_Webservice.IsValidFolder(MakeFullPath(path)).Result;
+	}
 
-    public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
-    {
-        path = MakeFullPath(path);
-        if (recursive)
-        {
-            return InnerGetFilesRecursive(path, extension);
-        }
+	public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
+	{
+		path = MakeFullPath(path);
 
-        return InnerGetFiles(path, extension);
-    }
+		if (recursive)
+		{
+			return InnerGetFilesRecursive(path, extension);
+		}
 
-    public IEnumerable<string> GetDirectories(string path, bool recursive)
-    {
-        path = MakeFullPath(path);
-        if (recursive)
-        {
-            return InnerGetDirectoriesRecursive(path);
-        }
+		return InnerGetFiles(path, extension);
+	}
 
-        return InnerGetDirectories(path);
-    }
+	public IEnumerable<string> GetDirectories(string path, bool recursive)
+	{
+		path = MakeFullPath(path);
 
-    public void CreateDirectory(string path, bool recursive = false)
-    {
-        path = MakeFullPath(path);
-        if (recursive)
-        {
-            InnerCreateDirectoryRecursive(path);
-        }
-        else
-        {
-            InnerCreateDirectory(path);
-        }
-    }
+		if (recursive)
+		{
+			return InnerGetDirectoriesRecursive(path);
+		}
 
-    public void DeleteDirectory(string path, bool recursive)
-    {
-        path = MakeFullPath(path);
-        if (!Exists(path))
-        {
-            throw new Exception("Directory does not exist.");
-        }
+		return InnerGetDirectories(path);
+	}
 
-        if (!recursive && HasChildren(path))
-        {
-            throw new Exception("Directory is not empty.");
-        }
+	public void CreateDirectory(string path, bool recursive = false)
+	{
+		path = MakeFullPath(path);
 
-        m_Webservice.DeleteFolder(path).Wait();
-    }
+		if (recursive)
+		{
+			InnerCreateDirectoryRecursive(path);
+		}
+		else
+		{
+			InnerCreateDirectory(path);
+		}
+	}
 
-    public void DeleteFile(string path)
-    {
-        path = MakeFullPath(path);
-        if (!IsFile(path))
-        {
-            throw new Exception("File does not exist.");
-        }
+	public void DeleteDirectory(string path, bool recursive)
+	{
+		path = MakeFullPath(path);
 
-        m_Webservice.DeleteDocument(path).Wait();
-    }
+		if (!Exists(path))
+		{
+			throw new Exception("Directory does not exist.");
+		}
 
-    public string GetFullPath(string path)
-    {
-        return MakeFullPath(path);
-    }
+		if (!recursive && HasChildren(path))
+		{
+			throw new Exception("Directory is not empty.");
+		}
 
-    public Stream OpenRead(string path)
-    {
-        Stream result = m_Webservice.GetContent(MakeFullPath(path)).Result;
+		m_Webservice.DeleteFolder(path).Wait();
+	}
 
-        return result;
-    }
+	public void DeleteFile(string path)
+	{
+		path = MakeFullPath(path);
 
-    public Stream OpenWrite(string path, BadWriteMode mode)
-    {
-        return new BadOpenKmWritableStream(m_Webservice, MakeFullPath(path), mode);
-    }
+		if (!IsFile(path))
+		{
+			throw new Exception("File does not exist.");
+		}
 
-    public string GetCurrentDirectory()
-    {
-        return m_Current.path;
-    }
+		m_Webservice.DeleteDocument(path).Wait();
+	}
 
-    public void SetCurrentDirectory(string path)
-    {
-        m_Current = m_Webservice.GetFolderProperties(MakeFullPath(path)).Result;
-    }
+	public string GetFullPath(string path)
+	{
+		return MakeFullPath(path);
+	}
 
-    public void Copy(string src, string dst, bool overwrite = true)
-    {
-        src = MakeFullPath(src);
-        dst = MakeFullPath(dst);
-        if (!Exists(src))
-        {
-            throw new Exception("Source does not exist");
-        }
+	public Stream OpenRead(string path)
+	{
+		Stream result = m_Webservice.GetContent(MakeFullPath(path)).Result;
 
-        if (IsDirectory(src))
-        {
-            throw new NotSupportedException("At the moment, copying directories is not supported. (need to implement recursive move files)");
-            string parentDst = MakeFullPath(Path.GetDirectoryName(dst));
-            if (Exists(dst))
-            {
-                if (!IsDirectory(dst))
-                {
-                    throw new Exception("Target is a file");
-                }
+		return result;
+	}
 
-                if (!overwrite)
-                {
-                    throw new Exception("Target already exists");
-                }
+	public Stream OpenWrite(string path, BadWriteMode mode)
+	{
+		return new BadOpenKmWritableStream(m_Webservice, MakeFullPath(path), mode);
+	}
 
-                m_Webservice.CopyFolder(src, parentDst).Wait();
-            }
-            else
-            {
-                m_Webservice.CopyFolder(src, parentDst).Wait();
-            }
-        }
+	public string GetCurrentDirectory()
+	{
+		return m_Current.path;
+	}
 
-        if (!Exists(dst))
-        {
-            throw new Exception("Target directory does not exist");
-        }
+	public void SetCurrentDirectory(string path)
+	{
+		m_Current = m_Webservice.GetFolderProperties(MakeFullPath(path)).Result;
+	}
 
-        string dstFile = MakeFullPath(Path.Combine(dst, Path.GetFileName(src)));
-        if (Exists(dstFile))
-        {
-            if (!IsFile(dstFile))
-            {
-                throw new Exception("Target file is a directory");
-            }
+	public void Copy(string src, string dst, bool overwrite = true)
+	{
+		src = MakeFullPath(src);
+		dst = MakeFullPath(dst);
 
-            if (!overwrite)
-            {
-                throw new Exception("Target already exists");
-            }
+		if (!Exists(src))
+		{
+			throw new Exception("Source does not exist");
+		}
 
-            m_Webservice.DeleteDocument(dstFile).Wait();
-        }
+		if (IsDirectory(src))
+		{
+			throw new NotSupportedException(
+				"At the moment, copying directories is not supported. (need to implement recursive move files)");
+		}
 
-        m_Webservice.CopyDocument(src, dst).Wait();
-    }
+		if (!Exists(dst))
+		{
+			throw new Exception("Target directory does not exist");
+		}
 
-    public void Move(string src, string dst, bool overwrite = true)
-    {
-        src = MakeFullPath(src);
-        dst = MakeFullPath(dst);
-        if (!Exists(src))
-        {
-            throw new Exception("Source does not exist");
-        }
+		string dstFile = MakeFullPath(Path.Combine(dst, Path.GetFileName(src)));
 
-        if (IsDirectory(src))
-        {
-            throw new NotSupportedException("At the moment, moving directories is not supported. (need to implement recursive move files)");
-            string parentDst = MakeFullPath(Path.GetDirectoryName(dst));
-            if (Exists(dst))
-            {
-                if (!IsDirectory(dst))
-                {
-                    throw new Exception("Target is a file");
-                }
+		if (Exists(dstFile))
+		{
+			if (!IsFile(dstFile))
+			{
+				throw new Exception("Target file is a directory");
+			}
 
-                if (!overwrite)
-                {
-                    throw new Exception("Target already exists");
-                }
+			if (!overwrite)
+			{
+				throw new Exception("Target already exists");
+			}
 
-                m_Webservice.DeleteFolder(dst);
-                m_Webservice.MoveFolder(src, parentDst).Wait();
-            }
-            else
-            {
-                m_Webservice.MoveFolder(src, parentDst).Wait();
-            }
-        }
+			m_Webservice.DeleteDocument(dstFile).Wait();
+		}
 
-        if (!Exists(dst))
-        {
-            throw new Exception("Target directory does not exist");
-        }
+		m_Webservice.CopyDocument(src, dst).Wait();
+	}
 
-        string dstFile = MakeFullPath(Path.Combine(dst, Path.GetFileName(src)));
-        if (Exists(dstFile))
-        {
-            if (!IsFile(dstFile))
-            {
-                throw new Exception("Target file is a directory");
-            }
+	public void Move(string src, string dst, bool overwrite = true)
+	{
+		src = MakeFullPath(src);
+		dst = MakeFullPath(dst);
 
-            if (!overwrite)
-            {
-                throw new Exception("Target already exists");
-            }
+		if (!Exists(src))
+		{
+			throw new Exception("Source does not exist");
+		}
 
-            m_Webservice.DeleteDocument(dstFile).Wait();
-        }
+		if (IsDirectory(src))
+		{
+			throw new NotSupportedException(
+				"At the moment, moving directories is not supported. (need to implement recursive move files)");
+		}
 
-        m_Webservice.MoveDocument(src, dst).Wait();
-    }
+		if (!Exists(dst))
+		{
+			throw new Exception("Target directory does not exist");
+		}
 
-    private string MakeFullPath(string path)
-    {
-        string full = BadVirtualPathReader.ResolvePath(path, GetCurrentDirectory());
+		string dstFile = MakeFullPath(Path.Combine(dst, Path.GetFileName(src)));
 
-        return full;
-    }
+		if (Exists(dstFile))
+		{
+			if (!IsFile(dstFile))
+			{
+				throw new Exception("Target file is a directory");
+			}
 
-    private bool HasChildren(string path)
-    {
-        return m_Webservice.GetFolderChildren(path).Result.folder.Count > 0 ||
-               m_Webservice.GetDocumentChildren(path).Result.document.Count > 0;
-    }
+			if (!overwrite)
+			{
+				throw new Exception("Target already exists");
+			}
 
-    private IEnumerable<string> InnerGetDirectories(string path)
-    {
-        FolderList? current = m_Webservice.GetFolderChildren(path).Result;
+			m_Webservice.DeleteDocument(dstFile).Wait();
+		}
 
-        if (current == null)
-        {
-            return Enumerable.Empty<string>();
-        }
+		m_Webservice.MoveDocument(src, dst).Wait();
+	}
 
-        return current.folder.Select(x => x.path);
-    }
+	private string MakeFullPath(string path)
+	{
+		string full = BadVirtualPathReader.ResolvePath(path, GetCurrentDirectory());
 
-    private IEnumerable<string> InnerGetFiles(string path, string extension)
-    {
-        DocumentList? current = m_Webservice.GetDocumentChildren(path).Result;
-        if (current == null)
-        {
-            yield break;
-        }
+		return full;
+	}
 
-        foreach (Document document in current.document)
-        {
-            string ext = Path.GetExtension(document.path);
+	private bool HasChildren(string path)
+	{
+		return m_Webservice.GetFolderChildren(path).Result.folder.Count > 0 ||
+		       m_Webservice.GetDocumentChildren(path).Result.document.Count > 0;
+	}
 
-            if (string.IsNullOrEmpty(extension) || ext == extension)
-            {
-                yield return document.path;
-            }
-        }
-    }
+	private IEnumerable<string> InnerGetDirectories(string path)
+	{
+		FolderList? current = m_Webservice.GetFolderChildren(path).Result;
 
-    private IEnumerable<string> InnerGetDirectoriesRecursive(string path)
-    {
-        foreach (string dir in InnerGetDirectories(path))
-        {
-            yield return dir;
-            foreach (string innerDir in InnerGetDirectoriesRecursive(dir))
-            {
-                yield return innerDir;
-            }
-        }
-    }
+		if (current == null)
+		{
+			return Enumerable.Empty<string>();
+		}
 
-    private IEnumerable<string> InnerGetFilesRecursive(string path, string extension)
-    {
-        foreach (string file in InnerGetFiles(path, extension))
-        {
-            yield return file;
-        }
+		return current.folder.Select(x => x.path);
+	}
 
-        foreach (string directory in InnerGetDirectories(path))
-        {
-            foreach (string file in InnerGetFilesRecursive(directory, extension))
-            {
-                yield return file;
-            }
-        }
-    }
+	private IEnumerable<string> InnerGetFiles(string path, string extension)
+	{
+		DocumentList? current = m_Webservice.GetDocumentChildren(path).Result;
+
+		if (current == null)
+		{
+			yield break;
+		}
+
+		foreach (Document document in current.document)
+		{
+			string ext = Path.GetExtension(document.path);
+
+			if (string.IsNullOrEmpty(extension) || ext == extension)
+			{
+				yield return document.path;
+			}
+		}
+	}
+
+	private IEnumerable<string> InnerGetDirectoriesRecursive(string path)
+	{
+		foreach (string dir in InnerGetDirectories(path))
+		{
+			yield return dir;
+
+			foreach (string innerDir in InnerGetDirectoriesRecursive(dir))
+			{
+				yield return innerDir;
+			}
+		}
+	}
+
+	private IEnumerable<string> InnerGetFilesRecursive(string path, string extension)
+	{
+		foreach (string file in InnerGetFiles(path, extension))
+		{
+			yield return file;
+		}
+
+		foreach (string directory in InnerGetDirectories(path))
+		{
+			foreach (string file in InnerGetFilesRecursive(directory, extension))
+			{
+				yield return file;
+			}
+		}
+	}
 
 
-    private void InnerCreateDirectoryRecursive(string path)
-    {
-        if (!IsDirectory(path))
-        {
-            string? parent = Path.GetDirectoryName(path);
-            if (parent != null)
-            {
-                InnerCreateDirectoryRecursive(parent);
-            }
+	private void InnerCreateDirectoryRecursive(string path)
+	{
+		if (!IsDirectory(path))
+		{
+			string? parent = Path.GetDirectoryName(path);
 
-            InnerCreateDirectory(path);
-        }
-    }
+			if (parent != null)
+			{
+				InnerCreateDirectoryRecursive(parent);
+			}
 
-    private void InnerCreateDirectory(string path)
-    {
-        m_Webservice.CreateFolderSimple(path).Wait();
-    }
+			InnerCreateDirectory(path);
+		}
+	}
+
+	private void InnerCreateDirectory(string path)
+	{
+		m_Webservice.CreateFolderSimple(path).Wait();
+	}
 }

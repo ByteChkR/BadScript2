@@ -12,10 +12,10 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
-    {
-        return context.InputNode.Name == "bs:insert";
-    }
+	public override bool CanTransform(BadHtmlContext context)
+	{
+		return context.InputNode.Name == "bs:insert";
+	}
 
 
     /// <summary>
@@ -26,66 +26,59 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
     /// <param name="global">If true, the search starts relative to the document node</param>
     /// <returns>Enumeration of Matching Nodes</returns>
     private IEnumerable<HtmlNode> GetNodes(BadHtmlContext context, string path, bool global)
-    {
-        if (path.StartsWith("#"))
-        {
-            yield return context.OutputDocument.GetElementbyId(path.Remove(0, 1));
-        }
-        else
-        {
-            HtmlNode? root = global ? context.OutputDocument.DocumentNode : context.OutputNode;
+	{
+		if (path.StartsWith("#"))
+		{
+			yield return context.OutputDocument.GetElementbyId(path.Remove(0, 1));
+		}
+		else
+		{
+			HtmlNode? root = global ? context.OutputDocument.DocumentNode : context.OutputNode;
 
-            foreach (HtmlNode node in root.SelectNodes(path))
-            {
-                yield return node;
-            }
-        }
-    }
+			foreach (HtmlNode node in root.SelectNodes(path))
+			{
+				yield return node;
+			}
+		}
+	}
 
-    public override void TransformNode(BadHtmlContext context)
-    {
-        HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];
-        bool isGlobal = context.InputNode.Attributes["global"]?.Value != "false";
+	public override void TransformNode(BadHtmlContext context)
+	{
+		HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];
+		bool isGlobal = context.InputNode.Attributes["global"]?.Value != "false";
 
-        if (pathAttribute == null)
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'into' attribute in 'bs:insert' node",
-                context.CreateOuterPosition()
-            );
-        }
+		if (pathAttribute == null)
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Missing 'into' attribute in 'bs:insert' node",
+				context.CreateOuterPosition());
+		}
 
-        string? path = pathAttribute.Value;
+		string? path = pathAttribute.Value;
 
-        if (string.IsNullOrEmpty(path))
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'into' attribute in 'bs:insert' node",
-                context.CreateAttributePosition(pathAttribute)
-            );
-        }
+		if (string.IsNullOrEmpty(path))
+		{
+			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+				"Empty 'into' attribute in 'bs:insert' node",
+				context.CreateAttributePosition(pathAttribute));
+		}
 
 
-        foreach (HtmlNode outputNode in GetNodes(context, path, isGlobal))
-        {
-            if (outputNode == null)
-            {
-                continue;
-            }
+		foreach (HtmlNode outputNode in GetNodes(context, path, isGlobal))
+		{
+			if (outputNode == null)
+			{
+				continue;
+			}
 
-            foreach (HtmlNode node in context.InputNode.ChildNodes)
-            {
-                BadHtmlContext ctx = context.CreateChild(
-                    node,
-                    outputNode,
-                    new BadExecutionContext(
-                        context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null)
-                    )
-                );
-                Transform(ctx);
-            }
-        }
-    }
+			foreach (HtmlNode node in context.InputNode.ChildNodes)
+			{
+				BadHtmlContext ctx = context.CreateChild(node,
+					outputNode,
+					new BadExecutionContext(
+						context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null)));
+				Transform(ctx);
+			}
+		}
+	}
 }

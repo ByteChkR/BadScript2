@@ -21,80 +21,76 @@ public class BadPostIncrementExpression : BadExpression
     /// </summary>
     /// <param name="left">Left side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(
-        left.IsConstant,
-        position
-    )
-    {
-        Left = left;
-    }
+    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
+		position)
+	{
+		Left = left;
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
-    }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
 
-    public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
-    {
-        BadObject value = reference.Dereference();
+	public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
+	{
+		BadObject value = reference.Dereference();
 
-        if (value is not IBadNumber leftNumber)
-        {
-            throw new BadRuntimeException("Left side of ++ must be a number", position);
-        }
+		if (value is not IBadNumber leftNumber)
+		{
+			throw new BadRuntimeException("Left side of ++ must be a number", position);
+		}
 
-        reference.Set(leftNumber.Value + 1);
+		reference.Set(leftNumber.Value + 1);
 
-        return value;
-    }
+		return value;
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        if (left is not BadObjectReference leftRef)
-        {
-            throw new BadRuntimeException("Left side of ++ must be a reference", Position);
-        }
+		if (left is not BadObjectReference leftRef)
+		{
+			throw new BadRuntimeException("Left side of ++ must be a reference", Position);
+		}
 
-        foreach (BadObject o in IncrementWithOverride(context, leftRef, Position))
-        {
-            yield return o;
-        }
-    }
+		foreach (BadObject o in IncrementWithOverride(context, leftRef, Position))
+		{
+			yield return o;
+		}
+	}
 
-    public static IEnumerable<BadObject> IncrementWithOverride(
-        BadExecutionContext context,
-        BadObjectReference leftRef,
-        BadSourcePosition position)
-    {
-        BadObject left = leftRef.Dereference();
+	public static IEnumerable<BadObject> IncrementWithOverride(
+		BadExecutionContext context,
+		BadObjectReference leftRef,
+		BadSourcePosition position)
+	{
+		BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.PostIncrementOperatorName))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         context,
-                         BadStaticKeys.PostIncrementOperatorName,
-                         position
-                     ))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return Increment(leftRef, position);
-        }
-    }
+		if (left.HasProperty(BadStaticKeys.PostIncrementOperatorName))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(left,
+				         context,
+				         BadStaticKeys.PostIncrementOperatorName,
+				         position))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return Increment(leftRef, position);
+		}
+	}
 }

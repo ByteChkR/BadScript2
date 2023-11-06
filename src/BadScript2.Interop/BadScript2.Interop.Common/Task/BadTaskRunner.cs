@@ -21,9 +21,9 @@ public class BadTaskRunner
     ///     Static Constructor
     /// </summary>
     static BadTaskRunner()
-    {
-        BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
-    }
+	{
+		BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
+	}
 
 
     /// <summary>
@@ -40,88 +40,88 @@ public class BadTaskRunner
     ///     Runs a single step of the Task Runner
     /// </summary>
     public void RunStep()
-    {
-        for (int i = m_TaskList.Count - 1; i >= 0; i--)
-        {
-            if (i >= m_TaskList.Count)
-            {
-                continue;
-            }
+	{
+		for (int i = m_TaskList.Count - 1; i >= 0; i--)
+		{
+			if (i >= m_TaskList.Count)
+			{
+				continue;
+			}
 
-            BadTask t = m_TaskList[i];
-            Current = t;
+			BadTask t = m_TaskList[i];
+			Current = t;
 
-            if (t.IsPaused)
-            {
-                continue;
-            }
+			if (t.IsPaused)
+			{
+				continue;
+			}
 
-            if (!t.IsFinished)
-            {
-                for (int j = 0; j < BadTaskRunnerSettings.Instance.TaskIterationTime; j++)
-                {
-                    if (t.IsPaused)
-                    {
-                        break;
-                    }
+			if (!t.IsFinished)
+			{
+				for (int j = 0; j < BadTaskRunnerSettings.Instance.TaskIterationTime; j++)
+				{
+					if (t.IsPaused)
+					{
+						break;
+					}
 
-                    if (t.IsFinished || !t.Runnable.Enumerator.MoveNext())
-                    {
-                        t.Stop();
+					if (t.IsFinished || !t.Runnable.Enumerator.MoveNext())
+					{
+						t.Stop();
 
-                        break;
-                    }
-                }
-            }
+						break;
+					}
+				}
+			}
 
-            if (t.IsFinished)
-            {
-                m_TaskList.Remove(t);
+			if (t.IsFinished)
+			{
+				m_TaskList.Remove(t);
 
-                foreach (BadTask x in t.ContinuationTasks)
-                {
-                    if (x.IsFinished)
-                    {
-                        continue;
-                    }
+				foreach (BadTask x in t.ContinuationTasks)
+				{
+					if (x.IsFinished)
+					{
+						continue;
+					}
 
-                    if (m_TaskList.Contains(x))
-                    {
-                        x.Resume();
-                    }
-                    else
-                    {
-                        m_TaskList.Add(x);
-                        x.Start();
-                    }
-                }
-            }
-        }
-    }
+					if (m_TaskList.Contains(x))
+					{
+						x.Resume();
+					}
+					else
+					{
+						m_TaskList.Add(x);
+						x.Start();
+					}
+				}
+			}
+		}
+	}
 
     /// <summary>
     ///     Clears all Tasks
     /// </summary>
     public void Clear()
-    {
-        m_TaskList.Clear();
-    }
+	{
+		m_TaskList.Clear();
+	}
 
     /// <summary>
     ///     Clears all Tasks from the given Creator
     /// </summary>
     /// <param name="creator">Creator</param>
     public void ClearTasksFrom(BadTask creator)
-    {
-        foreach (BadTask task in m_TaskList)
-        {
-            if (task.Creator == creator)
-            {
-                task.Cancel();
-                ClearTasksFrom(task);
-            }
-        }
-    }
+	{
+		foreach (BadTask task in m_TaskList)
+		{
+			if (task.Creator == creator)
+			{
+				task.Cancel();
+				ClearTasksFrom(task);
+			}
+		}
+	}
 
     /// <summary>
     ///     Adds a Task to the Task Runner
@@ -129,13 +129,13 @@ public class BadTaskRunner
     /// <param name="task">Task</param>
     /// <param name="runImmediately">Task starts immediately if true</param>
     public void AddTask(BadTask task, bool runImmediately = false)
-    {
-        m_TaskList.Add(task);
-        task.SetCreator(Current);
+	{
+		m_TaskList.Add(task);
+		task.SetCreator(Current);
 
-        if (runImmediately)
-        {
-            task.Start();
-        }
-    }
+		if (runImmediately)
+		{
+			task.Start();
+		}
+	}
 }

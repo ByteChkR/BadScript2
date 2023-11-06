@@ -17,33 +17,33 @@ public class BadFunctionParameter
     /// <param name="isNullChecked">Indicates if this parameter is null checked by the runtime</param>
     /// <param name="isRestArgs">Indicates if this parameter is the rest parameter of the function</param>
     public BadFunctionParameter(
-        string name,
-        bool isOptional,
-        bool isNullChecked,
-        bool isRestArgs)
-    {
-        Name = name;
-        IsOptional = isOptional;
-        IsNullChecked = isNullChecked;
-        IsRestArgs = isRestArgs;
-        TypeExpr = null;
-    }
+		string name,
+		bool isOptional,
+		bool isNullChecked,
+		bool isRestArgs)
+	{
+		Name = name;
+		IsOptional = isOptional;
+		IsNullChecked = isNullChecked;
+		IsRestArgs = isRestArgs;
+		TypeExpr = null;
+	}
 
-    public BadFunctionParameter(
-        string name,
-        bool isOptional,
-        bool isNullChecked,
-        bool isRestArgs,
-        BadExpression? typeExpr,
-        BadClassPrototype? type = null)
-    {
-        Name = name;
-        IsOptional = isOptional;
-        IsNullChecked = isNullChecked;
-        IsRestArgs = isRestArgs;
-        TypeExpr = typeExpr;
-        Type = type;
-    }
+	public BadFunctionParameter(
+		string name,
+		bool isOptional,
+		bool isNullChecked,
+		bool isRestArgs,
+		BadExpression? typeExpr,
+		BadClassPrototype? type = null)
+	{
+		Name = name;
+		IsOptional = isOptional;
+		IsNullChecked = isNullChecked;
+		IsRestArgs = isRestArgs;
+		TypeExpr = typeExpr;
+		Type = type;
+	}
 
     /// <summary>
     ///     The Class Prototype of the Parameter
@@ -85,30 +85,30 @@ public class BadFunctionParameter
     ///     <see cref="BadClassPrototype" />
     /// </exception>
     public BadFunctionParameter Initialize(BadExecutionContext context)
-    {
-        BadClassPrototype? type = null;
+	{
+		BadClassPrototype? type = null;
 
-        if (TypeExpr != null)
-        {
-            BadObject obj = BadObject.Null;
+		if (TypeExpr != null)
+		{
+			BadObject obj = BadObject.Null;
 
-            foreach (BadObject o in TypeExpr.Execute(context))
-            {
-                obj = o;
-            }
+			foreach (BadObject o in TypeExpr.Execute(context))
+			{
+				obj = o;
+			}
 
-            obj = obj.Dereference();
+			obj = obj.Dereference();
 
-            if (obj is not BadClassPrototype proto)
-            {
-                throw new BadRuntimeException("Type expression must return a class prototype.");
-            }
+			if (obj is not BadClassPrototype proto)
+			{
+				throw new BadRuntimeException("Type expression must return a class prototype.");
+			}
 
-            type = proto;
-        }
+			type = proto;
+		}
 
-        return new BadFunctionParameter(Name, IsOptional, IsNullChecked, IsRestArgs, TypeExpr, type);
-    }
+		return new BadFunctionParameter(Name, IsOptional, IsNullChecked, IsRestArgs, TypeExpr, type);
+	}
 
 
     /// <summary>
@@ -117,16 +117,16 @@ public class BadFunctionParameter
     /// <param name="s">The Parameter name</param>
     /// <returns>The Function Parameter</returns>
     public static implicit operator BadFunctionParameter(string s)
-    {
-        return new BadFunctionParameter(s, false, false, false, null);
-    }
+	{
+		return new BadFunctionParameter(s, false, false, false, null);
+	}
 
     /// <summary>
     ///     Returns the string representation of the Function Parameter
     /// </summary>
     /// <returns>The String Representation</returns>
     public override string ToString()
-    {
-        return Name + (IsOptional ? "?" : "") + (IsNullChecked ? "!" : "") + (IsRestArgs ? "*" : "");
-    }
+	{
+		return Name + (IsOptional ? "?" : "") + (IsNullChecked ? "!" : "") + (IsRestArgs ? "*" : "");
+	}
 }

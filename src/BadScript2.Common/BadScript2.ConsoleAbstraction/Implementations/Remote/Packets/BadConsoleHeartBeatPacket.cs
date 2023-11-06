@@ -15,21 +15,21 @@ public class BadConsoleHeartBeatPacket : BadConsolePacket
 	/// </summary>
 	private BadConsoleHeartBeatPacket() { }
 
-    public override byte[] Serialize()
-    {
-        return new[]
-        {
-            (byte)BadConsolePacketType.HeartBeat,
-        };
-    }
+	public override byte[] Serialize()
+	{
+		return new[]
+		{
+			(byte)BadConsolePacketType.HeartBeat
+		};
+	}
 
-    /// <summary>
-    ///     Deserializes the Packet
-    /// </summary>
-    /// <param name="data">The Data Array</param>
-    /// <returns>Bad Console Packet instance</returns>
-    public new static BadConsoleHeartBeatPacket Deserialize(byte[] data)
-    {
-        return Packet;
-    }
+	/// <summary>
+	///     Deserializes the Packet
+	/// </summary>
+	/// <param name="data">The Data Array</param>
+	/// <returns>Bad Console Packet instance</returns>
+	public new static BadConsoleHeartBeatPacket Deserialize(byte[] data)
+	{
+		return Packet;
+	}
 }

@@ -8,159 +8,158 @@ using BadScript2.Parser.Expressions.Function;
 namespace BadScript2.Parser.Validation.Validators;
 
 public class
-    BadFunctionReturnTypeIsNotNullButNotAllPathsHaveAReturnStatementValidator : BadExpressionValidator<
-        BadFunctionExpression>
+	BadFunctionReturnTypeIsNotNullButNotAllPathsHaveAReturnStatementValidator : BadExpressionValidator<
+		BadFunctionExpression>
 {
-    private void Validate(BadExpressionPath parent, BadExpression expr)
-    {
-        if (expr is BadIfExpression ifExpr)
-        {
-            Validate(parent, ifExpr);
-        }
-        else if (expr is BadWhileExpression whileExpr)
-        {
-            Validate(parent, whileExpr);
-        }
-        else if (expr is BadForExpression forExpr)
-        {
-            Validate(parent, forExpr);
-        }
-        else if (expr is BadForEachExpression forEachExpr)
-        {
-            Validate(parent, forEachExpr);
-        }
-        else if (expr is BadLockExpression lockExpr)
-        {
-            Validate(parent, lockExpr);
-        }
-        else if (expr is BadTryCatchExpression tryCatchExpr)
-        {
-            Validate(parent, tryCatchExpr);
-        }
-        else if (expr is BadReturnExpression)
-        {
-            parent.SetHasReturnStatement();
-        }
-    }
+	private void Validate(BadExpressionPath parent, BadExpression expr)
+	{
+		if (expr is BadIfExpression ifExpr)
+		{
+			Validate(parent, ifExpr);
+		}
+		else if (expr is BadWhileExpression whileExpr)
+		{
+			Validate(parent, whileExpr);
+		}
+		else if (expr is BadForExpression forExpr)
+		{
+			Validate(parent, forExpr);
+		}
+		else if (expr is BadForEachExpression forEachExpr)
+		{
+			Validate(parent, forEachExpr);
+		}
+		else if (expr is BadLockExpression lockExpr)
+		{
+			Validate(parent, lockExpr);
+		}
+		else if (expr is BadTryCatchExpression tryCatchExpr)
+		{
+			Validate(parent, tryCatchExpr);
+		}
+		else if (expr is BadReturnExpression)
+		{
+			parent.SetHasReturnStatement();
+		}
+	}
 
-    private void Validate(BadExpressionPath parent, BadWhileExpression expr)
-    {
-        BadExpressionPath path = new BadExpressionPath(expr);
-        parent.AddChildPath(path);
+	private void Validate(BadExpressionPath parent, BadWhileExpression expr)
+	{
+		BadExpressionPath path = new BadExpressionPath(expr);
+		parent.AddChildPath(path);
 
-        foreach (BadExpression expression in expr.Body)
-        {
-            Validate(path, expression);
-        }
-    }
+		foreach (BadExpression expression in expr.Body)
+		{
+			Validate(path, expression);
+		}
+	}
 
-    private void Validate(BadExpressionPath parent, BadForExpression expr)
-    {
-        BadExpressionPath path = new BadExpressionPath(expr);
-        parent.AddChildPath(path);
+	private void Validate(BadExpressionPath parent, BadForExpression expr)
+	{
+		BadExpressionPath path = new BadExpressionPath(expr);
+		parent.AddChildPath(path);
 
-        foreach (BadExpression expression in expr.Body)
-        {
-            Validate(path, expression);
-        }
-    }
+		foreach (BadExpression expression in expr.Body)
+		{
+			Validate(path, expression);
+		}
+	}
 
-    private void Validate(BadExpressionPath parent, BadForEachExpression expr)
-    {
-        BadExpressionPath path = new BadExpressionPath(expr);
-        parent.AddChildPath(path);
+	private void Validate(BadExpressionPath parent, BadForEachExpression expr)
+	{
+		BadExpressionPath path = new BadExpressionPath(expr);
+		parent.AddChildPath(path);
 
-        foreach (BadExpression expression in expr.Body)
-        {
-            Validate(path, expression);
-        }
-    }
+		foreach (BadExpression expression in expr.Body)
+		{
+			Validate(path, expression);
+		}
+	}
 
-    private void Validate(BadExpressionPath parent, BadLockExpression expr)
-    {
-        BadExpressionPath path = new BadExpressionPath(expr);
-        parent.AddChildPath(path);
+	private void Validate(BadExpressionPath parent, BadLockExpression expr)
+	{
+		BadExpressionPath path = new BadExpressionPath(expr);
+		parent.AddChildPath(path);
 
-        foreach (BadExpression expression in expr.Block)
-        {
-            Validate(path, expression);
-        }
-    }
+		foreach (BadExpression expression in expr.Block)
+		{
+			Validate(path, expression);
+		}
+	}
 
-    private void Validate(BadExpressionPath parent, BadIfExpression expr)
-    {
-        BadExpressionPath ifParent = new BadExpressionPath(expr);
-        parent.AddChildPath(ifParent);
+	private void Validate(BadExpressionPath parent, BadIfExpression expr)
+	{
+		BadExpressionPath ifParent = new BadExpressionPath(expr);
+		parent.AddChildPath(ifParent);
 
-        List<BadExpressionPath> paths = new List<BadExpressionPath>();
+		List<BadExpressionPath> paths = new List<BadExpressionPath>();
 
-        foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.ConditionalBranches)
-        {
-            BadExpressionPath path = new BadExpressionPath(expr);
-            ifParent.AddChildPath(path);
-            paths.Add(path);
-            foreach (BadExpression expression in branch.Value)
-            {
-                Validate(path, expression);
-            }
-        }
+		foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.ConditionalBranches)
+		{
+			BadExpressionPath path = new BadExpressionPath(expr);
+			ifParent.AddChildPath(path);
+			paths.Add(path);
 
-        BadExpressionPath elsePath = new BadExpressionPath(expr);
-        ifParent.AddChildPath(elsePath);
+			foreach (BadExpression expression in branch.Value)
+			{
+				Validate(path, expression);
+			}
+		}
 
-        if (expr.ElseBranch != null)
-        {
-            foreach (BadExpression expression in expr.ElseBranch)
-            {
-                Validate(elsePath, expression);
-            }
-        }
-    }
+		BadExpressionPath elsePath = new BadExpressionPath(expr);
+		ifParent.AddChildPath(elsePath);
 
-    private void Validate(BadExpressionPath parent, BadTryCatchExpression expr)
-    {
-        BadExpressionPath tryPath = new BadExpressionPath(expr);
-        parent.AddChildPath(tryPath);
+		if (expr.ElseBranch != null)
+		{
+			foreach (BadExpression expression in expr.ElseBranch)
+			{
+				Validate(elsePath, expression);
+			}
+		}
+	}
 
-        foreach (BadExpression expression in expr.TryExpressions)
-        {
-            Validate(tryPath, expression);
-        }
+	private void Validate(BadExpressionPath parent, BadTryCatchExpression expr)
+	{
+		BadExpressionPath tryPath = new BadExpressionPath(expr);
+		parent.AddChildPath(tryPath);
 
-        BadExpressionPath catchPath = new BadExpressionPath(expr);
-        parent.AddChildPath(catchPath);
+		foreach (BadExpression expression in expr.TryExpressions)
+		{
+			Validate(tryPath, expression);
+		}
 
-        foreach (BadExpression expression in expr.CatchExpressions)
-        {
-            Validate(catchPath, expression);
-        }
-    }
+		BadExpressionPath catchPath = new BadExpressionPath(expr);
+		parent.AddChildPath(catchPath);
 
-    protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
-    {
-        BadExpressionPath path = new BadExpressionPath(expr);
+		foreach (BadExpression expression in expr.CatchExpressions)
+		{
+			Validate(catchPath, expression);
+		}
+	}
 
-        if (expr.TypeExpression != null)
-        {
-            //1. Go Through every expression inside the body.
-            foreach (BadExpression e in expr.Body)
-            {
-                Validate(path, e);
-            }
+	protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
+	{
+		BadExpressionPath path = new BadExpressionPath(expr);
 
-            if (!path.IsValid)
-            {
-                //find all invalid paths
-                foreach (BadExpressionPath invalidPath in path.GetInvalidPaths())
-                {
-                    context.AddError(
-                        "The function has a return type but not all paths have a return statement.",
-                        expr,
-                        invalidPath.Parent,
-                        this
-                    );
-                }
-            }
-        }
-    }
+		if (expr.TypeExpression != null)
+		{
+			//1. Go Through every expression inside the body.
+			foreach (BadExpression e in expr.Body)
+			{
+				Validate(path, e);
+			}
+
+			if (!path.IsValid)
+			{
+				//find all invalid paths
+				foreach (BadExpressionPath invalidPath in path.GetInvalidPaths())
+				{
+					context.AddError("The function has a return type but not all paths have a return statement.",
+						expr,
+						invalidPath.Parent,
+						this);
+				}
+			}
+		}
+	}
 }
