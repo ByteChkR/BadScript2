@@ -682,5 +682,8 @@
         <None Update="data\subsystems\test\classes\typeLookAhead.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="data\subsystems\test\operators\Precedence.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>
