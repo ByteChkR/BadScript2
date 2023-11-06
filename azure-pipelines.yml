@@ -35,45 +35,10 @@ steps:
     projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
     testRunTitle: 'Run Unit Tests'
 - task: NuGetCommand@2
-  displayName: Publish BadScript2.ConsoleAbstraction Package
+  displayName: Publish Packages
   inputs:
     command: 'pack'
-    packagesToPack: './src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Publish BadScript2 Package
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2/BadScript2.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Publish BadScript2.Debugger Package
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Publish BadScript2.Interactive Package
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Publish BadScript2.Interop Packages
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Interop/**/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Publish BadHtml Package
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadHtml/BadHtml.csproj'
+    packagesToPack: './src/**/*.csproj'
     versioningScheme: 'byBuildNumber'
     includeSymbols: true
 - task: Bash@3
