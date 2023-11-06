@@ -2,7 +2,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>BadScript2.ConsoleAbstraction</id>
-    <version>1.0.0</version>
     <authors>BadScript2.ConsoleAbstraction</authors>
     <icon>Logo.png</icon>
     <description>Console Abstraction Layer</description>

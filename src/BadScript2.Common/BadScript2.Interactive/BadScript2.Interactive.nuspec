@@ -2,7 +2,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>BadScript2.Interactive</id>
-    <version>1.0.0</version>
     <authors>BadScript2.Interactive</authors>
     <icon>Logo.png</icon>
     <description>Interactive Console Library</description>

@@ -2,7 +2,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>BadScript2.Interop.Net</id>
-    <version>1.0.0</version>
     <authors>BadScript2.Interop.Net</authors>
     <description>Networking API</description>
     <icon>Logo.png</icon>

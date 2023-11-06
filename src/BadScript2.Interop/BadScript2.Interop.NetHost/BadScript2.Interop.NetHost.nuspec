@@ -2,7 +2,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>BadScript2.Interop.NetHost</id>
-    <version>1.0.0</version>
     <authors>BadScript2.Interop.NetHost</authors>
     <description>HTTP Hosting Api</description>
     <icon>Logo.png</icon>

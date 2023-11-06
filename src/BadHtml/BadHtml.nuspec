@@ -2,7 +2,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>BadHtml</id>
-    <version>1.0.0</version>
     <authors>BadHtml</authors>
     <icon>Logo.png</icon>
     <description>Html Templating Engine</description>
