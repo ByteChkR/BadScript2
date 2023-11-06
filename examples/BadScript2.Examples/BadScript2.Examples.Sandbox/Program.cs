@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using BadScript2;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.IO;
 using BadScript2.IO;
@@ -26,22 +27,14 @@ internal static class Program
         // This script will be used to print the contents of "MySecretFile.txt" to the console.
         string source = "Console.WriteLine(IO.File.ReadAllText(\"./MySecretFile.txt\"));";
 
-        //Add Common extensions
-        BadCommonInterop.AddExtensions();
 
-        // Lets create a "dangerous" context
-        BadExecutionContextOptions unsafeOptions = new BadExecutionContextOptions();
-
-        //Add Common APIs
-        unsafeOptions.AddApis(BadCommonInterop.Apis);
-
-        unsafeOptions.AddApi(new BadIOApi());
-
-        //This context exposes the FileSystem API which allows scripts to read and write files to the host machine.
-        BadExecutionContext unsafeContext = unsafeOptions.Build();
-
+        BadRuntime unsafeRuntime = new BadRuntime()
+            .UseCommonInterop()
+            .UseFileSystemApi();
+        
+        
         //Execute the Script. It will print out the contents of "MySecretFile.txt" to the console.
-        unsafeContext.Run(BadSourceParser.Parse("<none>", source));
+        unsafeRuntime.Execute(source);
 
         // Now lets create a virtual file system
         IFileSystem fileSystem = new BadVirtualFileSystem();
@@ -49,19 +42,12 @@ internal static class Program
         //Write the secret file to the virtual file system(just so the script does not crash when trying to access it)
         fileSystem.WriteAllText("./MySecretFile.txt", "YIKES YOU ARE IN A SANDBOX");
 
-        BadExecutionContextOptions safeOptions = new BadExecutionContextOptions();
-
-        //Add Common APIs
-        safeOptions.AddApis(BadCommonInterop.Apis);
-
-        safeOptions.AddApi(new BadIOApi(fileSystem));
-
-        //This Context Exposes the FileSystem API but uses a virtual file system that is held in memory.
-        //The Script that is executed can only read and write files that are in the virtual file system.
-        BadExecutionContext safeContext = safeOptions.Build();
+        BadRuntime safeRuntime = new BadRuntime()
+            .UseCommonInterop()
+            .UseFileSystemApi(fileSystem);
 
         //Execute the Script. It will print out the contents of "MySecretFile.txt" to the console.
-        safeContext.Run(BadSourceParser.Parse("<none>", source));
+        safeRuntime.Execute(source);
 
         // To make the virtual filesystem persistent you can export it to a zip file
         using (FileStream fs = File.Create("MyVirtualFileSystem.zip"))

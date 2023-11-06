@@ -5,6 +5,7 @@ using BadHtml;
 
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleAbstraction.Implementations.Remote;
+using BadScript2.Debugger;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interop.Json;
@@ -47,7 +48,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
         if (settings.Debug)
         {
-            BadDebugger.Attach(new BadScriptDebugger(BadExecutionContextOptions.Default));
+            Runtime.UseScriptDebugger();
         }
 
         BadNetworkConsoleHost? host = null;
@@ -56,11 +57,12 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
         {
             host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
             host.Start();
-            BadConsole.SetConsole(host);
+            Runtime.UseConsole(host);
         }
 
         BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
         {
+            ContextOptions = Runtime.Options,
             SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
         };
 
@@ -89,15 +91,17 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
                     htmlString = htmlString.Replace("  ", " ");
                 }
 
-                Console.WriteLine(
-                    "Minified output to {1} characters({0}%)",
-                    Math.Round(htmlString.Length / (float)originalSize * 100, 2),
-                    htmlString.Length
+                BadConsole.WriteLine(
+                    string.Format(
+                        "Minified output to {1} characters({0}%)",
+                        Math.Round(htmlString.Length / (float)originalSize * 100, 2),
+                        htmlString.Length
+                    )
                 );
             }
             else
             {
-                Console.WriteLine("Generated output {0} characters", htmlString.Length);
+                BadConsole.WriteLine($"Generated output {htmlString.Length} characters");
             }
 
             BadFileSystem.WriteAllText(outFile, htmlString);
@@ -107,4 +111,6 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
         return 0;
     }
+
+    public BadHtmlSystem(BadRuntime runtime) : base(runtime) { }
 }

@@ -45,4 +45,6 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
     /// <param name="settings">The Settings Object</param>
     /// <returns>Return Code</returns>
     protected abstract int Run(T settings);
+
+    protected BadConsoleSystem(BadRuntime runtime) : base(runtime) { }
 }

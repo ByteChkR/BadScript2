@@ -5,9 +5,11 @@ using System.Net.Sockets;
 using BadScript2.Common.Logging;
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleAbstraction.Implementations.Remote;
+using BadScript2.Debugger;
 using BadScript2.Debugger.Scriptable;
 using BadScript2.Debugging;
 using BadScript2.Interactive;
+using BadScript2.Interop.Common;
 using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
@@ -111,10 +113,10 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         {
             host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
             host.Start();
-            BadConsole.SetConsole(host);
+            Runtime.UseConsole(host);
         }
 
-        BadRuntimeApi.StartupArguments = settings.Args;
+        Runtime.UseStartupArguments(settings.Args);
         IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
                 StartupDirectory,
                 $".{BadRuntimeSettings.Instance.FileExtension}",
@@ -129,11 +131,8 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 BadLogger.Warn("Benchmarking is not supported in interactive mode");
             }
 
-            int r = RunInteractive(options, files);
-
-            host?.Stop();
-
-            return r;
+            Runtime.RunInteractive(files);
+            return 0;
         }
 
         Stopwatch? sw = null;
@@ -145,41 +144,12 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         if (settings.Debug)
         {
-            BadDebugger.Attach(new BadScriptDebugger(options));
+            Runtime.UseScriptDebugger();
         }
 
         foreach (string file in files)
         {
-            BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
-            BadExecutionContext context = options.Build();
-
-            context.Scope.AddSingleton(BadTaskRunner.Instance);
-
-            IEnumerable<BadExpression> exprs = parser.Parse();
-
-            if (BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization)
-            {
-                exprs = BadConstantFoldingOptimizer.Optimize(exprs);
-            }
-
-            if (BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization)
-            {
-                exprs = BadConstantSubstitutionOptimizer.Optimize(exprs);
-            }
-
-            BadTaskRunner.Instance.AddTask(
-                new BadTask(
-                    new BadInteropRunnable(Run(context, context.Execute(exprs.ToArray())).GetEnumerator()),
-                    "Main"
-                ),
-                true
-            );
-
-
-            while (!BadTaskRunner.Instance.IsIdle)
-            {
-                BadTaskRunner.Instance.RunStep();
-            }
+            Runtime.ExecuteFile(file);
         }
 
         if (settings.Benchmark)
@@ -192,4 +162,6 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         return 0;
     }
+
+    public BadRunSystem(BadRuntime runtime) : base(runtime) { }
 }

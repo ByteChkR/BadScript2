@@ -2,6 +2,7 @@ using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
 using BadScript2.Optimizations.Folding;
+using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
@@ -147,7 +148,11 @@ public class BadInteractiveConsole
 
         if (BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization)
         {
-            exprs = BadConstantFoldingOptimizer.Optimize(exprs);
+	        exprs = BadConstantFoldingOptimizer.Optimize(exprs);
+        }
+        if (BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization)
+        {
+	        exprs = BadConstantSubstitutionOptimizer.Optimize(exprs);
         }
 
         if (m_Context == null)

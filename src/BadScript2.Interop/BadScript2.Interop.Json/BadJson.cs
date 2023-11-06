@@ -11,6 +11,14 @@ namespace BadScript2.Interop.Json;
 /// </summary>
 public static class BadJson
 {
+    
+    public static BadRuntime UseJsonApi(this BadRuntime runtime)
+    {
+        runtime.Options.AddOrReplaceApi(new BadJsonApi());
+
+        return runtime;
+    }
+    
 	/// <summary>
 	///     Converts a JArray to a BadArray
 	/// </summary>

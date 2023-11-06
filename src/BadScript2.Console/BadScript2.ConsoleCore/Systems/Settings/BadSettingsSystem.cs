@@ -17,4 +17,6 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 
         return 0;
     }
+
+    public BadSettingsSystem(BadRuntime runtime) : base(runtime) { }
 }

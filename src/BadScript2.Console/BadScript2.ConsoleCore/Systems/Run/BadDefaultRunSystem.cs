@@ -33,4 +33,6 @@ public class BadDefaultRunSystem : BadRunSystem
 
         return settings;
     }
+
+    public BadDefaultRunSystem(BadRuntime runtime) : base(runtime) { }
 }

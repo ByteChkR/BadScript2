@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using BadScript2;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;

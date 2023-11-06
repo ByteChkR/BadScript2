@@ -10,6 +10,12 @@ public abstract class BadAConsoleSystem
 	/// </summary>
 	public abstract string Name { get; }
 
+	protected readonly BadRuntime Runtime;
+	protected BadAConsoleSystem(BadRuntime runtime)
+	{
+		Runtime = runtime;
+	}
+
 	/// <summary>
 	///     Runs the Console System with the given settings
 	/// </summary>

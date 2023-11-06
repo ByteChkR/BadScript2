@@ -16,4 +16,6 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
 
         return 0;
     }
+
+    public BadRemoteConsoleSystem(BadRuntime runtime) : base(runtime) { }
 }

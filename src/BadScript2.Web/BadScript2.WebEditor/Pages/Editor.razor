@@ -14,6 +14,7 @@
 @using System.Collections.Specialized
 @using System.Web
 @using System.Text
+@using BadScript2.Interop.Common
 @inject IJSRuntime JsRuntime
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -427,7 +428,7 @@
 
     private void RunStartup()
     {
-        BadRunSystem sys = new BadRunSystem();
+        BadRunSystem sys = new BadRunSystem(new BadRuntime().UseCommonInterop());
         BadRunSystemSettings settings = new BadRunSystemSettings();
         settings.Files = Enumerable.Empty<string>();
         sys.Run(settings);

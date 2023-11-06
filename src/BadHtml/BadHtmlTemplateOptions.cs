@@ -1,3 +1,4 @@
+using BadScript2;
 using BadScript2.Runtime;
 
 namespace BadHtml;
@@ -7,6 +8,6 @@ namespace BadHtml;
 /// </summary>
 public class BadHtmlTemplateOptions
 {
-    public BadExecutionContextOptions? ContextOptions = null;
+    public BadRuntime? Runtime = null;
     public bool SkipEmptyTextNodes = false;
 }

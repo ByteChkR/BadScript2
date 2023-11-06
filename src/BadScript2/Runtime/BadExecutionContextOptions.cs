@@ -44,10 +44,25 @@ public class BadExecutionContextOptions
         m_Apis.Add(api);
     }
 
-    public void ReplaceApi(BadInteropApi api)
+    public void AddOrReplaceApis(IEnumerable<BadInteropApi> apis)
+    {
+        foreach (BadInteropApi api in apis)
+        {
+            AddOrReplaceApi(api);
+        }
+    }
+
+    public void AddOrReplaceApi(BadInteropApi api)
     {
         int index = m_Apis.FindIndex(x => x.Name == api.Name);
-        m_Apis[index] = api;
+        if (index == -1)
+        {
+            AddApi(api);
+        }
+        else
+        {
+            m_Apis[index] = api;
+        }
     }
 
     public void AddApis(IEnumerable<BadInteropApi> apis)

@@ -2,34 +2,29 @@
 
 using BadHtml;
 
-using BadScript2.Debugger.Scriptable;
+using BadScript2;
+using BadScript2.Debugger;
 using BadScript2.Interop.Common;
-using BadScript2.Interop.Common.Task;
-using BadScript2.Interop.Common.Versioning;
 using BadScript2.Interop.Html;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
 using BadScript2.Interop.Linq;
-using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Types;
-using BadScript2.Runtime.VirtualMachine.Compiler;
-using BadScript2.Settings;
 
 internal static class Program
 {
-    private static void GenerateDocumentation()
+    private static void GenerateDocumentation(BadRuntime runtime)
     {
         //Load the template
         BadHtmlTemplate template = BadHtmlTemplate.Create("templates/docs.bhtml");
 
         //Run the template and write the result to a file
-        File.WriteAllText("docs.html", template.Run());
+        File.WriteAllText("docs.html", template.Run(null, new BadHtmlTemplateOptions { Runtime = runtime }));
     }
 
 
-    private static async Task GenerateFoodLibrary()
+    private static async Task GenerateFoodLibrary(BadRuntime runtime)
     {
         //Load the template
         BadHtmlTemplate template = BadHtmlTemplate.Create("templates/food.bhtml");
@@ -52,35 +47,27 @@ internal static class Program
 
 
         //Run the template with the model and write the result to a file
-        File.WriteAllText("foodById.html", template.Run(model));
+        await File.WriteAllTextAsync("foodById.html", template.Run(model, new BadHtmlTemplateOptions { Runtime = runtime }));
 
 
         //(Optional) Property that will be used to sort the fruit list.
         model.SetProperty("Order", "name"); //Order By Name
 
-        File.WriteAllText("foodByName.html", template.Run(model));
+        await File.WriteAllTextAsync("foodByName.html", template.Run(model, new BadHtmlTemplateOptions { Runtime = runtime }));
     }
 
-    private static void InitializeEngine()
-    {
-        BadSettingsProvider.SetRootSettings(new BadSettings());
-        BadNativeClassBuilder.AddNative(BadTask.Prototype);
-        BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-        BadCommonInterop.AddExtensions();
-        BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-        BadInteropExtension.AddExtension<BadLinqExtensions>();
-
-        BadExecutionContextOptions.Default.AddApis(BadCommonInterop.Apis);
-        BadExecutionContextOptions.Default.AddApi(new BadIOApi());
-        BadExecutionContextOptions.Default.AddApi(new BadJsonApi());
-        BadExecutionContextOptions.Default.AddApi(new BadCompilerApi());
-        BadExecutionContextOptions.Default.AddApi(new BadHtmlApi());
-    }
 
     private static void Main()
     {
         //Initialize Engine(not part of this tutorial)
-        InitializeEngine();
+        using BadRuntime? runtime = new BadRuntime()
+            .UseCommonInterop()
+            .UseScriptDebugger()
+            .UseLinqApi()
+            .UseFileSystemApi()
+            .UseJsonApi()
+            .UseCompilerApi()
+            .UseHtmlApi();
 
         Console.WriteLine("Html Templates Example");
 
@@ -90,8 +77,8 @@ internal static class Program
         // The syntax is very similar to the popular Svelte syntax.
 
 
-        GenerateDocumentation();
+        GenerateDocumentation(runtime);
 
-        Task.WaitAll(GenerateFoodLibrary());
+        Task.WaitAll(GenerateFoodLibrary(runtime));
     }
 }

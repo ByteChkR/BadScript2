@@ -27,4 +27,6 @@ public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
             return e.HResult;
         }
     }
+
+    public BadTestSystem(BadRuntime runtime) : base(runtime) { }
 }

@@ -1,3 +1,4 @@
+using BadScript2;
 using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
@@ -78,7 +79,7 @@ public class BadHtmlTemplate
         HtmlDocument output = new HtmlDocument();
         output.OptionUseIdAttribute = true;
         output.LoadHtml("");
-        BadExecutionContext executionContext = (options.ContextOptions ?? BadExecutionContextOptions.Default).Build();
+        BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).Options.Build();
         executionContext.Scope.SetCaller(caller);
 
         BadObject mod = model as BadObject ?? BadObject.Wrap(model);
