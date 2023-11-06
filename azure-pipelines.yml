@@ -33,7 +33,7 @@ steps:
   displayName: Publish Nuget Packages
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: './src/**/*.csproj'
     versioningScheme: 'byBuildNumber'
     includeSymbols: true
 - task: Bash@3
