@@ -30,6 +30,7 @@ steps:
     projects: '**/*.csproj'
     testRunTitle: 'Run Unit Tests'
 - task: NuGetCommand@2
+  displayName: Publish Nuget Packages
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
