@@ -29,6 +29,12 @@ steps:
     command: 'test'
     projects: '**/*.csproj'
     testRunTitle: 'Run Unit Tests'
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byBuildNumber'
+    includeSymbols: true
 - task: Bash@3
   displayName: "Generate Documentation"
   inputs:
