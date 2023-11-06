@@ -28,45 +28,26 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
+    arguments: '-c Release'
 - task: DotNetCoreCLI@2
   displayName: Run Unit Tests
   inputs:
     command: 'test'
     projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
     testRunTitle: 'Run Unit Tests'
-- task: NuGetCommand@2
-  displayName: Build BadScript2 Package
+- task: DotNetCoreCLI@2
+  displayName: Pack Nuget Packages
   inputs:
     command: 'pack'
-    packagesToPack: './src/BadScript2/BadScript2.csproj'
+    packagesToPack: '**/*.nuspec'
+    includesymbols: true
+    includesource: true
     versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Build BadScript2.Common Packages
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Common/**/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Build BadScript2.Interop Packages
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Interop/**/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Build BadHtml Package
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadHtml/BadHtml.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   displayName: Publish Nuget Packages
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
 - task: Bash@3
