@@ -12,9 +12,9 @@ public abstract class BadToken
 	/// </summary>
 	/// <param name="position">The Source Position of the Token</param>
 	protected BadToken(BadSourcePosition position)
-	{
-		SourcePosition = position;
-	}
+    {
+        SourcePosition = position;
+    }
 
 	/// <summary>
 	///     The Source Position of the Token
@@ -31,7 +31,7 @@ public abstract class BadToken
 	/// </summary>
 	/// <returns>String Representation</returns>
 	public override string ToString()
-	{
-		return Text;
-	}
+    {
+        return Text;
+    }
 }

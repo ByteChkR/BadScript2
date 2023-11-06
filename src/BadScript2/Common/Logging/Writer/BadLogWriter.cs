@@ -5,15 +5,15 @@ namespace BadScript2.Common.Logging.Writer;
 /// </summary>
 public abstract class BadLogWriter : IDisposable
 {
-	public bool IsActive { get; private set; }
+    public bool IsActive { get; private set; }
 
     /// <summary>
     ///     Implements the IDisposable interface
     /// </summary>
     public virtual void Dispose()
-	{
-		Unregister();
-	}
+    {
+        Unregister();
+    }
 
     /// <summary>
     ///     Writes a log message to the log writer
@@ -26,39 +26,39 @@ public abstract class BadLogWriter : IDisposable
     /// </summary>
     /// <param name="log">The Log to be written</param>
     private void InnerWrite(BadLog log)
-	{
-		if (BadLogWriterSettings.Instance.Mask.Contains(log.Mask))
-		{
-			Write(log);
-		}
-	}
+    {
+        if (BadLogWriterSettings.Instance.Mask.Contains(log.Mask))
+        {
+            Write(log);
+        }
+    }
 
     /// <summary>
     ///     Registers the Log Writer to the Log System
     /// </summary>
     public void Register()
-	{
-		if (IsActive)
-		{
-			return;
-		}
+    {
+        if (IsActive)
+        {
+            return;
+        }
 
-		BadLogger.OnLog += InnerWrite;
-		IsActive = true;
-	}
+        BadLogger.OnLog += InnerWrite;
+        IsActive = true;
+    }
 
 
     /// <summary>
     ///     Unregisters the Log Writer from the Log System
     /// </summary>
     public void Unregister()
-	{
-		if (!IsActive)
-		{
-			return;
-		}
+    {
+        if (!IsActive)
+        {
+            return;
+        }
 
-		BadLogger.OnLog -= InnerWrite;
-		IsActive = false;
-	}
+        BadLogger.OnLog -= InnerWrite;
+        IsActive = false;
+    }
 }

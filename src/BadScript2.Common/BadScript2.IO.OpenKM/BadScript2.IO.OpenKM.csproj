@@ -6,6 +6,8 @@
         <LangVersion>latest</LangVersion>
         <AssemblyVersion>2023.10.8.0</AssemblyVersion>
         <FileVersion>2023.10.8.0</FileVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>

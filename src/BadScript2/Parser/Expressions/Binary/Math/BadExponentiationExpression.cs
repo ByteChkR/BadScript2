@@ -11,44 +11,46 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 /// </summary>
 public class BadExponentiationExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Creates a new Exponentiation Expression
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">The Source Position</param>
-    public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
-		right,
-		position) { }
+	/// <summary>
+	///     Creates a new Exponentiation Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+        left,
+        right,
+        position
+    ) { }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject left = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject left = BadObject.Null;
 
-		foreach (BadObject o in Left.Execute(context))
-		{
-			left = o;
+        foreach (BadObject o in Left.Execute(context))
+        {
+            left = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		left = left.Dereference();
-		BadObject right = BadObject.Null;
+        left = left.Dereference();
+        BadObject right = BadObject.Null;
 
-		foreach (BadObject o in Right.Execute(context))
-		{
-			right = o;
+        foreach (BadObject o in Right.Execute(context))
+        {
+            right = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		right = right.Dereference();
+        right = right.Dereference();
 
-		foreach (BadObject? o in ExpWithOverride(context, left, right, Position))
-		{
-			yield return o;
-		}
-	}
+        foreach (BadObject? o in ExpWithOverride(context, left, right, Position))
+        {
+            yield return o;
+        }
+    }
 
     /// <summary>
     ///     Runs the Exponentiation Operator on the given objects.
@@ -59,27 +61,29 @@ public class BadExponentiationExpression : BadBinaryExpression
     /// <param name="position">The Source Position</param>
     /// <returns>Enumerable of which the last element is the result of the operation</returns>
     public static IEnumerable<BadObject> ExpWithOverride(
-		BadExecutionContext context,
-		BadObject left,
-		BadObject right,
-		BadSourcePosition position)
-	{
-		if (left.HasProperty(BadStaticKeys.ExponentiationOperatorName))
-		{
-			foreach (BadObject o in ExecuteOperatorOverride(left,
-				         right,
-				         context,
-				         BadStaticKeys.ExponentiationOperatorName,
-				         position))
-			{
-				yield return o;
-			}
-		}
-		else
-		{
-			yield return Exp(left, right, position);
-		}
-	}
+        BadExecutionContext context,
+        BadObject left,
+        BadObject right,
+        BadSourcePosition position)
+    {
+        if (left.HasProperty(BadStaticKeys.ExponentiationOperatorName))
+        {
+            foreach (BadObject o in ExecuteOperatorOverride(
+                         left,
+                         right,
+                         context,
+                         BadStaticKeys.ExponentiationOperatorName,
+                         position
+                     ))
+            {
+                yield return o;
+            }
+        }
+        else
+        {
+            yield return Exp(left, right, position);
+        }
+    }
 
     /// <summary>
     ///     Implements the logic of the Exponentiation Operator
@@ -90,21 +94,21 @@ public class BadExponentiationExpression : BadBinaryExpression
     /// <returns>The Result of the Operation</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the given values are not of type IBadNumber</exception>
     public static BadObject Exp(BadObject left, BadObject right, BadSourcePosition position)
-	{
-		if (left is IBadNumber lNum)
-		{
-			if (right is IBadNumber rNum)
-			{
-				return BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
-			}
-		}
+    {
+        if (left is IBadNumber lNum)
+        {
+            if (right is IBadNumber rNum)
+            {
+                return BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
+            }
+        }
 
-		throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", position);
-	}
+        throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", position);
+    }
 
 
-	protected override string GetSymbol()
-	{
-		return "**";
-	}
+    protected override string GetSymbol()
+    {
+        return "**";
+    }
 }

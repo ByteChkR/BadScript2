@@ -14,8 +14,8 @@ public class BadPostDecrementOperator : BadBinaryOperator
 	public BadPostDecrementOperator() : base(2, "--") { }
 
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		return new BadPostDecrementExpression(left, left.Position);
-	}
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        return new BadPostDecrementExpression(left, left.Position);
+    }
 }

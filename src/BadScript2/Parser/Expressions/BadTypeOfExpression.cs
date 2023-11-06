@@ -9,47 +9,47 @@ namespace BadScript2.Parser.Expressions;
 /// </summary>
 public class BadTypeOfExpression : BadExpression
 {
-    /// <summary>
-    ///     The Expression to get the type of
-    /// </summary>
-    public readonly BadExpression Expression;
+	/// <summary>
+	///     The Expression to get the type of
+	/// </summary>
+	public readonly BadExpression Expression;
 
-    /// <summary>
-    ///     Creates a new 'typeof' expression
-    /// </summary>
-    /// <param name="expression">Expression to get the type of</param>
-    /// <param name="position">Source Position</param>
-    public BadTypeOfExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
-	{
-		Expression = expression;
-	}
+	/// <summary>
+	///     Creates a new 'typeof' expression
+	/// </summary>
+	/// <param name="expression">Expression to get the type of</param>
+	/// <param name="position">Source Position</param>
+	public BadTypeOfExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
+    {
+        Expression = expression;
+    }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression e in Expression.GetDescendantsAndSelf())
-		{
-			yield return e;
-		}
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression e in Expression.GetDescendantsAndSelf())
+        {
+            yield return e;
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject? obj = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject? obj = BadObject.Null;
 
-		foreach (BadObject o in Expression.Execute(context))
-		{
-			obj = o;
+        foreach (BadObject o in Expression.Execute(context))
+        {
+            obj = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		if (context.Scope.IsError)
-		{
-			yield break;
-		}
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		obj = obj.Dereference();
+        obj = obj.Dereference();
 
-		yield return obj.GetPrototype();
-	}
+        yield return obj.GetPrototype();
+    }
 }

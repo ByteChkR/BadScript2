@@ -35,69 +35,71 @@ public class BadInterfacePrototypeExpression : BadExpression
 	/// <param name="metaData">Meta Data for the Interface</param>
 	/// <param name="position">Source Position</param>
 	public BadInterfacePrototypeExpression(
-		string name,
-		BadInterfaceFunctionConstraint[] constraints,
-		BadExpression[] interfaces,
-		BadMetaData? metaData,
-		BadSourcePosition position) : base(false, position)
-	{
-		m_Interfaces = interfaces;
-		m_MetaData = metaData;
-		Name = name;
-		m_Constraints = constraints;
-	}
+        string name,
+        BadInterfaceFunctionConstraint[] constraints,
+        BadExpression[] interfaces,
+        BadMetaData? metaData,
+        BadSourcePosition position) : base(false, position)
+    {
+        m_Interfaces = interfaces;
+        m_MetaData = metaData;
+        Name = name;
+        m_Constraints = constraints;
+    }
 
 	/// <summary>
 	///     The Interface Name
 	/// </summary>
 	public string Name { get; }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		yield break;
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        yield break;
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		List<BadInterfacePrototype> interfaces = new List<BadInterfacePrototype>();
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        List<BadInterfacePrototype> interfaces = new List<BadInterfacePrototype>();
 
-		foreach (BadExpression interfae in m_Interfaces)
-		{
-			BadObject obj = BadObject.Null;
+        foreach (BadExpression interfae in m_Interfaces)
+        {
+            BadObject obj = BadObject.Null;
 
-			foreach (BadObject o in interfae.Execute(context))
-			{
-				obj = o;
-			}
+            foreach (BadObject o in interfae.Execute(context))
+            {
+                obj = o;
+            }
 
-			if (obj.Dereference() is not BadInterfacePrototype cls)
-			{
-				throw new BadRuntimeException("Base Class is not a class");
-			}
+            if (obj.Dereference() is not BadInterfacePrototype cls)
+            {
+                throw new BadRuntimeException("Base Class is not a class");
+            }
 
-			interfaces.Add(cls);
-		}
+            interfaces.Add(cls);
+        }
 
-		BadInterfaceConstraint[] GetConstraints()
-		{
-			Console.WriteLine($"Get Constraints for : {Name} {Position}");
-			BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
+        BadInterfaceConstraint[] GetConstraints()
+        {
+            Console.WriteLine($"Get Constraints for : {Name} {Position}");
+            BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
 
-			for (int i = 0; i < m_Constraints.Length; i++)
-			{
-				BadInterfaceFunctionConstraint c = m_Constraints[i];
-				constrainsts[i] = new BadInterfaceFunctionConstraint(c.Name,
-					c.Return,
-					c.Parameters.Select(x => x.Initialize(context)).ToArray());
-			}
+            for (int i = 0; i < m_Constraints.Length; i++)
+            {
+                BadInterfaceFunctionConstraint c = m_Constraints[i];
+                constrainsts[i] = new BadInterfaceFunctionConstraint(
+                    c.Name,
+                    c.Return,
+                    c.Parameters.Select(x => x.Initialize(context)).ToArray()
+                );
+            }
 
-			return constrainsts;
-		}
+            return constrainsts;
+        }
 
-		//Create the Interface Prototype
-		BadInterfacePrototype intf = new BadInterfacePrototype(Name, interfaces.ToArray(), m_MetaData, GetConstraints);
-		context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
+        //Create the Interface Prototype
+        BadInterfacePrototype intf = new BadInterfacePrototype(Name, interfaces.ToArray(), m_MetaData, GetConstraints);
+        context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
 
-		yield return intf;
-	}
+        yield return intf;
+    }
 }

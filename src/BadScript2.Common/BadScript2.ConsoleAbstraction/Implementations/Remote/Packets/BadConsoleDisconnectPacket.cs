@@ -15,21 +15,21 @@ public class BadConsoleDisconnectPacket : BadConsolePacket
 	/// </summary>
 	private BadConsoleDisconnectPacket() { }
 
-	public override byte[] Serialize()
-	{
-		return new[]
-		{
-			(byte)BadConsolePacketType.Disconnect
-		};
-	}
+    public override byte[] Serialize()
+    {
+        return new[]
+        {
+            (byte)BadConsolePacketType.Disconnect,
+        };
+    }
 
-	/// <summary>
-	///     Deserializes the Packet
-	/// </summary>
-	/// <param name="data">The Data Array</param>
-	/// <returns>Bad Console Packet instance</returns>
-	public new static BadConsoleDisconnectPacket Deserialize(byte[] data)
-	{
-		return Packet;
-	}
+    /// <summary>
+    ///     Deserializes the Packet
+    /// </summary>
+    /// <param name="data">The Data Array</param>
+    /// <returns>Bad Console Packet instance</returns>
+    public new static BadConsoleDisconnectPacket Deserialize(byte[] data)
+    {
+        return Packet;
+    }
 }

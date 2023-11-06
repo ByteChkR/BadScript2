@@ -7,6 +7,6 @@ namespace BadHtml;
 /// </summary>
 public class BadHtmlTemplateOptions
 {
-	public BadExecutionContextOptions? ContextOptions = null;
-	public bool SkipEmptyTextNodes = false;
+    public BadExecutionContextOptions? ContextOptions = null;
+    public bool SkipEmptyTextNodes = false;
 }

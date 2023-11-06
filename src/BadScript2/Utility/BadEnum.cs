@@ -13,9 +13,9 @@ public static class BadEnum
 	/// <typeparam name="T">Enum Type</typeparam>
 	/// <returns>The Enum Value</returns>
 	public static T Parse<T>(string value, bool ignoreCase) where T : Enum
-	{
-		return (T)Enum.Parse(typeof(T), value, ignoreCase);
-	}
+    {
+        return (T)Enum.Parse(typeof(T), value, ignoreCase);
+    }
 
 	/// <summary>
 	///     Parses a string to an enum
@@ -24,7 +24,7 @@ public static class BadEnum
 	/// <typeparam name="T">Enum Type</typeparam>
 	/// <returns>The Enum Value</returns>
 	public static T Parse<T>(string value) where T : Enum
-	{
-		return (T)Enum.Parse(typeof(T), value);
-	}
+    {
+        return (T)Enum.Parse(typeof(T), value);
+    }
 }

@@ -21,8 +21,8 @@ public class BadParameterMetaData
 	/// <param name="type">The Type of the Parameter</param>
 	/// <param name="description">The Description of the Parameter</param>
 	public BadParameterMetaData(string type, string description)
-	{
-		Type = type;
-		Description = description;
-	}
+    {
+        Type = type;
+        Description = description;
+    }
 }

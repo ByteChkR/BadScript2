@@ -24,7 +24,7 @@ public abstract class BadOperator
 	public int Precedence { get; }
 
 	/// <summary>
-	/// Set to true if the Operator needs to be evaluated left to right
+	///     Set to true if the Operator needs to be evaluated left to right
 	/// </summary>
 	public bool IsLeftAssociative { get; }
 

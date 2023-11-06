@@ -10,52 +10,52 @@ namespace BadScript2.Parser.Expressions;
 /// </summary>
 public class BadDeleteExpression : BadExpression
 {
-    /// <summary>
-    ///     The Key to delete
-    /// </summary>
-    public readonly BadExpression Expression;
+	/// <summary>
+	///     The Key to delete
+	/// </summary>
+	public readonly BadExpression Expression;
 
-    /// <summary>
-    ///     Creates a new Delete Expression
-    /// </summary>
-    /// <param name="expression">Key Expression</param>
-    /// <param name="position">Source Position</param>
-    public BadDeleteExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
-	{
-		Expression = expression;
-	}
+	/// <summary>
+	///     Creates a new Delete Expression
+	/// </summary>
+	/// <param name="expression">Key Expression</param>
+	/// <param name="position">Source Position</param>
+	public BadDeleteExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
+    {
+        Expression = expression;
+    }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression e in Expression.GetDescendantsAndSelf())
-		{
-			yield return e;
-		}
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression e in Expression.GetDescendantsAndSelf())
+        {
+            yield return e;
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject? obj = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject? obj = BadObject.Null;
 
-		foreach (BadObject o in Expression.Execute(context))
-		{
-			obj = o;
+        foreach (BadObject o in Expression.Execute(context))
+        {
+            obj = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		if (context.Scope.IsError)
-		{
-			yield break;
-		}
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		if (obj is not BadObjectReference r)
-		{
-			throw BadRuntimeException.Create(context.Scope, $"Cannot delete {Expression}", Position);
-		}
+        if (obj is not BadObjectReference r)
+        {
+            throw BadRuntimeException.Create(context.Scope, $"Cannot delete {Expression}", Position);
+        }
 
-		r.Delete();
+        r.Delete();
 
-		yield return BadObject.Null;
-	}
+        yield return BadObject.Null;
+    }
 }
