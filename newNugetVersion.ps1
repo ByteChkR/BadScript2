@@ -12,3 +12,4 @@ else {
 
 echo "BadScript Runtime Located at $bsFile"
 . $bsFile ./newNugetVersion.bs $version $sources
+echo "Completed"
