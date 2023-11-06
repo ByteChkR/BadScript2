@@ -1,0 +1,58 @@
+function FindNode(n, name)
+{
+	foreach(node in n)
+	{
+		if(node.Name == name)
+		{
+			return node;
+		}
+	}
+}
+
+function ChangeVersion(string file!, string versionFormat!)
+{
+	const content = Xml.Load(IO.File.ReadAllText(file));
+	const package = FindNode(content, "package");
+	if(package == null)
+	{
+		Console.WriteLine($"Could not find 'package' element in {file}");
+		return;
+	}
+	
+	const metadata = FindNode(package, "metadata");
+	if(metadata == null)
+	{
+		Console.WriteLine($"Could not find 'meta' element in {file}::package");
+		return;
+	}
+
+	const versionElement = FindNode(metadata, "version");
+	if(versionElement == null)
+	{
+		Console.WriteLine($"Could not find 'version' element in {file}::package::metadata");
+		versionElement = content.CreateElement("version");
+		versionElement.InnerText = "1.0.0.0";
+		metadata.AppendChild(versionElement);
+	}
+	const version = new Version(versionElement.InnerText);
+	const newVersion = version.ChangeVersion(versionFormat);
+
+	Console.WriteLine($"ASM {version} => {newVersion}");
+	versionElement.InnerText = newVersion.ToString();
+	content.Save(file);
+}
+
+
+function Main(args)
+{
+	const versionFormat = args.Length > 0 ? args[0] : "(~){yyyy}.(~){MM}.(~){dd}.+";
+	const sourceDir = args.Length > 1 ? args[1] : "./src";
+	Console.WriteLine("Updating Nuget Versions");
+	foreach(file in IO.Directory.GetFiles(sourceDir, ".nuspec", true))
+	{
+		Console.WriteLine("Updating File " + file);
+		ChangeVersion(file, versionFormat);
+	}
+}
+
+Main(Runtime.GetArguments());
