@@ -35,31 +35,10 @@ steps:
     projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
     testRunTitle: 'Run Unit Tests'
 - task: NuGetCommand@2
-  displayName: Build BadScript2 Package
+  displayName: Build BadScript2 Packages
   inputs:
     command: 'pack'
-    packagesToPack: './src/BadScript2/BadScript2.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Build BadScript2.Common Packages
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Common/**/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Build BadScript2.Interop Packages
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadScript2.Interop/**/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    includeSymbols: true
-- task: NuGetCommand@2
-  displayName: Build BadHtml Package
-  inputs:
-    command: 'pack'
-    packagesToPack: './src/BadHtml/BadHtml.csproj'
+    packagesToPack: './src/**/*.nuspec'
     versioningScheme: 'byBuildNumber'
     includeSymbols: true
 - task: NuGetCommand@2
