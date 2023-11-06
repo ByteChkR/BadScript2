@@ -11,7 +11,7 @@ public class BadEqualityOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadEqualityOperator() : base(9, "==") { }
+	public BadEqualityOperator() : base(10, "==") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

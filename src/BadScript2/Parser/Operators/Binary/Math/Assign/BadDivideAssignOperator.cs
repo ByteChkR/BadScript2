@@ -11,7 +11,7 @@ public class BadDivideAssignOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadDivideAssignOperator() : base(15, "/=") { }
+	public BadDivideAssignOperator() : base(16, "/=", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

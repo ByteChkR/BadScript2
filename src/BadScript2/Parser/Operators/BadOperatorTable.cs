@@ -137,10 +137,19 @@ public class BadOperatorTable
 	///     Finds a Binary Operator by its Symbol
 	/// </summary>
 	/// <param name="symbol">The Symbol of the Parser</param>
+	/// <param name="precedence">The Maximum Precedence</param>
 	/// <returns>The Operator that was found. Null if none were found.</returns>
-	public BadBinaryOperator? FindBinaryOperator(string symbol)
+	public BadBinaryOperator? FindBinaryOperator(string symbol, int precedence)
     {
-        return m_Operators.FirstOrDefault(x => x.Symbol == symbol);
+	    foreach (BadBinaryOperator op in m_Operators)
+	    {
+		    if (op.Symbol == symbol && (op.IsLeftAssociative && op.Precedence < precedence || !op.IsLeftAssociative && op.Precedence <= precedence))
+		    {
+			    return op;
+		    }
+	    }
+
+	    return null;
     }
 
 	/// <summary>
@@ -148,8 +157,16 @@ public class BadOperatorTable
 	/// </summary>
 	/// <param name="symbol">Symbol of the Operator</param>
 	/// <returns>The Operator that was found. Null if none were found.</returns>
-	public BadUnaryPrefixOperator? FindUnaryPrefixOperator(string symbol)
+	public BadUnaryPrefixOperator? FindUnaryPrefixOperator(string symbol, int precedence)
     {
-        return m_UnaryPrefixOperators.FirstOrDefault(x => x.Symbol == symbol);
+	    foreach (BadUnaryPrefixOperator op in m_UnaryPrefixOperators)
+	    {
+		    if (op.Symbol == symbol && (op.IsLeftAssociative && op.Precedence < precedence || !op.IsLeftAssociative && op.Precedence <= precedence))
+		    {
+			    return op;
+		    }
+	    }
+
+	    return null;
     }
 }

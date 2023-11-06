@@ -12,7 +12,7 @@ public class BadTernaryOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadTernaryOperator() : base(15, "?") { }
+	public BadTernaryOperator() : base(16, "?", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

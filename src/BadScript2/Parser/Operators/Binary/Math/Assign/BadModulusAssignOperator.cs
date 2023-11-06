@@ -11,7 +11,7 @@ public class BadModulusAssignOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadModulusAssignOperator() : base(15, "%=") { }
+	public BadModulusAssignOperator() : base(16, "%=", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

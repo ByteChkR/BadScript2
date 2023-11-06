@@ -11,7 +11,7 @@ public class BadUnaryUnpackOperator : BadUnaryPrefixOperator
 	/// <summary>
 	///     Creates a new '...' operator
 	/// </summary>
-	public BadUnaryUnpackOperator() : base(20, "...") { }
+	public BadUnaryUnpackOperator() : base(20, "...", false) { }
 
     public override BadExpression Parse(BadSourceParser parser)
     {

@@ -12,7 +12,7 @@ public class BadBinaryUnpackOperator : BadBinaryOperator
 	/// <summary>
 	///     Creates a new '...' operator
 	/// </summary>
-	public BadBinaryUnpackOperator() : base(3, "...") { }
+	public BadBinaryUnpackOperator() : base(3, "...", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

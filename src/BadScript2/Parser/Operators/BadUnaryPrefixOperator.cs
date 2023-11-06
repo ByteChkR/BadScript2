@@ -12,7 +12,8 @@ public abstract class BadUnaryPrefixOperator : BadOperator
     /// </summary>
     /// <param name="precedence">The Operator precedence</param>
     /// <param name="symbol">The Operator Symbol</param>
-    protected BadUnaryPrefixOperator(int precedence, string symbol) : base(precedence, symbol) { }
+	/// &lt;param name="isLeftAssociative"&gt;Set to true if the Operator needs to be evaluated left to right&lt;/param&gt;
+    protected BadUnaryPrefixOperator(int precedence, string symbol, bool isLeftAssociative = true) : base(precedence, symbol, isLeftAssociative) { }
 
     /// <summary>
     ///     Parses the Operator and returns the resulting Expression

@@ -11,7 +11,7 @@ public class BadNullCoalescingOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadNullCoalescingOperator() : base(15, "??") { }
+	public BadNullCoalescingOperator() : base(16, "??", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

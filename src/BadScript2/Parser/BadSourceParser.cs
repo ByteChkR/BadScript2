@@ -88,10 +88,10 @@ public class BadSourceParser
             return null;
         }
 
-        BadUnaryPrefixOperator? op = m_Operators.FindUnaryPrefixOperator(symbol.Text);
+        BadUnaryPrefixOperator? op = m_Operators.FindUnaryPrefixOperator(symbol.Text, precedence);
 
 
-        if (op == null || op.Precedence > precedence)
+        if (op == null)
         {
             Reader.SetPosition(symbol.SourcePosition.Index);
 
@@ -1012,10 +1012,10 @@ public class BadSourceParser
                 return left;
             }
 
-            BadBinaryOperator? op = m_Operators.FindBinaryOperator(symbol.Text);
+            BadBinaryOperator? op = m_Operators.FindBinaryOperator(symbol.Text, precedence);
 
 
-            if (op == null || op.Precedence > precedence)
+            if (op == null)
             {
                 Reader.SetPosition(symbol.SourcePosition.Index);
 

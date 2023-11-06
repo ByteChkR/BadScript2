@@ -11,7 +11,7 @@ public class BadExponentiationAssignOperator : BadBinaryOperator
 	/// <summary>
 	///     Creates a new '**=' operator
 	/// </summary>
-	public BadExponentiationAssignOperator() : base(15, "**=") { }
+	public BadExponentiationAssignOperator() : base(16, "**=", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

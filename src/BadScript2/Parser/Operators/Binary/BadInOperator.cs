@@ -11,7 +11,7 @@ public class BadInOperator : BadBinaryOperator
 	/// <summary>
 	///     Creates a new 'in' operator
 	/// </summary>
-	public BadInOperator() : base(15, "in") { }
+	public BadInOperator() : base(16, "in") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

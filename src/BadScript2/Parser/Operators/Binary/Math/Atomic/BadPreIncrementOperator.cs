@@ -11,7 +11,7 @@ public class BadPreIncrementOperator : BadUnaryPrefixOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadPreIncrementOperator() : base(2, "++") { }
+	public BadPreIncrementOperator() : base(2, "++", false) { }
 
 
     public override BadExpression Parse(BadSourceParser parser)

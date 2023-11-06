@@ -10,7 +10,7 @@ public class BadInstanceOfExpressionOperator : BadBinaryOperator
 	/// <summary>
 	///     Creates a new Instance Of Operator
 	/// </summary>
-	public BadInstanceOfExpressionOperator() : base(3, "instanceof") { }
+	public BadInstanceOfExpressionOperator() : base(3, "instanceof", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

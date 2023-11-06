@@ -11,7 +11,7 @@ public class BadMultiplyAssignOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadMultiplyAssignOperator() : base(15, "*=") { }
+	public BadMultiplyAssignOperator() : base(16, "*=", false) { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

@@ -11,7 +11,7 @@ public class BadGreaterThanOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadGreaterThanOperator() : base(8, ">") { }
+	public BadGreaterThanOperator() : base(9, ">") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

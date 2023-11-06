@@ -11,7 +11,7 @@ public class BadLogicNotOperator : BadUnaryPrefixOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadLogicNotOperator() : base(3, "!") { }
+	public BadLogicNotOperator() : base(3, "!", false) { }
 
     public override BadExpression Parse(BadSourceParser parser)
     {

@@ -11,7 +11,7 @@ public class BadPreDecrementOperator : BadUnaryPrefixOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadPreDecrementOperator() : base(2, "--") { }
+	public BadPreDecrementOperator() : base(2, "--", false) { }
 
 
     public override BadExpression Parse(BadSourceParser parser)

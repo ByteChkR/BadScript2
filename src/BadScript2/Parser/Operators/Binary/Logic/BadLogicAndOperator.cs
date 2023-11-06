@@ -11,7 +11,7 @@ public class BadLogicAndOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadLogicAndOperator() : base(13, "&&") { }
+	public BadLogicAndOperator() : base(14, "&&") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {

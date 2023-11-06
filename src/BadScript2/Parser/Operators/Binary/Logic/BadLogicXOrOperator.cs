@@ -11,7 +11,7 @@ public class BadLogicXOrOperator : BadBinaryOperator
 	/// <summary>
 	///     Constructor of the Operator
 	/// </summary>
-	public BadLogicXOrOperator() : base(11, "^") { }
+	public BadLogicXOrOperator() : base(12, "^") { }
 
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
