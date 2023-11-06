@@ -62,7 +62,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
         BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
         {
-            ContextOptions = Runtime.Options,
+            Runtime = Runtime,
             SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
         };
 
