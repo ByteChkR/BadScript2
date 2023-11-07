@@ -9,6 +9,7 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadExecutionContextOptions
 {
+    public static BadExecutionContextOptions Empty => new BadExecutionContextOptions();
     public void AddExtension<T>() where T : BadInteropExtension, new()
     {
         T t = new T();

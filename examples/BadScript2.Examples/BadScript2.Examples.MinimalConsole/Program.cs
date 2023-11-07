@@ -17,7 +17,7 @@ internal static class Program
         string source = "123 + 321";
 
         // Create the Execution Context
-        BadExecutionContext ctx = BadExecutionContextOptions.Default.Build();
+        BadExecutionContext ctx = BadExecutionContextOptions.Empty.Build();
 
         // Parse the Script
         // Call "ToArray" on the result to parse the script completely.
