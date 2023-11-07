@@ -52,7 +52,7 @@ steps:
   displayName: Publish Nuget Packages
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg;!$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
 - task: Bash@3
