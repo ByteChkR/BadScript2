@@ -51,17 +51,17 @@ public class BadLessOrEqualExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> LessOrEqualWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.LessEqualOperatorName))
+        if (left.HasProperty(BadStaticKeys.LessEqualOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.LessEqualOperatorName,
                          position
                      ))
@@ -69,12 +69,12 @@ public class BadLessOrEqualExpression : BadBinaryExpression
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.LessEqualOperatorName))
+        else if (right.HasProperty(BadStaticKeys.LessEqualOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.LessEqualOperatorName,
                          position
                      ))

@@ -75,17 +75,17 @@ public class BadPreDecrementExpression : BadExpression
     }
 
     public static IEnumerable<BadObject> DecrementWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.PreDecrementOperatorName))
+        if (left.HasProperty(BadStaticKeys.PreDecrementOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.PreDecrementOperatorName,
                          position
                      ))

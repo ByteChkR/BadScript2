@@ -13,6 +13,7 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadUnitTestContext
 {
+	private readonly BadRuntime m_Runtime;
 	/// <summary>
 	///     The Test Cases
 	/// </summary>
@@ -34,11 +35,12 @@ public class BadUnitTestContext
 	/// <param name="cases">The Test Cases</param>
 	/// <param name="setup">The Setup Functions</param>
 	/// <param name="teardown">The Teardown Functions</param>
-	public BadUnitTestContext(List<BadNUnitTestCase> cases, List<BadFunction> setup, List<BadFunction> teardown)
+	public BadUnitTestContext(List<BadNUnitTestCase> cases, List<BadFunction> setup, List<BadFunction> teardown, BadRuntime runtime)
     {
         m_Cases = cases;
         m_Setup = setup;
         m_Teardown = teardown;
+        m_Runtime = runtime;
     }
 
 	/// <summary>
@@ -97,7 +99,7 @@ public class BadUnitTestContext
         for (int i = m_Setup.Count - 1; i >= 0; i--)
         {
             BadFunction function = m_Setup[i];
-            BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
+            BadExecutionContext caller = m_Runtime.CreateContext();
 
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
@@ -121,7 +123,7 @@ public class BadUnitTestContext
         for (int i = m_Teardown.Count - 1; i >= 0; i--)
         {
             BadFunction function = m_Teardown[i];
-            BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
+            BadExecutionContext caller = m_Runtime.CreateContext();
 
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
@@ -144,7 +146,7 @@ public class BadUnitTestContext
 	private IEnumerable<BadObject> RunTestCase(BadNUnitTestCase testCase)
     {
         TestContext.WriteLine($"Running test '{testCase.TestName}'");
-        BadExecutionContext caller = BadExecutionContextOptions.Default.Build();
+        BadExecutionContext caller = m_Runtime.CreateContext();
 
         BadTaskRunner.Instance.AddTask(
             new BadTask(

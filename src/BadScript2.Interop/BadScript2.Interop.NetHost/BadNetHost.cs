@@ -8,16 +8,6 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.NetHost;
 
-public static class BadNetApiExtensions
-{
-	public static BadRuntime UseNetHostApi(this BadRuntime runtime)
-	{
-		BadInteropExtension.AddExtension<BadNetHostExtensions>();
-		runtime.ConfigureContextOptions(opts=>opts.AddOrReplaceApi(new BadNetHostApi()));
-
-		return runtime;
-	}
-}
 /// <summary>
 ///     Implements a BadScript HttpListener Host
 /// </summary>

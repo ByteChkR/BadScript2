@@ -61,11 +61,11 @@ public class BadVersion : BadObject, IBadNative
     public Type Type => typeof(Version);
 
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
                (str.Value == "Major" || str.Value == "Minor" || str.Value == "Build" || str.Value == "Revision") ||
-               base.HasProperty(propName);
+               base.HasProperty(propName, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)

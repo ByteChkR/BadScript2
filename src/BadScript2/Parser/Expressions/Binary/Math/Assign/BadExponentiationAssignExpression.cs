@@ -58,7 +58,7 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
 	/// <param name="symbol">The Expression Symbol</param>
 	/// <returns>Enumerable of which the last element is the result of the operation</returns>
 	public static IEnumerable<BadObject> ExpWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadObject right,
         BadSourcePosition position,
@@ -66,12 +66,12 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.ExponentiationAssignOperatorName))
+        if (left.HasProperty(BadStaticKeys.ExponentiationAssignOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.MultiplyAssignOperatorName,
                          position
                      ))

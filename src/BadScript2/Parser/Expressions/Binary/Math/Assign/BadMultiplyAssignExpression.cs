@@ -42,7 +42,7 @@ public class BadMultiplyAssignExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> MultiplyWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadObject right,
         BadSourcePosition position,
@@ -50,12 +50,12 @@ public class BadMultiplyAssignExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.MultiplyAssignOperatorName))
+        if (left.HasProperty(BadStaticKeys.MultiplyAssignOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.MultiplyAssignOperatorName,
                          position
                      ))

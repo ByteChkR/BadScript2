@@ -50,17 +50,17 @@ public class BadSubtractExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> SubWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.SubtractOperatorName))
+        if (left.HasProperty(BadStaticKeys.SubtractOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.SubtractOperatorName,
                          position
                      ))

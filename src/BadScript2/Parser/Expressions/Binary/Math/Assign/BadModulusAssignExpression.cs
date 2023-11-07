@@ -42,7 +42,7 @@ public class BadModulusAssignExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> ModulusWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadObject right,
         BadSourcePosition position,
@@ -50,12 +50,12 @@ public class BadModulusAssignExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.ModuloAssignOperatorName))
+        if (left.HasProperty(BadStaticKeys.ModuloAssignOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.ModuloAssignOperatorName,
                          position
                      ))

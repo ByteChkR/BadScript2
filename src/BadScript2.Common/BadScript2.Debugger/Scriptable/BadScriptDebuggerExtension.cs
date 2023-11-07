@@ -12,12 +12,12 @@ namespace BadScript2.Debugger.Scriptable;
 /// </summary>
 public class BadScriptDebuggerExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<BadDebuggerStep>("Position", step => BadObject.Wrap(step.Position));
-        RegisterObject<BadDebuggerStep>("Scope", step => step.Context.Scope);
-        RegisterObject<BadDebuggerStep>("SourceView", step => step.GetSourceView(out int _, out int _));
-        RegisterObject<BadDebuggerStep>(
+        provider.RegisterObject<BadDebuggerStep>("Position", step => BadObject.Wrap(step.Position));
+        provider.RegisterObject<BadDebuggerStep>("Scope", step => step.Context.Scope);
+        provider.RegisterObject<BadDebuggerStep>("SourceView", step => step.GetSourceView(out int _, out int _));
+        provider.RegisterObject<BadDebuggerStep>(
             "Line",
             step =>
             {
@@ -26,7 +26,7 @@ public class BadScriptDebuggerExtension : BadInteropExtension
                 return lineInSource;
             }
         );
-        RegisterObject<BadDebuggerStep>(
+        provider.RegisterObject<BadDebuggerStep>(
             "Evaluate",
             step => new BadDynamicInteropFunction<string>(
                 "Evaluate",
@@ -44,9 +44,9 @@ public class BadScriptDebuggerExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadSourcePosition>("Index", pos => pos.Index);
-        RegisterObject<BadSourcePosition>("Length", pos => pos.Length);
-        RegisterObject<BadSourcePosition>("FileName", pos => pos.FileName ?? BadObject.Null);
-        RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
+        provider.RegisterObject<BadSourcePosition>("Index", pos => pos.Index);
+        provider.RegisterObject<BadSourcePosition>("Length", pos => pos.Length);
+        provider.RegisterObject<BadSourcePosition>("FileName", pos => pos.FileName ?? BadObject.Null);
+        provider.RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
     }
 }

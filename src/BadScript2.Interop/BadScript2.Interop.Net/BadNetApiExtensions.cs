@@ -6,7 +6,7 @@ public static class BadNetApiExtensions
 {
     public static BadRuntime UseNetApi(this BadRuntime runtime)
     {
-        BadInteropExtension.AddExtension<BadNetInteropExtensions>();
+        runtime.ConfigureContextOptions(opts => opts.AddExtension<BadNetInteropExtensions>());
         runtime.ConfigureContextOptions(opts=>opts.AddOrReplaceApi(new BadNetApi()));
 
         return runtime;

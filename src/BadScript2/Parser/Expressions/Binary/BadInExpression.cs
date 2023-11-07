@@ -56,9 +56,9 @@ public class BadInExpression : BadBinaryExpression
     /// <param name="left">Property Key</param>
     /// <param name="right">Instance</param>
     /// <returns>Returns true if the left side is a property of the right side</returns>
-    public static BadObject In(BadObject left, BadObject right)
+    public static BadObject In(BadExecutionContext ctx, BadObject left, BadObject right)
     {
-        return right.HasProperty(left);
+        return right.HasProperty(left, ctx.Scope);
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class BadInExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (right.HasProperty(BadStaticKeys.InOperatorName))
+        if (right.HasProperty(BadStaticKeys.InOperatorName, context.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
@@ -90,7 +90,7 @@ public class BadInExpression : BadBinaryExpression
         }
         else
         {
-            yield return In(left, right);
+            yield return In(context, left, right);
         }
     }
 

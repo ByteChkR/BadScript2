@@ -84,7 +84,7 @@ public class BadClass : BadObject
         return Prototype;
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         if (Scope.GetTable().InnerTable.ContainsKey(propName))
         {
@@ -93,10 +93,10 @@ public class BadClass : BadObject
 
         if (m_BaseClass != null)
         {
-            return m_BaseClass.HasProperty(propName);
+            return m_BaseClass.HasProperty(propName, caller);
         }
 
-        return BadInteropExtension.HasObject(GetType(), propName);
+        return caller!= null && caller.Provider.HasObject(GetType(), propName);
     }
 
 
@@ -124,7 +124,7 @@ public class BadClass : BadObject
             }
         }
 
-        if (!HasProperty(propName))
+        if (!HasProperty(propName, Scope))
         {
             throw BadRuntimeException.Create(
                 caller,
@@ -179,7 +179,11 @@ public class BadClass : BadObject
             ); //Allow public, protected
         }
 
-        return BadInteropExtension.GetObjectReference(GetType(), propName, SuperClass ?? this, caller);
+        if (caller == null)
+        {
+            throw BadRuntimeException.Create(caller, $"No property named {propName} for type {Name}");
+        }
+        return caller.Provider.GetObjectReference(GetType(), propName, SuperClass ?? this, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)

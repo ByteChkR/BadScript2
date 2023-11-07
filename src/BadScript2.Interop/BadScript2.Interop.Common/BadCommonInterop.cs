@@ -93,7 +93,7 @@ public static class BadCommonInterop
             BadNativeClassBuilder.AddNative(BadVersion.Prototype);
         }
 
-        AddExtensions(useAsync);
+        runtime.ConfigureContextOptions(opts => AddExtensions(opts, useAsync));
         runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApis(Apis));
 
         return runtime;
@@ -116,19 +116,19 @@ public static class BadCommonInterop
     /// <summary>
     ///     Adds all Common Interop Extensions to the BadScript Runtime
     /// </summary>
-    public static void AddExtensions(bool useAsync = true)
+    public static void AddExtensions(BadExecutionContextOptions options, bool useAsync = true)
     {
-        BadInteropExtension.AddExtension<BadObjectExtension>();
-        BadInteropExtension.AddExtension<BadStringExtension>();
-        BadInteropExtension.AddExtension<BadNumberExtension>();
-        BadInteropExtension.AddExtension<BadTableExtension>();
-        BadInteropExtension.AddExtension<BadScopeExtension>();
-        BadInteropExtension.AddExtension<BadArrayExtension>();
-        BadInteropExtension.AddExtension<BadFunctionExtension>();
-        BadInteropExtension.AddExtension<BadTypeSystemExtension>();
+        options.AddExtension<BadObjectExtension>();
+        options.AddExtension<BadStringExtension>();
+        options.AddExtension<BadNumberExtension>();
+        options.AddExtension<BadTableExtension>();
+        options.AddExtension<BadScopeExtension>();
+        options.AddExtension<BadArrayExtension>();
+        options.AddExtension<BadFunctionExtension>();
+        options.AddExtension<BadTypeSystemExtension>();
         if (useAsync)
         {
-            BadInteropExtension.AddExtension<BadTaskExtensions>();
+            options.AddExtension<BadTaskExtensions>();
         }
     }
 }

@@ -10,11 +10,11 @@ namespace BadScript2.Interop.Net;
 /// </summary>
 public class BadNetInteropExtensions : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<HttpResponseMessage>("Status", resp => (decimal)resp.StatusCode);
-        RegisterObject<HttpResponseMessage>("Reason", resp => resp.ReasonPhrase ?? "");
-        RegisterObject<HttpResponseMessage>(
+        provider.RegisterObject<HttpResponseMessage>("Status", resp => (decimal)resp.StatusCode);
+        provider.RegisterObject<HttpResponseMessage>("Reason", resp => resp.ReasonPhrase ?? "");
+        provider.RegisterObject<HttpResponseMessage>(
             "Headers",
             resp =>
             {
@@ -26,16 +26,16 @@ public class BadNetInteropExtensions : BadInteropExtension
                 return new BadTable(v);
             }
         );
-        RegisterObject<HttpResponseMessage>("Content", resp => BadObject.Wrap(resp.Content));
+        provider.RegisterObject<HttpResponseMessage>("Content", resp => BadObject.Wrap(resp.Content));
 
-        RegisterObject<HttpContent>(
+        provider.RegisterObject<HttpContent>(
             "ReadAsString",
             c => new BadDynamicInteropFunction(
                 "ReadAsString",
                 _ => Content_ReadAsString(c)
             )
         );
-        RegisterObject<HttpContent>(
+        provider.RegisterObject<HttpContent>(
             "ReadAsArray",
             c => new BadDynamicInteropFunction(
                 "ReadAsArray",

@@ -224,7 +224,7 @@ public class BadRuntimeVirtualMachine
                     }
                     else
                     {
-                        result = BadInExpression.In(key, obj);
+                        result = BadInExpression.In(ctx, key, obj);
                     }
 
                     m_ArgumentStack.Push(result);
@@ -359,7 +359,7 @@ public class BadRuntimeVirtualMachine
                     BadObject obj = m_ArgumentStack.Pop().Dereference();
                     BadObject name = (string)instr.Arguments[0];
 
-                    if (!obj.HasProperty(name))
+                    if (!obj.HasProperty(name, ctx.Scope))
                     {
                         m_ArgumentStack.Push(BadObject.Null);
                     }

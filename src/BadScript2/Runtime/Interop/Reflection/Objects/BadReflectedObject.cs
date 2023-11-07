@@ -41,13 +41,13 @@ public class BadReflectedObject : BadObject
         return base.GetProperty(propName, caller);
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is IBadString s)
         {
-            return Members.Contains(s.Value) || base.HasProperty(propName);
+            return Members.Contains(s.Value) || base.HasProperty(propName, caller);
         }
 
-        return base.HasProperty(propName);
+        return base.HasProperty(propName, caller);
     }
 }

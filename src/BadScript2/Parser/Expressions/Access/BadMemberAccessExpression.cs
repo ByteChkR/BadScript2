@@ -77,7 +77,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 
         left = left.Dereference();
 
-        if (NullChecked && !left.HasProperty(Right.Text))
+        if (NullChecked && !left.HasProperty(Right.Text, context.Scope))
         {
             yield return BadObject.Null;
         }

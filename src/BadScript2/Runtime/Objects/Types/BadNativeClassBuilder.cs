@@ -83,37 +83,7 @@ public static class BadNativeClassBuilder
     {
         return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name));
     }
-
-    /// <summary>
-    ///     Creates a Native Class Prototype from a File
-    /// </summary>
-    /// <param name="name">Name of the Prototype</param>
-    /// <param name="file">File Name of the Script containing the class definition</param>
-    /// <returns>New Prototype</returns>
-    /// <exception cref="BadRuntimeException">
-    ///     Gets raised if the returned type does not have the name provided or the resulting
-    ///     Object is not a Class Prototype
-    /// </exception>
-    private static BadClassPrototype CreateNativeType(string name, string file)
-    {
-        BadSourceParser parser = new BadSourceParser(BadSourceReader.FromFile(file), BadOperatorTable.Instance);
-        BadExecutionContext ctx = new BadExecutionContext(
-            new BadScope("<root>", null, BadScopeFlags.AllowThrow | BadScopeFlags.Returnable)
-        );
-        BadObject? obj = ctx.Run(parser.Parse());
-
-        if (obj is not BadClassPrototype cls)
-        {
-            throw new BadRuntimeException("Failed to create native type " + name);
-        }
-
-        if (cls.Name != name)
-        {
-            throw new BadRuntimeException("Failed to create native type " + name);
-        }
-
-        return cls;
-    }
+    
 
     /// <summary>
     ///     Creates a Native Class Prototype

@@ -43,17 +43,17 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> GreaterOrEqualWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        if (left.HasProperty(BadStaticKeys.GreaterEqualOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.GreaterEqualOperatorName,
                          position
                      ))
@@ -61,12 +61,12 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.GreaterEqualOperatorName))
+        else if (right.HasProperty(BadStaticKeys.GreaterEqualOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.GreaterEqualOperatorName,
                          position
                      ))

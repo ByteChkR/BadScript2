@@ -195,18 +195,18 @@ public class BadSettingsObject : BadObject
         return m_Settings.ToString();
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return m_PropertyReferences.ContainsKey(propName) ||
                propName is IBadString str && m_Settings.HasProperty(str.Value) ||
-               base.HasProperty(propName);
+               base.HasProperty(propName, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (m_PropertyReferences.ContainsKey(propName))
+        if (m_PropertyReferences.TryGetValue(propName, out BadObjectReference? property))
         {
-            return m_PropertyReferences[propName];
+            return property;
         }
 
         if (propName is IBadString str && m_Settings.HasProperty(str.Value))

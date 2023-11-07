@@ -56,16 +56,16 @@ public class BadStringExtension : BadInteropExtension
     }
 
 
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "ToLower",
             o => new BadDynamicInteropFunction(
                 "ToLower",
                 _ => o.ToLower()
             )
         );
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "ToUpper",
             o => new BadDynamicInteropFunction(
                 "ToUpper",
@@ -73,11 +73,11 @@ public class BadStringExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<string>("IsLetters", s => s.All(char.IsLetter));
-        RegisterObject<string>("IsDigits", s => s.All(char.IsDigit));
-        RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
+        provider.RegisterObject<string>("IsLetters", s => s.All(char.IsLetter));
+        provider.RegisterObject<string>("IsDigits", s => s.All(char.IsDigit));
+        provider.RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
 
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             BadStaticKeys.ArrayAccessOperatorName,
             s => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessOperatorName,
@@ -85,8 +85,8 @@ public class BadStringExtension : BadInteropExtension
                 "index"
             )
         );
-        RegisterObject<string>("Length", a => BadObject.Wrap((decimal)a.Length));
-        RegisterObject<string>(
+        provider.RegisterObject<string>("Length", a => BadObject.Wrap((decimal)a.Length));
+        provider.RegisterObject<string>(
             "Format",
             s => new BadInteropFunction(
                 "Format",
@@ -96,7 +96,7 @@ public class BadStringExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Split",
             s => new BadInteropFunction(
                 "Split",
@@ -108,7 +108,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //Substring
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Substring",
             s => new BadDynamicInteropFunction<decimal, decimal>(
                 "Substring",
@@ -119,7 +119,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //IndexOf
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "IndexOf",
             s => new BadDynamicInteropFunction<string>(
                 "IndexOf",
@@ -127,7 +127,7 @@ public class BadStringExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Contains",
             s => new BadDynamicInteropFunction<string>(
                 "Contains",
@@ -136,7 +136,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //LastIndexOf
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "LastIndexOf",
             s => new BadDynamicInteropFunction<string>(
                 "LastIndexOf",
@@ -145,7 +145,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //Replace
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Replace",
             s => new BadDynamicInteropFunction<string, string>(
                 "Replace",
@@ -154,7 +154,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //Trim
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Trim",
             s => new BadDynamicInteropFunction(
                 "Trim",
@@ -163,7 +163,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //TrimStart
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "TrimStart",
             s => new BadDynamicInteropFunction(
                 "TrimStart",
@@ -172,7 +172,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //TrimEnd
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "TrimEnd",
             s => new BadDynamicInteropFunction(
                 "TrimEnd",
@@ -181,7 +181,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //PadLeft
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "PadLeft",
             s => new BadDynamicInteropFunction<decimal>(
                 "PadLeft",
@@ -191,7 +191,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //PadRight
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "PadRight",
             s => new BadDynamicInteropFunction<decimal>(
                 "PadRight",
@@ -201,7 +201,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //Remove
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Remove",
             s => new BadDynamicInteropFunction<decimal, decimal>(
                 "Remove",
@@ -212,7 +212,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //Insert
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "Insert",
             s => new BadDynamicInteropFunction<decimal, string>(
                 "Insert",
@@ -223,7 +223,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //EndsWith
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "EndsWith",
             s => new BadDynamicInteropFunction<string>(
                 "EndsWith",
@@ -232,7 +232,7 @@ public class BadStringExtension : BadInteropExtension
         );
 
         //StartsWith
-        RegisterObject<string>(
+        provider.RegisterObject<string>(
             "StartsWith",
             s => new BadDynamicInteropFunction<string>(
                 "StartsWith",

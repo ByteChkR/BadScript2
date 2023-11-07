@@ -59,13 +59,13 @@ public class BadLogicNotExpression : BadExpression
     }
 
     public static IEnumerable<BadObject> NotWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.NotOperatorName))
+        if (left.HasProperty(BadStaticKeys.NotOperatorName, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(left, context, BadStaticKeys.NotOperatorName, position))
+            foreach (BadObject o in ExecuteOperatorOverride(left, context!, BadStaticKeys.NotOperatorName, position))
             {
                 yield return o;
             }

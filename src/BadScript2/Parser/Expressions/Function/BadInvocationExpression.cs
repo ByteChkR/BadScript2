@@ -131,7 +131,7 @@ public class BadInvocationExpression : BadExpression
                 yield return o;
             }
         }
-        else if (left.HasProperty(BadStaticKeys.InvocationOperatorName))
+        else if (left.HasProperty(BadStaticKeys.InvocationOperatorName, context.Scope))
         {
             BadFunction? invocationOp =
                 left.GetProperty(BadStaticKeys.InvocationOperatorName, context.Scope).Dereference() as BadFunction;

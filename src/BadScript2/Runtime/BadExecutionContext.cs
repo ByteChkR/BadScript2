@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime;
@@ -28,9 +29,9 @@ public class BadExecutionContext
 	///     Creates a new Execution Context with an empty scope
 	/// </summary>
 	/// <returns>New (empty) instance.</returns>
-	public static BadExecutionContext Create()
+	public static BadExecutionContext Create(BadInteropExtensionProvider provider)
     {
-        return new BadExecutionContext(new BadScope("<root>"));
+        return new BadExecutionContext(new BadScope("<root>", provider));
     }
 
 

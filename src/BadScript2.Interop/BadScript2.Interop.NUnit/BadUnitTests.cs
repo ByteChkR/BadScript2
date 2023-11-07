@@ -1,16 +1,10 @@
 using BadScript2.ConsoleAbstraction;
-using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Common;
-using BadScript2.Interop.Common.Task;
-using BadScript2.Interop.Common.Versioning;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
-using BadScript2.Interop.Linq;
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
-using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Functions;
-using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 using BadScript2.Runtime.VirtualMachine;
 using BadScript2.Runtime.VirtualMachine.Compiler;
@@ -46,21 +40,13 @@ public class BadUnitTests
                 return s_Context;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -86,20 +72,13 @@ public class BadUnitTests
                 return s_OptimizedFoldingContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -125,20 +104,13 @@ public class BadUnitTests
                 return s_OptimizedSubstitutionContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -164,20 +136,13 @@ public class BadUnitTests
                 return s_OptimizedContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -203,20 +168,13 @@ public class BadUnitTests
                 return s_CompiledContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -242,20 +200,13 @@ public class BadUnitTests
                 return s_CompiledOptimizedFoldingContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -282,20 +233,13 @@ public class BadUnitTests
                 return s_CompiledOptimizedSubstitutionContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,
@@ -322,20 +266,13 @@ public class BadUnitTests
                 return s_CompiledOptimizedContext;
             }
 
-            BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-            BadCommonInterop.AddExtensions();
-            BadInteropExtension.AddExtension<BadLinqExtensions>();
-            BadInteropExtension.AddExtension<BadScriptDebuggerExtension>();
-
-            List<BadInteropApi> apis = new List<BadInteropApi>(BadCommonInterop.Apis);
-
-            apis.Add(new BadIOApi());
-            apis.Add(new BadJsonApi());
-            apis.Add(new BadTaskRunnerApi(BadTaskRunner.Instance));
+            BadRuntime runtime = new BadRuntime()
+                .UseCommonInterop()
+                .UseFileSystemApi()
+                .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(apis);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
 
             string[] files = BadFileSystem.Instance.GetFiles(
                     ScriptTestDirectory,

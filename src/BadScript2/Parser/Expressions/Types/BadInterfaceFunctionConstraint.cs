@@ -47,7 +47,7 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 
     public override void Validate(BadClass obj, List<BadInterfaceValidatorError> errors)
     {
-        if (!obj.HasProperty(Name))
+        if (!obj.HasProperty(Name, obj.Scope))
         {
             errors.Add(new BadInterfaceValidatorError($"Missing Property. Expected {Name}", this));
 

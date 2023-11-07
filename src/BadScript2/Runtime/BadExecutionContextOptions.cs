@@ -9,15 +9,29 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadExecutionContextOptions
 {
-	/// <summary>
-	///     The Default Options.
-	/// </summary>
-	public static readonly BadExecutionContextOptions Default = new BadExecutionContextOptions();
+    public void AddExtension<T>() where T : BadInteropExtension, new()
+    {
+        T t = new T();
+        AddExtension(t);
+    }
 
+    public void AddExtensions(params BadInteropExtension[] extensions)
+    {
+        foreach (BadInteropExtension extension in extensions)
+        {
+            AddExtension(extension);
+        }
+    }
+    public void AddExtension(BadInteropExtension extension)
+    {
+        m_Extensions.Add(extension);
+    }
 	/// <summary>
 	///     List of APIs that are loaded in the context
 	/// </summary>
 	private readonly List<BadInteropApi> m_Apis = new List<BadInteropApi>();
+    
+    private readonly List<BadInteropExtension> m_Extensions = new List<BadInteropExtension>();
 
 	/// <summary>
 	///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
@@ -32,7 +46,12 @@ public class BadExecutionContextOptions
 	///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
 	/// </summary>
 	/// <param name="apis">Apis that should be added.</param>
-	public BadExecutionContextOptions(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
+    public BadExecutionContextOptions(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
+
+    public BadExecutionContextOptions(IEnumerable<BadInteropApi> apis, IEnumerable<BadInteropExtension> extensions) : this(apis)
+    {
+        m_Extensions.AddRange(extensions);
+    }
 
 	/// <summary>
 	///     List of APIs that are loaded in the context
@@ -76,13 +95,13 @@ public class BadExecutionContextOptions
     /// <returns>The new <see cref="BadExecutionContext" /></returns>
     public BadExecutionContext Build()
     {
-        BadExecutionContext ctx = BadExecutionContext.Create();
+        BadExecutionContext ctx = BadExecutionContext.Create(new BadInteropExtensionProvider(m_Extensions.ToArray()));
 
         foreach (BadInteropApi api in m_Apis)
         {
             BadTable table;
 
-            if (ctx.Scope.HasLocal(api.Name) && ctx.Scope.GetVariable(api.Name).Dereference() is BadTable t)
+            if (ctx.Scope.HasLocal(api.Name, ctx.Scope) && ctx.Scope.GetVariable(api.Name).Dereference() is BadTable t)
             {
                 table = t;
             }
@@ -106,6 +125,6 @@ public class BadExecutionContextOptions
 
     public BadExecutionContextOptions Clone()
     {
-        return new BadExecutionContextOptions(m_Apis);
+        return new BadExecutionContextOptions(m_Apis, m_Extensions);
     }
 }

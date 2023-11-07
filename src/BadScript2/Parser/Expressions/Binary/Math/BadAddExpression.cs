@@ -77,19 +77,19 @@ public class BadAddExpression : BadBinaryExpression
 
 
     public static IEnumerable<BadObject> AddWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject leftRef,
         BadObject right,
         BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.AddOperatorName))
+        if (left.HasProperty(BadStaticKeys.AddOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.AddOperatorName,
                          position
                      ))

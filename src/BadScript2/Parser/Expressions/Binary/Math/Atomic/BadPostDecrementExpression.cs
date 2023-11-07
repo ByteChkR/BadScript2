@@ -53,17 +53,17 @@ public class BadPostDecrementExpression : BadExpression
     }
 
     public static IEnumerable<BadObject> DecrementWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.PostDecrementOperatorName))
+        if (left.HasProperty(BadStaticKeys.PostDecrementOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.PostDecrementOperatorName,
                          position
                      ))

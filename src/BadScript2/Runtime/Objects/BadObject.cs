@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Error;
-using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects.Native;
@@ -92,9 +91,14 @@ public abstract class BadObject
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <returns>True if the Property or an Extension with that name exists</returns>
-    public virtual bool HasProperty(BadObject propName)
+    public virtual bool HasProperty(BadObject propName, BadScope? caller = null)
     {
-        return BadInteropExtension.HasObject(GetType(), propName);
+        if (caller == null)
+        {
+            return false;
+        }
+
+        return caller.Provider.HasObject(GetType(), propName);
     }
 
     /// <summary>
@@ -104,7 +108,12 @@ public abstract class BadObject
     /// <returns>The Property Reference</returns>
     public virtual BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        return BadInteropExtension.GetObjectReference(GetType(), propName, this, caller);
+        if (caller == null)
+        {
+            throw BadRuntimeException.Create(caller, $"No property named {propName} for type {GetType().Name}");
+        }
+
+        return caller.Provider.GetObjectReference(GetType(), propName, this, caller);
     }
 
     /// <summary>

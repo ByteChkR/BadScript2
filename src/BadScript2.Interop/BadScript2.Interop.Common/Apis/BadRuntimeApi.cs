@@ -160,9 +160,9 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsEnumerable(BadObject arg)
+	private BadObject Native_IsEnumerable(BadExecutionContext ctx, BadObject arg)
     {
-        return arg.HasProperty("GetEnumerator");
+        return arg.HasProperty("GetEnumerator", ctx.Scope);
     }
 
 	/// <summary>
@@ -170,9 +170,9 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsEnumerator(BadObject arg)
+	private BadObject Native_IsEnumerator(BadExecutionContext ctx, BadObject arg)
     {
-        return arg.HasProperty("GetCurrent") && arg.HasProperty("MoveNext");
+        return arg.HasProperty("GetCurrent", ctx.Scope) && arg.HasProperty("MoveNext", ctx.Scope);
     }
 
 
@@ -459,18 +459,18 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="o">Object</param>
     /// <returns>Array of Extension Names</returns>
-    private BadObject GetExtensionNames(BadObject o)
+    private BadObject GetExtensionNames(BadExecutionContext ctx,  BadObject o)
     {
-        return new BadArray(BadInteropExtension.GetExtensionNames(o).ToList());
+        return new BadArray(ctx.Scope.Provider.GetExtensionNames(o).ToList());
     }
 
     /// <summary>
     ///     Lists all global extension names
     /// </summary>
     /// <returns>Array of Extension Names</returns>
-    private BadObject GetGlobalExtensionNames()
+    private BadObject GetGlobalExtensionNames(BadExecutionContext ctx)
     {
-        return new BadArray(BadInteropExtension.GetExtensionNames().ToList());
+        return new BadArray(ctx.Scope.Provider.GetExtensionNames().ToList());
     }
 
     /// <summary>

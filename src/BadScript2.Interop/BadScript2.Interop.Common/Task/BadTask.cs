@@ -274,9 +274,9 @@ public class BadTask : BadObject
         return Prototype;
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return m_Properties.ContainsKey(propName) ||
-               base.HasProperty(propName);
+               base.HasProperty(propName, caller);
     }
 }

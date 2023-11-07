@@ -8,16 +8,16 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadObjectExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterGlobal(
+        provider.RegisterGlobal(
             "ToString",
             o => new BadDynamicInteropFunction(
                 "ToString",
                 _ => o.ToString()!
             )
         );
-        RegisterGlobal(
+        provider.RegisterGlobal(
             "GetType",
             o => new BadDynamicInteropFunction(
                 "GetType",

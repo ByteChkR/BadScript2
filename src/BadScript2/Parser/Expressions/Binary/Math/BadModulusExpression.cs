@@ -47,17 +47,17 @@ public class BadModulusExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> ModWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ModuloOperatorName))
+        if (left.HasProperty(BadStaticKeys.ModuloOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.ModuloOperatorName,
                          position
                      ))

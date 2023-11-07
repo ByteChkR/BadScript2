@@ -92,13 +92,13 @@ public class BadForEachExpression : BadExpression
     /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
     private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
     {
-        if (target.HasProperty("MoveNext"))
+        if (target.HasProperty("MoveNext", context.Scope))
         {
             BadFunction? moveNext = target.GetProperty("MoveNext", context.Scope).Dereference() as BadFunction;
 
             if (moveNext != null)
             {
-                if (target.HasProperty("GetCurrent"))
+                if (target.HasProperty("GetCurrent", context.Scope))
                 {
                     BadFunction? getCurrent =
                         target.GetProperty("GetCurrent", context.Scope).Dereference() as BadFunction;
@@ -132,7 +132,7 @@ public class BadForEachExpression : BadExpression
 
         target = target.Dereference();
 
-        if (target.HasProperty("GetEnumerator"))
+        if (target.HasProperty("GetEnumerator", context.Scope))
         {
             BadFunction? getEnumerator =
                 target.GetProperty("GetEnumerator", context.Scope).Dereference() as BadFunction;

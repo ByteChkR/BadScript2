@@ -96,12 +96,12 @@ public class BadRuntimeError : BadObject
         return base.GetProperty(propName, caller);
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString
                {
                    Value: "StackTrace" or "InnerError" or "ErrorObject",
                } ||
-               base.HasProperty(propName);
+               base.HasProperty(propName, caller);
     }
 }

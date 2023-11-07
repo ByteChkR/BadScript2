@@ -10,14 +10,14 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadFunctionExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<BadFunction>("Name", f => f.Name?.Text ?? "<anonymous>");
-        RegisterObject<BadFunction>(
+        provider.RegisterObject<BadFunction>("Name", f => f.Name?.Text ?? "<anonymous>");
+        provider.RegisterObject<BadFunction>(
             "Parameters",
             f => new BadArray(f.Parameters.Select(x => BadObject.Wrap(x)).ToList())
         );
-        RegisterObject<BadFunction>(
+        provider.RegisterObject<BadFunction>(
             "Invoke",
             f => new BadDynamicInteropFunction<BadArray>(
                 "Invoke",
@@ -36,12 +36,12 @@ public class BadFunctionExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadFunction>("Meta", f => f.MetaData);
+        provider.RegisterObject<BadFunction>("Meta", f => f.MetaData);
 
-        RegisterObject<BadFunctionParameter>("Name", p => p.Name);
-        RegisterObject<BadFunctionParameter>("IsNullChecked", p => p.IsNullChecked);
-        RegisterObject<BadFunctionParameter>("IsOptional", p => p.IsOptional);
-        RegisterObject<BadFunctionParameter>("IsRestArgs", p => p.IsRestArgs);
-        RegisterObject<BadFunctionParameter>("Type", p => p.Type ?? BadObject.Null);
+        provider.RegisterObject<BadFunctionParameter>("Name", p => p.Name);
+        provider.RegisterObject<BadFunctionParameter>("IsNullChecked", p => p.IsNullChecked);
+        provider.RegisterObject<BadFunctionParameter>("IsOptional", p => p.IsOptional);
+        provider.RegisterObject<BadFunctionParameter>("IsRestArgs", p => p.IsRestArgs);
+        provider.RegisterObject<BadFunctionParameter>("Type", p => p.Type ?? BadObject.Null);
     }
 }

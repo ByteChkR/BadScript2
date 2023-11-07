@@ -354,22 +354,22 @@ public class BadLinqExtensions : BadInteropExtension
         return new BadInteropEnumerable(e.Reverse());
     }
 
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        Register("ToArray", (_, e) => ToArray(e));
-        Register("Reverse", (_, e) => Reverse(e));
-        Register<BadFunction>("Select", Select);
-        Register<BadFunction>("Where", Where);
-        Register<BadFunction>("All", All);
-        Register<BadObject>("Append", Append);
-        Register<IBadEnumerable>("Concat", Concat);
-        Register<decimal>("ElementAt", ElementAt);
-        Register<decimal>("ElementAtOrDefault", ElementAtOrDefault);
-        Register<decimal>("Skip", Skip);
-        Register<decimal>("SkipLast", SkipLast);
-        Register<decimal>("Take", Take);
-        Register<BadFunction>("OrderBy", OrderBy);
-        RegisterObject<IBadEnumerable>(
+        Register(provider, "ToArray", (_, e) => ToArray(e));
+        Register(provider, "Reverse", (_, e) => Reverse(e));
+        Register<BadFunction>(provider, "Select", Select);
+        Register<BadFunction>(provider, "Where", Where);
+        Register<BadFunction>(provider, "All", All);
+        Register<BadObject>(provider, "Append", Append);
+        Register<IBadEnumerable>(provider, "Concat", Concat);
+        Register<decimal>(provider, "ElementAt", ElementAt);
+        Register<decimal>(provider, "ElementAtOrDefault", ElementAtOrDefault);
+        Register<decimal>(provider, "Skip", Skip);
+        Register<decimal>(provider, "SkipLast", SkipLast);
+        Register<decimal>(provider, "Take", Take);
+        Register<BadFunction>(provider, "OrderBy", OrderBy);
+        provider.RegisterObject<IBadEnumerable>(
             "First",
             e => new BadInteropFunction(
                 "First",
@@ -379,7 +379,7 @@ public class BadLinqExtensions : BadInteropExtension
             )
         );
 
-        RegisterObject<IBadEnumerable>(
+        provider.RegisterObject<IBadEnumerable>(
             "FirstOrDefault",
             e => new BadInteropFunction(
                 "FirstOrDefault",
@@ -389,7 +389,7 @@ public class BadLinqExtensions : BadInteropExtension
             )
         );
 
-        RegisterObject<IBadEnumerable>(
+        provider.RegisterObject<IBadEnumerable>(
             "Last",
             e => new BadInteropFunction(
                 "Last",
@@ -399,7 +399,7 @@ public class BadLinqExtensions : BadInteropExtension
             )
         );
 
-        RegisterObject<IBadEnumerable>(
+        provider.RegisterObject<IBadEnumerable>(
             "LastOrDefault",
             e => new BadInteropFunction(
                 "LastOrDefault",
@@ -408,7 +408,7 @@ public class BadLinqExtensions : BadInteropExtension
                 new BadFunctionParameter("selector", true, false, false, null)
             )
         );
-        RegisterObject<IBadEnumerable>(
+        provider.RegisterObject<IBadEnumerable>(
             "Any",
             e => new BadInteropFunction(
                 "Any",
@@ -417,7 +417,7 @@ public class BadLinqExtensions : BadInteropExtension
                 new BadFunctionParameter("filter", true, false, false, null)
             )
         );
-        RegisterObject<IBadEnumerable>(
+        provider.RegisterObject<IBadEnumerable>(
             "Count",
             e => new BadInteropFunction(
                 "Count",
@@ -427,7 +427,7 @@ public class BadLinqExtensions : BadInteropExtension
             )
         );
 
-        RegisterObject<IBadEnumerable>(
+        provider.RegisterObject<IBadEnumerable>(
             "ToTable",
             e => new BadDynamicInteropFunction<BadFunction, BadFunction>(
                 "ToTable",
@@ -474,9 +474,9 @@ public class BadLinqExtensions : BadInteropExtension
     /// </summary>
     /// <param name="name">Name of the Function</param>
     /// <param name="func">Function</param>
-    private static void Register(string name, Func<BadExecutionContext, IBadEnumerable, BadObject> func)
+    private static void Register(BadInteropExtensionProvider provider, string name, Func<BadExecutionContext, IBadEnumerable, BadObject> func)
     {
-        RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction(name, c => func(c, o)));
+	    provider.RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction(name, c => func(c, o)));
     }
 
     /// <summary>
@@ -485,8 +485,8 @@ public class BadLinqExtensions : BadInteropExtension
     /// </summary>
     /// <param name="name">Name of the Function</param>
     /// <param name="func">Function</param>
-    private static void Register<T>(string name, Func<BadExecutionContext, IBadEnumerable, T, BadObject> func)
+    private static void Register<T>(BadInteropExtensionProvider provider,string name, Func<BadExecutionContext, IBadEnumerable, T, BadObject> func)
     {
-        RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a)));
+	    provider.RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a)));
     }
 }

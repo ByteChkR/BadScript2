@@ -39,10 +39,11 @@ public class BadInteropTests
     [Test]
     public void GetExtensions()
     {
-        BadInteropExtension.RegisterGlobal("Test", BadObject.Null);
-        Assert.That(BadInteropExtension.GetExtensionNames(), Contains.Item((BadObject)"Test"));
-        BadInteropExtension.RegisterObject<decimal>("Test1", o => BadObject.Null);
-        Assert.That(BadInteropExtension.GetExtensionNames(10), Contains.Item((BadObject)"Test1"));
+        BadInteropExtensionProvider provider = new BadInteropExtensionProvider();
+        provider.RegisterGlobal("Test", BadObject.Null);
+        Assert.That(provider.GetExtensionNames(), Contains.Item((BadObject)"Test"));
+        provider.RegisterObject<decimal>("Test1", o => BadObject.Null);
+        Assert.That(provider.GetExtensionNames(10), Contains.Item((BadObject)"Test1"));
     }
 
     [Test]
@@ -55,7 +56,7 @@ public class BadInteropTests
         BadObject getEnumerator = e.GetProperty("GetEnumerator").Dereference();
         Assert.That(getEnumerator, Is.InstanceOf<BadDynamicInteropFunction>());
         BadObject enumerator = ((BadDynamicInteropFunction)getEnumerator)
-            .Invoke(Array.Empty<BadObject>(), BadExecutionContext.Create())
+            .Invoke(Array.Empty<BadObject>(), BadExecutionContext.Create(new BadInteropExtensionProvider()))
             .Last();
         Assert.That(enumerator, Is.InstanceOf<BadInteropEnumerator>());
     }
@@ -70,7 +71,7 @@ public class BadInteropTests
         Assert.That(obj.GetProperty("Major").Dereference(), Is.EqualTo((BadObject)0));
         BadFunction toString = (BadFunction)obj.GetProperty("ToString").Dereference();
         Assert.That(
-            toString.Invoke(Array.Empty<BadObject>(), BadExecutionContext.Create()).Last(),
+            toString.Invoke(Array.Empty<BadObject>(), BadExecutionContext.Create(new BadInteropExtensionProvider())).Last(),
             Is.EqualTo((BadObject)"0.0")
         );
     }

@@ -15,9 +15,9 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadTableExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions( BadInteropExtensionProvider provider )
     {
-        RegisterObject<BadTable>(
+        provider.RegisterObject<BadTable>(
             "RemoveKey",
             o => new BadDynamicInteropFunction<BadObject>(
                 "RemoveKey",
@@ -26,7 +26,7 @@ public class BadTableExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadTable>(
+        provider.RegisterObject<BadTable>(
             "MakeReadOnly",
             table => new BadDynamicInteropFunction(
                 "MakeReadOnly",
@@ -42,7 +42,7 @@ public class BadTableExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadTable>(
+        provider.RegisterObject<BadTable>(
             BadStaticKeys.ArrayAccessOperatorName,
             t => new BadDynamicInteropFunction<BadObject>(
                 BadStaticKeys.ArrayAccessOperatorName,
@@ -51,11 +51,11 @@ public class BadTableExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadTable>("Keys", Keys);
-        RegisterObject<BadTable>("Values", Values);
-        RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
+        provider.RegisterObject<BadTable>("Keys", Keys);
+        provider.RegisterObject<BadTable>("Values", Values);
+        provider.RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
 
-        RegisterObject<BadTable>(
+        provider.RegisterObject<BadTable>(
             "Join",
             t => new BadInteropFunction(
                 "Join",

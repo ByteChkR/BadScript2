@@ -42,7 +42,7 @@ public class BadDivideAssignExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> DivideWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadObject right,
         BadSourcePosition position,
@@ -50,12 +50,12 @@ public class BadDivideAssignExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.DivideAssignOperatorName))
+        if (left.HasProperty(BadStaticKeys.DivideAssignOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.DivideAssignOperatorName,
                          position
                      ))

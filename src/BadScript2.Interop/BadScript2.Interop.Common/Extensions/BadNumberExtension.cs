@@ -48,9 +48,9 @@ public class BadNumberExtension : BadInteropExtension
         return d.ToString(format.Value, cultureInfo);
     }
 
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<decimal>(
+        provider.RegisterObject<decimal>(
             "ToString",
             d => new BadInteropFunction(
                 "ToString",

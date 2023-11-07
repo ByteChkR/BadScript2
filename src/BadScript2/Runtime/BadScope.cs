@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
@@ -10,6 +11,8 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject
 {
+    private readonly BadInteropExtensionProvider m_Provider;
+    public BadInteropExtensionProvider Provider => Parent != null ? Parent.Provider : m_Provider;
 	/// <summary>
 	///     The Scope Variables
 	/// </summary>
@@ -29,11 +32,12 @@ public class BadScope : BadObject
     /// <param name="name">The Name of the Scope</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
-    public BadScope(string name, BadScope? caller = null, BadScopeFlags flags = BadScopeFlags.RootScope)
+    public BadScope(string name, BadInteropExtensionProvider provider, BadScope? caller = null, BadScopeFlags flags = BadScopeFlags.RootScope)
     {
         Name = name;
         Flags = flags;
         m_Caller = caller;
+        m_Provider = provider;
     }
 
     /// <summary>
@@ -44,6 +48,7 @@ public class BadScope : BadObject
     /// <param name="flags">The Flags of the Scope</param>
     public BadScope(
         string name,
+        BadInteropExtensionProvider provider,
         BadTable locals,
         BadScope? caller = null,
         BadScopeFlags flags = BadScopeFlags.RootScope)
@@ -52,6 +57,7 @@ public class BadScope : BadObject
         Flags = flags;
         m_Caller = caller;
         m_ScopeVariables = locals;
+        m_Provider = provider;
     }
 
     /// <summary>
@@ -68,6 +74,7 @@ public class BadScope : BadObject
         BadScopeFlags flags = BadScopeFlags.RootScope,
         bool useVisibility = false) : this(
         name,
+        parent.Provider,
         caller,
         ClearCaptures(parent.Flags) | flags
     )
@@ -233,11 +240,11 @@ public class BadScope : BadObject
 
         if (locals != null)
         {
-            s = new BadScope(name, locals);
+            s = new BadScope(name, ctx.Scope.Provider, locals);
         }
         else
         {
-            s = new BadScope(name);
+            s = new BadScope(name, ctx.Scope.Provider);
         }
 
         foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope().m_SingletonCache)
@@ -446,7 +453,7 @@ public class BadScope : BadObject
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
     public void DefineVariable(BadObject name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
     {
-        if (HasLocal(name))
+        if (HasLocal(name, caller ?? this))
         {
             throw new BadRuntimeException($"Variable {name} is already defined");
         }
@@ -462,7 +469,7 @@ public class BadScope : BadObject
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public BadPropertyInfo GetVariableInfo(BadObject name)
     {
-        if (HasLocal(name))
+        if (HasLocal(name, this))
         {
             return m_ScopeVariables.GetPropertyInfo(name);
         }
@@ -530,7 +537,7 @@ public class BadScope : BadObject
             }
         }
 
-        if (HasLocal(name))
+        if (HasLocal(name, caller))
         {
             return m_ScopeVariables.GetProperty(name, caller);
         }
@@ -562,7 +569,7 @@ public class BadScope : BadObject
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public void SetVariable(BadObject name, BadObject value, BadScope? caller = null)
     {
-        if (HasLocal(name))
+        if (HasLocal(name, caller ?? this))
         {
             m_ScopeVariables.GetProperty(name, caller).Set(value);
         }
@@ -582,9 +589,9 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">The Name</param>
     /// <returns>true if the variable is defined</returns>
-    public bool HasLocal(BadObject name)
+    public bool HasLocal(BadObject name, BadScope caller)
     {
-        return m_ScopeVariables.HasProperty(name);
+        return m_ScopeVariables.HasProperty(name, caller);
     }
 
     /// <summary>
@@ -592,15 +599,15 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">The Name</param>
     /// <returns>true if the variable is defined</returns>
-    public bool HasVariable(BadObject name)
+    public bool HasVariable(BadObject name, BadScope caller)
     {
-        return HasLocal(name) || Parent != null && Parent.HasVariable(name);
+        return HasLocal(name, caller) || Parent != null && Parent.HasVariable(name, caller);
     }
 
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (HasVariable(propName))
+        if (HasVariable(propName, caller ?? this))
         {
             return GetVariable(propName, caller ?? this);
         }
@@ -608,9 +615,9 @@ public class BadScope : BadObject
         return base.GetProperty(propName, caller);
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
-        return HasVariable(propName) || base.HasProperty(propName);
+        return HasVariable(propName, caller ?? this) || base.HasProperty(propName, caller);
     }
 
 

@@ -7,11 +7,6 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser.Expressions.Access;
 
-public interface IBadAccessExpression
-{
-    bool NullChecked { get; }
-}
-
 /// <summary>
 ///     Implements the Array Access to set or get properties from an object.
 ///     <Left>[<Right>]
@@ -91,15 +86,15 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     }
 
     public static IEnumerable<BadObject> Access(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject[] args,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName))
+        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName, context?.Scope))
         {
             BadFunction? func =
-                left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context.Scope).Dereference() as BadFunction;
+                left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context?.Scope).Dereference() as BadFunction;
 
             if (func == null)
             {
@@ -108,7 +103,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
 
             BadObject r = BadObject.Null;
 
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
+            foreach (BadObject o in func.Invoke(args.ToArray(), context!))
             {
                 yield return o;
 

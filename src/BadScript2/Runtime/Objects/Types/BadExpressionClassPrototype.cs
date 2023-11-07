@@ -103,13 +103,13 @@ public class BadExpressionClassPrototype : BadClassPrototype
         yield return thisInstance;
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
-        return m_StaticScope.HasLocal(propName) || base.HasProperty(propName);
+        return m_StaticScope.HasLocal(propName, caller?? m_StaticScope) || base.HasProperty(propName, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        return m_StaticScope.HasLocal(propName) ? m_StaticScope.GetVariable(propName, caller ?? m_ParentScope) : base.GetProperty(propName, caller);
+        return m_StaticScope.HasLocal(propName, caller?? m_StaticScope) ? m_StaticScope.GetVariable(propName, caller ?? m_ParentScope) : base.GetProperty(propName, caller);
     }
 }

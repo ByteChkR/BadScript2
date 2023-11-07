@@ -17,10 +17,8 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadUnitTestContextBuilder
 {
-	/// <summary>
-	///     The Interop Apis that are available to the Test Context
-	/// </summary>
-	private readonly List<BadInteropApi> m_Apis;
+	
+	private readonly BadRuntime m_Runtime;
 
 	/// <summary>
 	///     The Test Cases
@@ -40,19 +38,18 @@ public class BadUnitTestContextBuilder
 	/// <summary>
 	///     Constructs a new BadUnitTestContextBuilder
 	/// </summary>
-	/// <param name="apis">The Interop Apis that are available to the Test Context</param>
-	public BadUnitTestContextBuilder(IEnumerable<BadInteropApi> apis)
-    {
-        m_Apis = apis.ToList();
-        m_Apis.Add(new BadNUnitApi());
-        m_Apis.Add(new BadNUnitConsoleApi(this));
-    }
+	public BadUnitTestContextBuilder(BadRuntime runtime)
+	{
+		m_Runtime = runtime.Clone().ConfigureContextOptions(
+			opts =>
+			{
+				opts.AddApi(new BadNUnitApi());
+				opts.AddApi(new BadNUnitConsoleApi(this));
+			}
+		);
 
-	/// <summary>
-	///     Constructs a new BadUnitTestContextBuilder
-	/// </summary>
-	/// <param name="apis">The Interop Apis that are available to the Test Context</param>
-	public BadUnitTestContextBuilder(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
+	}
+
 
 	/// <summary>
 	///     Registers one or multiple files to the Test Context
@@ -73,7 +70,7 @@ public class BadUnitTestContextBuilder
 	/// <returns>BadUnitTestContext</returns>
 	public BadUnitTestContext CreateContext()
     {
-        return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList());
+        return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList(), m_Runtime);
     }
 
 	/// <summary>
@@ -125,34 +122,7 @@ public class BadUnitTestContextBuilder
     }
 
 
-	/// <summary>
-	///     Loads the Interop Apis into the Context
-	/// </summary>
-	/// <param name="context">The Context</param>
-	private void LoadApis(BadExecutionContext context)
-    {
-        foreach (BadInteropApi api in m_Apis)
-        {
-            BadTable target;
-
-            if (context.Scope.HasLocal(api.Name) && context.Scope.GetVariable(api.Name).Dereference() is BadTable table)
-            {
-                target = table;
-            }
-            else
-            {
-                target = new BadTable();
-                context.Scope.DefineVariable(api.Name, target);
-            }
-
-            api.Load(target);
-        }
-
-        foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)
-        {
-            context.Scope.DefineVariable(type.Name, type);
-        }
-    }
+	
 
 	/// <summary>
 	///     Runs the Setup Stage
@@ -175,12 +145,6 @@ public class BadUnitTestContextBuilder
             expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
         }
 
-        //Create Context
-        BadExecutionContext context = BadExecutionContext.Create();
-
-        //Add Apis
-        LoadApis(context);
-
-        context.Run(expressions);
+        m_Runtime.Execute(expressions);
     }
 }

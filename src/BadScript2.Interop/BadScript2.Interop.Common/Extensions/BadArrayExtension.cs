@@ -10,9 +10,9 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadArrayExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Add",
             a => new BadDynamicInteropFunction<BadObject>(
                 "Add",
@@ -21,7 +21,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Clear",
             a => new BadDynamicInteropFunction(
                 "Clear",
@@ -29,7 +29,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "AddRange",
             a => new BadDynamicInteropFunction<BadArray>(
                 "AddRange",
@@ -43,7 +43,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Insert",
             a => new BadDynamicInteropFunction<decimal, BadObject>(
                 "Insert",
@@ -52,7 +52,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "InsertRange",
             a => new BadDynamicInteropFunction<decimal, BadArray>(
                 "InsertRange",
@@ -67,7 +67,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Remove",
             a => new BadDynamicInteropFunction<BadObject>(
                 "Remove",
@@ -76,7 +76,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Contains",
             a => new BadDynamicInteropFunction<BadObject>(
                 "Contains",
@@ -85,7 +85,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "RemoveAt",
             a => new BadDynamicInteropFunction<decimal>(
                 "RemoveAt",
@@ -94,7 +94,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Get",
             a => new BadDynamicInteropFunction<decimal>(
                 "Get",
@@ -103,7 +103,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "Set",
             a => new BadDynamicInteropFunction<decimal, BadObject>(
                 "Set",
@@ -112,7 +112,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             "GetEnumerator",
             a => new BadDynamicInteropFunction(
                 "GetEnumerator",
@@ -120,7 +120,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             BadStaticKeys.ArrayAccessOperatorName,
             a => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessOperatorName,
@@ -128,7 +128,7 @@ public class BadArrayExtension : BadInteropExtension
                 "index"
             )
         );
-        RegisterObject<BadArray>(
+        provider.RegisterObject<BadArray>(
             BadStaticKeys.ArrayAccessReverseOperatorName,
             a => new BadDynamicInteropFunction<decimal>(
                 BadStaticKeys.ArrayAccessReverseOperatorName,
@@ -141,7 +141,7 @@ public class BadArrayExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
+        provider.RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
     }
 
     /// <summary>

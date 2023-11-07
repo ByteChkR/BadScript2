@@ -10,16 +10,16 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadScopeExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<BadScope>(
+        provider.RegisterObject<BadScope>(
             "GetLocals",
             o => new BadDynamicInteropFunction(
                 "GetLocals",
                 _ => GetLocals(o)
             )
         );
-        RegisterObject<BadScope>(
+        provider.RegisterObject<BadScope>(
             "GetParent",
             o => new BadDynamicInteropFunction(
                 "GetParent",

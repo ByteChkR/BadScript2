@@ -11,9 +11,9 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadTypeSystemExtension : BadInteropExtension
 {
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterGlobal(
+        provider.RegisterGlobal(
             "IsInstanceOf",
             obj => new BadDynamicInteropFunction<BadClassPrototype>(
                 "IsInstanceOf",
@@ -22,9 +22,9 @@ public class BadTypeSystemExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadClass>("GetClassScope", c => new BadDynamicInteropFunction("GetClassScope", ctx => c.Scope));
+        provider.RegisterObject<BadClass>("GetClassScope", c => new BadDynamicInteropFunction("GetClassScope", ctx => c.Scope));
 
-        RegisterObject<BadClassPrototype>(
+        provider.RegisterObject<BadClassPrototype>(
             "CreateInstance",
             p => new BadDynamicInteropFunction(
                 "CreateInstance",
@@ -42,16 +42,16 @@ public class BadTypeSystemExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadClassPrototype>("Meta", f => f.MetaData);
+        provider.RegisterObject<BadClassPrototype>("Meta", f => f.MetaData);
 
-        RegisterObject<BadClassPrototype>(
+        provider.RegisterObject<BadClassPrototype>(
             "IsAssignableFrom",
             proto => new BadDynamicInteropFunction<BadObject>(
                 "IsAssignableFrom",
                 (_, o) => IsAssignableFrom(o, proto)
             )
         );
-        RegisterObject<BadClassPrototype>(
+        provider.RegisterObject<BadClassPrototype>(
             "IsBaseClassOf",
             proto => new BadDynamicInteropFunction<BadClassPrototype>(
                 "IsBaseClassOf",
@@ -59,7 +59,7 @@ public class BadTypeSystemExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadClassPrototype>(
+        provider.RegisterObject<BadClassPrototype>(
             "IsSuperClassOf",
             proto => new BadDynamicInteropFunction<BadClassPrototype>(
                 "IsSuperClassOf",
@@ -67,12 +67,12 @@ public class BadTypeSystemExtension : BadInteropExtension
             )
         );
 
-        RegisterObject<BadClassPrototype>(
+        provider.RegisterObject<BadClassPrototype>(
             "GetBaseClass",
             p => new BadDynamicInteropFunction("GetBaseClass", ctx => p.GetBaseClass() ?? BadObject.Null)
         );
 
-        RegisterObject<BadClassPrototype>(
+        provider.RegisterObject<BadClassPrototype>(
             "Name",
             proto => proto.Name
         );

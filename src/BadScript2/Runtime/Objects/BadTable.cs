@@ -100,17 +100,17 @@ public class BadTable : BadObject, IBadEnumerable
     }
 
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
-        return InnerTable.ContainsKey(propName) || BadInteropExtension.HasObject<BadTable>(propName);
+        return InnerTable.ContainsKey(propName) || (caller != null && caller.Provider.HasObject<BadTable>(propName));
     }
 
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (!InnerTable.ContainsKey(propName) && BadInteropExtension.HasObject<BadTable>(propName))
+        if (!InnerTable.ContainsKey(propName) && (caller != null && caller.Provider.HasObject<BadTable>(propName)))
         {
-            return BadInteropExtension.GetObjectReference(GetType(), propName, this, caller);
+            return caller.Provider.GetObjectReference(GetType(), propName, this, caller);
         }
 
         return BadObjectReference.Make(

@@ -38,17 +38,17 @@ public class BadInequalityExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> NotEqualWithOverride(
-        BadExecutionContext caller,
+        BadExecutionContext? caller,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.NotEqualOperatorName))
+        if (left.HasProperty(BadStaticKeys.NotEqualOperatorName, caller?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         caller,
+                         caller!,
                          BadStaticKeys.NotEqualOperatorName,
                          position
                      ))
@@ -56,12 +56,12 @@ public class BadInequalityExpression : BadBinaryExpression
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.NotEqualOperatorName))
+        else if (right.HasProperty(BadStaticKeys.NotEqualOperatorName, caller?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
-                         caller,
+                         caller!,
                          BadStaticKeys.NotEqualOperatorName,
                          position
                      ))

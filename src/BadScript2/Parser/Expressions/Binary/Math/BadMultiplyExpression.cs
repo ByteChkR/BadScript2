@@ -79,17 +79,17 @@ public class BadMultiplyExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> MulWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.MultiplyOperatorName))
+        if (left.HasProperty(BadStaticKeys.MultiplyOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.MultiplyOperatorName,
                          position
                      ))

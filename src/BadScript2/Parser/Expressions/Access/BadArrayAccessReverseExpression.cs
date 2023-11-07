@@ -86,10 +86,10 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
         BadObject[] args,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName))
+        if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context?.Scope))
         {
             BadFunction? func =
-                left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context.Scope)
+                left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context?.Scope)
                     .Dereference() as BadFunction;
 
             if (func == null)
@@ -99,7 +99,7 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
 
             BadObject r = BadObject.Null;
 
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
+            foreach (BadObject o in func.Invoke(args.ToArray(), context!))
             {
                 yield return o;
 

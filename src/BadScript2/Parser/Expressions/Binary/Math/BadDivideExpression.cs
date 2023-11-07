@@ -50,17 +50,17 @@ public class BadDivideExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> DivWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.DivideOperatorName))
+        if (left.HasProperty(BadStaticKeys.DivideOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.DivideOperatorName,
                          position
                      ))

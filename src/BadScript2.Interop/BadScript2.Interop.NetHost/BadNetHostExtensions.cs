@@ -114,47 +114,47 @@ public class BadNetHostExtensions : BadInteropExtension
 	/// <summary>
 	///     Adds Extensions for the BadHttpContext Object
 	/// </summary>
-	private void AddContextExtensions()
+	private void AddContextExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<BadHttpContext>("Request", c => new BadHttpRequest(c.Context.Request));
-        RegisterObject<BadHttpContext>("Response", c => CreateResponseTable(c.Context.Response));
+        provider.RegisterObject<BadHttpContext>("Request", c => new BadHttpRequest(c.Context.Request));
+        provider.RegisterObject<BadHttpContext>("Response", c => CreateResponseTable(c.Context.Response));
     }
 
 	/// <summary>
 	///     Adds Extensions for the BadHttpRequest Object
 	/// </summary>
-	private void AddRequestExtensions()
+	private void AddRequestExtensions(BadInteropExtensionProvider provider)
     {
-        RegisterObject<BadHttpRequest>("ContentLength", r => r.Request.ContentLength64);
-        RegisterObject<BadHttpRequest>("ContentType", r => r.Request.ContentType);
-        RegisterObject<BadHttpRequest>("Headers", r => CreateNameValueTable(r.Request.Headers));
-        RegisterObject<BadHttpRequest>("HttpMethod", r => r.Request.HttpMethod);
-        RegisterObject<BadHttpRequest>("IsLocal", r => r.Request.IsLocal);
-        RegisterObject<BadHttpRequest>("IsSecureConnection", r => r.Request.IsSecureConnection);
-        RegisterObject<BadHttpRequest>("IsAuthenticated", r => r.Request.IsAuthenticated);
-        RegisterObject<BadHttpRequest>("IsWebSocketRequest", r => r.Request.IsWebSocketRequest);
-        RegisterObject<BadHttpRequest>("KeepAlive", r => r.Request.KeepAlive);
-        RegisterObject<BadHttpRequest>("QueryString", r => CreateNameValueTable(r.Request.QueryString));
-        RegisterObject<BadHttpRequest>("RawUrl", r => r.Request.RawUrl);
-        RegisterObject<BadHttpRequest>("Url", r => new BadReflectedObject(r.Request.Url));
-        RegisterObject<BadHttpRequest>("UrlReferrer", r => new BadReflectedObject(r.Request.UrlReferrer));
-        RegisterObject<BadHttpRequest>("ServiceName", r => r.Request.ServiceName);
-        RegisterObject<BadHttpRequest>("UserAgent", r => r.Request.UserAgent);
-        RegisterObject<BadHttpRequest>("ClientCertificateError", r => r.Request.ClientCertificateError);
-        RegisterObject<BadHttpRequest>("HasEntityBody", r => r.Request.HasEntityBody);
-        RegisterObject<BadHttpRequest>("UserHostAddress", r => r.Request.UserHostAddress);
-        RegisterObject<BadHttpRequest>("UserHostName", r => r.Request.UserHostName);
-        RegisterObject<BadHttpRequest>(
+        provider.RegisterObject<BadHttpRequest>("ContentLength", r => r.Request.ContentLength64);
+        provider.RegisterObject<BadHttpRequest>("ContentType", r => r.Request.ContentType);
+        provider.RegisterObject<BadHttpRequest>("Headers", r => CreateNameValueTable(r.Request.Headers));
+        provider.RegisterObject<BadHttpRequest>("HttpMethod", r => r.Request.HttpMethod);
+        provider.RegisterObject<BadHttpRequest>("IsLocal", r => r.Request.IsLocal);
+        provider.RegisterObject<BadHttpRequest>("IsSecureConnection", r => r.Request.IsSecureConnection);
+        provider.RegisterObject<BadHttpRequest>("IsAuthenticated", r => r.Request.IsAuthenticated);
+        provider.RegisterObject<BadHttpRequest>("IsWebSocketRequest", r => r.Request.IsWebSocketRequest);
+        provider.RegisterObject<BadHttpRequest>("KeepAlive", r => r.Request.KeepAlive);
+        provider.RegisterObject<BadHttpRequest>("QueryString", r => CreateNameValueTable(r.Request.QueryString));
+        provider.RegisterObject<BadHttpRequest>("RawUrl", r => r.Request.RawUrl);
+        provider.RegisterObject<BadHttpRequest>("Url", r => new BadReflectedObject(r.Request.Url));
+        provider.RegisterObject<BadHttpRequest>("UrlReferrer", r => new BadReflectedObject(r.Request.UrlReferrer));
+        provider.RegisterObject<BadHttpRequest>("ServiceName", r => r.Request.ServiceName);
+        provider.RegisterObject<BadHttpRequest>("UserAgent", r => r.Request.UserAgent);
+        provider.RegisterObject<BadHttpRequest>("ClientCertificateError", r => r.Request.ClientCertificateError);
+        provider.RegisterObject<BadHttpRequest>("HasEntityBody", r => r.Request.HasEntityBody);
+        provider.RegisterObject<BadHttpRequest>("UserHostAddress", r => r.Request.UserHostAddress);
+        provider.RegisterObject<BadHttpRequest>("UserHostName", r => r.Request.UserHostName);
+        provider.RegisterObject<BadHttpRequest>(
             "UserLanguages",
             r => new BadArray((r.Request.UserLanguages ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList())
         );
-        RegisterObject<BadHttpRequest>(
+        provider.RegisterObject<BadHttpRequest>(
             "AcceptTypes",
             r => new BadArray((r.Request.AcceptTypes ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList())
         );
-        RegisterObject<BadHttpRequest>("ContentEncoding", r => r.Request.ContentEncoding.EncodingName);
-        RegisterObject<BadHttpRequest>("Cookies", r => CreateCookieTable(r.Request.Cookies));
-        RegisterObject<BadHttpRequest>(
+        provider.RegisterObject<BadHttpRequest>("ContentEncoding", r => r.Request.ContentEncoding.EncodingName);
+        provider.RegisterObject<BadHttpRequest>("Cookies", r => CreateCookieTable(r.Request.Cookies));
+        provider.RegisterObject<BadHttpRequest>(
             "Content",
             r => CreateContentTable(r.Request.InputStream, r.Request.ContentEncoding)
         );
@@ -209,9 +209,9 @@ public class BadNetHostExtensions : BadInteropExtension
         return table;
     }
 
-    protected override void AddExtensions()
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        AddContextExtensions();
-        AddRequestExtensions();
+        AddContextExtensions(provider);
+        AddRequestExtensions(provider);
     }
 }

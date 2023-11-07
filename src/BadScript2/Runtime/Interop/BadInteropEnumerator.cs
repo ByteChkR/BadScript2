@@ -78,11 +78,11 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
         return s_Prototype;
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
                (str.Value == "MoveNext" || str.Value == "GetCurrent") ||
-               base.HasProperty(propName);
+               base.HasProperty(propName, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)

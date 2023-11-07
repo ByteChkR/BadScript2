@@ -26,10 +26,13 @@ public class BadRuntime : IDisposable
     public BadRuntime(BadExecutionContextOptions options)
     {
         m_Options = options;
-        BadSettingsProvider.SetRootSettings(new BadSettings());
+        if (!BadSettingsProvider.HasRootSettings)
+        {
+            BadSettingsProvider.SetRootSettings(new BadSettings());
+        }
     }
 
-    public BadRuntime() : this(BadExecutionContextOptions.Default) { }
+    public BadRuntime() : this(new BadExecutionContextOptions()) { }
 
     public void Dispose()
     {
@@ -41,9 +44,8 @@ public class BadRuntime : IDisposable
 
     public BadRuntime Clone()
     {
-        return new BadRuntime(m_Options.Clone())
-            .UseExecutor(m_Executor)
-            .ConfigureContextOptions(m_ConfigureOptions.ToArray());
+        return new BadRuntime(CreateOptions())
+            .UseExecutor(m_Executor);
     }
 
     public BadRuntime UseExecutor(Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> executor)
@@ -129,7 +131,7 @@ public class BadRuntime : IDisposable
         return this;
     }
 
-    public BadExecutionContext CreateContext()
+    private BadExecutionContextOptions CreateOptions()
     {
         BadExecutionContextOptions opts = m_Options.Clone();
         foreach (Action<BadExecutionContextOptions> config in m_ConfigureOptions)
@@ -137,7 +139,12 @@ public class BadRuntime : IDisposable
             config(opts);
         }
 
-        BadExecutionContext ctx = opts.Build();
+        return opts;
+    }
+
+    public BadExecutionContext CreateContext()
+    {
+        BadExecutionContext ctx = CreateOptions().Build();
 
         foreach (Action<BadExecutionContext> config in m_ConfigureContext)
         {

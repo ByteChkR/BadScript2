@@ -62,13 +62,13 @@ public class BadMetaData : BadObject
         throw new NotSupportedException();
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString
                {
                    Value: "Description" or "Return" or "Parameters",
                } ||
-               base.HasProperty(propName);
+               base.HasProperty(propName, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)

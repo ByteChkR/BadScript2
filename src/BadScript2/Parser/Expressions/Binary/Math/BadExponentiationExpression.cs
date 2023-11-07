@@ -61,17 +61,17 @@ public class BadExponentiationExpression : BadBinaryExpression
     /// <param name="position">The Source Position</param>
     /// <returns>Enumerable of which the last element is the result of the operation</returns>
     public static IEnumerable<BadObject> ExpWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ExponentiationOperatorName))
+        if (left.HasProperty(BadStaticKeys.ExponentiationOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.ExponentiationOperatorName,
                          position
                      ))

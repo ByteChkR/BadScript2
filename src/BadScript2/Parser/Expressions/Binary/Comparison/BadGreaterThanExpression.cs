@@ -51,17 +51,17 @@ public class BadGreaterThanExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> GreaterThanWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.GreaterOperatorName))
+        if (left.HasProperty(BadStaticKeys.GreaterOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.GreaterOperatorName,
                          position
                      ))
@@ -69,12 +69,12 @@ public class BadGreaterThanExpression : BadBinaryExpression
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.GreaterOperatorName))
+        else if (right.HasProperty(BadStaticKeys.GreaterOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.GreaterOperatorName,
                          position
                      ))

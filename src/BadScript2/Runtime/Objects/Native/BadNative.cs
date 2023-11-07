@@ -116,16 +116,16 @@ public class BadNative<T> : BadObject, IBadNative
         return s_Prototype;
     }
 
-    public override bool HasProperty(BadObject propName)
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
-        return BadInteropExtension.HasObject<T>(propName);
+        return caller != null && caller.Provider.HasObject<T>(propName);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return BadObjectReference.Make(
             $"BadNative<{typeof(T).Name}>.{propName}",
-            () => BadInteropExtension.GetObject<T>(propName, this, caller)
+            () => caller != null ? caller.Provider.GetObject<T>(propName, this, caller) : throw BadRuntimeException.Create(caller, $"No property named {propName} for type {GetType().Name}")
         );
     }
 }

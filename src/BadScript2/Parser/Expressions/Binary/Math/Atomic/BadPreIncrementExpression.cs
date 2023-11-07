@@ -75,17 +75,17 @@ public class BadPreIncrementExpression : BadExpression
     }
 
     public static IEnumerable<BadObject> IncrementWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObjectReference leftRef,
         BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.PreIncrementOperatorName))
+        if (left.HasProperty(BadStaticKeys.PreIncrementOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.PreIncrementOperatorName,
                          position
                      ))

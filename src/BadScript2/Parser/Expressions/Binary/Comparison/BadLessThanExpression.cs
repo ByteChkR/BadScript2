@@ -42,17 +42,17 @@ public class BadLessThanExpression : BadBinaryExpression
     }
 
     public static IEnumerable<BadObject> LessThanWithOverride(
-        BadExecutionContext context,
+        BadExecutionContext? context,
         BadObject left,
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.LessOperatorName))
+        if (left.HasProperty(BadStaticKeys.LessOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
-                         context,
+                         context!,
                          BadStaticKeys.LessOperatorName,
                          position
                      ))
@@ -60,12 +60,12 @@ public class BadLessThanExpression : BadBinaryExpression
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.LessOperatorName))
+        else if (right.HasProperty(BadStaticKeys.LessOperatorName, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
-                         context,
+                         context!,
                          BadStaticKeys.LessOperatorName,
                          position
                      ))
