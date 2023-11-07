@@ -17,6 +17,7 @@ namespace BadScript2;
 
 public class BadRuntime : IDisposable
 {
+    private readonly List<Action<BadExecutionContextOptions>> m_ConfigureOptions = new List<Action<BadExecutionContextOptions>>();
     private readonly List<IDisposable> m_Disposables = new List<IDisposable>();
     public readonly BadExecutionContextOptions Options;
     private Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> m_Executor = Executor;
@@ -35,6 +36,13 @@ public class BadRuntime : IDisposable
         {
             disposable.Dispose();
         }
+    }
+
+    public BadRuntime Clone()
+    {
+        return new BadRuntime(Options.Clone())
+            .UseExecutor(m_Executor)
+            .ConfigureContextOptions(m_ConfigureOptions.ToArray());
     }
 
     public BadRuntime UseExecutor(Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> executor)
@@ -123,11 +131,17 @@ public class BadRuntime : IDisposable
 
     public BadObject Execute(IEnumerable<BadExpression> expressions)
     {
-        BadExecutionContext ctx = Options.Build();
+        BadExecutionContextOptions opts = Options.Clone();
+        foreach (Action<BadExecutionContextOptions> config in m_ConfigureOptions)
+        {
+            config(opts);
+        }
+
+        BadExecutionContext ctx = opts.Build();
 
         return m_Executor(ctx, expressions);
     }
-    
+
 
     public BadObject Execute(string source)
     {
@@ -170,5 +184,12 @@ public class BadRuntime : IDisposable
     public IEnumerable<BadExpression> ParseFile(string file)
     {
         return Parse(BadFileSystem.ReadAllText(file), file);
+    }
+
+    public BadRuntime ConfigureContextOptions(params Action<BadExecutionContextOptions>[] action)
+    {
+        m_ConfigureOptions.AddRange(action);
+
+        return this;
     }
 }
