@@ -19,8 +19,8 @@ internal static class Program
             "MyCustomApi.SayHello();\nMyCustomApi.Say(\"LOL\");\nMyCustomApi.Say(MyCustomApi.WhoAmI());\nMyCustomApi.Say(MyCustomApi.MyName);\nMyCustomApi.Say(MyCustomApi.MyTable.Nested);\nMyCustomApi.OldSchool(\"Name\");\nMyCustomApi.OldSchool(\"Name\", \"The Description\");";
 
         // Create the Runtime
-        using BadRuntime runtime = new BadRuntime();
-        runtime.Options.AddApi(new MyCustomApi());
+        using BadRuntime runtime = new BadRuntime()
+            .ConfigureContextOptions(opts => opts.AddApi(new MyCustomApi()));
         
 
         // Run the Script
