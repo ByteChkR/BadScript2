@@ -29,11 +29,6 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '-c Release'
-- task: PublishSymbols@2
-  displayName: Publish Symbols
-  inputs:
-    SearchPattern: './src/**/bin/**/*.pdb'
-    SymbolServerType: 'TeamServices'
 - task: DotNetCoreCLI@2
   displayName: Run Unit Tests
   inputs:
