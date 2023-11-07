@@ -18,6 +18,7 @@ namespace BadScript2;
 public class BadRuntime : IDisposable
 {
     private readonly List<Action<BadExecutionContextOptions>> m_ConfigureOptions = new List<Action<BadExecutionContextOptions>>();
+    private readonly List<Action<BadExecutionContext>> m_ConfigureContext = new List<Action<BadExecutionContext>>();
     private readonly List<IDisposable> m_Disposables = new List<IDisposable>();
     public readonly BadExecutionContextOptions Options;
     private Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> m_Executor = Executor;
@@ -139,6 +140,11 @@ public class BadRuntime : IDisposable
 
         BadExecutionContext ctx = opts.Build();
 
+        foreach (Action<BadExecutionContext> config in m_ConfigureContext)
+        {
+            config(ctx);
+        }
+        
         return m_Executor(ctx, expressions);
     }
 
@@ -189,6 +195,12 @@ public class BadRuntime : IDisposable
     public BadRuntime ConfigureContextOptions(params Action<BadExecutionContextOptions>[] action)
     {
         m_ConfigureOptions.AddRange(action);
+
+        return this;
+    }
+    public BadRuntime ConfigureContext(params Action<BadExecutionContext>[] action)
+    {
+        m_ConfigureContext.AddRange(action);
 
         return this;
     }
