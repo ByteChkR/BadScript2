@@ -14,7 +14,7 @@ public static class BadJson
     
     public static BadRuntime UseJsonApi(this BadRuntime runtime)
     {
-        runtime.Options.AddOrReplaceApi(new BadJsonApi());
+        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadJsonApi()));
 
         return runtime;
     }

@@ -13,9 +13,9 @@ public static class BadDebuggerExtensions
     {
         if (debuggerPath == null)
         {
-            return runtime.UseDebugger(new BadScriptDebugger(runtime.Options));
+            return runtime.UseDebugger(new BadScriptDebugger(runtime));
         }
 
-        return runtime.UseDebugger(new BadScriptDebugger(runtime.Options, debuggerPath));
+        return runtime.UseDebugger(new BadScriptDebugger(runtime, debuggerPath));
     }
 }

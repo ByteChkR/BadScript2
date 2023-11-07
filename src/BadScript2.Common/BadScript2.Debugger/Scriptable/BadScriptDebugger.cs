@@ -22,7 +22,7 @@ public class BadScriptDebugger : IBadDebugger
 	/// <summary>
 	///     The Debugger Execution Context Options
 	/// </summary>
-	private readonly BadExecutionContextOptions m_Options;
+	private readonly BadRuntime m_Runtime;
 
 	/// <summary>
 	///     The Files that are already seen by the Debugger
@@ -34,10 +34,11 @@ public class BadScriptDebugger : IBadDebugger
 	/// </summary>
 	/// <param name="options">The Context Options</param>
 	/// <param name="debuggerPath">The File Path to the Debugger</param>
-	public BadScriptDebugger(BadExecutionContextOptions options, string debuggerPath)
+	public BadScriptDebugger(BadRuntime runtime, string debuggerPath)
     {
-        m_Options = options;
-        m_Options.AddApi(new BadScriptDebuggerApi(this));
+	    m_Runtime = runtime
+		    .Clone()
+		    .ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this)));
         LoadDebugger(debuggerPath);
     }
 
@@ -45,10 +46,11 @@ public class BadScriptDebugger : IBadDebugger
 	///     Constructs a new BadScriptDebugger instance
 	/// </summary>
 	/// <param name="options">The Context Options</param>
-	public BadScriptDebugger(BadExecutionContextOptions options)
-    {
-        m_Options = options;
-        m_Options.AddApi(new BadScriptDebuggerApi(this));
+	public BadScriptDebugger(BadRuntime runtime)
+	{
+		m_Runtime = runtime
+			.Clone()
+			.ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this)));
 
 
         LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
@@ -81,13 +83,7 @@ public class BadScriptDebugger : IBadDebugger
     /// <param name="path">The File Path</param>
     private void LoadDebugger(string path)
     {
-        BadExecutionContext ctx = m_Options.Build();
-        ctx.Run(
-            new BadSourceParser(
-                BadSourceReader.FromFile(path),
-                BadOperatorTable.Instance
-            ).Parse()
-        );
+        m_Runtime.ExecuteFile(path);
     }
 
     /// <summary>

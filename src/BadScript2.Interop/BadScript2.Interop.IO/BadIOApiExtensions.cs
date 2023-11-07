@@ -8,11 +8,11 @@ public static class BadIOApiExtensions
     {
         if (fileSystem != null)
         {
-            runtime.Options.AddOrReplaceApi(new BadIOApi(fileSystem));
+            runtime.ConfigureContextOptions(opts=>opts.AddOrReplaceApi(new BadIOApi(fileSystem)));
         }
         else
         {
-            runtime.Options.AddOrReplaceApi(new BadIOApi());
+            runtime.ConfigureContextOptions(opts=>opts.AddOrReplaceApi(new BadIOApi()));
         }
 
         return runtime;

@@ -53,59 +53,11 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
     public override string Name => "run";
 
-    private int RunInteractive(BadExecutionContextOptions options, IEnumerable<string> files)
-    {
-        BadInteractiveConsole console = new BadInteractiveConsole(options, BadTaskRunner.Instance, files);
-
-        while (true)
-        {
-            BadConsole.Write(">");
-            string cmd = BadConsole.ReadLine()!;
-
-            if (cmd == "exit")
-            {
-                return -1;
-            }
-
-            console.Run(cmd);
-        }
-    }
-
-    /// <summary>
-    ///     Creates the Execution Context Options for the Run System
-    /// </summary>
-    /// <returns>Execution Context Options</returns>
-    private BadExecutionContextOptions CreateOptions()
-    {
-        BadExecutionContextOptions options = new BadExecutionContextOptions(BadExecutionContextOptions.Default.Apis);
-        options.AddApi(new BadTaskRunnerApi(BadTaskRunner.Instance));
-
-        return options;
-    }
 
 
-    /// <summary>
-    ///     Runs a Parser Output Enumeration
-    /// </summary>
-    /// <param name="context">Execution Context</param>
-    /// <param name="expressions">Parser Enumeration</param>
-    /// <returns>Objects of the Enumeration</returns>
-    private IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> expressions)
-    {
-        foreach (BadObject o in expressions)
-        {
-            yield return o;
-        }
-
-        if (context.Scope.IsError)
-        {
-            BadConsole.WriteLine("Error: " + context.Scope.Error);
-        }
-    }
 
     protected override int Run(BadRunSystemSettings settings)
     {
-        BadExecutionContextOptions options = CreateOptions();
 
         BadNetworkConsoleHost? host = null;
 

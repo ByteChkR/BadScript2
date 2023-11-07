@@ -25,7 +25,7 @@ public class BadInteractiveConsole
 	/// <summary>
 	///     The Execution Context Options
 	/// </summary>
-	private readonly BadExecutionContextOptions m_Options;
+	private readonly BadRuntime m_Runtime;
 
 	/// <summary>
 	///     The Task runner
@@ -43,11 +43,11 @@ public class BadInteractiveConsole
 	/// <param name="options">The Execution Context Options</param>
 	/// <param name="runner">The Task runner</param>
 	/// <param name="files">The Files that are loaded before the interactive session begins</param>
-	public BadInteractiveConsole(BadExecutionContextOptions options, BadTaskRunner runner, IEnumerable<string> files)
+	public BadInteractiveConsole(BadRuntime runtime, BadTaskRunner runner, IEnumerable<string> files)
     {
         m_Runner = runner;
         m_Api = new BadInteractiveConsoleApi(this);
-        m_Options = options;
+        m_Runtime = runtime;
         Reset();
 
         foreach (string file in files)
@@ -80,7 +80,7 @@ public class BadInteractiveConsole
         BadTable apiTable = new BadTable();
         m_Api.Load(apiTable);
 
-        BadExecutionContext ctx = m_Options.Build();
+        BadExecutionContext ctx = m_Runtime.CreateContext();
 
         ctx.Scope.AddSingleton(BadTaskRunner.Instance);
         ctx.Scope.DefineVariable(m_Api.Name, apiTable);

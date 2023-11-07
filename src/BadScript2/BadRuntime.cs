@@ -17,15 +17,15 @@ namespace BadScript2;
 
 public class BadRuntime : IDisposable
 {
-    private readonly List<Action<BadExecutionContextOptions>> m_ConfigureOptions = new List<Action<BadExecutionContextOptions>>();
     private readonly List<Action<BadExecutionContext>> m_ConfigureContext = new List<Action<BadExecutionContext>>();
+    private readonly List<Action<BadExecutionContextOptions>> m_ConfigureOptions = new List<Action<BadExecutionContextOptions>>();
     private readonly List<IDisposable> m_Disposables = new List<IDisposable>();
-    public readonly BadExecutionContextOptions Options;
+    private readonly BadExecutionContextOptions m_Options;
     private Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> m_Executor = Executor;
 
     public BadRuntime(BadExecutionContextOptions options)
     {
-        Options = options;
+        m_Options = options;
         BadSettingsProvider.SetRootSettings(new BadSettings());
     }
 
@@ -41,7 +41,7 @@ public class BadRuntime : IDisposable
 
     public BadRuntime Clone()
     {
-        return new BadRuntime(Options.Clone())
+        return new BadRuntime(m_Options.Clone())
             .UseExecutor(m_Executor)
             .ConfigureContextOptions(m_ConfigureOptions.ToArray());
     }
@@ -112,7 +112,7 @@ public class BadRuntime : IDisposable
 
     public BadRuntime UseCompilerApi()
     {
-        Options.AddApi(new BadCompilerApi());
+        m_Options.AddApi(new BadCompilerApi());
 
         return this;
     }
@@ -129,10 +129,9 @@ public class BadRuntime : IDisposable
         return this;
     }
 
-
-    public BadObject Execute(IEnumerable<BadExpression> expressions)
+    public BadExecutionContext CreateContext()
     {
-        BadExecutionContextOptions opts = Options.Clone();
+        BadExecutionContextOptions opts = m_Options.Clone();
         foreach (Action<BadExecutionContextOptions> config in m_ConfigureOptions)
         {
             config(opts);
@@ -144,7 +143,14 @@ public class BadRuntime : IDisposable
         {
             config(ctx);
         }
-        
+
+        return ctx;
+    }
+
+    public BadObject Execute(IEnumerable<BadExpression> expressions)
+    {
+        BadExecutionContext ctx = CreateContext();
+
         return m_Executor(ctx, expressions);
     }
 
@@ -198,6 +204,7 @@ public class BadRuntime : IDisposable
 
         return this;
     }
+
     public BadRuntime ConfigureContext(params Action<BadExecutionContext>[] action)
     {
         m_ConfigureContext.AddRange(action);

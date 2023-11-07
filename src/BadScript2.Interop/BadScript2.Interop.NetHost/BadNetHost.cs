@@ -13,7 +13,7 @@ public static class BadNetApiExtensions
 	public static BadRuntime UseNetHostApi(this BadRuntime runtime)
 	{
 		BadInteropExtension.AddExtension<BadNetHostExtensions>();
-		runtime.Options.AddOrReplaceApi(new BadNetHostApi());
+		runtime.ConfigureContextOptions(opts=>opts.AddOrReplaceApi(new BadNetHostApi()));
 
 		return runtime;
 	}

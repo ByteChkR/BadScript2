@@ -8,11 +8,11 @@ public static class BadCompressionApiExtensions
     {
         if (fileSystem != null)
         {
-            runtime.Options.AddOrReplaceApi(new BadCompressionApi(fileSystem));
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadCompressionApi(fileSystem)));
         }
         else
         {
-            runtime.Options.AddOrReplaceApi(new BadCompressionApi());
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadCompressionApi()));
         }
 
         return runtime;

@@ -4,7 +4,7 @@ public static class BadHtmlApiExtensions
 {
     public static BadRuntime UseHtmlApi(this BadRuntime runtime)
     {
-        runtime.Options.AddOrReplaceApi(new BadHtmlApi());
+        runtime.ConfigureContextOptions(opts =>opts.AddOrReplaceApi(new BadHtmlApi()));
 
         return runtime;
     }

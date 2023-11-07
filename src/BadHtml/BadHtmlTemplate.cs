@@ -79,7 +79,7 @@ public class BadHtmlTemplate
         HtmlDocument output = new HtmlDocument();
         output.OptionUseIdAttribute = true;
         output.LoadHtml("");
-        BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).Options.Build();
+        BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).CreateContext();
         executionContext.Scope.SetCaller(caller);
 
         BadObject mod = model as BadObject ?? BadObject.Wrap(model);

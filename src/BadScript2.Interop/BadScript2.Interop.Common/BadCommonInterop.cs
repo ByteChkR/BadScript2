@@ -83,6 +83,8 @@ public static class BadCommonInterop
                 BadNativeClassBuilder.AddNative(BadTask.Prototype);
             }
 
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadTaskRunnerApi(BadTaskRunner.Instance)));
+
             runtime.UseExecutor(ExecuteTask);
         }
 
@@ -92,7 +94,7 @@ public static class BadCommonInterop
         }
 
         AddExtensions(useAsync);
-        runtime.Options.AddOrReplaceApis(Apis);
+        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApis(Apis));
 
         return runtime;
     }
@@ -101,11 +103,11 @@ public static class BadCommonInterop
     {
         if (console != null)
         {
-            runtime.Options.AddOrReplaceApi(new BadConsoleApi(console));
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi(console)));
         }
         else
         {
-            runtime.Options.AddOrReplaceApi(new BadConsoleApi());
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi()));
         }
 
         return runtime;
