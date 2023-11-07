@@ -242,7 +242,7 @@ public class BadNetworkConsoleHost : IBadConsole
             bool done;
             DateTime lastHeartBeat = DateTime.Now;
 
-            while (!m_ExitRequested && m_Client!.Connected)
+            while (!m_ExitRequested && m_Client != null && m_Client!.Connected)
             {
                 done = false;
 
@@ -280,6 +280,9 @@ public class BadNetworkConsoleHost : IBadConsole
                     else if (packetObj is BadConsoleDisconnectPacket)
                     {
                         m_Client.Dispose();
+                        m_Client = null;
+
+                        break;
                     }
                     else
                     {
@@ -287,7 +290,7 @@ public class BadNetworkConsoleHost : IBadConsole
                     }
                 }
 
-                if (m_OutgoingPackets.Count != 0)
+                if (m_Client != null && m_OutgoingPackets.Count != 0)
                 {
                     if (m_OutgoingPackets.TryDequeue(out BadConsolePacket packet))
                     {
@@ -305,7 +308,7 @@ public class BadNetworkConsoleHost : IBadConsole
                 {
                     if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
                     {
-                        m_Client.Dispose();
+                        m_Client?.Dispose();
                     }
 
                     Thread.Sleep(ReceiveSleepTimeout);
@@ -313,7 +316,7 @@ public class BadNetworkConsoleHost : IBadConsole
             }
         }
 
-        if (m_Client!.Connected)
+        if (m_Client != null && m_Client!.Connected)
         {
             NetworkStream stream = m_Client.GetStream();
             List<byte> packetData = new List<byte>();
@@ -322,6 +325,7 @@ public class BadNetworkConsoleHost : IBadConsole
             packetData.AddRange(packetBytes);
             stream.Write(packetData.ToArray(), 0, packetData.Count());
             m_Client.Dispose();
+            m_Client = null;
         }
 
         m_MessageThread = null;

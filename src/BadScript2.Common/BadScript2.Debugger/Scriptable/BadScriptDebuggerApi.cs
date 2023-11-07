@@ -17,14 +17,16 @@ public class BadScriptDebuggerApi : BadInteropApi
 	///     The Debugger Instance
 	/// </summary>
 	private readonly BadScriptDebugger m_Debugger;
+	private readonly string m_DebuggerPath;
 
 	/// <summary>
 	///     Constructs a new BadScriptDebuggerApi instance
 	/// </summary>
 	/// <param name="debugger">The Debugger Instance</param>
-	public BadScriptDebuggerApi(BadScriptDebugger debugger) : base("Debugger")
+	public BadScriptDebuggerApi(BadScriptDebugger debugger, string? path = null) : base("Debugger")
     {
         m_Debugger = debugger;
+        m_DebuggerPath = path ?? BadScriptDebuggerSettings.Instance.DebuggerPath;
     }
 
 	/// <summary>
@@ -75,6 +77,6 @@ public class BadScriptDebuggerApi : BadInteropApi
     {
         target.SetFunction<BadFunction>("RegisterStep", RegisterStep);
         target.SetFunction<BadFunction>("RegisterOnFileLoaded", RegisterOnFileLoaded);
-        target.SetProperty("DebuggerPath", Path.GetFullPath(BadScriptDebuggerSettings.Instance.DebuggerPath!));
+        target.SetProperty("DebuggerPath", Path.GetFullPath(m_DebuggerPath));
     }
 }
