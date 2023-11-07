@@ -14,6 +14,7 @@
   </metadata>
   <files>
     <file src="./bin/Release/net6.0/BadScript2.Interop.Compression.dll" target="lib/net6.0/BadScript2.Interop.Compression.dll" />
+    <file src="./bin/Release/net6.0/BadScript2.Interop.Compression.pdb" target="lib/net6.0/BadScript2.Interop.Compression.pdb" />
     <file src="../../../res/Logo.png" target="Logo.png" />
   </files>
 </package>

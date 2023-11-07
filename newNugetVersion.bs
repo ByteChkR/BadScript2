@@ -92,7 +92,7 @@ function ChangeDependencies(string file!, Table versionTable!)
 
 function Main(Array args!)
 {
-	const versionFormat = args.Length > 0 ? args[0] : "(~){yyyy}.(~){MM}.(~){dd}.+";
+	const versionFormat = args.Length > 0 ? args[0] : "(~){yy}.(~){MM}.(~){dd}.+";
 	const sourceDir = args.Length > 1 ? args[1] : "./src";
 	const specFiles = IO.Directory.GetFiles(sourceDir, ".nuspec", true);
 	Console.WriteLine("Updating Nuget Versions");
