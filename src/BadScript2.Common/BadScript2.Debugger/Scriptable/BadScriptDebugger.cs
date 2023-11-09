@@ -58,7 +58,7 @@ public class BadScriptDebugger : IBadDebugger
 
     public void Step(BadDebuggerStep stepInfo)
     {
-        stepInfo.GetSourceView(Array.Empty<int>(),out int _, out int lineInSource);
+        stepInfo.GetLines(4, 4, out _, out int lineInSource);
 
         if (m_LineNumbers.ContainsKey(stepInfo.Position.Source) &&
             lineInSource == m_LineNumbers[stepInfo.Position.Source])

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 using BadScript2.Common;
 using BadScript2.Debugging;
@@ -9,6 +10,7 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Utility.Linq;
 
 namespace BadScript2.Debugger.Scriptable;
 
@@ -23,9 +25,9 @@ public class BadScriptDebuggerExtension : BadInteropExtension
         provider.RegisterObject<BadDebuggerStep>("Scope", step => step.Context.Scope);
         provider.RegisterObject<BadDebuggerStep>(
             "GetSourceView",
-            step => new BadDynamicInteropFunction<int[]>(
+            step => new BadDynamicInteropFunction<string[]>(
                 "GetSourceView",
-                (_, a) => GetSourceView(step, a),
+                (_, a) => GetSourceView(step, a.Select(int.Parse).ToArray()),
                 new BadFunctionParameter("breakpointLines", true, true, false, null, BadNativeClassBuilder.GetNative("Array"))
             )
         );

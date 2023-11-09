@@ -119,7 +119,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 	/// <param name="top">The Amount of lines before the Source Position</param>
 	/// <param name="bottom">The Amount of lines after the Source Position</param>
 	/// <returns>String Representation</returns>
-	private string[] GetLines(int top, int bottom, out int topInSource, out int lineInSource)
+	public string[] GetLines(int top, int bottom, out int topInSource, out int lineInSource)
     {
         lineInSource = 1;
 

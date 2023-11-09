@@ -163,14 +163,31 @@ public static class BadInteropHelper
                     throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + typeof(T));
                 }
 
-                return (T)(object)arr.InnerArray.Select(x => x.Unwrap(type.GetElementType()!, caller)).ToArray();
+                object[] sarr = arr.InnerArray.Select(x => x.Unwrap(type.GetElementType()!, caller)).ToArray();
+                Array rarr = Array.CreateInstance(type.GetElementType()!, arr.InnerArray.Count);
+
+                for (int i = 0; i < sarr.Length; i++)
+                {
+                    rarr.SetValue(sarr[i], i);
+                }
+
+                return (T)(object)rarr;
             }
 
             if (type.IsGenericType &&
                 (type.GetGenericTypeDefinition() == typeof(List<>) ||
                  type.GetGenericTypeDefinition() == typeof(IList<>)))
             {
-                return (T)(object)arr.InnerArray.Select(x => x.Unwrap(type.GetElementType()!, caller)).ToList();
+                Type elemType = type.GetGenericArguments()[0];
+                IEnumerable<object> sarr = arr.InnerArray.Select(x => x.Unwrap(elemType, caller));
+                IList? rarr = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elemType));
+
+                foreach (object o in sarr)
+                {
+                    rarr.Add(o);
+                }
+
+                return (T)rarr;
             }
         }
 
