@@ -80,7 +80,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
         {
             int ln = topInSource + i;
             string line = lines[i];
-            string prefix = "";
+            string prefix = ln.ToString();
             if (ln == lineInSource)
             {
 	            prefix = ">>";
