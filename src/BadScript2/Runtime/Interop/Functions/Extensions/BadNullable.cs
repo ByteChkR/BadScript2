@@ -8,6 +8,7 @@ public readonly struct BadNullable<T>
     public BadNullable()
     {
         HasValue = false;
+        Value = default;
     }
 
     public BadNullable(T value)
