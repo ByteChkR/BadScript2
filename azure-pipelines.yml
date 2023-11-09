@@ -41,6 +41,15 @@ steps:
     filePath: './newNugetVersion.ps1'
     arguments: '-version $(Build.BuildNumber)'
 - task: DotNetCoreCLI@2
+  displayName: Publish Console Tool
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: './src/BadScript2.Console/BadScript2.Console.csproj'
+    arguments: '-c Release'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: DotNetCoreCLI@2
   displayName: Pack Nuget Packages
   inputs:
     command: 'pack'
