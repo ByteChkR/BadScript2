@@ -1,9 +1,14 @@
+using System;
+
 using BadScript2.Common;
 using BadScript2.Debugging;
 using BadScript2.Parser;
+using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Debugger.Scriptable;
 
@@ -16,12 +21,20 @@ public class BadScriptDebuggerExtension : BadInteropExtension
     {
         provider.RegisterObject<BadDebuggerStep>("Position", step => BadObject.Wrap(step.Position));
         provider.RegisterObject<BadDebuggerStep>("Scope", step => step.Context.Scope);
-        provider.RegisterObject<BadDebuggerStep>("SourceView", step => step.GetSourceView(out int _, out int _));
+        provider.RegisterObject<BadDebuggerStep>(
+            "GetSourceView",
+            step => new BadDynamicInteropFunction<int[]>(
+                "GetSourceView",
+                (_, a) => GetSourceView(step, a),
+                new BadFunctionParameter("breakpointLines", true, true, false, null, BadNativeClassBuilder.GetNative("Array"))
+            )
+        );
+        provider.RegisterObject<BadDebuggerStep>("SourceView", step => step.GetSourceView(Array.Empty<int>(), out int _, out int _));
         provider.RegisterObject<BadDebuggerStep>(
             "Line",
             step =>
             {
-                step.GetSourceView(out int _, out int lineInSource);
+                step.GetSourceView(Array.Empty<int>(), out int _, out int lineInSource);
 
                 return lineInSource;
             }
@@ -48,5 +61,10 @@ public class BadScriptDebuggerExtension : BadInteropExtension
         provider.RegisterObject<BadSourcePosition>("Length", pos => pos.Length);
         provider.RegisterObject<BadSourcePosition>("FileName", pos => pos.FileName ?? BadObject.Null);
         provider.RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
+    }
+
+    private BadObject GetSourceView(BadDebuggerStep step, int[] breakpoints)
+    {
+        return step.GetSourceView(breakpoints, out int _, out int _);
     }
 }

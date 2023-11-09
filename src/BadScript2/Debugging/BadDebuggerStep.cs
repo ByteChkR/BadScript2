@@ -57,9 +57,9 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 	/// <param name="lineInSource">Indicates Current line of the code</param>
 	/// <param name="lineDelta">The Amount of lines before and after the Source Position</param>
 	/// <returns>String Representation</returns>
-	public string GetSourceView(out int topInSource, out int lineInSource, int lineDelta = 4)
+	public string GetSourceView(int[] breakpoints,out int topInSource, out int lineInSource, int lineDelta = 4)
     {
-        return GetSourceView(lineDelta, lineDelta, out topInSource, out lineInSource);
+        return GetSourceView(lineDelta, lineDelta, breakpoints, out topInSource, out lineInSource);
     }
 
 
@@ -71,7 +71,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 	/// <param name="top">The Amount of lines before the Source Position</param>
 	/// <param name="bottom">The Amount of lines after the Source Position</param>
 	/// <returns>String Representation</returns>
-	public string GetSourceView(int top, int bottom, out int topInSource, out int lineInSource)
+	public string GetSourceView(int top, int bottom, int[] breakpoints, out int topInSource, out int lineInSource)
     {
         StringBuilder sb = new StringBuilder($"File: {Position.FileName}\n");
         string[] lines = GetLines(top, bottom, out topInSource, out lineInSource);
@@ -80,7 +80,23 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
         {
             int ln = topInSource + i;
             string line = lines[i];
-            sb.AppendLine($"{(lineInSource == ln ? ">>" : ln)}\t| {line}");
+            string prefix = "";
+            if (ln == lineInSource)
+            {
+	            prefix = ">>";
+            }
+            else
+            {
+	            foreach (int breakpoint in breakpoints)
+	            {
+		            if (ln == breakpoint)
+		            {
+			            prefix = "@";
+			            break;
+		            }
+	            }
+            }
+            sb.AppendLine($"{prefix}\t| {line}");
         }
 
         return sb.ToString();

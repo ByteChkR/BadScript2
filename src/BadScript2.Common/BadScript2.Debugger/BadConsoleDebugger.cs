@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using BadScript2.ConsoleAbstraction;
@@ -27,7 +28,7 @@ public class BadConsoleDebugger : IBadDebugger
 
     public void Step(BadDebuggerStep stepInfo)
     {
-        string view = stepInfo.GetSourceView(out int _, out int lineInSource);
+        string view = stepInfo.GetSourceView(Array.Empty<int>(), out int _, out int lineInSource);
 
         if (m_LastSource == stepInfo.Position.Source && lineInSource == m_LastLine)
         {
