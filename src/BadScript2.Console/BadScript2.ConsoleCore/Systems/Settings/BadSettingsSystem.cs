@@ -8,15 +8,23 @@ namespace BadScript2.ConsoleCore.Systems.Settings;
 /// </summary>
 public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 {
+    public BadSettingsSystem(BadRuntime runtime) : base(runtime) { }
     public override string Name => "settings";
 
     protected override int Run(BadSettingsSystemSettings settings)
     {
-        BadSettings? setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
+        BadSettings? setting;
+        if (string.IsNullOrEmpty(settings.Path))
+        {
+            setting = BadSettingsProvider.RootSettings;
+        }
+        else
+        {
+            setting = BadSettingsProvider.RootSettings.FindProperty(settings.Path);
+        }
+
         BadConsole.WriteLine(setting?.ToString() ?? "null");
 
         return 0;
     }
-
-    public BadSettingsSystem(BadRuntime runtime) : base(runtime) { }
 }
