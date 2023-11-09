@@ -46,7 +46,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: './src/BadScript2.Console/BadScript2.Console.csproj'
+    projects: './src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj'
     arguments: '-c Release'
     zipAfterPublish: false
     modifyOutputPath: false
