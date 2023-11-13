@@ -64,7 +64,8 @@ public class BadOperatorTable
 		new BadLogicNotOperator(),
 		new BadPreDecrementOperator(),
 		new BadPreIncrementOperator(),
-		new BadUnaryUnpackOperator()
+		new BadUnaryUnpackOperator(),
+		new BadNegateOperator()
 	};
 
 	/// <summary>

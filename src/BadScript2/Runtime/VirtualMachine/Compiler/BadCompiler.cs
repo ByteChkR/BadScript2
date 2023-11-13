@@ -104,6 +104,9 @@ public class BadCompiler
 			typeof(BadExponentiationExpression), new BadExponentiationExpressionCompiler()
 		},
 		{
+			typeof(BadNegationExpression), new BadNegateExpressionCompiler()
+		},
+		{
 			typeof(BadDeleteExpression), new BadDeleteExpressionCompiler()
 		},
 		{

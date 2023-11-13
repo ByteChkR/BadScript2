@@ -71,6 +71,7 @@ public static class BadStaticKeys
 	public static readonly string DivideOperatorName = "op_Divide";
 	public static readonly string ModuloOperatorName = "op_Modulo";
 	public static readonly string ExponentiationOperatorName = "op_Exponentiation";
+	public static readonly string NegationOperatorName = "op_Negate";
 
 	public static readonly string EqualOperatorName = "op_Equal";
 	public static readonly string NotEqualOperatorName = "op_NotEqual";

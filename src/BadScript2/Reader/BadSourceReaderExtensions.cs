@@ -66,8 +66,7 @@ public static class BadSourceReaderExtensions
     public static bool IsNumberStart(this BadSourceReader reader, int offset = 0)
 	{
 		return reader.IsDigit(offset) ||
-		       reader.GetCurrentChar(offset) == BadStaticKeys.DecimalSeparator ||
-		       reader.GetCurrentChar(offset) == BadStaticKeys.NegativeSign;
+		       reader.GetCurrentChar(offset) == BadStaticKeys.DecimalSeparator;
 	}
 
     /// <summary>

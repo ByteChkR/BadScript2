@@ -1,0 +1,30 @@
+
+let Assert = NUnit.Assert;
+function Test_Positive_Number()
+{
+	Assert.AreEqual(3, 3, "3 == 3");
+}
+
+function Test_Positive_Variable()
+{
+	const a = 3;
+	const b = 3;
+	Assert.AreEqual(a, b, "a == b");
+}
+
+function Test_Negative_Number()
+{
+	Assert.AreEqual(-3, -3, "-3 == -3");
+}
+
+function Test_Negative_Variable()
+{
+	const a = 3;
+	const b = 3;
+	Assert.AreEqual(-a, -b, "-a == -b");
+}
+
+NUnit.AddTest(Test_Positive_Number, "positive number test");
+NUnit.AddTest(Test_Positive_Variable, "positive variable test");
+NUnit.AddTest(Test_Negative_Number, "negative number test");
+NUnit.AddTest(Test_Negative_Variable, "negative variable test");

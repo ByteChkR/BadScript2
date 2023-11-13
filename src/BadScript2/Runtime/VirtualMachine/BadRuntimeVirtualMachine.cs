@@ -709,6 +709,30 @@ public class BadRuntimeVirtualMachine
 
 					break;
 				}
+				case BadOpCode.Neg:
+				{
+					BadObject left = m_ArgumentStack.Pop().Dereference();
+
+					BadObject obj = BadObject.Null;
+
+					if (m_UseOverrides)
+					{
+						foreach (BadObject o in BadNegationExpression.NegateWithOverride(ctx, left, instr.Position))
+						{
+							yield return o;
+
+							obj = o;
+						}
+					}
+					else
+					{
+						obj = BadNegationExpression.Negate(left, instr.Position);
+					}
+
+					m_ArgumentStack.Push(obj);
+
+					break;
+				}
 				case BadOpCode.JumpRelative:
 					m_InstructionPointer += (int)instr.Arguments[0];
 

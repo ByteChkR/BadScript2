@@ -55,6 +55,7 @@ public enum BadOpCode
 	PreInc = 0x3012,
 	PreDec = 0x3013,
 	Exp = 0x3014,
+	Neg = 0x3015,
 	JumpRelative = 0x4000,
 	JumpRelativeIfFalse = 0x4001,
 	JumpRelativeIfTrue = 0x4002,
