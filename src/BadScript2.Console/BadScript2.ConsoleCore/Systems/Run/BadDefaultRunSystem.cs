@@ -8,31 +8,31 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadDefaultRunSystem : BadRunSystem
 {
-    public override object? Parse(string[] args)
-    {
-        BadRunSystemSettings settings = new BadRunSystemSettings();
-        settings.Args = args.Skip(1);
-        string file = args.First();
-        settings.Files = new[]
-        {
-            file,
-        };
+	public BadDefaultRunSystem(BadRuntime runtime) : base(runtime) { }
 
-        if (!BadFileSystem.Instance.IsFile(file))
-        {
-            string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
+	public override object? Parse(string[] args)
+	{
+		BadRunSystemSettings settings = new BadRunSystemSettings();
+		settings.Args = args.Skip(1);
+		string file = args.First();
+		settings.Files = new[]
+		{
+			file
+		};
 
-            if (BadFileSystem.Instance.IsFile(path))
-            {
-                settings.Files = new[]
-                {
-                    path,
-                };
-            }
-        }
+		if (!BadFileSystem.Instance.IsFile(file))
+		{
+			string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
 
-        return settings;
-    }
+			if (BadFileSystem.Instance.IsFile(path))
+			{
+				settings.Files = new[]
+				{
+					path
+				};
+			}
+		}
 
-    public BadDefaultRunSystem(BadRuntime runtime) : base(runtime) { }
+		return settings;
+	}
 }

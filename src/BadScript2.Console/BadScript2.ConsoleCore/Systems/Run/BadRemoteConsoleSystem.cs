@@ -7,15 +7,15 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSettings>
 {
-    public override string Name => "remote";
+	public BadRemoteConsoleSystem(BadRuntime runtime) : base(runtime) { }
 
-    protected override int Run(BadRemoteConsoleSystemSettings settings)
-    {
-        BadNetworkConsoleClient client = new BadNetworkConsoleClient(settings.Host, settings.Port);
-        client.Start();
+	public override string Name => "remote";
 
-        return 0;
-    }
+	protected override int Run(BadRemoteConsoleSystemSettings settings)
+	{
+		BadNetworkConsoleClient client = new BadNetworkConsoleClient(settings.Host, settings.Port);
+		client.Start();
 
-    public BadRemoteConsoleSystem(BadRuntime runtime) : base(runtime) { }
+		return 0;
+	}
 }

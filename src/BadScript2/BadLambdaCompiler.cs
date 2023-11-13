@@ -1,20 +1,3 @@
-using System.Linq.Expressions;
-using System.Reflection;
-
-using BadScript2.Parser.Expressions;
-using BadScript2.Parser.Expressions.Access;
-using BadScript2.Parser.Expressions.Binary.Comparison;
-using BadScript2.Parser.Expressions.Binary.Logic;
-using BadScript2.Parser.Expressions.Binary.Logic.Assign;
-using BadScript2.Parser.Expressions.Binary.Math;
-using BadScript2.Parser.Expressions.Binary.Math.Assign;
-using BadScript2.Parser.Expressions.Binary.Math.Atomic;
-using BadScript2.Parser.Expressions.Constant;
-using BadScript2.Parser.Expressions.ControlFlow;
-using BadScript2.Parser.Expressions.Function;
-using BadScript2.Parser.Expressions.Variables;
-using BadScript2.Runtime.Objects.Functions;
-
 namespace BadScript2;
 //
 // public static class BadLambdaCompiler

@@ -1,269 +1,509 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-  <metadata>
-    <id>BadScript2.Console</id>
-    <version>1.0.0</version>
-    <authors>BadScript2.Console</authors>
-    <description>BadScript CLI Tool</description>
-    <packageTypes>
-      <packageType name="DotnetTool" />
-    </packageTypes>
-  </metadata>
-  <files>
-    <file src="./DotnetToolSettings.xml" target="tools/net6.0/any/DotnetToolSettings.xml" />
-    <file src="./bin/Release/net6.0/publish/data/settings/ConsoleDirectories.json" target="tools/net6.0/any/data/settings/ConsoleDirectories.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Logging/LogColors.json" target="tools/net6.0/any/data/settings/Logging/LogColors.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Logging/LogMask.json" target="tools/net6.0/any/data/settings/Logging/LogMask.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Runtime/Debugger.json" target="tools/net6.0/any/data/settings/Runtime/Debugger.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Runtime/Defaults.json" target="tools/net6.0/any/data/settings/Runtime/Defaults.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Runtime/NativeOptimizations.json" target="tools/net6.0/any/data/settings/Runtime/NativeOptimizations.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Runtime/Task.json" target="tools/net6.0/any/data/settings/Runtime/Task.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Subsystems/Run/Directories.json" target="tools/net6.0/any/data/settings/Subsystems/Run/Directories.json" />
-    <file src="./bin/Release/net6.0/publish/data/settings/Subsystems/Test/Directories.json" target="tools/net6.0/any/data/settings/Subsystems/Test/Directories.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ChangeVersion.bs" target="tools/net6.0/any/data/subsystems/build/scripts/ChangeVersion.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/Clean.bs" target="tools/net6.0/any/data/subsystems/build/scripts/Clean.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/CombineSources.bs" target="tools/net6.0/any/data/subsystems/build/scripts/CombineSources.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ExpandSources.bs" target="tools/net6.0/any/data/subsystems/build/scripts/ExpandSources.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToApps.bs" target="tools/net6.0/any/data/subsystems/build/scripts/InstallToApps.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToLib.bs" target="tools/net6.0/any/data/subsystems/build/scripts/InstallToLib.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToRun.bs" target="tools/net6.0/any/data/subsystems/build/scripts/InstallToRun.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToStartup.bs" target="tools/net6.0/any/data/subsystems/build/scripts/InstallToStartup.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/LoadSettings.bs" target="tools/net6.0/any/data/subsystems/build/scripts/LoadSettings.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/Minify.bs" target="tools/net6.0/any/data/subsystems/build/scripts/Minify.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessDirectives.bs" target="tools/net6.0/any/data/subsystems/build/scripts/ProcessDirectives.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessEvals.bs" target="tools/net6.0/any/data/subsystems/build/scripts/ProcessEvals.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessImports.bs" target="tools/net6.0/any/data/subsystems/build/scripts/ProcessImports.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/PublishApp.bs" target="tools/net6.0/any/data/subsystems/build/scripts/PublishApp.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/PublishLib.bs" target="tools/net6.0/any/data/subsystems/build/scripts/PublishLib.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/RunOutput.bs" target="tools/net6.0/any/data/subsystems/build/scripts/RunOutput.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/SaveToOutput.bs" target="tools/net6.0/any/data/subsystems/build/scripts/SaveToOutput.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ValidateOutput.bs" target="tools/net6.0/any/data/subsystems/build/scripts/ValidateOutput.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Build.json" target="tools/net6.0/any/data/subsystems/build/targets/Build.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ChangeVersion.json" target="tools/net6.0/any/data/subsystems/build/targets/ChangeVersion.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Clean.json" target="tools/net6.0/any/data/subsystems/build/targets/Clean.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/CombineSources.json" target="tools/net6.0/any/data/subsystems/build/targets/CombineSources.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Debug.json" target="tools/net6.0/any/data/subsystems/build/targets/Debug.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/default.json" target="tools/net6.0/any/data/subsystems/build/targets/default.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ExpandSources.json" target="tools/net6.0/any/data/subsystems/build/targets/ExpandSources.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToApps.json" target="tools/net6.0/any/data/subsystems/build/targets/InstallToApps.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToLib.json" target="tools/net6.0/any/data/subsystems/build/targets/InstallToLib.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToRun.json" target="tools/net6.0/any/data/subsystems/build/targets/InstallToRun.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToStartup.json" target="tools/net6.0/any/data/subsystems/build/targets/InstallToStartup.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/LoadSettings.json" target="tools/net6.0/any/data/subsystems/build/targets/LoadSettings.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Minify.json" target="tools/net6.0/any/data/subsystems/build/targets/Minify.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessDirectives.json" target="tools/net6.0/any/data/subsystems/build/targets/ProcessDirectives.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessEvals.json" target="tools/net6.0/any/data/subsystems/build/targets/ProcessEvals.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessImports.json" target="tools/net6.0/any/data/subsystems/build/targets/ProcessImports.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/PublishApp.json" target="tools/net6.0/any/data/subsystems/build/targets/PublishApp.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/PublishLib.json" target="tools/net6.0/any/data/subsystems/build/targets/PublishLib.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Release.json" target="tools/net6.0/any/data/subsystems/build/targets/Release.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseApp.json" target="tools/net6.0/any/data/subsystems/build/targets/ReleaseApp.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseLib.json" target="tools/net6.0/any/data/subsystems/build/targets/ReleaseLib.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseRun.json" target="tools/net6.0/any/data/subsystems/build/targets/ReleaseRun.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseStartup.json" target="tools/net6.0/any/data/subsystems/build/targets/ReleaseStartup.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/RunOutput.json" target="tools/net6.0/any/data/subsystems/build/targets/RunOutput.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/SaveToOutput.json" target="tools/net6.0/any/data/subsystems/build/targets/SaveToOutput.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Test.json" target="tools/net6.0/any/data/subsystems/build/targets/Test.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ValidateOutput.json" target="tools/net6.0/any/data/subsystems/build/targets/ValidateOutput.json" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/apps/bsdoc.bs" target="tools/net6.0/any/data/subsystems/run/apps/bsdoc.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/apps/build.bs" target="tools/net6.0/any/data/subsystems/run/apps/build.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/Debugger.bs" target="tools/net6.0/any/data/subsystems/run/Debugger.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/BuildSystem.bs" target="tools/net6.0/any/data/subsystems/run/libs/BuildSystem.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/System.bs" target="tools/net6.0/any/data/subsystems/run/libs/System.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/WebFramework.bs" target="tools/net6.0/any/data/subsystems/run/libs/WebFramework.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/run/startup/PackageHandler.bs" target="tools/net6.0/any/data/subsystems/run/startup/PackageHandler.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/default.bs" target="tools/net6.0/any/data/subsystems/test/classes/default.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/inherit.bs" target="tools/net6.0/any/data/subsystems/test/classes/inherit.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/selfreferencing.bs" target="tools/net6.0/any/data/subsystems/test/classes/selfreferencing.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/static.bs" target="tools/net6.0/any/data/subsystems/test/classes/static.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/typeLookAhead.bs" target="tools/net6.0/any/data/subsystems/test/classes/typeLookAhead.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/typesafe.bs" target="tools/net6.0/any/data/subsystems/test/classes/typesafe.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/visibility.bs" target="tools/net6.0/any/data/subsystems/test/classes/visibility.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestMixed.bs" target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestMixed.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestNullChecked.bs" target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestNullChecked.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestOptional.bs" target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestOptional.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestRestArgs.bs" target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestRestArgs.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/const.bs" target="tools/net6.0/any/data/subsystems/test/functions/const.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/default.bs" target="tools/net6.0/any/data/subsystems/test/functions/default.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/typesafe.bs" target="tools/net6.0/any/data/subsystems/test/functions/typesafe.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/IfBranches.bs" target="tools/net6.0/any/data/subsystems/test/IfBranches.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/Locking.bs" target="tools/net6.0/any/data/subsystems/test/Locking.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/default.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default_arguments.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/default_arguments.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default_typed.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/default_typed.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default_typed_arguments.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/default_typed_arguments.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_arguments.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_arguments.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain_arguments.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain_arguments.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain_typed.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain_typed.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain_typed_arguments.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain_typed_arguments.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_typed.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_typed.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_typed_arguments.bs" target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_typed_arguments.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestBreak.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestBreak.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestContinue.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestContinue.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestFor.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestFor.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestForeach.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestForeach.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestForeachRange.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestForeachRange.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestReturn.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestReturn.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestWhile.bs" target="tools/net6.0/any/data/subsystems/test/loops/TestWhile.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayAdd.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayAdd.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayAddRange.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayAddRange.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayClear.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayClear.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayContains.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayContains.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayGet.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayGet.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayInsert.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayInsert.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayInsertRange.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayInsertRange.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayLength.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayLength.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayRemove.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayRemove.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayRemoveAt.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayRemoveAt.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArraySet.bs" target="tools/net6.0/any/data/subsystems/test/native/Array/ArraySet.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Function/FunctionInvoke.bs" target="tools/net6.0/any/data/subsystems/test/native/Function/FunctionInvoke.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Function/FunctionName.bs" target="tools/net6.0/any/data/subsystems/test/native/Function/FunctionName.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Function/FunctionParameters.bs" target="tools/net6.0/any/data/subsystems/test/native/Function/FunctionParameters.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringContains.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringContains.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringEndsWith.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringEndsWith.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringFormat.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringFormat.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIndexOf.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringIndexOf.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringInsert.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringInsert.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIsDigits.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringIsDigits.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIsLetters.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringIsLetters.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIsWhiteSpace.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringIsWhiteSpace.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringLastIndexOf.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringLastIndexOf.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringLength.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringLength.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringPadLeft.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringPadLeft.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringPadRight.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringPadRight.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringRemove.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringRemove.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringReplace.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringReplace.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringSplit.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringSplit.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringStartsWith.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringStartsWith.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringSubstring.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringSubstring.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringToLower.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringToLower.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringToUpper.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringToUpper.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringTrim.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringTrim.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringTrimEnd.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringTrimEnd.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringTrimStart.bs" target="tools/net6.0/any/data/subsystems/test/native/String/StringTrimStart.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableJoin.bs" target="tools/net6.0/any/data/subsystems/test/native/Table/TableJoin.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableKeys.bs" target="tools/net6.0/any/data/subsystems/test/native/Table/TableKeys.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableLength.bs" target="tools/net6.0/any/data/subsystems/test/native/Table/TableLength.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableMakeReadOnly.bs" target="tools/net6.0/any/data/subsystems/test/native/Table/TableMakeReadOnly.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableRemoveKey.bs" target="tools/net6.0/any/data/subsystems/test/native/Table/TableRemoveKey.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableValues.bs" target="tools/net6.0/any/data/subsystems/test/native/Table/TableValues.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestArrayAccess.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestArrayAccess.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestArrayReverseAccess.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestArrayReverseAccess.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestMemberAccess.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestMemberAccess.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCheckedArrayAccess.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCheckedArrayAccess.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCheckedMemberAccess.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCheckedMemberAccess.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCoalescing.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCoalescing.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCoalescingAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCoalescingAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestTernary.bs" target="tools/net6.0/any/data/subsystems/test/operators/Access/TestTernary.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestGreaterOrEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestGreaterOrEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestGreaterThan.bs" target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestGreaterThan.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestInEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestInEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestLessOrEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestLessOrEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestLessThan.bs" target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestLessThan.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestGreaterOrEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestGreaterOrEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestGreaterThan.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestGreaterThan.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestInEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestInEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestLessOrEqual.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestLessOrEqual.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestLessThan.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestLessThan.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestAdd.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestAdd.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestAddAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestAddAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestDivide.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestDivide.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestDivideAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestDivideAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestModulo.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestModulo.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestModuloAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestModuloAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestMultiply.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestMultiply.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestMultiplyAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestMultiplyAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPostDecrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPostDecrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPostIncrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPostIncrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPreDecrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPreDecrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPreIncrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPreIncrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestSubtract.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestSubtract.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestSubtractAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestSubtractAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestArrayAccess.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestArrayAccess.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestArrayAccessRef.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestArrayAccessRef.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestArrayAccessReverse.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestArrayAccessReverse.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestEnumerable.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestEnumerable.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestEnumerator.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestEnumerator.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestIn.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestIn.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestInvocation.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestInvocation.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestNot.bs" target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestNot.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/FormatString.bs" target="tools/net6.0/any/data/subsystems/test/operators/FormatString.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Precedence.bs" target="tools/net6.0/any/data/subsystems/test/operators/Precedence.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/PrecedenceOverride.bs" target="tools/net6.0/any/data/subsystems/test/operators/PrecedenceOverride.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestDeleteOperator.bs" target="tools/net6.0/any/data/subsystems/test/operators/TestDeleteOperator.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestInOperator.bs" target="tools/net6.0/any/data/subsystems/test/operators/TestInOperator.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestInstanceOfOperator.bs" target="tools/net6.0/any/data/subsystems/test/operators/TestInstanceOfOperator.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestTryCatchThrow.bs" target="tools/net6.0/any/data/subsystems/test/operators/TestTryCatchThrow.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestTypeOfOperator.bs" target="tools/net6.0/any/data/subsystems/test/operators/TestTypeOfOperator.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestUnpackOperator.bs" target="tools/net6.0/any/data/subsystems/test/operators/TestUnpackOperator.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/Assign/TestLogicAndAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/Assign/TestLogicAndAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/Assign/TestLogicOrAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/Assign/TestLogicOrAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/Assign/TestLogicXOrAssign.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/Assign/TestLogicXOrAssign.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicAnd.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicAnd.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicNot.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicNot.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicOr.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicOr.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicXOr.bs" target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicXOr.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPostDecrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPostDecrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPostIncrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPostIncrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPreDecrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPreDecrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPreIncrement.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPreIncrement.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignAdd.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignAdd.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignDivide.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignDivide.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignExponentiation.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignExponentiation.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignModulo.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignModulo.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignMultiply.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignMultiply.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignSubtract.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignSubtract.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestAdd.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/TestAdd.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestDivide.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/TestDivide.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestExponentiation.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/TestExponentiation.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestModulo.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/TestModulo.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestMultiply.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/TestMultiply.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestSubtract.bs" target="tools/net6.0/any/data/subsystems/test/operators/Math/TestSubtract.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/variable_definitions/default.bs" target="tools/net6.0/any/data/subsystems/test/variable_definitions/default.bs" />
-    <file src="./bin/Release/net6.0/publish/data/subsystems/test/variable_definitions/typesafe.bs" target="tools/net6.0/any/data/subsystems/test/variable_definitions/typesafe.bs" />
-    <file src="./bin/Release/net6.0/publish/Settings.json" target="tools/net6.0/any/Settings.json" />
-    <file src="./bin/Release/net6.0/publish/bs.dll" target="tools/net6.0/any/bs.dll" />
-    <file src="./bin/Release/net6.0/publish/bs.deps.json" target="tools/net6.0/any/bs.deps.json" />
-    <file src="./bin/Release/net6.0/publish/bs.runtimeconfig.json" target="tools/net6.0/any/bs.runtimeconfig.json" />
-    <file src="./bin/Release/net6.0/publish/bs.pdb" target="tools/net6.0/any/bs.pdb" />
-    <file src="./bin/Release/net6.0/publish/CommandLine.dll" target="tools/net6.0/any/CommandLine.dll" />
-    <file src="./bin/Release/net6.0/publish/HtmlAgilityPack.dll" target="tools/net6.0/any/HtmlAgilityPack.dll" />
-    <file src="./bin/Release/net6.0/publish/Newtonsoft.Json.dll" target="tools/net6.0/any/Newtonsoft.Json.dll" />
-    <file src="./bin/Release/net6.0/publish/nunit.framework.dll" target="tools/net6.0/any/nunit.framework.dll" />
-    <file src="./bin/Release/net6.0/publish/nunitlite.dll" target="tools/net6.0/any/nunitlite.dll" />
-    <file src="./bin/Release/net6.0/publish/BadHtml.dll" target="tools/net6.0/any/BadHtml.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleAbstraction.dll" target="tools/net6.0/any/BadScript2.ConsoleAbstraction.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleCore.dll" target="tools/net6.0/any/BadScript2.ConsoleCore.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Debugger.dll" target="tools/net6.0/any/BadScript2.Debugger.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.dll" target="tools/net6.0/any/BadScript2.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interactive.dll" target="tools/net6.0/any/BadScript2.Interactive.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Common.dll" target="tools/net6.0/any/BadScript2.Interop.Common.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Compression.dll" target="tools/net6.0/any/BadScript2.Interop.Compression.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Html.dll" target="tools/net6.0/any/BadScript2.Interop.Html.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.IO.dll" target="tools/net6.0/any/BadScript2.Interop.IO.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Json.dll" target="tools/net6.0/any/BadScript2.Interop.Json.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Linq.dll" target="tools/net6.0/any/BadScript2.Interop.Linq.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Net.dll" target="tools/net6.0/any/BadScript2.Interop.Net.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NetHost.dll" target="tools/net6.0/any/BadScript2.Interop.NetHost.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NUnit.dll" target="tools/net6.0/any/BadScript2.Interop.NUnit.dll" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Html.pdb" target="tools/net6.0/any/BadScript2.Interop.Html.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleCore.pdb" target="tools/net6.0/any/BadScript2.ConsoleCore.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interactive.pdb" target="tools/net6.0/any/BadScript2.Interactive.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Compression.pdb" target="tools/net6.0/any/BadScript2.Interop.Compression.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Linq.pdb" target="tools/net6.0/any/BadScript2.Interop.Linq.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NetHost.pdb" target="tools/net6.0/any/BadScript2.Interop.NetHost.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Net.pdb" target="tools/net6.0/any/BadScript2.Interop.Net.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.IO.pdb" target="tools/net6.0/any/BadScript2.Interop.IO.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Json.pdb" target="tools/net6.0/any/BadScript2.Interop.Json.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NUnit.pdb" target="tools/net6.0/any/BadScript2.Interop.NUnit.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.pdb" target="tools/net6.0/any/BadScript2.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadHtml.pdb" target="tools/net6.0/any/BadHtml.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleAbstraction.pdb" target="tools/net6.0/any/BadScript2.ConsoleAbstraction.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Debugger.pdb" target="tools/net6.0/any/BadScript2.Debugger.pdb" />
-    <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Common.pdb" target="tools/net6.0/any/BadScript2.Interop.Common.pdb" />
-  </files>
+    <metadata>
+        <id>BadScript2.Console</id>
+        <version>1.0.0</version>
+        <authors>BadScript2.Console</authors>
+        <description>BadScript CLI Tool</description>
+        <packageTypes>
+            <packageType name="DotnetTool"/>
+        </packageTypes>
+    </metadata>
+    <files>
+        <file src="./DotnetToolSettings.xml" target="tools/net6.0/any/DotnetToolSettings.xml"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/ConsoleDirectories.json"
+              target="tools/net6.0/any/data/settings/ConsoleDirectories.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Logging/LogColors.json"
+              target="tools/net6.0/any/data/settings/Logging/LogColors.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Logging/LogMask.json"
+              target="tools/net6.0/any/data/settings/Logging/LogMask.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Runtime/Debugger.json"
+              target="tools/net6.0/any/data/settings/Runtime/Debugger.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Runtime/Defaults.json"
+              target="tools/net6.0/any/data/settings/Runtime/Defaults.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Runtime/NativeOptimizations.json"
+              target="tools/net6.0/any/data/settings/Runtime/NativeOptimizations.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Runtime/Task.json"
+              target="tools/net6.0/any/data/settings/Runtime/Task.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Subsystems/Run/Directories.json"
+              target="tools/net6.0/any/data/settings/Subsystems/Run/Directories.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Subsystems/Test/Directories.json"
+              target="tools/net6.0/any/data/settings/Subsystems/Test/Directories.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ChangeVersion.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/ChangeVersion.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/Clean.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/Clean.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/CombineSources.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/CombineSources.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ExpandSources.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/ExpandSources.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToApps.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/InstallToApps.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToLib.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/InstallToLib.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToRun.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/InstallToRun.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/InstallToStartup.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/InstallToStartup.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/LoadSettings.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/LoadSettings.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/Minify.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/Minify.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessDirectives.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/ProcessDirectives.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessEvals.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/ProcessEvals.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessImports.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/ProcessImports.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/PublishApp.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/PublishApp.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/PublishLib.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/PublishLib.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/RunOutput.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/RunOutput.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/SaveToOutput.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/SaveToOutput.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ValidateOutput.bs"
+              target="tools/net6.0/any/data/subsystems/build/scripts/ValidateOutput.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Build.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/Build.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ChangeVersion.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ChangeVersion.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Clean.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/Clean.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/CombineSources.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/CombineSources.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Debug.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/Debug.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/default.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/default.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ExpandSources.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ExpandSources.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToApps.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/InstallToApps.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToLib.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/InstallToLib.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToRun.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/InstallToRun.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/InstallToStartup.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/InstallToStartup.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/LoadSettings.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/LoadSettings.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Minify.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/Minify.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessDirectives.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ProcessDirectives.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessEvals.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ProcessEvals.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessImports.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ProcessImports.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/PublishApp.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/PublishApp.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/PublishLib.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/PublishLib.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Release.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/Release.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseApp.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ReleaseApp.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseLib.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ReleaseLib.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseRun.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ReleaseRun.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseStartup.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ReleaseStartup.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/RunOutput.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/RunOutput.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/SaveToOutput.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/SaveToOutput.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Test.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/Test.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ValidateOutput.json"
+              target="tools/net6.0/any/data/subsystems/build/targets/ValidateOutput.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/apps/bsdoc.bs"
+              target="tools/net6.0/any/data/subsystems/run/apps/bsdoc.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/apps/build.bs"
+              target="tools/net6.0/any/data/subsystems/run/apps/build.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/Debugger.bs"
+              target="tools/net6.0/any/data/subsystems/run/Debugger.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/BuildSystem.bs"
+              target="tools/net6.0/any/data/subsystems/run/libs/BuildSystem.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/System.bs"
+              target="tools/net6.0/any/data/subsystems/run/libs/System.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/WebFramework.bs"
+              target="tools/net6.0/any/data/subsystems/run/libs/WebFramework.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/startup/PackageHandler.bs"
+              target="tools/net6.0/any/data/subsystems/run/startup/PackageHandler.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/default.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/default.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/inherit.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/inherit.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/selfreferencing.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/selfreferencing.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/static.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/static.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/typeLookAhead.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/typeLookAhead.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/typesafe.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/typesafe.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/visibility.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/visibility.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestMixed.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestMixed.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestNullChecked.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestNullChecked.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestOptional.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestOptional.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestRestArgs.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestRestArgs.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/const.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/const.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/default.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/default.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/typesafe.bs"
+              target="tools/net6.0/any/data/subsystems/test/functions/typesafe.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/IfBranches.bs"
+              target="tools/net6.0/any/data/subsystems/test/IfBranches.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/Locking.bs"
+              target="tools/net6.0/any/data/subsystems/test/Locking.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/default.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default_arguments.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/default_arguments.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default_typed.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/default_typed.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/default_typed_arguments.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/default_typed_arguments.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_arguments.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_arguments.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain_arguments.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain_arguments.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain_typed.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain_typed.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_chain_typed_arguments.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_chain_typed_arguments.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_typed.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_typed.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/interfaces/multiple_typed_arguments.bs"
+              target="tools/net6.0/any/data/subsystems/test/interfaces/multiple_typed_arguments.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestBreak.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestBreak.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestContinue.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestContinue.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestFor.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestFor.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestForeach.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestForeach.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestForeachRange.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestForeachRange.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestReturn.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestReturn.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/loops/TestWhile.bs"
+              target="tools/net6.0/any/data/subsystems/test/loops/TestWhile.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayAdd.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayAdd.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayAddRange.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayAddRange.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayClear.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayClear.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayContains.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayContains.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayGet.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayGet.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayInsert.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayInsert.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayInsertRange.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayInsertRange.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayLength.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayLength.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayRemove.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayRemove.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArrayRemoveAt.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArrayRemoveAt.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Array/ArraySet.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Array/ArraySet.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Function/FunctionInvoke.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Function/FunctionInvoke.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Function/FunctionName.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Function/FunctionName.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Function/FunctionParameters.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Function/FunctionParameters.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringContains.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringContains.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringEndsWith.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringEndsWith.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringFormat.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringFormat.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIndexOf.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringIndexOf.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringInsert.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringInsert.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIsDigits.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringIsDigits.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIsLetters.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringIsLetters.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringIsWhiteSpace.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringIsWhiteSpace.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringLastIndexOf.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringLastIndexOf.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringLength.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringLength.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringPadLeft.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringPadLeft.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringPadRight.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringPadRight.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringRemove.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringRemove.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringReplace.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringReplace.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringSplit.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringSplit.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringStartsWith.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringStartsWith.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringSubstring.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringSubstring.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringToLower.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringToLower.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringToUpper.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringToUpper.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringTrim.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringTrim.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringTrimEnd.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringTrimEnd.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/String/StringTrimStart.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/String/StringTrimStart.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableJoin.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Table/TableJoin.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableKeys.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Table/TableKeys.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableLength.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Table/TableLength.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableMakeReadOnly.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Table/TableMakeReadOnly.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableRemoveKey.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Table/TableRemoveKey.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/native/Table/TableValues.bs"
+              target="tools/net6.0/any/data/subsystems/test/native/Table/TableValues.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestArrayAccess.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestArrayAccess.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestArrayReverseAccess.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestArrayReverseAccess.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestMemberAccess.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestMemberAccess.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCheckedArrayAccess.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCheckedArrayAccess.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCheckedMemberAccess.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCheckedMemberAccess.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCoalescing.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCoalescing.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestNullCoalescingAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestNullCoalescingAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Access/TestTernary.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Access/TestTernary.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestGreaterOrEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestGreaterOrEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestGreaterThan.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestGreaterThan.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestInEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestInEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestLessOrEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestLessOrEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Comparison/TestLessThan.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Comparison/TestLessThan.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestGreaterOrEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestGreaterOrEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestGreaterThan.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestGreaterThan.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestInEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestInEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestLessOrEqual.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestLessOrEqual.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Comparison/TestLessThan.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Comparison/TestLessThan.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestAdd.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestAdd.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestAddAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestAddAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestDivide.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestDivide.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestDivideAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestDivideAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestModulo.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestModulo.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestModuloAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestModuloAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestMultiply.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestMultiply.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestMultiplyAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestMultiplyAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPostDecrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPostDecrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPostIncrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPostIncrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPreDecrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPreDecrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestPreIncrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestPreIncrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestSubtract.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestSubtract.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/Math/TestSubtractAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/Math/TestSubtractAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestArrayAccess.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestArrayAccess.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestArrayAccessRef.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestArrayAccessRef.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestArrayAccessReverse.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestArrayAccessReverse.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestEnumerable.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestEnumerable.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestEnumerator.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestEnumerator.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestIn.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestIn.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestInvocation.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestInvocation.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Custom/TestNot.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Custom/TestNot.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/FormatString.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/FormatString.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Precedence.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Precedence.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/PrecedenceOverride.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/PrecedenceOverride.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestDeleteOperator.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/TestDeleteOperator.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestInOperator.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/TestInOperator.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestInstanceOfOperator.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/TestInstanceOfOperator.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestTryCatchThrow.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/TestTryCatchThrow.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestTypeOfOperator.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/TestTypeOfOperator.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/TestUnpackOperator.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/TestUnpackOperator.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/Assign/TestLogicAndAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/Assign/TestLogicAndAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/Assign/TestLogicOrAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/Assign/TestLogicOrAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/Assign/TestLogicXOrAssign.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/Assign/TestLogicXOrAssign.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicAnd.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicAnd.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicNot.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicNot.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicOr.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicOr.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Logic/TestLogicXOr.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Logic/TestLogicXOr.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPostDecrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPostDecrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPostIncrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPostIncrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPreDecrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPreDecrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/Atomic/TestPreIncrement.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/Atomic/TestPreIncrement.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignAdd.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignAdd.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignDivide.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignDivide.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignExponentiation.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignExponentiation.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignModulo.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignModulo.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignMultiply.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignMultiply.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/Assign/TestAssignSubtract.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/Assign/TestAssignSubtract.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestAdd.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/TestAdd.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestDivide.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/TestDivide.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestExponentiation.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/TestExponentiation.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestModulo.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/TestModulo.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestMultiply.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/TestMultiply.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/operators/Math/TestSubtract.bs"
+              target="tools/net6.0/any/data/subsystems/test/operators/Math/TestSubtract.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/variable_definitions/default.bs"
+              target="tools/net6.0/any/data/subsystems/test/variable_definitions/default.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/variable_definitions/typesafe.bs"
+              target="tools/net6.0/any/data/subsystems/test/variable_definitions/typesafe.bs"/>
+        <file src="./bin/Release/net6.0/publish/Settings.json" target="tools/net6.0/any/Settings.json"/>
+        <file src="./bin/Release/net6.0/publish/bs.dll" target="tools/net6.0/any/bs.dll"/>
+        <file src="./bin/Release/net6.0/publish/bs.deps.json" target="tools/net6.0/any/bs.deps.json"/>
+        <file src="./bin/Release/net6.0/publish/bs.runtimeconfig.json" target="tools/net6.0/any/bs.runtimeconfig.json"/>
+        <file src="./bin/Release/net6.0/publish/bs.pdb" target="tools/net6.0/any/bs.pdb"/>
+        <file src="./bin/Release/net6.0/publish/CommandLine.dll" target="tools/net6.0/any/CommandLine.dll"/>
+        <file src="./bin/Release/net6.0/publish/HtmlAgilityPack.dll" target="tools/net6.0/any/HtmlAgilityPack.dll"/>
+        <file src="./bin/Release/net6.0/publish/Newtonsoft.Json.dll" target="tools/net6.0/any/Newtonsoft.Json.dll"/>
+        <file src="./bin/Release/net6.0/publish/nunit.framework.dll" target="tools/net6.0/any/nunit.framework.dll"/>
+        <file src="./bin/Release/net6.0/publish/nunitlite.dll" target="tools/net6.0/any/nunitlite.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadHtml.dll" target="tools/net6.0/any/BadHtml.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleAbstraction.dll"
+              target="tools/net6.0/any/BadScript2.ConsoleAbstraction.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleCore.dll"
+              target="tools/net6.0/any/BadScript2.ConsoleCore.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Debugger.dll"
+              target="tools/net6.0/any/BadScript2.Debugger.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.dll" target="tools/net6.0/any/BadScript2.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interactive.dll"
+              target="tools/net6.0/any/BadScript2.Interactive.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Common.dll"
+              target="tools/net6.0/any/BadScript2.Interop.Common.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Compression.dll"
+              target="tools/net6.0/any/BadScript2.Interop.Compression.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Html.dll"
+              target="tools/net6.0/any/BadScript2.Interop.Html.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.IO.dll"
+              target="tools/net6.0/any/BadScript2.Interop.IO.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Json.dll"
+              target="tools/net6.0/any/BadScript2.Interop.Json.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Linq.dll"
+              target="tools/net6.0/any/BadScript2.Interop.Linq.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Net.dll"
+              target="tools/net6.0/any/BadScript2.Interop.Net.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NetHost.dll"
+              target="tools/net6.0/any/BadScript2.Interop.NetHost.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NUnit.dll"
+              target="tools/net6.0/any/BadScript2.Interop.NUnit.dll"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Html.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.Html.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleCore.pdb"
+              target="tools/net6.0/any/BadScript2.ConsoleCore.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interactive.pdb"
+              target="tools/net6.0/any/BadScript2.Interactive.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Compression.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.Compression.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Linq.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.Linq.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NetHost.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.NetHost.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Net.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.Net.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.IO.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.IO.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Json.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.Json.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.NUnit.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.NUnit.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.pdb" target="tools/net6.0/any/BadScript2.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadHtml.pdb" target="tools/net6.0/any/BadHtml.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.ConsoleAbstraction.pdb"
+              target="tools/net6.0/any/BadScript2.ConsoleAbstraction.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Debugger.pdb"
+              target="tools/net6.0/any/BadScript2.Debugger.pdb"/>
+        <file src="./bin/Release/net6.0/publish/BadScript2.Interop.Common.pdb"
+              target="tools/net6.0/any/BadScript2.Interop.Common.pdb"/>
+    </files>
 </package>

@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-  <metadata>
-    <id>BadScript2.Interop.Net</id>
-    <authors>BadScript2.Interop.Net</authors>
-    <description>Networking API</description>
-    <icon>Logo.png</icon>
-    <dependencies>
-      <group targetFramework=".NETStandard2.0">
-        <dependency id="BadScript2.Interop.Common" version="1.0.0" exclude="Build,Analyzers" />
-        <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers" />
-      </group>
-    </dependencies>
-    <version xmlns="">23.11.6.1</version>
-  </metadata>
-  <files>
-    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Net.dll" target="lib/netstandard2.0/BadScript2.Interop.Net.dll" />
-    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Net.pdb" target="lib/netstandard2.0/BadScript2.Interop.Net.pdb" />
-    <file src="../../../res/Logo.png" target="Logo.png" />
-  </files>
+    <metadata>
+        <id>BadScript2.Interop.Net</id>
+        <authors>BadScript2.Interop.Net</authors>
+        <description>Networking API</description>
+        <icon>Logo.png</icon>
+        <dependencies>
+            <group targetFramework=".NETStandard2.0">
+                <dependency id="BadScript2.Interop.Common" version="1.0.0" exclude="Build,Analyzers"/>
+                <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers"/>
+            </group>
+        </dependencies>
+        <version xmlns="">23.11.6.1</version>
+    </metadata>
+    <files>
+        <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Net.dll"
+              target="lib/netstandard2.0/BadScript2.Interop.Net.dll"/>
+        <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Net.pdb"
+              target="lib/netstandard2.0/BadScript2.Interop.Net.pdb"/>
+        <file src="../../../res/Logo.png" target="Logo.png"/>
+    </files>
 </package>

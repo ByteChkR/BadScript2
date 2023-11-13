@@ -10,87 +10,85 @@ namespace BadScript2.Parser.Expressions.ControlFlow;
 /// </summary>
 public class BadReturnExpression : BadExpression
 {
-	/// <summary>
-	///     Constructor of the Return Expression
-	/// </summary>
-	/// <param name="right">The (optional) return value</param>
-	/// <param name="position">Source Position of the Expression</param>
-	/// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
-	public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
-        false,
-        position
-    )
-    {
-        Right = right;
-        IsRefReturn = isRefReturn;
-    }
+    /// <summary>
+    ///     Constructor of the Return Expression
+    /// </summary>
+    /// <param name="right">The (optional) return value</param>
+    /// <param name="position">Source Position of the Expression</param>
+    /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
+    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(false,
+		position)
+	{
+		Right = right;
+		IsRefReturn = isRefReturn;
+	}
 
-	/// <summary>
-	///     Indicates if the return value is meant to be a reference
-	/// </summary>
-	public bool IsRefReturn { get; }
+    /// <summary>
+    ///     Indicates if the return value is meant to be a reference
+    /// </summary>
+    public bool IsRefReturn { get; }
 
-	/// <summary>
-	///     The (optional) return value
-	/// </summary>
-	public BadExpression? Right { get; private set; }
+    /// <summary>
+    ///     The (optional) return value
+    /// </summary>
+    public BadExpression? Right { get; private set; }
 
-    public void SetRight(BadExpression? expr)
-    {
-        Right = expr;
-    }
+	public void SetRight(BadExpression? expr)
+	{
+		Right = expr;
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        if (Right != null)
-        {
-            foreach (BadExpression right in Right.GetDescendantsAndSelf())
-            {
-                yield return right;
-            }
-        }
-    }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		if (Right != null)
+		{
+			foreach (BadExpression right in Right.GetDescendantsAndSelf())
+			{
+				yield return right;
+			}
+		}
+	}
 
-    public override void Optimize()
-    {
-        if (Right != null)
-        {
-            Right = BadConstantFoldingOptimizer.Optimize(Right);
-        }
-    }
+	public override void Optimize()
+	{
+		if (Right != null)
+		{
+			Right = BadConstantFoldingOptimizer.Optimize(Right);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject value = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject value = BadObject.Null;
 
-        if (Right == null)
-        {
-            context.Scope.SetReturnValue(value);
+		if (Right == null)
+		{
+			context.Scope.SetReturnValue(value);
 
-            yield return value;
+			yield return value;
 
-            yield break;
-        }
+			yield break;
+		}
 
-        foreach (BadObject obj in Right.Execute(context))
-        {
-            value = obj;
+		foreach (BadObject obj in Right.Execute(context))
+		{
+			value = obj;
 
-            yield return obj;
-        }
+			yield return obj;
+		}
 
-        if (!IsRefReturn)
-        {
-            value = value.Dereference();
-        }
+		if (!IsRefReturn)
+		{
+			value = value.Dereference();
+		}
 
-        context.Scope.SetReturnValue(value);
+		context.Scope.SetReturnValue(value);
 
-        yield return value;
-    }
+		yield return value;
+	}
 
-    public override string ToString()
-    {
-        return "return " + Right ?? "";
-    }
+	public override string ToString()
+	{
+		return "return " + Right ?? "";
+	}
 }

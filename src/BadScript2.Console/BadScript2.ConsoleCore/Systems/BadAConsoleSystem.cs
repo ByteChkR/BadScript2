@@ -5,16 +5,17 @@ namespace BadScript2.ConsoleCore.Systems;
 /// </summary>
 public abstract class BadAConsoleSystem
 {
-	/// <summary>
-	///     The Name of the Console System
-	/// </summary>
-	public abstract string Name { get; }
-
 	protected readonly BadRuntime Runtime;
+
 	protected BadAConsoleSystem(BadRuntime runtime)
 	{
 		Runtime = runtime;
 	}
+
+	/// <summary>
+	///     The Name of the Console System
+	/// </summary>
+	public abstract string Name { get; }
 
 	/// <summary>
 	///     Runs the Console System with the given settings

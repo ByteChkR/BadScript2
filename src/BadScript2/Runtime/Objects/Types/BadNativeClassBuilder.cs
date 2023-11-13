@@ -1,6 +1,3 @@
-using BadScript2.Parser;
-using BadScript2.Parser.Operators;
-using BadScript2.Reader;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
@@ -12,16 +9,16 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public static class BadNativeClassBuilder
 {
-    private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
-    {
-        CreateNativeType<BadString>("string"),
-        CreateNativeType<BadBoolean>("bool"),
-        CreateNativeType<BadNumber>("num"),
-        CreateNativeType<BadFunction>("Function"),
-        CreateNativeType<BadArray>("Array"),
-        CreateNativeType<BadTable>("Table"),
-        BadScope.Prototype,
-    };
+	private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
+	{
+		CreateNativeType<BadString>("string"),
+		CreateNativeType<BadBoolean>("bool"),
+		CreateNativeType<BadNumber>("num"),
+		CreateNativeType<BadFunction>("Function"),
+		CreateNativeType<BadArray>("Array"),
+		CreateNativeType<BadTable>("Table"),
+		BadScope.Prototype
+	};
 
     /// <summary>
     ///     Enumeration of all Native Class Prototypes
@@ -36,24 +33,24 @@ public static class BadNativeClassBuilder
     /// <returns>The Prototype</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the prototype does not exist.</exception>
     public static BadClassPrototype GetNative(string name)
-    {
-        return s_NativeTypes.FirstOrDefault(x => x.Name == name) ??
-               throw new BadRuntimeException("Native class not found");
-    }
+	{
+		return s_NativeTypes.FirstOrDefault(x => x.Name == name) ??
+		       throw new BadRuntimeException("Native class not found");
+	}
 
     /// <summary>
     ///     Adds a native Type
     /// </summary>
     /// <param name="native">The native type</param>
     public static void AddNative(BadClassPrototype native)
-    {
-        if (s_NativeTypes.Any(x => x.Name == native.Name))
-        {
-            return;
-        }
+	{
+		if (s_NativeTypes.Any(x => x.Name == native.Name))
+		{
+			return;
+		}
 
-        s_NativeTypes?.Add(native);
-    }
+		s_NativeTypes?.Add(native);
+	}
 
 
     /// <summary>
@@ -64,14 +61,12 @@ public static class BadNativeClassBuilder
     /// <typeparam name="T">The BadObject Type</typeparam>
     /// <returns>The Prototype</returns>
     private static BadNativeClassPrototype<T> Create<T>(
-        string name,
-        Func<BadObject[], BadObject> constructor) where T : BadObject
-    {
-        return new BadNativeClassPrototype<T>(
-            name,
-            (_, a) => constructor(a)
-        );
-    }
+		string name,
+		Func<BadObject[], BadObject> constructor) where T : BadObject
+	{
+		return new BadNativeClassPrototype<T>(name,
+			(_, a) => constructor(a));
+	}
 
     /// <summary>
     ///     Creates a Native Class Prototype
@@ -80,10 +75,10 @@ public static class BadNativeClassBuilder
     /// <typeparam name="T">BadObject Type</typeparam>
     /// <returns>Class Prototype</returns>
     private static BadNativeClassPrototype<T> CreateNativeType<T>(string name) where T : BadObject
-    {
-        return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name));
-    }
-    
+	{
+		return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name));
+	}
+
 
     /// <summary>
     ///     Creates a Native Class Prototype
@@ -93,9 +88,9 @@ public static class BadNativeClassBuilder
     /// <typeparam name="T">The BadObject Type</typeparam>
     /// <returns>The Prototype</returns>
     private static BadNativeClassPrototype<T> CreateNativeType<T>(
-        string name,
-        Func<BadObject[], BadObject> constructor) where T : BadObject
-    {
-        return Create<T>(name, constructor);
-    }
+		string name,
+		Func<BadObject[], BadObject> constructor) where T : BadObject
+	{
+		return Create<T>(name, constructor);
+	}
 }

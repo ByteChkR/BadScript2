@@ -7,7 +7,7 @@ namespace BadScript2.Common;
 /// </summary>
 public class BadSourcePosition
 {
-    private string? m_PositionInfo;
+	private string? m_PositionInfo;
 
     /// <summary>
     ///     Constructor for a Source Position
@@ -17,12 +17,12 @@ public class BadSourcePosition
     /// <param name="index">The Start Index</param>
     /// <param name="length">The Length</param>
     public BadSourcePosition(string? fileName, string source, int index, int length)
-    {
-        FileName = fileName?.Replace('\\', '/');
-        Source = source;
-        Index = index;
-        Length = length;
-    }
+	{
+		FileName = fileName?.Replace('\\', '/');
+		Source = source;
+		Index = index;
+		Length = length;
+	}
 
     /// <summary>
     ///     Constructor for a Source Position
@@ -31,11 +31,11 @@ public class BadSourcePosition
     /// <param name="index">The Start Index</param>
     /// <param name="length">The Length</param>
     private BadSourcePosition(int index, int length, string source)
-    {
-        Source = source;
-        Index = index;
-        Length = length;
-    }
+	{
+		Source = source;
+		Index = index;
+		Length = length;
+	}
 
     /// <summary>
     ///     Constructor for a Source Position
@@ -43,12 +43,10 @@ public class BadSourcePosition
     /// <param name="fileName">The filename</param>
     /// <param name="index">The Start Index</param>
     /// <param name="length">The Length</param>
-    private BadSourcePosition(string fileName, int index, int length) : this(
-        fileName,
-        BadFileSystem.ReadAllText(fileName),
-        index,
-        length
-    ) { }
+    private BadSourcePosition(string fileName, int index, int length) : this(fileName,
+		BadFileSystem.ReadAllText(fileName),
+		index,
+		length) { }
 
     /// <summary>
     ///     The Filename of the Source Code.
@@ -84,9 +82,9 @@ public class BadSourcePosition
     /// <param name="length">The Length</param>
     /// <returns>Created SourcePosition</returns>
     public static BadSourcePosition Create(string fileName, string source, int index, int length)
-    {
-        return new BadSourcePosition(fileName, source, index, length);
-    }
+	{
+		return new BadSourcePosition(fileName, source, index, length);
+	}
 
     /// <summary>
     ///     Creates a new Source Position
@@ -96,9 +94,9 @@ public class BadSourcePosition
     /// <param name="length">The Length</param>
     /// <returns>Created SourcePosition</returns>
     public static BadSourcePosition FromFile(string fileName, int index, int length)
-    {
-        return new BadSourcePosition(fileName, index, length);
-    }
+	{
+		return new BadSourcePosition(fileName, index, length);
+	}
 
     /// <summary>
     ///     Creates a new Source Position
@@ -108,9 +106,9 @@ public class BadSourcePosition
     /// <param name="length">The Length</param>
     /// <returns>Created SourcePosition</returns>
     public static BadSourcePosition FromSource(string source, int index, int length)
-    {
-        return new BadSourcePosition("<nofile>", source, index, length);
-    }
+	{
+		return new BadSourcePosition("<nofile>", source, index, length);
+	}
 
 
     /// <summary>
@@ -119,9 +117,9 @@ public class BadSourcePosition
     /// <param name="len">The additional Characters before and after the excerpt</param>
     /// <returns>String Excerpt</returns>
     public string GetExcerpt(int len = 10)
-    {
-        return GetExcerpt(len, len);
-    }
+	{
+		return GetExcerpt(len, len);
+	}
 
 
     /// <summary>
@@ -131,12 +129,12 @@ public class BadSourcePosition
     /// <param name="right">The additional Characters after the excerpt</param>
     /// <returns>String Excerpt</returns>
     public string GetExcerpt(int left, int right)
-    {
-        int start = Math.Max(0, Index - left);
-        int end = Math.Min(Source.Length, Index + Length + right);
+	{
+		int start = Math.Max(0, Index - left);
+		int end = Math.Min(Source.Length, Index + Length + right);
 
-        return Source.Substring(start, end - start);
-    }
+		return Source.Substring(start, end - start);
+	}
 
     /// <summary>
     ///     Returns position info.
@@ -144,24 +142,24 @@ public class BadSourcePosition
     /// </summary>
     /// <returns>String Representation</returns>
     public string GetPositionInfo()
-    {
-        if (m_PositionInfo == null)
-        {
-            int line = 1;
+	{
+		if (m_PositionInfo == null)
+		{
+			int line = 1;
 
-            for (int i = 0; i < Index; i++)
-            {
-                if (Source[i] == '\n')
-                {
-                    line++;
-                }
-            }
+			for (int i = 0; i < Index; i++)
+			{
+				if (Source[i] == '\n')
+				{
+					line++;
+				}
+			}
 
-            m_PositionInfo = $"file://{FileName} : Line {line}";
-        }
+			m_PositionInfo = $"file://{FileName} : Line {line}";
+		}
 
-        return m_PositionInfo;
-    }
+		return m_PositionInfo;
+	}
 
     /// <summary>
     ///     Combines two Source Positions
@@ -170,17 +168,17 @@ public class BadSourcePosition
     /// <returns>Combined Source Position</returns>
     /// <exception cref="InvalidOperationException">Gets raised if the filenames do not match</exception>
     public BadSourcePosition Combine(BadSourcePosition other)
-    {
-        if (FileName != other.FileName && Source != other.Source)
-        {
-            throw new InvalidOperationException("Cannot combine positions from different sources");
-        }
+	{
+		if (FileName != other.FileName && Source != other.Source)
+		{
+			throw new InvalidOperationException("Cannot combine positions from different sources");
+		}
 
-        if (Index < other.Index)
-        {
-            return new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index);
-        }
+		if (Index < other.Index)
+		{
+			return new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index);
+		}
 
-        return new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
-    }
+		return new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
+	}
 }

@@ -13,7 +13,9 @@ public abstract class BadBinaryOperator : BadOperator
     /// <param name="precedence">The operator Precedence</param>
     /// <param name="symbol">The Operator Symbol</param>
     /// <param name="isLeftAssociative">Set to true if the Operator needs to be evaluated left to right</param>
-    protected BadBinaryOperator(int precedence, string symbol, bool isLeftAssociative = true) : base(precedence, symbol, isLeftAssociative) { }
+    protected BadBinaryOperator(int precedence, string symbol, bool isLeftAssociative = true) : base(precedence,
+		symbol,
+		isLeftAssociative) { }
 
     /// <summary>
     ///     Parses the operator

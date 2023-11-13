@@ -11,31 +11,29 @@ namespace BadScript2.Parser.Expressions.Binary.Logic;
 /// </summary>
 public class BadLogicNotExpression : BadExpression
 {
-	/// <summary>
-	///     Constructor for the Logic Not Expression
-	/// </summary>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source position of the Expression</param>
-	public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(
-        right.IsConstant,
-        position
-    )
-    {
-        Right = right;
-    }
+    /// <summary>
+    ///     Constructor for the Logic Not Expression
+    /// </summary>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
+		position)
+	{
+		Right = right;
+	}
 
-	/// <summary>
-	///     Right side of the Expression
-	/// </summary>
-	public BadExpression Right { get; }
+    /// <summary>
+    ///     Right side of the Expression
+    /// </summary>
+    public BadExpression Right { get; }
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
-    }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+		{
+			yield return expression;
+		}
+	}
 
     /// <summary>
     ///     Returns true if the Input is false
@@ -46,55 +44,53 @@ public class BadLogicNotExpression : BadExpression
     /// <returns>The negation of Left</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if left is not an IBadBoolean</exception>
     public static BadObject Not(BadObject left, BadSourcePosition pos)
-    {
-        if (left is IBadBoolean rBool)
-        {
-            return rBool.Value ? BadObject.False : BadObject.True;
-        }
+	{
+		if (left is IBadBoolean rBool)
+		{
+			return rBool.Value ? BadObject.False : BadObject.True;
+		}
 
-        throw new BadRuntimeException(
-            $"Cannot apply '!' to object '{left}'",
-            pos
-        );
-    }
+		throw new BadRuntimeException($"Cannot apply '!' to object '{left}'",
+			pos);
+	}
 
-    public static IEnumerable<BadObject> NotWithOverride(
-        BadExecutionContext? context,
-        BadObject left,
-        BadSourcePosition position)
-    {
-        if (left.HasProperty(BadStaticKeys.NotOperatorName, context?.Scope))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(left, context!, BadStaticKeys.NotOperatorName, position))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return Not(left, position);
-        }
-    }
+	public static IEnumerable<BadObject> NotWithOverride(
+		BadExecutionContext? context,
+		BadObject left,
+		BadSourcePosition position)
+	{
+		if (left.HasProperty(BadStaticKeys.NotOperatorName, context?.Scope))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(left, context!, BadStaticKeys.NotOperatorName, position))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return Not(left, position);
+		}
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject r = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject r = BadObject.Null;
 
-        foreach (BadObject o in Right.Execute(context))
-        {
-            r = o;
-        }
+		foreach (BadObject o in Right.Execute(context))
+		{
+			r = o;
+		}
 
-        if (context?.Scope.IsError ?? false)
-        {
-            yield break;
-        }
+		if (context?.Scope.IsError ?? false)
+		{
+			yield break;
+		}
 
-        r = r.Dereference();
+		r = r.Dereference();
 
-        foreach (BadObject? o in NotWithOverride(context!, r, Position))
-        {
-            yield return o;
-        }
-    }
+		foreach (BadObject? o in NotWithOverride(context!, r, Position))
+		{
+			yield return o;
+		}
+	}
 }

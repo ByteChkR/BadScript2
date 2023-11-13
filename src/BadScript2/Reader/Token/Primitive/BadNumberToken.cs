@@ -13,10 +13,10 @@ public class BadNumberToken : BadPrimitiveToken
 	/// <param name="position">Source Position of the Token</param>
 	public BadNumberToken(BadSourcePosition position) : base(position) { }
 
-    public override BadPrimitiveType Type => BadPrimitiveType.Number;
+	public override BadPrimitiveType Type => BadPrimitiveType.Number;
 
-    /// <summary>
-    ///     The Value of the Token
-    /// </summary>
-    public decimal Value => decimal.Parse(Text);
+	/// <summary>
+	///     The Value of the Token
+	/// </summary>
+	public decimal Value => decimal.Parse(Text);
 }

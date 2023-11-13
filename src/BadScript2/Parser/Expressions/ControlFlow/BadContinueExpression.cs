@@ -15,15 +15,15 @@ public class BadContinueExpression : BadExpression
 	/// <param name="position">Source Position of the Expression</param>
 	public BadContinueExpression(BadSourcePosition position) : base(false, position) { }
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        context.Scope.SetContinue();
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		context.Scope.SetContinue();
 
-        yield return BadObject.Null;
-    }
+		yield return BadObject.Null;
+	}
 
-    public override IEnumerable<BadExpression> GetDescendants()
-    {
-        yield break;
-    }
+	public override IEnumerable<BadExpression> GetDescendants()
+	{
+		yield break;
+	}
 }

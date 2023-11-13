@@ -8,7 +8,7 @@
         <FileVersion>2023.10.8.0</FileVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>

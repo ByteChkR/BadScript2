@@ -13,10 +13,10 @@ public class BadAddOperator : BadBinaryOperator
 	/// </summary>
 	public BadAddOperator() : base(6, "+") { }
 
-    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-    {
-        BadExpression right = parser.ParseExpression(null, Precedence);
+	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+	{
+		BadExpression right = parser.ParseExpression(null, Precedence);
 
-        return new BadAddExpression(left, right, left.Position.Combine(right.Position));
-    }
+		return new BadAddExpression(left, right, left.Position.Combine(right.Position));
+	}
 }

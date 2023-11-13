@@ -16,17 +16,17 @@
         <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.54"/>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
     </ItemGroup>
     <ItemGroup>
         <ReferencePathWithRefAssemblies Update="C:\Users\Tim\.nuget\packages\htmlagilitypack\1.11.46\lib\netstandard2.0\HtmlAgilityPack.dll"/>
     </ItemGroup>
     <ItemGroup>
-      <None Include="..\..\res\Logo.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-        <Link>Logo.png</Link>
-      </None>
+        <None Include="..\..\res\Logo.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+            <Link>Logo.png</Link>
+        </None>
     </ItemGroup>
 </Project>

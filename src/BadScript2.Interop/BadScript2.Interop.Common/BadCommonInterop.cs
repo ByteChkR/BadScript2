@@ -16,119 +16,117 @@ namespace BadScript2.Interop.Common;
 /// </summary>
 public static class BadCommonInterop
 {
-    
-    
-    public static BadRuntime UseStartupArguments(this BadRuntime runtime,IEnumerable<string> args)
-    {
-        BadRuntimeApi.StartupArguments = args;
-        return runtime;
-    }
     /// <summary>
     ///     All Common Interop Apis
     /// </summary>
     private static readonly BadInteropApi[] s_CommonApis =
-    {
-        new BadConsoleApi(),
-        new BadRuntimeApi(),
-        new BadMathApi(),
-        new BadOperatingSystemApi(),
-        new BadXmlApi(),
-    };
+	{
+		new BadConsoleApi(),
+		new BadRuntimeApi(),
+		new BadMathApi(),
+		new BadOperatingSystemApi(),
+		new BadXmlApi()
+	};
 
     /// <summary>
     ///     All Common Interop Apis
     /// </summary>
     public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
 
-    private static IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> expressions)
-    {
-        foreach (BadObject o in expressions)
-        {
-            yield return o;
-        }
 
-        if (context.Scope.IsError)
-        {
-            BadConsole.WriteLine("Error: " + context.Scope.Error);
-        }
-    }
+	public static BadRuntime UseStartupArguments(this BadRuntime runtime, IEnumerable<string> args)
+	{
+		BadRuntimeApi.StartupArguments = args;
 
-    private static BadObject ExecuteTask(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
-    {
-        ctx.Scope.AddSingleton(BadTaskRunner.Instance);
-        BadTask task = new BadTask(
-            new BadInteropRunnable(Run(ctx, ctx.Execute(exprs.ToArray())).GetEnumerator()),
-            "Main"
-        );
-        BadTaskRunner.Instance.AddTask(
-            task,
-            true
-        );
+		return runtime;
+	}
+
+	private static IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> expressions)
+	{
+		foreach (BadObject o in expressions)
+		{
+			yield return o;
+		}
+
+		if (context.Scope.IsError)
+		{
+			BadConsole.WriteLine("Error: " + context.Scope.Error);
+		}
+	}
+
+	private static BadObject ExecuteTask(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
+	{
+		ctx.Scope.AddSingleton(BadTaskRunner.Instance);
+		BadTask task = new BadTask(new BadInteropRunnable(Run(ctx, ctx.Execute(exprs.ToArray())).GetEnumerator()),
+			"Main");
+		BadTaskRunner.Instance.AddTask(task,
+			true);
 
 
-        while (!BadTaskRunner.Instance.IsIdle)
-        {
-            BadTaskRunner.Instance.RunStep();
-        }
+		while (!BadTaskRunner.Instance.IsIdle)
+		{
+			BadTaskRunner.Instance.RunStep();
+		}
 
-        return task.Runnable.GetReturn();
-    }
+		return task.Runnable.GetReturn();
+	}
 
-    public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true)
-    {
-        if (useAsync)
-        {
-            if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadTask.Prototype.Name))
-            {
-                BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            }
+	public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true)
+	{
+		if (useAsync)
+		{
+			if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadTask.Prototype.Name))
+			{
+				BadNativeClassBuilder.AddNative(BadTask.Prototype);
+			}
 
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadTaskRunnerApi(BadTaskRunner.Instance)));
+			runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadTaskRunnerApi(BadTaskRunner.Instance)));
 
-            runtime.UseExecutor(ExecuteTask);
-        }
+			runtime.UseExecutor(ExecuteTask);
+		}
 
-        if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-        }
+		if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))
+		{
+			BadNativeClassBuilder.AddNative(BadVersion.Prototype);
+		}
 
-        runtime.ConfigureContextOptions(opts => AddExtensions(opts, useAsync));
-        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApis(Apis));
+		runtime.ConfigureContextOptions(opts => AddExtensions(opts, useAsync));
+		runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApis(Apis));
 
-        return runtime;
-    }
+		return runtime;
+	}
 
-    public static BadRuntime UseConsoleApi(this BadRuntime runtime, IBadConsole? console = null)
-    {
-        if (console != null)
-        {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi(console)));
-        }
-        else
-        {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi()));
-        }
+	public static BadRuntime UseConsoleApi(this BadRuntime runtime, IBadConsole? console = null)
+	{
+		if (console != null)
+		{
+			runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi(console)));
+		}
+		else
+		{
+			runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi()));
+		}
 
-        return runtime;
-    }
+		return runtime;
+	}
 
     /// <summary>
     ///     Adds all Common Interop Extensions to the BadScript Runtime
     /// </summary>
     public static void AddExtensions(BadExecutionContextOptions options, bool useAsync = true)
-    {
-        options.AddExtension<BadObjectExtension>();
-        options.AddExtension<BadStringExtension>();
-        options.AddExtension<BadNumberExtension>();
-        options.AddExtension<BadTableExtension>();
-        options.AddExtension<BadScopeExtension>();
-        options.AddExtension<BadArrayExtension>();
-        options.AddExtension<BadFunctionExtension>();
-        options.AddExtension<BadTypeSystemExtension>();
-        if (useAsync)
-        {
-            options.AddExtension<BadTaskExtensions>();
-        }
-    }
+	{
+		options.AddExtension<BadObjectExtension>();
+		options.AddExtension<BadStringExtension>();
+		options.AddExtension<BadNumberExtension>();
+		options.AddExtension<BadTableExtension>();
+		options.AddExtension<BadScopeExtension>();
+		options.AddExtension<BadArrayExtension>();
+		options.AddExtension<BadFunctionExtension>();
+		options.AddExtension<BadTypeSystemExtension>();
+
+		if (useAsync)
+		{
+			options.AddExtension<BadTaskExtensions>();
+		}
+	}
 }

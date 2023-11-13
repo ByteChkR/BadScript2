@@ -11,9 +11,9 @@ public static class BadObjectExtensions
 	/// <param name="obj">The Object instance</param>
 	/// <returns>String Representation</returns>
 	public static string ToSafeString(this BadObject obj)
-    {
-        return obj.ToSafeString(new List<BadObject>());
-    }
+	{
+		return obj.ToSafeString(new List<BadObject>());
+	}
 
 	/// <summary>
 	///     Dereferences the Object and returns the underlying value
@@ -24,12 +24,12 @@ public static class BadObjectExtensions
 	///     <see cref="BadObjectReference" />
 	/// </returns>
 	public static BadObject Dereference(this BadObject obj)
-    {
-        while (obj is BadObjectReference r)
-        {
-            obj = r.Resolve();
-        }
+	{
+		while (obj is BadObjectReference r)
+		{
+			obj = r.Resolve();
+		}
 
-        return obj;
-    }
+		return obj;
+	}
 }

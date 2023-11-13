@@ -12,11 +12,11 @@ public abstract class BadOperator
 	/// <param name="symbol">The Operator Symbol</param>
 	/// <param name="isLeftAssociative">Set to true if the Operator needs to be evaluated left to right</param>
 	protected BadOperator(int precedence, string symbol, bool isLeftAssociative = true)
-    {
-        Precedence = precedence;
-        Symbol = symbol;
-        IsLeftAssociative = isLeftAssociative;
-    }
+	{
+		Precedence = precedence;
+		Symbol = symbol;
+		IsLeftAssociative = isLeftAssociative;
+	}
 
 	/// <summary>
 	///     The Precedence of the Operator

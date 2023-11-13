@@ -35,16 +35,16 @@ public struct BadLog : IEquatable<BadLog>
 	/// <param name="position">The source position of the message</param>
 	/// <param name="type">The Log Type</param>
 	public BadLog(
-        string message,
-        BadLogMask? mask = null,
-        BadSourcePosition? position = null,
-        BadLogType type = BadLogType.Log)
-    {
-        Message = message;
-        Type = type;
-        Position = position;
-        Mask = mask ?? BadLogMask.Default;
-    }
+		string message,
+		BadLogMask? mask = null,
+		BadSourcePosition? position = null,
+		BadLogType type = BadLogType.Log)
+	{
+		Message = message;
+		Type = type;
+		Position = position;
+		Mask = mask ?? BadLogMask.Default;
+	}
 
 	/// <summary>
 	///     Converts a string message to a log object
@@ -52,23 +52,23 @@ public struct BadLog : IEquatable<BadLog>
 	/// <param name="message">The log content</param>
 	/// <returns>BadLog Instance</returns>
 	public static implicit operator BadLog(string message)
-    {
-        return new BadLog(message);
-    }
+	{
+		return new BadLog(message);
+	}
 
 	/// <summary>
 	///     Returns a string representation of the log
 	/// </summary>
 	/// <returns>String representation of the log</returns>
 	public override string ToString()
-    {
-        if (Position != null)
-        {
-            return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
-        }
+	{
+		if (Position != null)
+		{
+			return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
+		}
 
-        return $"[{Type}][{Mask}] {Message}";
-    }
+		return $"[{Type}][{Mask}] {Message}";
+	}
 
 	/// <summary>
 	///     Returns true if the log is equal to the other log
@@ -76,9 +76,9 @@ public struct BadLog : IEquatable<BadLog>
 	/// <param name="other">Other Log</param>
 	/// <returns>True if the log is equal to the other log</returns>
 	public bool Equals(BadLog other)
-    {
-        return Message == other.Message && Mask.Equals(other.Mask) && Type == other.Type;
-    }
+	{
+		return Message == other.Message && Mask.Equals(other.Mask) && Type == other.Type;
+	}
 
 	/// <summary>
 	///     Returns true if the log is equal to the other object
@@ -86,9 +86,9 @@ public struct BadLog : IEquatable<BadLog>
 	/// <param name="obj">Other Object</param>
 	/// <returns>True if the log is equal to the other log</returns>
 	public override bool Equals(object? obj)
-    {
-        return obj is BadLog other && Equals(other);
-    }
+	{
+		return obj is BadLog other && Equals(other);
+	}
 
 
 	/// <summary>
@@ -96,17 +96,17 @@ public struct BadLog : IEquatable<BadLog>
 	/// </summary>
 	/// <returns>Hash Code</returns>
 	public override int GetHashCode()
-    {
-        return BadHashCode.Combine(Message, Mask, (int)Type);
-    }
+	{
+		return BadHashCode.Combine(Message, Mask, (int)Type);
+	}
 
-    public static bool operator ==(BadLog left, BadLog right)
-    {
-        return left.Equals(right);
-    }
+	public static bool operator ==(BadLog left, BadLog right)
+	{
+		return left.Equals(right);
+	}
 
-    public static bool operator !=(BadLog left, BadLog right)
-    {
-        return !left.Equals(right);
-    }
+	public static bool operator !=(BadLog left, BadLog right)
+	{
+		return !left.Equals(right);
+	}
 }

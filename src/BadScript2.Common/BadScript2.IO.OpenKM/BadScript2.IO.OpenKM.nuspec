@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-  <metadata>
-    <id>BadScript2.IO.OpenKM</id>
-    <authors>BadScript2.IO.OpenKM</authors>
-    <icon>Logo.png</icon>
-    <description>OpenKM IO Api Wrapper</description>
-    <dependencies>
-      <group targetFramework=".NETStandard2.1">
-        <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers" />
-        <dependency id="ewu.adam.openkm.rest" version="23.10.5.3" exclude="Build,Analyzers" />
-      </group>
-    </dependencies>
-    <version xmlns="">23.11.6.1</version>
-  </metadata>
-  <files>
-    <file src="./bin/Release/netstandard2.1/BadScript2.IO.OpenKM.dll" target="lib/netstandard2.1/BadScript2.IO.OpenKM.dll" />
-    <file src="./bin/Release/netstandard2.1/BadScript2.IO.OpenKM.pdb" target="lib/netstandard2.1/BadScript2.IO.OpenKM.pdb" />
-    <file src="../../../res/Logo.png" target="Logo.png" />
-  </files>
+    <metadata>
+        <id>BadScript2.IO.OpenKM</id>
+        <authors>BadScript2.IO.OpenKM</authors>
+        <icon>Logo.png</icon>
+        <description>OpenKM IO Api Wrapper</description>
+        <dependencies>
+            <group targetFramework=".NETStandard2.1">
+                <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers"/>
+                <dependency id="ewu.adam.openkm.rest" version="23.10.5.3" exclude="Build,Analyzers"/>
+            </group>
+        </dependencies>
+        <version xmlns="">23.11.6.1</version>
+    </metadata>
+    <files>
+        <file src="./bin/Release/netstandard2.1/BadScript2.IO.OpenKM.dll"
+              target="lib/netstandard2.1/BadScript2.IO.OpenKM.dll"/>
+        <file src="./bin/Release/netstandard2.1/BadScript2.IO.OpenKM.pdb"
+              target="lib/netstandard2.1/BadScript2.IO.OpenKM.pdb"/>
+        <file src="../../../res/Logo.png" target="Logo.png"/>
+    </files>
 </package>

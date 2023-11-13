@@ -11,22 +11,20 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 /// </summary>
 public class BadMultiplyExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor of the Multiply Expression
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadMultiplyExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    /// <summary>
+    ///     Constructor of the Multiply Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadMultiplyExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+		right,
+		position) { }
 
-    protected override string GetSymbol()
-    {
-        return "*";
-    }
+	protected override string GetSymbol()
+	{
+		return "*";
+	}
 
     /// <summary>
     ///     Performs the Multiplication Operation on left and right
@@ -37,69 +35,67 @@ public class BadMultiplyExpression : BadBinaryExpression
     /// <returns>The result of the multiplication operation of left by right</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
     public static BadObject Mul(BadObject left, BadObject right, BadSourcePosition pos)
-    {
-        if (left is IBadNumber lNum)
-        {
-            if (right is IBadNumber rNum)
-            {
-                return BadObject.Wrap(lNum.Value * rNum.Value);
-            }
-        }
+	{
+		if (left is IBadNumber lNum)
+		{
+			if (right is IBadNumber rNum)
+			{
+				return BadObject.Wrap(lNum.Value * rNum.Value);
+			}
+		}
 
-        throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", pos);
-    }
+		throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", pos);
+	}
 
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-    {
-        BadObject left = BadObject.Null;
+	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+	{
+		BadObject left = BadObject.Null;
 
-        foreach (BadObject o in Left.Execute(context))
-        {
-            left = o;
+		foreach (BadObject o in Left.Execute(context))
+		{
+			left = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        left = left.Dereference();
-        BadObject right = BadObject.Null;
+		left = left.Dereference();
+		BadObject right = BadObject.Null;
 
-        foreach (BadObject o in Right.Execute(context))
-        {
-            right = o;
+		foreach (BadObject o in Right.Execute(context))
+		{
+			right = o;
 
-            yield return o;
-        }
+			yield return o;
+		}
 
-        right = right.Dereference();
+		right = right.Dereference();
 
-        foreach (BadObject? o in MulWithOverride(context, left, right, Position))
-        {
-            yield return o;
-        }
-    }
+		foreach (BadObject? o in MulWithOverride(context, left, right, Position))
+		{
+			yield return o;
+		}
+	}
 
-    public static IEnumerable<BadObject> MulWithOverride(
-        BadExecutionContext? context,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position)
-    {
-        if (left.HasProperty(BadStaticKeys.MultiplyOperatorName, context?.Scope))
-        {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.MultiplyOperatorName,
-                         position
-                     ))
-            {
-                yield return o;
-            }
-        }
-        else
-        {
-            yield return Mul(left, right, position);
-        }
-    }
+	public static IEnumerable<BadObject> MulWithOverride(
+		BadExecutionContext? context,
+		BadObject left,
+		BadObject right,
+		BadSourcePosition position)
+	{
+		if (left.HasProperty(BadStaticKeys.MultiplyOperatorName, context?.Scope))
+		{
+			foreach (BadObject o in ExecuteOperatorOverride(left,
+				         right,
+				         context!,
+				         BadStaticKeys.MultiplyOperatorName,
+				         position))
+			{
+				yield return o;
+			}
+		}
+		else
+		{
+			yield return Mul(left, right, position);
+		}
+	}
 }

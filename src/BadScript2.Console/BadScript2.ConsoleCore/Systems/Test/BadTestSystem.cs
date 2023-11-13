@@ -10,23 +10,23 @@ namespace BadScript2.ConsoleCore.Systems.Test;
 /// </summary>
 public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
 {
-    public override string Name => "test";
+	public BadTestSystem(BadRuntime runtime) : base(runtime) { }
 
-    protected override int Run(BadTestSystemSettings settings)
-    {
-        try
-        {
-            new AutoRun(typeof(BadUnitTests).Assembly).Execute(Array.Empty<string>());
+	public override string Name => "test";
 
-            return 0;
-        }
-        catch (Exception e)
-        {
-            BadConsole.WriteLine(e.ToString());
+	protected override int Run(BadTestSystemSettings settings)
+	{
+		try
+		{
+			new AutoRun(typeof(BadUnitTests).Assembly).Execute(Array.Empty<string>());
 
-            return e.HResult;
-        }
-    }
+			return 0;
+		}
+		catch (Exception e)
+		{
+			BadConsole.WriteLine(e.ToString());
 
-    public BadTestSystem(BadRuntime runtime) : base(runtime) { }
+			return e.HResult;
+		}
+	}
 }
