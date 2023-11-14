@@ -8,6 +8,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Examples.CustomApi;
 
+/// <summary>
+/// Implements a custom API
+/// </summary>
 public class MyCustomApi : BadInteropApi
 {
     //Set the name of the API in the constructor
