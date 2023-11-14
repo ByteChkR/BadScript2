@@ -3,6 +3,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
+/// <summary>
+/// Implements a Reflected Object Prototype(not usable, just to satisfy the prototype chain)
+/// </summary>
 internal class BadReflectedObjectPrototype : BadANativeClassPrototype
 {
 	internal BadReflectedObjectPrototype() : base("BadReflectedObject",

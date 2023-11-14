@@ -4,6 +4,7 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadIfExpression expression)

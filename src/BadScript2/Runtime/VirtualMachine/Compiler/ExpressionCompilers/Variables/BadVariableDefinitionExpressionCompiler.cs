@@ -3,6 +3,7 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<BadVariableDefinitionExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(

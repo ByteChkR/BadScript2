@@ -2,6 +2,10 @@ using BadScript2.Parser.Expressions.Binary;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
+/// <summary>
+/// Defines a Compiler for a specific <see cref="BadBinaryExpression"/>.
+/// </summary>
+/// <typeparam name="T">The Binary Expresion that this Compiler can Compile</typeparam>
 public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
 	where T : BadBinaryExpression
 {

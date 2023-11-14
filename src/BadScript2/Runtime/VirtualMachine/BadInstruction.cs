@@ -2,6 +2,9 @@
 
 namespace BadScript2.Runtime.VirtualMachine;
 
+/// <summary>
+/// Implements a single instruction for the BadVirtualMachine.
+/// </summary>
 public struct BadInstruction
 {
 	public readonly BadOpCode OpCode;

@@ -4,6 +4,9 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.Interop.Functions;
 
+/// <summary>
+/// Non Generic Interop Function.
+/// </summary>
 public class BadDynamicInteropFunction : BadFunction
 {
 	private readonly Func<BadExecutionContext, BadObject> m_Func;
@@ -71,6 +74,10 @@ public class BadDynamicInteropFunction : BadFunction
 	}
 }
 
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T">First Argument</typeparam>
 public class BadDynamicInteropFunction<T> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T, BadObject> m_Func;
@@ -106,6 +113,11 @@ public class BadDynamicInteropFunction<T> : BadFunction
 	}
 }
 
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, BadObject> m_Func;
@@ -144,6 +156,12 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 	}
 }
 
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, BadObject> m_Func;
@@ -184,7 +202,13 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, BadObject> m_Func;
@@ -227,7 +251,14 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> m_Func;
@@ -272,7 +303,15 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> m_Func;
@@ -319,7 +358,16 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> m_Func;
@@ -368,7 +416,17 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> m_Func;
@@ -419,7 +477,18 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> m_Func;
@@ -472,7 +541,19 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
+/// <typeparam name="T10">Tenth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> m_Func;
@@ -527,7 +608,20 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
+/// <typeparam name="T10">Tenth Argument</typeparam>
+/// <typeparam name="T11">Eleventh Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> m_Func;
@@ -585,6 +679,21 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	}
 }
 
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
+/// <typeparam name="T10">Tenth Argument</typeparam>
+/// <typeparam name="T11">Eleventh Argument</typeparam>
+/// <typeparam name="T12">Twelfth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> m_Func;
@@ -643,7 +752,22 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
+/// <typeparam name="T10">Tenth Argument</typeparam>
+/// <typeparam name="T11">Eleventh Argument</typeparam>
+/// <typeparam name="T12">Twelfth Argument</typeparam>
+/// <typeparam name="T13">Thirteenth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject>
@@ -705,7 +829,23 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
+/// <typeparam name="T10">Tenth Argument</typeparam>
+/// <typeparam name="T11">Eleventh Argument</typeparam>
+/// <typeparam name="T12">Twelfth Argument</typeparam>
+/// <typeparam name="T13">Thirteenth Argument</typeparam>
+/// <typeparam name="T14">Fourteenth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject>
@@ -770,7 +910,24 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
-
+/// <summary>
+/// Generic Interop Function.
+/// </summary>
+/// <typeparam name="T1">First Argument</typeparam>
+/// <typeparam name="T2">Second Argument</typeparam>
+/// <typeparam name="T3">Third Argument</typeparam>
+/// <typeparam name="T4">Forth Argument</typeparam>
+/// <typeparam name="T5">Fifth Argument</typeparam>
+/// <typeparam name="T6">Sixth Argument</typeparam>
+/// <typeparam name="T7">Seventh Argument</typeparam>
+/// <typeparam name="T8">Eighth Argument</typeparam>
+/// <typeparam name="T9">Ninth Argument</typeparam>
+/// <typeparam name="T10">Tenth Argument</typeparam>
+/// <typeparam name="T11">Eleventh Argument</typeparam>
+/// <typeparam name="T12">Twelfth Argument</typeparam>
+/// <typeparam name="T13">Thirteenth Argument</typeparam>
+/// <typeparam name="T14">Fourteenth Argument</typeparam>
+/// <typeparam name="T15">Fifteenth Argument</typeparam>
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> : BadFunction
 {
 	private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15,

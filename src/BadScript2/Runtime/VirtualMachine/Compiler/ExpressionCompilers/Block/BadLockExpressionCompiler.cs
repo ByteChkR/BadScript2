@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Block.Lock;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadLockExpression expression)

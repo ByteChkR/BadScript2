@@ -18,6 +18,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.VirtualMachine;
 
+/// <summary>
+/// Implements a Virtual Machine for the BadScript Language.
+/// </summary>
 public class BadRuntimeVirtualMachine
 {
 	private readonly Stack<BadObject> m_ArgumentStack = new Stack<BadObject>();

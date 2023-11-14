@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Constant;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadArrayExpressionCompiler : BadExpressionCompiler<BadArrayExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayExpression expression)

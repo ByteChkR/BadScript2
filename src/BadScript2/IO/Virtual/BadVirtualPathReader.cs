@@ -2,6 +2,9 @@ using BadScript2.Utility;
 
 namespace BadScript2.IO.Virtual;
 
+/// <summary>
+/// Implements Operations to read and manipulate File System Paths
+/// </summary>
 public static class BadVirtualPathReader
 {
 	public static string JoinPath(IEnumerable<string> parts)

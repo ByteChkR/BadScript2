@@ -1,5 +1,8 @@
 namespace BadScript2.Runtime.Interop.Reflection;
 
+/// <summary>
+/// Extensions for Reflection
+/// </summary>
 public static class BadReflectionExtensions
 {
 	public static bool IsNumericType(this Type t)

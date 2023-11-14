@@ -8,9 +8,12 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
+/// <summary>
+/// Implements a Member Table for a specific Type, including a Caching Mechanism for Reflected Members to avoid building the Reflection Table for every Object
+/// </summary>
 public class BadReflectedMemberTable
 {
-	private static readonly Dictionary<Type, BadReflectedMemberTable> m_TableCache =
+	private static readonly Dictionary<Type, BadReflectedMemberTable> s_TableCache =
 		new Dictionary<Type, BadReflectedMemberTable>();
 
 	private readonly Dictionary<string, BadReflectedMember> m_Members;
@@ -49,14 +52,14 @@ public class BadReflectedMemberTable
 
 	public static BadReflectedMemberTable Create(Type t)
 	{
-		if (m_TableCache.ContainsKey(t))
+		if (s_TableCache.TryGetValue(t, out BadReflectedMemberTable? value))
 		{
-			return m_TableCache[t];
+			return value;
 		}
 
 		BadLogger.Log($"Creating Member Table for {t.Name}", "BadReflection");
 		BadReflectedMemberTable table = CreateInternal(t);
-		m_TableCache[t] = table;
+		s_TableCache[t] = table;
 
 		return table;
 	}

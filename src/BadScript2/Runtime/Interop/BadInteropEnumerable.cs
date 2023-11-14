@@ -9,6 +9,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop;
 
+/// <summary>
+/// Implements an Interop Enumerable Object
+/// </summary>
 public class BadInteropEnumerable : BadObject, IBadEnumerable
 {
 	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(

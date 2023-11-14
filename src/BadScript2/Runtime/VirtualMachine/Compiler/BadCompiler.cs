@@ -35,6 +35,9 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler;
 
+/// <summary>
+/// Implements the Compile for the BadVirtualMachine.
+/// </summary>
 public class BadCompiler
 {
 	public static readonly BadCompiler Instance = new BadCompiler();

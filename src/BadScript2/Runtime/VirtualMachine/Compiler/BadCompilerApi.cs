@@ -4,7 +4,9 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler;
-
+/// <summary>
+/// Implements an API for the Compiler.
+/// </summary>
 public class BadCompilerApi : BadInteropApi
 {
 	public BadCompilerApi() : base("Compiler") { }

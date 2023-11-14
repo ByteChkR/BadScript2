@@ -6,6 +6,9 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.VirtualMachine;
 
+/// <summary>
+/// Implements a Compiled Function.
+/// </summary>
 public class BadCompiledFunction : BadFunction
 {
 	private readonly BadInstruction[] m_Instructions;

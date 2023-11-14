@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Binary.Logic;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadLogicOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogicOrExpression>
 {
 	protected override bool EmitLeft => false;

@@ -7,6 +7,9 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
+/// <summary>
+/// Implements a Reflected Method Member
+/// </summary>
 public class BadReflectedMethod : BadReflectedMember
 {
 	private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();

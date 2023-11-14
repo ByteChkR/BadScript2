@@ -76,7 +76,7 @@ public class BadSettings
 	{
 		if (m_Value == null)
 		{
-			return default(T?);
+			return default;
 		}
 
 		Type t = typeof(T);

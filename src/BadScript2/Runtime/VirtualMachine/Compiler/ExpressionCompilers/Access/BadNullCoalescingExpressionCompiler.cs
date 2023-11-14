@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Access;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadNullCoalescingExpressionCompiler : BadExpressionCompiler<BadNullCoalescingExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullCoalescingExpression expression)

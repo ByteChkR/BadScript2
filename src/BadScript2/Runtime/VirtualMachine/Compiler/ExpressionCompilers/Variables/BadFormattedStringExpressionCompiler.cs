@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Variables;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadFormattedStringExpressionCompiler : BadExpressionCompiler<BadFormattedStringExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFormattedStringExpression expression)

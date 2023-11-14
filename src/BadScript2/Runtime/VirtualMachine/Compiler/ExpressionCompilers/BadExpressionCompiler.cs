@@ -2,6 +2,10 @@ using BadScript2.Parser.Expressions;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
+/// <summary>
+/// Compiles a BadScript Expression of type T
+/// </summary>
+/// <typeparam name="T">The BadExpression Type that this Compiler can Compile</typeparam>
 public abstract class BadExpressionCompiler<T> : IBadExpressionCompiler
 	where T : BadExpression
 {

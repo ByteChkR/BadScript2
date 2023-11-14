@@ -6,6 +6,9 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
+/// <summary>
+/// Implements a Reflected Property Member
+/// </summary>
 public class BadReflectedProperty : BadReflectedMember
 {
 	private readonly PropertyInfo m_Property;

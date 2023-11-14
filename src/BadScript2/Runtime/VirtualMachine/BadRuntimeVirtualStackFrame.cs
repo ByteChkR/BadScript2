@@ -1,5 +1,7 @@
 ﻿namespace BadScript2.Runtime.VirtualMachine;
-
+/// <summary>
+/// Stores the current execution state of the Virtual Machine.
+/// </summary>
 public class BadRuntimeVirtualStackFrame
 {
 	public readonly BadExecutionContext Context;

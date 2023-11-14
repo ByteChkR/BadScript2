@@ -4,6 +4,9 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.Interop.Functions;
 
+/// <summary>
+/// Interop Function taking an array of arguments
+/// </summary>
 public class BadInteropFunction : BadFunction
 {
 	private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;

@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Binary.Comparison;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Comparison;
 
+/// <inheritdoc cref="BadExpressionCompiler{T}"/>
 public class BadEqualityExpressionCompiler : BadBinaryExpressionCompiler<BadEqualityExpression>
 {
 	public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadEqualityExpression expression)

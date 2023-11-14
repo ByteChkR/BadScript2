@@ -6,6 +6,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
+/// <summary>
+/// Implements a Reflected 'GetEnumerator' Method
+/// </summary>
 public class BadReflectedEnumeratorMethod : BadReflectedMethod
 {
 	public BadReflectedEnumeratorMethod(MethodInfo method) : base(method) { }

@@ -1,5 +1,7 @@
 namespace BadScript2.Runtime.VirtualMachine;
-
+/// <summary>
+/// Defines the Operations that the BadVirtualMachine can execute.
+/// </summary>
 public enum BadOpCode
 {
 	Nop = 0,

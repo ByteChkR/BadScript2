@@ -2,6 +2,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.Interop.Functions.Extensions;
 
+/// <summary>
+/// Implements Extensions that aid in the creation of Interop Functions
+/// </summary>
 public static partial class BadDynamicFunctionExtensions
 {
 	public static void SetFunction(this BadObject elem, string propName, Action<BadExecutionContext> func)
