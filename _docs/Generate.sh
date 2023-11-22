@@ -6,7 +6,7 @@ doxy_config="./doxy_config.cfg"
 
 
 # Start Generating Doxy Documentation
-./_docs/doxygen-1.9.8/bin/doxygen $doxy_config
+./_docs/doxy/doxygen $doxy_config
 
 
 ls -la .
