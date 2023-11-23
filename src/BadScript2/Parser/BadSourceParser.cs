@@ -706,7 +706,7 @@ public class BadSourceParser
 			}
 		}
 
-		if (Reader.IsStringQuote())
+		if (Reader.IsStringQuote() || Reader.IsStringQuote(0, true))
 		{
 			BadStringToken token = Reader.ParseString();
 

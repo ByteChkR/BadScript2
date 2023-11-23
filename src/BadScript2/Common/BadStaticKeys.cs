@@ -18,6 +18,7 @@ public static class BadStaticKeys
 	};
 
 	public static readonly char Quote = '"';
+	public static readonly char SingleQuote = '\'';
 	public static readonly string FormatStringKey = "$\"";
 	public static readonly string MultiLineStringKey = "@\"";
 	public static readonly string MultiLineFormatStringKey = "$@\"";
