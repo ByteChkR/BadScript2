@@ -58,6 +58,7 @@ public enum BadOpCode
 	PreDec = 0x3013,
 	Exp = 0x3014,
 	Neg = 0x3015,
+	ExpAssign = 0x3016,
 	JumpRelative = 0x4000,
 	JumpRelativeIfFalse = 0x4001,
 	JumpRelativeIfTrue = 0x4002,
@@ -78,5 +79,8 @@ public enum BadOpCode
 	AquireLock = 0x7000,
 	ReleaseLock = 0x7001,
 
-	Eval = 0x8000
+	Eval = 0x8000,
+	
+	BinaryUnpack= 0x9000,
+	UnaryUnpack = 0x9001,
 }

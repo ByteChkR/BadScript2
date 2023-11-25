@@ -93,4 +93,9 @@ public class BadLogicNotExpression : BadExpression
 			yield return o;
 		}
 	}
+
+	public override string ToString()
+	{
+		return $"!{Right}";
+	}
 }

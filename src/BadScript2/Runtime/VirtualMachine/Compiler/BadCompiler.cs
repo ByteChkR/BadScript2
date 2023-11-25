@@ -131,6 +131,9 @@ public class BadCompiler
 			typeof(BadSubtractAssignExpression), new BadSubtractAssignExpressionCompiler()
 		},
 		{
+			typeof(BadExponentiationAssignExpression), new BadExponentiationAssignExpressionCompiler()
+		},
+		{
 			typeof(BadMultiplyAssignExpression), new BadMultiplyAssignExpressionCompiler()
 		},
 		{
@@ -153,6 +156,12 @@ public class BadCompiler
 		},
 		{
 			typeof(BadAssignExpression), new BadAssignExpressionCompiler()
+		},
+		{
+			typeof(BadBinaryUnpackExpression) , new BadBinaryUnpackExpressionCompiler()
+		},
+		{
+			typeof(BadUnaryUnpackExpression), new BadUnaryUnpackExpressionCompiler()
 		},
 		{
 			typeof(BadBooleanExpression), new BadBooleanExpressionCompiler()
@@ -234,14 +243,23 @@ public class BadCompiler
 		},
 		{
 			typeof(BadInExpression), new BadInExpressionCompiler()
+		},
+		{
+			typeof(BadFunctionExpression), new BadFunctionExpressionCompiler()
+		},
+		{
+			typeof(BadClassPrototypeExpression), new BadClassPrototypeExpressionCompiler()
+		},
+		{
+			typeof(BadInterfacePrototypeExpression), new BadInterfacePrototypeExpressionCompiler()
 		}
 	};
 
-	public BadCompiler(bool allowEval = true)
+	public BadCompiler(bool allowEval = false)
 	{
 		AllowEval = allowEval;
 	}
-
+ 
 	public IEnumerable<BadInstruction> Compile(BadExpression expression)
 	{
 		Type t = expression.GetType();

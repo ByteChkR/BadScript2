@@ -72,4 +72,10 @@ public class BadNegationExpression : BadExpression
 			yield return o;
 		}
 	}
+
+
+	public override string ToString()
+	{
+		return $"-{Expression}";
+	}
 }

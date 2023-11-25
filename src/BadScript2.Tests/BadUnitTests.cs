@@ -58,6 +58,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -94,6 +95,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -130,6 +132,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -166,6 +169,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -202,6 +206,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -238,6 +243,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -275,6 +281,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",
@@ -312,6 +319,7 @@ public class BadUnitTests
 
 			BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
 			BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+			runtime.UseNUnitConsole(builder);
 
 			string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
 					$".{BadRuntimeSettings.Instance.FileExtension}",

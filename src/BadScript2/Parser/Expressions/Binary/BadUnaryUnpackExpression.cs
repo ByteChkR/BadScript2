@@ -1,3 +1,4 @@
+using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -32,6 +33,21 @@ public class BadUnaryUnpackExpression : BadExpression
 		}
 	}
 
+	public static void Unpack(BadTable table, BadObject right, BadSourcePosition position)
+	{
+		if (right is not BadTable rightT)
+		{
+			throw new BadRuntimeException("Unpack operator requires 1 table", position);
+		}
+
+		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+		{
+			table.InnerTable[o.Key] = o.Value;
+			table.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
+		}
+		
+	}
+
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadTable result = context.Scope.GetTable();
@@ -46,17 +62,7 @@ public class BadUnaryUnpackExpression : BadExpression
 
 		right = right.Dereference();
 
-		if (right is not BadTable rightT)
-		{
-			throw new BadRuntimeException("Unpack operator requires 1 table", Position);
-		}
-
-		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
-		{
-			result.InnerTable[o.Key] = o.Value;
-			result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
-		}
-
+		Unpack(result, right, Position);
 		yield return result;
 	}
 }

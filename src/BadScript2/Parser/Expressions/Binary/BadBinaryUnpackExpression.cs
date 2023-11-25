@@ -21,9 +21,32 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
 		right,
 		position) { }
 
+
+    public static BadTable Unpack(BadObject left, BadObject right, BadSourcePosition position)
+    {
+	    BadTable result = new BadTable();
+	    if (left is not BadTable leftT || right is not BadTable rightT)
+	    {
+		    throw new BadRuntimeException("Unpack operator requires 2 tables", position);
+	    }
+
+	    foreach (KeyValuePair<BadObject, BadObject> o in leftT.InnerTable)
+	    {
+		    result.InnerTable[o.Key] = o.Value;
+		    result.PropertyInfos[o.Key] = leftT.PropertyInfos[o.Key];
+	    }
+
+	    foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+	    {
+		    result.InnerTable[o.Key] = o.Value;
+		    result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
+	    }
+
+	    return result;
+    }
+    
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
-		BadTable result = new BadTable();
 		BadObject left = BadObject.Null;
 		BadObject right = BadObject.Null;
 
@@ -44,24 +67,7 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
 		left = left.Dereference();
 		right = right.Dereference();
 
-		if (left is not BadTable leftT || right is not BadTable rightT)
-		{
-			throw new BadRuntimeException("Unpack operator requires 2 tables", Position);
-		}
-
-		foreach (KeyValuePair<BadObject, BadObject> o in leftT.InnerTable)
-		{
-			result.InnerTable[o.Key] = o.Value;
-			result.PropertyInfos[o.Key] = leftT.PropertyInfos[o.Key];
-		}
-
-		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
-		{
-			result.InnerTable[o.Key] = o.Value;
-			result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
-		}
-
-		yield return result;
+		yield return Unpack(left, right, Position);
 	}
 
 	protected override string GetSymbol()
