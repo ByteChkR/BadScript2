@@ -4,7 +4,7 @@ The `NetHost` api has the following Properties to Host a HTTP Server.
 
 ```
 {
-        Create: function Create(BadArray)
+        Create: function Create(BadArray!)
 }
 ```
 

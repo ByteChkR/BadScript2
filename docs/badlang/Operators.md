@@ -22,12 +22,14 @@
 	- [Multiply(\*)](#multiply)
 	- [Divide(/)](#divide)
 	- [Modulo(%)](#modulo)
+	- [Exponentiation(\*\*)](#exponentiation)
 	- [Assignment](#assignment_1)
 		- [AddAssign(+=)](#addassign)
 		- [SubtractAssign(-=)](#subtractassign-)
 		- [MultiplyAssign(\*=)](#multiplyassign)
 		- [DivideAssign(/=)](#divideassign)
 		- [ModuloAssign(%=)](#moduloassign)
+		- [ExponentiationAssign(\*\*=)](#exponentiationassign)
 	- [Atomic](#atomic)
 		- [PreIncrement(++)](#preincrement)
 		- [PreDecrement(--)](#predecrement--)
@@ -43,7 +45,10 @@
 		- [NullCheckedMemberAccess(.?)](#nullcheckedmemberaccess)
 	- [ArrayAccess(\[\])](#arrayaccess)
 		- [NullCheckedArrayAccess(?\[\])](#nullcheckedarrayaccess)
-
+- [In](#in)
+- [Instanceof](#instanceof)
+- [Unary Unpack(...)](#unary-unpack)
+- [Binary Unpack(...)](#binary-unpack)
 ___
 ___
 
@@ -508,6 +513,25 @@ Run(12, 3); //0
 
 ___
 
+### Exponentiation(\*\*)
+
+Gets the exponentiation of two numbers
+
+```js
+
+function Run(a, b)
+{
+	return a ** b;
+}
+
+Run(2, 2); //4
+Run(2, 3); //8
+Run(3, 2); //9
+
+```
+
+___
+
 ### Assignment
 
 Assigns the result of the operation to the left variable
@@ -612,6 +636,27 @@ function Run(a, b)
 Run(19, 10); //9
 Run(10, 5); //0
 Run(12, 3); //0
+
+```
+
+___
+
+### ExponentiationAssign(\*\*=)
+
+Gets the exponentiation of two numbers.
+The resulting value will be stored in the left variable.
+
+```js
+
+function Run(a, b)
+{
+	a **= b;
+	return a;
+}
+
+Run(2, 2); //4
+Run(2, 3); //8
+Run(3, 2); //9
 
 ```
 
@@ -834,6 +879,72 @@ t = null;
 
 t?["MyValue"]; //null
 
+
+```
+
+___
+
+#### In
+
+Returns true if a specified key exists in the specified object
+
+```js
+
+let t = { MyValue: "ABC" }
+
+let exists = "MyValue" in t; //True
+
+exists = "MyOtherValue" in t; //False
+
+```
+
+___
+
+#### Instanceof
+
+Returns true if a specified object implements the specified type or interface
+
+```js
+
+let number = 10;
+
+let isNum = number instanceof num; //True
+
+let isString = number instanceof string; //False
+
+```
+
+___
+
+#### Unary Unpack(...)
+
+Spreads the Content of the right side of the operator into the current scope
+
+```js
+
+let t = {MyValue: "abc"}
+
+
+...t; // MyValue is now a variable in the current scope
+
+const myVal = MyValue; //contains "abc"
+
+
+```
+
+#### Binary Unpack(...)
+
+Spreads the Content of the right side of the operator into the object of the left side and returns the result.
+
+```js
+
+let a = {MyValue: "abc"}
+let b = {MyNumber: 3.1415}
+
+let combined = a...b;
+
+const myVal = combined.MyValue; //contains "abc"
+const myNum = combined.MyNumber; //contains 3.1415
 
 ```
 

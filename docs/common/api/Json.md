@@ -5,44 +5,46 @@ Also the API exposes readonly access to the runtime configuration.
 
 ```
 {
+        Info: {
+                Name: Json
+                Version: 2023.10.8.0
+                AssemblyName: BadScript2.Interop.Json
+        }
         FromJson: <interop> function FromJson(str!)
-        ToJson: <interop> function ToJson(BadObject)
+        ToJson: <interop> function ToJson(BadObject!)
         Settings: {
-          Console: {
-                  RootDirectory: %RUNTIME_DIR%
-                  DataDirectory: %RUNTIME_DIR%/data
-                  SubsystemDirectory: %RUNTIME_DIR%/data/subsystems
-                  SettingsDirectory: %RUNTIME_DIR%/data/settings
-                }
-
           Logging: {
+                  Writer: {
+                          Mask: [
+                                  "None"
+                                ]
+                        }
+
                   LogForegroundColor: Blue
                   LogBackgroundColor: Black
                   WarnForegroundColor: DarkYellow
                   WarnBackgroundColor: Black
                   ErrorForegroundColor: Red
                   ErrorBackgroundColor: Black
-                  Writer: {
-                          Mask: [
-                                  "Settings",
-                                  "Runtime",
-                                  "Benchmark",
-                                  "Debugger",
-                                  "Compiler"
-                                ]
-                        }
+                }
 
+          Console: {
+                  RootDirectory: <tooldir>
+                  DataDirectory: <tooldir>\data
+                  SubsystemDirectory: <tooldir>\data/subsystems
+                  SettingsDirectory: <tooldir>\data/settings
                 }
 
           Runtime: {
                   Debugger: {
-                          Path: %RUNTIME_DIR%/data/subsystems/run/Debugger.bs
+                          Path: <tooldir>\data/subsystems/run/Debugger.bs
                         }
 
                   FileExtension: bs
                   NativeOptimizations: {
                           UseStringCaching: True
-                          UseConstantExpressionOptimization: True
+                          UseConstantFoldingOptimization: True
+                          UseConstantSubstitutionOptimization: True
                           UseStaticExtensionCaching: True
                           UseConstantFunctionCaching: True
                         }
@@ -51,23 +53,21 @@ Also the API exposes readonly access to the runtime configuration.
                           TaskIterationTime: 1
                         }
 
+                  CatchRuntimeExceptions: True
                 }
 
           Subsystems: {
-                  Html: {
-                          RootDirectory: %RUNTIME_DIR%/data/subsystems/html
-                          ExtensionDirectory: %RUNTIME_DIR%/data/subsystems/html/extensions
-                        }
-
                   Run: {
-                          RootDirectory: %RUNTIME_DIR%/data/subsystems/run
-                          LibraryDirectory: %RUNTIME_DIR%/data/subsystems/run/libs
-                          StartupDirectory: %RUNTIME_DIR%/data/subsystems/run/startup
+                          RootDirectory: <tooldir>\data/subsystems/run
+                          LibraryDirectory: <tooldir>\data/subsystems/run/libs
+                          StartupDirectory: <tooldir>\data/subsystems/run/startup
+                          AppDirectory: <tooldir>\data/subsystems/run/apps
+                          AppDataDirectory: <tooldir>\data/subsystems/run/appdata
                         }
 
                   Test: {
-                          RootDirectory: %RUNTIME_DIR%/data/subsystems/test
-                          TestDirectory: %RUNTIME_DIR%/data/subsystems/test/tests
+                          RootDirectory: <tooldir>\data/subsystems/test
+                          TestDirectory: <tooldir>\data/subsystems/test
                         }
 
                 }

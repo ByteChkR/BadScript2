@@ -17,16 +17,21 @@ The System Library is a collection of useful functions and structures.
                 Range: function Range(from, to, step?)
                 Repeat: function Repeat(obj, num)
                 Infinite: function Infinite(obj)
+                Primes: function Primes()
         }
         Events: {
-                Event: prototype Event
+                Event: class Event
         }
         Logging: {
-                Logger: prototype Logger
-                TagLogger: prototype TagLogger
+                Logger: class Logger
+                TagLogger: class TagLogger
                 CreateDefault: function CreateDefaultLogger()
         }
-        SourceReader: prototype SourceReader
+        SourceReader: class SourceReader
+        Math: {
+                IsPrime: function IsPrime(n)
+                Sum: function Sum(n)
+        }
 }
 ```
 

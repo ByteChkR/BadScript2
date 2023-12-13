@@ -1,9 +1,5 @@
 # BadScript2 Landing Page
 
-[![Build Status](https://app.travis-ci.com/ByteChkR/BadScript2.svg?branch=main)](https://app.travis-ci.com/ByteChkR/BadScript2)
-[![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ByteChkR/BadScript2&utm_campaign=Badge_Coverage)
-[![Codacy Code Quality Badge](https://app.codacy.com/project/badge/Grade/987f37588ea9439e82eeefd422379aa5)](https://www.codacy.com/gh/ByteChkR/BadScript2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ByteChkR/BadScript2&amp;utm_campaign=Badge_Grade)
-
 <div style="display: flex; justify-content: center;">
 <img width="256" height="256" src="https://github.com/ByteChkR/BadScript2/blob/main/res/Logo.png?raw=true"/>
 </div>
@@ -26,17 +22,19 @@ Tested on:
 - Windows 10 64-bit
 - Debian 11 (Bullseye)
 
-Requirements:
-- git
+Installation Requirements:
 - net6.0 SDK
-- Powershell 6.0 or greater
 
-
-Run this powershell snippet to install the Runtime in the current directory.
+Run this command to install the runtime as dotnet tool.
 ```ps1
-irm https://bs.byt3.dev/Install.ps1 | iex
+dotnet tool install -g BadScript2.Console
 ```
+The BadScript2 Runtime Console has the name `bs`
 
+To Update the Runtime use the command
+```ps1
+dotnet tool update -g BadScript2.Console
+```
 
 #### Building from Source
 
@@ -52,7 +50,7 @@ Requirements:
 1. Open a Powershell Session
 	- On Windows: `powershell`
 	- On Linux: `pwsh`
-2. Clone this Repository `git clone https://github.com/ByteChkR/BadScript2`
+2. Clone this Repository
 3. Change Directory to `./BadScript2`
 3. Run `./build.ps1`
 
@@ -72,7 +70,7 @@ Console.WriteLine("Hello World!");
 
 Run the script with the command
 ```
-./path/to/bs[.exe] run -f helloworld.bs
+bs run -f helloworld.bs
 ```
 
 Output:

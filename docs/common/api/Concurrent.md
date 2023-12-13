@@ -4,9 +4,14 @@ The `Concurrent` api has the following Properties:
 
 ```
 {
-        Run: function Run(BadTask)
+        Info: {
+                Name: Concurrent
+                Version: 2023.10.8.0
+                AssemblyName: BadScript2.Interop.Common
+        }
+        Run: function Run(BadTask!)
         GetCurrent: function GetCurrent()
-        Create: function Create(BadFunction)
+        Create: function Create(BadFunction!)
 }
 ```
 

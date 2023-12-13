@@ -3,8 +3,6 @@
 - [Debugger](./Debugger.md)
 - [Package Handler](./PackageHandler.md)
 - [BuildSystem](./BuildSystem.md)
-- [WebFramework](./WebFramework.md)
-- [HighscoreApi](./HighscoreApi.md)
 - [System](./System.md)
 
 ___

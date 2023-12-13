@@ -118,7 +118,7 @@ compiled fast function Sum(n) //Compiled Function with operator overrides disabl
 
 #### Runtime Compilation
 
-The effect of `compile fast` can also be archived at runtime. By using the `Compiler.Compile(Sum, true)` function.
+The effect of `compiled fast` can also be archived at runtime. By using the `Compiler.Compile(Sum, true)` function.
 
 
 ## Combining Optimizations

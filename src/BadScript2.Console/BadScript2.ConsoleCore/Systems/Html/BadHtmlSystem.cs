@@ -25,7 +25,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
 	public override object? Parse(string[] args)
 	{
-		if (args.Length == 1)
+		if (args.Length == 1 && args[0] != "--help" && args[0] != "help")
 		{
 			return new BadHtmlSystemSettings
 			{
