@@ -8,7 +8,7 @@
         <dependencies>
             <group targetFramework=".NETStandard2.1">
                 <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="ewu.adam.openkm.rest" version="23.10.5.3" exclude="Build,Analyzers"/>
+                <dependency id="ewu.adam.openkm.rest" version="23.11.24.2" exclude="Build,Analyzers"/>
             </group>
         </dependencies>
         <version xmlns="">23.11.6.1</version>
