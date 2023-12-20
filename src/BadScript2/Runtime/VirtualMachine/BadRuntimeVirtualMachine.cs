@@ -320,7 +320,7 @@ public class BadRuntimeVirtualMachine
 				{
 					BadObject name = (BadObject)instr.Arguments[0];
 					bool isReadOnly = (bool)instr.Arguments[1];
-					ctx.Scope.DefineVariable(name, BadObject.Null, ctx.Scope, new BadPropertyInfo(null, isReadOnly));
+					ctx.Scope.DefineVariable(name, BadObject.Null, ctx.Scope, new BadPropertyInfo(BadAnyPrototype.Instance, isReadOnly));
 					m_ArgumentStack.Push(ctx.Scope.GetVariable(name));
 
 					break;

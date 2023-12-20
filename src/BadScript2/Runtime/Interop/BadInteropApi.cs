@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop;
 
@@ -32,13 +33,13 @@ public abstract class BadInteropApi
 	public void Load(BadTable table)
 	{
 		BadTable info = new BadTable();
-		info.SetProperty("Name", Name, new BadPropertyInfo(null, true));
-		info.SetProperty("Version", Version.ToString(), new BadPropertyInfo(null, true));
-		info.SetProperty("AssemblyName", GetType().Assembly.GetName().Name, new BadPropertyInfo(null, true));
+		info.SetProperty("Name", Name, new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
+		info.SetProperty("Version", Version.ToString(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
+		info.SetProperty("AssemblyName", GetType().Assembly.GetName().Name, new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
 
 		if (!table.HasProperty("Info"))
 		{
-			table.SetProperty("Info", info, new BadPropertyInfo(null, true));
+			table.SetProperty("Info", info, new BadPropertyInfo(BadNativeClassBuilder.GetNative("Table"), true));
 		}
 
 		LoadApi(table);

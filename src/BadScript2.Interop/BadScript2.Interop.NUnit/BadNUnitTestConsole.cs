@@ -26,7 +26,7 @@ public class BadNUnitTestConsole : IBadConsole
 
 	public Task<string> ReadLineAsync()
 	{
-		return Task.Run(Console.ReadLine);
+		return Task.Run(() => Console.ReadLine() ?? "");
 	}
 
 	public void Clear()

@@ -143,7 +143,7 @@ public abstract class BadFunction : BadObject
 			{
 				if (parameter.IsOptional)
 				{
-					context.Scope.DefineVariable(parameter.Name, Null, null, new BadPropertyInfo(parameter.Type));
+					context.Scope.DefineVariable(parameter.Name, Null, null, new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance));
 				}
 				else
 				{
@@ -171,7 +171,7 @@ public abstract class BadFunction : BadObject
 					throw new BadRuntimeException($"Null value not allowed for '{funcStr}' parameter '{parameter}'");
 				}
 
-				context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type));
+				context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance));
 			}
 		}
 	}
