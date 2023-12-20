@@ -17,7 +17,7 @@ public class BadTaskExtensions : BadInteropExtension
 			func => new BadInteropFunction("AsTask",
 				(ctx, args) => AsTask(ctx, func, args),
 				func.IsStatic,
-				func.ReturnType,
+				BadTask.Prototype,
 				func.Parameters));
 	}
 

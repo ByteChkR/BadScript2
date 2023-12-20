@@ -249,6 +249,12 @@ public abstract class BadFunction : BadObject
 			yield return o;
 		}
 
+		if (ret != null && !ReturnType.IsAssignableFrom(ret))
+		{
+			throw new BadRuntimeException(
+				$"Invalid return type for function '{GetHeader()}'. Expected '{ReturnType.Name}' got '{ret.GetPrototype().Name}'");
+		}
+
 		if (!caller.Scope.IsError &&
 		    IsConstant &&
 		    ret != null &&
