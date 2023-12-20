@@ -7,6 +7,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Utility;
 
 namespace BadScript2.Interop.Linq;
@@ -356,56 +357,63 @@ public class BadLinqExtensions : BadInteropExtension
 
 	protected override void AddExtensions(BadInteropExtensionProvider provider)
 	{
-		Register(provider, "ToArray", (_, e) => ToArray(e));
-		Register(provider, "Reverse", (_, e) => Reverse(e));
-		Register<BadFunction>(provider, "Select", Select);
-		Register<BadFunction>(provider, "Where", Where);
-		Register<BadFunction>(provider, "All", All);
-		Register<BadObject>(provider, "Append", Append);
-		Register<IBadEnumerable>(provider, "Concat", Concat);
-		Register<decimal>(provider, "ElementAt", ElementAt);
-		Register<decimal>(provider, "ElementAtOrDefault", ElementAtOrDefault);
-		Register<decimal>(provider, "Skip", Skip);
-		Register<decimal>(provider, "SkipLast", SkipLast);
-		Register<decimal>(provider, "Take", Take);
-		Register<BadFunction>(provider, "OrderBy", OrderBy);
+		Register(provider, "ToArray", (_, e) => ToArray(e), BadNativeClassBuilder.GetNative("Array"));
+		Register(provider, "Reverse", (_, e) => Reverse(e), BadAnyPrototype.Instance);
+		Register<BadFunction>(provider, "Select", Select, BadAnyPrototype.Instance);
+		Register<BadFunction>(provider, "Where", Where, BadAnyPrototype.Instance);
+		Register<BadFunction>(provider, "All", All, BadNativeClassBuilder.GetNative("bool"));
+		Register<BadObject>(provider, "Append", Append, BadAnyPrototype.Instance);
+		Register<IBadEnumerable>(provider, "Concat", Concat, BadAnyPrototype.Instance);
+		Register<decimal>(provider, "ElementAt", ElementAt, BadAnyPrototype.Instance);
+		Register<decimal>(provider, "ElementAtOrDefault", ElementAtOrDefault, BadAnyPrototype.Instance);
+		Register<decimal>(provider, "Skip", Skip, BadAnyPrototype.Instance);
+		Register<decimal>(provider, "SkipLast", SkipLast, BadAnyPrototype.Instance);
+		Register<decimal>(provider, "Take", Take, BadAnyPrototype.Instance);
+		Register<BadFunction>(provider, "OrderBy", OrderBy, BadAnyPrototype.Instance);
 		provider.RegisterObject<IBadEnumerable>("First",
 			e => new BadInteropFunction("First",
 				(c, args) => First(c, e, args[0]),
 				false,
+				BadAnyPrototype.Instance,
 				new BadFunctionParameter("selector", true, false, false, null)));
 
 		provider.RegisterObject<IBadEnumerable>("FirstOrDefault",
 			e => new BadInteropFunction("FirstOrDefault",
 				(c, args) => FirstOrDefault(c, e, args[0]),
 				false,
+				BadAnyPrototype.Instance,
 				new BadFunctionParameter("selector", true, false, false, null)));
 
 		provider.RegisterObject<IBadEnumerable>("Last",
 			e => new BadInteropFunction("Last",
 				(c, args) => Last(c, e, args[0]),
 				false,
+				BadAnyPrototype.Instance,
 				new BadFunctionParameter("selector", true, false, false, null)));
 
 		provider.RegisterObject<IBadEnumerable>("LastOrDefault",
 			e => new BadInteropFunction("LastOrDefault",
 				(c, args) => LastOrDefault(c, e, args[0]),
 				false,
+				BadAnyPrototype.Instance,
 				new BadFunctionParameter("selector", true, false, false, null)));
 		provider.RegisterObject<IBadEnumerable>("Any",
 			e => new BadInteropFunction("Any",
 				(c, args) => Any(c, e, args[0]),
 				false,
+				BadNativeClassBuilder.GetNative("bool"),
 				new BadFunctionParameter("filter", true, false, false, null)));
 		provider.RegisterObject<IBadEnumerable>("Count",
 			e => new BadInteropFunction("Count",
 				(c, args) => Count(c, e, args[0]),
 				false,
+				BadNativeClassBuilder.GetNative("num"),
 				new BadFunctionParameter("predicate", true, false, false, null)));
 
 		provider.RegisterObject<IBadEnumerable>("ToTable",
 			e => new BadDynamicInteropFunction<BadFunction, BadFunction>("ToTable",
-				(c, ks, vs) => ToTable(c, e, ks, vs)));
+				(c, ks, vs) => ToTable(c, e, ks, vs),
+				BadNativeClassBuilder.GetNative("Table")));
 	}
 
 	/// <summary>
@@ -423,7 +431,7 @@ public class BadLinqExtensions : BadInteropExtension
 
 			foreach (BadObject o1 in function.Invoke(new[]
 				         {
-					         o
+					         o,
 				         },
 				         ctx))
 			{
@@ -443,9 +451,11 @@ public class BadLinqExtensions : BadInteropExtension
 	private static void Register(
 		BadInteropExtensionProvider provider,
 		string name,
-		Func<BadExecutionContext, IBadEnumerable, BadObject> func)
+		Func<BadExecutionContext, IBadEnumerable, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		provider.RegisterObject<IBadEnumerable>(name, o => new BadDynamicInteropFunction(name, c => func(c, o)));
+		provider.RegisterObject<IBadEnumerable>(name,
+			o => new BadDynamicInteropFunction(name, c => func(c, o), returnType));
 	}
 
 	/// <summary>
@@ -457,9 +467,10 @@ public class BadLinqExtensions : BadInteropExtension
 	private static void Register<T>(
 		BadInteropExtensionProvider provider,
 		string name,
-		Func<BadExecutionContext, IBadEnumerable, T, BadObject> func)
+		Func<BadExecutionContext, IBadEnumerable, T, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		provider.RegisterObject<IBadEnumerable>(name,
-			o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a)));
+			o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a), returnType));
 	}
 }

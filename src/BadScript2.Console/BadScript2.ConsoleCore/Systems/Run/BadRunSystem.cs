@@ -21,11 +21,11 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
 	public BadRunSystem(BadRuntime runtime) : base(runtime) { }
 
-    /// <summary>
-    ///     The Startup Directory where all containing scripts will be loaded at every execution
-    /// </summary>
-    /// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
-    private string StartupDirectory
+	/// <summary>
+	///     The Startup Directory where all containing scripts will be loaded at every execution
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
+	private string StartupDirectory
 	{
 		get
 		{

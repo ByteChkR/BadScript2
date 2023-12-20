@@ -8,5 +8,5 @@ public enum BadPrimitiveType
 	Boolean,
 	Number,
 	String,
-	Null
+	Null,
 }

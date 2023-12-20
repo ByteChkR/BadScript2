@@ -15,22 +15,22 @@ public class BadClassPrototypeExpression : BadExpression
 {
 	private readonly BadExpression[] m_BaseClasses;
 
-    /// <summary>
-    ///     The Class Body
-    /// </summary>
-    private readonly List<BadExpression> m_Body;
+	/// <summary>
+	///     The Class Body
+	/// </summary>
+	private readonly List<BadExpression> m_Body;
 
 	private readonly BadMetaData? m_MetaData;
 	private readonly List<BadExpression> m_StaticBody;
 
-    /// <summary>
-    ///     Constructor of the Class Prototype Expression
-    /// </summary>
-    /// <param name="name">The Class name</param>
-    /// <param name="body">The Class Body</param>
-    /// <param name="baseClass">The (optional) base class</param>
-    /// <param name="position">The Source Position of the Expression</param>
-    public BadClassPrototypeExpression(
+	/// <summary>
+	///     Constructor of the Class Prototype Expression
+	/// </summary>
+	/// <param name="name">The Class name</param>
+	/// <param name="body">The Class Body</param>
+	/// <param name="baseClass">The (optional) base class</param>
+	/// <param name="position">The Source Position of the Expression</param>
+	public BadClassPrototypeExpression(
 		string name,
 		BadExpression[] body,
 		BadExpression[] staticBody,
@@ -45,17 +45,17 @@ public class BadClassPrototypeExpression : BadExpression
 		m_StaticBody = new List<BadExpression>(staticBody);
 	}
 
-    /// <summary>
-    ///     The Class Body
-    /// </summary>
-    public IEnumerable<BadExpression> Body => m_Body;
+	/// <summary>
+	///     The Class Body
+	/// </summary>
+	public IEnumerable<BadExpression> Body => m_Body;
 
 	public IEnumerable<BadExpression> StaticBody => m_StaticBody;
 
-    /// <summary>
-    ///     The Class Name
-    /// </summary>
-    public string Name { get; }
+	/// <summary>
+	///     The Class Name
+	/// </summary>
+	public string Name { get; }
 
 	public void SetBody(IEnumerable<BadExpression> body)
 	{
@@ -109,11 +109,11 @@ public class BadClassPrototypeExpression : BadExpression
 		}
 	}
 
-	private BadClassPrototype? GetPrototype(
+	private BadClassPrototype GetPrototype(
 		BadExecutionContext context,
 		out BadInterfacePrototype[] interfaces)
 	{
-		BadClassPrototype? baseClass = null;
+		BadClassPrototype baseClass = BadAnyPrototype.Instance;
 
 		List<BadInterfacePrototype> interfacesList = new List<BadInterfacePrototype>();
 
@@ -161,7 +161,7 @@ public class BadClassPrototypeExpression : BadExpression
 
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
-		BadClassPrototype? basePrototype = GetPrototype(context, out BadInterfacePrototype[] interfaces);
+		BadClassPrototype basePrototype = GetPrototype(context, out BadInterfacePrototype[] interfaces);
 
 
 		BadExecutionContext staticContext =

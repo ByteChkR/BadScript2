@@ -7,7 +7,7 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 /// <summary>
-/// Implements a Reflected Field Member
+///     Implements a Reflected Field Member
 /// </summary>
 public class BadReflectedField : BadReflectedMember
 {

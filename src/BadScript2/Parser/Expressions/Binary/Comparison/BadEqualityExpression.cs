@@ -10,23 +10,23 @@ namespace BadScript2.Parser.Expressions.Binary.Comparison;
 /// </summary>
 public class BadEqualityExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor of the Equality Expression
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadEqualityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor of the Equality Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadEqualityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 
-    /// <summary>
-    ///     Returns true if the left side is equal to the right side.
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <returns>True if left is equal to right</returns>
-    public static BadObject Equal(BadObject left, BadObject right)
+	/// <summary>
+	///     Returns true if the left side is equal to the right side.
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <returns>True if left is equal to right</returns>
+	public static BadObject Equal(BadObject left, BadObject right)
 	{
 		if (left.Equals(right))
 		{

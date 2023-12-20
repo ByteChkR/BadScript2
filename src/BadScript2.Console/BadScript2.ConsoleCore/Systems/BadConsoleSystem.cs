@@ -41,10 +41,10 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
 		return t;
 	}
 
-    /// <summary>
-    ///     Runs the Console System with the given settings
-    /// </summary>
-    /// <param name="settings">The Settings Object</param>
-    /// <returns>Return Code</returns>
-    protected abstract int Run(T settings);
+	/// <summary>
+	///     Runs the Console System with the given settings
+	/// </summary>
+	/// <param name="settings">The Settings Object</param>
+	/// <returns>Return Code</returns>
+	protected abstract int Run(T settings);
 }

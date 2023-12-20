@@ -55,7 +55,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
 
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
-		BadClassPrototype? type = null;
+		BadClassPrototype type = BadAnyPrototype.Instance;
 
 		if (TypeExpression != null)
 		{

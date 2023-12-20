@@ -5,6 +5,7 @@ using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Apis;
 
@@ -45,8 +46,12 @@ public class BadOperatingSystemApi : BadInteropApi
 		env.SetProperty("UserName", Environment.UserName);
 		env.SetProperty("WorkingSet", Environment.WorkingSet);
 		env.SetProperty("CurrentManagedThreadId", Environment.CurrentManagedThreadId);
-		env.SetFunction<string>("ExpandEnvironmentVariables", (_, s) => Environment.ExpandEnvironmentVariables(s));
-		env.SetFunction<string>("GetEnvironmentVariable", (_, s) => Environment.GetEnvironmentVariable(s));
+		env.SetFunction<string>("ExpandEnvironmentVariables",
+			(_, s) => Environment.ExpandEnvironmentVariables(s),
+			BadNativeClassBuilder.GetNative("string"));
+		env.SetFunction<string>("GetEnvironmentVariable",
+			(_, s) => Environment.GetEnvironmentVariable(s),
+			BadNativeClassBuilder.GetNative("string"));
 		env.SetFunction<string, string>("SetEnvironmentVariable", Environment.SetEnvironmentVariable);
 		env.SetFunction("GetEnvironmentVariables",
 			() =>
@@ -60,12 +65,15 @@ public class BadOperatingSystemApi : BadInteropApi
 				}
 
 				return t;
-			});
+			},
+			BadNativeClassBuilder.GetNative("Table"));
 		env.SetFunction("GetCommandlineArguments",
-			() => { return new BadArray(Environment.GetCommandLineArgs().Select(x => (BadObject)x).ToList()); });
+			() => { return new BadArray(Environment.GetCommandLineArgs().Select(x => (BadObject)x).ToList()); },
+			BadNativeClassBuilder.GetNative("Array"));
 
 		env.SetFunction("GetLogicalDrives",
-			() => { return new BadArray(Environment.GetLogicalDrives().Select(x => (BadObject)x).ToList()); });
+			() => { return new BadArray(Environment.GetLogicalDrives().Select(x => (BadObject)x).ToList()); },
+			BadNativeClassBuilder.GetNative("Array"));
 		env.SetFunction<decimal>("Exit", e => Environment.Exit((int)e));
 		env.SetFunction<string>("FailFast", Environment.FailFast);
 
@@ -140,6 +148,7 @@ public class BadOperatingSystemApi : BadInteropApi
 				p.Start();
 
 				return CreateProcessTable(p);
-			});
+			},
+			BadNativeClassBuilder.GetNative("Table"));
 	}
 }

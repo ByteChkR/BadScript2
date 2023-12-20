@@ -10,6 +10,7 @@ public class BadNegateOperator : BadUnaryPrefixOperator
 	public override BadExpression Parse(BadSourceParser parser)
 	{
 		BadExpression right = parser.ParseExpression(null, Precedence);
-		return new BadNegationExpression(right.Position,right);
+
+		return new BadNegationExpression(right.Position, right);
 	}
 }

@@ -13,6 +13,7 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.NetHost;
 
@@ -89,7 +90,8 @@ public class BadNetHostExtensions : BadInteropExtension
 				StreamReader sr = new StreamReader(content, enc);
 
 				return sr.ReadToEnd();
-			});
+			},
+			BadNativeClassBuilder.GetNative("string"));
 		table.SetFunction("AsBytes",
 			() =>
 			{
@@ -102,7 +104,8 @@ public class BadNetHostExtensions : BadInteropExtension
 				}
 
 				return new BadArray(data.Select(x => (BadObject)x).ToList());
-			});
+			},
+			BadNativeClassBuilder.GetNative("Array"));
 
 		return table;
 	}

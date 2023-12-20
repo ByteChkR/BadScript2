@@ -5,9 +5,12 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Functio
 
 public class BadFunctionExpressionCompiler : BadExpressionCompiler<BadFunctionExpression>
 {
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFunctionExpression expression)
-    {
-        BadLogger.Warn($"Can not compile '{expression.GetHeader()}'", BadLogMask.GetMask("Compiler", "EVAL"), expression.Position);
-        yield return new BadInstruction(BadOpCode.Eval, expression.Position, expression);
-    }
+	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFunctionExpression expression)
+	{
+		BadLogger.Warn($"Can not compile '{expression.GetHeader()}'",
+			BadLogMask.GetMask("Compiler", "EVAL"),
+			expression.Position);
+
+		yield return new BadInstruction(BadOpCode.Eval, expression.Position, expression);
+	}
 }

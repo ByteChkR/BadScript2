@@ -5,8 +5,9 @@ using System.Text;
 using BadScript2.Utility.Linq.Queries.Commands;
 
 namespace BadScript2.Utility.Linq.Queries;
+
 /// <summary>
-/// Implements the BadLinqQuery funcitonality.
+///     Implements the BadLinqQuery funcitonality.
 /// </summary>
 public static class BadLinqQuery
 {

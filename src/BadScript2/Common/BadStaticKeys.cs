@@ -8,13 +8,13 @@ public static class BadStaticKeys
 	public static readonly char[] Whitespace =
 	{
 		' ',
-		'\t'
+		'\t',
 	};
 
 	public static readonly char[] NewLine =
 	{
 		'\r',
-		'\n'
+		'\n',
 	};
 
 	public static readonly char Quote = '"';
@@ -113,7 +113,7 @@ public static class BadStaticKeys
 		ForEachKey,
 		TryKey,
 		CatchKey,
-		RefKey
+		RefKey,
 	};
 
 	public static bool IsReservedKeyword(string keyword)

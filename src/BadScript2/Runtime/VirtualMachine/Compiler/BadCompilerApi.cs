@@ -2,10 +2,12 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler;
+
 /// <summary>
-/// Implements an API for the Compiler.
+///     Implements an API for the Compiler.
 /// </summary>
 public class BadCompilerApi : BadInteropApi
 {
@@ -13,7 +15,9 @@ public class BadCompilerApi : BadInteropApi
 
 	protected override void LoadApi(BadTable target)
 	{
-		target.SetFunction<BadExpressionFunction, bool>("Compile", CompileFunction);
+		target.SetFunction<BadExpressionFunction, bool>("Compile",
+			CompileFunction,
+			BadNativeClassBuilder.GetNative("Function"));
 	}
 
 	public BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
@@ -37,6 +41,7 @@ public class BadCompilerApi : BadInteropApi
 			func.IsConstant,
 			func.IsStatic,
 			func.MetaData,
+			func.ReturnType,
 			func.Parameters);
 	}
 }

@@ -30,7 +30,7 @@ public abstract class BadHtmlNodeTransformer
 		new BadCopyStyleNodeTransformer(),
 		new BadCopyScriptNodeTransformer(),
 		new BadTextNodeTransformer(),
-		new BadCopyNodeTransformer()
+		new BadCopyNodeTransformer(),
 	};
 
 	/// <summary>

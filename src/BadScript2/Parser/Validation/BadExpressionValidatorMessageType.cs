@@ -4,5 +4,5 @@ public enum BadExpressionValidatorMessageType
 {
 	Info,
 	Warning,
-	Error
+	Error,
 }

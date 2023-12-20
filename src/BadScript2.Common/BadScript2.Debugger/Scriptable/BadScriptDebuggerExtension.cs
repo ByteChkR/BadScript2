@@ -24,6 +24,7 @@ public class BadScriptDebuggerExtension : BadInteropExtension
 		provider.RegisterObject<BadDebuggerStep>("GetSourceView",
 			step => new BadDynamicInteropFunction<string[]>("GetSourceView",
 				(_, a) => GetSourceView(step, a.Select(int.Parse).ToArray()),
+				BadNativeClassBuilder.GetNative("string"),
 				new BadFunctionParameter("breakpointLines",
 					true,
 					true,
@@ -51,7 +52,8 @@ public class BadScriptDebuggerExtension : BadInteropExtension
 					}
 
 					return obj;
-				}));
+				},
+				BadAnyPrototype.Instance));
 
 		provider.RegisterObject<BadSourcePosition>("Index", pos => pos.Index);
 		provider.RegisterObject<BadSourcePosition>("Length", pos => pos.Length);

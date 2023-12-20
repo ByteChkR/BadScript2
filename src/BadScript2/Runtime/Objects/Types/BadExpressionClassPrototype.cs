@@ -11,34 +11,34 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public class BadExpressionClassPrototype : BadClassPrototype
 {
-    /// <summary>
-    ///     The Class Body(Members & Functions)
-    /// </summary>
-    private readonly BadExpression[] m_Body;
+	/// <summary>
+	///     The Class Body(Members & Functions)
+	/// </summary>
+	private readonly BadExpression[] m_Body;
 
-    /// <summary>
-    ///     The Parent scope this class prototype was created in.
-    /// </summary>
-    private readonly BadScope m_ParentScope;
+	/// <summary>
+	///     The Parent scope this class prototype was created in.
+	/// </summary>
+	private readonly BadScope m_ParentScope;
 
 	private readonly BadScope m_StaticScope;
 
 
-    /// <summary>
-    ///     Creates a new BadExpressionClassPrototype
-    /// </summary>
-    /// <param name="name">Name of the Type</param>
-    /// <param name="parentScope">The Parent scope this class prototype was created in.</param>
-    /// <param name="body">The Class Body(Members & Functions)</param>
-    /// <param name="baseClass">The Base class of the prototype</param>
-    public BadExpressionClassPrototype(
+	/// <summary>
+	///     Creates a new BadExpressionClassPrototype
+	/// </summary>
+	/// <param name="name">Name of the Type</param>
+	/// <param name="parentScope">The Parent scope this class prototype was created in.</param>
+	/// <param name="body">The Class Body(Members & Functions)</param>
+	/// <param name="baseClass">The Base class of the prototype</param>
+	public BadExpressionClassPrototype(
 		string name,
 		BadScope parentScope,
 		BadExpression[] body,
 		BadClassPrototype? baseClass,
 		BadInterfacePrototype[] interfaces,
 		BadMetaData? meta,
-		BadScope staticScope) : base(name, baseClass, interfaces, meta)
+		BadScope staticScope) : base(name, baseClass ?? BadAnyPrototype.Instance, interfaces, meta)
 	{
 		m_ParentScope = parentScope;
 		m_Body = body;
@@ -46,6 +46,8 @@ public class BadExpressionClassPrototype : BadClassPrototype
 
 		//TODO: Validate interfaces before creating the class prototype? Might be faster :)
 	}
+
+	public override bool IsAbstract { get; } = false;
 
 
 	public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
@@ -55,7 +57,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
 			m_ParentScope.CreateChild($"class instance {Name}", caller.Scope, true));
 		ctx.Scope.SetFlags(BadScopeFlags.None);
 
-		if (BaseClass != null)
+		if (BaseClass != null && !BaseClass.IsAbstract)
 		{
 			BadObject obj = Null;
 

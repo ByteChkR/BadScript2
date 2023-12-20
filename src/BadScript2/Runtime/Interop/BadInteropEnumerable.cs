@@ -10,7 +10,7 @@ using BadScript2.Runtime.Objects.Types;
 namespace BadScript2.Runtime.Interop;
 
 /// <summary>
-/// Implements an Interop Enumerable Object
+///     Implements an Interop Enumerable Object
 /// </summary>
 public class BadInteropEnumerable : BadObject, IBadEnumerable
 {
@@ -26,7 +26,8 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 		m_Enumerable = enumerable;
 
 		m_Func = new BadDynamicInteropFunction("GetEnumerator",
-			c => new BadInteropEnumerator(m_Enumerable.GetEnumerator()));
+			c => new BadInteropEnumerator(m_Enumerable.GetEnumerator()),
+			BadAnyPrototype.Instance);
 	}
 
 	public IEnumerator<BadObject> GetEnumerator()
@@ -48,7 +49,7 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 	{
 		return propName is IBadString
 		       {
-			       Value: "GetEnumerator"
+			       Value: "GetEnumerator",
 		       } ||
 		       base.HasProperty(propName, caller);
 	}
@@ -57,7 +58,7 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 	{
 		if (propName is IBadString
 		    {
-			    Value: "GetEnumerator"
+			    Value: "GetEnumerator",
 		    })
 		{
 			return BadObjectReference.Make("GetEnumerator", () => m_Func);

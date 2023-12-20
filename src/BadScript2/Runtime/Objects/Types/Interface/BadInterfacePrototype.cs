@@ -11,24 +11,24 @@ public class BadInterfacePrototype : BadClassPrototype
 	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>("Interface",
 		(_, _) => throw new BadRuntimeException("Interfaces cannot be extended"));
 
-    /// <summary>
-    ///     Backing Function of the Constraints Property
-    /// </summary>
-    private readonly Func<BadInterfaceConstraint[]> m_ConstraintsFunc;
+	/// <summary>
+	///     Backing Function of the Constraints Property
+	/// </summary>
+	private readonly Func<BadInterfaceConstraint[]> m_ConstraintsFunc;
 
-    /// <summary>
-    ///     The Constraints of this Interface
-    /// </summary>
-    private BadInterfaceConstraint[]? m_Constraints;
+	/// <summary>
+	///     The Constraints of this Interface
+	/// </summary>
+	private BadInterfaceConstraint[]? m_Constraints;
 
-    /// <summary>
-    ///     Creates a new Interface Prototype
-    /// </summary>
-    /// <param name="name">The Name of the Interface</param>
-    /// <param name="interfaces">The Interfaces this Interface extends</param>
-    /// <param name="metaData">The Meta Data of the Interface</param>
-    /// <param name="constraints">The Constraints of the Interface</param>
-    public BadInterfacePrototype(
+	/// <summary>
+	///     Creates a new Interface Prototype
+	/// </summary>
+	/// <param name="name">The Name of the Interface</param>
+	/// <param name="interfaces">The Interfaces this Interface extends</param>
+	/// <param name="metaData">The Meta Data of the Interface</param>
+	/// <param name="constraints">The Constraints of the Interface</param>
+	public BadInterfacePrototype(
 		string name,
 		BadInterfacePrototype[] interfaces,
 		BadMetaData? metaData,
@@ -40,10 +40,12 @@ public class BadInterfacePrototype : BadClassPrototype
 		m_ConstraintsFunc = constraints;
 	}
 
-    /// <summary>
-    ///     The Constraints of this Interface
-    /// </summary>
-    public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
+	public override bool IsAbstract { get; } = true;
+
+	/// <summary>
+	///     The Constraints of this Interface
+	/// </summary>
+	public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
 
 	public override BadClassPrototype GetPrototype()
 	{

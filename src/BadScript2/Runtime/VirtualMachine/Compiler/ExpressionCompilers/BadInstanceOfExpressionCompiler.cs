@@ -3,7 +3,7 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}"/>
+/// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadInstanceOfExpressionCompiler : BadBinaryExpressionCompiler<BadInstanceOfExpression>
 {
 	public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadInstanceOfExpression expression)

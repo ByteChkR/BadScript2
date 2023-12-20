@@ -529,7 +529,7 @@ public class BadUnitTests
 		if (BadFileSystem.Instance.Exists(referenceFile))
 		{
 			HtmlDocument reference = LoadReference(referenceFile);
-			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));
+			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r", "")));
 		}
 		else
 		{
@@ -545,7 +545,7 @@ public class BadUnitTests
 	{
 		BadHtmlTemplateOptions options = new BadHtmlTemplateOptions
 		{
-			SkipEmptyTextNodes = true
+			SkipEmptyTextNodes = true,
 		};
 		string referenceFile = Path.ChangeExtension(file, $".{(options.SkipEmptyTextNodes ? "skip" : "default")}.html");
 		HtmlDocument result = BadHtmlTemplate.Create(file).RunTemplate(null, options);
@@ -553,7 +553,7 @@ public class BadUnitTests
 		if (BadFileSystem.Instance.Exists(referenceFile))
 		{
 			HtmlDocument reference = LoadReference(referenceFile);
-			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml));
+			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r", "")));
 		}
 		else
 		{

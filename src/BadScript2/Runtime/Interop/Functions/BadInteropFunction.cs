@@ -1,11 +1,12 @@
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Functions;
 
 /// <summary>
-/// Interop Function taking an array of arguments
+///     Interop Function taking an array of arguments
 /// </summary>
 public class BadInteropFunction : BadFunction
 {
@@ -15,7 +16,8 @@ public class BadInteropFunction : BadFunction
 		BadWordToken? name,
 		Func<BadObject[], BadObject> func,
 		bool isStatic,
-		params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
+		BadClassPrototype returnType,
+		params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, parameters)
 	{
 		m_Func = (_, args) => func(args);
 	}
@@ -24,17 +26,23 @@ public class BadInteropFunction : BadFunction
 		BadWordToken? name,
 		Func<BadExecutionContext, BadObject[], BadObject> func,
 		bool isStatic,
-		params BadFunctionParameter[] parameters) : base(name, false, isStatic, parameters)
+		BadClassPrototype returnType,
+		params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, parameters)
 	{
 		m_Func = func;
 	}
 
 
-	public static BadInteropFunction Create(Func<BadObject[], BadObject> func, bool isStatic, params string[] names)
+	public static BadInteropFunction Create(
+		Func<BadObject[], BadObject> func,
+		bool isStatic,
+		BadClassPrototype returnType,
+		params string[] names)
 	{
 		BadInteropFunction function = new BadInteropFunction(null,
 			func,
 			isStatic,
+			returnType,
 			names.Select(x => (BadFunctionParameter)x).ToArray());
 
 		return function;

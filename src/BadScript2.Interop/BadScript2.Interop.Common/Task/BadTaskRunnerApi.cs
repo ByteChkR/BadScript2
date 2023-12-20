@@ -28,8 +28,8 @@ public class BadTaskRunnerApi : BadInteropApi
 	protected override void LoadApi(BadTable target)
 	{
 		target.SetFunction<BadTask>("Run", AddTask);
-		target.SetFunction("GetCurrent", GetCurrentTask);
-		target.SetFunction<BadFunction>("Create", CreateTask);
+		target.SetFunction("GetCurrent", GetCurrentTask, BadTask.Prototype);
+		target.SetFunction<BadFunction>("Create", CreateTask, BadTask.Prototype);
 	}
 
 	/// <summary>

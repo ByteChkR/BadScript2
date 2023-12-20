@@ -19,7 +19,7 @@ public class BadConsoleHeartBeatPacket : BadConsolePacket
 	{
 		return new[]
 		{
-			(byte)BadConsolePacketType.HeartBeat
+			(byte)BadConsolePacketType.HeartBeat,
 		};
 	}
 

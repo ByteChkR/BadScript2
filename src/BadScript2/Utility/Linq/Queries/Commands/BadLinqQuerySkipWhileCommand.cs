@@ -1,8 +1,9 @@
 using System.Collections;
 
 namespace BadScript2.Utility.Linq.Queries.Commands;
+
 /// <summary>
-/// Implements the SkipWhile Command for the BadLinqQuery.
+///     Implements the SkipWhile Command for the BadLinqQuery.
 /// </summary>
 internal class BadLinqQuerySkipWhileCommand : BadLinqQueryCommand
 {

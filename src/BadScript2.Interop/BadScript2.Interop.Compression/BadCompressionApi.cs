@@ -6,6 +6,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Compression;
 
@@ -133,18 +134,18 @@ public class BadCompressionApi : BadInteropApi
 	protected override void LoadApi(BadTable target)
 	{
 		BadTable deflate = new BadTable();
-		deflate.SetFunction<IBadString>("Compress", Deflate);
-		deflate.SetFunction<BadArray>("Decompress", Inflate);
+		deflate.SetFunction<IBadString>("Compress", Deflate, BadNativeClassBuilder.GetNative("Array"));
+		deflate.SetFunction<BadArray>("Decompress", Inflate, BadNativeClassBuilder.GetNative("string"));
 		target.SetProperty("Deflate", deflate);
 
 		BadTable gzip = new BadTable();
-		gzip.SetFunction<IBadString>("Compress", GZipCompress);
-		gzip.SetFunction<BadArray>("Decompress", GZipDecompress);
+		gzip.SetFunction<IBadString>("Compress", GZipCompress, BadNativeClassBuilder.GetNative("Array"));
+		gzip.SetFunction<BadArray>("Decompress", GZipDecompress, BadNativeClassBuilder.GetNative("string"));
 		target.SetProperty("GZip", gzip);
 
 		BadTable zlib = new BadTable();
-		zlib.SetFunction<IBadString>("Compress", ZLibCompress);
-		zlib.SetFunction<BadArray>("Decompress", ZLibDecompress);
+		zlib.SetFunction<IBadString>("Compress", ZLibCompress, BadNativeClassBuilder.GetNative("Array"));
+		zlib.SetFunction<BadArray>("Decompress", ZLibDecompress, BadNativeClassBuilder.GetNative("string"));
 		target.SetProperty("ZLib", zlib);
 
 		BadTable zip = new BadTable();
@@ -153,8 +154,8 @@ public class BadCompressionApi : BadInteropApi
 		target.SetProperty("Zip", zip);
 
 		BadTable base64 = new BadTable();
-		base64.SetFunction<BadArray>("Encode", Base64Encode);
-		base64.SetFunction<IBadString>("Decode", Base64Decode);
+		base64.SetFunction<BadArray>("Encode", Base64Encode, BadNativeClassBuilder.GetNative("string"));
+		base64.SetFunction<IBadString>("Decode", Base64Decode, BadNativeClassBuilder.GetNative("Array"));
 		target.SetProperty("Base64", base64);
 	}
 

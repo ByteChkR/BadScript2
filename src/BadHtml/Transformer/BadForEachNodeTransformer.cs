@@ -19,13 +19,13 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
 		return context.InputNode.Name == "bs:each";
 	}
 
-    /// <summary>
-    ///     Runs an iteration of the 'bs:each' node
-    /// </summary>
-    /// <param name="context">The Html Context</param>
-    /// <param name="name">The Variable name of the foreach block</param>
-    /// <param name="obj">The Value of the current iteration</param>
-    private void RunIteration(BadHtmlContext context, string name, BadObject obj)
+	/// <summary>
+	///     Runs an iteration of the 'bs:each' node
+	/// </summary>
+	/// <param name="context">The Html Context</param>
+	/// <param name="name">The Variable name of the foreach block</param>
+	/// <param name="obj">The Value of the current iteration</param>
+	private void RunIteration(BadHtmlContext context, string name, BadObject obj)
 	{
 		BadExecutionContext loopContext = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:while",
 			context.ExecutionContext.Scope,

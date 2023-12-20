@@ -4,6 +4,7 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.NUnit;
 
@@ -12,16 +13,16 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadNUnitConsoleApi : BadInteropApi
 {
-    /// <summary>
-    ///     The Console Context
-    /// </summary>
-    private readonly BadUnitTestContextBuilder m_Console;
+	/// <summary>
+	///     The Console Context
+	/// </summary>
+	private readonly BadUnitTestContextBuilder m_Console;
 
-    /// <summary>
-    ///     Public Constructor
-    /// </summary>
-    /// <param name="console">The Console Context</param>
-    public BadNUnitConsoleApi(BadUnitTestContextBuilder console) : base("NUnit")
+	/// <summary>
+	///     Public Constructor
+	/// </summary>
+	/// <param name="console">The Console Context</param>
+	public BadNUnitConsoleApi(BadUnitTestContextBuilder console) : base("NUnit")
 	{
 		m_Console = console;
 	}
@@ -56,6 +57,7 @@ public class BadNUnitConsoleApi : BadInteropApi
 					return BadObject.Null;
 				},
 				false,
+				BadAnyPrototype.Instance,
 				"func",
 				"name",
 				new BadFunctionParameter("allowCompile", true, false, false)));

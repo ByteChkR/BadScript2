@@ -39,7 +39,7 @@ public class BadSettingsReader
 	{
 		List<BadSettings> settings = new List<BadSettings>
 		{
-			m_RootSettings
+			m_RootSettings,
 		};
 
 		Queue<string> files = new Queue<string>(m_SourceFiles);
@@ -84,7 +84,7 @@ public class BadSettingsReader
 	{
 		if (token is
 		    {
-			    Type: JTokenType.Object
+			    Type: JTokenType.Object,
 		    })
 		{
 			Dictionary<string, BadSettings> settings = new Dictionary<string, BadSettings>();
@@ -130,7 +130,7 @@ public class BadSettingsReader
 					bool allDirs = include.Contains("**");
 					string[] parts = include.Split(new[]
 						{
-							'*'
+							'*',
 						},
 						StringSplitOptions.RemoveEmptyEntries);
 					string path = parts[0];

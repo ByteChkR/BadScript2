@@ -1,6 +1,8 @@
+using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interactive;
 
@@ -28,9 +30,9 @@ public class BadInteractiveConsoleApi : BadInteropApi
 		target.SetFunction("Reset", m_Console.Reset);
 		target.SetFunction<string>("Run", m_Console.Run);
 		target.SetFunction<string>("Load", m_Console.Load);
-		target.SetFunction<string>("RunIsolated", m_Console.RunIsolated);
-		target.SetFunction<string>("LoadIsolated", m_Console.LoadIsolated);
-		target.SetFunction("GetScope", GetScope);
+		target.SetFunction<string>("RunIsolated", m_Console.RunIsolated, BadAnyPrototype.Instance);
+		target.SetFunction<string>("LoadIsolated", m_Console.LoadIsolated, BadAnyPrototype.Instance);
+		target.SetFunction("GetScope", GetScope, BadScope.Prototype);
 		target.SetFunction<bool>("SetCatchError", SetCatchError);
 		target.SetFunction<bool>("SetPreParse", SetPreParse);
 	}

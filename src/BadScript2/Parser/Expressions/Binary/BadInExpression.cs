@@ -9,13 +9,13 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadInExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor for the 'in' operator
-    /// </summary>
-    /// <param name="left">Left Side of the Expression</param>
-    /// <param name="right">Right Side of the Expression</param>
-    /// <param name="position">The Source Position</param>
-    public BadInExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor for the 'in' operator
+	/// </summary>
+	/// <param name="left">Left Side of the Expression</param>
+	/// <param name="right">Right Side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	public BadInExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 
@@ -48,26 +48,26 @@ public class BadInExpression : BadBinaryExpression
 		}
 	}
 
-    /// <summary>
-    ///     Implements the logic of the 'in' operator.
-    /// </summary>
-    /// <param name="left">Property Key</param>
-    /// <param name="right">Instance</param>
-    /// <returns>Returns true if the left side is a property of the right side</returns>
-    public static BadObject In(BadExecutionContext ctx, BadObject left, BadObject right)
+	/// <summary>
+	///     Implements the logic of the 'in' operator.
+	/// </summary>
+	/// <param name="left">Property Key</param>
+	/// <param name="right">Instance</param>
+	/// <returns>Returns true if the left side is a property of the right side</returns>
+	public static BadObject In(BadExecutionContext ctx, BadObject left, BadObject right)
 	{
 		return right.HasProperty(left, ctx.Scope);
 	}
 
-    /// <summary>
-    ///     Implements the logic of the 'in' operator but checks for an operator override first.
-    /// </summary>
-    /// <param name="context">The Execution Context</param>
-    /// <param name="left">Property Key</param>
-    /// <param name="right">Instance</param>
-    /// <param name="position">The Source Position</param>
-    /// <returns>Returns true if the left side is a property of the right side</returns>
-    public static IEnumerable<BadObject> InWithOverride(
+	/// <summary>
+	///     Implements the logic of the 'in' operator but checks for an operator override first.
+	/// </summary>
+	/// <param name="context">The Execution Context</param>
+	/// <param name="left">Property Key</param>
+	/// <param name="right">Instance</param>
+	/// <param name="position">The Source Position</param>
+	/// <returns>Returns true if the left side is a property of the right side</returns>
+	public static IEnumerable<BadObject> InWithOverride(
 		BadExecutionContext context,
 		BadObject left,
 		BadObject right,

@@ -28,6 +28,7 @@ public class BadFunctionExtension : BadInteropExtension
 
 					return r;
 				},
+				f.ReturnType,
 				"args"));
 
 		provider.RegisterObject<BadFunction>("Meta", f => f.MetaData);

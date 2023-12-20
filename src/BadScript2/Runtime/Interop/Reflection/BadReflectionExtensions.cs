@@ -1,7 +1,7 @@
 namespace BadScript2.Runtime.Interop.Reflection;
 
 /// <summary>
-/// Extensions for Reflection
+///     Extensions for Reflection
 /// </summary>
 public static class BadReflectionExtensions
 {

@@ -1,13 +1,14 @@
 using System.Collections;
 
 namespace BadScript2.Utility.Linq.Queries;
+
 /// <summary>
-/// Implements the Command Data for the BadLinqQuery.
+///     Implements the Command Data for the BadLinqQuery.
 /// </summary>
 public class BadLinqQueryCommandData
 {
 	/// <summary>
-	/// Creates a new Command Data Instance.
+	///     Creates a new Command Data Instance.
 	/// </summary>
 	/// <param name="data">The Data</param>
 	/// <param name="argument">The Argument</param>
@@ -16,13 +17,14 @@ public class BadLinqQueryCommandData
 		Data = data;
 		Argument = argument;
 	}
+
 	/// <summary>
-	/// The Data.
+	///     The Data.
 	/// </summary>
 	public IEnumerable Data { get; set; }
 
 	/// <summary>
-	/// The Argument.
+	///     The Argument.
 	/// </summary>
 	public string? Argument { get; set; }
 }

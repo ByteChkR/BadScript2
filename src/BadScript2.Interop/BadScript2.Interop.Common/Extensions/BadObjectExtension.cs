@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Extensions;
 
@@ -12,9 +13,11 @@ public class BadObjectExtension : BadInteropExtension
 	{
 		provider.RegisterGlobal("ToString",
 			o => new BadDynamicInteropFunction("ToString",
-				_ => o.ToString()!));
+				_ => o.ToString()!,
+				BadNativeClassBuilder.GetNative("string")));
 		provider.RegisterGlobal("GetType",
 			o => new BadDynamicInteropFunction("GetType",
-				_ => o.GetPrototype()));
+				_ => o.GetPrototype(),
+				BadClassPrototype.Prototype));
 	}
 }

@@ -11,13 +11,13 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 /// </summary>
 public class BadAddExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor of the Add Expression
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor of the Add Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 
@@ -26,15 +26,15 @@ public class BadAddExpression : BadBinaryExpression
 		return "+";
 	}
 
-    /// <summary>
-    ///     Adds left and right together
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="pos">Source position that is used to generate an Exception if left or right can not be added</param>
-    /// <returns>The result of the addition of left and right</returns>
-    /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side can not be added</exception>
-    public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
+	/// <summary>
+	///     Adds left and right together
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="pos">Source position that is used to generate an Exception if left or right can not be added</param>
+	/// <returns>The result of the addition of left and right</returns>
+	/// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side can not be added</exception>
+	public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
 	{
 		if (left is IBadString lStr)
 		{

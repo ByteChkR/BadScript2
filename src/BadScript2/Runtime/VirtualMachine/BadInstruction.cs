@@ -3,7 +3,7 @@
 namespace BadScript2.Runtime.VirtualMachine;
 
 /// <summary>
-/// Implements a single instruction for the BadVirtualMachine.
+///     Implements a single instruction for the BadVirtualMachine.
 /// </summary>
 public struct BadInstruction
 {

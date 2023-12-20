@@ -7,5 +7,5 @@ public enum BadLogType
 {
 	Log,
 	Warning,
-	Error
+	Error,
 }

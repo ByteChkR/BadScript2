@@ -9,19 +9,18 @@ namespace BadScript2.Runtime.Objects;
 
 public abstract class BadObject
 {
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNullObject>("null",
-		(_, _) => throw new BadRuntimeException("Cannot call methods on null"));
+	private static readonly BadClassPrototype s_Prototype = BadAnyPrototype.Instance;
 
 	private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
 	public static readonly BadObject Null = new BadNullObject();
 	public static readonly BadObject True = new BadBoolean(true);
 	public static readonly BadObject False = new BadBoolean(false);
 
-    /// <summary>
-    ///     Returns the Prototype of this Object
-    /// </summary>
-    /// <returns>Instance of the ClassPrototype associated to this Type of BadObject</returns>
-    public abstract BadClassPrototype GetPrototype();
+	/// <summary>
+	///     Returns the Prototype of this Object
+	/// </summary>
+	/// <returns>Instance of the ClassPrototype associated to this Type of BadObject</returns>
+	public abstract BadClassPrototype GetPrototype();
 
 	public static bool CanWrap(object? o)
 	{
@@ -84,12 +83,12 @@ public abstract class BadObject
 		throw new BadRuntimeException("Cannot wrap native type");
 	}
 
-    /// <summary>
-    ///     Returns true if the object contains a given property or there exists an extension for the current Instance
-    /// </summary>
-    /// <param name="propName">The Property Name</param>
-    /// <returns>True if the Property or an Extension with that name exists</returns>
-    public virtual bool HasProperty(BadObject propName, BadScope? caller = null)
+	/// <summary>
+	///     Returns true if the object contains a given property or there exists an extension for the current Instance
+	/// </summary>
+	/// <param name="propName">The Property Name</param>
+	/// <returns>True if the Property or an Extension with that name exists</returns>
+	public virtual bool HasProperty(BadObject propName, BadScope? caller = null)
 	{
 		if (caller == null)
 		{
@@ -99,12 +98,12 @@ public abstract class BadObject
 		return caller.Provider.HasObject(GetType(), propName);
 	}
 
-    /// <summary>
-    ///     Returns a Reference to the Property with the given Name
-    /// </summary>
-    /// <param name="propName">The Property Name</param>
-    /// <returns>The Property Reference</returns>
-    public virtual BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+	/// <summary>
+	///     Returns a Reference to the Property with the given Name
+	/// </summary>
+	/// <param name="propName">The Property Name</param>
+	/// <returns>The Property Reference</returns>
+	public virtual BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
 	{
 		if (caller == null)
 		{
@@ -114,12 +113,12 @@ public abstract class BadObject
 		return caller.Provider.GetObjectReference(GetType(), propName, this, caller);
 	}
 
-    /// <summary>
-    ///     Implicit Converstion from Boolean to BadObject
-    /// </summary>
-    /// <param name="b">The Value</param>
-    /// <returns>Bad Object Instance</returns>
-    public static implicit operator BadObject(bool b)
+	/// <summary>
+	///     Implicit Converstion from Boolean to BadObject
+	/// </summary>
+	/// <param name="b">The Value</param>
+	/// <returns>Bad Object Instance</returns>
+	public static implicit operator BadObject(bool b)
 	{
 		return Wrap(b);
 	}
@@ -129,12 +128,12 @@ public abstract class BadObject
 		return b.HasValue ? b.Value : Null;
 	}
 
-    /// <summary>
-    ///     Implicit Converstion from Number to BadObject
-    /// </summary>
-    /// <param name="b">The Value</param>
-    /// <returns>Bad Object Instance</returns>
-    public static implicit operator BadObject(decimal d)
+	/// <summary>
+	///     Implicit Converstion from Number to BadObject
+	/// </summary>
+	/// <param name="b">The Value</param>
+	/// <returns>Bad Object Instance</returns>
+	public static implicit operator BadObject(decimal d)
 	{
 		return Wrap(d);
 	}
@@ -144,12 +143,12 @@ public abstract class BadObject
 		return b.HasValue ? b.Value : Null;
 	}
 
-    /// <summary>
-    ///     Implicit Converstion from String to BadObject
-    /// </summary>
-    /// <param name="b">The Value</param>
-    /// <returns>Bad Object Instance</returns>
-    public static implicit operator BadObject(string s)
+	/// <summary>
+	///     Implicit Converstion from String to BadObject
+	/// </summary>
+	/// <param name="b">The Value</param>
+	/// <returns>Bad Object Instance</returns>
+	public static implicit operator BadObject(string s)
 	{
 		return Wrap(s);
 	}
@@ -159,26 +158,26 @@ public abstract class BadObject
 		return b.HasValue ? b.Value! : Null;
 	}
 
-    /// <summary>
-    ///     Returns a String Representation of this Object. This function is recursion proof and supports circular references
-    /// </summary>
-    /// <param name="done">The Visited Elements</param>
-    /// <returns>String Representation</returns>
-    public abstract string ToSafeString(List<BadObject> done);
+	/// <summary>
+	///     Returns a String Representation of this Object. This function is recursion proof and supports circular references
+	/// </summary>
+	/// <param name="done">The Visited Elements</param>
+	/// <returns>String Representation</returns>
+	public abstract string ToSafeString(List<BadObject> done);
 
-    /// <summary>
-    ///     Returns a String Representation of this Object.
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
+	/// <summary>
+	///     Returns a String Representation of this Object.
+	/// </summary>
+	/// <returns></returns>
+	public override string ToString()
 	{
 		return ToSafeString(new List<BadObject>());
 	}
 
-    /// <summary>
-    ///     Implementation for the null-value
-    /// </summary>
-    private class BadNullObject : BadObject, IBadNative
+	/// <summary>
+	///     Implementation for the null-value
+	/// </summary>
+	private class BadNullObject : BadObject, IBadNative
 	{
 		public object Value => null!;
 

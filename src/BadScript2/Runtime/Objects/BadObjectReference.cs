@@ -104,7 +104,7 @@ public abstract class BadObjectReference : BadObject
 				throw new BadRuntimeException("Cannot set reference " + m_RefText + " because it is read-only");
 			}
 
-			m_Setter(obj, info);
+			m_Setter(obj, info ?? new BadPropertyInfo(BadAnyPrototype.Instance));
 		}
 
 		public override string ToSafeString(List<BadObject> done)

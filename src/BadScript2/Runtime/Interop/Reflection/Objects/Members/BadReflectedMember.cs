@@ -3,7 +3,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 /// <summary>
-/// Implements a Reflected Member
+///     Implements a Reflected Member
 /// </summary>
 public abstract class BadReflectedMember
 {

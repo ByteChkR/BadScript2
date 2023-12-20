@@ -29,7 +29,7 @@ public class BadConsoleClearPacket : BadConsolePacket
 	{
 		return new[]
 		{
-			(byte)BadConsolePacketType.Clear
+			(byte)BadConsolePacketType.Clear,
 		};
 	}
 }

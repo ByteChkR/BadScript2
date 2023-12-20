@@ -11,40 +11,41 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadBinaryUnpackExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor for the binary ... operator
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">The Source Position</param>
-    public BadBinaryUnpackExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor for the binary ... operator
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	public BadBinaryUnpackExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 
 
-    public static BadTable Unpack(BadObject left, BadObject right, BadSourcePosition position)
-    {
-	    BadTable result = new BadTable();
-	    if (left is not BadTable leftT || right is not BadTable rightT)
-	    {
-		    throw new BadRuntimeException("Unpack operator requires 2 tables", position);
-	    }
+	public static BadTable Unpack(BadObject left, BadObject right, BadSourcePosition position)
+	{
+		BadTable result = new BadTable();
 
-	    foreach (KeyValuePair<BadObject, BadObject> o in leftT.InnerTable)
-	    {
-		    result.InnerTable[o.Key] = o.Value;
-		    result.PropertyInfos[o.Key] = leftT.PropertyInfos[o.Key];
-	    }
+		if (left is not BadTable leftT || right is not BadTable rightT)
+		{
+			throw new BadRuntimeException("Unpack operator requires 2 tables", position);
+		}
 
-	    foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
-	    {
-		    result.InnerTable[o.Key] = o.Value;
-		    result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
-	    }
+		foreach (KeyValuePair<BadObject, BadObject> o in leftT.InnerTable)
+		{
+			result.InnerTable[o.Key] = o.Value;
+			result.PropertyInfos[o.Key] = leftT.PropertyInfos[o.Key];
+		}
 
-	    return result;
-    }
-    
+		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+		{
+			result.InnerTable[o.Key] = o.Value;
+			result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
+		}
+
+		return result;
+	}
+
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
 	{
 		BadObject left = BadObject.Null;

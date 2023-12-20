@@ -75,5 +75,5 @@ public enum BadScopeFlags
     /// <summary>
     ///     Shorthand for Root Scope
     /// </summary>
-    RootScope = Throwable
+    RootScope = Throwable,
 }

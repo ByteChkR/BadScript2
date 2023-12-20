@@ -3,7 +3,7 @@ using System.Collections;
 namespace BadScript2.Utility.Linq.Queries.Commands;
 
 /// <summary>
-/// Implements the TakeLast Command for the BadLinqQuery.
+///     Implements the TakeLast Command for the BadLinqQuery.
 /// </summary>
 internal class BadLinqQueryTakeLastCommand : BadLinqQueryCommand
 {

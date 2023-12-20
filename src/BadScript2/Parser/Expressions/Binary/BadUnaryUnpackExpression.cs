@@ -10,16 +10,16 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadUnaryUnpackExpression : BadExpression
 {
-    /// <summary>
-    ///     The Right Side of the Expression
-    /// </summary>
-    public readonly BadExpression Right;
+	/// <summary>
+	///     The Right Side of the Expression
+	/// </summary>
+	public readonly BadExpression Right;
 
-    /// <summary>
-    ///     Constructor for the unary ... operator
-    /// </summary>
-    /// <param name="right">Right Side of the Expression</param>
-    public BadUnaryUnpackExpression(BadExpression right) : base(right.IsConstant, right.Position)
+	/// <summary>
+	///     Constructor for the unary ... operator
+	/// </summary>
+	/// <param name="right">Right Side of the Expression</param>
+	public BadUnaryUnpackExpression(BadExpression right) : base(right.IsConstant, right.Position)
 	{
 		Right = right;
 	}
@@ -45,7 +45,6 @@ public class BadUnaryUnpackExpression : BadExpression
 			table.InnerTable[o.Key] = o.Value;
 			table.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
 		}
-		
 	}
 
 	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -63,6 +62,7 @@ public class BadUnaryUnpackExpression : BadExpression
 		right = right.Dereference();
 
 		Unpack(result, right, Position);
+
 		yield return result;
 	}
 }

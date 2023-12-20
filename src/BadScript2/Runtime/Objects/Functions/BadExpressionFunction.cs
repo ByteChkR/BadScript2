@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Reader.Token;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Objects.Functions;
 
@@ -10,33 +11,33 @@ namespace BadScript2.Runtime.Objects.Functions;
 /// </summary>
 public class BadExpressionFunction : BadFunction
 {
-    /// <summary>
-    ///     The Function Body
-    /// </summary>
-    private readonly List<BadExpression> m_Body;
+	/// <summary>
+	///     The Function Body
+	/// </summary>
+	private readonly List<BadExpression> m_Body;
 
 	private readonly string m_FuncString;
 
-    /// <summary>
-    ///     The Scope the function is defined in
-    /// </summary>
-    public readonly BadScope ParentScope;
+	/// <summary>
+	///     The Scope the function is defined in
+	/// </summary>
+	public readonly BadScope ParentScope;
 
-    /// <summary>
-    ///     The Source Position of the Function
-    /// </summary>
-    public readonly BadSourcePosition Position;
+	/// <summary>
+	///     The Source Position of the Function
+	/// </summary>
+	public readonly BadSourcePosition Position;
 
-    /// <summary>
-    ///     Creates a new Expression Function
-    /// </summary>
-    /// <param name="parentScope">The Scope the function is defined in</param>
-    /// <param name="name">The (optional) function name</param>
-    /// <param name="expressions">The Function Body</param>
-    /// <param name="parameters">The parameter info</param>
-    /// <param name="position">The Source Position of the Function</param>
-    /// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
-    public BadExpressionFunction(
+	/// <summary>
+	///     Creates a new Expression Function
+	/// </summary>
+	/// <param name="parentScope">The Scope the function is defined in</param>
+	/// <param name="name">The (optional) function name</param>
+	/// <param name="expressions">The Function Body</param>
+	/// <param name="parameters">The parameter info</param>
+	/// <param name="position">The Source Position of the Function</param>
+	/// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
+	public BadExpressionFunction(
 		BadScope parentScope,
 		BadWordToken? name,
 		List<BadExpression> expressions,
@@ -44,7 +45,8 @@ public class BadExpressionFunction : BadFunction
 		BadSourcePosition position,
 		bool isConstant,
 		bool isStatic,
-		BadMetaData? metaData) : base(name, isConstant, isStatic, parameters)
+		BadMetaData? metaData,
+		BadClassPrototype returnType) : base(name, isConstant, isStatic, returnType, parameters)
 	{
 		m_Body = expressions;
 		Position = position;
@@ -53,17 +55,25 @@ public class BadExpressionFunction : BadFunction
 		m_FuncString = base.ToString() + " at " + Position.GetPositionInfo();
 	}
 
-    /// <summary>
-    ///     Enumeration of all expressions in the function body
-    /// </summary>
-    public IEnumerable<BadExpression> Body => m_Body;
+	/// <summary>
+	///     Enumeration of all expressions in the function body
+	/// </summary>
+	public IEnumerable<BadExpression> Body => m_Body;
 
 
 	public override BadMetaData MetaData { get; }
 
 	public override BadFunction BindParentScope(BadScope scope)
 	{
-		return new BadExpressionFunction(scope, Name, m_Body, Parameters, Position, IsConstant, IsStatic, MetaData);
+		return new BadExpressionFunction(scope,
+			Name,
+			m_Body,
+			Parameters,
+			Position,
+			IsConstant,
+			IsStatic,
+			MetaData,
+			ReturnType);
 	}
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)

@@ -76,7 +76,7 @@ public class BadSettings
 	{
 		if (m_Value == null)
 		{
-			return default;
+			return default(T?);
 		}
 
 		Type t = typeof(T);
@@ -174,9 +174,9 @@ public class BadSettings
 	///     Removes the Property with the given Name
 	/// </summary>
 	/// <param name="propertyName">The Property Name</param>
-	public void RemoveProperty(string propertyName)
+	public bool RemoveProperty(string propertyName)
 	{
-		m_Properties.Remove(propertyName);
+		return m_Properties.Remove(propertyName);
 	}
 
 

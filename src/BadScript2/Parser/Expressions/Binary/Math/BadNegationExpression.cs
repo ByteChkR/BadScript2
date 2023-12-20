@@ -8,8 +8,7 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 
 public class BadNegationExpression : BadExpression
 {
-	public BadNegationExpression(BadSourcePosition position, BadExpression expression) : base(
-		expression.IsConstant,
+	public BadNegationExpression(BadSourcePosition position, BadExpression expression) : base(expression.IsConstant,
 		position)
 	{
 		Expression = expression;

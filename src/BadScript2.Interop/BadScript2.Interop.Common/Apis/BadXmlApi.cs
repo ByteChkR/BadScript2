@@ -4,6 +4,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Apis;
 
@@ -32,6 +33,6 @@ public class BadXmlApi : BadInteropApi
 
 	protected override void LoadApi(BadTable target)
 	{
-		target.SetFunction<string>("Load", LoadXml);
+		target.SetFunction<string>("Load", LoadXml, BadAnyPrototype.Instance);
 	}
 }

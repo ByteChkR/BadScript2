@@ -41,7 +41,7 @@ public class BadScriptDebuggerApi : BadInteropApi
 		{
 			foreach (BadObject _ in func.Invoke(new[]
 				         {
-					         BadObject.Wrap(s)
+					         BadObject.Wrap(s),
 				         },
 				         context))
 			{
@@ -61,7 +61,7 @@ public class BadScriptDebuggerApi : BadInteropApi
 		{
 			foreach (BadObject _ in func.Invoke(new BadObject[]
 				         {
-					         s
+					         s,
 				         },
 				         context))
 			{

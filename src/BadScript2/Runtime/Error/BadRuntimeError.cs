@@ -12,33 +12,33 @@ public class BadRuntimeError : BadObject
 	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeError>("Error",
 		(_, _) => throw new BadRuntimeException("Error"));
 
-    /// <summary>
-    ///     Creates a new Error Object
-    /// </summary>
-    /// <param name="innerError">The Inner Error</param>
-    /// <param name="obj">The Object that was thrown</param>
-    /// <param name="stackTrace">The Stacktrace of the Error</param>
-    public BadRuntimeError(BadRuntimeError? innerError, BadObject obj, string stackTrace)
+	/// <summary>
+	///     Creates a new Error Object
+	/// </summary>
+	/// <param name="innerError">The Inner Error</param>
+	/// <param name="obj">The Object that was thrown</param>
+	/// <param name="stackTrace">The Stacktrace of the Error</param>
+	public BadRuntimeError(BadRuntimeError? innerError, BadObject obj, string stackTrace)
 	{
 		InnerError = innerError;
 		ErrorObject = obj;
 		StackTrace = stackTrace;
 	}
 
-    /// <summary>
-    ///     The Stacktrace of the Error
-    /// </summary>
-    public string StackTrace { get; }
+	/// <summary>
+	///     The Stacktrace of the Error
+	/// </summary>
+	public string StackTrace { get; }
 
-    /// <summary>
-    ///     The Inner Error
-    /// </summary>
-    public BadRuntimeError? InnerError { get; set; }
+	/// <summary>
+	///     The Inner Error
+	/// </summary>
+	public BadRuntimeError? InnerError { get; set; }
 
-    /// <summary>
-    ///     The Object that was thrown
-    /// </summary>
-    public BadObject ErrorObject { get; }
+	/// <summary>
+	///     The Object that was thrown
+	/// </summary>
+	public BadObject ErrorObject { get; }
 
 	public static BadRuntimeError FromException(Exception e, string? scriptStackTrace = null)
 	{
@@ -98,7 +98,7 @@ public class BadRuntimeError : BadObject
 	{
 		return propName is IBadString
 		       {
-			       Value: "StackTrace" or "InnerError" or "ErrorObject"
+			       Value: "StackTrace" or "InnerError" or "ErrorObject",
 		       } ||
 		       base.HasProperty(propName, caller);
 	}

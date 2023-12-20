@@ -4,6 +4,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Apis;
 
@@ -85,10 +86,11 @@ public class BadConsoleApi : BadInteropApi
 		target.SetFunction("WriteLine", OnWriteLine);
 		target.SetFunction("Write", OnWrite);
 		target.SetFunction("Clear", OnClear);
-		target.SetFunction("ReadLine", () => OnReadLine());
+		target.SetFunction("ReadLine", () => OnReadLine(), BadNativeClassBuilder.GetNative("string"));
 		target.SetFunction("ReadLineAsync",
 			() => new BadTask(new ReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()),
-				"Console.ReadLineAsync"));
+				"Console.ReadLineAsync"),
+			BadTask.Prototype);
 	}
 
 	/// <summary>

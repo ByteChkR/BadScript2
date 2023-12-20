@@ -8,24 +8,24 @@ namespace BadScript2.Parser.Expressions.Block.Lock;
 /// </summary>
 public class BadLockList
 {
-    /// <summary>
-    ///     Instance of the Lock List
-    /// </summary>
-    public static readonly BadLockList Instance = new BadLockList();
+	/// <summary>
+	///     Instance of the Lock List
+	/// </summary>
+	public static readonly BadLockList Instance = new BadLockList();
 
-    /// <summary>
-    ///     Inner List that is used to store the Locks
-    /// </summary>
-    private readonly List<BadObject> m_LockList = new List<BadObject>();
+	/// <summary>
+	///     Inner List that is used to store the Locks
+	/// </summary>
+	private readonly List<BadObject> m_LockList = new List<BadObject>();
 
 	private BadLockList() { }
 
-    /// <summary>
-    ///     Tries to aquire a lock on the given object
-    /// </summary>
-    /// <param name="lockObj">The object to be locked</param>
-    /// <returns>True if the lock has been aquired</returns>
-    public bool TryAquire(BadObject lockObj)
+	/// <summary>
+	///     Tries to aquire a lock on the given object
+	/// </summary>
+	/// <param name="lockObj">The object to be locked</param>
+	/// <returns>True if the lock has been aquired</returns>
+	public bool TryAquire(BadObject lockObj)
 	{
 		lock (m_LockList)
 		{
@@ -40,12 +40,12 @@ public class BadLockList
 		}
 	}
 
-    /// <summary>
-    ///     Releases the lock on the given object
-    /// </summary>
-    /// <param name="lockObj">Object whose lock is to be released</param>
-    /// <exception cref="BadRuntimeException">Gets raised if there is no lock in place for the given object</exception>
-    public void Release(BadObject lockObj)
+	/// <summary>
+	///     Releases the lock on the given object
+	/// </summary>
+	/// <param name="lockObj">Object whose lock is to be released</param>
+	/// <exception cref="BadRuntimeException">Gets raised if there is no lock in place for the given object</exception>
+	public void Release(BadObject lockObj)
 	{
 		lock (m_LockList)
 		{

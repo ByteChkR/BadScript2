@@ -9,15 +9,15 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public static class BadTaskUtils
 {
-    /// <summary>
-    ///     Waits for a C# Task to complete and returns the result as a BadObject
-    /// </summary>
-    /// <param name="t">Task</param>
-    /// <param name="onComplete">On Complete Callback</param>
-    /// <typeparam name="T">Task Return</typeparam>
-    /// <returns>Awaitable Runnable</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
-    public static BadInteropRunnable WaitForTask<T>(Task<T> t, Func<T, BadObject> onComplete)
+	/// <summary>
+	///     Waits for a C# Task to complete and returns the result as a BadObject
+	/// </summary>
+	/// <param name="t">Task</param>
+	/// <param name="onComplete">On Complete Callback</param>
+	/// <typeparam name="T">Task Return</typeparam>
+	/// <returns>Awaitable Runnable</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
+	public static BadInteropRunnable WaitForTask<T>(Task<T> t, Func<T, BadObject> onComplete)
 	{
 		BadInteropRunnable? runnable = null;
 
@@ -25,7 +25,7 @@ public static class BadTaskUtils
 		{
 			while (t is
 			       {
-				       IsCanceled: false, IsCompleted: false, IsFaulted: false
+				       IsCanceled: false, IsCompleted: false, IsFaulted: false,
 			       })
 			{
 				yield return BadObject.Null;
@@ -47,10 +47,10 @@ public static class BadTaskUtils
 	}
 
 
-    /// <param name="t">Task</param>
-    /// <returns>Awaitable Runnable</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
-    public static BadInteropRunnable WaitForTask(System.Threading.Tasks.Task t)
+	/// <param name="t">Task</param>
+	/// <returns>Awaitable Runnable</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
+	public static BadInteropRunnable WaitForTask(System.Threading.Tasks.Task t)
 	{
 		BadInteropRunnable? runnable = null;
 
@@ -58,7 +58,7 @@ public static class BadTaskUtils
 		{
 			while (t is
 			       {
-				       IsCanceled: false, IsCompleted: false, IsFaulted: false
+				       IsCanceled: false, IsCompleted: false, IsFaulted: false,
 			       })
 			{
 				yield return BadObject.Null;
@@ -79,14 +79,14 @@ public static class BadTaskUtils
 		return runnable;
 	}
 
-    /// <summary>
-    ///     Waits for a C# Task to complete and returns the result as a BadObject
-    /// </summary>
-    /// <param name="t">Task</param>
-    /// <typeparam name="T">Task Return</typeparam>
-    /// <returns>Awaitable Runnable</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
-    public static BadInteropRunnable WaitForTask<T>(Task<T> t)
+	/// <summary>
+	///     Waits for a C# Task to complete and returns the result as a BadObject
+	/// </summary>
+	/// <param name="t">Task</param>
+	/// <typeparam name="T">Task Return</typeparam>
+	/// <returns>Awaitable Runnable</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>
+	public static BadInteropRunnable WaitForTask<T>(Task<T> t)
 	{
 		BadInteropRunnable? runnable = null;
 
@@ -94,7 +94,7 @@ public static class BadTaskUtils
 		{
 			while (t is
 			       {
-				       IsCanceled: false, IsCompleted: false, IsFaulted: false
+				       IsCanceled: false, IsCompleted: false, IsFaulted: false,
 			       })
 			{
 				yield return BadObject.Null;

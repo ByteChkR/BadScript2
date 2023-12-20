@@ -19,7 +19,7 @@ public class BadConsoleDisconnectPacket : BadConsolePacket
 	{
 		return new[]
 		{
-			(byte)BadConsolePacketType.Disconnect
+			(byte)BadConsolePacketType.Disconnect,
 		};
 	}
 

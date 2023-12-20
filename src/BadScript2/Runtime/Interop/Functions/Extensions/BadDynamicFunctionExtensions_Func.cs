@@ -67,91 +67,110 @@ public static partial class BadDynamicFunctionExtensions
 	}
 
 
-	public static void SetFunction(this BadObject elem, string propName, Func<BadExecutionContext, BadObject> func)
+	public static void SetFunction(
+		this BadObject elem,
+		string propName,
+		Func<BadExecutionContext, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetProperty(propName, new BadDynamicInteropFunction(propName, func));
+		elem.SetProperty(propName, new BadDynamicInteropFunction(propName, func, returnType));
 	}
 
 	public static void SetFunction<T>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T, BadObject> func)
+		Func<BadExecutionContext, T, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetProperty(propName, new BadDynamicInteropFunction<T>(propName, func, GetParameters(typeof(T))));
+		elem.SetProperty(propName,
+			new BadDynamicInteropFunction<T>(propName, func, returnType, GetParameters(typeof(T))));
 	}
 
 	public static void SetFunction<T1, T2>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, BadObject> func)
+		Func<BadExecutionContext, T1, T2, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
-			new BadDynamicInteropFunction<T1, T2>(propName, func, GetParameters(typeof(T1), typeof(T2))));
+			new BadDynamicInteropFunction<T1, T2>(propName, func, returnType, GetParameters(typeof(T1), typeof(T2))));
 	}
 
 	public static void SetFunction<T1, T2, T3>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1), typeof(T2), typeof(T3))));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1), typeof(T2), typeof(T3), typeof(T4))));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5))));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6))));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7))));
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -165,11 +184,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -184,11 +205,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -204,11 +227,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -225,11 +250,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -247,11 +274,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -270,11 +299,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),
@@ -294,11 +325,13 @@ public static partial class BadDynamicFunctionExtensions
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
 		this BadObject elem,
 		string propName,
-		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, BadObject> func)
+		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetProperty(propName,
 			new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(propName,
 				func,
+				returnType,
 				GetParameters(typeof(T1),
 					typeof(T2),
 					typeof(T3),

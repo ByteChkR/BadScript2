@@ -53,7 +53,7 @@ public class BadOperatorTable
 		new BadNullCoalescingOperator(),
 		new BadTernaryOperator(),
 		new BadInstanceOfExpressionOperator(),
-		new BadInOperator()
+		new BadInOperator(),
 	};
 
 	/// <summary>
@@ -65,7 +65,7 @@ public class BadOperatorTable
 		new BadPreDecrementOperator(),
 		new BadPreIncrementOperator(),
 		new BadUnaryUnpackOperator(),
-		new BadNegateOperator()
+		new BadNegateOperator(),
 	};
 
 	/// <summary>
@@ -74,7 +74,7 @@ public class BadOperatorTable
 	private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>
 	{
 		new BadDeleteExpressionParser(),
-		new BadTypeOfExpressionParser()
+		new BadTypeOfExpressionParser(),
 	};
 
 	/// <summary>

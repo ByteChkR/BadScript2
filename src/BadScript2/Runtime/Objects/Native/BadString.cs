@@ -9,11 +9,11 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
 {
 	private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("string");
 
-    /// <summary>
-    ///     Creates a new Native String
-    /// </summary>
-    /// <param name="value">The String Value</param>
-    public BadString(string value) : base(value) { }
+	/// <summary>
+	///     Creates a new Native String
+	/// </summary>
+	/// <param name="value">The String Value</param>
+	public BadString(string value) : base(value) { }
 
 	string IBadString.Value => Value;
 

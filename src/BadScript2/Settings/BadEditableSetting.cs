@@ -31,7 +31,7 @@ public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new
 	/// </summary>
 	/// <param name="name">The Name of the Setting</param>
 	/// <param name="defaultValue">The Default Value of the Setting</param>
-	public BadEditableSetting(string name, TValue? defaultValue = default)
+	public BadEditableSetting(string name, TValue? defaultValue = default(TValue?))
 	{
 		m_Name = name;
 		m_DefaultValue = defaultValue;

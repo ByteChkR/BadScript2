@@ -4,11 +4,12 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 /// <summary>
-/// Implements a Reflected Method Member
+///     Implements a Reflected Method Member
 /// </summary>
 public class BadReflectedMethod : BadReflectedMember
 {
@@ -34,6 +35,7 @@ public class BadReflectedMethod : BadReflectedMember
 		return new BadInteropFunction(Name,
 			args => Invoke(instance, args),
 			isStatic,
+			BadAnyPrototype.Instance,
 			new BadFunctionParameter("args", false, false, true));
 	}
 

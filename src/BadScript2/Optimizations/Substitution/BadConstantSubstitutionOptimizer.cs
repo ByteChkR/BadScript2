@@ -145,7 +145,7 @@ public static class BadConstantSubstitutionOptimizer
 					BadExpression[] newBody = Optimize(childScope,
 							new[]
 							{
-								arg
+								arg,
 							})
 						.ToArray();
 					args.Add(newBody[0]);

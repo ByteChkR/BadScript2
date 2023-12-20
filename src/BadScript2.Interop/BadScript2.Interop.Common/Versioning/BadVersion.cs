@@ -12,39 +12,40 @@ namespace BadScript2.Interop.Common.Versioning;
 /// </summary>
 public class BadVersion : BadObject, IBadNative
 {
-    /// <summary>
-    ///     The Version Class Prototype
-    /// </summary>
-    public static readonly BadClassPrototype
+	/// <summary>
+	///     The Version Class Prototype
+	/// </summary>
+	public static readonly BadClassPrototype
 		Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 
 	private static readonly BadClassPrototype s_Prototype;
 
-    /// <summary>
-    ///     The Change Version Function Reference
-    /// </summary>
-    private readonly BadObjectReference m_ChangeVersion;
+	/// <summary>
+	///     The Change Version Function Reference
+	/// </summary>
+	private readonly BadObjectReference m_ChangeVersion;
 
-    /// <summary>
-    ///     The Inner Version Object
-    /// </summary>
-    private readonly Version m_Version;
+	/// <summary>
+	///     The Inner Version Object
+	/// </summary>
+	private readonly Version m_Version;
 
 	static BadVersion()
 	{
 		s_Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 	}
 
-    /// <summary>
-    ///     Creates a new Version Object
-    /// </summary>
-    /// <param name="version">Version Object</param>
-    public BadVersion(Version version)
+	/// <summary>
+	///     Creates a new Version Object
+	/// </summary>
+	/// <param name="version">Version Object</param>
+	public BadVersion(Version version)
 	{
 		m_Version = version;
 		m_ChangeVersion = BadObjectReference.Make("Version.ChangeVersion",
 			() => new BadDynamicInteropFunction<string>("ChangeVersion",
-				(ctx, s) => new BadVersion(m_Version.ChangeVersion(s))));
+				(ctx, s) => new BadVersion(m_Version.ChangeVersion(s)),
+				s_Prototype));
 	}
 
 	public bool Equals(IBadNative other)
@@ -102,14 +103,14 @@ public class BadVersion : BadObject, IBadNative
 		return s_Prototype;
 	}
 
-    /// <summary>
-    ///     The Version Constructor
-    /// </summary>
-    /// <param name="ctx">Caller Context</param>
-    /// <param name="args">Arguments</param>
-    /// <returns>Version Object</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
-    private static BadObject VersionCtor(BadExecutionContext ctx, BadObject[] args)
+	/// <summary>
+	///     The Version Constructor
+	/// </summary>
+	/// <param name="ctx">Caller Context</param>
+	/// <param name="args">Arguments</param>
+	/// <returns>Version Object</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
+	private static BadObject VersionCtor(BadExecutionContext ctx, BadObject[] args)
 	{
 		if (args.Length == 0)
 		{

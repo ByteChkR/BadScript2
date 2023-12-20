@@ -1,6 +1,7 @@
 namespace BadScript2.Runtime.VirtualMachine;
+
 /// <summary>
-/// Defines the Operations that the BadVirtualMachine can execute.
+///     Defines the Operations that the BadVirtualMachine can execute.
 /// </summary>
 public enum BadOpCode
 {
@@ -80,7 +81,7 @@ public enum BadOpCode
 	ReleaseLock = 0x7001,
 
 	Eval = 0x8000,
-	
-	BinaryUnpack= 0x9000,
+
+	BinaryUnpack = 0x9000,
 	UnaryUnpack = 0x9001,
 }

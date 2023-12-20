@@ -22,7 +22,7 @@ internal static class BadLinqCommon
 	{
 		string[] parts = query.Split(new[]
 			{
-				"=>"
+				"=>",
 			},
 			StringSplitOptions.RemoveEmptyEntries);
 		string varName = parts[0].Trim();

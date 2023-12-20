@@ -11,17 +11,17 @@ namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 /// </summary>
 public class BadPreIncrementExpression : BadExpression
 {
-    /// <summary>
-    ///     Right side of the Expression
-    /// </summary>
-    public readonly BadExpression Right;
+	/// <summary>
+	///     Right side of the Expression
+	/// </summary>
+	public readonly BadExpression Right;
 
-    /// <summary>
-    ///     Constructor of the Pre Increment Expression
-    /// </summary>
-    /// <param name="right">Left side of the Expression</param>
-    /// <param name="position">Source position of the Expression</param>
-    public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
+	/// <summary>
+	///     Constructor of the Pre Increment Expression
+	/// </summary>
+	/// <param name="right">Left side of the Expression</param>
+	/// <param name="position">Source position of the Expression</param>
+	public BadPreIncrementExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
 		position)
 	{
 		Right = right;

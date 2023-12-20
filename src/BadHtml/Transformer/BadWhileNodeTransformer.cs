@@ -18,15 +18,15 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 		return context.InputNode.Name == "bs:while";
 	}
 
-    /// <summary>
-    ///     Evaluates the Expressions inside the attribute
-    /// </summary>
-    /// <param name="context">Context</param>
-    /// <param name="attribute">HtmlAttribute</param>
-    /// <param name="expressions">Parsed Expressions</param>
-    /// <returns>The Result of the Execution</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the result is not of type IBadBoolean</exception>
-    private bool Evaluate(BadHtmlContext context, HtmlAttribute attribute, BadExpression[] expressions)
+	/// <summary>
+	///     Evaluates the Expressions inside the attribute
+	/// </summary>
+	/// <param name="context">Context</param>
+	/// <param name="attribute">HtmlAttribute</param>
+	/// <param name="expressions">Parsed Expressions</param>
+	/// <returns>The Result of the Execution</returns>
+	/// <exception cref="BadRuntimeException">Gets raised if the result is not of type IBadBoolean</exception>
+	private bool Evaluate(BadHtmlContext context, HtmlAttribute attribute, BadExpression[] expressions)
 	{
 		BadObject resultObj = context.Execute(expressions);
 

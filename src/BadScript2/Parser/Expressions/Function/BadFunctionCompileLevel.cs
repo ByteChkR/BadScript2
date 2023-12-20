@@ -4,5 +4,5 @@ public enum BadFunctionCompileLevel
 {
 	None,
 	Compiled,
-	CompiledFast
+	CompiledFast,
 }

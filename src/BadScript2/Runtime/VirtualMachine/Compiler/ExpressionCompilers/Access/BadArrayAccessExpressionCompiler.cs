@@ -2,7 +2,7 @@ using BadScript2.Parser.Expressions.Access;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}"/>
+/// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAccessExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayAccessExpression expression)

@@ -13,20 +13,20 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadNewExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor of the New Expression
-    /// </summary>
-    /// <param name="right">The Expression that evaluates to a BadClassPrototype that can be created</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
+	/// <summary>
+	///     Constructor of the New Expression
+	/// </summary>
+	/// <param name="right">The Expression that evaluates to a BadClassPrototype that can be created</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
 	{
 		Right = right;
 	}
 
-    /// <summary>
-    ///     The Constructor Invocation
-    /// </summary>
-    public BadInvocationExpression Right { get; }
+	/// <summary>
+	///     The Constructor Invocation
+	/// </summary>
+	public BadInvocationExpression Right { get; }
 
 	public override void Optimize()
 	{
@@ -41,19 +41,19 @@ public class BadNewExpression : BadExpression
 		}
 	}
 
-    /// <summary>
-    ///     Creates an Instance of the Specified Class prototype
-    /// </summary>
-    /// <param name="proto">The Class prototype</param>
-    /// <param name="context">The Current Execution Context</param>
-    /// <param name="args">The Constructor Arguments</param>
-    /// <param name="pos">The Source Position that gets used to Raise an Exception</param>
-    /// <returns>The Created Instance of the Class</returns>
-    /// <exception cref="BadRuntimeException">
-    ///     Gets Raised if the return of the class prototype is not an Instance of BadClass
-    ///     or the Constructor of the class is not a BadFunction
-    /// </exception>
-    public static IEnumerable<BadObject> CreateObject(
+	/// <summary>
+	///     Creates an Instance of the Specified Class prototype
+	/// </summary>
+	/// <param name="proto">The Class prototype</param>
+	/// <param name="context">The Current Execution Context</param>
+	/// <param name="args">The Constructor Arguments</param>
+	/// <param name="pos">The Source Position that gets used to Raise an Exception</param>
+	/// <returns>The Created Instance of the Class</returns>
+	/// <exception cref="BadRuntimeException">
+	///     Gets Raised if the return of the class prototype is not an Instance of BadClass
+	///     or the Constructor of the class is not a BadFunction
+	/// </exception>
+	public static IEnumerable<BadObject> CreateObject(
 		BadClassPrototype proto,
 		BadExecutionContext context,
 		BadObject[] args,

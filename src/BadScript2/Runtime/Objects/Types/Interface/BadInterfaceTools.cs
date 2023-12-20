@@ -5,12 +5,12 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 /// </summary>
 public static class BadInterfaceTools
 {
-    /// <summary>
-    ///     Returns all Interfaces implemented by this Type
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns>Enumeration of Interface Prototypes</returns>
-    public static IEnumerable<BadInterfacePrototype> GetAllInterfaces(this BadClassPrototype type)
+	/// <summary>
+	///     Returns all Interfaces implemented by this Type
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns>Enumeration of Interface Prototypes</returns>
+	public static IEnumerable<BadInterfacePrototype> GetAllInterfaces(this BadClassPrototype type)
 	{
 		if (type is BadInterfacePrototype interfacePrototype)
 		{
@@ -36,13 +36,13 @@ public static class BadInterfaceTools
 		}
 	}
 
-    /// <summary>
-    ///     Validates a given Object against a set of Interfaces
-    /// </summary>
-    /// <param name="instance">The Object to validate</param>
-    /// <param name="interfaces">The Interfaces to validate against</param>
-    /// <returns>Validation Result</returns>
-    public static BadInterfaceValidatorResult Validate(
+	/// <summary>
+	///     Validates a given Object against a set of Interfaces
+	/// </summary>
+	/// <param name="instance">The Object to validate</param>
+	/// <param name="interfaces">The Interfaces to validate against</param>
+	/// <returns>Validation Result</returns>
+	public static BadInterfaceValidatorResult Validate(
 		this BadClass instance,
 		IEnumerable<BadInterfacePrototype> interfaces)
 	{

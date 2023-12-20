@@ -3,6 +3,7 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
 
 namespace BadScript2.Interop.Json;
@@ -12,10 +13,10 @@ namespace BadScript2.Interop.Json;
 /// </summary>
 public class BadJsonApi : BadInteropApi
 {
-    /// <summary>
-    ///     Creates a new "Json" Api
-    /// </summary>
-    public BadJsonApi() : base("Json") { }
+	/// <summary>
+	///     Creates a new "Json" Api
+	/// </summary>
+	public BadJsonApi() : base("Json") { }
 
 	protected override void LoadApi(BadTable target)
 	{
@@ -34,8 +35,9 @@ public class BadJsonApi : BadInteropApi
 
 					return BadObject.Null;
 				},
+				BadNativeClassBuilder.GetNative("string"),
 				new BadFunctionParameter("str", false, true, false)));
-		target.SetFunction<BadObject>("ToJson", o => BadJson.ToJson(o));
+		target.SetFunction<BadObject>("ToJson", o => BadJson.ToJson(o), BadNativeClassBuilder.GetNative("string"));
 		target.SetProperty("Settings",
 			new BadSettingsObject(BadSettingsProvider.RootSettings),
 			new BadPropertyInfo(BadSettingsObject.Prototype));

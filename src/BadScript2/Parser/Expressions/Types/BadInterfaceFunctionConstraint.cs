@@ -11,28 +11,28 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 {
-    /// <summary>
-    ///     The Name of the Function
-    /// </summary>
-    public readonly string Name;
+	/// <summary>
+	///     The Name of the Function
+	/// </summary>
+	public readonly string Name;
 
-    /// <summary>
-    ///     The Parameters of the Function
-    /// </summary>
-    public readonly BadFunctionParameter[] Parameters;
+	/// <summary>
+	///     The Parameters of the Function
+	/// </summary>
+	public readonly BadFunctionParameter[] Parameters;
 
-    /// <summary>
-    ///     Return Type of the Function
-    /// </summary>
-    public readonly BadExpression? Return;
+	/// <summary>
+	///     Return Type of the Function
+	/// </summary>
+	public readonly BadExpression? Return;
 
-    /// <summary>
-    ///     Creates a new Function Constraint
-    /// </summary>
-    /// <param name="name">Name of the Function</param>
-    /// <param name="return">Return Type of the Function</param>
-    /// <param name="parameters">The Function Parameters</param>
-    public BadInterfaceFunctionConstraint(string name, BadExpression? @return, BadFunctionParameter[] parameters)
+	/// <summary>
+	///     Creates a new Function Constraint
+	/// </summary>
+	/// <param name="name">Name of the Function</param>
+	/// <param name="return">Return Type of the Function</param>
+	/// <param name="parameters">The Function Parameters</param>
+	public BadInterfaceFunctionConstraint(string name, BadExpression? @return, BadFunctionParameter[] parameters)
 	{
 		Name = name;
 		Return = @return;

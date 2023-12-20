@@ -1,11 +1,12 @@
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Functions;
 
 /// <summary>
-/// Non Generic Interop Function.
+///     Non Generic Interop Function.
 /// </summary>
 public class BadDynamicInteropFunction : BadFunction
 {
@@ -14,9 +15,11 @@ public class BadDynamicInteropFunction : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -25,9 +28,11 @@ public class BadDynamicInteropFunction : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Action<BadExecutionContext> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = context =>
@@ -41,9 +46,11 @@ public class BadDynamicInteropFunction : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Action func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = _ =>
@@ -64,7 +71,8 @@ public class BadDynamicInteropFunction : BadFunction
 	public static implicit operator BadDynamicInteropFunction(Func<BadExecutionContext, BadObject> func)
 	{
 		return new BadDynamicInteropFunction(null,
-			func);
+			func,
+			BadAnyPrototype.Instance);
 	}
 
 
@@ -75,7 +83,7 @@ public class BadDynamicInteropFunction : BadFunction
 }
 
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T">First Argument</typeparam>
 public class BadDynamicInteropFunction<T> : BadFunction
@@ -85,9 +93,11 @@ public class BadDynamicInteropFunction<T> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -104,6 +114,7 @@ public class BadDynamicInteropFunction<T> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T).Name);
 	}
 
@@ -114,7 +125,7 @@ public class BadDynamicInteropFunction<T> : BadFunction
 }
 
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -125,9 +136,11 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -146,6 +159,7 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T1, T2>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name);
 	}
@@ -157,7 +171,7 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 }
 
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -169,9 +183,11 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -192,6 +208,7 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name);
@@ -202,8 +219,9 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -216,9 +234,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -240,6 +260,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -251,8 +272,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -266,9 +288,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -291,6 +315,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -303,8 +328,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -319,9 +345,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -345,6 +373,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -358,8 +387,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -375,9 +405,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -402,6 +434,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -416,8 +449,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -434,9 +468,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -462,6 +498,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -477,8 +514,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -496,9 +534,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -525,6 +565,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -541,8 +582,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -561,9 +603,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -591,6 +635,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -608,8 +653,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -629,9 +675,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -660,6 +708,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -680,7 +729,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 }
 
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -701,9 +750,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -733,6 +784,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -752,8 +804,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -776,9 +829,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -809,6 +864,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -829,8 +885,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -854,9 +911,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -889,6 +948,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,
@@ -910,8 +970,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 		return "<interop> " + base.ToSafeString(done);
 	}
 }
+
 /// <summary>
-/// Generic Interop Function.
+///     Generic Interop Function.
 /// </summary>
 /// <typeparam name="T1">First Argument</typeparam>
 /// <typeparam name="T2">Second Argument</typeparam>
@@ -936,9 +997,11 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	public BadDynamicInteropFunction(
 		BadWordToken? name,
 		Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, BadObject> func,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		false,
 		false,
+		returnType,
 		parameters)
 	{
 		m_Func = func;
@@ -972,6 +1035,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 	{
 		return new BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(null,
 			func,
+			BadAnyPrototype.Instance,
 			typeof(T1).Name,
 			typeof(T2).Name,
 			typeof(T3).Name,

@@ -9,27 +9,27 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadExecutionContextOptions
 {
-    /// <summary>
-    ///     List of APIs that are loaded in the context
-    /// </summary>
-    private readonly List<BadInteropApi> m_Apis = new List<BadInteropApi>();
+	/// <summary>
+	///     List of APIs that are loaded in the context
+	/// </summary>
+	private readonly List<BadInteropApi> m_Apis = new List<BadInteropApi>();
 
 	private readonly List<BadInteropExtension> m_Extensions = new List<BadInteropExtension>();
 
-    /// <summary>
-    ///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
-    /// </summary>
-    /// <param name="apis">Apis that should be added.</param>
-    public BadExecutionContextOptions(IEnumerable<BadInteropApi> apis)
+	/// <summary>
+	///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
+	/// </summary>
+	/// <param name="apis">Apis that should be added.</param>
+	public BadExecutionContextOptions(IEnumerable<BadInteropApi> apis)
 	{
 		m_Apis.AddRange(apis);
 	}
 
-    /// <summary>
-    ///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
-    /// </summary>
-    /// <param name="apis">Apis that should be added.</param>
-    public BadExecutionContextOptions(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
+	/// <summary>
+	///     Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
+	/// </summary>
+	/// <param name="apis">Apis that should be added.</param>
+	public BadExecutionContextOptions(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
 
 	public BadExecutionContextOptions(
 		IEnumerable<BadInteropApi> apis,
@@ -40,10 +40,10 @@ public class BadExecutionContextOptions
 
 	public static BadExecutionContextOptions Empty => new BadExecutionContextOptions();
 
-    /// <summary>
-    ///     List of APIs that are loaded in the context
-    /// </summary>
-    public IEnumerable<BadInteropApi> Apis => m_Apis;
+	/// <summary>
+	///     List of APIs that are loaded in the context
+	/// </summary>
+	public IEnumerable<BadInteropApi> Apis => m_Apis;
 
 	public void AddExtension<T>() where T : BadInteropExtension, new()
 	{
@@ -96,11 +96,11 @@ public class BadExecutionContextOptions
 		m_Apis.AddRange(apis);
 	}
 
-    /// <summary>
-    ///     Builds a new <see cref="BadExecutionContext" /> with the options provided in this Options Instance.
-    /// </summary>
-    /// <returns>The new <see cref="BadExecutionContext" /></returns>
-    public BadExecutionContext Build()
+	/// <summary>
+	///     Builds a new <see cref="BadExecutionContext" /> with the options provided in this Options Instance.
+	/// </summary>
+	/// <returns>The new <see cref="BadExecutionContext" /></returns>
+	public BadExecutionContext Build()
 	{
 		BadExecutionContext ctx = BadExecutionContext.Create(new BadInteropExtensionProvider(m_Extensions.ToArray()));
 

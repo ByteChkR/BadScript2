@@ -12,7 +12,7 @@ public class BadPropertyInfo
 	/// </summary>
 	/// <param name="type">(optional) Type</param>
 	/// <param name="isReadOnly">Is the property readonly?</param>
-	public BadPropertyInfo(BadClassPrototype? type = null, bool isReadOnly = false)
+	public BadPropertyInfo(BadClassPrototype type, bool isReadOnly = false)
 	{
 		Type = type;
 		IsReadOnly = isReadOnly;

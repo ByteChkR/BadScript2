@@ -1,9 +1,10 @@
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Functions.Extensions;
 
 /// <summary>
-/// Implements Extensions that aid in the creation of Interop Functions
+///     Implements Extensions that aid in the creation of Interop Functions
 /// </summary>
 public static partial class BadDynamicFunctionExtensions
 {
@@ -15,7 +16,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T>(this BadObject elem, string propName, Action<BadExecutionContext, T> func)
@@ -26,7 +28,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2>(
@@ -40,7 +43,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3>(
@@ -54,7 +58,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4>(
@@ -68,7 +73,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5>(
@@ -88,7 +94,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6>(
@@ -109,7 +116,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7>(
@@ -131,7 +139,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8>(
@@ -154,7 +163,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
@@ -178,7 +188,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
@@ -203,7 +214,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
@@ -229,7 +241,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
@@ -256,7 +269,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
@@ -284,7 +298,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
@@ -313,7 +328,8 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
@@ -343,6 +359,7 @@ public static partial class BadDynamicFunctionExtensions
 				func(ctx, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
 
 				return BadObject.Null;
-			});
+			},
+			BadAnyPrototype.Instance);
 	}
 }

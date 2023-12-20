@@ -22,7 +22,7 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
 		string name,
 		Func<BadExecutionContext, BadObject[], BadObject> func,
 		BadMetaData? meta = null,
-		params BadInterfacePrototype[] interfaces) : base(name, null, interfaces, meta)
+		params BadInterfacePrototype[] interfaces) : base(name, BadAnyPrototype.Instance, interfaces, meta)
 	{
 		m_Func = func;
 	}

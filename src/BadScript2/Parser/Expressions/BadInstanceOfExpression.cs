@@ -12,13 +12,13 @@ namespace BadScript2.Parser.Expressions;
 /// </summary>
 public class BadInstanceOfExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor for the 'instanceof' operator
-    /// </summary>
-    /// <param name="left">Left Side of the Expression</param>
-    /// <param name="right">Right Side of the Expression</param>
-    /// <param name="position">The Source Position</param>
-    public BadInstanceOfExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor for the 'instanceof' operator
+	/// </summary>
+	/// <param name="left">Left Side of the Expression</param>
+	/// <param name="right">Right Side of the Expression</param>
+	/// <param name="position">The Source Position</param>
+	public BadInstanceOfExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 

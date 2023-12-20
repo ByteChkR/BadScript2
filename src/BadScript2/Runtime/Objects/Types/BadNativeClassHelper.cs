@@ -9,10 +9,10 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public static class BadNativeClassHelper
 {
-    /// <summary>
-    ///     The Constructors for the Native Types
-    /// </summary>
-    private static readonly Dictionary<string, Func<BadObject[], BadObject>> s_NativeConstructors =
+	/// <summary>
+	///     The Constructors for the Native Types
+	/// </summary>
+	private static readonly Dictionary<string, Func<BadObject[], BadObject>> s_NativeConstructors =
 		new Dictionary<string, Func<BadObject[], BadObject>>
 		{
 			{
@@ -105,15 +105,15 @@ public static class BadNativeClassHelper
 
 					throw new BadRuntimeException("table constructor takes a table");
 				}
-			}
+			},
 		};
 
-    /// <summary>
-    ///     Returns a Constructor for the given Native Type
-    /// </summary>
-    /// <param name="name">Name of the Type</param>
-    /// <returns>Class Constructor</returns>
-    public static Func<BadObject[], BadObject> GetConstructor(string name)
+	/// <summary>
+	///     Returns a Constructor for the given Native Type
+	/// </summary>
+	/// <param name="name">Name of the Type</param>
+	/// <returns>Class Constructor</returns>
+	public static Func<BadObject[], BadObject> GetConstructor(string name)
 	{
 		return s_NativeConstructors[name];
 	}

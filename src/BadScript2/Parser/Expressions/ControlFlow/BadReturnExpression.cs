@@ -10,28 +10,28 @@ namespace BadScript2.Parser.Expressions.ControlFlow;
 /// </summary>
 public class BadReturnExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor of the Return Expression
-    /// </summary>
-    /// <param name="right">The (optional) return value</param>
-    /// <param name="position">Source Position of the Expression</param>
-    /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
-    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(false,
+	/// <summary>
+	///     Constructor of the Return Expression
+	/// </summary>
+	/// <param name="right">The (optional) return value</param>
+	/// <param name="position">Source Position of the Expression</param>
+	/// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
+	public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(false,
 		position)
 	{
 		Right = right;
 		IsRefReturn = isRefReturn;
 	}
 
-    /// <summary>
-    ///     Indicates if the return value is meant to be a reference
-    /// </summary>
-    public bool IsRefReturn { get; }
+	/// <summary>
+	///     Indicates if the return value is meant to be a reference
+	/// </summary>
+	public bool IsRefReturn { get; }
 
-    /// <summary>
-    ///     The (optional) return value
-    /// </summary>
-    public BadExpression? Right { get; private set; }
+	/// <summary>
+	///     The (optional) return value
+	/// </summary>
+	public BadExpression? Right { get; private set; }
 
 	public void SetRight(BadExpression? expr)
 	{

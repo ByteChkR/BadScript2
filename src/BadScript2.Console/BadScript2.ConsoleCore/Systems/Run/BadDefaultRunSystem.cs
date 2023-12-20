@@ -17,7 +17,7 @@ public class BadDefaultRunSystem : BadRunSystem
 		string file = args.First();
 		settings.Files = new[]
 		{
-			file
+			file,
 		};
 
 		if (!BadFileSystem.Instance.IsFile(file))
@@ -28,7 +28,7 @@ public class BadDefaultRunSystem : BadRunSystem
 			{
 				settings.Files = new[]
 				{
-					path
+					path,
 				};
 			}
 		}

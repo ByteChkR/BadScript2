@@ -2,6 +2,7 @@ using BadScript2;
 using BadScript2.IO;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 using HtmlAgilityPack;
 
@@ -83,7 +84,10 @@ public class BadHtmlTemplate
 		executionContext.Scope.SetCaller(caller);
 
 		BadObject mod = model as BadObject ?? BadObject.Wrap(model);
-		executionContext.Scope.DefineVariable("Model", mod, executionContext.Scope, new BadPropertyInfo(null, true));
+		executionContext.Scope.DefineVariable("Model",
+			mod,
+			executionContext.Scope,
+			new BadPropertyInfo(BadAnyPrototype.Instance, true));
 
 		foreach (HtmlNode node in input.DocumentNode.ChildNodes)
 		{

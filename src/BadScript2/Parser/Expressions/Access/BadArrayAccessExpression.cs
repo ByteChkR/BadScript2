@@ -13,19 +13,19 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
 {
-    /// <summary>
-    ///     Arguments of the array access.
-    /// </summary>
-    private readonly BadExpression[] m_Arguments;
+	/// <summary>
+	///     Arguments of the array access.
+	/// </summary>
+	private readonly BadExpression[] m_Arguments;
 
-    /// <summary>
-    ///     Constructor of the Array Access Expression
-    /// </summary>
-    /// <param name="left">Left side of the expression</param>
-    /// <param name="args">Right side of the expression</param>
-    /// <param name="position">Position inside the source code</param>
-    /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
-    public BadArrayAccessExpression(
+	/// <summary>
+	///     Constructor of the Array Access Expression
+	/// </summary>
+	/// <param name="left">Left side of the expression</param>
+	/// <param name="args">Right side of the expression</param>
+	/// <param name="position">Position inside the source code</param>
+	/// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
+	public BadArrayAccessExpression(
 		BadExpression left,
 		BadExpression[] args,
 		BadSourcePosition position,
@@ -37,25 +37,25 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
 		NullChecked = nullChecked;
 	}
 
-    /// <summary>
-    ///     The count of the right side arguments.
-    /// </summary>
-    public int ArgumentCount => m_Arguments.Length;
+	/// <summary>
+	///     The count of the right side arguments.
+	/// </summary>
+	public int ArgumentCount => m_Arguments.Length;
 
-    /// <summary>
-    ///     The Arguments of the Array Access.
-    /// </summary>
-    public IEnumerable<BadExpression> Arguments => m_Arguments;
+	/// <summary>
+	///     The Arguments of the Array Access.
+	/// </summary>
+	public IEnumerable<BadExpression> Arguments => m_Arguments;
 
-    /// <summary>
-    ///     Left side of the expression.
-    /// </summary>
-    public BadExpression Left { get; private set; }
+	/// <summary>
+	///     Left side of the expression.
+	/// </summary>
+	public BadExpression Left { get; private set; }
 
-    /// <summary>
-    ///     Indicates if the expression will be null-checked by the runtime
-    /// </summary>
-    public bool NullChecked { get; }
+	/// <summary>
+	///     Indicates if the expression will be null-checked by the runtime
+	/// </summary>
+	public bool NullChecked { get; }
 
 	public override IEnumerable<BadExpression> GetDescendants()
 	{

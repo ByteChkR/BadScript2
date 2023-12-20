@@ -11,11 +11,11 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
 {
 	private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("num");
 
-    /// <summary>
-    ///     Creates a new Native Number
-    /// </summary>
-    /// <param name="value">The Number Value</param>
-    public BadNumber(decimal value) : base(value) { }
+	/// <summary>
+	///     Creates a new Native Number
+	/// </summary>
+	/// <param name="value">The Number Value</param>
+	public BadNumber(decimal value) : base(value) { }
 
 	decimal IBadNumber.Value => Value;
 

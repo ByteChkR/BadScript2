@@ -17,33 +17,35 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
 		"Enumerator",
 		(_, _) => throw new BadRuntimeException("Cannot call method on enumerator"));
 
-    /// <summary>
-    ///     Current Function Reference
-    /// </summary>
-    private readonly BadObjectReference m_Current;
+	/// <summary>
+	///     Current Function Reference
+	/// </summary>
+	private readonly BadObjectReference m_Current;
 
-    /// <summary>
-    ///     The Internal Enumerator
-    /// </summary>
-    private readonly IEnumerator<BadObject> m_Enumerator;
+	/// <summary>
+	///     The Internal Enumerator
+	/// </summary>
+	private readonly IEnumerator<BadObject> m_Enumerator;
 
-    /// <summary>
-    ///     GetNext Function Reference
-    /// </summary>
-    private readonly BadObjectReference m_Next;
+	/// <summary>
+	///     GetNext Function Reference
+	/// </summary>
+	private readonly BadObjectReference m_Next;
 
-    /// <summary>
-    ///     Creates a new Interop Enumerator
-    /// </summary>
-    /// <param name="enumerator">Enumerator to iterate</param>
-    public BadInteropEnumerator(IEnumerator<BadObject> enumerator)
+	/// <summary>
+	///     Creates a new Interop Enumerator
+	/// </summary>
+	/// <param name="enumerator">Enumerator to iterate</param>
+	public BadInteropEnumerator(IEnumerator<BadObject> enumerator)
 	{
 		m_Enumerator = enumerator;
 		BadDynamicInteropFunction next = new BadDynamicInteropFunction("MoveNext",
-			_ => m_Enumerator.MoveNext());
+			_ => m_Enumerator.MoveNext(),
+			BadNativeClassBuilder.GetNative("bool"));
 
 		BadDynamicInteropFunction current = new BadDynamicInteropFunction("GetCurrent",
-			_ => m_Enumerator.Current);
+			_ => m_Enumerator.Current,
+			BadAnyPrototype.Instance);
 
 		m_Next = BadObjectReference.Make("BadArrayEnumerator.MoveNext", () => next);
 		m_Current = BadObjectReference.Make("BadArrayEnumerator.GetCurrent", () => current);

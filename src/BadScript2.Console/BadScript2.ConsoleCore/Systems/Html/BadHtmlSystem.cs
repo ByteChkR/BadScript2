@@ -31,8 +31,8 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 			{
 				Files = new[]
 				{
-					args[0]
-				}
+					args[0],
+				},
 			};
 		}
 
@@ -62,7 +62,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 		BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
 		{
 			Runtime = Runtime,
-			SkipEmptyTextNodes = settings.SkipEmptyTextNodes
+			SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
 		};
 
 		BadObject model = new BadTable();

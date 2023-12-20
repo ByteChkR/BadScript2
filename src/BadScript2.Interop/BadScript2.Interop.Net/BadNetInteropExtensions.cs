@@ -2,6 +2,7 @@
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Net;
 
@@ -26,30 +27,32 @@ public class BadNetInteropExtensions : BadInteropExtension
 
 		provider.RegisterObject<HttpContent>("ReadAsString",
 			c => new BadDynamicInteropFunction("ReadAsString",
-				_ => Content_ReadAsString(c)));
+				_ => Content_ReadAsString(c),
+				BadNativeClassBuilder.GetNative("string")));
 		provider.RegisterObject<HttpContent>("ReadAsArray",
 			c => new BadDynamicInteropFunction("ReadAsArray",
-				_ => Content_ReadAsArray(c)));
+				_ => Content_ReadAsArray(c),
+				BadNativeClassBuilder.GetNative("Array")));
 	}
 
-    /// <summary>
-    ///     Reads the content as a string
-    /// </summary>
-    /// <param name="content">The Http Content</param>
-    /// <returns>Awaitable Task with result string</returns>
-    private BadTask Content_ReadAsString(HttpContent content)
+	/// <summary>
+	///     Reads the content as a string
+	/// </summary>
+	/// <param name="content">The Http Content</param>
+	/// <returns>Awaitable Task with result string</returns>
+	private BadTask Content_ReadAsString(HttpContent content)
 	{
 		Task<string> task = content.ReadAsStringAsync();
 
 		return new BadTask(BadTaskUtils.WaitForTask(task), "HttpContent.ReadAsString");
 	}
 
-    /// <summary>
-    ///     Reads the content as array
-    /// </summary>
-    /// <param name="content">The Http Content</param>
-    /// <returns>Awaitable Task with result array</returns>
-    private BadTask Content_ReadAsArray(HttpContent content)
+	/// <summary>
+	///     Reads the content as array
+	/// </summary>
+	/// <param name="content">The Http Content</param>
+	/// <returns>Awaitable Task with result array</returns>
+	private BadTask Content_ReadAsArray(HttpContent content)
 	{
 		Task<byte[]> task = content.ReadAsByteArrayAsync();
 

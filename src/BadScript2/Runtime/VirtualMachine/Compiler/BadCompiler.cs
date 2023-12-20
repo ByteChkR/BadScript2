@@ -36,7 +36,7 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 namespace BadScript2.Runtime.VirtualMachine.Compiler;
 
 /// <summary>
-/// Implements the Compile for the BadVirtualMachine.
+///     Implements the Compile for the BadVirtualMachine.
 /// </summary>
 public class BadCompiler
 {
@@ -158,7 +158,7 @@ public class BadCompiler
 			typeof(BadAssignExpression), new BadAssignExpressionCompiler()
 		},
 		{
-			typeof(BadBinaryUnpackExpression) , new BadBinaryUnpackExpressionCompiler()
+			typeof(BadBinaryUnpackExpression), new BadBinaryUnpackExpressionCompiler()
 		},
 		{
 			typeof(BadUnaryUnpackExpression), new BadUnaryUnpackExpressionCompiler()
@@ -252,14 +252,14 @@ public class BadCompiler
 		},
 		{
 			typeof(BadInterfacePrototypeExpression), new BadInterfacePrototypeExpressionCompiler()
-		}
+		},
 	};
 
 	public BadCompiler(bool allowEval = false)
 	{
 		AllowEval = allowEval;
 	}
- 
+
 	public IEnumerable<BadInstruction> Compile(BadExpression expression)
 	{
 		Type t = expression.GetType();
@@ -270,7 +270,7 @@ public class BadCompiler
 			{
 				return new[]
 				{
-					new BadInstruction(BadOpCode.Eval, expression.Position, expression)
+					new BadInstruction(BadOpCode.Eval, expression.Position, expression),
 				};
 			}
 

@@ -56,7 +56,7 @@ public readonly struct BadExpressionValidatorContext
 		new BadFunctionNameIsReservedKeywordValidator(),
 		new BadFunctionParameterNameIsReservedKeywordValidator(),
 		new BadFunctionReturnTypeIsNotNullButNotAllPathsHaveAReturnStatementValidator(),
-		new BadDuplicateFunctionParameterNameValidator()
+		new BadDuplicateFunctionParameterNameValidator(),
 	};
 
 	public void AddError(

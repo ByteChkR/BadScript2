@@ -15,7 +15,7 @@ public class BadLogMask
 		},
 		{
 			"Default", 1
-		}
+		},
 	};
 
 	/// <summary>
@@ -168,7 +168,7 @@ public class BadLogMask
 		{
 			return new[]
 			{
-				"None"
+				"None",
 			};
 		}
 
@@ -176,7 +176,7 @@ public class BadLogMask
 		{
 			return new[]
 			{
-				"All"
+				"All",
 			};
 		}
 
@@ -186,7 +186,7 @@ public class BadLogMask
 			{
 				return new[]
 				{
-					s_Masks.First(x => x.Value == Mask).Key
+					s_Masks.First(x => x.Value == Mask).Key,
 				};
 			}
 

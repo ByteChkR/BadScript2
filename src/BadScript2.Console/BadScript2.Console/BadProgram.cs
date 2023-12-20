@@ -92,5 +92,4 @@ internal static class BadProgram
 
 		return r;
 	}
-	
 }

@@ -3,11 +3,12 @@ using BadScript2.Parser;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.VirtualMachine;
 
 /// <summary>
-/// Implements a Compiled Function.
+///     Implements a Compiled Function.
 /// </summary>
 public class BadCompiledFunction : BadFunction
 {
@@ -27,9 +28,11 @@ public class BadCompiledFunction : BadFunction
 		bool isConstant,
 		bool isStatic,
 		BadMetaData? metaData,
+		BadClassPrototype returnType,
 		params BadFunctionParameter[] parameters) : base(name,
 		isConstant,
 		isStatic,
+		returnType,
 		parameters)
 	{
 		m_Instructions = instructions;

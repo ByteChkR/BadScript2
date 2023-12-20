@@ -9,7 +9,8 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
 /// <summary>
-/// Implements a Member Table for a specific Type, including a Caching Mechanism for Reflected Members to avoid building the Reflection Table for every Object
+///     Implements a Member Table for a specific Type, including a Caching Mechanism for Reflected Members to avoid
+///     building the Reflection Table for every Object
 /// </summary>
 public class BadReflectedMemberTable
 {

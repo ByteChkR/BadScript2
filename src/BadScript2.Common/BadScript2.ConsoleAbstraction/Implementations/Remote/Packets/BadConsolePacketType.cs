@@ -11,5 +11,5 @@ public enum BadConsolePacketType : byte
 	Clear,
 	Disconnect,
 	HeartBeat,
-	Hello
+	Hello,
 }

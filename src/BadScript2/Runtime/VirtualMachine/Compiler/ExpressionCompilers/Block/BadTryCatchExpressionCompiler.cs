@@ -3,7 +3,7 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}"/>
+/// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTryCatchExpression expression)

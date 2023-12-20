@@ -1,9 +1,8 @@
 using BadScript2.Parser.Expressions.Function;
-using BadScript2.Parser.Expressions.Types;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Function;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}"/>
+/// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadInvocationExpressionCompiler : BadExpressionCompiler<BadInvocationExpression>
 {
 	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadInvocationExpression expression)

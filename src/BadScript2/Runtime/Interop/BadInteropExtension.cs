@@ -10,8 +10,8 @@ public abstract class BadInteropExtension
 		AddExtensions(provider);
 	}
 
-    /// <summary>
-    ///     Adds extensions to the list of registered extensions
-    /// </summary>
-    protected abstract void AddExtensions(BadInteropExtensionProvider provider);
+	/// <summary>
+	///     Adds extensions to the list of registered extensions
+	/// </summary>
+	protected abstract void AddExtensions(BadInteropExtensionProvider provider);
 }

@@ -17,10 +17,10 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 	private readonly BadEditableSetting<BadRuntimeSettings, bool> m_WriteStackTraceInRuntimeErrors =
 		new BadEditableSetting<BadRuntimeSettings, bool>(nameof(WriteStackTraceInRuntimeErrors));
 
-    /// <summary>
-    ///     Creates a new instance of the BadRuntimeSettings class.
-    /// </summary>
-    public BadRuntimeSettings() : base("Runtime") { }
+	/// <summary>
+	///     Creates a new instance of the BadRuntimeSettings class.
+	/// </summary>
+	public BadRuntimeSettings() : base("Runtime") { }
 
 	public bool WriteStackTraceInRuntimeErrors
 	{
@@ -28,10 +28,10 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 		set => m_WriteStackTraceInRuntimeErrors.Set(value);
 	}
 
-    /// <summary>
-    ///     The Default File Extension of BadScript2 Scripts
-    /// </summary>
-    public string FileExtension
+	/// <summary>
+	///     The Default File Extension of BadScript2 Scripts
+	/// </summary>
+	public string FileExtension
 	{
 		get => m_FileExtension.GetValue()!;
 		set => m_FileExtension.Set(value);

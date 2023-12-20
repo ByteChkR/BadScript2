@@ -11,13 +11,13 @@ namespace BadScript2.Parser.Expressions.Binary.Math;
 /// </summary>
 public class BadSubtractExpression : BadBinaryExpression
 {
-    /// <summary>
-    ///     Constructor of the Subtract Expression
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source Position of the Expression</param>
-    public BadSubtractExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	/// <summary>
+	///     Constructor of the Subtract Expression
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">Source Position of the Expression</param>
+	public BadSubtractExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
 		right,
 		position) { }
 
@@ -26,15 +26,15 @@ public class BadSubtractExpression : BadBinaryExpression
 		return "-";
 	}
 
-    /// <summary>
-    ///     Performs the Subtraction Operation on left and right
-    /// </summary>
-    /// <param name="left">Left side of the Expression</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="pos">Source position that is used to generate an Exception if left or right are not a number</param>
-    /// <returns>The result of the Subtraction operation of left by right</returns>
-    /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
-    public static BadObject Sub(BadObject left, BadObject right, BadSourcePosition pos)
+	/// <summary>
+	///     Performs the Subtraction Operation on left and right
+	/// </summary>
+	/// <param name="left">Left side of the Expression</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="pos">Source position that is used to generate an Exception if left or right are not a number</param>
+	/// <returns>The result of the Subtraction operation of left by right</returns>
+	/// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
+	public static BadObject Sub(BadObject left, BadObject right, BadSourcePosition pos)
 	{
 		if (left is IBadNumber lNum)
 		{

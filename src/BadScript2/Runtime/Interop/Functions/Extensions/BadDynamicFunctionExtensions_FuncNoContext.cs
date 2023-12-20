@@ -1,41 +1,60 @@
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Functions.Extensions;
 
 public static partial class BadDynamicFunctionExtensions
 {
-	public static void SetFunction(this BadObject elem, string propName, Func<BadObject> func)
+	public static void SetFunction(
+		this BadObject elem,
+		string propName,
+		Func<BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetFunction(propName, _ => func());
+		elem.SetFunction(propName, _ => func(), returnType);
 	}
 
-	public static void SetFunction<T>(this BadObject elem, string propName, Func<T, BadObject> func)
+	public static void SetFunction<T>(
+		this BadObject elem,
+		string propName,
+		Func<T, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetFunction<T>(propName, (_, t) => func(t));
+		elem.SetFunction<T>(propName, (_, t) => func(t), returnType);
 	}
 
-	public static void SetFunction<T1, T2>(this BadObject elem, string propName, Func<T1, T2, BadObject> func)
+	public static void SetFunction<T1, T2>(
+		this BadObject elem,
+		string propName,
+		Func<T1, T2, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetFunction<T1, T2>(propName, (_, t1, t2) => func(t1, t2));
+		elem.SetFunction<T1, T2>(propName, (_, t1, t2) => func(t1, t2), returnType);
 	}
 
-	public static void SetFunction<T1, T2, T3>(this BadObject elem, string propName, Func<T1, T2, T3, BadObject> func)
+	public static void SetFunction<T1, T2, T3>(
+		this BadObject elem,
+		string propName,
+		Func<T1, T2, T3, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetFunction<T1, T2, T3>(propName, (_, t1, t2, t3) => func(t1, t2, t3));
+		elem.SetFunction<T1, T2, T3>(propName, (_, t1, t2, t3) => func(t1, t2, t3), returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, BadObject> func)
+		Func<T1, T2, T3, T4, BadObject> func,
+		BadClassPrototype returnType)
 	{
-		elem.SetFunction<T1, T2, T3, T4>(propName, (_, t1, t2, t3, t4) => func(t1, t2, t3, t4));
+		elem.SetFunction<T1, T2, T3, T4>(propName, (_, t1, t2, t3, t4) => func(t1, t2, t3, t4), returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, BadObject> func)
+		Func<T1, T2, T3, T4, T5, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5>(propName,
 			(
@@ -44,13 +63,15 @@ public static partial class BadDynamicFunctionExtensions
 				t2,
 				t3,
 				t4,
-				t5) => func(t1, t2, t3, t4, t5));
+				t5) => func(t1, t2, t3, t4, t5),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6>(propName,
 			(
@@ -60,13 +81,15 @@ public static partial class BadDynamicFunctionExtensions
 				t3,
 				t4,
 				t5,
-				t6) => func(t1, t2, t3, t4, t5, t6));
+				t6) => func(t1, t2, t3, t4, t5, t6),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7>(propName,
 			(
@@ -77,13 +100,15 @@ public static partial class BadDynamicFunctionExtensions
 				t4,
 				t5,
 				t6,
-				t7) => func(t1, t2, t3, t4, t5, t6, t7));
+				t7) => func(t1, t2, t3, t4, t5, t6, t7),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8>(propName,
 			(
@@ -95,13 +120,15 @@ public static partial class BadDynamicFunctionExtensions
 				t5,
 				t6,
 				t7,
-				t8) => func(t1, t2, t3, t4, t5, t6, t7, t8));
+				t8) => func(t1, t2, t3, t4, t5, t6, t7, t8),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(propName,
 			(
@@ -114,13 +141,15 @@ public static partial class BadDynamicFunctionExtensions
 				t6,
 				t7,
 				t8,
-				t9) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9));
+				t9) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(propName,
 			(
@@ -134,13 +163,15 @@ public static partial class BadDynamicFunctionExtensions
 				t7,
 				t8,
 				t9,
-				t10) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10));
+				t10) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(propName,
 			(
@@ -155,13 +186,15 @@ public static partial class BadDynamicFunctionExtensions
 				t8,
 				t9,
 				t10,
-				t11) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11));
+				t11) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(propName,
 			(
@@ -188,13 +221,15 @@ public static partial class BadDynamicFunctionExtensions
 				t9,
 				t10,
 				t11,
-				t12));
+				t12),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(propName,
 			(
@@ -223,13 +258,15 @@ public static partial class BadDynamicFunctionExtensions
 				t10,
 				t11,
 				t12,
-				t13));
+				t13),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(propName,
 			(
@@ -260,13 +297,15 @@ public static partial class BadDynamicFunctionExtensions
 				t11,
 				t12,
 				t13,
-				t14));
+				t14),
+			returnType);
 	}
 
 	public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
 		this BadObject elem,
 		string propName,
-		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, BadObject> func)
+		Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, BadObject> func,
+		BadClassPrototype returnType)
 	{
 		elem.SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(propName,
 			(
@@ -299,6 +338,7 @@ public static partial class BadDynamicFunctionExtensions
 				t12,
 				t13,
 				t14,
-				t15));
+				t15),
+			returnType);
 	}
 }

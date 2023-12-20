@@ -12,28 +12,28 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadAssignExpression : BadExpression
 {
-    /// <summary>
-    ///     Constructor of the Assign Expression
-    /// </summary>
-    /// <param name="left">Left side that the right side will be assigned to</param>
-    /// <param name="right">Right side of the Expression</param>
-    /// <param name="position">Source position of the Expression</param>
-    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(false,
+	/// <summary>
+	///     Constructor of the Assign Expression
+	/// </summary>
+	/// <param name="left">Left side that the right side will be assigned to</param>
+	/// <param name="right">Right side of the Expression</param>
+	/// <param name="position">Source position of the Expression</param>
+	public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(false,
 		position)
 	{
 		Left = left;
 		Right = right;
 	}
 
-    /// <summary>
-    ///     Left side that the right side will be assigned to
-    /// </summary>
-    public BadExpression Left { get; set; }
+	/// <summary>
+	///     Left side that the right side will be assigned to
+	/// </summary>
+	public BadExpression Left { get; set; }
 
-    /// <summary>
-    ///     Right side of the Expression
-    /// </summary>
-    public BadExpression Right { get; set; }
+	/// <summary>
+	///     Right side of the Expression
+	/// </summary>
+	public BadExpression Right { get; set; }
 
 	public override IEnumerable<BadExpression> GetDescendants()
 	{

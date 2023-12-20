@@ -47,7 +47,7 @@ public class BadConsoleColorChangePacket : BadConsolePacket
 		{
 			(byte)BadConsolePacketType.Color,
 			(byte)(IsBackground ? 1 : 0),
-			(byte)Color
+			(byte)Color,
 		};
 	}
 }

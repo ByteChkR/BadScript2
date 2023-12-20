@@ -36,13 +36,13 @@ public abstract class BadScriptException : Exception
 		Position = position;
 	}
 
-    /// <summary>
-    ///     The Original Error Message
-    /// </summary>
-    public string OriginalMessage { get; }
+	/// <summary>
+	///     The Original Error Message
+	/// </summary>
+	public string OriginalMessage { get; }
 
-    /// <summary>
-    ///     The source position of where the error occurred
-    /// </summary>
-    public BadSourcePosition? Position { get; }
+	/// <summary>
+	///     The source position of where the error occurred
+	/// </summary>
+	public BadSourcePosition? Position { get; }
 }

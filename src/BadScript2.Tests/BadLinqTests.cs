@@ -105,12 +105,12 @@ public class BadLinqTests
 		List<BadObject> a = new BadObject[]
 		{
 			1,
-			2
+			2,
 		}.ToList();
 		IEnumerable d = new BadObject[]
 		{
 			new BadArray(a),
-			new BadArray(a)
+			new BadArray(a),
 		};
 		object[] o = d.SelectMany("x=>x").Cast<object>().ToArray();
 		Assert.That(o.Length, Is.EqualTo(4));
