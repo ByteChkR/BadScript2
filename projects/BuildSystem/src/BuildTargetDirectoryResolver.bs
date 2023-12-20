@@ -52,9 +52,9 @@ class BuildTargetDirectoryResolver
 		|PARAM name string: the build target name
 		|RET any: The Build Target with the specified name.
 	|@
-	function Resolve(string name!)
+	function any Resolve(string name!)
 	{
-		return Targets.FirstOrDefault(function(t) => t.GetName() == name);
+		return Targets.FirstOrDefault(function bool FindByName(t) {return t.GetName() == name;});
 	}
 
 

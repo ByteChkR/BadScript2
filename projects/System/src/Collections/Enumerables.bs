@@ -2,13 +2,13 @@
 	Returns an Enumerable of prime numbers
 	|RET Enumerable: Enumerable of Prime Numbers
 |@
-function Primes()
+function Table Primes()
 {
-	function GetEnumerator()
+	function Table GetEnumerator()
 	{
 		let i = 1;
-		function GetCurrent() => i;
-		compiled fast function MoveNext()
+		function num GetCurrent() => i;
+		compiled fast function bool MoveNext()
 		{
 			i += 2;
 			while(!System.Math.IsPrime(i))
@@ -33,12 +33,12 @@ function Primes()
 	|PARAM obj any: The object that will infinitely repeat in this enumerable
 	|RET Enumerable: Infinite Enumerable
 |@
-function Infinite(obj)
+function Table Infinite(any obj)
 {
-	function GetEnumerator()
+	function Table GetEnumerator()
 	{
-		function GetCurrent() => obj;
-		function MoveNext() => true;
+		function any GetCurrent() => obj;
+		function bool MoveNext() => true;
 		return {
 			GetCurrent: GetCurrent,
 			MoveNext: MoveNext
@@ -50,27 +50,26 @@ function Infinite(obj)
 }
 
 @|
-	Returns an Enumerable that repeats the same object 'num' times.
+	Returns an Enumerable that repeats the same object 'number' times.
 	|PARAM obj any: The object that will repeat in this enumerable
-	|PARAM num num: The amount of repetitions.
+	|PARAM number num: The amount of repetitions.
 	|RET Enumerable: Enumerable
 |@
-function Repeat(obj, num)
+function Table Repeat(any obj, num number)
 {
-	Assert.IsNumber(num);
-	if(num < 0)
+	if(number < 0)
 	{
 		throw "Repeat amount can not be negative";
 	}
 
-	function GetEnumerator()
+	function Table GetEnumerator()
 	{
 		let i = 0;
-		function GetCurrent() => obj;
-		function MoveNext()
+		function any GetCurrent() => obj;
+		function bool MoveNext()
 		{
 			i++;
-			return i <= num;
+			return i <= number;
 		}
 		return {
 			GetCurrent: GetCurrent,
@@ -89,12 +88,9 @@ function Repeat(obj, num)
 	|PARAM step num: Step Number
 	|RET Enumerable: Enumerable
 |@
-function Range(from, to, step?)
+function Table Range(num from, num to, num step?)
 {
 	step ??= 1;
-	Assert.IsNumber(from);
-	Assert.IsNumber(to);
-	Assert.IsNumber(step);
 	if(from > to && step >= 0)
 	{
 		throw "Range Step must be negative from " + from + " to " + to;
@@ -104,11 +100,11 @@ function Range(from, to, step?)
 		throw "Range Step must be positive from " + from + " to  " + to;
 	}
 
-	function GetEnumerator()
+	function Table GetEnumerator()
 	{
 		let current = from - step;
-		function GetCurrent() => current;
-		function MoveNext()
+		function num GetCurrent() => current;
+		function bool MoveNext()
 		{
 			current += step;
 			return  !(from < to && current >= to) &&

@@ -14,16 +14,16 @@
 }
 
 
-const args = $(Environment.Runtime).GetArguments();
+const Array args = $(Environment.Runtime).GetArguments();
 
 #if Environment.Runtime == "Runtime"
 {
-	const targets = args.Length == 0 ? ["default"] : args;
+	const Array targets = args.Length == 0 ? ["default"] : args;
 }
 
 #if Environment.Runtime == "OS"
 {
-	const targets = args.Length == 0 ? ["default"] : args.Skip(1).ToArray();
+	const Array targets = args.Length == 0 ? ["default"] : args.Skip(1).ToArray();
 }
 
 $(CONSOLE_API).WriteLine("Targets: " + targets);

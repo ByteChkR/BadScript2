@@ -3,8 +3,8 @@
 |@
 class SourceReader
 {
-	let _src;
-	let _current;
+	const string _src;
+	let num _current;
 	@|
 		Source Reader Constructor
 		|PARAM src string: The Source code
@@ -21,9 +21,8 @@ class SourceReader
 		|PARAM str string: The string sequence to test against
 		|RET bool: True if the next string sequence is equal to str
 	|@
-	compiled fast function Is(str!)
+	compiled fast function bool Is(string str!)
 	{
-		Assert.IsString(str);
 		for(let i = 0; i < str.Length; i++)
 		{
 			if(GetCurrent(i) != str[i])
@@ -40,9 +39,8 @@ class SourceReader
 		|PARAM str string: The string sequence to test against
 		|RET: void
 	|@
-	function Eat(str!)
+	function Eat(string str!)
 	{
-		Assert.IsString(str);
 		if(!Is(str))
 		{
 			throw $"Expected {str}";
@@ -55,7 +53,7 @@ class SourceReader
 		Returns true if the next character is a whitespace character
 		|RET bool: True if the next character is a whitespace character
 	|@
-	function IsWhiteSpace()
+	function bool IsWhiteSpace()
 	{
 		return Is("\n") || Is("\r") || Is(" ") || Is("\t");
 	}
@@ -77,7 +75,7 @@ class SourceReader
 		Parses a word
 		|RET string: Parsed Word String
 	|@
-	compiled fast function ParseWord()
+	compiled fast function string ParseWord()
 	{
 		let r = "";
 		while(!IsWhiteSpace())
@@ -92,12 +90,12 @@ class SourceReader
 		Returns True if the current reader position plus the offset is out of bounds
 		|RET bool:
 	|@
-	function IsEOF(offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0;
+	function bool IsEOF(num offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0;
 	@|
 		Returns a character at the specified offset(default=0) or '\0' if IsEOF(offset) is true.
 		|RET string:
 	|@
-	function GetCurrent(offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)];
+	function string GetCurrent(num offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)];
 
 	@|
 		Moves the reader to the next position
@@ -112,7 +110,7 @@ class SourceReader
 		Parses a single line comment
 		|RET string: Parsed Comment String
 	|@
-	compiled fast function ReadComment()
+	compiled fast function string ReadComment()
 	{
 		let r = "";
 		while(!IsEOF() && GetCurrent() != "\n")
@@ -129,7 +127,7 @@ class SourceReader
 		Parses a multi line comment
 		|RET string: Parsed Comment String
 	|@
-	compiled fast function ReadMultilineComment()
+	compiled fast function string ReadMultilineComment()
 	{
 		let r = GetCurrent();
 		MoveNext();
@@ -153,7 +151,7 @@ class SourceReader
 		Parses a meta comment
 		|RET string: Parsed Comment String
 	|@
-	compiled fast function ReadMetaComment()
+	compiled fast function string ReadMetaComment()
 	{
 		let r = GetCurrent();
 		MoveNext();
@@ -177,7 +175,7 @@ class SourceReader
 		Parses a string expression
 		|RET string: Parsed String
 	|@
-	compiled fast function ReadString()
+	compiled fast function string ReadString()
 	{
 		let r = GetCurrent();
 		MoveNext();
@@ -201,7 +199,7 @@ class SourceReader
 		Removes all comments from the source code and returns it.
 		|RET string: Stripped Source
 	|@
-	compiled fast function StripComments()
+	compiled fast function string StripComments()
 	{
 		let r = "";
 		while(!IsEOF())

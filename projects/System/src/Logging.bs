@@ -3,16 +3,16 @@
 |@
 class Logger
 {
-	let OnLog;
-	let OnWarn;
+	const Events.Event OnLog;
+	const Events.Event OnWarn;
 
 	@|
 		Logger Constructor
 	|@
 	function Logger()
 	{
-		OnLog = new Events.Event(function(msg) => {});
-		OnWarn = new Events.Event(function(msg) => {});
+		OnLog = new Events.Event(function(msg) {});
+		OnWarn = new Events.Event(function(msg) {});
 	}
 
 	@|
@@ -42,8 +42,8 @@ class Logger
 class TagLogger : Logger
 {
 
-	let LogTag = "[LOG]";
-	let WarnTag = "[WARN]";
+	let string LogTag = "[LOG]";
+	let string WarnTag = "[WARN]";
 
 	@|
 		Logger Constructor
@@ -78,7 +78,7 @@ class TagLogger : Logger
 	Creates a Default Logger hooked up to the Console Output
 	|RET System.Logging.Logger: Default Logger Instance
 |@
-function CreateDefaultLogger()
+function Logger CreateDefaultLogger()
 {
 	let l = new Logger();
 	l.OnLog += Console.WriteLine;

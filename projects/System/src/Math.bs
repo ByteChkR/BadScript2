@@ -4,7 +4,7 @@
 	|PARAM n num: Positive Number
 	|RET num: Sum from 1 to N
 |@
-const compiled fast function Sum(num n)
+const compiled fast function num Sum(num n)
 {
 	if(n < 0)
 	{
@@ -24,7 +24,7 @@ const compiled fast function Sum(num n)
 	|PARAM n num: Positive Number
 	|RET num: True if n is Prime
 |@
-const compiled fast function IsPrime(num n)
+const compiled fast function num IsPrime(num n)
 {
 	if(n <= 0)
 	{

@@ -15,13 +15,13 @@ function CheckSignature(a!, b!)
 |@
 class Event
 {
-	let _CallList;
-	let _CallPrototype;
+	const Array _CallList;
+	const Function _CallPrototype;
 	@|
 		Event Constructor
 		|PARAM callProto: The Function Signature of this event.
 	|@
-	function Event(callProto!)
+	function Event(Function callProto!)
 	{
 		Assert.IsFunction(callProto);
 		_CallList = [];
@@ -68,14 +68,14 @@ class Event
 		|PARAM func: The listener to subscribe.
 		|RET: void
 	|@
-	function op_AddAssign(func!) => Add(func);
+	function any op_AddAssign(func!) => Add(func);
 
 	@|
 		Operator Override for '-='
 		|PARAM func: The listener to unsubscribe.
 		|RET: void
 	|@
-	function op_SubtractAssign(func!) => Remove(func);
+	function any op_SubtractAssign(func!) => Remove(func);
 
 	@|
 		Operator Override for '()'
@@ -83,7 +83,7 @@ class Event
 		|RET: void
 	|@
 
-	function op_Invoke(args*) => Invoke(args);
+	function any op_Invoke(args*) => Invoke(args);
 
 }
 

@@ -5,7 +5,7 @@
 class BuildTargetResolver
 {
 	
-	const _Funcs = [];
+	const Array _Funcs = [];
 	@|
 		Adds a Resolver Function
 		|PARAM func Function: Resolver Function
@@ -22,7 +22,7 @@ class BuildTargetResolver
 		|PARAM name string: Name of the Build Target
 		|RET any: The Build Target with the specified name
 	|@
-	function Resolve(string name!)
+	function Table Resolve(string name!)
 	{
 		foreach(func in _Funcs)
 		{

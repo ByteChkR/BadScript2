@@ -317,7 +317,7 @@ class CommandlineParser
 		return ArgumentNameExists(name) || ArgumentShortExists(name);
 	}
 
-	function Flag(string name!, string short?, string description?)
+	function any Flag(string name!, string short?, string description?)
 	{
 		if(ArgumentNameExists(name) || (short != null && ArgumentShortExists(short)))
 		{
@@ -328,7 +328,7 @@ class CommandlineParser
 		return this;
 	}
 
-	function Value(string name!, string short?, bool required?, string description?, bool allowMultiple?)
+	function any Value(string name!, string short?, bool required?, string description?, bool allowMultiple?)
 	{
 		if(ArgumentNameExists(name) || (short != null && ArgumentShortExists(short)))
 		{
@@ -361,7 +361,7 @@ class CommandlineParser
 		return Parse(args.Split(" ", true));
 	}
 
-	function GetHelpText()
+	function string GetHelpText()
 	{
 		let string r = "Arguments:\n";
 		for (let num i = 0; i < _arguments.Length; i++) {

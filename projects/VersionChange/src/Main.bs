@@ -1,6 +1,6 @@
 const args = Runtime.GetArguments();
 
-function FindNode(n, name)
+function any FindNode(n, name)
 {
 	foreach(node in n)
 	{
@@ -9,6 +9,8 @@ function FindNode(n, name)
 			return node;
 		}
 	}
+
+	return null;
 }
 
 function ApplyVersion(csProjFile, changeStr)

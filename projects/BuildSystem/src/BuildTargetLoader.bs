@@ -11,7 +11,7 @@ class BuildTargetLoader
 		|PARAM str string: The String to be resolved
 		|RET string: the resolved string
 	|@
-	function ResolveString(Table context!, string str)
+	function string ResolveString(Table context!, string str)
 	{
 		if(str.Contains("{") && str.Contains("}"))
 		{
@@ -27,7 +27,7 @@ class BuildTargetLoader
 		|PARAM table Table: The Table to be resolved
 		|RET Table: the resolved string
 	|@
-	function ResolveTable(Table context!, Table table)
+	function Table ResolveTable(Table context!, Table table)
 	{
 		const t = {};
 		foreach(key in table.Keys)
@@ -43,7 +43,7 @@ class BuildTargetLoader
 		|PARAM array Array: The Array to be resolved
 		|RET Array: the resolved Array
 	|@
-	function ResolveArray(Table context!, Array array)
+	function Array ResolveArray(Table context!, Array array)
 	{
 		for(let i = 0; i < array.Length; i++)
 		{
@@ -58,7 +58,7 @@ class BuildTargetLoader
 		|PARAM obj any: The Object to be resolved
 		|RET any: the resolved Object
 	|@
-	function Resolve(Table context!, obj)
+	function any Resolve(Table context!, obj)
 	{
 		if(obj == null)
 		{
@@ -85,7 +85,7 @@ class BuildTargetLoader
 		|PARAM file string: The Build Target File
 		|RET any: the resolved Object
 	|@
-	function Load(string file!, context)
+	function any Load(string file!, Table context)
 	{
 		return Resolve(context, Json.FromJson($(FILESYSTEM_API).File.ReadAllText(file)));
 	}

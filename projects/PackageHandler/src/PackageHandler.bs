@@ -3,12 +3,12 @@
 const libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
 
 const libLoaders = {};
-libLoaders[".bs"] = function(file) => IO.File.ReadAllText(file);
-libLoaders[".defl"] = function(file) => Compression.Deflate.Decompress(IO.File.ReadAllBytes(file));
-libLoaders[".gzip"] = function(file) => Compression.GZip.Decompress(IO.File.ReadAllBytes(file));
-libLoaders[".zlib"] = function(file) => Compression.ZLib.Decompress(IO.File.ReadAllBytes(file));
+libLoaders[".bs"] = function string PlainText(file) => IO.File.ReadAllText(file);
+libLoaders[".defl"] = function string Deflate(file) => Compression.Deflate.Decompress(IO.File.ReadAllBytes(file));
+libLoaders[".gzip"] = function string GZip(file) => Compression.GZip.Decompress(IO.File.ReadAllBytes(file));
+libLoaders[".zlib"] = function string ZLib(file) => Compression.ZLib.Decompress(IO.File.ReadAllBytes(file));
 
-function GetLibLoader(file)
+function Function GetLibLoader(file)
 {
 	const ext = IO.Path.GetExtension(file);
 	if(!libLoaders.Keys.Contains(ext))
@@ -19,7 +19,7 @@ function GetLibLoader(file)
 }
 
 
-function FindFile(packageName!)
+function string FindFile(packageName!)
 {
 	let files = IO.Directory.GetFiles(libDir, ".bs", true);
 	foreach(file in files)
@@ -34,7 +34,7 @@ function FindFile(packageName!)
 	return null;
 }
 
-function Import(str!)
+function any Import(str!)
 {
 
 	let name = str;

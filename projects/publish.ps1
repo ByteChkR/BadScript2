@@ -24,15 +24,6 @@ function Build-Projects {
     cd ../VersionChange
     Write-Progress -Activity "BadScript2 Project Build" -Status "Publish App 'VersionChange' 40%" -PercentComplete 20
     . $bs build PublishApp
-    cd ../WebFramework
-    Write-Progress -Activity "BadScript2 Project Build" -Status "Publish Library 'WebFramework' 50%" -PercentComplete 30
-    . $bs build PublishLib
-    cd ../HighscoreApi
-    Write-Progress -Activity "BadScript2 Project Build" -Status "Publish Library 'HighscoreApi' 70%" -PercentComplete 40
-    . $bs build PublishLib
-    cd ../HighscoreApi.Console
-    Write-Progress -Activity "BadScript2 Project Build" -Status "Publish App 'HighscoreApi.Console' 80%" -PercentComplete 50
-    . $bs build PublishApp
     cd ../CommandlineParser
     Write-Progress -Activity "BadScript2 Project Build" -Status "Publish Library 'CommandlineParser' 100%" -PercentComplete 60
     . $bs build PublishLib

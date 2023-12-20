@@ -5,12 +5,12 @@
 |@
 class BuildLogger
 {
-	const Tag;
+	const string Tag;
 	@|
 		Creates a new BuildLogger instance with the specified tag
 		|PARAM tag string: The tag that is displayed
 	|@
-	function BuildLogger(tag!)
+	function BuildLogger(string tag!)
 	{
 		Tag = tag;
 	}

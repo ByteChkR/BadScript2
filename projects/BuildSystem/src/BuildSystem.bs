@@ -22,9 +22,9 @@ class BuildSystem
 		GetTarget(name).Run(this, context);
 	}
 
-	function GetTarget(string name!)
+	function any GetTarget(string name!)
 	{
-		let target = Targets.FirstOrDefault(function(t) => t.GetName() == name);
+		let target = Targets.FirstOrDefault(function bool FindByName(t) {return t.GetName() == name;});
 		if(target == null)
 		{
 			target = Resolver.Resolve(name);

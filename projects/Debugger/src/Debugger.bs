@@ -1,25 +1,25 @@
 
-const files = [];
-let stepMode = true;
-const commands = {};
-const breakPoints = [];
+const Array files = [];
+let bool stepMode = true;
+const Table commands = {};
+const Array breakPoints = [];
 
 class DebuggerCommand
 {
 	const _func;
 	const _helpText;
-	function DebuggerCommand(func, helpText)
+	function DebuggerCommand(Function func!, string helpText!)
 	{
 		_func = func;
 		_helpText = helpText;
 	}
 
-	function Invoke(step, cmd)
+	function any Invoke(any step!, string cmd!)
 	{
 		return _func(step, cmd);
 	}
 
-	function GetHelp()
+	function string GetHelp()
 	{
 		return _helpText;
 	}
@@ -27,17 +27,17 @@ class DebuggerCommand
 
 class BreakPoint
 {
-	let File;
-	let Line;
-	let Condition;
-	function IsBreakPoint(step)
+	let string File;
+	let num Line;
+	let string Condition;
+	function bool IsBreakPoint(any step!)
 	{
 		return step.Position.FileName == File &&
 				step.Line.ToString() == Line &&
 				step.Evaluate(Condition);
 	}
 
-	function BreakPoint(file, line, condition?)
+	function BreakPoint(string file!, num line!, string condition?)
 	{
 		File = file;
 		Line = line;
@@ -45,12 +45,12 @@ class BreakPoint
 	}
 }
 
-function ExecuteCommand(step, name, cmd)
+function ExecuteCommand(any step!, string name!, string cmd!)
 {
 	commands[name].Invoke(step, cmd);
 }
 
-function FindCommand(cmd)
+function string FindCommand(string cmd!)
 {
 	if(cmd == null)
 	{
@@ -66,7 +66,7 @@ function FindCommand(cmd)
 	return null;
 }
 
-function DebugStepCommandline(step)
+function DebugStepCommandline(any step!)
 {
 	let string cmd;
 	while(cmd != "")
@@ -89,7 +89,7 @@ function DebugStepCommandline(step)
 	}
 }
 
-function DisplayLoadFileDialog(file)
+function DisplayLoadFileDialog(string file!)
 {
 	Console.WriteLine($"Loading File: {file}");
 	Console.Write("Do you want to load it into the debugger? [y/N]: ");
@@ -101,7 +101,7 @@ function DisplayLoadFileDialog(file)
 }
 
 
-function IsBreakPoint(step)
+function bool IsBreakPoint(string step!)
 {
 	for (let i = 0; i < breakPoints.Length; i++) 
 	{
@@ -115,13 +115,13 @@ function IsBreakPoint(step)
 }
 
 
-function ToggleStep(step, cmd)
+function ToggleStep(any step!, string cmd!)
 {
 	stepMode = !stepMode;
-	Console.WriteLine($"Step Mode: {stepMode}")
+	Console.WriteLine($"Step Mode: {stepMode}");
 }
 
-function UnsetBreakPoint(step, cmd)
+function UnsetBreakPoint(any step!, string cmd!)
 {
 	const parts = cmd.Remove(0, "sbp".Length).Split(" ", true);
 	if(parts.Length != 2)
@@ -143,7 +143,7 @@ function UnsetBreakPoint(step, cmd)
 	}
 }
 
-function SetBreakPoint(step, cmd)
+function SetBreakPoint(any step!, string cmd!)
 {
 	const parts = cmd.Remove(0, "sbp".Length).Split(" ", true);
 	
@@ -183,7 +183,7 @@ function SetBreakPoint(step, cmd)
 	breakPoints.Add(new BreakPoint(file, line, condition));
 }
 
-function Help(step, cmd)
+function Help(any step!, string cmd!)
 {
 	let s = "Help:\n";
 	foreach(key in commands.Keys)
@@ -194,12 +194,12 @@ function Help(step, cmd)
 	Console.WriteLine(s);
 }
 
-function ViewSource(step, cmd)
+function ViewSource(any step!, string cmd!)
 {
 	Console.WriteLine(step.SourceView);
 }
 
-function ListBreakPoints(step, cmd)
+function ListBreakPoints(any step!, string cmd!)
 {
 	foreach(bp in breakPoints)
 	{
@@ -207,7 +207,7 @@ function ListBreakPoints(step, cmd)
 	}
 }
 
-function EvaluateInStep(step, cmd)
+function EvaluateInStep(any step!, string cmd!)
 {
 	let src = cmd.Remove(0, "eval".Length);
 	Console.WriteLine($"Return: {step.Evaluate(src)}");
@@ -221,7 +221,7 @@ commands["lbp"] = new DebuggerCommand(ListBreakPoints, "Lists all Breakpoints.")
 commands["view"] = new DebuggerCommand(ViewSource, "Displays the Source Code with the current position of execution.");
 commands["eval"] = new DebuggerCommand(EvaluateInStep, "Evaluates the specified expression. Usage: eval <expr>");
 
-function OnLoadFile(file)
+function OnLoadFile(string file!)
 {
 	if(!files.Contains(file) && file != Debugger.DebuggerPath.Replace("\\", "/"))
 	{
@@ -230,7 +230,7 @@ function OnLoadFile(file)
 }
 
 
-function OnStep(step)
+function OnStep(any step!)
 {
 	if(files.Contains(step.Position.FileName))
 	{
