@@ -30,7 +30,7 @@ public class MyCustomApi : BadInteropApi
         target.SetFunction<string>("Say", Console.WriteLine);
 
         //Add a function that returns a value
-        target.SetFunction("WhoAmI", () => "I am a function");
+        target.SetFunction("WhoAmI", () => "I am a function", BadNativeClassBuilder.GetNative("string"));
 
         //Instead of functions you can also add properties
         target.SetProperty("MyName", "MyValue");
@@ -70,6 +70,7 @@ public class MyCustomApi : BadInteropApi
                     return BadObject.Null;
                 },
                 false,
+                BadAnyPrototype.Instance,
                 "name", //Implicit Cast
                 new BadFunctionParameter( //Explicit Creation of the parameters
                     "description", //Parameter Name
