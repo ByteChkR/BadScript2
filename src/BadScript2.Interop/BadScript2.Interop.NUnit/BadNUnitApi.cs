@@ -8,6 +8,7 @@ using BadScript2.Runtime.Objects.Native;
 
 using NUnit.Framework;
 
+
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
@@ -82,7 +83,7 @@ public class BadNUnitApi : BadInteropApi
 		BadObject actual,
 		string message)
 	{
-		Assert.AreEqual(expected, actual, message);
+		Assert.That(actual, Is.EqualTo(expected), message);
 	}
 
 
@@ -91,7 +92,7 @@ public class BadNUnitApi : BadInteropApi
 		BadObject actual,
 		string message)
 	{
-		Assert.AreNotEqual(expected, actual, message);
+		Assert.That(actual, Is.Not.EqualTo(expected), message);
 	}
 
 	private static void Assert_AreSame(
@@ -99,7 +100,7 @@ public class BadNUnitApi : BadInteropApi
 		BadObject actual,
 		string message)
 	{
-		Assert.AreSame(expected, actual, message);
+		Assert.That(actual, Is.SameAs(expected), message);
 	}
 
 	private static void Assert_AreNotSame(
@@ -107,17 +108,20 @@ public class BadNUnitApi : BadInteropApi
 		BadObject actual,
 		string message)
 	{
-		Assert.AreNotSame(expected, actual, message);
+		Assert.That(actual, Is.Not.SameAs(expected), message);
 	}
 
 	private static void Assert_IsTrue(BadObject condition, string message)
 	{
-		Assert.IsTrue(condition is IBadBoolean b && b.Value, message);
+		Assert.That(condition is IBadBoolean
+		{
+			Value: true,
+		}, Is.True, message);
 	}
 
 	private static void Assert_IsFalse(BadObject condition, string message)
 	{
-		Assert.IsFalse(condition is not IBadBoolean b || b.Value, message);
+		Assert.That(condition is not IBadBoolean b || b.Value, Is.False, message);
 	}
 
 
@@ -139,35 +143,35 @@ public class BadNUnitApi : BadInteropApi
 
 	private static void Assert_IsNull(BadObject obj, string message)
 	{
-		Assert.IsNull(obj, message);
+		Assert.That(obj, Is.Null, message);
 	}
 
 	private static void Assert_IsNotNull(BadObject obj, string message)
 	{
-		Assert.IsNotNull(obj, message);
+		Assert.That(obj, Is.Not.Null, message);
 	}
 
 	private static void Assert_Greater(decimal a, decimal b, string message)
 	{
-		Assert.Greater(a, b, message);
+		Assert.That(a, Is.GreaterThan(b), message);
 	}
 
 
 	private static void Assert_GreaterOrEqual(decimal a, decimal b, string message)
 	{
-		Assert.GreaterOrEqual(a, b, message);
+		Assert.That(a, Is.GreaterThanOrEqualTo(b), message);
 	}
 
 
 	private static void Assert_Less(decimal a, decimal b, string message)
 	{
-		Assert.Less(a, b, message);
+		Assert.That(a, Is.LessThan(b), message);
 	}
 
 
 	private static void Assert_LessOrEqual(decimal a, decimal b, string message)
 	{
-		Assert.LessOrEqual(a, b, message);
+		Assert.That(a, Is.LessThanOrEqualTo(b), message);
 	}
 
 	private static void Assert_Contains(
@@ -175,28 +179,28 @@ public class BadNUnitApi : BadInteropApi
 		BadObject obj,
 		string message)
 	{
-		Assert.Contains(obj, collection.InnerArray, message);
+		Assert.That(collection.InnerArray, Contains.Value(obj));
 	}
 
 
 	private static void Assert_Positive(decimal d, string message)
 	{
-		Assert.Positive(d, message);
+		Assert.That(d, Is.Positive);
 	}
 
 	private static void Assert_Negative(decimal d, string message)
 	{
-		Assert.Negative(d, message);
+		Assert.That(d, Is.Negative);
 	}
 
 	private static void Assert_Zero(decimal d, string message)
 	{
-		Assert.Zero(d, message);
+		Assert.That(d, Is.Zero);
 	}
 
 	private static void Assert_NotZero(decimal d, string message)
 	{
-		Assert.NotZero(d, message);
+		Assert.That(d, Is.Not.Zero);
 	}
 
 	private static void Assert_Pass(string message)
@@ -206,6 +210,6 @@ public class BadNUnitApi : BadInteropApi
 
 	private static void Assert_IsEmpty(BadArray collection, string message)
 	{
-		Assert.IsEmpty(collection.InnerArray, message);
+		Assert.That(collection.InnerArray, Is.Empty, message);
 	}
 }

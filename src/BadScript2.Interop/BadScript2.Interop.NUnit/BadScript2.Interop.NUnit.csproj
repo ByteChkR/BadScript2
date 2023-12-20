@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
@@ -16,6 +16,6 @@
         <ProjectReference Include="..\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="NUnit" Version="3.14.0"/>
+        <PackageReference Include="NUnit" Version="4.0.1" />
     </ItemGroup>
 </Project>
