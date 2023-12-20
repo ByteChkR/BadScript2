@@ -189,10 +189,10 @@ public class BadRuntimeApi : BadInteropApi
 					args.Length < 4 ? BadObject.Null : args[3]),
 				false,
 				BadAnyPrototype.Instance,
-				"src",
-				new BadFunctionParameter("file", true, false, false),
-				new BadFunctionParameter("optimize", true, false, false),
-				new BadFunctionParameter("scope", true, false, false)));
+				new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+				new BadFunctionParameter("file", true, false, false, null, BadNativeClassBuilder.GetNative("string")),
+				new BadFunctionParameter("optimize", true, false, false, null, BadNativeClassBuilder.GetNative("bool")),
+				new BadFunctionParameter("scope", true, false, false, null, BadScope.Prototype)));
 		target.SetProperty("EvaluateAsync",
 			new BadInteropFunction("EvaluateAsync",
 				(ctx, args) => EvaluateAsync(ctx,
@@ -203,11 +203,16 @@ public class BadRuntimeApi : BadInteropApi
 					args.Length < 5 ? BadObject.False : args[4]),
 				false,
 				BadTask.Prototype,
-				"src",
-				new BadFunctionParameter("file", true, false, false),
-				new BadFunctionParameter("optimize", true, false, false),
-				new BadFunctionParameter("scope", true, false, false),
-				new BadFunctionParameter("setLastAsReturn", true, false, false)));
+				new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+				new BadFunctionParameter("file", true, false, false, null, BadNativeClassBuilder.GetNative("string")),
+				new BadFunctionParameter("optimize", true, false, false, null, BadNativeClassBuilder.GetNative("bool")),
+				new BadFunctionParameter("scope", true, false, false, null, BadScope.Prototype),
+				new BadFunctionParameter("setLastAsReturn",
+					true,
+					false,
+					false,
+					null,
+					BadNativeClassBuilder.GetNative("bool"))));
 		target.SetFunction("CreateDefaultScope",
 			ctx => ctx.Scope.GetRootScope().CreateChild("<customscope>", ctx.Scope, null),
 			BadScope.Prototype);

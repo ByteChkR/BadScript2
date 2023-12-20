@@ -35,8 +35,8 @@ public class BadJsonApi : BadInteropApi
 
 					return BadObject.Null;
 				},
-				BadNativeClassBuilder.GetNative("string"),
-				new BadFunctionParameter("str", false, true, false)));
+				BadAnyPrototype.Instance,
+				new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))));
 		target.SetFunction<BadObject>("ToJson", o => BadJson.ToJson(o), BadNativeClassBuilder.GetNative("string"));
 		target.SetProperty("Settings",
 			new BadSettingsObject(BadSettingsProvider.RootSettings),

@@ -66,7 +66,7 @@ public class BadIOApi : BadInteropApi
 				Combine,
 				false,
 				BadNativeClassBuilder.GetNative("string"),
-				new BadFunctionParameter("parts", false, false, true)));
+				new BadFunctionParameter("parts", false, false, true, null, BadNativeClassBuilder.GetNative("Array"))));
 
 		return t;
 	}

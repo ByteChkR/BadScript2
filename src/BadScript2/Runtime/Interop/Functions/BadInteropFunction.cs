@@ -55,9 +55,4 @@ public class BadInteropFunction : BadFunction
 
 		yield return m_Func.Invoke(caller, args);
 	}
-
-	public override string ToSafeString(List<BadObject> done)
-	{
-		return "<interop> " + base.ToSafeString(done);
-	}
 }
