@@ -9,10 +9,18 @@ function ValidateOutput()
 		Console.WriteLine("App Info Not Found");
 		return;
 	}
-	Console.WriteLine("Validate Build Output");
-	const src = Context.SourceCode;
-	const result = Runtime.Validate(src, $"{Context.AppInfo.Name}@{Context.AppInfo.Version}");
-	Console.WriteLine(result.GetMessageString());
+	try
+	{
+		Console.WriteLine("Validate Build Output");
+		const src = Context.SourceCode;
+		const result = Runtime.Validate(src, $"{Context.AppInfo.Name}@{Context.AppInfo.Version}");
+		Console.WriteLine(result.GetMessageString());
+	}
+	catch (e)
+	{
+		Console.WriteLine("ERROR IN VALIDATOR:");
+		Console.WriteLine(e);
+	}
 }
 
 

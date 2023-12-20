@@ -37,7 +37,7 @@ public class
 		{
 			Validate(parent, tryCatchExpr);
 		}
-		else if (expr is BadReturnExpression)
+		else if (expr is BadReturnExpression || expr is BadThrowExpression)
 		{
 			parent.SetHasReturnStatement();
 		}
