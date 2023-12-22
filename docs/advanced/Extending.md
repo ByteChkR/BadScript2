@@ -8,23 +8,23 @@ To extend arbitrary objects with extension methods and properties, inherit the `
 
 public class MyCustomExtensions : BadInteropExtension
 {
-	protected override void AddExtensions()
+	protected override void AddExtensions(BadInteropExtensionProvider provider)
 	{
 		//Register the Extensions Here
 		//Use the RegisterGlobal and the RegisterObject functions
 
 		//Register an extension property named "IsEmptyObject" for the Table Object
-		RegisterObject<BadTable>("IsEmptyObject", t => t.InnerTable.Count == 0);
+		provider.RegisterObject<BadTable>("IsEmptyObject", t => t.InnerTable.Count == 0);
 
 		//Register an extension property named "IsNull" for all objects inside the language
-		RegisterGlobal("IsNull", o => o == BadObject.Null);
+		provider.RegisterGlobal("IsNull", o => o == BadObject.Null);
 
 		//Register an extension method named "IsNull" for the table object using the Dynamic Interop Function Helper
-		RegisterObject<BadTable>("IsNull", t => new BadDynamicInteropFunction("IsNull", ctx => t == BadObject.Null));
+		provider.RegisterObject<BadTable>("IsNull", t => new BadDynamicInteropFunction("IsNull", ctx => t == BadObject.Null));
 
 		//Register an extension method named "Split" for the String object using the Interop Function Helper
 		//The Interop Object allows for more flexibility when working with optional and nullchecked parameters.
-		RegisterObject<string>(
+		provider.RegisterObject<string>(
             "Split",
             s => new BadInteropFunction(
                 "Split",
@@ -42,9 +42,9 @@ public class MyCustomExtensions : BadInteropExtension
 
 
 //Adding the extension is done by registering the extensions like this:
-private static void Main()
+private static void Register(BadRuntime runtime)
 {
-	BadInteropExtension.AddExtension<MyCustomExtensions>();
+	runtime.ConfigureContextOptions(opts => opts.AddExtension<MyCustomExtensions>());
 }
 
 ```
@@ -58,7 +58,7 @@ public class MyCustomApi : BadInteropApi
 {
 	public MyCustomApi() : base("MyApi") {}
 
-	public override void Load(BadTable target)
+	protected override void LoadApi(BadTable target)
 	{
 		//Add the api functions to this target table.
 
@@ -73,9 +73,9 @@ public class MyCustomApi : BadInteropApi
 
 
 //Adding the custom api is done by adding it to the Execution Context options that will be used to create the execution context
-private static void Main()
+private static void Register(BadRuntime runtime)
 {
-	BadExecutionContextOptions.Default.Apis.Add(new MyCustomApi());
+	runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new MyCustomApi()));
 }
 
 ```
