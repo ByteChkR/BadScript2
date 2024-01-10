@@ -17,6 +17,11 @@ public class BadHtmlTemplate
 	///     The Filepath of the Template
 	/// </summary>
 	private readonly string m_FilePath;
+	
+	/// <summary>
+	/// The Filesystem used to load the template
+	/// </summary>
+	private readonly IFileSystem m_FileSystem;
 
 	/// <summary>
 	///     The Source code of the Template(gets loaded on first template run)
@@ -27,9 +32,10 @@ public class BadHtmlTemplate
 	///     Constructs a new Template
 	/// </summary>
 	/// <param name="filePath">File path of the template</param>
-	private BadHtmlTemplate(string filePath)
+	private BadHtmlTemplate(string filePath, IFileSystem mFileSystem)
 	{
 		m_FilePath = filePath;
+		m_FileSystem = mFileSystem;
 	}
 
 
@@ -92,7 +98,7 @@ public class BadHtmlTemplate
 		foreach (HtmlNode node in input.DocumentNode.ChildNodes)
 		{
 			BadHtmlContext ctx =
-				new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src, options);
+				new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src, options, m_FileSystem);
 			BadHtmlNodeTransformer.Transform(ctx);
 		}
 
@@ -115,9 +121,10 @@ public class BadHtmlTemplate
 	///     Creates a new Template
 	/// </summary>
 	/// <param name="file">Template File Path</param>
+	/// <param name="fileSystem">The Filesystem that the Template is loaded from</param>
 	/// <returns>A Html Template Instance</returns>
-	public static BadHtmlTemplate Create(string file)
+	public static BadHtmlTemplate Create(string file, IFileSystem? fileSystem = null)
 	{
-		return new BadHtmlTemplate(file);
+		return new BadHtmlTemplate(file, fileSystem ?? BadFileSystem.Instance);
 	}
 }

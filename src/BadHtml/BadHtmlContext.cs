@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using BadScript2.Common;
+using BadScript2.IO;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Reader;
@@ -60,13 +61,15 @@ public class BadHtmlContext
 	/// <param name="filePath">The File Path of the Template</param>
 	/// <param name="source">The Source of the Template</param>
 	/// <param name="options">The Html Template Options</param>
+	/// <param name="fileSystem">The Filesystem of the Current Template Context</param>
 	public BadHtmlContext(
 		HtmlNode inputNode,
 		HtmlNode outputNode,
 		BadExecutionContext executionContext,
 		string filePath,
 		string source,
-		BadHtmlTemplateOptions options)
+		BadHtmlTemplateOptions options,
+		IFileSystem fileSystem)
 	{
 		InputNode = inputNode;
 		OutputNode = outputNode;
@@ -74,8 +77,13 @@ public class BadHtmlContext
 		FilePath = filePath;
 		Source = source;
 		Options = options;
+		FileSystem = fileSystem;
 	}
 
+	/// <summary>
+	/// The Filesystem of the Current Template Context
+	/// </summary>
+	public IFileSystem FileSystem { get; }
 	/// <summary>
 	///     The Input Document
 	/// </summary>
@@ -106,7 +114,8 @@ public class BadHtmlContext
 			executionContext ?? ExecutionContext,
 			FilePath,
 			Source,
-			Options);
+			Options,
+			FileSystem);
 	}
 
 	/// <summary>
