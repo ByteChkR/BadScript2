@@ -63,7 +63,7 @@ public class BadDynamicInteropFunction : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func(caller);
 	}
@@ -105,7 +105,7 @@ public class BadDynamicInteropFunction<T> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller, GetParameter(args, 0).Unwrap<T>());
 	}
@@ -148,7 +148,7 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -195,7 +195,7 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -246,7 +246,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -300,7 +300,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -357,7 +357,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -417,7 +417,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -480,7 +480,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -546,7 +546,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -615,7 +615,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -687,7 +687,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -762,7 +762,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -841,7 +841,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -923,7 +923,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),
@@ -1009,7 +1009,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller,
 			GetParameter(args, 0).Unwrap<T1>(),

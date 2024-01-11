@@ -63,7 +63,7 @@ public class BadHtmlTemplate
 	/// </summary>
 	public void Reload()
 	{
-		m_Source = BadFileSystem.ReadAllText(m_FilePath);
+		m_Source = m_FileSystem.ReadAllText(m_FilePath);
 	}
 
 	/// <summary>

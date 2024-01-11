@@ -93,7 +93,7 @@ public abstract class BadFunction : BadObject
 	/// </summary>
 	/// <param name="args">Arguments provided for the invocation</param>
 	/// <exception cref="BadRuntimeException">Gets raised if the Parameters are invalid for the function</exception>
-	protected void CheckParameters(BadObject[] args)
+	protected void CheckParameters(BadObject[] args, BadExecutionContext caller, BadSourcePosition? position = null)
 	{
 		for (int i = 0; i < Parameters.Length; i++)
 		{
@@ -107,15 +107,14 @@ public abstract class BadFunction : BadObject
 			{
 				if (!parameter.IsOptional)
 				{
-					throw new BadRuntimeException(
-						$"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'");
+					throw BadRuntimeException.Create(caller.Scope, $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'", position);
 				}
 			}
 			else
 			{
 				if (parameter.IsNullChecked && args[i] == Null)
 				{
-					throw new BadRuntimeException($"Null value not allowed for '{this}' parameter '{parameter}'");
+					throw BadRuntimeException.Create(caller.Scope, $"Null value not allowed for '{this}' parameter '{parameter}'", position);
 				}
 			}
 		}
@@ -147,28 +146,14 @@ public abstract class BadFunction : BadObject
 				}
 				else
 				{
-					if (position != null)
-					{
-						throw new BadRuntimeException(
-							$"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'",
-							position);
-					}
-
-					throw new BadRuntimeException(
-						$"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'");
+					throw BadRuntimeException.Create(context.Scope, $"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'", position);
 				}
 			}
 			else
 			{
 				if (parameter.IsNullChecked && args[i] == Null)
 				{
-					if (position != null)
-					{
-						throw new BadRuntimeException($"Null value not allowed for '{funcStr}' parameter '{parameter}'",
-							position);
-					}
-
-					throw new BadRuntimeException($"Null value not allowed for '{funcStr}' parameter '{parameter}'");
+					throw BadRuntimeException.Create(context.Scope, $"Null value not allowed for '{funcStr}' parameter '{parameter}'", position);
 				}
 
 				context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance));

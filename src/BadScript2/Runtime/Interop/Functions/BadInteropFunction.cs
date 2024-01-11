@@ -51,7 +51,7 @@ public class BadInteropFunction : BadFunction
 
 	protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
 	{
-		CheckParameters(args);
+		CheckParameters(args, caller);
 
 		yield return m_Func.Invoke(caller, args);
 	}
