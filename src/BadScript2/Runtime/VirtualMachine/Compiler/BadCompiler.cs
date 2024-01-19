@@ -253,6 +253,9 @@ public class BadCompiler
 		{
 			typeof(BadInterfacePrototypeExpression), new BadInterfacePrototypeExpressionCompiler()
 		},
+		{
+			typeof(BadUsingExpression), new BadUsingExpressionCompiler()
+		}
 	};
 
 	public BadCompiler(bool allowEval = false)

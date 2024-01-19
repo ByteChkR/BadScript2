@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Parser.Expressions.Types;
@@ -14,7 +15,7 @@ public class BadInterfacePrototypeExpression : BadExpression
 	/// <summary>
 	///     The Constraints for the Interface
 	/// </summary>
-	private readonly BadInterfaceFunctionConstraint[] m_Constraints;
+	private readonly BadInterfaceConstraint[] m_Constraints;
 
 	/// <summary>
 	///     The Inherited Interfaces
@@ -35,69 +36,131 @@ public class BadInterfacePrototypeExpression : BadExpression
 	/// <param name="metaData">Meta Data for the Interface</param>
 	/// <param name="position">Source Position</param>
 	public BadInterfacePrototypeExpression(
-		string name,
-		BadInterfaceFunctionConstraint[] constraints,
-		BadExpression[] interfaces,
-		BadMetaData? metaData,
-		BadSourcePosition position) : base(false, position)
-	{
-		m_Interfaces = interfaces;
-		m_MetaData = metaData;
-		Name = name;
-		m_Constraints = constraints;
-	}
+        string name,
+        BadInterfaceConstraint[] constraints,
+        BadExpression[] interfaces,
+        BadMetaData? metaData,
+        BadSourcePosition position) : base(false, position)
+    {
+        m_Interfaces = interfaces;
+        m_MetaData = metaData;
+        Name = name;
+        m_Constraints = constraints;
+    }
 
 	/// <summary>
 	///     The Interface Name
 	/// </summary>
 	public string Name { get; }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		yield break;
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        yield break;
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		List<BadInterfacePrototype> interfaces = new List<BadInterfacePrototype>();
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        List<BadInterfacePrototype> interfaces = new List<BadInterfacePrototype>();
 
-		foreach (BadExpression interfae in m_Interfaces)
-		{
-			BadObject obj = BadObject.Null;
+        foreach (BadExpression interfae in m_Interfaces)
+        {
+            BadObject obj = BadObject.Null;
 
-			foreach (BadObject o in interfae.Execute(context))
-			{
-				obj = o;
-			}
+            foreach (BadObject o in interfae.Execute(context))
+            {
+                obj = o;
+            }
 
-			if (obj.Dereference() is not BadInterfacePrototype cls)
-			{
-				throw new BadRuntimeException("Base Class is not a class");
-			}
+            if (obj.Dereference() is not BadInterfacePrototype cls)
+            {
+                throw new BadRuntimeException("Base Class is not a class");
+            }
 
-			interfaces.Add(cls);
-		}
+            interfaces.Add(cls);
+        }
 
-		BadInterfaceConstraint[] GetConstraints()
-		{
-			Console.WriteLine($"Get Constraints for : {Name} {Position}");
-			BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
+        BadInterfacePropertyConstraint PreparePropertyConstraint(BadInterfacePropertyConstraint p)
+        {
+            BadObject? propType = BadAnyPrototype.Instance;
 
-			for (int i = 0; i < m_Constraints.Length; i++)
-			{
-				BadInterfaceFunctionConstraint c = m_Constraints[i];
-				constrainsts[i] = new BadInterfaceFunctionConstraint(c.Name,
-					c.Return,
-					c.Parameters.Select(x => x.Initialize(context)).ToArray());
-			}
+            if (p.Type != null)
+            {
+                foreach (BadObject o in context.Execute(p.Type))
+                {
+                    propType = o;
+                }
 
-			return constrainsts;
-		}
+                propType = propType?.Dereference();
+            }
 
-		//Create the Interface Prototype
-		BadInterfacePrototype intf = new BadInterfacePrototype(Name, interfaces.ToArray(), m_MetaData, GetConstraints);
-		context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
+            if (propType is not BadClassPrototype propProto)
+            {
+                throw new BadRuntimeException("Property Type is not of type 'class'.");
+            }
 
-		yield return intf;
-	}
+            return new BadInterfacePropertyConstraint(
+                p.Name,
+                p.Type,
+                propProto
+            );
+        }
+
+        BadInterfaceFunctionConstraint PrepareFunctionConstraint(BadInterfaceFunctionConstraint c)
+        {
+            BadObject? returnObj = BadAnyPrototype.Instance;
+
+            if (c.Return != null)
+            {
+                foreach (BadObject o in context.Execute(c.Return))
+                {
+                    returnObj = o;
+                }
+
+                returnObj = returnObj?.Dereference();
+            }
+
+            if (returnObj is not BadClassPrototype returnProto)
+            {
+                throw new BadRuntimeException("Return Type is not of type 'class'.");
+            }
+
+            return new BadInterfaceFunctionConstraint(
+                c.Name,
+                c.Return,
+                returnProto,
+                c.Parameters.Select(x => x.Initialize(context)).ToArray()
+            );
+        }
+
+        BadInterfaceConstraint[] GetConstraints()
+        {
+            Console.WriteLine($"Get Constraints for : {Name} {Position}");
+            BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
+
+            for (int i = 0; i < m_Constraints.Length; i++)
+            {
+                BadInterfaceConstraint c = m_Constraints[i];
+                if (c is BadInterfaceFunctionConstraint f)
+                {
+                    constrainsts[i] = PrepareFunctionConstraint(f);
+                }
+                else if (c is BadInterfacePropertyConstraint p)
+                {
+                    constrainsts[i] = PreparePropertyConstraint(p);
+                }
+                else
+                {
+                    throw new BadRuntimeException("Unknown Constraint Type: " + c.GetType().Name);
+                }
+            }
+
+            return constrainsts;
+        }
+
+        //Create the Interface Prototype
+        BadInterfacePrototype intf = new BadInterfacePrototype(Name, interfaces.ToArray(), m_MetaData, GetConstraints);
+        context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
+
+        yield return intf;
+    }
 }

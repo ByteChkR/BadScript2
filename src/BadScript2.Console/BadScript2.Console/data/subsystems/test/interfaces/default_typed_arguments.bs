@@ -8,7 +8,7 @@ function Test_InterfaceTyped()
 	}
 	class C : I
 	{
-		function F(n!, compute?)
+		function bool F(n!, compute?)
 		{
 			if(compute == false) return true;
 			return n == 10;

@@ -50,6 +50,7 @@ public static class BadStaticKeys
 	public static readonly string ForEachKey = "foreach";
 	public static readonly string TryKey = "try";
 	public static readonly string CatchKey = "catch";
+	public static readonly string UsingKey = "using";
 	public static readonly char DecimalSeparator = '.';
 	public static readonly char NegativeSign = '-';
 	public static readonly char EscapeCharacter = '\\';

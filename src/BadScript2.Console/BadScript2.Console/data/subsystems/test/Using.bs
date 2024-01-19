@@ -1,0 +1,70 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Using()
+{
+	let disposedNum = 0;
+	let num = 0;
+	using(const t = {
+						Dispose: () => disposedNum = num
+					})
+	{
+		num += 10;
+	}
+
+
+	Assert.AreEqual(disposedNum, 10, "disposedNum == 10");
+}
+
+
+function Test_UsingClass()
+{
+	class Disposable
+	{
+		let num counter;
+		let bool disposed;
+		function Disposable()
+		{
+			counter = 0;
+			disposed = false;
+		}
+
+		function Increment()
+		{
+			if(!disposed)
+			{
+				counter++;
+			}
+		}
+
+		function Dispose()
+		{
+			disposed = true;
+		}
+
+		function num GetCounter()
+		{
+			return counter;
+		}
+	}
+
+	const disposable = new Disposable();
+	using(const d = disposable)
+	{
+		disposable.Increment(); //1
+		disposable.Increment(); //2
+	}
+
+	const num a = disposable.GetCounter(); //2
+
+	disposable.Increment(); //Should have no effect
+
+	const num b = disposable.GetCounter(); //2
+
+
+	Assert.AreEqual(a, b, "a == b");
+}
+
+NUnit.AddTest(Test_Using, "using tests (simple)");
+NUnit.AddTest(Test_UsingClass, "using tests (class)");

@@ -529,7 +529,7 @@ public class BadUnitTests
 		if (BadFileSystem.Instance.Exists(referenceFile))
 		{
 			HtmlDocument reference = LoadReference(referenceFile);
-			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r", "")));
+			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r\n", Environment.NewLine)));
 		}
 		else
 		{
@@ -553,7 +553,7 @@ public class BadUnitTests
 		if (BadFileSystem.Instance.Exists(referenceFile))
 		{
 			HtmlDocument reference = LoadReference(referenceFile);
-			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r", "")));
+			Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r\n", Environment.NewLine)));
 		}
 		else
 		{
