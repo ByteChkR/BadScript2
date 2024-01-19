@@ -5,6 +5,8 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 /// </summary>
 public static class BadInterfaceTools
 {
+	
+	
 	/// <summary>
 	///     Returns all Interfaces implemented by this Type
 	/// </summary>

@@ -1,5 +1,9 @@
+using BadScript2.Common;
 using BadScript2.Parser;
+using BadScript2.Parser.Expressions.Types;
+using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.Objects.Types.Interface;
 
@@ -8,6 +12,9 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 /// </summary>
 public class BadInterfacePrototype : BadClassPrototype
 {
+
+	
+
 	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>("Interface",
 		(_, _) => throw new BadRuntimeException("Interfaces cannot be extended"));
 

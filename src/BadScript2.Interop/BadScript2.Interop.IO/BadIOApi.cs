@@ -30,46 +30,62 @@ public class BadIOApi : BadInteropApi
 	/// </summary>
 	/// <param name="fileSystem">File System Instance</param>
 	public BadIOApi(IFileSystem fileSystem) : base("IO")
-	{
-		m_FileSystem = fileSystem;
-	}
+    {
+        m_FileSystem = fileSystem;
+    }
 
 	/// <summary>
 	///     Creates the "Path" Table
 	/// </summary>
 	/// <returns>Table</returns>
 	private BadTable CreatePath()
-	{
-		BadTable t = new BadTable();
+    {
+        BadTable t = new BadTable();
 
-		t.SetFunction<string>("GetFileName", (_, s) => Path.GetFileName(s), BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("GetFileNameWithoutExtension",
-			(_, s) => Path.GetFileNameWithoutExtension(s),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("GetDirectoryName",
-			(_, s) => Path.GetDirectoryName(s) ?? BadObject.Null,
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("GetExtension",
-			(_, s) => Path.GetExtension(s),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("GetFullPath",
-			(_, s) => m_FileSystem.GetFullPath(s),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("GetStartupPath",
-			(_, _) => m_FileSystem.GetStartupDirectory(),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string, string>("ChangeExtension",
-			(_, s, ext) => Path.ChangeExtension(s, ext),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetProperty("Combine",
-			new BadInteropFunction("Combine",
-				Combine,
-				false,
-				BadNativeClassBuilder.GetNative("string"),
-				new BadFunctionParameter("parts", false, false, true, null, BadNativeClassBuilder.GetNative("Array"))));
+        t.SetFunction<string>("GetFileName", (_, s) => Path.GetFileName(s), BadNativeClassBuilder.GetNative("string"));
+        t.SetFunction<string>(
+            "GetFileNameWithoutExtension",
+            (_, s) => Path.GetFileNameWithoutExtension(s),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string>(
+            "GetDirectoryName",
+            (_, s) => Path.GetDirectoryName(s) ?? BadObject.Null,
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string>(
+            "GetExtension",
+            (_, s) => Path.GetExtension(s),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string>(
+            "GetFullPath",
+            (_, s) => m_FileSystem.GetFullPath(s),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string>(
+            "GetStartupPath",
+            (_, _) => m_FileSystem.GetStartupDirectory(),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string, string>(
+            "ChangeExtension",
+            (_, s, ext) => Path.ChangeExtension(s, ext),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetProperty(
+            "Combine",
+            new BadInteropFunction(
+                "Combine",
+                Combine,
+                false,
+                BadNativeClassBuilder.GetNative("string"),
+                new BadFunctionParameter("parts", false, false, true, null, BadNativeClassBuilder.GetNative("Array"))
+            )
+        );
 
-		return t;
-	}
+        return t;
+    }
 
 	/// <summary>
 	///     Combines the given paths
@@ -77,168 +93,233 @@ public class BadIOApi : BadInteropApi
 	/// <param name="arg">Paths</param>
 	/// <returns>Combined Path String</returns>
 	private BadObject Combine(BadObject[] arg)
-	{
-		return Path.Combine(arg.Select(x => x.ToString()!).ToArray());
-	}
+    {
+        return Path.Combine(arg.Select(x => x.ToString()!).ToArray());
+    }
 
-	private void CreateMoveCopy(BadTable t)
-	{
-		BadInteropFunction move = new BadInteropFunction("Move",
-			(c, a) =>
-			{
-				IBadString src = (IBadString)a[0];
-				IBadString dst = (IBadString)a[1];
-				bool overwrite = a.Length == 3 && a[2] == BadObject.True;
-				m_FileSystem.Move(src.Value, dst.Value, overwrite);
+    private void CreateMoveCopy(BadTable t)
+    {
+        BadInteropFunction move = new BadInteropFunction(
+            "Move",
+            (c, a) =>
+            {
+                IBadString src = (IBadString)a[0];
+                IBadString dst = (IBadString)a[1];
+                bool overwrite = a.Length == 3 && a[2] == BadObject.True;
+                m_FileSystem.Move(src.Value, dst.Value, overwrite);
 
-				return BadObject.Null;
-			},
-			false,
-			BadAnyPrototype.Instance,
-			new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
-			new BadFunctionParameter("dst", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
-			new BadFunctionParameter("overwrite", true, true, false, null, BadNativeClassBuilder.GetNative("bool")));
+                return BadObject.Null;
+            },
+            false,
+            BadAnyPrototype.Instance,
+            new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+            new BadFunctionParameter("dst", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+            new BadFunctionParameter("overwrite", true, true, false, null, BadNativeClassBuilder.GetNative("bool"))
+        );
 
-		BadInteropFunction copy = new BadInteropFunction("Copy",
-			(c, a) =>
-			{
-				IBadString src = (IBadString)a[0];
-				IBadString dst = (IBadString)a[1];
-				bool overwrite = a.Length == 3 && a[2] == BadObject.True;
-				m_FileSystem.Copy(src.Value, dst.Value, overwrite);
+        BadInteropFunction copy = new BadInteropFunction(
+            "Copy",
+            (c, a) =>
+            {
+                IBadString src = (IBadString)a[0];
+                IBadString dst = (IBadString)a[1];
+                bool overwrite = a.Length == 3 && a[2] == BadObject.True;
+                m_FileSystem.Copy(src.Value, dst.Value, overwrite);
 
-				return BadObject.Null;
-			},
-			false,
-			BadAnyPrototype.Instance,
-			new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
-			new BadFunctionParameter("dst", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
-			new BadFunctionParameter("overwrite", true, true, false, null, BadNativeClassBuilder.GetNative("bool")));
-
-
-		t.SetProperty("Move", move);
-		t.SetProperty("Copy", copy);
-	}
-
-	/// <summary>
-	///     Creates the "Directory" Table
-	/// </summary>
-	/// <returns>Table</returns>
-	private BadTable CreateDirectory()
-	{
-		BadTable t = new BadTable();
-
-		t.SetFunction<string>("CreateDirectory",
-			(_, s) =>
-			{
-				m_FileSystem.CreateDirectory(s);
-
-				return BadObject.Null;
-			},
-			BadAnyPrototype.Instance);
-
-		t.SetFunction<string>("Exists",
-			s =>
-				m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s),
-			BadNativeClassBuilder.GetNative("bool"));
-		t.SetFunction<string, bool>("Delete",
-			m_FileSystem.DeleteDirectory);
+                return BadObject.Null;
+            },
+            false,
+            BadAnyPrototype.Instance,
+            new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+            new BadFunctionParameter("dst", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+            new BadFunctionParameter("overwrite", true, true, false, null, BadNativeClassBuilder.GetNative("bool"))
+        );
 
 
-		CreateMoveCopy(t);
+        t.SetProperty("Move", move);
+        t.SetProperty("Copy", copy);
+    }
 
-		t.SetFunction("GetCurrentDirectory",
-			() => m_FileSystem.GetCurrentDirectory(),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("SetCurrentDirectory", m_FileSystem.SetCurrentDirectory);
-		t.SetFunction("GetStartupDirectory",
-			() => m_FileSystem.GetStartupDirectory(),
-			BadNativeClassBuilder.GetNative("string"));
+    /// <summary>
+    ///     Creates the "Directory" Table
+    /// </summary>
+    /// <returns>Table</returns>
+    private BadTable CreateDirectory()
+    {
+        BadTable t = new BadTable();
 
-		t.SetFunction<string, bool>("GetDirectories",
-			(_, s, b) => new BadArray(m_FileSystem.GetDirectories(s, b)
-				.Select(x => (BadObject)x)
-				.ToList()),
-			BadNativeClassBuilder.GetNative("Array"));
+        t.SetFunction<string>(
+            "CreateDirectory",
+            (_, s) =>
+            {
+                m_FileSystem.CreateDirectory(s);
 
-		t.SetFunction<string, string, bool>("GetFiles",
-			(_, s, p, b) => new BadArray(m_FileSystem.GetFiles(s, p, b)
-				.Select(x => (BadObject)x)
-				.ToList()),
-			BadNativeClassBuilder.GetNative("Array"));
+                return BadObject.Null;
+            },
+            BadAnyPrototype.Instance
+        );
 
-		return t;
-	}
-
-	/// <summary>
-	///     Creates the "File" Table
-	/// </summary>
-	/// <returns>Table</returns>
-	private BadTable CreateFile()
-	{
-		BadTable t = new BadTable();
-
-		t.SetFunction<string, string>("WriteAllText",
-			m_FileSystem.WriteAllText);
-		t.SetFunction<string>("ReadAllText",
-			s => m_FileSystem.ReadAllText(s),
-			BadNativeClassBuilder.GetNative("string"));
-		t.SetFunction<string>("Exists",
-			s => m_FileSystem.Exists(s),
-			BadNativeClassBuilder.GetNative("bool"));
-		t.SetFunction<string>("ReadAllLines",
-			s => new BadArray(m_FileSystem.ReadAllLines(s)
-				.Select(x => (BadObject)x)
-				.ToList()),
-			BadNativeClassBuilder.GetNative("Array"));
-		t.SetFunction<string, BadArray>("WriteAllLines",
-			(s, a) =>
-			{
-				m_FileSystem.WriteAllLines(s, a.InnerArray.Select(x => x.ToString()!));
-
-				return BadObject.Null;
-			},
-			BadAnyPrototype.Instance);
+        t.SetFunction<string>(
+            "Exists",
+            s =>
+                m_FileSystem.Exists(s) && m_FileSystem.IsDirectory(s),
+            BadNativeClassBuilder.GetNative("bool")
+        );
+        t.SetFunction<string, bool>(
+            "Delete",
+            m_FileSystem.DeleteDirectory
+        );
 
 
-		t.SetFunction<string, BadArray>("WriteAllBytes",
-			(s, a) =>
-			{
-				using Stream stream = m_FileSystem.OpenWrite(s, BadWriteMode.CreateNew);
+        CreateMoveCopy(t);
 
-				foreach (BadObject o in a.InnerArray)
-				{
-					if (o is not IBadNumber num)
-					{
-						throw new BadRuntimeException("BadIO.WriteAllBytes: Array contains non-number");
-					}
+        t.SetFunction(
+            "GetCurrentDirectory",
+            () => m_FileSystem.GetCurrentDirectory(),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string>("SetCurrentDirectory", m_FileSystem.SetCurrentDirectory);
+        t.SetFunction(
+            "GetStartupDirectory",
+            () => m_FileSystem.GetStartupDirectory(),
+            BadNativeClassBuilder.GetNative("string")
+        );
 
-					stream.WriteByte((byte)num.Value);
-				}
-			});
+        t.SetFunction<string, bool>(
+            "GetDirectories",
+            (_, s, b) => new BadArray(
+                m_FileSystem.GetDirectories(s, b)
+                    .Select(x => (BadObject)x)
+                    .ToList()
+            ),
+            BadNativeClassBuilder.GetNative("Array")
+        );
 
-		t.SetFunction<string>("ReadAllBytes",
-			s =>
-			{
-				using Stream stream = m_FileSystem.OpenRead(s);
-				byte[] bytes = new byte[stream.Length];
-				stream.Read(bytes, 0, bytes.Length);
+        t.SetFunction<string, string, bool>(
+            "GetFiles",
+            (_, s, p, b) => new BadArray(
+                m_FileSystem.GetFiles(s, p, b)
+                    .Select(x => (BadObject)x)
+                    .ToList()
+            ),
+            BadNativeClassBuilder.GetNative("Array")
+        );
 
-				return new BadArray(bytes.Select(x => (BadObject)new BadNumber(x)).ToList());
-			},
-			BadNativeClassBuilder.GetNative("Array"));
+        return t;
+    }
 
-		t.SetFunction<string>("Delete", m_FileSystem.DeleteFile);
+    /// <summary>
+    ///     Creates the "File" Table
+    /// </summary>
+    /// <returns>Table</returns>
+    private BadTable CreateFile()
+    {
+        BadTable t = new BadTable();
 
-		CreateMoveCopy(t);
+        t.SetFunction<string, string>(
+            "WriteAllText",
+            m_FileSystem.WriteAllText
+        );
+        t.SetFunction<string>(
+            "ReadAllText",
+            s => m_FileSystem.ReadAllText(s),
+            BadNativeClassBuilder.GetNative("string")
+        );
+        t.SetFunction<string>(
+            "Exists",
+            s => m_FileSystem.Exists(s),
+            BadNativeClassBuilder.GetNative("bool")
+        );
+        t.SetFunction<string>(
+            "ReadAllLines",
+            s => new BadArray(
+                m_FileSystem.ReadAllLines(s)
+                    .Select(x => (BadObject)x)
+                    .ToList()
+            ),
+            BadNativeClassBuilder.GetNative("Array")
+        );
+        t.SetFunction<string, BadObject>(
+            "WriteAllLines",
+            (ctx, s, a) =>
+            {
+                BadObject[] arr;
+                if (a is BadArray ar)
+                {
+                    arr = ar.InnerArray.ToArray();
+                }
+                else if (BadNativeClassBuilder.Enumerable.IsSuperClassOf(a.GetPrototype()))
+                {
+                    arr = BadNativeClassHelper.ExecuteEnumerate(ctx, a).ToArray();
+                }
+                else
+                {
+                    throw new BadRuntimeException("IO.File.WriteAllLines: Argument is not of type IEnumerable");
+                }
 
-		return t;
-	}
+                m_FileSystem.WriteAllLines(s, arr.Select(x => x.ToString()!));
 
-	protected override void LoadApi(BadTable target)
-	{
-		target.SetProperty("Path", CreatePath());
-		target.SetProperty("Directory", CreateDirectory());
-		target.SetProperty("File", CreateFile());
-	}
+                return BadObject.Null;
+            },
+            BadAnyPrototype.Instance
+        );
+
+
+        t.SetFunction<string, BadObject>(
+            "WriteAllBytes",
+            (ctx, s, a) =>
+            {
+                using Stream stream = m_FileSystem.OpenWrite(s, BadWriteMode.CreateNew);
+                BadObject[] arr;
+                if (a is BadArray ar)
+                {
+                    arr = ar.InnerArray.ToArray();
+                }
+                else if (BadNativeClassBuilder.Enumerable.IsSuperClassOf(a.GetPrototype()))
+                {
+                    arr = BadNativeClassHelper.ExecuteEnumerate(ctx, a).ToArray();
+                }
+                else
+                {
+                    throw new BadRuntimeException("IO.File.WriteAllBytes: Argument is not of type IEnumerable");
+                }
+
+                foreach (BadObject o in arr)
+                {
+                    if (o is not IBadNumber num)
+                    {
+                        throw new BadRuntimeException("IO.File.WriteAllBytes: Array contains non-number");
+                    }
+
+                    stream.WriteByte((byte)num.Value);
+                }
+            }
+        );
+
+        t.SetFunction<string>(
+            "ReadAllBytes",
+            s =>
+            {
+                using Stream stream = m_FileSystem.OpenRead(s);
+                byte[] bytes = new byte[stream.Length];
+                stream.Read(bytes, 0, bytes.Length);
+
+                return new BadArray(bytes.Select(x => (BadObject)new BadNumber(x)).ToList());
+            },
+            BadNativeClassBuilder.GetNative("Array")
+        );
+
+        t.SetFunction<string>("Delete", m_FileSystem.DeleteFile);
+
+        CreateMoveCopy(t);
+
+        return t;
+    }
+
+    protected override void LoadApi(BadTable target)
+    {
+        target.SetProperty("Path", CreatePath());
+        target.SetProperty("Directory", CreateDirectory());
+        target.SetProperty("File", CreateFile());
+    }
 }

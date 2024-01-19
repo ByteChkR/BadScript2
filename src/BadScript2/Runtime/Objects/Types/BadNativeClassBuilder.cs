@@ -1,6 +1,9 @@
+using BadScript2.Common;
+using BadScript2.Parser.Expressions.Types;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Objects.Types;
 
@@ -9,6 +12,109 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public static class BadNativeClassBuilder
 {
+	public static readonly BadInterfacePrototype Disposable = 
+		new BadInterfacePrototype("IDisposable", Array.Empty<BadInterfacePrototype>(), null, () => s_DisposableConstraints);
+
+	public static readonly BadInterfacePrototype Enumerable = 
+		new BadInterfacePrototype("IEnumerable", Array.Empty<BadInterfacePrototype>(), null, () => s_EnumerableConstraints);
+	
+	public static readonly BadInterfacePrototype Enumerator = 
+		new BadInterfacePrototype("IEnumerator", Array.Empty<BadInterfacePrototype>(), null, EnumeratorConstraints);
+
+	public static readonly BadInterfacePrototype ArrayLike =
+		new BadInterfacePrototype("IArray", new[] { Enumerable }, null, ArrayConstraints);
+	
+	private static readonly BadInterfaceConstraint[] s_DisposableConstraints = {
+		new BadInterfaceFunctionConstraint("Dispose", null, Array.Empty<BadFunctionParameter>())
+	};
+	private static readonly BadInterfaceConstraint[] s_EnumerableConstraints = {
+		new BadInterfaceFunctionConstraint("GetEnumerator", null, Enumerator, Array.Empty<BadFunctionParameter>())
+	};
+
+	private static BadInterfaceConstraint[] ArrayConstraints()
+	{
+		return new BadInterfaceConstraint[]
+		{
+			//Add(any elem);
+			new BadInterfaceFunctionConstraint("Add", null, new[] { new BadFunctionParameter("elem", false, false, false, null, BadAnyPrototype.Instance) }),
+
+			//AddRange(IEnumerable elems);
+			new BadInterfaceFunctionConstraint("AddRange", null, new[] { new BadFunctionParameter("elems", false, false, false, null, Enumerable) }),
+
+			//Clear();
+			new BadInterfaceFunctionConstraint("Clear", null, Array.Empty<BadFunctionParameter>()),
+
+			//Insert(num index, any elem);
+			new BadInterfaceFunctionConstraint(
+				"Insert",
+				null,
+				new[]
+				{
+					new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+					new BadFunctionParameter("elem", false, false, false, null, BadAnyPrototype.Instance)
+				}
+			),
+
+			//InsertRange(num index, IEnumerable elems);
+			new BadInterfaceFunctionConstraint(
+				"InsertRange",
+				null,
+				new[]
+				{
+					new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+					new BadFunctionParameter("elems", false, false, false, null, Enumerable)
+				}
+			),
+
+			//bool Remove(any elem);
+			new BadInterfaceFunctionConstraint("Remove", null, GetNative("bool"), new[] { new BadFunctionParameter("elem", false, false, false, null, BadAnyPrototype.Instance) }),
+
+			//RemoveAt(num index);
+			new BadInterfaceFunctionConstraint("RemoveAt", null, new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }),
+
+			//bool Contains(any elem);
+			new BadInterfaceFunctionConstraint("Contains", null, GetNative("bool"), new[] { new BadFunctionParameter("elem", false, false, false, null, BadAnyPrototype.Instance) }),
+
+			//Get(num index);
+			new BadInterfaceFunctionConstraint("Get", null, BadAnyPrototype.Instance, new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }),
+
+			//Set(num index, any elem);
+			new BadInterfaceFunctionConstraint(
+				"Set",
+				null,
+				new[]
+				{
+					new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+					new BadFunctionParameter("elem", false, false, false, null, BadAnyPrototype.Instance)
+				}
+			),
+
+			//op_ArrayAccess(num index);
+			new BadInterfaceFunctionConstraint(
+				BadStaticKeys.ArrayAccessOperatorName,
+				null,
+				BadAnyPrototype.Instance,
+				new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }
+			),
+
+			//op_ArrayAccessReverse(num index);
+			new BadInterfaceFunctionConstraint(
+				BadStaticKeys.ArrayAccessReverseOperatorName,
+				null,
+				BadAnyPrototype.Instance,
+				new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }
+			),
+			new BadInterfacePropertyConstraint("Length", null, GetNative("num"))
+		};
+	}
+	private static BadInterfaceConstraint[] EnumeratorConstraints()
+	{
+		return new BadInterfaceConstraint[]
+		{
+			new BadInterfaceFunctionConstraint("MoveNext", null, GetNative("bool"), Array.Empty<BadFunctionParameter>()),
+			new BadInterfaceFunctionConstraint("GetCurrent", null, BadAnyPrototype.Instance, Array.Empty<BadFunctionParameter>())
+		};
+	}
 	private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
 	{
 		BadAnyPrototype.Instance,
@@ -16,9 +122,13 @@ public static class BadNativeClassBuilder
 		CreateNativeType<BadBoolean>("bool"),
 		CreateNativeType<BadNumber>("num"),
 		CreateNativeType<BadFunction>("Function"),
-		CreateNativeType<BadArray>("Array"),
-		CreateNativeType<BadTable>("Table"),
+		CreateNativeType<BadArray>("Array", ArrayLike),
+		CreateNativeType<BadTable>("Table", Enumerable),
 		BadScope.Prototype,
+		Enumerable,
+		Enumerator,
+		Disposable,
+		ArrayLike,
 	};
 
 	/// <summary>
@@ -59,25 +169,29 @@ public static class BadNativeClassBuilder
 	/// </summary>
 	/// <param name="name">Type Name</param>
 	/// <param name="constructor">The Constructor</param>
+	/// <param name="interfaces">The Implemented Interfaces</param>
 	/// <typeparam name="T">The BadObject Type</typeparam>
 	/// <returns>The Prototype</returns>
 	private static BadNativeClassPrototype<T> Create<T>(
 		string name,
-		Func<BadObject[], BadObject> constructor) where T : BadObject
+		Func<BadObject[], BadObject> constructor,
+		params BadInterfacePrototype[] interfaces) where T : BadObject
 	{
 		return new BadNativeClassPrototype<T>(name,
-			(_, a) => constructor(a));
+			(_, a) => constructor(a),
+			interfaces);
 	}
 
 	/// <summary>
 	///     Creates a Native Class Prototype
 	/// </summary>
 	/// <param name="name">Name of the Type</param>
+	/// <param name="interfaces">The Implemented Interfaces</param>
 	/// <typeparam name="T">BadObject Type</typeparam>
 	/// <returns>Class Prototype</returns>
-	private static BadNativeClassPrototype<T> CreateNativeType<T>(string name) where T : BadObject
+	private static BadNativeClassPrototype<T> CreateNativeType<T>(string name, params BadInterfacePrototype[] interfaces) where T : BadObject
 	{
-		return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name));
+		return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name), interfaces);
 	}
 
 
@@ -86,12 +200,14 @@ public static class BadNativeClassBuilder
 	/// </summary>
 	/// <param name="name">Type Name</param>
 	/// <param name="constructor">The Constructor</param>
+	/// <param name="interfaces">The Implemented Interfaces</param>
 	/// <typeparam name="T">The BadObject Type</typeparam>
 	/// <returns>The Prototype</returns>
 	private static BadNativeClassPrototype<T> CreateNativeType<T>(
 		string name,
-		Func<BadObject[], BadObject> constructor) where T : BadObject
+		Func<BadObject[], BadObject> constructor,
+		 params BadInterfacePrototype[] interfaces) where T : BadObject
 	{
-		return Create<T>(name, constructor);
+		return Create<T>(name, constructor, interfaces);
 	}
 }

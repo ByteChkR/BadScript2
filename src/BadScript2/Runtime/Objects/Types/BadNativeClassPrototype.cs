@@ -1,3 +1,5 @@
+using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -14,7 +16,8 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
 	/// <param name="func">Class Constructor</param>
 	public BadNativeClassPrototype(
 		string name,
-		Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, func) { }
+		Func<BadExecutionContext, BadObject[], BadObject> func,
+		params BadInterfacePrototype[] interfaces) : base(name, func, null, interfaces) { }
 
 	public override bool IsAbstract { get; } = false;
 

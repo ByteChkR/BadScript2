@@ -16,7 +16,8 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 {
 	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
 		"Enumerable",
-		(_, _) => throw new BadRuntimeException("Cannot call method"));
+		(_, _) => throw new BadRuntimeException("Cannot call method"),
+		BadNativeClassBuilder.Enumerable);
 
 	private readonly IEnumerable<BadObject> m_Enumerable;
 	private readonly BadFunction m_Func;

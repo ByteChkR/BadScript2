@@ -1,3 +1,5 @@
+using BadScript2.Common;
+using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
@@ -9,6 +11,57 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public static class BadNativeClassHelper
 {
+	
+	public static IEnumerable<BadObject> ExecuteEnumerator(BadExecutionContext ctx, BadObject enumerator)
+        {
+            BadObject moveNext = enumerator.GetProperty("MoveNext").Dereference();
+            BadObject getCurrent = enumerator.GetProperty("GetCurrent").Dereference();
+            BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
+            BadObject? result = BadObject.False;
+            foreach (BadObject o in BadInvocationExpression.Invoke(moveNext, Array.Empty<BadObject>(), runtimePos, ctx))
+            {
+                result = o;
+            }
+    
+            while (result.Dereference() == BadObject.True)
+            {
+                BadObject? obj = null;
+                foreach (BadObject o in BadInvocationExpression.Invoke(getCurrent, Array.Empty<BadObject>(), runtimePos, ctx))
+                {
+                    obj = o;
+                }
+    
+                if (obj == null)
+                {
+                    throw new BadRuntimeException("Enumerator.GetCurrent() returned NULL");
+                }
+    
+                yield return obj.Dereference();
+    
+                foreach (BadObject o in BadInvocationExpression.Invoke(moveNext, Array.Empty<BadObject>(), runtimePos, ctx))
+                {
+                    result = o;
+                }
+            }
+        }
+    
+        public static IEnumerable<BadObject> ExecuteEnumerate(BadExecutionContext ctx, BadObject enumerable)
+        {
+            BadObject enumerator = enumerable.GetProperty("GetEnumerator").Dereference();
+            BadObject result = BadObject.Null;
+            BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
+            foreach (BadObject o in BadInvocationExpression.Invoke(enumerator, Array.Empty<BadObject>(), runtimePos, ctx))
+            {
+                result = o;
+            }
+    
+            if (result == BadObject.Null)
+            {
+                throw BadRuntimeException.Create(ctx.Scope, "GetEnumerator() returned NULL");
+            }
+    
+            return ExecuteEnumerator(ctx, result);
+        }
 	/// <summary>
 	///     The Constructors for the Native Types
 	/// </summary>
