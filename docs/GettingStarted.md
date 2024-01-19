@@ -11,6 +11,8 @@
 - [Operators](./badlang/Operators.md)
 - [Comments](./badlang/Comments.md)
 - [Loops](./badlang/Loops.md)
+- [Locking](./badlang/Locking.md)
+- [Using](./badlang/Using.md)
 - [Functions](./badlang/Functions.md)
 	- [TypeSafety](./badlang/functions/TypeSafety.md)
 	- [Parameters](./badlang/functions/Parameters.md)
