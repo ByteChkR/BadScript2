@@ -67,7 +67,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         private BadExecutionContext CreateContext()
         {
             BadExecutionContext context = m_Runtime.CreateContext();
-            var ctx = new BadExecutionContext(context.Scope.CreateChild("ClientCommands", null, null));
+            BadExecutionContext ctx = new BadExecutionContext(context.Scope.CreateChild("ClientCommands", null, null));
             BadTable table = ctx.Scope.GetTable();
             table.SetFunction("disconnect", m_Client.Stop);
             table.SetFunction("exit", m_Client.Stop);

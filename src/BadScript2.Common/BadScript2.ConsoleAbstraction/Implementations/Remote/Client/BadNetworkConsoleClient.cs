@@ -157,7 +157,7 @@ public class BadNetworkConsoleClient
                 HeartBeatSendInterval = hello.HeartBeatInterval;
 
                 break;
-            case BadConsoleWritePacket wp when wp.IsWriteLine:
+            case BadConsoleWritePacket { IsWriteLine: true } wp:
                 Console.WriteLine(wp.Message);
 
                 break;
@@ -165,7 +165,7 @@ public class BadNetworkConsoleClient
                 Console.Write(wp.Message);
 
                 break;
-            case BadConsoleColorChangePacket cs when cs.IsBackground:
+            case BadConsoleColorChangePacket { IsBackground: true } cs:
                 Console.BackgroundColor = cs.Color;
 
                 break;
