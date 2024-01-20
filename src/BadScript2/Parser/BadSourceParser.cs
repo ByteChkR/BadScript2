@@ -101,7 +101,6 @@ public class BadSourceParser
         Reader.SetPosition(symbol.SourcePosition.Index);
 
         return null;
-
     }
 
     /// <summary>
@@ -827,7 +826,7 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
-        if (precedence <= 0 || (!Reader.Is("=>") && !Reader.Is('*') && !Reader.Is('?') && !Reader.Is('!')))
+        if (precedence <= 0 || !Reader.Is("=>") && !Reader.Is('*') && !Reader.Is('?') && !Reader.Is('!'))
         {
             return new BadVariableExpression(word.Text, word.SourcePosition);
         }
@@ -1105,7 +1104,6 @@ public class BadSourceParser
                 sb.Append("}}");
 
                 continue;
-
             }
 
             sb.Append(Reader.GetCurrentChar());
@@ -1207,7 +1205,6 @@ public class BadSourceParser
                 sb.Append("}}");
 
                 continue;
-
             }
 
             if (Reader.Is(BadStaticKeys.ESCAPE_CHARACTER))
@@ -1259,7 +1256,7 @@ public class BadSourceParser
         BadExpression condition = ParseExpression();
         Reader.Eat(')');
 
-        List<BadExpression> block = ParseBlock( out bool _);
+        List<BadExpression> block = ParseBlock(out bool _);
 
         return new BadWhileExpression(
             condition,

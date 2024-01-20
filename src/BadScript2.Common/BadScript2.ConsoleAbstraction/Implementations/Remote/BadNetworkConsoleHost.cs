@@ -14,100 +14,100 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote;
 /// </summary>
 public class BadNetworkConsoleHost : IBadConsole
 {
-	/// <summary>
-	///     Queue of Incoming Packets
-	/// </summary>
-	private readonly ConcurrentQueue<BadConsoleReadPacket> m_IncomingPackets =
+    /// <summary>
+    ///     Queue of Incoming Packets
+    /// </summary>
+    private readonly ConcurrentQueue<BadConsoleReadPacket> m_IncomingPackets =
         new ConcurrentQueue<BadConsoleReadPacket>();
 
-	/// <summary>
-	///     The Used TCP Listener
-	/// </summary>
-	private readonly TcpListener? m_Listener;
+    /// <summary>
+    ///     The Used TCP Listener
+    /// </summary>
+    private readonly TcpListener? m_Listener;
 
-	/// <summary>
-	///     Lock Object
-	/// </summary>
-	private readonly object m_Lock = new object();
+    /// <summary>
+    ///     Lock Object
+    /// </summary>
+    private readonly object m_Lock = new object();
 
-	/// <summary>
-	///     The Outgoing Packet Queue
-	/// </summary>
-	private readonly ConcurrentQueue<BadConsolePacket> m_OutgoingPackets = new ConcurrentQueue<BadConsolePacket>();
+    /// <summary>
+    ///     The Outgoing Packet Queue
+    /// </summary>
+    private readonly ConcurrentQueue<BadConsolePacket> m_OutgoingPackets = new ConcurrentQueue<BadConsolePacket>();
 
-	/// <summary>
-	///     The Background Color
-	/// </summary>
-	private ConsoleColor m_BackgroundColor = ConsoleColor.Black;
+    /// <summary>
+    ///     The Background Color
+    /// </summary>
+    private ConsoleColor m_BackgroundColor = ConsoleColor.Black;
 
-	/// <summary>
-	///     The Connected Client
-	/// </summary>
-	private TcpClient? m_Client;
+    /// <summary>
+    ///     The Connected Client
+    /// </summary>
+    private TcpClient? m_Client;
 
-	/// <summary>
-	///     If true the host will exit
-	/// </summary>
-	private bool m_ExitRequested;
+    /// <summary>
+    ///     If true the host will exit
+    /// </summary>
+    private bool m_ExitRequested;
 
-	/// <summary>
-	///     The Foreground Color
-	/// </summary>
-	private ConsoleColor m_ForegroundColor = ConsoleColor.White;
+    /// <summary>
+    ///     The Foreground Color
+    /// </summary>
+    private ConsoleColor m_ForegroundColor = ConsoleColor.White;
 
-	/// <summary>
-	///     The Message Thread
-	/// </summary>
-	private Thread? m_MessageThread;
+    /// <summary>
+    ///     The Message Thread
+    /// </summary>
+    private Thread? m_MessageThread;
 
-	/// <summary>
-	///     Constructs a new Host from a TCP Listener
-	/// </summary>
-	/// <param name="listner">The TCP Listener</param>
-	public BadNetworkConsoleHost(TcpListener listner)
+    /// <summary>
+    ///     Constructs a new Host from a TCP Listener
+    /// </summary>
+    /// <param name="listner">The TCP Listener</param>
+    public BadNetworkConsoleHost(TcpListener listner)
     {
         m_Listener = listner;
     }
 
-	/// <summary>
-	///     Constructs a new Host from a TCP Client
-	/// </summary>
-	/// <param name="client">The TCP Client</param>
-	public BadNetworkConsoleHost(TcpClient client)
+    /// <summary>
+    ///     Constructs a new Host from a TCP Client
+    /// </summary>
+    /// <param name="client">The TCP Client</param>
+    public BadNetworkConsoleHost(TcpClient client)
     {
         m_Client = client;
     }
 
-	/// <summary>
-	///     Is true if a client is connected to this host
-	/// </summary>
-	public bool IsConnected => m_Client != null;
+    /// <summary>
+    ///     Is true if a client is connected to this host
+    /// </summary>
+    public bool IsConnected => m_Client != null;
 
-	/// <summary>
-	///     The Interval in which the Host will send Heartbeat Packets to the Client
-	/// </summary>
-	public static int HeartBeatInterval { get; set; } = 3000;
+    /// <summary>
+    ///     The Interval in which the Host will send Heartbeat Packets to the Client
+    /// </summary>
+    public static int HeartBeatInterval { get; set; } = 3000;
 
-	/// <summary>
-	///     The Timeout after which the Host will disconnect the Client if no Heartbeat Packet was received
-	/// </summary>
-	public static int HeartBeatTimeOut { get; set; } = 5000;
+    /// <summary>
+    ///     The Timeout after which the Host will disconnect the Client if no Heartbeat Packet was received
+    /// </summary>
+    public static int HeartBeatTimeOut { get; set; } = 5000;
 
-	/// <summary>
-	///     The Time Interval that the Read Thread will sleep if no data is available
-	/// </summary>
-	public static int ReadSleepTimeout { get; set; } = 100;
+    /// <summary>
+    ///     The Time Interval that the Read Thread will sleep if no data is available
+    /// </summary>
+    public static int ReadSleepTimeout { get; set; } = 100;
 
 
-	/// <summary>
-	///     The Time Interval that the Write Thread will sleep if no data is available
-	/// </summary>
-	public static int ReceiveSleepTimeout { get; set; } = 100;
+    /// <summary>
+    ///     The Time Interval that the Write Thread will sleep if no data is available
+    /// </summary>
+    public static int ReceiveSleepTimeout { get; set; } = 100;
 
-	/// <summary>
-	///     The Time Interval that the Accept Thread will sleep if no data is available
-	/// </summary>
-	public static int AcceptSleepTimeout { get; set; } = 100;
+    /// <summary>
+    ///     The Time Interval that the Accept Thread will sleep if no data is available
+    /// </summary>
+    public static int AcceptSleepTimeout { get; set; } = 100;
 
     public void Write(string str)
     {

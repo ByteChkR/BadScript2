@@ -26,7 +26,7 @@ public abstract class BadConsolePacket
             BadConsolePacketType.Disconnect => BadConsoleDisconnectPacket.Deserialize(data),
             BadConsolePacketType.HeartBeat => BadConsoleHeartBeatPacket.Deserialize(data),
             BadConsolePacketType.Hello => BadConsoleHelloPacket.Deserialize(data),
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
     }
 

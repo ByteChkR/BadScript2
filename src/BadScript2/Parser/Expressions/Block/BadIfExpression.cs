@@ -12,23 +12,23 @@ namespace BadScript2.Parser.Expressions.Block;
 /// </summary>
 public class BadIfExpression : BadExpression
 {
-	/// <summary>
-	///     The Conditional Branches
-	/// </summary>
-	private readonly Dictionary<BadExpression, BadExpression[]> m_ConditionalBranches;
+    /// <summary>
+    ///     The Conditional Branches
+    /// </summary>
+    private readonly Dictionary<BadExpression, BadExpression[]> m_ConditionalBranches;
 
-	/// <summary>
-	///     The (optional) Else Branch
-	/// </summary>
-	private List<BadExpression>? m_ElseBranch;
+    /// <summary>
+    ///     The (optional) Else Branch
+    /// </summary>
+    private List<BadExpression>? m_ElseBranch;
 
-	/// <summary>
-	///     Constructor of the If Expression
-	/// </summary>
-	/// <param name="branches">The Conditional Branches</param>
-	/// <param name="elseBranch">The (optional) Else Branch</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadIfExpression(
+    /// <summary>
+    ///     Constructor of the If Expression
+    /// </summary>
+    /// <param name="branches">The Conditional Branches</param>
+    /// <param name="elseBranch">The (optional) Else Branch</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadIfExpression(
         Dictionary<BadExpression, BadExpression[]> branches,
         IEnumerable<BadExpression>? elseBranch,
         BadSourcePosition position) : base(false, position)
@@ -37,15 +37,15 @@ public class BadIfExpression : BadExpression
         m_ElseBranch = elseBranch?.ToList();
     }
 
-	/// <summary>
-	///     The Conditional Branches
-	/// </summary>
-	public IDictionary<BadExpression, BadExpression[]> ConditionalBranches => m_ConditionalBranches;
+    /// <summary>
+    ///     The Conditional Branches
+    /// </summary>
+    public IDictionary<BadExpression, BadExpression[]> ConditionalBranches => m_ConditionalBranches;
 
-	/// <summary>
-	///     The (optional) Else Branch
-	/// </summary>
-	public IEnumerable<BadExpression>? ElseBranch => m_ElseBranch;
+    /// <summary>
+    ///     The (optional) Else Branch
+    /// </summary>
+    public IEnumerable<BadExpression>? ElseBranch => m_ElseBranch;
 
     public void SetElseBranch(IEnumerable<BadExpression>? branch)
     {
@@ -110,9 +110,9 @@ public class BadIfExpression : BadExpression
         }
 
         foreach (BadExpression e in m_ElseBranch.SelectMany(expr => expr.GetDescendantsAndSelf()))
-            {
-                yield return e;
-            }
+        {
+            yield return e;
+        }
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

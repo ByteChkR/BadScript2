@@ -10,15 +10,15 @@ namespace BadScript2.Interop.Common.Apis;
 /// </summary>
 public class BadMathApi : BadInteropApi
 {
-	/// <summary>
-	///     Random Number Generator
-	/// </summary>
-	private static readonly Random s_Random = new Random();
+    /// <summary>
+    ///     Random Number Generator
+    /// </summary>
+    private static readonly Random s_Random = new Random();
 
-	/// <summary>
-	///     Constructs a new Math API Instance
-	/// </summary>
-	public BadMathApi() : base("Math") { }
+    /// <summary>
+    ///     Constructs a new Math API Instance
+    /// </summary>
+    public BadMathApi() : base("Math") { }
 
     protected override void LoadApi(BadTable target)
     {

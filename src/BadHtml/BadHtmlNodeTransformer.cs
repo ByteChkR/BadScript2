@@ -79,14 +79,14 @@ public abstract class BadHtmlNodeTransformer
     {
         foreach (BadHtmlNodeTransformer transformer in s_Transformers)
         {
-	        if (!transformer.CanTransform(context))
-	        {
-		        continue;
-	        }
+            if (!transformer.CanTransform(context))
+            {
+                continue;
+            }
 
-	        transformer.TransformNode(context);
+            transformer.TransformNode(context);
 
-	        return;
+            return;
         }
 
         throw new InvalidOperationException("No transformer found");

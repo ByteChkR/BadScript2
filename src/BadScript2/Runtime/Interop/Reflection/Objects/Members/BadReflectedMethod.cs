@@ -66,7 +66,6 @@ public class BadReflectedMethod : BadReflectedMember
 
             return t.IsInstanceOfType(obj);
         }
-
     }
 
     private static object? ConvertObject(BadObject o, Type t)

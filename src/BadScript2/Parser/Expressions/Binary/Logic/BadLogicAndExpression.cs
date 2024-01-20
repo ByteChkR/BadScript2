@@ -70,11 +70,11 @@ public class BadLogicAndExpression : BadBinaryExpression
         }
 
         if (!lBool.Value)
-            {
-                yield return BadObject.False;
+        {
+            yield return BadObject.False;
 
-                yield break;
-            }
+            yield break;
+        }
 
         BadObject right = BadObject.Null;
 
@@ -93,13 +93,13 @@ public class BadLogicAndExpression : BadBinaryExpression
         }
 
         if (rBool.Value)
-            {
-                yield return BadObject.True;
-            }
-            else
-            {
-                yield return BadObject.False;
-            }
+        {
+            yield return BadObject.True;
+        }
+        else
+        {
+            yield return BadObject.False;
+        }
     }
 
     protected override string GetSymbol()

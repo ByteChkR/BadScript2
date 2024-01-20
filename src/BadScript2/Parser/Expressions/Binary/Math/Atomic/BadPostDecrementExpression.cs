@@ -11,17 +11,17 @@ namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 /// </summary>
 public class BadPostDecrementExpression : BadExpression
 {
-	/// <summary>
-	///     Left side of the expression
-	/// </summary>
-	public readonly BadExpression Left;
+    /// <summary>
+    ///     Left side of the expression
+    /// </summary>
+    public readonly BadExpression Left;
 
-	/// <summary>
-	///     Constructor of the Post Decrement Expression
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="position">Source position of the Expression</param>
-	public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Post Decrement Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(
         left.IsConstant,
         position
     )

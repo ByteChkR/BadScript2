@@ -281,7 +281,6 @@ public class BadCompiler
         }
 
         throw new BadCompilerException("No Compiler for Expression Type " + expression.GetType().Name);
-
     }
 
     public IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions, bool clearStack = true)

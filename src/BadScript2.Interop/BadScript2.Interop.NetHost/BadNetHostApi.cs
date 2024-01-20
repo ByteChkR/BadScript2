@@ -13,10 +13,10 @@ namespace BadScript2.Interop.NetHost;
 /// </summary>
 public class BadNetHostApi : BadInteropApi
 {
-	/// <summary>
-	///     Public Constructor
-	/// </summary>
-	public BadNetHostApi() : base("NetHost") { }
+    /// <summary>
+    ///     Public Constructor
+    /// </summary>
+    public BadNetHostApi() : base("NetHost") { }
 
 
     protected override void LoadApi(BadTable target)

@@ -13,13 +13,13 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadRangeExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor of the Range Expression
-	/// </summary>
-	/// <param name="left">Start of the Range</param>
-	/// <param name="right">End of the Range</param>
-	/// <param name="position">Source position of the Expression</param>
-	public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Range Expression
+    /// </summary>
+    /// <param name="left">Start of the Range</param>
+    /// <param name="right">End of the Range</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position

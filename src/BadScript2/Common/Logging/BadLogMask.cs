@@ -81,10 +81,10 @@ public class BadLogMask
     {
         switch (name)
         {
-	        case "None":
-		        return None;
-	        case "All":
-		        return All;
+            case "None":
+                return None;
+            case "All":
+                return All;
         }
 
         return !s_Masks.ContainsKey(name) ? Register(name) : new BadLogMask(s_Masks[name]);
@@ -130,9 +130,9 @@ public class BadLogMask
 	/// <param name="masks">Masks that make up the resulting mask</param>
 	/// <returns>The resulting mask</returns>
 	public static BadLogMask GetMask(params BadLogMask[] masks)
-	{
-		return masks.Aggregate<BadLogMask, ulong>(0, (current, name) => current | name.m_Mask);
-	}
+    {
+        return masks.Aggregate<BadLogMask, ulong>(0, (current, name) => current | name.m_Mask);
+    }
 
 	/// <summary>
 	///     Returns the mask flags of the mask object

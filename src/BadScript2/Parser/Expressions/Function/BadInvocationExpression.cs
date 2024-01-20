@@ -13,18 +13,18 @@ namespace BadScript2.Parser.Expressions.Function;
 /// </summary>
 public class BadInvocationExpression : BadExpression
 {
-	/// <summary>
-	///     The Invocation Arguments
-	/// </summary>
-	private readonly List<BadExpression> m_Arguments;
+    /// <summary>
+    ///     The Invocation Arguments
+    /// </summary>
+    private readonly List<BadExpression> m_Arguments;
 
-	/// <summary>
-	///     Constructor of the Invocation Expression
-	/// </summary>
-	/// <param name="left">Left Side of the Invocation</param>
-	/// <param name="args">The Invocation Arguments</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadInvocationExpression(BadExpression left, IEnumerable<BadExpression> args, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Invocation Expression
+    /// </summary>
+    /// <param name="left">Left Side of the Invocation</param>
+    /// <param name="args">The Invocation Arguments</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadInvocationExpression(BadExpression left, IEnumerable<BadExpression> args, BadSourcePosition position) : base(
         false,
         position
     )
@@ -33,20 +33,20 @@ public class BadInvocationExpression : BadExpression
         m_Arguments = args.ToList();
     }
 
-	/// <summary>
-	///     Argument Count of the Invocation
-	/// </summary>
-	public int ArgumentCount => m_Arguments.Count;
+    /// <summary>
+    ///     Argument Count of the Invocation
+    /// </summary>
+    public int ArgumentCount => m_Arguments.Count;
 
-	/// <summary>
-	///     The Arguments of the Invocation
-	/// </summary>
-	public IEnumerable<BadExpression> Arguments => m_Arguments;
+    /// <summary>
+    ///     The Arguments of the Invocation
+    /// </summary>
+    public IEnumerable<BadExpression> Arguments => m_Arguments;
 
-	/// <summary>
-	///     The Left side of the Invocation
-	/// </summary>
-	public BadExpression Left { get; }
+    /// <summary>
+    ///     The Left side of the Invocation
+    /// </summary>
+    public BadExpression Left { get; }
 
     public void SetArgs(IEnumerable<BadExpression> exprs)
     {

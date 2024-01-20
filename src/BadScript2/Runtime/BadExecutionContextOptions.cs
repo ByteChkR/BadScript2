@@ -9,10 +9,10 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadExecutionContextOptions
 {
-	/// <summary>
-	///     List of APIs that are loaded in the context
-	/// </summary>
-	private readonly List<BadInteropApi> m_Apis = new List<BadInteropApi>();
+    /// <summary>
+    ///     List of APIs that are loaded in the context
+    /// </summary>
+    private readonly List<BadInteropApi> m_Apis = new List<BadInteropApi>();
 
     private readonly List<BadInteropExtension> m_Extensions = new List<BadInteropExtension>();
 

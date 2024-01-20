@@ -11,17 +11,17 @@ namespace BadScript2.Parser.Expressions.Constant;
 /// </summary>
 public class BadTableExpression : BadExpression
 {
-	/// <summary>
-	///     The Initializer List of the Table
-	/// </summary>
-	private readonly Dictionary<BadWordToken, BadExpression> m_Table;
+    /// <summary>
+    ///     The Initializer List of the Table
+    /// </summary>
+    private readonly Dictionary<BadWordToken, BadExpression> m_Table;
 
-	/// <summary>
-	///     Constructor of the Table Expression
-	/// </summary>
-	/// <param name="table">The Initializer List</param>
-	/// <param name="position">The Source Position of the Expression</param>
-	public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Table Expression
+    /// </summary>
+    /// <param name="table">The Initializer List</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
         false,
         position
     )

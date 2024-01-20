@@ -25,26 +25,26 @@ namespace BadScript2.Interop.Common.Apis;
 /// </summary>
 public class BadRuntimeApi : BadInteropApi
 {
-	/// <summary>
-	///     The Exported Objects
-	/// </summary>
-	private readonly Dictionary<string, BadObject> m_Exports = new Dictionary<string, BadObject>();
+    /// <summary>
+    ///     The Exported Objects
+    /// </summary>
+    private readonly Dictionary<string, BadObject> m_Exports = new Dictionary<string, BadObject>();
 
-	/// <summary>
-	///     Constructs a new Runtime API Instance
-	/// </summary>
-	public BadRuntimeApi() : base("Runtime") { }
+    /// <summary>
+    ///     Constructs a new Runtime API Instance
+    /// </summary>
+    public BadRuntimeApi() : base("Runtime") { }
 
-	/// <summary>
-	///     The Startup Arguments that were passed to the Runtime
-	/// </summary>
-	public static IEnumerable<string>? StartupArguments { get; set; }
+    /// <summary>
+    ///     The Startup Arguments that were passed to the Runtime
+    /// </summary>
+    public static IEnumerable<string>? StartupArguments { get; set; }
 
-	/// <summary>
-	///     Creates the "Native" Table
-	/// </summary>
-	/// <returns>Bad Table</returns>
-	private BadTable MakeNative()
+    /// <summary>
+    ///     Creates the "Native" Table
+    /// </summary>
+    /// <returns>Bad Table</returns>
+    private BadTable MakeNative()
     {
         BadTable table = new BadTable();
 
@@ -69,92 +69,92 @@ public class BadRuntimeApi : BadInteropApi
     }
 
 
-	/// <summary>
-	///     Returns true if the given object is an instance of a class prototype
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsPrototypeInstance(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is an instance of a class prototype
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsPrototypeInstance(BadObject arg)
     {
         return arg is BadClass;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a class prototype
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsPrototype(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a class prototype
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsPrototype(BadObject arg)
     {
         return arg is BadClassPrototype;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a native object
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsNative(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a native object
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsNative(BadObject arg)
     {
         return arg is IBadNative;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a function
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsFunction(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a function
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsFunction(BadObject arg)
     {
         return arg is BadFunction;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a table
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsTable(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a table
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsTable(BadObject arg)
     {
         return arg is BadTable;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a string
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsString(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a string
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsString(BadObject arg)
     {
         return arg is IBadString;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a number
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsNumber(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a number
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsNumber(BadObject arg)
     {
         return arg is IBadNumber;
     }
 
-	/// <summary>
-	///     Returns true if the given object is a boolean
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsBoolean(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is a boolean
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsBoolean(BadObject arg)
     {
         return arg is IBadBoolean;
     }
 
-	/// <summary>
-	///     Returns true if the given object is an array
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsArray(BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is an array
+    /// </summary>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsArray(BadObject arg)
     {
         return arg is BadArray;
     }
@@ -170,13 +170,13 @@ public class BadRuntimeApi : BadInteropApi
         return arg.HasProperty("GetEnumerator", ctx.Scope);
     }
 
-	/// <summary>
-	///     Returns true if the given object is an enumerator
-	/// </summary>
+    /// <summary>
+    ///     Returns true if the given object is an enumerator
+    /// </summary>
     /// <param name="ctx">The Current Execution Context</param>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private static BadObject Native_IsEnumerator(BadExecutionContext ctx, BadObject arg)
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsEnumerator(BadExecutionContext ctx, BadObject arg)
     {
         return arg.HasProperty("GetCurrent", ctx.Scope) && arg.HasProperty("MoveNext", ctx.Scope);
     }
@@ -665,6 +665,7 @@ public class BadRuntimeApi : BadInteropApi
         BadTask task = null!;
         task = new BadTask(
             new BadInteropRunnable(
+
                 // ReSharper disable once AccessToModifiedClosure
                 SafeExecute(ctx.Execute(exprs), ctx, () => task).GetEnumerator(),
                 setLastAsReturnB.Value

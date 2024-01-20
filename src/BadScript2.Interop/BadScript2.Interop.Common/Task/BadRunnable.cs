@@ -85,11 +85,11 @@ public abstract class BadRunnable
     /// </summary>
     private class BadRunnableImpl : BadRunnable
     {
-	    /// <summary>
-	    ///     Constructor
-	    /// </summary>
-	    /// <param name="enumerator">Enumeration</param>
-	    public BadRunnableImpl(IEnumerator<BadObject> enumerator)
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="enumerator">Enumeration</param>
+        public BadRunnableImpl(IEnumerator<BadObject> enumerator)
         {
             Enumerator = enumerator;
         }
@@ -107,7 +107,6 @@ public abstract class BadRunnable
     /// </summary>
     private class BadFunctionRunnable : BadRunnable
     {
-
         /// <summary>
         ///     The Return Value
         /// </summary>

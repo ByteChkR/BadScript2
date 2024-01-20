@@ -37,16 +37,15 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
         BadSourcePosition position,
         string symbol)
     {
-	    if (left is not IBadNumber lNum || right is not IBadNumber rNum)
-	    {
-		    throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
-	    }
+        if (left is not IBadNumber lNum || right is not IBadNumber rNum)
+        {
+            throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
+        }
 
-	    BadObject r = BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
+        BadObject r = BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
         leftRef.Set(r);
 
         return r;
-
     }
 
 	/// <summary>

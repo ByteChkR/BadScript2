@@ -13,19 +13,19 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpression
 {
-	/// <summary>
-	///     Arguments of the array access.
-	/// </summary>
-	private readonly BadExpression[] m_Arguments;
+    /// <summary>
+    ///     Arguments of the array access.
+    /// </summary>
+    private readonly BadExpression[] m_Arguments;
 
-	/// <summary>
-	///     Constructor of the Array Access Expression
-	/// </summary>
-	/// <param name="left">Left side of the expression</param>
-	/// <param name="args">Right side of the expression</param>
-	/// <param name="position">Position inside the source code</param>
-	/// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
-	public BadArrayAccessReverseExpression(
+    /// <summary>
+    ///     Constructor of the Array Access Expression
+    /// </summary>
+    /// <param name="left">Left side of the expression</param>
+    /// <param name="args">Right side of the expression</param>
+    /// <param name="position">Position inside the source code</param>
+    /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
+    public BadArrayAccessReverseExpression(
         BadExpression left,
         BadExpression[] args,
         BadSourcePosition position,

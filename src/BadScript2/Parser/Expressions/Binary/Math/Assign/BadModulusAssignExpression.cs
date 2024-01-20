@@ -11,13 +11,13 @@ namespace BadScript2.Parser.Expressions.Binary.Math.Assign;
 /// </summary>
 public class BadModulusAssignExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor of the Modulus Assignment Expression
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadModulusAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Modulus Assignment Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadModulusAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position
@@ -39,7 +39,6 @@ public class BadModulusAssignExpression : BadBinaryExpression
         leftRef.Set(r);
 
         return r;
-
     }
 
     public static IEnumerable<BadObject> ModulusWithOverride(

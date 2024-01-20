@@ -5,33 +5,33 @@ namespace BadScript2.IO;
 /// </summary>
 public static class BadFileSystem
 {
-	/// <summary>
-	///     File System implementation
-	/// </summary>
-	private static IFileSystem? s_FileSystem = new BadSystemFileSystem();
+    /// <summary>
+    ///     File System implementation
+    /// </summary>
+    private static IFileSystem? s_FileSystem = new BadSystemFileSystem();
 
-	/// <summary>
-	///     File System implementation
-	/// </summary>
-	/// <exception cref="InvalidOperationException">Gets thrown if the FileSystem is not set</exception>
-	public static IFileSystem Instance =>
+    /// <summary>
+    ///     File System implementation
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Gets thrown if the FileSystem is not set</exception>
+    public static IFileSystem Instance =>
         s_FileSystem ?? throw new InvalidOperationException("FileSystem is not initialized");
 
-	/// <summary>
-	///     Sets the FileSystem implementation
-	/// </summary>
-	/// <param name="fileSystem">The FileSystem implementation</param>
-	public static void SetFileSystem(IFileSystem fileSystem)
+    /// <summary>
+    ///     Sets the FileSystem implementation
+    /// </summary>
+    /// <param name="fileSystem">The FileSystem implementation</param>
+    public static void SetFileSystem(IFileSystem fileSystem)
     {
         s_FileSystem = fileSystem;
     }
 
-	/// <summary>
-	///     Wrapper for <see cref="IFileSystem.OpenWrite" /> that creates the file if it does not exist
-	/// </summary>
-	/// <param name="path">Path of the file</param>
-	/// <param name="contents">Contents to be written</param>
-	public static void WriteAllText(string path, string contents)
+    /// <summary>
+    ///     Wrapper for <see cref="IFileSystem.OpenWrite" /> that creates the file if it does not exist
+    /// </summary>
+    /// <param name="path">Path of the file</param>
+    /// <param name="contents">Contents to be written</param>
+    public static void WriteAllText(string path, string contents)
     {
         Instance.WriteAllText(path, contents);
     }

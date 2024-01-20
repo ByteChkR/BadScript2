@@ -173,7 +173,7 @@ public class BadInteractiveConsole
 
         if (m_Context.Scope.Error == null)
         {
-	        yield break;
+            yield break;
         }
 
         BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
@@ -231,7 +231,7 @@ public class BadInteractiveConsole
 
         if (m_Context.Scope.Error == null)
         {
-	        return;
+            return;
         }
 
         BadConsole.WriteLine("Error: " + m_Context.Scope.Error);

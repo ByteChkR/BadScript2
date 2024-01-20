@@ -13,10 +13,10 @@ namespace BadScript2.Debugger.Scriptable;
 /// </summary>
 public class BadScriptDebuggerApi : BadInteropApi
 {
-	/// <summary>
-	///     The Debugger Instance
-	/// </summary>
-	private readonly BadScriptDebugger m_Debugger;
+    /// <summary>
+    ///     The Debugger Instance
+    /// </summary>
+    private readonly BadScriptDebugger m_Debugger;
 
     private readonly string m_DebuggerPath;
 

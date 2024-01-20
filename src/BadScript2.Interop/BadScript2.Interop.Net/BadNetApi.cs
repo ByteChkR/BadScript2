@@ -11,10 +11,10 @@ namespace BadScript2.Interop.Net;
 /// </summary>
 public class BadNetApi : BadInteropApi
 {
-	/// <summary>
-	///     Public Constructor
-	/// </summary>
-	public BadNetApi() : base("Net") { }
+    /// <summary>
+    ///     Public Constructor
+    /// </summary>
+    public BadNetApi() : base("Net") { }
 
     protected override void LoadApi(BadTable target)
     {

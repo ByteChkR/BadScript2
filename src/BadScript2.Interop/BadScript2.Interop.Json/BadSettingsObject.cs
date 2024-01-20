@@ -15,27 +15,27 @@ namespace BadScript2.Interop.Json;
 /// </summary>
 public class BadSettingsObject : BadObject
 {
-	/// <summary>
-	///     The Class Prototype
-	/// </summary>
-	public static readonly BadClassPrototype Prototype =
+    /// <summary>
+    ///     The Class Prototype
+    /// </summary>
+    public static readonly BadClassPrototype Prototype =
         new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args) => CreateObj(args));
 
     /// <summary>
-	///     Property References
-	/// </summary>
-	private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;
+    ///     Property References
+    /// </summary>
+    private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;
 
-	/// <summary>
-	///     Inner Settings Object
-	/// </summary>
-	private readonly BadSettings m_Settings;
+    /// <summary>
+    ///     Inner Settings Object
+    /// </summary>
+    private readonly BadSettings m_Settings;
 
-	/// <summary>
-	///     Creates a new Settings Object
-	/// </summary>
-	/// <param name="settings">Inner Settings Object</param>
-	public BadSettingsObject(BadSettings settings)
+    /// <summary>
+    ///     Creates a new Settings Object
+    /// </summary>
+    /// <param name="settings">Inner Settings Object</param>
+    public BadSettingsObject(BadSettings settings)
     {
         m_Settings = settings;
         Dictionary<BadObject, BadObject> properties = new Dictionary<BadObject, BadObject>
@@ -196,7 +196,6 @@ public class BadSettingsObject : BadObject
         }
 
         return settings;
-
     }
 
     public override string ToSafeString(List<BadObject> done)

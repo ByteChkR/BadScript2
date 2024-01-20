@@ -13,20 +13,20 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadNewExpression : BadExpression
 {
-	/// <summary>
-	///     Constructor of the New Expression
-	/// </summary>
-	/// <param name="right">The Expression that evaluates to a BadClassPrototype that can be created</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
+    /// <summary>
+    ///     Constructor of the New Expression
+    /// </summary>
+    /// <param name="right">The Expression that evaluates to a BadClassPrototype that can be created</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadNewExpression(BadInvocationExpression right, BadSourcePosition position) : base(false, position)
     {
         Right = right;
     }
 
-	/// <summary>
-	///     The Constructor Invocation
-	/// </summary>
-	public BadInvocationExpression Right { get; }
+    /// <summary>
+    ///     The Constructor Invocation
+    /// </summary>
+    public BadInvocationExpression Right { get; }
 
     public override void Optimize()
     {

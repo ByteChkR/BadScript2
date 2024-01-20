@@ -17,10 +17,10 @@ namespace BadScript2.Parser.Expressions.Function;
 /// </summary>
 public class BadFunctionExpression : BadExpression
 {
-	/// <summary>
-	///     The Function Body
-	/// </summary>
-	private readonly List<BadExpression> m_Body;
+    /// <summary>
+    ///     The Function Body
+    /// </summary>
+    private readonly List<BadExpression> m_Body;
 
 
     private readonly BadMetaData? m_MetaData;
@@ -127,7 +127,7 @@ public class BadFunctionExpression : BadExpression
         {
             BadFunctionCompileLevel.Compiled => "compiled ",
             BadFunctionCompileLevel.CompiledFast => "compiled fast",
-            _ => ""
+            _ => "",
         };
 
         return
@@ -222,7 +222,7 @@ public class BadFunctionExpression : BadExpression
         {
             BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true),
             BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false),
-            _ => f
+            _ => f,
         };
 
         if (Name != null)

@@ -30,10 +30,11 @@ public class BadConsoleHeartBeatPacket : BadConsolePacket
     /// <returns>Bad Console Packet instance</returns>
     public new static BadConsoleHeartBeatPacket Deserialize(byte[] data)
     {
-	    if (data.Length != 1)
-	    {
-		    throw new BadNetworkConsoleException("Invalid HeartBeat Packet");
-	    }
+        if (data.Length != 1)
+        {
+            throw new BadNetworkConsoleException("Invalid HeartBeat Packet");
+        }
+
         return Packet;
     }
 }

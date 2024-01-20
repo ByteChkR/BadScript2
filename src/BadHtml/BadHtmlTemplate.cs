@@ -76,10 +76,12 @@ public class BadHtmlTemplate
     {
         options ??= new BadHtmlTemplateOptions();
         string src = GetSource();
+
         // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument input = new HtmlDocument();
         input.OptionUseIdAttribute = true;
         input.LoadHtml(src);
+
         // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument output = new HtmlDocument();
         output.OptionUseIdAttribute = true;

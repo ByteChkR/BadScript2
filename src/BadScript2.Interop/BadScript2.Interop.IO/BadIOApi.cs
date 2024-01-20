@@ -303,7 +303,7 @@ public class BadIOApi : BadInteropApi
                 using Stream stream = m_FileSystem.OpenRead(s);
                 byte[] bytes = new byte[stream.Length];
                 int read = stream.Read(bytes, 0, bytes.Length);
-                
+
                 if (read != bytes.Length)
                 {
                     throw new BadRuntimeException("IO.File.ReadAllBytes: Could not read all bytes");

@@ -11,10 +11,10 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public static class BadNativeClassHelper
 {
-	/// <summary>
-	///     The Constructors for the Native Types
-	/// </summary>
-	private static readonly Dictionary<string, Func<BadObject[], BadObject>> s_NativeConstructors =
+    /// <summary>
+    ///     The Constructors for the Native Types
+    /// </summary>
+    private static readonly Dictionary<string, Func<BadObject[], BadObject>> s_NativeConstructors =
         new Dictionary<string, Func<BadObject[], BadObject>>
         {
             {

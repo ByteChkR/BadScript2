@@ -63,7 +63,9 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
         return propName is IBadString
         {
             Value: "GetEnumerator",
-        } ? BadObjectReference.Make("GetEnumerator", () => m_Func) : base.GetProperty(propName, caller);
+        }
+            ? BadObjectReference.Make("GetEnumerator", () => m_Func)
+            : base.GetProperty(propName, caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

@@ -70,6 +70,7 @@ public class BadNetHost
 	public BadTask AcceptClient()
     {
         BadInteropRunnable runnable = null;
+
         // ReSharper disable once AccessToModifiedClosure
         // ReSharper disable once PossibleNullReferenceException
         runnable = new BadInteropRunnable(AcceptClient(m_Listener, r => runnable.SetReturn(r)));

@@ -12,40 +12,40 @@ namespace BadScript2.Parser;
 /// </summary>
 public class BadMetaData : BadObject
 {
-	/// <summary>
-	///     An empty Meta Data object
-	/// </summary>
-	public static readonly BadMetaData Empty =
+    /// <summary>
+    ///     An empty Meta Data object
+    /// </summary>
+    public static readonly BadMetaData Empty =
         new BadMetaData("", "", "any", new Dictionary<string, BadParameterMetaData>());
 
-	/// <summary>
-	///     The Description of the Expression
-	/// </summary>
-	public readonly string Description;
+    /// <summary>
+    ///     The Description of the Expression
+    /// </summary>
+    public readonly string Description;
 
-	/// <summary>
-	///     The Description of the Function Parameters
-	/// </summary>
-	public readonly Dictionary<string, BadParameterMetaData> ParameterDescriptions;
+    /// <summary>
+    ///     The Description of the Function Parameters
+    /// </summary>
+    public readonly Dictionary<string, BadParameterMetaData> ParameterDescriptions;
 
-	/// <summary>
-	///     The Description of the Return Value
-	/// </summary>
-	public readonly string ReturnDescription;
+    /// <summary>
+    ///     The Description of the Return Value
+    /// </summary>
+    public readonly string ReturnDescription;
 
-	/// <summary>
-	///     The Return Type of the Expression
-	/// </summary>
-	public readonly string ReturnType;
+    /// <summary>
+    ///     The Return Type of the Expression
+    /// </summary>
+    public readonly string ReturnType;
 
-	/// <summary>
-	///     Creates a new Meta Data Object
-	/// </summary>
-	/// <param name="description">The Description of the Expression</param>
-	/// <param name="returnDescription">The Description of the Return Value</param>
-	/// <param name="returnType">The Return Type of the Expression</param>
-	/// <param name="parameterDescriptions">The Description of the Function Parameters</param>
-	public BadMetaData(
+    /// <summary>
+    ///     Creates a new Meta Data Object
+    /// </summary>
+    /// <param name="description">The Description of the Expression</param>
+    /// <param name="returnDescription">The Description of the Return Value</param>
+    /// <param name="returnType">The Return Type of the Expression</param>
+    /// <param name="parameterDescriptions">The Description of the Function Parameters</param>
+    public BadMetaData(
         string description,
         string returnDescription,
         string returnType,

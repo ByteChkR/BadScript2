@@ -12,25 +12,25 @@ namespace BadScript2.Reader;
 /// </summary>
 public static class BadSourceReaderExtensions
 {
-	/// <summary>
-	///     Returns true if the Current Character of the Reader is a valid Word Start Character.
-	/// </summary>
-	/// <param name="reader">The Reader Instance</param>
-	/// <param name="offset">The Offset from the Current Reader Position</param>
-	/// <returns>True if the Character is a Valid Word Start Character</returns>
-	public static bool IsWordStart(this BadSourceReader reader, int offset = 0)
+    /// <summary>
+    ///     Returns true if the Current Character of the Reader is a valid Word Start Character.
+    /// </summary>
+    /// <param name="reader">The Reader Instance</param>
+    /// <param name="offset">The Offset from the Current Reader Position</param>
+    /// <returns>True if the Character is a Valid Word Start Character</returns>
+    public static bool IsWordStart(this BadSourceReader reader, int offset = 0)
     {
         return char.IsLetter(reader.GetCurrentChar(offset)) ||
                reader.GetCurrentChar(offset) == '_';
     }
 
-	/// <summary>
-	///     Returns true if the Current Character of the Reader is a valid Word Character.
-	/// </summary>
-	/// <param name="reader">The Reader Instance</param>
-	/// <param name="offset">The Offset from the Current Reader Position</param>
-	/// <returns>True if the Current Character is a valid Word Character</returns>
-	public static bool IsWordChar(this BadSourceReader reader, int offset = 0)
+    /// <summary>
+    ///     Returns true if the Current Character of the Reader is a valid Word Character.
+    /// </summary>
+    /// <param name="reader">The Reader Instance</param>
+    /// <param name="offset">The Offset from the Current Reader Position</param>
+    /// <returns>True if the Current Character is a valid Word Character</returns>
+    public static bool IsWordChar(this BadSourceReader reader, int offset = 0)
     {
         return char.IsLetterOrDigit(reader.GetCurrentChar(offset)) ||
                reader.GetCurrentChar(offset) == '_';

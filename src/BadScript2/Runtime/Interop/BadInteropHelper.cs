@@ -168,8 +168,8 @@ public static class BadInteropHelper
         }
 
         if (!type.IsGenericType ||
-            (type.GetGenericTypeDefinition() != typeof(List<>) &&
-             type.GetGenericTypeDefinition() != typeof(IList<>)))
+            type.GetGenericTypeDefinition() != typeof(List<>) &&
+            type.GetGenericTypeDefinition() != typeof(IList<>))
         {
             throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}' to type " + typeof(T));
         }
@@ -184,7 +184,6 @@ public static class BadInteropHelper
         }
 
         return (T)ruarr;
-
     }
 
     public static bool IsFunction(this Type t)
@@ -240,6 +239,5 @@ public static class BadInteropHelper
                gt == typeof(Action<,,,,,,,,,,,,>) ||
                gt == typeof(Action<,,,,,,,,,,,,,>) ||
                gt == typeof(Action<,,,,,,,,,,,,,,,>);
-
     }
 }

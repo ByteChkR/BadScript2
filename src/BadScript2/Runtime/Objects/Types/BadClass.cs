@@ -7,19 +7,19 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public class BadClass : BadObject
 {
-	/// <summary>
-	///     Base Class Instance
-	/// </summary>
-	private readonly BadClass? m_BaseClass;
+    /// <summary>
+    ///     Base Class Instance
+    /// </summary>
+    private readonly BadClass? m_BaseClass;
 
-	/// <summary>
-	///     Creates a new BadScript Class Instance
-	/// </summary>
-	/// <param name="name">The Type Name</param>
-	/// <param name="scope">Table of all members of this type(excluding base class members)</param>
-	/// <param name="baseClass">Base Class Instance</param>
-	/// <param name="prototype">The Class Prototype used to create this instance.</param>
-	public BadClass(string name, BadScope scope, BadClass? baseClass, BadClassPrototype prototype)
+    /// <summary>
+    ///     Creates a new BadScript Class Instance
+    /// </summary>
+    /// <param name="name">The Type Name</param>
+    /// <param name="scope">Table of all members of this type(excluding base class members)</param>
+    /// <param name="baseClass">Base Class Instance</param>
+    /// <param name="prototype">The Class Prototype used to create this instance.</param>
+    public BadClass(string name, BadScope scope, BadClass? baseClass, BadClassPrototype prototype)
     {
         Name = name;
         Scope = scope;
@@ -27,51 +27,51 @@ public class BadClass : BadObject
         Prototype = prototype;
     }
 
-	/// <summary>
-	///     Table of all members of this type(excluding base class members)
-	/// </summary>
-	public BadScope Scope { get; }
+    /// <summary>
+    ///     Table of all members of this type(excluding base class members)
+    /// </summary>
+    public BadScope Scope { get; }
 
-	/// <summary>
-	///     The Type Name
-	/// </summary>
-	public string Name { get; }
+    /// <summary>
+    ///     The Type Name
+    /// </summary>
+    public string Name { get; }
 
-	/// <summary>
-	///     The Class Prototype used to create this instance.
-	/// </summary>
-	public BadClassPrototype Prototype { get; }
+    /// <summary>
+    ///     The Class Prototype used to create this instance.
+    /// </summary>
+    public BadClassPrototype Prototype { get; }
 
-	/// <summary>
-	///     The Super Class of this Class(if this class is not at the end of the inheritance chain)
-	/// </summary>
-	public BadClass? SuperClass { get; private set; }
+    /// <summary>
+    ///     The Super Class of this Class(if this class is not at the end of the inheritance chain)
+    /// </summary>
+    public BadClass? SuperClass { get; private set; }
 
 
-	/// <summary>
-	///     Returns true if the given object is an instance of the specified prototype
-	/// </summary>
-	/// <param name="proto">The Prototype</param>
-	/// <returns>True if the given object is an instance of the specified prototype</returns>
-	public bool InheritsFrom(BadClassPrototype proto)
+    /// <summary>
+    ///     Returns true if the given object is an instance of the specified prototype
+    /// </summary>
+    /// <param name="proto">The Prototype</param>
+    /// <returns>True if the given object is an instance of the specified prototype</returns>
+    public bool InheritsFrom(BadClassPrototype proto)
     {
         return proto.IsSuperClassOf(Prototype);
     }
 
 
-	/// <summary>
-	///     Sets the 'this' parameter of the class scope to be this instance
-	/// </summary>
-	public void SetThis()
+    /// <summary>
+    ///     Sets the 'this' parameter of the class scope to be this instance
+    /// </summary>
+    public void SetThis()
     {
         SetThis(this);
     }
 
-	/// <summary>
-	///     Sets the 'this' parameter of the class scope to be the specified instance
-	/// </summary>
-	/// <param name="thisInstance">New This Instance</param>
-	private void SetThis(BadClass thisInstance)
+    /// <summary>
+    ///     Sets the 'this' parameter of the class scope to be the specified instance
+    /// </summary>
+    /// <param name="thisInstance">New This Instance</param>
+    private void SetThis(BadClass thisInstance)
     {
         SuperClass = thisInstance;
         Scope.GetTable().GetProperty("this").Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));

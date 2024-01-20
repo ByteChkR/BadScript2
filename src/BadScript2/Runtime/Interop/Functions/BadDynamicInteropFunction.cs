@@ -82,9 +82,6 @@ public class BadDynamicInteropFunction : BadFunction
             BadAnyPrototype.Instance
         );
     }
-
-
-    
 }
 
 /// <summary>
@@ -126,8 +123,6 @@ public class BadDynamicInteropFunction<T> : BadFunction
             typeof(T).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -175,7 +170,6 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
             typeof(T2).Name
         );
     }
-
 }
 
 /// <summary>
@@ -227,8 +221,6 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
             typeof(T3).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -283,8 +275,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
             typeof(T4).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -342,8 +332,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
             typeof(T5).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -404,8 +392,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
             typeof(T6).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -469,8 +455,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
             typeof(T7).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -537,8 +521,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
             typeof(T8).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -608,8 +590,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
             typeof(T9).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -682,8 +662,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
             typeof(T10).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -759,8 +737,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             typeof(T11).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -839,8 +815,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             typeof(T12).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -923,8 +897,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             typeof(T13).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -1011,8 +983,6 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             typeof(T14).Name
         );
     }
-
-    
 }
 
 /// <summary>
@@ -1102,6 +1072,4 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             typeof(T15).Name
         );
     }
-
-    
 }

@@ -14,10 +14,10 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadUnitTestContextBuilder
 {
-	/// <summary>
-	///     The Test Cases
-	/// </summary>
-	private readonly List<BadNUnitTestCase> m_Cases = new List<BadNUnitTestCase>();
+    /// <summary>
+    ///     The Test Cases
+    /// </summary>
+    private readonly List<BadNUnitTestCase> m_Cases = new List<BadNUnitTestCase>();
 
     private readonly BadRuntime m_Runtime;
 

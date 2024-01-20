@@ -7,13 +7,13 @@ namespace BadScript2.Interop.Common.Versioning;
 /// </summary>
 public static class BadVersionExtensions
 {
-	/// <summary>
-	///     Changes the Version Object by the given Change String
-	/// </summary>
-	/// <param name="version">Version Object</param>
-	/// <param name="changeStr">Change String</param>
-	/// <returns>New Version Object</returns>
-	public static Version ChangeVersion(this Version version, string changeStr)
+    /// <summary>
+    ///     Changes the Version Object by the given Change String
+    /// </summary>
+    /// <param name="version">Version Object</param>
+    /// <param name="changeStr">Change String</param>
+    /// <returns>New Version Object</returns>
+    public static Version ChangeVersion(this Version version, string changeStr)
     {
         string[] subVersions = changeStr.Split('.');
         int[] wrapValues =
@@ -136,13 +136,13 @@ public static class BadVersionExtensions
     }
 
 
-	/// <summary>
-	///     Applies the Change Reset to the Version Array
-	/// </summary>
-	/// <param name="changeReset">Version Reset Array</param>
-	/// <param name="original">The Original Version Components</param>
-	/// <param name="versions">The Version Components</param>
-	private static void ApplyChangeReset(IReadOnlyList<bool> changeReset, IReadOnlyList<int> original, IList<int> versions)
+    /// <summary>
+    ///     Applies the Change Reset to the Version Array
+    /// </summary>
+    /// <param name="changeReset">Version Reset Array</param>
+    /// <param name="original">The Original Version Components</param>
+    /// <param name="versions">The Version Components</param>
+    private static void ApplyChangeReset(IReadOnlyList<bool> changeReset, IReadOnlyList<int> original, IList<int> versions)
     {
         for (int j = 0; j < changeReset.Count; j++)
         {

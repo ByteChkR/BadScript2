@@ -27,7 +27,7 @@ public class BadConsoleReadPacket : BadConsolePacket
     {
         List<byte> data = new List<byte>
         {
-	        (byte)BadConsolePacketType.Read,
+            (byte)BadConsolePacketType.Read,
         };
         byte[] message = Encoding.UTF8.GetBytes(Message);
         data.AddRange(BitConverter.GetBytes(message.Length));

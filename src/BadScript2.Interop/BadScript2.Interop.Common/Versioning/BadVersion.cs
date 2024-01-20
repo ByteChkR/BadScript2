@@ -12,10 +12,10 @@ namespace BadScript2.Interop.Common.Versioning;
 /// </summary>
 public class BadVersion : BadObject, IBadNative
 {
-	/// <summary>
-	///     The Version Class Prototype
-	/// </summary>
-	public static readonly BadClassPrototype
+    /// <summary>
+    ///     The Version Class Prototype
+    /// </summary>
+    public static readonly BadClassPrototype
         Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 
     private static readonly BadClassPrototype s_Prototype;
@@ -83,7 +83,7 @@ public class BadVersion : BadObject, IBadNative
             "Build" => BadObjectReference.Make("Version.Build", () => m_Version.Build),
             "Revision" => BadObjectReference.Make("Version.Revision", () => m_Version.Revision),
             "ChangeVersion" => m_ChangeVersion,
-            _ => base.GetProperty(propName, caller)
+            _ => base.GetProperty(propName, caller),
         };
     }
 
@@ -106,7 +106,9 @@ public class BadVersion : BadObject, IBadNative
             case 0:
                 return new BadVersion(new Version());
             case 1:
-                return args[0] is IBadString str ? new BadVersion(new Version(str.Value)) : throw BadRuntimeException.Create(ctx.Scope, "Version Constructor expects string as argument");
+                return args[0] is IBadString str
+                    ? new BadVersion(new Version(str.Value))
+                    : throw BadRuntimeException.Create(ctx.Scope, "Version Constructor expects string as argument");
             case >= 2:
             {
                 if (args[0] is not IBadNumber major)

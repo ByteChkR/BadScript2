@@ -134,41 +134,41 @@ public class BadNetworkConsoleClient
 	/// <param name="packet">The Packet</param>
 	/// <exception cref="BadNetworkConsoleException">Gets raised if the packet could not be processed</exception>
 	private void ProcessPacket(BadConsolePacket packet)
-	{
-		switch (packet)
-		{
-			case BadConsoleClearPacket:
-				Console.Clear();
+    {
+        switch (packet)
+        {
+            case BadConsoleClearPacket:
+                Console.Clear();
 
-				break;
-			case BadConsoleDisconnectPacket:
-				m_ExitRequested = true;
+                break;
+            case BadConsoleDisconnectPacket:
+                m_ExitRequested = true;
 
-				break;
-			case BadConsoleHelloPacket hello:
-				HeartBeatSendInterval = hello.HeartBeatInterval;
+                break;
+            case BadConsoleHelloPacket hello:
+                HeartBeatSendInterval = hello.HeartBeatInterval;
 
-				break;
-			case BadConsoleWritePacket wp when wp.IsWriteLine:
-				Console.WriteLine(wp.Message);
+                break;
+            case BadConsoleWritePacket wp when wp.IsWriteLine:
+                Console.WriteLine(wp.Message);
 
-				break;
-			case BadConsoleWritePacket wp:
-				Console.Write(wp.Message);
+                break;
+            case BadConsoleWritePacket wp:
+                Console.Write(wp.Message);
 
-				break;
-			case BadConsoleColorChangePacket cs when cs.IsBackground:
-				Console.BackgroundColor = cs.Color;
+                break;
+            case BadConsoleColorChangePacket cs when cs.IsBackground:
+                Console.BackgroundColor = cs.Color;
 
-				break;
-			case BadConsoleColorChangePacket cs:
-				Console.ForegroundColor = cs.Color;
+                break;
+            case BadConsoleColorChangePacket cs:
+                Console.ForegroundColor = cs.Color;
 
-				break;
-			default:
-				throw new BadNetworkConsoleException("Invalid Packet");
-		}
-	}
+                break;
+            default:
+                throw new BadNetworkConsoleException("Invalid Packet");
+        }
+    }
 
 	/// <summary>
 	///     The Read Thread
@@ -212,7 +212,7 @@ public class BadNetworkConsoleClient
 
         if (!m_Client.Connected)
         {
-	        return;
+            return;
         }
 
         NetworkStream str = m_Client.GetStream();

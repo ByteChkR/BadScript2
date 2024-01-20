@@ -156,9 +156,9 @@ public class BadHtmlContext
 	/// <param name="expressions">The Expression Enumeration</param>
 	/// <returns>Enumeration of all Expressions in the Tree</returns>
 	private static IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
-	{
-		return expressions.SelectMany(expression => expression.GetDescendantsAndSelf());
-	}
+    {
+        return expressions.SelectMany(expression => expression.GetDescendantsAndSelf());
+    }
 
     public BadExpression ParseSingle(string code, BadSourcePosition pos)
     {

@@ -11,10 +11,10 @@ namespace BadScript2.Runtime.Objects.Functions;
 /// </summary>
 public class BadExpressionFunction : BadFunction
 {
-	/// <summary>
-	///     The Function Body
-	/// </summary>
-	private readonly List<BadExpression> m_Body;
+    /// <summary>
+    ///     The Function Body
+    /// </summary>
+    private readonly List<BadExpression> m_Body;
 
     private readonly string m_FuncString;
 

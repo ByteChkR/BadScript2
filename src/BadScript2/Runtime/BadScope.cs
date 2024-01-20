@@ -230,7 +230,6 @@ public class BadScope : BadObject
         m_SingletonCache[typeof(T)] = v;
 
         return v;
-
     }
 
     /// <summary>

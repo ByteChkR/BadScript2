@@ -126,7 +126,7 @@ public class BadInterfacePrototypeExpression : BadExpression
                 {
                     BadInterfaceFunctionConstraint f => PrepareFunctionConstraint(f),
                     BadInterfacePropertyConstraint p => PreparePropertyConstraint(p),
-                    _ => throw new BadRuntimeException("Unknown Constraint Type: " + c.GetType().Name)
+                    _ => throw new BadRuntimeException("Unknown Constraint Type: " + c.GetType().Name),
                 };
             }
 

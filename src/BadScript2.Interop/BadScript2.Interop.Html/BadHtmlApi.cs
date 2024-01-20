@@ -16,10 +16,10 @@ namespace BadScript2.Interop.Html;
 /// </summary>
 public class BadHtmlApi : BadInteropApi
 {
-	/// <summary>
-	///     Creates a new API Instance
-	/// </summary>
-	public BadHtmlApi() : base("BadHtml") { }
+    /// <summary>
+    ///     Creates a new API Instance
+    /// </summary>
+    public BadHtmlApi() : base("BadHtml") { }
 
     protected override void LoadApi(BadTable target)
     {

@@ -90,10 +90,10 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
             }
             else
             {
-	            if (breakpoints.Any(breakpoint => ln == breakpoint))
-	            {
-		            prefix = "@";
-	            }
+                if (breakpoints.Any(breakpoint => ln == breakpoint))
+                {
+                    prefix = "@";
+                }
             }
 
             sb.AppendLine($"{prefix}\t| {line}");

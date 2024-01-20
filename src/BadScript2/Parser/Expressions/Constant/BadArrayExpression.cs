@@ -10,17 +10,17 @@ namespace BadScript2.Parser.Expressions.Constant;
 /// </summary>
 public class BadArrayExpression : BadExpression
 {
-	/// <summary>
-	///     The Initializer List
-	/// </summary>
-	private readonly BadExpression[] m_InitExpressions;
+    /// <summary>
+    ///     The Initializer List
+    /// </summary>
+    private readonly BadExpression[] m_InitExpressions;
 
-	/// <summary>
-	///     Constructor of the Array Expression
-	/// </summary>
-	/// <param name="initExpressions">The initializer list of the Array</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Array Expression
+    /// </summary>
+    /// <param name="initExpressions">The initializer list of the Array</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
         false,
         position
     )

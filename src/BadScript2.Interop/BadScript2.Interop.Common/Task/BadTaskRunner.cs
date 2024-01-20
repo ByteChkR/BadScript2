@@ -67,7 +67,7 @@ public class BadTaskRunner
 
                     if (!t.IsFinished && t.Runnable.Enumerator.MoveNext())
                     {
-	                    continue;
+                        continue;
                     }
 
                     t.Stop();
@@ -78,27 +78,27 @@ public class BadTaskRunner
 
             if (!t.IsFinished)
             {
-	            continue;
+                continue;
             }
 
             m_TaskList.Remove(t);
 
             foreach (BadTask x in t.ContinuationTasks)
             {
-	            if (x.IsFinished)
-	            {
-		            continue;
-	            }
+                if (x.IsFinished)
+                {
+                    continue;
+                }
 
-	            if (m_TaskList.Contains(x))
-	            {
-		            x.Resume();
-	            }
-	            else
-	            {
-		            m_TaskList.Add(x);
-		            x.Start();
-	            }
+                if (m_TaskList.Contains(x))
+                {
+                    x.Resume();
+                }
+                else
+                {
+                    m_TaskList.Add(x);
+                    x.Start();
+                }
             }
         }
     }

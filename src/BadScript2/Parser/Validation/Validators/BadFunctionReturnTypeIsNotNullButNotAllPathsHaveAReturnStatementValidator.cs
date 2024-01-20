@@ -95,12 +95,12 @@ public class
         BadExpressionPath ifParent = new BadExpressionPath(expr);
         parent.AddChildPath(ifParent);
 
-        
+
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.ConditionalBranches)
         {
             BadExpressionPath path = new BadExpressionPath(expr);
             ifParent.AddChildPath(path);
-            
+
             foreach (BadExpression expression in branch.Value)
             {
                 Validate(path, expression);

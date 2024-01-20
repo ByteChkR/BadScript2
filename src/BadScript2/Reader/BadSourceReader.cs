@@ -245,7 +245,6 @@ public class BadSourceReader
         MoveNext();
 
         return MakeSourcePosition(1);
-
     }
 
     /// <summary>

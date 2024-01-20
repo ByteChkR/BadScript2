@@ -14,16 +14,16 @@ namespace BadScript2.Interop.Common.Apis;
 /// </summary>
 public class BadOperatingSystemApi : BadInteropApi
 {
-	/// <summary>
-	///     Constructs a new OS API Instance
-	/// </summary>
-	public BadOperatingSystemApi() : base("OS") { }
+    /// <summary>
+    ///     Constructs a new OS API Instance
+    /// </summary>
+    public BadOperatingSystemApi() : base("OS") { }
 
-	/// <summary>
-	///     Creates the "Environment" Table
-	/// </summary>
-	/// <returns>Bad Table</returns>
-	private BadTable CreateEnvironmentTable()
+    /// <summary>
+    ///     Creates the "Environment" Table
+    /// </summary>
+    /// <returns>Bad Table</returns>
+    private BadTable CreateEnvironmentTable()
     {
         BadTable env = new BadTable();
 
@@ -91,13 +91,13 @@ public class BadOperatingSystemApi : BadInteropApi
     }
 
 
-	/// <summary>
-	///     Wrapper that creates an awaitable enumeration for a process
-	/// </summary>
-	/// <param name="p">The Process to wait for</param>
-	/// <param name="r">Runnable Getter</param>
-	/// <returns>Awaitable Enumeration</returns>
-	private IEnumerator<BadObject> WaitForProcessExit(Process p, Func<BadInteropRunnable> r)
+    /// <summary>
+    ///     Wrapper that creates an awaitable enumeration for a process
+    /// </summary>
+    /// <param name="p">The Process to wait for</param>
+    /// <param name="r">Runnable Getter</param>
+    /// <returns>Awaitable Enumeration</returns>
+    private IEnumerator<BadObject> WaitForProcessExit(Process p, Func<BadInteropRunnable> r)
     {
         while (!p.HasExited)
         {
@@ -108,14 +108,15 @@ public class BadOperatingSystemApi : BadInteropApi
     }
 
 
-	/// <summary>
-	///     Creates the "Process" Table for a given Process
-	/// </summary>
-	/// <param name="p">The Process</param>
-	/// <returns>Process Table</returns>
-	private BadTable CreateProcessTable(Process p)
+    /// <summary>
+    ///     Creates the "Process" Table for a given Process
+    /// </summary>
+    /// <param name="p">The Process</param>
+    /// <returns>Process Table</returns>
+    private BadTable CreateProcessTable(Process p)
     {
         BadInteropRunnable r = null!;
+
         // ReSharper disable once AccessToModifiedClosure
         r = new BadInteropRunnable(WaitForProcessExit(p, () => r));
 

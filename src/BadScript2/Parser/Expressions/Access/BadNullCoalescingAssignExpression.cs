@@ -12,13 +12,13 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadNullCoalescingAssignExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor of the Null Coalescing Assign Expression
-	/// </summary>
-	/// <param name="left">Left side of the expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Position inside the source code</param>
-	public BadNullCoalescingAssignExpression(
+    /// <summary>
+    ///     Constructor of the Null Coalescing Assign Expression
+    /// </summary>
+    /// <param name="left">Left side of the expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Position inside the source code</param>
+    public BadNullCoalescingAssignExpression(
         BadExpression left,
         BadExpression right,
         BadSourcePosition position) : base(

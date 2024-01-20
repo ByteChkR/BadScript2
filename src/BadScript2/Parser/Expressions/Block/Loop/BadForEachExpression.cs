@@ -14,29 +14,29 @@ namespace BadScript2.Parser.Expressions.Block.Loop;
 /// </summary>
 public class BadForEachExpression : BadExpression
 {
-	/// <summary>
-	///     The Variable Name of the Current Loop iteration
-	/// </summary>
-	public readonly BadWordToken LoopVariable;
+    /// <summary>
+    ///     The Variable Name of the Current Loop iteration
+    /// </summary>
+    public readonly BadWordToken LoopVariable;
 
-	/// <summary>
-	///     The Loop Body
-	/// </summary>
-	private readonly List<BadExpression> m_Body;
+    /// <summary>
+    ///     The Loop Body
+    /// </summary>
+    private readonly List<BadExpression> m_Body;
 
-	/// <summary>
-	///     The Enumerable/Enumerator Expression of the Loop
-	/// </summary>
-	public BadExpression Target;
+    /// <summary>
+    ///     The Enumerable/Enumerator Expression of the Loop
+    /// </summary>
+    public BadExpression Target;
 
-	/// <summary>
-	///     Constructor of the For Each Expression
-	/// </summary>
-	/// <param name="target">The Enumerable/Enumerator Expression of the Loop</param>
-	/// <param name="loopVariable">The Variable Name of the Current Loop iteration</param>
-	/// <param name="body">The Loop Body</param>
-	/// <param name="position">The Source Position of the Expression</param>
-	public BadForEachExpression(
+    /// <summary>
+    ///     Constructor of the For Each Expression
+    /// </summary>
+    /// <param name="target">The Enumerable/Enumerator Expression of the Loop</param>
+    /// <param name="loopVariable">The Variable Name of the Current Loop iteration</param>
+    /// <param name="body">The Loop Body</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    public BadForEachExpression(
         BadExpression target,
         BadWordToken loopVariable,
         IEnumerable<BadExpression> body,

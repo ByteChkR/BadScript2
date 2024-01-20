@@ -8,13 +8,13 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public abstract class BadBinaryExpression : BadExpression
 {
-	/// <summary>
-	///     Constructor for Binary Expressions
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source position of the Expression</param>
-	protected BadBinaryExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor for Binary Expressions
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
+    protected BadBinaryExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left.IsConstant && right.IsConstant,
         position
     )
@@ -23,15 +23,15 @@ public abstract class BadBinaryExpression : BadExpression
         Right = right;
     }
 
-	/// <summary>
-	///     Left side of the Expression
-	/// </summary>
-	public BadExpression Left { get; private set; }
+    /// <summary>
+    ///     Left side of the Expression
+    /// </summary>
+    public BadExpression Left { get; private set; }
 
-	/// <summary>
-	///     Right side of the Expression
-	/// </summary>
-	public BadExpression Right { get; private set; }
+    /// <summary>
+    ///     Right side of the Expression
+    /// </summary>
+    public BadExpression Right { get; private set; }
 
     /// <inheritdoc cref="!:BadObject.Optimize" />
     public override void Optimize()

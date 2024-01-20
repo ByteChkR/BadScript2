@@ -13,16 +13,16 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadNUnitConsoleApi : BadInteropApi
 {
-	/// <summary>
-	///     The Console Context
-	/// </summary>
-	private readonly BadUnitTestContextBuilder m_Console;
+    /// <summary>
+    ///     The Console Context
+    /// </summary>
+    private readonly BadUnitTestContextBuilder m_Console;
 
-	/// <summary>
-	///     Public Constructor
-	/// </summary>
-	/// <param name="console">The Console Context</param>
-	public BadNUnitConsoleApi(BadUnitTestContextBuilder console) : base("NUnit")
+    /// <summary>
+    ///     Public Constructor
+    /// </summary>
+    /// <param name="console">The Console Context</param>
+    public BadNUnitConsoleApi(BadUnitTestContextBuilder console) : base("NUnit")
     {
         m_Console = console;
     }

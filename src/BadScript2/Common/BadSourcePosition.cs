@@ -166,8 +166,8 @@ public class BadSourcePosition
             throw new InvalidOperationException("Cannot combine positions from different sources");
         }
 
-        return Index < other.Index ? 
-            new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index) : 
-            new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
+        return Index < other.Index
+            ? new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index)
+            : new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
     }
 }

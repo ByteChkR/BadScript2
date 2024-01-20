@@ -9,13 +9,13 @@ namespace BadScript2.Parser.Expressions.Binary;
 /// </summary>
 public class BadInExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor for the 'in' operator
-	/// </summary>
-	/// <param name="left">Left Side of the Expression</param>
-	/// <param name="right">Right Side of the Expression</param>
-	/// <param name="position">The Source Position</param>
-	public BadInExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor for the 'in' operator
+    /// </summary>
+    /// <param name="left">Left Side of the Expression</param>
+    /// <param name="right">Right Side of the Expression</param>
+    /// <param name="position">The Source Position</param>
+    public BadInExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position

@@ -11,12 +11,12 @@ namespace BadScript2.Parser.Expressions.Binary.Logic;
 /// </summary>
 public class BadLogicNotExpression : BadExpression
 {
-	/// <summary>
-	///     Constructor for the Logic Not Expression
-	/// </summary>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source position of the Expression</param>
-	public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor for the Logic Not Expression
+    /// </summary>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position of the Expression</param>
+    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(
         right.IsConstant,
         position
     )
@@ -24,10 +24,10 @@ public class BadLogicNotExpression : BadExpression
         Right = right;
     }
 
-	/// <summary>
-	///     Right side of the Expression
-	/// </summary>
-	public BadExpression Right { get; }
+    /// <summary>
+    ///     Right side of the Expression
+    /// </summary>
+    public BadExpression Right { get; }
 
     public override IEnumerable<BadExpression> GetDescendants()
     {

@@ -55,7 +55,7 @@ public class BadNumberExtension : BadInteropExtension
             "ToString",
             d => new BadInteropFunction(
                 "ToString",
-                a => NumberToString( d, a),
+                a => NumberToString(d, a),
                 false,
                 BadNativeClassBuilder.GetNative("string"),
                 new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),

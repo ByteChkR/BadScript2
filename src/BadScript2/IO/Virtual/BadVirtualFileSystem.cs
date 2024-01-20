@@ -7,15 +7,15 @@ namespace BadScript2.IO.Virtual;
 /// </summary>
 public class BadVirtualFileSystem : IFileSystem
 {
-	/// <summary>
-	///     The Root Directory
-	/// </summary>
-	private readonly BadVirtualRoot m_Root = new BadVirtualRoot();
+    /// <summary>
+    ///     The Root Directory
+    /// </summary>
+    private readonly BadVirtualRoot m_Root = new BadVirtualRoot();
 
-	/// <summary>
-	///     The Current Directory
-	/// </summary>
-	private string m_CurrentDirectory = "/";
+    /// <summary>
+    ///     The Current Directory
+    /// </summary>
+    private string m_CurrentDirectory = "/";
 
     public string GetStartupDirectory()
     {
@@ -84,9 +84,9 @@ public class BadVirtualFileSystem : IFileSystem
 
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
-        return recursive ? 
-            GetDirectoriesRecursive(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory))) : 
-            GetDirectories(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)));
+        return recursive
+            ? GetDirectoriesRecursive(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)))
+            : GetDirectories(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)));
     }
 
     public void CreateDirectory(string path, bool recursive = false)

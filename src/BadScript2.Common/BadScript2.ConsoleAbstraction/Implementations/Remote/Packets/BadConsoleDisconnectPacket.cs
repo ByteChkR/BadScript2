@@ -5,15 +5,15 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 /// </summary>
 public class BadConsoleDisconnectPacket : BadConsolePacket
 {
-	/// <summary>
-	///     Static Instance of this Packet
-	/// </summary>
-	public static readonly BadConsoleDisconnectPacket Packet = new BadConsoleDisconnectPacket();
+    /// <summary>
+    ///     Static Instance of this Packet
+    /// </summary>
+    public static readonly BadConsoleDisconnectPacket Packet = new BadConsoleDisconnectPacket();
 
-	/// <summary>
-	///     Private Constructor
-	/// </summary>
-	private BadConsoleDisconnectPacket() { }
+    /// <summary>
+    ///     Private Constructor
+    /// </summary>
+    private BadConsoleDisconnectPacket() { }
 
     public override byte[] Serialize()
     {

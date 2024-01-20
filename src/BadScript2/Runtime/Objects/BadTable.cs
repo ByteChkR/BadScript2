@@ -52,17 +52,21 @@ public class BadTable : BadObject, IBadEnumerable
 
     public IEnumerator<BadObject> GetEnumerator()
     {
-        return InnerTable.Select(kvp => new BadTable(
-            new Dictionary<BadObject, BadObject>
-            {
-                {
-                    "Key", kvp.Key
-                },
-                {
-                    "Value", kvp.Value
-                },
-            }
-        )).Cast<BadObject>().GetEnumerator();
+        return InnerTable.Select(
+                kvp => new BadTable(
+                    new Dictionary<BadObject, BadObject>
+                    {
+                        {
+                            "Key", kvp.Key
+                        },
+                        {
+                            "Value", kvp.Value
+                        },
+                    }
+                )
+            )
+            .Cast<BadObject>()
+            .GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()

@@ -59,7 +59,6 @@ public abstract class BadObject
             }
 
             return s_StringCache[s] = new BadString(s);
-
         }
 
         if (Equals(obj, default(T)))
@@ -196,7 +195,7 @@ public abstract class BadObject
 
         public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

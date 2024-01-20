@@ -7,27 +7,27 @@ namespace BadScript2.Runtime.Interop;
 
 public class BadInteropExtensionProvider
 {
-	/// <summary>
-	///     List of all active extensions
-	/// </summary>
-	private readonly List<Type> m_ActiveExtensions = new List<Type>();
+    /// <summary>
+    ///     List of all active extensions
+    /// </summary>
+    private readonly List<Type> m_ActiveExtensions = new List<Type>();
 
-	/// <summary>
-	///     Global extensions that are available for all objects in the runtime
-	/// </summary>
-	private readonly Dictionary<BadObject, Func<BadObject, BadObject>> m_GlobalExtensions =
+    /// <summary>
+    ///     Global extensions that are available for all objects in the runtime
+    /// </summary>
+    private readonly Dictionary<BadObject, Func<BadObject, BadObject>> m_GlobalExtensions =
         new Dictionary<BadObject, Func<BadObject, BadObject>>();
 
-	/// <summary>
-	///     Object Extensions that are available for objects of the specified type
-	/// </summary>
-	private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_ObjectExtensions =
+    /// <summary>
+    ///     Object Extensions that are available for objects of the specified type
+    /// </summary>
+    private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_ObjectExtensions =
         new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
 
-	/// <summary>
-	///     Cache for already built extension tables.
-	/// </summary>
-	private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_StaticExtensionCache =
+    /// <summary>
+    ///     Cache for already built extension tables.
+    /// </summary>
+    private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_StaticExtensionCache =
         new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
 
     public BadInteropExtensionProvider() { }
@@ -169,7 +169,7 @@ public class BadInteropExtensionProvider
                 {
                     T t => obj(t),
                     BadNative<T> nT => obj(nT.Value),
-                    _ => throw new BadRuntimeException("Cannot cast object to type " + typeof(T))
+                    _ => throw new BadRuntimeException("Cannot cast object to type " + typeof(T)),
                 };
             }
         );

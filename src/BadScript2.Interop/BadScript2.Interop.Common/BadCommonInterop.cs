@@ -16,10 +16,10 @@ namespace BadScript2.Interop.Common;
 /// </summary>
 public static class BadCommonInterop
 {
-	/// <summary>
-	///     All Common Interop Apis
-	/// </summary>
-	private static readonly BadInteropApi[] s_CommonApis =
+    /// <summary>
+    ///     All Common Interop Apis
+    /// </summary>
+    private static readonly BadInteropApi[] s_CommonApis =
     {
         new BadConsoleApi(),
         new BadRuntimeApi(),
@@ -28,10 +28,10 @@ public static class BadCommonInterop
         new BadXmlApi(),
     };
 
-	/// <summary>
-	///     All Common Interop Apis
-	/// </summary>
-	public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
+    /// <summary>
+    ///     All Common Interop Apis
+    /// </summary>
+    public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
 
 
     public static BadRuntime UseStartupArguments(this BadRuntime runtime, IEnumerable<string> args)

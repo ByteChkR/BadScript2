@@ -10,14 +10,14 @@ namespace BadScript2.IO;
 /// </summary>
 public static class BadFileSystemHelper
 {
-	/// <summary>
-	///     Exports a Virtual File System to a Zip File
-	/// </summary>
-	/// <param name="fs">The Virtual File System to Export</param>
-	/// <param name="str">The Stream to write the Zip File to</param>
-	/// <param name="path">The Path to export</param>
-	/// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
-	public static void ExportZip(this IFileSystem fs, Stream str, string path = "/")
+    /// <summary>
+    ///     Exports a Virtual File System to a Zip File
+    /// </summary>
+    /// <param name="fs">The Virtual File System to Export</param>
+    /// <param name="str">The Stream to write the Zip File to</param>
+    /// <param name="path">The Path to export</param>
+    /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
+    public static void ExportZip(this IFileSystem fs, Stream str, string path = "/")
     {
         BadLogger.Log("Exporting zip file..", "BFS");
 
@@ -36,7 +36,6 @@ public static class BadFileSystemHelper
             using Stream fstr = vfs.OpenRead(file);
             fstr.CopyTo(estr);
         }
-
     }
 
     public static void ImportZip(this IFileSystem fs, string path, string root = "/")

@@ -90,7 +90,7 @@ public class BadSystemFileSystem : IFileSystem
         {
             BadWriteMode.CreateNew => FileMode.Create,
             BadWriteMode.Append => FileMode.Append,
-            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null),
         };
 
         return File.Open(path, fileMode);

@@ -14,11 +14,13 @@ public class BadLinqTests
 
         foreach (object? o in d.Select("x=>x*2"))
         {
-            Assert.Multiple(() =>
-            {
-                Assert.That(o, Is.InstanceOf<decimal>());
-                Assert.That((decimal)o % 2, Is.EqualTo(0));
-            });
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.That(o, Is.InstanceOf<decimal>());
+                    Assert.That((decimal)o % 2, Is.EqualTo(0));
+                }
+            );
         }
     }
 
@@ -29,11 +31,13 @@ public class BadLinqTests
 
         foreach (object? o in d.Where("x=>x%2==0"))
         {
-            Assert.Multiple(() =>
-            {
-                Assert.That(o, Is.InstanceOf<int>());
-                Assert.That((int)o % 2, Is.EqualTo(0));
-            });
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.That(o, Is.InstanceOf<int>());
+                    Assert.That((int)o % 2, Is.EqualTo(0));
+                }
+            );
         }
     }
 
@@ -142,23 +146,29 @@ public class BadLinqTests
     public void AllTest()
     {
         IEnumerable d = Enumerable.Range(0, 100);
+
         // ReSharper disable once PossibleMultipleEnumeration
         bool o = d.All("x=>x < 10");
+
         // ReSharper disable once PossibleMultipleEnumeration
         bool o1 = d.All("x=>x < 100");
-        Assert.Multiple(() =>
-        {
-            Assert.That(o, Is.False);
-            Assert.That(o1, Is.True);
-        });
+        Assert.Multiple(
+            () =>
+            {
+                Assert.That(o, Is.False);
+                Assert.That(o1, Is.True);
+            }
+        );
     }
 
     [Test]
     public void AnyTest()
     {
         IEnumerable d = Enumerable.Range(0, 100);
+
         // ReSharper disable once PossibleMultipleEnumeration
         bool o = d.Any("x=>x < 0");
+
         // ReSharper disable once PossibleMultipleEnumeration
         bool o1 = d.Any("x=>x < 100");
         Assert.That(o, Is.False);

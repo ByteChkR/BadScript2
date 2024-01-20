@@ -11,18 +11,18 @@ namespace BadScript2.Parser.Expressions.Variables;
 /// </summary>
 public class BadFormattedStringExpression : BadStringExpression
 {
-	/// <summary>
-	///     The Expressions that will be evaluated during the creation of the formatted string
-	/// </summary>
-	private readonly BadExpression[] m_Expressions;
+    /// <summary>
+    ///     The Expressions that will be evaluated during the creation of the formatted string
+    /// </summary>
+    private readonly BadExpression[] m_Expressions;
 
-	/// <summary>
-	///     Constructor of the Formatted String Expression
-	/// </summary>
-	/// <param name="exprs">The Expressions that will be evaluated during the creation of the formatted string</param>
-	/// <param name="str">The Format String</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Formatted String Expression
+    /// </summary>
+    /// <param name="exprs">The Expressions that will be evaluated during the creation of the formatted string</param>
+    /// <param name="str">The Format String</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
         str,
         position
     )
@@ -30,15 +30,15 @@ public class BadFormattedStringExpression : BadStringExpression
         m_Expressions = exprs;
     }
 
-	/// <summary>
-	///     The Expressions that will be evaluated during the creation of the formatted string
-	/// </summary>
-	public IEnumerable<BadExpression> Expressions => m_Expressions;
+    /// <summary>
+    ///     The Expressions that will be evaluated during the creation of the formatted string
+    /// </summary>
+    public IEnumerable<BadExpression> Expressions => m_Expressions;
 
-	/// <summary>
-	///     The Expression count of the Format String
-	/// </summary>
-	public int ExpressionCount => m_Expressions.Length;
+    /// <summary>
+    ///     The Expression count of the Format String
+    /// </summary>
+    public int ExpressionCount => m_Expressions.Length;
 
     public override void Optimize()
     {

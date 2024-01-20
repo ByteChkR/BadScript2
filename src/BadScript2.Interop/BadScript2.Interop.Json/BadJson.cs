@@ -25,7 +25,7 @@ public static class BadJson
     /// <returns>Array</returns>
     private static BadArray ConvertArray(JArray array)
     {
-        List<BadObject> a = array.Where(x=>x != null).Select(ConvertNode).ToList();
+        List<BadObject> a = array.Where(x => x != null).Select(ConvertNode).ToList();
 
         return new BadArray(a);
     }
@@ -68,7 +68,7 @@ public static class BadJson
             BadArray a => ConvertArray(a),
             BadTable t => ConvertTable(t),
             BadReflectedObject ro => JToken.FromObject(ro.Instance),
-            _ => throw new Exception("Unsupported value type: " + value.GetType())
+            _ => throw new Exception("Unsupported value type: " + value.GetType()),
         };
     }
 
@@ -134,7 +134,7 @@ public static class BadJson
                 {
                     float f => (decimal)f,
                     decimal d => d,
-                    _ => (decimal)(double)value.Value!
+                    _ => (decimal)(double)value.Value!,
                 };
 
             case JTokenType.String:
@@ -177,7 +177,7 @@ public static class BadJson
             JArray a => ConvertArray(a),
             JObject o => ConvertObject(o),
             JValue v => ConvertValue(v),
-            _ => throw new Exception("Unsupported node type: " + node.GetType())
+            _ => throw new Exception("Unsupported node type: " + node.GetType()),
         };
     }
 

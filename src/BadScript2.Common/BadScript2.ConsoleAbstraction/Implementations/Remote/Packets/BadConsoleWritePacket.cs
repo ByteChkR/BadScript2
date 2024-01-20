@@ -49,8 +49,8 @@ public class BadConsoleWritePacket : BadConsolePacket
     {
         List<byte> data = new List<byte>
         {
-	        (byte)BadConsolePacketType.Write,
-	        (byte)(IsWriteLine ? 1 : 0),
+            (byte)BadConsolePacketType.Write,
+            (byte)(IsWriteLine ? 1 : 0),
         };
         byte[] message = Encoding.UTF8.GetBytes(Message);
         data.AddRange(BitConverter.GetBytes(message.Length));
