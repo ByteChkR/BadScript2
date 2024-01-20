@@ -23,5 +23,5 @@ public abstract class BadNetworkConsoleClientCommand
 	///     Executes the Command with the given arguments
 	/// </summary>
 	/// <param name="args">Arguments</param>
-	public abstract void Invoke(string args);
+	public abstract void Invoke(string[] args);
 }

@@ -18,4 +18,7 @@ public class BadRemoteConsoleSystemSettings
 	/// </summary>
 	[Value(1, Default = 1337, HelpText = "The Host port to connect to", Required = true)]
     public int Port { get; set; } = 1337;
+	
+	[Option('s', "script", Default = false, HelpText = "If true, the client will use the script commands")]
+	public bool UseScriptCommands { get; set; }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,10 +24,6 @@ public class BadNetworkConsoleClient
 	/// </summary>
 	private readonly TcpClient m_Client;
 
-	/// <summary>
-	///     The Command List
-	/// </summary>
-	private readonly List<BadNetworkConsoleClientCommand> m_Commands = new List<BadNetworkConsoleClientCommand>();
 
 	/// <summary>
 	///     The Port of the Remote Console
@@ -40,69 +35,82 @@ public class BadNetworkConsoleClient
 	/// </summary>
 	private bool m_ExitRequested;
 
-	/// <summary>
-	///     The Read Thread
-	/// </summary>
-	private Thread? m_ReadThread;
+    private readonly IBadNetworkConsoleClientCommandParser m_Parser;
 
-	/// <summary>
-	///     Creates a new Client from the given TcpClient
-	/// </summary>
-	/// <param name="client">The TCP CLient</param>
-	public BadNetworkConsoleClient(TcpClient client)
+    /// <summary>
+    ///     The Read Thread
+    /// </summary>
+    private Thread? m_ReadThread;
+
+    /// <summary>
+    ///     Creates a new Client from the given TcpClient
+    /// </summary>
+    /// <param name="client">The TCP CLient</param>
+    /// <param name="parserFactory">The Parser Factory</param>
+    public BadNetworkConsoleClient(TcpClient client, Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parserFactory)
     {
         m_Client = client;
         m_Address = "";
         m_Port = -1;
+        m_Parser = parserFactory(this);
     }
 
-	/// <summary>
-	///     Creates a new Client from the given Address and Port
-	/// </summary>
-	/// <param name="address">The Address of the Remote Console</param>
-	/// <param name="port">The Port of the Remote Console</param>
-	public BadNetworkConsoleClient(string address, int port)
+    /// <summary>
+    ///     Creates a new Client from the given TcpClient
+    /// </summary>
+    /// <param name="client">The TCP CLient</param>
+    public BadNetworkConsoleClient(TcpClient client) : this(client, DefaultParserFactory) { }
+
+    /// <summary>
+    ///     Creates a new Client from the given Address and Port
+    /// </summary>
+    /// <param name="address">The Address of the Remote Console</param>
+    /// <param name="port">The Port of the Remote Console</param>
+    public BadNetworkConsoleClient(string address, int port) : this(address, port, DefaultParserFactory) { }
+
+    /// <summary>
+    ///     Creates a new Client from the given Address and Port
+    /// </summary>
+    /// <param name="address">The Address of the Remote Console</param>
+    /// <param name="port">The Port of the Remote Console</param>
+    /// <param name="parserFactory">The Parser Factory</param>
+    public BadNetworkConsoleClient(string address, int port, Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parserFactory)
     {
         m_Address = address;
         m_Port = port;
         m_Client = new TcpClient();
-        AddCommand(new BadNetworkConsoleClientDisconnectCommand(this));
-        AddCommand(new BadNetworkConsoleClientListCommand(this));
+        m_Parser = parserFactory(this);
     }
 
-	/// <summary>
-	///     The Interval in which the Heartbeat is sent
-	/// </summary>
-	public static int HeartBeatSendInterval { get; set; } = 3000;
+    /// <summary>
+    ///     The Interval in which the Heartbeat is sent
+    /// </summary>
+    public static int HeartBeatSendInterval { get; set; } = 3000;
 
-	/// <summary>
-	///     The Interval in which packets are read from the server
-	/// </summary>
-	public static int ConsoleReadInputSleep { get; set; } = 100;
+    /// <summary>
+    ///     The Interval in which packets are read from the server
+    /// </summary>
+    public static int ConsoleReadInputSleep { get; set; } = 100;
 
-	/// <summary>
-	///     The Interval in which packets are sent to the server
-	/// </summary>
-	public static int ConsoleWriteSleep { get; set; } = 100;
+    /// <summary>
+    ///     The Interval in which packets are sent to the server
+    /// </summary>
+    public static int ConsoleWriteSleep { get; set; } = 100;
 
-	/// <summary>
-	///     Enumerable of all Commands
-	/// </summary>
-	public IEnumerable<BadNetworkConsoleClientCommand> Commands => m_Commands;
-
-	/// <summary>
-	///     Adds a Command to the Command List
-	/// </summary>
-	/// <param name="command">The Command to be added</param>
-	public void AddCommand(BadNetworkConsoleClientCommand command)
+    public static IBadNetworkConsoleClientCommandParser DefaultParserFactory(BadNetworkConsoleClient client)
     {
-        m_Commands.Add(command);
+        BadDefaultNetworkClientCommandParser parser = new BadDefaultNetworkClientCommandParser(client);
+        parser.AddCommand(c => new BadNetworkConsoleClientDisconnectCommand(c));
+        parser.AddCommand(c => new BadNetworkConsoleClientListCommand(c, parser));
+
+        return parser;
     }
 
-	/// <summary>
-	///     Starts the Client
-	/// </summary>
-	public void Start()
+
+    /// <summary>
+    ///     Starts the Client
+    /// </summary>
+    public void Start()
     {
         m_ExitRequested = false;
         BadConsole.WriteLine($"[Console Client] Connecting to {m_Address}:{m_Port}");
@@ -120,20 +128,20 @@ public class BadNetworkConsoleClient
         Read();
     }
 
-	/// <summary>
-	///     Stops the Client
-	/// </summary>
-	public void Stop()
+    /// <summary>
+    ///     Stops the Client
+    /// </summary>
+    public void Stop()
     {
         m_ExitRequested = true;
     }
 
-	/// <summary>
-	///     Processes the given Packet
-	/// </summary>
-	/// <param name="packet">The Packet</param>
-	/// <exception cref="BadNetworkConsoleException">Gets raised if the packet could not be processed</exception>
-	private void ProcessPacket(BadConsolePacket packet)
+    /// <summary>
+    ///     Processes the given Packet
+    /// </summary>
+    /// <param name="packet">The Packet</param>
+    /// <exception cref="BadNetworkConsoleException">Gets raised if the packet could not be processed</exception>
+    private void ProcessPacket(BadConsolePacket packet)
     {
         switch (packet)
         {
@@ -170,11 +178,11 @@ public class BadNetworkConsoleClient
         }
     }
 
-	/// <summary>
-	///     The Read Thread
-	/// </summary>
-	/// <exception cref="BadNetworkConsoleException">Gets raised if the incoming packets could not be read</exception>
-	private void Read()
+    /// <summary>
+    ///     The Read Thread
+    /// </summary>
+    /// <exception cref="BadNetworkConsoleException">Gets raised if the incoming packets could not be read</exception>
+    private void Read()
     {
         while (!m_ExitRequested)
         {
@@ -224,10 +232,10 @@ public class BadNetworkConsoleClient
         m_Client.Dispose();
     }
 
-	/// <summary>
-	///     Sends a Heartbeat to the Server
-	/// </summary>
-	private void SendHeartBeat()
+    /// <summary>
+    ///     Sends a Heartbeat to the Server
+    /// </summary>
+    private void SendHeartBeat()
     {
         byte[] packetData = BadConsoleHeartBeatPacket.Packet.Serialize();
         List<byte> packet = new List<byte>();
@@ -236,10 +244,10 @@ public class BadNetworkConsoleClient
         m_Client.GetStream().Write(packet.ToArray(), 0, packet.Count);
     }
 
-	/// <summary>
-	///     The Write Thread
-	/// </summary>
-	private void Write()
+    /// <summary>
+    ///     The Write Thread
+    /// </summary>
+    private void Write()
     {
         DateTime lastHeartBeat = DateTime.Now;
 
@@ -267,25 +275,8 @@ public class BadNetworkConsoleClient
 
             if (message.StartsWith("client::"))
             {
-                int idx = message.IndexOf(' ');
-
-                if (idx == -1)
-                {
-                    idx = message.Length;
-                }
-
-                string cmdName = message.Substring(0, idx).Remove(0, "client::".Length);
-                string args = message.Remove(0, idx).Trim();
-                BadNetworkConsoleClientCommand? cmd = m_Commands.FirstOrDefault(x => x.Name == cmdName);
-
-                if (cmd == null)
-                {
-                    BadConsole.WriteLine("Command not found: " + cmdName);
-                }
-                else
-                {
-                    cmd.Invoke(args);
-                }
+                string cmd = message.Substring("client::".Length);
+                m_Parser.ExecuteCommand(cmd);
 
                 continue;
             }
