@@ -3,7 +3,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadVariableExpression" />.
+/// </summary>
 public class BadVariableExpressionCompiler : BadExpressionCompiler<BadVariableExpression>
 {
     /// <inheritdoc />

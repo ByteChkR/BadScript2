@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.Binary;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadInExpression" />.
+/// </summary>
 public class BadInExpressionCompiler : BadBinaryExpressionCompiler<BadInExpression>
 {
     /// <inheritdoc />

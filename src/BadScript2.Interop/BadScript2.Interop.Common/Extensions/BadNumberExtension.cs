@@ -10,6 +10,9 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Extensions;
 
+/// <summary>
+///     Implements Number Extensions
+/// </summary>
 public class BadNumberExtension : BadInteropExtension
 {
     /// <summary>

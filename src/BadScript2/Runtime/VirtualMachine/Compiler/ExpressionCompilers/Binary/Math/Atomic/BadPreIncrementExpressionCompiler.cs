@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Atomic;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadPreIncrementExpression" />.
+/// </summary>
 public class BadPreIncrementExpressionCompiler : BadExpressionCompiler<BadPreIncrementExpression>
 {
     /// <inheritdoc />

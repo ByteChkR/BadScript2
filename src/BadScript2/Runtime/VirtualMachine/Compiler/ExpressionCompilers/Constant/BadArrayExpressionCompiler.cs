@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.Constant;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadArrayExpression" />.
+/// </summary>
 public class BadArrayExpressionCompiler : BadExpressionCompiler<BadArrayExpression>
 {
     /// <inheritdoc />

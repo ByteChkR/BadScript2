@@ -14,6 +14,10 @@ using BadScript2.Runtime.Objects;
 /// </summary>
 namespace BadScript2.Optimizations.Substitution;
 
+/// <summary>
+/// Contains the Implementation of the Constant Substitution Optimization
+/// This optimization replaces expressions that only contain constants and constant variables with the result of the expression.
+/// </summary>
 public static class BadConstantSubstitutionOptimizer
 {
     //Try to find expressions that only reference constants AND variables that are marked constants.
@@ -40,6 +44,12 @@ public static class BadConstantSubstitutionOptimizer
         return true;
     }
 
+    /// <summary>
+    /// Substitutes all variables in the expression with their constant value.
+    /// </summary>
+    /// <param name="scope">The scope to use</param>
+    /// <param name="expr">The expression to substitute</param>
+    /// <returns>The substituted expression</returns>
     private static BadExpression Substitute(BadConstantSubstitutionOptimizerScope scope, BadExpression expr)
     {
         switch (expr)
@@ -60,7 +70,12 @@ public static class BadConstantSubstitutionOptimizer
 
         return expr;
     }
-
+    /// <summary>
+    /// Substitutes all variables in the expressions with their constant value.
+    /// </summary>
+    /// <param name="scope">The scope to use</param>
+    /// <param name="expressions">The expressions to substitute</param>
+    /// <returns>The substituted expression</returns>
     private static IEnumerable<BadExpression> Optimize(
         BadConstantSubstitutionOptimizerScope scope,
         IEnumerable<BadExpression> expressions)
@@ -225,6 +240,11 @@ public static class BadConstantSubstitutionOptimizer
         }
     }
 
+    /// <summary>
+    /// Runs the Constant Substitution Optimization on the given expressions
+    /// </summary>
+    /// <param name="expressions">The expressions to optimize</param>
+    /// <returns>The optimized expressions</returns>
     public static IEnumerable<BadExpression> Optimize(IEnumerable<BadExpression> expressions)
     {
         return Optimize(new BadConstantSubstitutionOptimizerScope(), expressions);

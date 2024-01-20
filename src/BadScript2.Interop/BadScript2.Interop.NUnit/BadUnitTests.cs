@@ -14,6 +14,9 @@ using NUnit.Framework;
 
 namespace BadScript2.Interop.NUnit;
 
+/// <summary>
+/// Contians the BadScript NUnit Test Cases
+/// </summary>
 public class BadUnitTests
 {
 

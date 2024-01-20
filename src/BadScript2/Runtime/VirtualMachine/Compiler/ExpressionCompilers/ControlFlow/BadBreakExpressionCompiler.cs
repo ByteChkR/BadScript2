@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.ControlFlow;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadBreakExpression" />.
+/// </summary>
 public class BadBreakExpressionCompiler : BadExpressionCompiler<BadBreakExpression>
 {
     /// <inheritdoc />

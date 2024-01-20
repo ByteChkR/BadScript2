@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.Access;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadArrayAccessExpression" />.
+/// </summary>
 public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAccessExpression>
 {
     /// <inheritdoc />

@@ -10,7 +10,9 @@ using BadScript2.Runtime.Objects;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadForEachExpression" />.
+/// </summary>
 public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpression>
 {
     /// <inheritdoc />

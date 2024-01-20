@@ -4,7 +4,10 @@ using BadScript2.Parser.Expressions;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+
+/// <summary>
+/// Compiles the <see cref="BadDeleteExpression" />.
+/// </summary>
 public class BadDeleteExpressionCompiler : BadExpressionCompiler<BadDeleteExpression>
 {
     /// <inheritdoc />

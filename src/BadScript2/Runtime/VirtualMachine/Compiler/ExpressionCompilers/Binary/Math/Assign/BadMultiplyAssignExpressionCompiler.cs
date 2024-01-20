@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.Binary.Math.Assign;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Assign;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadMultiplyAssignExpression" />.
+/// </summary>
 public class BadMultiplyAssignExpressionCompiler : BadBinaryExpressionCompiler<BadMultiplyAssignExpression>
 {
     /// <inheritdoc />

@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.Constant;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadConstantExpression" />.
+/// </summary>
 public class BadConstantExpressionCompiler : BadExpressionCompiler<BadConstantExpression>
 {
     /// <inheritdoc />

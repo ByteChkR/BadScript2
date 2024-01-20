@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.Binary.Comparison;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Comparison;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadEqualityExpression" />.
+/// </summary>
 public class BadEqualityExpressionCompiler : BadBinaryExpressionCompiler<BadEqualityExpression>
 {
     /// <inheritdoc />

@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.Binary.Math.Atomic;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Atomic;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadPostDecrementExpression" />.
+/// </summary>
 public class BadPostDecrementExpressionCompiler : BadExpressionCompiler<BadPostDecrementExpression>
 {
     /// <inheritdoc />

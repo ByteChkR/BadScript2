@@ -4,8 +4,9 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
-
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadTableExpression" />.
+/// </summary>
 public class BadTableExpressionCompiler : BadExpressionCompiler<BadTableExpression>
 {
     /// <inheritdoc />

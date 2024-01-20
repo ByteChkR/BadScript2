@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.Binary.Logic.Assign;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic.Assign;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadLogicAssignOrExpression" />.
+/// </summary>
 public class BadLogicAssignOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogicAssignOrExpression>
 {
     /// <inheritdoc />

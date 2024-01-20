@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.ControlFlow;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadContinueExpression" />.
+/// </summary>
 public class BadContinueExpressionCompiler : BadExpressionCompiler<BadContinueExpression>
 {
     /// <inheritdoc />

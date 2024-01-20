@@ -7,6 +7,9 @@ using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Runtime.Objects;
 
+/// <summary>
+/// The Base Class for all BadScript Objects
+/// </summary>
 public abstract class BadObject
 {
     /// <summary>

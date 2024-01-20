@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.Binary.Logic.Assign;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic.Assign;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadLogicAssignAndExpression" />.
+/// </summary>
 public class BadLogicAssignAndExpressionCompiler : BadBinaryExpressionCompiler<BadLogicAssignAndExpression>
 {
     /// <inheritdoc />

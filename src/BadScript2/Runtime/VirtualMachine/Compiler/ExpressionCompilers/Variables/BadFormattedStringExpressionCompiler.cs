@@ -4,7 +4,9 @@ using BadScript2.Parser.Expressions.Variables;
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadFormattedStringExpression" />.
+/// </summary>
 public class BadFormattedStringExpressionCompiler : BadExpressionCompiler<BadFormattedStringExpression>
 {
     /// <inheritdoc />

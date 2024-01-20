@@ -2,7 +2,9 @@ using BadScript2.Parser.Expressions.Binary.Comparison;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Comparison;
 
-/// <inheritdoc cref="BadExpressionCompiler{T}" />
+/// <summary>
+/// Compiles the <see cref="BadGreaterOrEqualExpression" />.
+/// </summary>
 public class BadGreaterOrEqualExpressionCompiler : BadBinaryExpressionCompiler<BadGreaterOrEqualExpression>
 {
     /// <inheritdoc />
