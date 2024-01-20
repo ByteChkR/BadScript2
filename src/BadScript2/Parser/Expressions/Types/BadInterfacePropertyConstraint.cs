@@ -7,16 +7,37 @@ namespace BadScript2.Parser.Expressions.Types;
 
 public class BadInterfacePropertyConstraint : BadInterfaceConstraint
 {
+    /// <summary>
+    /// The Property Prototype
+    /// </summary>
     private readonly BadClassPrototype? m_Prototype;
+    /// <summary>
+    /// The Property Name
+    /// </summary>
     public readonly string Name;
+    
+    /// <summary>
+    /// The Property Type Expression
+    /// </summary>
     public readonly BadExpression? Type;
 
+    /// <summary>
+    /// Creates a new Property Constraint
+    /// </summary>
+    /// <param name="name">The Property Name</param>
+    /// <param name="type">The Property Type Expression</param>
     public BadInterfacePropertyConstraint(string name, BadExpression? type)
     {
         Name = name;
         Type = type;
     }
 
+    /// <summary>
+    /// Creates a new Property Constraint
+    /// </summary>
+    /// <param name="name">The Property Name</param>
+    /// <param name="type">The Property Type Expression</param>
+    /// <param name="prototype">The Property Prototype</param>
     public BadInterfacePropertyConstraint(string name, BadExpression? type, BadClassPrototype? prototype)
     {
         Name = name;
@@ -24,6 +45,7 @@ public class BadInterfacePropertyConstraint : BadInterfaceConstraint
         m_Prototype = prototype;
     }
 
+    /// <inheritdoc cref="BadInterfaceConstraint.Validate" />
     public override void Validate(BadClass obj, List<BadInterfaceValidatorError> errors)
     {
         if (Type != null && m_Prototype == null)

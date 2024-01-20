@@ -7,8 +7,10 @@ namespace BadScript2.Utility.Linq.Queries.Commands;
 /// </summary>
 internal class BadLinqQueryTakeWhileCommand : BadLinqQueryCommand
 {
+    /// <inheritdoc />
     public BadLinqQueryTakeWhileCommand() : base(true, false, "TakeWhile") { }
 
+    /// <inheritdoc />
     public override IEnumerable Run(BadLinqQueryCommandData data)
     {
         return data.Data.TakeWhile(data.Argument!);

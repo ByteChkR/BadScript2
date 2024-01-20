@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Control
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadReturnExpressionCompiler : BadExpressionCompiler<BadReturnExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadReturnExpression expression)
     {
         if (expression.Right != null)

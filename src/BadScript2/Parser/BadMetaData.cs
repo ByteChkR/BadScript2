@@ -57,11 +57,13 @@ public class BadMetaData : BadObject
         ReturnType = returnType;
     }
 
+    /// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         throw new NotSupportedException();
     }
 
+    /// <inheritdoc/>
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString
@@ -71,6 +73,7 @@ public class BadMetaData : BadObject
                base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString s)
@@ -122,6 +125,7 @@ public class BadMetaData : BadObject
         return base.GetProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         StringBuilder sb = new StringBuilder();

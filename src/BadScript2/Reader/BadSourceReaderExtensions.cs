@@ -363,6 +363,12 @@ public static class BadSourceReaderExtensions
         return new BadStringToken(sb.ToString(), reader.MakeSourcePosition(start, reader.CurrentIndex - start));
     }
 
+    /// <summary>
+    /// Parses a Multi Line String
+    /// </summary>
+    /// <param name="reader">The Reader Instance</param>
+    /// <returns>The Resulting BadStringToken Instance</returns>
+    /// <exception cref="BadSourceReaderException">Gets Raised if the String is not properly terminated</exception>
     public static BadStringToken ParseMultiLineString(this BadSourceReader reader)
     {
         int start = reader.CurrentIndex;

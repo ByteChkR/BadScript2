@@ -45,6 +45,7 @@ public class BadConsoleWritePacket : BadConsolePacket
         return new BadConsoleWritePacket(isWriteLine, message);
     }
 
+	/// <inheritdoc />
     public override byte[] Serialize()
     {
         List<byte> data = new List<byte>

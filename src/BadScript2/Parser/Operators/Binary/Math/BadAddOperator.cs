@@ -13,6 +13,7 @@ public class BadAddOperator : BadBinaryOperator
 	/// </summary>
 	public BadAddOperator() : base(6, "+") { }
 
+	/// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

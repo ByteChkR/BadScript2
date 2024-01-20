@@ -3,8 +3,16 @@ using BadScript2.Interop.Common.Task;
 
 namespace BadScript2.Interactive;
 
+/// <summary>
+/// Interactive Console Extensions for the BadScript Runtime
+/// </summary>
 public static class BadInteractiveExtensions
 {
+    /// <summary>
+    /// Runs the Interactive Console
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
+    /// <param name="files">The Files to load before the Interactive Session begins</param>
     public static void RunInteractive(this BadRuntime runtime, IEnumerable<string> files)
     {
         BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);

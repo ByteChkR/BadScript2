@@ -14,6 +14,9 @@ public class BadExecutionContextOptions
     /// </summary>
     private readonly List<BadInteropApi> m_Apis = new List<BadInteropApi>();
 
+    /// <summary>
+    /// List of Extensions that are loaded in the context
+    /// </summary>
     private readonly List<BadInteropExtension> m_Extensions = new List<BadInteropExtension>();
 
     /// <summary>
@@ -31,6 +34,11 @@ public class BadExecutionContextOptions
     /// <param name="apis">Apis that should be added.</param>
     public BadExecutionContextOptions(params BadInteropApi[] apis) : this((IEnumerable<BadInteropApi>)apis) { }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="BadExecutionContextOptions" /> class.
+    /// </summary>
+    /// <param name="apis">Apis that should be added.</param>
+    /// <param name="extensions">Extensions that should be added.</param>
     public BadExecutionContextOptions(
         IEnumerable<BadInteropApi> apis,
         IEnumerable<BadInteropExtension> extensions) : this(apis)
@@ -38,6 +46,9 @@ public class BadExecutionContextOptions
         m_Extensions.AddRange(extensions);
     }
 
+    /// <summary>
+    /// An Empty <see cref="BadExecutionContextOptions" /> instance.
+    /// </summary>
     public static BadExecutionContextOptions Empty => new BadExecutionContextOptions();
 
     /// <summary>
@@ -45,12 +56,20 @@ public class BadExecutionContextOptions
     /// </summary>
     public IEnumerable<BadInteropApi> Apis => m_Apis;
 
+    /// <summary>
+    /// Adds a new Extension to the context.
+    /// </summary>
+    /// <typeparam name="T">The Extension Type.</typeparam>
     public void AddExtension<T>() where T : BadInteropExtension, new()
     {
         T t = new T();
         AddExtension(t);
     }
 
+    /// <summary>
+    /// Adds new Extensions to the context.
+    /// </summary>
+    /// <param name="extensions">The Extensions to add.</param>
     public void AddExtensions(params BadInteropExtension[] extensions)
     {
         foreach (BadInteropExtension extension in extensions)
@@ -59,16 +78,28 @@ public class BadExecutionContextOptions
         }
     }
 
+    /// <summary>
+    /// Adds a new Extension to the context.
+    /// </summary>
+    /// <param name="extension">The Extension to add.</param>
     public void AddExtension(BadInteropExtension extension)
     {
         m_Extensions.Add(extension);
     }
 
+    /// <summary>
+    /// Adds a new Api to the context.
+    /// </summary>
+    /// <param name="api">The Api to add.</param>
     public void AddApi(BadInteropApi api)
     {
         m_Apis.Add(api);
     }
 
+    /// <summary>
+    /// Adds or Replaces apis in the context.
+    /// </summary>
+    /// <param name="apis">The Apis to add or replace.</param>
     public void AddOrReplaceApis(IEnumerable<BadInteropApi> apis)
     {
         foreach (BadInteropApi api in apis)
@@ -77,6 +108,10 @@ public class BadExecutionContextOptions
         }
     }
 
+    /// <summary>
+    /// Adds or Replaces an api in the context.
+    /// </summary>
+    /// <param name="api">The Api to add or replace.</param>
     public void AddOrReplaceApi(BadInteropApi api)
     {
         int index = m_Apis.FindIndex(x => x.Name == api.Name);
@@ -91,6 +126,10 @@ public class BadExecutionContextOptions
         }
     }
 
+    /// <summary>
+    /// Adds Apis to the context.
+    /// </summary>
+    /// <param name="apis">The Apis to add.</param>
     public void AddApis(IEnumerable<BadInteropApi> apis)
     {
         m_Apis.AddRange(apis);
@@ -130,6 +169,10 @@ public class BadExecutionContextOptions
         return ctx;
     }
 
+    /// <summary>
+    /// Clones this <see cref="BadExecutionContextOptions" /> instance.
+    /// </summary>
+    /// <returns>The cloned instance.</returns>
     public BadExecutionContextOptions Clone()
     {
         return new BadExecutionContextOptions(m_Apis, m_Extensions);

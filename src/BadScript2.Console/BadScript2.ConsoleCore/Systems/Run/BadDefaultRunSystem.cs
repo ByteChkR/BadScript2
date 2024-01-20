@@ -8,8 +8,13 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadDefaultRunSystem : BadRunSystem
 {
+    /// <summary>
+    /// Creates a new BadDefaultRunSystem instance
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
     public BadDefaultRunSystem(BadRuntime runtime) : base(runtime) { }
 
+    /// <inheritdoc/>
     public override object Parse(string[] args)
     {
         BadRunSystemSettings settings = new BadRunSystemSettings

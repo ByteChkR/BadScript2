@@ -29,12 +29,21 @@ public class BadPostDecrementExpression : BadExpression
         Left = left;
     }
 
+    
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Left.GetDescendantsAndSelf();
     }
 
 
+    /// <summary>
+    /// Executes the Operator
+    /// </summary>
+    /// <param name="reference">Reference to the left side of the expression</param>
+    /// <param name="position">Position of the expression</param>
+    /// <returns>Returns the result of the operation</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
     {
         BadObject value = reference.Dereference();
@@ -49,6 +58,14 @@ public class BadPostDecrementExpression : BadExpression
         return value;
     }
 
+    /// <summary>
+    /// Executes the Operator
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="leftRef">Reference to the left side of the expression</param>
+    /// <param name="position">Position of the expression</param>
+    /// <returns>Returns the result of the operation</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static IEnumerable<BadObject> DecrementWithOverride(
         BadExecutionContext? context,
         BadObjectReference leftRef,
@@ -74,6 +91,7 @@ public class BadPostDecrementExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;

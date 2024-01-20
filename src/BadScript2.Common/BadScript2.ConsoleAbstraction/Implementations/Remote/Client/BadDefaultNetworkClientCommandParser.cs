@@ -6,8 +6,14 @@ using BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
 
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 
+/// <summary>
+/// The Default Command Parser for the Remote Console Client
+/// </summary>
 public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientCommandParser
 {
+    /// <summary>
+    /// The Client
+    /// </summary>
     private readonly BadNetworkConsoleClient m_Client;
 
     /// <summary>
@@ -15,13 +21,22 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
     /// </summary>
     private readonly List<BadNetworkConsoleClientCommand> m_Commands = new List<BadNetworkConsoleClientCommand>();
 
+    /// <summary>
+    /// Creates a new Command Parser
+    /// </summary>
+    /// <param name="client">The Client</param>
     public BadDefaultNetworkClientCommandParser(BadNetworkConsoleClient client)
     {
         m_Client = client;
     }
 
+    /// <summary>
+    /// The Commands
+    /// </summary>
     public IEnumerable<BadNetworkConsoleClientCommand> Commands => m_Commands;
 
+    
+    /// <inheritdoc />
     public void ExecuteCommand(string command)
     {
         string[] parts = command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);

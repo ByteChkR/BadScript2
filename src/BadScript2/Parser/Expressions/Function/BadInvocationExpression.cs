@@ -48,12 +48,17 @@ public class BadInvocationExpression : BadExpression
     /// </summary>
     public BadExpression Left { get; }
 
+    /// <summary>
+    /// Sets the arguments of the invocation
+    /// </summary>
+    /// <param name="exprs">The Arguments</param>
     public void SetArgs(IEnumerable<BadExpression> exprs)
     {
         m_Arguments.Clear();
         m_Arguments.AddRange(exprs);
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         for (int i = 0; i < m_Arguments.Count; i++)
@@ -62,6 +67,7 @@ public class BadInvocationExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression left in Left.GetDescendantsAndSelf())
@@ -155,6 +161,7 @@ public class BadInvocationExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -198,6 +205,7 @@ public class BadInvocationExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.ToString" />
     public override string ToString()
     {
         return $"({Left}({string.Join(", ", m_Arguments.Select(x => x.ToString()))}))";

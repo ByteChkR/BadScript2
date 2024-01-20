@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
 ///     Implements the Array Access to set or get properties from an object.
-///     <Left>[<Right>]
+///     LEFT[RIGHT]
 /// </summary>
 public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
 {
@@ -59,6 +59,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     /// </summary>
     public bool NullChecked { get; }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in Left.GetDescendantsAndSelf())
@@ -75,6 +76,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         Left = BadConstantFoldingOptimizer.Optimize(Left);
@@ -85,6 +87,15 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
         }
     }
 
+    /// <summary>
+    /// Executes the Array Access Expression.
+    /// </summary>
+    /// <param name="context">The execution context.</param>
+    /// <param name="left">Left side of the expression.</param>
+    /// <param name="args">Right side of the expression.</param>
+    /// <param name="position">Position inside the source code.</param>
+    /// <returns>The result of the array access(last item of the enumeration).</returns>
+    /// <exception cref="BadRuntimeException">If the array access operator is not defined.</exception>
     public static IEnumerable<BadObject> Access(
         BadExecutionContext? context,
         BadObject left,
@@ -115,6 +126,8 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
         }
     }
 
+    
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;

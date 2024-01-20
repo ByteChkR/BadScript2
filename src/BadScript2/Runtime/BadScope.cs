@@ -11,6 +11,9 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject
 {
+    /// <summary>
+    /// The Extension Provider
+    /// </summary>
     private readonly BadInteropExtensionProvider m_Provider;
 
     /// <summary>
@@ -18,7 +21,13 @@ public class BadScope : BadObject
     /// </summary>
     private readonly BadTable m_ScopeVariables = new BadTable();
 
+    /// <summary>
+    /// The Singleton Cache
+    /// </summary>
     private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
+    /// <summary>
+    /// Indicates if the Scope uses the visibility subsystem
+    /// </summary>
     private readonly bool m_UseVisibility;
 
     /// <summary>
@@ -91,8 +100,14 @@ public class BadScope : BadObject
         Parent = parent;
     }
 
+    /// <summary>
+    /// The Extension Provider
+    /// </summary>
     public BadInteropExtensionProvider Provider => Parent != null ? Parent.Provider : m_Provider;
 
+    /// <summary>
+    /// The Class Object of the Scope
+    /// </summary>
     public BadClass? ClassObject { get; internal set; }
 
 
@@ -179,16 +194,30 @@ public class BadScope : BadObject
         }
     );
 
+    /// <summary>
+    /// Sets the Caller of the Scope
+    /// </summary>
+    /// <param name="caller">The Caller</param>
     public void SetCaller(BadScope? caller)
     {
         m_Caller = caller;
     }
 
+    /// <summary>
+    /// Returns the Root Scope of the Scope
+    /// </summary>
+    /// <returns>The Root Scope</returns>
     public BadScope GetRootScope()
     {
         return Parent?.GetRootScope() ?? this;
     }
 
+    /// <summary>
+    /// Adds a Singleton to the Scope
+    /// </summary>
+    /// <param name="instance"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <exception cref="BadRuntimeException"></exception>
     public void AddSingleton<T>(T instance) where T : class
     {
         if (instance == null)
@@ -199,6 +228,11 @@ public class BadScope : BadObject
         m_SingletonCache.Add(typeof(T), instance);
     }
 
+    /// <summary>
+    /// Gets a Singleton from the Scope
+    /// </summary>
+    /// <typeparam name="T">Type of the Singleton</typeparam>
+    /// <returns>The Singleton</returns>
     public T GetSingleton<T>()
     {
         if (Parent != null)
@@ -209,6 +243,13 @@ public class BadScope : BadObject
         return (T)m_SingletonCache[typeof(T)];
     }
 
+    /// <summary>
+    /// Gets a Singleton from the Scope
+    /// </summary>
+    /// <param name="createNew">Should a new instance be created if the singleton does not exist</param>
+    /// <typeparam name="T">Type of the Singleton</typeparam>
+    /// <returns>The Singleton</returns>
+    /// <exception cref="Exception">Gets raised if the singleton does not exist and createNew is false</exception>
     public T GetSingleton<T>(bool createNew) where T : new()
     {
         if (Parent != null)
@@ -487,12 +528,22 @@ public class BadScope : BadObject
         return Parent!.GetVariableInfo(name);
     }
 
+    /// <summary>
+    /// Returns the visibility of the specified property
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <returns>The Visibility of the Property</returns>
     public static BadPropertyVisibility GetPropertyVisibility(BadObject propName)
     {
         return propName is not IBadString s || !s.Value.StartsWith("_") ? BadPropertyVisibility.Public :
             s.Value.StartsWith("__") ? BadPropertyVisibility.Private : BadPropertyVisibility.Protected;
     }
 
+    /// <summary>
+    /// Returns true if the specified scope is visible to the current scope
+    /// </summary>
+    /// <param name="scope">The Scope</param>
+    /// <returns>true if the scope is visible</returns>
     public bool IsVisibleParentOf(BadScope scope)
     {
         if (scope == this)
@@ -521,6 +572,13 @@ public class BadScope : BadObject
         return false;
     }
 
+    /// <summary>
+    /// Returns the variable reference of the specified variable
+    /// </summary>
+    /// <param name="name">Variable Name</param>
+    /// <param name="caller">The Calling Scope</param>
+    /// <returns>Variable Reference</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found or is not visible</exception>
     public BadObjectReference GetVariable(BadObject name, BadScope caller)
     {
         if (m_UseVisibility)
@@ -605,17 +663,20 @@ public class BadScope : BadObject
     }
 
 
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return HasVariable(propName, caller ?? this) ? GetVariable(propName, caller ?? this) : base.GetProperty(propName, caller);
     }
 
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return HasVariable(propName, caller ?? this) || base.HasProperty(propName, caller);
     }
 
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         done.Add(this);

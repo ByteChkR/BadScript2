@@ -47,6 +47,10 @@ public class BadIfExpression : BadExpression
     /// </summary>
     public IEnumerable<BadExpression>? ElseBranch => m_ElseBranch;
 
+    /// <summary>
+    /// Sets the Else Branch
+    /// </summary>
+    /// <param name="branch">The new Else Branch</param>
     public void SetElseBranch(IEnumerable<BadExpression>? branch)
     {
         if (branch == null)
@@ -64,6 +68,7 @@ public class BadIfExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         KeyValuePair<BadExpression, BadExpression[]>[] branches = m_ConditionalBranches.ToArray();
@@ -86,6 +91,7 @@ public class BadIfExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in m_ConditionalBranches)
@@ -115,6 +121,7 @@ public class BadIfExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         foreach (KeyValuePair<BadExpression, BadExpression[]> keyValuePair in m_ConditionalBranches)

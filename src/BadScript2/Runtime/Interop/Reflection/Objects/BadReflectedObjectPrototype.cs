@@ -8,10 +8,14 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects;
 /// </summary>
 internal class BadReflectedObjectPrototype : BadANativeClassPrototype
 {
+    /// <summary>
+    /// Creates a new BadReflectedObjectPrototype
+    /// </summary>
     internal BadReflectedObjectPrototype() : base(
         "BadReflectedObject",
         (_, _) => throw new BadRuntimeException("Can not create a BadReflectedObject inside the Script")
     ) { }
 
+    /// <inheritdoc/>
     public override bool IsAbstract => true;
 }

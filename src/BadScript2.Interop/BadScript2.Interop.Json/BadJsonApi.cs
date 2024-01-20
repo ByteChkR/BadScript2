@@ -18,6 +18,7 @@ public class BadJsonApi : BadInteropApi
     /// </summary>
     public BadJsonApi() : base("Json") { }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty(

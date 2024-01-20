@@ -14,6 +14,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadForEachNodeTransformer : BadHtmlNodeTransformer
 {
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:each";
@@ -45,6 +46,7 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
         }
     }
 
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
     protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? enumerationAttribute = context.InputNode.Attributes["on"];

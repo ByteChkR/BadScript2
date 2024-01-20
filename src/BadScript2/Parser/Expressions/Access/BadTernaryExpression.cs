@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
 ///     Implements the Ternary Expression
-///     <Left> ? <TrueRet> : <FalseRet>
+///     LEFT ? TRUE_RET : FALSE_RET
 /// </summary>
 public class BadTernaryExpression : BadExpression
 {

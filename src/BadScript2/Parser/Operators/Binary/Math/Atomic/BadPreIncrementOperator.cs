@@ -14,6 +14,7 @@ public class BadPreIncrementOperator : BadUnaryPrefixOperator
 	public BadPreIncrementOperator() : base(2, "++", false) { }
 
 
+	/// <inheritdoc cref="BadUnaryPrefixOperator.Parse" />
     public override BadExpression Parse(BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

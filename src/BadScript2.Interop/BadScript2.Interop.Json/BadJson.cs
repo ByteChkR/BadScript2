@@ -11,6 +11,11 @@ namespace BadScript2.Interop.Json;
 /// </summary>
 public static class BadJson
 {
+    /// <summary>
+    /// Configures the Runtime to use the Json API
+    /// </summary>
+    /// <param name="runtime">The Runtime</param>
+    /// <returns>The Runtime</returns>
     public static BadRuntime UseJsonApi(this BadRuntime runtime)
     {
         runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadJsonApi()));

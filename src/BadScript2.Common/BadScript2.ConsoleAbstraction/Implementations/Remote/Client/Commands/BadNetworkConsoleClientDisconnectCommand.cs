@@ -19,6 +19,7 @@ public class BadNetworkConsoleClientDisconnectCommand : BadNetworkConsoleClientC
         m_Client = client;
     }
 
+	/// <inheritdoc />
     public override void Invoke(string[] args)
     {
         m_Client.Stop();

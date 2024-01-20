@@ -7,7 +7,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
 ///     Implements the Null Coalescing Expression
-///     <Left> ?? <Right>
+///     LEFT ?? RIGHT
 /// </summary>
 public class BadNullCoalescingExpression : BadBinaryExpression
 {

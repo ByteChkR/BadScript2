@@ -42,6 +42,12 @@ public class BadRuntimeError : BadObject
     /// </summary>
     public BadObject ErrorObject { get; }
 
+    /// <summary>
+    /// Creates a BadRuntimeError from an Exception
+    /// </summary>
+    /// <param name="e">The Exception</param>
+    /// <param name="scriptStackTrace">The Script Stack Trace</param>
+    /// <returns>Returns a BadRuntimeError</returns>
     public static BadRuntimeError FromException(Exception e, string? scriptStackTrace = null)
     {
         BadRuntimeError? inner = e.InnerException == null ? null : FromException(e.InnerException);
@@ -66,11 +72,13 @@ public class BadRuntimeError : BadObject
         return new BadRuntimeError(inner, e.Message, st);
     }
 
+    /// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
+    /// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         done.Add(this);
@@ -78,6 +86,7 @@ public class BadRuntimeError : BadObject
         return $"{ErrorObject.ToSafeString(done)} at\n{StackTrace}\n{InnerError?.ToSafeString(done) ?? ""}";
     }
 
+    /// <inheritdoc/>
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString str)
@@ -98,6 +107,7 @@ public class BadRuntimeError : BadObject
         return base.GetProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString

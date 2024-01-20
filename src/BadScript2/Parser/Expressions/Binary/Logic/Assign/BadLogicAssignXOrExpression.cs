@@ -23,6 +23,7 @@ public class BadLogicAssignXOrExpression : BadBinaryExpression
         position
     ) { }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         bool hasReturn = false;
@@ -69,6 +70,7 @@ public class BadLogicAssignXOrExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "^=";

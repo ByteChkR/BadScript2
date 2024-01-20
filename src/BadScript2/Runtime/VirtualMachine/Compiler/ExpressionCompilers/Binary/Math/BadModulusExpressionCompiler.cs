@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadModulusExpressionCompiler : BadBinaryExpressionCompiler<BadModulusExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadModulusExpression expression)
     {
         yield return new BadInstruction(BadOpCode.Mod, expression.Position);

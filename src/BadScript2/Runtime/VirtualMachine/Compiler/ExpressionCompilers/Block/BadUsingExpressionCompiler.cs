@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 public class BadUsingExpressionCompiler : BadExpressionCompiler<BadUsingExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadUsingExpression expression)
     {
         //Create a new scope for the using block

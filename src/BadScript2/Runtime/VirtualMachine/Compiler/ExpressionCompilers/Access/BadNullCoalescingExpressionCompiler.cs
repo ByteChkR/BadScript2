@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadNullCoalescingExpressionCompiler : BadExpressionCompiler<BadNullCoalescingExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullCoalescingExpression expression)
     {
         foreach (BadInstruction instruction in compiler.Compile(expression.Left))

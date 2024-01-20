@@ -12,15 +12,26 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSettings>
 {
+    /// <summary>
+    /// Creates a new BadRemoteConsoleSystem instance
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
     public BadRemoteConsoleSystem(BadRuntime runtime) : base(runtime) { }
 
+    /// <inheritdoc/>
     public override string Name => "remote";
 
+    /// <summary>
+    /// Creates a new Script Command Parser
+    /// </summary>
+    /// <param name="client">The Client to use</param>
+    /// <returns>The new Parser</returns>
     private IBadNetworkConsoleClientCommandParser CreateScriptParser(BadNetworkConsoleClient client)
     {
         return new ScriptCommandParser(Runtime, client);
     }
 
+    /// <inheritdoc/>
     protected override int Run(BadRemoteConsoleSystemSettings settings)
     {
         Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parser = settings.UseScriptCommands ? CreateScriptParser : BadNetworkConsoleClient.DefaultParserFactory;
@@ -30,18 +41,37 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         return 0;
     }
 
+    /// <summary>
+    /// Script Command Parser
+    /// </summary>
     private class ScriptCommandParser : IBadNetworkConsoleClientCommandParser
     {
+        /// <summary>
+        /// The Client to use
+        /// </summary>
         private readonly BadNetworkConsoleClient m_Client;
+        /// <summary>
+        /// The Runtime to use
+        /// </summary>
         private readonly BadRuntime m_Runtime;
+        /// <summary>
+        /// The Current Context
+        /// </summary>
         private BadExecutionContext? m_Context;
 
+        /// <summary>
+        /// Creates a new ScriptCommandParser instance
+        /// </summary>
+        /// <param name="runtime">The Runtime to use</param>
+        /// <param name="client">The Client to use</param>
         public ScriptCommandParser(BadRuntime runtime, BadNetworkConsoleClient client)
         {
             m_Runtime = runtime;
             m_Client = client;
         }
 
+        
+        /// <inheritdoc/>
         public void ExecuteCommand(string command)
         {
             try
@@ -59,11 +89,19 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
             }
         }
 
+        /// <summary>
+        /// Returns the Current Context
+        /// </summary>
+        /// <returns>The Current Context</returns>
         private BadExecutionContext GetContext()
         {
             return m_Context ??= CreateContext();
         }
 
+        /// <summary>
+        /// Creates a new Context
+        /// </summary>
+        /// <returns>The new Context</returns>
         private BadExecutionContext CreateContext()
         {
             BadExecutionContext context = m_Runtime.CreateContext();

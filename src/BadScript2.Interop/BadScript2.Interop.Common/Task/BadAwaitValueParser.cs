@@ -11,11 +11,13 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadAwaitValueParser : BadValueParser
 {
+    /// <inheritdoc/>
     public override bool IsValue(BadSourceParser parser)
     {
         return parser.Reader.IsKey("await");
     }
 
+    /// <inheritdoc/>
     public override BadExpression ParseValue(BadSourceParser parser)
     {
         BadSourcePosition pos = parser.Reader.Eat("await");

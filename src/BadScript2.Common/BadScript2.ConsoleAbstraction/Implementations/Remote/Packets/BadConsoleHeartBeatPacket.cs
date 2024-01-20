@@ -15,6 +15,7 @@ public class BadConsoleHeartBeatPacket : BadConsolePacket
 	/// </summary>
 	private BadConsoleHeartBeatPacket() { }
 
+    /// <inheritdoc />
     public override byte[] Serialize()
     {
         return new[]

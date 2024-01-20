@@ -50,6 +50,11 @@ public class BadExecutionContext
         return Scope.ReturnValue ?? null;
     }
 
+    /// <summary>
+    /// Executes an enumeration of expressions and returns the last value.
+    /// </summary>
+    /// <param name="expressions">Expression Enumeration</param>
+    /// <returns>The last value of the enumeration.</returns>
     public BadObject ExecuteScript(IEnumerable<BadExpression> expressions)
     {
         BadObject result = BadObject.Null;
@@ -63,6 +68,11 @@ public class BadExecutionContext
     }
 
 
+    /// <summary>
+    /// Executes an expression and returns the last value.
+    /// </summary>
+    /// <param name="expression">The expression to execute.</param>
+    /// <returns>The last value of the enumeration.</returns>
     public BadObject ExecuteScript(BadExpression expression)
     {
         BadObject result = BadObject.Null;
@@ -85,6 +95,11 @@ public class BadExecutionContext
         return expressions.SelectMany(Execute);
     }
 
+    /// <summary>
+    /// Executes an expression.
+    /// </summary>
+    /// <param name="expression">The expression to execute.</param>
+    /// <returns>Enumeration of the resulting objects</returns>
     public IEnumerable<BadObject> Execute(BadExpression expression)
     {
         foreach (BadObject o in expression.Execute(this))

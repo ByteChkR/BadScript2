@@ -53,11 +53,13 @@ public class BadInterfacePrototypeExpression : BadExpression
     /// </summary>
     public string Name { get; }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield break;
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         List<BadInterfacePrototype> interfaces = new List<BadInterfacePrototype>();

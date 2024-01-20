@@ -13,6 +13,7 @@ public class BadAssignOperator : BadBinaryOperator
 	/// </summary>
 	public BadAssignOperator() : base(16, "=", false) { }
 
+	/// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

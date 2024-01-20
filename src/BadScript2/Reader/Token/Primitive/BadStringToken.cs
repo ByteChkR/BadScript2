@@ -17,6 +17,7 @@ public class BadStringToken : BadPrimitiveToken
         Value = str;
     }
 
+	/// <inheritdoc/>
     public override BadPrimitiveType Type => BadPrimitiveType.String;
 
     /// <summary>

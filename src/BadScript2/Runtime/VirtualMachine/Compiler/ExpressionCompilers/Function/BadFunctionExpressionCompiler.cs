@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Functio
 
 public class BadFunctionExpressionCompiler : BadExpressionCompiler<BadFunctionExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFunctionExpression expression)
     {
         BadLogger.Warn(

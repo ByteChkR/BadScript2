@@ -52,6 +52,7 @@ public class BadScriptDebugger : IBadDebugger
         LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
     }
 
+	/// <inheritdoc />
     public void Step(BadDebuggerStep stepInfo)
     {
         stepInfo.GetLines(4, 4, out _, out int lineInSource);

@@ -13,6 +13,9 @@ public class BadHtmlSystemSettings
 	[Option('f', "files", Required = false, HelpText = "The files to run.")]
     public IEnumerable<string> Files { get; set; } = Enumerable.Empty<string>();
 
+	/// <summary>
+	/// The Model that the templates will use
+	/// </summary>
     [Option("model", Required = false, HelpText = "The Model that the templates will use")]
     public string Model { get; set; } = string.Empty;
 
@@ -33,9 +36,15 @@ public class BadHtmlSystemSettings
     )]
     public int RemotePort { get; set; } = -1;
 
+    /// <summary>
+    /// Indicates if empty HTML Text nodes should be skipped
+    /// </summary>
     [Option("skipEmptyNodes", Required = false, HelpText = "If enabled, empty text nodes will be skipped.")]
     public bool SkipEmptyTextNodes { get; set; } = false;
 
+    /// <summary>
+    /// Indicates if the output should be minified
+    /// </summary>
     [Option('m', "minify", Required = false, HelpText = "If enabled, the output will be minified.")]
     public bool Minify { get; set; } = false;
 }

@@ -7,6 +7,9 @@ namespace BadScript2.Tests;
 
 public class BadLinqTests
 {
+    /// <summary>
+    /// Tests the LINQ.Select Function
+    /// </summary>
     [Test]
     public void SelectTest()
     {
@@ -24,6 +27,9 @@ public class BadLinqTests
         }
     }
 
+    /// <summary>
+    /// Tests the LINQ.Where Function
+    /// </summary>
     [Test]
     public void WhereTest()
     {
@@ -41,6 +47,9 @@ public class BadLinqTests
         }
     }
 
+    /// <summary>
+    /// Tests the LINQ.Last Function
+    /// </summary>
     [Test]
     public void LastTest()
     {
@@ -50,6 +59,9 @@ public class BadLinqTests
         Assert.That(o, Is.EqualTo(98));
     }
 
+    /// <summary>
+    /// Tests the Linq.First Function
+    /// </summary>
     [Test]
     public void FirstTest()
     {
@@ -59,6 +71,9 @@ public class BadLinqTests
         Assert.That(o, Is.EqualTo(0));
     }
 
+    /// <summary>
+    /// Tests the Linq.LastOrDefault Function
+    /// </summary>
     [Test]
     public void LastOrDefaultTest()
     {
@@ -67,6 +82,9 @@ public class BadLinqTests
         Assert.That(o, Is.Null);
     }
 
+    /// <summary>
+    /// Tests the Linq.FirstOrDefault Function
+    /// </summary>
     [Test]
     public void FirstOrDefaultTest()
     {
@@ -76,6 +94,9 @@ public class BadLinqTests
         Assert.That(o, Is.Null);
     }
 
+    /// <summary>
+    /// Tests the Linq.Take Function
+    /// </summary>
     [Test]
     public void TakeTest()
     {
@@ -84,6 +105,9 @@ public class BadLinqTests
         Assert.That(o, Has.Length.EqualTo(10));
     }
 
+    /// <summary>
+    /// Tests the Linq.Skip Function
+    /// </summary>
     [Test]
     public void SkipTest()
     {
@@ -92,6 +116,9 @@ public class BadLinqTests
         Assert.That(o, Has.Length.EqualTo(90));
     }
 
+    /// <summary>
+    /// Tests the Linq.TakeLast Function
+    /// </summary>
     [Test]
     public void TakeLastTest()
     {
@@ -100,6 +127,9 @@ public class BadLinqTests
         Assert.That(o, Has.Length.EqualTo(10));
     }
 
+    /// <summary>
+    /// Tests the Linq.SkipLast Function
+    /// </summary>
     [Test]
     public void SkipLastTest()
     {
@@ -109,6 +139,9 @@ public class BadLinqTests
     }
 
 
+    /// <summary>
+    /// Tests the Linq.SelectMany Function
+    /// </summary>
     [Test]
     public void SelectManyTest()
     {
@@ -126,6 +159,9 @@ public class BadLinqTests
         Assert.That(o, Has.Length.EqualTo(4));
     }
 
+    /// <summary>
+    /// Tests the Linq.SkipWhile Function
+    /// </summary>
     [Test]
     public void SkipWhileTest()
     {
@@ -134,6 +170,9 @@ public class BadLinqTests
         Assert.That(o, Has.Length.EqualTo(90));
     }
 
+    /// <summary>
+    /// Test the Linq.TakeWhile Function
+    /// </summary>
     [Test]
     public void TakeWhileTest()
     {
@@ -142,6 +181,9 @@ public class BadLinqTests
         Assert.That(o, Has.Length.EqualTo(10));
     }
 
+    /// <summary>
+    /// Tests the Linq.All Function
+    /// </summary>
     [Test]
     public void AllTest()
     {
@@ -161,6 +203,9 @@ public class BadLinqTests
         );
     }
 
+    /// <summary>
+    /// Tests the Linq.Any Function
+    /// </summary>
     [Test]
     public void AnyTest()
     {

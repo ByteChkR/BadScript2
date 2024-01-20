@@ -14,11 +14,20 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadIfNodeTransformer : BadHtmlNodeTransformer
 {
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:if";
     }
 
+    /// <summary>
+    /// Dissects the HTML content of the 'bs:if' node into a list of branches
+    /// </summary>
+    /// <param name="context">The Current HTML Context</param>
+    /// <param name="node">The HTML Node to Dissect</param>
+    /// <param name="elseBranch">The Else branch(if any is found)</param>
+    /// <returns>List of Branches</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Html Node does not have a valid shape</exception>
     private static List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(
         BadHtmlContext context,
         HtmlNode node,
@@ -108,6 +117,13 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
         return branches;
     }
 
+    /// <summary>
+    /// Evaluates a condition attribute
+    /// </summary>
+    /// <param name="context">The Current HTML Context</param>
+    /// <param name="conditionAttribute">The Condition Attribute</param>
+    /// <returns>Result of the Condition</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the result is not of type 'bool'</exception>
     private static bool EvaluateCondition(BadHtmlContext context, HtmlAttribute conditionAttribute)
     {
         BadObject resultObj = context.ParseAndExecuteSingle(
@@ -127,6 +143,7 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
         return result.Value;
     }
 
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
     protected override void TransformNode(BadHtmlContext context)
     {
         List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches =

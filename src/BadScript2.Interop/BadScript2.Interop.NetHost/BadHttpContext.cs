@@ -34,11 +34,13 @@ public class BadHttpContext : BadObject
 	/// </summary>
 	public HttpListenerContext Context { get; }
 
+	/// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
+	/// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         return Context.ToString();

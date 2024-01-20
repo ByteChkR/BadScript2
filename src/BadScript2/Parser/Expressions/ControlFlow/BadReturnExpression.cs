@@ -35,11 +35,16 @@ public class BadReturnExpression : BadExpression
     /// </summary>
     public BadExpression? Right { get; private set; }
 
+    /// <summary>
+    /// Sets the return value
+    /// </summary>
+    /// <param name="expr">The return value</param>
     public void SetRight(BadExpression? expr)
     {
         Right = expr;
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         if (Right == null)
@@ -53,6 +58,7 @@ public class BadReturnExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         if (Right != null)
@@ -61,6 +67,7 @@ public class BadReturnExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject value = BadObject.Null;
@@ -91,6 +98,7 @@ public class BadReturnExpression : BadExpression
         yield return value;
     }
 
+    /// <inheritdoc cref="BadExpression.ToString" />
     public override string ToString()
     {
         return "return " + (Right?.ToString() ?? "");

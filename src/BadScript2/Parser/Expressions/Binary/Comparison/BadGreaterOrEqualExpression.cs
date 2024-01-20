@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Binary.Comparison;
 
 /// <summary>
 ///     Implements the Greater or Equal Expression
-///     <Left> >= <Right>
+///     LEFT >= RIGHT
 /// </summary>
 public class BadGreaterOrEqualExpression : BadBinaryExpression
 {
@@ -42,6 +42,14 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
         throw new BadRuntimeException($"Can not apply operator '>=' to {left} and {right}", pos);
     }
 
+    /// <summary>
+    /// Executes the expression
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <param name="position">The position.</param>
+    /// <returns>Result of the operator override.(last item)</returns>
     public static IEnumerable<BadObject> GreaterOrEqualWithOverride(
         BadExecutionContext? context,
         BadObject left,

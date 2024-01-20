@@ -9,10 +9,19 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
     where T : BadBinaryExpression
 {
+    /// <summary>
+    /// Indicates if the Expression is Left Associative
+    /// </summary>
     protected virtual bool IsLeftAssociative => true;
 
+    /// <summary>
+    /// Indicates if the Left Expression should be emitted
+    /// </summary>
     protected virtual bool EmitLeft => true;
 
+    /// <summary>
+    /// Indicates if the Right Expression should be emitted
+    /// </summary>
     protected virtual bool EmitRight => true;
 
     /// <summary>
@@ -20,9 +29,10 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
     /// </summary>
     /// <param name="compiler">The Compiler Instance</param>
     /// <param name="expression">The Expression to compile</param>
-    /// <returns></returns>
+    /// <returns>List of Instructions</returns>
     public abstract IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, T expression);
 
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, T expression)
     {
         if (IsLeftAssociative)

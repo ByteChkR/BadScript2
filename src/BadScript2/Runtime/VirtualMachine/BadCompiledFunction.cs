@@ -12,13 +12,42 @@ namespace BadScript2.Runtime.VirtualMachine;
 /// </summary>
 public class BadCompiledFunction : BadFunction
 {
+    /// <summary>
+    /// The Compiled Function's Instructions.
+    /// </summary>
     private readonly BadInstruction[] m_Instructions;
+    /// <summary>
+    /// The Compiled Function's Parent Scope.
+    /// </summary>
     private readonly BadScope m_ParentScope;
+    /// <summary>
+    /// The Original Source Position.
+    /// </summary>
     private readonly BadSourcePosition m_Position;
 
+    /// <summary>
+    /// The Signature
+    /// </summary>
     private readonly string m_StringSignature;
+    
+    /// <summary>
+    /// Indicates if the Function should use Operator Overrides.
+    /// </summary>
     private readonly bool m_UseOverrides;
 
+    /// <summary>
+    /// Creates a new <see cref="BadCompiledFunction" /> instance.
+    /// </summary>
+    /// <param name="instructions">The list of Instructions.</param>
+    /// <param name="useOverrides">Indicates if the Function should use Operator Overrides.</param>
+    /// <param name="parentScope">The Parent Scope.</param>
+    /// <param name="position">The Original Source Position.</param>
+    /// <param name="name">The Function's Name.</param>
+    /// <param name="isConstant">Indicates if the Function is Constant.</param>
+    /// <param name="isStatic">Indicates if the Function is Static.</param>
+    /// <param name="metaData">The Function's MetaData.</param>
+    /// <param name="returnType">The Function's Return Type.</param>
+    /// <param name="parameters">The Function's Parameters.</param>
     public BadCompiledFunction(
         BadInstruction[] instructions,
         bool useOverrides,
@@ -45,8 +74,10 @@ public class BadCompiledFunction : BadFunction
         m_StringSignature = MakeSignature();
     }
 
+    /// <inheritdoc />
     public override BadMetaData MetaData { get; }
 
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         BadExecutionContext ctx = new BadExecutionContext(
@@ -80,6 +111,10 @@ public class BadCompiledFunction : BadFunction
         }
     }
 
+    /// <summary>
+    /// Creates a Signature for this Function.
+    /// </summary>
+    /// <returns>The Signature.</returns>
     private string MakeSignature()
     {
         string str = base.ToString() + " at " + m_Position.GetPositionInfo() + '\n';
@@ -92,6 +127,7 @@ public class BadCompiledFunction : BadFunction
         return str;
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return m_StringSignature;

@@ -13,6 +13,13 @@ namespace BadScript2.Runtime.Interop;
 /// </summary>
 public static class BadInteropHelper
 {
+    /// <summary>
+    /// Sets the Property with the given name to the given value
+    /// </summary>
+    /// <param name="elem">The Object to set the Property on</param>
+    /// <param name="propName">The Name of the Property</param>
+    /// <param name="value">The Value to set the Property to</param>
+    /// <param name="info">The Property Info for the Property</param>
     public static void SetProperty(
         this BadObject elem,
         BadObject propName,
@@ -22,11 +29,23 @@ public static class BadInteropHelper
         elem.GetProperty(propName).Set(value, info);
     }
 
+    /// <summary>
+    /// Returns true if the given object can be unwrapped
+    /// </summary>
+    /// <param name="obj">The Object to check</param>
+    /// <returns>True if the given object can be unwrapped</returns>
     public static bool CanUnwrap(this BadObject obj)
     {
         return obj is IBadNative;
     }
 
+    /// <summary>
+    /// Unwraps the given object
+    /// </summary>
+    /// <param name="obj">The Object to unwrap</param>
+    /// <param name="caller">The Caller Scope</param>
+    /// <returns>The unwrapped object</returns>
+    /// <exception cref="BadRuntimeException">If the object can not be unwrapped</exception>
     public static object Unwrap(this BadObject obj, BadScope? caller = null)
     {
         if (obj is IBadNative native)
@@ -37,6 +56,14 @@ public static class BadInteropHelper
         throw BadRuntimeException.Create(caller, $"Can not unwrap object '{obj}'");
     }
 
+    /// <summary>
+    /// Unwraps the given object to the given type
+    /// </summary>
+    /// <param name="obj">The Object to unwrap</param>
+    /// <param name="t">The Type to unwrap to</param>
+    /// <param name="caller">The Caller Scope</param>
+    /// <returns>The unwrapped object</returns>
+    /// <exception cref="BadRuntimeException">If the object can not be unwrapped to the given type</exception>
     public static object Unwrap(this BadObject obj, Type t, BadScope? caller = null)
     {
         Type oType = obj.GetType();
@@ -105,6 +132,14 @@ public static class BadInteropHelper
         }
     }
 
+    /// <summary>
+    /// Unwraps the given object to the given type
+    /// </summary>
+    /// <param name="obj">The Object to unwrap</param>
+    /// <param name="caller">The Caller Scope</param>
+    /// <typeparam name="T">The Type to unwrap to</typeparam>
+    /// <returns>The unwrapped object</returns>
+    /// <exception cref="BadRuntimeException">If the object can not be unwrapped to the given type</exception>
     public static T Unwrap<T>(this BadObject obj, BadScope? caller = null)
     {
         if (obj is T t)
@@ -186,6 +221,11 @@ public static class BadInteropHelper
         return (T)ruarr;
     }
 
+    /// <summary>
+    /// Returns true if the given type is a Func of any kind 
+    /// </summary>
+    /// <param name="t">The Type to check</param>
+    /// <returns>True if the given type is a Func of any kind</returns>
     public static bool IsFunction(this Type t)
     {
         if (!t.IsGenericType)
@@ -214,6 +254,11 @@ public static class BadInteropHelper
                gt == typeof(Func<,,,,,,,,,,,,,,,,>);
     }
 
+    /// <summary>
+    /// Returns true if the given type is an Action of any kind
+    /// </summary>
+    /// <param name="t">The Type to check</param>
+    /// <returns>True if the given type is an Action of any kind</returns>
     public static bool IsAction(this Type t)
     {
         //Check if type is action or func of any kind

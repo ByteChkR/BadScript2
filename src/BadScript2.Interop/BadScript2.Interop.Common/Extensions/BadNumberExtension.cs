@@ -12,8 +12,18 @@ namespace BadScript2.Interop.Common.Extensions;
 
 public class BadNumberExtension : BadInteropExtension
 {
+    /// <summary>
+    ///     Culture Info Cache
+    /// </summary>
     private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
 
+    /// <summary>
+    ///     Formats a number to a string
+    /// </summary>
+    /// <param name="d">The number to format</param>
+    /// <param name="args">The arguments</param>
+    /// <returns>The formatted string</returns>
+    /// <exception cref="BadRuntimeException">If the number of arguments is invalid</exception>
     private static BadObject NumberToString(decimal d, IReadOnlyList<BadObject> args)
     {
         if (args.Count == 0)
@@ -49,6 +59,7 @@ public class BadNumberExtension : BadInteropExtension
         return d.ToString(format.Value, cultureInfo);
     }
 
+    /// <inheritdoc/>
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<decimal>(

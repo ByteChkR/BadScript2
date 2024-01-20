@@ -43,10 +43,17 @@ public class BadTryCatchExpression : BadExpression
         ErrorName = errorName;
     }
 
+    /// <summary>
+    /// The Catch Block
+    /// </summary>
     public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
 
+    /// <summary>
+    /// The Try Block
+    /// </summary>
     public IEnumerable<BadExpression> TryExpressions => m_Expressions;
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         for (int i = 0; i < m_CatchExpressions.Length; i++)
@@ -60,6 +67,7 @@ public class BadTryCatchExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in m_Expressions)
@@ -79,6 +87,7 @@ public class BadTryCatchExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadExecutionContext tryContext = new BadExecutionContext(

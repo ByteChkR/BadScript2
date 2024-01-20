@@ -50,9 +50,11 @@ public class BadExpressionClassPrototype : BadClassPrototype
         //TODO: Validate interfaces before creating the class prototype? Might be faster :)
     }
 
+    /// <inheritdoc />
     public override bool IsAbstract => false;
 
 
+    /// <inheritdoc />
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
     {
         BadClass? baseInstance = null;
@@ -108,11 +110,13 @@ public class BadExpressionClassPrototype : BadClassPrototype
         yield return thisInstance;
     }
 
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return m_StaticScope.HasLocal(propName, caller ?? m_StaticScope) || base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return m_StaticScope.HasLocal(propName, caller ?? m_StaticScope) ? m_StaticScope.GetVariable(propName, caller ?? m_ParentScope) : base.GetProperty(propName, caller);

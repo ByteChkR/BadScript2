@@ -11,20 +11,30 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 /// </summary>
 public class BadReflectedProperty : BadReflectedMember
 {
+    /// <summary>
+    /// The Reflected Property
+    /// </summary>
     private readonly PropertyInfo m_Property;
 
+    /// <summary>
+    /// Creates a new BadReflectedProperty
+    /// </summary>
+    /// <param name="property">The Reflected Property</param>
     public BadReflectedProperty(PropertyInfo property) : base(property.Name)
     {
         m_Property = property;
     }
 
+    /// <inheritdoc/>
     public override bool IsReadOnly => !m_Property.CanWrite;
 
+    /// <inheritdoc/>
     public override BadObject Get(object instance)
     {
         return Wrap(m_Property.GetValue(instance));
     }
 
+    /// <inheritdoc/>
     public override void Set(object instance, BadObject o)
     {
         if (o is not IBadNative native || !m_Property.PropertyType.IsAssignableFrom(native.Type))

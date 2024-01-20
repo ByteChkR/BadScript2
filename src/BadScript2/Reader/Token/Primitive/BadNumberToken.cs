@@ -13,6 +13,7 @@ public class BadNumberToken : BadPrimitiveToken
 	/// <param name="position">Source Position of the Token</param>
 	public BadNumberToken(BadSourcePosition position) : base(position) { }
 
+	/// <inheritdoc/>
     public override BadPrimitiveType Type => BadPrimitiveType.Number;
 
     /// <summary>

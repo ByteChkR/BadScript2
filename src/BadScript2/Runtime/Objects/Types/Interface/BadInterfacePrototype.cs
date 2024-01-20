@@ -8,6 +8,9 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 /// </summary>
 public class BadInterfacePrototype : BadClassPrototype
 {
+    /// <summary>
+    /// The Prototype for the Interface Prototype
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>(
         "Interface",
         (_, _) => throw new BadRuntimeException("Interfaces cannot be extended")
@@ -44,6 +47,8 @@ public class BadInterfacePrototype : BadClassPrototype
         m_ConstraintsFunc = constraints;
     }
 
+    
+    /// <inheritdoc />
     public override bool IsAbstract => true;
 
     /// <summary>
@@ -51,22 +56,26 @@ public class BadInterfacePrototype : BadClassPrototype
     /// </summary>
     public IEnumerable<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
+    /// <inheritdoc />
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
     {
         throw BadRuntimeException.Create(caller.Scope, "Interfaces cannot be instantiated");
     }
 
+    /// <inheritdoc />
     public override bool IsSuperClassOf(BadClassPrototype proto)
     {
         return base.IsSuperClassOf(proto) || proto.Interfaces.Any(IsSuperClassOf);
     }
 
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         return $"interface {Name}";

@@ -12,6 +12,9 @@ namespace BadScript2.Runtime.Objects;
 /// </summary>
 public class BadTable : BadObject, IBadEnumerable
 {
+    /// <summary>
+    /// The Prototype for the BadScript Table
+    /// </summary>
     private static BadClassPrototype? s_Prototype;
 
     /// <summary>
@@ -50,6 +53,10 @@ public class BadTable : BadObject, IBadEnumerable
     /// </summary>
     public Dictionary<BadObject, BadPropertyInfo> PropertyInfos { get; }
 
+    /// <summary>
+    /// Returns the Enumerator for this Table
+    /// </summary>
+    /// <returns>The Enumerator for this Table</returns>
     public IEnumerator<BadObject> GetEnumerator()
     {
         return InnerTable.Select(
@@ -69,12 +76,17 @@ public class BadTable : BadObject, IBadEnumerable
             .GetEnumerator();
     }
 
+    /// <summary>
+    /// Returns the Enumerator for this Table
+    /// </summary>
+    /// <returns>The Enumerator for this Table</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
 
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
@@ -102,17 +114,30 @@ public class BadTable : BadObject, IBadEnumerable
     }
 
 
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return InnerTable.ContainsKey(propName) || caller != null && caller.Provider.HasObject<BadTable>(propName);
     }
 
 
+    /// <summary>
+    /// Returns a Reference to the Property with the given Name
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="useExtensions">Use Extension Properties</param>
+    /// <param name="caller">The caller Scope</param>
+    /// <returns>The Property Reference</returns>
     public BadObjectReference GetProperty(BadObject propName, bool useExtensions, BadScope? caller = null)
     {
         return !useExtensions ? GetLocalReference(propName) : GetProperty(propName, caller);
     }
 
+    /// <summary>
+    /// Returns a Reference to a Local Property with the given Name
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <returns>The Property Reference</returns>
     private BadObjectReference GetLocalReference(BadObject propName)
     {
         return BadObjectReference.Make(
@@ -154,6 +179,7 @@ public class BadTable : BadObject, IBadEnumerable
         );
     }
 
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (!InnerTable.ContainsKey(propName) && caller != null && caller.Provider.HasObject<BadTable>(propName))
@@ -165,6 +191,7 @@ public class BadTable : BadObject, IBadEnumerable
     }
 
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         done.Add(this);

@@ -16,8 +16,16 @@ namespace BadScript2.Utility.Linq;
 /// </summary>
 internal static class BadLinqCommon
 {
+    /// <summary>
+    /// The Predicate Context Options for the Linq Extensions.
+    /// </summary>
     public static readonly BadExecutionContextOptions PredicateContextOptions = new BadExecutionContextOptions();
 
+    /// <summary>
+    /// Parses a Predicate Query into a Variable Name and a Query Expression.
+    /// </summary>
+    /// <param name="query">The Query to parse</param>
+    /// <returns>(Variable Name, Query Expression)</returns>
     public static (string varName, string query) ParsePredicate(string query)
     {
         string[] parts = query.Split(
@@ -33,6 +41,14 @@ internal static class BadLinqCommon
         return (varName, queryStr);
     }
 
+    /// <summary>
+    /// The Where Lamda Function for the Linq Extensions.
+    /// </summary>
+    /// <param name="varName">The Variable Name</param>
+    /// <param name="query">The Query Expression</param>
+    /// <param name="o">The Object to apply the query to</param>
+    /// <returns>True if the Object matches the Query</returns>
+    /// <exception cref="Exception">Thrown if the query is invalid.</exception>
     public static bool InnerWhere(string varName, BadExpression query, object? o)
     {
         BadExecutionContext ctx = PredicateContextOptions.Build();
@@ -68,11 +84,21 @@ internal static class BadLinqCommon
         return b.Value;
     }
 
+    /// <summary>
+    /// Materializes the given IEnumerable into an Array.
+    /// </summary>
+    /// <param name="enumerable">The IEnumerable to materialize.</param>
+    /// <returns>The Materialized Array.</returns>
     public static object?[] ToArray(this IEnumerable enumerable)
     {
         return Enumerable.ToArray(enumerable.Cast<object?>());
     }
 
+    /// <summary>
+    /// Parses the given source into an IEnumerable of BadExpressions.
+    /// </summary>
+    /// <param name="src">The Source to parse.</param>
+    /// <returns>The IEnumerable of BadExpressions.</returns>
     public static IEnumerable<BadExpression> Parse(string src)
     {
         return new BadSourceParser(new BadSourceReader("<nofile>", src + ';'), BadOperatorTable.Instance).Parse();

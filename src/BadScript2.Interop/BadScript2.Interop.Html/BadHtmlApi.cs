@@ -21,6 +21,7 @@ public class BadHtmlApi : BadInteropApi
     /// </summary>
     public BadHtmlApi() : base("BadHtml") { }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty(

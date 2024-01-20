@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
 ///     Implements the Null Coalescing Assign Expression
-///     <Left> ??= <Right>
+///     LEFT ??= RIGHT
 /// </summary>
 public class BadNullCoalescingAssignExpression : BadBinaryExpression
 {

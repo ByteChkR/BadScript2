@@ -23,6 +23,7 @@ public class BadModulusExpression : BadBinaryExpression
         position
     ) { }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "%";
@@ -45,7 +46,15 @@ public class BadModulusExpression : BadBinaryExpression
 
         throw new BadRuntimeException($"Can not apply operator '%' to {left} and {right}", pos);
     }
-
+    /// <summary>
+    ///     Executes the Operator with operator overrides
+    /// </summary>
+    /// <param name="context">The current Script Execution Context</param>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source position that is used to generate an Exception if the operator can not be computed</param>
+    /// <returns>The result of the operator</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be executed</exception>
     public static IEnumerable<BadObject> ModWithOverride(
         BadExecutionContext? context,
         BadObject left,
@@ -71,6 +80,7 @@ public class BadModulusExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;

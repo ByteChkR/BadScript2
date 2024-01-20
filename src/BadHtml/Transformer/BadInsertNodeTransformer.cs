@@ -12,6 +12,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:insert";
@@ -42,6 +43,7 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
         }
     }
 
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
     protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];

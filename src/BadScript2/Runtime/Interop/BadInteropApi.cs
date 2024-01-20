@@ -22,6 +22,9 @@ public abstract class BadInteropApi
 	/// </summary>
 	public string Name { get; }
 
+	/// <summary>
+	/// The Version of the API
+	/// </summary>
     public virtual Version Version => GetType().Assembly.GetName().Version;
 
     /// <summary>
@@ -30,6 +33,10 @@ public abstract class BadInteropApi
     /// <param name="target">Table Target</param>
     protected abstract void LoadApi(BadTable target);
 
+    /// <summary>
+    /// Loads the API into the given Table
+    /// </summary>
+    /// <param name="table">The Table to load the API into</param>
     public void Load(BadTable table)
     {
         BadTable info = new BadTable();

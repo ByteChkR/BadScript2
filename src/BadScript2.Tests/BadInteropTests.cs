@@ -12,6 +12,9 @@ namespace BadScript2.Tests;
 
 public class BadInteropTests
 {
+    /// <summary>
+    /// Tests the Unwrap Functions of the Runtime
+    /// </summary>
     [Test]
     public void Unwrap()
     {
@@ -28,6 +31,9 @@ public class BadInteropTests
         );
     }
 
+    /// <summary>
+    /// Tests the Generic Unwrap Functions of the Runtime
+    /// </summary>
     [Test]
     public void UnwrapGeneric()
     {
@@ -46,6 +52,9 @@ public class BadInteropTests
         );
     }
 
+    /// <summary>
+    /// Tests the Extension Provider Functions
+    /// </summary>
     [Test]
     public void GetExtensions()
     {
@@ -56,6 +65,9 @@ public class BadInteropTests
         Assert.That(provider.GetExtensionNames(10), Contains.Item((BadObject)"Test1"));
     }
 
+    /// <summary>
+    /// Tests the Enumerable/Enumerator Interop
+    /// </summary>
     [Test]
     public void Enumerable()
     {
@@ -76,6 +88,9 @@ public class BadInteropTests
         Assert.That(enumerator, Is.InstanceOf<BadInteropEnumerator>());
     }
 
+    /// <summary>
+    /// Tests the Reflection Subsystem
+    /// </summary>
     [Test]
     public void Reflection()
     {

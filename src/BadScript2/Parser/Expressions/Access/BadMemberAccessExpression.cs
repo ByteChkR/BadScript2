@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
 ///     Implements the Member Access to set or get properties from an object.
-///     <Left>.<Right>
+///     LEFT.RIGHT
 /// </summary>
 public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 {

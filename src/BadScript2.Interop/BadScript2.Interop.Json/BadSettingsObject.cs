@@ -172,6 +172,7 @@ public class BadSettingsObject : BadObject
         }
     }
 
+    /// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
@@ -198,11 +199,13 @@ public class BadSettingsObject : BadObject
         return settings;
     }
 
+    /// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         return m_Settings.ToString();
     }
 
+    /// <inheritdoc/>
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return m_PropertyReferences.ContainsKey(propName) ||
@@ -210,6 +213,7 @@ public class BadSettingsObject : BadObject
                base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (m_PropertyReferences.TryGetValue(propName, out BadObjectReference? property))

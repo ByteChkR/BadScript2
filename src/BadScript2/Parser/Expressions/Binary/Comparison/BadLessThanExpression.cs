@@ -40,7 +40,14 @@ public class BadLessThanExpression : BadBinaryExpression
 
         throw new BadRuntimeException($"Can not apply operator '<' to {left} and {right}", pos);
     }
-
+    /// <summary>
+    /// Executes the expression
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <param name="position">The position.</param>
+    /// <returns>Result of the operator override.(last item)</returns>
     public static IEnumerable<BadObject> LessThanWithOverride(
         BadExecutionContext? context,
         BadObject left,
@@ -79,6 +86,7 @@ public class BadLessThanExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -108,6 +116,7 @@ public class BadLessThanExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "<";

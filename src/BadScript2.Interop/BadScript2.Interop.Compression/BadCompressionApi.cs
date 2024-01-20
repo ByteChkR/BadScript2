@@ -178,6 +178,7 @@ public class BadCompressionApi : BadInteropApi
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         BadTable deflate = new BadTable();
@@ -206,6 +207,13 @@ public class BadCompressionApi : BadInteropApi
         target.SetProperty("Base64", base64);
     }
 
+    /// <summary>
+    /// Encodes the given object to a base64 string
+    /// </summary>
+    /// <param name="ctx">The Current Calling Execution Context</param>
+    /// <param name="obj">Object</param>
+    /// <returns>Base64 String</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the argument is not of type IEnumerable</exception>
     private static BadObject Base64Encode(BadExecutionContext ctx, BadObject obj)
     {
         BadObject[] array;
@@ -225,6 +233,11 @@ public class BadCompressionApi : BadInteropApi
         return Convert.ToBase64String(array.Cast<IBadNumber>().Select(x => (byte)x.Value).ToArray());
     }
 
+    /// <summary>
+    /// Decodes the given base64 string to an array
+    /// </summary>
+    /// <param name="str">Base64 String</param>
+    /// <returns>Array</returns>
     private static BadObject Base64Decode(IBadString str)
     {
         return new BadArray(Convert.FromBase64String(str.Value).Select(x => (BadObject)(decimal)x).ToList());

@@ -44,6 +44,10 @@ public class BadWhileExpression : BadExpression
     /// </summary>
     public BadExpression Condition { get; private set; }
 
+    /// <summary>
+    /// Sets the Body of the Loop
+    /// </summary>
+    /// <param name="body">The new Body</param>
     public void SetBody(IEnumerable<BadExpression> body)
     {
         m_Body.Clear();
@@ -51,6 +55,7 @@ public class BadWhileExpression : BadExpression
     }
 
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         Condition = BadConstantFoldingOptimizer.Optimize(Condition);
@@ -61,6 +66,7 @@ public class BadWhileExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in Condition.GetDescendantsAndSelf())
@@ -94,6 +100,7 @@ public class BadWhileExpression : BadExpression
         return sb.ToString();
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject cond = BadObject.Null;

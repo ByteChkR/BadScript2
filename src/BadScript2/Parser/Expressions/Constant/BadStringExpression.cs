@@ -16,6 +16,7 @@ public class BadStringExpression : BadConstantExpression<string>
 	/// <param name="position">Source Position of the Expression</param>
 	public BadStringExpression(string value, BadSourcePosition position) : base(value, position) { }
 
+	/// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         yield return BadObject.Wrap(Value.Substring(1, Value.Length - 2));

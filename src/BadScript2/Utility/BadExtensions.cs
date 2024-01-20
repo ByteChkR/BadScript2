@@ -67,6 +67,13 @@ public static class BadExtensions
         }
     }
 
+	/// <summary>
+	/// Returns a Property, unwrapped to the specified type, from the given object
+	/// </summary>
+	/// <param name="obj">The Object</param>
+	/// <param name="propName">The Property Name</param>
+	/// <typeparam name="T">The Property Type</typeparam>
+	/// <returns>The Property Value</returns>
     public static T GetProperty<T>(this BadObject obj, BadObject propName)
     {
         BadObjectReference reference = obj.GetProperty(propName);

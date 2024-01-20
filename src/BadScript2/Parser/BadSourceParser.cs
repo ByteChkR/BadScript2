@@ -35,6 +35,9 @@ public class BadSourceParser
     /// </summary>
     private readonly BadOperatorTable m_Operators;
 
+    /// <summary>
+    /// The Meta Data of the current expression
+    /// </summary>
     private BadMetaData? m_MetaData;
 
     /// <summary>
@@ -64,11 +67,25 @@ public class BadSourceParser
         return new BadSourceParser(new BadSourceReader(fileName, source), BadOperatorTable.Instance);
     }
 
+    /// <summary>
+    /// Creates a BadSourceParser Instance based on the source and filename provided
+    /// </summary>
+    /// <param name="fileName">File Name of the Source File</param>
+    /// <param name="source">Contents of the Source File</param>
+    /// <param name="start">Start Index of the Source File</param>
+    /// <param name="end">End Index of the Source File</param>
+    /// <returns>BadSourceParser Instance</returns>
     public static BadSourceParser Create(string fileName, string source, int start, int end)
     {
         return new BadSourceParser(new BadSourceReader(fileName, source, start, end), BadOperatorTable.Instance);
     }
 
+    /// <summary>
+    /// Parses a BadExpression from the Source Reader
+    /// </summary>
+    /// <param name="fileName">File Name of the Source File</param>
+    /// <param name="source">Contents of the Source File</param>
+    /// <returns>The Parsed Expression</returns>
     public static IEnumerable<BadExpression> Parse(string fileName, string source)
     {
         return Create(fileName, source).Parse();
@@ -249,6 +266,9 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses the MetaData of the current expression
+    /// </summary>
     private void ParseMeta()
     {
         if (!Reader.Is("@|"))
@@ -1040,6 +1060,12 @@ public class BadSourceParser
         return left;
     }
 
+    
+    /// <summary>
+    /// Parses a Multiline Format string expression. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadStringExpression</returns>
+    /// <exception cref="BadSourceReaderException">Gets raised if the string is not properly terminated.</exception>
     private BadStringExpression ParseMultiLineFormatString()
     {
         if (!Reader.Is(BadStaticKeys.MULTI_LINE_FORMAT_STRING_KEY))
@@ -1094,7 +1120,7 @@ public class BadSourceParser
 
                 if (!Reader.Is('}'))
                 {
-                    throw new BadParserException(
+                    throw new BadSourceReaderException(
                         "Expected '}'",
                         Reader.MakeSourcePosition(idx, 1)
                     );
@@ -1265,6 +1291,11 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a Block Expression. Moves the reader to the next token.
+    /// </summary>
+    /// <param name="isSingleLine">Indicates if the Block is in single line format.</param>
+    /// <returns>List of Parsed Expressions</returns>
     private List<BadExpression> ParseBlock(out bool isSingleLine)
     {
         Reader.SkipNonToken();
@@ -1373,6 +1404,11 @@ public class BadSourceParser
         return block;
     }
 
+    /// <summary>
+    /// Parses a Using Statement. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadUsingExpression</returns>
+    /// <exception cref="BadParserException">Gets raised if the using statement is malformed.</exception>
     private BadExpression ParseUsing()
     {
         int start = Reader.CurrentIndex;
@@ -1489,6 +1525,11 @@ public class BadSourceParser
         return new BadNewExpression(invoc, Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
     }
 
+    /// <summary>
+    /// Parses an Interface Constraint. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadInterfaceConstraint</returns>
+    /// <exception cref="BadParserException">Gets raised if the interface constraint is malformed.</exception>
     private BadInterfaceConstraint ParseInterfaceConstraint()
     {
         int start = Reader.CurrentIndex;
@@ -1560,6 +1601,10 @@ public class BadSourceParser
         return new BadInterfacePropertyConstraint(name, type);
     }
 
+    /// <summary>
+    /// Parses an Interface prototype. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadInterfacePrototypeExpression</returns>
     private BadInterfacePrototypeExpression ParseInterface()
     {
         BadMetaData? meta = m_MetaData;
@@ -1697,6 +1742,11 @@ public class BadSourceParser
         );
     }
 
+    /// <summary>
+    /// Parses a Function Parameter. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadFunctionParameter</returns>
+    /// <exception cref="BadParserException">Gets raised if the parameter is malformed.</exception>
     private BadFunctionParameter ParseParameter()
     {
         BadExpression nameExpr = ParseValue(0);
@@ -1783,6 +1833,12 @@ public class BadSourceParser
         return new BadFunctionParameter(name, isOptional, isNullChecked, isRestArgs, typeExpr);
     }
 
+    /// <summary>
+    /// Parses a Function Parameter List. Moves the reader to the next token.
+    /// </summary>
+    /// <param name="start">The Start index of parent expression</param>
+    /// <returns>List of BadFunctionParameter</returns>
+    /// <exception cref="BadParserException">Gets raised if the parameter list is malformed.</exception>
     private List<BadFunctionParameter> ParseParameters(int start)
     {
         List<BadFunctionParameter> parameters = new List<BadFunctionParameter>();
@@ -1849,6 +1905,17 @@ public class BadSourceParser
         return parameters;
     }
 
+    /// <summary>
+    /// Parses a Function Definition. Moves the reader to the next token.
+    /// </summary>
+    /// <param name="start">The Start index of parent expression</param>
+    /// <param name="functionName">The Name of the Function</param>
+    /// <param name="functionReturn">The Return Expression of the Function</param>
+    /// <param name="isConstant">Indicates that the function is declared as a constant. I.e. the result will be cached</param>
+    /// <param name="isStatic">Indicates that the function is declared as static. I.e. it can be called without an instance</param>
+    /// <param name="compileLevel">The Compile level of the Function</param>
+    /// <param name="parameters">The Parameters of the Function</param>
+    /// <returns>Instance of BadFunctionExpression</returns>
     private BadFunctionExpression ParseFunction(
         int start,
         string? functionName,
@@ -1960,6 +2027,11 @@ public class BadSourceParser
         return ParseFunction(start, functionName, functionReturn, isConstant, isStatic, compileLevel, parameters);
     }
 
+    /// <summary>
+    /// Returns true if the given expression requires a semicolon.
+    /// </summary>
+    /// <param name="expr">The Expression to check</param>
+    /// <returns>True if the expression requires a semicolon. False otherwise.</returns>
     private static bool RequireSemicolon(BadExpression expr)
     {
         return expr is not (

@@ -14,6 +14,7 @@ public class BadTernaryOperator : BadBinaryOperator
 	/// </summary>
 	public BadTernaryOperator() : base(16, "?", false) { }
 
+	/// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression middle = parser.ParseExpression();

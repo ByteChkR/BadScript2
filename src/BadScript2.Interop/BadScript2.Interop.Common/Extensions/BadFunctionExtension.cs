@@ -12,6 +12,7 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadFunctionExtension : BadInteropExtension
 {
+    /// <inheritdoc/>
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadFunction>("Name", f => f.Name?.Text ?? "<anonymous>");

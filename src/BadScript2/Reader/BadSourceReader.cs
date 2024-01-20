@@ -15,9 +15,20 @@ public class BadSourceReader
     /// </summary>
     private readonly string m_Source;
 
+    /// <summary>
+    /// Start Index of the Source Code
+    /// </summary>
     private readonly int m_StartIndex;
 
 
+    /// <summary>
+    /// Creates a new Source Code Reader
+    /// </summary>
+    /// <param name="fileName">Filename of the Source Code</param>
+    /// <param name="source">The Source Code</param>
+    /// <param name="start">The Start Index of the Source Code</param>
+    /// <param name="end">The End Index of the Source Code</param>
+    /// <exception cref="ArgumentOutOfRangeException">Gets raised if the start or end index is invalid.</exception>
     public BadSourceReader(string fileName, string source, int start, int end)
     {
         FileName = fileName;
@@ -45,8 +56,14 @@ public class BadSourceReader
     /// <param name="source">The Source Code</param>
     public BadSourceReader(string fileName, string source) : this(fileName, source, 0, source.Length) { }
 
+    /// <summary>
+    /// Preview of the Source Code
+    /// </summary>
     public string Preview => IsEof() ? "END OF FILE" : Source.Substring(CurrentIndex);
 
+    /// <summary>
+    /// The Source Code
+    /// </summary>
     public string Source => m_Source.Substring(m_StartIndex, m_EndIndex - m_StartIndex);
 
     /// <summary>

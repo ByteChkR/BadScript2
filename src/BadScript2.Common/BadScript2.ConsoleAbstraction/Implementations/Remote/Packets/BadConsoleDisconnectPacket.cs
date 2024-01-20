@@ -15,6 +15,7 @@ public class BadConsoleDisconnectPacket : BadConsolePacket
     /// </summary>
     private BadConsoleDisconnectPacket() { }
 
+    /// <inheritdoc />
     public override byte[] Serialize()
     {
         return new[]

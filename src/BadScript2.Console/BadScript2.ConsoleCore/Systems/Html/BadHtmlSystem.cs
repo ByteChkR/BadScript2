@@ -18,11 +18,18 @@ namespace BadScript2.ConsoleCore.Systems.Html;
 /// </summary>
 public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 {
+    /// <summary>
+    /// Creates a new BadHtmlSystem instance
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
     public BadHtmlSystem(BadRuntime runtime) : base(runtime) { }
 
+    
+    /// <inheritdoc/>
     public override string Name => "html";
 
 
+    /// <inheritdoc/>
     public override object? Parse(string[] args)
     {
         if (args.Length == 1 && args[0] != "--help" && args[0] != "help")
@@ -39,6 +46,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
         return base.Parse(args);
     }
 
+    /// <inheritdoc/>
     protected override int Run(BadHtmlSystemSettings settings)
     {
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;

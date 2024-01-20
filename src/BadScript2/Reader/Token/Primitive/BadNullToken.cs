@@ -13,5 +13,6 @@ public class BadNullToken : BadPrimitiveToken
 	/// <param name="position">Source Position of the Token</param>
 	public BadNullToken(BadSourcePosition position) : base(position) { }
 
+	/// <inheritdoc/>
     public override BadPrimitiveType Type => BadPrimitiveType.Null;
 }

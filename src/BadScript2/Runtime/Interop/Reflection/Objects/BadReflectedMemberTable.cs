@@ -14,23 +14,48 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects;
 /// </summary>
 public class BadReflectedMemberTable
 {
+    /// <summary>
+    /// The Member Table Cache
+    /// </summary>
     private static readonly Dictionary<Type, BadReflectedMemberTable> s_TableCache =
         new Dictionary<Type, BadReflectedMemberTable>();
 
+    /// <summary>
+    /// The Reflected Members
+    /// </summary>
     private readonly Dictionary<string, BadReflectedMember> m_Members;
 
+    /// <summary>
+    /// Creates a new BadReflectedMemberTable
+    /// </summary>
+    /// <param name="members">The Reflected Members</param>
     private BadReflectedMemberTable(Dictionary<string, BadReflectedMember> members)
     {
         m_Members = members;
     }
 
+    /// <summary>
+    /// The Member Names
+    /// </summary>
     public IEnumerable<string> MemberNames => m_Members.Keys;
 
+    /// <summary>
+    /// Returns true if the Member Table contains the given Member
+    /// </summary>
+    /// <param name="name">The Member Name</param>
+    /// <returns>True if the Member Table contains the given Member</returns>
     public bool Contains(string name)
     {
         return m_Members.ContainsKey(name);
     }
 
+    /// <summary>
+    /// Returns a reference to the Member with the given Name
+    /// </summary>
+    /// <param name="instance">Instance to get the Member from</param>
+    /// <param name="name">The Member Name</param>
+    /// <returns>The Member Reference</returns>
+    /// <exception cref="BadRuntimeException">If the Member does not exist</exception>
     public BadObjectReference GetMember(object instance, string name)
     {
         if (m_Members.TryGetValue(name, out BadReflectedMember member))
@@ -43,11 +68,21 @@ public class BadReflectedMemberTable
         throw new BadRuntimeException("Member " + name + " not found");
     }
 
+    /// <summary>
+    /// Creates a new Member Table for the given Type
+    /// </summary>
+    /// <typeparam name="T">The Type to create the Member Table for</typeparam>
+    /// <returns>The Member Table</returns>
     public static BadReflectedMemberTable Create<T>()
     {
         return Create(typeof(T));
     }
 
+    /// <summary>
+    /// Creates a new Member Table for the given Type
+    /// </summary>
+    /// <param name="t">The Type to create the Member Table for</param>
+    /// <returns>The Member Table</returns>
     public static BadReflectedMemberTable Create(Type t)
     {
         if (s_TableCache.TryGetValue(t, out BadReflectedMemberTable? value))
@@ -62,6 +97,11 @@ public class BadReflectedMemberTable
         return table;
     }
 
+    /// <summary>
+    /// Creates a new Member Table for the given Type
+    /// </summary>
+    /// <param name="t">The Type to create the Member Table for</param>
+    /// <returns>The Member Table</returns>
     private static BadReflectedMemberTable CreateInternal(Type t)
     {
         Dictionary<string, BadReflectedMember> members = new Dictionary<string, BadReflectedMember>();

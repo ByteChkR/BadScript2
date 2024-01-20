@@ -33,11 +33,13 @@ public class BadVariableExpression : BadExpression
         return Name;
     }
 
+	/// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield break;
     }
 
+	/// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject name = BadObject.Wrap(Name);

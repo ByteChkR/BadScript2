@@ -35,6 +35,9 @@ public class BadNetworkConsoleClient
 	/// </summary>
 	private bool m_ExitRequested;
 
+    /// <summary>
+    /// The Parser
+    /// </summary>
     private readonly IBadNetworkConsoleClientCommandParser m_Parser;
 
     /// <summary>
@@ -97,6 +100,11 @@ public class BadNetworkConsoleClient
     /// </summary>
     public static int ConsoleWriteSleep { get; set; } = 100;
 
+    /// <summary>
+    /// The Default Parser Factory
+    /// </summary>
+    /// <param name="client">The Client</param>
+    /// <returns>The Parser</returns>
     public static IBadNetworkConsoleClientCommandParser DefaultParserFactory(BadNetworkConsoleClient client)
     {
         BadDefaultNetworkClientCommandParser parser = new BadDefaultNetworkClientCommandParser(client);

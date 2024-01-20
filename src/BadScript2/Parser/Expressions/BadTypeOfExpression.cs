@@ -24,11 +24,13 @@ public class BadTypeOfExpression : BadExpression
         Expression = expression;
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Expression.GetDescendantsAndSelf();
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject? obj = BadObject.Null;

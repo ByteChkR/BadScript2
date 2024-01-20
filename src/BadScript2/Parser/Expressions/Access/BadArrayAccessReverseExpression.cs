@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
 ///     Implements the Reverse Array Access to set or get properties from an object.
-///     <Left>[^<Right>]
+///     LEFT[^RIGHT]
 /// </summary>
 public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpression
 {
@@ -39,8 +39,14 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
         NullChecked = nullChecked;
     }
 
+    /// <summary>
+    /// The Arguments of the Array Access.
+    /// </summary>
     public IEnumerable<BadExpression> Arguments => m_Arguments;
 
+    /// <summary>
+    /// The count of the right side arguments.
+    /// </summary>
     public int ArgumentCount => m_Arguments.Length;
 
     /// <summary>
@@ -53,6 +59,8 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     /// </summary>
     public bool NullChecked { get; }
 
+    
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in Left.GetDescendantsAndSelf())
@@ -70,6 +78,7 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     }
 
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         Left = BadConstantFoldingOptimizer.Optimize(Left);
@@ -80,6 +89,15 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
         }
     }
 
+    /// <summary>
+    /// Executes the Array Access Expression.
+    /// </summary>
+    /// <param name="context">The execution context.</param>
+    /// <param name="left">Left side of the expression.</param>
+    /// <param name="args">Right side of the expression.</param>
+    /// <param name="position">Position inside the source code.</param>
+    /// <returns>The result of the array access(last item of the enumeration).</returns>
+    /// <exception cref="BadRuntimeException">If the array access operator is not defined.</exception>
     public static IEnumerable<BadObject> Access(
         BadExecutionContext context,
         BadObject left,
@@ -113,6 +131,7 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;

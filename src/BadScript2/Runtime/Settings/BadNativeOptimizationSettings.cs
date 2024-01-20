@@ -7,18 +7,33 @@ namespace BadScript2.Runtime.Settings;
 /// </summary>
 public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimizationSettings>
 {
+    /// <summary>
+    /// Editable Setting for the Setting UseConstantFoldingOptimization
+    /// </summary>
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantFoldingOptimization =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantFoldingOptimization");
 
+    /// <summary>
+    /// Editable Setting for the Setting UseConstantFunctionCaching
+    /// </summary>
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantFunctionCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantFunctionCaching");
 
+    /// <summary>
+    /// Editable Setting for the Setting UseConstantSubstitutionOptimization
+    /// </summary>
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseConstantSubstitutionOptimization =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseConstantSubstitutionOptimization");
 
+    /// <summary>
+    /// Editable Setting for the Setting UseStaticExtensionCaching
+    /// </summary>
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseStaticExtensionCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseStaticExtensionCaching");
 
+    /// <summary>
+    /// Editable Setting for the Setting UseStringCaching
+    /// </summary>
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseStringCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseStringCaching");
 

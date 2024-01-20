@@ -244,11 +244,13 @@ public class BadTask : BadObject
         return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());
     }
 
+	/// <inheritdoc/>
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return m_Properties.TryGetValue(propName, out BadObjectReference? property) ? property : base.GetProperty(propName, caller);
     }
 
+	/// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         StringBuilder sb = new StringBuilder();
@@ -264,11 +266,13 @@ public class BadTask : BadObject
         return sb.ToString();
     }
 
+	/// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
     }
 
+	/// <inheritdoc/>
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return m_Properties.ContainsKey(propName) ||

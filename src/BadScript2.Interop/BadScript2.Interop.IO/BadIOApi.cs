@@ -97,6 +97,10 @@ public class BadIOApi : BadInteropApi
         return Path.Combine(arg.Select(x => x.ToString()).ToArray());
     }
 
+    /// <summary>
+    /// Creates the Move/Copy functions and adds them to the given table
+    /// </summary>
+    /// <param name="t">Table</param>
     private void CreateMoveCopy(BadObject t)
     {
         BadInteropFunction move = new BadInteropFunction(
@@ -321,6 +325,7 @@ public class BadIOApi : BadInteropApi
         return t;
     }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty("Path", CreatePath());

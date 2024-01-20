@@ -23,6 +23,9 @@ public class BadFunctionExpression : BadExpression
     private readonly List<BadExpression> m_Body;
 
 
+    /// <summary>
+    /// The Meta data of the Function
+    /// </summary>
     private readonly BadMetaData? m_MetaData;
 
     /// <summary>
@@ -67,6 +70,9 @@ public class BadFunctionExpression : BadExpression
         CompileLevel = compileLevel;
     }
 
+    /// <summary>
+    /// Indicates if the function is a single line function(e.g. a lambda expression)?
+    /// </summary>
     public bool IsSingleLine { get; }
 
     /// <summary>
@@ -74,6 +80,9 @@ public class BadFunctionExpression : BadExpression
     /// </summary>
     public bool IsConstantFunction { get; }
 
+    /// <summary>
+    /// Indicates if the function is static
+    /// </summary>
     public bool IsStatic { get; }
 
     /// <summary>
@@ -96,19 +105,31 @@ public class BadFunctionExpression : BadExpression
     /// </summary>
     public BadWordToken? Name { get; }
 
+    /// <summary>
+    /// The Compile Level of the Function
+    /// </summary>
     public BadFunctionCompileLevel CompileLevel { get; private set; }
 
+    /// <summary>
+    /// Sets the Compile Level of the Function
+    /// </summary>
+    /// <param name="level">The Compile Level</param>
     public void SetCompileLevel(BadFunctionCompileLevel level)
     {
         CompileLevel = level;
     }
 
+    /// <summary>
+    /// Sets the Body of the Function
+    /// </summary>
+    /// <param name="body">The Body of the Function</param>
     public void SetBody(IEnumerable<BadExpression> body)
     {
         m_Body.Clear();
         m_Body.AddRange(body);
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         for (int i = 0; i < m_Body.Count; i++)
@@ -135,6 +156,7 @@ public class BadFunctionExpression : BadExpression
     }
 
 
+    /// <inheritdoc cref="BadExpression.ToString" />
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder(GetHeader());
@@ -151,6 +173,7 @@ public class BadFunctionExpression : BadExpression
         return sb.ToString();
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         if (TypeExpression != null)
@@ -180,6 +203,7 @@ public class BadFunctionExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadClassPrototype type = BadAnyPrototype.Instance;

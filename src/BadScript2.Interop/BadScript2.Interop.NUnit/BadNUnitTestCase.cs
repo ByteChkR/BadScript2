@@ -35,6 +35,7 @@ public class BadNUnitTestCase
 	/// </summary>
 	public bool AllowCompile { get; }
 
+	/// <inheritdoc/>
     public override string ToString()
     {
         return TestName;

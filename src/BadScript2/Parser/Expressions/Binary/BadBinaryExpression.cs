@@ -40,11 +40,19 @@ public abstract class BadBinaryExpression : BadExpression
         Right = BadConstantFoldingOptimizer.Optimize(Right);
     }
 
+    /// <summary>
+    /// Sets the Left side of the Expression
+    /// </summary>
+    /// <param name="expr">The new Left side of the Expression</param>
     public void SetLeft(BadExpression expr)
     {
         Left = expr;
     }
 
+    /// <summary>
+    /// Sets the Right side of the Expression
+    /// </summary>
+    /// <param name="expr">The new Right side of the Expression</param>
     public void SetRight(BadExpression expr)
     {
         Right = expr;
@@ -56,6 +64,7 @@ public abstract class BadBinaryExpression : BadExpression
     /// <returns>The Symbol of the Operator</returns>
     protected abstract string GetSymbol();
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in Left.GetDescendantsAndSelf())

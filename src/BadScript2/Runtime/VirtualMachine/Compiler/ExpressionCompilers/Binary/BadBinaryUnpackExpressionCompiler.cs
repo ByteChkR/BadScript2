@@ -4,6 +4,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 public class BadBinaryUnpackExpressionCompiler : BadExpressionCompiler<BadBinaryUnpackExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadBinaryUnpackExpression expression)
     {
         foreach (BadInstruction instruction in compiler.Compile(expression.Left))

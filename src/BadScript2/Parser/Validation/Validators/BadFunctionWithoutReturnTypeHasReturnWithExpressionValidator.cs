@@ -3,9 +3,13 @@ using BadScript2.Parser.Expressions.Function;
 
 namespace BadScript2.Parser.Validation.Validators;
 
+/// <summary>
+/// Checks if the function has no return type but returns a value.
+/// </summary>
 public class
     BadFunctionWithoutReturnTypeHasReturnWithExpressionValidator : BadReturnExpressionValidator
 {
+    /// <inheritdoc cref="BadExpressionValidator{T}.Validate" />
     protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
     {
         if (expr.TypeExpression != null)

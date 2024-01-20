@@ -7,6 +7,9 @@ namespace BadScript2.Settings;
 /// </summary>
 public static class BadSettingsProvider
 {
+	/// <summary>
+	/// The Root Settings Object
+	/// </summary>
     private static BadSettings? s_RootSettings;
 
     /// <summary>

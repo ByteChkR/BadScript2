@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadRangeExpressionCompiler : BadExpressionCompiler<BadRangeExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadRangeExpression expression)
     {
         foreach (BadInstruction instruction in compiler.Compile(expression.Right))

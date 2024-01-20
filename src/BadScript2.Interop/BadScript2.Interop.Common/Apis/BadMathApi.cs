@@ -20,6 +20,7 @@ public class BadMathApi : BadInteropApi
     /// </summary>
     public BadMathApi() : base("Math") { }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty("PI", (decimal)Math.PI);

@@ -6,7 +6,7 @@ namespace BadScript2.Parser.Expressions.Binary.Comparison;
 
 /// <summary>
 ///     Implements the Equality Expression
-///     <Left> == <Right>
+///     LEFT == RIGHT
 /// </summary>
 public class BadEqualityExpression : BadBinaryExpression
 {
@@ -33,6 +33,14 @@ public class BadEqualityExpression : BadBinaryExpression
         return left.Equals(right) ? BadObject.True : BadObject.False;
     }
 
+    /// <summary>
+    /// Executes the operator override for the given operator name.
+    /// </summary>
+    /// <param name="caller">The caller.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <param name="position">The position.</param>
+    /// <returns>Result of the operator override.(last item)</returns>
     public static IEnumerable<BadObject> EqualWithOverride(
         BadExecutionContext? caller,
         BadObject left,
@@ -71,6 +79,8 @@ public class BadEqualityExpression : BadBinaryExpression
         }
     }
 
+    
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -100,6 +110,8 @@ public class BadEqualityExpression : BadBinaryExpression
         }
     }
 
+    
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "==";

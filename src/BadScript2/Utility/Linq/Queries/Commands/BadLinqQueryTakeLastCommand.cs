@@ -7,8 +7,10 @@ namespace BadScript2.Utility.Linq.Queries.Commands;
 /// </summary>
 internal class BadLinqQueryTakeLastCommand : BadLinqQueryCommand
 {
+    /// <inheritdoc />
     public BadLinqQueryTakeLastCommand() : base(true, false, "TakeLast") { }
 
+    /// <inheritdoc />
     public override IEnumerable Run(BadLinqQueryCommandData data)
     {
         return data.Data.TakeLast(int.Parse(data.Argument!));

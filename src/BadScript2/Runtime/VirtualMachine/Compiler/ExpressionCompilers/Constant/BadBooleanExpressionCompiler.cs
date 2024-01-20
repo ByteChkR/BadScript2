@@ -6,6 +6,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadBooleanExpressionCompiler : BadExpressionCompiler<BadBooleanExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadBooleanExpression expression)
     {
         yield return new BadInstruction(

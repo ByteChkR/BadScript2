@@ -27,6 +27,7 @@ public class BadNUnitConsoleApi : BadInteropApi
         m_Console = console;
     }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction<string>("Load", s => m_Console.Register(false, false, s));

@@ -15,6 +15,9 @@ namespace BadScript2.Runtime.Objects.Functions;
 /// </summary>
 public abstract class BadFunction : BadObject
 {
+    /// <summary>
+    /// The Prototype for the Function Object
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("Function");
 
     /// <summary>
@@ -44,10 +47,19 @@ public abstract class BadFunction : BadObject
         ReturnType = returnType;
     }
 
+    /// <summary>
+    /// The Return Type of the Function
+    /// </summary>
     public BadClassPrototype ReturnType { get; }
 
+    /// <summary>
+    /// Indicates if the Function is static
+    /// </summary>
     public bool IsStatic { get; }
 
+    /// <summary>
+    /// The Metadata of the Function
+    /// </summary>
     public virtual BadMetaData MetaData => BadMetaData.Empty;
 
     /// <summary>
@@ -65,6 +77,7 @@ public abstract class BadFunction : BadObject
     /// </summary>
     public BadFunctionParameter[] Parameters { get; }
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
@@ -80,6 +93,12 @@ public abstract class BadFunction : BadObject
         return this;
     }
 
+    /// <summary>
+    /// Returns the Function Parameter at the given index
+    /// </summary>
+    /// <param name="args">Arguments</param>
+    /// <param name="i">Index</param>
+    /// <returns>The Function Parameter at the given index</returns>
     protected static BadObject GetParameter(BadObject[] args, int i)
     {
         return args.Length > i ? args[i].Dereference() : Null;
@@ -119,6 +138,15 @@ public abstract class BadFunction : BadObject
         }
     }
 
+    /// <summary>
+    /// Applies the function arguments to the context of the function
+    /// </summary>
+    /// <param name="funcStr">The Function String</param>
+    /// <param name="parameters">The Function Parameters</param>
+    /// <param name="context">The Function Context</param>
+    /// <param name="args">The Function Arguments</param>
+    /// <param name="position">The Source Position used for raising exceptions</param>
+    /// <exception cref="BadRuntimeException">Gets raised if the arguments can not be set in the context.</exception>
     public static void ApplyParameters(
         string funcStr,
         BadFunctionParameter[] parameters,
@@ -272,11 +300,19 @@ public abstract class BadFunction : BadObject
         return GetHeader(Name?.ToString() ?? "<anonymous>", ReturnType, Parameters);
     }
 
+    /// <summary>
+    /// Returns the Header of the function
+    /// </summary>
+    /// <param name="name">The Function Name</param>
+    /// <param name="returnType">The Return Type</param>
+    /// <param name="parameters">The Function Parameters</param>
+    /// <returns></returns>
     public static string GetHeader(string name, BadClassPrototype returnType, IEnumerable<BadFunctionParameter> parameters)
     {
         return $"{BadStaticKeys.FUNCTION_KEY} {returnType.Name} {name}({string.Join(", ", parameters.Cast<object>())})";
     }
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         return GetHeader();

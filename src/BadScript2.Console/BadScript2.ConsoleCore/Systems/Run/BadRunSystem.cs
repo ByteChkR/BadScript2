@@ -19,6 +19,10 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
+    /// <summary>
+    /// Creates a new BadRunSystem instance
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
     public BadRunSystem(BadRuntime runtime) : base(runtime) { }
 
     /// <summary>
@@ -42,9 +46,11 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         }
     }
 
+    /// <inheritdoc/>
     public override string Name => "run";
 
 
+    /// <inheritdoc/>
     protected override int Run(BadRunSystemSettings settings)
     {
         BadNetworkConsoleHost? host = null;

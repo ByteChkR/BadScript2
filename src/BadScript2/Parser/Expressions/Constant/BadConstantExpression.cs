@@ -29,6 +29,7 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
 	/// </summary>
 	object IBadNativeExpression.Value => Value;
 
+	/// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         yield return Value;
@@ -43,6 +44,7 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
         return Value.ToString();
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield break;
@@ -76,6 +78,7 @@ public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpres
 	/// </summary>
 	object IBadNativeExpression.Value => Value!;
 
+	/// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield break;
@@ -91,6 +94,7 @@ public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpres
         return Value!.ToString()!;
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         yield return BadObject.Wrap(Value);

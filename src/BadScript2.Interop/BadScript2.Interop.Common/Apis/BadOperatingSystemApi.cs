@@ -145,6 +145,7 @@ public class BadOperatingSystemApi : BadInteropApi
         return t;
     }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty("Environment", CreateEnvironmentTable());

@@ -13,6 +13,9 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadClassPrototypeExpression : BadExpression
 {
+    /// <summary>
+    /// The Base Classes
+    /// </summary>
     private readonly BadExpression[] m_BaseClasses;
 
     /// <summary>
@@ -20,7 +23,14 @@ public class BadClassPrototypeExpression : BadExpression
     /// </summary>
     private readonly List<BadExpression> m_Body;
 
+    /// <summary>
+    /// The Meta data of the Class
+    /// </summary>
     private readonly BadMetaData? m_MetaData;
+    
+    /// <summary>
+    /// The Static Class Body
+    /// </summary>
     private readonly List<BadExpression> m_StaticBody;
 
     /// <summary>
@@ -52,6 +62,9 @@ public class BadClassPrototypeExpression : BadExpression
     /// </summary>
     public IEnumerable<BadExpression> Body => m_Body;
 
+    /// <summary>
+    /// The Static Class Body
+    /// </summary>
     public IEnumerable<BadExpression> StaticBody => m_StaticBody;
 
     /// <summary>
@@ -59,18 +72,27 @@ public class BadClassPrototypeExpression : BadExpression
     /// </summary>
     public string Name { get; }
 
+    /// <summary>
+    /// Sets the body of the class
+    /// </summary>
+    /// <param name="body">The body</param>
     public void SetBody(IEnumerable<BadExpression> body)
     {
         m_Body.Clear();
         m_Body.AddRange(body);
     }
 
+    /// <summary>
+    /// Sets the static body of the class
+    /// </summary>
+    /// <param name="body">The static body</param>
     public void SetStaticBody(IEnumerable<BadExpression> body)
     {
         m_StaticBody.Clear();
         m_StaticBody.AddRange(body);
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         for (int i = 0; i < m_Body.Count; i++)
@@ -84,6 +106,7 @@ public class BadClassPrototypeExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression baseClass in m_BaseClasses)
@@ -105,6 +128,13 @@ public class BadClassPrototypeExpression : BadExpression
         }
     }
 
+    /// <summary>
+    /// Returns the Base Class prototype and the implemented interfaces
+    /// </summary>
+    /// <param name="context">The Current Execution Context</param>
+    /// <param name="interfaces">The implemented interfaces</param>
+    /// <returns>The Base Class Prototype</returns>
+    /// <exception cref="BadRuntimeException">If the Base Class Expression returns an invalid Object</exception>
     private BadClassPrototype GetPrototype(
         BadExecutionContext context,
         out BadInterfacePrototype[] interfaces)
@@ -156,6 +186,7 @@ public class BadClassPrototypeExpression : BadExpression
         return baseClass;
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadClassPrototype basePrototype = GetPrototype(context, out BadInterfacePrototype[] interfaces);

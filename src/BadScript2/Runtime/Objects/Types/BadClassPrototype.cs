@@ -22,8 +22,14 @@ public abstract class BadClassPrototype : BadObject
     /// </summary>
     protected readonly BadClassPrototype? BaseClass;
 
+    /// <summary>
+    /// The Implemented Interfaces
+    /// </summary>
     private readonly BadInterfacePrototype[] m_Interfaces;
 
+    /// <summary>
+    /// The Metadata of the Class
+    /// </summary>
     public readonly BadMetaData MetaData;
 
     /// <summary>
@@ -45,8 +51,14 @@ public abstract class BadClassPrototype : BadObject
         MetaData = metaData ?? BadMetaData.Empty;
     }
 
+    /// <summary>
+    /// Indicates if the Class is Abstract(e.g. can not be instantiated)
+    /// </summary>
     public abstract bool IsAbstract { get; }
 
+    /// <summary>
+    /// The Implemented Interfaces
+    /// </summary>
     public IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_Interfaces;
 
     /// <summary>
@@ -54,11 +66,16 @@ public abstract class BadClassPrototype : BadObject
     /// </summary>
     public string Name { get; }
 
+    /// <summary>
+    /// Returns the base class
+    /// </summary>
+    /// <returns>The base class</returns>
     public BadClassPrototype? GetBaseClass()
     {
         return BaseClass;
     }
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
@@ -115,6 +132,7 @@ public abstract class BadClassPrototype : BadObject
     }
 
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         return $"class {Name}";

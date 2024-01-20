@@ -12,11 +12,13 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadImportTemplateNodeTransformer : BadHtmlNodeTransformer
 {
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:template";
     }
 
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
     protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["path"];

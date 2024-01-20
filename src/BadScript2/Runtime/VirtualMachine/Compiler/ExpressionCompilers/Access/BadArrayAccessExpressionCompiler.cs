@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAccessExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayAccessExpression expression)
     {
         foreach (BadInstruction instruction in compiler.Compile(expression.Arguments, false))

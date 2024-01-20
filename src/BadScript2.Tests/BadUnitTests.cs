@@ -20,22 +20,59 @@ namespace BadScript2.Tests;
 
 public class BadUnitTests
 {
+    /// <summary>
+    /// The Test Context
+    /// </summary>
     private static BadUnitTestContext? s_Context;
+    /// <summary>
+    /// The Optimized Folding Test Context
+    /// </summary>
     private static BadUnitTestContext? s_OptimizedFoldingContext;
+    
+    /// <summary>
+    /// The Optimized Substitution Test Context
+    /// </summary>
     private static BadUnitTestContext? s_OptimizedSubstitutionContext;
+    /// <summary>
+    /// The Optimized Test Context
+    /// </summary>
     private static BadUnitTestContext? s_OptimizedContext;
+    /// <summary>
+    /// The Compiled Test Context
+    /// </summary>
     private static BadUnitTestContext? s_CompiledContext;
+    /// <summary>
+    /// The Compiled Optimized Folding Test Context
+    /// </summary>
     private static BadUnitTestContext? s_CompiledOptimizedFoldingContext;
+    /// <summary>
+    /// The Compiled Optimized Substitution Test Context
+    /// </summary>
     private static BadUnitTestContext? s_CompiledOptimizedSubstitutionContext;
+    /// <summary>
+    /// The Compiled Optimized Test Context
+    /// </summary>
     private static BadUnitTestContext? s_CompiledOptimizedContext;
 
 
+    /// <summary>
+    /// The Test Directory
+    /// </summary>
     private static string TestDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "tests");
 
+    /// <summary>
+    /// The Script Test Directory
+    /// </summary>
     private static string ScriptTestDirectory => Path.Combine(TestDirectory, "basic");
 
+    /// <summary>
+    /// The HTML Test Directory
+    /// </summary>
     private static string HtmlTestDirectory => Path.Combine(TestDirectory, "html");
 
+    /// <summary>
+    /// The Test Context
+    /// </summary>
     private static BadUnitTestContext Context
     {
         get
@@ -75,6 +112,9 @@ public class BadUnitTests
         }
     }
 
+    /// <summary>
+    /// The Optimized Folding Test Context
+    /// </summary>
     private static BadUnitTestContext OptimizedFoldingContext
     {
         get
@@ -114,6 +154,9 @@ public class BadUnitTests
         }
     }
 
+    /// <summary>
+    /// The Optimized Substitution Test Context
+    /// </summary>
     private static BadUnitTestContext OptimizedSubstitutionContext
     {
         get
@@ -153,6 +196,9 @@ public class BadUnitTests
         }
     }
 
+    /// <summary>
+    /// The Optimized Test Context
+    /// </summary>
     private static BadUnitTestContext OptimizedContext
     {
         get
@@ -192,6 +238,9 @@ public class BadUnitTests
         }
     }
 
+    /// <summary>
+    /// The Compiled Test Context
+    /// </summary>
     private static BadUnitTestContext CompiledContext
     {
         get
@@ -231,6 +280,9 @@ public class BadUnitTests
         }
     }
 
+    /// <summary>
+    /// The Compiled Optimized Folding Test Context
+    /// </summary>
     private static BadUnitTestContext CompiledOptimizedFoldingContext
     {
         get
@@ -271,6 +323,9 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// The Compiled Optimized Substitution Test Context
+    /// </summary>
     private static BadUnitTestContext CompiledOptimizedSubstitutionContext
     {
         get
@@ -311,6 +366,9 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// The Compiled Optimized Test Context
+    /// </summary>
     private static BadUnitTestContext CompiledOptimizedContext
     {
         get
@@ -351,6 +409,9 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// Setup the Test Contexts
+    /// </summary>
     [SetUp]
     public void Setup()
     {
@@ -367,29 +428,54 @@ public class BadUnitTests
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
     }
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetTestCases()
     {
         return Context.GetTestCases() ?? throw new BadRuntimeException("Context is null");
     }
 
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetOptimizedFoldingTestCases()
     {
         return OptimizedFoldingContext.GetTestCases() ??
                throw new BadRuntimeException("OptimizedFoldingContext is null");
     }
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetOptimizedSubstitutionTestCases()
     {
         return OptimizedSubstitutionContext.GetTestCases() ??
                throw new BadRuntimeException("OptimizedSubstitutionContext is null");
     }
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetOptimizedTestCases()
     {
         return OptimizedContext.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
     }
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetCompiledTestCases()
     {
         if (CompiledContext == null)
@@ -412,11 +498,22 @@ public class BadUnitTests
             .ToArray();
     }
 
+    /// <summary>
+    /// Gets all HTML Test Cases
+    /// </summary>
+    /// <returns>Array of Template Files</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static string[] GetHtmlTemplateFiles()
     {
         return BadFileSystem.Instance.GetFiles(HtmlTestDirectory, ".bhtml", true).ToArray();
     }
 
+    
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetCompiledOptimizedFoldingTestCases()
     {
         if (CompiledOptimizedFoldingContext == null)
@@ -440,6 +537,11 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetCompiledOptimizedSubstitutionTestCases()
     {
         if (CompiledOptimizedSubstitutionContext == null)
@@ -463,6 +565,11 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// Gets all Test Cases
+    /// </summary>
+    /// <returns>Array of BadNUnitTestCase</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static BadNUnitTestCase[] GetCompiledOptimizedTestCases()
     {
         if (CompiledOptimizedContext == null)
@@ -486,54 +593,91 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetTestCases))]
     public void Test(BadNUnitTestCase testCase)
     {
         Context.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetOptimizedFoldingTestCases))]
     public void TestOptimizedFolding(BadNUnitTestCase testCase)
     {
         OptimizedFoldingContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetOptimizedSubstitutionTestCases))]
     public void TestOptimizedSubstitution(BadNUnitTestCase testCase)
     {
         OptimizedSubstitutionContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetOptimizedTestCases))]
     public void TestOptimized(BadNUnitTestCase testCase)
     {
         OptimizedContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledTestCases))]
     public void TestCompiled(BadNUnitTestCase testCase)
     {
         CompiledContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledOptimizedFoldingTestCases))]
     public void TestCompiledOptimizedFolding(BadNUnitTestCase testCase)
     {
         CompiledOptimizedFoldingContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledOptimizedSubstitutionTestCases))]
     public void TestCompiledOptimizedSubstitution(BadNUnitTestCase testCase)
     {
         CompiledOptimizedFoldingContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Runs a Test Case
+    /// </summary>
+    /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledOptimizedTestCases))]
     public void TestCompiledOptimized(BadNUnitTestCase testCase)
     {
         CompiledOptimizedContext.Run(testCase);
     }
 
+    /// <summary>
+    /// Loads a Reference File
+    /// </summary>
+    /// <param name="file">The File</param>
+    /// <returns>The Reference File</returns>
     private static HtmlDocument LoadReference(string file)
     {
         HtmlDocument reference = new HtmlDocument();
@@ -542,6 +686,10 @@ public class BadUnitTests
         return reference;
     }
 
+    /// <summary>
+    /// Tests the Html Templates with the default options
+    /// </summary>
+    /// <param name="file">The File</param>
     [Test]
     [TestCaseSource(nameof(GetHtmlTemplateFiles))]
     public void TestHtmlTemplateDefault(string file)
@@ -563,6 +711,10 @@ public class BadUnitTests
         }
     }
 
+    /// <summary>
+    /// Tests the Html Templates with the SkipEmptyTextNodes option
+    /// </summary>
+    /// <param name="file">The File</param>
     [Test]
     [TestCaseSource(nameof(GetHtmlTemplateFiles))]
     public void TestHtmlTemplateSkipEmpty(string file)
@@ -588,6 +740,9 @@ public class BadUnitTests
     }
 
 
+    /// <summary>
+    /// Tears down the Test Contexts
+    /// </summary>
     [TearDown]
     public void TearDown()
     {

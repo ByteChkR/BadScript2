@@ -25,6 +25,7 @@ public class BadInteractiveConsoleApi : BadInteropApi
         m_Console = console;
     }
 
+    /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction("Reset", m_Console.Reset);

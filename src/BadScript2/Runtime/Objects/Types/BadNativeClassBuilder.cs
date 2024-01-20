@@ -12,18 +12,33 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public static class BadNativeClassBuilder
 {
+    /// <summary>
+    /// The IDisposible Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype Disposable =
         new BadInterfacePrototype("IDisposable", Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints);
 
+    /// <summary>
+    /// The IEnumerable Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype Enumerable =
         new BadInterfacePrototype("IEnumerable", Array.Empty<BadInterfacePrototype>(), null, EnumerableConstraints);
 
+    /// <summary>
+    /// The IEnumerator Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype Enumerator =
         new BadInterfacePrototype("IEnumerator", Array.Empty<BadInterfacePrototype>(), null, EnumeratorConstraints);
 
+    /// <summary>
+    /// The IArray Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype ArrayLike =
         new BadInterfacePrototype("IArray", new[] { Enumerable }, null, ArrayConstraints);
 
+    /// <summary>
+    /// Collection of all Native Class Prototypes
+    /// </summary>
     private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
     {
         BadAnyPrototype.Instance,
@@ -45,6 +60,10 @@ public static class BadNativeClassBuilder
     /// </summary>
     public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
 
+    /// <summary>
+    /// The IDisposible Interface Constraints
+    /// </summary>
+    /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] DisposableConstraints()
     {
         return new BadInterfaceConstraint[]
@@ -53,6 +72,10 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// The IEnumerable Interface Constraints
+    /// </summary>
+    /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] EnumerableConstraints()
     {
         return new BadInterfaceConstraint[]
@@ -61,6 +84,10 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// The IArray Interface Constraints
+    /// </summary>
+    /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] ArrayConstraints()
     {
         return new BadInterfaceConstraint[]
@@ -138,6 +165,10 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// The IEnumerator Interface Constraints
+    /// </summary>
+    /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] EnumeratorConstraints()
     {
         return new BadInterfaceConstraint[]

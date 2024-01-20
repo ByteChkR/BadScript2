@@ -8,6 +8,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadTableExpressionCompiler : BadExpressionCompiler<BadTableExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTableExpression expression)
     {
         foreach (KeyValuePair<BadWordToken, BadExpression> kvp in expression.Table.ToArray().Reverse())

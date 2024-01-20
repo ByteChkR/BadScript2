@@ -34,6 +34,12 @@ public static class BadCommonInterop
     public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
 
 
+    /// <summary>
+    /// Configures the Runtime to use the specified startup arguments
+    /// </summary>
+    /// <param name="runtime">The Runtime</param>
+    /// <param name="args">The Startup Arguments</param>
+    /// <returns>The Runtime</returns>
     public static BadRuntime UseStartupArguments(this BadRuntime runtime, IEnumerable<string> args)
     {
         BadRuntimeApi.StartupArguments = args;
@@ -41,6 +47,12 @@ public static class BadCommonInterop
         return runtime;
     }
 
+    /// <summary>
+    /// The Default Executor for synchronous execution
+    /// </summary>
+    /// <param name="context">The Execution Context</param>
+    /// <param name="expressions">The Expressions to execute</param>
+    /// <returns>The Result of the Execution</returns>
     private static IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> expressions)
     {
         foreach (BadObject o in expressions)
@@ -54,6 +66,12 @@ public static class BadCommonInterop
         }
     }
 
+    /// <summary>
+    /// The Default Executor for asynchronous execution
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="exprs">The Expressions to execute</param>
+    /// <returns>The Result of the Execution</returns>
     private static BadObject ExecuteTask(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
     {
         ctx.Scope.AddSingleton(BadTaskRunner.Instance);
@@ -75,6 +93,12 @@ public static class BadCommonInterop
         return task.Runnable.GetReturn();
     }
 
+    /// <summary>
+    /// Configures the Runtime to use the Common Interop Extensions
+    /// </summary>
+    /// <param name="runtime">The Runtime</param>
+    /// <param name="useAsync">Whether to use the Async Extensions</param>
+    /// <returns>The Runtime</returns>
     public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true)
     {
         if (useAsync)
@@ -100,6 +124,12 @@ public static class BadCommonInterop
         return runtime;
     }
 
+    /// <summary>
+    /// Configures the Runtime to use the Console API
+    /// </summary>
+    /// <param name="runtime">The Runtime</param>
+    /// <param name="console">The Console to use</param>
+    /// <returns>The Runtime</returns>
     public static BadRuntime UseConsoleApi(this BadRuntime runtime, IBadConsole? console = null)
     {
         if (console != null)

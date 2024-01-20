@@ -20,8 +20,10 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
         Func<BadExecutionContext, BadObject[], BadObject> func,
         params BadInterfacePrototype[] interfaces) : base(name, func, null, interfaces) { }
 
+    /// <inheritdoc />
     public override bool IsAbstract => false;
 
+    /// <inheritdoc />
     public override bool IsAssignableFrom(BadObject obj)
     {
         if (obj == Null)

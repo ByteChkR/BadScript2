@@ -30,6 +30,15 @@ public class BadFunctionParameter
         Type = BadAnyPrototype.Instance;
     }
 
+    /// <summary>
+    /// Creates a new Function Parameter Info
+    /// </summary>
+    /// <param name="name">Name of the Parameter</param>
+    /// <param name="isOptional">Indicates if this parameter is optional</param>
+    /// <param name="isNullChecked">Indicates if this parameter is null checked by the runtime</param>
+    /// <param name="isRestArgs">Indicates if this parameter is the rest parameter of the function</param>
+    /// <param name="typeExpr">The Expression that returns the type of the parameter if evaluated</param>
+    /// <param name="type">The Class Prototype of the Parameter</param>
     public BadFunctionParameter(
         string name,
         bool isOptional,

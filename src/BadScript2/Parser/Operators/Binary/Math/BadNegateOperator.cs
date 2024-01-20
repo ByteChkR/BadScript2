@@ -7,6 +7,7 @@ public class BadNegateOperator : BadUnaryPrefixOperator
 {
     public BadNegateOperator() : base(3, "-", false) { }
 
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

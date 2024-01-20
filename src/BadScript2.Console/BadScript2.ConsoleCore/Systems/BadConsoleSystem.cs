@@ -8,8 +8,13 @@ namespace BadScript2.ConsoleCore.Systems;
 /// <typeparam name="T">The Settings Type</typeparam>
 public abstract class BadConsoleSystem<T> : BadAConsoleSystem
 {
+    /// <summary>
+    /// Creates a new BadConsoleSystem instance
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
     protected BadConsoleSystem(BadRuntime runtime) : base(runtime) { }
 
+    /// <inheritdoc/>
     public override int Run(object? settings)
     {
         if (settings is T t)
@@ -22,6 +27,7 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
         return -1;
     }
 
+    /// <inheritdoc/>
     public override object? Parse(string[] args)
     {
         T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;

@@ -3,10 +3,19 @@ using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Objects.Types;
 
+/// <summary>
+/// The Any Prototype, Base type for all types.
+/// </summary>
 public class BadAnyPrototype : BadClassPrototype
 {
+    /// <summary>
+    /// The Instance of the BadAnyPrototype
+    /// </summary>
     public static readonly BadAnyPrototype Instance = new BadAnyPrototype();
 
+    /// <summary>
+    /// Creates a new BadAnyPrototype
+    /// </summary>
     public BadAnyPrototype() : base(
         "any",
         null,
@@ -19,13 +28,16 @@ public class BadAnyPrototype : BadClassPrototype
         )
     ) { }
 
+    /// <inheritdoc />
     public override bool IsAbstract => true;
 
+    /// <inheritdoc />
     public override bool IsAssignableFrom(BadObject obj)
     {
         return true;
     }
 
+    /// <inheritdoc />
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
     {
         throw new BadAbstractClassException(Name);

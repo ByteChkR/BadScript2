@@ -8,7 +8,7 @@ namespace BadScript2.Parser.Expressions.Binary.Comparison;
 
 /// <summary>
 ///     Implements the Less or Equal Expression
-///     <Left> <= <Right>
+///     LEFT &lt;= RIGHT
 /// </summary>
 public class BadLessOrEqualExpression : BadBinaryExpression
 {
@@ -46,7 +46,14 @@ public class BadLessOrEqualExpression : BadBinaryExpression
 
         throw new BadRuntimeException($"Can not apply operator '<=' to {left} and {right}", pos);
     }
-
+    /// <summary>
+    /// Executes the expression
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <param name="position">The position.</param>
+    /// <returns>Result of the operator override.(last item)</returns>
     public static IEnumerable<BadObject> LessOrEqualWithOverride(
         BadExecutionContext? context,
         BadObject left,
@@ -86,6 +93,7 @@ public class BadLessOrEqualExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -116,6 +124,7 @@ public class BadLessOrEqualExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "<=";

@@ -41,6 +41,7 @@ public class BadConsoleColorChangePacket : BadConsolePacket
         return new BadConsoleColorChangePacket(isBackground, color);
     }
 
+	/// <inheritdoc />
     public override byte[] Serialize()
     {
         return new[]

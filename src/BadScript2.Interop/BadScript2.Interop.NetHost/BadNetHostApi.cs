@@ -19,6 +19,7 @@ public class BadNetHostApi : BadInteropApi
     public BadNetHostApi() : base("NetHost") { }
 
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction<BadArray>(

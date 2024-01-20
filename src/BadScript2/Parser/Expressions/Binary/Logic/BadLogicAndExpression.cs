@@ -51,6 +51,7 @@ public class BadLogicAndExpression : BadBinaryExpression
         throw new BadRuntimeException($"Can not apply operator '&&' to {left} and {right}", pos);
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -102,6 +103,7 @@ public class BadLogicAndExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "&&";

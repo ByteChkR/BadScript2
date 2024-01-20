@@ -50,14 +50,23 @@ public class BadForEachExpression : BadExpression
         m_Body = body.ToList();
     }
 
+    /// <summary>
+    /// The Loop Body
+    /// </summary>
     public IEnumerable<BadExpression> Body => m_Body;
 
+    /// <summary>
+    /// Sets the Body of the Loop
+    /// </summary>
+    /// <param name="body">The new Body of the Loop</param>
     public void SetBody(IEnumerable<BadExpression> body)
     {
         m_Body.Clear();
         m_Body.AddRange(body);
     }
 
+    
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         Target = BadConstantFoldingOptimizer.Optimize(Target);
@@ -68,6 +77,7 @@ public class BadForEachExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in Target.GetDescendantsAndSelf())

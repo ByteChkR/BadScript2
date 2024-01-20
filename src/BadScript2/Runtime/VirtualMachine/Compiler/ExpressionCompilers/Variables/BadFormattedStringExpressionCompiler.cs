@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadFormattedStringExpressionCompiler : BadExpressionCompiler<BadFormattedStringExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFormattedStringExpression expression)
     {
         foreach (BadInstruction instruction in compiler.Compile(expression.Expressions, false))

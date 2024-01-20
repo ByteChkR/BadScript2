@@ -7,6 +7,9 @@ namespace BadScript2.Runtime.Objects.Native;
 /// </summary>
 public class BadBoolean : BadNative<bool>, IBadBoolean
 {
+    /// <summary>
+    /// The Prototype for the Native Boolean Object
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("bool");
 
     /// <summary>
@@ -15,8 +18,10 @@ public class BadBoolean : BadNative<bool>, IBadBoolean
     /// <param name="value">The Boolean Value</param>
     public BadBoolean(bool value) : base(value) { }
 
+    /// <inheritdoc />
     bool IBadBoolean.Value => Value;
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;

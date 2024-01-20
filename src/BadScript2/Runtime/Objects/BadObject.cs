@@ -9,11 +9,26 @@ namespace BadScript2.Runtime.Objects;
 
 public abstract class BadObject
 {
+    /// <summary>
+    /// The Any Prototype for the BadScript Language
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadAnyPrototype.Instance;
 
+    /// <summary>
+    /// The String Cache for the BadScript Language
+    /// </summary>
     private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
+    /// <summary>
+    /// The Null Value for the BadScript Language
+    /// </summary>
     public static readonly BadObject Null = new BadNullObject();
+    /// <summary>
+    /// The True Value for the BadScript Language
+    /// </summary>
     public static readonly BadObject True = new BadBoolean(true);
+    /// <summary>
+    /// The False Value for the BadScript Language
+    /// </summary>
     public static readonly BadObject False = new BadBoolean(false);
 
     /// <summary>
@@ -22,11 +37,24 @@ public abstract class BadObject
     /// <returns>Instance of the ClassPrototype associated to this Type of BadObject</returns>
     public abstract BadClassPrototype GetPrototype();
 
+    /// <summary>
+    /// Returns true if the given object cam be wrapped
+    /// </summary>
+    /// <param name="o">The Object</param>
+    /// <returns>True if the given object cam be wrapped</returns>
     public static bool CanWrap(object? o)
     {
         return o is string || o is decimal || o is null || o.GetType().IsNumericType();
     }
 
+    /// <summary>
+    /// Wraps the given object into a BadObject Instance
+    /// </summary>
+    /// <param name="obj">The Object</param>
+    /// <param name="allowNative">Allow Native Wrapping</param>
+    /// <typeparam name="T">The Type of the Object</typeparam>
+    /// <returns>The Wrapped Object</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the object cannot be wrapped</exception>
     public static BadObject Wrap<T>(T obj, bool allowNative = true)
     {
         switch (obj)
@@ -112,6 +140,11 @@ public abstract class BadObject
         return Wrap(b);
     }
 
+    /// <summary>
+    /// Converts the given object to a BadObject Instance
+    /// </summary>
+    /// <param name="b">The Object</param>
+    /// <returns>The BadObject Instance</returns>
     public static implicit operator BadObject(BadNullable<bool> b)
     {
         return b.HasValue ? b.Value : Null;
@@ -127,6 +160,11 @@ public abstract class BadObject
         return Wrap(d);
     }
 
+    /// <summary>
+    /// Converts the given object to a BadObject Instance
+    /// </summary>
+    /// <param name="b">The Object</param>
+    /// <returns>The BadObject Instance</returns>
     public static implicit operator BadObject(BadNullable<decimal> b)
     {
         return b.HasValue ? b.Value : Null;
@@ -142,6 +180,11 @@ public abstract class BadObject
         return Wrap(s);
     }
 
+    /// <summary>
+    /// Converts the given object to a BadObject Instance
+    /// </summary>
+    /// <param name="b">The Object</param>
+    /// <returns>The BadObject Instance</returns>
     public static implicit operator BadObject(BadNullable<string> b)
     {
         return b.HasValue ? b.Value! : Null;
@@ -168,31 +211,44 @@ public abstract class BadObject
     /// </summary>
     private class BadNullObject : BadObject, IBadNative
     {
+        
+        /// <inheritdoc cref="IBadNative.Value"/>
         public object Value => null!;
 
+        /// <inheritdoc cref="IBadNative.Type"/>
         public Type Type => typeof(object);
 
+        /// <summary>
+        /// Returns the Prototype for the Null Object
+        /// </summary>
+        /// <param name="other">The Other Object</param>
+        /// <returns>True if the Objects are equal</returns>
         public bool Equals(IBadNative? other)
         {
             return Equals((object?)other);
         }
 
+        
+        /// <inheritdoc />
         public override BadClassPrototype GetPrototype()
         {
             return s_Prototype;
         }
 
+        /// <inheritdoc />
         public override string ToSafeString(List<BadObject> done)
         {
             return "null";
         }
 
 
+        /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             return ReferenceEquals(this, obj);
         }
 
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             throw new NotSupportedException();

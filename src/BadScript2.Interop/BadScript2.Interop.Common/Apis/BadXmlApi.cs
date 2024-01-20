@@ -31,6 +31,7 @@ public class BadXmlApi : BadInteropApi
         return new BadReflectedObject(doc);
     }
 
+	/// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction<string>("Load", LoadXml, BadAnyPrototype.Instance);

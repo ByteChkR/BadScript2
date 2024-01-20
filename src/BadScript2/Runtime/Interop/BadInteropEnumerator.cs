@@ -13,6 +13,9 @@ namespace BadScript2.Runtime.Interop;
 /// </summary>
 public class BadInteropEnumerator : BadObject, IBadEnumerator
 {
+    /// <summary>
+    /// The Prototype for the Interop Enumerator Object
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
         "Enumerator",
         (_, _) => throw new BadRuntimeException("Cannot call method on enumerator"),
@@ -57,30 +60,48 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
         m_Current = BadObjectReference.Make("BadArrayEnumerator.GetCurrent", () => current);
     }
 
+    /// <summary>
+    /// Moves the Enumerator to the next element
+    /// </summary>
+    /// <returns>True if the Enumerator moved to the next element</returns>
     public bool MoveNext()
     {
         return m_Enumerator.MoveNext();
     }
 
+    /// <summary>
+    /// Resets the Enumerator
+    /// </summary>
     public void Reset()
     {
         m_Enumerator.Reset();
     }
 
+    /// <summary>
+    /// The Current Element
+    /// </summary>
     public BadObject Current => m_Enumerator.Current!;
 
+    /// <summary>
+    /// The Current Element
+    /// </summary>
     object IEnumerator.Current => m_Enumerator.Current!;
 
+    /// <summary>
+    /// Disposes the Enumerator
+    /// </summary>
     public void Dispose()
     {
         m_Enumerator.Dispose();
     }
 
+    /// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
+    /// <inheritdoc/>
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
@@ -88,6 +109,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
                base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString str)
@@ -106,6 +128,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
         return base.GetProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         return "InteropEnumerator";

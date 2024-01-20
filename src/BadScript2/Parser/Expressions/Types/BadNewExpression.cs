@@ -28,11 +28,13 @@ public class BadNewExpression : BadExpression
     /// </summary>
     public BadInvocationExpression Right { get; }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         Right.Optimize();
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Right.GetDescendantsAndSelf();
@@ -103,6 +105,7 @@ public class BadNewExpression : BadExpression
         yield return cls;
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject obj = BadObject.Null;

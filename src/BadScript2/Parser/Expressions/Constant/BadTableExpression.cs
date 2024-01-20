@@ -29,6 +29,9 @@ public class BadTableExpression : BadExpression
         m_Table = table;
     }
 
+    /// <summary>
+    /// The Length of the initializer list
+    /// </summary>
     public int Length => m_Table.Count;
 
     /// <summary>
@@ -36,11 +39,13 @@ public class BadTableExpression : BadExpression
     /// </summary>
     public IDictionary<BadWordToken, BadExpression> Table => m_Table;
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return m_Table.SelectMany(kvp => kvp.Value.GetDescendantsAndSelf());
     }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         KeyValuePair<BadWordToken, BadExpression>[] branches = m_Table.ToArray();
@@ -52,6 +57,7 @@ public class BadTableExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();

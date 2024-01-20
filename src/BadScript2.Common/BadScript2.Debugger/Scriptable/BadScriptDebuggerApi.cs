@@ -18,6 +18,9 @@ public class BadScriptDebuggerApi : BadInteropApi
     /// </summary>
     private readonly BadScriptDebugger m_Debugger;
 
+    /// <summary>
+    /// The Debugger Path
+    /// </summary>
     private readonly string m_DebuggerPath;
 
     /// <summary>
@@ -75,6 +78,8 @@ public class BadScriptDebuggerApi : BadInteropApi
         };
     }
 
+    
+    /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction<BadFunction>("RegisterStep", RegisterStep);

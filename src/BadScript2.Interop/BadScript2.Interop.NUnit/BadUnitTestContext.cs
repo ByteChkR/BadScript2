@@ -18,6 +18,9 @@ public class BadUnitTestContext
     /// </summary>
     private readonly List<BadNUnitTestCase> m_Cases;
 
+    /// <summary>
+    /// The Runtime
+    /// </summary>
     private readonly BadRuntime m_Runtime;
 
     /// <summary>

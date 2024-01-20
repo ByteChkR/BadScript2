@@ -16,6 +16,9 @@ public class BadExpressionFunction : BadFunction
     /// </summary>
     private readonly List<BadExpression> m_Body;
 
+    /// <summary>
+    /// The Function String
+    /// </summary>
     private readonly string m_FuncString;
 
     /// <summary>
@@ -64,8 +67,10 @@ public class BadExpressionFunction : BadFunction
     public IEnumerable<BadExpression> Body => m_Body;
 
 
+    /// <inheritdoc />
     public override BadMetaData MetaData { get; }
 
+    /// <inheritdoc />
     public override BadFunction BindParentScope(BadScope scope)
     {
         return new BadExpressionFunction(
@@ -81,6 +86,7 @@ public class BadExpressionFunction : BadFunction
         );
     }
 
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         BadExecutionContext ctx = new BadExecutionContext(
@@ -113,6 +119,7 @@ public class BadExpressionFunction : BadFunction
         }
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return m_FuncString;

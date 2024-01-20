@@ -10,8 +10,19 @@ namespace BadScript2.Runtime.Interop.Functions;
 /// </summary>
 public class BadInteropFunction : BadFunction
 {
+    /// <summary>
+    /// The Function Lambda
+    /// </summary>
     private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;
 
+    /// <summary>
+    /// Creates a new BadInteropFunction
+    /// </summary>
+    /// <param name="name">The Name of the Function</param>
+    /// <param name="func">The Function Lambda</param>
+    /// <param name="isStatic">Indicates if the Function is Static</param>
+    /// <param name="returnType">The Return Type of the Function</param>
+    /// <param name="parameters">The Parameters of the Function</param>
     public BadInteropFunction(
         BadWordToken? name,
         Func<BadObject[], BadObject> func,
@@ -22,6 +33,14 @@ public class BadInteropFunction : BadFunction
         m_Func = (_, args) => func(args);
     }
 
+    /// <summary>
+    /// Creates a new BadInteropFunction
+    /// </summary>
+    /// <param name="name">The Name of the Function</param>
+    /// <param name="func">The Function Lambda</param>
+    /// <param name="isStatic">Indicates if the Function is Static</param>
+    /// <param name="returnType">The Return Type of the Function</param>
+    /// <param name="parameters">The Parameters of the Function</param>
     public BadInteropFunction(
         BadWordToken? name,
         Func<BadExecutionContext, BadObject[], BadObject> func,
@@ -33,6 +52,13 @@ public class BadInteropFunction : BadFunction
     }
 
 
+    /// <summary>
+    /// Creates a new BadInteropFunction
+    /// </summary>
+    /// <param name="func">The Function Lambda</param>
+    /// <param name="isStatic">Indicates if the Function is Static</param>
+    /// <param name="returnType">The Return Type of the Function</param>
+    /// <param name="names">The Parameters of the Function</param>
     public static BadInteropFunction Create(
         Func<BadObject[], BadObject> func,
         bool isStatic,
@@ -51,6 +77,7 @@ public class BadInteropFunction : BadFunction
     }
 
 
+    /// <inheritdoc/>
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         CheckParameters(args, caller);

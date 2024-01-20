@@ -25,11 +25,19 @@ public class BadUnaryUnpackExpression : BadExpression
     }
 
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Right.GetDescendantsAndSelf();
     }
 
+    /// <summary>
+    /// Implements the logic of the unary ... operator.
+    /// </summary>
+    /// <param name="table">The table to unpack into</param>
+    /// <param name="right">The table to unpack</param>
+    /// <param name="position">The Source Position</param>
+    /// <exception cref="BadRuntimeException">Gets thrown if the right side is not a table</exception>
     public static void Unpack(BadTable table, BadObject right, BadSourcePosition position)
     {
         if (right is not BadTable rightT)
@@ -44,6 +52,7 @@ public class BadUnaryUnpackExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadTable result = context.Scope.GetTable();

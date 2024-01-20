@@ -23,6 +23,17 @@ public class BadDivideAssignExpression : BadBinaryExpression
         position
     ) { }
 
+    
+    /// <summary>
+    /// Executes the Operator
+    /// </summary>
+    /// <param name="leftRef">Reference to the left side of the expression</param>
+    /// <param name="left">Left side of the expression</param>
+    /// <param name="right">Right side of the expression</param>
+    /// <param name="position">Position of the expression</param>
+    /// <param name="symbol">Symbol of the expression</param>
+    /// <returns>Returns the result of the operation</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static BadObject Divide(
         BadObjectReference leftRef,
         BadObject left,
@@ -40,7 +51,15 @@ public class BadDivideAssignExpression : BadBinaryExpression
 
         return r;
     }
-
+    /// <summary>
+    /// Executes the Operator with operator override
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="leftRef">Reference to the left side of the expression</param>
+    /// <param name="right">Right side of the expression</param>
+    /// <param name="position">Position of the expression</param>
+    /// <param name="symbol">Symbol of the expression</param>
+    /// <returns>Returns the result of the operation.(Last Item)</returns>
     public static IEnumerable<BadObject> DivideWithOverride(
         BadExecutionContext? context,
         BadObjectReference leftRef,
@@ -69,6 +88,7 @@ public class BadDivideAssignExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -102,6 +122,7 @@ public class BadDivideAssignExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "/=";

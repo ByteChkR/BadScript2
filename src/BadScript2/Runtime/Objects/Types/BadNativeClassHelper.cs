@@ -110,6 +110,13 @@ public static class BadNativeClassHelper
             },
         };
 
+    /// <summary>
+    /// Executes the Enumerator
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="enumerator">The Enumerator</param>
+    /// <returns>The Enumeration</returns>
+    /// <exception cref="BadRuntimeException">Thrown if the Enumerator is invalid</exception>
     public static IEnumerable<BadObject> ExecuteEnumerator(BadExecutionContext ctx, BadObject enumerator)
     {
         BadObject moveNext = enumerator.GetProperty("MoveNext").Dereference();
@@ -143,6 +150,13 @@ public static class BadNativeClassHelper
         }
     }
 
+    /// <summary>
+    /// Executes the Enumerable
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="enumerable">The Enumerable</param>
+    /// <returns>The Enumeration</returns>
+    /// <exception cref="BadRuntimeException">Thrown if the Enumerable is invalid</exception>
     public static IEnumerable<BadObject> ExecuteEnumerate(BadExecutionContext ctx, BadObject enumerable)
     {
         BadObject enumerator = enumerable.GetProperty("GetEnumerator").Dereference();

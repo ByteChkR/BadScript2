@@ -11,6 +11,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadForEachExpression expression)
     {
         foreach (BadInstruction instruction in compiler.Compile(expression.Target))

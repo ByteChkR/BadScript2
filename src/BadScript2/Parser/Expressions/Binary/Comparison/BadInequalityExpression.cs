@@ -31,7 +31,14 @@ public class BadInequalityExpression : BadBinaryExpression
     {
         return left.Equals(right) ? BadObject.False : BadObject.True;
     }
-
+    /// <summary>
+    /// Executes the expression
+    /// </summary>
+    /// <param name="caller">The caller.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <param name="position">The position.</param>
+    /// <returns>Result of the operator override.(last item)</returns>
     public static IEnumerable<BadObject> NotEqualWithOverride(
         BadExecutionContext? caller,
         BadObject left,
@@ -71,6 +78,7 @@ public class BadInequalityExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -100,6 +108,7 @@ public class BadInequalityExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "!=";

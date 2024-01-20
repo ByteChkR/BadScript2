@@ -9,7 +9,7 @@ namespace BadScript2.Parser.Expressions.Binary;
 
 /// <summary>
 ///     Implements the Range Expression
-///     <Start>..<End>
+///     START..END
 /// </summary>
 public class BadRangeExpression : BadBinaryExpression
 {
@@ -25,6 +25,7 @@ public class BadRangeExpression : BadBinaryExpression
         position
     ) { }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -79,6 +80,7 @@ public class BadRangeExpression : BadBinaryExpression
         }
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "..";

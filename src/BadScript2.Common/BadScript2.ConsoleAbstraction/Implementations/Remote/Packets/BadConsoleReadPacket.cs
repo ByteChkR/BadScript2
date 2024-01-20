@@ -23,6 +23,7 @@ public class BadConsoleReadPacket : BadConsolePacket
 	/// </summary>
 	public string Message { get; }
 
+	/// <inheritdoc />
     public override byte[] Serialize()
     {
         List<byte> data = new List<byte>

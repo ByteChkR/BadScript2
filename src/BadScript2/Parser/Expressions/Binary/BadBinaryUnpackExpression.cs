@@ -24,6 +24,14 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
     ) { }
 
 
+    /// <summary>
+    /// Executes the binary ... operator
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">The Source Position</param>
+    /// <returns>The result of the binary ... operator</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the left or right side are not tables</exception>
     public static BadTable Unpack(BadObject left, BadObject right, BadSourcePosition position)
     {
         BadTable result = new BadTable();
@@ -48,6 +56,7 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
         return result;
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -73,6 +82,7 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
         yield return Unpack(left, right, Position);
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "...";

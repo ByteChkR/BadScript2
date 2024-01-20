@@ -26,11 +26,13 @@ public class BadAwaitExpression : BadExpression
         m_TaskExpr = expr;
     }
 
+    /// <inheritdoc/>
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return m_TaskExpr.GetDescendantsAndSelf();
     }
 
+    /// <inheritdoc/>
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject obj = BadObject.Null;

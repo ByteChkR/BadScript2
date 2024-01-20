@@ -7,6 +7,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadIfExpression expression)
     {
         List<List<BadInstruction>> branches = new List<List<BadInstruction>>();

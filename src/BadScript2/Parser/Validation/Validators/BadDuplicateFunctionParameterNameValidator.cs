@@ -3,8 +3,12 @@ using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Parser.Validation.Validators;
 
+/// <summary>
+/// Checks for duplicate parameter names in function definitions.
+/// </summary>
 public class BadDuplicateFunctionParameterNameValidator : BadExpressionValidator<BadFunctionExpression>
 {
+    /// <inheritdoc cref="BadExpressionValidator{T}.Validate" />
     protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
     {
         HashSet<string> names = new HashSet<string>();

@@ -9,6 +9,7 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadObjectExtension : BadInteropExtension
 {
+    /// <inheritdoc/>
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterGlobal(

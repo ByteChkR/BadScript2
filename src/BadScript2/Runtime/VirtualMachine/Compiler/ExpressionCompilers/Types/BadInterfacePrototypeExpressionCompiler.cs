@@ -5,6 +5,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 
 public class BadInterfacePrototypeExpressionCompiler : BadExpressionCompiler<BadInterfacePrototypeExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(
         BadCompiler compiler,
         BadInterfacePrototypeExpression expression)

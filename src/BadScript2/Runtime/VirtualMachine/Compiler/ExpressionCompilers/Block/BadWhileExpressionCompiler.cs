@@ -6,6 +6,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadWhileExpressionCompiler : BadExpressionCompiler<BadWhileExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadWhileExpression expression)
     {
         List<BadInstruction> instructions = compiler.Compile(expression.Condition).ToList();

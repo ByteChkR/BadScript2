@@ -31,6 +31,7 @@ public class BadConsoleHelloPacket : BadConsolePacket
         return new BadConsoleHelloPacket(BitConverter.ToInt32(data, 1));
     }
 
+	/// <inheritdoc />
     public override byte[] Serialize()
     {
         byte[] data = new byte[5];

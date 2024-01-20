@@ -14,6 +14,7 @@ public class BadBinaryUnpackOperator : BadBinaryOperator
 	/// </summary>
 	public BadBinaryUnpackOperator() : base(3, "...", false) { }
 
+	/// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         parser.Reader.SkipNonToken();

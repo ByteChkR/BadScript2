@@ -6,6 +6,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadForExpression expression)
     {
         yield return new BadInstruction(BadOpCode.CreateScope, expression.Position, "ForLoop", BadObject.Null);

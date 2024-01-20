@@ -23,19 +23,45 @@ namespace BadScript2.Runtime.VirtualMachine;
 /// </summary>
 public class BadRuntimeVirtualMachine
 {
+    /// <summary>
+    /// The Argument Stack
+    /// </summary>
     private readonly Stack<BadObject> m_ArgumentStack = new Stack<BadObject>();
+    /// <summary>
+    /// The Context Stack
+    /// </summary>
     private readonly Stack<BadRuntimeVirtualStackFrame> m_ContextStack = new Stack<BadRuntimeVirtualStackFrame>();
 
+    /// <summary>
+    /// The Instructions
+    /// </summary>
     private readonly BadInstruction[] m_Instructions;
+    /// <summary>
+    /// Indicates if the Virtual Machine should use Operator Overrides.
+    /// </summary>
     private readonly bool m_UseOverrides;
+    /// <summary>
+    /// The Current Instruction Pointer
+    /// </summary>
     private int m_InstructionPointer;
 
+    /// <summary>
+    /// Creates a new <see cref="BadRuntimeVirtualMachine" /> instance.
+    /// </summary>
+    /// <param name="instructions">The Instructions to execute.</param>
+    /// <param name="useOverrides">Indicates if the Virtual Machine should use Operator Overrides.</param>
     public BadRuntimeVirtualMachine(BadInstruction[] instructions, bool useOverrides = true)
     {
         m_Instructions = instructions;
         m_UseOverrides = useOverrides;
     }
 
+    /// <summary>
+    /// Executes the Virtual Machine.
+    /// </summary>
+    /// <returns>The result of the execution.</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown when the Virtual Machine encounters an error.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Gets thrown when the Virtual Machine encounters an invalid Instruction.</exception>
     private IEnumerable<BadObject> Execute()
     {
         while (m_InstructionPointer < m_Instructions.Length)
@@ -1436,6 +1462,11 @@ public class BadRuntimeVirtualMachine
         }
     }
 
+    /// <summary>
+    /// Executes the virtual machine with the given context.
+    /// </summary>
+    /// <param name="ctx">The context to execute the virtual machine with.</param>
+    /// <returns>The return value of the virtual machine.</returns>
     public IEnumerable<BadObject> Execute(BadExecutionContext ctx)
     {
         m_ContextStack.Clear();

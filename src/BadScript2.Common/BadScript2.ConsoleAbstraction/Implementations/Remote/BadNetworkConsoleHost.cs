@@ -109,16 +109,19 @@ public class BadNetworkConsoleHost : IBadConsole
     /// </summary>
     public static int AcceptSleepTimeout { get; set; } = 100;
 
+    /// <inheritdoc />
     public void Write(string str)
     {
         m_OutgoingPackets.Enqueue(new BadConsoleWritePacket(false, str));
     }
 
+    /// <inheritdoc />
     public void WriteLine(string str)
     {
         m_OutgoingPackets.Enqueue(new BadConsoleWritePacket(true, str));
     }
 
+    /// <inheritdoc />
     public string ReadLine()
     {
         BadConsoleReadPacket ret;
@@ -131,16 +134,19 @@ public class BadNetworkConsoleHost : IBadConsole
         return ret.Message;
     }
 
+    /// <inheritdoc />
     public Task<string> ReadLineAsync()
     {
         return Task.Run(ReadLine);
     }
 
+    /// <inheritdoc />
     public void Clear()
     {
         m_OutgoingPackets.Enqueue(BadConsoleClearPacket.Packet);
     }
 
+    /// <inheritdoc />
     public ConsoleColor ForegroundColor
     {
         get => m_ForegroundColor;
@@ -151,6 +157,7 @@ public class BadNetworkConsoleHost : IBadConsole
         }
     }
 
+    /// <inheritdoc />
     public ConsoleColor BackgroundColor
     {
         get => m_BackgroundColor;

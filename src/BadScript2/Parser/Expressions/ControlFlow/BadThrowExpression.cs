@@ -28,16 +28,19 @@ public class BadThrowExpression : BadExpression
     /// </summary>
     public BadExpression Right { get; set; }
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         Right = BadConstantFoldingOptimizer.Optimize(Right);
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Right.GetDescendantsAndSelf();
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject value = BadObject.Null;

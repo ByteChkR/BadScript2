@@ -12,6 +12,9 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 {
+    /// <summary>
+    /// The Return Type Prototype
+    /// </summary>
     private readonly BadClassPrototype? m_Prototype;
 
     /// <summary>
@@ -59,11 +62,13 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
     }
 
 
+    /// <inheritdoc cref="BadInterfaceConstraint.ToString" />
     public override string ToString()
     {
         return "FunctionConstraint";
     }
 
+    /// <inheritdoc cref="BadInterfaceConstraint.Validate" />
     public override void Validate(BadClass obj, List<BadInterfaceValidatorError> errors)
     {
         if (Return != null && m_Prototype == null)

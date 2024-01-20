@@ -9,6 +9,9 @@ namespace BadScript2.Runtime.Objects.Native;
 /// <typeparam name="T">The Type of the Native Type</typeparam>
 public class BadNative<T> : BadObject, IBadNative
 {
+    /// <summary>
+    /// The Prototype for the Native Type
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNative<T>>(
         typeof(T).Name,
         (_, args) =>
@@ -43,10 +46,19 @@ public class BadNative<T> : BadObject, IBadNative
         m_Value = value;
     }
 
+    /// <summary>
+    /// The Value of the Native Type
+    /// </summary>
     public T Value => m_Value;
 
+    /// <summary>
+    /// The Value of the Native Type
+    /// </summary>
     object IBadNative.Value => m_Value!;
 
+    /// <summary>
+    /// The Type of the Native Type
+    /// </summary>
     Type IBadNative.Type => m_Value!.GetType();
 
 
@@ -67,12 +79,14 @@ public class BadNative<T> : BadObject, IBadNative
         return thisN.Value.Equals(other.Value);
     }
 
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return EqualityComparer<T>.Default.GetHashCode(Value!);
     }
 
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         return m_Value!.ToString()!;
@@ -110,16 +124,19 @@ public class BadNative<T> : BadObject, IBadNative
         return obj is IBadNative other && Equals(other);
     }
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return caller != null && caller.Provider.HasObject<T>(propName);
     }
-
+    
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return BadObjectReference.Make(

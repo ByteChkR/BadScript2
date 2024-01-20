@@ -39,8 +39,16 @@ public abstract class BadExpression
     /// </summary>
     public virtual void Optimize() { }
 
+    /// <summary>
+    /// Returns all Descendants of the Expression
+    /// </summary>
+    /// <returns>Enumeration of all Descendants</returns>
     public abstract IEnumerable<BadExpression> GetDescendants();
 
+    /// <summary>
+    /// Returns all Descendants of the Expression and the Expression itself
+    /// </summary>
+    /// <returns>Enumeration of all Descendants and the Expression itself</returns>
     public IEnumerable<BadExpression> GetDescendantsAndSelf()
     {
         yield return this;
@@ -51,6 +59,10 @@ public abstract class BadExpression
         }
     }
 
+    /// <summary>
+    /// Sets the Source Position of the Expression
+    /// </summary>
+    /// <param name="pos"></param>
     public void SetPosition(BadSourcePosition pos)
     {
         Position = pos;
@@ -146,6 +158,15 @@ public abstract class BadExpression
         }
     }
 
+    /// <summary>
+    /// Executes an operator override function if implemented.
+    /// </summary>
+    /// <param name="left">Left Expression Part</param>
+    /// <param name="context">The current Execution context the expression is evaluated in</param>
+    /// <param name="name">The name of the operator override function</param>
+    /// <param name="position">The Source Position used when throwing an error</param>
+    /// <returns>Result of the operator override function</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the override function does not exist or is not of type BadFunction</exception>
     protected static IEnumerable<BadObject> ExecuteOperatorOverride(
         BadObject left,
         BadExecutionContext context,

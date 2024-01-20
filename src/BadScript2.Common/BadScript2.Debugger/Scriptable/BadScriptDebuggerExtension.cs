@@ -17,6 +17,7 @@ namespace BadScript2.Debugger.Scriptable;
 /// </summary>
 public class BadScriptDebuggerExtension : BadInteropExtension
 {
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadDebuggerStep>("Position", step => BadObject.Wrap(step.Position));
@@ -75,6 +76,12 @@ public class BadScriptDebuggerExtension : BadInteropExtension
         provider.RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
     }
 
+    /// <summary>
+    /// Returns the Source View for the Debugger Step
+    /// </summary>
+    /// <param name="step">The Debugger Step</param>
+    /// <param name="breakpoints">The Breakpoints</param>
+    /// <returns>The Source View</returns>
     private static BadObject GetSourceView(BadDebuggerStep step, int[] breakpoints)
     {
         return step.GetSourceView(breakpoints, out int _, out int _);

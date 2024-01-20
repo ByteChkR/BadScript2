@@ -26,6 +26,12 @@ public class BadRuntimeException : BadScriptException
         position
     ) { }
 
+    /// <summary>
+    /// Creates a new BadScriptException
+    /// </summary>
+    /// <param name="scope">The Scope the Exception was thrown in</param>
+    /// <param name="message">The Exception Message</param>
+    /// <returns>A new BadScriptException</returns>
     public static BadRuntimeException Create(BadScope? scope, string message)
     {
         if (scope != null && BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors)
@@ -36,6 +42,13 @@ public class BadRuntimeException : BadScriptException
         return new BadRuntimeException(message);
     }
 
+    /// <summary>
+    /// Creates a new BadScriptException
+    /// </summary>
+    /// <param name="scope">The Scope the Exception was thrown in</param>
+    /// <param name="message">The Exception Message</param>
+    /// <param name="pos">The Source Position</param>
+    /// <returns>A new BadScriptException</returns>
     public static BadRuntimeException Create(BadScope? scope, string message, BadSourcePosition? pos)
     {
         if (scope != null && BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors)

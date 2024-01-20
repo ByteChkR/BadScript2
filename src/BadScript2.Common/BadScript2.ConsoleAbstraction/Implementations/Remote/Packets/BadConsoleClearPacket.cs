@@ -30,6 +30,7 @@ public class BadConsoleClearPacket : BadConsolePacket
         return Packet;
     }
 
+	/// <inheritdoc />
     public override byte[] Serialize()
     {
         return new[]

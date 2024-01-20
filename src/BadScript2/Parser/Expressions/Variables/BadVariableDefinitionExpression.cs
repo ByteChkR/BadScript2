@@ -50,6 +50,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         return IsReadOnly ? $"{BadStaticKeys.CONSTANT_DEFINITION_KEY} {Name}" : $"{BadStaticKeys.VARIABLE_DEFINITION_KEY} {Name}";
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadClassPrototype type = BadAnyPrototype.Instance;
@@ -88,6 +89,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         if (TypeExpression != null)

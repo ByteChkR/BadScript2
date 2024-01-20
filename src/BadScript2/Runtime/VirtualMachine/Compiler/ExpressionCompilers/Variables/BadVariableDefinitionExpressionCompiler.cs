@@ -6,6 +6,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<BadVariableDefinitionExpression>
 {
+    /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(
         BadCompiler compiler,
         BadVariableDefinitionExpression expression)

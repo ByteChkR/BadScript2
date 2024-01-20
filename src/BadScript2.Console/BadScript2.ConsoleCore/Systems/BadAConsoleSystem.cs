@@ -5,8 +5,15 @@ namespace BadScript2.ConsoleCore.Systems;
 /// </summary>
 public abstract class BadAConsoleSystem
 {
+    /// <summary>
+    /// The Runtime to use
+    /// </summary>
     protected readonly BadRuntime Runtime;
 
+    /// <summary>
+    /// Creates a new BadAConsoleSystem instance
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
     protected BadAConsoleSystem(BadRuntime runtime)
     {
         Runtime = runtime;

@@ -11,8 +11,14 @@ namespace BadScript2.Utility.Linq.Queries;
 /// </summary>
 public static class BadLinqQuery
 {
+    /// <summary>
+    /// The registered commands.
+    /// </summary>
     private static readonly List<BadLinqQueryCommand> s_Commands = new List<BadLinqQueryCommand>();
 
+    /// <summary>
+    /// Static Constructor.
+    /// </summary>
     static BadLinqQuery()
     {
         RegisterCommand(new BadLinqQuerySelectCommand());
@@ -28,11 +34,22 @@ public static class BadLinqQuery
         RegisterCommand(new BadLinqQueryOrderByDescendingCommand());
     }
 
+    /// <summary>
+    /// Registers a new command.
+    /// </summary>
+    /// <param name="command">The command to register.</param>
     public static void RegisterCommand(BadLinqQueryCommand command)
     {
         s_Commands.Add(command);
     }
 
+    /// <summary>
+    /// Parses the given linq query and applies it to the given input.
+    /// </summary>
+    /// <param name="linqQuery">The linq query to parse.</param>
+    /// <param name="input">The input to apply the query to.</param>
+    /// <returns>Manipulated input.</returns>
+    /// <exception cref="Exception">Thrown if the query is invalid.</exception>
     public static IEnumerable Parse(string linqQuery, IEnumerable input)
     {
         IEnumerable current = input;

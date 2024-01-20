@@ -78,11 +78,13 @@ public class BadClass : BadObject
         m_BaseClass?.SetThis(thisInstance);
     }
 
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
     }
 
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         if (Scope.GetTable().InnerTable.ContainsKey(propName))
@@ -99,6 +101,14 @@ public class BadClass : BadObject
     }
 
 
+    /// <summary>
+    /// Gets a property from this class or any of its base classes.
+    /// </summary>
+    /// <param name="propName">The name of the property to get.</param>
+    /// <param name="visibility">The visibility of the property to get.</param>
+    /// <param name="caller">The scope of the caller.</param>
+    /// <returns>The property.</returns>
+    /// <exception cref="BadRuntimeException">Thrown if the property is not found or is not visible.</exception>
     public BadObjectReference GetProperty(BadObject propName, BadPropertyVisibility visibility, BadScope? caller = null)
     {
         BadPropertyVisibility vis = BadScope.GetPropertyVisibility(propName);
@@ -186,12 +196,14 @@ public class BadClass : BadObject
         return caller.Provider.GetObjectReference(GetType(), propName, SuperClass ?? this, caller);
     }
 
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         return GetProperty(propName, BadPropertyVisibility.Public, caller);
     }
 
 
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         done.Add(this);

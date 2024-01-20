@@ -5,6 +5,11 @@ namespace BadScript2.Runtime.Interop.Reflection;
 /// </summary>
 public static class BadReflectionExtensions
 {
+    /// <summary>
+    /// Returns true if the Type is a Numeric Type
+    /// </summary>
+    /// <param name="t">The Type to check</param>
+    /// <returns>True if the Type is a Numeric Type</returns>
     public static bool IsNumericType(this Type t)
     {
         switch (Type.GetTypeCode(t))

@@ -36,8 +36,13 @@ public class BadLockExpression : BadExpression
         m_Block = block;
     }
 
+    /// <summary>
+    /// The Block Body
+    /// </summary>
     public IEnumerable<BadExpression> Block => m_Block;
 
+    
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in LockExpression.GetDescendantsAndSelf())
@@ -54,6 +59,7 @@ public class BadLockExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject lockObj = BadObject.Null;

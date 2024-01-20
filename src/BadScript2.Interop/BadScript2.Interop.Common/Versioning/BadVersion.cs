@@ -18,6 +18,9 @@ public class BadVersion : BadObject, IBadNative
     public static readonly BadClassPrototype
         Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 
+    /// <summary>
+    /// The Version Class Prototype
+    /// </summary>
     private static readonly BadClassPrototype s_Prototype;
 
     /// <summary>
@@ -52,16 +55,24 @@ public class BadVersion : BadObject, IBadNative
         );
     }
 
+    /// <summary>
+    /// Checks if the Version is equal to another Version
+    /// </summary>
+    /// <param name="other">Other Version</param>
+    /// <returns>True if the Versions are equal</returns>
     public bool Equals(IBadNative other)
     {
         return other is BadVersion v && m_Version.Equals(v.m_Version);
     }
 
+    /// <inheritdoc/>
     public object Value => m_Version;
 
+    /// <inheritdoc/>
     public Type Type => typeof(Version);
 
 
+    /// <inheritdoc/>
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
@@ -69,6 +80,7 @@ public class BadVersion : BadObject, IBadNative
                base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc/>
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString str)
@@ -87,6 +99,7 @@ public class BadVersion : BadObject, IBadNative
         };
     }
 
+    /// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
@@ -160,6 +173,7 @@ public class BadVersion : BadObject, IBadNative
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count for Version Constructor");
     }
 
+    /// <inheritdoc/>
     public override string ToSafeString(List<BadObject> done)
     {
         return m_Version.ToString();

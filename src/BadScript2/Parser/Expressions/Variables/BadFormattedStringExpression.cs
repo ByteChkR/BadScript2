@@ -40,6 +40,7 @@ public class BadFormattedStringExpression : BadStringExpression
     /// </summary>
     public int ExpressionCount => m_Expressions.Length;
 
+    /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
         for (int i = 0; i < m_Expressions.Length; i++)
@@ -48,6 +49,7 @@ public class BadFormattedStringExpression : BadStringExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         List<BadObject> objs = new List<BadObject>();
@@ -74,6 +76,7 @@ public class BadFormattedStringExpression : BadStringExpression
         yield return string.Format(Value, objs.Cast<object?>().ToArray());
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expr in m_Expressions)

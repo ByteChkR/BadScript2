@@ -11,6 +11,7 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadTaskExtensions : BadInteropExtension
 {
+    /// <inheritdoc/>
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadFunction>(

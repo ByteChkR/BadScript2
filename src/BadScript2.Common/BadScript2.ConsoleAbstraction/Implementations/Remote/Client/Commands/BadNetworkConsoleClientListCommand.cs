@@ -26,6 +26,7 @@ public class BadNetworkConsoleClientListCommand : BadNetworkConsoleClientCommand
         m_Client = client;
     }
 
+	/// <inheritdoc />
     public override void Invoke(string[] args)
     {
         BadConsole.WriteLine("Commands:");

@@ -355,6 +355,7 @@ public class BadLinqExtensions : BadInteropExtension
         return new BadInteropEnumerable(e.Reverse());
     }
 
+	/// <inheritdoc/>
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         Register(provider, "ToArray", (_, e) => ToArray(e), BadNativeClassBuilder.GetNative("Array"));

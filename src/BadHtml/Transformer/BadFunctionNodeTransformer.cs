@@ -18,6 +18,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 {
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:function";
@@ -88,6 +89,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
         return expressions[0];
     }
 
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
     protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? nameAttribute = context.InputNode.Attributes["name"];

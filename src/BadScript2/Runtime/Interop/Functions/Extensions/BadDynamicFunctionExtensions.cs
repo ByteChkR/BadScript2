@@ -8,6 +8,12 @@ namespace BadScript2.Runtime.Interop.Functions.Extensions;
 /// </summary>
 public static partial class BadDynamicFunctionExtensions
 {
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
     public static void SetFunction(this BadObject elem, string propName, Action<BadExecutionContext> func)
     {
         elem.SetFunction(
@@ -21,7 +27,13 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T">The Type of the first Argument</typeparam>
     public static void SetFunction<T>(this BadObject elem, string propName, Action<BadExecutionContext, T> func)
     {
         elem.SetFunction<T>(
@@ -35,7 +47,14 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
     public static void SetFunction<T1, T2>(
         this BadObject elem,
         string propName,
@@ -52,7 +71,15 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
     public static void SetFunction<T1, T2, T3>(
         this BadObject elem,
         string propName,
@@ -69,7 +96,16 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4>(
         this BadObject elem,
         string propName,
@@ -86,7 +122,17 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5>(
         this BadObject elem,
         string propName,
@@ -109,7 +155,18 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6>(
         this BadObject elem,
         string propName,
@@ -133,7 +190,19 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7>(
         this BadObject elem,
         string propName,
@@ -158,7 +227,20 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8>(
         this BadObject elem,
         string propName,
@@ -184,7 +266,21 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
         this BadObject elem,
         string propName,
@@ -211,7 +307,22 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
+    /// <typeparam name="T10">The Type of the tenth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
         this BadObject elem,
         string propName,
@@ -239,7 +350,23 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
+    /// <typeparam name="T10">The Type of the tenth Argument</typeparam>
+    /// <typeparam name="T11">The Type of the eleventh Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
         this BadObject elem,
         string propName,
@@ -268,7 +395,24 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
+    /// <typeparam name="T10">The Type of the tenth Argument</typeparam>
+    /// <typeparam name="T11">The Type of the eleventh Argument</typeparam>
+    /// <typeparam name="T12">The Type of the twelfth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
         this BadObject elem,
         string propName,
@@ -298,7 +442,25 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
+    /// <typeparam name="T10">The Type of the tenth Argument</typeparam>
+    /// <typeparam name="T11">The Type of the eleventh Argument</typeparam>
+    /// <typeparam name="T12">The Type of the twelfth Argument</typeparam>
+    /// <typeparam name="T13">The Type of the thirteenth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
         this BadObject elem,
         string propName,
@@ -329,7 +491,26 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
-
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
+    /// <typeparam name="T10">The Type of the tenth Argument</typeparam>
+    /// <typeparam name="T11">The Type of the eleventh Argument</typeparam>
+    /// <typeparam name="T12">The Type of the twelfth Argument</typeparam>
+    /// <typeparam name="T13">The Type of the thirteenth Argument</typeparam>
+    /// <typeparam name="T14">The Type of the fourteenth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
         this BadObject elem,
         string propName,
@@ -362,6 +543,27 @@ public static partial class BadDynamicFunctionExtensions
         );
     }
 
+    /// <summary>
+    /// Sets a Function on the given Object
+    /// </summary>
+    /// <param name="elem">The Object to set the Function on</param>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="func">The Function to set</param>
+    /// <typeparam name="T1">The Type of the first Argument</typeparam>
+    /// <typeparam name="T2">The Type of the second Argument</typeparam>
+    /// <typeparam name="T3">The Type of the third Argument</typeparam>
+    /// <typeparam name="T4">The Type of the fourth Argument</typeparam>
+    /// <typeparam name="T5">The Type of the fifth Argument</typeparam>
+    /// <typeparam name="T6">The Type of the sixth Argument</typeparam>
+    /// <typeparam name="T7">The Type of the seventh Argument</typeparam>
+    /// <typeparam name="T8">The Type of the eighth Argument</typeparam>
+    /// <typeparam name="T9">The Type of the ninth Argument</typeparam>
+    /// <typeparam name="T10">The Type of the tenth Argument</typeparam>
+    /// <typeparam name="T11">The Type of the eleventh Argument</typeparam>
+    /// <typeparam name="T12">The Type of the twelfth Argument</typeparam>
+    /// <typeparam name="T13">The Type of the thirteenth Argument</typeparam>
+    /// <typeparam name="T14">The Type of the fourteenth Argument</typeparam>
+    /// <typeparam name="T15">The Type of the fifteenth Argument</typeparam>
     public static void SetFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
         this BadObject elem,
         string propName,

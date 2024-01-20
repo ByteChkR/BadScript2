@@ -29,11 +29,19 @@ public class BadPostIncrementExpression : BadExpression
         Left = left;
     }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Left.GetDescendantsAndSelf();
     }
 
+    /// <summary>
+    /// Executes the Operator
+    /// </summary>
+    /// <param name="reference">Reference to the left side of the expression</param>
+    /// <param name="position">Position of the expression</param>
+    /// <returns>Returns the result of the operation</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
     {
         BadObject value = reference.Dereference();
@@ -48,6 +56,7 @@ public class BadPostIncrementExpression : BadExpression
         return value;
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -69,7 +78,14 @@ public class BadPostIncrementExpression : BadExpression
             yield return o;
         }
     }
-
+    /// <summary>
+    /// Executes the Operator
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="leftRef">Reference to the left side of the expression</param>
+    /// <param name="position">Position of the expression</param>
+    /// <returns>Returns the result of the operation</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static IEnumerable<BadObject> IncrementWithOverride(
         BadExecutionContext? context,
         BadObjectReference leftRef,

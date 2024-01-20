@@ -23,7 +23,7 @@ public class BadInstanceOfExpression : BadBinaryExpression
         right,
         position
     ) { }
-
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -61,6 +61,7 @@ public class BadInstanceOfExpression : BadBinaryExpression
         yield return type.IsSuperClassOf(left.GetPrototype());
     }
 
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "instanceof";

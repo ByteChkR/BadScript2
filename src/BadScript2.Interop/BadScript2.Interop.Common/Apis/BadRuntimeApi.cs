@@ -182,6 +182,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty(
@@ -270,6 +271,12 @@ public class BadRuntimeApi : BadInteropApi
         target.SetFunction("NewGuid", () => Guid.NewGuid().ToString(), BadNativeClassBuilder.GetNative("string"));
     }
 
+    /// <summary>
+    /// Validates a source string
+    /// </summary>
+    /// <param name="source">The Source String</param>
+    /// <param name="file">The File Name</param>
+    /// <returns>Validation Result</returns>
     private static BadObject ValidateSource(string source, string file)
     {
         BadExpressionValidatorContext result =
@@ -299,6 +306,11 @@ public class BadRuntimeApi : BadInteropApi
         return ret;
     }
 
+    /// <summary>
+    /// Parses a date string
+    /// </summary>
+    /// <param name="date">The Date String</param>
+    /// <returns>Bad Table with the parsed date</returns>
     private static BadObject ParseDate(string date)
     {
         DateTimeOffset d = DateTimeOffset.Parse(date);
@@ -306,6 +318,11 @@ public class BadRuntimeApi : BadInteropApi
         return GetDateTime(d);
     }
 
+    /// <summary>
+    /// Converts a DateTimeOffset to a Bad Table
+    /// </summary>
+    /// <param name="time">The DateTimeOffset</param>
+    /// <returns>Bad Table with the given DateTimeOffset</returns>
     private static BadObject GetDateTime(DateTimeOffset time)
     {
         BadTable table = new BadTable();
@@ -437,6 +454,12 @@ public class BadRuntimeApi : BadInteropApi
         return table;
     }
 
+    /// <summary>
+    /// Creates a DateTime from a BadTable
+    /// </summary>
+    /// <param name="dateTable">The BadTable</param>
+    /// <param name="timeZone">The TimeZone to use</param>
+    /// <returns>The DateTime</returns>
     private static DateTime CreateDate(BadTable dateTable, string? timeZone = null)
     {
         //Convert Year, Month,Day, Hour,Minute, Second, Millisecond from IBadNumber to int
@@ -676,6 +699,13 @@ public class BadRuntimeApi : BadInteropApi
         return task;
     }
 
+    /// <summary>
+    /// Wrapper that will execute a script and catch any errors that occur
+    /// </summary>
+    /// <param name="script">The Script to execute</param>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="getTask">The Task Getter</param>
+    /// <returns></returns>
     private static IEnumerable<BadObject> SafeExecute(
         IEnumerable<BadObject> script,
         BadExecutionContext ctx,

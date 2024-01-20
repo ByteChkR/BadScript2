@@ -81,6 +81,7 @@ public class BadConsoleApi : BadInteropApi
         return System.Threading.Tasks.Task.Run(Console.ReadLine);
     }
 
+	/// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction("WriteLine", OnWriteLine);

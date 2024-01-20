@@ -16,6 +16,7 @@ public class BadNetApi : BadInteropApi
     /// </summary>
     public BadNetApi() : base("Net") { }
 
+    /// <inheritdoc/>
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction<string>("Get", Get, BadTask.Prototype);

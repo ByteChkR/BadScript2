@@ -26,6 +26,7 @@ public class BadConsoleDebugger : IBadDebugger
     /// </summary>
     private string? m_LastSource;
 
+    /// <inheritdoc />
     public void Step(BadDebuggerStep stepInfo)
     {
         string view = stepInfo.GetSourceView(Array.Empty<int>(), out int _, out int lineInSource);

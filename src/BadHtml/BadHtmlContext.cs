@@ -160,6 +160,13 @@ public class BadHtmlContext
         return expressions.SelectMany(expression => expression.GetDescendantsAndSelf());
     }
 
+	/// <summary>
+	/// Parses a single Expression from the specified code and returns it with its position set to the specified position
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>Parsed Expression</returns>
+	/// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
     public BadExpression ParseSingle(string code, BadSourcePosition pos)
     {
         try
@@ -260,6 +267,14 @@ public class BadHtmlContext
         }
     }
 
+    /// <summary>
+    /// Executes the specified expression
+    /// </summary>
+    /// <param name="expression">The Expression</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    /// <returns>The Result of the Execution</returns>
+    /// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
+    /// <exception cref="BadRuntimeException">Gets raised if the execution failed.</exception>
     public BadObject Execute(BadExpression expression, BadSourcePosition position)
     {
         try
@@ -292,6 +307,12 @@ public class BadHtmlContext
         return Execute(expressions, pos);
     }
 
+    /// <summary>
+    /// Parses and executes the specified code and returns the result of the last expression
+    /// </summary>
+    /// <param name="code">The Bad Script Source Code</param>
+    /// <param name="pos">The Source Position of the Code</param>
+    /// <returns>The Result of the Execution</returns>
     public BadObject ParseAndExecuteSingle(string code, BadSourcePosition pos)
     {
         BadExpression expression = ParseSingle(code, pos);

@@ -29,6 +29,7 @@ public class BadLogicNotExpression : BadExpression
     /// </summary>
     public BadExpression Right { get; }
 
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Right.GetDescendantsAndSelf();
@@ -55,6 +56,13 @@ public class BadLogicNotExpression : BadExpression
         );
     }
 
+    /// <summary>
+    /// Executes the expression
+    /// </summary>
+    /// <param name="context">The caller.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="position">The position.</param>
+    /// <returns>Result of the operator override.(last item)</returns>
     public static IEnumerable<BadObject> NotWithOverride(
         BadExecutionContext? context,
         BadObject left,
@@ -73,6 +81,7 @@ public class BadLogicNotExpression : BadExpression
         }
     }
 
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject r = BadObject.Null;
@@ -97,6 +106,10 @@ public class BadLogicNotExpression : BadExpression
         }
     }
 
+    /// <summary>
+    /// Returns the string representation of the Expression
+    /// </summary>
+    /// <returns>!{Right}</returns>
     public override string ToString()
     {
         return $"!{Right}";

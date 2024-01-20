@@ -13,6 +13,7 @@ public class BadGreaterOrEqualOperator : BadBinaryOperator
 	/// </summary>
 	public BadGreaterOrEqualOperator() : base(9, ">=") { }
 
+	/// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);
