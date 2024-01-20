@@ -8,19 +8,21 @@ public class
 {
     protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
     {
-        if (expr.TypeExpression == null)
+        if (expr.TypeExpression != null)
         {
-            foreach (BadReturnExpression e in GetReturnExpressions(expr.Body))
+            return;
+        }
+
+        foreach (BadReturnExpression e in GetReturnExpressions(expr.Body))
+        {
+            if (e.Right != null)
             {
-                if (e.Right != null)
-                {
-                    context.AddWarning(
-                        $"The Return statement '{e}' can not return a value.",
-                        expr,
-                        e,
-                        this
-                    );
-                }
+                context.AddWarning(
+                    $"The Return statement '{e}' can not return a value.",
+                    expr,
+                    e,
+                    this
+                );
             }
         }
     }

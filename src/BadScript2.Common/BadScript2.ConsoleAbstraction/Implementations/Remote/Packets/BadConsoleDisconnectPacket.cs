@@ -30,6 +30,11 @@ public class BadConsoleDisconnectPacket : BadConsolePacket
     /// <returns>Bad Console Packet instance</returns>
     public new static BadConsoleDisconnectPacket Deserialize(byte[] data)
     {
+        if (data.Length != 1)
+        {
+            throw new BadNetworkConsoleException("Invalid Disconnect Packet");
+        }
+
         return Packet;
     }
 }

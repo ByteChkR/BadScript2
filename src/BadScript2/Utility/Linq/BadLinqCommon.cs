@@ -43,14 +43,7 @@ internal static class BadLinqCommon
         }
         else
         {
-            if (BadObject.CanWrap(o))
-            {
-                ctx.Scope.DefineVariable(varName, BadObject.Wrap(o));
-            }
-            else
-            {
-                ctx.Scope.DefineVariable(varName, new BadReflectedObject(o!));
-            }
+            ctx.Scope.DefineVariable(varName, BadObject.CanWrap(o) ? BadObject.Wrap(o) : new BadReflectedObject(o!));
         }
 
         BadObject r = BadObject.Null;
@@ -77,14 +70,7 @@ internal static class BadLinqCommon
 
     public static object?[] ToArray(this IEnumerable enumerable)
     {
-        List<object?> list = new List<object?>();
-
-        foreach (object? o in enumerable)
-        {
-            list.Add(o);
-        }
-
-        return list.ToArray();
+        return Enumerable.ToArray(enumerable.Cast<object?>());
     }
 
     public static IEnumerable<BadExpression> Parse(string src)

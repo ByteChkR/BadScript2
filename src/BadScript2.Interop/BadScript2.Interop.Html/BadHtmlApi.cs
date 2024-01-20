@@ -54,7 +54,7 @@ public class BadHtmlApi : BadInteropApi
     ///     Gets thrown if the file argument is not a IBadString or the skipEmptyTextNodes
     ///     argument is not a IBadBoolean
     /// </exception>
-    private BadObject RunTemplate(BadExecutionContext context, BadObject[] args)
+    private static BadObject RunTemplate(BadExecutionContext context, BadObject[] args)
     {
         BadObject fileObj = args[0];
         BadObject model = BadObject.Null;

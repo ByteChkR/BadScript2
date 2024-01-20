@@ -42,12 +42,14 @@ public class BadReturnExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        if (Right != null)
+        if (Right == null)
         {
-            foreach (BadExpression right in Right.GetDescendantsAndSelf())
-            {
-                yield return right;
-            }
+            yield break;
+        }
+
+        foreach (BadExpression right in Right.GetDescendantsAndSelf())
+        {
+            yield return right;
         }
     }
 
@@ -91,6 +93,6 @@ public class BadReturnExpression : BadExpression
 
     public override string ToString()
     {
-        return "return " + Right ?? "";
+        return "return " + (Right?.ToString() ?? "");
     }
 }

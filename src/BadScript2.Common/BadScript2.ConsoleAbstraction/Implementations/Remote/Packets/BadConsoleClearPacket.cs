@@ -22,6 +22,11 @@ public class BadConsoleClearPacket : BadConsolePacket
 	/// <returns>Bad Console Packet instance</returns>
 	public new static BadConsoleClearPacket Deserialize(byte[] data)
     {
+        if (data.Length != 1)
+        {
+            throw new BadNetworkConsoleException("Invalid Clear Packet");
+        }
+
         return Packet;
     }
 

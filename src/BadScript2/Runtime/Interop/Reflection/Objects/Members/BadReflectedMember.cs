@@ -20,13 +20,8 @@ public abstract class BadReflectedMember
 
     public abstract void Set(object instance, BadObject o);
 
-    protected BadObject Wrap(object? o)
+    protected static BadObject Wrap(object? o)
     {
-        if (BadObject.CanWrap(o))
-        {
-            return BadObject.Wrap(o);
-        }
-
-        return new BadReflectedObject(o!);
+        return BadObject.CanWrap(o) ? BadObject.Wrap(o) : new BadReflectedObject(o!);
     }
 }

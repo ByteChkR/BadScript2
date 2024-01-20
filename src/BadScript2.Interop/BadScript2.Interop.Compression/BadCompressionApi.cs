@@ -56,6 +56,7 @@ public class BadCompressionApi : BadInteropApi
     /// <summary>
     ///     Inflate the given array
     /// </summary>
+    /// <param name="ctx">The Current Calling Execution Context</param>
     /// <param name="obj">Array</param>
     /// <returns>String</returns>
     private static BadObject Inflate(BadExecutionContext ctx, BadObject obj)
@@ -102,6 +103,7 @@ public class BadCompressionApi : BadInteropApi
     /// <summary>
     ///     GZip Decompress the given array
     /// </summary>
+    /// <param name="ctx">The Current Calling Execution Context</param>
     /// <param name="obj">Array</param>
     /// <returns>String</returns>
     private static BadObject GZipDecompress(BadExecutionContext ctx, BadObject obj)
@@ -148,6 +150,7 @@ public class BadCompressionApi : BadInteropApi
     /// <summary>
     ///     ZLib Decompress the given array
     /// </summary>
+    /// <param name="ctx">The Current Calling Execution Context</param>
     /// <param name="obj">Array</param>
     /// <returns>String</returns>
     private static BadObject ZLibDecompress(BadExecutionContext ctx, BadObject obj)

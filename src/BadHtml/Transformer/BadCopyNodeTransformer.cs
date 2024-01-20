@@ -1,5 +1,6 @@
 using HtmlAgilityPack;
 
+// ReSharper disable once InvalidXmlDocComment
 ///<summary>
 ///	Implementations of Html Node Transformers that are used in the Transformation Process
 /// </summary>
@@ -11,12 +12,12 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadCopyNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return true;
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         //Clone Node(not children)
         HtmlNode? node = context.InputNode.CloneNode(false);

@@ -14,7 +14,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadForEachNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:each";
     }
@@ -25,7 +25,7 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
     /// <param name="context">The Html Context</param>
     /// <param name="name">The Variable name of the foreach block</param>
     /// <param name="obj">The Value of the current iteration</param>
-    private void RunIteration(BadHtmlContext context, string name, BadObject obj)
+    private static void RunIteration(BadHtmlContext context, string name, BadObject obj)
     {
         BadExecutionContext loopContext = new BadExecutionContext(
             context.ExecutionContext.Scope.CreateChild(
@@ -45,7 +45,7 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
         }
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? enumerationAttribute = context.InputNode.Attributes["on"];
         HtmlAttribute? itemAttribute = context.InputNode.Attributes["as"];
@@ -91,54 +91,63 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
             context.CreateAttributePosition(enumerationAttribute)
         );
 
-        if (enumeration is IBadEnumerable badEnumerable)
+        switch (enumeration)
         {
-            foreach (BadObject o in badEnumerable)
+            case IBadEnumerable badEnumerable:
             {
-                RunIteration(context, itemAttribute.Value, o);
+                foreach (BadObject o in badEnumerable)
+                {
+                    RunIteration(context, itemAttribute.Value, o);
+                }
+
+                break;
             }
-        }
-        else if (enumeration is IBadEnumerator badEnumerator)
-        {
-            while (badEnumerator.MoveNext())
+            case IBadEnumerator badEnumerator:
             {
-                RunIteration(
-                    context,
-                    itemAttribute.Value,
-                    badEnumerator.Current ??
-                    throw BadRuntimeException.Create(
-                        context.ExecutionContext.Scope,
-                        "Enumerator returned null",
-                        context.CreateAttributePosition(enumerationAttribute)
-                    )
+                while (badEnumerator.MoveNext())
+                {
+                    RunIteration(
+                        context,
+                        itemAttribute.Value,
+                        badEnumerator.Current ??
+                        throw BadRuntimeException.Create(
+                            context.ExecutionContext.Scope,
+                            "Enumerator returned null",
+                            context.CreateAttributePosition(enumerationAttribute)
+                        )
+                    );
+                }
+
+                break;
+            }
+            case IEnumerable enumerable:
+            {
+                foreach (object? o in enumerable)
+                {
+                    RunIteration(context, itemAttribute.Value, BadObject.Wrap(o));
+                }
+
+                break;
+            }
+            case IEnumerator enumerator:
+            {
+                while (enumerator.MoveNext())
+                {
+                    RunIteration(
+                        context,
+                        itemAttribute.Value,
+                        BadObject.Wrap(enumerator.Current)
+                    );
+                }
+
+                break;
+            }
+            default:
+                throw BadRuntimeException.Create(
+                    context.ExecutionContext.Scope,
+                    "Result of 'on' attribute in 'bs:each' node is not enumerable",
+                    context.CreateAttributePosition(enumerationAttribute)
                 );
-            }
-        }
-        else if (enumeration is IEnumerable enumerable)
-        {
-            foreach (object? o in enumerable)
-            {
-                RunIteration(context, itemAttribute.Value, BadObject.Wrap(o));
-            }
-        }
-        else if (enumeration is IEnumerator enumerator)
-        {
-            while (enumerator.MoveNext())
-            {
-                RunIteration(
-                    context,
-                    itemAttribute.Value,
-                    BadObject.Wrap(enumerator.Current)
-                );
-            }
-        }
-        else
-        {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Result of 'on' attribute in 'bs:each' node is not enumerable",
-                context.CreateAttributePosition(enumerationAttribute)
-            );
         }
     }
 }

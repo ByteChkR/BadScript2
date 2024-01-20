@@ -17,10 +17,13 @@ public class BadInteropTests
     {
         BadObject num = 10;
         BadObject table = new BadTable();
-        Assert.That(num.CanUnwrap(), Is.True);
-        Assert.That(table.CanUnwrap(), Is.False);
-        Assert.That(num.Unwrap(), Is.EqualTo((decimal)10));
-        Assert.That(() => table.Unwrap(), Throws.InstanceOf<BadRuntimeException>());
+        Assert.Multiple(() =>
+        {
+            Assert.That(num.CanUnwrap(), Is.True);
+            Assert.That(table.CanUnwrap(), Is.False);
+            Assert.That(num.Unwrap(), Is.EqualTo((decimal)10));
+            Assert.That(() => table.Unwrap(), Throws.InstanceOf<BadRuntimeException>());
+        });
     }
 
     [Test]
@@ -32,8 +35,11 @@ public class BadInteropTests
         BadObject nativeTest = new BadNative<Version>(v);
         Assert.That(num.Unwrap<decimal>(), Is.EqualTo(10));
         Assert.That(() => table.Unwrap<decimal>(), Throws.InstanceOf<BadRuntimeException>());
-        Assert.That(table.Unwrap<BadTable>(), Is.EqualTo(table));
-        Assert.That(nativeTest.Unwrap<Version>(), Is.EqualTo(v));
+        Assert.Multiple(() =>
+        {
+            Assert.That(table.Unwrap<BadTable>(), Is.EqualTo(table));
+            Assert.That(nativeTest.Unwrap<Version>(), Is.EqualTo(v));
+        });
     }
 
     [Test]
@@ -42,7 +48,7 @@ public class BadInteropTests
         BadInteropExtensionProvider provider = new BadInteropExtensionProvider();
         provider.RegisterGlobal("Test", BadObject.Null);
         Assert.That(provider.GetExtensionNames(), Contains.Item((BadObject)"Test"));
-        provider.RegisterObject<decimal>("Test1", o => BadObject.Null);
+        provider.RegisterObject<decimal>("Test1", _ => BadObject.Null);
         Assert.That(provider.GetExtensionNames(10), Contains.Item((BadObject)"Test1"));
     }
 
@@ -51,8 +57,11 @@ public class BadInteropTests
     {
         BadInteropEnumerable e =
             new BadInteropEnumerable(System.Linq.Enumerable.Range(0, 10).Select(x => (BadObject)x));
-        Assert.That(e.GetPrototype(), Is.InstanceOf<BadClassPrototype>());
-        Assert.That(e.HasProperty("GetEnumerator"), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(e.GetPrototype(), Is.InstanceOf<BadClassPrototype>());
+            Assert.That(e.HasProperty("GetEnumerator"), Is.True);
+        });
         BadObject getEnumerator = e.GetProperty("GetEnumerator").Dereference();
         Assert.That(getEnumerator, Is.InstanceOf<BadDynamicInteropFunction>());
         BadObject enumerator = ((BadDynamicInteropFunction)getEnumerator)
@@ -66,9 +75,12 @@ public class BadInteropTests
     {
         Version v = new Version();
         BadReflectedObject obj = new BadReflectedObject(v);
-        Assert.That(obj.GetPrototype(), Is.InstanceOf<BadClassPrototype>());
-        Assert.That(obj.HasProperty("Major"), Is.True);
-        Assert.That(obj.GetProperty("Major").Dereference(), Is.EqualTo((BadObject)0));
+        Assert.Multiple(() =>
+        {
+            Assert.That(obj.GetPrototype(), Is.InstanceOf<BadClassPrototype>());
+            Assert.That(obj.HasProperty("Major"), Is.True);
+            Assert.That(obj.GetProperty("Major").Dereference(), Is.EqualTo((BadObject)0));
+        });
         BadFunction toString = (BadFunction)obj.GetProperty("ToString").Dereference();
         Assert.That(
             toString

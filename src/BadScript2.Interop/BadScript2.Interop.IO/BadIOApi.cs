@@ -92,16 +92,16 @@ public class BadIOApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Paths</param>
     /// <returns>Combined Path String</returns>
-    private BadObject Combine(BadObject[] arg)
+    private static BadObject Combine(BadObject[] arg)
     {
-        return Path.Combine(arg.Select(x => x.ToString()!).ToArray());
+        return Path.Combine(arg.Select(x => x.ToString()).ToArray());
     }
 
-    private void CreateMoveCopy(BadTable t)
+    private void CreateMoveCopy(BadObject t)
     {
         BadInteropFunction move = new BadInteropFunction(
             "Move",
-            (c, a) =>
+            (_, a) =>
             {
                 IBadString src = (IBadString)a[0];
                 IBadString dst = (IBadString)a[1];
@@ -119,7 +119,7 @@ public class BadIOApi : BadInteropApi
 
         BadInteropFunction copy = new BadInteropFunction(
             "Copy",
-            (c, a) =>
+            (_, a) =>
             {
                 IBadString src = (IBadString)a[0];
                 IBadString dst = (IBadString)a[1];
@@ -257,7 +257,7 @@ public class BadIOApi : BadInteropApi
                     throw new BadRuntimeException("IO.File.WriteAllLines: Argument is not of type IEnumerable");
                 }
 
-                m_FileSystem.WriteAllLines(s, arr.Select(x => x.ToString()!));
+                m_FileSystem.WriteAllLines(s, arr.Select(x => x.ToString()));
 
                 return BadObject.Null;
             },
@@ -302,7 +302,12 @@ public class BadIOApi : BadInteropApi
             {
                 using Stream stream = m_FileSystem.OpenRead(s);
                 byte[] bytes = new byte[stream.Length];
-                stream.Read(bytes, 0, bytes.Length);
+                int read = stream.Read(bytes, 0, bytes.Length);
+                
+                if (read != bytes.Length)
+                {
+                    throw new BadRuntimeException("IO.File.ReadAllBytes: Could not read all bytes");
+                }
 
                 return new BadArray(bytes.Select(x => (BadObject)new BadNumber(x)).ToList());
             },

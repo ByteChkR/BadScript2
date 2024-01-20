@@ -9,17 +9,18 @@ namespace BadScript2.Runtime.Objects.Types;
 public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     where T : BadObject
 {
-	/// <summary>
-	///     Creates a new Native Class Prototype
-	/// </summary>
-	/// <param name="name">Class Name</param>
-	/// <param name="func">Class Constructor</param>
-	public BadNativeClassPrototype(
+    /// <summary>
+    ///     Creates a new Native Class Prototype
+    /// </summary>
+    /// <param name="name">Class Name</param>
+    /// <param name="func">Class Constructor</param>
+    /// <param name="interfaces">The Implemented interfaces</param>
+    public BadNativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func,
         params BadInterfacePrototype[] interfaces) : base(name, func, null, interfaces) { }
 
-    public override bool IsAbstract { get; } = false;
+    public override bool IsAbstract => false;
 
     public override bool IsAssignableFrom(BadObject obj)
     {
@@ -28,11 +29,6 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
             return true;
         }
 
-        if (obj is T)
-        {
-            return true;
-        }
-
-        return false;
+        return obj is T;
     }
 }

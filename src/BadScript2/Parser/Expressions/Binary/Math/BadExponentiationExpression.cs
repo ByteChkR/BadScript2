@@ -66,13 +66,13 @@ public class BadExponentiationExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ExponentiationOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.EXPONENTIATION_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.ExponentiationOperatorName,
+                         BadStaticKeys.EXPONENTIATION_OPERATOR_NAME,
                          position
                      ))
             {
@@ -95,12 +95,14 @@ public class BadExponentiationExpression : BadBinaryExpression
     /// <exception cref="BadRuntimeException">Gets raised if the given values are not of type IBadNumber</exception>
     public static BadObject Exp(BadObject left, BadObject right, BadSourcePosition position)
     {
-        if (left is IBadNumber lNum)
+        if (left is not IBadNumber lNum)
         {
-            if (right is IBadNumber rNum)
-            {
-                return BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
-            }
+            throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", position);
+        }
+
+        if (right is IBadNumber rNum)
+        {
+            return BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
         }
 
         throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", position);

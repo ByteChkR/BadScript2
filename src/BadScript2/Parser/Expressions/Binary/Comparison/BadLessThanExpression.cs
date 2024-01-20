@@ -47,26 +47,26 @@ public class BadLessThanExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.LessOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.LESS_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.LessOperatorName,
+                         BadStaticKeys.LESS_OPERATOR_NAME,
                          position
                      ))
             {
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.LessOperatorName, context?.Scope))
+        else if (right.HasProperty(BadStaticKeys.LESS_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          context!,
-                         BadStaticKeys.LessOperatorName,
+                         BadStaticKeys.LESS_OPERATOR_NAME,
                          position
                      ))
             {

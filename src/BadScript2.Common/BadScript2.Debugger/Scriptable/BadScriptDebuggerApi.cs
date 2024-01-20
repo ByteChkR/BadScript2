@@ -24,6 +24,7 @@ public class BadScriptDebuggerApi : BadInteropApi
     ///     Constructs a new BadScriptDebuggerApi instance
     /// </summary>
     /// <param name="debugger">The Debugger Instance</param>
+    /// <param name="path">The Debugger Path</param>
     public BadScriptDebuggerApi(BadScriptDebugger debugger, string? path = null) : base("Debugger")
     {
         m_Debugger = debugger;

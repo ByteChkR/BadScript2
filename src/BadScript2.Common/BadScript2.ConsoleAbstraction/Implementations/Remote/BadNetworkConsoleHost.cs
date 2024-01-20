@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -216,7 +215,7 @@ public class BadNetworkConsoleHost : IBadConsole
     {
         while (!m_ExitRequested)
         {
-            if (m_Listener != null && (m_Client == null || !m_Client.Connected))
+            if (m_Listener != null && m_Client is not { Connected: true })
             {
                 m_Listener.Start();
                 BadConsole.WriteLine($"[Console Host] Waiting for Connection on {m_Listener.LocalEndpoint}");
@@ -239,12 +238,11 @@ public class BadNetworkConsoleHost : IBadConsole
             }
 
             m_OutgoingPackets.Enqueue(new BadConsoleHelloPacket(HeartBeatInterval));
-            bool done;
             DateTime lastHeartBeat = DateTime.Now;
 
             while (!m_ExitRequested && m_Client != null && m_Client!.Connected)
             {
-                done = false;
+                bool done = false;
 
                 if (m_Client.Available != 0)
                 {
@@ -300,19 +298,21 @@ public class BadNetworkConsoleHost : IBadConsole
                         byte[] packetBytes = packet.Serialize();
                         packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
                         packetData.AddRange(packetBytes);
-                        stream.Write(packetData.ToArray(), 0, packetData.Count());
+                        stream.Write(packetData.ToArray(), 0, packetData.Count);
                     }
                 }
 
-                if (!done)
+                if (done)
                 {
-                    if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
-                    {
-                        m_Client?.Dispose();
-                    }
-
-                    Thread.Sleep(ReceiveSleepTimeout);
+                    continue;
                 }
+
+                if (lastHeartBeat + TimeSpan.FromMilliseconds(HeartBeatTimeOut) < DateTime.Now)
+                {
+                    m_Client?.Dispose();
+                }
+
+                Thread.Sleep(ReceiveSleepTimeout);
             }
         }
 
@@ -323,7 +323,7 @@ public class BadNetworkConsoleHost : IBadConsole
             byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
             packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
             packetData.AddRange(packetBytes);
-            stream.Write(packetData.ToArray(), 0, packetData.Count());
+            stream.Write(packetData.ToArray(), 0, packetData.Count);
             m_Client.Dispose();
             m_Client = null;
         }

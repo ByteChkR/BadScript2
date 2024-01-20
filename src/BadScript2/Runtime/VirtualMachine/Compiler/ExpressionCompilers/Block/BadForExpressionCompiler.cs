@@ -15,15 +15,7 @@ public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
             yield return instruction;
         }
 
-        List<BadInstruction> instructions = new List<BadInstruction>();
-
-
-        //Condition
-        foreach (BadInstruction instruction in compiler.Compile(expression.Condition))
-        {
-            instructions.Add(instruction);
-        }
-
+        List<BadInstruction> instructions = compiler.Compile(expression.Condition).ToList();
 
         //jump to end if false
         int endJump = instructions.Count;
@@ -46,10 +38,7 @@ public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
         instructions.Add(new BadInstruction());
 
         //Loop
-        foreach (BadInstruction instruction in compiler.Compile(expression.Body))
-        {
-            instructions.Add(instruction);
-        }
+        instructions.AddRange(compiler.Compile(expression.Body));
 
         //DestroyScope
         instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
@@ -58,10 +47,7 @@ public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
         int continueJump = instructions.Count;
 
         //Increment
-        foreach (BadInstruction instruction in compiler.Compile(expression.VarIncrement))
-        {
-            instructions.Add(instruction);
-        }
+        instructions.AddRange(compiler.Compile(expression.VarIncrement));
 
 
         instructions.Add(new BadInstruction(BadOpCode.JumpRelative, expression.Position, -instructions.Count - 1));

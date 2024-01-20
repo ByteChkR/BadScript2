@@ -18,6 +18,8 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
 	/// </summary>
 	/// <param name="name">Class Name</param>
 	/// <param name="func">Class Constructor</param>
+	/// <param name="interfaces">The Implemented Interfaces</param>
+	/// <param name="meta">The Metadata of the Class</param>
 	protected BadANativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func,

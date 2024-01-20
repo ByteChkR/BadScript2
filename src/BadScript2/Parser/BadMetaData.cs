@@ -73,15 +73,16 @@ public class BadMetaData : BadObject
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (propName is IBadString s)
+        if (propName is not IBadString s)
         {
-            if (s.Value == "Description")
-            {
-                return BadObjectReference.Make("BadMetaData.Description", () => Description);
-            }
+            return base.GetProperty(propName, caller);
+        }
 
-            if (s.Value == "Return")
-            {
+        switch (s.Value)
+        {
+            case "Description":
+                return BadObjectReference.Make("BadMetaData.Description", () => Description);
+            case "Return":
                 return BadObjectReference.Make(
                     "BadMetaData.Return",
                     () => new BadTable(
@@ -96,10 +97,7 @@ public class BadMetaData : BadObject
                         }
                     )
                 );
-            }
-
-            if (s.Value == "Parameters")
-            {
+            case "Parameters":
                 return BadObjectReference.Make(
                     "BadMetaData.Parameters",
                     () => new BadTable(
@@ -119,7 +117,6 @@ public class BadMetaData : BadObject
                         )
                     )
                 );
-            }
         }
 
         return base.GetProperty(propName, caller);

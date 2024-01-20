@@ -30,13 +30,7 @@ public class BadUsingExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression expr in m_Expressions)
-        {
-            foreach (BadExpression e in expr.GetDescendantsAndSelf())
-            {
-                yield return e;
-            }
-        }
+        return m_Expressions.SelectMany(expr => expr.GetDescendantsAndSelf());
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

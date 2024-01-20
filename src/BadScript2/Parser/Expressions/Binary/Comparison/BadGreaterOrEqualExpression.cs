@@ -48,26 +48,26 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.GreaterEqualOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.GREATER_EQUAL_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.GreaterEqualOperatorName,
+                         BadStaticKeys.GREATER_EQUAL_OPERATOR_NAME,
                          position
                      ))
             {
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.GreaterEqualOperatorName, context?.Scope))
+        else if (right.HasProperty(BadStaticKeys.GREATER_EQUAL_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          context!,
-                         BadStaticKeys.GreaterEqualOperatorName,
+                         BadStaticKeys.GREATER_EQUAL_OPERATOR_NAME,
                          position
                      ))
             {

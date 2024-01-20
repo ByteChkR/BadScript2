@@ -30,12 +30,7 @@ public class BadEqualityExpression : BadBinaryExpression
 	/// <returns>True if left is equal to right</returns>
 	public static BadObject Equal(BadObject left, BadObject right)
     {
-        if (left.Equals(right))
-        {
-            return BadObject.True;
-        }
-
-        return BadObject.False;
+        return left.Equals(right) ? BadObject.True : BadObject.False;
     }
 
     public static IEnumerable<BadObject> EqualWithOverride(
@@ -44,26 +39,26 @@ public class BadEqualityExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.EqualOperatorName, caller?.Scope))
+        if (left.HasProperty(BadStaticKeys.EQUAL_OPERATOR_NAME, caller?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          caller!,
-                         BadStaticKeys.EqualOperatorName,
+                         BadStaticKeys.EQUAL_OPERATOR_NAME,
                          position
                      ))
             {
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.EqualOperatorName, caller?.Scope))
+        else if (right.HasProperty(BadStaticKeys.EQUAL_OPERATOR_NAME, caller?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          caller!,
-                         BadStaticKeys.EqualOperatorName,
+                         BadStaticKeys.EQUAL_OPERATOR_NAME,
                          position
                      ))
             {

@@ -35,12 +35,7 @@ public class BadReflectedMemberTable
     {
         if (m_Members.TryGetValue(name, out BadReflectedMember member))
         {
-            if (member.IsReadOnly)
-            {
-                return BadObjectReference.Make(name, () => member.Get(instance));
-            }
-
-            return BadObjectReference.Make(name, () => member.Get(instance), (o, i) => member.Set(instance, o));
+            return member.IsReadOnly ? BadObjectReference.Make(name, () => member.Get(instance)) : BadObjectReference.Make(name, () => member.Get(instance), (o, _) => member.Set(instance, o));
         }
 
         throw new BadRuntimeException("Member " + name + " not found");
@@ -71,7 +66,7 @@ public class BadReflectedMemberTable
 
         if (t.IsArray)
         {
-            members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(t.GetMethod("Get")));
+            members.Add(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, new BadReflectedMethod(t.GetMethod("Get")!));
         }
 
         foreach (MemberInfo info in t.GetMembers())
@@ -84,9 +79,9 @@ public class BadReflectedMemberTable
             {
                 if (property.Name == "Item" && property.GetIndexParameters().Length > 0)
                 {
-                    if (!members.ContainsKey(BadStaticKeys.ArrayAccessOperatorName))
+                    if (!members.ContainsKey(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME))
                     {
-                        members.Add(BadStaticKeys.ArrayAccessOperatorName, new BadReflectedMethod(property.GetMethod));
+                        members.Add(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, new BadReflectedMethod(property.GetMethod));
                     }
                 }
                 else if (!members.ContainsKey(property.Name))

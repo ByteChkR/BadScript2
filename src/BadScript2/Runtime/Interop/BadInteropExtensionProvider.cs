@@ -10,24 +10,24 @@ public class BadInteropExtensionProvider
 	/// <summary>
 	///     List of all active extensions
 	/// </summary>
-	private readonly List<Type> s_ActiveExtensions = new List<Type>();
+	private readonly List<Type> m_ActiveExtensions = new List<Type>();
 
 	/// <summary>
 	///     Global extensions that are available for all objects in the runtime
 	/// </summary>
-	private readonly Dictionary<BadObject, Func<BadObject, BadObject>> s_GlobalExtensions =
+	private readonly Dictionary<BadObject, Func<BadObject, BadObject>> m_GlobalExtensions =
         new Dictionary<BadObject, Func<BadObject, BadObject>>();
 
 	/// <summary>
 	///     Object Extensions that are available for objects of the specified type
 	/// </summary>
-	private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> s_ObjectExtensions =
+	private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_ObjectExtensions =
         new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
 
 	/// <summary>
 	///     Cache for already built extension tables.
 	/// </summary>
-	private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> s_StaticExtensionCache =
+	private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_StaticExtensionCache =
         new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
 
     public BadInteropExtensionProvider() { }
@@ -43,7 +43,7 @@ public class BadInteropExtensionProvider
     /// <returns>List of Extension Names</returns>
     public BadObject[] GetExtensionNames()
     {
-        return s_GlobalExtensions.Keys.ToArray();
+        return m_GlobalExtensions.Keys.ToArray();
     }
 
     /// <summary>
@@ -63,14 +63,16 @@ public class BadInteropExtensionProvider
             objs.AddRange(GetTypeExtensions(t).Keys);
         }
 
-        if (obj is IBadNative native)
+        if (obj is not IBadNative native)
         {
-            t = native.Type;
+            return objs.ToArray();
+        }
 
-            if (HasTypeExtensions(t))
-            {
-                objs.AddRange(GetTypeExtensions(t).Keys);
-            }
+        t = native.Type;
+
+        if (HasTypeExtensions(t))
+        {
+            objs.AddRange(GetTypeExtensions(t).Keys);
         }
 
         return objs.ToArray();
@@ -83,7 +85,7 @@ public class BadInteropExtensionProvider
     /// <returns>True if any extensions are available</returns>
     private bool HasTypeExtensions(Type t)
     {
-        return s_ObjectExtensions.Any(x => x.Key.IsAssignableFrom(t));
+        return m_ObjectExtensions.Any(x => x.Key.IsAssignableFrom(t));
     }
 
     /// <summary>
@@ -93,7 +95,7 @@ public class BadInteropExtensionProvider
     /// <returns>True if the extension is available</returns>
     private bool HasGlobalExtensions(BadObject propName)
     {
-        return s_GlobalExtensions.ContainsKey(propName);
+        return m_GlobalExtensions.ContainsKey(propName);
     }
 
     /// <summary>
@@ -103,15 +105,15 @@ public class BadInteropExtensionProvider
     /// <returns>Type Extensions</returns>
     private Dictionary<BadObject, Func<BadObject, BadObject>> GetTypeExtensions(Type type)
     {
-        if (s_StaticExtensionCache.ContainsKey(type))
+        if (m_StaticExtensionCache.TryGetValue(type, out Dictionary<BadObject, Func<BadObject, BadObject>>? extensions))
         {
-            return s_StaticExtensionCache[type];
+            return extensions;
         }
 
         Dictionary<BadObject, Func<BadObject, BadObject>>
             exts = new Dictionary<BadObject, Func<BadObject, BadObject>>();
 
-        foreach (KeyValuePair<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> kvp in s_ObjectExtensions.Where(
+        foreach (KeyValuePair<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> kvp in m_ObjectExtensions.Where(
                      x => x.Key.IsAssignableFrom(type)
                  ))
         {
@@ -123,7 +125,7 @@ public class BadInteropExtensionProvider
 
         if (BadNativeOptimizationSettings.Instance.UseStaticExtensionCaching)
         {
-            s_StaticExtensionCache[type] = exts;
+            m_StaticExtensionCache[type] = exts;
         }
 
         return exts;
@@ -136,7 +138,7 @@ public class BadInteropExtensionProvider
     /// <param name="func">The Extension Provider Function</param>
     public void RegisterGlobal(BadObject propName, Func<BadObject, BadObject> func)
     {
-        s_GlobalExtensions.Add(propName, func);
+        m_GlobalExtensions.Add(propName, func);
     }
 
     /// <summary>
@@ -163,17 +165,12 @@ public class BadInteropExtensionProvider
             propName,
             o =>
             {
-                if (o is T t)
+                return o switch
                 {
-                    return obj(t);
-                }
-
-                if (o is BadNative<T> nT)
-                {
-                    return obj(nT.Value);
-                }
-
-                throw new BadRuntimeException("Cannot cast object to type " + typeof(T));
+                    T t => obj(t),
+                    BadNative<T> nT => obj(nT.Value),
+                    _ => throw new BadRuntimeException("Cannot cast object to type " + typeof(T))
+                };
             }
         );
     }
@@ -199,13 +196,13 @@ public class BadInteropExtensionProvider
     /// <exception cref="BadRuntimeException">Gets raised if the provided object can not be cast to the type for the extension</exception>
     public void RegisterObject(Type t, BadObject propName, Func<BadObject, BadObject> obj)
     {
-        if (s_ObjectExtensions.ContainsKey(t))
+        if (m_ObjectExtensions.TryGetValue(t, out Dictionary<BadObject, Func<BadObject, BadObject>>? extension))
         {
-            s_ObjectExtensions[t][propName] = obj;
+            extension[propName] = obj;
         }
         else
         {
-            s_ObjectExtensions[t] = new Dictionary<BadObject, Func<BadObject, BadObject>>
+            m_ObjectExtensions[t] = new Dictionary<BadObject, Func<BadObject, BadObject>>
             {
                 {
                     propName, obj
@@ -243,6 +240,7 @@ public class BadInteropExtensionProvider
     /// <param name="t">Type</param>
     /// <param name="propName">Extension Name</param>
     /// <param name="instance">Object Instance</param>
+    /// <param name="caller">The Caller Scope</param>
     /// <returns>Object Reference</returns>
     public BadObjectReference GetObjectReference(
         Type t,
@@ -262,6 +260,7 @@ public class BadInteropExtensionProvider
     /// <param name="t">Type</param>
     /// <param name="propName">Extension Name</param>
     /// <param name="instance">Object Instance</param>
+    /// <param name="caller">The Caller Scope</param>
     /// <returns>Object Instance</returns>
     public BadObject GetObject(Type t, BadObject propName, BadObject instance, BadScope? caller)
     {
@@ -274,7 +273,7 @@ public class BadInteropExtensionProvider
 
         if (HasGlobalExtensions(propName))
         {
-            return s_GlobalExtensions[propName](instance);
+            return m_GlobalExtensions[propName](instance);
         }
 
         throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}");
@@ -286,6 +285,7 @@ public class BadInteropExtensionProvider
     /// </summary>
     /// <param name="propName">Extension Name</param>
     /// <param name="instance">Object Instance</param>
+    /// <param name="caller">The Caller Scope</param>
     /// <typeparam name="T">Type</typeparam>
     /// <returns>Object Instance</returns>
     public BadObject GetObject<T>(BadObject propName, BadObject instance, BadScope? caller = null)
@@ -318,12 +318,12 @@ public class BadInteropExtensionProvider
 
     private void Initialize(BadInteropExtension ext)
     {
-        if (s_ActiveExtensions.Contains(ext.GetType()))
+        if (m_ActiveExtensions.Contains(ext.GetType()))
         {
             return;
         }
 
-        s_ActiveExtensions.Add(ext.GetType());
+        m_ActiveExtensions.Add(ext.GetType());
         ext.InnerAddExtensions(this);
     }
 }

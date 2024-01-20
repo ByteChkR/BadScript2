@@ -41,12 +41,13 @@ public class BadReflectedMethod : BadReflectedMember
         );
     }
 
-    private bool CanConvert(BadObject o, Type t)
+    private static bool CanConvert(BadObject o, Type t)
     {
         if (o.CanUnwrap())
         {
             object? obj = o.Unwrap();
 
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             if (obj == null)
             {
                 return !t.IsValueType;
@@ -55,17 +56,20 @@ public class BadReflectedMethod : BadReflectedMember
             return t.IsInstanceOfType(obj) || t.IsNumericType() && obj.GetType().IsNumericType();
         }
 
-        if (o is BadReflectedObject ro)
+        if (o is not BadReflectedObject ro)
+        {
+            return false;
+        }
+
         {
             object obj = ro.Instance;
 
             return t.IsInstanceOfType(obj);
         }
 
-        return false;
     }
 
-    private object? ConvertObject(BadObject o, Type t)
+    private static object? ConvertObject(BadObject o, Type t)
     {
         object? obj;
 
@@ -82,6 +86,7 @@ public class BadReflectedMethod : BadReflectedMember
             throw new BadRuntimeException("Cannot convert object");
         }
 
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (obj == null)
         {
             return null;
@@ -100,7 +105,7 @@ public class BadReflectedMethod : BadReflectedMember
         throw new BadRuntimeException("Cannot convert object");
     }
 
-    private object?[] FindImplementation(object? instance, BadObject[] args, out MethodInfo info)
+    private object?[] FindImplementation(object? instance, IReadOnlyList<BadObject> args, out MethodInfo info)
     {
         foreach (MethodInfo method in m_Methods)
         {
@@ -111,12 +116,12 @@ public class BadReflectedMethod : BadReflectedMember
 
             ParameterInfo[] parameters = method.GetParameters();
 
-            if (parameters.Length != args.Length)
+            if (parameters.Length != args.Count)
             {
                 continue;
             }
 
-            object?[] converted = new object?[args.Length];
+            object?[] converted = new object?[args.Count];
             bool skipThis = false;
 
             for (int i = 0; i < parameters.Length; i++)

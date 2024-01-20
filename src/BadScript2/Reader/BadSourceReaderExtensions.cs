@@ -51,15 +51,16 @@ public static class BadSourceReaderExtensions
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     /// <param name="offset">The Offset from the Current Reader Position</param>
+    /// <param name="singleQuote">Is the string expected to start with '</param>
     /// <returns>True if the Current Character is a Quote</returns>
     public static bool IsStringQuote(this BadSourceReader reader, int offset = 0, bool singleQuote = false)
     {
         if (singleQuote)
         {
-            return reader.GetCurrentChar(offset) == BadStaticKeys.SingleQuote;
+            return reader.GetCurrentChar(offset) == BadStaticKeys.SINGLE_QUOTE;
         }
 
-        return reader.GetCurrentChar(offset) == BadStaticKeys.Quote;
+        return reader.GetCurrentChar(offset) == BadStaticKeys.QUOTE;
     }
 
     /// <summary>
@@ -71,7 +72,7 @@ public static class BadSourceReaderExtensions
     public static bool IsNumberStart(this BadSourceReader reader, int offset = 0)
     {
         return reader.IsDigit(offset) ||
-               reader.GetCurrentChar(offset) == BadStaticKeys.DecimalSeparator;
+               reader.GetCurrentChar(offset) == BadStaticKeys.DECIMAL_SEPARATOR;
     }
 
     /// <summary>
@@ -139,17 +140,17 @@ public static class BadSourceReaderExtensions
     /// <param name="reader">The Reader Instance</param>
     public static void SkipComment(this BadSourceReader reader)
     {
-        if (reader.Is(BadStaticKeys.SingleLineComment))
+        if (reader.Is(BadStaticKeys.SINGLE_LINE_COMMENT))
         {
-            reader.Eat(BadStaticKeys.SingleLineComment);
+            reader.Eat(BadStaticKeys.SINGLE_LINE_COMMENT);
             reader.SkipToEndOfLine();
             reader.SkipNewLine();
         }
-        else if (reader.Is(BadStaticKeys.MultiLineCommentStart))
+        else if (reader.Is(BadStaticKeys.MULTI_LINE_COMMENT_START))
         {
-            reader.Eat(BadStaticKeys.MultiLineCommentStart);
-            reader.Seek(BadStaticKeys.MultiLineCommentEnd);
-            reader.Eat(BadStaticKeys.MultiLineCommentEnd);
+            reader.Eat(BadStaticKeys.MULTI_LINE_COMMENT_START);
+            reader.Seek(BadStaticKeys.MULTI_LINE_COMMENT_END);
+            reader.Eat(BadStaticKeys.MULTI_LINE_COMMENT_END);
         }
     }
 
@@ -221,9 +222,9 @@ public static class BadSourceReaderExtensions
         reader.MoveNext();
         bool hasDecimal = false;
 
-        while (reader.IsDigit() || !hasDecimal && reader.Is(BadStaticKeys.DecimalSeparator))
+        while (reader.IsDigit() || !hasDecimal && reader.Is(BadStaticKeys.DECIMAL_SEPARATOR))
         {
-            if (reader.Is(BadStaticKeys.DecimalSeparator))
+            if (reader.Is(BadStaticKeys.DECIMAL_SEPARATOR))
             {
                 hasDecimal = true;
             }
@@ -231,7 +232,7 @@ public static class BadSourceReaderExtensions
             reader.MoveNext();
         }
 
-        if (reader.Last(BadStaticKeys.DecimalSeparator))
+        if (reader.Last(BadStaticKeys.DECIMAL_SEPARATOR))
         {
             reader.SetPosition(reader.CurrentIndex - 1);
         }
@@ -250,14 +251,14 @@ public static class BadSourceReaderExtensions
     /// </exception>
     public static BadBooleanToken ParseBoolean(this BadSourceReader reader)
     {
-        if (reader.Is(BadStaticKeys.True))
+        if (reader.Is(BadStaticKeys.TRUE))
         {
-            return new BadBooleanToken(reader.Eat(BadStaticKeys.True));
+            return new BadBooleanToken(reader.Eat(BadStaticKeys.TRUE));
         }
 
-        if (reader.Is(BadStaticKeys.False))
+        if (reader.Is(BadStaticKeys.FALSE))
         {
-            return new BadBooleanToken(reader.Eat(BadStaticKeys.False));
+            return new BadBooleanToken(reader.Eat(BadStaticKeys.FALSE));
         }
 
         throw new BadSourceReaderException(
@@ -273,7 +274,7 @@ public static class BadSourceReaderExtensions
     /// <returns>The Resulting BadNullToken Instance</returns>
     public static BadNullToken ParseNull(this BadSourceReader reader)
     {
-        return new BadNullToken(reader.Eat(BadStaticKeys.Null));
+        return new BadNullToken(reader.Eat(BadStaticKeys.NULL));
     }
 
     /// <summary>
@@ -284,12 +285,7 @@ public static class BadSourceReaderExtensions
     /// <returns>The Bad Symbol Token if the Symbol was matched to the Current Character Sequence. Null otherwise</returns>
     public static BadSymbolToken? TryParseSymbols(this BadSourceReader reader, string symbols)
     {
-        if (reader.Is(symbols))
-        {
-            return new BadSymbolToken(reader.Eat(symbols));
-        }
-
-        return null;
+        return reader.Is(symbols) ? new BadSymbolToken(reader.Eat(symbols)) : null;
     }
 
     /// <summary>
@@ -303,12 +299,7 @@ public static class BadSourceReaderExtensions
         string? symbol =
             symbols.FirstOrDefault(x => x.All(c => char.IsLetter(c) || c == '_') ? reader.IsKey(x) : reader.Is(x));
 
-        if (symbol == null)
-        {
-            return null;
-        }
-
-        return reader.TryParseSymbols(symbol);
+        return symbol == null ? null : reader.TryParseSymbols(symbol);
     }
 
     /// <summary>
@@ -330,7 +321,7 @@ public static class BadSourceReaderExtensions
             );
         }
 
-        bool singleQuote = reader.Is(BadStaticKeys.SingleQuote);
+        bool singleQuote = reader.Is(BadStaticKeys.SINGLE_QUOTE);
         int start = reader.CurrentIndex;
         reader.MoveNext();
         bool isEscaped = false;
@@ -346,7 +337,7 @@ public static class BadSourceReaderExtensions
                 );
             }
 
-            if (reader.Is(BadStaticKeys.EscapeCharacter))
+            if (reader.Is(BadStaticKeys.ESCAPE_CHARACTER))
             {
                 isEscaped = true;
                 reader.MoveNext();
@@ -365,14 +356,7 @@ public static class BadSourceReaderExtensions
             reader.MoveNext();
         }
 
-        if (singleQuote)
-        {
-            reader.Eat(BadStaticKeys.SingleQuote);
-        }
-        else
-        {
-            reader.Eat(BadStaticKeys.Quote);
-        }
+        reader.Eat(singleQuote ? BadStaticKeys.SINGLE_QUOTE : BadStaticKeys.QUOTE);
 
         sb.Append("\"");
 
@@ -382,7 +366,7 @@ public static class BadSourceReaderExtensions
     public static BadStringToken ParseMultiLineString(this BadSourceReader reader)
     {
         int start = reader.CurrentIndex;
-        reader.Eat(BadStaticKeys.MultiLineStringKey);
+        reader.Eat(BadStaticKeys.MULTI_LINE_STRING_KEY);
 
         StringBuilder sb = new StringBuilder("\"");
 
@@ -402,7 +386,7 @@ public static class BadSourceReaderExtensions
             reader.MoveNext();
         }
 
-        reader.Eat(BadStaticKeys.Quote);
+        reader.Eat(BadStaticKeys.QUOTE);
 
         sb.Append("\"");
 

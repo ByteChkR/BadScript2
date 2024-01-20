@@ -21,6 +21,13 @@ public static class BadReflectionExtensions
             case TypeCode.Double:
             case TypeCode.Single:
                 return true;
+            case TypeCode.Boolean:
+            case TypeCode.Char:
+            case TypeCode.DateTime:
+            case TypeCode.DBNull:
+            case TypeCode.Empty:
+            case TypeCode.Object:
+            case TypeCode.String:
             default:
                 return false;
         }

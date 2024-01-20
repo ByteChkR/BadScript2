@@ -23,14 +23,7 @@ public static class BadLinqGenericExtensions
         }
         else
         {
-            if (BadObject.CanWrap(o))
-            {
-                ctx.Scope.DefineVariable(varName, BadObject.Wrap(o));
-            }
-            else
-            {
-                ctx.Scope.DefineVariable(varName, new BadReflectedObject(o!));
-            }
+            ctx.Scope.DefineVariable(varName, BadObject.CanWrap(o) ? BadObject.Wrap(o) : new BadReflectedObject(o!));
         }
 
         BadObject r = BadObject.Null;

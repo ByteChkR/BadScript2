@@ -88,15 +88,12 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     public static IEnumerable<BadObject> Access(
         BadExecutionContext? context,
         BadObject left,
-        BadObject[] args,
+        IEnumerable<BadObject> args,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ArrayAccessOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope))
         {
-            BadFunction? func =
-                left.GetProperty(BadStaticKeys.ArrayAccessOperatorName, context?.Scope).Dereference() as BadFunction;
-
-            if (func == null)
+            if (left.GetProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope).Dereference() is not BadFunction func)
             {
                 throw new BadRuntimeException("Array access operator is not a function", position);
             }

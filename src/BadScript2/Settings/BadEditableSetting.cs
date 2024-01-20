@@ -43,19 +43,21 @@ public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new
 	/// <returns>The settings object of the Editable Setting</returns>
 	public BadSettings? Get()
     {
-        if (m_SettingsObj == null &&
-            BadSettingsProvider<T>.Instance.Settings != null)
+	    if (m_SettingsObj != null ||
+	        BadSettingsProvider<T>.Instance.Settings == null)
+	    {
+		    return m_SettingsObj;
+	    }
+
+	    if (BadSettingsProvider<T>.Instance.Settings.HasProperty(m_Name))
         {
-            if (BadSettingsProvider<T>.Instance.Settings.HasProperty(m_Name))
-            {
-                m_SettingsObj = BadSettingsProvider<T>.Instance.Settings?.GetProperty(m_Name);
-            }
-            else
-            {
-                m_SettingsObj =
-                    new BadSettings(m_DefaultValue == null ? JValue.CreateNull() : JToken.FromObject(m_DefaultValue));
-                BadSettingsProvider<T>.Instance.Settings.SetProperty(m_Name, m_SettingsObj);
-            }
+	        m_SettingsObj = BadSettingsProvider<T>.Instance.Settings?.GetProperty(m_Name);
+        }
+        else
+        {
+	        m_SettingsObj =
+		        new BadSettings(m_DefaultValue == null ? JValue.CreateNull() : JToken.FromObject(m_DefaultValue));
+	        BadSettingsProvider<T>.Instance.Settings.SetProperty(m_Name, m_SettingsObj);
         }
 
         return m_SettingsObj;

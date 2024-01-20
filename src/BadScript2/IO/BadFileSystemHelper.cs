@@ -37,7 +37,6 @@ public static class BadFileSystemHelper
             fstr.CopyTo(estr);
         }
 
-        zip.Dispose();
     }
 
     public static void ImportZip(this IFileSystem fs, string path, string root = "/")
@@ -51,6 +50,7 @@ public static class BadFileSystemHelper
     /// </summary>
     /// <param name="fs">The Virtual File System to Import to</param>
     /// <param name="str">The Stream to read the Zip File from</param>
+    /// <param name="root">The directory that the zip file will be imported to</param>
     /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
     /// <exception cref="Exception">Gets thrown when the Zip File is invalid</exception>
     public static void ImportZip(this IFileSystem fs, Stream str, string root = "/")

@@ -40,18 +40,20 @@ public static class BadConstantSubstitutionOptimizer
 
     private static BadExpression Substitute(BadConstantSubstitutionOptimizerScope scope, BadExpression expr)
     {
-        if (expr is BadVariableExpression vExpr)
+        switch (expr)
         {
-            BadExpression constant = scope.GetConstant(vExpr.Name);
-            BadLogger.Log($"Substituting {expr} => {constant}", "Optimize");
+            case BadVariableExpression vExpr:
+            {
+                BadExpression constant = scope.GetConstant(vExpr.Name);
+                BadLogger.Log($"Substituting {expr} => {constant}", "Optimize");
 
-            return constant;
-        }
+                return constant;
+            }
+            case BadBinaryExpression binExpr:
+                binExpr.SetLeft(Substitute(scope, binExpr.Left));
+                binExpr.SetRight(Substitute(scope, binExpr.Right));
 
-        if (expr is BadBinaryExpression binExpr)
-        {
-            binExpr.SetLeft(Substitute(scope, binExpr.Left));
-            binExpr.SetRight(Substitute(scope, binExpr.Right));
+                break;
         }
 
         return expr;
@@ -63,157 +65,157 @@ public static class BadConstantSubstitutionOptimizer
     {
         foreach (BadExpression expr in expressions)
         {
-            if (expr is BadClassPrototypeExpression proto)
+            switch (expr)
             {
-                BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-
-                //Evaluate static body
-                BadExpression[] newStaticBody = Optimize(childScope, proto.StaticBody).ToArray();
-
-                proto.SetStaticBody(newStaticBody);
-
-                BadConstantSubstitutionOptimizerScope instanceScope = childScope.CreateChildScope();
-
-                //Evaluate instance body
-                BadExpression[] newBody = Optimize(instanceScope, proto.Body).ToArray();
-                proto.SetBody(newBody);
-
-                yield return proto;
-
-                continue;
-            }
-
-            if (expr is BadWhileExpression whileExpr)
-            {
-                BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                BadExpression[] newBody = Optimize(childScope, whileExpr.Body).ToArray();
-                whileExpr.SetBody(newBody);
-
-                yield return whileExpr;
-
-                continue;
-            }
-
-            if (expr is BadForExpression forExpr)
-            {
-                BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                BadExpression[] newBody = Optimize(childScope, forExpr.Body).ToArray();
-                forExpr.SetBody(newBody);
-
-                yield return forExpr;
-
-                continue;
-            }
-
-            if (expr is BadForEachExpression forEachExpr)
-            {
-                BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                BadExpression[] newBody = Optimize(childScope, forEachExpr.Body).ToArray();
-                forEachExpr.SetBody(newBody);
-
-                yield return forEachExpr;
-
-                continue;
-            }
-
-            if (expr is BadIfExpression ifExpr)
-            {
-                foreach (KeyValuePair<BadExpression, BadExpression[]> branch in ifExpr.ConditionalBranches.ToArray())
+                case BadClassPrototypeExpression proto:
                 {
                     BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                    BadExpression[] newBody = Optimize(childScope, branch.Value).ToArray();
-                    ifExpr.ConditionalBranches[branch.Key] = newBody;
-                }
 
-                if (ifExpr.ElseBranch != null)
-                {
-                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                    BadExpression[] newBody = Optimize(childScope, ifExpr.ElseBranch).ToArray();
-                    ifExpr.SetElseBranch(newBody);
-                }
+                    //Evaluate static body
+                    BadExpression[] newStaticBody = Optimize(childScope, proto.StaticBody).ToArray();
 
-                yield return ifExpr;
-            }
+                    proto.SetStaticBody(newStaticBody);
 
-            if (expr is BadInvocationExpression invoc)
-            {
-                List<BadExpression> args = new List<BadExpression>();
+                    BadConstantSubstitutionOptimizerScope instanceScope = childScope.CreateChildScope();
 
-                foreach (BadExpression arg in invoc.Arguments)
-                {
-                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                    BadExpression[] newBody = Optimize(
-                            childScope,
-                            new[]
-                            {
-                                arg,
-                            }
-                        )
-                        .ToArray();
-                    args.Add(newBody[0]);
-                }
+                    //Evaluate instance body
+                    BadExpression[] newBody = Optimize(instanceScope, proto.Body).ToArray();
+                    proto.SetBody(newBody);
 
-                invoc.SetArgs(args);
-
-                yield return invoc;
-
-                continue;
-            }
-
-            if (expr is BadFunctionExpression func)
-            {
-                BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
-                BadExpression[] newBody = Optimize(childScope, func.Body).ToArray();
-                func.SetBody(newBody);
-
-                yield return func;
-
-                continue;
-            }
-
-            if (expr is BadBinaryExpression binExpr)
-            {
-                bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, binExpr);
-
-                if (canBeOptimized)
-                {
-                    BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
-                    BadObject obj = Substitute(scope, binExpr).Execute(null!).Last();
-                    BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
-
-                    yield return new BadConstantExpression(binExpr.Position, obj);
+                    yield return proto;
 
                     continue;
                 }
-            }
-            else if (expr is BadReturnExpression rExpr && rExpr.Right != null)
-            {
-                bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, rExpr.Right);
-
-                if (canBeOptimized && rExpr.Right is not IBadNativeExpression)
+                case BadWhileExpression whileExpr:
                 {
-                    BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
-                    BadObject obj = Substitute(scope, rExpr.Right).Execute(null!).Last();
-                    BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
-                    rExpr.SetRight(new BadConstantExpression(rExpr.Position, obj));
+                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                    BadExpression[] newBody = Optimize(childScope, whileExpr.Body).ToArray();
+                    whileExpr.SetBody(newBody);
+
+                    yield return whileExpr;
+
+                    continue;
                 }
-            }
-            else if (expr is BadAssignExpression vAssign &&
-                     vAssign.Left is BadVariableDefinitionExpression vDef)
-            {
-                bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, vAssign.Right);
-
-                if (canBeOptimized && vAssign.Right is not IBadNativeExpression)
+                case BadForExpression forExpr:
                 {
-                    BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
-                    BadObject obj = Substitute(scope, vAssign.Right).Execute(null!).Last();
-                    BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
-                    vAssign.Right = new BadConstantExpression(vAssign.Position, obj);
+                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                    BadExpression[] newBody = Optimize(childScope, forExpr.Body).ToArray();
+                    forExpr.SetBody(newBody);
+
+                    yield return forExpr;
+
+                    continue;
                 }
-
-                if (vDef.IsReadOnly && canBeOptimized)
+                case BadForEachExpression forEachExpr:
                 {
-                    scope.AddConstant(vDef.Name, vAssign.Right);
+                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                    BadExpression[] newBody = Optimize(childScope, forEachExpr.Body).ToArray();
+                    forEachExpr.SetBody(newBody);
+
+                    yield return forEachExpr;
+
+                    continue;
+                }
+                case BadIfExpression ifExpr:
+                {
+                    foreach (KeyValuePair<BadExpression, BadExpression[]> branch in ifExpr.ConditionalBranches.ToArray())
+                    {
+                        BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                        BadExpression[] newBody = Optimize(childScope, branch.Value).ToArray();
+                        ifExpr.ConditionalBranches[branch.Key] = newBody;
+                    }
+
+                    if (ifExpr.ElseBranch != null)
+                    {
+                        BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                        BadExpression[] newBody = Optimize(childScope, ifExpr.ElseBranch).ToArray();
+                        ifExpr.SetElseBranch(newBody);
+                    }
+
+                    yield return ifExpr;
+
+                    break;
+                }
+                case BadInvocationExpression invoc:
+                {
+                    List<BadExpression> args = (from arg in invoc.Arguments
+                        let childScope = scope.CreateChildScope()
+                        select Optimize(
+                                childScope,
+                                new[]
+                                {
+                                    arg,
+                                }
+                            )
+                            .ToArray()
+                        into newBody
+                        select newBody[0]).ToList();
+
+                    invoc.SetArgs(args);
+
+                    yield return invoc;
+
+                    continue;
+                }
+                case BadFunctionExpression func:
+                {
+                    BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                    BadExpression[] newBody = Optimize(childScope, func.Body).ToArray();
+                    func.SetBody(newBody);
+
+                    yield return func;
+
+                    continue;
+                }
+                case BadBinaryExpression binExpr:
+                {
+                    bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, binExpr);
+
+                    if (canBeOptimized)
+                    {
+                        BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
+                        BadObject obj = Substitute(scope, binExpr).Execute(null!).Last();
+                        BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
+
+                        yield return new BadConstantExpression(binExpr.Position, obj);
+
+                        continue;
+                    }
+
+                    break;
+                }
+                case BadReturnExpression { Right: not null } rExpr:
+                {
+                    bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, rExpr.Right);
+
+                    if (canBeOptimized && rExpr.Right is not IBadNativeExpression)
+                    {
+                        BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
+                        BadObject obj = Substitute(scope, rExpr.Right).Execute(null!).Last();
+                        BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
+                        rExpr.SetRight(new BadConstantExpression(rExpr.Position, obj));
+                    }
+
+                    break;
+                }
+                case BadAssignExpression { Left: BadVariableDefinitionExpression vDef } vAssign:
+                {
+                    bool canBeOptimized = OnlyContainsConstantsAndConstantVariables(scope, vAssign.Right);
+
+                    if (canBeOptimized && vAssign.Right is not IBadNativeExpression)
+                    {
+                        BadLogger.Log($"Optimizing Expression: '{expr}' with Constant Substitution", "Optimize");
+                        BadObject obj = Substitute(scope, vAssign.Right).Execute(null!).Last();
+                        BadLogger.Log($"Optimized Expression: '{expr}' => '{obj}' using Constant Substitution", "Optimize");
+                        vAssign.Right = new BadConstantExpression(vAssign.Position, obj);
+                    }
+
+                    if (vDef.IsReadOnly && canBeOptimized)
+                    {
+                        scope.AddConstant(vDef.Name, vAssign.Right);
+                    }
+
+                    break;
                 }
             }
 

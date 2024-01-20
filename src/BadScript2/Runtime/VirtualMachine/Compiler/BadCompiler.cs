@@ -267,20 +267,21 @@ public class BadCompiler
     {
         Type t = expression.GetType();
 
-        if (!m_Compilers.TryGetValue(t, out IBadExpressionCompiler compiler))
+        if (m_Compilers.TryGetValue(t, out IBadExpressionCompiler compiler))
         {
-            if (AllowEval)
-            {
-                return new[]
-                {
-                    new BadInstruction(BadOpCode.Eval, expression.Position, expression),
-                };
-            }
-
-            throw new BadCompilerException("No Compiler for Expression Type " + expression.GetType().Name);
+            return compiler.Compile(this, expression);
         }
 
-        return compiler.Compile(this, expression);
+        if (AllowEval)
+        {
+            return new[]
+            {
+                new BadInstruction(BadOpCode.Eval, expression.Position, expression),
+            };
+        }
+
+        throw new BadCompilerException("No Compiler for Expression Type " + expression.GetType().Name);
+
     }
 
     public IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions, bool clearStack = true)

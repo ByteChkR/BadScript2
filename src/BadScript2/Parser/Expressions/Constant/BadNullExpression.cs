@@ -26,7 +26,7 @@ public class BadNullExpression : BadExpression, IBadNativeExpression
 	/// <returns>String Representation of the Expression</returns>
 	public override string ToString()
     {
-        return BadStaticKeys.Null;
+        return BadStaticKeys.NULL;
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

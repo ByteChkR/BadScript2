@@ -36,7 +36,7 @@ public class BadScopeExtension : BadInteropExtension
     /// </summary>
     /// <param name="scope">The Scope</param>
     /// <returns>Parent Scope or NULL</returns>
-    private BadObject GetParent(BadScope scope)
+    private static BadObject GetParent(BadScope scope)
     {
         return scope.Parent ?? BadObject.Null;
     }
@@ -46,7 +46,7 @@ public class BadScopeExtension : BadInteropExtension
     /// </summary>
     /// <param name="scope">The Scope</param>
     /// <returns>Local Variable Table</returns>
-    private BadObject GetLocals(BadScope scope)
+    private static BadObject GetLocals(BadScope scope)
     {
         return scope.GetTable();
     }

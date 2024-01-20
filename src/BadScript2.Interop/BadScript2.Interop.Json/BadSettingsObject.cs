@@ -21,12 +21,7 @@ public class BadSettingsObject : BadObject
 	public static readonly BadClassPrototype Prototype =
         new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args) => CreateObj(args));
 
-	/// <summary>
-	///     Properties
-	/// </summary>
-	private readonly Dictionary<BadObject, BadObject> m_Properties;
-
-	/// <summary>
+    /// <summary>
 	///     Property References
 	/// </summary>
 	private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;
@@ -43,7 +38,7 @@ public class BadSettingsObject : BadObject
 	public BadSettingsObject(BadSettings settings)
     {
         m_Settings = settings;
-        m_Properties = new Dictionary<BadObject, BadObject>
+        Dictionary<BadObject, BadObject> properties = new Dictionary<BadObject, BadObject>
         {
             {
                 "HasValue",
@@ -95,12 +90,7 @@ public class BadSettingsObject : BadObject
                     {
                         BadSettings? obj = m_Settings.FindProperty(name);
 
-                        if (obj == null)
-                        {
-                            return Null;
-                        }
-
-                        return new BadSettingsObject(obj);
+                        return obj == null ? Null : new BadSettingsObject(obj);
                     },
                     BadAnyPrototype.Instance
                 )
@@ -132,7 +122,7 @@ public class BadSettingsObject : BadObject
             {
                 "RemoveProperty", new BadDynamicInteropFunction<string>(
                     "RemoveProperty",
-                    (_, name) => { return m_Settings.RemoveProperty(name); },
+                    (_, name) => m_Settings.RemoveProperty(name),
                     BadNativeClassBuilder.GetNative("bool")
                 )
             },
@@ -151,8 +141,8 @@ public class BadSettingsObject : BadObject
                 )
             },
             {
-                BadStaticKeys.ArrayAccessOperatorName, new BadDynamicInteropFunction<string>(
-                    BadStaticKeys.ArrayAccessOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, new BadDynamicInteropFunction<string>(
+                    BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                     (_, name) => BadObjectReference.Make(
                         $"BadSettings.{name}",
                         () => new BadSettingsObject(m_Settings.GetProperty(name)),
@@ -173,11 +163,11 @@ public class BadSettingsObject : BadObject
 
         m_PropertyReferences = new Dictionary<BadObject, BadObjectReference>();
 
-        foreach (KeyValuePair<BadObject, BadObject> property in m_Properties)
+        foreach (KeyValuePair<BadObject, BadObject> property in properties)
         {
             m_PropertyReferences.Add(
                 property.Key,
-                BadObjectReference.Make($"BadSettings.{property.Key}", () => m_Properties[property.Key])
+                BadObjectReference.Make($"BadSettings.{property.Key}", () => properties[property.Key])
             );
         }
     }
@@ -193,19 +183,20 @@ public class BadSettingsObject : BadObject
     /// <param name="args">Arguments</param>
     /// <returns>BadSettingsObject</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
-    private static BadObject CreateObj(BadObject[] args)
+    private static BadObject CreateObj(IReadOnlyList<BadObject> args)
     {
-        if (args.Length == 1)
+        if (args.Count != 1)
         {
-            if (args[0] is not BadSettingsObject settings)
-            {
-                throw new BadRuntimeException("BadSettings expected");
-            }
-
-            return settings;
+            return new BadSettingsObject(new BadSettings());
         }
 
-        return new BadSettingsObject(new BadSettings());
+        if (args[0] is not BadSettingsObject settings)
+        {
+            throw new BadRuntimeException("BadSettings expected");
+        }
+
+        return settings;
+
     }
 
     public override string ToSafeString(List<BadObject> done)

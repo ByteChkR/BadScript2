@@ -31,46 +31,44 @@ public class BadAddAssignExpression : BadBinaryExpression
         BadSourcePosition position,
         string symbol)
     {
-        if (left is IBadString lStr)
+        switch (left)
         {
-            if (right is IBadNative rNative)
+            case IBadString lStr:
             {
+                if (right is not IBadNative rNative)
+                {
+                    throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
+                }
+
                 BadObject r = BadObject.Wrap(lStr.Value + rNative.Value);
                 leftRef.Set(r);
 
                 return r;
             }
-        }
-        else if (left is IBadNumber lNum)
-        {
-            if (right is IBadString rStr)
+            case IBadNumber lNum when right is IBadString rStr:
             {
                 BadObject r = BadObject.Wrap(lNum.Value + rStr.Value);
                 leftRef.Set(r);
 
                 return r;
             }
-
-            if (right is IBadNumber rNum)
+            case IBadNumber lNum when right is IBadNumber rNum:
             {
                 BadObject r = BadObject.Wrap(lNum.Value + rNum.Value);
                 leftRef.Set(r);
 
                 return r;
             }
-        }
-        else if (left is IBadBoolean lBool)
-        {
-            if (right is IBadString rStr)
+            case IBadBoolean lBool when right is IBadString rStr:
             {
                 BadObject r = BadObject.Wrap(lBool.Value + rStr.Value);
                 leftRef.Set(r);
 
                 return r;
             }
+            default:
+                throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
         }
-
-        throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
     }
 
     public static IEnumerable<BadObject> AddWithOverride(
@@ -82,13 +80,13 @@ public class BadAddAssignExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.AddAssignOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.ADD_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.AddAssignOperatorName,
+                         BadStaticKeys.ADD_ASSIGN_OPERATOR_NAME,
                          position
                      ))
             {

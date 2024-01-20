@@ -16,13 +16,11 @@ public class BadNullCoalescingAssignExpressionCompiler : BadExpressionCompiler<B
 
         yield return new BadInstruction(BadOpCode.Dup, expression.Position);
 
-        List<BadInstruction> instructions = new List<BadInstruction>();
-        instructions.Add(new BadInstruction()); //Jump to end if not null
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+        List<BadInstruction> instructions = new List<BadInstruction>
         {
-            instructions.Add(instruction);
-        }
+            new BadInstruction(), //Jump to end if not null
+        };
+        instructions.AddRange(compiler.Compile(expression.Right));
 
         instructions.Add(new BadInstruction(BadOpCode.Assign, expression.Position));
         instructions[0] =

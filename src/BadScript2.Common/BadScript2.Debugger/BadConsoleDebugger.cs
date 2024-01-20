@@ -50,7 +50,7 @@ public class BadConsoleDebugger : IBadDebugger
 
         do
         {
-            string cmd = BadConsole.ReadLine()!;
+            string cmd = BadConsole.ReadLine();
 
             if (cmd.StartsWith("ignore-file"))
             {

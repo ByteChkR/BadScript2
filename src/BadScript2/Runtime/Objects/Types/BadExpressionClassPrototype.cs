@@ -31,6 +31,9 @@ public class BadExpressionClassPrototype : BadClassPrototype
     /// <param name="parentScope">The Parent scope this class prototype was created in.</param>
     /// <param name="body">The Class Body(Members & Functions)</param>
     /// <param name="baseClass">The Base class of the prototype</param>
+    /// <param name="interfaces">The Implemented Interfaces</param>
+    /// <param name="meta">The Metadata of the Class</param>
+    /// <param name="staticScope">The Static Scope of the Class</param>
     public BadExpressionClassPrototype(
         string name,
         BadScope parentScope,
@@ -47,7 +50,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
         //TODO: Validate interfaces before creating the class prototype? Might be faster :)
     }
 
-    public override bool IsAbstract { get; } = false;
+    public override bool IsAbstract => false;
 
 
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
@@ -58,7 +61,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
         );
         ctx.Scope.SetFlags(BadScopeFlags.None);
 
-        if (BaseClass != null && !BaseClass.IsAbstract)
+        if (BaseClass is { IsAbstract: false })
         {
             BadObject obj = Null;
 

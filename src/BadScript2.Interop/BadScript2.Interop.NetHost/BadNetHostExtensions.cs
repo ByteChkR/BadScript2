@@ -81,7 +81,7 @@ public class BadNetHostExtensions : BadInteropExtension
 	/// <param name="content">The Content Stream</param>
 	/// <param name="enc">The Encoding</param>
 	/// <returns>Http Response Table</returns>
-	private BadTable CreateContentTable(Stream content, Encoding enc)
+	private static BadTable CreateContentTable(Stream content, Encoding enc)
     {
         BadTable table = new BadTable();
         table.SetFunction(
@@ -168,7 +168,7 @@ public class BadNetHostExtensions : BadInteropExtension
 	/// </summary>
 	/// <param name="resp">Resonse Object</param>
 	/// <returns>Response Table</returns>
-	private BadTable CreateResponseTable(HttpListenerResponse resp)
+	private static BadTable CreateResponseTable(HttpListenerResponse resp)
     {
         BadTable table = new BadTable();
         table.SetFunction("SetHeader", (string key, string value) => resp.Headers[key] = value);
@@ -180,7 +180,7 @@ public class BadNetHostExtensions : BadInteropExtension
             {
                 foreach (BadObject cookie in cookies.InnerArray)
                 {
-                    if (cookie is BadReflectedObject cro && cro.Instance is Cookie c)
+                    if (cookie is BadReflectedObject { Instance: Cookie c })
                     {
                         resp.Cookies.Add(c);
                     }

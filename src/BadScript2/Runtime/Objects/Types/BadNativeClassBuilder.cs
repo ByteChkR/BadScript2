@@ -13,26 +13,16 @@ namespace BadScript2.Runtime.Objects.Types;
 public static class BadNativeClassBuilder
 {
     public static readonly BadInterfacePrototype Disposable =
-        new BadInterfacePrototype("IDisposable", Array.Empty<BadInterfacePrototype>(), null, () => s_DisposableConstraints);
+        new BadInterfacePrototype("IDisposable", Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints);
 
     public static readonly BadInterfacePrototype Enumerable =
-        new BadInterfacePrototype("IEnumerable", Array.Empty<BadInterfacePrototype>(), null, () => s_EnumerableConstraints);
+        new BadInterfacePrototype("IEnumerable", Array.Empty<BadInterfacePrototype>(), null, EnumerableConstraints);
 
     public static readonly BadInterfacePrototype Enumerator =
         new BadInterfacePrototype("IEnumerator", Array.Empty<BadInterfacePrototype>(), null, EnumeratorConstraints);
 
     public static readonly BadInterfacePrototype ArrayLike =
         new BadInterfacePrototype("IArray", new[] { Enumerable }, null, ArrayConstraints);
-
-    private static readonly BadInterfaceConstraint[] s_DisposableConstraints =
-    {
-        new BadInterfaceFunctionConstraint("Dispose", null, Array.Empty<BadFunctionParameter>()),
-    };
-
-    private static readonly BadInterfaceConstraint[] s_EnumerableConstraints =
-    {
-        new BadInterfaceFunctionConstraint("GetEnumerator", null, Enumerator, Array.Empty<BadFunctionParameter>()),
-    };
 
     private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
     {
@@ -54,6 +44,22 @@ public static class BadNativeClassBuilder
     ///     Enumeration of all Native Class Prototypes
     /// </summary>
     public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
+
+    private static BadInterfaceConstraint[] DisposableConstraints()
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("Dispose", null, Array.Empty<BadFunctionParameter>()),
+        };
+    }
+
+    private static BadInterfaceConstraint[] EnumerableConstraints()
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("GetEnumerator", null, Enumerator, Array.Empty<BadFunctionParameter>()),
+        };
+    }
 
     private static BadInterfaceConstraint[] ArrayConstraints()
     {
@@ -115,7 +121,7 @@ public static class BadNativeClassBuilder
 
             //op_ArrayAccess(num index);
             new BadInterfaceFunctionConstraint(
-                BadStaticKeys.ArrayAccessOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                 null,
                 BadAnyPrototype.Instance,
                 new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }
@@ -123,7 +129,7 @@ public static class BadNativeClassBuilder
 
             //op_ArrayAccessReverse(num index);
             new BadInterfaceFunctionConstraint(
-                BadStaticKeys.ArrayAccessReverseOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
                 null,
                 BadAnyPrototype.Instance,
                 new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }
@@ -165,7 +171,7 @@ public static class BadNativeClassBuilder
             return;
         }
 
-        s_NativeTypes?.Add(native);
+        s_NativeTypes.Add(native);
     }
 
 

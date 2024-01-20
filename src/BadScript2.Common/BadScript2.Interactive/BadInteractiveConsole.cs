@@ -40,7 +40,7 @@ public class BadInteractiveConsole
 	/// <summary>
 	///     Constructs a new BadInteractiveConsole instance
 	/// </summary>
-	/// <param name="options">The Execution Context Options</param>
+	/// <param name="runtime">The Runtime that the Interactive Console will be started from.</param>
 	/// <param name="runner">The Task runner</param>
 	/// <param name="files">The Files that are loaded before the interactive session begins</param>
 	public BadInteractiveConsole(BadRuntime runtime, BadTaskRunner runner, IEnumerable<string> files)
@@ -143,7 +143,7 @@ public class BadInteractiveConsole
 
         if (PreParse)
         {
-            exprs = expressions.ToArray();
+            exprs = exprs.ToArray();
         }
 
         if (BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization)
@@ -171,11 +171,13 @@ public class BadInteractiveConsole
             yield return null;
         }
 
-        if (m_Context.Scope.Error != null)
+        if (m_Context.Scope.Error == null)
         {
-            BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
-            m_Context.Scope.UnsetError();
+	        yield break;
         }
+
+        BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
+        m_Context.Scope.UnsetError();
     }
 
 	/// <summary>
@@ -189,7 +191,7 @@ public class BadInteractiveConsole
 
         if (PreParse)
         {
-            exprs = expressions.ToArray();
+            exprs = exprs.ToArray();
         }
 
         if (BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization)
@@ -227,11 +229,13 @@ public class BadInteractiveConsole
             }
         }
 
-        if (m_Context.Scope.Error != null)
+        if (m_Context.Scope.Error == null)
         {
-            BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
-            m_Context.Scope.UnsetError();
+	        return;
         }
+
+        BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
+        m_Context.Scope.UnsetError();
     }
 
 	/// <summary>

@@ -70,6 +70,7 @@ public abstract class BadRunnable
     /// </summary>
     private class BadEmptyRunnable : BadRunnable
     {
+        // ReSharper disable once NotDisposedResourceIsReturnedByProperty
         public override IEnumerator<BadObject> Enumerator => Enumerable.Empty<BadObject>().GetEnumerator();
 
         public override BadObject GetReturn()
@@ -106,7 +107,6 @@ public abstract class BadRunnable
     /// </summary>
     private class BadFunctionRunnable : BadRunnable
     {
-        private BadExecutionContext m_ExecutionContext;
 
         /// <summary>
         ///     The Return Value
@@ -121,7 +121,6 @@ public abstract class BadRunnable
         /// <param name="args">Function Arguments</param>
         public BadFunctionRunnable(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
         {
-            m_ExecutionContext = ctx;
             Enumerator = RunnableFunction(func, ctx, args).GetEnumerator();
         }
 

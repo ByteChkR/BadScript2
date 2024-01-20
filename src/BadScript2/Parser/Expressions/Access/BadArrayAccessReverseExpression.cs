@@ -83,16 +83,15 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     public static IEnumerable<BadObject> Access(
         BadExecutionContext context,
         BadObject left,
-        BadObject[] args,
+        IEnumerable<BadObject> args,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context?.Scope))
+        //Can be null when evaluated as an optimization step
+        // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
+        if (left.HasProperty(BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME, context?.Scope))
         {
-            BadFunction? func =
-                left.GetProperty(BadStaticKeys.ArrayAccessReverseOperatorName, context?.Scope)
-                    .Dereference() as BadFunction;
-
-            if (func == null)
+            if (left.GetProperty(BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME, context?.Scope)
+                    .Dereference() is not BadFunction func)
             {
                 throw new BadRuntimeException("Array access reverse operator is not a function", position);
             }

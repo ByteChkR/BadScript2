@@ -53,10 +53,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression expression in Left.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+	    return Left.GetDescendantsAndSelf();
     }
 
     public override void Optimize()

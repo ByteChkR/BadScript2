@@ -35,7 +35,7 @@ public class BadNUnitConsoleApi : BadInteropApi
             "AddTest",
             new BadInteropFunction(
                 "AddTest",
-                (context, args) =>
+                (_, args) =>
                 {
                     if (args[0] is not BadFunction func)
                     {

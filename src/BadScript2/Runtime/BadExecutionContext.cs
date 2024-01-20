@@ -42,17 +42,12 @@ public class BadExecutionContext
 	/// <returns>The Return Value. Null if no return value was set.</returns>
 	public BadObject? Run(IEnumerable<BadExpression> expressions)
     {
-        foreach (BadObject o in Execute(expressions))
+        foreach (BadObject _ in Execute(expressions))
         {
             //Execute
         }
 
-        if (Scope.ReturnValue != null)
-        {
-            return Scope.ReturnValue;
-        }
-
-        return null;
+        return Scope.ReturnValue ?? null;
     }
 
     public BadObject ExecuteScript(IEnumerable<BadExpression> expressions)
@@ -87,13 +82,7 @@ public class BadExecutionContext
     /// <returns>Enumeration of the resulting objects</returns>
     public IEnumerable<BadObject> Execute(IEnumerable<BadExpression> expressions)
     {
-        foreach (BadExpression expression in expressions)
-        {
-            foreach (BadObject o in Execute(expression))
-            {
-                yield return o;
-            }
-        }
+        return expressions.SelectMany(Execute);
     }
 
     public IEnumerable<BadObject> Execute(BadExpression expression)

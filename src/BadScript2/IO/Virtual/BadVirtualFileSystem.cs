@@ -56,14 +56,14 @@ public class BadVirtualFileSystem : IFileSystem
 
         BadVirtualDirectory current = m_Root;
 
-        for (int i = 0; i < parts.Length; i++)
+        foreach (string t in parts)
         {
-            if (!current.DirectoryExists(parts[i]))
+            if (!current.DirectoryExists(t))
             {
                 return false;
             }
 
-            current = current.GetDirectory(parts[i]);
+            current = current.GetDirectory(t);
         }
 
         return true;
@@ -84,12 +84,9 @@ public class BadVirtualFileSystem : IFileSystem
 
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
-        if (recursive)
-        {
-            return GetDirectoriesRecursive(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)));
-        }
-
-        return GetDirectories(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)));
+        return recursive ? 
+            GetDirectoriesRecursive(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory))) : 
+            GetDirectories(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)));
     }
 
     public void CreateDirectory(string path, bool recursive = false)
@@ -264,14 +261,8 @@ public class BadVirtualFileSystem : IFileSystem
 
         string fullPath = BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory);
         string[] parts = BadVirtualPathReader.SplitPath(fullPath);
-        BadVirtualDirectory current = m_Root;
 
-        for (int i = 0; i < parts.Length; i++)
-        {
-            current = current.GetDirectory(parts[i]);
-        }
-
-        return current;
+        return parts.Aggregate<string, BadVirtualDirectory>(m_Root, (current1, t) => current1.GetDirectory(t));
     }
 
     /// <summary>
@@ -279,12 +270,9 @@ public class BadVirtualFileSystem : IFileSystem
     /// </summary>
     /// <param name="directory">Path</param>
     /// <returns>Directory Paths</returns>
-    private IEnumerable<string> GetDirectories(BadVirtualDirectory directory)
+    private static IEnumerable<string> GetDirectories(BadVirtualDirectory directory)
     {
-        foreach (BadVirtualDirectory sub in directory.Directories)
-        {
-            yield return sub.AbsolutePath;
-        }
+        return directory.Directories.Select(sub => sub.AbsolutePath);
     }
 
     /// <summary>
@@ -314,15 +302,9 @@ public class BadVirtualFileSystem : IFileSystem
     /// <param name="directory">Path</param>
     /// <param name="extension">The File Extension to be matched</param>
     /// <returns>File Paths</returns>
-    private IEnumerable<string> GetFiles(BadVirtualDirectory directory, string extension)
+    private static IEnumerable<string> GetFiles(BadVirtualDirectory directory, string extension)
     {
-        foreach (BadVirtualFile file in directory.Files)
-        {
-            if (extension == "" || Path.GetExtension(file.Name) == extension)
-            {
-                yield return file.AbsolutePath;
-            }
-        }
+        return from file in directory.Files where extension == "" || Path.GetExtension(file.Name) == extension select file.AbsolutePath;
     }
 
     /// <summary>

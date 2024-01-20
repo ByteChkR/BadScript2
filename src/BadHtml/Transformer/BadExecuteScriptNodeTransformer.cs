@@ -9,12 +9,12 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadExecuteScriptNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "script" && context.InputNode.Attributes["lang"]?.Value == "bs2";
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         string code = context.InputNode.InnerText;
 

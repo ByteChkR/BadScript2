@@ -12,7 +12,7 @@ public static class BadInteractiveExtensions
         while (true)
         {
             BadConsole.Write(">");
-            string cmd = BadConsole.ReadLine()!;
+            string cmd = BadConsole.ReadLine();
 
             if (cmd == "exit")
             {

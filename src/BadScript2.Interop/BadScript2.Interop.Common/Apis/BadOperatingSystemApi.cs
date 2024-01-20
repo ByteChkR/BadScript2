@@ -116,7 +116,8 @@ public class BadOperatingSystemApi : BadInteropApi
 	private BadTable CreateProcessTable(Process p)
     {
         BadInteropRunnable r = null!;
-        r = new BadInteropRunnable(WaitForProcessExit(p, () => r!));
+        // ReSharper disable once AccessToModifiedClosure
+        r = new BadInteropRunnable(WaitForProcessExit(p, () => r));
 
         BadTable t = new BadTable();
         t.SetProperty("Awaitable", new BadTask(r, "WaitForProcessExit"));

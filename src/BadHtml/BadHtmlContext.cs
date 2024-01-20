@@ -12,6 +12,7 @@ using BadScript2.Runtime.Objects;
 
 using HtmlAgilityPack;
 
+// ReSharper disable once InvalidXmlDocComment
 ///<summary>
 ///	A Html Template Generator based on BadScript2
 /// </summary>
@@ -154,16 +155,10 @@ public class BadHtmlContext
 	/// </summary>
 	/// <param name="expressions">The Expression Enumeration</param>
 	/// <returns>Enumeration of all Expressions in the Tree</returns>
-	private IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
-    {
-        foreach (BadExpression expression in expressions)
-        {
-            foreach (BadExpression innerExpression in expression.GetDescendantsAndSelf())
-            {
-                yield return innerExpression;
-            }
-        }
-    }
+	private static IEnumerable<BadExpression> VisitAll(IEnumerable<BadExpression> expressions)
+	{
+		return expressions.SelectMany(expression => expression.GetDescendantsAndSelf());
+	}
 
     public BadExpression ParseSingle(string code, BadSourcePosition pos)
     {
@@ -243,9 +238,10 @@ public class BadHtmlContext
     ///     Executes the specified expressions
     /// </summary>
     /// <param name="expressions">The Expressions</param>
+    /// <param name="position">The Source Position of the Expressions</param>
     /// <returns>The Result of the Execution</returns>
     /// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
-    public BadObject Execute(BadExpression[] expressions, BadSourcePosition position)
+    public BadObject Execute(IEnumerable<BadExpression> expressions, BadSourcePosition position)
     {
         try
         {

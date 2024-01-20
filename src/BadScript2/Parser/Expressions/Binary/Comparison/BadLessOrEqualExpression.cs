@@ -34,17 +34,14 @@ public class BadLessOrEqualExpression : BadBinaryExpression
 	/// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
 	public static BadObject LessOrEqual(BadObject left, BadObject right, BadSourcePosition pos)
     {
-        if (left is IBadNumber lNum)
+        if (left is not IBadNumber lNum)
         {
-            if (right is IBadNumber rNum)
-            {
-                if (lNum.Value <= rNum.Value)
-                {
-                    return BadObject.True;
-                }
+            throw new BadRuntimeException($"Can not apply operator '<=' to {left} and {right}", pos);
+        }
 
-                return BadObject.False;
-            }
+        if (right is IBadNumber rNum)
+        {
+            return lNum.Value <= rNum.Value ? BadObject.True : BadObject.False;
         }
 
         throw new BadRuntimeException($"Can not apply operator '<=' to {left} and {right}", pos);
@@ -56,26 +53,26 @@ public class BadLessOrEqualExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.LessEqualOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.LESS_EQUAL_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.LessEqualOperatorName,
+                         BadStaticKeys.LESS_EQUAL_OPERATOR_NAME,
                          position
                      ))
             {
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.LessEqualOperatorName, context?.Scope))
+        else if (right.HasProperty(BadStaticKeys.LESS_EQUAL_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          context!,
-                         BadStaticKeys.LessEqualOperatorName,
+                         BadStaticKeys.LESS_EQUAL_OPERATOR_NAME,
                          position
                      ))
             {

@@ -14,7 +14,7 @@ public class BadAwaitExpression : BadExpression
 	/// <summary>
 	///     The Task Expression
 	/// </summary>
-	private readonly BadExpression TaskExpr;
+	private readonly BadExpression m_TaskExpr;
 
 	/// <summary>
 	///     Constructs a new Await Expression
@@ -23,22 +23,19 @@ public class BadAwaitExpression : BadExpression
 	/// <param name="position">Source Position</param>
 	public BadAwaitExpression(BadExpression expr, BadSourcePosition position) : base(false, position)
     {
-        TaskExpr = expr;
+        m_TaskExpr = expr;
     }
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression expression in TaskExpr.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+        return m_TaskExpr.GetDescendantsAndSelf();
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject obj = BadObject.Null;
 
-        foreach (BadObject o in TaskExpr.Execute(context))
+        foreach (BadObject o in m_TaskExpr.Execute(context))
         {
             obj = o;
 

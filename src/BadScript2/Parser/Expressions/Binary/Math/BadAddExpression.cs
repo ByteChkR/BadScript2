@@ -38,38 +38,36 @@ public class BadAddExpression : BadBinaryExpression
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side can not be added</exception>
     public static BadObject Add(BadObject left, BadObject right, BadSourcePosition pos)
     {
-        if (left is IBadString lStr)
+        switch (left)
         {
-            if (right is IBadNative rNative)
-            {
+            case IBadString lStr when right is IBadNative rNative:
                 return BadObject.Wrap(lStr.Value + rNative.Value);
-            }
-
-            return BadObject.Wrap(lStr.Value + right);
-        }
-
-        if (left is IBadNumber lNum)
-        {
-            if (right is IBadString rStr)
-            {
+            case IBadString lStr:
+                return BadObject.Wrap(lStr.Value + right);
+            case IBadNumber lNum when right is IBadString rStr:
                 return BadObject.Wrap(lNum.Value + rStr.Value);
-            }
-
-            if (right is IBadNumber rNum)
-            {
+            case IBadNumber lNum when right is IBadNumber rNum:
                 return BadObject.Wrap(lNum.Value + rNum.Value);
-            }
-        }
-        else if (left is IBadBoolean lBool)
-        {
-            if (right is IBadString rStr)
+            case IBadNumber:
+                break;
+            case IBadBoolean lBool:
             {
-                return BadObject.Wrap(lBool.Value + rStr.Value);
+                if (right is IBadString rStr)
+                {
+                    return BadObject.Wrap(lBool.Value + rStr.Value);
+                }
+
+                break;
             }
-        }
-        else if (right is IBadString rStr)
-        {
-            return BadObject.Wrap(left + rStr.Value);
+            default:
+            {
+                if (right is IBadString rStr)
+                {
+                    return BadObject.Wrap(left + rStr.Value);
+                }
+
+                break;
+            }
         }
 
         throw new BadRuntimeException($"Can not apply operator '+' to {left} and {right}", pos);
@@ -84,13 +82,13 @@ public class BadAddExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.AddOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.ADD_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.AddOperatorName,
+                         BadStaticKeys.ADD_OPERATOR_NAME,
                          position
                      ))
             {

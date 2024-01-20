@@ -17,25 +17,17 @@ public abstract class BadConsolePacket
     {
         BadConsolePacketType type = (BadConsolePacketType)data[0];
 
-        switch (type)
+        return type switch
         {
-            case BadConsolePacketType.Write:
-                return BadConsoleWritePacket.Deserialize(data);
-            case BadConsolePacketType.Read:
-                return BadConsoleReadPacket.Deserialize(data);
-            case BadConsolePacketType.Color:
-                return BadConsoleColorChangePacket.Deserialize(data);
-            case BadConsolePacketType.Clear:
-                return BadConsoleClearPacket.Deserialize(data);
-            case BadConsolePacketType.Disconnect:
-                return BadConsoleDisconnectPacket.Deserialize(data);
-            case BadConsolePacketType.HeartBeat:
-                return BadConsoleHeartBeatPacket.Deserialize(data);
-            case BadConsolePacketType.Hello:
-                return BadConsoleHelloPacket.Deserialize(data);
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            BadConsolePacketType.Write => BadConsoleWritePacket.Deserialize(data),
+            BadConsolePacketType.Read => BadConsoleReadPacket.Deserialize(data),
+            BadConsolePacketType.Color => BadConsoleColorChangePacket.Deserialize(data),
+            BadConsolePacketType.Clear => BadConsoleClearPacket.Deserialize(data),
+            BadConsolePacketType.Disconnect => BadConsoleDisconnectPacket.Deserialize(data),
+            BadConsolePacketType.HeartBeat => BadConsoleHeartBeatPacket.Deserialize(data),
+            BadConsolePacketType.Hello => BadConsoleHelloPacket.Deserialize(data),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
 	/// <summary>

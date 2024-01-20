@@ -15,7 +15,7 @@ public class BadObjectExtension : BadInteropExtension
             "ToString",
             o => new BadDynamicInteropFunction(
                 "ToString",
-                _ => o.ToString()!,
+                _ => o.ToString(),
                 BadNativeClassBuilder.GetNative("string")
             )
         );

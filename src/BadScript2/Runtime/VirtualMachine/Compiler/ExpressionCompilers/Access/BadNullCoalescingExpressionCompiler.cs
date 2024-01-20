@@ -14,14 +14,12 @@ public class BadNullCoalescingExpressionCompiler : BadExpressionCompiler<BadNull
 
         yield return new BadInstruction(BadOpCode.Dup, expression.Position);
 
-        List<BadInstruction> instructions = new List<BadInstruction>();
-        instructions.Add(new BadInstruction()); //Jump to end if not null
-        instructions.Add(new BadInstruction(BadOpCode.Pop, expression.Position));
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+        List<BadInstruction> instructions = new List<BadInstruction>
         {
-            instructions.Add(instruction);
-        }
+            new BadInstruction(), //Jump to end if not null
+            new BadInstruction(BadOpCode.Pop, expression.Position),
+        };
+        instructions.AddRange(compiler.Compile(expression.Right));
 
         instructions[0] =
             new BadInstruction(BadOpCode.JumpRelativeIfNotNull, expression.Position, instructions.Count - 1);

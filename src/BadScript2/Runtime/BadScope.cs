@@ -30,6 +30,7 @@ public class BadScope : BadObject
     ///     Creates a new Scope
     /// </summary>
     /// <param name="name">The Name of the Scope</param>
+    /// <param name="provider">The Extension Provider of the Runtime</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
     public BadScope(
@@ -48,6 +49,8 @@ public class BadScope : BadObject
     ///     Creates a new Scope
     /// </summary>
     /// <param name="name">The Name of the Scope</param>
+    /// <param name="provider">The Extension Provider of the Runtime</param>
+    /// <param name="locals">The Local Variables</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
     public BadScope(
@@ -71,6 +74,7 @@ public class BadScope : BadObject
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="name">The Name of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
+    /// <param name="useVisibility">Does the Scope use the Visibility Subsystem</param>
     private BadScope(
         BadScope parent,
         BadScope? caller,
@@ -144,32 +148,34 @@ public class BadScope : BadObject
         "Scope",
         (c, args) =>
         {
-            if (args.Length == 1)
+            switch (args.Length)
             {
-                if (args[0] is not IBadString name)
+                case 1:
                 {
-                    throw new BadRuntimeException("Expected Name in Scope Constructor");
-                }
+                    if (args[0] is not IBadString name)
+                    {
+                        throw new BadRuntimeException("Expected Name in Scope Constructor");
+                    }
 
-                return CreateScope(c, name.Value);
+                    return CreateScope(c, name.Value);
+                }
+                case 2:
+                {
+                    if (args[0] is not IBadString name)
+                    {
+                        throw new BadRuntimeException("Expected Name in Scope Constructor");
+                    }
+
+                    if (args[1] is not BadTable locals)
+                    {
+                        throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
+                    }
+
+                    return CreateScope(c, name.Value, locals);
+                }
+                default:
+                    throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
             }
-
-            if (args.Length == 2)
-            {
-                if (args[0] is not IBadString name)
-                {
-                    throw new BadRuntimeException("Expected Name in Scope Constructor");
-                }
-
-                if (args[1] is not BadTable locals)
-                {
-                    throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
-                }
-
-                return CreateScope(c, name.Value, locals);
-            }
-
-            throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
         }
     );
 
@@ -215,15 +221,16 @@ public class BadScope : BadObject
             return (T)m_SingletonCache[typeof(T)];
         }
 
-        if (createNew)
+        if (!createNew)
         {
-            T v = new T();
-            m_SingletonCache[typeof(T)] = v;
-
-            return v;
+            throw new Exception("Singleton not found");
         }
 
-        throw new Exception("Singleton not found");
+        T v = new T();
+        m_SingletonCache[typeof(T)] = v;
+
+        return v;
+
     }
 
     /// <summary>
@@ -238,20 +245,13 @@ public class BadScope : BadObject
     /// <summary>
     ///     Creates a Root Scope with the given name
     /// </summary>
+    /// <param name="ctx">The Calling Context</param>
     /// <param name="name">Scope Name</param>
+    /// <param name="locals">The Local Variables of the new Scope</param>
     /// <returns>New Scope Instance</returns>
     private static BadScope CreateScope(BadExecutionContext ctx, string name, BadTable? locals = null)
     {
-        BadScope s;
-
-        if (locals != null)
-        {
-            s = new BadScope(name, ctx.Scope.Provider, locals);
-        }
-        else
-        {
-            s = new BadScope(name, ctx.Scope.Provider);
-        }
+        BadScope s = locals != null ? new BadScope(name, ctx.Scope.Provider, locals) : new BadScope(name, ctx.Scope.Provider);
 
         foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope().m_SingletonCache)
         {
@@ -278,10 +278,7 @@ public class BadScope : BadObject
         IsError = false;
         Error = null;
 
-        if (Parent != null)
-        {
-            Parent.UnsetError();
-        }
+        Parent?.UnsetError();
     }
 
     /// <summary>
@@ -443,8 +440,10 @@ public class BadScope : BadObject
         bool? useVisibility,
         BadScopeFlags flags = BadScopeFlags.RootScope)
     {
-        BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility);
-        sc.ClassObject = ClassObject;
+        BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility)
+        {
+            ClassObject = ClassObject,
+        };
 
         return sc;
     }
@@ -455,6 +454,7 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">Variable Name</param>
     /// <param name="value">Variable Value</param>
+    /// <param name="caller">The Caller of the Scope</param>
     /// <param name="info">Variable Info</param>
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
     public void DefineVariable(BadObject name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
@@ -526,16 +526,7 @@ public class BadScope : BadObject
     {
         if (m_UseVisibility)
         {
-            BadPropertyVisibility vis;
-
-            if (IsVisibleParentOf(caller))
-            {
-                vis = BadPropertyVisibility.All;
-            }
-            else
-            {
-                vis = BadPropertyVisibility.Public;
-            }
+            BadPropertyVisibility vis = IsVisibleParentOf(caller) ? BadPropertyVisibility.All : BadPropertyVisibility.Public;
 
             if ((GetPropertyVisibility(name) & vis) == 0)
             {
@@ -572,6 +563,7 @@ public class BadScope : BadObject
     /// </summary>
     /// <param name="name">The Name</param>
     /// <param name="value">The Value</param>
+    /// <param name="caller">The Calling Scope</param>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
     public void SetVariable(BadObject name, BadObject value, BadScope? caller = null)
     {
@@ -594,21 +586,19 @@ public class BadScope : BadObject
     ///     returns true if the specified variable is defined in the current scope
     /// </summary>
     /// <param name="name">The Name</param>
+    /// <param name="caller">The Caller of the Scope</param>
+    /// <param name="useExtensions">Should the Extension Subsystem be searched for the property</param>
     /// <returns>true if the variable is defined</returns>
     public bool HasLocal(BadObject name, BadScope caller, bool useExtensions = true)
     {
-        if (!useExtensions)
-        {
-            return m_ScopeVariables.InnerTable.ContainsKey(name);
-        }
-
-        return m_ScopeVariables.HasProperty(name, caller);
+        return !useExtensions ? m_ScopeVariables.InnerTable.ContainsKey(name) : m_ScopeVariables.HasProperty(name, caller);
     }
 
     /// <summary>
     ///     returns true if the specified variable is defined in the current scope or any parent scope
     /// </summary>
     /// <param name="name">The Name</param>
+    /// <param name="caller">The Caller of the Scope</param>
     /// <returns>true if the variable is defined</returns>
     public bool HasVariable(BadObject name, BadScope caller)
     {
@@ -618,12 +608,7 @@ public class BadScope : BadObject
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (HasVariable(propName, caller ?? this))
-        {
-            return GetVariable(propName, caller ?? this);
-        }
-
-        return base.GetProperty(propName, caller);
+        return HasVariable(propName, caller ?? this) ? GetVariable(propName, caller ?? this) : base.GetProperty(propName, caller);
     }
 
     public override bool HasProperty(BadObject propName, BadScope? caller = null)

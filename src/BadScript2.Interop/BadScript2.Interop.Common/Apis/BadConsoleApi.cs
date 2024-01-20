@@ -90,7 +90,7 @@ public class BadConsoleApi : BadInteropApi
         target.SetFunction(
             "ReadLineAsync",
             () => new BadTask(
-                new ReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()),
+                new BadReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()),
                 "Console.ReadLineAsync"
             ),
             BadTask.Prototype
@@ -165,13 +165,13 @@ public class BadConsoleApi : BadInteropApi
             throw new NotSupportedException("Input is not allowed");
         }
 
-        return Console.ReadLine() ?? "";
+        return Console.ReadLine();
     }
 
     /// <summary>
     ///     Awaitable Enumeration that wraps the ReadLineAsync Task
     /// </summary>
-    private class ReadLineAsyncRunnable : BadRunnable
+    private class BadReadLineAsyncRunnable : BadRunnable
     {
 	    /// <summary>
 	    ///     The Wrapped Task
@@ -187,7 +187,7 @@ public class BadConsoleApi : BadInteropApi
 	    ///     Constructs a new Instance
 	    /// </summary>
 	    /// <param name="task">The Awaitable Enumeration</param>
-	    public ReadLineAsyncRunnable(IEnumerator<BadObject> task)
+	    public BadReadLineAsyncRunnable(IEnumerator<BadObject> task)
         {
             m_Task = task;
         }

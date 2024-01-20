@@ -14,7 +14,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:while";
     }
@@ -27,7 +27,7 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
     /// <param name="expressions">Parsed Expressions</param>
     /// <returns>The Result of the Execution</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the result is not of type IBadBoolean</exception>
-    private bool Evaluate(BadHtmlContext context, HtmlAttribute attribute, BadExpression[] expressions)
+    private static bool Evaluate(BadHtmlContext context, HtmlAttribute attribute, BadExpression[] expressions)
     {
         BadSourcePosition pos = context.CreateAttributePosition(attribute);
         BadObject resultObj = context.Execute(expressions, pos);
@@ -44,7 +44,7 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
         return result.Value;
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? conditionAttribute = context.InputNode.Attributes["test"];
 

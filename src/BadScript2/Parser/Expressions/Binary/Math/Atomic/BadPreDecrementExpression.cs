@@ -31,10 +31,7 @@ public class BadPreDecrementExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+        return Right.GetDescendantsAndSelf();
     }
 
     public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
@@ -81,12 +78,12 @@ public class BadPreDecrementExpression : BadExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.PreDecrementOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.PRE_DECREMENT_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          context!,
-                         BadStaticKeys.PreDecrementOperatorName,
+                         BadStaticKeys.PRE_DECREMENT_OPERATOR_NAME,
                          position
                      ))
             {

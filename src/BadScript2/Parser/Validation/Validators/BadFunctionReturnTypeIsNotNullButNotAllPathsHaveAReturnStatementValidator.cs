@@ -13,33 +13,36 @@ public class
 {
     private void Validate(BadExpressionPath parent, BadExpression expr)
     {
-        if (expr is BadIfExpression ifExpr)
+        switch (expr)
         {
-            Validate(parent, ifExpr);
-        }
-        else if (expr is BadWhileExpression whileExpr)
-        {
-            Validate(parent, whileExpr);
-        }
-        else if (expr is BadForExpression forExpr)
-        {
-            Validate(parent, forExpr);
-        }
-        else if (expr is BadForEachExpression forEachExpr)
-        {
-            Validate(parent, forEachExpr);
-        }
-        else if (expr is BadLockExpression lockExpr)
-        {
-            Validate(parent, lockExpr);
-        }
-        else if (expr is BadTryCatchExpression tryCatchExpr)
-        {
-            Validate(parent, tryCatchExpr);
-        }
-        else if (expr is BadReturnExpression || expr is BadThrowExpression)
-        {
-            parent.SetHasReturnStatement();
+            case BadIfExpression ifExpr:
+                Validate(parent, ifExpr);
+
+                break;
+            case BadWhileExpression whileExpr:
+                Validate(parent, whileExpr);
+
+                break;
+            case BadForExpression forExpr:
+                Validate(parent, forExpr);
+
+                break;
+            case BadForEachExpression forEachExpr:
+                Validate(parent, forEachExpr);
+
+                break;
+            case BadLockExpression lockExpr:
+                Validate(parent, lockExpr);
+
+                break;
+            case BadTryCatchExpression tryCatchExpr:
+                Validate(parent, tryCatchExpr);
+
+                break;
+            case BadReturnExpression or BadThrowExpression:
+                parent.SetHasReturnStatement();
+
+                break;
         }
     }
 
@@ -92,14 +95,12 @@ public class
         BadExpressionPath ifParent = new BadExpressionPath(expr);
         parent.AddChildPath(ifParent);
 
-        List<BadExpressionPath> paths = new List<BadExpressionPath>();
-
+        
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.ConditionalBranches)
         {
             BadExpressionPath path = new BadExpressionPath(expr);
             ifParent.AddChildPath(path);
-            paths.Add(path);
-
+            
             foreach (BadExpression expression in branch.Value)
             {
                 Validate(path, expression);
@@ -109,7 +110,11 @@ public class
         BadExpressionPath elsePath = new BadExpressionPath(expr);
         ifParent.AddChildPath(elsePath);
 
-        if (expr.ElseBranch != null)
+        if (expr.ElseBranch == null)
+        {
+            return;
+        }
+
         {
             foreach (BadExpression expression in expr.ElseBranch)
             {
@@ -141,27 +146,31 @@ public class
     {
         BadExpressionPath path = new BadExpressionPath(expr);
 
-        if (expr.TypeExpression != null)
+        if (expr.TypeExpression == null)
         {
-            //1. Go Through every expression inside the body.
-            foreach (BadExpression e in expr.Body)
-            {
-                Validate(path, e);
-            }
+            return;
+        }
 
-            if (!path.IsValid)
-            {
-                //find all invalid paths
-                foreach (BadExpressionPath invalidPath in path.GetInvalidPaths())
-                {
-                    context.AddError(
-                        "The function has a return type but not all paths have a return statement.",
-                        expr,
-                        invalidPath.Parent,
-                        this
-                    );
-                }
-            }
+        //1. Go Through every expression inside the body.
+        foreach (BadExpression e in expr.Body)
+        {
+            Validate(path, e);
+        }
+
+        if (path.IsValid)
+        {
+            return;
+        }
+
+        //find all invalid paths
+        foreach (BadExpressionPath invalidPath in path.GetInvalidPaths())
+        {
+            context.AddError(
+                "The function has a return type but not all paths have a return statement.",
+                expr,
+                invalidPath.Parent,
+                this
+            );
         }
     }
 }

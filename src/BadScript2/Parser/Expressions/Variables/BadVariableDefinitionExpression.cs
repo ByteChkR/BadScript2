@@ -47,12 +47,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
 	/// <returns>String Representation</returns>
 	public override string ToString()
     {
-        if (IsReadOnly)
-        {
-            return $"{BadStaticKeys.ConstantDefinitionKey} {Name}";
-        }
-
-        return $"{BadStaticKeys.VariableDefinitionKey} {Name}";
+        return IsReadOnly ? $"{BadStaticKeys.CONSTANT_DEFINITION_KEY} {Name}" : $"{BadStaticKeys.VARIABLE_DEFINITION_KEY} {Name}";
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

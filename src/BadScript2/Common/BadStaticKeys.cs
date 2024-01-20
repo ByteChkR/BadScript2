@@ -17,104 +17,104 @@ public static class BadStaticKeys
         '\n',
     };
 
-    public static readonly char Quote = '"';
-    public static readonly char SingleQuote = '\'';
-    public static readonly string FormatStringKey = "$\"";
-    public static readonly string MultiLineStringKey = "@\"";
-    public static readonly string MultiLineFormatStringKey = "$@\"";
-    public static readonly string SingleLineComment = "//";
-    public static readonly string MultiLineCommentStart = "/*";
-    public static readonly string MultiLineCommentEnd = "*/";
-    public static readonly string VariableDefinitionKey = "let";
-    public static readonly string ConstantDefinitionKey = "const";
-    public static readonly string StaticDefinitionKey = "static";
-    public static readonly string CompiledDefinitionKey = "compiled";
-    public static readonly string CompiledFastDefinitionKey = "fast";
-    public static readonly string LockKey = "lock";
-    public static readonly string True = "true";
-    public static readonly string False = "false";
-    public static readonly string Null = "null";
-    public static readonly string NewKey = "new";
-    public static readonly string FunctionKey = "function";
-    public static readonly string ClassKey = "class";
-    public static readonly string InterfaceKey = "interface";
-    public static readonly string While = "while";
-    public static readonly string ReturnKey = "return";
-    public static readonly string RefKey = "ref";
-    public static readonly string BreakKey = "break";
-    public static readonly string ContinueKey = "continue";
-    public static readonly string ThrowKey = "throw";
-    public static readonly string IfKey = "if";
-    public static readonly string ElseKey = "else";
-    public static readonly string ForKey = "for";
-    public static readonly string ForEachKey = "foreach";
-    public static readonly string TryKey = "try";
-    public static readonly string CatchKey = "catch";
-    public static readonly string UsingKey = "using";
-    public static readonly char DecimalSeparator = '.';
-    public static readonly char NegativeSign = '-';
-    public static readonly char EscapeCharacter = '\\';
-    public static readonly char StatementEndKey = ';';
-    public static readonly char BlockEndKey = '}';
+    public const char QUOTE = '"';
+    public const char SINGLE_QUOTE = '\'';
+    public const string FORMAT_STRING_KEY = "$\"";
+    public const string MULTI_LINE_STRING_KEY = "@\"";
+    public const string MULTI_LINE_FORMAT_STRING_KEY = "$@\"";
+    public const string SINGLE_LINE_COMMENT = "//";
+    public const string MULTI_LINE_COMMENT_START = "/*";
+    public const string MULTI_LINE_COMMENT_END = "*/";
+    public const string VARIABLE_DEFINITION_KEY = "let";
+    public const string CONSTANT_DEFINITION_KEY = "const";
+    public const string STATIC_DEFINITION_KEY = "static";
+    public const string COMPILED_DEFINITION_KEY = "compiled";
+    public const string COMPILED_FAST_DEFINITION_KEY = "fast";
+    public const string LOCK_KEY = "lock";
+    public const string TRUE = "true";
+    public const string FALSE = "false";
+    public const string NULL = "null";
+    public const string NEW_KEY = "new";
+    public const string FUNCTION_KEY = "function";
+    public const string CLASS_KEY = "class";
+    public const string INTERFACE_KEY = "interface";
+    public const string WHILE = "while";
+    public const string RETURN_KEY = "return";
+    public const string REF_KEY = "ref";
+    public const string BREAK_KEY = "break";
+    public const string CONTINUE_KEY = "continue";
+    public const string THROW_KEY = "throw";
+    public const string IF_KEY = "if";
+    public const string ELSE_KEY = "else";
+    public const string FOR_KEY = "for";
+    public const string FOR_EACH_KEY = "foreach";
+    public const string TRY_KEY = "try";
+    public const string CATCH_KEY = "catch";
+    public const string USING_KEY = "using";
+    public const char DECIMAL_SEPARATOR = '.';
+    public const char NEGATIVE_SIGN = '-';
+    public const char ESCAPE_CHARACTER = '\\';
+    public const char STATEMENT_END_KEY = ';';
+    public const char BLOCK_END_KEY = '}';
 
 
-    public static readonly string ArrayAccessOperatorName = "op_ArrayAccess";
-    public static readonly string ArrayAccessReverseOperatorName = "op_ArrayAccessReverse";
-    public static readonly string InvocationOperatorName = "op_Invoke";
-    public static readonly string AddAssignOperatorName = "op_AddAssign";
-    public static readonly string SubtractAssignOperatorName = "op_SubtractAssign";
-    public static readonly string MultiplyAssignOperatorName = "op_MultiplyAssign";
-    public static readonly string ExponentiationAssignOperatorName = "op_ExponentiationAssign";
-    public static readonly string DivideAssignOperatorName = "op_DivideAssign";
-    public static readonly string ModuloAssignOperatorName = "op_ModuloAssign";
-    public static readonly string AddOperatorName = "op_Add";
-    public static readonly string SubtractOperatorName = "op_Subtract";
-    public static readonly string MultiplyOperatorName = "op_Multiply";
-    public static readonly string DivideOperatorName = "op_Divide";
-    public static readonly string ModuloOperatorName = "op_Modulo";
-    public static readonly string ExponentiationOperatorName = "op_Exponentiation";
-    public static readonly string NegationOperatorName = "op_Negate";
+    public const string ARRAY_ACCESS_OPERATOR_NAME = "op_ArrayAccess";
+    public const string ARRAY_ACCESS_REVERSE_OPERATOR_NAME = "op_ArrayAccessReverse";
+    public const string INVOCATION_OPERATOR_NAME = "op_Invoke";
+    public const string ADD_ASSIGN_OPERATOR_NAME = "op_AddAssign";
+    public const string SUBTRACT_ASSIGN_OPERATOR_NAME = "op_SubtractAssign";
+    public const string MULTIPLY_ASSIGN_OPERATOR_NAME = "op_MultiplyAssign";
+    public const string EXPONENTIATION_ASSIGN_OPERATOR_NAME = "op_ExponentiationAssign";
+    public const string DIVIDE_ASSIGN_OPERATOR_NAME = "op_DivideAssign";
+    public const string MODULO_ASSIGN_OPERATOR_NAME = "op_ModuloAssign";
+    public const string ADD_OPERATOR_NAME = "op_Add";
+    public const string SUBTRACT_OPERATOR_NAME = "op_Subtract";
+    public const string MULTIPLY_OPERATOR_NAME = "op_Multiply";
+    public const string DIVIDE_OPERATOR_NAME = "op_Divide";
+    public const string MODULO_OPERATOR_NAME = "op_Modulo";
+    public const string EXPONENTIATION_OPERATOR_NAME = "op_Exponentiation";
+    public const string NEGATION_OPERATOR_NAME = "op_Negate";
 
-    public static readonly string EqualOperatorName = "op_Equal";
-    public static readonly string NotEqualOperatorName = "op_NotEqual";
-    public static readonly string GreaterOperatorName = "op_Greater";
-    public static readonly string GreaterEqualOperatorName = "op_GreaterOrEqual";
-    public static readonly string LessOperatorName = "op_Less";
-    public static readonly string LessEqualOperatorName = "op_LessOrEqual";
+    public const string EQUAL_OPERATOR_NAME = "op_Equal";
+    public const string NOT_EQUAL_OPERATOR_NAME = "op_NotEqual";
+    public const string GREATER_OPERATOR_NAME = "op_Greater";
+    public const string GREATER_EQUAL_OPERATOR_NAME = "op_GreaterOrEqual";
+    public const string LESS_OPERATOR_NAME = "op_Less";
+    public const string LESS_EQUAL_OPERATOR_NAME = "op_LessOrEqual";
 
 
-    public static readonly string InOperatorName = "op_In";
-    public static readonly string NotOperatorName = "op_Not";
-    public static readonly string PostDecrementOperatorName = "op_PostDecrement";
-    public static readonly string PostIncrementOperatorName = "op_PostIncrement";
-    public static readonly string PreDecrementOperatorName = "op_PreDecrement";
-    public static readonly string PreIncrementOperatorName = "op_PreIncrement";
+    public const string IN_OPERATOR_NAME = "op_In";
+    public const string NOT_OPERATOR_NAME = "op_Not";
+    public const string POST_DECREMENT_OPERATOR_NAME = "op_PostDecrement";
+    public const string POST_INCREMENT_OPERATOR_NAME = "op_PostIncrement";
+    public const string PRE_DECREMENT_OPERATOR_NAME = "op_PreDecrement";
+    public const string PRE_INCREMENT_OPERATOR_NAME = "op_PreIncrement";
 
     public static IEnumerable<string> ReservedKeywords { get; set; } = new[]
     {
-        VariableDefinitionKey,
-        ConstantDefinitionKey,
-        StaticDefinitionKey,
-        LockKey,
-        True,
-        False,
-        Null,
-        NewKey,
-        FunctionKey,
-        ClassKey,
-        InterfaceKey,
-        While,
-        ReturnKey,
-        BreakKey,
-        ContinueKey,
-        ThrowKey,
-        IfKey,
-        ElseKey,
-        ForKey,
-        ForEachKey,
-        TryKey,
-        CatchKey,
-        RefKey,
+        VARIABLE_DEFINITION_KEY,
+        CONSTANT_DEFINITION_KEY,
+        STATIC_DEFINITION_KEY,
+        LOCK_KEY,
+        TRUE,
+        FALSE,
+        NULL,
+        NEW_KEY,
+        FUNCTION_KEY,
+        CLASS_KEY,
+        INTERFACE_KEY,
+        WHILE,
+        RETURN_KEY,
+        BREAK_KEY,
+        CONTINUE_KEY,
+        THROW_KEY,
+        IF_KEY,
+        ELSE_KEY,
+        FOR_KEY,
+        FOR_EACH_KEY,
+        TRY_KEY,
+        CATCH_KEY,
+        REF_KEY,
     };
 
     public static bool IsReservedKeyword(string keyword)

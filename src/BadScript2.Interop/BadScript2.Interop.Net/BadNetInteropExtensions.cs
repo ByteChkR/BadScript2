@@ -52,7 +52,7 @@ public class BadNetInteropExtensions : BadInteropExtension
     /// </summary>
     /// <param name="content">The Http Content</param>
     /// <returns>Awaitable Task with result string</returns>
-    private BadTask Content_ReadAsString(HttpContent content)
+    private static BadTask Content_ReadAsString(HttpContent content)
     {
         Task<string> task = content.ReadAsStringAsync();
 
@@ -64,7 +64,7 @@ public class BadNetInteropExtensions : BadInteropExtension
     /// </summary>
     /// <param name="content">The Http Content</param>
     /// <returns>Awaitable Task with result array</returns>
-    private BadTask Content_ReadAsArray(HttpContent content)
+    private static BadTask Content_ReadAsArray(HttpContent content)
     {
         Task<byte[]> task = content.ReadAsByteArrayAsync();
 

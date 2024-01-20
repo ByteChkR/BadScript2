@@ -32,7 +32,7 @@ public class BadTaskExtensions : BadInteropExtension
     /// <param name="func">Function</param>
     /// <param name="args">Arguments</param>
     /// <returns>BadTask</returns>
-    private BadObject AsTask(BadExecutionContext ctx, BadFunction func, BadObject[] args)
+    private static BadObject AsTask(BadExecutionContext ctx, BadFunction func, BadObject[] args)
     {
         return BadTask.Create(func, ctx, func.Name?.Text, args);
     }

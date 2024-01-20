@@ -74,7 +74,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsPrototypeInstance(BadObject arg)
+	private static BadObject Native_IsPrototypeInstance(BadObject arg)
     {
         return arg is BadClass;
     }
@@ -84,7 +84,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsPrototype(BadObject arg)
+	private static BadObject Native_IsPrototype(BadObject arg)
     {
         return arg is BadClassPrototype;
     }
@@ -94,7 +94,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsNative(BadObject arg)
+	private static BadObject Native_IsNative(BadObject arg)
     {
         return arg is IBadNative;
     }
@@ -104,7 +104,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsFunction(BadObject arg)
+	private static BadObject Native_IsFunction(BadObject arg)
     {
         return arg is BadFunction;
     }
@@ -114,7 +114,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsTable(BadObject arg)
+	private static BadObject Native_IsTable(BadObject arg)
     {
         return arg is BadTable;
     }
@@ -124,7 +124,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsString(BadObject arg)
+	private static BadObject Native_IsString(BadObject arg)
     {
         return arg is IBadString;
     }
@@ -134,7 +134,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsNumber(BadObject arg)
+	private static BadObject Native_IsNumber(BadObject arg)
     {
         return arg is IBadNumber;
     }
@@ -144,7 +144,7 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsBoolean(BadObject arg)
+	private static BadObject Native_IsBoolean(BadObject arg)
     {
         return arg is IBadBoolean;
     }
@@ -154,17 +154,18 @@ public class BadRuntimeApi : BadInteropApi
 	/// </summary>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsArray(BadObject arg)
+	private static BadObject Native_IsArray(BadObject arg)
     {
         return arg is BadArray;
     }
 
-	/// <summary>
-	///     Returns true if the given object is enumerable
-	/// </summary>
-	/// <param name="arg">Object to test</param>
-	/// <returns>Boolean</returns>
-	private BadObject Native_IsEnumerable(BadExecutionContext ctx, BadObject arg)
+    /// <summary>
+    ///     Returns true if the given object is enumerable
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="arg">Object to test</param>
+    /// <returns>Boolean</returns>
+    private static BadObject Native_IsEnumerable(BadExecutionContext ctx, BadObject arg)
     {
         return arg.HasProperty("GetEnumerator", ctx.Scope);
     }
@@ -172,9 +173,10 @@ public class BadRuntimeApi : BadInteropApi
 	/// <summary>
 	///     Returns true if the given object is an enumerator
 	/// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
 	/// <param name="arg">Object to test</param>
 	/// <returns>Boolean</returns>
-	private BadObject Native_IsEnumerator(BadExecutionContext ctx, BadObject arg)
+	private static BadObject Native_IsEnumerator(BadExecutionContext ctx, BadObject arg)
     {
         return arg.HasProperty("GetCurrent", ctx.Scope) && arg.HasProperty("MoveNext", ctx.Scope);
     }
@@ -257,16 +259,7 @@ public class BadRuntimeApi : BadInteropApi
             "GetRuntimeAssemblyPath",
             () =>
             {
-                string path;
-
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    path = Path.ChangeExtension(Assembly.GetEntryAssembly().Location, "exe");
-                }
-                else
-                {
-                    path = Path.ChangeExtension(Assembly.GetEntryAssembly().Location, "");
-                }
+                string path = Path.ChangeExtension(Assembly.GetEntryAssembly()!.Location, RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "exe" : "");
 
                 return path;
             },
@@ -482,9 +475,10 @@ public class BadRuntimeApi : BadInteropApi
     /// <summary>
     ///     Returns all Extension Names of the given object
     /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
     /// <param name="o">Object</param>
     /// <returns>Array of Extension Names</returns>
-    private BadObject GetExtensionNames(BadExecutionContext ctx, BadObject o)
+    private static BadObject GetExtensionNames(BadExecutionContext ctx, BadObject o)
     {
         return new BadArray(ctx.Scope.Provider.GetExtensionNames(o).ToList());
     }
@@ -493,7 +487,7 @@ public class BadRuntimeApi : BadInteropApi
     ///     Lists all global extension names
     /// </summary>
     /// <returns>Array of Extension Names</returns>
-    private BadObject GetGlobalExtensionNames(BadExecutionContext ctx)
+    private static BadObject GetGlobalExtensionNames(BadExecutionContext ctx)
     {
         return new BadArray(ctx.Scope.Provider.GetExtensionNames().ToList());
     }
@@ -502,7 +496,7 @@ public class BadRuntimeApi : BadInteropApi
     ///     Returns the arguments passed to the script
     /// </summary>
     /// <returns>Array of Arguments</returns>
-    private BadObject GetArguments()
+    private static BadObject GetArguments()
     {
         return StartupArguments == null ? new BadArray() : new BadArray(StartupArguments.Select(x => (BadObject)x).ToList());
     }
@@ -548,7 +542,7 @@ public class BadRuntimeApi : BadInteropApi
     /// <param name="scope">The Scope that the source will be executed in</param>
     /// <returns>Result of the Source</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Arguments are invalid</exception>
-    private BadObject Evaluate(
+    private static BadObject Evaluate(
         BadExecutionContext caller,
         BadObject str,
         BadObject fileObj,
@@ -671,6 +665,7 @@ public class BadRuntimeApi : BadInteropApi
         BadTask task = null!;
         task = new BadTask(
             new BadInteropRunnable(
+                // ReSharper disable once AccessToModifiedClosure
                 SafeExecute(ctx.Execute(exprs), ctx, () => task).GetEnumerator(),
                 setLastAsReturnB.Value
             ),
@@ -680,7 +675,7 @@ public class BadRuntimeApi : BadInteropApi
         return task;
     }
 
-    private IEnumerable<BadObject> SafeExecute(
+    private static IEnumerable<BadObject> SafeExecute(
         IEnumerable<BadObject> script,
         BadExecutionContext ctx,
         Func<BadTask> getTask)

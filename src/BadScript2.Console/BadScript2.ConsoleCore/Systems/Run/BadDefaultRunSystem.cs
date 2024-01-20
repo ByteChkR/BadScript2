@@ -10,27 +10,31 @@ public class BadDefaultRunSystem : BadRunSystem
 {
     public BadDefaultRunSystem(BadRuntime runtime) : base(runtime) { }
 
-    public override object? Parse(string[] args)
+    public override object Parse(string[] args)
     {
-        BadRunSystemSettings settings = new BadRunSystemSettings();
-        settings.Args = args.Skip(1);
+        BadRunSystemSettings settings = new BadRunSystemSettings
+        {
+            Args = args.Skip(1),
+        };
         string file = args.First();
         settings.Files = new[]
         {
             file,
         };
 
-        if (!BadFileSystem.Instance.IsFile(file))
+        if (BadFileSystem.Instance.IsFile(file))
         {
-            string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
+            return settings;
+        }
 
-            if (BadFileSystem.Instance.IsFile(path))
+        string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
+
+        if (BadFileSystem.Instance.IsFile(path))
+        {
+            settings.Files = new[]
             {
-                settings.Files = new[]
-                {
-                    path,
-                };
-            }
+                path,
+            };
         }
 
         return settings;

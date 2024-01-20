@@ -27,7 +27,9 @@ public abstract class BadFunction : BadObject
     /// </summary>
     /// <param name="name">(optional) Function Name</param>
     /// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
+    /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="parameters">The function parameters</param>
+    /// <param name="isStatic">Is the Function static</param>
     protected BadFunction(
         BadWordToken? name,
         bool isConstant,
@@ -78,20 +80,17 @@ public abstract class BadFunction : BadObject
         return this;
     }
 
-    protected BadObject GetParameter(BadObject[] args, int i)
+    protected static BadObject GetParameter(BadObject[] args, int i)
     {
-        if (args.Length > i)
-        {
-            return args[i].Dereference();
-        }
-
-        return Null;
+        return args.Length > i ? args[i].Dereference() : Null;
     }
 
     /// <summary>
     ///     Checks Parameters for the given function call
     /// </summary>
     /// <param name="args">Arguments provided for the invocation</param>
+    /// <param name="caller">The Caller Context</param>
+    /// <param name="position">The Source position</param>
     /// <exception cref="BadRuntimeException">Gets raised if the Parameters are invalid for the function</exception>
     protected void CheckParameters(BadObject[] args, BadExecutionContext caller, BadSourcePosition? position = null)
     {
@@ -180,7 +179,7 @@ public abstract class BadFunction : BadObject
     /// </summary>
     /// <param name="args">Arguments</param>
     /// <returns>The Hash for the arguments</returns>
-    private int? GetHash(BadObject[] args)
+    private static int? GetHash(IEnumerable<BadObject> args)
     {
         int hash = 0;
 
@@ -192,14 +191,7 @@ public abstract class BadFunction : BadObject
                 return null;
             }
 
-            if (hash == 0)
-            {
-                hash = native.Value.GetHashCode();
-            }
-            else
-            {
-                hash = BadHashCode.Combine(hash, native.Value);
-            }
+            hash = hash == 0 ? native.Value.GetHashCode() : BadHashCode.Combine(hash, native.Value);
         }
 
         return hash;
@@ -243,10 +235,14 @@ public abstract class BadFunction : BadObject
             );
         }
 
-        if (!caller.Scope.IsError &&
-            IsConstant &&
-            ret != null &&
-            BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
+        if (caller.Scope.IsError ||
+            !IsConstant ||
+            ret == null ||
+            !BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
+        {
+            yield break;
+        }
+
         {
             int? hash = GetHash(args);
 
@@ -276,9 +272,9 @@ public abstract class BadFunction : BadObject
         return GetHeader(Name?.ToString() ?? "<anonymous>", ReturnType, Parameters);
     }
 
-    public static string GetHeader(string name, BadClassPrototype returnType, BadFunctionParameter[] parameters)
+    public static string GetHeader(string name, BadClassPrototype returnType, IEnumerable<BadFunctionParameter> parameters)
     {
-        return $"{BadStaticKeys.FunctionKey} {returnType.Name} {name}({string.Join(", ", parameters.Cast<object>())})";
+        return $"{BadStaticKeys.FUNCTION_KEY} {returnType.Name} {name}({string.Join(", ", parameters.Cast<object>())})";
     }
 
     public override string ToSafeString(List<BadObject> done)

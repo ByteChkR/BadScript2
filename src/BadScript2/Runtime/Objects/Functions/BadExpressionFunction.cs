@@ -37,6 +37,9 @@ public class BadExpressionFunction : BadFunction
     /// <param name="parameters">The parameter info</param>
     /// <param name="position">The Source Position of the Function</param>
     /// <param name="isConstant">Indicates if the function has no side effects and the result can be cached</param>
+    /// <param name="isStatic">Is the Function Static</param>
+    /// <param name="metaData">The Metadata of the Function</param>
+    /// <param name="returnType">The Return type of the Function</param>
     public BadExpressionFunction(
         BadScope parentScope,
         BadWordToken? name,

@@ -23,12 +23,9 @@ public class BadExpressionPath
         }
         else
         {
-            foreach (BadExpressionPath childPath in m_ChildPaths)
+            foreach (BadExpressionPath invalidPath in m_ChildPaths.SelectMany(childPath => childPath.GetInvalidPaths()))
             {
-                foreach (BadExpressionPath invalidPath in childPath.GetInvalidPaths())
-                {
-                    yield return invalidPath;
-                }
+                yield return invalidPath;
             }
         }
     }

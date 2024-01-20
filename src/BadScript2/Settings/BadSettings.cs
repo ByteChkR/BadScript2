@@ -330,32 +330,34 @@ public class BadSettings
     {
         for (int i = 0; i < str.Length; i++)
         {
-            if (str[i] == '$' && i + 1 < str.Length && str[i + 1] == '(')
-            {
-                int end = str.IndexOf(')', i + 2);
+	        if (str[i] != '$' || i + 1 >= str.Length || str[i + 1] != '(')
+	        {
+		        continue;
+	        }
 
-                if (end == -1)
-                {
-                    throw new Exception("Unclosed environment variable");
-                }
+	        int end = str.IndexOf(')', i + 2);
 
-                string envVar = str.Substring(i + 2, end - i - 2);
+	        if (end == -1)
+	        {
+		        throw new Exception("Unclosed environment variable");
+	        }
 
-                string? env = root.FindProperty<string>(envVar);
+	        string envVar = str.Substring(i + 2, end - i - 2);
 
-                if (env == null)
-                {
-                    env = parent.FindProperty<string>(envVar);
+	        string? env = root.FindProperty<string>(envVar);
 
-                    if (env == null)
-                    {
-                        throw new Exception($"Environment variable '{envVar}' not found");
-                    }
-                }
+	        if (env == null)
+	        {
+		        env = parent.FindProperty<string>(envVar);
 
-                str = str.Replace(str.Substring(i, end - i + 1), env);
-                i--;
-            }
+		        if (env == null)
+		        {
+			        throw new Exception($"Environment variable '{envVar}' not found");
+		        }
+	        }
+
+	        str = str.Replace(str.Substring(i, end - i + 1), env);
+	        i--;
         }
 
         return str;

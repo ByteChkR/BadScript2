@@ -86,21 +86,12 @@ public class BadSystemFileSystem : IFileSystem
 
     public Stream OpenWrite(string path, BadWriteMode mode)
     {
-        FileMode fileMode;
-
-        switch (mode)
+        FileMode fileMode = mode switch
         {
-            case BadWriteMode.CreateNew:
-                fileMode = FileMode.Create;
-
-                break;
-            case BadWriteMode.Append:
-                fileMode = FileMode.Append;
-
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
-        }
+            BadWriteMode.CreateNew => FileMode.Create,
+            BadWriteMode.Append => FileMode.Append,
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+        };
 
         return File.Open(path, fileMode);
     }

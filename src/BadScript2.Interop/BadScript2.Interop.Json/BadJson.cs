@@ -25,17 +25,7 @@ public static class BadJson
     /// <returns>Array</returns>
     private static BadArray ConvertArray(JArray array)
     {
-        List<BadObject> a = new List<BadObject>();
-
-        foreach (JToken? node in array)
-        {
-            if (node == null)
-            {
-                continue;
-            }
-
-            a.Add(ConvertNode(node));
-        }
+        List<BadObject> a = array.Where(x=>x != null).Select(ConvertNode).ToList();
 
         return new BadArray(a);
     }
@@ -65,43 +55,21 @@ public static class BadJson
     /// <exception cref="Exception">Gets Raised if the type is not supported</exception>
     public static JToken ConvertNode(BadObject value)
     {
-        if (value is IBadString s)
-        {
-            return new JValue(s.Value);
-        }
-
-        if (value is IBadNumber n)
-        {
-            return new JValue(n.Value);
-        }
-
-        if (value is IBadBoolean b)
-        {
-            return new JValue(b.Value);
-        }
-
         if (value == BadObject.Null)
         {
             return JValue.CreateNull();
         }
 
-        if (value is BadArray a)
+        return value switch
         {
-            return ConvertArray(a);
-        }
-
-        if (value is BadTable t)
-        {
-            return ConvertTable(t);
-        }
-
-
-        if (value is BadReflectedObject ro)
-        {
-            return JToken.FromObject(ro.Instance);
-        }
-
-        throw new Exception("Unsupported value type: " + value.GetType());
+            IBadString s => new JValue(s.Value),
+            IBadNumber n => new JValue(n.Value),
+            IBadBoolean b => new JValue(b.Value),
+            BadArray a => ConvertArray(a),
+            BadTable t => ConvertTable(t),
+            BadReflectedObject ro => JToken.FromObject(ro.Instance),
+            _ => throw new Exception("Unsupported value type: " + value.GetType())
+        };
     }
 
     /// <summary>
@@ -162,17 +130,13 @@ public static class BadJson
 
                 return (decimal)(long)value.Value!;
             case JTokenType.Float:
-                if (value.Value is float f)
+                return value.Value switch
                 {
-                    return (decimal)f;
-                }
+                    float f => (decimal)f,
+                    decimal d => d,
+                    _ => (decimal)(double)value.Value!
+                };
 
-                if (value.Value is decimal d)
-                {
-                    return d;
-                }
-
-                return (decimal)(double)value.Value!;
             case JTokenType.String:
                 return (string)value.Value!;
             case JTokenType.Boolean:
@@ -183,6 +147,17 @@ public static class BadJson
                 return value.Value<DateTime>().ToString("O");
             case JTokenType.Null:
                 return BadObject.Null;
+            case JTokenType.None:
+            case JTokenType.Object:
+            case JTokenType.Array:
+            case JTokenType.Constructor:
+            case JTokenType.Property:
+            case JTokenType.Comment:
+            case JTokenType.Undefined:
+            case JTokenType.Raw:
+            case JTokenType.Bytes:
+            case JTokenType.Uri:
+            case JTokenType.TimeSpan:
             default:
                 throw new Exception("Unsupported Json type: " + value.Type);
         }
@@ -196,27 +171,14 @@ public static class BadJson
     /// <exception cref="Exception">Gets Raised if the type is not supported</exception>
     public static BadObject ConvertNode(JToken? node)
     {
-        if (node is null)
+        return node switch
         {
-            return BadObject.Null;
-        }
-
-        if (node is JArray a)
-        {
-            return ConvertArray(a);
-        }
-
-        if (node is JObject o)
-        {
-            return ConvertObject(o);
-        }
-
-        if (node is JValue v)
-        {
-            return ConvertValue(v);
-        }
-
-        throw new Exception("Unsupported node type: " + node.GetType());
+            null => BadObject.Null,
+            JArray a => ConvertArray(a),
+            JObject o => ConvertObject(o),
+            JValue v => ConvertValue(v),
+            _ => throw new Exception("Unsupported node type: " + node.GetType())
+        };
     }
 
     /// <summary>

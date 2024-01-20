@@ -8,12 +8,7 @@ public class BadWhileExpressionCompiler : BadExpressionCompiler<BadWhileExpressi
 {
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadWhileExpression expression)
     {
-        List<BadInstruction> instructions = new List<BadInstruction>();
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Condition))
-        {
-            instructions.Add(instruction);
-        }
+        List<BadInstruction> instructions = compiler.Compile(expression.Condition).ToList();
 
         int endJump = instructions.Count;
         instructions.Add(new BadInstruction());
@@ -37,10 +32,7 @@ public class BadWhileExpressionCompiler : BadExpressionCompiler<BadWhileExpressi
         int setContinueInstruction = instructions.Count;
         instructions.Add(new BadInstruction());
 
-        foreach (BadInstruction instruction in compiler.Compile(expression.Body))
-        {
-            instructions.Add(instruction);
-        }
+        instructions.AddRange(compiler.Compile(expression.Body));
 
         instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
 

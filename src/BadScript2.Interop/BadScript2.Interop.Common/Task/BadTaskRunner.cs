@@ -65,36 +65,40 @@ public class BadTaskRunner
                         break;
                     }
 
-                    if (t.IsFinished || !t.Runnable.Enumerator.MoveNext())
+                    if (!t.IsFinished && t.Runnable.Enumerator.MoveNext())
                     {
-                        t.Stop();
-
-                        break;
+	                    continue;
                     }
+
+                    t.Stop();
+
+                    break;
                 }
             }
 
-            if (t.IsFinished)
+            if (!t.IsFinished)
             {
-                m_TaskList.Remove(t);
+	            continue;
+            }
 
-                foreach (BadTask x in t.ContinuationTasks)
-                {
-                    if (x.IsFinished)
-                    {
-                        continue;
-                    }
+            m_TaskList.Remove(t);
 
-                    if (m_TaskList.Contains(x))
-                    {
-                        x.Resume();
-                    }
-                    else
-                    {
-                        m_TaskList.Add(x);
-                        x.Start();
-                    }
-                }
+            foreach (BadTask x in t.ContinuationTasks)
+            {
+	            if (x.IsFinished)
+	            {
+		            continue;
+	            }
+
+	            if (m_TaskList.Contains(x))
+	            {
+		            x.Resume();
+	            }
+	            else
+	            {
+		            m_TaskList.Add(x);
+		            x.Start();
+	            }
             }
         }
     }
@@ -113,13 +117,10 @@ public class BadTaskRunner
 	/// <param name="creator">Creator</param>
 	public void ClearTasksFrom(BadTask creator)
     {
-        foreach (BadTask task in m_TaskList)
+        foreach (BadTask task in m_TaskList.Where(task => task.Creator == creator))
         {
-            if (task.Creator == creator)
-            {
-                task.Cancel();
-                ClearTasksFrom(task);
-            }
+            task.Cancel();
+            ClearTasksFrom(task);
         }
     }
 

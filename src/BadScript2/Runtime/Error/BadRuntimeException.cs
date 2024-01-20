@@ -43,11 +43,6 @@ public class BadRuntimeException : BadScriptException
             message = message + Environment.NewLine + scope.GetStackTrace();
         }
 
-        if (pos == null)
-        {
-            return new BadRuntimeException(message);
-        }
-
-        return new BadRuntimeException(message, pos);
+        return pos == null ? new BadRuntimeException(message) : new BadRuntimeException(message, pos);
     }
 }

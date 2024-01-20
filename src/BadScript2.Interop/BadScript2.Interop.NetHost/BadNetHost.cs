@@ -21,7 +21,7 @@ public class BadNetHost
 	///     Constructs a new BadNetHost with the given prefixes
 	/// </summary>
 	/// <param name="prefixes">Prefixes</param>
-	public BadNetHost(string[] prefixes)
+	public BadNetHost(IEnumerable<string> prefixes)
     {
         foreach (string prefix in prefixes)
         {
@@ -70,6 +70,8 @@ public class BadNetHost
 	public BadTask AcceptClient()
     {
         BadInteropRunnable runnable = null;
+        // ReSharper disable once AccessToModifiedClosure
+        // ReSharper disable once PossibleNullReferenceException
         runnable = new BadInteropRunnable(AcceptClient(m_Listener, r => runnable.SetReturn(r)));
 
         return new BadTask(runnable, "AcceptClient");

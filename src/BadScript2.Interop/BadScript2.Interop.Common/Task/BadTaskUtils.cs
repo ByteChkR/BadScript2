@@ -21,6 +21,10 @@ public static class BadTaskUtils
     {
         BadInteropRunnable? runnable = null;
 
+        runnable = new BadInteropRunnable(InnerWaitForTask());
+
+        return runnable;
+
         IEnumerator<BadObject> InnerWaitForTask()
         {
             while (t is
@@ -33,6 +37,7 @@ public static class BadTaskUtils
 
             if (t.IsCompletedSuccessfully())
             {
+                // ReSharper disable once AccessToModifiedClosure
                 runnable!.SetReturn(onComplete(t.Result));
             }
             else
@@ -40,10 +45,6 @@ public static class BadTaskUtils
                 throw new BadRuntimeException("Task Failed");
             }
         }
-
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
     }
 
 
@@ -54,6 +55,10 @@ public static class BadTaskUtils
     {
         BadInteropRunnable? runnable = null;
 
+        runnable = new BadInteropRunnable(InnerWaitForTask());
+
+        return runnable;
+
         IEnumerator<BadObject> InnerWaitForTask()
         {
             while (t is
@@ -66,6 +71,7 @@ public static class BadTaskUtils
 
             if (t.IsCompletedSuccessfully())
             {
+                // ReSharper disable once AccessToModifiedClosure
                 runnable!.SetReturn(BadObject.Null);
             }
             else
@@ -73,10 +79,6 @@ public static class BadTaskUtils
                 throw new BadRuntimeException("Task Failed");
             }
         }
-
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
     }
 
 	/// <summary>
@@ -90,6 +92,10 @@ public static class BadTaskUtils
     {
         BadInteropRunnable? runnable = null;
 
+        runnable = new BadInteropRunnable(InnerWaitForTask());
+
+        return runnable;
+
         IEnumerator<BadObject> InnerWaitForTask()
         {
             while (t is
@@ -102,6 +108,7 @@ public static class BadTaskUtils
 
             if (t.IsCompletedSuccessfully())
             {
+                // ReSharper disable once AccessToModifiedClosure
                 runnable!.SetReturn(BadObject.Wrap(t.Result));
             }
             else
@@ -109,9 +116,5 @@ public static class BadTaskUtils
                 throw new BadRuntimeException("Task Failed");
             }
         }
-
-        runnable = new BadInteropRunnable(InnerWaitForTask());
-
-        return runnable;
     }
 }

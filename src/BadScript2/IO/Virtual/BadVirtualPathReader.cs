@@ -36,7 +36,7 @@ public static class BadVirtualPathReader
 
     public static bool IsRootPath(string path)
     {
-        return path == "/" || path == "\\";
+        return path is "/" or "\\";
     }
 
     public static string ResolvePath(string path, string currentDir)
@@ -59,25 +59,22 @@ public static class BadVirtualPathReader
             result = new List<string>(currentDir.Split('/', '\\').Skip(1));
         }
 
-        for (int i = 0; i < parts.Length; i++)
+        foreach (string t in parts)
         {
-            if (parts[i] == ".")
+            switch (t)
             {
-                continue;
-            }
-
-            if (parts[i] == "..")
-            {
-                if (result.Count == 0)
-                {
+                case ".":
+                    continue;
+                case ".." when result.Count == 0:
                     throw new Exception("Can't go back from root");
-                }
+                case "..":
+                    result.RemoveAt(result.Count - 1);
 
-                result.RemoveAt(result.Count - 1);
-            }
-            else
-            {
-                result.Add(parts[i]);
+                    break;
+                default:
+                    result.Add(t);
+
+                    break;
             }
         }
 

@@ -56,7 +56,7 @@ public class BadTaskRunnerApi : BadInteropApi
     /// <param name="caller">Caller Context</param>
     /// <param name="func">Function</param>
     /// <returns>Task</returns>
-    private BadObject CreateTask(BadExecutionContext caller, BadFunction func)
+    private static BadObject CreateTask(BadExecutionContext caller, BadFunction func)
     {
         return BadTask.Create(func, caller, null);
     }

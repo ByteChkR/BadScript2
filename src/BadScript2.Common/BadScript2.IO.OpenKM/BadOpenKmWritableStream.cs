@@ -17,11 +17,13 @@ public class BadOpenKmWritableStream : Stream
         m_Mode = mode;
         m_Stream = new MemoryStream();
 
-        if (mode == BadWriteMode.Append)
+        if (mode != BadWriteMode.Append)
         {
-            Stream content = m_Webservice.GetContent(path).Result;
-            content.CopyTo(m_Stream);
+            return;
         }
+
+        Stream content = m_Webservice.GetContent(path).Result;
+        content.CopyTo(m_Stream);
     }
 
     public override bool CanRead => m_Stream.CanRead;

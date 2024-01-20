@@ -234,17 +234,18 @@ public class BadSourceReader
     /// <exception cref="BadSourceReaderException">Gets raised if the character does not match any of the specified ones</exception>
     public BadSourcePosition Eat(params char[] c)
     {
-        if (c.Any(x => Is(x)))
+        if (!c.Any(x => Is(x)))
         {
-            MoveNext();
-
-            return MakeSourcePosition(1);
+            throw new BadSourceReaderException(
+                $"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+                MakeSourcePosition(1)
+            );
         }
 
-        throw new BadSourceReaderException(
-            $"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-            MakeSourcePosition(1)
-        );
+        MoveNext();
+
+        return MakeSourcePosition(1);
+
     }
 
     /// <summary>
@@ -366,16 +367,13 @@ public class BadSourceReader
         {
             exit = true;
 
-            foreach (char ch in c)
+            if (!c.Any(ch => Is(ch)))
             {
-                if (Is(ch))
-                {
-                    MoveNext();
-                    exit = false;
-
-                    break;
-                }
+                continue;
             }
+
+            MoveNext();
+            exit = false;
         }
     }
 }

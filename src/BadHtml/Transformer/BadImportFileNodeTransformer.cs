@@ -10,12 +10,12 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadImportFileNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:import";
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["path"];
 

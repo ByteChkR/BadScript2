@@ -25,8 +25,10 @@ public class BadConsoleReadPacket : BadConsolePacket
 
     public override byte[] Serialize()
     {
-        List<byte> data = new List<byte>();
-        data.Add((byte)BadConsolePacketType.Read);
+        List<byte> data = new List<byte>
+        {
+	        (byte)BadConsolePacketType.Read,
+        };
         byte[] message = Encoding.UTF8.GetBytes(Message);
         data.AddRange(BitConverter.GetBytes(message.Length));
         data.AddRange(message);

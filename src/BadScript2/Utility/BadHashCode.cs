@@ -9,12 +9,12 @@ namespace BadScript2.Utility;
 /// </summary>
 public static class BadHashCode
 {
-    private const uint Prime1 = 2654435761U;
-    private const uint Prime2 = 2246822519U;
-    private const uint Prime3 = 3266489917U;
-    private const uint Prime4 = 668265263U;
-    private const uint Prime5 = 374761393U;
-    private static readonly uint s_seed = GenerateGlobalSeed();
+    private const uint PRIME1 = 2654435761U;
+    private const uint PRIME2 = 2246822519U;
+    private const uint PRIME3 = 3266489917U;
+    private const uint PRIME4 = 668265263U;
+    private const uint PRIME5 = 374761393U;
+    private static readonly uint s_Seed = GenerateGlobalSeed();
 
     /// <summary>
     ///     Rotates the specified value left by the specified number of bits.
@@ -298,22 +298,22 @@ public static class BadHashCode
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void Initialize(out uint v1, out uint v2, out uint v3, out uint v4)
     {
-        v1 = s_seed + Prime1 + Prime2;
-        v2 = s_seed + Prime2;
-        v3 = s_seed;
-        v4 = s_seed - Prime1;
+        v1 = s_Seed + PRIME1 + PRIME2;
+        v2 = s_Seed + PRIME2;
+        v3 = s_Seed;
+        v4 = s_Seed - PRIME1;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static uint Round(uint hash, uint input)
     {
-        return RotateLeft(hash + input * Prime2, 13) * Prime1;
+        return RotateLeft(hash + input * PRIME2, 13) * PRIME1;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static uint QueueRound(uint hash, uint queuedValue)
     {
-        return RotateLeft(hash + queuedValue * Prime3, 17) * Prime4;
+        return RotateLeft(hash + queuedValue * PRIME3, 17) * PRIME4;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -324,16 +324,16 @@ public static class BadHashCode
 
     private static uint MixEmptyState()
     {
-        return s_seed + Prime5;
+        return s_Seed + PRIME5;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static uint MixFinal(uint hash)
     {
         hash ^= hash >> 15;
-        hash *= Prime2;
+        hash *= PRIME2;
         hash ^= hash >> 13;
-        hash *= Prime3;
+        hash *= PRIME3;
         hash ^= hash >> 16;
 
         return hash;

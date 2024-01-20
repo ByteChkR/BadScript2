@@ -26,10 +26,7 @@ public class BadTypeOfExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression e in Expression.GetDescendantsAndSelf())
-        {
-            yield return e;
-        }
+        return Expression.GetDescendantsAndSelf();
     }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

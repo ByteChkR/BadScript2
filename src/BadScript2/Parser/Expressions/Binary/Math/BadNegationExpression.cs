@@ -28,13 +28,13 @@ public class BadNegationExpression : BadExpression
         BadObject left,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.MultiplyOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.MULTIPLY_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          left,
                          context!,
-                         BadStaticKeys.MultiplyOperatorName,
+                         BadStaticKeys.MULTIPLY_OPERATOR_NAME,
                          position
                      ))
             {

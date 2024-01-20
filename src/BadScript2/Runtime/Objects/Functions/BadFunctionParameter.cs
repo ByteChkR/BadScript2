@@ -94,24 +94,26 @@ public class BadFunctionParameter
     {
         BadClassPrototype? type = Type;
 
-        if (TypeExpr != null)
+        if (TypeExpr == null)
         {
-            BadObject obj = BadObject.Null;
-
-            foreach (BadObject o in TypeExpr.Execute(context))
-            {
-                obj = o;
-            }
-
-            obj = obj.Dereference();
-
-            if (obj is not BadClassPrototype proto)
-            {
-                throw new BadRuntimeException("Type expression must return a class prototype.");
-            }
-
-            type = proto;
+            return new BadFunctionParameter(Name, IsOptional, IsNullChecked, IsRestArgs, TypeExpr, type);
         }
+
+        BadObject obj = BadObject.Null;
+
+        foreach (BadObject o in TypeExpr.Execute(context))
+        {
+            obj = o;
+        }
+
+        obj = obj.Dereference();
+
+        if (obj is not BadClassPrototype proto)
+        {
+            throw new BadRuntimeException("Type expression must return a class prototype.");
+        }
+
+        type = proto;
 
         return new BadFunctionParameter(Name, IsOptional, IsNullChecked, IsRestArgs, TypeExpr, type);
     }
@@ -133,11 +135,8 @@ public class BadFunctionParameter
     /// <returns>The String Representation</returns>
     public override string ToString()
     {
-        if (Type == null)
-        {
-            return $"{Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}";
-        }
-
-        return $"{Type.Name} {Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}";
+        return Type == null ? 
+            $"{Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}" : 
+            $"{Type.Name} {Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}";
     }
 }

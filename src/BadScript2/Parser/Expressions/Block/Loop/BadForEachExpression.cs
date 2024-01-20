@@ -39,7 +39,7 @@ public class BadForEachExpression : BadExpression
 	public BadForEachExpression(
         BadExpression target,
         BadWordToken loopVariable,
-        BadExpression[] body,
+        IEnumerable<BadExpression> body,
         BadSourcePosition position) : base(
         false,
         position
@@ -75,12 +75,9 @@ public class BadForEachExpression : BadExpression
             yield return expression;
         }
 
-        foreach (BadExpression expression in m_Body)
+        foreach (BadExpression descendant in m_Body.SelectMany(expression => expression.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
+            yield return descendant;
         }
     }
 
@@ -88,27 +85,29 @@ public class BadForEachExpression : BadExpression
     ///     Helper Function that returns the MoveNext/GetCurrent function of the Target
     /// </summary>
     /// <param name="target">The loop target</param>
+    /// <param name="context">The Calling Context</param>
     /// <returns>Tuple of Functions used in the for each loop</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
     private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
     {
-        if (target.HasProperty("MoveNext", context.Scope))
+        if (!target.HasProperty("MoveNext", context.Scope))
         {
-            BadFunction? moveNext = target.GetProperty("MoveNext", context.Scope).Dereference() as BadFunction;
+            throw new BadRuntimeException("Invalid enumerator", Position);
+        }
 
-            if (moveNext != null)
-            {
-                if (target.HasProperty("GetCurrent", context.Scope))
-                {
-                    BadFunction? getCurrent =
-                        target.GetProperty("GetCurrent", context.Scope).Dereference() as BadFunction;
+        if (target.GetProperty("MoveNext", context.Scope).Dereference() is not BadFunction moveNext)
+        {
+            throw new BadRuntimeException("Invalid enumerator", Position);
+        }
 
-                    if (getCurrent != null)
-                    {
-                        return (moveNext, getCurrent);
-                    }
-                }
-            }
+        if (!target.HasProperty("GetCurrent", context.Scope))
+        {
+            throw new BadRuntimeException("Invalid enumerator", Position);
+        }
+
+        if (target.GetProperty("GetCurrent", context.Scope).Dereference() is BadFunction getCurrent)
+        {
+            return (moveNext, getCurrent);
         }
 
         throw new BadRuntimeException("Invalid enumerator", Position);
@@ -134,10 +133,7 @@ public class BadForEachExpression : BadExpression
 
         if (target.HasProperty("GetEnumerator", context.Scope))
         {
-            BadFunction? getEnumerator =
-                target.GetProperty("GetEnumerator", context.Scope).Dereference() as BadFunction;
-
-            if (getEnumerator == null)
+            if (target.GetProperty("GetEnumerator", context.Scope).Dereference() is not BadFunction getEnumerator)
             {
                 throw new BadRuntimeException("Invalid enumerator", Position);
             }

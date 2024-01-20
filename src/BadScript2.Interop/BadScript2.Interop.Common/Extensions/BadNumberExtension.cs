@@ -1,6 +1,5 @@
 using System.Globalization;
 
-using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -15,35 +14,37 @@ public class BadNumberExtension : BadInteropExtension
 {
     private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
 
-    private static BadObject NumberToString(BadExecutionContext ctx, decimal d, BadObject[] args)
+    private static BadObject NumberToString(decimal d, IReadOnlyList<BadObject> args)
     {
-        if (args.Length == 0)
+        if (args.Count == 0)
         {
-            return d.ToString();
+            return d.ToString(CultureInfo.InvariantCulture);
         }
 
         IBadString format = (IBadString)args[0]; //Type is checked in the function builder
 
-        if (args.Length == 1)
+        if (args.Count == 1)
         {
             return d.ToString(format.Value);
         }
 
-        if (args.Length != 2)
+        if (args.Count != 2)
         {
             throw new BadRuntimeException("Invalid number of arguments");
         }
 
         IBadString culture = (IBadString)args[1]; //Type is checked in the function builder
 
-        if (!s_Cultures.TryGetValue(
+        if (s_Cultures.TryGetValue(
                 culture.Value,
                 out CultureInfo? cultureInfo
             )) //Cache Culture info to avoid creating it every time
         {
-            cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
-            s_Cultures.Add(culture.Value, cultureInfo);
+            return d.ToString(format.Value, cultureInfo);
         }
+
+        cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
+        s_Cultures.Add(culture.Value, cultureInfo);
 
         return d.ToString(format.Value, cultureInfo);
     }
@@ -54,7 +55,7 @@ public class BadNumberExtension : BadInteropExtension
             "ToString",
             d => new BadInteropFunction(
                 "ToString",
-                (c, a) => NumberToString(c, d, a),
+                a => NumberToString( d, a),
                 false,
                 BadNativeClassBuilder.GetNative("string"),
                 new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),

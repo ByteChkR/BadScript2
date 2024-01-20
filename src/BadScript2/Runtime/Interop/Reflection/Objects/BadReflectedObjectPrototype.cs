@@ -13,5 +13,5 @@ internal class BadReflectedObjectPrototype : BadANativeClassPrototype
         (_, _) => throw new BadRuntimeException("Can not create a BadReflectedObject inside the Script")
     ) { }
 
-    public override bool IsAbstract { get; } = true;
+    public override bool IsAbstract => true;
 }

@@ -75,7 +75,7 @@ public class BadScriptDebuggerExtension : BadInteropExtension
         provider.RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
     }
 
-    private BadObject GetSourceView(BadDebuggerStep step, int[] breakpoints)
+    private static BadObject GetSourceView(BadDebuggerStep step, int[] breakpoints)
     {
         return step.GetSourceView(breakpoints, out int _, out int _);
     }

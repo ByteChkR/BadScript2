@@ -31,10 +31,7 @@ public class BadLogicNotExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+        return Right.GetDescendantsAndSelf();
     }
 
     /// <summary>
@@ -63,9 +60,9 @@ public class BadLogicNotExpression : BadExpression
         BadObject left,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.NotOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.NOT_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(left, context!, BadStaticKeys.NotOperatorName, position))
+            foreach (BadObject o in ExecuteOperatorOverride(left, context!, BadStaticKeys.NOT_OPERATOR_NAME, position))
             {
                 yield return o;
             }
@@ -85,6 +82,8 @@ public class BadLogicNotExpression : BadExpression
             r = o;
         }
 
+        //Can be null when evaluated as an optimization step
+        // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
         if (context?.Scope.IsError ?? false)
         {
             yield break;

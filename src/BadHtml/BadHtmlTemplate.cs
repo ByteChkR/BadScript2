@@ -14,11 +14,6 @@ namespace BadHtml;
 public class BadHtmlTemplate
 {
 	/// <summary>
-	///     The Filepath of the Template
-	/// </summary>
-	private readonly string m_FilePath;
-
-	/// <summary>
 	///     The Filesystem used to load the template
 	/// </summary>
 	private readonly IFileSystem m_FileSystem;
@@ -32,17 +27,18 @@ public class BadHtmlTemplate
 	///     Constructs a new Template
 	/// </summary>
 	/// <param name="filePath">File path of the template</param>
-	private BadHtmlTemplate(string filePath, IFileSystem mFileSystem)
+	/// <param name="fileSystem">The Filesystem that is used to Load the Template</param>
+	private BadHtmlTemplate(string filePath, IFileSystem fileSystem)
     {
-        m_FilePath = filePath;
-        m_FileSystem = mFileSystem;
+        FilePath = filePath;
+        m_FileSystem = fileSystem;
     }
 
 
 	/// <summary>
 	///     The Filepath of the Template
 	/// </summary>
-	public string FilePath => m_FilePath;
+	public string FilePath { get; }
 
 	/// <summary>
 	///     Returns the source code of the template. Loads the source code if it is not loaded yet.
@@ -63,7 +59,7 @@ public class BadHtmlTemplate
 	/// </summary>
 	public void Reload()
     {
-        m_Source = m_FileSystem.ReadAllText(m_FilePath);
+        m_Source = m_FileSystem.ReadAllText(FilePath);
     }
 
 	/// <summary>
@@ -80,9 +76,11 @@ public class BadHtmlTemplate
     {
         options ??= new BadHtmlTemplateOptions();
         string src = GetSource();
+        // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument input = new HtmlDocument();
         input.OptionUseIdAttribute = true;
         input.LoadHtml(src);
+        // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument output = new HtmlDocument();
         output.OptionUseIdAttribute = true;
         output.LoadHtml("");
@@ -100,7 +98,7 @@ public class BadHtmlTemplate
         foreach (HtmlNode node in input.DocumentNode.ChildNodes)
         {
             BadHtmlContext ctx =
-                new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src, options, m_FileSystem);
+                new BadHtmlContext(node, output.DocumentNode, executionContext, FilePath, src, options, m_FileSystem);
             BadHtmlNodeTransformer.Transform(ctx);
         }
 

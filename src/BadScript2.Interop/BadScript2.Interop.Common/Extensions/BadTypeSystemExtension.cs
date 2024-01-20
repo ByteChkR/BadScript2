@@ -26,7 +26,7 @@ public class BadTypeSystemExtension : BadInteropExtension
 
         provider.RegisterObject<BadClass>(
             "GetClassScope",
-            c => new BadDynamicInteropFunction("GetClassScope", ctx => c.Scope, BadScope.Prototype)
+            c => new BadDynamicInteropFunction("GetClassScope", _ => c.Scope, BadScope.Prototype)
         );
 
         provider.RegisterObject<BadClassPrototype>(
@@ -80,7 +80,7 @@ public class BadTypeSystemExtension : BadInteropExtension
             "GetBaseClass",
             p => new BadDynamicInteropFunction(
                 "GetBaseClass",
-                ctx => p.GetBaseClass() ?? BadObject.Null,
+                _ => p.GetBaseClass() ?? BadObject.Null,
                 BadClassPrototype.Prototype
             )
         );

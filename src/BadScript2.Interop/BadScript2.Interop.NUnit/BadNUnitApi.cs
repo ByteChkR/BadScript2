@@ -194,7 +194,7 @@ public class BadNUnitApi : BadInteropApi
         BadObject obj,
         string message)
     {
-        Assert.That(collection.InnerArray, Contains.Value(obj));
+        Assert.That(collection.InnerArray, Contains.Value(obj), message);
     }
 
 

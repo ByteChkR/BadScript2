@@ -29,12 +29,7 @@ public class BadInequalityExpression : BadBinaryExpression
 	/// <returns>True if the Objects are not Equal. False Otherwise</returns>
 	public static BadObject NotEqual(BadObject left, BadObject right)
     {
-        if (!left.Equals(right))
-        {
-            return BadObject.True;
-        }
-
-        return BadObject.False;
+        return left.Equals(right) ? BadObject.False : BadObject.True;
     }
 
     public static IEnumerable<BadObject> NotEqualWithOverride(
@@ -43,26 +38,26 @@ public class BadInequalityExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.NotEqualOperatorName, caller?.Scope))
+        if (left.HasProperty(BadStaticKeys.NOT_EQUAL_OPERATOR_NAME, caller?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          caller!,
-                         BadStaticKeys.NotEqualOperatorName,
+                         BadStaticKeys.NOT_EQUAL_OPERATOR_NAME,
                          position
                      ))
             {
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.NotEqualOperatorName, caller?.Scope))
+        else if (right.HasProperty(BadStaticKeys.NOT_EQUAL_OPERATOR_NAME, caller?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          caller!,
-                         BadStaticKeys.NotEqualOperatorName,
+                         BadStaticKeys.NOT_EQUAL_OPERATOR_NAME,
                          position
                      ))
             {

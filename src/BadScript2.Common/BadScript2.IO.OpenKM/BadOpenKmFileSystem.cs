@@ -24,12 +24,7 @@ public class BadOpenKmFileSystem : IFileSystem
 
     public string GetStartupDirectory()
     {
-        if (m_StartupDirectory == null)
-        {
-            m_StartupDirectory = m_Webservice.GetPersonalFolder().Result.path;
-        }
-
-        return m_StartupDirectory;
+        return m_StartupDirectory ??= m_Webservice.GetPersonalFolder().Result.path;
     }
 
     public bool Exists(string path)
@@ -51,24 +46,14 @@ public class BadOpenKmFileSystem : IFileSystem
     {
         path = MakeFullPath(path);
 
-        if (recursive)
-        {
-            return InnerGetFilesRecursive(path, extension);
-        }
-
-        return InnerGetFiles(path, extension);
+        return recursive ? InnerGetFilesRecursive(path, extension) : InnerGetFiles(path, extension);
     }
 
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
         path = MakeFullPath(path);
 
-        if (recursive)
-        {
-            return InnerGetDirectoriesRecursive(path);
-        }
-
-        return InnerGetDirectories(path);
+        return recursive ? InnerGetDirectoriesRecursive(path) : InnerGetDirectories(path);
     }
 
     public void CreateDirectory(string path, bool recursive = false)
@@ -242,12 +227,7 @@ public class BadOpenKmFileSystem : IFileSystem
     {
         FolderList? current = m_Webservice.GetFolderChildren(path).Result;
 
-        if (current == null)
-        {
-            return Enumerable.Empty<string>();
-        }
-
-        return current.folder.Select(x => x.path);
+        return current == null ? Enumerable.Empty<string>() : current.folder.Select(x => x.path);
     }
 
     private IEnumerable<string> InnerGetFiles(string path, string extension)
@@ -302,17 +282,19 @@ public class BadOpenKmFileSystem : IFileSystem
 
     private void InnerCreateDirectoryRecursive(string path)
     {
-        if (!IsDirectory(path))
+        if (IsDirectory(path))
         {
-            string? parent = Path.GetDirectoryName(path);
-
-            if (parent != null)
-            {
-                InnerCreateDirectoryRecursive(parent);
-            }
-
-            InnerCreateDirectory(path);
+            return;
         }
+
+        string? parent = Path.GetDirectoryName(path);
+
+        if (parent != null)
+        {
+            InnerCreateDirectoryRecursive(parent);
+        }
+
+        InnerCreateDirectory(path);
     }
 
     private void InnerCreateDirectory(string path)

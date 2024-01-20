@@ -451,7 +451,7 @@ public class BadLinqExtensions : BadInteropExtension
     /// <param name="e">The Enumerable</param>
     /// <param name="function">The Selector Function</param>
     /// <returns>Enumeration</returns>
-    private BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
+    private static BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
     {
         return new BadInteropEnumerable(
             e.OrderBy(
@@ -480,8 +480,10 @@ public class BadLinqExtensions : BadInteropExtension
     ///     Shorthand Wrapper for RegisterObject.
     ///     Registers a Linq Function that takes a IBadEnumerable object and returns a BadObject.
     /// </summary>
+    /// <param name="provider">The Extension Provider of the Runtime</param>
     /// <param name="name">Name of the Function</param>
     /// <param name="func">Function</param>
+    /// <param name="returnType">The Return Type of the Function</param>
     private static void Register(
         BadInteropExtensionProvider provider,
         string name,
@@ -498,8 +500,10 @@ public class BadLinqExtensions : BadInteropExtension
     ///     Shorthand Wrapper for RegisterObject.
     ///     Registers a Linq Function that takes a IBadEnumerable object, an arbitrary object and returns a BadObject.
     /// </summary>
+    /// <param name="provider">The Extension Provider of the Runtime</param>
     /// <param name="name">Name of the Function</param>
     /// <param name="func">Function</param>
+    /// <param name="returnType">The Return Type of the Function</param>
     private static void Register<T>(
         BadInteropExtensionProvider provider,
         string name,

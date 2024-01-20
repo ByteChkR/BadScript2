@@ -52,13 +52,13 @@ public class BadModulusExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.ModuloOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.MODULO_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.ModuloOperatorName,
+                         BadStaticKeys.MODULO_OPERATOR_NAME,
                          position
                      ))
             {

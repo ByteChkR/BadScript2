@@ -29,7 +29,7 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 
         m_Func = new BadDynamicInteropFunction(
             "GetEnumerator",
-            c => new BadInteropEnumerator(m_Enumerable.GetEnumerator()),
+            _ => new BadInteropEnumerator(m_Enumerable.GetEnumerator()),
             BadAnyPrototype.Instance
         );
     }
@@ -60,15 +60,10 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (propName is IBadString
-            {
-                Value: "GetEnumerator",
-            })
+        return propName is IBadString
         {
-            return BadObjectReference.Make("GetEnumerator", () => m_Func);
-        }
-
-        return base.GetProperty(propName, caller);
+            Value: "GetEnumerator",
+        } ? BadObjectReference.Make("GetEnumerator", () => m_Func) : base.GetProperty(propName, caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

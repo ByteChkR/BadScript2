@@ -17,14 +17,7 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
             return Run(t);
         }
 
-        if (settings is null)
-        {
-            BadConsole.WriteLine("No settings provided.");
-        }
-        else
-        {
-            BadConsole.WriteLine("Invalid settings type");
-        }
+        BadConsole.WriteLine(settings is null ? "No settings provided." : "Invalid settings type");
 
         return -1;
     }

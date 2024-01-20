@@ -160,18 +160,18 @@ public class BadArrayExtension : BadInteropExtension
         );
 
         provider.RegisterObject<BadArray>(
-            BadStaticKeys.ArrayAccessOperatorName,
+            BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
             a => new BadDynamicInteropFunction<decimal>(
-                BadStaticKeys.ArrayAccessOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                 (_, i) => BadObjectReference.Make($"{a}[{i}]", () => Get(a, i), (v, _) => Set(a, i, v)),
                 BadAnyPrototype.Instance,
                 "index"
             )
         );
         provider.RegisterObject<BadArray>(
-            BadStaticKeys.ArrayAccessReverseOperatorName,
+            BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
             a => new BadDynamicInteropFunction<decimal>(
-                BadStaticKeys.ArrayAccessReverseOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
                 (_, i) => BadObjectReference.Make(
                     $"{a}[^{i}]",
                     () => Get(a, a.InnerArray.Count - i),
@@ -190,7 +190,7 @@ public class BadArrayExtension : BadInteropExtension
     /// </summary>
     /// <param name="array">The Array</param>
     /// <returns>Enumerator</returns>
-    private BadObject GetEnumerator(BadArray array)
+    private static BadObject GetEnumerator(BadArray array)
     {
         return new BadInteropEnumerator(array.InnerArray.GetEnumerator());
     }
@@ -200,7 +200,7 @@ public class BadArrayExtension : BadInteropExtension
     /// </summary>
     /// <param name="arg">The Array</param>
     /// <returns>NULL</returns>
-    private BadObject Clear(BadArray arg)
+    private static BadObject Clear(BadArray arg)
     {
         arg.InnerArray.Clear();
 
@@ -213,7 +213,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="arg">Array</param>
     /// <param name="obj">Element</param>
     /// <returns>NULL</returns>
-    private BadObject Add(BadArray arg, BadObject obj)
+    private static BadObject Add(BadArray arg, BadObject obj)
     {
         arg.InnerArray.Add(obj);
 
@@ -227,7 +227,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="index">Index</param>
     /// <param name="obj">Element</param>
     /// <returns>NULL</returns>
-    private BadObject Insert(BadArray arg, decimal index, BadObject obj)
+    private static BadObject Insert(BadArray arg, decimal index, BadObject obj)
     {
         arg.InnerArray.Insert((int)index, obj);
 
@@ -240,7 +240,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="arg">Array</param>
     /// <param name="obj">Element</param>
     /// <returns>Boolean</returns>
-    private BadObject Contains(BadArray arg, BadObject obj)
+    private static BadObject Contains(BadArray arg, BadObject obj)
     {
         return arg.InnerArray.Contains(obj);
     }
@@ -251,7 +251,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="arg">Array</param>
     /// <param name="obj">Element</param>
     /// <returns>NULL</returns>
-    private BadObject Remove(BadArray arg, BadObject obj)
+    private static BadObject Remove(BadArray arg, BadObject obj)
     {
         return arg.InnerArray.Remove(obj);
     }
@@ -262,7 +262,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="arg">Array</param>
     /// <param name="obj">Index</param>
     /// <returns>NULL</returns>
-    private BadObject RemoveAt(BadArray arg, decimal obj)
+    private static BadObject RemoveAt(BadArray arg, decimal obj)
     {
         int index = (int)obj;
         arg.InnerArray.RemoveAt(index);
@@ -276,7 +276,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="arg">Array</param>
     /// <param name="obj">Index</param>
     /// <returns>Element at Index</returns>
-    private BadObject Get(BadArray arg, decimal obj)
+    private static BadObject Get(BadArray arg, decimal obj)
     {
         int index = (int)obj;
 
@@ -290,7 +290,7 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="obj">The Index</param>
     /// <param name="value">The value</param>
     /// <returns>NULL</returns>
-    private BadObject Set(BadArray arg, decimal obj, BadObject value)
+    private static BadObject Set(BadArray arg, decimal obj, BadObject value)
     {
         int index = (int)obj;
         arg.InnerArray[index] = value;

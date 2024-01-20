@@ -152,20 +152,24 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
                 return;
             }
 
-            if (actual.TypeExpr != null)
+            if (actual.TypeExpr == null)
             {
-                if (expected.Type != null && actual.Type != expected.Type)
-                {
-                    errors.Add(
-                        new BadInterfaceValidatorError(
-                            $"{f}: Parameter Types not equal. Implementation: {actual}, Expectation: {expected}",
-                            this
-                        )
-                    );
-
-                    return;
-                }
+                continue;
             }
+
+            if (expected.Type == null || actual.Type == expected.Type)
+            {
+                continue;
+            }
+
+            errors.Add(
+                new BadInterfaceValidatorError(
+                    $"{f}: Parameter Types not equal. Implementation: {actual}, Expectation: {expected}",
+                    this
+                )
+            );
+
+            return;
         }
     }
 }

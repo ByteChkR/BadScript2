@@ -31,6 +31,8 @@ public abstract class BadClassPrototype : BadObject
     /// </summary>
     /// <param name="name">Class Name</param>
     /// <param name="baseClass">Base Class Prototype</param>
+    /// <param name="interfaces">The Implemented Interfaces</param>
+    /// <param name="metaData">The Metadata of the Class</param>
     protected BadClassPrototype(
         string name,
         BadClassPrototype? baseClass,
@@ -87,12 +89,7 @@ public abstract class BadClassPrototype : BadObject
 
         bool isBaseSuper = proto.BaseClass != null && IsSuperClassOf(proto.BaseClass);
 
-        if (isBaseSuper)
-        {
-            return true;
-        }
-
-        return false;
+        return isBaseSuper;
     }
 
     /// <summary>
@@ -114,12 +111,7 @@ public abstract class BadClassPrototype : BadObject
 
         BadClassPrototype type = obj.GetPrototype();
 
-        if (IsSuperClassOf(type))
-        {
-            return true;
-        }
-
-        return false;
+        return IsSuperClassOf(type);
     }
 
 

@@ -367,30 +367,30 @@ public class BadUnitTests
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
     }
 
-    public static BadNUnitTestCase[] GetTestCases()
+    private static BadNUnitTestCase[] GetTestCases()
     {
-        return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
+        return Context.GetTestCases() ?? throw new BadRuntimeException("Context is null");
     }
 
 
-    public static BadNUnitTestCase[] GetOptimizedFoldingTestCases()
+    private static BadNUnitTestCase[] GetOptimizedFoldingTestCases()
     {
-        return OptimizedFoldingContext?.GetTestCases() ??
+        return OptimizedFoldingContext.GetTestCases() ??
                throw new BadRuntimeException("OptimizedFoldingContext is null");
     }
 
-    public static BadNUnitTestCase[] GetOptimizedSubstitutionTestCases()
+    private static BadNUnitTestCase[] GetOptimizedSubstitutionTestCases()
     {
-        return OptimizedSubstitutionContext?.GetTestCases() ??
+        return OptimizedSubstitutionContext.GetTestCases() ??
                throw new BadRuntimeException("OptimizedSubstitutionContext is null");
     }
 
-    public static BadNUnitTestCase[] GetOptimizedTestCases()
+    private static BadNUnitTestCase[] GetOptimizedTestCases()
     {
-        return OptimizedContext?.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
+        return OptimizedContext.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
     }
 
-    public static BadNUnitTestCase[] GetCompiledTestCases()
+    private static BadNUnitTestCase[] GetCompiledTestCases()
     {
         if (CompiledContext == null)
         {
@@ -412,12 +412,12 @@ public class BadUnitTests
             .ToArray();
     }
 
-    public static string[] GetHtmlTemplateFiles()
+    private static string[] GetHtmlTemplateFiles()
     {
         return BadFileSystem.Instance.GetFiles(HtmlTestDirectory, ".bhtml", true).ToArray();
     }
 
-    public static BadNUnitTestCase[] GetCompiledOptimizedFoldingTestCases()
+    private static BadNUnitTestCase[] GetCompiledOptimizedFoldingTestCases()
     {
         if (CompiledOptimizedFoldingContext == null)
         {
@@ -440,7 +440,7 @@ public class BadUnitTests
     }
 
 
-    public static BadNUnitTestCase[] GetCompiledOptimizedSubstitutionTestCases()
+    private static BadNUnitTestCase[] GetCompiledOptimizedSubstitutionTestCases()
     {
         if (CompiledOptimizedSubstitutionContext == null)
         {
@@ -463,7 +463,7 @@ public class BadUnitTests
     }
 
 
-    public static BadNUnitTestCase[] GetCompiledOptimizedTestCases()
+    private static BadNUnitTestCase[] GetCompiledOptimizedTestCases()
     {
         if (CompiledOptimizedContext == null)
         {
@@ -534,7 +534,7 @@ public class BadUnitTests
         CompiledOptimizedContext.Run(testCase);
     }
 
-    private HtmlDocument LoadReference(string file)
+    private static HtmlDocument LoadReference(string file)
     {
         HtmlDocument reference = new HtmlDocument();
         reference.Load(file);

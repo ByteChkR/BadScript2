@@ -27,10 +27,7 @@ public class BadUnaryUnpackExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+        return Right.GetDescendantsAndSelf();
     }
 
     public static void Unpack(BadTable table, BadObject right, BadSourcePosition position)

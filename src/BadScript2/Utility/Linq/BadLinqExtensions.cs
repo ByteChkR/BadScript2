@@ -13,7 +13,7 @@ namespace BadScript2.Utility.Linq;
 /// </summary>
 public static class BadLinqExtensions
 {
-    private static object? Unpack(this BadObject obj)
+    private static object Unpack(this BadObject obj)
     {
         if (obj.CanUnwrap())
         {
@@ -28,7 +28,7 @@ public static class BadLinqExtensions
         return obj;
     }
 
-    private static object? InnerSelect(string varName, BadExpression query, object? o)
+    private static object InnerSelect(string varName, BadExpression query, object? o)
     {
         BadExecutionContext ctx = BadLinqCommon.PredicateContextOptions.Build();
 
@@ -38,14 +38,7 @@ public static class BadLinqExtensions
         }
         else
         {
-            if (BadObject.CanWrap(o))
-            {
-                ctx.Scope.DefineVariable(varName, BadObject.Wrap(o));
-            }
-            else
-            {
-                ctx.Scope.DefineVariable(varName, new BadReflectedObject(o!));
-            }
+            ctx.Scope.DefineVariable(varName, BadObject.CanWrap(o) ? BadObject.Wrap(o) : new BadReflectedObject(o!));
         }
 
         BadObject r = BadObject.Null;
@@ -65,12 +58,7 @@ public static class BadLinqExtensions
 
     public static object? FirstOrDefault(this IEnumerable enumerable)
     {
-        foreach (object o in enumerable)
-        {
-            return o;
-        }
-
-        return null;
+        return Enumerable.FirstOrDefault(enumerable.Cast<object>());
     }
 
     public static object? FirstOrDefault(this IEnumerable enumerable, string predicate)
@@ -78,15 +66,7 @@ public static class BadLinqExtensions
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
         BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                return o;
-            }
-        }
-
-        return null;
+        return enumerable.Cast<object>().FirstOrDefault(o => BadLinqCommon.InnerWhere(varName, query, o));
     }
 
     public static object First(this IEnumerable enumerable, string predicate)
@@ -174,12 +154,7 @@ public static class BadLinqExtensions
 
     public static IEnumerable TakeLast(this IEnumerable enumerable, int count)
     {
-        List<object> l = new List<object>();
-
-        foreach (object o in enumerable)
-        {
-            l.Add(o);
-        }
+        List<object> l = enumerable.Cast<object>().ToList();
 
         for (int i = l.Count - count; i < l.Count; i++)
         {
@@ -189,12 +164,7 @@ public static class BadLinqExtensions
 
     public static IEnumerable SkipLast(this IEnumerable enumerable, int count)
     {
-        List<object> l = new List<object>();
-
-        foreach (object o in enumerable)
-        {
-            l.Add(o);
-        }
+        List<object> l = enumerable.Cast<object>().ToList();
 
         for (int i = 0; i < l.Count - count; i++)
         {
@@ -209,7 +179,7 @@ public static class BadLinqExtensions
 
         foreach (object o in enumerable)
         {
-            object? e = InnerSelect(varName, query, o);
+            object e = InnerSelect(varName, query, o);
 
             if (e is not IEnumerable en)
             {
@@ -310,12 +280,7 @@ public static class BadLinqExtensions
 
     public static bool Any(this IEnumerable enumerable)
     {
-        foreach (object o in enumerable)
-        {
-            return true;
-        }
-
-        return false;
+        return Enumerable.Any(enumerable.Cast<object>());
     }
 
     public static bool Any(this IEnumerable enumerable, string predicate)
@@ -323,15 +288,7 @@ public static class BadLinqExtensions
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
         BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        foreach (object o in enumerable)
-        {
-            if (BadLinqCommon.InnerWhere(varName, query, o))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return enumerable.Cast<object>().Any(o => BadLinqCommon.InnerWhere(varName, query, o));
     }
 
     public static IEnumerable Where(this IEnumerable enumerable, string predicate)

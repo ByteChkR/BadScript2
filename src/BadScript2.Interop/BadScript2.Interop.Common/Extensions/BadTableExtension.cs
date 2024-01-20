@@ -45,9 +45,9 @@ public class BadTableExtension : BadInteropExtension
         );
 
         provider.RegisterObject<BadTable>(
-            BadStaticKeys.ArrayAccessOperatorName,
+            BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
             t => new BadDynamicInteropFunction<BadObject>(
-                BadStaticKeys.ArrayAccessOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                 (c, o) => t.GetProperty(o, c.Scope),
                 BadAnyPrototype.Instance,
                 "key"
@@ -86,9 +86,9 @@ public class BadTableExtension : BadInteropExtension
     /// <param name="args">The Arguments</param>
     /// <returns>The 'self' table</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
-    private BadObject JoinTable(BadExecutionContext ctx, BadTable self, BadObject[] args)
+    private static BadObject JoinTable(BadExecutionContext ctx, BadTable self, IReadOnlyList<BadObject> args)
     {
-        if (args.Length == 0)
+        if (args.Count == 0)
         {
             throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
         }

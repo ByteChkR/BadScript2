@@ -66,12 +66,6 @@ public class BadArrayExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression expression in m_InitExpressions)
-        {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
-        }
+        return m_InitExpressions.SelectMany(expression => expression.GetDescendantsAndSelf());
     }
 }

@@ -88,32 +88,40 @@ public static class BadVersionExtensions
                 }
             }
 
-            if (current == "+")
+            switch (current)
             {
-                versions[i]++;
-            }
-            else if (current == "-" && versions[i] != 0)
-            {
-                versions[i]--;
-            }
-            else if (current.ToLower(CultureInfo.InvariantCulture) == "x")
-            {
-                //Do nothing, X stands for leave the value as is, except the next lower version part wrapped around.
-            }
-            else if (current.StartsWith("{") && current.EndsWith("}"))
-            {
-                string format = current.Remove(current.Length - 1, 1).Remove(0, 1);
+                case "+":
+                    versions[i]++;
 
-                string value = DateTime.Now.ToString(format);
+                    break;
+                case "-" when versions[i] != 0:
+                    versions[i]--;
 
-                if (long.TryParse(value, out long newValue))
+                    break;
+                default:
                 {
-                    versions[i] = (int)(newValue % ushort.MaxValue);
+                    if (current.ToLower(CultureInfo.InvariantCulture) == "x")
+                    {
+                        //Do nothing, X stands for leave the value as is, except the next lower version part wrapped around.
+                    }
+                    else if (current.StartsWith("{") && current.EndsWith("}"))
+                    {
+                        string format = current.Remove(current.Length - 1, 1).Remove(0, 1);
+
+                        string value = DateTime.Now.ToString(format);
+
+                        if (long.TryParse(value, out long newValue))
+                        {
+                            versions[i] = (int)(newValue % ushort.MaxValue);
+                        }
+                    }
+                    else if (int.TryParse(current, out int v))
+                    {
+                        versions[i] = v;
+                    }
+
+                    break;
                 }
-            }
-            else if (int.TryParse(current, out int v))
-            {
-                versions[i] = v;
             }
         }
 
@@ -134,18 +142,20 @@ public static class BadVersionExtensions
 	/// <param name="changeReset">Version Reset Array</param>
 	/// <param name="original">The Original Version Components</param>
 	/// <param name="versions">The Version Components</param>
-	private static void ApplyChangeReset(bool[] changeReset, int[] original, int[] versions)
+	private static void ApplyChangeReset(IReadOnlyList<bool> changeReset, IReadOnlyList<int> original, IList<int> versions)
     {
-        for (int j = 0; j < changeReset.Length; j++)
+        for (int j = 0; j < changeReset.Count; j++)
         {
-            if (changeReset[j] && versions[j] != original[j])
+            if (!changeReset[j] || versions[j] == original[j])
             {
-                for (int i = j + 1; i < versions.Length; i++)
+                continue;
+            }
+
+            for (int i = j + 1; i < versions.Count; i++)
+            {
+                if (!changeReset[i])
                 {
-                    if (!changeReset[i])
-                    {
-                        versions[i] = 0;
-                    }
+                    versions[i] = 0;
                 }
             }
         }

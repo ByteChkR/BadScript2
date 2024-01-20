@@ -29,24 +29,16 @@ public abstract class BadObject
 
     public static BadObject Wrap<T>(T obj, bool allowNative = true)
     {
-        if (obj is BadObject bObj)
+        switch (obj)
         {
-            return bObj;
-        }
-
-        if (obj is bool b)
-        {
-            if (b)
-            {
+            case BadObject bObj:
+                return bObj;
+            case bool b when b:
                 return True;
-            }
-
-            return False;
-        }
-
-        if (obj is decimal d)
-        {
-            return new BadNumber(d);
+            case bool:
+                return False;
+            case decimal d:
+                return new BadNumber(d);
         }
 
         if (typeof(T).IsNumericType() || obj != null && obj.GetType().IsNumericType())
@@ -56,17 +48,18 @@ public abstract class BadObject
 
         if (obj is string s)
         {
-            if (BadNativeOptimizationSettings.Instance.UseStringCaching)
+            if (!BadNativeOptimizationSettings.Instance.UseStringCaching)
             {
-                if (s_StringCache.ContainsKey(s))
-                {
-                    return s_StringCache[s];
-                }
-
-                return s_StringCache[s] = new BadString(s);
+                return new BadString(s);
             }
 
-            return new BadString(s);
+            if (s_StringCache.TryGetValue(s, out BadString? wrap))
+            {
+                return wrap;
+            }
+
+            return s_StringCache[s] = new BadString(s);
+
         }
 
         if (Equals(obj, default(T)))
@@ -87,21 +80,18 @@ public abstract class BadObject
     ///     Returns true if the object contains a given property or there exists an extension for the current Instance
     /// </summary>
     /// <param name="propName">The Property Name</param>
+    /// <param name="caller">The caller Scope</param>
     /// <returns>True if the Property or an Extension with that name exists</returns>
     public virtual bool HasProperty(BadObject propName, BadScope? caller = null)
     {
-        if (caller == null)
-        {
-            return false;
-        }
-
-        return caller.Provider.HasObject(GetType(), propName);
+        return caller != null && caller.Provider.HasObject(GetType(), propName);
     }
 
     /// <summary>
     ///     Returns a Reference to the Property with the given Name
     /// </summary>
     /// <param name="propName">The Property Name</param>
+    /// <param name="caller">The caller Scope</param>
     /// <returns>The Property Reference</returns>
     public virtual BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
@@ -131,7 +121,7 @@ public abstract class BadObject
     /// <summary>
     ///     Implicit Converstion from Number to BadObject
     /// </summary>
-    /// <param name="b">The Value</param>
+    /// <param name="d">The Value</param>
     /// <returns>Bad Object Instance</returns>
     public static implicit operator BadObject(decimal d)
     {
@@ -146,7 +136,7 @@ public abstract class BadObject
     /// <summary>
     ///     Implicit Converstion from String to BadObject
     /// </summary>
-    /// <param name="b">The Value</param>
+    /// <param name="s">The Value</param>
     /// <returns>Bad Object Instance</returns>
     public static implicit operator BadObject(string s)
     {

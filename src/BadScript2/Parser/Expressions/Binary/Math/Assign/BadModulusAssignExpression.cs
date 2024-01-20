@@ -30,15 +30,16 @@ public class BadModulusAssignExpression : BadBinaryExpression
         BadSourcePosition position,
         string symbol)
     {
-        if (left is IBadNumber lNum && right is IBadNumber rNum)
+        if (left is not IBadNumber lNum || right is not IBadNumber rNum)
         {
-            BadObject r = BadObject.Wrap(lNum.Value % rNum.Value);
-            leftRef.Set(r);
-
-            return r;
+            throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
         }
 
-        throw new BadRuntimeException($"Can not apply operator '{symbol}' to {left} and {right}", position);
+        BadObject r = BadObject.Wrap(lNum.Value % rNum.Value);
+        leftRef.Set(r);
+
+        return r;
+
     }
 
     public static IEnumerable<BadObject> ModulusWithOverride(
@@ -50,13 +51,13 @@ public class BadModulusAssignExpression : BadBinaryExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.ModuloAssignOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.MODULO_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.ModuloAssignOperatorName,
+                         BadStaticKeys.MODULO_ASSIGN_OPERATOR_NAME,
                          position
                      ))
             {

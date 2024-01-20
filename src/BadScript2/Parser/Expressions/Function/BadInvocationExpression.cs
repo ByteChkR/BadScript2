@@ -24,7 +24,7 @@ public class BadInvocationExpression : BadExpression
 	/// <param name="left">Left Side of the Invocation</param>
 	/// <param name="args">The Invocation Arguments</param>
 	/// <param name="position">Source Position of the Expression</param>
-	public BadInvocationExpression(BadExpression left, BadExpression[] args, BadSourcePosition position) : base(
+	public BadInvocationExpression(BadExpression left, IEnumerable<BadExpression> args, BadSourcePosition position) : base(
         false,
         position
     )
@@ -69,12 +69,9 @@ public class BadInvocationExpression : BadExpression
             yield return left;
         }
 
-        foreach (BadExpression argument in m_Arguments)
+        foreach (BadExpression arg in m_Arguments.SelectMany(argument => argument.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression arg in argument.GetDescendantsAndSelf())
-            {
-                yield return arg;
-            }
+            yield return arg;
         }
     }
 
@@ -120,7 +117,7 @@ public class BadInvocationExpression : BadExpression
     /// </exception>
     public static IEnumerable<BadObject> Invoke(
         BadObject left,
-        BadObject[] args,
+        IEnumerable<BadObject> args,
         BadSourcePosition position,
         BadExecutionContext context)
     {
@@ -131,12 +128,9 @@ public class BadInvocationExpression : BadExpression
                 yield return o;
             }
         }
-        else if (left.HasProperty(BadStaticKeys.InvocationOperatorName, context.Scope))
+        else if (left.HasProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope))
         {
-            BadFunction? invocationOp =
-                left.GetProperty(BadStaticKeys.InvocationOperatorName, context.Scope).Dereference() as BadFunction;
-
-            if (invocationOp == null)
+            if (left.GetProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope).Dereference() is not BadFunction invocationOp)
             {
                 throw new BadRuntimeException("Function Invocation Operator is not a function", position);
             }
@@ -179,7 +173,7 @@ public class BadInvocationExpression : BadExpression
 
         left = left.Dereference();
 
-        if (Left is IBadAccessExpression mae && mae.NullChecked && left.Equals(BadObject.Null))
+        if (Left is IBadAccessExpression { NullChecked: true } && left.Equals(BadObject.Null))
         {
             yield return BadObject.Null;
 

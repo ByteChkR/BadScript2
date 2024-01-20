@@ -39,7 +39,7 @@ public class BadNetApi : BadInteropApi
     /// <param name="url">Url</param>
     /// <param name="content">Body</param>
     /// <returns>Awaitable Task</returns>
-    private BadTask Post(string url, string content)
+    private static BadTask Post(string url, string content)
     {
         HttpClient cl = new HttpClient();
 
@@ -54,7 +54,7 @@ public class BadNetApi : BadInteropApi
     /// </summary>
     /// <param name="url">Url</param>
     /// <returns>Awaitable Task</returns>
-    private BadTask Get(string url)
+    private static BadTask Get(string url)
     {
         HttpClient cl = new HttpClient();
         Task<HttpResponseMessage>? task = cl.GetAsync(url);

@@ -38,12 +38,14 @@ public class BadMultiplyExpression : BadBinaryExpression
     /// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
     public static BadObject Mul(BadObject left, BadObject right, BadSourcePosition pos)
     {
-        if (left is IBadNumber lNum)
+        if (left is not IBadNumber lNum)
         {
-            if (right is IBadNumber rNum)
-            {
-                return BadObject.Wrap(lNum.Value * rNum.Value);
-            }
+            throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", pos);
+        }
+
+        if (right is IBadNumber rNum)
+        {
+            return BadObject.Wrap(lNum.Value * rNum.Value);
         }
 
         throw new BadRuntimeException($"Can not apply operator '*' to {left} and {right}", pos);
@@ -84,13 +86,13 @@ public class BadMultiplyExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.MultiplyOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.MULTIPLY_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.MultiplyOperatorName,
+                         BadStaticKeys.MULTIPLY_OPERATOR_NAME,
                          position
                      ))
             {

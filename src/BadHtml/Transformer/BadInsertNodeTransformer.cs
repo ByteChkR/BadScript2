@@ -12,7 +12,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:insert";
     }
@@ -25,7 +25,7 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
     /// <param name="path">The XPath</param>
     /// <param name="global">If true, the search starts relative to the document node</param>
     /// <returns>Enumeration of Matching Nodes</returns>
-    private IEnumerable<HtmlNode> GetNodes(BadHtmlContext context, string path, bool global)
+    private static IEnumerable<HtmlNode> GetNodes(BadHtmlContext context, string path, bool global)
     {
         if (path.StartsWith("#"))
         {
@@ -42,7 +42,7 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
         }
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];
         bool isGlobal = context.InputNode.Attributes["global"]?.Value != "false";

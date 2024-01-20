@@ -22,7 +22,11 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
             }
         }
 
-        if (expr.ElseBranch != null)
+        if (expr.ElseBranch == null)
+        {
+            yield break;
+        }
+
         {
             foreach (BadExpression e in expr.ElseBranch)
             {
@@ -36,46 +40,22 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadWhileExpression expr)
     {
-        foreach (BadExpression e in expr.Body)
-        {
-            foreach (BadReturnExpression r in GetReturnExpressions(e))
-            {
-                yield return r;
-            }
-        }
+        return expr.Body.SelectMany(GetReturnExpressions);
     }
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadForExpression expr)
     {
-        foreach (BadExpression e in expr.Body)
-        {
-            foreach (BadReturnExpression r in GetReturnExpressions(e))
-            {
-                yield return r;
-            }
-        }
+        return expr.Body.SelectMany(GetReturnExpressions);
     }
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadForEachExpression expr)
     {
-        foreach (BadExpression e in expr.Body)
-        {
-            foreach (BadReturnExpression r in GetReturnExpressions(e))
-            {
-                yield return r;
-            }
-        }
+        return expr.Body.SelectMany(GetReturnExpressions);
     }
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadLockExpression expr)
     {
-        foreach (BadExpression e in expr.Block)
-        {
-            foreach (BadReturnExpression r in GetReturnExpressions(e))
-            {
-                yield return r;
-            }
-        }
+        return expr.Block.SelectMany(GetReturnExpressions);
     }
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadTryCatchExpression expr)
@@ -99,62 +79,71 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadExpression expr)
     {
-        if (expr is BadIfExpression ifExpr)
+        switch (expr)
         {
-            foreach (BadReturnExpression? e in GetReturnExpressions(ifExpr))
+            case BadIfExpression ifExpr:
             {
-                yield return e;
+                foreach (BadReturnExpression? e in GetReturnExpressions(ifExpr))
+                {
+                    yield return e;
+                }
+
+                break;
             }
-        }
-        else if (expr is BadWhileExpression whileExpr)
-        {
-            foreach (BadReturnExpression? e in GetReturnExpressions(whileExpr))
+            case BadWhileExpression whileExpr:
             {
-                yield return e;
+                foreach (BadReturnExpression? e in GetReturnExpressions(whileExpr))
+                {
+                    yield return e;
+                }
+
+                break;
             }
-        }
-        else if (expr is BadForExpression forExpr)
-        {
-            foreach (BadReturnExpression? e in GetReturnExpressions(forExpr))
+            case BadForExpression forExpr:
             {
-                yield return e;
+                foreach (BadReturnExpression? e in GetReturnExpressions(forExpr))
+                {
+                    yield return e;
+                }
+
+                break;
             }
-        }
-        else if (expr is BadForEachExpression forEachExpr)
-        {
-            foreach (BadReturnExpression? e in GetReturnExpressions(forEachExpr))
+            case BadForEachExpression forEachExpr:
             {
-                yield return e;
+                foreach (BadReturnExpression? e in GetReturnExpressions(forEachExpr))
+                {
+                    yield return e;
+                }
+
+                break;
             }
-        }
-        else if (expr is BadLockExpression lockExpr)
-        {
-            foreach (BadReturnExpression? e in GetReturnExpressions(lockExpr))
+            case BadLockExpression lockExpr:
             {
-                yield return e;
+                foreach (BadReturnExpression? e in GetReturnExpressions(lockExpr))
+                {
+                    yield return e;
+                }
+
+                break;
             }
-        }
-        else if (expr is BadTryCatchExpression tryCatchExpr)
-        {
-            foreach (BadReturnExpression? e in GetReturnExpressions(tryCatchExpr))
+            case BadTryCatchExpression tryCatchExpr:
             {
-                yield return e;
+                foreach (BadReturnExpression? e in GetReturnExpressions(tryCatchExpr))
+                {
+                    yield return e;
+                }
+
+                break;
             }
-        }
-        else if (expr is BadReturnExpression retExpr)
-        {
-            yield return retExpr;
+            case BadReturnExpression retExpr:
+                yield return retExpr;
+
+                break;
         }
     }
 
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(IEnumerable<BadExpression> expressions)
     {
-        foreach (BadExpression expr in expressions)
-        {
-            foreach (BadReturnExpression e in GetReturnExpressions(expr))
-            {
-                yield return e;
-            }
-        }
+        return expressions.SelectMany(GetReturnExpressions);
     }
 }

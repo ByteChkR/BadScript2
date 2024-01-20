@@ -14,12 +14,12 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadIfNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:if";
     }
 
-    private List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(
+    private static List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(
         BadHtmlContext context,
         HtmlNode node,
         out IEnumerable<HtmlNode>? elseBranch)
@@ -75,16 +75,18 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 
                 conditionAttribute = child.Attributes["test"];
 
-                if (conditionAttribute != null)
+                if (conditionAttribute == null)
                 {
-                    if (string.IsNullOrEmpty(conditionAttribute.Value))
-                    {
-                        throw BadRuntimeException.Create(
-                            context.ExecutionContext.Scope,
-                            "Empty 'test' attribute in 'bs:else' node",
-                            context.CreateAttributePosition(conditionAttribute)
-                        );
-                    }
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(conditionAttribute.Value))
+                {
+                    throw BadRuntimeException.Create(
+                        context.ExecutionContext.Scope,
+                        "Empty 'test' attribute in 'bs:else' node",
+                        context.CreateAttributePosition(conditionAttribute)
+                    );
                 }
             }
             else
@@ -106,7 +108,7 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
         return branches;
     }
 
-    private bool EvaluateCondition(BadHtmlContext context, HtmlAttribute conditionAttribute)
+    private static bool EvaluateCondition(BadHtmlContext context, HtmlAttribute conditionAttribute)
     {
         BadObject resultObj = context.ParseAndExecuteSingle(
             conditionAttribute.Value,
@@ -125,7 +127,7 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
         return result.Value;
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches =
             DissectContent(context, context.InputNode, out IEnumerable<HtmlNode>? elseBranch);
@@ -134,27 +136,33 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 
         foreach ((HtmlAttribute condition, IEnumerable<HtmlNode> block) branch in branches)
         {
-            if (EvaluateCondition(context, branch.condition))
+            if (!EvaluateCondition(context, branch.condition))
             {
-                executedAny = true;
-                BadExecutionContext branchContext = new BadExecutionContext(
-                    context.ExecutionContext.Scope.CreateChild(
-                        "bs:if",
-                        context.ExecutionContext.Scope,
-                        null
-                    )
-                );
+                continue;
+            }
 
-                foreach (HtmlNode? child in branch.block)
-                {
-                    BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+            executedAny = true;
+            BadExecutionContext branchContext = new BadExecutionContext(
+                context.ExecutionContext.Scope.CreateChild(
+                    "bs:if",
+                    context.ExecutionContext.Scope,
+                    null
+                )
+            );
 
-                    Transform(childContext);
-                }
+            foreach (HtmlNode? child in branch.block)
+            {
+                BadHtmlContext childContext = context.CreateChild(child, context.OutputNode, branchContext);
+
+                Transform(childContext);
             }
         }
 
-        if (!executedAny && elseBranch != null)
+        if (executedAny || elseBranch == null)
+        {
+            return;
+        }
+
         {
             BadExecutionContext branchContext = new BadExecutionContext(
                 context.ExecutionContext.Scope.CreateChild(

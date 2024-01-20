@@ -47,9 +47,11 @@ public class BadConsoleWritePacket : BadConsolePacket
 
     public override byte[] Serialize()
     {
-        List<byte> data = new List<byte>();
-        data.Add((byte)BadConsolePacketType.Write);
-        data.Add((byte)(IsWriteLine ? 1 : 0));
+        List<byte> data = new List<byte>
+        {
+	        (byte)BadConsolePacketType.Write,
+	        (byte)(IsWriteLine ? 1 : 0),
+        };
         byte[] message = Encoding.UTF8.GetBytes(Message);
         data.AddRange(BitConverter.GetBytes(message.Length));
         data.AddRange(message);

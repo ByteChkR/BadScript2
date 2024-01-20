@@ -68,12 +68,9 @@ public class BadWhileExpression : BadExpression
             yield return expression;
         }
 
-        foreach (BadExpression expression in m_Body)
+        foreach (BadExpression descendant in m_Body.SelectMany(expression => expression.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
+            yield return descendant;
         }
     }
 

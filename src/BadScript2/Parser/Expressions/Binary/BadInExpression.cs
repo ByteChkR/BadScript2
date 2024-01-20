@@ -53,6 +53,7 @@ public class BadInExpression : BadBinaryExpression
     /// <summary>
     ///     Implements the logic of the 'in' operator.
     /// </summary>
+    /// <param name="ctx">The Calling Context</param>
     /// <param name="left">Property Key</param>
     /// <param name="right">Instance</param>
     /// <returns>Returns true if the left side is a property of the right side</returns>
@@ -75,13 +76,13 @@ public class BadInExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (right.HasProperty(BadStaticKeys.InOperatorName, context.Scope))
+        if (right.HasProperty(BadStaticKeys.IN_OPERATOR_NAME, context.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          context,
-                         BadStaticKeys.InOperatorName,
+                         BadStaticKeys.IN_OPERATOR_NAME,
                          position
                      ))
             {

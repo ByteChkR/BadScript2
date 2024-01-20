@@ -44,12 +44,12 @@ public class BadInterfacePrototype : BadClassPrototype
         m_ConstraintsFunc = constraints;
     }
 
-    public override bool IsAbstract { get; } = true;
+    public override bool IsAbstract => true;
 
     /// <summary>
     ///     The Constraints of this Interface
     /// </summary>
-    public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
+    public IEnumerable<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
 
     public override BadClassPrototype GetPrototype()
     {

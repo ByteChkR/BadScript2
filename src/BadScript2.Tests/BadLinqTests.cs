@@ -14,8 +14,11 @@ public class BadLinqTests
 
         foreach (object? o in d.Select("x=>x*2"))
         {
-            Assert.That(o, Is.InstanceOf<decimal>());
-            Assert.That((decimal)o % 2 == 0, Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(o, Is.InstanceOf<decimal>());
+                Assert.That((decimal)o % 2, Is.EqualTo(0));
+            });
         }
     }
 
@@ -26,8 +29,11 @@ public class BadLinqTests
 
         foreach (object? o in d.Where("x=>x%2==0"))
         {
-            Assert.That(o, Is.InstanceOf<int>());
-            Assert.That((int)o % 2 == 0, Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(o, Is.InstanceOf<int>());
+                Assert.That((int)o % 2, Is.EqualTo(0));
+            });
         }
     }
 
@@ -71,7 +77,7 @@ public class BadLinqTests
     {
         IEnumerable d = Enumerable.Range(0, 100);
         object[] o = d.Take(10).Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(10));
+        Assert.That(o, Has.Length.EqualTo(10));
     }
 
     [Test]
@@ -79,7 +85,7 @@ public class BadLinqTests
     {
         IEnumerable d = Enumerable.Range(0, 100);
         object[] o = d.Skip(10).Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(90));
+        Assert.That(o, Has.Length.EqualTo(90));
     }
 
     [Test]
@@ -87,7 +93,7 @@ public class BadLinqTests
     {
         IEnumerable d = Enumerable.Range(0, 100);
         object[] o = d.TakeLast(10).Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(10));
+        Assert.That(o, Has.Length.EqualTo(10));
     }
 
     [Test]
@@ -95,7 +101,7 @@ public class BadLinqTests
     {
         IEnumerable d = Enumerable.Range(0, 100);
         object[] o = d.SkipLast(10).Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(90));
+        Assert.That(o, Has.Length.EqualTo(90));
     }
 
 
@@ -113,7 +119,7 @@ public class BadLinqTests
             new BadArray(a),
         };
         object[] o = d.SelectMany("x=>x").Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(4));
+        Assert.That(o, Has.Length.EqualTo(4));
     }
 
     [Test]
@@ -121,7 +127,7 @@ public class BadLinqTests
     {
         IEnumerable d = Enumerable.Range(0, 100);
         object[] o = d.SkipWhile("x=>x < 10").Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(90));
+        Assert.That(o, Has.Length.EqualTo(90));
     }
 
     [Test]
@@ -129,24 +135,31 @@ public class BadLinqTests
     {
         IEnumerable d = Enumerable.Range(0, 100);
         object[] o = d.TakeWhile("x=>x < 10").Cast<object>().ToArray();
-        Assert.That(o.Length, Is.EqualTo(10));
+        Assert.That(o, Has.Length.EqualTo(10));
     }
 
     [Test]
     public void AllTest()
     {
         IEnumerable d = Enumerable.Range(0, 100);
+        // ReSharper disable once PossibleMultipleEnumeration
         bool o = d.All("x=>x < 10");
+        // ReSharper disable once PossibleMultipleEnumeration
         bool o1 = d.All("x=>x < 100");
-        Assert.That(o, Is.False);
-        Assert.That(o1, Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(o, Is.False);
+            Assert.That(o1, Is.True);
+        });
     }
 
     [Test]
     public void AnyTest()
     {
         IEnumerable d = Enumerable.Range(0, 100);
+        // ReSharper disable once PossibleMultipleEnumeration
         bool o = d.Any("x=>x < 0");
+        // ReSharper disable once PossibleMultipleEnumeration
         bool o1 = d.Any("x=>x < 100");
         Assert.That(o, Is.False);
         Assert.That(o1, Is.True);

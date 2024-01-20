@@ -31,10 +31,7 @@ public class BadPostIncrementExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression? expression in Left.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+        return Left.GetDescendantsAndSelf();
     }
 
     public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
@@ -80,12 +77,12 @@ public class BadPostIncrementExpression : BadExpression
     {
         BadObject left = leftRef.Dereference();
 
-        if (left.HasProperty(BadStaticKeys.PostIncrementOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.POST_INCREMENT_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          context!,
-                         BadStaticKeys.PostIncrementOperatorName,
+                         BadStaticKeys.POST_INCREMENT_OPERATOR_NAME,
                          position
                      ))
             {

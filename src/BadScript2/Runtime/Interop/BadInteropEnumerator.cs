@@ -84,23 +84,23 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
-               (str.Value == "MoveNext" || str.Value == "GetCurrent") ||
+               str.Value is "MoveNext" or "GetCurrent" ||
                base.HasProperty(propName, caller);
     }
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (propName is IBadString str)
+        if (propName is not IBadString str)
         {
-            if (str.Value == "MoveNext")
-            {
-                return m_Next;
-            }
+            return base.GetProperty(propName, caller);
+        }
 
-            if (str.Value == "GetCurrent")
-            {
+        switch (str.Value)
+        {
+            case "MoveNext":
+                return m_Next;
+            case "GetCurrent":
                 return m_Current;
-            }
         }
 
         return base.GetProperty(propName, caller);

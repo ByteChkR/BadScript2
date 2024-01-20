@@ -35,10 +35,7 @@ public class BadNewExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (BadExpression expression in Right.GetDescendantsAndSelf())
-        {
-            yield return expression;
-        }
+        return Right.GetDescendantsAndSelf();
     }
 
     /// <summary>

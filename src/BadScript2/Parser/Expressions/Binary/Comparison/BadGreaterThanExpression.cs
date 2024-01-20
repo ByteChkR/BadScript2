@@ -34,17 +34,14 @@ public class BadGreaterThanExpression : BadBinaryExpression
 	/// <exception cref="BadRuntimeException">Gets thrown if the Left or Right side are not inheriting from IBadNumber</exception>
 	public static BadObject GreaterThan(BadObject left, BadObject right, BadSourcePosition pos)
     {
-        if (left is IBadNumber lNum)
+        if (left is not IBadNumber lNum)
         {
-            if (right is IBadNumber rNum)
-            {
-                if (lNum.Value > rNum.Value)
-                {
-                    return BadObject.True;
-                }
+            throw new BadRuntimeException($"Can not apply operator '>' to {left} and {right}", pos);
+        }
 
-                return BadObject.False;
-            }
+        if (right is IBadNumber rNum)
+        {
+            return lNum.Value > rNum.Value ? BadObject.True : BadObject.False;
         }
 
         throw new BadRuntimeException($"Can not apply operator '>' to {left} and {right}", pos);
@@ -56,26 +53,26 @@ public class BadGreaterThanExpression : BadBinaryExpression
         BadObject right,
         BadSourcePosition position)
     {
-        if (left.HasProperty(BadStaticKeys.GreaterOperatorName, context?.Scope))
+        if (left.HasProperty(BadStaticKeys.GREATER_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          left,
                          right,
                          context!,
-                         BadStaticKeys.GreaterOperatorName,
+                         BadStaticKeys.GREATER_OPERATOR_NAME,
                          position
                      ))
             {
                 yield return o;
             }
         }
-        else if (right.HasProperty(BadStaticKeys.GreaterOperatorName, context?.Scope))
+        else if (right.HasProperty(BadStaticKeys.GREATER_OPERATOR_NAME, context?.Scope))
         {
             foreach (BadObject o in ExecuteOperatorOverride(
                          right,
                          left,
                          context!,
-                         BadStaticKeys.GreaterOperatorName,
+                         BadStaticKeys.GREATER_OPERATOR_NAME,
                          position
                      ))
             {

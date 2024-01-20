@@ -18,7 +18,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
 {
-    public override bool CanTransform(BadHtmlContext context)
+    protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:function";
     }
@@ -28,7 +28,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// </summary>
     /// <param name="value">The Parameter Value</param>
     /// <returns>True if Optional</returns>
-    private bool IsOptional(string value)
+    private static bool IsOptional(string value)
     {
         return value.EndsWith("?") || value.EndsWith("?!");
     }
@@ -38,7 +38,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// </summary>
     /// <param name="value">The Parameter Value</param>
     /// <returns>True if null checked</returns>
-    private bool IsNullChecked(string value)
+    private static bool IsNullChecked(string value)
     {
         return value.EndsWith("!") || value.EndsWith("!?");
     }
@@ -48,7 +48,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// </summary>
     /// <param name="value">The Parameter Value</param>
     /// <returns>True if rest argument</returns>
-    private bool IsRestArgs(string value)
+    private static bool IsRestArgs(string value)
     {
         return value.EndsWith("*");
     }
@@ -60,7 +60,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
     /// <param name="attribute">The Parameter Attribute</param>
     /// <returns>Expression that evaluates to a Bad Type</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Parameter Type could not be parsed.</exception>
-    private BadExpression? GetParameterType(BadHtmlContext context, HtmlAttribute attribute)
+    private static BadExpression? GetParameterType(BadHtmlContext context, HtmlAttribute attribute)
     {
         string name = attribute.Value;
 
@@ -88,7 +88,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
         return expressions[0];
     }
 
-    public override void TransformNode(BadHtmlContext context)
+    protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? nameAttribute = context.InputNode.Attributes["name"];
 
@@ -164,6 +164,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
             )
         );
 
+        // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument outputDocument = new HtmlDocument();
         outputDocument.OptionUseIdAttribute = true;
         outputDocument.LoadHtml("");

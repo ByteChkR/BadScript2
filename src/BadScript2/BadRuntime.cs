@@ -187,7 +187,7 @@ public class BadRuntime : IDisposable
         return Parse(source, "<memory>");
     }
 
-    public IEnumerable<BadExpression> Parse(string source, string file)
+    public static IEnumerable<BadExpression> Parse(string source, string file)
     {
         BadSourceParser parser = BadSourceParser.Create(file, source);
 
@@ -206,7 +206,7 @@ public class BadRuntime : IDisposable
         return result;
     }
 
-    public IEnumerable<BadExpression> ParseFile(string file)
+    public static IEnumerable<BadExpression> ParseFile(string file)
     {
         return Parse(BadFileSystem.ReadAllText(file), file);
     }

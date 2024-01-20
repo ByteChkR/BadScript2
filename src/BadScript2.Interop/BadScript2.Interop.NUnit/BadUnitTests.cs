@@ -316,25 +316,25 @@ public class BadUnitTests
 
     public static BadNUnitTestCase[] GetTestCases()
     {
-        return Context?.GetTestCases() ?? throw new BadRuntimeException("Context is null");
+        return Context.GetTestCases() ?? throw new BadRuntimeException("Context is null");
     }
 
 
     public static BadNUnitTestCase[] GetOptimizedFoldingTestCases()
     {
-        return OptimizedFoldingContext?.GetTestCases() ??
+        return OptimizedFoldingContext.GetTestCases() ??
                throw new BadRuntimeException("OptimizedFoldingContext is null");
     }
 
     public static BadNUnitTestCase[] GetOptimizedSubstitutionTestCases()
     {
-        return OptimizedSubstitutionContext?.GetTestCases() ??
+        return OptimizedSubstitutionContext.GetTestCases() ??
                throw new BadRuntimeException("OptimizedSubstitutionContext is null");
     }
 
     public static BadNUnitTestCase[] GetOptimizedTestCases()
     {
-        return OptimizedContext?.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
+        return OptimizedContext.GetTestCases() ?? throw new BadRuntimeException("OptimizedContext is null");
     }
 
     public static BadNUnitTestCase[] GetCompiledTestCases()

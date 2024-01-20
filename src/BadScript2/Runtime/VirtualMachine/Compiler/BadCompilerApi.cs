@@ -22,7 +22,7 @@ public class BadCompilerApi : BadInteropApi
         );
     }
 
-    public BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
+    public static BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
     {
         return CompileFunction(BadCompiler.Instance, func, useOverride);
     }

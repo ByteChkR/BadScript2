@@ -80,17 +80,19 @@ public class BadRuntimeError : BadObject
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (propName is IBadString str)
+        if (propName is not IBadString str)
         {
-            switch (str.Value)
-            {
-                case "StackTrace":
-                    return BadObjectReference.Make("Error.StackTrace", () => StackTrace);
-                case "InnerError":
-                    return BadObjectReference.Make("Error.InnerError", () => InnerError ?? Null);
-                case "ErrorObject":
-                    return BadObjectReference.Make("Error.ErrorObject", () => ErrorObject);
-            }
+            return base.GetProperty(propName, caller);
+        }
+
+        switch (str.Value)
+        {
+            case "StackTrace":
+                return BadObjectReference.Make("Error.StackTrace", () => StackTrace);
+            case "InnerError":
+                return BadObjectReference.Make("Error.InnerError", () => InnerError ?? Null);
+            case "ErrorObject":
+                return BadObjectReference.Make("Error.ErrorObject", () => ErrorObject);
         }
 
         return base.GetProperty(propName, caller);

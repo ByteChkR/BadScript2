@@ -36,6 +36,7 @@ public class BadUnitTestContext
     /// <param name="cases">The Test Cases</param>
     /// <param name="setup">The Setup Functions</param>
     /// <param name="teardown">The Teardown Functions</param>
+    /// <param name="runtime">The Runtime</param>
     public BadUnitTestContext(
         List<BadNUnitTestCase> cases,
         List<BadFunction> setup,

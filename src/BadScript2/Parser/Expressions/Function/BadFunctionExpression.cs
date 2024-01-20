@@ -38,8 +38,11 @@ public class BadFunctionExpression : BadExpression
     /// <param name="block">The Function Body</param>
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
+    /// <param name="isStatic">Is the function Static?</param>
     /// <param name="compileLevel">Defines if the resulting function will be compiled</param>
     /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
+    /// <param name="metaData">The Meta data of the Function</param>
+    /// <param name="isSingleLine">Is the function a single line function(e.g. a lambda expression)?</param>
     public BadFunctionExpression(
         BadWordToken? name,
         List<BadFunctionParameter> parameter,
@@ -120,19 +123,15 @@ public class BadFunctionExpression : BadExpression
     /// <returns>String Header of the Function</returns>
     public string GetHeader()
     {
-        string level = "";
-
-        if (CompileLevel == BadFunctionCompileLevel.Compiled)
+        string level = CompileLevel switch
         {
-            level = "compiled ";
-        }
-        else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
-        {
-            level = "compiled fast";
-        }
+            BadFunctionCompileLevel.Compiled => "compiled ",
+            BadFunctionCompileLevel.CompiledFast => "compiled fast",
+            _ => ""
+        };
 
         return
-            $"{level}{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
+            $"{level}{BadStaticKeys.FUNCTION_KEY} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
     }
 
 
@@ -164,21 +163,20 @@ public class BadFunctionExpression : BadExpression
 
         foreach (BadFunctionParameter parameter in m_Parameters)
         {
-            if (parameter.TypeExpr != null)
+            if (parameter.TypeExpr == null)
             {
-                foreach (BadExpression typeExpr in parameter.TypeExpr.GetDescendantsAndSelf())
-                {
-                    yield return typeExpr;
-                }
+                continue;
+            }
+
+            foreach (BadExpression typeExpr in parameter.TypeExpr.GetDescendantsAndSelf())
+            {
+                yield return typeExpr;
             }
         }
 
-        foreach (BadExpression expression in m_Body)
+        foreach (BadExpression descendant in m_Body.SelectMany(expression => expression.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
+            yield return descendant;
         }
     }
 
@@ -220,17 +218,12 @@ public class BadFunctionExpression : BadExpression
             type
         );
 
-        BadFunction fFinal = f;
-
-        if (CompileLevel == BadFunctionCompileLevel.Compiled)
+        BadFunction fFinal = CompileLevel switch
         {
-            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true);
-        }
-        else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
-        {
-            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false);
-        }
-
+            BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true),
+            BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false),
+            _ => f
+        };
 
         if (Name != null)
         {

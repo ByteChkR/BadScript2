@@ -8,16 +8,16 @@ public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchEx
 {
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTryCatchExpression expression)
     {
-        List<BadInstruction> instructions = new List<BadInstruction>();
-        instructions.Add(
+        List<BadInstruction> instructions = new List<BadInstruction>
+        {
             new BadInstruction(
                 BadOpCode.CreateScope,
                 expression.Position,
                 "TryScope",
                 BadObject.Null,
                 BadScopeFlags.CaptureThrow
-            )
-        );
+            ),
+        };
         int setThrowInstruction = instructions.Count;
         instructions.Add(new BadInstruction());
         instructions.AddRange(compiler.Compile(expression.TryExpressions));

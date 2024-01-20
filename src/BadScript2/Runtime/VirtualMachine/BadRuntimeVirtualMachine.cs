@@ -362,14 +362,7 @@ public class BadRuntimeVirtualMachine
                     BadObject obj = m_ArgumentStack.Pop().Dereference();
                     BadObject name = (string)instr.Arguments[0];
 
-                    if (!obj.HasProperty(name, ctx.Scope))
-                    {
-                        m_ArgumentStack.Push(BadObject.Null);
-                    }
-                    else
-                    {
-                        m_ArgumentStack.Push(obj.GetProperty(name, ctx.Scope));
-                    }
+                    m_ArgumentStack.Push(!obj.HasProperty(name, ctx.Scope) ? BadObject.Null : obj.GetProperty(name, ctx.Scope));
 
                     break;
                 }
@@ -828,8 +821,10 @@ public class BadRuntimeVirtualMachine
                                 flags
                             )
                         )
-                    );
-                    sf.CreatePointer = m_InstructionPointer;
+                    )
+                    {
+                        CreatePointer = m_InstructionPointer,
+                    };
                     m_ContextStack.Push(sf);
 
                     break;

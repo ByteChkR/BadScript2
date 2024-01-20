@@ -14,12 +14,7 @@ public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
 
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expression.ConditionalBranches)
         {
-            List<BadInstruction> branchInstructions = new List<BadInstruction>();
-
-            foreach (BadInstruction instruction in compiler.Compile(branch.Key))
-            {
-                branchInstructions.Add(instruction);
-            }
+            List<BadInstruction> branchInstructions = compiler.Compile(branch.Key).ToList();
 
             //Jump to next branch if false
             int jumpIndex = branchInstructions.Count;
@@ -34,10 +29,7 @@ public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
                 )
             );
 
-            foreach (BadInstruction instruction in compiler.Compile(branch.Value))
-            {
-                branchInstructions.Add(instruction);
-            }
+            branchInstructions.AddRange(compiler.Compile(branch.Value));
 
             branchInstructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
 
@@ -89,12 +81,9 @@ public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
             );
         }
 
-        foreach (List<BadInstruction> instructions in branches)
+        foreach (BadInstruction instruction in branches.SelectMany(instructions => instructions))
         {
-            foreach (BadInstruction instruction in instructions)
-            {
-                yield return instruction;
-            }
+            yield return instruction;
         }
 
         foreach (BadInstruction instruction in elseInstructions)

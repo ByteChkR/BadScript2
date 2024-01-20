@@ -246,13 +246,7 @@ public class BadTask : BadObject
 
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
-        if (m_Properties.ContainsKey(propName))
-        {
-            return m_Properties[propName];
-        }
-
-
-        return base.GetProperty(propName, caller);
+	    return m_Properties.TryGetValue(propName, out BadObjectReference? property) ? property : base.GetProperty(propName, caller);
     }
 
     public override string ToSafeString(List<BadObject> done)

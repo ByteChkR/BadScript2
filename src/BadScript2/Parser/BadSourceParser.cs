@@ -93,14 +93,15 @@ public class BadSourceParser
         BadUnaryPrefixOperator? op = m_Operators.FindUnaryPrefixOperator(symbol.Text, precedence);
 
 
-        if (op == null)
+        if (op != null)
         {
-            Reader.SetPosition(symbol.SourcePosition.Index);
-
-            return null;
+            return op.Parse(this);
         }
 
-        return op.Parse(this);
+        Reader.SetPosition(symbol.SourcePosition.Index);
+
+        return null;
+
     }
 
     /// <summary>
@@ -120,7 +121,7 @@ public class BadSourceParser
         {
             readNext = false;
             isElse = false;
-            Reader.Eat(BadStaticKeys.IfKey);
+            Reader.Eat(BadStaticKeys.IF_KEY);
             Reader.SkipNonToken();
             Reader.Eat('(');
             Reader.SkipNonToken();
@@ -128,17 +129,19 @@ public class BadSourceParser
             Reader.SkipNonToken();
             Reader.Eat(')');
             Reader.SkipNonToken();
-            List<BadExpression> block = ParseBlock(start, out bool _);
+            List<BadExpression> block = ParseBlock(out bool _);
             Reader.SkipNonToken();
             conditionMap[condition] = block.ToArray();
 
-            if (Reader.IsKey(BadStaticKeys.ElseKey))
+            if (!Reader.IsKey(BadStaticKeys.ELSE_KEY))
             {
-                Reader.Eat(BadStaticKeys.ElseKey);
-                isElse = true;
-                Reader.SkipNonToken();
-                readNext = Reader.IsKey(BadStaticKeys.IfKey);
+                continue;
             }
+
+            Reader.Eat(BadStaticKeys.ELSE_KEY);
+            isElse = true;
+            Reader.SkipNonToken();
+            readNext = Reader.IsKey(BadStaticKeys.IF_KEY);
         }
         while (readNext);
 
@@ -146,7 +149,7 @@ public class BadSourceParser
 
         if (isElse)
         {
-            elseBlock = ParseBlock(start, out bool _).ToArray();
+            elseBlock = ParseBlock(out bool _).ToArray();
         }
 
         return new BadIfExpression(
@@ -163,7 +166,7 @@ public class BadSourceParser
     private BadExpression ParseForEach()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.ForEachKey);
+        Reader.Eat(BadStaticKeys.FOR_EACH_KEY);
         Reader.SkipNonToken();
         Reader.Eat('(');
         Reader.SkipNonToken();
@@ -175,7 +178,7 @@ public class BadSourceParser
         Reader.SkipNonToken();
         Reader.Eat(')');
         Reader.SkipNonToken();
-        List<BadExpression> block = ParseBlock(start, out bool _);
+        List<BadExpression> block = ParseBlock(out bool _);
         Reader.SkipNonToken();
 
         return new BadForEachExpression(
@@ -194,7 +197,7 @@ public class BadSourceParser
     private BadExpression ParseLock()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.LockKey);
+        Reader.Eat(BadStaticKeys.LOCK_KEY);
         Reader.SkipNonToken();
         Reader.Eat('(');
         Reader.SkipNonToken();
@@ -202,7 +205,7 @@ public class BadSourceParser
         Reader.SkipNonToken();
         Reader.Eat(')');
         Reader.SkipNonToken();
-        List<BadExpression> block = ParseBlock(start, out bool _);
+        List<BadExpression> block = ParseBlock(out bool _);
         Reader.SkipNonToken();
 
         return new BadLockExpression(
@@ -219,23 +222,23 @@ public class BadSourceParser
     private BadExpression ParseFor()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.ForKey);
+        Reader.Eat(BadStaticKeys.FOR_KEY);
         Reader.SkipNonToken();
         Reader.Eat('(');
         Reader.SkipNonToken();
         BadExpression vDef = ParseExpression();
         Reader.SkipNonToken();
-        Reader.Eat(BadStaticKeys.StatementEndKey);
+        Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
         Reader.SkipNonToken();
         BadExpression condition = ParseExpression();
         Reader.SkipNonToken();
-        Reader.Eat(BadStaticKeys.StatementEndKey);
+        Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
         Reader.SkipNonToken();
         BadExpression vInc = ParseExpression();
         Reader.SkipNonToken();
         Reader.Eat(')');
         Reader.SkipNonToken();
-        List<BadExpression> block = ParseBlock(start, out bool _);
+        List<BadExpression> block = ParseBlock(out bool _);
         Reader.SkipNonToken();
 
         return new BadForExpression(
@@ -249,144 +252,150 @@ public class BadSourceParser
 
     private void ParseMeta()
     {
-        if (Reader.Is("@|"))
+        if (!Reader.Is("@|"))
         {
-            Reader.Eat("@|");
-            Reader.SkipNonToken();
-            StringBuilder rootMeta = new StringBuilder();
-            StringBuilder returnMeta = new StringBuilder();
-            string returnType = "any";
-            Dictionary<string, (string, StringBuilder)> meta = new Dictionary<string, (string, StringBuilder)>();
+            return;
+        }
 
-            StringBuilder GetMeta(string name, string type)
+        Reader.Eat("@|");
+        Reader.SkipNonToken();
+        StringBuilder rootMeta = new StringBuilder();
+        StringBuilder returnMeta = new StringBuilder();
+        string returnType = "any";
+        Dictionary<string, (string, StringBuilder)> meta = new Dictionary<string, (string, StringBuilder)>();
+
+        StringBuilder GetMeta(string name, string type)
+        {
+            if (meta.TryGetValue(name, out (string, StringBuilder) val))
             {
-                if (meta.TryGetValue(name, out (string, StringBuilder) val))
-                {
-                    return val.Item2;
-                }
-
-                val = (type, new StringBuilder());
-                meta[name] = val;
-
                 return val.Item2;
             }
 
-            while (!Reader.Is("|@"))
+            val = (type, new StringBuilder());
+            meta[name] = val;
+
+            return val.Item2;
+        }
+
+        while (!Reader.Is("|@"))
+        {
+            if (Reader.Is("|PARAM"))
             {
-                if (Reader.Is("|PARAM"))
+                Reader.Eat("|PARAM");
+                Reader.SkipNonToken();
+                string name = Reader.ParseWord().Text;
+                Reader.SkipNonToken();
+                string type = "any";
+
+                if (!Reader.Is(':'))
                 {
-                    Reader.Eat("|PARAM");
-                    Reader.SkipNonToken();
-                    string name = Reader.ParseWord().Text;
-                    Reader.SkipNonToken();
-                    string type = "any";
+                    type = "";
 
-                    if (!Reader.Is(':'))
+                    while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
                     {
-                        type = "";
+                        type += Reader.ParseWord().Text;
 
-                        while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
-                        {
-                            type += Reader.ParseWord().Text;
-
-                            if (Reader.Is('.'))
-                            {
-                                type += '.';
-                                Reader.MoveNext();
-                            }
-                        }
-
-                        Reader.SkipNonToken();
-                    }
-
-                    Reader.Eat(':');
-                    Reader.SkipNonToken();
-                    StringBuilder m = GetMeta(name, type);
-
-                    while (!Reader.IsEof() && !Reader.Is("|@") && !Reader.IsNewLine())
-                    {
-                        m.Append(Reader.GetCurrentChar());
-                        Reader.MoveNext();
-                    }
-
-                    Reader.SkipNonToken();
-                }
-                else if (Reader.Is("|RET"))
-                {
-                    Reader.Eat("|RET");
-                    Reader.SkipNonToken();
-                    string type = "any";
-
-                    if (!Reader.Is(':'))
-                    {
-                        type = "";
-
-                        while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
-                        {
-                            type += Reader.ParseWord().Text;
-
-                            if (Reader.Is('.'))
-                            {
-                                type += '.';
-                                Reader.MoveNext();
-                            }
-                        }
-
-                        Reader.SkipNonToken();
-                    }
-
-                    Reader.Eat(':');
-                    Reader.SkipNonToken();
-
-                    while (!Reader.IsEof() && !Reader.Is("|@") && !Reader.IsNewLine())
-                    {
-                        returnMeta.Append(Reader.GetCurrentChar());
-                        Reader.MoveNext();
-                    }
-
-                    Reader.SkipNonToken();
-
-                    returnType = type;
-                }
-                else
-                {
-                    if (Reader.IsNewLine(-1))
-                    {
-                        Reader.SkipNonToken();
-
-                        if (Reader.Is("|"))
+                        if (!Reader.Is('.'))
                         {
                             continue;
                         }
-                    }
 
-                    while (!Reader.IsEof() && !Reader.IsNewLine() && !Reader.Is("|@"))
-                    {
-                        rootMeta.Append(Reader.GetCurrentChar());
+                        type += '.';
                         Reader.MoveNext();
                     }
 
-                    rootMeta.AppendLine();
                     Reader.SkipNonToken();
                 }
+
+                Reader.Eat(':');
+                Reader.SkipNonToken();
+                StringBuilder m = GetMeta(name, type);
+
+                while (!Reader.IsEof() && !Reader.Is("|@") && !Reader.IsNewLine())
+                {
+                    m.Append(Reader.GetCurrentChar());
+                    Reader.MoveNext();
+                }
+
+                Reader.SkipNonToken();
             }
+            else if (Reader.Is("|RET"))
+            {
+                Reader.Eat("|RET");
+                Reader.SkipNonToken();
+                string type = "any";
 
-            Reader.Eat("|@");
-            Reader.SkipNonToken();
+                if (!Reader.Is(':'))
+                {
+                    type = "";
 
-            m_MetaData = new BadMetaData(
-                rootMeta.ToString().Trim(),
-                returnMeta.ToString().Trim(),
-                returnType,
-                meta.ToDictionary(
-                    x => x.Key,
-                    x => new BadParameterMetaData(
-                        x.Value.Item1,
-                        x.Value.Item2.ToString().Trim()
-                    )
-                )
-            );
+                    while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
+                    {
+                        type += Reader.ParseWord().Text;
+
+                        if (!Reader.Is('.'))
+                        {
+                            continue;
+                        }
+
+                        type += '.';
+                        Reader.MoveNext();
+                    }
+
+                    Reader.SkipNonToken();
+                }
+
+                Reader.Eat(':');
+                Reader.SkipNonToken();
+
+                while (!Reader.IsEof() && !Reader.Is("|@") && !Reader.IsNewLine())
+                {
+                    returnMeta.Append(Reader.GetCurrentChar());
+                    Reader.MoveNext();
+                }
+
+                Reader.SkipNonToken();
+
+                returnType = type;
+            }
+            else
+            {
+                if (Reader.IsNewLine(-1))
+                {
+                    Reader.SkipNonToken();
+
+                    if (Reader.Is("|"))
+                    {
+                        continue;
+                    }
+                }
+
+                while (!Reader.IsEof() && !Reader.IsNewLine() && !Reader.Is("|@"))
+                {
+                    rootMeta.Append(Reader.GetCurrentChar());
+                    Reader.MoveNext();
+                }
+
+                rootMeta.AppendLine();
+                Reader.SkipNonToken();
+            }
         }
+
+        Reader.Eat("|@");
+        Reader.SkipNonToken();
+
+        m_MetaData = new BadMetaData(
+            rootMeta.ToString().Trim(),
+            returnMeta.ToString().Trim(),
+            returnType,
+            meta.ToDictionary(
+                x => x.Key,
+                x => new BadParameterMetaData(
+                    x.Value.Item1,
+                    x.Value.Item2.ToString().Trim()
+                )
+            )
+        );
     }
 
     /// <summary>
@@ -524,29 +533,29 @@ public class BadSourceParser
             );
         }
 
-        if (Reader.IsKey(BadStaticKeys.LockKey))
+        if (Reader.IsKey(BadStaticKeys.LOCK_KEY))
         {
             return ParseLock();
         }
 
-        if (Reader.IsKey(BadStaticKeys.ForEachKey))
+        if (Reader.IsKey(BadStaticKeys.FOR_EACH_KEY))
         {
             return ParseForEach();
         }
 
-        if (Reader.IsKey(BadStaticKeys.ForKey))
+        if (Reader.IsKey(BadStaticKeys.FOR_KEY))
         {
             return ParseFor();
         }
 
-        if (Reader.IsKey(BadStaticKeys.IfKey))
+        if (Reader.IsKey(BadStaticKeys.IF_KEY))
         {
             return ParseIf();
         }
 
-        if (Reader.IsKey(BadStaticKeys.ContinueKey))
+        if (Reader.IsKey(BadStaticKeys.CONTINUE_KEY))
         {
-            BadSourcePosition pos = Reader.Eat(BadStaticKeys.ContinueKey);
+            BadSourcePosition pos = Reader.Eat(BadStaticKeys.CONTINUE_KEY);
 
             if (Reader.IsWordChar())
             {
@@ -560,9 +569,9 @@ public class BadSourceParser
             }
         }
 
-        if (Reader.IsKey(BadStaticKeys.BreakKey))
+        if (Reader.IsKey(BadStaticKeys.BREAK_KEY))
         {
-            BadSourcePosition pos = Reader.Eat(BadStaticKeys.BreakKey);
+            BadSourcePosition pos = Reader.Eat(BadStaticKeys.BREAK_KEY);
 
             if (Reader.IsWordChar())
             {
@@ -576,9 +585,9 @@ public class BadSourceParser
             }
         }
 
-        if (Reader.IsKey(BadStaticKeys.ThrowKey))
+        if (Reader.IsKey(BadStaticKeys.THROW_KEY))
         {
-            BadSourcePosition pos = Reader.Eat(BadStaticKeys.ThrowKey);
+            BadSourcePosition pos = Reader.Eat(BadStaticKeys.THROW_KEY);
 
             if (Reader.IsWordChar())
             {
@@ -590,9 +599,9 @@ public class BadSourceParser
             }
         }
 
-        if (Reader.IsKey(BadStaticKeys.ReturnKey))
+        if (Reader.IsKey(BadStaticKeys.RETURN_KEY))
         {
-            BadSourcePosition pos = Reader.Eat(BadStaticKeys.ReturnKey);
+            BadSourcePosition pos = Reader.Eat(BadStaticKeys.RETURN_KEY);
 
             if (Reader.IsWordChar())
             {
@@ -608,10 +617,10 @@ public class BadSourceParser
                     return new BadReturnExpression(null, pos, false);
                 }
 
-                if (Reader.IsKey(BadStaticKeys.RefKey))
+                if (Reader.IsKey(BadStaticKeys.REF_KEY))
                 {
                     isRef = true;
-                    Reader.Eat(BadStaticKeys.RefKey);
+                    Reader.Eat(BadStaticKeys.REF_KEY);
                     Reader.SkipNonToken();
                 }
 
@@ -621,8 +630,8 @@ public class BadSourceParser
             }
         }
 
-        if (Reader.IsKey(BadStaticKeys.True) ||
-            Reader.IsKey(BadStaticKeys.False))
+        if (Reader.IsKey(BadStaticKeys.TRUE) ||
+            Reader.IsKey(BadStaticKeys.FALSE))
         {
             BadBooleanToken token = Reader.ParseBoolean();
 
@@ -641,83 +650,76 @@ public class BadSourceParser
         BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None;
         int constStart = Reader.CurrentIndex;
 
-        if (Reader.IsKey(BadStaticKeys.ConstantDefinitionKey))
+        if (Reader.IsKey(BadStaticKeys.CONSTANT_DEFINITION_KEY))
         {
             isConstant = true;
-            Reader.Eat(BadStaticKeys.ConstantDefinitionKey);
+            Reader.Eat(BadStaticKeys.CONSTANT_DEFINITION_KEY);
             Reader.SkipNonToken();
         }
-        else if (Reader.IsKey(BadStaticKeys.StaticDefinitionKey))
+        else if (Reader.IsKey(BadStaticKeys.STATIC_DEFINITION_KEY))
         {
             isStatic = true;
-            Reader.Eat(BadStaticKeys.StaticDefinitionKey);
+            Reader.Eat(BadStaticKeys.STATIC_DEFINITION_KEY);
             Reader.SkipNonToken();
         }
 
         int compiledStart = Reader.CurrentIndex;
 
-        if (Reader.IsKey(BadStaticKeys.CompiledDefinitionKey))
+        if (Reader.IsKey(BadStaticKeys.COMPILED_DEFINITION_KEY))
         {
             compileLevel = BadFunctionCompileLevel.Compiled;
-            Reader.Eat(BadStaticKeys.CompiledDefinitionKey);
+            Reader.Eat(BadStaticKeys.COMPILED_DEFINITION_KEY);
             Reader.SkipNonToken();
 
-            if (Reader.IsKey(BadStaticKeys.CompiledFastDefinitionKey))
+            if (Reader.IsKey(BadStaticKeys.COMPILED_FAST_DEFINITION_KEY))
             {
                 compileLevel = BadFunctionCompileLevel.CompiledFast;
-                Reader.Eat(BadStaticKeys.CompiledFastDefinitionKey);
+                Reader.Eat(BadStaticKeys.COMPILED_FAST_DEFINITION_KEY);
                 Reader.SkipNonToken();
             }
         }
 
-        if (Reader.IsKey(BadStaticKeys.FunctionKey))
+        if (Reader.IsKey(BadStaticKeys.FUNCTION_KEY))
         {
             return ParseFunction(isConstant, isStatic, compileLevel);
         }
 
         if (compileLevel != BadFunctionCompileLevel.None || isConstant)
         {
-            if (compiledStart < constStart)
-            {
-                Reader.SetPosition(compiledStart);
-            }
-            else
-            {
-                Reader.SetPosition(constStart);
-            }
+            Reader.SetPosition(compiledStart < constStart ? compiledStart : constStart);
         }
 
-        if (Reader.IsKey(BadStaticKeys.ClassKey))
+        if (Reader.IsKey(BadStaticKeys.CLASS_KEY))
         {
             return ParseClass();
         }
 
-        if (Reader.IsKey(BadStaticKeys.InterfaceKey))
+        if (Reader.IsKey(BadStaticKeys.INTERFACE_KEY))
         {
             return ParseInterface();
         }
 
-        if (Reader.IsKey(BadStaticKeys.NewKey))
+        if (Reader.IsKey(BadStaticKeys.NEW_KEY))
         {
             return ParseNew();
         }
 
-        if (Reader.IsKey(BadStaticKeys.TryKey))
+        if (Reader.IsKey(BadStaticKeys.TRY_KEY))
         {
             return ParseTry();
         }
 
-        if (Reader.IsKey(BadStaticKeys.UsingKey))
+        if (Reader.IsKey(BadStaticKeys.USING_KEY))
         {
             return ParseUsing();
         }
 
-        if (Reader.IsKey(BadStaticKeys.While))
+        if (Reader.IsKey(BadStaticKeys.WHILE))
         {
             return ParseWhile();
         }
 
-        if (Reader.IsKey(BadStaticKeys.Null))
+        if (Reader.IsKey(BadStaticKeys.NULL))
         {
             BadNullToken token = Reader.ParseNull();
 
@@ -738,19 +740,19 @@ public class BadSourceParser
             return new BadStringExpression(token.Value, token.SourcePosition);
         }
 
-        if (Reader.Is(BadStaticKeys.FormatStringKey))
+        if (Reader.Is(BadStaticKeys.FORMAT_STRING_KEY))
         {
             return ParseFormatString();
         }
 
 
-        if (Reader.Is(BadStaticKeys.MultiLineFormatStringKey))
+        if (Reader.Is(BadStaticKeys.MULTI_LINE_FORMAT_STRING_KEY))
         {
             return ParseMultiLineFormatString();
         }
 
 
-        if (Reader.Is(BadStaticKeys.MultiLineStringKey))
+        if (Reader.Is(BadStaticKeys.MULTI_LINE_STRING_KEY))
         {
             BadStringToken token = Reader.ParseMultiLineString();
 
@@ -779,10 +781,10 @@ public class BadSourceParser
         int wordStart = Reader.CurrentIndex;
         BadWordToken word = Reader.ParseWord();
 
-        if (word.Text == BadStaticKeys.VariableDefinitionKey ||
-            word.Text == BadStaticKeys.ConstantDefinitionKey)
+        if (word.Text == BadStaticKeys.VARIABLE_DEFINITION_KEY ||
+            word.Text == BadStaticKeys.CONSTANT_DEFINITION_KEY)
         {
-            bool isReadOnly = word.Text == BadStaticKeys.ConstantDefinitionKey;
+            bool isReadOnly = word.Text == BadStaticKeys.CONSTANT_DEFINITION_KEY;
             Reader.SkipNonToken();
             BadExpression nameExpr = ParseValue(0);
             Reader.SkipNonToken();
@@ -825,7 +827,11 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
-        if (precedence > 0 && (Reader.Is("=>") || Reader.Is('*') || Reader.Is('?') || Reader.Is('!')))
+        if (precedence <= 0 || (!Reader.Is("=>") && !Reader.Is('*') && !Reader.Is('?') && !Reader.Is('!')))
+        {
+            return new BadVariableExpression(word.Text, word.SourcePosition);
+        }
+
         {
             int start = Reader.CurrentIndex;
 
@@ -896,7 +902,7 @@ public class BadSourceParser
         {
             Reader.SkipNonToken();
 
-            if (Reader.Is(BadStaticKeys.StatementEndKey))
+            if (Reader.Is(BadStaticKeys.STATEMENT_END_KEY))
             {
                 return left;
             }
@@ -1037,7 +1043,7 @@ public class BadSourceParser
 
     private BadStringExpression ParseMultiLineFormatString()
     {
-        if (!Reader.Is(BadStaticKeys.MultiLineFormatStringKey))
+        if (!Reader.Is(BadStaticKeys.MULTI_LINE_FORMAT_STRING_KEY))
         {
             throw new BadSourceReaderException(
                 $"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
@@ -1046,7 +1052,7 @@ public class BadSourceParser
         }
 
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.MultiLineFormatStringKey);
+        Reader.Eat(BadStaticKeys.MULTI_LINE_FORMAT_STRING_KEY);
         StringBuilder sb = new StringBuilder();
         List<BadExpression> args = new List<BadExpression>();
 
@@ -1087,18 +1093,19 @@ public class BadSourceParser
                 int idx = Reader.CurrentIndex;
                 Reader.Eat('}');
 
-                if (Reader.Is('}'))
+                if (!Reader.Is('}'))
                 {
-                    Reader.Eat('}');
-                    sb.Append("}}");
-
-                    continue;
+                    throw new BadParserException(
+                        "Expected '}'",
+                        Reader.MakeSourcePosition(idx, 1)
+                    );
                 }
 
-                throw new BadParserException(
-                    "Expected '}'",
-                    Reader.MakeSourcePosition(idx, 1)
-                );
+                Reader.Eat('}');
+                sb.Append("}}");
+
+                continue;
+
             }
 
             sb.Append(Reader.GetCurrentChar());
@@ -1106,7 +1113,7 @@ public class BadSourceParser
             Reader.MoveNext();
         }
 
-        Reader.Eat(BadStaticKeys.Quote);
+        Reader.Eat(BadStaticKeys.QUOTE);
 
         if (args.Count == 0)
         {
@@ -1137,7 +1144,7 @@ public class BadSourceParser
     /// <exception cref="BadParserException">Gets Raised if the string is not properly Terminated.</exception>
     private BadStringExpression ParseFormatString()
     {
-        if (!Reader.Is(BadStaticKeys.FormatStringKey))
+        if (!Reader.Is(BadStaticKeys.FORMAT_STRING_KEY))
         {
             throw new BadSourceReaderException(
                 $"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
@@ -1146,7 +1153,7 @@ public class BadSourceParser
         }
 
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.FormatStringKey);
+        Reader.Eat(BadStaticKeys.FORMAT_STRING_KEY);
         bool isEscaped = false;
         StringBuilder sb = new StringBuilder();
         List<BadExpression> args = new List<BadExpression>();
@@ -1188,21 +1195,22 @@ public class BadSourceParser
                 int idx = Reader.CurrentIndex;
                 Reader.Eat('}');
 
-                if (Reader.Is('}'))
+                if (!Reader.Is('}'))
                 {
-                    Reader.Eat('}');
-                    sb.Append("}}");
-
-                    continue;
+                    throw new BadParserException(
+                        "Expected '}'",
+                        Reader.MakeSourcePosition(idx, 1)
+                    );
                 }
 
-                throw new BadParserException(
-                    "Expected '}'",
-                    Reader.MakeSourcePosition(idx, 1)
-                );
+                Reader.Eat('}');
+                sb.Append("}}");
+
+                continue;
+
             }
 
-            if (Reader.Is(BadStaticKeys.EscapeCharacter))
+            if (Reader.Is(BadStaticKeys.ESCAPE_CHARACTER))
             {
                 isEscaped = true;
                 Reader.MoveNext();
@@ -1221,7 +1229,7 @@ public class BadSourceParser
             Reader.MoveNext();
         }
 
-        Reader.Eat(BadStaticKeys.Quote);
+        Reader.Eat(BadStaticKeys.QUOTE);
 
         if (args.Count == 0)
         {
@@ -1245,13 +1253,13 @@ public class BadSourceParser
     private BadWhileExpression ParseWhile()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.While);
+        Reader.Eat(BadStaticKeys.WHILE);
         Reader.SkipNonToken();
         Reader.Eat('(');
         BadExpression condition = ParseExpression();
         Reader.Eat(')');
 
-        List<BadExpression> block = ParseBlock(start, out bool _);
+        List<BadExpression> block = ParseBlock( out bool _);
 
         return new BadWhileExpression(
             condition,
@@ -1260,7 +1268,7 @@ public class BadSourceParser
         );
     }
 
-    private List<BadExpression> ParseBlock(int start, out bool isSingleLine)
+    private List<BadExpression> ParseBlock(out bool isSingleLine)
     {
         Reader.SkipNonToken();
 
@@ -1272,7 +1280,7 @@ public class BadSourceParser
             Reader.Eat('{');
             Reader.SkipNonToken();
 
-            while (!Reader.Is(BadStaticKeys.BlockEndKey))
+            while (!Reader.Is(BadStaticKeys.BLOCK_END_KEY))
             {
                 Reader.SkipNonToken();
                 BadExpression expr = ParseExpression();
@@ -1284,11 +1292,11 @@ public class BadSourceParser
                     continue;
                 }
 
-                Reader.Eat(BadStaticKeys.StatementEndKey);
+                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
                 Reader.SkipNonToken();
             }
 
-            Reader.Eat(BadStaticKeys.BlockEndKey);
+            Reader.Eat(BadStaticKeys.BLOCK_END_KEY);
         }
         else
         {
@@ -1297,7 +1305,7 @@ public class BadSourceParser
 
             if (RequireSemicolon(expr))
             {
-                Reader.Eat(BadStaticKeys.StatementEndKey);
+                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
             }
 
             Reader.SkipNonToken();
@@ -1337,7 +1345,7 @@ public class BadSourceParser
             Reader.Eat('{');
             Reader.SkipNonToken();
 
-            while (!Reader.Is(BadStaticKeys.BlockEndKey))
+            while (!Reader.Is(BadStaticKeys.BLOCK_END_KEY))
             {
                 Reader.SkipNonToken();
                 BadExpression expr = ParseExpression();
@@ -1349,11 +1357,11 @@ public class BadSourceParser
                     continue;
                 }
 
-                Reader.Eat(BadStaticKeys.StatementEndKey);
+                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
                 Reader.SkipNonToken();
             }
 
-            Reader.Eat(BadStaticKeys.BlockEndKey);
+            Reader.Eat(BadStaticKeys.BLOCK_END_KEY);
         }
         else
         {
@@ -1371,11 +1379,11 @@ public class BadSourceParser
     private BadExpression ParseUsing()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.UsingKey);
+        Reader.Eat(BadStaticKeys.USING_KEY);
         Reader.SkipNonToken();
         Reader.Eat('(');
         Reader.SkipNonToken();
-        if (!Reader.Is(BadStaticKeys.ConstantDefinitionKey))
+        if (!Reader.Is(BadStaticKeys.CONSTANT_DEFINITION_KEY))
         {
             throw new BadParserException(
                 "Expected Constant Variable Definition",
@@ -1406,12 +1414,12 @@ public class BadSourceParser
         Reader.Eat(')');
 
         Reader.SkipNonToken();
-        List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
+        List<BadExpression> block = ParseBlock(out bool isSingleLine);
         block.Insert(0, expr);
         Reader.SkipNonToken();
         if (isSingleLine)
         {
-            Reader.Eat(BadStaticKeys.StatementEndKey);
+            Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
         }
 
         Reader.SkipNonToken();
@@ -1426,18 +1434,18 @@ public class BadSourceParser
     private BadExpression ParseTry()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.TryKey);
+        Reader.Eat(BadStaticKeys.TRY_KEY);
         Reader.SkipNonToken();
-        List<BadExpression> block = ParseBlock(start, out bool isSingleLine);
+        List<BadExpression> block = ParseBlock(out bool isSingleLine);
         Reader.SkipNonToken();
 
         if (isSingleLine)
         {
-            Reader.Eat(BadStaticKeys.StatementEndKey);
+            Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
         }
 
         Reader.SkipNonToken();
-        Reader.Eat(BadStaticKeys.CatchKey);
+        Reader.Eat(BadStaticKeys.CATCH_KEY);
         Reader.SkipNonToken();
         Reader.Eat('(');
         Reader.SkipNonToken();
@@ -1445,12 +1453,12 @@ public class BadSourceParser
         Reader.SkipNonToken();
         Reader.Eat(')');
         Reader.SkipNonToken();
-        List<BadExpression> errorBlock = ParseBlock(start, out isSingleLine);
+        List<BadExpression> errorBlock = ParseBlock(out isSingleLine);
         Reader.SkipNonToken();
 
         if (isSingleLine)
         {
-            Reader.Eat(BadStaticKeys.StatementEndKey);
+            Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
         }
 
         Reader.SkipNonToken();
@@ -1472,7 +1480,7 @@ public class BadSourceParser
     private BadNewExpression ParseNew()
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.NewKey);
+        Reader.Eat(BadStaticKeys.NEW_KEY);
         Reader.SkipNonToken();
         BadExpression right = ParseExpression();
 
@@ -1543,14 +1551,14 @@ public class BadSourceParser
 
             Reader.SkipNonToken();
 
-            Reader.Eat(BadStaticKeys.StatementEndKey);
+            Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
 
 
             return new BadInterfaceFunctionConstraint(name, type, parameters.ToArray());
         }
 
 
-        Reader.Eat(BadStaticKeys.StatementEndKey);
+        Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
 
         return new BadInterfacePropertyConstraint(name, type);
     }
@@ -1560,7 +1568,7 @@ public class BadSourceParser
         BadMetaData? meta = m_MetaData;
         m_MetaData = null;
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.InterfaceKey);
+        Reader.Eat(BadStaticKeys.INTERFACE_KEY);
         Reader.SkipNonToken();
         BadWordToken name = Reader.ParseWord();
         Reader.SkipNonToken();
@@ -1621,7 +1629,7 @@ public class BadSourceParser
         BadMetaData? meta = m_MetaData;
         m_MetaData = null;
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.ClassKey);
+        Reader.Eat(BadStaticKeys.CLASS_KEY);
         Reader.SkipNonToken();
         BadWordToken name = Reader.ParseWord();
         Reader.SkipNonToken();
@@ -1673,7 +1681,7 @@ public class BadSourceParser
 
             if (RequireSemicolon(expr))
             {
-                Reader.Eat(BadStaticKeys.StatementEndKey);
+                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
             }
 
             Reader.SkipNonToken();
@@ -1812,7 +1820,7 @@ public class BadSourceParser
 
                 BadFunctionParameter param = ParseParameter();
 
-                if (hadOptional && !param.IsOptional && !param.IsRestArgs)
+                if (hadOptional && param is { IsOptional: false, IsRestArgs: false })
                 {
                     throw new BadParserException(
                         "Non-Optional parameters must be in front of optional parameters",
@@ -1899,12 +1907,14 @@ public class BadSourceParser
     ///     Indicates that the function is declared as a constant. I.e. it is readonly inside the scope it
     ///     is executed in
     /// </param>
+    /// <param name="isStatic">Is the Function Static</param>
+    /// <param name="compileLevel">The Compile level of the Function</param>
     /// <returns>Instance of BadFunctionExpression</returns>
     /// <exception cref="BadParserException">Gets raised if the function header is invalid.</exception>
     private BadFunctionExpression ParseFunction(bool isConstant, bool isStatic, BadFunctionCompileLevel compileLevel)
     {
         int start = Reader.CurrentIndex;
-        Reader.Eat(BadStaticKeys.FunctionKey);
+        Reader.Eat(BadStaticKeys.FUNCTION_KEY);
         Reader.SkipNonToken();
 
         string? functionName = null;
@@ -1953,7 +1963,7 @@ public class BadSourceParser
         return ParseFunction(start, functionName, functionReturn, isConstant, isStatic, compileLevel, parameters);
     }
 
-    private bool RequireSemicolon(BadExpression expr)
+    private static bool RequireSemicolon(BadExpression expr)
     {
         return expr is not (
             BadInterfacePrototypeExpression
@@ -1994,7 +2004,7 @@ public class BadSourceParser
                 continue;
             }
 
-            Reader.Eat(BadStaticKeys.StatementEndKey);
+            Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
             Reader.SkipNonToken();
 
             yield return expr;

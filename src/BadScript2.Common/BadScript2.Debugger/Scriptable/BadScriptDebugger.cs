@@ -28,7 +28,7 @@ public class BadScriptDebugger : IBadDebugger
 	/// <summary>
 	///     Constructs a new BadScriptDebugger instance
 	/// </summary>
-	/// <param name="options">The Context Options</param>
+	/// <param name="runtime">The Runtime that the debugger will be loaded into.</param>
 	/// <param name="debuggerPath">The File Path to the Debugger</param>
 	public BadScriptDebugger(BadRuntime runtime, string debuggerPath)
     {
@@ -41,7 +41,7 @@ public class BadScriptDebugger : IBadDebugger
 	/// <summary>
 	///     Constructs a new BadScriptDebugger instance
 	/// </summary>
-	/// <param name="options">The Context Options</param>
+	/// <param name="runtime">The Runtime that the debugger will be loaded into.</param>
 	public BadScriptDebugger(BadRuntime runtime)
     {
         m_Runtime = runtime

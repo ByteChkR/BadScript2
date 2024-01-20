@@ -52,20 +52,17 @@ public class BadTable : BadObject, IBadEnumerable
 
     public IEnumerator<BadObject> GetEnumerator()
     {
-        foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
-        {
-            yield return new BadTable(
-                new Dictionary<BadObject, BadObject>
+        return InnerTable.Select(kvp => new BadTable(
+            new Dictionary<BadObject, BadObject>
+            {
                 {
-                    {
-                        "Key", kvp.Key
-                    },
-                    {
-                        "Value", kvp.Value
-                    },
-                }
-            );
-        }
+                    "Key", kvp.Key
+                },
+                {
+                    "Value", kvp.Value
+                },
+            }
+        )).Cast<BadObject>().GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -109,12 +106,7 @@ public class BadTable : BadObject, IBadEnumerable
 
     public BadObjectReference GetProperty(BadObject propName, bool useExtensions, BadScope? caller = null)
     {
-        if (!useExtensions)
-        {
-            return GetLocalReference(propName);
-        }
-
-        return GetProperty(propName, caller);
+        return !useExtensions ? GetLocalReference(propName) : GetProperty(propName, caller);
     }
 
     private BadObjectReference GetLocalReference(BadObject propName)
@@ -189,14 +181,14 @@ public class BadTable : BadObject, IBadEnumerable
 
             if (!done.Contains(kvp.Key))
             {
-                kStr = kvp.Key.ToSafeString(done)!.Trim();
+                kStr = kvp.Key.ToSafeString(done).Trim();
             }
 
             string vStr = "{...}";
 
             if (!done.Contains(kvp.Value))
             {
-                vStr = kvp.Value.ToSafeString(done)!.Trim();
+                vStr = kvp.Value.ToSafeString(done).Trim();
             }
 
             if (kStr.Contains("\n"))

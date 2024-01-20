@@ -37,10 +37,7 @@ public class BadArray : BadObject, IBadEnumerable
 
     public IEnumerator<BadObject> GetEnumerator()
     {
-        foreach (BadObject o in InnerArray)
-        {
-            yield return o;
-        }
+        return ((IEnumerable<BadObject>)InnerArray).GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -67,7 +64,7 @@ public class BadArray : BadObject, IBadEnumerable
 
             if (!done.Contains(element))
             {
-                str = element.ToSafeString(done)!.Trim();
+                str = element.ToSafeString(done).Trim();
             }
 
             if (str.Contains("\n"))
@@ -98,7 +95,7 @@ public class BadArray : BadObject, IBadEnumerable
                 continue;
             }
 
-            string str = element.ToString()!.Trim();
+            string str = element.ToString().Trim();
 
             if (str.Contains("\n"))
             {

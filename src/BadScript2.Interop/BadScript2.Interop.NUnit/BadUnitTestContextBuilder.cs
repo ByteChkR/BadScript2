@@ -50,7 +50,8 @@ public class BadUnitTestContextBuilder
     /// <summary>
     ///     Registers one or multiple files to the Test Context
     /// </summary>
-    /// <param name="optimize">Optimize the expressions?</param>
+    /// <param name="optimizeFolding">Use constant folding optimization?</param>
+    /// <param name="optimizeSubstitution">Use variable substitution optimization?</param>
     /// <param name="files">The Source Files containing the test cases</param>
     public void Register(bool optimizeFolding, bool optimizeSubstitution, params string[] files)
     {
@@ -123,7 +124,8 @@ public class BadUnitTestContextBuilder
     ///     Registering test cases and setup/teardown functions happens here
     /// </summary>
     /// <param name="file">The Source File</param>
-    /// <param name="optimizeFolding">Optimize the Expressions?</param>
+    /// <param name="optimizeFolding">Use Constant Folding Optimization?</param>
+    /// <param name="optimizeSubstitution">Use Variable Substitution Optimization?</param>
     private void SetupStage(string file, bool optimizeFolding = false, bool optimizeSubstitution = false)
     {
         //Load expressions

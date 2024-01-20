@@ -22,7 +22,7 @@ public class BadStringExtension : BadInteropExtension
 	/// <param name="skipEmpty">If true, empty parts will be skipped</param>
 	/// <returns>Array of parts</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the arguments are invalid</exception>
-	private BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)
+	private static BadObject StringSplit(string str, BadObject splitChar, BadObject skipEmpty)
     {
         if (splitChar is not IBadString splitStr)
         {
@@ -81,9 +81,9 @@ public class BadStringExtension : BadInteropExtension
         provider.RegisterObject<string>("IsWhiteSpace", s => s.All(char.IsWhiteSpace));
 
         provider.RegisterObject<string>(
-            BadStaticKeys.ArrayAccessOperatorName,
+            BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
             s => new BadDynamicInteropFunction<decimal>(
-                BadStaticKeys.ArrayAccessOperatorName,
+                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                 (_, i) => s[(int)i].ToString(),
                 BadNativeClassBuilder.GetNative("string"),
                 "index"

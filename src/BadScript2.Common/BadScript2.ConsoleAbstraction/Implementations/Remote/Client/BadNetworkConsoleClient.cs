@@ -134,46 +134,41 @@ public class BadNetworkConsoleClient
 	/// <param name="packet">The Packet</param>
 	/// <exception cref="BadNetworkConsoleException">Gets raised if the packet could not be processed</exception>
 	private void ProcessPacket(BadConsolePacket packet)
-    {
-        if (packet is BadConsoleClearPacket)
-        {
-            Console.Clear();
-        }
-        else if (packet is BadConsoleDisconnectPacket)
-        {
-            m_ExitRequested = true;
-        }
-        else if (packet is BadConsoleHelloPacket hello)
-        {
-            HeartBeatSendInterval = hello.HeartBeatInterval;
-        }
-        else if (packet is BadConsoleWritePacket wp)
-        {
-            if (wp.IsWriteLine)
-            {
-                Console.WriteLine(wp.Message);
-            }
-            else
-            {
-                Console.Write(wp.Message);
-            }
-        }
-        else if (packet is BadConsoleColorChangePacket cs)
-        {
-            if (cs.IsBackground)
-            {
-                Console.BackgroundColor = cs.Color;
-            }
-            else
-            {
-                Console.ForegroundColor = cs.Color;
-            }
-        }
-        else
-        {
-            throw new BadNetworkConsoleException("Invalid Packet");
-        }
-    }
+	{
+		switch (packet)
+		{
+			case BadConsoleClearPacket:
+				Console.Clear();
+
+				break;
+			case BadConsoleDisconnectPacket:
+				m_ExitRequested = true;
+
+				break;
+			case BadConsoleHelloPacket hello:
+				HeartBeatSendInterval = hello.HeartBeatInterval;
+
+				break;
+			case BadConsoleWritePacket wp when wp.IsWriteLine:
+				Console.WriteLine(wp.Message);
+
+				break;
+			case BadConsoleWritePacket wp:
+				Console.Write(wp.Message);
+
+				break;
+			case BadConsoleColorChangePacket cs when cs.IsBackground:
+				Console.BackgroundColor = cs.Color;
+
+				break;
+			case BadConsoleColorChangePacket cs:
+				Console.ForegroundColor = cs.Color;
+
+				break;
+			default:
+				throw new BadNetworkConsoleException("Invalid Packet");
+		}
+	}
 
 	/// <summary>
 	///     The Read Thread
@@ -183,7 +178,7 @@ public class BadNetworkConsoleClient
     {
         while (!m_ExitRequested)
         {
-            if (!m_Client!.Connected)
+            if (!m_Client.Connected)
             {
                 break;
             }
@@ -215,16 +210,18 @@ public class BadNetworkConsoleClient
             }
         }
 
-        if (m_Client!.Connected)
+        if (!m_Client.Connected)
         {
-            NetworkStream stream = m_Client.GetStream();
-            List<byte> packetData = new List<byte>();
-            byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
-            packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
-            packetData.AddRange(packetBytes);
-            stream.Write(packetData.ToArray(), 0, packetData.Count());
-            m_Client.Dispose();
+	        return;
         }
+
+        NetworkStream str = m_Client.GetStream();
+        List<byte> packetData = new List<byte>();
+        byte[] packetBytes = BadConsoleDisconnectPacket.Packet.Serialize();
+        packetData.AddRange(BitConverter.GetBytes(packetBytes.Length));
+        packetData.AddRange(packetBytes);
+        str.Write(packetData.ToArray(), 0, packetData.Count);
+        m_Client.Dispose();
     }
 
 	/// <summary>
@@ -236,7 +233,7 @@ public class BadNetworkConsoleClient
         List<byte> packet = new List<byte>();
         packet.AddRange(BitConverter.GetBytes(packetData.Length));
         packet.AddRange(packetData);
-        m_Client!.GetStream().Write(packet.ToArray(), 0, packet.Count);
+        m_Client.GetStream().Write(packet.ToArray(), 0, packet.Count);
     }
 
 	/// <summary>
@@ -266,12 +263,7 @@ public class BadNetworkConsoleClient
                 break;
             }
 
-            string message = task.Result;
-
-            if (message == null)
-            {
-                message = "client::disconnect";
-            }
+            string message = task.Result ?? "client::disconnect";
 
             if (message.StartsWith("client::"))
             {
@@ -303,7 +295,7 @@ public class BadNetworkConsoleClient
             List<byte> packet = new List<byte>();
             packet.AddRange(BitConverter.GetBytes(packetData.Length));
             packet.AddRange(packetData);
-            m_Client!.GetStream().Write(packet.ToArray(), 0, packet.Count);
+            m_Client.GetStream().Write(packet.ToArray(), 0, packet.Count);
         }
 
         m_ReadThread = null;

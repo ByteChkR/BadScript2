@@ -90,17 +90,19 @@ public class BadTryCatchExpression : BadExpression
             yield return o;
         }
 
-        if (tryContext.Scope.Error != null)
+        if (tryContext.Scope.Error == null)
         {
-            BadExecutionContext catchContext = new BadExecutionContext(
-                context.Scope.CreateChild("CatchBlock", context.Scope, null)
-            );
-            catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
+            yield break;
+        }
 
-            foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
-            {
-                yield return e;
-            }
+        BadExecutionContext catchContext = new BadExecutionContext(
+            context.Scope.CreateChild("CatchBlock", context.Scope, null)
+        );
+        catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
+
+        foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
+        {
+            yield return e;
         }
     }
 }

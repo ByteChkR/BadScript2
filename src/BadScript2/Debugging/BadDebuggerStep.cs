@@ -53,6 +53,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 	/// <summary>
 	///     Returns a line listing of the Step
 	/// </summary>
+	/// <param name="breakpoints">The Line numbers of the breakpoints</param>
 	/// <param name="topInSource">Indicates the start line of the excerpt</param>
 	/// <param name="lineInSource">Indicates Current line of the code</param>
 	/// <param name="lineDelta">The Amount of lines before and after the Source Position</param>
@@ -66,6 +67,7 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
 	/// <summary>
 	///     Returns a line listing of the Step
 	/// </summary>
+	/// <param name="breakpoints">The Line numbers of the breakpoints</param>
 	/// <param name="topInSource">Indicates the start line of the excerpt</param>
 	/// <param name="lineInSource">Indicates Current line of the code</param>
 	/// <param name="top">The Amount of lines before the Source Position</param>
@@ -88,15 +90,10 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
             }
             else
             {
-                foreach (int breakpoint in breakpoints)
-                {
-                    if (ln == breakpoint)
-                    {
-                        prefix = "@";
-
-                        break;
-                    }
-                }
+	            if (breakpoints.Any(breakpoint => ln == breakpoint))
+	            {
+		            prefix = "@";
+	            }
             }
 
             sb.AppendLine($"{prefix}\t| {line}");

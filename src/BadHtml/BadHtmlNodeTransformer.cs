@@ -38,13 +38,13 @@ public abstract class BadHtmlNodeTransformer
 	/// </summary>
 	/// <param name="context">The Html Context</param>
 	/// <returns>True if can transform node</returns>
-	public abstract bool CanTransform(BadHtmlContext context);
+	protected abstract bool CanTransform(BadHtmlContext context);
 
 	/// <summary>
 	///     Transforms the input node
 	/// </summary>
 	/// <param name="context">The Html Context</param>
-	public abstract void TransformNode(BadHtmlContext context);
+	protected abstract void TransformNode(BadHtmlContext context);
 
 	/// <summary>
 	///     Transforms all attributes of the input node and writes it to the specified output node
@@ -79,12 +79,14 @@ public abstract class BadHtmlNodeTransformer
     {
         foreach (BadHtmlNodeTransformer transformer in s_Transformers)
         {
-            if (transformer.CanTransform(context))
-            {
-                transformer.TransformNode(context);
+	        if (!transformer.CanTransform(context))
+	        {
+		        continue;
+	        }
 
-                return;
-            }
+	        transformer.TransformNode(context);
+
+	        return;
         }
 
         throw new InvalidOperationException("No transformer found");

@@ -19,7 +19,7 @@ public class BadAnyPrototype : BadClassPrototype
         )
     ) { }
 
-    public override bool IsAbstract { get; } = true;
+    public override bool IsAbstract => true;
 
     public override bool IsAssignableFrom(BadObject obj)
     {

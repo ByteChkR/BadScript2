@@ -84,10 +84,7 @@ public class BadDynamicInteropFunction : BadFunction
     }
 
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -130,10 +127,7 @@ public class BadDynamicInteropFunction<T> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -182,10 +176,6 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
 }
 
 /// <summary>
@@ -238,10 +228,7 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -297,10 +284,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -359,10 +343,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -424,10 +405,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -492,10 +470,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -563,10 +538,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -637,10 +609,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -714,10 +683,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -794,10 +760,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -877,10 +840,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -964,10 +924,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -1055,10 +1012,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }
 
 /// <summary>
@@ -1149,8 +1103,5 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         );
     }
 
-    public override string ToSafeString(List<BadObject> done)
-    {
-        return base.ToSafeString(done);
-    }
+    
 }

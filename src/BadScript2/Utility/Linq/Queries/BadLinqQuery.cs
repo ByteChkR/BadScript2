@@ -11,7 +11,7 @@ namespace BadScript2.Utility.Linq.Queries;
 /// </summary>
 public static class BadLinqQuery
 {
-    private static readonly List<BadLinqQueryCommand> m_Commands = new List<BadLinqQueryCommand>();
+    private static readonly List<BadLinqQueryCommand> s_Commands = new List<BadLinqQueryCommand>();
 
     static BadLinqQuery()
     {
@@ -30,7 +30,7 @@ public static class BadLinqQuery
 
     public static void RegisterCommand(BadLinqQueryCommand command)
     {
-        m_Commands.Add(command);
+        s_Commands.Add(command);
     }
 
     public static IEnumerable Parse(string linqQuery, IEnumerable input)
@@ -42,10 +42,10 @@ public static class BadLinqQuery
             linqQuery = linqQuery.Trim();
             string command = linqQuery.Split(' ').First();
             linqQuery = linqQuery.Remove(0, command.Length);
-            BadLinqQueryCommand cmd = m_Commands.First(
+            BadLinqQueryCommand cmd = s_Commands.First(
                 x => x.Names.Any(
-                    x =>
-                        x.ToLower(CultureInfo.InvariantCulture) == command.ToLower(CultureInfo.InvariantCulture)
+                    y =>
+                        y.ToLower(CultureInfo.InvariantCulture) == command.ToLower(CultureInfo.InvariantCulture)
                 )
             );
 
@@ -54,7 +54,7 @@ public static class BadLinqQuery
                 StringBuilder sb = new StringBuilder();
 
                 while (!string.IsNullOrEmpty(linqQuery) &&
-                       !m_Commands.Any(x => x.Names.Any(y => linqQuery.StartsWith(y))))
+                       !s_Commands.Any(x => x.Names.Any(y => linqQuery.StartsWith(y))))
                 {
                     sb.Append(linqQuery[0]);
                     linqQuery = linqQuery.Substring(1);

@@ -29,7 +29,7 @@ public class BadForExpression : BadExpression
         BadExpression varDef,
         BadExpression condition,
         BadExpression varIncrement,
-        BadExpression[] body,
+        IEnumerable<BadExpression> body,
         BadSourcePosition position) : base(false, position)
     {
         VarDef = varDef;
@@ -93,12 +93,9 @@ public class BadForExpression : BadExpression
             yield return cond;
         }
 
-        foreach (BadExpression expression in m_Body)
+        foreach (BadExpression descendant in m_Body.SelectMany(expression => expression.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-            {
-                yield return descendant;
-            }
+            yield return descendant;
         }
     }
 

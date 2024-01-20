@@ -8,19 +8,21 @@ public class
 {
     protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
     {
-        if (expr.TypeExpression != null)
+        if (expr.TypeExpression == null)
         {
-            foreach (BadReturnExpression? retExpr in GetReturnExpressions(expr.Body))
+            return;
+        }
+
+        foreach (BadReturnExpression? retExpr in GetReturnExpressions(expr.Body))
+        {
+            if (retExpr.Right == null)
             {
-                if (retExpr.Right == null)
-                {
-                    context.AddError(
-                        "The function has a return type but the return statement does not have an expression.",
-                        expr,
-                        retExpr,
-                        this
-                    );
-                }
+                context.AddError(
+                    "The function has a return type but the return statement does not have an expression.",
+                    expr,
+                    retExpr,
+                    this
+                );
             }
         }
     }

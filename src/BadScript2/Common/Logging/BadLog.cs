@@ -61,14 +61,11 @@ public struct BadLog : IEquatable<BadLog>
 	/// </summary>
 	/// <returns>String representation of the log</returns>
 	public override string ToString()
-    {
-        if (Position != null)
-        {
-            return $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}";
-        }
-
-        return $"[{Type}][{Mask}] {Message}";
-    }
+	{
+		return Position != null ? 
+			$"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}" : 
+			$"[{Type}][{Mask}] {Message}";
+	}
 
 	/// <summary>
 	///     Returns true if the log is equal to the other log

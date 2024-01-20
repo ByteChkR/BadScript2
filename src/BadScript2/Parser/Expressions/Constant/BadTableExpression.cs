@@ -38,13 +38,7 @@ public class BadTableExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        foreach (KeyValuePair<BadWordToken, BadExpression> kvp in m_Table)
-        {
-            foreach (BadExpression expression in kvp.Value.GetDescendantsAndSelf())
-            {
-                yield return expression;
-            }
-        }
+        return m_Table.SelectMany(kvp => kvp.Value.GetDescendantsAndSelf());
     }
 
     public override void Optimize()

@@ -24,18 +24,6 @@ public class BadSourcePosition
         Length = length;
     }
 
-    /// <summary>
-    ///     Constructor for a Source Position
-    /// </summary>
-    /// <param name="source">The source code.</param>
-    /// <param name="index">The Start Index</param>
-    /// <param name="length">The Length</param>
-    private BadSourcePosition(int index, int length, string source)
-    {
-        Source = source;
-        Index = index;
-        Length = length;
-    }
 
     /// <summary>
     ///     Constructor for a Source Position
@@ -145,20 +133,22 @@ public class BadSourcePosition
     /// <returns>String Representation</returns>
     public string GetPositionInfo()
     {
-        if (m_PositionInfo == null)
+        if (m_PositionInfo != null)
         {
-            int line = 1;
-
-            for (int i = 0; i < Index; i++)
-            {
-                if (Source[i] == '\n')
-                {
-                    line++;
-                }
-            }
-
-            m_PositionInfo = $"file://{FileName} : Line {line}";
+            return m_PositionInfo;
         }
+
+        int line = 1;
+
+        for (int i = 0; i < Index; i++)
+        {
+            if (Source[i] == '\n')
+            {
+                line++;
+            }
+        }
+
+        m_PositionInfo = $"file://{FileName} : Line {line}";
 
         return m_PositionInfo;
     }
@@ -176,11 +166,8 @@ public class BadSourcePosition
             throw new InvalidOperationException("Cannot combine positions from different sources");
         }
 
-        if (Index < other.Index)
-        {
-            return new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index);
-        }
-
-        return new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
+        return Index < other.Index ? 
+            new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index) : 
+            new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
     }
 }

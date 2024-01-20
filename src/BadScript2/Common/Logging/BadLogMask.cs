@@ -37,7 +37,7 @@ public class BadLogMask
 	/// <summary>
 	///     The Mask Flags
 	/// </summary>
-	private readonly ulong Mask;
+	private readonly ulong m_Mask;
 
 	/// <summary>
 	///     Creates a new Log Mask
@@ -45,7 +45,7 @@ public class BadLogMask
 	/// <param name="mask">The Mask Flags</param>
 	private BadLogMask(ulong mask)
     {
-        Mask = mask;
+        m_Mask = mask;
     }
 
 
@@ -79,22 +79,15 @@ public class BadLogMask
 	/// <returns>An instance of the log mask object</returns>
 	public static implicit operator BadLogMask(string name)
     {
-        if (name == "None")
+        switch (name)
         {
-            return None;
+	        case "None":
+		        return None;
+	        case "All":
+		        return All;
         }
 
-        if (name == "All")
-        {
-            return All;
-        }
-
-        if (!s_Masks.ContainsKey(name))
-        {
-            return Register(name);
-        }
-
-        return new BadLogMask(s_Masks[name]);
+        return !s_Masks.ContainsKey(name) ? Register(name) : new BadLogMask(s_Masks[name]);
     }
 
 	/// <summary>
@@ -109,7 +102,7 @@ public class BadLogMask
             return false;
         }
 
-        for (ulong power = 1; power > 0; power = power << 1)
+        for (ulong power = 1; power > 0; power <<= 1)
         {
             // This for loop used shifting for powers of 2, meaning
             // that the value will become 0 after the last shift
@@ -137,16 +130,9 @@ public class BadLogMask
 	/// <param name="masks">Masks that make up the resulting mask</param>
 	/// <returns>The resulting mask</returns>
 	public static BadLogMask GetMask(params BadLogMask[] masks)
-    {
-        ulong mask = 0;
-
-        foreach (BadLogMask name in masks)
-        {
-            mask |= name.Mask;
-        }
-
-        return mask;
-    }
+	{
+		return masks.Aggregate<BadLogMask, ulong>(0, (current, name) => current | name.m_Mask);
+	}
 
 	/// <summary>
 	///     Returns the mask flags of the mask object
@@ -155,7 +141,7 @@ public class BadLogMask
 	/// <returns>Mask Flags</returns>
 	public static implicit operator ulong(BadLogMask mask)
     {
-        return mask.Mask;
+        return mask.m_Mask;
     }
 
 	/// <summary>
@@ -164,7 +150,7 @@ public class BadLogMask
 	/// <returns>List of mask names</returns>
 	public string[] GetNames()
     {
-        if (Mask == None.Mask)
+        if (m_Mask == None.m_Mask)
         {
             return new[]
             {
@@ -172,7 +158,7 @@ public class BadLogMask
             };
         }
 
-        if (Mask == All.Mask)
+        if (m_Mask == All.m_Mask)
         {
             return new[]
             {
@@ -180,35 +166,22 @@ public class BadLogMask
             };
         }
 
-        if (IsPowerOfTwo(Mask))
+        if (IsPowerOfTwo(m_Mask))
         {
-            if (s_Masks.Any(x => x.Value == Mask))
+            if (s_Masks.Any(x => x.Value == m_Mask))
             {
                 return new[]
                 {
-                    s_Masks.First(x => x.Value == Mask).Key,
+                    s_Masks.First(x => x.Value == m_Mask).Key,
                 };
             }
 
             return Array.Empty<string>();
         }
 
-        List<string> names = new List<string>();
+        List<string> names = (from kvp in s_Masks where kvp.Value != 0 && (kvp.Value & m_Mask) == kvp.Value select kvp.Key).ToList();
 
-        foreach (KeyValuePair<string, ulong> kvp in s_Masks)
-        {
-            if (kvp.Value != 0 && (kvp.Value & Mask) == kvp.Value)
-            {
-                names.Add(kvp.Key);
-            }
-        }
-
-        if (names.Count == 0)
-        {
-            return Array.Empty<string>();
-        }
-
-        return names.ToArray();
+        return names.Count == 0 ? Array.Empty<string>() : names.ToArray();
     }
 
 	/// <summary>
@@ -228,7 +201,7 @@ public class BadLogMask
 	/// <returns>True if this mask is contained in other</returns>
 	public bool IsContainedIn(BadLogMask other)
     {
-        return (Mask & other.Mask) == Mask;
+        return (m_Mask & other.m_Mask) == m_Mask;
     }
 
 	/// <summary>
@@ -238,7 +211,7 @@ public class BadLogMask
 	/// <returns>True if masks are identical</returns>
 	public bool IsExactly(BadLogMask other)
     {
-        return Mask == other.Mask;
+        return m_Mask == other.m_Mask;
     }
 
 	/// <summary>

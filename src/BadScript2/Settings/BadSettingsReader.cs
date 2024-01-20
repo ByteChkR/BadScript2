@@ -67,7 +67,7 @@ public class BadSettingsReader
 	/// </summary>
 	/// <param name="fileName">Source File</param>
 	/// <returns></returns>
-	private JToken ReadJsonFile(string fileName)
+	private static JToken ReadJsonFile(string fileName)
     {
         string json = BadFileSystem.ReadAllText(fileName);
         JToken token = JToken.Parse(json);
@@ -80,25 +80,27 @@ public class BadSettingsReader
 	/// </summary>
 	/// <param name="token">JToken to convert</param>
 	/// <returns>BadSettings Instance</returns>
-	private BadSettings CreateSettings(JToken? token)
+	private static BadSettings CreateSettings(JToken? token)
     {
         if (token is
+            not
             {
                 Type: JTokenType.Object,
             })
         {
-            Dictionary<string, BadSettings> settings = new Dictionary<string, BadSettings>();
-            JObject obj = (JObject)token;
-
-            foreach (KeyValuePair<string, JToken?> keyValuePair in obj)
-            {
-                settings.Add(keyValuePair.Key, CreateSettings(keyValuePair.Value));
-            }
-
-            return new BadSettings(settings);
+            return new BadSettings(token);
         }
 
-        return new BadSettings(token);
+        Dictionary<string, BadSettings> settings = new Dictionary<string, BadSettings>();
+        JObject obj = (JObject)token;
+
+        foreach (KeyValuePair<string, JToken?> keyValuePair in obj)
+        {
+            settings.Add(keyValuePair.Key, CreateSettings(keyValuePair.Value));
+        }
+
+        return new BadSettings(settings);
+
     }
 
 

@@ -77,7 +77,7 @@ public abstract class BadExpression
 
         if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
         {
-            IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
+            using IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
 
             while (true)
             {
@@ -126,9 +126,7 @@ public abstract class BadExpression
         string name,
         BadSourcePosition position)
     {
-        BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
-
-        if (func == null)
+        if (left.GetProperty(name, context.Scope).Dereference() is not BadFunction func)
         {
             throw new BadRuntimeException(
                 $"{left.GetType().Name} has no {name} property",
@@ -154,9 +152,7 @@ public abstract class BadExpression
         string name,
         BadSourcePosition position)
     {
-        BadFunction? func = left.GetProperty(name, context.Scope).Dereference() as BadFunction;
-
-        if (func == null)
+        if (left.GetProperty(name, context.Scope).Dereference() is not BadFunction func)
         {
             throw new BadRuntimeException(
                 $"{left.GetType().Name} has no {name} property",

@@ -28,12 +28,14 @@ public class BadClassPrototypeExpression : BadExpression
     /// </summary>
     /// <param name="name">The Class name</param>
     /// <param name="body">The Class Body</param>
-    /// <param name="baseClass">The (optional) base class</param>
+    /// <param name="staticBody">The Static Class Body</param>
+    /// <param name="baseClasses">The (optional) base class</param>
     /// <param name="position">The Source Position of the Expression</param>
+    /// <param name="metaData">The metadata of the Class</param>
     public BadClassPrototypeExpression(
         string name,
-        BadExpression[] body,
-        BadExpression[] staticBody,
+        IEnumerable<BadExpression> body,
+        IEnumerable<BadExpression> staticBody,
         BadExpression[] baseClasses,
         BadSourcePosition position,
         BadMetaData? metaData) : base(false, position)
@@ -92,20 +94,14 @@ public class BadClassPrototypeExpression : BadExpression
             }
         }
 
-        foreach (BadExpression expression in m_Body)
+        foreach (BadExpression e in m_Body.SelectMany(expression => expression.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression e in expression.GetDescendantsAndSelf())
-            {
-                yield return e;
-            }
+            yield return e;
         }
 
-        foreach (BadExpression expression in m_StaticBody)
+        foreach (BadExpression e in m_StaticBody.SelectMany(expression => expression.GetDescendantsAndSelf()))
         {
-            foreach (BadExpression e in expression.GetDescendantsAndSelf())
-            {
-                yield return e;
-            }
+            yield return e;
         }
     }
 
@@ -132,28 +128,26 @@ public class BadClassPrototypeExpression : BadExpression
 
             BadObject o = baseClassObj[0].Dereference();
 
-            if (o is BadInterfacePrototype iface)
+            switch (o)
             {
-                interfacesList.Add(iface);
-            }
-            else if (o is BadClassPrototype p)
-            {
-                if (i != 0)
-                {
+                case BadInterfacePrototype iface:
+                    interfacesList.Add(iface);
+
+                    break;
+                case BadClassPrototype when i != 0:
                     throw new BadRuntimeException(
                         $"Base Class Expression {baseClassExpr} returned a Class Prototype. Expected an Interface Prototype.",
                         baseClassExpr.Position
                     );
-                }
+                case BadClassPrototype p:
+                    baseClass = p;
 
-                baseClass = p;
-            }
-            else
-            {
-                throw new BadRuntimeException(
-                    $"Base Class Expression {baseClassExpr} returned an Object of Type {o}. Expected a Class Prototype or an Interface Prototype.",
-                    baseClassExpr.Position
-                );
+                    break;
+                default:
+                    throw new BadRuntimeException(
+                        $"Base Class Expression {baseClassExpr} returned an Object of Type {o}. Expected a Class Prototype or an Interface Prototype.",
+                        baseClassExpr.Position
+                    );
             }
         }
 

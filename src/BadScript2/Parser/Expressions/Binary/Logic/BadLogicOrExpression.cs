@@ -11,13 +11,13 @@ namespace BadScript2.Parser.Expressions.Binary.Logic;
 /// </summary>
 public class BadLogicOrExpression : BadBinaryExpression
 {
-	/// <summary>
-	///     Constructor of the Logic Or Expression
-	/// </summary>
-	/// <param name="left">Left side of the Expression</param>
-	/// <param name="right">Right side of the Expression</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
+    /// <summary>
+    ///     Constructor of the Logic Or Expression
+    /// </summary>
+    /// <param name="left">Left side of the Expression</param>
+    /// <param name="right">Right side of the Expression</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
         left,
         right,
         position
@@ -36,7 +36,11 @@ public class BadLogicOrExpression : BadBinaryExpression
 
         left = left.Dereference();
 
-        if (left is IBadBoolean lBool)
+        if (left is not IBadBoolean lBool)
+        {
+            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
+        }
+
         {
             if (lBool.Value)
             {
@@ -56,24 +60,20 @@ public class BadLogicOrExpression : BadBinaryExpression
 
             right = right.Dereference();
 
-            if (right is IBadBoolean rBool)
+            if (right is not IBadBoolean rBool)
             {
-                if (rBool.Value)
-                {
-                    yield return BadObject.True;
-                }
-                else
-                {
-                    yield return BadObject.False;
-                }
-
-                yield break;
+                throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
             }
 
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
+            if (rBool.Value)
+            {
+                yield return BadObject.True;
+            }
+            else
+            {
+                yield return BadObject.False;
+            }
         }
-
-        throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
     }
 
     protected override string GetSymbol()

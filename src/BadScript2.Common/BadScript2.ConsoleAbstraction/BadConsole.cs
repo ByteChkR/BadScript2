@@ -20,7 +20,7 @@ public static class BadConsole
 	/// </summary>
 	static BadConsole()
     {
-        s_Console = new SystemConsole();
+        s_Console = new BadSystemConsole();
     }
 
 
