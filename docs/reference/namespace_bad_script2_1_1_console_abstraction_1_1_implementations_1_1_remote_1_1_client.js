@@ -1,5 +1,0 @@
-var namespace_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client =
-[
-    [ "Commands", "namespace_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commands.html", "namespace_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_commands" ],
-    [ "BadNetworkConsoleClient", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_bad_network_console_client.html", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_client_1_1_bad_network_console_client" ]
-];

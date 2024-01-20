@@ -4,7 +4,9 @@ using System.Reflection;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Member Classes for Reflection Objects
+/// </summary>
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 /// <summary>

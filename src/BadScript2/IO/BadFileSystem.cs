@@ -1,3 +1,6 @@
+///<summary>
+///	Contains IO Implementation for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.IO;
 
 /// <summary>

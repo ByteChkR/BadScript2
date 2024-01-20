@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains the Console Subsystems of the Console Application
+/// </summary>
 namespace BadScript2.ConsoleCore.Systems;
 
 /// <summary>

@@ -4,7 +4,9 @@ using System.Net;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+///<summary>
+///	Contains Network Hosting Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.NetHost;
 
 /// <summary>

@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
-
+/// <summary>
+///	Contains a Console Abstraction Layer to be able to Simulate Console Input/Output over the Network
+/// </summary>
 namespace BadScript2.ConsoleAbstraction;
 
 /// <summary>

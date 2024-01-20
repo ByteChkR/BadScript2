@@ -3,7 +3,9 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
 using Newtonsoft.Json.Linq;
-
+///<summary>
+///	Contains JSON Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Json;
 
 /// <summary>

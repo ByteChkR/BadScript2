@@ -1,5 +1,7 @@
 using BadScript2.Common;
-
+/// <summary>
+/// Contains the Primitive Tokens for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Reader.Token.Primitive;
 
 /// <summary>

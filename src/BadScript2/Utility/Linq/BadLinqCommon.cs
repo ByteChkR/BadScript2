@@ -8,7 +8,9 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
-
+/// <summary>
+/// Contains the Linq Implementation and Extensions
+/// </summary>
 namespace BadScript2.Utility.Linq;
 
 /// <summary>

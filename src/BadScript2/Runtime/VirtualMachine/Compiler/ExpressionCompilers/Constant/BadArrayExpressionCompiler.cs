@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions.Constant;
-
+/// <summary>
+/// Contains Constant Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

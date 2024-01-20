@@ -32,7 +32,9 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Function;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
-
+/// <summary>
+/// Contains the Compiler for the BadVirtualMachine.
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler;
 
 /// <summary>

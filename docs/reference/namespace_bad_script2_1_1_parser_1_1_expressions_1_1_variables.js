@@ -1,6 +1,0 @@
-var namespace_bad_script2_1_1_parser_1_1_expressions_1_1_variables =
-[
-    [ "BadFormattedStringExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_formatted_string_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_formatted_string_expression" ],
-    [ "BadVariableDefinitionExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_definition_expression" ],
-    [ "BadVariableExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_variables_1_1_bad_variable_expression" ]
-];

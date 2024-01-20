@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions.Binary.Logic.Assign;
-
+/// <summary>
+/// Contains Binary Self-Assignung Logic Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic.Assign;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

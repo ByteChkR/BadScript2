@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions;
-
+/// <summary>
+/// Contains Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

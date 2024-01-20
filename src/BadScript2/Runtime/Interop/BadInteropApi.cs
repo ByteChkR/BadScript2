@@ -1,6 +1,8 @@
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Interop Abstractions and Implementations for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Runtime.Interop;
 
 /// <summary>

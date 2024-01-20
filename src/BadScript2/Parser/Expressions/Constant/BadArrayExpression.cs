@@ -2,7 +2,9 @@ using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
-
+/// <summary>
+/// Contains the Constant Expressions for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Expressions.Constant;
 
 /// <summary>

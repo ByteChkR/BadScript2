@@ -4,6 +4,9 @@ using System.Text;
 
 using BadScript2.Utility.Linq.Queries.Commands;
 
+/// <summary>
+/// Contains the Linq Queries
+/// </summary>
 namespace BadScript2.Utility.Linq.Queries;
 
 /// <summary>

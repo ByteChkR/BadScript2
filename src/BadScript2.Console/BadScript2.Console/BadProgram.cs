@@ -15,6 +15,9 @@ using BadScript2.Interop.NetHost;
 using BadScript2.IO;
 using BadScript2.Settings;
 
+/// <summary>
+///	 Contains the Entrypoint for the Console Application
+/// </summary>
 namespace BadScript2.Console;
 
 /// <summary>

@@ -4,7 +4,9 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Virtual Machine Implementation.
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine;
 
 /// <summary>

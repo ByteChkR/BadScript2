@@ -1,8 +1,0 @@
-var class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet =
-[
-    [ "BadConsoleColorChangePacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet.html#aeded6971785232183abee4dfb0ee9322", null ],
-    [ "Deserialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet.html#a541ef796247922582f267a16e5162a8d", null ],
-    [ "Serialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet.html#ac0ed14bcd2847c258336cd65b7a0eab0", null ],
-    [ "Color", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet.html#a9f65f21d085895592e516ff44106f278", null ],
-    [ "IsBackground", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_color_change_packet.html#a688116fc738207aea2b88b77156535aa", null ]
-];

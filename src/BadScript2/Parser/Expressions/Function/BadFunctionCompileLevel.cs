@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains the Function Expressions for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Expressions.Function;
 
 /// <summary>

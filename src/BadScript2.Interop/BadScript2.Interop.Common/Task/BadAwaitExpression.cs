@@ -3,7 +3,9 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
-
+///<summary>
+///	Contains task/async Extensions and Integrations for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>

@@ -1,5 +1,7 @@
 using System;
-
+/// <summary>
+/// Contains the Implementation of the Remote Console Abstraction over TCP
+/// </summary>
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote;
 
 /// <summary>

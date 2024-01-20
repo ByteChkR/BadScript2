@@ -1,5 +1,7 @@
 using BadScript2.Settings;
-
+/// <summary>
+/// Contains Runtime Settings Objects
+/// </summary>
 namespace BadScript2.Runtime.Settings;
 
 /// <summary>

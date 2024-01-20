@@ -10,6 +10,10 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
 
+
+/// <summary>
+/// Contains the interactive console Implementation
+/// </summary>
 namespace BadScript2.Interactive;
 
 /// <summary>

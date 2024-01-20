@@ -1,5 +1,7 @@
 using BadScript2.Common;
-
+/// <summary>
+/// Contains the Reader Tokens for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Reader.Token;
 
 /// <summary>

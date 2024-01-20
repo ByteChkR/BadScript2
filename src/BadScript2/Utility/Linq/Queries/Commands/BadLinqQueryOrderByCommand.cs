@@ -1,5 +1,8 @@
 using System.Collections;
 
+/// <summary>
+/// Contains the Linq Query Commands
+/// </summary>
 namespace BadScript2.Utility.Linq.Queries.Commands;
 
 /// <summary>

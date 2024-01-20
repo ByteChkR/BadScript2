@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains Console Commands for the Remote Console Client
+/// </summary>
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
 
 /// <summary>

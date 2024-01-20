@@ -3,7 +3,9 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+///<summary>
+///	Contains Networking Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Net;
 
 /// <summary>

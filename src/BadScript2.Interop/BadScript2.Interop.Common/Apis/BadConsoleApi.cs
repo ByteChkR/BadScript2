@@ -5,7 +5,9 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
+///<summary>
+///	Contains Common Interop APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>

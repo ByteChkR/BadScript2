@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions.Binary.Math.Assign;
-
+/// <summary>
+/// Contains Binary Self-Assignung Math Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Assign;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

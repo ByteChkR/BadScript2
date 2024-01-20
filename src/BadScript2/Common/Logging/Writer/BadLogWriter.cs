@@ -1,3 +1,7 @@
+
+/// <summary>
+/// Contains Writer Implementations for the BadScript Logging System
+/// </summary>
 namespace BadScript2.Common.Logging.Writer;
 
 /// <summary>

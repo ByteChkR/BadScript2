@@ -1,3 +1,6 @@
+///<summary>
+///	Contains Linq Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Linq;
 
 /// <summary>

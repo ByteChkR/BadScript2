@@ -6,7 +6,9 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
-
+/// <summary>
+/// Contains the Loop Expressions for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
 /// <summary>

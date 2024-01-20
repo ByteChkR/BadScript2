@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains Runtime Interface Objects
+/// </summary>
 namespace BadScript2.Runtime.Objects.Types.Interface;
 
 /// <summary>

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Debugging;
 
+/// <summary>
+/// Contains the debugger implementations for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Debugger;
 
 /// <summary>

@@ -1,4 +1,0 @@
-var _bad_greater_or_equal_expression_8cs =
-[
-    [ "BadScript2.Parser.Expressions.Binary.Comparison.BadGreaterOrEqualExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_greater_or_equal_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_comparison_1_1_bad_greater_or_equal_expression" ]
-];

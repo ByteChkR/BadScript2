@@ -1,6 +1,8 @@
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Extension Classes for Functions
+/// </summary>
 namespace BadScript2.Runtime.Interop.Functions.Extensions;
 
 /// <summary>

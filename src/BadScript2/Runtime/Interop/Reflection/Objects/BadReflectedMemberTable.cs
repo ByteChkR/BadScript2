@@ -5,7 +5,9 @@ using BadScript2.Common.Logging;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Reflection.Objects.Members;
 using BadScript2.Runtime.Objects;
-
+/// <summary>
+/// Contains the Classes for Reflection Objects
+/// </summary>
 namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
 /// <summary>

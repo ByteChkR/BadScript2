@@ -1,7 +1,9 @@
 using BadScript2.Runtime.Error;
 
 using Newtonsoft.Json.Linq;
-
+/// <summary>
+/// Contains the Settings Implementation
+/// </summary>
 namespace BadScript2.Settings;
 
 /// <summary>

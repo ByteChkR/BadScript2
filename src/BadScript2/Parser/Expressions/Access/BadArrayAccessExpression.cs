@@ -4,7 +4,9 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
-
+/// <summary>
+/// Contains the Access Expressions for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>

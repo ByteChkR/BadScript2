@@ -1,6 +1,9 @@
 using BadScript2.Common.Logging;
 using BadScript2.Runtime.Error;
 
+/// <summary>
+/// Contains the debugging abstractions for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Debugging;
 
 /// <summary>

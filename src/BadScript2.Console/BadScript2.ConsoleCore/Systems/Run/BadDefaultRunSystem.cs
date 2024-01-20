@@ -1,10 +1,13 @@
 using BadScript2.IO;
 
+/// <summary>
+/// Contains the 'run' console command implementation
+/// </summary>
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>
 ///     Default Run System
-///     Is used to enable running scripts by simply typing "bs &lt;script&gt; &lt;args&gt;"
+///     Is used to enable running scripts by simply typing "bs my/path/to/script.bs"
 /// </summary>
 public class BadDefaultRunSystem : BadRunSystem
 {

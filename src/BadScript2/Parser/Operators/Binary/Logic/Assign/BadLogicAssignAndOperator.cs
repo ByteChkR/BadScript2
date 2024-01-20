@@ -1,6 +1,8 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Logic.Assign;
-
+/// <summary>
+/// Contains the Self-Assigning Logic Operators for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Operators.Binary.Logic.Assign;
 
 /// <summary>

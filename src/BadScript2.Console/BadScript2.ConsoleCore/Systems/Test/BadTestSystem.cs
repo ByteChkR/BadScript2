@@ -3,6 +3,9 @@ using BadScript2.Interop.NUnit;
 
 using NUnitLite;
 
+/// <summary>
+/// Contains the 'test' command implementation
+/// </summary>
 namespace BadScript2.ConsoleCore.Systems.Test;
 
 /// <summary>

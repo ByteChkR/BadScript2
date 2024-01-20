@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions;
-
+/// <summary>
+/// Contains the Operators for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Operators;
 
 /// <summary>

@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains the Interop Reflection Classes for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Runtime.Interop.Reflection;
 
 /// <summary>

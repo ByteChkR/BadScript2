@@ -2,7 +2,9 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Interop Function Classes for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Runtime.Interop.Functions;
 
 /// <summary>

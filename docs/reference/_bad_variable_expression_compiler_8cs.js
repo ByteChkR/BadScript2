@@ -1,4 +1,0 @@
-var _bad_variable_expression_compiler_8cs =
-[
-    [ "BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables.BadVariableExpressionCompiler", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_varic34961cc820320643f541b78bac18584.html", "class_bad_script2_1_1_runtime_1_1_virtual_machine_1_1_compiler_1_1_expression_compilers_1_1_varic34961cc820320643f541b78bac18584" ]
-];

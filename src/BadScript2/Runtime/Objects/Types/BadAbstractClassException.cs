@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains Runtime Type Objects
+/// </summary>
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>

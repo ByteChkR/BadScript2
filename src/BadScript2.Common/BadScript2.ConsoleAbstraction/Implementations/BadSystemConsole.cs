@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Contains Implementation of the Console Abstractions
+/// </summary>
 namespace BadScript2.ConsoleAbstraction.Implementations;
 
 /// <summary>

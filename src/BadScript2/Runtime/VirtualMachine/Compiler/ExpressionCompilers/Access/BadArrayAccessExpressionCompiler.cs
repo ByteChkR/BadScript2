@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions.Access;
-
+/// <summary>
+/// Contains Access Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

@@ -5,7 +5,9 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
-
+/// <summary>
+/// Contains the Type Expressions for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Expressions.Types;
 
 /// <summary>

@@ -1,5 +1,0 @@
-var class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_packet =
-[
-    [ "Deserialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_packet.html#a9936b3826e4da7881fa66986a78b2c4b", null ],
-    [ "Serialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_packet.html#aecf02bb34e1ae1268247afa5720839ec", null ]
-];

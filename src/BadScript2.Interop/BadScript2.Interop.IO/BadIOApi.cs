@@ -7,7 +7,9 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
+///<summary>
+///	Contains IO Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.IO;
 
 /// <summary>

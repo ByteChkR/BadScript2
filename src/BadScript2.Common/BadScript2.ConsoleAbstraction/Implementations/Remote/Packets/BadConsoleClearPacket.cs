@@ -1,3 +1,6 @@
+/// <summary>
+/// Contains the network packets for the remote console
+/// </summary>
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>

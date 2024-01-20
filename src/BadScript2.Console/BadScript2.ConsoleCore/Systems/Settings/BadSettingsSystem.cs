@@ -1,6 +1,9 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Settings;
 
+/// <summary>
+/// Contains the 'settings' console command implementation
+/// </summary>
 namespace BadScript2.ConsoleCore.Systems.Settings;
 
 /// <summary>

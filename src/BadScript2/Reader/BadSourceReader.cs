@@ -1,6 +1,8 @@
 ﻿using BadScript2.Common;
 using BadScript2.IO;
-
+/// <summary>
+/// Contains the Source Reader for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Reader;
 
 /// <summary>

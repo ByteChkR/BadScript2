@@ -1,7 +1,0 @@
-var class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet =
-[
-    [ "BadConsoleHelloPacket", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet.html#a4f948d988967ffba0140cfa660273970", null ],
-    [ "Deserialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet.html#adbf1f819dfce09de5332257699f6f705", null ],
-    [ "Serialize", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet.html#aa9ed562e839504a4f7ba7346567646d5", null ],
-    [ "HeartBeatInterval", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_packets_1_1_bad_console_hello_packet.html#aeea0c1bb11535eec8ffb34d860f97e61", null ]
-];

@@ -9,7 +9,9 @@ using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.Objects;
-
+/// <summary>
+/// Contains the BadScript2 Constant Substitution Optimizations
+/// </summary>
 namespace BadScript2.Optimizations.Substitution;
 
 public static class BadConstantSubstitutionOptimizer

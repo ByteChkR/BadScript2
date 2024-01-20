@@ -1,7 +1,9 @@
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Error Objects for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Runtime.Error;
 
 /// <summary>

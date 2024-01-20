@@ -1,7 +1,9 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
-
+/// <summary>
+/// Contains the Runtime Implementation
+/// </summary>
 namespace BadScript2.Runtime;
 
 /// <summary>

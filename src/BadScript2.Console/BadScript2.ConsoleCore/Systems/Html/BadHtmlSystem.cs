@@ -11,6 +11,9 @@ using BadScript2.IO;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
 
+/// <summary>
+/// Contains the 'html' console command implementation
+/// </summary>
 namespace BadScript2.ConsoleCore.Systems.Html;
 
 /// <summary>

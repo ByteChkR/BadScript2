@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
-
+/// <summary>
+/// Contains the Console Client Implementation for the Remote Console Abstraction over TCP
+/// </summary>
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 
 /// <summary>

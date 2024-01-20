@@ -1,8 +1,0 @@
-var namespace_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic =
-[
-    [ "Assign", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_assign.html", "namespace_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_assign" ],
-    [ "BadLogicAndExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_and_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_and_expression" ],
-    [ "BadLogicNotExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_not_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_not_expression" ],
-    [ "BadLogicOrExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_or_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_or_expression" ],
-    [ "BadLogicXOrExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_x_or_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_binary_1_1_logic_1_1_bad_logic_x_or_expression" ]
-];

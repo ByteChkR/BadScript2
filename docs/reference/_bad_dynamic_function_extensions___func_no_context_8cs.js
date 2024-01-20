@@ -1,4 +1,0 @@
-var _bad_dynamic_function_extensions___func_no_context_8cs =
-[
-    [ "BadScript2.Runtime.Interop.Functions.Extensions.BadDynamicFunctionExtensions", "class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_extensions_1_1_bad_dynamic_function_extensions.html", "class_bad_script2_1_1_runtime_1_1_interop_1_1_functions_1_1_extensions_1_1_bad_dynamic_function_extensions" ]
-];

@@ -1,5 +1,8 @@
 using BadScript2.Utility;
 
+/// <summary>
+///	Contains Logging system for the BadScript Runtime
+/// </summary>
 namespace BadScript2.Common.Logging;
 
 /// <summary>

@@ -2,7 +2,9 @@
 
 using ewu.adam.openkm.rest;
 using ewu.adam.openkm.rest.Bean;
-
+///<summary>
+///	File System Implementation for OpenKM
+/// </summary>
 namespace BadScript2.IO.OpenKM;
 
 /// <summary>

@@ -1,6 +1,0 @@
-var namespace_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop =
-[
-    [ "BadForEachExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_each_expression" ],
-    [ "BadForExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_for_expression" ],
-    [ "BadWhileExpression", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_while_expression.html", "class_bad_script2_1_1_parser_1_1_expressions_1_1_block_1_1_loop_1_1_bad_while_expression" ]
-];

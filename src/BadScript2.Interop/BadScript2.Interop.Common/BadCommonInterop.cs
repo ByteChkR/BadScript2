@@ -8,7 +8,9 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+///<summary>
+///	Contains Common Interop Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Common;
 
 /// <summary>

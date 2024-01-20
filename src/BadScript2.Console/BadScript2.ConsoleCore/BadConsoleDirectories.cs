@@ -1,5 +1,7 @@
 using BadScript2.IO;
-
+/// <summary>
+/// Contains the Core Functionality of the Console Application
+/// </summary>
 namespace BadScript2.ConsoleCore;
 
 /// <summary>

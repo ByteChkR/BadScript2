@@ -8,7 +8,9 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
+///<summary>
+///	Contains HTML Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.Html;
 
 /// <summary>

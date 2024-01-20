@@ -1,6 +1,8 @@
 using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions.Types;
-
+/// <summary>
+/// Contains Type Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 
 public class BadClassPrototypeExpressionCompiler : BadExpressionCompiler<BadClassPrototypeExpression>

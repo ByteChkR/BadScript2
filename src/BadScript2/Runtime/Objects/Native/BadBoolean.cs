@@ -1,5 +1,7 @@
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Native Runtime Objects
+/// </summary>
 namespace BadScript2.Runtime.Objects.Native;
 
 /// <summary>

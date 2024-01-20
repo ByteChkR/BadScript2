@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions.Binary;
-
+/// <summary>
+/// Contains Binary Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

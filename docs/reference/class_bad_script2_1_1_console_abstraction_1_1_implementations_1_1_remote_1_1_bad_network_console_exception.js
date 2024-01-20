@@ -1,4 +1,0 @@
-var class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_exception =
-[
-    [ "BadNetworkConsoleException", "class_bad_script2_1_1_console_abstraction_1_1_implementations_1_1_remote_1_1_bad_network_console_exception.html#a6f2503127315947ac1da3ac337595a79", null ]
-];

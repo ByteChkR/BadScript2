@@ -1,5 +1,7 @@
 using BadScript2.Parser.Expressions.ControlFlow;
-
+/// <summary>
+/// Contains Controlflow Expression Compilers
+/// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow;
 
 /// <inheritdoc cref="BadExpressionCompiler{T}" />

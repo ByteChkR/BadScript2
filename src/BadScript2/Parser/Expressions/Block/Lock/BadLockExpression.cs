@@ -3,7 +3,9 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Locking Expressions for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Expressions.Block.Lock;
 
 /// <summary>

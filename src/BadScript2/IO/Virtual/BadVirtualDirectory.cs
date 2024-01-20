@@ -1,5 +1,7 @@
 using BadScript2.Common.Logging;
-
+///<summary>
+///	Contains the Implementation of the BadScript Virtual File System
+/// </summary>
 namespace BadScript2.IO.Virtual;
 
 /// <summary>

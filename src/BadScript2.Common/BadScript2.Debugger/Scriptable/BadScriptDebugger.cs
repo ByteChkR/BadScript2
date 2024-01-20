@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 using BadScript2.Debugging;
 
+/// <summary>
+/// Contains the scriptable debugger implementation for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Debugger.Scriptable;
 
 /// <summary>

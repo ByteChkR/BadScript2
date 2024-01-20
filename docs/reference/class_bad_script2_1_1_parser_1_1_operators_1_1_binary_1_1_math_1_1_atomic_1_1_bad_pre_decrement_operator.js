@@ -1,5 +1,0 @@
-var class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_operator =
-[
-    [ "BadPreDecrementOperator", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_operator.html#a816c2d9701d170ff84e232b1e3d69918", null ],
-    [ "Parse", "class_bad_script2_1_1_parser_1_1_operators_1_1_binary_1_1_math_1_1_atomic_1_1_bad_pre_decrement_operator.html#a8706d6cac95bd44486ce816fe187da5d", null ]
-];

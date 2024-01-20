@@ -1,6 +1,8 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Logic;
-
+/// <summary>
+/// Contains the Logic Operators for the BadScript2 Language
+/// </summary>
 namespace BadScript2.Parser.Operators.Binary.Logic;
 
 /// <summary>

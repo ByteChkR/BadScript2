@@ -3,7 +3,9 @@ using System.Text;
 
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains the Runtime Objects
+/// </summary>
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>

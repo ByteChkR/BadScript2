@@ -3,7 +3,9 @@ using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects.Types;
-
+/// <summary>
+/// Contains Runtime Function Objects
+/// </summary>
 namespace BadScript2.Runtime.Objects.Functions;
 
 /// <summary>

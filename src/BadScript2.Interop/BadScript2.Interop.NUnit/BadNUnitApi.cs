@@ -7,7 +7,9 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
 using NUnit.Framework;
-
+///<summary>
+///	Contains NUnit Extensions and APIs for the BadScript2 Runtime
+/// </summary>
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
