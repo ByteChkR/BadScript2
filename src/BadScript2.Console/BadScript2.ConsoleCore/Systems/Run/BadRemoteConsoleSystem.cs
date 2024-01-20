@@ -67,13 +67,15 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         private BadExecutionContext CreateContext()
         {
             BadExecutionContext context = m_Runtime.CreateContext();
-            context.Scope.SetFunction("disconnect", m_Client.Stop);
-            context.Scope.SetFunction("exit", m_Client.Stop);
-            context.Scope.SetFunction("clear", BadConsole.Clear);
-            context.Scope.SetFunction("list", () => context.Scope.ToSafeString());
-            context.Scope.SetFunction("reset", () => { m_Context = CreateContext(); });
+            var ctx = new BadExecutionContext(context.Scope.CreateChild("ClientCommands", null, null));
+            BadTable table = ctx.Scope.GetTable();
+            table.SetFunction("disconnect", m_Client.Stop);
+            table.SetFunction("exit", m_Client.Stop);
+            table.SetFunction("clear", BadConsole.Clear);
+            table.SetFunction("list", () => BadConsole.WriteLine(table.ToSafeString()));
+            table.SetFunction("reset", () => { m_Context = CreateContext(); });
 
-            return context;
+            return ctx;
         }
     }
 }
