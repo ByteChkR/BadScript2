@@ -12,30 +12,30 @@ namespace BadScript2.Parser.Expressions.Types;
 /// </summary>
 public class BadInterfacePrototypeExpression : BadExpression
 {
-	/// <summary>
-	///     The Constraints for the Interface
-	/// </summary>
-	private readonly BadInterfaceConstraint[] m_Constraints;
+    /// <summary>
+    ///     The Constraints for the Interface
+    /// </summary>
+    private readonly BadInterfaceConstraint[] m_Constraints;
 
-	/// <summary>
-	///     The Inherited Interfaces
-	/// </summary>
-	private readonly BadExpression[] m_Interfaces;
+    /// <summary>
+    ///     The Inherited Interfaces
+    /// </summary>
+    private readonly BadExpression[] m_Interfaces;
 
-	/// <summary>
-	///     Meta Data for the Interface
-	/// </summary>
-	private readonly BadMetaData? m_MetaData;
+    /// <summary>
+    ///     Meta Data for the Interface
+    /// </summary>
+    private readonly BadMetaData? m_MetaData;
 
-	/// <summary>
-	///     Creates a new Interface Prototype Expression
-	/// </summary>
-	/// <param name="name">Name of the Interface</param>
-	/// <param name="constraints">Constraints for the Interface</param>
-	/// <param name="interfaces">Inherited Interfaces</param>
-	/// <param name="metaData">Meta Data for the Interface</param>
-	/// <param name="position">Source Position</param>
-	public BadInterfacePrototypeExpression(
+    /// <summary>
+    ///     Creates a new Interface Prototype Expression
+    /// </summary>
+    /// <param name="name">Name of the Interface</param>
+    /// <param name="constraints">Constraints for the Interface</param>
+    /// <param name="interfaces">Inherited Interfaces</param>
+    /// <param name="metaData">Meta Data for the Interface</param>
+    /// <param name="position">Source Position</param>
+    public BadInterfacePrototypeExpression(
         string name,
         BadInterfaceConstraint[] constraints,
         BadExpression[] interfaces,
@@ -48,10 +48,10 @@ public class BadInterfacePrototypeExpression : BadExpression
         m_Constraints = constraints;
     }
 
-	/// <summary>
-	///     The Interface Name
-	/// </summary>
-	public string Name { get; }
+    /// <summary>
+    ///     The Interface Name
+    /// </summary>
+    public string Name { get; }
 
     public override IEnumerable<BadExpression> GetDescendants()
     {

@@ -12,23 +12,25 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 /// </summary>
 public class BadReflectedEnumeratorMethod : BadReflectedMethod
 {
-	public BadReflectedEnumeratorMethod(MethodInfo method) : base(method) { }
+    public BadReflectedEnumeratorMethod(MethodInfo method) : base(method) { }
 
-	private IEnumerable<BadObject> GetEnumerable(object instance)
-	{
-		IEnumerable o = (IEnumerable)instance;
+    private IEnumerable<BadObject> GetEnumerable(object instance)
+    {
+        IEnumerable o = (IEnumerable)instance;
 
-		foreach (object obj in o)
-		{
-			yield return Wrap(obj);
-		}
-	}
+        foreach (object obj in o)
+        {
+            yield return Wrap(obj);
+        }
+    }
 
-	public override BadObject Get(object? instance)
-	{
-		return new BadInteropFunction("GetEnumerator",
-			_ => new BadInteropEnumerator(GetEnumerable(instance!).GetEnumerator()),
-			false,
-			BadAnyPrototype.Instance);
-	}
+    public override BadObject Get(object? instance)
+    {
+        return new BadInteropFunction(
+            "GetEnumerator",
+            _ => new BadInteropEnumerator(GetEnumerable(instance!).GetEnumerator()),
+            false,
+            BadAnyPrototype.Instance
+        );
+    }
 }

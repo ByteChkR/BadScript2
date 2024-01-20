@@ -10,34 +10,38 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadImportFileNodeTransformer : BadHtmlNodeTransformer
 {
-	public override bool CanTransform(BadHtmlContext context)
-	{
-		return context.InputNode.Name == "bs:import";
-	}
+    public override bool CanTransform(BadHtmlContext context)
+    {
+        return context.InputNode.Name == "bs:import";
+    }
 
-	public override void TransformNode(BadHtmlContext context)
-	{
-		HtmlAttribute? pathAttribute = context.InputNode.Attributes["path"];
+    public override void TransformNode(BadHtmlContext context)
+    {
+        HtmlAttribute? pathAttribute = context.InputNode.Attributes["path"];
 
-		if (pathAttribute == null)
-		{
-			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
-				"Missing 'path' attribute in 'bs:import' node",
-				context.CreateOuterPosition());
-		}
+        if (pathAttribute == null)
+        {
+            throw BadRuntimeException.Create(
+                context.ExecutionContext.Scope,
+                "Missing 'path' attribute in 'bs:import' node",
+                context.CreateOuterPosition()
+            );
+        }
 
 
-		string? path = pathAttribute.Value;
+        string? path = pathAttribute.Value;
 
-		if (string.IsNullOrEmpty(path))
-		{
-			throw BadRuntimeException.Create(context.ExecutionContext.Scope,
-				"Empty 'path' attribute in 'bs:import' node",
-				context.CreateAttributePosition(pathAttribute));
-		}
+        if (string.IsNullOrEmpty(path))
+        {
+            throw BadRuntimeException.Create(
+                context.ExecutionContext.Scope,
+                "Empty 'path' attribute in 'bs:import' node",
+                context.CreateAttributePosition(pathAttribute)
+            );
+        }
 
-		string data = BadFileSystem.ReadAllText(path);
+        string data = BadFileSystem.ReadAllText(path);
 
-		context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(data));
-	}
+        context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(data));
+    }
 }

@@ -1,7 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Parser.Expressions.Function;
-using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -11,7 +10,6 @@ namespace BadScript2.Parser.Expressions.Block;
 public class BadUsingExpression : BadExpression
 {
     private readonly BadExpression[] m_Expressions;
-    public IEnumerable<BadExpression> Expressions => m_Expressions;
     public readonly string Name;
 
     public BadUsingExpression(string name, BadExpression[] expressions, BadSourcePosition position) : base(false, position)
@@ -19,6 +17,8 @@ public class BadUsingExpression : BadExpression
         Name = name;
         m_Expressions = expressions;
     }
+
+    public IEnumerable<BadExpression> Expressions => m_Expressions;
 
     public override void Optimize()
     {
@@ -30,7 +30,6 @@ public class BadUsingExpression : BadExpression
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
-
         foreach (BadExpression expr in m_Expressions)
         {
             foreach (BadExpression e in expr.GetDescendantsAndSelf())
@@ -45,7 +44,6 @@ public class BadUsingExpression : BadExpression
         BadExecutionContext usingContext = new BadExecutionContext(
             context.Scope.CreateChild("UsingBlock", context.Scope, null)
         );
-
 
 
         foreach (BadObject o in usingContext.Execute(m_Expressions))

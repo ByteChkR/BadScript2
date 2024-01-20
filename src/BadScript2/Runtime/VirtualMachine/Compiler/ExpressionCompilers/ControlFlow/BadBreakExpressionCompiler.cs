@@ -5,8 +5,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Control
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadBreakExpressionCompiler : BadExpressionCompiler<BadBreakExpression>
 {
-	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadBreakExpression expression)
-	{
-		yield return new BadInstruction(BadOpCode.Break, expression.Position);
-	}
+    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadBreakExpression expression)
+    {
+        yield return new BadInstruction(BadOpCode.Break, expression.Position);
+    }
 }

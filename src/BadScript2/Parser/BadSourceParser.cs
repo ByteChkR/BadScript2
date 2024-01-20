@@ -30,10 +30,10 @@ namespace BadScript2.Parser;
 /// </summary>
 public class BadSourceParser
 {
-	/// <summary>
-	///     The Operator Table that is used to parse the Source Code
-	/// </summary>
-	private readonly BadOperatorTable m_Operators;
+    /// <summary>
+    ///     The Operator Table that is used to parse the Source Code
+    /// </summary>
+    private readonly BadOperatorTable m_Operators;
 
     private BadMetaData? m_MetaData;
 

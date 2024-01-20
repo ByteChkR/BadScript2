@@ -5,30 +5,30 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadNullCoalescingExpressionCompiler : BadExpressionCompiler<BadNullCoalescingExpression>
 {
-	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullCoalescingExpression expression)
-	{
-		foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-		{
-			yield return instruction;
-		}
+    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullCoalescingExpression expression)
+    {
+        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+        {
+            yield return instruction;
+        }
 
-		yield return new BadInstruction(BadOpCode.Dup, expression.Position);
+        yield return new BadInstruction(BadOpCode.Dup, expression.Position);
 
-		List<BadInstruction> instructions = new List<BadInstruction>();
-		instructions.Add(new BadInstruction()); //Jump to end if not null
-		instructions.Add(new BadInstruction(BadOpCode.Pop, expression.Position));
+        List<BadInstruction> instructions = new List<BadInstruction>();
+        instructions.Add(new BadInstruction()); //Jump to end if not null
+        instructions.Add(new BadInstruction(BadOpCode.Pop, expression.Position));
 
-		foreach (BadInstruction instruction in compiler.Compile(expression.Right))
-		{
-			instructions.Add(instruction);
-		}
+        foreach (BadInstruction instruction in compiler.Compile(expression.Right))
+        {
+            instructions.Add(instruction);
+        }
 
-		instructions[0] =
-			new BadInstruction(BadOpCode.JumpRelativeIfNotNull, expression.Position, instructions.Count - 1);
+        instructions[0] =
+            new BadInstruction(BadOpCode.JumpRelativeIfNotNull, expression.Position, instructions.Count - 1);
 
-		foreach (BadInstruction instruction in instructions)
-		{
-			yield return instruction;
-		}
-	}
+        foreach (BadInstruction instruction in instructions)
+        {
+            yield return instruction;
+        }
+    }
 }

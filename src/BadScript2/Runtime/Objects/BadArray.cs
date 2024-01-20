@@ -12,104 +12,104 @@ namespace BadScript2.Runtime.Objects;
 public class BadArray : BadObject, IBadEnumerable
 
 {
-	private static BadClassPrototype? s_Prototype;
+    private static BadClassPrototype? s_Prototype;
 
-	/// <summary>
-	///     Creates a new Instance of the BadScript Array
-	/// </summary>
-	/// <param name="innerArray">The Initial Elements</param>
-	public BadArray(List<BadObject> innerArray)
-	{
-		InnerArray = innerArray;
-	}
+    /// <summary>
+    ///     Creates a new Instance of the BadScript Array
+    /// </summary>
+    /// <param name="innerArray">The Initial Elements</param>
+    public BadArray(List<BadObject> innerArray)
+    {
+        InnerArray = innerArray;
+    }
 
-	/// <summary>
-	///     Creates a new Instance of the BadScript Array
-	/// </summary>
-	public BadArray() : this(new List<BadObject>()) { }
+    /// <summary>
+    ///     Creates a new Instance of the BadScript Array
+    /// </summary>
+    public BadArray() : this(new List<BadObject>()) { }
 
-	public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Array");
+    public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Array");
 
-	/// <summary>
-	///     The Inner Array
-	/// </summary>
-	public List<BadObject> InnerArray { get; }
+    /// <summary>
+    ///     The Inner Array
+    /// </summary>
+    public List<BadObject> InnerArray { get; }
 
-	public IEnumerator<BadObject> GetEnumerator()
-	{
-		foreach (BadObject o in InnerArray)
-		{
-			yield return o;
-		}
-	}
+    public IEnumerator<BadObject> GetEnumerator()
+    {
+        foreach (BadObject o in InnerArray)
+        {
+            yield return o;
+        }
+    }
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return GetEnumerator();
-	}
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 
-	public override BadClassPrototype GetPrototype()
-	{
-		return Prototype;
-	}
+    public override BadClassPrototype GetPrototype()
+    {
+        return Prototype;
+    }
 
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		done.Add(this);
-		StringBuilder sb = new StringBuilder();
-		sb.Append("[");
-		sb.AppendLine();
+    public override string ToSafeString(List<BadObject> done)
+    {
+        done.Add(this);
+        StringBuilder sb = new StringBuilder();
+        sb.Append("[");
+        sb.AppendLine();
 
-		foreach (BadObject element in InnerArray)
-		{
-			string str = "{...}";
+        foreach (BadObject element in InnerArray)
+        {
+            string str = "{...}";
 
-			if (!done.Contains(element))
-			{
-				str = element.ToSafeString(done)!.Trim();
-			}
+            if (!done.Contains(element))
+            {
+                str = element.ToSafeString(done)!.Trim();
+            }
 
-			if (str.Contains("\n"))
-			{
-				str = str.Replace("\n", "\n\t");
-			}
+            if (str.Contains("\n"))
+            {
+                str = str.Replace("\n", "\n\t");
+            }
 
-			sb.AppendLine($"\t{str}");
-		}
+            sb.AppendLine($"\t{str}");
+        }
 
-		sb.AppendLine("]");
+        sb.AppendLine("]");
 
-		return sb.ToString();
-	}
+        return sb.ToString();
+    }
 
-	public override string ToString()
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.Append("[");
-		sb.AppendLine();
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("[");
+        sb.AppendLine();
 
-		foreach (BadObject element in InnerArray)
-		{
-			if (element is BadScope)
-			{
-				sb.AppendLine("RECURSION_PROTECT");
+        foreach (BadObject element in InnerArray)
+        {
+            if (element is BadScope)
+            {
+                sb.AppendLine("RECURSION_PROTECT");
 
-				continue;
-			}
+                continue;
+            }
 
-			string str = element.ToString()!.Trim();
+            string str = element.ToString()!.Trim();
 
-			if (str.Contains("\n"))
-			{
-				str = str.Replace("\n", "\n\t");
-			}
+            if (str.Contains("\n"))
+            {
+                str = str.Replace("\n", "\n\t");
+            }
 
-			sb.AppendLine($"\t{str}");
-		}
+            sb.AppendLine($"\t{str}");
+        }
 
-		sb.AppendLine("]");
+        sb.AppendLine("]");
 
-		return sb.ToString();
-	}
+        return sb.ToString();
+    }
 }

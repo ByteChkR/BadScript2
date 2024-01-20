@@ -14,11 +14,11 @@ public class BadNUnitTestCase
 	/// <param name="testName">The Test Name</param>
 	/// <param name="allowCompile">If Enabled, the function will be tested in compiled and uncompiled modes</param>
 	public BadNUnitTestCase(BadFunction function, string? testName, bool allowCompile)
-	{
-		Function = function;
-		TestName = testName ?? Function.ToString();
-		AllowCompile = allowCompile;
-	}
+    {
+        Function = function;
+        TestName = testName ?? Function.ToString();
+        AllowCompile = allowCompile;
+    }
 
 	/// <summary>
 	///     The Test Name
@@ -35,8 +35,8 @@ public class BadNUnitTestCase
 	/// </summary>
 	public bool AllowCompile { get; }
 
-	public override string ToString()
-	{
-		return TestName;
-	}
+    public override string ToString()
+    {
+        return TestName;
+    }
 }

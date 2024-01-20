@@ -9,15 +9,23 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadObjectExtension : BadInteropExtension
 {
-	protected override void AddExtensions(BadInteropExtensionProvider provider)
-	{
-		provider.RegisterGlobal("ToString",
-			o => new BadDynamicInteropFunction("ToString",
-				_ => o.ToString()!,
-				BadNativeClassBuilder.GetNative("string")));
-		provider.RegisterGlobal("GetType",
-			o => new BadDynamicInteropFunction("GetType",
-				_ => o.GetPrototype(),
-				BadClassPrototype.Prototype));
-	}
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
+    {
+        provider.RegisterGlobal(
+            "ToString",
+            o => new BadDynamicInteropFunction(
+                "ToString",
+                _ => o.ToString()!,
+                BadNativeClassBuilder.GetNative("string")
+            )
+        );
+        provider.RegisterGlobal(
+            "GetType",
+            o => new BadDynamicInteropFunction(
+                "GetType",
+                _ => o.GetPrototype(),
+                BadClassPrototype.Prototype
+            )
+        );
+    }
 }

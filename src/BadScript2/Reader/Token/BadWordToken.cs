@@ -20,9 +20,9 @@ public class BadWordToken : BadToken
 	/// <param name="s">The String</param>
 	/// <returns>BadWordToken Instance</returns>
 	public static BadWordToken MakeWord(string s)
-	{
-		return new BadWordToken(BadSourcePosition.FromSource(s, 0, s.Length));
-	}
+    {
+        return new BadWordToken(BadSourcePosition.FromSource(s, 0, s.Length));
+    }
 
 	/// <summary>
 	///     Implicit Operator that converts a String into a WordToken
@@ -30,7 +30,7 @@ public class BadWordToken : BadToken
 	/// <param name="s">Word String</param>
 	/// <returns>BadWordToken Instance containing the specified string.</returns>
 	public static implicit operator BadWordToken(string s)
-	{
-		return MakeWord(s);
-	}
+    {
+        return MakeWord(s);
+    }
 }

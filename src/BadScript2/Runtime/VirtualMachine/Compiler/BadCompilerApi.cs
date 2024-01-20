@@ -11,37 +11,41 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler;
 /// </summary>
 public class BadCompilerApi : BadInteropApi
 {
-	public BadCompilerApi() : base("Compiler") { }
+    public BadCompilerApi() : base("Compiler") { }
 
-	protected override void LoadApi(BadTable target)
-	{
-		target.SetFunction<BadExpressionFunction, bool>("Compile",
-			CompileFunction,
-			BadNativeClassBuilder.GetNative("Function"));
-	}
+    protected override void LoadApi(BadTable target)
+    {
+        target.SetFunction<BadExpressionFunction, bool>(
+            "Compile",
+            CompileFunction,
+            BadNativeClassBuilder.GetNative("Function")
+        );
+    }
 
-	public BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
-	{
-		return CompileFunction(BadCompiler.Instance, func, useOverride);
-	}
+    public BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
+    {
+        return CompileFunction(BadCompiler.Instance, func, useOverride);
+    }
 
-	public static BadCompiledFunction CompileFunction(
-		BadCompiler compiler,
-		BadExpressionFunction func,
-		bool useOverride)
-	{
-		BadInstruction[] instrs = compiler.Compile(func.Body).ToArray();
+    public static BadCompiledFunction CompileFunction(
+        BadCompiler compiler,
+        BadExpressionFunction func,
+        bool useOverride)
+    {
+        BadInstruction[] instrs = compiler.Compile(func.Body).ToArray();
 
 
-		return new BadCompiledFunction(instrs,
-			useOverride,
-			func.ParentScope,
-			func.Position,
-			func.Name,
-			func.IsConstant,
-			func.IsStatic,
-			func.MetaData,
-			func.ReturnType,
-			func.Parameters);
-	}
+        return new BadCompiledFunction(
+            instrs,
+            useOverride,
+            func.ParentScope,
+            func.Position,
+            func.Name,
+            func.IsConstant,
+            func.IsStatic,
+            func.MetaData,
+            func.ReturnType,
+            func.Parameters
+        );
+    }
 }

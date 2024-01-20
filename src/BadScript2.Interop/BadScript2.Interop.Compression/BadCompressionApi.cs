@@ -17,32 +17,32 @@ namespace BadScript2.Interop.Compression;
 /// </summary>
 public class BadCompressionApi : BadInteropApi
 {
-	/// <summary>
-	///     The FileSystem Instance
-	/// </summary>
-	private readonly IFileSystem m_FileSystem;
+    /// <summary>
+    ///     The FileSystem Instance
+    /// </summary>
+    private readonly IFileSystem m_FileSystem;
 
-	/// <summary>
-	///     Creates a new API Instance
-	/// </summary>
-	public BadCompressionApi() : this(BadFileSystem.Instance) { }
+    /// <summary>
+    ///     Creates a new API Instance
+    /// </summary>
+    public BadCompressionApi() : this(BadFileSystem.Instance) { }
 
-	/// <summary>
-	///     Creates a new API Instance
-	/// </summary>
-	/// <param name="fileSystem">File System Instance to use</param>
-	public BadCompressionApi(IFileSystem fileSystem) : base("Compression")
+    /// <summary>
+    ///     Creates a new API Instance
+    /// </summary>
+    /// <param name="fileSystem">File System Instance to use</param>
+    public BadCompressionApi(IFileSystem fileSystem) : base("Compression")
     {
         m_FileSystem = fileSystem;
     }
 
 
-	/// <summary>
-	///     Deflates the given string
-	/// </summary>
-	/// <param name="obj">String</param>
-	/// <returns>Compressed Array</returns>
-	private static BadObject Deflate(IBadString obj)
+    /// <summary>
+    ///     Deflates the given string
+    /// </summary>
+    /// <param name="obj">String</param>
+    /// <returns>Compressed Array</returns>
+    private static BadObject Deflate(IBadString obj)
     {
         MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj.Value));
         MemoryStream compressed = new MemoryStream();
@@ -53,12 +53,12 @@ public class BadCompressionApi : BadInteropApi
         return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
     }
 
-	/// <summary>
-	///     Inflate the given array
-	/// </summary>
-	/// <param name="obj">Array</param>
-	/// <returns>String</returns>
-	private static BadObject Inflate(BadExecutionContext ctx, BadObject obj)
+    /// <summary>
+    ///     Inflate the given array
+    /// </summary>
+    /// <param name="obj">Array</param>
+    /// <returns>String</returns>
+    private static BadObject Inflate(BadExecutionContext ctx, BadObject obj)
     {
         BadObject[] arr;
         if (obj is BadArray a)
@@ -83,12 +83,12 @@ public class BadCompressionApi : BadInteropApi
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
 
-	/// <summary>
-	///     GZip Compress the given string
-	/// </summary>
-	/// <param name="obj">String</param>
-	/// <returns>Compressed Array</returns>
-	private static BadObject GZipCompress(IBadString obj)
+    /// <summary>
+    ///     GZip Compress the given string
+    /// </summary>
+    /// <param name="obj">String</param>
+    /// <returns>Compressed Array</returns>
+    private static BadObject GZipCompress(IBadString obj)
     {
         MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj.Value));
         MemoryStream compressed = new MemoryStream();
@@ -99,12 +99,12 @@ public class BadCompressionApi : BadInteropApi
         return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
     }
 
-	/// <summary>
-	///     GZip Decompress the given array
-	/// </summary>
-	/// <param name="obj">Array</param>
-	/// <returns>String</returns>
-	private static BadObject GZipDecompress(BadExecutionContext ctx, BadObject obj)
+    /// <summary>
+    ///     GZip Decompress the given array
+    /// </summary>
+    /// <param name="obj">Array</param>
+    /// <returns>String</returns>
+    private static BadObject GZipDecompress(BadExecutionContext ctx, BadObject obj)
     {
         BadObject[] arr;
         if (obj is BadArray a)
@@ -129,12 +129,12 @@ public class BadCompressionApi : BadInteropApi
         return new BadString(Encoding.UTF8.GetString(decompressed.ToArray()));
     }
 
-	/// <summary>
-	///     ZLib Compress the given string
-	/// </summary>
-	/// <param name="obj">String</param>
-	/// <returns>Compressed Array</returns>
-	private static BadObject ZLibCompress(IBadString obj)
+    /// <summary>
+    ///     ZLib Compress the given string
+    /// </summary>
+    /// <param name="obj">String</param>
+    /// <returns>Compressed Array</returns>
+    private static BadObject ZLibCompress(IBadString obj)
     {
         MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj.Value));
         MemoryStream compressed = new MemoryStream();
@@ -145,12 +145,12 @@ public class BadCompressionApi : BadInteropApi
         return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
     }
 
-	/// <summary>
-	///     ZLib Decompress the given array
-	/// </summary>
-	/// <param name="obj">Array</param>
-	/// <returns>String</returns>
-	private static BadObject ZLibDecompress(BadExecutionContext ctx, BadObject obj)
+    /// <summary>
+    ///     ZLib Decompress the given array
+    /// </summary>
+    /// <param name="obj">Array</param>
+    /// <returns>String</returns>
+    private static BadObject ZLibDecompress(BadExecutionContext ctx, BadObject obj)
     {
         BadObject[] arr;
         if (obj is BadArray a)

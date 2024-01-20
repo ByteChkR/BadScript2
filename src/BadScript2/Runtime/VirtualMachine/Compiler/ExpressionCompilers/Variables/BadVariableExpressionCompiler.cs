@@ -6,8 +6,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadVariableExpressionCompiler : BadExpressionCompiler<BadVariableExpression>
 {
-	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadVariableExpression expression)
-	{
-		yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, (BadObject)expression.Name);
-	}
+    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadVariableExpression expression)
+    {
+        yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, (BadObject)expression.Name);
+    }
 }

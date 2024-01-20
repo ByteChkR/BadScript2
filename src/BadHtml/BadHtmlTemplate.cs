@@ -17,9 +17,9 @@ public class BadHtmlTemplate
 	///     The Filepath of the Template
 	/// </summary>
 	private readonly string m_FilePath;
-	
+
 	/// <summary>
-	/// The Filesystem used to load the template
+	///     The Filesystem used to load the template
 	/// </summary>
 	private readonly IFileSystem m_FileSystem;
 
@@ -33,10 +33,10 @@ public class BadHtmlTemplate
 	/// </summary>
 	/// <param name="filePath">File path of the template</param>
 	private BadHtmlTemplate(string filePath, IFileSystem mFileSystem)
-	{
-		m_FilePath = filePath;
-		m_FileSystem = mFileSystem;
-	}
+    {
+        m_FilePath = filePath;
+        m_FileSystem = mFileSystem;
+    }
 
 
 	/// <summary>
@@ -49,22 +49,22 @@ public class BadHtmlTemplate
 	/// </summary>
 	/// <returns>Template Source</returns>
 	private string GetSource()
-	{
-		if (m_Source == null)
-		{
-			Reload();
-		}
+    {
+        if (m_Source == null)
+        {
+            Reload();
+        }
 
-		return m_Source!;
-	}
+        return m_Source!;
+    }
 
 	/// <summary>
 	///     Reloads the Template Source
 	/// </summary>
 	public void Reload()
-	{
-		m_Source = m_FileSystem.ReadAllText(m_FilePath);
-	}
+    {
+        m_Source = m_FileSystem.ReadAllText(m_FilePath);
+    }
 
 	/// <summary>
 	///     Runs the Template with the specified arguments
@@ -74,36 +74,38 @@ public class BadHtmlTemplate
 	/// <param name="caller">Optional Caller (if executed from within badscript, is used to get a full stacktrace on errors)</param>
 	/// <returns>The Html Document that was generated</returns>
 	public HtmlDocument RunTemplate(
-		object? model = null,
-		BadHtmlTemplateOptions? options = null,
-		BadScope? caller = null)
-	{
-		options ??= new BadHtmlTemplateOptions();
-		string src = GetSource();
-		HtmlDocument input = new HtmlDocument();
-		input.OptionUseIdAttribute = true;
-		input.LoadHtml(src);
-		HtmlDocument output = new HtmlDocument();
-		output.OptionUseIdAttribute = true;
-		output.LoadHtml("");
-		BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).CreateContext();
-		executionContext.Scope.SetCaller(caller);
+        object? model = null,
+        BadHtmlTemplateOptions? options = null,
+        BadScope? caller = null)
+    {
+        options ??= new BadHtmlTemplateOptions();
+        string src = GetSource();
+        HtmlDocument input = new HtmlDocument();
+        input.OptionUseIdAttribute = true;
+        input.LoadHtml(src);
+        HtmlDocument output = new HtmlDocument();
+        output.OptionUseIdAttribute = true;
+        output.LoadHtml("");
+        BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).CreateContext();
+        executionContext.Scope.SetCaller(caller);
 
-		BadObject mod = model as BadObject ?? BadObject.Wrap(model);
-		executionContext.Scope.DefineVariable("Model",
-			mod,
-			executionContext.Scope,
-			new BadPropertyInfo(BadAnyPrototype.Instance, true));
+        BadObject mod = model as BadObject ?? BadObject.Wrap(model);
+        executionContext.Scope.DefineVariable(
+            "Model",
+            mod,
+            executionContext.Scope,
+            new BadPropertyInfo(BadAnyPrototype.Instance, true)
+        );
 
-		foreach (HtmlNode node in input.DocumentNode.ChildNodes)
-		{
-			BadHtmlContext ctx =
-				new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src, options, m_FileSystem);
-			BadHtmlNodeTransformer.Transform(ctx);
-		}
+        foreach (HtmlNode node in input.DocumentNode.ChildNodes)
+        {
+            BadHtmlContext ctx =
+                new BadHtmlContext(node, output.DocumentNode, executionContext, m_FilePath, src, options, m_FileSystem);
+            BadHtmlNodeTransformer.Transform(ctx);
+        }
 
-		return output;
-	}
+        return output;
+    }
 
 	/// <summary>
 	///     Runs the Template with the specified arguments
@@ -113,9 +115,9 @@ public class BadHtmlTemplate
 	/// <param name="caller">Optional Caller (if executed from within badscript, is used to get a full stacktrace on errors)</param>
 	/// <returns>The Html Source of the Generated Document</returns>
 	public string Run(object? model = null, BadHtmlTemplateOptions? options = null, BadScope? caller = null)
-	{
-		return RunTemplate(model, options, caller).DocumentNode.OuterHtml;
-	}
+    {
+        return RunTemplate(model, options, caller).DocumentNode.OuterHtml;
+    }
 
 	/// <summary>
 	///     Creates a new Template
@@ -124,7 +126,7 @@ public class BadHtmlTemplate
 	/// <param name="fileSystem">The Filesystem that the Template is loaded from</param>
 	/// <returns>A Html Template Instance</returns>
 	public static BadHtmlTemplate Create(string file, IFileSystem? fileSystem = null)
-	{
-		return new BadHtmlTemplate(file, fileSystem ?? BadFileSystem.Instance);
-	}
+    {
+        return new BadHtmlTemplate(file, fileSystem ?? BadFileSystem.Instance);
+    }
 }

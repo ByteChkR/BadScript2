@@ -20,36 +20,36 @@ public class BadTypeOfExpression : BadExpression
 	/// <param name="expression">Expression to get the type of</param>
 	/// <param name="position">Source Position</param>
 	public BadTypeOfExpression(BadExpression expression, BadSourcePosition position) : base(false, position)
-	{
-		Expression = expression;
-	}
+    {
+        Expression = expression;
+    }
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression e in Expression.GetDescendantsAndSelf())
-		{
-			yield return e;
-		}
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression e in Expression.GetDescendantsAndSelf())
+        {
+            yield return e;
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadObject? obj = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject? obj = BadObject.Null;
 
-		foreach (BadObject o in Expression.Execute(context))
-		{
-			obj = o;
+        foreach (BadObject o in Expression.Execute(context))
+        {
+            obj = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		if (context.Scope.IsError)
-		{
-			yield break;
-		}
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
 
-		obj = obj.Dereference();
+        obj = obj.Dereference();
 
-		yield return obj.GetPrototype();
-	}
+        yield return obj.GetPrototype();
+    }
 }

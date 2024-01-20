@@ -13,10 +13,10 @@ public class BadUnaryUnpackOperator : BadUnaryPrefixOperator
 	/// </summary>
 	public BadUnaryUnpackOperator() : base(20, "...", false) { }
 
-	public override BadExpression Parse(BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadUnaryUnpackExpression(right);
-	}
+        return new BadUnaryUnpackExpression(right);
+    }
 }

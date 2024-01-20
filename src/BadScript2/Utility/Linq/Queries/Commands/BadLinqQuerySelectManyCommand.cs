@@ -7,10 +7,10 @@ namespace BadScript2.Utility.Linq.Queries.Commands;
 /// </summary>
 internal class BadLinqQuerySelectManyCommand : BadLinqQueryCommand
 {
-	public BadLinqQuerySelectManyCommand() : base(true, false, "SelectMany") { }
+    public BadLinqQuerySelectManyCommand() : base(true, false, "SelectMany") { }
 
-	public override IEnumerable Run(BadLinqQueryCommandData data)
-	{
-		return data.Data.SelectMany(data.Argument!);
-	}
+    public override IEnumerable Run(BadLinqQueryCommandData data)
+    {
+        return data.Data.SelectMany(data.Argument!);
+    }
 }

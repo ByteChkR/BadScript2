@@ -5,12 +5,12 @@ namespace BadScript2.Parser.Operators.Binary.Math;
 
 public class BadNegateOperator : BadUnaryPrefixOperator
 {
-	public BadNegateOperator() : base(3, "-", false) { }
+    public BadNegateOperator() : base(3, "-", false) { }
 
-	public override BadExpression Parse(BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadNegationExpression(right.Position, right);
-	}
+        return new BadNegationExpression(right.Position, right);
+    }
 }

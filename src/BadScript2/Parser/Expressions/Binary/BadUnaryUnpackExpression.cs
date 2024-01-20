@@ -20,49 +20,49 @@ public class BadUnaryUnpackExpression : BadExpression
 	/// </summary>
 	/// <param name="right">Right Side of the Expression</param>
 	public BadUnaryUnpackExpression(BadExpression right) : base(right.IsConstant, right.Position)
-	{
-		Right = right;
-	}
+    {
+        Right = right;
+    }
 
 
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
-		{
-			yield return expression;
-		}
-	}
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        foreach (BadExpression? expression in Right.GetDescendantsAndSelf())
+        {
+            yield return expression;
+        }
+    }
 
-	public static void Unpack(BadTable table, BadObject right, BadSourcePosition position)
-	{
-		if (right is not BadTable rightT)
-		{
-			throw new BadRuntimeException("Unpack operator requires 1 table", position);
-		}
+    public static void Unpack(BadTable table, BadObject right, BadSourcePosition position)
+    {
+        if (right is not BadTable rightT)
+        {
+            throw new BadRuntimeException("Unpack operator requires 1 table", position);
+        }
 
-		foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
-		{
-			table.InnerTable[o.Key] = o.Value;
-			table.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
-		}
-	}
+        foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+        {
+            table.InnerTable[o.Key] = o.Value;
+            table.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];
+        }
+    }
 
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadTable result = context.Scope.GetTable();
-		BadObject right = BadObject.Null;
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadTable result = context.Scope.GetTable();
+        BadObject right = BadObject.Null;
 
-		foreach (BadObject o in Right.Execute(context))
-		{
-			right = o;
+        foreach (BadObject o in Right.Execute(context))
+        {
+            right = o;
 
-			yield return o;
-		}
+            yield return o;
+        }
 
-		right = right.Dereference();
+        right = right.Dereference();
 
-		Unpack(result, right, Position);
+        Unpack(result, right, Position);
 
-		yield return result;
-	}
+        yield return result;
+    }
 }

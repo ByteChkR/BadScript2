@@ -13,10 +13,10 @@ public class BadConsoleColorChangePacket : BadConsolePacket
 	/// <param name="isBackground">Is the Changed color the background color?</param>
 	/// <param name="color">The Color to change to</param>
 	public BadConsoleColorChangePacket(bool isBackground, ConsoleColor color)
-	{
-		IsBackground = isBackground;
-		Color = color;
-	}
+    {
+        IsBackground = isBackground;
+        Color = color;
+    }
 
 	/// <summary>
 	///     The Color to change to
@@ -34,20 +34,20 @@ public class BadConsoleColorChangePacket : BadConsolePacket
 	/// <param name="data">The Data Array</param>
 	/// <returns>Bad Console Packet instance</returns>
 	public new static BadConsoleColorChangePacket Deserialize(byte[] data)
-	{
-		bool isBackground = data[1] == 1;
-		ConsoleColor color = (ConsoleColor)data[2];
+    {
+        bool isBackground = data[1] == 1;
+        ConsoleColor color = (ConsoleColor)data[2];
 
-		return new BadConsoleColorChangePacket(isBackground, color);
-	}
+        return new BadConsoleColorChangePacket(isBackground, color);
+    }
 
-	public override byte[] Serialize()
-	{
-		return new[]
-		{
-			(byte)BadConsolePacketType.Color,
-			(byte)(IsBackground ? 1 : 0),
-			(byte)Color,
-		};
-	}
+    public override byte[] Serialize()
+    {
+        return new[]
+        {
+            (byte)BadConsolePacketType.Color,
+            (byte)(IsBackground ? 1 : 0),
+            (byte)Color,
+        };
+    }
 }

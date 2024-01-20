@@ -13,10 +13,10 @@ public class BadSubtractOperator : BadBinaryOperator
 	/// </summary>
 	public BadSubtractOperator() : base(6, "-") { }
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadSubtractExpression(left, right, left.Position.Combine(right.Position));
-	}
+        return new BadSubtractExpression(left, right, left.Position.Combine(right.Position));
+    }
 }

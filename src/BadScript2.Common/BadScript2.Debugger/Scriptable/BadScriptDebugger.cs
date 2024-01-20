@@ -31,64 +31,64 @@ public class BadScriptDebugger : IBadDebugger
 	/// <param name="options">The Context Options</param>
 	/// <param name="debuggerPath">The File Path to the Debugger</param>
 	public BadScriptDebugger(BadRuntime runtime, string debuggerPath)
-	{
-		m_Runtime = runtime
-			.Clone()
-			.ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this, debuggerPath)));
-		LoadDebugger(debuggerPath);
-	}
+    {
+        m_Runtime = runtime
+            .Clone()
+            .ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this, debuggerPath)));
+        LoadDebugger(debuggerPath);
+    }
 
 	/// <summary>
 	///     Constructs a new BadScriptDebugger instance
 	/// </summary>
 	/// <param name="options">The Context Options</param>
 	public BadScriptDebugger(BadRuntime runtime)
-	{
-		m_Runtime = runtime
-			.Clone()
-			.ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this)));
+    {
+        m_Runtime = runtime
+            .Clone()
+            .ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this)));
 
 
-		LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
-	}
+        LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
+    }
 
-	public void Step(BadDebuggerStep stepInfo)
-	{
-		stepInfo.GetLines(4, 4, out _, out int lineInSource);
+    public void Step(BadDebuggerStep stepInfo)
+    {
+        stepInfo.GetLines(4, 4, out _, out int lineInSource);
 
-		if (m_LineNumbers.ContainsKey(stepInfo.Position.Source) &&
-		    lineInSource == m_LineNumbers[stepInfo.Position.Source])
-		{
-			return;
-		}
+        if (m_LineNumbers.ContainsKey(stepInfo.Position.Source) &&
+            lineInSource == m_LineNumbers[stepInfo.Position.Source])
+        {
+            return;
+        }
 
-		m_LineNumbers[stepInfo.Position.Source] = lineInSource;
+        m_LineNumbers[stepInfo.Position.Source] = lineInSource;
 
-		if (!m_SeenFiles.Contains(stepInfo.Position.FileName ?? ""))
-		{
-			m_SeenFiles.Add(stepInfo.Position.FileName ?? "");
-			OnFileLoaded?.Invoke(stepInfo.Position.FileName ?? "");
-		}
+        if (!m_SeenFiles.Contains(stepInfo.Position.FileName ?? ""))
+        {
+            m_SeenFiles.Add(stepInfo.Position.FileName ?? "");
+            OnFileLoaded?.Invoke(stepInfo.Position.FileName ?? "");
+        }
 
-		OnStep?.Invoke(stepInfo);
-	}
+        OnStep?.Invoke(stepInfo);
+    }
 
-	/// <summary>
-	///     Loads the Debugger from the given File Path
-	/// </summary>
-	/// <param name="path">The File Path</param>
-	private void LoadDebugger(string path)
-	{
-		m_Runtime.ExecuteFile(path);
-	}
+    /// <summary>
+    ///     Loads the Debugger from the given File Path
+    /// </summary>
+    /// <param name="path">The File Path</param>
+    private void LoadDebugger(string path)
+    {
+        m_Runtime.ExecuteFile(path);
+    }
 
-	/// <summary>
-	///     Event that gets called on every debugger step
-	/// </summary>
-	public event Action<BadDebuggerStep>? OnStep;
+    /// <summary>
+    ///     Event that gets called on every debugger step
+    /// </summary>
+    public event Action<BadDebuggerStep>? OnStep;
 
-	/// <summary>
-	///     Event that gets called when a new file is loaded.
-	/// </summary>
-	public event Action<string>? OnFileLoaded;
+    /// <summary>
+    ///     Event that gets called when a new file is loaded.
+    /// </summary>
+    public event Action<string>? OnFileLoaded;
 }

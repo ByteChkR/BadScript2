@@ -5,13 +5,13 @@ namespace BadScript2.Runtime.Interop;
 /// </summary>
 public abstract class BadInteropExtension
 {
-	internal void InnerAddExtensions(BadInteropExtensionProvider provider)
-	{
-		AddExtensions(provider);
-	}
+    internal void InnerAddExtensions(BadInteropExtensionProvider provider)
+    {
+        AddExtensions(provider);
+    }
 
-	/// <summary>
-	///     Adds extensions to the list of registered extensions
-	/// </summary>
-	protected abstract void AddExtensions(BadInteropExtensionProvider provider);
+    /// <summary>
+    ///     Adds extensions to the list of registered extensions
+    /// </summary>
+    protected abstract void AddExtensions(BadInteropExtensionProvider provider);
 }

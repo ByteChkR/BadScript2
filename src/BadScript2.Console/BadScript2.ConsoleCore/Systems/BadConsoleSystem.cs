@@ -8,43 +8,43 @@ namespace BadScript2.ConsoleCore.Systems;
 /// <typeparam name="T">The Settings Type</typeparam>
 public abstract class BadConsoleSystem<T> : BadAConsoleSystem
 {
-	protected BadConsoleSystem(BadRuntime runtime) : base(runtime) { }
+    protected BadConsoleSystem(BadRuntime runtime) : base(runtime) { }
 
-	public override int Run(object? settings)
-	{
-		if (settings is T t)
-		{
-			return Run(t);
-		}
+    public override int Run(object? settings)
+    {
+        if (settings is T t)
+        {
+            return Run(t);
+        }
 
-		if (settings is null)
-		{
-			BadConsole.WriteLine("No settings provided.");
-		}
-		else
-		{
-			BadConsole.WriteLine("Invalid settings type");
-		}
+        if (settings is null)
+        {
+            BadConsole.WriteLine("No settings provided.");
+        }
+        else
+        {
+            BadConsole.WriteLine("Invalid settings type");
+        }
 
-		return -1;
-	}
+        return -1;
+    }
 
-	public override object? Parse(string[] args)
-	{
-		T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
+    public override object? Parse(string[] args)
+    {
+        T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
 
-		if (t is null)
-		{
-			return null;
-		}
+        if (t is null)
+        {
+            return null;
+        }
 
-		return t;
-	}
+        return t;
+    }
 
-	/// <summary>
-	///     Runs the Console System with the given settings
-	/// </summary>
-	/// <param name="settings">The Settings Object</param>
-	/// <returns>Return Code</returns>
-	protected abstract int Run(T settings);
+    /// <summary>
+    ///     Runs the Console System with the given settings
+    /// </summary>
+    /// <param name="settings">The Settings Object</param>
+    /// <returns>Return Code</returns>
+    protected abstract int Run(T settings);
 }

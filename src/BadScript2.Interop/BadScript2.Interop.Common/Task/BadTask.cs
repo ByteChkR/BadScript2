@@ -18,26 +18,28 @@ public class BadTask : BadObject
 	/// <summary>
 	///     The BadTask Prototype
 	/// </summary>
-	public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadTask>("Task",
-		(ctx, args) =>
-		{
-			if (args.Length != 2)
-			{
-				throw new BadRuntimeException("Task constructor takes 2 arguments");
-			}
+	public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadTask>(
+        "Task",
+        (ctx, args) =>
+        {
+            if (args.Length != 2)
+            {
+                throw new BadRuntimeException("Task constructor takes 2 arguments");
+            }
 
-			if (args[0] is not IBadString name)
-			{
-				throw new BadRuntimeException("Task constructor takes a string as first argument");
-			}
+            if (args[0] is not IBadString name)
+            {
+                throw new BadRuntimeException("Task constructor takes a string as first argument");
+            }
 
-			if (args[1] is not BadFunction f)
-			{
-				throw new BadRuntimeException("Task constructor takes a function as second argument");
-			}
+            if (args[1] is not BadFunction f)
+            {
+                throw new BadRuntimeException("Task constructor takes a function as second argument");
+            }
 
-			return new BadTask(BadRunnable.Create(f, ctx), name.Value);
-		});
+            return new BadTask(BadRunnable.Create(f, ctx), name.Value);
+        }
+    );
 
 	/// <summary>
 	///     The List of Continuation Tasks
@@ -48,7 +50,7 @@ public class BadTask : BadObject
 	///     The Task Properties
 	/// </summary>
 	private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
-		new Dictionary<BadObject, BadObjectReference>();
+        new Dictionary<BadObject, BadObjectReference>();
 
 	/// <summary>
 	///     Constructs a new Task
@@ -56,26 +58,28 @@ public class BadTask : BadObject
 	/// <param name="runnable">Runnable</param>
 	/// <param name="name">Task Name</param>
 	public BadTask(BadRunnable runnable, string name)
-	{
-		Name = name;
-		Runnable = runnable;
-		m_Properties.Add("Name",
-			BadObjectReference.Make("Task.Name", () => Name, (o, _) => Name = o is IBadString s ? s.Value : Name));
-		m_Properties.Add("IsCompleted", BadObjectReference.Make("Task.IsCompleted", () => IsFinished));
-		m_Properties.Add("IsInactive", BadObjectReference.Make("Task.IsInactive", () => IsInactive));
-		m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", () => IsPaused));
-		m_Properties.Add("IsRunning", BadObjectReference.Make("Task.IsRunning", () => IsRunning));
+    {
+        Name = name;
+        Runnable = runnable;
+        m_Properties.Add(
+            "Name",
+            BadObjectReference.Make("Task.Name", () => Name, (o, _) => Name = o is IBadString s ? s.Value : Name)
+        );
+        m_Properties.Add("IsCompleted", BadObjectReference.Make("Task.IsCompleted", () => IsFinished));
+        m_Properties.Add("IsInactive", BadObjectReference.Make("Task.IsInactive", () => IsInactive));
+        m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", () => IsPaused));
+        m_Properties.Add("IsRunning", BadObjectReference.Make("Task.IsRunning", () => IsRunning));
 
-		BadFunction continueFunc =
-			new BadDynamicInteropFunction<BadTask>("ContinueWith", (_, t) => ContinueWith(t), BadAnyPrototype.Instance);
-		BadFunction pauseFunc = new BadDynamicInteropFunction("Pause", Pause, BadAnyPrototype.Instance);
-		BadFunction resumeFunc = new BadDynamicInteropFunction("Resume", Resume, BadAnyPrototype.Instance);
-		BadFunction cancelFunc = new BadDynamicInteropFunction("Cancel", Cancel, BadAnyPrototype.Instance);
-		m_Properties.Add("ContinueWith", BadObjectReference.Make("Task.ContinueWith", () => continueFunc));
-		m_Properties.Add("Pause", BadObjectReference.Make("Task.Pause", () => pauseFunc));
-		m_Properties.Add("Resume", BadObjectReference.Make("Task.Resume", () => resumeFunc));
-		m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
-	}
+        BadFunction continueFunc =
+            new BadDynamicInteropFunction<BadTask>("ContinueWith", (_, t) => ContinueWith(t), BadAnyPrototype.Instance);
+        BadFunction pauseFunc = new BadDynamicInteropFunction("Pause", Pause, BadAnyPrototype.Instance);
+        BadFunction resumeFunc = new BadDynamicInteropFunction("Resume", Resume, BadAnyPrototype.Instance);
+        BadFunction cancelFunc = new BadDynamicInteropFunction("Cancel", Cancel, BadAnyPrototype.Instance);
+        m_Properties.Add("ContinueWith", BadObjectReference.Make("Task.ContinueWith", () => continueFunc));
+        m_Properties.Add("Pause", BadObjectReference.Make("Task.Pause", () => pauseFunc));
+        m_Properties.Add("Resume", BadObjectReference.Make("Task.Resume", () => resumeFunc));
+        m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
+    }
 
 	/// <summary>
 	///     Runnable of the Task
@@ -122,51 +126,51 @@ public class BadTask : BadObject
 	/// </summary>
 	/// <param name="task"></param>
 	public void AddContinuation(BadTask task)
-	{
-		m_ContinuationTasks.Add(task);
-	}
+    {
+        m_ContinuationTasks.Add(task);
+    }
 
 	/// <summary>
 	///     Sets the Creator of this Task
 	/// </summary>
 	/// <param name="task">Creator</param>
 	public void SetCreator(BadTask? task)
-	{
-		Creator = task;
-	}
+    {
+        Creator = task;
+    }
 
 	/// <summary>
 	///     Starts the Task
 	/// </summary>
 	public void Start()
-	{
-		IsRunning = true;
-	}
+    {
+        IsRunning = true;
+    }
 
 	/// <summary>
 	///     Stops the Task
 	/// </summary>
 	public void Stop()
-	{
-		IsFinished = true;
-		IsRunning = false;
-		IsPaused = false;
-	}
+    {
+        IsFinished = true;
+        IsRunning = false;
+        IsPaused = false;
+    }
 
 	/// <summary>
 	///     Cancels the Task
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is not running</exception>
 	public void Cancel()
-	{
-		if (!IsRunning)
-		{
-			throw new BadRuntimeException("Task is not running");
-		}
+    {
+        if (!IsRunning)
+        {
+            throw new BadRuntimeException("Task is not running");
+        }
 
-		IsPaused = false;
-		IsFinished = true;
-	}
+        IsPaused = false;
+        IsFinished = true;
+    }
 
 
 	/// <summary>
@@ -174,19 +178,19 @@ public class BadTask : BadObject
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is not running or paused</exception>
 	public void Resume()
-	{
-		if (!IsRunning)
-		{
-			throw new BadRuntimeException("Task is not running");
-		}
+    {
+        if (!IsRunning)
+        {
+            throw new BadRuntimeException("Task is not running");
+        }
 
-		if (!IsPaused)
-		{
-			throw new BadRuntimeException("Task is not paused");
-		}
+        if (!IsPaused)
+        {
+            throw new BadRuntimeException("Task is not paused");
+        }
 
-		IsPaused = false;
-	}
+        IsPaused = false;
+    }
 
 
 	/// <summary>
@@ -194,19 +198,19 @@ public class BadTask : BadObject
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is not running or is paused</exception>
 	public void Pause()
-	{
-		if (!IsRunning)
-		{
-			throw new BadRuntimeException("Task is not running");
-		}
+    {
+        if (!IsRunning)
+        {
+            throw new BadRuntimeException("Task is not running");
+        }
 
-		if (IsPaused)
-		{
-			throw new BadRuntimeException("Task is already paused");
-		}
+        if (IsPaused)
+        {
+            throw new BadRuntimeException("Task is already paused");
+        }
 
-		IsPaused = true;
-	}
+        IsPaused = true;
+    }
 
 
 	/// <summary>
@@ -216,16 +220,16 @@ public class BadTask : BadObject
 	/// <returns>NULL</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the task is already finished</exception>
 	private BadObject ContinueWith(BadTask task)
-	{
-		if (IsFinished)
-		{
-			throw new BadRuntimeException("Task is already finished");
-		}
+    {
+        if (IsFinished)
+        {
+            throw new BadRuntimeException("Task is already finished");
+        }
 
-		AddContinuation(task);
+        AddContinuation(task);
 
-		return Null;
-	}
+        return Null;
+    }
 
 	/// <summary>
 	///     Creates a new Task from a Function
@@ -236,44 +240,44 @@ public class BadTask : BadObject
 	/// <param name="args">Function Arguments</param>
 	/// <returns>Bad Task Instance</returns>
 	public static BadObject Create(BadFunction f, BadExecutionContext caller, string? name, params BadObject[] args)
-	{
-		return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());
-	}
+    {
+        return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());
+    }
 
-	public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
-	{
-		if (m_Properties.ContainsKey(propName))
-		{
-			return m_Properties[propName];
-		}
+    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    {
+        if (m_Properties.ContainsKey(propName))
+        {
+            return m_Properties[propName];
+        }
 
 
-		return base.GetProperty(propName, caller);
-	}
+        return base.GetProperty(propName, caller);
+    }
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.AppendLine("{");
+    public override string ToSafeString(List<BadObject> done)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("{");
 
-		foreach (KeyValuePair<BadObject, BadObjectReference> props in m_Properties)
-		{
-			sb.AppendLine($"\t{props.Key}: {props.Value.Dereference()}");
-		}
+        foreach (KeyValuePair<BadObject, BadObjectReference> props in m_Properties)
+        {
+            sb.AppendLine($"\t{props.Key}: {props.Value.Dereference()}");
+        }
 
-		sb.AppendLine("}");
+        sb.AppendLine("}");
 
-		return sb.ToString();
-	}
+        return sb.ToString();
+    }
 
-	public override BadClassPrototype GetPrototype()
-	{
-		return Prototype;
-	}
+    public override BadClassPrototype GetPrototype()
+    {
+        return Prototype;
+    }
 
-	public override bool HasProperty(BadObject propName, BadScope? caller = null)
-	{
-		return m_Properties.ContainsKey(propName) ||
-		       base.HasProperty(propName, caller);
-	}
+    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    {
+        return m_Properties.ContainsKey(propName) ||
+               base.HasProperty(propName, caller);
+    }
 }

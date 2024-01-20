@@ -7,5 +7,5 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 /// </summary>
 public interface IBadExpressionCompiler
 {
-	IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadExpression expression);
+    IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadExpression expression);
 }

@@ -14,11 +14,11 @@ public abstract class BadLinqQueryCommand
 	/// <param name="isArgumentOptional">Is the Argument Optional?</param>
 	/// <param name="names">The Command Names</param>
 	protected BadLinqQueryCommand(bool hasArgument, bool isArgumentOptional, params string[] names)
-	{
-		Names = names;
-		HasArgument = hasArgument;
-		IsArgumentOptional = isArgumentOptional;
-	}
+    {
+        Names = names;
+        HasArgument = hasArgument;
+        IsArgumentOptional = isArgumentOptional;
+    }
 
 	/// <summary>
 	///     The Command Names.

@@ -9,32 +9,32 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadNUnitTestConsole : IBadConsole
 {
-	public void Write(string str)
-	{
-		TestContext.Write(str);
-	}
+    public void Write(string str)
+    {
+        TestContext.Write(str);
+    }
 
-	public void WriteLine(string str)
-	{
-		TestContext.WriteLine(str);
-	}
+    public void WriteLine(string str)
+    {
+        TestContext.WriteLine(str);
+    }
 
-	public string ReadLine()
-	{
-		throw new NotSupportedException();
-	}
+    public string ReadLine()
+    {
+        throw new NotSupportedException();
+    }
 
-	public Task<string> ReadLineAsync()
-	{
-		return Task.Run(() => Console.ReadLine() ?? "");
-	}
+    public Task<string> ReadLineAsync()
+    {
+        return Task.Run(() => Console.ReadLine() ?? "");
+    }
 
-	public void Clear()
-	{
-		//Do nothing
-	}
+    public void Clear()
+    {
+        //Do nothing
+    }
 
-	public ConsoleColor ForegroundColor { get; set; }
+    public ConsoleColor ForegroundColor { get; set; }
 
-	public ConsoleColor BackgroundColor { get; set; }
+    public ConsoleColor BackgroundColor { get; set; }
 }

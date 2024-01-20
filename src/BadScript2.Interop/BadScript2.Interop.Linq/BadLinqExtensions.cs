@@ -26,16 +26,16 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <typeparam name="T">The Type to unpack to.</typeparam>
 	/// <returns>Result of the Invocation</returns>
 	private static T Invoke<T>(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
-	{
-		BadObject o = BadObject.Null;
+    {
+        BadObject o = BadObject.Null;
 
-		foreach (BadObject obj in func.Invoke(args, ctx))
-		{
-			o = obj;
-		}
+        foreach (BadObject obj in func.Invoke(args, ctx))
+        {
+            o = obj;
+        }
 
-		return o.Dereference().Unwrap<T>();
-	}
+        return o.Dereference().Unwrap<T>();
+    }
 
 	/// <summary>
 	///     Invokes the given function with the given arguments
@@ -45,16 +45,16 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="args">Arguments</param>
 	/// <returns>Result of the Invocation</returns>
 	private static BadObject Invoke(BadFunction func, BadExecutionContext ctx, params BadObject[] args)
-	{
-		BadObject o = BadObject.Null;
+    {
+        BadObject o = BadObject.Null;
 
-		foreach (BadObject obj in func.Invoke(args, ctx))
-		{
-			o = obj;
-		}
+        foreach (BadObject obj in func.Invoke(args, ctx))
+        {
+            o = obj;
+        }
 
-		return o.Dereference();
-	}
+        return o.Dereference();
+    }
 
 	/// <summary>
 	///     Selects elements of the given enumerable with the given selector function
@@ -64,9 +64,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="selector">The Filter Function</param>
 	/// <returns>Enumeration</returns>
 	private static BadObject Select(BadExecutionContext ctx, IBadEnumerable e, BadFunction selector)
-	{
-		return new BadInteropEnumerable(e.Select(x => Invoke(selector, ctx, x)));
-	}
+    {
+        return new BadInteropEnumerable(e.Select(x => Invoke(selector, ctx, x)));
+    }
 
 	/// <summary>
 	///     Filters the given enumerable with the given filter function
@@ -76,9 +76,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="filter">The Filter Function</param>
 	/// <returns>Filtered Enumeration</returns>
 	private static BadObject Where(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)
-	{
-		return new BadInteropEnumerable(e.Where(x => Invoke<bool>(filter, ctx, x)));
-	}
+    {
+        return new BadInteropEnumerable(e.Where(x => Invoke<bool>(filter, ctx, x)));
+    }
 
 	/// <summary>
 	///     Gets the first element in the enumerable that satisfies the given filter
@@ -89,19 +89,19 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <returns>First element</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
 	private static BadObject First(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
-	{
-		if (o == BadObject.Null)
-		{
-			return e.First();
-		}
+    {
+        if (o == BadObject.Null)
+        {
+            return e.First();
+        }
 
-		if (o is BadFunction filter)
-		{
-			return e.First(x => Invoke<bool>(filter, ctx, x));
-		}
+        if (o is BadFunction filter)
+        {
+            return e.First(x => Invoke<bool>(filter, ctx, x));
+        }
 
-		throw new BadRuntimeException("Invalid Filter");
-	}
+        throw new BadRuntimeException("Invalid Filter");
+    }
 
 	/// <summary>
 	///     Gets the first element in the enumerable that satisfies the given filter
@@ -112,19 +112,19 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <returns>First element or null</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
 	private static BadObject FirstOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
-	{
-		if (o == BadObject.Null)
-		{
-			return e.FirstOrDefault() ?? BadObject.Null;
-		}
+    {
+        if (o == BadObject.Null)
+        {
+            return e.FirstOrDefault() ?? BadObject.Null;
+        }
 
-		if (o is BadFunction filter)
-		{
-			return e.FirstOrDefault(x => Invoke<bool>(filter, ctx, x)) ?? BadObject.Null;
-		}
+        if (o is BadFunction filter)
+        {
+            return e.FirstOrDefault(x => Invoke<bool>(filter, ctx, x)) ?? BadObject.Null;
+        }
 
-		throw new BadRuntimeException("Invalid Filter");
-	}
+        throw new BadRuntimeException("Invalid Filter");
+    }
 
 	/// <summary>
 	///     Gets the last element in the enumerable that satisfies the given filter
@@ -135,19 +135,19 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <returns>Last element</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
 	private static BadObject Last(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
-	{
-		if (o == BadObject.Null)
-		{
-			return e.Last();
-		}
+    {
+        if (o == BadObject.Null)
+        {
+            return e.Last();
+        }
 
-		if (o is BadFunction filter)
-		{
-			return e.Last(x => Invoke<bool>(filter, ctx, x));
-		}
+        if (o is BadFunction filter)
+        {
+            return e.Last(x => Invoke<bool>(filter, ctx, x));
+        }
 
-		throw new BadRuntimeException("Invalid Filter");
-	}
+        throw new BadRuntimeException("Invalid Filter");
+    }
 
 	/// <summary>
 	///     Gets the last element in the enumerable that satisfies the given filter
@@ -158,19 +158,19 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <returns>Last element or null</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
 	private static BadObject LastOrDefault(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
-	{
-		if (o == BadObject.Null)
-		{
-			return e.LastOrDefault() ?? BadObject.Null;
-		}
+    {
+        if (o == BadObject.Null)
+        {
+            return e.LastOrDefault() ?? BadObject.Null;
+        }
 
-		if (o is BadFunction filter)
-		{
-			return e.LastOrDefault(x => Invoke<bool>(filter, ctx, x)) ?? BadObject.Null;
-		}
+        if (o is BadFunction filter)
+        {
+            return e.LastOrDefault(x => Invoke<bool>(filter, ctx, x)) ?? BadObject.Null;
+        }
 
-		throw new BadRuntimeException("Invalid Filter");
-	}
+        throw new BadRuntimeException("Invalid Filter");
+    }
 
 	/// <summary>
 	///     Checks if any element matches the given filter
@@ -181,19 +181,19 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <returns>True if any element satisfies the filter</returns>
 	/// <exception cref="BadRuntimeException"></exception>
 	private static BadObject Any(BadExecutionContext ctx, IBadEnumerable e, BadObject o)
-	{
-		if (o == BadObject.Null)
-		{
-			return e.Any();
-		}
+    {
+        if (o == BadObject.Null)
+        {
+            return e.Any();
+        }
 
-		if (o is BadFunction filter)
-		{
-			return e.Any(x => Invoke<bool>(filter, ctx, x));
-		}
+        if (o is BadFunction filter)
+        {
+            return e.Any(x => Invoke<bool>(filter, ctx, x));
+        }
 
-		throw new BadRuntimeException("Invalid Filter");
-	}
+        throw new BadRuntimeException("Invalid Filter");
+    }
 
 	/// <summary>
 	///     Appends an Object to the Enumerable
@@ -203,9 +203,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="obj">The Object to Append</param>
 	/// <returns>New Enumeration</returns>
 	private static BadObject Append(BadExecutionContext ctx, IBadEnumerable e, BadObject obj)
-	{
-		return new BadInteropEnumerable(e.Append(obj));
-	}
+    {
+        return new BadInteropEnumerable(e.Append(obj));
+    }
 
 	/// <summary>
 	///     Concatenates two Enumerables
@@ -215,9 +215,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="e2">The Second Enumerable</param>
 	/// <returns>Enumerable</returns>
 	private static BadObject Concat(BadExecutionContext ctx, IBadEnumerable e1, IBadEnumerable e2)
-	{
-		return new BadInteropEnumerable(e1.Concat(e2));
-	}
+    {
+        return new BadInteropEnumerable(e1.Concat(e2));
+    }
 
 	/// <summary>
 	///     Checks if all elements match the given filter
@@ -227,9 +227,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="filter">The Filter Function</param>
 	/// <returns>True if all elements satisfy the filter</returns>
 	private static BadObject All(BadExecutionContext ctx, IBadEnumerable e, BadFunction filter)
-	{
-		return e.All(x => Invoke<bool>(filter, ctx, x));
-	}
+    {
+        return e.All(x => Invoke<bool>(filter, ctx, x));
+    }
 
 	/// <summary>
 	///     Counts all Elements
@@ -243,19 +243,19 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <returns>Number of Elements in the Enumerable</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the predicate is not null but also not a function</exception>
 	private static BadObject Count(BadExecutionContext ctx, IBadEnumerable e, BadObject predicate)
-	{
-		if (predicate == BadObject.Null)
-		{
-			return e.Count();
-		}
+    {
+        if (predicate == BadObject.Null)
+        {
+            return e.Count();
+        }
 
-		if (predicate is BadFunction func)
-		{
-			return e.Count(x => Invoke<bool>(func, ctx, x));
-		}
+        if (predicate is BadFunction func)
+        {
+            return e.Count(x => Invoke<bool>(func, ctx, x));
+        }
 
-		throw new BadRuntimeException("Invalid Predicate");
-	}
+        throw new BadRuntimeException("Invalid Predicate");
+    }
 
 	/// <summary>
 	///     Implementation for 'ElementAt' function.
@@ -265,9 +265,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="index">Index of the element to return</param>
 	/// <returns>The element at the index</returns>
 	private static BadObject ElementAt(BadExecutionContext ctx, IBadEnumerable e, decimal index)
-	{
-		return e.ElementAt((int)index);
-	}
+    {
+        return e.ElementAt((int)index);
+    }
 
 	/// <summary>
 	///     Implementation for 'ElementAtOrDefault' function.
@@ -277,9 +277,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="index">Index of the element to return</param>
 	/// <returns>The element at the index or BadObject.Null</returns>
 	private static BadObject ElementAtOrDefault(BadExecutionContext ctx, IBadEnumerable e, decimal index)
-	{
-		return e.ElementAtOrDefault((int)index) ?? BadObject.Null;
-	}
+    {
+        return e.ElementAtOrDefault((int)index) ?? BadObject.Null;
+    }
 
 	/// <summary>
 	///     Implementation for 'ToTable' function.
@@ -290,13 +290,13 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="valueSelector">Value Selector Function</param>
 	/// <returns>Bad Table</returns>
 	private static BadObject ToTable(
-		BadExecutionContext ctx,
-		IBadEnumerable e,
-		BadFunction keySelector,
-		BadFunction valueSelector)
-	{
-		return new BadTable(e.ToDictionary(v => Invoke(keySelector, ctx, v), v => Invoke(valueSelector, ctx, v)));
-	}
+        BadExecutionContext ctx,
+        IBadEnumerable e,
+        BadFunction keySelector,
+        BadFunction valueSelector)
+    {
+        return new BadTable(e.ToDictionary(v => Invoke(keySelector, ctx, v), v => Invoke(valueSelector, ctx, v)));
+    }
 
 
 	/// <summary>
@@ -307,9 +307,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="index">The Amount of items to skip</param>
 	/// <returns>Enumeration</returns>
 	private static BadObject Skip(BadExecutionContext ctx, IBadEnumerable e, decimal index)
-	{
-		return new BadInteropEnumerable(e.Skip((int)index));
-	}
+    {
+        return new BadInteropEnumerable(e.Skip((int)index));
+    }
 
 	/// <summary>
 	///     Implementation for 'Take' function.
@@ -319,9 +319,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="index">The Amount of items to take</param>
 	/// <returns>Enumeration</returns>
 	private static BadObject Take(BadExecutionContext ctx, IBadEnumerable e, decimal index)
-	{
-		return new BadInteropEnumerable(e.Take((int)index));
-	}
+    {
+        return new BadInteropEnumerable(e.Take((int)index));
+    }
 
 	/// <summary>
 	///     Implementation for 'SkipLast' function.
@@ -331,9 +331,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="index">The Amount of items to skip</param>
 	/// <returns>Enumeration</returns>
 	private static BadObject SkipLast(BadExecutionContext ctx, IBadEnumerable e, decimal index)
-	{
-		return new BadInteropEnumerable(e.SkipLast((int)index));
-	}
+    {
+        return new BadInteropEnumerable(e.SkipLast((int)index));
+    }
 
 	/// <summary>
 	///     Implementation for 'ToArray' function.
@@ -341,9 +341,9 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="e">The Enumerable</param>
 	/// <returns>BadArray</returns>
 	private static BadObject ToArray(IBadEnumerable e)
-	{
-		return new BadArray(e.ToList());
-	}
+    {
+        return new BadArray(e.ToList());
+    }
 
 	/// <summary>
 	///     Implementation for 'Reverse' function.
@@ -351,126 +351,164 @@ public class BadLinqExtensions : BadInteropExtension
 	/// <param name="e">The Enumerable</param>
 	/// <returns>Enumeration</returns>
 	private static BadObject Reverse(IBadEnumerable e)
-	{
-		return new BadInteropEnumerable(e.Reverse());
-	}
+    {
+        return new BadInteropEnumerable(e.Reverse());
+    }
 
-	protected override void AddExtensions(BadInteropExtensionProvider provider)
-	{
-		Register(provider, "ToArray", (_, e) => ToArray(e), BadNativeClassBuilder.GetNative("Array"));
-		Register(provider, "Reverse", (_, e) => Reverse(e), BadAnyPrototype.Instance);
-		Register<BadFunction>(provider, "Select", Select, BadAnyPrototype.Instance);
-		Register<BadFunction>(provider, "Where", Where, BadAnyPrototype.Instance);
-		Register<BadFunction>(provider, "All", All, BadNativeClassBuilder.GetNative("bool"));
-		Register<BadObject>(provider, "Append", Append, BadAnyPrototype.Instance);
-		Register<IBadEnumerable>(provider, "Concat", Concat, BadAnyPrototype.Instance);
-		Register<decimal>(provider, "ElementAt", ElementAt, BadAnyPrototype.Instance);
-		Register<decimal>(provider, "ElementAtOrDefault", ElementAtOrDefault, BadAnyPrototype.Instance);
-		Register<decimal>(provider, "Skip", Skip, BadAnyPrototype.Instance);
-		Register<decimal>(provider, "SkipLast", SkipLast, BadAnyPrototype.Instance);
-		Register<decimal>(provider, "Take", Take, BadAnyPrototype.Instance);
-		Register<BadFunction>(provider, "OrderBy", OrderBy, BadAnyPrototype.Instance);
-		provider.RegisterObject<IBadEnumerable>("First",
-			e => new BadInteropFunction("First",
-				(c, args) => First(c, e, args[0]),
-				false,
-				BadAnyPrototype.Instance,
-				new BadFunctionParameter("selector", true, false, false, null)));
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
+    {
+        Register(provider, "ToArray", (_, e) => ToArray(e), BadNativeClassBuilder.GetNative("Array"));
+        Register(provider, "Reverse", (_, e) => Reverse(e), BadAnyPrototype.Instance);
+        Register<BadFunction>(provider, "Select", Select, BadAnyPrototype.Instance);
+        Register<BadFunction>(provider, "Where", Where, BadAnyPrototype.Instance);
+        Register<BadFunction>(provider, "All", All, BadNativeClassBuilder.GetNative("bool"));
+        Register<BadObject>(provider, "Append", Append, BadAnyPrototype.Instance);
+        Register<IBadEnumerable>(provider, "Concat", Concat, BadAnyPrototype.Instance);
+        Register<decimal>(provider, "ElementAt", ElementAt, BadAnyPrototype.Instance);
+        Register<decimal>(provider, "ElementAtOrDefault", ElementAtOrDefault, BadAnyPrototype.Instance);
+        Register<decimal>(provider, "Skip", Skip, BadAnyPrototype.Instance);
+        Register<decimal>(provider, "SkipLast", SkipLast, BadAnyPrototype.Instance);
+        Register<decimal>(provider, "Take", Take, BadAnyPrototype.Instance);
+        Register<BadFunction>(provider, "OrderBy", OrderBy, BadAnyPrototype.Instance);
+        provider.RegisterObject<IBadEnumerable>(
+            "First",
+            e => new BadInteropFunction(
+                "First",
+                (c, args) => First(c, e, args[0]),
+                false,
+                BadAnyPrototype.Instance,
+                new BadFunctionParameter("selector", true, false, false, null)
+            )
+        );
 
-		provider.RegisterObject<IBadEnumerable>("FirstOrDefault",
-			e => new BadInteropFunction("FirstOrDefault",
-				(c, args) => FirstOrDefault(c, e, args[0]),
-				false,
-				BadAnyPrototype.Instance,
-				new BadFunctionParameter("selector", true, false, false, null)));
+        provider.RegisterObject<IBadEnumerable>(
+            "FirstOrDefault",
+            e => new BadInteropFunction(
+                "FirstOrDefault",
+                (c, args) => FirstOrDefault(c, e, args[0]),
+                false,
+                BadAnyPrototype.Instance,
+                new BadFunctionParameter("selector", true, false, false, null)
+            )
+        );
 
-		provider.RegisterObject<IBadEnumerable>("Last",
-			e => new BadInteropFunction("Last",
-				(c, args) => Last(c, e, args[0]),
-				false,
-				BadAnyPrototype.Instance,
-				new BadFunctionParameter("selector", true, false, false, null)));
+        provider.RegisterObject<IBadEnumerable>(
+            "Last",
+            e => new BadInteropFunction(
+                "Last",
+                (c, args) => Last(c, e, args[0]),
+                false,
+                BadAnyPrototype.Instance,
+                new BadFunctionParameter("selector", true, false, false, null)
+            )
+        );
 
-		provider.RegisterObject<IBadEnumerable>("LastOrDefault",
-			e => new BadInteropFunction("LastOrDefault",
-				(c, args) => LastOrDefault(c, e, args[0]),
-				false,
-				BadAnyPrototype.Instance,
-				new BadFunctionParameter("selector", true, false, false, null)));
-		provider.RegisterObject<IBadEnumerable>("Any",
-			e => new BadInteropFunction("Any",
-				(c, args) => Any(c, e, args[0]),
-				false,
-				BadNativeClassBuilder.GetNative("bool"),
-				new BadFunctionParameter("filter", true, false, false, null)));
-		provider.RegisterObject<IBadEnumerable>("Count",
-			e => new BadInteropFunction("Count",
-				(c, args) => Count(c, e, args[0]),
-				false,
-				BadNativeClassBuilder.GetNative("num"),
-				new BadFunctionParameter("predicate", true, false, false, null)));
+        provider.RegisterObject<IBadEnumerable>(
+            "LastOrDefault",
+            e => new BadInteropFunction(
+                "LastOrDefault",
+                (c, args) => LastOrDefault(c, e, args[0]),
+                false,
+                BadAnyPrototype.Instance,
+                new BadFunctionParameter("selector", true, false, false, null)
+            )
+        );
+        provider.RegisterObject<IBadEnumerable>(
+            "Any",
+            e => new BadInteropFunction(
+                "Any",
+                (c, args) => Any(c, e, args[0]),
+                false,
+                BadNativeClassBuilder.GetNative("bool"),
+                new BadFunctionParameter("filter", true, false, false, null)
+            )
+        );
+        provider.RegisterObject<IBadEnumerable>(
+            "Count",
+            e => new BadInteropFunction(
+                "Count",
+                (c, args) => Count(c, e, args[0]),
+                false,
+                BadNativeClassBuilder.GetNative("num"),
+                new BadFunctionParameter("predicate", true, false, false, null)
+            )
+        );
 
-		provider.RegisterObject<IBadEnumerable>("ToTable",
-			e => new BadDynamicInteropFunction<BadFunction, BadFunction>("ToTable",
-				(c, ks, vs) => ToTable(c, e, ks, vs),
-				BadNativeClassBuilder.GetNative("Table")));
-	}
+        provider.RegisterObject<IBadEnumerable>(
+            "ToTable",
+            e => new BadDynamicInteropFunction<BadFunction, BadFunction>(
+                "ToTable",
+                (c, ks, vs) => ToTable(c, e, ks, vs),
+                BadNativeClassBuilder.GetNative("Table")
+            )
+        );
+    }
 
-	/// <summary>
-	///     Implementation for 'OrderBy' function.
-	/// </summary>
-	/// <param name="ctx">The Execution Context</param>
-	/// <param name="e">The Enumerable</param>
-	/// <param name="function">The Selector Function</param>
-	/// <returns>Enumeration</returns>
-	private BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
-	{
-		return new BadInteropEnumerable(e.OrderBy(o =>
-		{
-			BadObject? r = BadObject.Null;
+    /// <summary>
+    ///     Implementation for 'OrderBy' function.
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="e">The Enumerable</param>
+    /// <param name="function">The Selector Function</param>
+    /// <returns>Enumeration</returns>
+    private BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
+    {
+        return new BadInteropEnumerable(
+            e.OrderBy(
+                o =>
+                {
+                    BadObject? r = BadObject.Null;
 
-			foreach (BadObject o1 in function.Invoke(new[]
-				         {
-					         o,
-				         },
-				         ctx))
-			{
-				r = o1;
-			}
+                    foreach (BadObject o1 in function.Invoke(
+                                 new[]
+                                 {
+                                     o,
+                                 },
+                                 ctx
+                             ))
+                    {
+                        r = o1;
+                    }
 
-			return r.Dereference();
-		}));
-	}
+                    return r.Dereference();
+                }
+            )
+        );
+    }
 
-	/// <summary>
-	///     Shorthand Wrapper for RegisterObject.
-	///     Registers a Linq Function that takes a IBadEnumerable object and returns a BadObject.
-	/// </summary>
-	/// <param name="name">Name of the Function</param>
-	/// <param name="func">Function</param>
-	private static void Register(
-		BadInteropExtensionProvider provider,
-		string name,
-		Func<BadExecutionContext, IBadEnumerable, BadObject> func,
-		BadClassPrototype returnType)
-	{
-		provider.RegisterObject<IBadEnumerable>(name,
-			o => new BadDynamicInteropFunction(name, c => func(c, o), returnType));
-	}
+    /// <summary>
+    ///     Shorthand Wrapper for RegisterObject.
+    ///     Registers a Linq Function that takes a IBadEnumerable object and returns a BadObject.
+    /// </summary>
+    /// <param name="name">Name of the Function</param>
+    /// <param name="func">Function</param>
+    private static void Register(
+        BadInteropExtensionProvider provider,
+        string name,
+        Func<BadExecutionContext, IBadEnumerable, BadObject> func,
+        BadClassPrototype returnType)
+    {
+        provider.RegisterObject<IBadEnumerable>(
+            name,
+            o => new BadDynamicInteropFunction(name, c => func(c, o), returnType)
+        );
+    }
 
-	/// <summary>
-	///     Shorthand Wrapper for RegisterObject.
-	///     Registers a Linq Function that takes a IBadEnumerable object, an arbitrary object and returns a BadObject.
-	/// </summary>
-	/// <param name="name">Name of the Function</param>
-	/// <param name="func">Function</param>
-	private static void Register<T>(
-		BadInteropExtensionProvider provider,
-		string name,
-		Func<BadExecutionContext, IBadEnumerable, T, BadObject> func,
-		BadClassPrototype returnType)
-	{
-		provider.RegisterObject<IBadEnumerable>(name,
-			o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a), returnType));
-	}
+    /// <summary>
+    ///     Shorthand Wrapper for RegisterObject.
+    ///     Registers a Linq Function that takes a IBadEnumerable object, an arbitrary object and returns a BadObject.
+    /// </summary>
+    /// <param name="name">Name of the Function</param>
+    /// <param name="func">Function</param>
+    private static void Register<T>(
+        BadInteropExtensionProvider provider,
+        string name,
+        Func<BadExecutionContext, IBadEnumerable, T, BadObject> func,
+        BadClassPrototype returnType)
+    {
+        provider.RegisterObject<IBadEnumerable>(
+            name,
+            o => new BadDynamicInteropFunction<T>(name, (c, a) => func(c, o, a), returnType)
+        );
+    }
 }

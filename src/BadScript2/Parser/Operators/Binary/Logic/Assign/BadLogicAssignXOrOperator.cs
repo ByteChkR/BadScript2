@@ -13,10 +13,10 @@ public class BadLogicAssignXOrOperator : BadBinaryOperator
 	/// </summary>
 	public BadLogicAssignXOrOperator() : base(16, "^=", false) { }
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadLogicAssignXOrExpression(left, right, left.Position.Combine(right.Position));
-	}
+        return new BadLogicAssignXOrExpression(left, right, left.Position.Combine(right.Position));
+    }
 }

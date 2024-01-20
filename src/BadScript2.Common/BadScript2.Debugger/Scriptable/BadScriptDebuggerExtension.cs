@@ -17,52 +17,66 @@ namespace BadScript2.Debugger.Scriptable;
 /// </summary>
 public class BadScriptDebuggerExtension : BadInteropExtension
 {
-	protected override void AddExtensions(BadInteropExtensionProvider provider)
-	{
-		provider.RegisterObject<BadDebuggerStep>("Position", step => BadObject.Wrap(step.Position));
-		provider.RegisterObject<BadDebuggerStep>("Scope", step => step.Context.Scope);
-		provider.RegisterObject<BadDebuggerStep>("GetSourceView",
-			step => new BadDynamicInteropFunction<string[]>("GetSourceView",
-				(_, a) => GetSourceView(step, a.Select(int.Parse).ToArray()),
-				BadNativeClassBuilder.GetNative("string"),
-				new BadFunctionParameter("breakpointLines",
-					true,
-					true,
-					false,
-					null,
-					BadNativeClassBuilder.GetNative("Array"))));
-		provider.RegisterObject<BadDebuggerStep>("SourceView",
-			step => step.GetSourceView(Array.Empty<int>(), out int _, out int _));
-		provider.RegisterObject<BadDebuggerStep>("Line",
-			step =>
-			{
-				step.GetSourceView(Array.Empty<int>(), out int _, out int lineInSource);
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
+    {
+        provider.RegisterObject<BadDebuggerStep>("Position", step => BadObject.Wrap(step.Position));
+        provider.RegisterObject<BadDebuggerStep>("Scope", step => step.Context.Scope);
+        provider.RegisterObject<BadDebuggerStep>(
+            "GetSourceView",
+            step => new BadDynamicInteropFunction<string[]>(
+                "GetSourceView",
+                (_, a) => GetSourceView(step, a.Select(int.Parse).ToArray()),
+                BadNativeClassBuilder.GetNative("string"),
+                new BadFunctionParameter(
+                    "breakpointLines",
+                    true,
+                    true,
+                    false,
+                    null,
+                    BadNativeClassBuilder.GetNative("Array")
+                )
+            )
+        );
+        provider.RegisterObject<BadDebuggerStep>(
+            "SourceView",
+            step => step.GetSourceView(Array.Empty<int>(), out int _, out int _)
+        );
+        provider.RegisterObject<BadDebuggerStep>(
+            "Line",
+            step =>
+            {
+                step.GetSourceView(Array.Empty<int>(), out int _, out int lineInSource);
 
-				return lineInSource;
-			});
-		provider.RegisterObject<BadDebuggerStep>("Evaluate",
-			step => new BadDynamicInteropFunction<string>("Evaluate",
-				(_, s) =>
-				{
-					BadObject obj = BadObject.Null;
+                return lineInSource;
+            }
+        );
+        provider.RegisterObject<BadDebuggerStep>(
+            "Evaluate",
+            step => new BadDynamicInteropFunction<string>(
+                "Evaluate",
+                (_, s) =>
+                {
+                    BadObject obj = BadObject.Null;
 
-					foreach (BadObject o in step.Context.Execute(BadSourceParser.Create("<debugger>", s).Parse()))
-					{
-						obj = o;
-					}
+                    foreach (BadObject o in step.Context.Execute(BadSourceParser.Create("<debugger>", s).Parse()))
+                    {
+                        obj = o;
+                    }
 
-					return obj;
-				},
-				BadAnyPrototype.Instance));
+                    return obj;
+                },
+                BadAnyPrototype.Instance
+            )
+        );
 
-		provider.RegisterObject<BadSourcePosition>("Index", pos => pos.Index);
-		provider.RegisterObject<BadSourcePosition>("Length", pos => pos.Length);
-		provider.RegisterObject<BadSourcePosition>("FileName", pos => pos.FileName ?? BadObject.Null);
-		provider.RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
-	}
+        provider.RegisterObject<BadSourcePosition>("Index", pos => pos.Index);
+        provider.RegisterObject<BadSourcePosition>("Length", pos => pos.Length);
+        provider.RegisterObject<BadSourcePosition>("FileName", pos => pos.FileName ?? BadObject.Null);
+        provider.RegisterObject<BadSourcePosition>("Source", pos => pos.Source);
+    }
 
-	private BadObject GetSourceView(BadDebuggerStep step, int[] breakpoints)
-	{
-		return step.GetSourceView(breakpoints, out int _, out int _);
-	}
+    private BadObject GetSourceView(BadDebuggerStep step, int[] breakpoints)
+    {
+        return step.GetSourceView(breakpoints, out int _, out int _);
+    }
 }

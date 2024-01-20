@@ -14,11 +14,11 @@ public class BadBinaryUnpackOperator : BadBinaryOperator
 	/// </summary>
 	public BadBinaryUnpackOperator() : base(3, "...", false) { }
 
-	public override BadExpression Parse(BadExpression left, BadSourceParser parser)
-	{
-		parser.Reader.SkipNonToken();
-		BadExpression right = parser.ParseExpression(null, Precedence);
+    public override BadExpression Parse(BadExpression left, BadSourceParser parser)
+    {
+        parser.Reader.SkipNonToken();
+        BadExpression right = parser.ParseExpression(null, Precedence);
 
-		return new BadBinaryUnpackExpression(left, right, left.Position.Combine(right.Position));
-	}
+        return new BadBinaryUnpackExpression(left, right, left.Position.Combine(right.Position));
+    }
 }

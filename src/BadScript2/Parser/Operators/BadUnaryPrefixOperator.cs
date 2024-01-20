@@ -13,9 +13,11 @@ public abstract class BadUnaryPrefixOperator : BadOperator
 	/// <param name="precedence">The Operator precedence</param>
 	/// <param name="symbol">The Operator Symbol</param>
 	/// &lt;param name="isLeftAssociative"&gt;Set to true if the Operator needs to be evaluated left to right&lt;/param&gt;
-	protected BadUnaryPrefixOperator(int precedence, string symbol, bool isLeftAssociative = true) : base(precedence,
-		symbol,
-		isLeftAssociative) { }
+	protected BadUnaryPrefixOperator(int precedence, string symbol, bool isLeftAssociative = true) : base(
+        precedence,
+        symbol,
+        isLeftAssociative
+    ) { }
 
 	/// <summary>
 	///     Parses the Operator and returns the resulting Expression

@@ -13,52 +13,60 @@ namespace BadScript2.Interop.Common.Extensions;
 
 public class BadNumberExtension : BadInteropExtension
 {
-	private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
+    private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
 
-	private static BadObject NumberToString(BadExecutionContext ctx, decimal d, BadObject[] args)
-	{
-		if (args.Length == 0)
-		{
-			return d.ToString();
-		}
+    private static BadObject NumberToString(BadExecutionContext ctx, decimal d, BadObject[] args)
+    {
+        if (args.Length == 0)
+        {
+            return d.ToString();
+        }
 
-		IBadString format = (IBadString)args[0]; //Type is checked in the function builder
+        IBadString format = (IBadString)args[0]; //Type is checked in the function builder
 
-		if (args.Length == 1)
-		{
-			return d.ToString(format.Value);
-		}
+        if (args.Length == 1)
+        {
+            return d.ToString(format.Value);
+        }
 
-		if (args.Length != 2)
-		{
-			throw new BadRuntimeException("Invalid number of arguments");
-		}
+        if (args.Length != 2)
+        {
+            throw new BadRuntimeException("Invalid number of arguments");
+        }
 
-		IBadString culture = (IBadString)args[1]; //Type is checked in the function builder
+        IBadString culture = (IBadString)args[1]; //Type is checked in the function builder
 
-		if (!s_Cultures.TryGetValue(culture.Value,
-			    out CultureInfo? cultureInfo)) //Cache Culture info to avoid creating it every time
-		{
-			cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
-			s_Cultures.Add(culture.Value, cultureInfo);
-		}
+        if (!s_Cultures.TryGetValue(
+                culture.Value,
+                out CultureInfo? cultureInfo
+            )) //Cache Culture info to avoid creating it every time
+        {
+            cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
+            s_Cultures.Add(culture.Value, cultureInfo);
+        }
 
-		return d.ToString(format.Value, cultureInfo);
-	}
+        return d.ToString(format.Value, cultureInfo);
+    }
 
-	protected override void AddExtensions(BadInteropExtensionProvider provider)
-	{
-		provider.RegisterObject<decimal>("ToString",
-			d => new BadInteropFunction("ToString",
-				(c, a) => NumberToString(c, d, a),
-				false,
-				BadNativeClassBuilder.GetNative("string"),
-				new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),
-				new BadFunctionParameter("culture",
-					true,
-					true,
-					false,
-					null,
-					BadNativeClassBuilder.GetNative("string"))));
-	}
+    protected override void AddExtensions(BadInteropExtensionProvider provider)
+    {
+        provider.RegisterObject<decimal>(
+            "ToString",
+            d => new BadInteropFunction(
+                "ToString",
+                (c, a) => NumberToString(c, d, a),
+                false,
+                BadNativeClassBuilder.GetNative("string"),
+                new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),
+                new BadFunctionParameter(
+                    "culture",
+                    true,
+                    true,
+                    false,
+                    null,
+                    BadNativeClassBuilder.GetNative("string")
+                )
+            )
+        );
+    }
 }

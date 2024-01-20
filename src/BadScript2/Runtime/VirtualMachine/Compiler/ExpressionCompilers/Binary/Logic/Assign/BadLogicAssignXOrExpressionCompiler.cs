@@ -5,10 +5,10 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadLogicAssignXOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogicAssignXOrExpression>
 {
-	public override IEnumerable<BadInstruction> CompileBinary(
-		BadCompiler compiler,
-		BadLogicAssignXOrExpression expression)
-	{
-		yield return new BadInstruction(BadOpCode.XOrAssign, expression.Position);
-	}
+    public override IEnumerable<BadInstruction> CompileBinary(
+        BadCompiler compiler,
+        BadLogicAssignXOrExpression expression)
+    {
+        yield return new BadInstruction(BadOpCode.XOrAssign, expression.Position);
+    }
 }

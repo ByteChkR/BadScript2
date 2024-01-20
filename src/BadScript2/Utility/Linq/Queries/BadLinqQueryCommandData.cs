@@ -13,10 +13,10 @@ public class BadLinqQueryCommandData
 	/// <param name="data">The Data</param>
 	/// <param name="argument">The Argument</param>
 	public BadLinqQueryCommandData(IEnumerable data, string? argument = null)
-	{
-		Data = data;
-		Argument = argument;
-	}
+    {
+        Data = data;
+        Argument = argument;
+    }
 
 	/// <summary>
 	///     The Data.

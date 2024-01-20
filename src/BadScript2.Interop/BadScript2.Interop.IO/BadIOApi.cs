@@ -15,30 +15,30 @@ namespace BadScript2.Interop.IO;
 /// </summary>
 public class BadIOApi : BadInteropApi
 {
-	/// <summary>
-	///     The FileSystem Instance
-	/// </summary>
-	private readonly IFileSystem m_FileSystem;
+    /// <summary>
+    ///     The FileSystem Instance
+    /// </summary>
+    private readonly IFileSystem m_FileSystem;
 
-	/// <summary>
-	///     Creates a new API Instance
-	/// </summary>
-	public BadIOApi() : this(BadFileSystem.Instance) { }
+    /// <summary>
+    ///     Creates a new API Instance
+    /// </summary>
+    public BadIOApi() : this(BadFileSystem.Instance) { }
 
-	/// <summary>
-	///     Creates a new API Instance
-	/// </summary>
-	/// <param name="fileSystem">File System Instance</param>
-	public BadIOApi(IFileSystem fileSystem) : base("IO")
+    /// <summary>
+    ///     Creates a new API Instance
+    /// </summary>
+    /// <param name="fileSystem">File System Instance</param>
+    public BadIOApi(IFileSystem fileSystem) : base("IO")
     {
         m_FileSystem = fileSystem;
     }
 
-	/// <summary>
-	///     Creates the "Path" Table
-	/// </summary>
-	/// <returns>Table</returns>
-	private BadTable CreatePath()
+    /// <summary>
+    ///     Creates the "Path" Table
+    /// </summary>
+    /// <returns>Table</returns>
+    private BadTable CreatePath()
     {
         BadTable t = new BadTable();
 
@@ -87,12 +87,12 @@ public class BadIOApi : BadInteropApi
         return t;
     }
 
-	/// <summary>
-	///     Combines the given paths
-	/// </summary>
-	/// <param name="arg">Paths</param>
-	/// <returns>Combined Path String</returns>
-	private BadObject Combine(BadObject[] arg)
+    /// <summary>
+    ///     Combines the given paths
+    /// </summary>
+    /// <param name="arg">Paths</param>
+    /// <returns>Combined Path String</returns>
+    private BadObject Combine(BadObject[] arg)
     {
         return Path.Combine(arg.Select(x => x.ToString()!).ToArray());
     }

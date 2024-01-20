@@ -19,86 +19,88 @@ namespace BadScript2.ConsoleCore.Systems.Run;
 /// </summary>
 public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 {
-	public BadRunSystem(BadRuntime runtime) : base(runtime) { }
+    public BadRunSystem(BadRuntime runtime) : base(runtime) { }
 
-	/// <summary>
-	///     The Startup Directory where all containing scripts will be loaded at every execution
-	/// </summary>
-	/// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
-	private string StartupDirectory
-	{
-		get
-		{
-			string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Run.StartupDirectory");
+    /// <summary>
+    ///     The Startup Directory where all containing scripts will be loaded at every execution
+    /// </summary>
+    /// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
+    private string StartupDirectory
+    {
+        get
+        {
+            string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Run.StartupDirectory");
 
-			if (s == null)
-			{
-				throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
-			}
+            if (s == null)
+            {
+                throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
+            }
 
-			BadFileSystem.Instance.CreateDirectory(s);
+            BadFileSystem.Instance.CreateDirectory(s);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public override string Name => "run";
+    public override string Name => "run";
 
 
-	protected override int Run(BadRunSystemSettings settings)
-	{
-		BadNetworkConsoleHost? host = null;
+    protected override int Run(BadRunSystemSettings settings)
+    {
+        BadNetworkConsoleHost? host = null;
 
-		if (settings.RemotePort != -1)
-		{
-			host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
-			host.Start();
-			Runtime.UseConsole(host);
-		}
+        if (settings.RemotePort != -1)
+        {
+            host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
+            host.Start();
+            Runtime.UseConsole(host);
+        }
 
-		Runtime.UseStartupArguments(settings.Args);
-		IEnumerable<string> files = BadFileSystem.Instance.GetFiles(StartupDirectory,
-				$".{BadRuntimeSettings.Instance.FileExtension}",
-				true)
-			.Concat(settings.Files);
+        Runtime.UseStartupArguments(settings.Args);
+        IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
+                StartupDirectory,
+                $".{BadRuntimeSettings.Instance.FileExtension}",
+                true
+            )
+            .Concat(settings.Files);
 
-		if (settings.Interactive)
-		{
-			if (settings.Benchmark)
-			{
-				BadLogger.Warn("Benchmarking is not supported in interactive mode");
-			}
+        if (settings.Interactive)
+        {
+            if (settings.Benchmark)
+            {
+                BadLogger.Warn("Benchmarking is not supported in interactive mode");
+            }
 
-			Runtime.RunInteractive(files);
+            Runtime.RunInteractive(files);
 
-			return 0;
-		}
+            return 0;
+        }
 
-		Stopwatch? sw = null;
+        Stopwatch? sw = null;
 
-		if (settings.Benchmark)
-		{
-			sw = Stopwatch.StartNew();
-		}
+        if (settings.Benchmark)
+        {
+            sw = Stopwatch.StartNew();
+        }
 
-		if (settings.Debug)
-		{
-			Runtime.UseScriptDebugger();
-		}
+        if (settings.Debug)
+        {
+            Runtime.UseScriptDebugger();
+        }
 
-		foreach (string file in files)
-		{
-			Runtime.ExecuteFile(file);
-		}
+        foreach (string file in files)
+        {
+            Runtime.ExecuteFile(file);
+        }
 
-		if (settings.Benchmark)
-		{
-			sw?.Stop();
-			BadLogger.Log($"Execution Time: {sw?.ElapsedMilliseconds ?? 0}ms", "Benchmark");
-		}
+        if (settings.Benchmark)
+        {
+            sw?.Stop();
+            BadLogger.Log($"Execution Time: {sw?.ElapsedMilliseconds ?? 0}ms", "Benchmark");
+        }
 
-		host?.Stop();
+        host?.Stop();
 
-		return 0;
-	}
+        return 0;
+    }
 }

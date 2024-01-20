@@ -7,10 +7,10 @@ namespace BadScript2.Utility.Linq.Queries.Commands;
 /// </summary>
 internal class BadLinqQueryWhereCommand : BadLinqQueryCommand
 {
-	public BadLinqQueryWhereCommand() : base(true, false, "Where") { }
+    public BadLinqQueryWhereCommand() : base(true, false, "Where") { }
 
-	public override IEnumerable Run(BadLinqQueryCommandData data)
-	{
-		return data.Data.Where(data.Argument!);
-	}
+    public override IEnumerable Run(BadLinqQueryCommandData data)
+    {
+        return data.Data.Where(data.Argument!);
+    }
 }

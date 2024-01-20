@@ -5,13 +5,13 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadPostIncrementExpressionCompiler : BadExpressionCompiler<BadPostIncrementExpression>
 {
-	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadPostIncrementExpression expression)
-	{
-		foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-		{
-			yield return instruction;
-		}
+    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadPostIncrementExpression expression)
+    {
+        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
+        {
+            yield return instruction;
+        }
 
-		yield return new BadInstruction(BadOpCode.PostInc, expression.Position);
-	}
+        yield return new BadInstruction(BadOpCode.PostInc, expression.Position);
+    }
 }

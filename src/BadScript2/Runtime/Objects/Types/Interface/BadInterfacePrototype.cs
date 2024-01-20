@@ -1,9 +1,5 @@
-using BadScript2.Common;
 using BadScript2.Parser;
-using BadScript2.Parser.Expressions.Types;
-using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.Error;
-using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.Objects.Types.Interface;
 
@@ -12,66 +8,67 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 /// </summary>
 public class BadInterfacePrototype : BadClassPrototype
 {
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>(
+        "Interface",
+        (_, _) => throw new BadRuntimeException("Interfaces cannot be extended")
+    );
 
-	
+    /// <summary>
+    ///     Backing Function of the Constraints Property
+    /// </summary>
+    private readonly Func<BadInterfaceConstraint[]> m_ConstraintsFunc;
 
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>("Interface",
-		(_, _) => throw new BadRuntimeException("Interfaces cannot be extended"));
+    /// <summary>
+    ///     The Constraints of this Interface
+    /// </summary>
+    private BadInterfaceConstraint[]? m_Constraints;
 
-	/// <summary>
-	///     Backing Function of the Constraints Property
-	/// </summary>
-	private readonly Func<BadInterfaceConstraint[]> m_ConstraintsFunc;
+    /// <summary>
+    ///     Creates a new Interface Prototype
+    /// </summary>
+    /// <param name="name">The Name of the Interface</param>
+    /// <param name="interfaces">The Interfaces this Interface extends</param>
+    /// <param name="metaData">The Meta Data of the Interface</param>
+    /// <param name="constraints">The Constraints of the Interface</param>
+    public BadInterfacePrototype(
+        string name,
+        BadInterfacePrototype[] interfaces,
+        BadMetaData? metaData,
+        Func<BadInterfaceConstraint[]> constraints) : base(
+        name,
+        null,
+        interfaces,
+        metaData
+    )
+    {
+        m_ConstraintsFunc = constraints;
+    }
 
-	/// <summary>
-	///     The Constraints of this Interface
-	/// </summary>
-	private BadInterfaceConstraint[]? m_Constraints;
+    public override bool IsAbstract { get; } = true;
 
-	/// <summary>
-	///     Creates a new Interface Prototype
-	/// </summary>
-	/// <param name="name">The Name of the Interface</param>
-	/// <param name="interfaces">The Interfaces this Interface extends</param>
-	/// <param name="metaData">The Meta Data of the Interface</param>
-	/// <param name="constraints">The Constraints of the Interface</param>
-	public BadInterfacePrototype(
-		string name,
-		BadInterfacePrototype[] interfaces,
-		BadMetaData? metaData,
-		Func<BadInterfaceConstraint[]> constraints) : base(name,
-		null,
-		interfaces,
-		metaData)
-	{
-		m_ConstraintsFunc = constraints;
-	}
+    /// <summary>
+    ///     The Constraints of this Interface
+    /// </summary>
+    public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
 
-	public override bool IsAbstract { get; } = true;
+    public override BadClassPrototype GetPrototype()
+    {
+        return s_Prototype;
+    }
 
-	/// <summary>
-	///     The Constraints of this Interface
-	/// </summary>
-	public IReadOnlyCollection<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc();
+    public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
+    {
+        throw BadRuntimeException.Create(caller.Scope, "Interfaces cannot be instantiated");
+    }
 
-	public override BadClassPrototype GetPrototype()
-	{
-		return s_Prototype;
-	}
-
-	public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
-	{
-		throw BadRuntimeException.Create(caller.Scope, "Interfaces cannot be instantiated");
-	}
-
-	public override bool IsSuperClassOf(BadClassPrototype proto)
-	{
-		return base.IsSuperClassOf(proto) || proto.Interfaces.Any(IsSuperClassOf);
-	}
+    public override bool IsSuperClassOf(BadClassPrototype proto)
+    {
+        return base.IsSuperClassOf(proto) || proto.Interfaces.Any(IsSuperClassOf);
+    }
 
 
-	public override string ToSafeString(List<BadObject> done)
-	{
-		return $"interface {Name}";
-	}
+    public override string ToSafeString(List<BadObject> done)
+    {
+        return $"interface {Name}";
+    }
 }

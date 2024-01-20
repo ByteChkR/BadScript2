@@ -7,10 +7,10 @@ namespace BadScript2.Utility.Linq.Queries.Commands;
 /// </summary>
 internal class BadLinqQuerySkipWhileCommand : BadLinqQueryCommand
 {
-	public BadLinqQuerySkipWhileCommand() : base(true, false, "SkipWhile") { }
+    public BadLinqQuerySkipWhileCommand() : base(true, false, "SkipWhile") { }
 
-	public override IEnumerable Run(BadLinqQueryCommandData data)
-	{
-		return data.Data.SkipWhile(data.Argument!);
-	}
+    public override IEnumerable Run(BadLinqQueryCommandData data)
+    {
+        return data.Data.SkipWhile(data.Argument!);
+    }
 }

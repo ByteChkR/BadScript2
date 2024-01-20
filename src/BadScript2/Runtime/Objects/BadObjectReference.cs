@@ -35,91 +35,91 @@ public abstract class BadObjectReference : BadObject
 	/// <param name="delete">The Delete Function of the Reference</param>
 	/// <returns>Reference Instance</returns>
 	public static BadObjectReference Make(
-		string refText,
-		Func<BadObject> getter,
-		Action<BadObject, BadPropertyInfo?>? setter = null,
-		Action? delete = null)
-	{
-		return new BadObjectReferenceImpl(refText, getter, setter, delete);
-	}
+        string refText,
+        Func<BadObject> getter,
+        Action<BadObject, BadPropertyInfo?>? setter = null,
+        Action? delete = null)
+    {
+        return new BadObjectReferenceImpl(refText, getter, setter, delete);
+    }
 
 	/// <summary>
 	///     Implements a Reference Object
 	/// </summary>
 	private class BadObjectReferenceImpl : BadObjectReference
-	{
-		/// <summary>
-		///     Deletes the Reference from the Referenced Object
-		/// </summary>
-		private readonly Action? m_Delete;
+    {
+	    /// <summary>
+	    ///     Deletes the Reference from the Referenced Object
+	    /// </summary>
+	    private readonly Action? m_Delete;
 
-		/// <summary>
-		///     The Getter of the Reference
-		/// </summary>
-		private readonly Func<BadObject> m_Getter;
+	    /// <summary>
+	    ///     The Getter of the Reference
+	    /// </summary>
+	    private readonly Func<BadObject> m_Getter;
 
-		/// <summary>
-		///     The Debug Text
-		/// </summary>
-		private readonly string m_RefText;
+	    /// <summary>
+	    ///     The Debug Text
+	    /// </summary>
+	    private readonly string m_RefText;
 
-		/// <summary>
-		///     The Setter of the Reference
-		/// </summary>
-		private readonly Action<BadObject, BadPropertyInfo?>? m_Setter;
+	    /// <summary>
+	    ///     The Setter of the Reference
+	    /// </summary>
+	    private readonly Action<BadObject, BadPropertyInfo?>? m_Setter;
 
-		/// <summary>
-		///     Creates a new Reference Object
-		/// </summary>
-		/// <param name="refText">The Reference Debug Text</param>
-		/// <param name="getter">Getter of the Reference</param>
-		/// <param name="setter">Setter of the Reference</param>
-		/// <param name="delete">The Delete Function of the Reference</param>
-		public BadObjectReferenceImpl(
-			string refText,
-			Func<BadObject> getter,
-			Action<BadObject, BadPropertyInfo?>? setter,
-			Action? delete)
-		{
-			m_Getter = getter;
-			m_Setter = setter;
-			m_Delete = delete;
-			m_RefText = refText;
-		}
+	    /// <summary>
+	    ///     Creates a new Reference Object
+	    /// </summary>
+	    /// <param name="refText">The Reference Debug Text</param>
+	    /// <param name="getter">Getter of the Reference</param>
+	    /// <param name="setter">Setter of the Reference</param>
+	    /// <param name="delete">The Delete Function of the Reference</param>
+	    public BadObjectReferenceImpl(
+            string refText,
+            Func<BadObject> getter,
+            Action<BadObject, BadPropertyInfo?>? setter,
+            Action? delete)
+        {
+            m_Getter = getter;
+            m_Setter = setter;
+            m_Delete = delete;
+            m_RefText = refText;
+        }
 
-		public override BadClassPrototype GetPrototype()
-		{
-			return m_Getter().GetPrototype();
-		}
+        public override BadClassPrototype GetPrototype()
+        {
+            return m_Getter().GetPrototype();
+        }
 
-		public override BadObject Resolve()
-		{
-			return m_Getter();
-		}
+        public override BadObject Resolve()
+        {
+            return m_Getter();
+        }
 
-		public override void Set(BadObject obj, BadPropertyInfo? info = null)
-		{
-			if (m_Setter == null)
-			{
-				throw new BadRuntimeException("Cannot set reference " + m_RefText + " because it is read-only");
-			}
+        public override void Set(BadObject obj, BadPropertyInfo? info = null)
+        {
+            if (m_Setter == null)
+            {
+                throw new BadRuntimeException("Cannot set reference " + m_RefText + " because it is read-only");
+            }
 
-			m_Setter(obj, info ?? new BadPropertyInfo(BadAnyPrototype.Instance));
-		}
+            m_Setter(obj, info ?? new BadPropertyInfo(BadAnyPrototype.Instance));
+        }
 
-		public override string ToSafeString(List<BadObject> done)
-		{
-			return m_RefText;
-		}
+        public override string ToSafeString(List<BadObject> done)
+        {
+            return m_RefText;
+        }
 
-		public override void Delete()
-		{
-			if (m_Delete == null)
-			{
-				throw new BadRuntimeException("Cannot set delete " + m_RefText + " because it is read-only");
-			}
+        public override void Delete()
+        {
+            if (m_Delete == null)
+            {
+                throw new BadRuntimeException("Cannot set delete " + m_RefText + " because it is read-only");
+            }
 
-			m_Delete.Invoke();
-		}
-	}
+            m_Delete.Invoke();
+        }
+    }
 }

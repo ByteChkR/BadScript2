@@ -32,17 +32,17 @@ internal static class BadProgram
 	///     Loads the Settings
 	/// </summary>
 	private static BadRuntime LoadConsoleSettings(this BadRuntime runtime)
-	{
-		BadSettings consoleSettings = new BadSettings();
-		string rootDir = BadFileSystem.Instance.GetStartupDirectory();
-		rootDir = rootDir.Remove(rootDir.Length - 1, 1);
+    {
+        BadSettings consoleSettings = new BadSettings();
+        string rootDir = BadFileSystem.Instance.GetStartupDirectory();
+        rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
-		consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
-		consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
-		BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
+        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
+        consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
+        BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
 
-		return runtime.LoadSettings(Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE));
-	}
+        return runtime.LoadSettings(Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE));
+    }
 
 
 	/// <summary>
@@ -51,45 +51,47 @@ internal static class BadProgram
 	/// <param name="args">Commandline Arguments</param>
 	/// <returns>Return Code</returns>
 	private static int Main(string[] args)
-	{
-		BadLogMask mask = BadLogMask.None;
+    {
+        BadLogMask mask = BadLogMask.None;
 
-		if (args.Contains("--logmask"))
-		{
-			int idx = Array.IndexOf(args, "--logmask");
+        if (args.Contains("--logmask"))
+        {
+            int idx = Array.IndexOf(args, "--logmask");
 
-			if (idx + 1 < args.Length)
-			{
-				string maskStr = args[idx + 1];
-				mask = BadLogMask.GetMask(maskStr.Split(';').Select(x => (BadLogMask)x).ToArray());
-				args = args.Where((_, i) => i != idx && i != idx + 1).ToArray();
-			}
-		}
+            if (idx + 1 < args.Length)
+            {
+                string maskStr = args[idx + 1];
+                mask = BadLogMask.GetMask(maskStr.Split(';').Select(x => (BadLogMask)x).ToArray());
+                args = args.Where((_, i) => i != idx && i != idx + 1).ToArray();
+            }
+        }
 
-		using BadRuntime runtime = new BadRuntime()
-			.UseLogMask(mask)
-			.UseConsoleLogWriter()
-			.LoadConsoleSettings()
-			.UseCommonInterop()
-			.UseCompressionApi()
-			.UseFileSystemApi()
-			.UseHtmlApi()
-			.UseJsonApi()
-			.UseLinqApi()
-			.UseNetApi()
-			.UseNetHostApi();
-
-
-		BadConsoleRunner runner = new BadConsoleRunner(new BadDefaultRunSystem(runtime),
-			new BadTestSystem(runtime),
-			new BadRunSystem(runtime),
-			new BadSettingsSystem(runtime),
-			new BadHtmlSystem(runtime),
-			new BadRemoteConsoleSystem(runtime));
+        using BadRuntime runtime = new BadRuntime()
+            .UseLogMask(mask)
+            .UseConsoleLogWriter()
+            .LoadConsoleSettings()
+            .UseCommonInterop()
+            .UseCompressionApi()
+            .UseFileSystemApi()
+            .UseHtmlApi()
+            .UseJsonApi()
+            .UseLinqApi()
+            .UseNetApi()
+            .UseNetHostApi();
 
 
-		int r = runner.Run(args);
+        BadConsoleRunner runner = new BadConsoleRunner(
+            new BadDefaultRunSystem(runtime),
+            new BadTestSystem(runtime),
+            new BadRunSystem(runtime),
+            new BadSettingsSystem(runtime),
+            new BadHtmlSystem(runtime),
+            new BadRemoteConsoleSystem(runtime)
+        );
 
-		return r;
-	}
+
+        int r = runner.Run(args);
+
+        return r;
+    }
 }

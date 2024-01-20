@@ -23,219 +23,225 @@ public class BadFunctionExpression : BadExpression
 	private readonly List<BadExpression> m_Body;
 
 
-	private readonly BadMetaData? m_MetaData;
+    private readonly BadMetaData? m_MetaData;
 
-	/// <summary>
-	///     The Function parameters
-	/// </summary>
-	private readonly List<BadFunctionParameter> m_Parameters;
+    /// <summary>
+    ///     The Function parameters
+    /// </summary>
+    private readonly List<BadFunctionParameter> m_Parameters;
 
-	/// <summary>
-	///     Constructor of the Function Expression
-	/// </summary>
-	/// <param name="name">The (optional) name of the function</param>
-	/// <param name="parameter">The Function Parameters</param>
-	/// <param name="block">The Function Body</param>
-	/// <param name="position">Source Position of the Expression</param>
-	/// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
-	/// <param name="compileLevel">Defines if the resulting function will be compiled</param>
-	/// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
-	public BadFunctionExpression(
-		BadWordToken? name,
-		List<BadFunctionParameter> parameter,
-		List<BadExpression> block,
-		BadSourcePosition position,
-		bool isConstant,
-		BadMetaData? metaData,
-		bool isSingleLine,
-		bool isStatic,
-		BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
-		BadExpression? typeExpr = null) :
-		base(false, position)
-	{
-		Name = name;
-		m_Parameters = parameter;
-		m_Body = block;
-		TypeExpression = typeExpr;
-		IsConstantFunction = isConstant;
-		m_MetaData = metaData;
-		IsSingleLine = isSingleLine;
-		IsStatic = isStatic;
-		CompileLevel = compileLevel;
-	}
+    /// <summary>
+    ///     Constructor of the Function Expression
+    /// </summary>
+    /// <param name="name">The (optional) name of the function</param>
+    /// <param name="parameter">The Function Parameters</param>
+    /// <param name="block">The Function Body</param>
+    /// <param name="position">Source Position of the Expression</param>
+    /// <param name="isConstant">Indicates if this function can not be overwritten by another object</param>
+    /// <param name="compileLevel">Defines if the resulting function will be compiled</param>
+    /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
+    public BadFunctionExpression(
+        BadWordToken? name,
+        List<BadFunctionParameter> parameter,
+        List<BadExpression> block,
+        BadSourcePosition position,
+        bool isConstant,
+        BadMetaData? metaData,
+        bool isSingleLine,
+        bool isStatic,
+        BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
+        BadExpression? typeExpr = null) :
+        base(false, position)
+    {
+        Name = name;
+        m_Parameters = parameter;
+        m_Body = block;
+        TypeExpression = typeExpr;
+        IsConstantFunction = isConstant;
+        m_MetaData = metaData;
+        IsSingleLine = isSingleLine;
+        IsStatic = isStatic;
+        CompileLevel = compileLevel;
+    }
 
-	public bool IsSingleLine { get; }
+    public bool IsSingleLine { get; }
 
-	/// <summary>
-	///     Indicates if this function can not be overwritten by another object
-	/// </summary>
-	public bool IsConstantFunction { get; }
+    /// <summary>
+    ///     Indicates if this function can not be overwritten by another object
+    /// </summary>
+    public bool IsConstantFunction { get; }
 
-	public bool IsStatic { get; }
+    public bool IsStatic { get; }
 
-	/// <summary>
-	///     The (optional) Type Expression that is used to type-check the return value
-	/// </summary>
-	public BadExpression? TypeExpression { get; }
+    /// <summary>
+    ///     The (optional) Type Expression that is used to type-check the return value
+    /// </summary>
+    public BadExpression? TypeExpression { get; }
 
-	/// <summary>
-	///     The Function Parameters
-	/// </summary>
-	public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
+    /// <summary>
+    ///     The Function Parameters
+    /// </summary>
+    public IEnumerable<BadFunctionParameter> Parameters => m_Parameters;
 
-	/// <summary>
-	///     The Function Body
-	/// </summary>
-	public IEnumerable<BadExpression> Body => m_Body;
+    /// <summary>
+    ///     The Function Body
+    /// </summary>
+    public IEnumerable<BadExpression> Body => m_Body;
 
-	/// <summary>
-	///     The (optional) Function Name
-	/// </summary>
-	public BadWordToken? Name { get; }
+    /// <summary>
+    ///     The (optional) Function Name
+    /// </summary>
+    public BadWordToken? Name { get; }
 
-	public BadFunctionCompileLevel CompileLevel { get; private set; }
+    public BadFunctionCompileLevel CompileLevel { get; private set; }
 
-	public void SetCompileLevel(BadFunctionCompileLevel level)
-	{
-		CompileLevel = level;
-	}
+    public void SetCompileLevel(BadFunctionCompileLevel level)
+    {
+        CompileLevel = level;
+    }
 
-	public void SetBody(IEnumerable<BadExpression> body)
-	{
-		m_Body.Clear();
-		m_Body.AddRange(body);
-	}
+    public void SetBody(IEnumerable<BadExpression> body)
+    {
+        m_Body.Clear();
+        m_Body.AddRange(body);
+    }
 
-	public override void Optimize()
-	{
-		for (int i = 0; i < m_Body.Count; i++)
-		{
-			m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
-		}
-	}
+    public override void Optimize()
+    {
+        for (int i = 0; i < m_Body.Count; i++)
+        {
+            m_Body[i] = BadConstantFoldingOptimizer.Optimize(m_Body[i]);
+        }
+    }
 
-	/// <summary>
-	///     Returns the Header of the Function
-	/// </summary>
-	/// <returns>String Header of the Function</returns>
-	public string GetHeader()
-	{
-		string level = "";
+    /// <summary>
+    ///     Returns the Header of the Function
+    /// </summary>
+    /// <returns>String Header of the Function</returns>
+    public string GetHeader()
+    {
+        string level = "";
 
-		if (CompileLevel == BadFunctionCompileLevel.Compiled)
-		{
-			level = "compiled ";
-		}
-		else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
-		{
-			level = "compiled fast";
-		}
+        if (CompileLevel == BadFunctionCompileLevel.Compiled)
+        {
+            level = "compiled ";
+        }
+        else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
+        {
+            level = "compiled fast";
+        }
 
-		return
-			$"{level}{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
-	}
-
-
-	public override string ToString()
-	{
-		StringBuilder sb = new StringBuilder(GetHeader());
-		sb.AppendLine();
-		sb.AppendLine("{");
-
-		foreach (BadExpression expression in Body)
-		{
-			sb.AppendLine($"\t{expression}");
-		}
-
-		sb.AppendLine("}");
-
-		return sb.ToString();
-	}
-
-	public override IEnumerable<BadExpression> GetDescendants()
-	{
-		if (TypeExpression != null)
-		{
-			foreach (BadExpression typeExpr in TypeExpression.GetDescendantsAndSelf())
-			{
-				yield return typeExpr;
-			}
-		}
-
-		foreach (BadFunctionParameter parameter in m_Parameters)
-		{
-			if (parameter.TypeExpr != null)
-			{
-				foreach (BadExpression typeExpr in parameter.TypeExpr.GetDescendantsAndSelf())
-				{
-					yield return typeExpr;
-				}
-			}
-		}
-
-		foreach (BadExpression expression in m_Body)
-		{
-			foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
-			{
-				yield return descendant;
-			}
-		}
-	}
-
-	protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
-	{
-		BadClassPrototype type = BadAnyPrototype.Instance;
-
-		if (TypeExpression != null)
-		{
-			BadObject obj = BadObject.Null;
-
-			foreach (BadObject o in TypeExpression.Execute(context))
-			{
-				obj = o;
-			}
-
-			obj = obj.Dereference();
-
-			if (obj is not BadClassPrototype proto)
-			{
-				throw new BadRuntimeException($"Expected class prototype, but got {obj.GetType().Name}",
-					Position);
-			}
-
-			type = proto;
-		}
-
-		BadExpressionFunction f = new BadExpressionFunction(context.Scope,
-			Name,
-			m_Body,
-			m_Parameters.Select(x => x.Initialize(context)).ToArray(),
-			Position,
-			IsConstantFunction,
-			IsStatic,
-			m_MetaData,
-			type);
-
-		BadFunction fFinal = f;
-
-		if (CompileLevel == BadFunctionCompileLevel.Compiled)
-		{
-			fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true);
-		}
-		else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
-		{
-			fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false);
-		}
+        return
+            $"{level}{BadStaticKeys.FunctionKey} {Name?.ToString() ?? "<anonymous>"}({string.Join(", ", Parameters.Cast<object>())})";
+    }
 
 
-		if (Name != null)
-		{
-			context.Scope.DefineVariable(BadObject.Wrap(Name.Text),
-				fFinal,
-				null,
-				new BadPropertyInfo(fFinal.GetPrototype()));
-		}
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder(GetHeader());
+        sb.AppendLine();
+        sb.AppendLine("{");
 
-		yield return fFinal;
-	}
+        foreach (BadExpression expression in Body)
+        {
+            sb.AppendLine($"\t{expression}");
+        }
+
+        sb.AppendLine("}");
+
+        return sb.ToString();
+    }
+
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        if (TypeExpression != null)
+        {
+            foreach (BadExpression typeExpr in TypeExpression.GetDescendantsAndSelf())
+            {
+                yield return typeExpr;
+            }
+        }
+
+        foreach (BadFunctionParameter parameter in m_Parameters)
+        {
+            if (parameter.TypeExpr != null)
+            {
+                foreach (BadExpression typeExpr in parameter.TypeExpr.GetDescendantsAndSelf())
+                {
+                    yield return typeExpr;
+                }
+            }
+        }
+
+        foreach (BadExpression expression in m_Body)
+        {
+            foreach (BadExpression descendant in expression.GetDescendantsAndSelf())
+            {
+                yield return descendant;
+            }
+        }
+    }
+
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadClassPrototype type = BadAnyPrototype.Instance;
+
+        if (TypeExpression != null)
+        {
+            BadObject obj = BadObject.Null;
+
+            foreach (BadObject o in TypeExpression.Execute(context))
+            {
+                obj = o;
+            }
+
+            obj = obj.Dereference();
+
+            if (obj is not BadClassPrototype proto)
+            {
+                throw new BadRuntimeException(
+                    $"Expected class prototype, but got {obj.GetType().Name}",
+                    Position
+                );
+            }
+
+            type = proto;
+        }
+
+        BadExpressionFunction f = new BadExpressionFunction(
+            context.Scope,
+            Name,
+            m_Body,
+            m_Parameters.Select(x => x.Initialize(context)).ToArray(),
+            Position,
+            IsConstantFunction,
+            IsStatic,
+            m_MetaData,
+            type
+        );
+
+        BadFunction fFinal = f;
+
+        if (CompileLevel == BadFunctionCompileLevel.Compiled)
+        {
+            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true);
+        }
+        else if (CompileLevel == BadFunctionCompileLevel.CompiledFast)
+        {
+            fFinal = BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false);
+        }
+
+
+        if (Name != null)
+        {
+            context.Scope.DefineVariable(
+                BadObject.Wrap(Name.Text),
+                fFinal,
+                null,
+                new BadPropertyInfo(fFinal.GetPrototype())
+            );
+        }
+
+        yield return fFinal;
+    }
 }

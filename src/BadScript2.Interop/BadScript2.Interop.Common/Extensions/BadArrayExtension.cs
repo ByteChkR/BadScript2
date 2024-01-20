@@ -1,6 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Parser.Expressions.Function;
-using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -14,8 +12,6 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadArrayExtension : BadInteropExtension
 {
-    
-
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadArray>(

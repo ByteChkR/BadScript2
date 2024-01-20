@@ -6,8 +6,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 /// <inheritdoc cref="BadExpressionCompiler{T}" />
 public class BadNullExpressionCompiler : BadExpressionCompiler<BadNullExpression>
 {
-	public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullExpression expression)
-	{
-		yield return new BadInstruction(BadOpCode.Push, expression.Position, BadObject.Null);
-	}
+    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullExpression expression)
+    {
+        yield return new BadInstruction(BadOpCode.Push, expression.Position, BadObject.Null);
+    }
 }
