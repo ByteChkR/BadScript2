@@ -955,5 +955,3 @@ ___
 [Home](../Readme.md)
 
 [Getting Started](../GettingStarted.md)
-
-[C# Documentation](/index.html)

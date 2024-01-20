@@ -1,7 +1,5 @@
 # Getting Started
 
-[C# Project Documentation](./reference/index.html)
-
 ## Basics
 - [The Commandline](./basics/Commandline.md)
 
@@ -31,5 +29,3 @@ ___
 [Home](./Readme.md)
 
 [Getting Started](./GettingStarted.md)
-
-[C# Documentation](/index.html)
