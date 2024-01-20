@@ -949,12 +949,11 @@ const myNum = combined.MyNumber; //contains 3.1415
 ```
 
 ___
-___
 
 ## Links
 
-[Home](https://bytechkr.github.io/BadScript2/)
+[Home](../Readme.md)
 
-[Getting Started](https://bytechkr.github.io/BadScript2/GettingStarted.html)
+[Getting Started](../GettingStarted.md)
 
-[C# Documentation](https://bytechkr.github.io/BadScript2/reference/index.html)
+[C# Documentation](/index.html)

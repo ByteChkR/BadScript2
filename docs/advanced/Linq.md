@@ -13,8 +13,8 @@ ___
 
 ## Links
 
-[Home](https://bytechkr.github.io/BadScript2/)
+[Home](../Readme.md)
 
-[Getting Started](https://bytechkr.github.io/BadScript2/GettingStarted.html)
+[Getting Started](../GettingStarted.md)
 
-[C# Documentation](https://bytechkr.github.io/BadScript2/reference/index.html)
+[C# Documentation](/index.html)

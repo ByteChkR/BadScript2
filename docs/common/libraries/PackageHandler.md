@@ -22,10 +22,8 @@ ___
 
 ## Links
 
-[Home](https://bytechkr.github.io/BadScript2/)
+[Home](../../Readme.md)
 
-[Common Libraries](./Readme.md)
+[Getting Started](../../GettingStarted.md)
 
-[Getting Started](https://bytechkr.github.io/BadScript2/GettingStarted.html)
-
-[C# Documentation](https://bytechkr.github.io/BadScript2/reference/index.html)
+[C# Documentation](/index.html)
