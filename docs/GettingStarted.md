@@ -23,19 +23,19 @@
 - [Error Handling](./badlang/ErrorHandling.md)
 
 ## HTML Templates
-- [Basic Usage](./badhtml/Basics.html)
-	- [Content Injection](./badhtml/Basics.html#content-injection)
-	- [Scripting](./badhtml/Basics.html#scripting)
-	- [Branching](./badhtml/Basics.html#branching)
-	- [Loops](./badhtml/Basics.html#loops)
-		- [For-Each Loop](./badhtml/Basics.html#for-each-loop)
-		- [While Loop](./badhtml/Basics.html#while-loop)
-	- [Best Practices](./badhtml/Basics.html#best-practices)
-	- [Limitations](./badhtml/Basics.html#limitations)
-- [Advanced Scripting](./badhtml/Advanced.html)
-	- [Template Functions](./badhtml/Advanced.html#template-functions)
-	- [Template Injection Tricks](./badhtml/Advanced.html#template-injection-tricks)
-	- [Debugging](./badhtml/Advanced.html#debugging)
+- [Basic Usage](./badhtml/Basics.md)
+	- [Content Injection](./badhtml/Basics.md#content-injection)
+	- [Scripting](./badhtml/Basics.md#scripting)
+	- [Branching](./badhtml/Basics.md#branching)
+	- [Loops](./badhtml/Basics.md#loops)
+		- [For-Each Loop](./badhtml/Basics.md#for-each-loop)
+		- [While Loop](./badhtml/Basics.md#while-loop)
+	- [Best Practices](./badhtml/Basics.md#best-practices)
+	- [Limitations](./badhtml/Basics.md#limitations)
+- [Advanced Scripting](./badhtml/Advanced.md)
+	- [Template Functions](./badhtml/Advanced.md#template-functions)
+	- [Template Injection Tricks](./badhtml/Advanced.md#template-injection-tricks)
+	- [Debugging](./badhtml/Advanced.md#debugging)
 
 ___
 
