@@ -28,7 +28,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
     /// <returns>The new Parser</returns>
     private IBadNetworkConsoleClientCommandParser CreateScriptParser(BadNetworkConsoleClient client)
     {
-        return new ScriptCommandParser(Runtime, client);
+        return new BadScriptCommandParser(Runtime, client);
     }
 
     /// <inheritdoc/>
@@ -44,7 +44,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
     /// <summary>
     /// Script Command Parser
     /// </summary>
-    private class ScriptCommandParser : IBadNetworkConsoleClientCommandParser
+    private class BadScriptCommandParser : IBadNetworkConsoleClientCommandParser
     {
         /// <summary>
         /// The Client to use
@@ -64,7 +64,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         /// </summary>
         /// <param name="runtime">The Runtime to use</param>
         /// <param name="client">The Client to use</param>
-        public ScriptCommandParser(BadRuntime runtime, BadNetworkConsoleClient client)
+        public BadScriptCommandParser(BadRuntime runtime, BadNetworkConsoleClient client)
         {
             m_Runtime = runtime;
             m_Client = client;
@@ -78,7 +78,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
             {
                 BadExecutionContext ctx = GetContext();
                 IEnumerable<BadExpression> parsed = m_Runtime.Parse(command);
-                foreach (BadObject o in ctx.Execute(parsed))
+                foreach (BadObject _ in ctx.Execute(parsed))
                 {
                     //Do nothing
                 }

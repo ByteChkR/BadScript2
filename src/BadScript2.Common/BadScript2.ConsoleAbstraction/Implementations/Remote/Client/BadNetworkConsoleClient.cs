@@ -109,7 +109,7 @@ public class BadNetworkConsoleClient
     {
         BadDefaultNetworkClientCommandParser parser = new BadDefaultNetworkClientCommandParser(client);
         parser.AddCommand(c => new BadNetworkConsoleClientDisconnectCommand(c));
-        parser.AddCommand(c => new BadNetworkConsoleClientListCommand(c, parser));
+        parser.AddCommand(_ => new BadNetworkConsoleClientListCommand(parser));
 
         return parser;
     }

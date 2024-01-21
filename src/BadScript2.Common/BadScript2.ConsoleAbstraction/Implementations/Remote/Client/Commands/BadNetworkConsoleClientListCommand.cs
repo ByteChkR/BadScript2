@@ -5,10 +5,6 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
 /// </summary>
 public class BadNetworkConsoleClientListCommand : BadNetworkConsoleClientCommand
 {
-	/// <summary>
-	///     The Client that owns this Command
-	/// </summary>
-	private readonly BadNetworkConsoleClient m_Client;
 
 	/// <summary>
 	///     The Command Parser
@@ -20,10 +16,9 @@ public class BadNetworkConsoleClientListCommand : BadNetworkConsoleClientCommand
 	/// </summary>
 	/// <param name="client">The Client</param>
 	/// <param name="parser">The Command Parser</param>
-	public BadNetworkConsoleClientListCommand(BadNetworkConsoleClient client, BadDefaultNetworkClientCommandParser parser) : base("list")
+	public BadNetworkConsoleClientListCommand(BadDefaultNetworkClientCommandParser parser) : base("list")
     {
         m_Parser = parser;
-        m_Client = client;
     }
 
 	/// <inheritdoc />
