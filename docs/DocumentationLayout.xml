@@ -35,7 +35,7 @@
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
     <tab type="examples" visible="yes" title="" intro=""/>
-    <tab type="usergroup" visible="yes" title="Related Pages" url="pages.html" intro="">
+    <tab type="usergroup" visible="yes" title="Language Documentation" url="pages.html" intro="">
       <tab type="pages" visible="yes" title="" intro=""/>
     </tab>
   </navindex>
