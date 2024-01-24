@@ -15,6 +15,12 @@ function DoWork(disposable)
 	}
 }
 
+function DoWork1(disposable)
+{
+	using const myDisposable = disposable;
+	//Do things with myDisposable, it will be disposed once parent block ends.
+}
+
 ```
 
 To create an Object that is able to be used as a Disposable, it needs to have a visible `Dispose` function.
@@ -50,6 +56,19 @@ function WorkWithMyDisposable()
 		//myDisposable.disposed is false here.
 	}
 
+	//myDisposable.disposed is true here.
+}
+
+function WorkWithMyDisposable1(doWork)
+{
+	const myDisposable = new MyDisposable();
+	
+	if(doWork)
+	{
+		using const MyDisposable disposable = myDisposable;
+		//Do some things..
+		//myDisposable.disposed is false here.
+	}
 	//myDisposable.disposed is true here.
 }
 
