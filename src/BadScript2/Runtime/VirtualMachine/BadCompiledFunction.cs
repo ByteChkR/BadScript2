@@ -91,6 +91,12 @@ public class BadCompiledFunction : BadFunction
             )
         );
         ApplyParameters(ctx, args, m_Position);
+
+        if (m_Instructions.Length == 0)
+        {
+            yield return Null;
+            yield break;
+        }
         BadRuntimeVirtualMachine vm = new BadRuntimeVirtualMachine(m_Instructions, m_UseOverrides);
 
         foreach (BadObject o in vm.Execute(ctx))

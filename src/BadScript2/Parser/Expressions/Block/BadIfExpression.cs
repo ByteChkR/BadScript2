@@ -156,22 +156,25 @@ public class BadIfExpression : BadExpression
                 continue;
             }
 
+            if (keyValuePair.Value.Length == 0)
             {
-                using BadExecutionContext branchContext = new BadExecutionContext(
-                    context.Scope.CreateChild(
-                        "IfBranch",
-                        context.Scope,
-                        null
-                    )
-                );
-
-                foreach (BadObject o in branchContext.Execute(keyValuePair.Value))
-                {
-                    yield return o;
-                }
-
                 yield break;
             }
+
+            using BadExecutionContext branchContext = new BadExecutionContext(
+                context.Scope.CreateChild(
+                    "IfBranch",
+                    context.Scope,
+                    null
+                )
+            );
+
+            foreach (BadObject o in branchContext.Execute(keyValuePair.Value))
+            {
+                yield return o;
+            }
+
+            yield break;
         }
 
         if (m_ElseBranch is null)

@@ -117,28 +117,31 @@ public class BadTryCatchExpression : BadExpression
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadRuntimeError? error;
-        using (BadExecutionContext tryContext = new BadExecutionContext(
-                   context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
-               ))
+        if (m_Expressions.Length != 0) //If the expressions are empty, then we cant possibly throw an error, nor do we need to catch one
         {
-            foreach (BadObject o in tryContext.Execute(m_Expressions))
+            using (BadExecutionContext tryContext = new BadExecutionContext(
+                       context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
+                   ))
             {
-                yield return o;
+                foreach (BadObject o in tryContext.Execute(m_Expressions))
+                {
+                    yield return o;
+                }
+
+                error = tryContext.Scope.Error;
             }
 
-            error = tryContext.Scope.Error;
-        }
-
-        if (error != null && m_CatchExpressions.Length != 0)
-        {
-            using BadExecutionContext catchContext = new BadExecutionContext(
-                context.Scope.CreateChild("CatchBlock", context.Scope, null)
-            );
-            catchContext.Scope.DefineVariable(ErrorName, error);
-
-            foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
+            if (error != null && m_CatchExpressions.Length != 0)
             {
-                yield return e;
+                using BadExecutionContext catchContext = new BadExecutionContext(
+                    context.Scope.CreateChild("CatchBlock", context.Scope, null)
+                );
+                catchContext.Scope.DefineVariable(ErrorName, error);
+
+                foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
+                {
+                    yield return e;
+                }
             }
         }
 

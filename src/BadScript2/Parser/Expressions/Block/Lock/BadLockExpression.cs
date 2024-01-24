@@ -85,9 +85,12 @@ public class BadLockExpression : BadExpression
             yield return BadObject.Null;
         }
 
-        foreach (BadObject o in context.Execute(m_Block))
+        if (m_Block.Length != 0)
         {
-            yield return o;
+            foreach (BadObject o in context.Execute(m_Block))
+            {
+                yield return o;
+            }
         }
 
         BadLockList.Instance.Release(lockObj);

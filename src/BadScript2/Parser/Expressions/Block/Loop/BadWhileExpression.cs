@@ -45,7 +45,7 @@ public class BadWhileExpression : BadExpression
     public BadExpression Condition { get; private set; }
 
     /// <summary>
-    /// Sets the Body of the Loop
+    ///     Sets the Body of the Loop
     /// </summary>
     /// <param name="body">The new Body</param>
     public void SetBody(IEnumerable<BadExpression> body)
@@ -132,14 +132,17 @@ public class BadWhileExpression : BadExpression
                 )
             );
 
-            foreach (BadObject o in loopContext.Execute(m_Body))
+            if (m_Body.Count != 0)
             {
-                yield return o;
-            }
+                foreach (BadObject o in loopContext.Execute(m_Body))
+                {
+                    yield return o;
+                }
 
-            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-            {
-                break;
+                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+                {
+                    break;
+                }
             }
 
             foreach (BadObject o in Condition.Execute(context))

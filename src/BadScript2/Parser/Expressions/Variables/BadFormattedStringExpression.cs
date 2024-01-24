@@ -54,6 +54,11 @@ public class BadFormattedStringExpression : BadStringExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
+        if (m_Expressions.Length == 0)
+        {
+            yield return Value;
+            yield break;
+        }
         List<BadObject> objs = new List<BadObject>();
 
         foreach (BadExpression expr in m_Expressions)

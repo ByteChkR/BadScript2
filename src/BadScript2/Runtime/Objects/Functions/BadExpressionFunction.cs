@@ -101,6 +101,12 @@ public class BadExpressionFunction : BadFunction
         );
         ApplyParameters(ctx, args, Position);
 
+        if (m_Body.Count == 0)
+        {
+            yield return Null;
+            yield break;
+        }
+        
         foreach (BadObject o in ctx.Execute(Body))
         {
             yield return o;

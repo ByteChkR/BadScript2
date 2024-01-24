@@ -5,6 +5,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 /// <summary>
 /// Contains the Type Expressions for the BadScript2 Language
 /// </summary>
@@ -16,7 +17,7 @@ namespace BadScript2.Parser.Expressions.Types;
 public class BadClassPrototypeExpression : BadExpression
 {
     /// <summary>
-    /// The Base Classes
+    ///     The Base Classes
     /// </summary>
     private readonly BadExpression[] m_BaseClasses;
 
@@ -26,12 +27,12 @@ public class BadClassPrototypeExpression : BadExpression
     private readonly List<BadExpression> m_Body;
 
     /// <summary>
-    /// The Meta data of the Class
+    ///     The Meta data of the Class
     /// </summary>
     private readonly BadMetaData? m_MetaData;
-    
+
     /// <summary>
-    /// The Static Class Body
+    ///     The Static Class Body
     /// </summary>
     private readonly List<BadExpression> m_StaticBody;
 
@@ -65,7 +66,7 @@ public class BadClassPrototypeExpression : BadExpression
     public IEnumerable<BadExpression> Body => m_Body;
 
     /// <summary>
-    /// The Static Class Body
+    ///     The Static Class Body
     /// </summary>
     public IEnumerable<BadExpression> StaticBody => m_StaticBody;
 
@@ -75,7 +76,7 @@ public class BadClassPrototypeExpression : BadExpression
     public string Name { get; }
 
     /// <summary>
-    /// Sets the body of the class
+    ///     Sets the body of the class
     /// </summary>
     /// <param name="body">The body</param>
     public void SetBody(IEnumerable<BadExpression> body)
@@ -85,7 +86,7 @@ public class BadClassPrototypeExpression : BadExpression
     }
 
     /// <summary>
-    /// Sets the static body of the class
+    ///     Sets the static body of the class
     /// </summary>
     /// <param name="body">The static body</param>
     public void SetStaticBody(IEnumerable<BadExpression> body)
@@ -131,7 +132,7 @@ public class BadClassPrototypeExpression : BadExpression
     }
 
     /// <summary>
-    /// Returns the Base Class prototype and the implemented interfaces
+    ///     Returns the Base Class prototype and the implemented interfaces
     /// </summary>
     /// <param name="context">The Current Execution Context</param>
     /// <param name="interfaces">The implemented interfaces</param>
@@ -197,9 +198,12 @@ public class BadClassPrototypeExpression : BadExpression
         BadExecutionContext staticContext =
             new BadExecutionContext(context.Scope.CreateChild($"static:{Name}", context.Scope, true));
 
-        foreach (BadObject o in staticContext.Execute(m_StaticBody))
+        if (m_StaticBody.Count != 0)
         {
-            yield return o;
+            foreach (BadObject o in staticContext.Execute(m_StaticBody))
+            {
+                yield return o;
+            }
         }
 
         BadClassPrototype p = new BadExpressionClassPrototype(

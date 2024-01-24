@@ -221,18 +221,21 @@ public class BadForEachExpression : BadExpression
                 yield break;
             }
 
-            current = current.Dereference();
 
-            loopContext.Scope.DefineVariable(LoopVariable.Text, current);
-
-            foreach (BadObject o in loopContext.Execute(m_Body))
+            if (m_Body.Count != 0)
             {
-                yield return o;
-            }
+                current = current.Dereference();
+                loopContext.Scope.DefineVariable(LoopVariable.Text, current);
 
-            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-            {
-                break;
+                foreach (BadObject o in loopContext.Execute(m_Body))
+                {
+                    yield return o;
+                }
+
+                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+                {
+                    break;
+                }
             }
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))

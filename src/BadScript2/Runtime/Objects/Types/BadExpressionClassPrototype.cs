@@ -46,8 +46,6 @@ public class BadExpressionClassPrototype : BadClassPrototype
         m_ParentScope = parentScope;
         m_Body = body;
         m_StaticScope = staticScope;
-
-        //TODO: Validate interfaces before creating the class prototype? Might be faster :)
     }
 
     /// <inheritdoc />
@@ -81,9 +79,12 @@ public class BadExpressionClassPrototype : BadClassPrototype
             ctx.Scope.GetTable().SetProperty("base", baseInstance, new BadPropertyInfo(BaseClass, true));
         }
 
-        foreach (BadObject o in ctx.Execute(m_Body))
+        if (m_Body.Length != 0)
         {
-            yield return o;
+            foreach (BadObject o in ctx.Execute(m_Body))
+            {
+                yield return o;
+            }
         }
 
         BadClass thisInstance = new BadClass(Name, ctx.Scope, baseInstance, this);
