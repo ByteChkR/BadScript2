@@ -77,6 +77,12 @@ public readonly struct BadExpressionValidatorContext
         new BadFunctionParameterNameIsReservedKeywordValidator(),
         new BadFunctionReturnTypeIsNotNullButNotAllPathsHaveAReturnStatementValidator(),
         new BadDuplicateFunctionParameterNameValidator(),
+        new BadConstantIfBranchValidator(),
+        new BadEmptyForBlockValidator(),
+        new BadEmptyForEachBlockValidator(),
+        new BadEmptyIfBranchValidator(),
+        new BadEmptyLockBlockValidator(),
+        new BadEmptyUsingBlockValidator(),
     };
 
     /// <summary>

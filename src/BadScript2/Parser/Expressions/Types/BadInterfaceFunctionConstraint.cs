@@ -3,6 +3,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+using BadScript2.Utility;
 
 namespace BadScript2.Parser.Expressions.Types;
 
@@ -176,5 +177,19 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 
             return;
         }
+    }
+
+    public override bool Equals(BadInterfaceConstraint? other)
+    {
+        return other is BadInterfaceFunctionConstraint c &&
+               c.Name == Name &&
+               c.Return == Return &&
+               c.Parameters.Length == Parameters.Length &&
+               c.Parameters.Zip(Parameters, (x, y) => (x, y)).All(z => z.x.Equals(z.y));
+    }
+
+    protected override int GetConstraintHash()
+    {
+        return BadHashCode.Combine(Name, Return, Parameters, typeof(BadInterfaceFunctionConstraint));
     }
 }

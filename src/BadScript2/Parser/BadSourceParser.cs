@@ -1493,7 +1493,6 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
         List<BadExpression> block = ParseBlock(out bool isSingleLine);
-        block.Insert(0, expr);
         Reader.SkipNonToken();
         if (isSingleLine)
         {
@@ -1502,7 +1501,7 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
-        return new BadUsingExpression(varDef.Name, block.ToArray(), Reader.MakeSourcePosition(start, Reader.CurrentIndex - start));
+        return new BadUsingExpression(varDef.Name, block.ToArray(), Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),  expr);
     }
 
     /// <summary>

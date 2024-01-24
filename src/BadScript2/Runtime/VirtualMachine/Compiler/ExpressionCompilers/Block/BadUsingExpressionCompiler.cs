@@ -22,6 +22,10 @@ public class BadUsingExpressionCompiler : BadExpressionCompiler<BadUsingExpressi
             BadObject.Null
         );
 
+        foreach (BadInstruction instruction in compiler.Compile(expression.Definition)) //Compile the Definition
+        {
+            yield return instruction;
+        }
         foreach (BadInstruction instruction in compiler.Compile(expression.Expressions)) //Compile the block
         {
             yield return instruction;

@@ -23,25 +23,37 @@ public class BadUsingExpression : BadExpression
     public readonly string Name;
 
     /// <summary>
+    /// The definition of the object
+    /// </summary>
+    private BadExpression m_Definition;
+
+    /// <summary>
     ///     Creates a new Using Expression
     /// </summary>
     /// <param name="name">Name of the variable that holds the object</param>
     /// <param name="expressions">Expressions inside the Using Block</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadUsingExpression(string name, BadExpression[] expressions, BadSourcePosition position) : base(false, position)
+    public BadUsingExpression(string name, BadExpression[] expressions, BadSourcePosition position, BadExpression definition) : base(false, position)
     {
         Name = name;
         m_Expressions = expressions;
+        m_Definition = definition;
     }
 
     /// <summary>
     ///     Creates a new Using Expression
     /// </summary>
     public IEnumerable<BadExpression> Expressions => m_Expressions;
+    
+    /// <summary>
+    /// The definition of the object
+    /// </summary>
+    public BadExpression Definition => m_Definition;
 
     /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {
+        m_Definition = BadConstantFoldingOptimizer.Optimize(m_Definition);
         for (int i = 0; i < m_Expressions.Length; i++)
         {
             m_Expressions[i] = BadConstantFoldingOptimizer.Optimize(m_Expressions[i]);
@@ -62,9 +74,17 @@ public class BadUsingExpression : BadExpression
         );
 
 
-        foreach (BadObject o in usingContext.Execute(m_Expressions))
+        foreach (BadObject o in usingContext.Execute(m_Definition))
         {
             yield return o;
+        }
+
+        if (m_Expressions.Length != 0)
+        {
+            foreach (BadObject o in usingContext.Execute(m_Expressions))
+            {
+                yield return o;
+            }
         }
 
         // ReSharper disable once AccessToDisposedClosure

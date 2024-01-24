@@ -2,6 +2,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+using BadScript2.Utility;
 
 namespace BadScript2.Parser.Expressions.Types;
 
@@ -67,5 +68,15 @@ public class BadInterfacePropertyConstraint : BadInterfaceConstraint
         {
             errors.Add(new BadInterfaceValidatorError($"Property Type Mismatch. Expected {expected} but got {actual}", this));
         }
+    }
+
+    public override bool Equals(BadInterfaceConstraint? other)
+    {
+        return other is BadInterfacePropertyConstraint c && c.Name == Name && c.Type == Type;
+    }
+
+    protected override int GetConstraintHash()
+    {
+        return BadHashCode.Combine(Name, Type, typeof(BadInterfacePropertyConstraint));
     }
 }
