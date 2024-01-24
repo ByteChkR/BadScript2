@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.Block;
@@ -44,12 +45,12 @@ public class BadTryCatchExpression : BadExpression
     }
 
     /// <summary>
-    /// The Catch Block
+    ///     The Catch Block
     /// </summary>
     public IEnumerable<BadExpression> CatchExpressions => m_CatchExpressions;
 
     /// <summary>
-    /// The Try Block
+    ///     The Try Block
     /// </summary>
     public IEnumerable<BadExpression> TryExpressions => m_Expressions;
 
@@ -90,28 +91,32 @@ public class BadTryCatchExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        BadExecutionContext tryContext = new BadExecutionContext(
-            context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
-        );
-
-        foreach (BadObject o in tryContext.Execute(m_Expressions))
+        BadRuntimeError? error;
+        using (BadExecutionContext tryContext = new BadExecutionContext(
+                   context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
+               ))
         {
-            yield return o;
+            foreach (BadObject o in tryContext.Execute(m_Expressions))
+            {
+                yield return o;
+            }
+
+            error = tryContext.Scope.Error;
         }
 
-        if (tryContext.Scope.Error == null)
+        if (error != null)
         {
-            yield break;
+            using BadExecutionContext catchContext = new BadExecutionContext(
+                context.Scope.CreateChild("CatchBlock", context.Scope, null)
+            );
+            catchContext.Scope.DefineVariable(ErrorName, error);
+
+            foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
+            {
+                yield return e;
+            }
         }
 
-        BadExecutionContext catchContext = new BadExecutionContext(
-            context.Scope.CreateChild("CatchBlock", context.Scope, null)
-        );
-        catchContext.Scope.DefineVariable(ErrorName, tryContext.Scope.Error);
-
-        foreach (BadObject e in catchContext.Execute(m_CatchExpressions))
-        {
-            yield return e;
-        }
+        //TODO: Add finally block and execute it here
     }
 }

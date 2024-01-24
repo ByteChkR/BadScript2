@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions.Block;
 using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
+
 /// <summary>
 /// Compiles the <see cref="BadUsingExpression" />.
 /// </summary>
@@ -27,10 +28,7 @@ public class BadUsingExpressionCompiler : BadExpressionCompiler<BadUsingExpressi
         }
 
 
-        yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, (BadObject)expression.Name); //Load the variable
-        yield return new BadInstruction(BadOpCode.LoadMember, expression.Position, "Dispose"); //Load the Dispose function
-        yield return new BadInstruction(BadOpCode.Invoke, expression.Position, 0); //Invoke the Dispose function
-
+        yield return new BadInstruction(BadOpCode.AddDisposeFinalizer, expression.Position, expression.Name); //Add the finalizer
         yield return new BadInstruction(BadOpCode.DestroyScope, expression.Position); //Destroy the scope
     }
 }

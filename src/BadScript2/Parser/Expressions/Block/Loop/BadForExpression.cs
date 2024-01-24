@@ -108,7 +108,7 @@ public class BadForExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        BadExecutionContext loopCtx =
+        using BadExecutionContext loopCtx =
             new BadExecutionContext(context.Scope.CreateChild("ForLoop", context.Scope, null));
 
         foreach (BadObject o in VarDef.Execute(loopCtx))
@@ -136,7 +136,7 @@ public class BadForExpression : BadExpression
 
         while (bRet.Value)
         {
-            BadExecutionContext loopContext = new BadExecutionContext(
+            using BadExecutionContext loopContext = new BadExecutionContext(
                 loopCtx.Scope.CreateChild(
                     "InnerForLoop",
                     loopCtx.Scope,

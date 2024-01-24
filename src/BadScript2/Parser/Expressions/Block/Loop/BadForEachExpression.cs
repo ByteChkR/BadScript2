@@ -198,7 +198,7 @@ public class BadForEachExpression : BadExpression
 
         while (bRet.Value)
         {
-            BadExecutionContext loopContext = new BadExecutionContext(
+            using BadExecutionContext loopContext = new BadExecutionContext(
                 context.Scope.CreateChild(
                     "ForEachLoop",
                     context.Scope,

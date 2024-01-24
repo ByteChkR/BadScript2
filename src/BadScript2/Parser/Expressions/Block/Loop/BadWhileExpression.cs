@@ -123,7 +123,7 @@ public class BadWhileExpression : BadExpression
 
         while (bRet.Value)
         {
-            BadExecutionContext loopContext = new BadExecutionContext(
+            using BadExecutionContext loopContext = new BadExecutionContext(
                 context.Scope.CreateChild(
                     "WhileLoop",
                     context.Scope,

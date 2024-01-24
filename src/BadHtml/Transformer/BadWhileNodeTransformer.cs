@@ -73,7 +73,7 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 
         while (Evaluate(context, conditionAttribute, expressions))
         {
-            BadExecutionContext loopContext = new BadExecutionContext(
+            using BadExecutionContext loopContext = new BadExecutionContext(
                 context.ExecutionContext.Scope.CreateChild(
                     "bs:while",
                     context.ExecutionContext.Scope,

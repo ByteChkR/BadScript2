@@ -267,6 +267,9 @@ public class BadCompiler
         {
             typeof(BadUsingExpression), new BadUsingExpressionCompiler()
         },
+        {
+            typeof(BadUsingStatementExpression), new BadUsingStatementExpressionCompiler()
+        },
     };
 
     /// <summary>

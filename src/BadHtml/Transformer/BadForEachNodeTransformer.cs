@@ -28,7 +28,7 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
     /// <param name="obj">The Value of the current iteration</param>
     private static void RunIteration(BadHtmlContext context, string name, BadObject obj)
     {
-        BadExecutionContext loopContext = new BadExecutionContext(
+        using BadExecutionContext loopContext = new BadExecutionContext(
             context.ExecutionContext.Scope.CreateChild(
                 "bs:while",
                 context.ExecutionContext.Scope,

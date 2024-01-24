@@ -91,7 +91,7 @@ public class BadExpressionFunction : BadFunction
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
-        BadExecutionContext ctx = new BadExecutionContext(
+        using BadExecutionContext ctx = new BadExecutionContext(
             ParentScope.CreateChild(
                 ToString(),
                 caller.Scope,

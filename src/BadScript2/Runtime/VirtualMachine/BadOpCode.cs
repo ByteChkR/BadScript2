@@ -254,6 +254,10 @@ public enum BadOpCode
     /// </summary>
     DestroyScope = 0x5001,
     /// <summary>
+    /// Registers a Finalizer for the current scope.
+    /// </summary>
+    AddDisposeFinalizer = 0x5002,
+    /// <summary>
     /// Return from a Function.
     /// </summary>
     Return = 0x6000,

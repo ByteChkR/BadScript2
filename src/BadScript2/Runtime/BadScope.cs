@@ -9,10 +9,15 @@ namespace BadScript2.Runtime;
 /// <summary>
 ///     Implements the Scope for the Script Engine
 /// </summary>
-public class BadScope : BadObject
+public class BadScope : BadObject, IDisposable
 {
     /// <summary>
-    /// The Extension Provider
+    ///     The Finalizer List of the Scope
+    /// </summary>
+    private readonly List<Action> m_Finalizers = new List<Action>();
+
+    /// <summary>
+    ///     The Extension Provider
     /// </summary>
     private readonly BadInteropExtensionProvider m_Provider;
 
@@ -22,11 +27,12 @@ public class BadScope : BadObject
     private readonly BadTable m_ScopeVariables = new BadTable();
 
     /// <summary>
-    /// The Singleton Cache
+    ///     The Singleton Cache
     /// </summary>
     private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
+
     /// <summary>
-    /// Indicates if the Scope uses the visibility subsystem
+    ///     Indicates if the Scope uses the visibility subsystem
     /// </summary>
     private readonly bool m_UseVisibility;
 
@@ -34,6 +40,8 @@ public class BadScope : BadObject
     ///     The Caller of the Current Scope
     /// </summary>
     private BadScope? m_Caller;
+
+    private bool m_IsDisposed;
 
     /// <summary>
     ///     Creates a new Scope
@@ -101,12 +109,12 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// The Extension Provider
+    ///     The Extension Provider
     /// </summary>
     public BadInteropExtensionProvider Provider => Parent != null ? Parent.Provider : m_Provider;
 
     /// <summary>
-    /// The Class Object of the Scope
+    ///     The Class Object of the Scope
     /// </summary>
     public BadClass? ClassObject { get; internal set; }
 
@@ -195,7 +203,41 @@ public class BadScope : BadObject
     );
 
     /// <summary>
-    /// Sets the Caller of the Scope
+    ///     Disposes the Scope and calls all finalizers
+    /// </summary>
+    public void Dispose()
+    {
+        if (m_IsDisposed)
+        {
+            return;
+        }
+
+        m_IsDisposed = true;
+        foreach (Action finalizer in m_Finalizers)
+        {
+            finalizer();
+        }
+
+        m_Finalizers.Clear();
+    }
+
+    /// <summary>
+    /// Adds a Finalizer to the Scope
+    /// </summary>
+    /// <param name="finalizer">The Finalizer</param>
+    /// <exception cref="BadRuntimeException">Gets raised if the Scope is already disposed</exception>
+    public void AddFinalizer(Action finalizer)
+    {
+        if (m_IsDisposed)
+        {
+            throw BadRuntimeException.Create(this, "Scope is already disposed");
+        }
+
+        m_Finalizers.Add(finalizer);
+    }
+
+    /// <summary>
+    ///     Sets the Caller of the Scope
     /// </summary>
     /// <param name="caller">The Caller</param>
     public void SetCaller(BadScope? caller)
@@ -204,7 +246,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Returns the Root Scope of the Scope
+    ///     Returns the Root Scope of the Scope
     /// </summary>
     /// <returns>The Root Scope</returns>
     public BadScope GetRootScope()
@@ -213,7 +255,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Adds a Singleton to the Scope
+    ///     Adds a Singleton to the Scope
     /// </summary>
     /// <param name="instance"></param>
     /// <typeparam name="T"></typeparam>
@@ -229,7 +271,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Gets a Singleton from the Scope
+    ///     Gets a Singleton from the Scope
     /// </summary>
     /// <typeparam name="T">Type of the Singleton</typeparam>
     /// <returns>The Singleton</returns>
@@ -244,7 +286,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Gets a Singleton from the Scope
+    ///     Gets a Singleton from the Scope
     /// </summary>
     /// <param name="createNew">Should a new instance be created if the singleton does not exist</param>
     /// <typeparam name="T">Type of the Singleton</typeparam>
@@ -529,7 +571,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Returns the visibility of the specified property
+    ///     Returns the visibility of the specified property
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <returns>The Visibility of the Property</returns>
@@ -540,7 +582,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Returns true if the specified scope is visible to the current scope
+    ///     Returns true if the specified scope is visible to the current scope
     /// </summary>
     /// <param name="scope">The Scope</param>
     /// <returns>true if the scope is visible</returns>
@@ -573,7 +615,7 @@ public class BadScope : BadObject
     }
 
     /// <summary>
-    /// Returns the variable reference of the specified variable
+    ///     Returns the variable reference of the specified variable
     /// </summary>
     /// <param name="name">Variable Name</param>
     /// <param name="caller">The Calling Scope</param>

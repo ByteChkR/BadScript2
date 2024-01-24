@@ -82,7 +82,7 @@ public class BadCompiledFunction : BadFunction
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
-        BadExecutionContext ctx = new BadExecutionContext(
+        using BadExecutionContext ctx = new BadExecutionContext(
             m_ParentScope.CreateChild(
                 "Compiled Function",
                 caller.Scope,

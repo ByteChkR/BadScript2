@@ -12,7 +12,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 {
-    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:insert";
@@ -43,7 +43,7 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
         }
     }
 
-    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
     protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["into"];
@@ -79,12 +79,11 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 
             foreach (HtmlNode node in context.InputNode.ChildNodes)
             {
+                using BadExecutionContext exCtx = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null));
                 BadHtmlContext ctx = context.CreateChild(
                     node,
                     outputNode,
-                    new BadExecutionContext(
-                        context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null)
-                    )
+                    exCtx
                 );
                 Transform(ctx);
             }

@@ -11,7 +11,7 @@ namespace BadScript2.Runtime;
 ///     Every execution of a script needs a context the script is running in.
 ///     It is responsible for defining the global scope and the global variables.
 /// </summary>
-public class BadExecutionContext
+public class BadExecutionContext : IDisposable
 {
     /// <summary>
     ///     Creates a new Execution Context
@@ -116,5 +116,13 @@ public class BadExecutionContext
                 yield break;
             }
         }
+    }
+
+    /// <summary>
+    /// Disposes the context.
+    /// </summary>
+    public void Dispose()
+    {
+        Scope.Dispose();
     }
 }

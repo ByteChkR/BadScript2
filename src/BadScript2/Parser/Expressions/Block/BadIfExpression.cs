@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 /// <summary>
 /// Contains the Block Expressions for the BadScript2 Language
 /// </summary>
@@ -50,7 +51,7 @@ public class BadIfExpression : BadExpression
     public IEnumerable<BadExpression>? ElseBranch => m_ElseBranch;
 
     /// <summary>
-    /// Sets the Else Branch
+    ///     Sets the Else Branch
     /// </summary>
     /// <param name="branch">The new Else Branch</param>
     public void SetElseBranch(IEnumerable<BadExpression>? branch)
@@ -156,7 +157,7 @@ public class BadIfExpression : BadExpression
             }
 
             {
-                BadExecutionContext branchContext = new BadExecutionContext(
+                using BadExecutionContext branchContext = new BadExecutionContext(
                     context.Scope.CreateChild(
                         "IfBranch",
                         context.Scope,
@@ -178,19 +179,17 @@ public class BadIfExpression : BadExpression
             yield break;
         }
 
-        {
-            BadExecutionContext elseContext = new BadExecutionContext(
-                context.Scope.CreateChild(
-                    "IfBranch",
-                    context.Scope,
-                    null
-                )
-            );
+        using BadExecutionContext elseContext = new BadExecutionContext(
+            context.Scope.CreateChild(
+                "IfBranch",
+                context.Scope,
+                null
+            )
+        );
 
-            foreach (BadObject o in elseContext.Execute(m_ElseBranch))
-            {
-                yield return o;
-            }
+        foreach (BadObject o in elseContext.Execute(m_ElseBranch))
+        {
+            yield return o;
         }
     }
 }

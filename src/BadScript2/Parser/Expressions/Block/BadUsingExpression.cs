@@ -8,21 +8,22 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
-/// Implements the Using Statement Expression
+///     Implements the Using Block Expression
 /// </summary>
 public class BadUsingExpression : BadExpression
 {
     /// <summary>
-    /// The Expressions inside the Using Block
+    ///     The Expressions inside the Using Block
     /// </summary>
     private readonly BadExpression[] m_Expressions;
+
     /// <summary>
-    /// The name of the variable that holds the object
+    ///     The name of the variable that holds the object
     /// </summary>
     public readonly string Name;
 
     /// <summary>
-    /// Creates a new Using Expression
+    ///     Creates a new Using Expression
     /// </summary>
     /// <param name="name">Name of the variable that holds the object</param>
     /// <param name="expressions">Expressions inside the Using Block</param>
@@ -34,7 +35,7 @@ public class BadUsingExpression : BadExpression
     }
 
     /// <summary>
-    /// Creates a new Using Expression
+    ///     Creates a new Using Expression
     /// </summary>
     public IEnumerable<BadExpression> Expressions => m_Expressions;
 
@@ -56,7 +57,7 @@ public class BadUsingExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        BadExecutionContext usingContext = new BadExecutionContext(
+        using BadExecutionContext usingContext = new BadExecutionContext(
             context.Scope.CreateChild("UsingBlock", context.Scope, null)
         );
 
@@ -66,19 +67,32 @@ public class BadUsingExpression : BadExpression
             yield return o;
         }
 
-        BadObject obj = usingContext.Scope.GetVariable(Name).Dereference();
+        // ReSharper disable once AccessToDisposedClosure
+        usingContext.Scope.AddFinalizer(() => Finalize(usingContext, Name, Position));
+
+        yield return BadObject.Null;
+    }
+
+    /// <summary>
+    ///     The Finalizer method of the Using Expression
+    /// </summary>
+    /// <param name="usingContext">The Using Context</param>
+    /// <param name="name">The name of the variable that holds the object</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    /// <exception cref="BadRuntimeException">Gets thrown if the object does not implement IDisposable</exception>
+    public static void Finalize(BadExecutionContext usingContext, string name, BadSourcePosition position)
+    {
+        BadObject obj = usingContext.Scope.GetVariable(name).Dereference();
 
         if (!obj.HasProperty("Dispose"))
         {
-            throw BadRuntimeException.Create(usingContext.Scope, "Object does not implement IDisposable", Position);
+            throw BadRuntimeException.Create(usingContext.Scope, "Object does not implement IDisposable", position);
         }
 
         BadObject disposeFunc = obj.GetProperty("Dispose", usingContext.Scope).Dereference();
-        foreach (BadObject? o in BadInvocationExpression.Invoke(disposeFunc, Array.Empty<BadObject>(), Position, usingContext))
+        foreach (BadObject? o in BadInvocationExpression.Invoke(disposeFunc, Array.Empty<BadObject>(), position, usingContext))
         {
-            yield return o;
+            //Do Nothing
         }
-
-        yield return BadObject.Null;
     }
 }

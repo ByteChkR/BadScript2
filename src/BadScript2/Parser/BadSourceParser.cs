@@ -1405,15 +1405,60 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a Using Statement. Moves the reader to the next token.
+    /// Parses a Using Statement Expression. Moves the reader to the next token.
     /// </summary>
-    /// <returns>Instance of BadUsingExpression</returns>
+    /// <param name="start">The Start index of the expression</param>
+    /// <returns>Instance of BadUsingStatementExpression</returns>
+    /// <exception cref="BadParserException">Gets raised if the using statement is malformed.</exception>
+    private BadExpression ParseUsingStatement(int start)
+    {
+        Reader.SkipNonToken();
+        if (!Reader.Is(BadStaticKeys.CONSTANT_DEFINITION_KEY))
+        {
+            throw new BadParserException(
+                "Expected Constant Variable Definition",
+                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+            );
+        }
+        //Parse single expression
+        BadExpression expr = ParseExpression();
+        if (expr is not BadAssignExpression assignExpr)
+        {
+            throw new BadParserException(
+                "Expected Constant Variable Definition",
+                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+            );
+        }
+
+        if (assignExpr.Left is not BadVariableDefinitionExpression varDef)
+        {
+            throw new BadParserException(
+                "Expected Constant Variable Definition",
+                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+            );
+        }
+
+        Reader.SkipNonToken();
+        //Reader.Eat(BadStaticKeys.STATEMENT_END_KEY); //Not Needed, the parser will automatically eat the statement end key
+        
+        
+        return new BadUsingStatementExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), varDef.Name, expr);
+    }
+    
+    /// <summary>
+    /// Parses a Using Block or Statement. Moves the reader to the next token.
+    /// </summary>
+    /// <returns>Instance of BadUsingExpression or BadUsingStatementExpression</returns>
     /// <exception cref="BadParserException">Gets raised if the using statement is malformed.</exception>
     private BadExpression ParseUsing()
     {
         int start = Reader.CurrentIndex;
         Reader.Eat(BadStaticKeys.USING_KEY);
         Reader.SkipNonToken();
+        if (!Reader.Is('('))
+        {
+            return ParseUsingStatement(start);
+        }
         Reader.Eat('(');
         Reader.SkipNonToken();
         if (!Reader.Is(BadStaticKeys.CONSTANT_DEFINITION_KEY))

@@ -7,6 +7,7 @@ using BadScript2.Parser.Expressions.Binary.Logic;
 using BadScript2.Parser.Expressions.Binary.Math;
 using BadScript2.Parser.Expressions.Binary.Math.Assign;
 using BadScript2.Parser.Expressions.Binary.Math.Atomic;
+using BadScript2.Parser.Expressions.Block;
 using BadScript2.Parser.Expressions.Block.Lock;
 using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Types;
@@ -24,29 +25,32 @@ namespace BadScript2.Runtime.VirtualMachine;
 public class BadRuntimeVirtualMachine
 {
     /// <summary>
-    /// The Argument Stack
+    ///     The Argument Stack
     /// </summary>
     private readonly Stack<BadObject> m_ArgumentStack = new Stack<BadObject>();
+
     /// <summary>
-    /// The Context Stack
+    ///     The Context Stack
     /// </summary>
     private readonly Stack<BadRuntimeVirtualStackFrame> m_ContextStack = new Stack<BadRuntimeVirtualStackFrame>();
 
     /// <summary>
-    /// The Instructions
+    ///     The Instructions
     /// </summary>
     private readonly BadInstruction[] m_Instructions;
+
     /// <summary>
-    /// Indicates if the Virtual Machine should use Operator Overrides.
+    ///     Indicates if the Virtual Machine should use Operator Overrides.
     /// </summary>
     private readonly bool m_UseOverrides;
+
     /// <summary>
-    /// The Current Instruction Pointer
+    ///     The Current Instruction Pointer
     /// </summary>
     private int m_InstructionPointer;
 
     /// <summary>
-    /// Creates a new <see cref="BadRuntimeVirtualMachine" /> instance.
+    ///     Creates a new <see cref="BadRuntimeVirtualMachine" /> instance.
     /// </summary>
     /// <param name="instructions">The Instructions to execute.</param>
     /// <param name="useOverrides">Indicates if the Virtual Machine should use Operator Overrides.</param>
@@ -57,7 +61,7 @@ public class BadRuntimeVirtualMachine
     }
 
     /// <summary>
-    /// Executes the Virtual Machine.
+    ///     Executes the Virtual Machine.
     /// </summary>
     /// <returns>The result of the execution.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown when the Virtual Machine encounters an error.</exception>
@@ -856,9 +860,19 @@ public class BadRuntimeVirtualMachine
                     break;
                 }
                 case BadOpCode.DestroyScope:
-                    m_ContextStack.Pop();
+                {
+                    BadRuntimeVirtualStackFrame? frame = m_ContextStack.Pop();
+                    frame.Context.Dispose();
 
                     break;
+                }
+                case BadOpCode.AddDisposeFinalizer:
+                {
+                    //Load Variable with that name and call dispose on it
+                    ctx.Scope.AddFinalizer(() => BadUsingExpression.Finalize(ctx, (string)instr.Arguments[0], instr.Position));
+
+                    break;
+                }
                 case BadOpCode.ClearStack:
                     m_ArgumentStack.Clear();
 
@@ -1463,7 +1477,7 @@ public class BadRuntimeVirtualMachine
     }
 
     /// <summary>
-    /// Executes the virtual machine with the given context.
+    ///     Executes the virtual machine with the given context.
     /// </summary>
     /// <param name="ctx">The context to execute the virtual machine with.</param>
     /// <returns>The return value of the virtual machine.</returns>

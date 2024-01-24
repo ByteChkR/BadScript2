@@ -157,7 +157,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
         BadExecutionContext caller,
         BadObject[] arguments)
     {
-        BadExecutionContext ctx = new BadExecutionContext(
+        using BadExecutionContext ctx = new BadExecutionContext(
             context.ExecutionContext.Scope.CreateChild(
                 ToString(),
                 caller.Scope,
