@@ -121,6 +121,8 @@
               target="tools/net6.0/any/data/subsystems/build/targets/ValidateOutput.json"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/NumberDefinitions.bs"
               target="tools/net6.0/any/data/subsystems/test/NumberDefinitions.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/Using.bs"
+              target="tools/net6.0/any/data/subsystems/test/Using.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/apps/build.bs"
               target="tools/net6.0/any/data/subsystems/run/apps/build.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/Debugger.bs"
