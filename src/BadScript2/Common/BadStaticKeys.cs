@@ -42,6 +42,7 @@ public static class BadStaticKeys
     public const string FOR_EACH_KEY = "foreach";
     public const string TRY_KEY = "try";
     public const string CATCH_KEY = "catch";
+    public const string FINALLY_KEY = "finally";
     public const string USING_KEY = "using";
     public const char DECIMAL_SEPARATOR = '.';
     public const char NEGATIVE_SIGN = '-';

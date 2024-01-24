@@ -19,6 +19,26 @@ catch(e)
 }
 ```
 
+## `finally`-Blocks
+
+When using a `try`/`catch` block, it is possible to define a code block to run regardless of the result. This block is called the `finally`-Block
+
+```js
+function F() => throw "This is an error";
+try
+{
+	F();
+}
+catch(e)
+{
+	Console.WriteLine(e); //Prints: "This is an error" + some runtime information such as file and line number.
+}
+finally
+{
+	Console.WriteLine("Ran the finally block!");
+}
+```
+
 ### The Error Object
 Whenever an exception gets thrown. The runtime wraps the supplied object into an object
 ```js

@@ -45,6 +45,12 @@ public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchEx
             new BadInstruction(BadOpCode.SetThrowPointer, expression.Position, catchStart - 1);
         instructions[jumpToEnd] =
             new BadInstruction(BadOpCode.JumpRelative, expression.Position, instructions.Count - jumpToEnd - 1);
+        
+        
+        //Simply append the instructions for the finally block
+        instructions.Add(new BadInstruction(BadOpCode.CreateScope, expression.Position, "FinallyScope", BadObject.Null));
+        instructions.AddRange(compiler.Compile(expression.FinallyExpressions));
+        instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
 
         foreach (BadInstruction instruction in instructions)
         {

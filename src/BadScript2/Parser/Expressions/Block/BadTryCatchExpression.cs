@@ -25,6 +25,11 @@ public class BadTryCatchExpression : BadExpression
     ///     The Try Block
     /// </summary>
     private readonly BadExpression[] m_Expressions;
+    
+    /// <summary>
+    /// The Finally Block
+    /// </summary>
+    private readonly BadExpression[] m_FinallyExpressions;
 
     /// <summary>
     ///     Constructor for the Try Catch Expression
@@ -37,11 +42,13 @@ public class BadTryCatchExpression : BadExpression
         BadSourcePosition position,
         BadExpression[] expressions,
         BadExpression[] catchExpressions,
+        BadExpression[] finallyExpressions,
         string errorName) : base(false, position)
     {
         m_Expressions = expressions;
         m_CatchExpressions = catchExpressions;
         ErrorName = errorName;
+        m_FinallyExpressions = finallyExpressions;
     }
 
     /// <summary>
@@ -53,6 +60,11 @@ public class BadTryCatchExpression : BadExpression
     ///     The Try Block
     /// </summary>
     public IEnumerable<BadExpression> TryExpressions => m_Expressions;
+    
+    /// <summary>
+    /// The Finally Block
+    /// </summary>
+    public IEnumerable<BadExpression> FinallyExpressions => m_FinallyExpressions;
 
     /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
@@ -65,6 +77,11 @@ public class BadTryCatchExpression : BadExpression
         for (int i = 0; i < m_Expressions.Length; i++)
         {
             m_Expressions[i] = BadConstantFoldingOptimizer.Optimize(m_Expressions[i]);
+        }
+        
+        for (int i = 0; i < m_FinallyExpressions.Length; i++)
+        {
+            m_FinallyExpressions[i] = BadConstantFoldingOptimizer.Optimize(m_FinallyExpressions[i]);
         }
     }
 
@@ -80,6 +97,14 @@ public class BadTryCatchExpression : BadExpression
         }
 
         foreach (BadExpression expression in m_CatchExpressions)
+        {
+            foreach (BadExpression e in expression.GetDescendantsAndSelf())
+            {
+                yield return e;
+            }
+        }
+        
+        foreach (BadExpression expression in m_FinallyExpressions)
         {
             foreach (BadExpression e in expression.GetDescendantsAndSelf())
             {
@@ -104,7 +129,7 @@ public class BadTryCatchExpression : BadExpression
             error = tryContext.Scope.Error;
         }
 
-        if (error != null)
+        if (error != null && m_CatchExpressions.Length != 0)
         {
             using BadExecutionContext catchContext = new BadExecutionContext(
                 context.Scope.CreateChild("CatchBlock", context.Scope, null)
@@ -117,6 +142,16 @@ public class BadTryCatchExpression : BadExpression
             }
         }
 
-        //TODO: Add finally block and execute it here
+        if (m_FinallyExpressions.Length != 0)
+        {
+            using BadExecutionContext finallyContext = new BadExecutionContext(
+                context.Scope.CreateChild("FinallyBlock", context.Scope, null)
+            );
+        
+            foreach (BadObject e in finallyContext.Execute(m_FinallyExpressions))
+            {
+                yield return e;
+            }
+        }
     }
 }

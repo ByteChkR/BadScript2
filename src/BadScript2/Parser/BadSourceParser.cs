@@ -1541,10 +1541,27 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
+        BadExpression[] finallyBlock = Array.Empty<BadExpression>();
+        if (Reader.Is(BadStaticKeys.FINALLY_KEY))
+        {
+            Reader.Eat(BadStaticKeys.FINALLY_KEY);
+            Reader.SkipNonToken();
+            List<BadExpression> finallyExprs = ParseBlock(out isSingleLine);
+            Reader.SkipNonToken();
+            if (isSingleLine)
+            {
+                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
+            }
+            
+            Reader.SkipNonToken();
+            finallyBlock = finallyExprs.ToArray();
+        }
+
         return new BadTryCatchExpression(
             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
             block.ToArray(),
             errorBlock.ToArray(),
+            finallyBlock,
             errorName.Text
         );
     }
