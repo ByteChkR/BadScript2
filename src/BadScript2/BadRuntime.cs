@@ -18,38 +18,39 @@ using BadScript2.Settings;
 /// </summary>
 namespace BadScript2;
 
-
 /// <summary>
-/// Exposes the BadScript Runtime Functionality to Consumers
+///     Exposes the BadScript Runtime Functionality to Consumers
 /// </summary>
 public class BadRuntime : IDisposable
 {
     /// <summary>
-    /// Configuration Actions for the Context
+    ///     Configuration Actions for the Context
     /// </summary>
     private readonly List<Action<BadExecutionContext>> m_ConfigureContext = new List<Action<BadExecutionContext>>();
 
     /// <summary>
-    /// Configuration Actions for the Options
+    ///     Configuration Actions for the Options
     /// </summary>
     private readonly List<Action<BadExecutionContextOptions>> m_ConfigureOptions =
         new List<Action<BadExecutionContextOptions>>();
 
     /// <summary>
-    /// List of Disposables
+    ///     List of Disposables
     /// </summary>
     private readonly List<IDisposable> m_Disposables = new List<IDisposable>();
+
     /// <summary>
-    /// The Options for the Context
+    ///     The Options for the Context
     /// </summary>
     private readonly BadExecutionContextOptions m_Options;
+
     /// <summary>
-    /// The Executor Function used to Execute a list of Expressions
+    ///     The Executor Function used to Execute a list of Expressions
     /// </summary>
     private Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> m_Executor = Executor;
 
     /// <summary>
-    /// Creates a new BadScript Runtime with the specified options
+    ///     Creates a new BadScript Runtime with the specified options
     /// </summary>
     /// <param name="options">The Options to use</param>
     public BadRuntime(BadExecutionContextOptions options)
@@ -63,12 +64,12 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Creates a new BadScript Runtime with the default options
+    ///     Creates a new BadScript Runtime with the default options
     /// </summary>
     public BadRuntime() : this(new BadExecutionContextOptions()) { }
 
     /// <summary>
-    /// Disposes all Disposables
+    ///     Disposes all Disposables
     /// </summary>
     public void Dispose()
     {
@@ -79,7 +80,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Clone this Runtime
+    ///     Clone this Runtime
     /// </summary>
     /// <returns>Cloned Runtime</returns>
     public BadRuntime Clone()
@@ -89,7 +90,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the specified Executor
+    ///     Configures the Runtime to use the specified Executor
     /// </summary>
     /// <param name="executor">The Executor to use</param>
     /// <returns>This Runtime</returns>
@@ -101,7 +102,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// The Default Executor Function
+    ///     The Default Executor Function
     /// </summary>
     /// <param name="ctx">The Context to use</param>
     /// <param name="exprs">The Expressions to execute</param>
@@ -112,7 +113,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the specified log masks
+    ///     Configures the Runtime to use the specified log masks
     /// </summary>
     /// <param name="mask">The Log Masks to use</param>
     /// <returns>This Runtime</returns>
@@ -124,7 +125,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the specified log masks
+    ///     Configures the Runtime to use the specified log masks
     /// </summary>
     /// <param name="mask">The Log Masks to use</param>
     /// <returns>This Runtime</returns>
@@ -134,7 +135,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the specified console implementation
+    ///     Configures the Runtime to use the specified console implementation
     /// </summary>
     /// <param name="console">The Console to use</param>
     /// <returns>This Runtime</returns>
@@ -146,7 +147,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the specified logwriter implementation
+    ///     Configures the Runtime to use the specified logwriter implementation
     /// </summary>
     /// <param name="writer">The LogWriter to use</param>
     /// <returns>This Runtime</returns>
@@ -160,7 +161,7 @@ public class BadRuntime : IDisposable
 
 
     /// <summary>
-    /// Configures the Runtime to use the default log writer implementation(log to console)
+    ///     Configures the Runtime to use the default log writer implementation(log to console)
     /// </summary>
     /// <returns>This Runtime</returns>
     public BadRuntime UseConsoleLogWriter()
@@ -169,7 +170,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the file log writer implementation
+    ///     Configures the Runtime to use the file log writer implementation
     /// </summary>
     /// <param name="path">The path to the log file</param>
     /// <returns>This Runtime</returns>
@@ -179,7 +180,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Loads the specified settings file
+    ///     Loads the specified settings file
     /// </summary>
     /// <param name="settingsFile">The path to the settings file</param>
     /// <returns>This Runtime</returns>
@@ -198,7 +199,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to expose the CompilerAPI to the Scripts
+    ///     Configures the Runtime to expose the CompilerAPI to the Scripts
     /// </summary>
     /// <returns>This Runtime</returns>
     public BadRuntime UseCompilerApi()
@@ -209,7 +210,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures the Runtime to use the specified Debugger
+    ///     Configures the Runtime to use the specified Debugger
     /// </summary>
     /// <param name="debugger">The Debugger to use</param>
     /// <returns>This Runtime</returns>
@@ -226,7 +227,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Creates and configures the Options for the Context
+    ///     Creates and configures the Options for the Context
     /// </summary>
     /// <returns>The Options for the Context</returns>
     private BadExecutionContextOptions CreateOptions()
@@ -242,7 +243,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Creates a new Context with the configured Options
+    ///     Creates a new Context with the configured Options
     /// </summary>
     /// <returns>The new Context</returns>
     public BadExecutionContext CreateContext()
@@ -254,55 +255,59 @@ public class BadRuntime : IDisposable
             config(ctx);
         }
 
+        ctx.Scope.AddSingleton(this);
         return ctx;
     }
 
     /// <summary>
-    /// Executes the specified expressions
+    ///     Executes the specified expressions
     /// </summary>
     /// <param name="expressions">The Expressions to execute</param>
     /// <returns>The Result of the Execution</returns>
-    public BadObject Execute(IEnumerable<BadExpression> expressions)
+    public BadRuntimeExecutionResult Execute(IEnumerable<BadExpression> expressions)
     {
         BadExecutionContext ctx = CreateContext();
 
-        return m_Executor(ctx, expressions);
+        BadObject? result = m_Executor(ctx, expressions);
+        BadObject exports = ctx.Scope.GetExports();
+
+        return new BadRuntimeExecutionResult(result, exports);
     }
 
 
     /// <summary>
-    /// Executes the specified script
+    ///     Executes the specified script
     /// </summary>
     /// <param name="source">The Script Source to execute</param>
     /// <returns>The Result of the Execution</returns>
-    public BadObject Execute(string source)
+    public BadRuntimeExecutionResult Execute(string source)
     {
         return Execute(Parse(source));
     }
 
     /// <summary>
-    /// Executes the specified script
+    ///     Executes the specified script
     /// </summary>
     /// <param name="source">The Script Source to execute</param>
     /// <param name="file">The File Path of the Script</param>
     /// <returns>The Result of the Execution</returns>
-    public BadObject Execute(string source, string file)
+    public BadRuntimeExecutionResult Execute(string source, string file)
     {
         return Execute(Parse(source, file));
     }
 
     /// <summary>
-    /// Executes the specified script file
+    ///     Executes the specified script file
     /// </summary>
     /// <param name="file">The File Path of the Script</param>
     /// <returns>The Result of the Execution</returns>
-    public BadObject ExecuteFile(string file)
+    public BadRuntimeExecutionResult ExecuteFile(string file)
     {
         return Execute(ParseFile(file));
     }
 
     /// <summary>
-    /// Parses the specified source
+    ///     Parses the specified source
     /// </summary>
     /// <param name="source">The Source to parse</param>
     /// <returns>The Parsed Expressions</returns>
@@ -312,7 +317,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Parses the specified source
+    ///     Parses the specified source
     /// </summary>
     /// <param name="source">The Source to parse</param>
     /// <param name="file">The File Path of the Script</param>
@@ -337,7 +342,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Parses the specified script file
+    ///     Parses the specified script file
     /// </summary>
     /// <param name="file">The File Path of the Script</param>
     /// <returns>The Parsed Expressions</returns>
@@ -347,7 +352,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Adds the specified Option Configuration Actions
+    ///     Adds the specified Option Configuration Actions
     /// </summary>
     /// <param name="action">The Configuration Actions</param>
     /// <returns>This Runtime</returns>
@@ -359,10 +364,10 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Adds the specified Context Configuration Actions
+    ///     Adds the specified Context Configuration Actions
     /// </summary>
     /// <param name="action">The Configuration Actions</param>
-    /// <returns>This Runtime</returns> 
+    /// <returns>This Runtime</returns>
     public BadRuntime ConfigureContext(params Action<BadExecutionContext>[] action)
     {
         m_ConfigureContext.AddRange(action);

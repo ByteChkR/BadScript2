@@ -15,7 +15,7 @@ namespace BadScript2.Parser.Expressions.Function;
 /// <summary>
 ///     Implements the Function Expression
 /// </summary>
-public class BadFunctionExpression : BadExpression
+public class BadFunctionExpression : BadExpression, IBadNamedExpression
 {
     /// <summary>
     ///     The Function Body
@@ -171,6 +171,13 @@ public class BadFunctionExpression : BadExpression
         sb.AppendLine("}");
 
         return sb.ToString();
+    }
+
+
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
+    {
+        return Name?.Text;
     }
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />

@@ -14,7 +14,7 @@ namespace BadScript2.Parser.Expressions.Types;
 /// <summary>
 ///     Implements the Class Prototype Expression
 /// </summary>
-public class BadClassPrototypeExpression : BadExpression
+public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
 {
     /// <summary>
     ///     The Base Classes
@@ -218,5 +218,12 @@ public class BadClassPrototypeExpression : BadExpression
         context.Scope.DefineVariable(Name, p);
 
         yield return p;
+    }
+
+
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
+    {
+        return Name;
     }
 }

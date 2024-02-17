@@ -901,6 +901,22 @@ public class BadRuntimeVirtualMachine
 
                     break;
                 }
+                case BadOpCode.Export:
+                {
+                    if (instr.Arguments.Length == 0)
+                    {
+                        BadObject? obj = m_ArgumentStack.Pop().Dereference();
+                        ctx.Scope.SetExports(ctx, obj);
+                    }
+                    else
+                    {
+                        string name = (string)instr.Arguments[0];
+                        BadObject obj = ctx.Scope.GetVariable(name).Dereference();
+                        ctx.Scope.AddExport(name, obj);
+                    }
+
+                    break;
+                }
                 case BadOpCode.Delete:
                 {
                     BadObject? obj = m_ArgumentStack.Pop();

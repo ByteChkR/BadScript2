@@ -10,7 +10,7 @@ namespace BadScript2.Parser.Expressions.Types;
 /// <summary>
 ///     Implements an Interface Prototype Expression.
 /// </summary>
-public class BadInterfacePrototypeExpression : BadExpression
+public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpression
 {
     /// <summary>
     ///     The Constraints for the Interface
@@ -160,5 +160,11 @@ public class BadInterfacePrototypeExpression : BadExpression
                 propProto
             );
         }
+    }
+
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
+    {
+        return Name;
     }
 }

@@ -694,5 +694,8 @@
         <None Update="data\subsystems\test\Using.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="data\subsystems\test\module\exports.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>

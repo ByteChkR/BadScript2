@@ -98,6 +98,10 @@ public enum BadOpCode
     /// </summary>
     InstanceOf = 0x0016,
     /// <summary>
+    /// Exports a named or default expression
+    /// </summary>
+    Export = 0x0017,
+    /// <summary>
     /// Compare two Objects.
     /// </summary>
     Equals = 0x1000,

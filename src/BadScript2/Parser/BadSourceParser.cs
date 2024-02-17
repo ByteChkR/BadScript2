@@ -12,6 +12,7 @@ using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
+using BadScript2.Parser.Expressions.Module;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Parser.Operators;
@@ -708,6 +709,7 @@ public class BadSourceParser
             Reader.SetPosition(compiledStart < constStart ? compiledStart : constStart);
         }
 
+        
         if (Reader.IsKey(BadStaticKeys.CLASS_KEY))
         {
             return ParseClass();
@@ -840,7 +842,6 @@ public class BadSourceParser
             }
 
             Reader.SkipNonToken();
-
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
         }
 

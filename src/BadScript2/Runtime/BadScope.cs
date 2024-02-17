@@ -41,6 +41,11 @@ public class BadScope : BadObject, IDisposable
     /// </summary>
     private BadScope? m_Caller;
 
+    /// <summary>
+    ///     Contains the exported variables of the scope
+    /// </summary>
+    private BadObject? m_Exports;
+
     private bool m_IsDisposed;
 
     /// <summary>
@@ -222,7 +227,7 @@ public class BadScope : BadObject, IDisposable
     }
 
     /// <summary>
-    /// Adds a Finalizer to the Scope
+    ///     Adds a Finalizer to the Scope
     /// </summary>
     /// <param name="finalizer">The Finalizer</param>
     /// <exception cref="BadRuntimeException">Gets raised if the Scope is already disposed</exception>
@@ -275,14 +280,19 @@ public class BadScope : BadObject, IDisposable
     /// </summary>
     /// <typeparam name="T">Type of the Singleton</typeparam>
     /// <returns>The Singleton</returns>
-    public T GetSingleton<T>()
+    public T? GetSingleton<T>()
     {
         if (Parent != null)
         {
             return Parent.GetSingleton<T>();
         }
 
-        return (T)m_SingletonCache[typeof(T)];
+        if (m_SingletonCache.TryGetValue(typeof(T), out object? value))
+        {
+            return (T)value;
+        }
+
+        return default;
     }
 
     /// <summary>
@@ -444,6 +454,47 @@ public class BadScope : BadObject, IDisposable
         if ((Flags & BadScopeFlags.CaptureContinue) == 0)
         {
             Parent?.SetContinue();
+        }
+    }
+
+    /// <summary>
+    ///     Returns the exported key value pairs of the scope
+    /// </summary>
+    /// <returns>BadTable with all exported variables</returns>
+    public BadObject GetExports()
+    {
+        return m_Exports ?? Null;
+    }
+
+    public void SetExports(BadExecutionContext ctx, BadObject exports)
+    {
+        if (m_Exports != null)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Exports are already set");
+        }
+
+        m_Exports = exports;
+    }
+
+    /// <summary>
+    ///     Sets an exported key value pair in the scope
+    /// </summary>
+    /// <param name="key">The Key</param>
+    /// <param name="value">The Value</param>
+    public void AddExport(BadObject key, BadObject value)
+    {
+        if (Parent != null)
+        {
+            Parent.AddExport(key, value);
+        }
+        else
+        {
+            if (m_Exports == null)
+            {
+                m_Exports = new BadTable();
+            }
+
+            m_Exports.SetProperty(key, value);
         }
     }
 

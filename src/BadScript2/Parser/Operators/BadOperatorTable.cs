@@ -75,6 +75,7 @@ public class BadOperatorTable
     {
         new BadDeleteExpressionParser(),
         new BadTypeOfExpressionParser(),
+        new BadExportExpressionParser(),
     };
 
 	/// <summary>

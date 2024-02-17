@@ -15,6 +15,7 @@ using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
+using BadScript2.Parser.Expressions.Module;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
@@ -269,6 +270,12 @@ public class BadCompiler
         },
         {
             typeof(BadUsingStatementExpression), new BadUsingStatementExpressionCompiler()
+        },
+        {
+            typeof(BadNamedExportExpression), new BadNamedExportExpressionCompiler()
+        },
+        {
+            typeof(BadDefaultExportExpression), new BadDefaultExportExpressionCompiler()
         },
     };
 

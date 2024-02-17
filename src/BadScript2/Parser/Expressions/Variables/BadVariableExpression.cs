@@ -7,7 +7,7 @@ namespace BadScript2.Parser.Expressions.Variables;
 /// <summary>
 ///     Implements the Variable Expression
 /// </summary>
-public class BadVariableExpression : BadExpression
+public class BadVariableExpression : BadExpression, IBadNamedExpression
 {
 	/// <summary>
 	///     Constructor of the Variable Expression
@@ -32,6 +32,12 @@ public class BadVariableExpression : BadExpression
     {
         return Name;
     }
+
+	/// <inheritdoc cref="IBadNamedExpression.GetName" />
+	public string? GetName()
+	{
+		return Name;
+	}
 
 	/// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()

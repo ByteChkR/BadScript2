@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+using BadScript2.Common.Logging;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Optimizations.Substitution;
@@ -182,7 +183,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {
         target.SetProperty(
@@ -272,7 +273,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
     /// <summary>
-    /// Validates a source string
+    ///     Validates a source string
     /// </summary>
     /// <param name="source">The Source String</param>
     /// <param name="file">The File Name</param>
@@ -307,7 +308,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
     /// <summary>
-    /// Parses a date string
+    ///     Parses a date string
     /// </summary>
     /// <param name="date">The Date String</param>
     /// <returns>Bad Table with the parsed date</returns>
@@ -319,7 +320,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
     /// <summary>
-    /// Converts a DateTimeOffset to a Bad Table
+    ///     Converts a DateTimeOffset to a Bad Table
     /// </summary>
     /// <param name="time">The DateTimeOffset</param>
     /// <returns>Bad Table with the given DateTimeOffset</returns>
@@ -455,7 +456,7 @@ public class BadRuntimeApi : BadInteropApi
     }
 
     /// <summary>
-    /// Creates a DateTime from a BadTable
+    ///     Creates a DateTime from a BadTable
     /// </summary>
     /// <param name="dateTable">The BadTable</param>
     /// <param name="timeZone">The TimeZone to use</param>
@@ -572,6 +573,12 @@ public class BadRuntimeApi : BadInteropApi
         BadObject optimizeExpr,
         BadObject scope)
     {
+        BadLogger.Warn(
+            $"THE SYNCHRONOUS EVALUATE FUNCTION IS DEPRECATED. USE THE ASYNC VERSION!\nOFFENDING CALL:\n\t{string.Join("\n\t", caller.Scope.GetStackTrace().Replace("\r", "").Split('\n'))}",
+            "RUNTIME API"
+        );
+        
+        
         if (str is not IBadString src)
         {
             throw new BadRuntimeException($"Evaluate: Argument 'src' is not a string {str}");
@@ -622,7 +629,10 @@ public class BadRuntimeApi : BadInteropApi
     /// <param name="fileObj">The File Name</param>
     /// <param name="optimizeExpr">Boolean that determines if the source will be optimized before execution</param>
     /// <param name="scope">The Scope that the source will be executed in</param>
-    /// <param name="setLastAsReturn">If true, the last result of the Source Enumeration will be set as the Task Result</param>
+    /// <param name="setLastAsReturn">
+    ///     If true, the last result of the Source Enumeration will be set as the Task Result,
+    ///     otherwise the exported variables are returned
+    /// </param>
     /// <returns>Awaitable Result</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Arguments are invalid</exception>
     private BadObject EvaluateAsync(
@@ -665,13 +675,26 @@ public class BadRuntimeApi : BadInteropApi
         bool optimizeConstantSubstitution =
             BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization && optimizeE.Value;
 
-        BadExecutionContext ctx =
-            scope == BadObject.Null || scope is not BadScope sc
-                ? new BadExecutionContext(
-                    caller.Scope.GetRootScope()
-                        .CreateChild("<EvaluateAsync>", caller.Scope, null, BadScopeFlags.CaptureThrow)
-                )
-                : new BadExecutionContext(sc);
+        BadExecutionContext ctx;
+        BadRuntime? runtime = caller.Scope.GetSingleton<BadRuntime>();
+        if (runtime != null && (scope == BadObject.Null || scope is not BadScope))
+        {
+            // If the runtime is available, we can use the context builder to create a new context.
+            // This is cleaner and also works better with the use of the Export Expressions.
+            ctx = runtime.CreateContext();
+        }
+        else
+        {
+            // The Old way of doing it. This was a hack initially to ensure the configured interop apis are available in the scope,
+            // even if we dont have a way to access the context builder.
+            ctx =
+                scope == BadObject.Null || scope is not BadScope sc
+                    ? new BadExecutionContext(
+                        caller.Scope.GetRootScope()
+                            .CreateChild("<EvaluateAsync>", caller.Scope, null, BadScopeFlags.CaptureThrow)
+                    )
+                    : new BadExecutionContext(sc);
+        }
 
         IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
 
@@ -686,12 +709,23 @@ public class BadRuntimeApi : BadInteropApi
         }
 
         BadTask task = null!;
+
+        IEnumerable<BadObject> executor;
+        if (setLastAsReturnB.Value) //If we want the last object as the return value, we just execute
+        {
+            executor = ctx.Execute(exprs);
+        }
+        else //Otherwise we return the exported variables of the script
+        {
+            executor = ExecuteScriptWithExports(ctx, exprs);
+        }
+
         task = new BadTask(
             new BadInteropRunnable(
 
                 // ReSharper disable once AccessToModifiedClosure
-                SafeExecute(ctx.Execute(exprs), ctx, () => task).GetEnumerator(),
-                setLastAsReturnB.Value
+                SafeExecute(executor, ctx, () => task).GetEnumerator(),
+                true
             ),
             "EvaluateAsync"
         );
@@ -700,7 +734,23 @@ public class BadRuntimeApi : BadInteropApi
     }
 
     /// <summary>
-    /// Wrapper that will execute a script and catch any errors that occur
+    ///     Executes a script and returns the exported variables
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="exprs">The Expressions to execute</param>
+    /// <returns>The exported variables</returns>
+    private IEnumerable<BadObject> ExecuteScriptWithExports(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
+    {
+        foreach (BadObject o in ctx.Execute(exprs))
+        {
+            yield return o;
+        }
+
+        yield return ctx.Scope.GetExports();
+    }
+
+    /// <summary>
+    ///     Wrapper that will execute a script and catch any errors that occur
     /// </summary>
     /// <param name="script">The Script to execute</param>
     /// <param name="ctx">The Current Execution Context</param>
