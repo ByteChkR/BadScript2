@@ -22,6 +22,8 @@ public static class BadStaticKeys
     public const string STATIC_DEFINITION_KEY = "static";
     public const string COMPILED_DEFINITION_KEY = "compiled";
     public const string COMPILED_FAST_DEFINITION_KEY = "fast";
+    public const string IMPORT_KEY = "import";
+    public const string FROM_KEY = "from";
     public const string EXPORT_KEY = "export";
     public const string DELETE_KEY = "delete";
     public const string DEFAULT_KEY = "default";

@@ -32,15 +32,22 @@ public class BadUnitTestContext
     ///     The Teardown Functions
     /// </summary>
     private readonly List<BadFunction> m_Teardown;
+    
+    /// <summary>
+    /// The Working Directory
+    /// </summary>
+    private readonly string m_WorkingDir;
 
     /// <summary>
     ///     Constructs a new BadUnitTestContext
     /// </summary>
+    /// <param name="workingDir">The Working Directory</param>
     /// <param name="cases">The Test Cases</param>
     /// <param name="setup">The Setup Functions</param>
     /// <param name="teardown">The Teardown Functions</param>
     /// <param name="runtime">The Runtime</param>
     public BadUnitTestContext(
+        string workingDir,
         List<BadNUnitTestCase> cases,
         List<BadFunction> setup,
         List<BadFunction> teardown,
@@ -50,6 +57,7 @@ public class BadUnitTestContext
         m_Setup = setup;
         m_Teardown = teardown;
         m_Runtime = runtime;
+        m_WorkingDir = workingDir;
     }
 
     /// <summary>
@@ -108,7 +116,7 @@ public class BadUnitTestContext
         for (int i = m_Setup.Count - 1; i >= 0; i--)
         {
             BadFunction function = m_Setup[i];
-            BadExecutionContext caller = m_Runtime.CreateContext();
+            BadExecutionContext caller = m_Runtime.CreateContext(m_WorkingDir);
 
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
@@ -132,7 +140,7 @@ public class BadUnitTestContext
         for (int i = m_Teardown.Count - 1; i >= 0; i--)
         {
             BadFunction function = m_Teardown[i];
-            BadExecutionContext caller = m_Runtime.CreateContext();
+            BadExecutionContext caller = m_Runtime.CreateContext(m_WorkingDir);
 
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
@@ -155,7 +163,7 @@ public class BadUnitTestContext
     private IEnumerable<BadObject> RunTestCase(BadNUnitTestCase testCase)
     {
         TestContext.WriteLine($"Running test '{testCase.TestName}'");
-        BadExecutionContext caller = m_Runtime.CreateContext();
+        BadExecutionContext caller = m_Runtime.CreateContext(m_WorkingDir);
 
         BadTaskRunner.Instance.AddTask(
             new BadTask(

@@ -1,5 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
+using BadScript2.IO;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop.Functions.Extensions;
@@ -104,7 +105,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         /// <returns>The new Context</returns>
         private BadExecutionContext CreateContext()
         {
-            BadExecutionContext context = m_Runtime.CreateContext();
+            BadExecutionContext context = m_Runtime.CreateContext(BadFileSystem.Instance.GetCurrentDirectory());
             BadExecutionContext ctx = new BadExecutionContext(context.Scope.CreateChild("ClientCommands", null, null));
             BadTable table = ctx.Scope.GetTable();
             table.SetFunction("disconnect", m_Client.Stop);

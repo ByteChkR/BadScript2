@@ -102,6 +102,10 @@ public enum BadOpCode
     /// </summary>
     Export = 0x0017,
     /// <summary>
+    /// Imports a module from a specified path
+    /// </summary>
+    Import = 0x0018,
+    /// <summary>
     /// Compare two Objects.
     /// </summary>
     Equals = 0x1000,

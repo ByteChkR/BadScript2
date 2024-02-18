@@ -1,6 +1,6 @@
 using BadScript2.Parser.Expressions.Module;
 
-namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
+namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Module;
 
 /// <summary>
 /// Compiles the <see cref="BadNamedExportExpression" />.

@@ -31,6 +31,7 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Function;
+using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Module;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 /// <summary>
@@ -276,6 +277,9 @@ public class BadCompiler
         },
         {
             typeof(BadDefaultExportExpression), new BadDefaultExportExpressionCompiler()
+        },
+        {
+            typeof(BadImportExpression), new BadImportExpressionCompiler()
         },
     };
 

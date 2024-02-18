@@ -6,17 +6,12 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>
-/// Exports the Default Value of the current execution
+///     Exports the Default Value of the current execution
 /// </summary>
 public class BadDefaultExportExpression : BadExpression
 {
     /// <summary>
-    /// The Expression to export
-    /// </summary>
-    public BadExpression Expression { get; private set; }
-
-    /// <summary>
-    /// Creates a new Default Export Expression
+    ///     Creates a new Default Export Expression
     /// </summary>
     /// <param name="expression">The Expression to export</param>
     /// <param name="position">The Source Position of the Expression</param>
@@ -24,6 +19,12 @@ public class BadDefaultExportExpression : BadExpression
     {
         Expression = expression;
     }
+
+    /// <summary>
+    ///     The Expression to export
+    /// </summary>
+    public BadExpression Expression { get; private set; }
+
     /// <inheritdoc />
     public override IEnumerable<BadExpression> GetDescendants()
     {
@@ -48,7 +49,7 @@ public class BadDefaultExportExpression : BadExpression
         }
 
         result = result.Dereference();
-        
+
         context.Scope.SetExports(context, result);
 
         yield return result;

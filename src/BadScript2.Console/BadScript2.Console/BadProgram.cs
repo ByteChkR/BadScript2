@@ -80,7 +80,9 @@ internal static class BadProgram
             .UseJsonApi()
             .UseLinqApi()
             .UseNetApi()
-            .UseNetHostApi();
+            .UseNetHostApi()
+            .UseLibraryModules()
+            .UseLocalModules();
 
 
         BadConsoleRunner runner = new BadConsoleRunner(

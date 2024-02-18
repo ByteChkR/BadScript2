@@ -5,6 +5,7 @@ using BadScript2.Parser.Operators.Binary.Logic.Assign;
 using BadScript2.Parser.Operators.Binary.Math;
 using BadScript2.Parser.Operators.Binary.Math.Assign;
 using BadScript2.Parser.Operators.Binary.Math.Atomic;
+using BadScript2.Parser.Operators.Module;
 
 namespace BadScript2.Parser.Operators;
 
@@ -76,6 +77,7 @@ public class BadOperatorTable
         new BadDeleteExpressionParser(),
         new BadTypeOfExpressionParser(),
         new BadExportExpressionParser(),
+        new BadImportExpressionParser(),
     };
 
 	/// <summary>

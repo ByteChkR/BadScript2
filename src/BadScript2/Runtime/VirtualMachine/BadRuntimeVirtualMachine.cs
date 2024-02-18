@@ -10,6 +10,7 @@ using BadScript2.Parser.Expressions.Binary.Math.Atomic;
 using BadScript2.Parser.Expressions.Block;
 using BadScript2.Parser.Expressions.Block.Lock;
 using BadScript2.Parser.Expressions.Function;
+using BadScript2.Parser.Expressions.Module;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -914,6 +915,14 @@ public class BadRuntimeVirtualMachine
                         BadObject obj = ctx.Scope.GetVariable(name).Dereference();
                         ctx.Scope.AddExport(name, obj);
                     }
+
+                    break;
+                }
+                case BadOpCode.Import:
+                {
+                    string name = (string)instr.Arguments[0];
+                    string path = (string)instr.Arguments[1];
+                    BadImportExpression.Import(ctx, name, path);
 
                     break;
                 }

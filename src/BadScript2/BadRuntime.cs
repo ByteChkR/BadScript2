@@ -8,6 +8,8 @@ using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Module;
+using BadScript2.Runtime.Module.Handlers;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
 using BadScript2.Runtime.VirtualMachine.Compiler;
@@ -27,6 +29,8 @@ public class BadRuntime : IDisposable
     ///     Configuration Actions for the Context
     /// </summary>
     private readonly List<Action<BadExecutionContext>> m_ConfigureContext = new List<Action<BadExecutionContext>>();
+
+    private readonly List<Action<BadExecutionContext, string, BadModuleImporter>> m_ConfigureModuleImporter = new List<Action<BadExecutionContext, string, BadModuleImporter>>();
 
     /// <summary>
     ///     Configuration Actions for the Options
@@ -67,6 +71,8 @@ public class BadRuntime : IDisposable
     ///     Creates a new BadScript Runtime with the default options
     /// </summary>
     public BadRuntime() : this(new BadExecutionContextOptions()) { }
+
+    private BadModuleStore ModuleStore { get; } = new BadModuleStore();
 
     /// <summary>
     ///     Disposes all Disposables
@@ -246,7 +252,7 @@ public class BadRuntime : IDisposable
     ///     Creates a new Context with the configured Options
     /// </summary>
     /// <returns>The new Context</returns>
-    public BadExecutionContext CreateContext()
+    public BadExecutionContext CreateContext(string workingDirectory)
     {
         BadExecutionContext ctx = CreateOptions().Build();
 
@@ -256,6 +262,13 @@ public class BadRuntime : IDisposable
         }
 
         ctx.Scope.AddSingleton(this);
+        BadModuleImporter importer = new BadModuleImporter(ModuleStore);
+        ctx.Scope.AddSingleton(importer);
+        foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
+        {
+            action(ctx, workingDirectory, importer);
+        }
+
         return ctx;
     }
 
@@ -264,9 +277,9 @@ public class BadRuntime : IDisposable
     /// </summary>
     /// <param name="expressions">The Expressions to execute</param>
     /// <returns>The Result of the Execution</returns>
-    public BadRuntimeExecutionResult Execute(IEnumerable<BadExpression> expressions)
+    public BadRuntimeExecutionResult Execute(IEnumerable<BadExpression> expressions, string workingDirectory)
     {
-        BadExecutionContext ctx = CreateContext();
+        BadExecutionContext ctx = CreateContext(workingDirectory);
 
         BadObject? result = m_Executor(ctx, expressions);
         BadObject exports = ctx.Scope.GetExports();
@@ -282,7 +295,7 @@ public class BadRuntime : IDisposable
     /// <returns>The Result of the Execution</returns>
     public BadRuntimeExecutionResult Execute(string source)
     {
-        return Execute(Parse(source));
+        return Execute(Parse(source), BadFileSystem.Instance.GetCurrentDirectory());
     }
 
     /// <summary>
@@ -293,7 +306,7 @@ public class BadRuntime : IDisposable
     /// <returns>The Result of the Execution</returns>
     public BadRuntimeExecutionResult Execute(string source, string file)
     {
-        return Execute(Parse(source, file));
+        return Execute(Parse(source, file), Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ?? BadFileSystem.Instance.GetCurrentDirectory());
     }
 
     /// <summary>
@@ -303,7 +316,7 @@ public class BadRuntime : IDisposable
     /// <returns>The Result of the Execution</returns>
     public BadRuntimeExecutionResult ExecuteFile(string file)
     {
-        return Execute(ParseFile(file));
+        return Execute(ParseFile(file), Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ?? BadFileSystem.Instance.GetCurrentDirectory());
     }
 
     /// <summary>
@@ -352,6 +365,24 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
+    ///     Registers the Library Path Handler to the Module Importer
+    /// </summary>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseLibraryModules()
+    {
+        return ConfigureModuleImporter(importer => importer.AddHandler(new BadLibraryPathImportHandler(this)));
+    }
+
+    /// <summary>
+    ///     Registers the Local Path Handler to the Module Importer
+    /// </summary>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseLocalModules()
+    {
+        return ConfigureModuleImporter((_, workingDir, importer) => importer.AddHandler(new BadLocalPathImportHandler(this, workingDir)));
+    }
+
+    /// <summary>
     ///     Adds the specified Option Configuration Actions
     /// </summary>
     /// <param name="action">The Configuration Actions</param>
@@ -361,6 +392,48 @@ public class BadRuntime : IDisposable
         m_ConfigureOptions.AddRange(action);
 
         return this;
+    }
+
+    /// <summary>
+    ///     Configures the Module Importer
+    /// </summary>
+    /// <param name="action">Module Importer Configuration Action</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime ConfigureModuleImporter(Action<BadExecutionContext, string, BadModuleImporter> action)
+    {
+        m_ConfigureModuleImporter.Add(action);
+
+        return this;
+    }
+
+    /// <summary>
+    ///     Configures the Module Importer
+    /// </summary>
+    /// <param name="action">Module Importer Configuration Action</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime ConfigureModuleImporter(Action<BadExecutionContext, BadModuleImporter> action)
+    {
+        return ConfigureModuleImporter((ctx, _, importer) => action(ctx, importer));
+    }
+
+    /// <summary>
+    ///     Configures the Module Importer
+    /// </summary>
+    /// <param name="action">Module Importer Configuration Action</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime ConfigureModuleImporter(Action<BadModuleImporter> action)
+    {
+        return ConfigureModuleImporter((_, _, importer) => action(importer));
+    }
+
+    /// <summary>
+    ///     Configures the Module Importer
+    /// </summary>
+    /// <param name="action">Module Importer Configuration Action</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime ConfigureModuleImporter(Action<string, BadModuleImporter> action)
+    {
+        return ConfigureModuleImporter((_, workingDir, importer) => action(workingDir, importer));
     }
 
     /// <summary>

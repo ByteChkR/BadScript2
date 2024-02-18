@@ -94,7 +94,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, false, files);
 
-            s_Context = builder.CreateContext();
+            s_Context = builder.CreateContext(ScriptTestDirectory);
 
             return s_Context;
         }
@@ -130,7 +130,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, false, files);
 
-            s_OptimizedFoldingContext = builder.CreateContext();
+            s_OptimizedFoldingContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_OptimizedFoldingContext;
         }
@@ -166,7 +166,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, true, files);
 
-            s_OptimizedSubstitutionContext = builder.CreateContext();
+            s_OptimizedSubstitutionContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_OptimizedSubstitutionContext;
         }
@@ -202,7 +202,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, true, files);
 
-            s_OptimizedContext = builder.CreateContext();
+            s_OptimizedContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_OptimizedContext;
         }
@@ -238,7 +238,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, false, files);
 
-            s_CompiledContext = builder.CreateContext();
+            s_CompiledContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_CompiledContext;
         }
@@ -274,7 +274,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, false, files);
 
-            s_CompiledOptimizedFoldingContext = builder.CreateContext();
+            s_CompiledOptimizedFoldingContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_CompiledOptimizedFoldingContext;
         }
@@ -311,7 +311,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, true, files);
 
-            s_CompiledOptimizedSubstitutionContext = builder.CreateContext();
+            s_CompiledOptimizedSubstitutionContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_CompiledOptimizedSubstitutionContext;
         }
@@ -348,7 +348,7 @@ public class BadUnitTests
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, true, files);
 
-            s_CompiledOptimizedContext = builder.CreateContext();
+            s_CompiledOptimizedContext = builder.CreateContext(ScriptTestDirectory);
 
             return s_CompiledOptimizedContext;
         }

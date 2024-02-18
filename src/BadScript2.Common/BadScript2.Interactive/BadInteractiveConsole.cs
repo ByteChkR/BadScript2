@@ -84,7 +84,7 @@ public class BadInteractiveConsole
         BadTable apiTable = new BadTable();
         m_Api.Load(apiTable);
 
-        BadExecutionContext ctx = m_Runtime.CreateContext();
+        BadExecutionContext ctx = m_Runtime.CreateContext(BadFileSystem.Instance.GetCurrentDirectory());
 
         ctx.Scope.AddSingleton(BadTaskRunner.Instance);
         ctx.Scope.DefineVariable(m_Api.Name, apiTable);

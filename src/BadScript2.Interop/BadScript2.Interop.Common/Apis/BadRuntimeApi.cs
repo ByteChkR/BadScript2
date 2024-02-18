@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 using BadScript2.Common.Logging;
 using BadScript2.Interop.Common.Task;
+using BadScript2.IO;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
@@ -186,25 +187,7 @@ public class BadRuntimeApi : BadInteropApi
     /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {
-        target.SetProperty(
-            "Evaluate",
-            new BadInteropFunction(
-                "Evaluate",
-                (ctx, args) => Evaluate(
-                    ctx,
-                    args[0],
-                    args.Length < 2 ? BadObject.Null : args[1],
-                    args.Length < 3 ? BadObject.True : args[2],
-                    args.Length < 4 ? BadObject.Null : args[3]
-                ),
-                false,
-                BadAnyPrototype.Instance,
-                new BadFunctionParameter("src", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
-                new BadFunctionParameter("file", true, false, false, null, BadNativeClassBuilder.GetNative("string")),
-                new BadFunctionParameter("optimize", true, false, false, null, BadNativeClassBuilder.GetNative("bool")),
-                new BadFunctionParameter("scope", true, false, false, null, BadScope.Prototype)
-            )
-        );
+        
         target.SetProperty(
             "EvaluateAsync",
             new BadInteropFunction(
@@ -554,72 +537,7 @@ public class BadRuntimeApi : BadInteropApi
     {
         return m_Exports[name];
     }
-
-    /// <summary>
-    ///     DONT USE THIS! USE THE ASYNC VERSION!
-    ///     Evaluates a string
-    /// </summary>
-    /// <param name="caller">Caller Context</param>
-    /// <param name="str">Source String</param>
-    /// <param name="fileObj">The File Name</param>
-    /// <param name="optimizeExpr">Boolean that determines if the source will be optimized before execution</param>
-    /// <param name="scope">The Scope that the source will be executed in</param>
-    /// <returns>Result of the Source</returns>
-    /// <exception cref="BadRuntimeException">Gets thrown if the Arguments are invalid</exception>
-    private static BadObject Evaluate(
-        BadExecutionContext caller,
-        BadObject str,
-        BadObject fileObj,
-        BadObject optimizeExpr,
-        BadObject scope)
-    {
-        BadLogger.Warn(
-            $"THE SYNCHRONOUS EVALUATE FUNCTION IS DEPRECATED. USE THE ASYNC VERSION!\nOFFENDING CALL:\n\t{string.Join("\n\t", caller.Scope.GetStackTrace().Replace("\r", "").Split('\n'))}",
-            "RUNTIME API"
-        );
-        
-        
-        if (str is not IBadString src)
-        {
-            throw new BadRuntimeException($"Evaluate: Argument 'src' is not a string {str}");
-        }
-
-        if (optimizeExpr is not IBadBoolean optimizeE)
-        {
-            throw new BadRuntimeException($"Evaluate: Argument 'optimize' is not a boolean {optimizeExpr}");
-        }
-
-        string file = "<eval>";
-
-        if (fileObj is IBadString fileStr)
-        {
-            file = fileStr.Value;
-        }
-        else if (fileObj != BadObject.Null)
-        {
-            throw new BadRuntimeException("Evaluate: Argument 'fileObj' is not a string");
-        }
-
-
-        bool optimize = BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimizeE.Value;
-
-        BadExecutionContext ctx =
-            scope == BadObject.Null || scope is not BadScope sc
-                ? new BadExecutionContext(
-                    caller.Scope.GetRootScope()
-                        .CreateChild("<EvaluateAsync>", caller.Scope, null)
-                )
-                : new BadExecutionContext(sc);
-
-        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, src.Value).Parse();
-
-        if (optimize)
-        {
-            exprs = BadConstantFoldingOptimizer.Optimize(exprs);
-        }
-
-        return ctx.Run(exprs) ?? BadObject.Null;
-    }
+    
 
     /// <summary>
     ///     Evaluates a string
@@ -653,7 +571,7 @@ public class BadRuntimeApi : BadInteropApi
             throw new BadRuntimeException($"Evaluate: Argument 'optimize' is not a boolean {optimizeExpr}");
         }
 
-        string file = "<eval>";
+        string file = BadFileSystem.Instance.GetFullPath("<eval>");
 
         if (fileObj is IBadString fileStr)
         {
@@ -681,7 +599,7 @@ public class BadRuntimeApi : BadInteropApi
         {
             // If the runtime is available, we can use the context builder to create a new context.
             // This is cleaner and also works better with the use of the Export Expressions.
-            ctx = runtime.CreateContext();
+            ctx = runtime.CreateContext(Path.GetDirectoryName(file) ?? "/");
         }
         else
         {

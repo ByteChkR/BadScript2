@@ -5,7 +5,7 @@ using BadScript2.Parser.Expressions.Module;
 using BadScript2.Reader;
 using BadScript2.Runtime.Error;
 
-namespace BadScript2.Parser.Operators;
+namespace BadScript2.Parser.Operators.Module;
 
 /// <summary>
 ///     Parses the Export Expression
@@ -18,6 +18,12 @@ public class BadExportExpressionParser : BadValueParser
         return parser.Reader.IsKey(BadStaticKeys.EXPORT_KEY);
     }
 
+    /// <summary>
+    ///     Returns true if the specified expression is a named expression
+    /// </summary>
+    /// <param name="expr">The Expression</param>
+    /// <param name="name">The Name of the expression</param>
+    /// <returns>true if the expression is a named expression</returns>
     public static bool IsNamed(BadExpression expr, out string? name)
     {
         if (expr is IBadNamedExpression namedExpr)

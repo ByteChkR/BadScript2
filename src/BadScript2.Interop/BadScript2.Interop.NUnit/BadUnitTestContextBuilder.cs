@@ -68,9 +68,9 @@ public class BadUnitTestContextBuilder
     ///     Creates a new BadUnitTestContext
     /// </summary>
     /// <returns>BadUnitTestContext</returns>
-    public BadUnitTestContext CreateContext()
+    public BadUnitTestContext CreateContext(string workingDir)
     {
-        return new BadUnitTestContext(m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList(), m_Runtime);
+        return new BadUnitTestContext(workingDir, m_Cases.ToList(), m_Setup.ToList(), m_Teardown.ToList(), m_Runtime);
     }
 
     /// <summary>
@@ -144,6 +144,6 @@ public class BadUnitTestContextBuilder
             expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
         }
 
-        m_Runtime.Execute(expressions);
+        m_Runtime.Execute(expressions, Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ?? "/");
     }
 }
