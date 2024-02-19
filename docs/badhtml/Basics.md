@@ -263,14 +263,17 @@ Construct the css/javscript inside a `bs2` script block
 
 <script lang="bs2">
 	
+    //This is a hack for github pages, because it uses the same syntax as the template engine
+    const doubleOpen = "{"+"{";
+    const doubleClose = "}"+"}";
 
 	const color = "#007daa"
 	//Multi-line Format Strings(starting with $@ need to escape the { and } characters by using them twice) 
 	const css = $@"
 		<style>
-			.test {{
+			.test {doubleOpen}
 				background-color: {color};
-			}}
+            {doubleClose}
 		</style>
 	";
 
