@@ -1,7 +1,7 @@
 # BadScript2 Landing Page
 
 <div style="display: flex; justify-content: center;">
-<img width="256" height="256" src="https://github.com/ByteChkR/BadScript2/blob/main/res/Logo.png?raw=true"/>
+<img width="256" height="256" src="https://github.com/ByteChkR/BadScript2/blob/master/res/Logo.png?raw=true"/>
 </div>
 
 Bad Script is an Interpreted Scripting Language written in pure C#. It has a similar syntax to javascript and written to be easily extensible.
