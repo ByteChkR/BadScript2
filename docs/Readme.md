@@ -16,26 +16,6 @@ Follow these steps to get started.
 
 Currently it is only possible to build the project from source. Binaries will be available on the first release.
 
-#### Using an installation script
-
-Tested on:
-- Windows 10 64-bit
-- Debian 11 (Bullseye)
-
-Installation Requirements:
-- net6.0 SDK
-
-Run this command to install the runtime as dotnet tool.
-```ps1
-dotnet tool install -g BadScript2.Console
-```
-The BadScript2 Runtime Console has the name `bs`
-
-To Update the Runtime use the command
-```ps1
-dotnet tool update -g BadScript2.Console
-```
-
 #### Building from Source
 
 Tested on:
