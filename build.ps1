@@ -1,4 +1,4 @@
-param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $noProjects=$false, [Switch] $noBuild=$false)
+param ($config="Debug", [Switch] $writeLog=$false, [Switch] $updateSource=$false, [Switch] $noTests=$false, [Switch] $noProjects=$false, [Switch] $noBuild=$false)
 
 if ($IsWindows) {
     $os = "win"
@@ -65,11 +65,16 @@ function Build-Projects {
         for (($i = 0); $i -lt $projects.Length; $i++)
         {
             $project = $projects[$i]
-            Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $i/$($projects.Length)" -PercentComplete $(($i / $projects.Length) * 100)
+            Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $($i + 1)/$($projects.Length)" -PercentComplete $((($i + 1) / $projects.Length) * 100)
             Build-Project $project.Name $project.Target
         }
 
         cd ..
+
+        if ($updateSource -eq $true)
+        {
+            cp -Force -Recurse build/data/* src/BadScript2.Console/BadScript2.Console/data
+        }
     }
 }
 
