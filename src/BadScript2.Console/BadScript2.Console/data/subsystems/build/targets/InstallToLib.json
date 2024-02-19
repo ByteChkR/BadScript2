@@ -1,5 +1,0 @@
-{
-  "Name": "InstallToLib",
-  "Description": "Installs the Source Output to the Library Folder of the Runtime Executable",
-  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/InstallToLib.bs"
-}

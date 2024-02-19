@@ -41,17 +41,18 @@ function Build-Project
 }
 
 $projects = @(
-        [pscustomobject]@{Name='BuildSystem'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='BuildSystem.Console'; Target='ReleaseApp'}
-        [pscustomobject]@{Name='PackageHandler'; Target='ReleaseStartup'}
-        [pscustomobject]@{Name='Debugger'; Target='ReleaseRun'}
-        [pscustomobject]@{Name='Assert'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='CommandlineParser'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='Enumerables'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='Event'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='Logging'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='SourceReader'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='VersionChange'; Target='ReleaseApp'}
+        [pscustomobject]@{Name='BuildSystem'; Target=$config}
+        [pscustomobject]@{Name='BuildSystem.Console'; Target=$config}
+        [pscustomobject]@{Name='PackageHandler'; Target=$config}
+        [pscustomobject]@{Name='Debugger'; Target=$config}
+        [pscustomobject]@{Name='Assert'; Target=$config}
+        [pscustomobject]@{Name='CommandlineParser'; Target=$config}
+        [pscustomobject]@{Name='Enumerables'; Target=$config}
+        [pscustomobject]@{Name='Event'; Target=$config}
+        [pscustomobject]@{Name='Logging'; Target=$config}
+        [pscustomobject]@{Name='SourceReader'; Target=$config}
+        [pscustomobject]@{Name='VersionChange'; Target=$config}
+        [pscustomobject]@{Name='NewProject'; Target=$config}
     )
 
 

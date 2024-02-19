@@ -1,0 +1,5 @@
+{
+  "Name": "Install",
+  "Description": "Installs the Source Output to the Appropriate Folder within the Runtime Data Directory",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/Install.bs"
+}

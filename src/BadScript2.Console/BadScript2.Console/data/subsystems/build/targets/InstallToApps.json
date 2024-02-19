@@ -1,5 +1,0 @@
-{
-  "Name": "InstallToApps",
-  "Description": "Installs the Source Output to the Apps Folder of the Runtime Executable",
-  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/InstallToApps.bs"
-}

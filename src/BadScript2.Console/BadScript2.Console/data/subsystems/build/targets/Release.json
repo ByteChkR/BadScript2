@@ -3,6 +3,8 @@
   "Description": "Builds the project in Release Mode",
   "Dependencies": [
     "Build",
-    "SaveToOutput"
+    "Minify",
+    "SaveToOutput",
+    "Install"
   ]
 }

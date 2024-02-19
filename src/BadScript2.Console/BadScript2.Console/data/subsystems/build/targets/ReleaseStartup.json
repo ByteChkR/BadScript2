@@ -1,9 +1,0 @@
-{
-  "Name": "ReleaseStartup",
-  "Description": "Builds and Releases the Project as a Startup Script",
-  "Dependencies": [
-    "Build",
-    "InstallToStartup",
-    "SaveToOutput"
-  ]
-}
