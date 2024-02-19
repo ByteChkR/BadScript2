@@ -1,0 +1,151 @@
+import CommandlineParser from '<CommandlineParser>';
+
+let TEMPLATE_DIR;
+if(Runtime.IsApiRegistered("Json"))
+{
+	TEMPLATE_DIR = Json.Settings?.Subsystems?.New?.TemplateDirectory;
+}
+
+if(TEMPLATE_DIR == null)
+{
+	//Fallback Location in case settings are not exposed to the Runtime
+	TEMPLATE_DIR = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "new", "templates");
+}
+
+if(!IO.Directory.Exists(TEMPLATE_DIR))
+{
+	IO.Directory.Create(TEMPLATE_DIR);
+}
+
+function CommandlineParser CreateParser()
+{
+	const parser = new CommandlineParser(false);
+	parser.Value("name", "n", "The Project Name", false)
+		.Value("version", "v", "The Version Name", false)
+		.Value("author", "a", "The Author Name", false);
+
+	return parser;
+}
+
+
+function PrintHelp(CommandlineParser parser)
+{
+	Console.WriteLine("Usage: bs new <template-name> [options...]");
+	Console.WriteLine(parser.GetHelpText());
+}
+
+function any ParseArgs(CommandlineParser parser, Array args)
+{
+	try
+	{
+		return parser.Parse(args);
+	}
+	catch(e)
+	{
+		PrintHelp(parser);
+		return null;
+	}
+}
+
+function string AskFor(string message, string default?)
+{
+	if(default != null)
+	{
+		Console.Write($"{message}[{default}]: ");
+	}
+	else
+	{
+		Console.Write($"{message}: ");
+	}
+	const value = Console.ReadLine();
+	if(value == "")
+	{
+		if(default != null)
+		{
+			return default;
+		}
+		return AskFor(message);
+	}
+	return value;
+}
+
+function string GetTemplateDir(string template)
+{
+	return IO.Path.Combine(TEMPLATE_DIR, template);
+}
+
+function EditSettings(string dir, string name, string version, string author)
+{
+	const appInfoPath = IO.Path.Combine(dir, "settings", "AppInfo.json");
+	const appInfo = {
+		Name: name,
+		Version: version,
+		Author: author
+	};
+	const buildInfoPath = IO.Path.Combine(dir, "settings", "BuildInfo.json");
+	const buildInfo = {
+		OutputFile: $"./bin/{name}.bs",
+		VersionChange: "(~){yyyy}.(~){MM}.(~){dd}.+"
+	};
+	IO.File.WriteAllText(appInfoPath, Json.ToJson(appInfo));
+	IO.File.WriteAllText(buildInfoPath, Json.ToJson(buildInfo));
+}
+
+function CreateTemplate(string template, string name, string version, string author)
+{
+	if(IO.Directory.Exists(name))
+	{
+		Console.WriteLine("Can not create project, directory {name} already exists");
+		return;
+	}
+	//Find Template in template directory
+	const templateDir = GetTemplateDir(template);
+	if(!IO.Directory.Exists(templateDir))
+	{
+		Console.WriteLine($"Can not find Template {template}");
+		return;
+	}
+	//Create new Directory
+	IO.Directory.Copy(templateDir, name);
+	//Edit Settings
+	EditSettings(name, name, version, author);
+}
+
+function Main(Array args)
+{
+	const parser = CreateParser();
+	
+	const template = args.Length > 0 ? args[0] : "default";
+	if(template == "help" || template == "-h" || template == "--help" || template == "-?")
+	{
+		PrintHelp(parser);
+		return;
+	}
+	const options = ParseArgs(args.Skip(1).ToArray());
+	if(options == null)
+	{
+		return;
+	}
+
+	let name = options.GetValue("name");
+	if(name == "")
+	{
+		name = AskFor("Project Name", "MyProject");
+	}
+
+	let version = options.GetValue("version");
+	if(version == "")
+	{
+		version = AskFor("Version", "1.0.0.0");
+	}
+
+	let author = options.GetValue("Author");
+	if(author == "")
+	{
+		author = AskFor("Author", "Unknown");
+	}
+
+	CreateTemplate(template, name, version, author);
+}
+
+Main(Runtime.GetArguments());
