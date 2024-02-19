@@ -8,6 +8,11 @@ Bad Script is an Interpreted Scripting Language written in pure C#. It has a sim
 
 This Repository contains a complete rewrite of [BadScript](https://github.com/ByteChkR/BadScript)
 
+## Preparations for the public branch
+
+At this point in time, there is a single dependency that is not available from the public nuget.org repository.
+To be able to restore the solution, the project `BadScript2.IO.OpenKM` needs to be unloaded.
+
 ## Install + Hello World
 
 Follow these steps to get started.
