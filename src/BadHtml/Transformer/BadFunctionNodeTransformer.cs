@@ -75,7 +75,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
             return null;
         }
 
-        BadExpression[] expressions = context.Parse(name, context.CreateAttributePosition(attribute));
+        BadExpression[] expressions = context.Parse(name+';', context.CreateAttributePosition(attribute));
 
         if (expressions.Length != 1)
         {

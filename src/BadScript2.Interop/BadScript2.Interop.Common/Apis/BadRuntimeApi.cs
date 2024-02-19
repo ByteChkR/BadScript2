@@ -52,17 +52,17 @@ public class BadRuntimeApi : BadInteropApi
         BadTable table = new BadTable();
 
         table.SetFunction<string>("ParseNumber", s => decimal.Parse(s), BadNativeClassBuilder.GetNative("num"));
-        table.SetFunction<BadObject>("IsNative", Native_IsNative, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsFunction", Native_IsFunction, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsTable", Native_IsTable, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsString", Native_IsString, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsNumber", Native_IsNumber, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsBoolean", Native_IsBoolean, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsArray", Native_IsArray, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsEnumerable", Native_IsEnumerable, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsEnumerator", Native_IsEnumerator, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>("IsPrototype", Native_IsPrototype, BadNativeClassBuilder.GetNative("bool"));
-        table.SetFunction<BadObject>(
+        table.SetFunction<BadNullable<BadObject>>("IsNative", Native_IsNative, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsFunction", Native_IsFunction, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsTable", Native_IsTable, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsString", Native_IsString, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsNumber", Native_IsNumber, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsBoolean", Native_IsBoolean, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsArray", Native_IsArray, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsEnumerable", Native_IsEnumerable, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsEnumerator", Native_IsEnumerator, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>("IsPrototype", Native_IsPrototype, BadNativeClassBuilder.GetNative("bool"));
+        table.SetFunction<BadNullable<BadObject>>(
             "IsPrototypeInstance",
             Native_IsPrototypeInstance,
             BadNativeClassBuilder.GetNative("bool")
@@ -77,9 +77,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsPrototypeInstance(BadObject arg)
+    private static BadObject Native_IsPrototypeInstance(BadNullable<BadObject> arg)
     {
-        return arg is BadClass;
+        return arg.Value is BadClass;
     }
 
     /// <summary>
@@ -87,9 +87,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsPrototype(BadObject arg)
+    private static BadObject Native_IsPrototype(BadNullable<BadObject> arg)
     {
-        return arg is BadClassPrototype;
+        return arg.Value is BadClassPrototype;
     }
 
     /// <summary>
@@ -97,9 +97,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsNative(BadObject arg)
+    private static BadObject Native_IsNative(BadNullable<BadObject> arg)
     {
-        return arg is IBadNative;
+        return arg.Value is IBadNative;
     }
 
     /// <summary>
@@ -107,9 +107,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsFunction(BadObject arg)
+    private static BadObject Native_IsFunction(BadNullable<BadObject> arg)
     {
-        return arg is BadFunction;
+        return arg.Value is BadFunction;
     }
 
     /// <summary>
@@ -117,9 +117,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsTable(BadObject arg)
+    private static BadObject Native_IsTable(BadNullable<BadObject> arg)
     {
-        return arg is BadTable;
+        return arg.Value is BadTable;
     }
 
     /// <summary>
@@ -127,9 +127,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsString(BadObject arg)
+    private static BadObject Native_IsString(BadNullable<BadObject> arg)
     {
-        return arg is IBadString;
+        return arg.Value is IBadString;
     }
 
     /// <summary>
@@ -137,9 +137,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsNumber(BadObject arg)
+    private static BadObject Native_IsNumber(BadNullable<BadObject> arg)
     {
-        return arg is IBadNumber;
+        return arg.Value is IBadNumber;
     }
 
     /// <summary>
@@ -147,9 +147,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsBoolean(BadObject arg)
+    private static BadObject Native_IsBoolean(BadNullable<BadObject> arg)
     {
-        return arg is IBadBoolean;
+        return arg.Value is IBadBoolean;
     }
 
     /// <summary>
@@ -157,9 +157,9 @@ public class BadRuntimeApi : BadInteropApi
     /// </summary>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsArray(BadObject arg)
+    private static BadObject Native_IsArray(BadNullable<BadObject> arg)
     {
-        return arg is BadArray;
+        return arg.Value is BadArray;
     }
 
     /// <summary>
@@ -168,9 +168,9 @@ public class BadRuntimeApi : BadInteropApi
     /// <param name="ctx">The Current Execution Context</param>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsEnumerable(BadExecutionContext ctx, BadObject arg)
+    private static BadObject Native_IsEnumerable(BadExecutionContext ctx, BadNullable<BadObject> arg)
     {
-        return arg.HasProperty("GetEnumerator", ctx.Scope);
+        return arg.Value?.HasProperty("GetEnumerator", ctx.Scope) ?? false;
     }
 
     /// <summary>
@@ -179,9 +179,10 @@ public class BadRuntimeApi : BadInteropApi
     /// <param name="ctx">The Current Execution Context</param>
     /// <param name="arg">Object to test</param>
     /// <returns>Boolean</returns>
-    private static BadObject Native_IsEnumerator(BadExecutionContext ctx, BadObject arg)
+    private static BadObject Native_IsEnumerator(BadExecutionContext ctx, BadNullable<BadObject> arg)
     {
-        return arg.HasProperty("GetCurrent", ctx.Scope) && arg.HasProperty("MoveNext", ctx.Scope);
+        return (arg.Value?.HasProperty("GetCurrent", ctx.Scope) ?? false) &&
+               (arg.Value?.HasProperty("MoveNext", ctx.Scope) ?? false);
     }
 
 
