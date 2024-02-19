@@ -2,6 +2,7 @@
 
 ## Basics
 - [The Commandline](./basics/Commandline.md)
+- [Start Building](./basics/StartBuilding.md)
 
 ## Language Reference
 - [Variables](./badlang/Variables.md)
@@ -11,6 +12,7 @@
 - [Loops](./badlang/Loops.md)
 - [Locking](./badlang/Locking.md)
 - [Using](./badlang/Using.md)
+- [Modules](./badlang/Modules.md)
 - [Functions](./badlang/Functions.md)
 	- [TypeSafety](./badlang/functions/TypeSafety.md)
 	- [Parameters](./badlang/functions/Parameters.md)
