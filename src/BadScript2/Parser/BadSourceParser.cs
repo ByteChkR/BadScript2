@@ -2109,7 +2109,8 @@ public class BadSourceParser
             or BadFunctionExpression
             {
                 IsSingleLine: false,
-            });
+            }) ||
+               expr is BadNamedExportExpression named && RequireSemicolon(named.Expression);
     }
 
     /// <summary>
