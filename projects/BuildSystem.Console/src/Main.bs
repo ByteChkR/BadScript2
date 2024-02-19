@@ -1,42 +1,19 @@
-
-#define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
-#define START_DIR Environment.Runtime == "Runtime" ? "IO.Directory.GetStartupDirectory()" : "\"/\""
-#define CONSOLE_API Environment.Runtime == "Runtime" ? "Console" : "OS"
-
-#if Environment.Runtime == "Runtime"
-{
-	#import Package from Runtime
-	#import BuildSystem from Package
-}
-#if Environment.Runtime == "OS"
-{
-	#import BuildSystem from OS
-}
-
+import BuildSystem from '<BuildSystem>';
 
 const Array args = $(Environment.Runtime).GetArguments();
+const Array targets = args.Length == 0 ? ["default"] : args;
 
-#if Environment.Runtime == "Runtime"
-{
-	const Array targets = args.Length == 0 ? ["default"] : args;
-}
-
-#if Environment.Runtime == "OS"
-{
-	const Array targets = args.Length == 0 ? ["default"] : args.Skip(1).ToArray();
-}
-
-$(CONSOLE_API).WriteLine("Targets: " + targets);
+Console.WriteLine("Targets: " + targets);
 
 foreach(target in targets)
 {
 	const bs = new BuildSystem.BuildSystem();
 	const context = {
 		Builder: bs,
-		DEFAULT_TARGETSCRIPT_PATH: $(FILESYSTEM_API).Path.Combine($(START_DIR), "data", "subsystems", "build", "scripts"),
-		DEFAULT_TARGET_PATH: $(FILESYSTEM_API).Path.Combine($(START_DIR), "data", "subsystems", "build", "targets"),
+		DEFAULT_TARGETSCRIPT_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"),
+		DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
 		StartTarget: target,
-		Environment: {Runtime: "$(Environment.Runtime)"}
+		Environment: {Runtime: "Runtime"}
 	};
 	bs.AddTargetSource("./targets", context);
 	bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);

@@ -2,10 +2,6 @@
 
 using BadScript2;
 using BadScript2.Examples.CustomApi;
-using BadScript2.Parser;
-using BadScript2.Parser.Expressions;
-using BadScript2.Runtime;
-using BadScript2.Runtime.Objects;
 
 internal static class Program
 {
@@ -16,15 +12,22 @@ internal static class Program
 
         // The Script to Execute
         string source =
-            "MyCustomApi.SayHello();\nMyCustomApi.Say(\"LOL\");\nMyCustomApi.Say(MyCustomApi.WhoAmI());\nMyCustomApi.Say(MyCustomApi.MyName);\nMyCustomApi.Say(MyCustomApi.MyTable.Nested);\nMyCustomApi.OldSchool(\"Name\");\nMyCustomApi.OldSchool(\"Name\", \"The Description\");";
+            @"
+MyCustomApi.SayHello();
+MyCustomApi.Say(""LOL"");
+MyCustomApi.Say(MyCustomApi.WhoAmI());
+MyCustomApi.Say(MyCustomApi.MyName);
+MyCustomApi.Say(MyCustomApi.MyTable.Nested);
+MyCustomApi.OldSchool(""Name"");
+MyCustomApi.OldSchool(""Name"", ""The Description"");";
 
         // Create the Runtime
         using BadRuntime runtime = new BadRuntime()
             .ConfigureContextOptions(opts => opts.AddApi(new MyCustomApi()));
-        
+
 
         // Run the Script
         // the result will be null because the Run method will only return a value if the script contains a return statement.
-        BadObject? result = runtime.Execute(source);
+        BadRuntimeExecutionResult result = runtime.Execute(source);
     }
 }

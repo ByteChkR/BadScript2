@@ -1,11 +1,10 @@
-#define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
 
 class BuildSystem
 {
 
 	function AddTargetSource(string dir!, context)
 	{
-		if(!$(FILESYSTEM_API).Directory.Exists(dir))
+		if(!IO.Directory.Exists(dir))
 		{
 			return;
 		}
@@ -37,11 +36,11 @@ class BuildSystem
 }
 
 
-$(Environment.Runtime).Export("BuildSystem", {
+export {
 	BuildSystem: BuildSystem, 
 	BuildLogger: BuildLogger,
 	BuildTarget: BuildTarget,
 	BuildTargetDirectoryResolver: BuildTargetDirectoryResolver,
 	BuildTargetLoader: BuildTargetLoader,
 	BuildTargetResolver: BuildTargetResolver
-});
+};

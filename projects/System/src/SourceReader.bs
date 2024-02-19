@@ -39,7 +39,7 @@ class SourceReader
 		|PARAM str string: The string sequence to test against
 		|RET: void
 	|@
-	function Eat(string str!)
+	function string Eat(string str!)
 	{
 		if(!Is(str))
 		{
@@ -47,6 +47,7 @@ class SourceReader
 		}
 
 		_current += str.Length;
+		return str;
 	}
 
 	@|
@@ -177,20 +178,31 @@ class SourceReader
 	|@
 	compiled fast function string ReadString()
 	{
-		let r = GetCurrent();
+		const terminator = GetCurrent();
+		let r = terminator;
 		MoveNext();
-		while(!IsEOF() && GetCurrent() != "\"")
+		
+		while(!IsEOF())
 		{
-			r += GetCurrent();
-			if(GetCurrent() == "\\")
+			let current = GetCurrent();
+			if(current == terminator)
 			{
-				MoveNext();
-				r += GetCurrent();
+				break;
 			}
+			if(current == "\\")
+			{
+				const escaped = GetCurrent(1);
+				r += "\\" + escaped;
+				MoveNext();
+				MoveNext();
+				continue;
+			}
+
+			r += current;
 			MoveNext();
 		}
-		r += GetCurrent();
-		MoveNext();
+
+		r += Eat(terminator);
 
 		return r;
 	}

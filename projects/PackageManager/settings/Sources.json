@@ -1,7 +1,0 @@
-[
-	"./src/Imports.bs",
-	"./src/Bootstrap/*.bs",
-	"./src/Commands.bs",
-	"./src/Commands/*.bs",
-	"./src/Main.bs"
-]

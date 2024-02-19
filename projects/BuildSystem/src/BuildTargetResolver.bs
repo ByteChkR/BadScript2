@@ -22,7 +22,7 @@ class BuildTargetResolver
 		|PARAM name string: Name of the Build Target
 		|RET any: The Build Target with the specified name
 	|@
-	function Table Resolve(string name!)
+	function BuildTarget Resolve(string name!)
 	{
 		foreach(func in _Funcs)
 		{

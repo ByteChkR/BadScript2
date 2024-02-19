@@ -1,4 +1,4 @@
-#define FILESYSTEM_API Environment.Runtime == "Runtime" ? "IO" : "OS.FileSystem"
+
 function string CreateDebugString(string content)
 {
 	const cLen = content.Length;
@@ -112,7 +112,7 @@ class BuildTarget
 	|@
 	function Save(string file!)
 	{
-		$(FILESYSTEM_API).File.WriteAllText(file, Json.ToJson(Info));
+		IO.File.WriteAllText(file, Json.ToJson(Info));
 	}
 
 
@@ -128,9 +128,9 @@ class BuildTarget
 		{
 			return;
 		}
-		const scope = $(Environment.Runtime).CreateDefaultScope();
+		const scope = Runtime.CreateDefaultScope();
 		scope.GetLocals()["Context"] = context;
-		await $(Environment.Runtime).EvaluateAsync($(FILESYSTEM_API).File.ReadAllText(scriptPath), scriptPath, false, scope);
+		await Runtime.EvaluateAsync(IO.File.ReadAllText(scriptPath), scriptPath, false, scope);
 	}
 
 	@|

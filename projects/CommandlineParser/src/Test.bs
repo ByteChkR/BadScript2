@@ -1,10 +1,10 @@
-Runtime.Evaluate(IO.File.ReadAllText("Main.bs"));
+import CommandlineParser from './Main.bs';
 
 
 
 function ParseArgs()
 {
-	const parser = new Runtime.Import("CommandlineParser")(false);
+	const parser = new CommandlineParser(false);
 	parser.Flag("debug", "d", "Enables Debug Mode")
 		.Flag("no-output", "no", "Disables the Console Output")
 		.Value("file", "f", true, "The File Name(s) to Load", true)

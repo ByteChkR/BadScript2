@@ -62,7 +62,6 @@ internal static class Program
         //Initialize Engine(not part of this tutorial)
         using BadRuntime? runtime = new BadRuntime()
             .UseCommonInterop()
-            .UseScriptDebugger()
             .UseLinqApi()
             .UseFileSystemApi()
             .UseJsonApi()

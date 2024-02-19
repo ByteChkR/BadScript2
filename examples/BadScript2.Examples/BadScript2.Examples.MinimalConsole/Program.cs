@@ -22,7 +22,7 @@ internal static class Program
         // Parse the Script
         // Call "ToArray" on the result to parse the script completely.
         // Otherwise the Parsing happens during the execution(which is fine normally, but since we are executing the same script twice, the parsing can be cached)
-        BadExpression[] script = BadSourceParser.Parse("<none>", source).ToArray();
+        BadExpression[] script = BadSourceParser.Parse("<none>", source+';').ToArray();
 
 
         // Run the Script

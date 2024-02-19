@@ -374,4 +374,4 @@ class CommandlineParser
 }
 
 
-Runtime.Export("CommandlineParser", CommandlineParser);
+export default CommandlineParser;

@@ -1,4 +1,3 @@
-#define CONSOLE_API Environment.Runtime == "Runtime" ? "Console" : "OS"
 
 @|
 	Implements a Logger that will output logs prefixed with different tags.
@@ -23,7 +22,7 @@ class BuildLogger
 	|@
 	function Log(msg!)
 	{
-		$(CONSOLE_API).WriteLine($"[{Tag}:LOG] {msg}");
+		Console.WriteLine($"[{Tag}:LOG] {msg}");
 	}
 
 	@|
@@ -33,7 +32,7 @@ class BuildLogger
 	|@
 	function Warn(msg!)
 	{
-		$(CONSOLE_API).WriteLine($"[{Tag}:WARN] {msg}");
+		Console.WriteLine($"[{Tag}:WARN] {msg}");
 	}
 
 	@|
@@ -43,6 +42,6 @@ class BuildLogger
 	|@
 	function Error(msg!)
 	{
-		$(CONSOLE_API).WriteLine($"[{Tag}:ERR] {msg}");
+		Console.WriteLine($"[{Tag}:ERR] {msg}");
 	}
 }

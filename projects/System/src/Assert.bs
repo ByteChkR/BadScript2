@@ -1,5 +1,5 @@
 
-let Native = $(Environment.Runtime).Native;
+let Native = Runtime.Native;
 
 @|
 	Asserts that the specified object is a String
