@@ -55,10 +55,6 @@
               target="tools/net6.0/any/data/subsystems/build/scripts/ProcessEvals.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessImports.bs"
               target="tools/net6.0/any/data/subsystems/build/scripts/ProcessImports.bs" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/PublishApp.bs"
-              target="tools/net6.0/any/data/subsystems/build/scripts/PublishApp.bs" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/PublishLib.bs"
-              target="tools/net6.0/any/data/subsystems/build/scripts/PublishLib.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/RunOutput.bs"
               target="tools/net6.0/any/data/subsystems/build/scripts/RunOutput.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/SaveToOutput.bs"
@@ -97,10 +93,6 @@
               target="tools/net6.0/any/data/subsystems/build/targets/ProcessEvals.json" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessImports.json"
               target="tools/net6.0/any/data/subsystems/build/targets/ProcessImports.json" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/PublishApp.json"
-              target="tools/net6.0/any/data/subsystems/build/targets/PublishApp.json" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/PublishLib.json"
-              target="tools/net6.0/any/data/subsystems/build/targets/PublishLib.json" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Release.json"
               target="tools/net6.0/any/data/subsystems/build/targets/Release.json" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ReleaseApp.json"
@@ -127,8 +119,6 @@
               target="tools/net6.0/any/data/subsystems/run/libs/BuildSystem.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/System.bs"
               target="tools/net6.0/any/data/subsystems/run/libs/System.bs" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/WebFramework.bs"
-              target="tools/net6.0/any/data/subsystems/run/libs/WebFramework.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/startup/PackageHandler.bs"
               target="tools/net6.0/any/data/subsystems/run/startup/PackageHandler.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/default.bs"
@@ -147,6 +137,8 @@
               target="tools/net6.0/any/data/subsystems/test/classes/visibility.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestMixed.bs"
               target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestMixed.bs" />
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/module/exports.bs"
+              target="tools/net6.0/any/data/subsystems/test/module/exports.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestNullChecked.bs"
               target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestNullChecked.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestOptional.bs"
