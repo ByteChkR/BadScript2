@@ -151,7 +151,7 @@ public static class BadConstantSubstitutionOptimizer
 
                     yield return ifExpr;
 
-                    break;
+                    continue;
                 }
                 case BadInvocationExpression invoc:
                 {
