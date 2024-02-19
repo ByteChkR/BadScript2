@@ -73,6 +73,7 @@ public class BadRuntime : IDisposable
     public BadRuntime() : this(new BadExecutionContextOptions()) { }
 
     private BadModuleStore ModuleStore { get; } = new BadModuleStore();
+    private BadModuleImporter? Importer { get; set; }
 
     /// <summary>
     ///     Disposes all Disposables
@@ -262,13 +263,16 @@ public class BadRuntime : IDisposable
         }
 
         ctx.Scope.AddSingleton(this);
-        BadModuleImporter importer = new BadModuleImporter(ModuleStore);
-        ctx.Scope.AddSingleton(importer);
-        foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
+        if(Importer == null)
         {
-            action(ctx, workingDirectory, importer);
+            Importer = new BadModuleImporter(ModuleStore);
+            foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
+            {
+                action(ctx, workingDirectory, Importer);
+            }
         }
 
+        ctx.Scope.AddSingleton(Importer);
         return ctx;
     }
 
@@ -364,14 +368,6 @@ public class BadRuntime : IDisposable
         return Parse(BadFileSystem.ReadAllText(file), file);
     }
 
-    /// <summary>
-    ///     Registers the Library Path Handler to the Module Importer
-    /// </summary>
-    /// <returns>This Runtime</returns>
-    public BadRuntime UseLibraryModules()
-    {
-        return ConfigureModuleImporter(importer => importer.AddHandler(new BadLibraryPathImportHandler(this)));
-    }
 
     /// <summary>
     ///     Registers the Local Path Handler to the Module Importer

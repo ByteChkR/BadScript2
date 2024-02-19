@@ -1,16 +1,15 @@
 
-
 @|
 	Implements a Logger that will output logs prefixed with different tags.
 |@
 class BuildLogger
 {
-	const Tag;
+	const string Tag;
 	@|
 		Creates a new BuildLogger instance with the specified tag
 		|PARAM tag string: The tag that is displayed
 	|@
-	function BuildLogger(tag!)
+	function BuildLogger(string tag!)
 	{
 		Tag = tag;
 	}
@@ -53,7 +52,7 @@ class BuildLogger
 class BuildTargetResolver
 {
 	
-	const _Funcs = [];
+	const Array _Funcs = [];
 	@|
 		Adds a Resolver Function
 		|PARAM func Function: Resolver Function
@@ -70,7 +69,7 @@ class BuildTargetResolver
 		|PARAM name string: Name of the Build Target
 		|RET any: The Build Target with the specified name
 	|@
-	function Resolve(string name!)
+	function BuildTarget Resolve(string name!)
 	{
 		foreach(func in _Funcs)
 		{
@@ -86,7 +85,6 @@ class BuildTargetResolver
 
 }
 
-
 @|
 	Loads Build Targets
 |@
@@ -98,7 +96,7 @@ class BuildTargetLoader
 		|PARAM str string: The String to be resolved
 		|RET string: the resolved string
 	|@
-	function ResolveString(Table context!, string str)
+	function string ResolveString(Table context!, string str)
 	{
 		if(str.Contains("{") && str.Contains("}"))
 		{
@@ -114,7 +112,7 @@ class BuildTargetLoader
 		|PARAM table Table: The Table to be resolved
 		|RET Table: the resolved string
 	|@
-	function ResolveTable(Table context!, Table table)
+	function Table ResolveTable(Table context!, Table table)
 	{
 		const t = {};
 		foreach(key in table.Keys)
@@ -130,7 +128,7 @@ class BuildTargetLoader
 		|PARAM array Array: The Array to be resolved
 		|RET Array: the resolved Array
 	|@
-	function ResolveArray(Table context!, Array array)
+	function Array ResolveArray(Table context!, Array array)
 	{
 		for(let i = 0; i < array.Length; i++)
 		{
@@ -145,7 +143,7 @@ class BuildTargetLoader
 		|PARAM obj any: The Object to be resolved
 		|RET any: the resolved Object
 	|@
-	function Resolve(Table context!, obj)
+	function any Resolve(Table context!, obj)
 	{
 		if(obj == null)
 		{
@@ -172,15 +170,11 @@ class BuildTargetLoader
 		|PARAM file string: The Build Target File
 		|RET any: the resolved Object
 	|@
-	function Load(string file!, context)
+	function any Load(string file!, Table context)
 	{
 		return Resolve(context, Json.FromJson(IO.File.ReadAllText(file)));
 	}
 }
-
-
-
-
 @|
 	Resolves Build Target Directories
 |@
@@ -231,15 +225,15 @@ class BuildTargetDirectoryResolver
 		|PARAM name string: the build target name
 		|RET any: The Build Target with the specified name.
 	|@
-	function Resolve(string name!)
+	function BuildTarget Resolve(string name!)
 	{
-		return Targets.FirstOrDefault(function(t) => t.GetName() == name);
+		return Targets.FirstOrDefault(function bool FindByName(t) {return t.GetName() == name;});
 	}
 
 
 }
 
-function CreateDebugString(string content)
+function string CreateDebugString(string content)
 {
 	const cLen = content.Length;
 	const targetLen = 60;
@@ -273,13 +267,13 @@ function CreateDebugString(string content)
 |@
 class BuildTarget
 {
-	const Info;
-	const Logger;
+	const any Info;
+	const BuildLogger Logger;
 	@|
 		Constructs a new Build Target from the specified build target info
 		|PARAM info any: The build target info
 	|@
-	function BuildTarget(info!)
+	function BuildTarget(any info!)
 	{
 		Info = info;
 		Logger = new BuildLogger("Target");
@@ -289,7 +283,7 @@ class BuildTarget
 		Returns the Build Target Name
 		|RET string: Build Target Name
 	|@
-	function GetName()
+	function string GetName()
 	{
 		return Info.Name;
 	}
@@ -298,7 +292,7 @@ class BuildTarget
 		Returns the Build Target Dependencies
 		|RET Array: Build Target Dependencies
 	|@
-	function GetDependencies()
+	function Array GetDependencies()
 	{
 		if(Info.Keys.Contains("Dependencies"))
 		{
@@ -311,7 +305,7 @@ class BuildTarget
 		Returns the Build Target Script
 		|RET string: Path to build target script. (null if not defined)
 	|@
-	function GetScript()
+	function string GetScript()
 	{
 		if(Info.Keys.Contains("Script"))
 		{
@@ -324,7 +318,7 @@ class BuildTarget
 		Returns the Build Target PreScript
 		|RET string: Path to build target PreScript. (null if not defined)
 	|@
-	function GetPreScript()
+	function string GetPreScript()
 	{
 		if(Info.Keys.Contains("PreScript"))
 		{
@@ -337,7 +331,7 @@ class BuildTarget
 		Returns the Build Target Description
 		|RET string: Build Target Description. (Name if not defined)
 	|@
-	function GetDescription()
+	function string GetDescription()
 	{
 		if(Info.Keys.Contains("Description"))
 		{
@@ -417,7 +411,6 @@ class BuildTarget
 }
 
 
-
 class BuildSystem
 {
 
@@ -440,9 +433,9 @@ class BuildSystem
 		GetTarget(name).Run(this, context);
 	}
 
-	function GetTarget(string name!)
+	function any GetTarget(string name!)
 	{
-		let target = Targets.FirstOrDefault(function(t) => t.GetName() == name);
+		let target = Targets.FirstOrDefault(function bool FindByName(t) {return t.GetName() == name;});
 		if(target == null)
 		{
 			target = Resolver.Resolve(name);
@@ -455,11 +448,11 @@ class BuildSystem
 }
 
 
-Runtime.Export("BuildSystem", {
+export {
 	BuildSystem: BuildSystem, 
 	BuildLogger: BuildLogger,
 	BuildTarget: BuildTarget,
 	BuildTargetDirectoryResolver: BuildTargetDirectoryResolver,
 	BuildTargetLoader: BuildTargetLoader,
 	BuildTargetResolver: BuildTargetResolver
-});
+};

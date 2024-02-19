@@ -13,31 +13,35 @@ namespace BadScript2.Runtime.Objects.Types;
 public static class BadNativeClassBuilder
 {
     /// <summary>
-    /// The IDisposible Interface Prototype
+    ///     The IDisposible Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype Disposable =
         new BadInterfacePrototype("IDisposable", Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints);
 
     /// <summary>
-    /// The IEnumerable Interface Prototype
+    ///     The IEnumerable Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype Enumerable =
         new BadInterfacePrototype("IEnumerable", Array.Empty<BadInterfacePrototype>(), null, EnumerableConstraints);
 
     /// <summary>
-    /// The IEnumerator Interface Prototype
+    ///     The IEnumerator Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype Enumerator =
         new BadInterfacePrototype("IEnumerator", Array.Empty<BadInterfacePrototype>(), null, EnumeratorConstraints);
 
     /// <summary>
-    /// The IArray Interface Prototype
+    ///     The IArray Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype ArrayLike =
         new BadInterfacePrototype("IArray", new[] { Enumerable }, null, ArrayConstraints);
 
+    public static readonly BadInterfacePrototype ImportHandler =
+        new BadInterfacePrototype("IImportHandler", Array.Empty<BadInterfacePrototype>(), null, ImportHandlerConstraints);
+
+
     /// <summary>
-    /// Collection of all Native Class Prototypes
+    ///     Collection of all Native Class Prototypes
     /// </summary>
     private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
     {
@@ -53,6 +57,7 @@ public static class BadNativeClassBuilder
         Enumerator,
         Disposable,
         ArrayLike,
+        ImportHandler,
     };
 
     /// <summary>
@@ -61,7 +66,7 @@ public static class BadNativeClassBuilder
     public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
 
     /// <summary>
-    /// The IDisposible Interface Constraints
+    ///     The IDisposible Interface Constraints
     /// </summary>
     /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] DisposableConstraints()
@@ -73,7 +78,7 @@ public static class BadNativeClassBuilder
     }
 
     /// <summary>
-    /// The IEnumerable Interface Constraints
+    ///     The IEnumerable Interface Constraints
     /// </summary>
     /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] EnumerableConstraints()
@@ -84,8 +89,43 @@ public static class BadNativeClassBuilder
         };
     }
 
+
+    private static BadInterfaceConstraint[] ImportHandlerConstraints()
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint(
+                "GetHash",
+                null,
+                GetNative("string"),
+                new[]
+                {
+                    new BadFunctionParameter("path", false, true, false, null, GetNative("string")),
+                }
+            ),
+            new BadInterfaceFunctionConstraint(
+                "Has",
+                null,
+                GetNative("bool"),
+                new[]
+                {
+                    new BadFunctionParameter("path", false, true, false, null, GetNative("string")),
+                }
+            ),
+            new BadInterfaceFunctionConstraint(
+                "Get",
+                null,
+                BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("path", false, true, false, null, GetNative("string")),
+                }
+            ),
+        };
+    }
+
     /// <summary>
-    /// The IArray Interface Constraints
+    ///     The IArray Interface Constraints
     /// </summary>
     /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] ArrayConstraints()
@@ -166,7 +206,7 @@ public static class BadNativeClassBuilder
     }
 
     /// <summary>
-    /// The IEnumerator Interface Constraints
+    ///     The IEnumerator Interface Constraints
     /// </summary>
     /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] EnumeratorConstraints()

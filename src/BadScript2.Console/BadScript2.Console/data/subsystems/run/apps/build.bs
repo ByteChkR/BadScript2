@@ -1,30 +1,7 @@
+import BuildSystem from '<BuildSystem>';
 
-
-
-
-
-
-	let Package;function(){Package = Runtime.Import("Package");}();
-	let BuildSystem;function(){BuildSystem = Package.Import("BuildSystem");}();
-
-
-
-
-const args = Runtime.GetArguments();
-
-let targets;
-
-	if(args.Length == 0)
-	{
-		targets = ["default"];
-	}
-	else
-	{
-		targets = args;
-	}
-
-
-
+const Array args = Runtime.GetArguments();
+const Array targets = args.Length == 0 ? ["default"] : args;
 
 Console.WriteLine("Targets: " + targets);
 

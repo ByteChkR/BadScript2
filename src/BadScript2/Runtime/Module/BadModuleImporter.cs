@@ -52,6 +52,7 @@ public class BadModuleImporter
             if (m_Store.IsCached(hash))
             {
                 yield return m_Store.Get(hash);
+
                 yield break;
             }
 
@@ -62,10 +63,18 @@ public class BadModuleImporter
                 foreach (BadObject o in result)
                 {
                     r = o;
+
+                    yield return r;
                 }
-                m_Store.Cache(hash, r);
+
+                r = r.Dereference();
+                if (r != BadObject.Null)
+                {
+                    m_Store.Cache(hash, r);
+                }
 
                 yield return r;
+
                 yield break;
             }
         }

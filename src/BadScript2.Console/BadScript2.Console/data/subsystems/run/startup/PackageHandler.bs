@@ -1,1 +1,42 @@
-let libDir = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs"); function FindFile(packageName!) { let files = IO.Directory.GetFiles(libDir, "*.bs", true); foreach(file in files) { let name = IO.Path.GetFileNameWithoutExtension(file); if(name == packageName) { return file; } } return null; } function Import(str!) { if(!Runtime.HasPackage(str)) { let file = FindFile(str); Console.WriteLine($"Loading package '{str}' from '{file}'"); if(file == null) { throw $"Can not find Package with name '{str}'"; } let src = IO.File.ReadAllText(file); Runtime.Evaluate(src, file); } return Runtime.Import(str); } Runtime.Export("Package", {Import: Import});
+
+let LIB_DIR;
+if(Runtime.IsApiRegistered("Json"))
+{
+	LIB_DIR = Json.Settings?.Subsystems?.Run?.LibraryDirectory;
+}
+
+if(LIB_DIR == null)
+{
+	//Fallback Location in case settings are not exposed to the Runtime
+	LIB_DIR = IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs");
+}
+
+
+class LibraryImportHandler : IImportHandler
+{
+	function string GetPath(string path!)
+	{
+		let p = path.Substring(1, path.Length - 2);
+		if(!p.EndsWith(".bs"))
+		{
+			p += ".bs";
+		}
+
+		return p;
+	}
+
+	function string GetHash(string path!) => $"lib://{GetPath(path)}";
+
+	function bool Has(string path!) => path.StartsWith("<") && path.EndsWith(">");
+
+	function any Get(string path!)
+	{
+		const p = IO.Path.Combine(LIB_DIR, GetPath(path));
+
+		const exports = await Runtime.EvaluateAsync(IO.File.ReadAllText(p), p, true);
+
+		return exports;
+	}
+}
+
+Runtime.RegisterImportHandler(new LibraryImportHandler());

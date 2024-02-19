@@ -13,6 +13,7 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadExecutionContext : IDisposable
 {
+    
     /// <summary>
     ///     Creates a new Execution Context
     /// </summary>

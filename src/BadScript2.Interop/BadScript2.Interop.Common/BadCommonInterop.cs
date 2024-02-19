@@ -76,7 +76,6 @@ public static class BadCommonInterop
     /// <returns>The Result of the Execution</returns>
     private static BadObject ExecuteTask(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
     {
-        ctx.Scope.AddSingleton(BadTaskRunner.Instance);
         BadTask task = new BadTask(
             new BadInteropRunnable(Run(ctx, ctx.Execute(exprs.ToArray())).GetEnumerator()),
             "Main"
@@ -113,6 +112,8 @@ public static class BadCommonInterop
             runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadTaskRunnerApi(BadTaskRunner.Instance)));
 
             runtime.UseExecutor(ExecuteTask);
+
+            runtime.ConfigureContext(ctx => ctx.Scope.AddSingleton(BadTaskRunner.Instance));
         }
 
         if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))

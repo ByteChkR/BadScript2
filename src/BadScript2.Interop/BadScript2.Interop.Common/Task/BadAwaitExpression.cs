@@ -60,7 +60,8 @@ public class BadAwaitExpression : BadExpression
             yield break;
         }
 
-        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ?? throw BadRuntimeException.Create(context.Scope, "Task Runner not found", Position);
+        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ?? 
+                               throw BadRuntimeException.Create(context.Scope, "Task Runner not found", Position);
 
         //Run Task
         //Add current to continuation

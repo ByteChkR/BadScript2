@@ -1,4 +1,4 @@
-param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $publishProjects=$false, [Switch] $noProjects=$false, [Switch] $noBuild=$false)
+param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $noProjects=$false, [Switch] $noBuild=$false)
 
 if ($IsWindows) {
     $os = "win"
@@ -37,37 +37,28 @@ function Build-Projects {
     {
         echo "Building BadScript2 Projects"
         cd projects
-        cd PackageManager
-        Write-Progress -Activity "BadScript2 Build" -Status "Build App 'PackageManager' 20%" -PercentComplete 20
-        . $bs build ReleaseApp
-        Write-Progress -Activity "BadScript2 Build" -Status "Setup App 'PackageManager' 30%" -PercentComplete 30
-        #. $bs pm add origin Byt3 https://bytechkr.github.io/BadScript2/core_repo #Since BS2 is now maintained on Azure, adding the GH Repository does not make sense
-        #. $bs pm update
-        cd ../BuildSystem
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'BuildSystem' 40%" -PercentComplete 40
+        cd BuildSystem
+        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'BuildSystem' 10%" -PercentComplete 10
         . $bs build ReleaseLib
         cd ../BuildSystem.Console
-        Write-Progress -Activity "BadScript2 Build" -Status "Build App 'BuildSystem.Console' 50%" -PercentComplete 50
+        Write-Progress -Activity "BadScript2 Build" -Status "Build App 'BuildSystem.Console' 20%" -PercentComplete 20
         . $bs build ReleaseApp
         cd ../Debugger
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'Debugger' 70%" -PercentComplete 70
+        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'Debugger' 30%" -PercentComplete 30
         . $bs build ReleaseRun
         cd ../PackageHandler
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'PackageHandler' 80%" -PercentComplete 80
+        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'PackageHandler' 40%" -PercentComplete 40
         . $bs build ReleaseStartup
         cd ../System
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'System' 100%" -PercentComplete 100
+        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'System' 50%" -PercentComplete 50
         . $bs build ReleaseLib
-        cd ..
-        if ($publishProjects -eq $true) {
-            if ($writeLog -eq $true) {
-                . ./publish.ps1 -writeLog
-            }
-            else {
-                . ./publish.ps1
-            }
-        }
-        cd ..
+        cd ../CommandlineParser
+        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'CommandlineParser' 70%" -PercentComplete 70
+        . $bs build ReleaseLib
+        cd ../VersionChange
+        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'VersionChange' 90%" -PercentComplete 90
+        . $bs build ReleaseApp
+        cd ../..
     }
 }
 

@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-using BadScript2.Common.Logging;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
 using BadScript2.Optimizations.Folding;
@@ -14,6 +13,8 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Interop.Functions.Extensions;
+using BadScript2.Runtime.Module;
+using BadScript2.Runtime.Module.Handlers;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
@@ -187,7 +188,6 @@ public class BadRuntimeApi : BadInteropApi
     /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {
-        
         target.SetProperty(
             "EvaluateAsync",
             new BadInteropFunction(
@@ -253,6 +253,40 @@ public class BadRuntimeApi : BadInteropApi
 
         target.SetFunction<string, string>("Validate", ValidateSource, BadNativeClassBuilder.GetNative("Table"));
         target.SetFunction("NewGuid", () => Guid.NewGuid().ToString(), BadNativeClassBuilder.GetNative("string"));
+        target.SetFunction<BadClass>("RegisterImportHandler", RegisterImportHandler, BadAnyPrototype.Instance);
+        target.SetFunction<string>("IsApiRegistered", IsApiRegistered, BadNativeClassBuilder.GetNative("bool"));
+    }
+    
+    private static BadObject IsApiRegistered(BadExecutionContext ctx, string api)
+    {
+        return ctx.Scope.RegisteredApis.Contains(api);
+    }
+
+    /// <summary>
+    ///     Registers an Import Handler
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="cls">The Import Handler Class</param>
+    /// <returns>Null</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the Import Handler is invalid</exception>
+    private static BadObject RegisterImportHandler(BadExecutionContext ctx, BadClass cls)
+    {
+        BadClassPrototype proto = cls.GetPrototype();
+        if (!BadNativeClassBuilder.ImportHandler.IsSuperClassOf(proto))
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Import Handler");
+        }
+
+        BadModuleImporter? importer = ctx.Scope.GetSingleton<BadModuleImporter>();
+        if (importer == null)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Module Importer not found");
+        }
+
+        BadInteropImportHandler handler = new BadInteropImportHandler(ctx, cls);
+        importer.AddHandler(handler);
+
+        return BadObject.Null;
     }
 
     /// <summary>
@@ -537,7 +571,7 @@ public class BadRuntimeApi : BadInteropApi
     {
         return m_Exports[name];
     }
-    
+
 
     /// <summary>
     ///     Evaluates a string

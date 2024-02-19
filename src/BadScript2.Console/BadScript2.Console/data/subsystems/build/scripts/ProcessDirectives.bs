@@ -1,7 +1,5 @@
 
-
-const Package = Runtime.Import("Package");
-const System = Package.Import("System");
+import System from '<System>';
 
 compiled fast function ReadBlock(reader)
 {
@@ -39,6 +37,10 @@ compiled fast function ReadBlock(reader)
 		}
 		else
 		{
+			if(reader.IsEOF())
+			{
+				continue;
+			}
 			src += reader.GetCurrent();
 			reader.MoveNext();
 		}
@@ -65,6 +67,10 @@ compiled fast function ReadUntil(reader, char)
 		}
 		else
 		{
+			if(reader.IsEOF())
+			{
+				continue;
+			}
 			str += reader.GetCurrent();
 			reader.MoveNext();
 		}
@@ -120,7 +126,7 @@ function ProcessDirectives()
 			Context[name] = value;
 		}
 		else
-		{				
+		{
 			newSrc += reader.GetCurrent();
 			reader.MoveNext();
 		}

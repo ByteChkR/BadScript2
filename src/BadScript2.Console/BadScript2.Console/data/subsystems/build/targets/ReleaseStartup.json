@@ -3,7 +3,6 @@
   "Description": "Builds and Releases the Project as a Startup Script",
   "Dependencies": [
     "Build",
-    "Minify",
     "InstallToStartup",
     "SaveToOutput"
   ]

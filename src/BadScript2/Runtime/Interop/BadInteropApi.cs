@@ -39,7 +39,7 @@ public abstract class BadInteropApi
     /// Loads the API into the given Table
     /// </summary>
     /// <param name="table">The Table to load the API into</param>
-    public void Load(BadTable table)
+    public void Load(BadExecutionContext ctx, BadTable table)
     {
         BadTable info = new BadTable();
         info.SetProperty("Name", Name, new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
@@ -52,5 +52,6 @@ public abstract class BadInteropApi
         }
 
         LoadApi(table);
+        ctx.Scope.SetRegisteredApi(Name);
     }
 }

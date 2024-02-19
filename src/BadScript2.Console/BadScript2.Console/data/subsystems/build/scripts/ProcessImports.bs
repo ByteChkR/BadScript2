@@ -1,7 +1,5 @@
 
-
-const Package = Runtime.Import("Package");
-const System = Package.Import("System");
+import System from '<System>';
 
 function ProcessImports()
 {
@@ -11,7 +9,7 @@ function ProcessImports()
 	let imports = [];
 	while(!reader.IsEOF())
 	{
-		if(reader.Is("\""))
+		if(reader.Is("\"") || reader.Is("'"))
 		{
 			newSrc += reader.ReadString();
 		}
@@ -45,7 +43,11 @@ function ProcessImports()
 			newSrc += insert;
 		}
 		else
-		{				
+		{
+			if(reader.IsEOF())
+			{
+				continue;
+			}
 			newSrc += reader.GetCurrent();
 			reader.MoveNext();
 		}

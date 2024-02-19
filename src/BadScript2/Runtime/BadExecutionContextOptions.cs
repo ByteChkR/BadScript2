@@ -157,7 +157,7 @@ public class BadExecutionContextOptions
                 ctx.Scope.DefineVariable(api.Name, table);
             }
 
-            api.Load(table);
+            api.Load(ctx, table);
         }
 
         foreach (BadClassPrototype type in BadNativeClassBuilder.NativeTypes)

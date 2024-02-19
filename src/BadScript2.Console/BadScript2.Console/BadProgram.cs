@@ -81,7 +81,6 @@ internal static class BadProgram
             .UseLinqApi()
             .UseNetApi()
             .UseNetHostApi()
-            .UseLibraryModules()
             .UseLocalModules();
 
 

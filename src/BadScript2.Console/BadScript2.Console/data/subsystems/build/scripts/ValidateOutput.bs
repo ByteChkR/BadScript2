@@ -1,6 +1,5 @@
 
-const Package = Runtime.Import("Package");
-const System = Package.Import("System");
+import System from '<System>';
 
 function ValidateOutput()
 {
