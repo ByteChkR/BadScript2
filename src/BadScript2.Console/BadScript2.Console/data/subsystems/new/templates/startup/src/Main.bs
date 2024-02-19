@@ -1,0 +1,7 @@
+
+function Main(args)
+{
+	Console.WriteLine("Hello From Startup");
+}
+
+Main(Runtime.GetArguments());
