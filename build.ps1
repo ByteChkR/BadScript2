@@ -1,4 +1,4 @@
-param ($config="Debug", [Switch] $writeLog=$false, [Switch] $noTests=$false, [Switch] $noProjects=$false, [Switch] $noBuild=$false)
+param ($config="Debug", [Switch] $writeLog=$false, [Switch] $updateSource=$false, [Switch] $noTests=$false, [Switch] $noProjects=$false, [Switch] $noBuild=$false)
 
 if ($IsWindows) {
     $os = "win"
@@ -41,17 +41,18 @@ function Build-Project
 }
 
 $projects = @(
-        [pscustomobject]@{Name='BuildSystem'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='BuildSystem.Console'; Target='ReleaseApp'}
-        [pscustomobject]@{Name='PackageHandler'; Target='ReleaseStartup'}
-        [pscustomobject]@{Name='Debugger'; Target='ReleaseRun'}
-        [pscustomobject]@{Name='Assert'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='CommandlineParser'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='Enumerables'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='Event'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='Logging'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='SourceReader'; Target='ReleaseLib'}
-        [pscustomobject]@{Name='VersionChange'; Target='ReleaseApp'}
+        [pscustomobject]@{Name='BuildSystem'; Target=$config}
+        [pscustomobject]@{Name='BuildSystem.Console'; Target=$config}
+        [pscustomobject]@{Name='PackageHandler'; Target=$config}
+        [pscustomobject]@{Name='Debugger'; Target=$config}
+        [pscustomobject]@{Name='Assert'; Target=$config}
+        [pscustomobject]@{Name='CommandlineParser'; Target=$config}
+        [pscustomobject]@{Name='Enumerables'; Target=$config}
+        [pscustomobject]@{Name='Event'; Target=$config}
+        [pscustomobject]@{Name='Logging'; Target=$config}
+        [pscustomobject]@{Name='SourceReader'; Target=$config}
+        [pscustomobject]@{Name='VersionChange'; Target=$config}
+        [pscustomobject]@{Name='NewProject'; Target=$config}
     )
 
 
@@ -64,11 +65,16 @@ function Build-Projects {
         for (($i = 0); $i -lt $projects.Length; $i++)
         {
             $project = $projects[$i]
-            Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $i/$($projects.Length)" -PercentComplete $(($i / $projects.Length) * 100)
+            Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $($i + 1)/$($projects.Length)" -PercentComplete $((($i + 1) / $projects.Length) * 100)
             Build-Project $project.Name $project.Target
         }
 
         cd ..
+
+        if ($updateSource -eq $true)
+        {
+            cp -Force -Recurse build/data/* src/BadScript2.Console/BadScript2.Console/data
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 {
+	"ModuleType": "startup",
 	"OutputFile": "./bin/PackageHandler.bs",
 	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

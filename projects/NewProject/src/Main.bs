@@ -3,7 +3,7 @@ import CommandlineParser from '<CommandlineParser>';
 let TEMPLATE_DIR;
 if(Runtime.IsApiRegistered("Json"))
 {
-	TEMPLATE_DIR = Json.Settings?.Subsystems?.New?.TemplateDirectory;
+	TEMPLATE_DIR = Json.Settings?.Subsystems?.New?.TemplateDirectory.GetValue();
 }
 
 if(TEMPLATE_DIR == null)
@@ -20,9 +20,9 @@ if(!IO.Directory.Exists(TEMPLATE_DIR))
 function CommandlineParser CreateParser()
 {
 	const parser = new CommandlineParser(false);
-	parser.Value("name", "n", "The Project Name", false)
-		.Value("version", "v", "The Version Name", false)
-		.Value("author", "a", "The Author Name", false);
+	parser.Value("name", "n", false, "The Project Name", false)
+		.Value("version", "v", false, "The Version Name", false)
+		.Value("author", "a", false, "The Author Name", false);
 
 	return parser;
 }
@@ -32,13 +32,19 @@ function PrintHelp(CommandlineParser parser)
 {
 	Console.WriteLine("Usage: bs new <template-name> [options...]");
 	Console.WriteLine(parser.GetHelpText());
+	Console.WriteLine("Available Templates:");
+	foreach(template in IO.Directory.GetDirectories(TEMPLATE_DIR, false))
+	{
+		Console.WriteLine($"\t{IO.Path.GetFileName(template)}");
+	}
 }
 
 function any ParseArgs(CommandlineParser parser, Array args)
 {
 	try
 	{
-		return parser.Parse(args);
+		const result = parser.Parse(args);
+		return result;
 	}
 	catch(e)
 	{
@@ -74,7 +80,7 @@ function string GetTemplateDir(string template)
 	return IO.Path.Combine(TEMPLATE_DIR, template);
 }
 
-function EditSettings(string dir, string name, string version, string author)
+function EditSettings(string template, string dir, string name, string version, string author)
 {
 	const appInfoPath = IO.Path.Combine(dir, "settings", "AppInfo.json");
 	const appInfo = {
@@ -84,6 +90,7 @@ function EditSettings(string dir, string name, string version, string author)
 	};
 	const buildInfoPath = IO.Path.Combine(dir, "settings", "BuildInfo.json");
 	const buildInfo = {
+		ModuleType: template,
 		OutputFile: $"./bin/{name}.bs",
 		VersionChange: "(~){yyyy}.(~){MM}.(~){dd}.+"
 	};
@@ -108,7 +115,7 @@ function CreateTemplate(string template, string name, string version, string aut
 	//Create new Directory
 	IO.Directory.Copy(templateDir, name);
 	//Edit Settings
-	EditSettings(name, name, version, author);
+	EditSettings(template, name, name, version, author);
 }
 
 function Main(Array args)
@@ -116,12 +123,13 @@ function Main(Array args)
 	const parser = CreateParser();
 	
 	const template = args.Length > 0 ? args[0] : "default";
+
 	if(template == "help" || template == "-h" || template == "--help" || template == "-?")
 	{
 		PrintHelp(parser);
 		return;
 	}
-	const options = ParseArgs(args.Skip(1).ToArray());
+	const options = ParseArgs(parser, args.Skip(1).ToArray());
 	if(options == null)
 	{
 		return;

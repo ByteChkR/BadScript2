@@ -74,7 +74,7 @@ function string GetTemplateDir(string template)
 	return IO.Path.Combine(TEMPLATE_DIR, template);
 }
 
-function EditSettings(string dir, string name, string version, string author)
+function EditSettings(string template, string dir, string name, string version, string author)
 {
 	const appInfoPath = IO.Path.Combine(dir, "settings", "AppInfo.json");
 	const appInfo = {
@@ -84,6 +84,7 @@ function EditSettings(string dir, string name, string version, string author)
 	};
 	const buildInfoPath = IO.Path.Combine(dir, "settings", "BuildInfo.json");
 	const buildInfo = {
+		ModuleType: template,
 		OutputFile: $"./bin/{name}.bs",
 		VersionChange: "(~){yyyy}.(~){MM}.(~){dd}.+"
 	};
@@ -108,7 +109,7 @@ function CreateTemplate(string template, string name, string version, string aut
 	//Create new Directory
 	IO.Directory.Copy(templateDir, name);
 	//Edit Settings
-	EditSettings(name, name, version, author);
+	EditSettings(template, name, name, version, author);
 }
 
 function Main(Array args)

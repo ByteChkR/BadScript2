@@ -1,0 +1,35 @@
+
+//We keep track of loaded files.
+const files = [];
+
+//Handler that gets called every time we encounter a new file
+function OnLoadFile(string file!)
+{
+	if(!files.Contains(file) && //We only need to add files that are not yet added
+		file != Debugger.DebuggerPath.Replace("\\", "/")) //Very important check!
+		//Makes sure we dont try to debug the debugger, this would result in a stack overflow
+	{
+		Console.WriteLine("Loading File: " + file);
+		files.Add(file);
+	}	
+}
+
+
+//Handler that gets called for every expression.
+//	Thats why the execution is slower with the debugger attached
+function OnStep(any step!)
+{
+	if(files.Contains(step.Position.FileName)) //We only want to block execution if we know the file
+	{
+		Console.WriteLine(step.SourceView); //Print the source view
+		Console.Write("Press Enter to continue");
+		Console.ReadLine();
+	}
+}
+
+Console.WriteLine("Loading Debugger");
+
+//Register the Handlers
+Debugger.RegisterStep(OnStep);
+Debugger.RegisterOnFileLoaded(OnLoadFile);
+

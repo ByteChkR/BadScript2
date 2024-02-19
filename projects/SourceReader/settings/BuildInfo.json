@@ -1,4 +1,5 @@
 {
+	"ModuleType": "lib",
 	"OutputFile": "./bin/SourceReader.bs",
 	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

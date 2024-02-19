@@ -1,4 +1,5 @@
 {
+	"ModuleType": "app",
 	"OutputFile": "./bin/new.bs",
 	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

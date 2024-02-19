@@ -1,0 +1,39 @@
+
+function GetInstallPath()
+{
+	const outName = IO.Path.GetFileName(IO.Path.GetFullPath(Context.BuildInfo.OutputFile));
+	if(Context.BuildInfo.ModuleType == "app")
+	{
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "apps", outName);
+	}
+	else if(Context.BuildInfo.ModuleType == "lib")
+	{
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs", outName);
+	}
+	else if(Context.BuildInfo.ModuleType == "startup")
+	{
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "startup", outName);
+	}
+	else if(Context.BuildInfo.ModuleType == "debugger")
+	{
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "Debugger.bs");
+	}
+
+	return null;
+}
+
+function Install()
+{
+	const outFile = GetInstallPath();
+	if(outFile == null)
+	{
+		Console.WriteLine($"COULD NOT DETERMINE INSTALL LOCATION! SKIPPING INSTALLATION...");
+		return;
+	}
+	Console.WriteLine($"Installing to '{outFile}'");
+	IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(outFile)));
+	IO.File.WriteAllText(outFile, Context.SourceCode);
+}
+
+
+Install();
