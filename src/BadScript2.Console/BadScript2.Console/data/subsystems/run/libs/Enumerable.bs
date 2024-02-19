@@ -1,0 +1,101 @@
+
+@|
+	Returns an Infinite Enumerable
+	|PARAM obj any: The object that will infinitely repeat in this enumerable
+	|RET Enumerable: Infinite Enumerable
+|@
+function Table Infinite(any obj)
+{
+	function Table GetEnumerator()
+	{
+		function any GetCurrent() => obj;
+		function bool MoveNext() => true;
+		return {
+			GetCurrent: GetCurrent,
+			MoveNext: MoveNext
+		};
+	}
+	return {
+		GetEnumerator: GetEnumerator
+	};
+}
+
+@|
+	Returns an Enumerable that repeats the same object 'number' times.
+	|PARAM obj any: The object that will repeat in this enumerable
+	|PARAM number num: The amount of repetitions.
+	|RET Enumerable: Enumerable
+|@
+function Table Repeat(any obj, num number)
+{
+	if(number < 0)
+	{
+		throw "Repeat amount can not be negative";
+	}
+
+	function Table GetEnumerator()
+	{
+		let i = 0;
+		function any GetCurrent() => obj;
+		function bool MoveNext()
+		{
+			i++;
+			return i <= number;
+		}
+		return {
+			GetCurrent: GetCurrent,
+			MoveNext: MoveNext
+		};
+	}
+	return {
+		GetEnumerator: GetEnumerator
+	};
+}
+
+@|
+	Returns an Enumerable that counts from an arbitrary number to an arbitrary number
+	|PARAM from num: Start Number
+	|PARAM to num: End Number.
+	|PARAM step num: Step Number
+	|RET Enumerable: Enumerable
+|@
+function Table Range(num from, num to, num step?)
+{
+	step ??= 1;
+	if(from > to && step >= 0)
+	{
+		throw "Range Step must be negative from " + from + " to " + to;
+	}
+	if(from < to && step <= 0)
+	{
+		throw "Range Step must be positive from " + from + " to  " + to;
+	}
+
+	function Table GetEnumerator()
+	{
+		let current = from - step;
+		function num GetCurrent() => current;
+		function bool MoveNext()
+		{
+			current += step;
+			return  !(from < to && current >= to) &&
+					!(from > to && current <= to);
+		}
+		return {
+			GetCurrent: GetCurrent,
+			MoveNext: MoveNext
+		};
+	}
+
+	return {
+		GetEnumerator: GetEnumerator
+	};
+}
+
+
+export {
+	Range: Range,
+	Repeat: Repeat,
+	Infinite: Infinite,
+	Primes: Primes
+};

@@ -703,5 +703,29 @@
         <None Update="data\subsystems\run\libs\SourceReader.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="data\subsystems\new\templates\app\settings\PackageInfo.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\new\templates\app\src\Main.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\new\templates\lib\settings\PackageInfo.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\new\templates\lib\src\Main.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\new\templates\lib\settings\Sources.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\new\templates\app\settings\Sources.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\run\apps\new.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\settings\Subsystems\New\Directories.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>
