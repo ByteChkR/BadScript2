@@ -1,10 +1,10 @@
 
-import System from '<System>';
+import SourceReader from '<SourceReader>';
 
 function Minify()
 {
 	Console.WriteLine("Minify Build Output");
-	let reader = new System.SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.SourceCode);
 
 	let newSrc = Context.SourceCode;
 	try

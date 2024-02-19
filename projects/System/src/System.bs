@@ -1,9 +1,0 @@
-const System = {
-	Assert: Assert,
-	Enumerables: Enumerables,
-	Events: Events,
-	Logging: Logging,
-	SourceReader: SourceReader,
-	Math: SysMath
-};
-export default System;

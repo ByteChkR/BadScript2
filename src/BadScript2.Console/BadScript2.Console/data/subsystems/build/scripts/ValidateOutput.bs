@@ -1,6 +1,4 @@
 
-import System from '<System>';
-
 function ValidateOutput()
 {
 	if(!("AppInfo" in Context))

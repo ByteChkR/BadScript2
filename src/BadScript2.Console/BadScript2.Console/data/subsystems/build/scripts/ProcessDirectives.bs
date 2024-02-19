@@ -1,5 +1,5 @@
 
-import System from '<System>';
+import SourceReader from '<SourceReader>';
 
 compiled fast function ReadBlock(reader)
 {
@@ -87,7 +87,7 @@ function Evaluate(expr)
 function ProcessDirectives()
 {
 	Console.WriteLine("Processing #if directives");
-	let reader = new System.SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.SourceCode);
 	let newSrc = "";
 	while(!reader.IsEOF())
 	{

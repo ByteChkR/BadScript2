@@ -85,7 +85,7 @@ function IsEnumerator(obj)
 	if(obj == null || !Native.IsEnumerator(obj)) throw "Expected Enumerator";
 }
 
-const Assert = {
+export {
 	IsString: IsString,
 	IsBoolean: IsBoolean,
 	IsNumber: IsNumber,

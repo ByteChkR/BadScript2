@@ -1,3 +1,5 @@
+import Assert from '<Assert>';
+
 function CheckSignature(a!, b!)
 {
 	Assert.IsFunction(a);
@@ -13,7 +15,7 @@ function CheckSignature(a!, b!)
 	An Event class that allows other code to hook into this event with the +=/-= operators.
 	Invocation can be done with the () operator.
 |@
-class Event
+export default class Event
 {
 	const Array _CallList;
 	const Function _CallPrototype;
@@ -86,7 +88,3 @@ class Event
 	function any op_Invoke(args*) => Invoke(args);
 
 }
-
-
-const Events = { Event: Event };
-

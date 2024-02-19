@@ -277,7 +277,7 @@ function CheckRequiredValues(Table values!, Array arguments!)
 	}
 }
 
-class CommandlineParser
+export default class CommandlineParser
 {
 	const Array _arguments = [];
 	const bool _allowUnparsed;
@@ -373,5 +373,3 @@ class CommandlineParser
 	}
 }
 
-
-export default CommandlineParser;

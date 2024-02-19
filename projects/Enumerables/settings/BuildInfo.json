@@ -1,0 +1,4 @@
+{
+	"OutputFile": "./bin/Enumerable.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
+}

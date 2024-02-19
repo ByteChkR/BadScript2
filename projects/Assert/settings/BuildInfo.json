@@ -1,4 +1,4 @@
 {
-	"OutputFile": "./bin/System.bs",
+	"OutputFile": "./bin/Assert.bs",
 	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
 }

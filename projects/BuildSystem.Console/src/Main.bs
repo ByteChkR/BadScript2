@@ -1,6 +1,6 @@
 import BuildSystem from '<BuildSystem>';
 
-const Array args = $(Environment.Runtime).GetArguments();
+const Array args = Runtime.GetArguments();
 const Array targets = args.Length == 0 ? ["default"] : args;
 
 Console.WriteLine("Targets: " + targets);

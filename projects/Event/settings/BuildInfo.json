@@ -1,0 +1,4 @@
+{
+	"OutputFile": "./bin/Event.bs",
+	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
+}

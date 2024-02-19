@@ -115,10 +115,12 @@
               target="tools/net6.0/any/data/subsystems/run/apps/build.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/Debugger.bs"
               target="tools/net6.0/any/data/subsystems/run/Debugger.bs" />
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/Assert.bs"
+              target="tools/net6.0/any/data/subsystems/run/libs/Assert.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/BuildSystem.bs"
               target="tools/net6.0/any/data/subsystems/run/libs/BuildSystem.bs" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/System.bs"
-              target="tools/net6.0/any/data/subsystems/run/libs/System.bs" />
+        <file src="./bin/Release/net6.0/publish/data/subsystems/run/libs/SourceReader.bs"
+              target="tools/net6.0/any/data/subsystems/run/libs/SourceReader.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/run/startup/PackageHandler.bs"
               target="tools/net6.0/any/data/subsystems/run/startup/PackageHandler.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/default.bs"

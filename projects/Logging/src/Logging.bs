@@ -1,18 +1,20 @@
+import Event from '<Event>';
+
 @|
 	A simple Logger class with OnLog and OnWarn Events
 |@
-class Logger
+export class Logger
 {
-	const Events.Event OnLog;
-	const Events.Event OnWarn;
+	const Event OnLog;
+	const Event OnWarn;
 
 	@|
 		Logger Constructor
 	|@
 	function Logger()
 	{
-		OnLog = new Events.Event(function(msg) {});
-		OnWarn = new Events.Event(function(msg) {});
+		OnLog = new Event(function(msg) {});
+		OnWarn = new Event(function(msg) {});
 	}
 
 	@|
@@ -39,7 +41,7 @@ class Logger
 @|
 	A simple Logger class that supports adding a tag to every log written.
 |@
-class TagLogger : Logger
+export class TagLogger : Logger
 {
 
 	let string LogTag = "[LOG]";
@@ -78,7 +80,7 @@ class TagLogger : Logger
 	Creates a Default Logger hooked up to the Console Output
 	|RET System.Logging.Logger: Default Logger Instance
 |@
-function Logger CreateDefaultLogger()
+export function Logger CreateDefault()
 {
 	let l = new Logger();
 	l.OnLog += Console.WriteLine;
@@ -86,9 +88,3 @@ function Logger CreateDefaultLogger()
 	return l;
 }
 
-
-const Logging = { 
-	Logger: Logger,
-	TagLogger: TagLogger,
-	CreateDefault: CreateDefaultLogger
-};

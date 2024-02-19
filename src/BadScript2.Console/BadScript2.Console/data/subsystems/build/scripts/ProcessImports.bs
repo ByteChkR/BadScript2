@@ -1,10 +1,10 @@
 
-import System from '<System>';
+import SourceReader from '<SourceReader>';
 
 function ProcessImports()
 {
 	Console.WriteLine("Processing #import directives");
-	let reader = new System.SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.SourceCode);
 	let newSrc = "";
 	let imports = [];
 	while(!reader.IsEOF())

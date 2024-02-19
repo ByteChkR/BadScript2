@@ -21,7 +21,7 @@ function Build-Language {
     if ($noBuild -eq $false)
     {
         echo "Building Language for OS: '$os' with Config: '$config'.."
-        Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Project 10%" -PercentComplete 10
+        Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Runtime "
         if (Test-Path "build") {
             Remove-Item "build" -Force -Recurse
         }
@@ -31,34 +31,44 @@ function Build-Language {
         cp _copy_to_build/* build/
     }
 }
+function Build-Project
+{
+    $name = $args[0]
+    $target = $args[1]
+    cd $name
+    . $bs build $target
+    cd ..
+}
+
+$projects = @(
+        [pscustomobject]@{Name='BuildSystem'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='BuildSystem.Console'; Target='ReleaseApp'}
+        [pscustomobject]@{Name='PackageHandler'; Target='ReleaseStartup'}
+        [pscustomobject]@{Name='Debugger'; Target='ReleaseRun'}
+        [pscustomobject]@{Name='Assert'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='CommandlineParser'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='Enumerables'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='Event'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='Logging'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='SourceReader'; Target='ReleaseLib'}
+        [pscustomobject]@{Name='VersionChange'; Target='ReleaseApp'}
+    )
+
 
 function Build-Projects {
     if ($noProjects -eq $false)
     {
         echo "Building BadScript2 Projects"
         cd projects
-        cd BuildSystem
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'BuildSystem' 10%" -PercentComplete 10
-        . $bs build ReleaseLib
-        cd ../BuildSystem.Console
-        Write-Progress -Activity "BadScript2 Build" -Status "Build App 'BuildSystem.Console' 20%" -PercentComplete 20
-        . $bs build ReleaseApp
-        cd ../Debugger
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'Debugger' 30%" -PercentComplete 30
-        . $bs build ReleaseRun
-        cd ../PackageHandler
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'PackageHandler' 40%" -PercentComplete 40
-        . $bs build ReleaseStartup
-        cd ../System
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'System' 50%" -PercentComplete 50
-        . $bs build ReleaseLib
-        cd ../CommandlineParser
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'CommandlineParser' 70%" -PercentComplete 70
-        . $bs build ReleaseLib
-        cd ../VersionChange
-        Write-Progress -Activity "BadScript2 Build" -Status "Build Library 'VersionChange' 90%" -PercentComplete 90
-        . $bs build ReleaseApp
-        cd ../..
+
+        for (($i = 0); $i -lt $projects.Length; $i++)
+        {
+            $project = $projects[$i]
+            Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $i/$($projects.Length)" -PercentComplete $(($i / $projects.Length) * 100)
+            Build-Project $project.Name $project.Target
+        }
+
+        cd ..
     }
 }
 

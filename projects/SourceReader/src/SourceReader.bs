@@ -1,7 +1,9 @@
+import Assert from '<Assert>';
+
 @|
 	Supports rudimentary source code parsing.
 |@
-class SourceReader
+export default class SourceReader
 {
 	const string _src;
 	let num _current;

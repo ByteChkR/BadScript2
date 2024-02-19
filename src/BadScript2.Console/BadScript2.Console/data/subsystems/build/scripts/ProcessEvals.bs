@@ -1,5 +1,5 @@
 
-import System from '<System>';
+import SourceReader from '<SourceReader>';
 
 compiled fast function GetElement(root, path)
 {
@@ -18,7 +18,7 @@ compiled fast function GetElement(root, path)
 compiled fast function ProcessEvals()
 {
 	Console.WriteLine("Processing eval statements");
-	let reader = new System.SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.SourceCode);
 	let newSrc = "";
 	//Start key can not be put into a single string.
 	//Because the Project Builds itself and will fail because it has no closing bracket

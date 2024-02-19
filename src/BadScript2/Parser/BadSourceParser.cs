@@ -37,7 +37,7 @@ public class BadSourceParser
     private readonly BadOperatorTable m_Operators;
 
     /// <summary>
-    /// The Meta Data of the current expression
+    ///     The Meta Data of the current expression
     /// </summary>
     private BadMetaData? m_MetaData;
 
@@ -69,7 +69,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Creates a BadSourceParser Instance based on the source and filename provided
+    ///     Creates a BadSourceParser Instance based on the source and filename provided
     /// </summary>
     /// <param name="fileName">File Name of the Source File</param>
     /// <param name="source">Contents of the Source File</param>
@@ -82,7 +82,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a BadExpression from the Source Reader
+    ///     Parses a BadExpression from the Source Reader
     /// </summary>
     /// <param name="fileName">File Name of the Source File</param>
     /// <param name="source">Contents of the Source File</param>
@@ -268,7 +268,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses the MetaData of the current expression
+    ///     Parses the MetaData of the current expression
     /// </summary>
     private void ParseMeta()
     {
@@ -709,7 +709,7 @@ public class BadSourceParser
             Reader.SetPosition(compiledStart < constStart ? compiledStart : constStart);
         }
 
-        
+
         if (Reader.IsKey(BadStaticKeys.CLASS_KEY))
         {
             return ParseClass();
@@ -842,6 +842,7 @@ public class BadSourceParser
             }
 
             Reader.SkipNonToken();
+
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
         }
 
@@ -1061,9 +1062,9 @@ public class BadSourceParser
         return left;
     }
 
-    
+
     /// <summary>
-    /// Parses a Multiline Format string expression. Moves the reader to the next token.
+    ///     Parses a Multiline Format string expression. Moves the reader to the next token.
     /// </summary>
     /// <returns>Instance of BadStringExpression</returns>
     /// <exception cref="BadSourceReaderException">Gets raised if the string is not properly terminated.</exception>
@@ -1293,7 +1294,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a Block Expression. Moves the reader to the next token.
+    ///     Parses a Block Expression. Moves the reader to the next token.
     /// </summary>
     /// <param name="isSingleLine">Indicates if the Block is in single line format.</param>
     /// <returns>List of Parsed Expressions</returns>
@@ -1406,7 +1407,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a Using Statement Expression. Moves the reader to the next token.
+    ///     Parses a Using Statement Expression. Moves the reader to the next token.
     /// </summary>
     /// <param name="start">The Start index of the expression</param>
     /// <returns>Instance of BadUsingStatementExpression</returns>
@@ -1421,6 +1422,7 @@ public class BadSourceParser
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
             );
         }
+
         //Parse single expression
         BadExpression expr = ParseExpression();
         if (expr is not BadAssignExpression assignExpr)
@@ -1440,14 +1442,15 @@ public class BadSourceParser
         }
 
         Reader.SkipNonToken();
+
         //Reader.Eat(BadStaticKeys.STATEMENT_END_KEY); //Not Needed, the parser will automatically eat the statement end key
-        
-        
+
+
         return new BadUsingStatementExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), varDef.Name, expr);
     }
-    
+
     /// <summary>
-    /// Parses a Using Block or Statement. Moves the reader to the next token.
+    ///     Parses a Using Block or Statement. Moves the reader to the next token.
     /// </summary>
     /// <returns>Instance of BadUsingExpression or BadUsingStatementExpression</returns>
     /// <exception cref="BadParserException">Gets raised if the using statement is malformed.</exception>
@@ -1460,6 +1463,7 @@ public class BadSourceParser
         {
             return ParseUsingStatement(start);
         }
+
         Reader.Eat('(');
         Reader.SkipNonToken();
         if (!Reader.Is(BadStaticKeys.CONSTANT_DEFINITION_KEY))
@@ -1502,7 +1506,7 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
-        return new BadUsingExpression(varDef.Name, block.ToArray(), Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),  expr);
+        return new BadUsingExpression(varDef.Name, block.ToArray(), Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), expr);
     }
 
     /// <summary>
@@ -1552,7 +1556,7 @@ public class BadSourceParser
             {
                 Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
             }
-            
+
             Reader.SkipNonToken();
             finallyBlock = finallyExprs.ToArray();
         }
@@ -1588,7 +1592,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses an Interface Constraint. Moves the reader to the next token.
+    ///     Parses an Interface Constraint. Moves the reader to the next token.
     /// </summary>
     /// <returns>Instance of BadInterfaceConstraint</returns>
     /// <exception cref="BadParserException">Gets raised if the interface constraint is malformed.</exception>
@@ -1664,7 +1668,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses an Interface prototype. Moves the reader to the next token.
+    ///     Parses an Interface prototype. Moves the reader to the next token.
     /// </summary>
     /// <returns>Instance of BadInterfacePrototypeExpression</returns>
     private BadInterfacePrototypeExpression ParseInterface()
@@ -1805,7 +1809,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a Function Parameter. Moves the reader to the next token.
+    ///     Parses a Function Parameter. Moves the reader to the next token.
     /// </summary>
     /// <returns>Instance of BadFunctionParameter</returns>
     /// <exception cref="BadParserException">Gets raised if the parameter is malformed.</exception>
@@ -1896,7 +1900,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a Function Parameter List. Moves the reader to the next token.
+    ///     Parses a Function Parameter List. Moves the reader to the next token.
     /// </summary>
     /// <param name="start">The Start index of parent expression</param>
     /// <returns>List of BadFunctionParameter</returns>
@@ -1968,7 +1972,7 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Parses a Function Definition. Moves the reader to the next token.
+    ///     Parses a Function Definition. Moves the reader to the next token.
     /// </summary>
     /// <param name="start">The Start index of parent expression</param>
     /// <param name="functionName">The Name of the Function</param>
@@ -2090,12 +2094,22 @@ public class BadSourceParser
     }
 
     /// <summary>
-    /// Returns true if the given expression requires a semicolon.
+    ///     Returns true if the given expression requires a semicolon.
     /// </summary>
     /// <param name="expr">The Expression to check</param>
     /// <returns>True if the expression requires a semicolon. False otherwise.</returns>
     private static bool RequireSemicolon(BadExpression expr)
     {
+        if (expr is BadNamedExportExpression named)
+        {
+            return RequireSemicolon(named.Expression);
+        }
+
+        if (expr is BadDefaultExportExpression def)
+        {
+            return RequireSemicolon(def.Expression);
+        }
+
         return expr is not (
             BadInterfacePrototypeExpression
             or BadClassPrototypeExpression
@@ -2109,8 +2123,7 @@ public class BadSourceParser
             or BadFunctionExpression
             {
                 IsSingleLine: false,
-            }) ||
-               expr is BadNamedExportExpression named && RequireSemicolon(named.Expression);
+            });
     }
 
     /// <summary>
