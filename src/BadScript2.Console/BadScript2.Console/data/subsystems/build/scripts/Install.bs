@@ -37,7 +37,7 @@ function Install()
 	}
 	Console.WriteLine($"Installing to '{outFile}'");
 	IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(outFile)));
-	IO.File.WriteAllText(outFile, Context.Build.SourceCode);
+	IO.File.WriteAllText(outFile, Context.Project.Build.SourceCode);
 }
 
 
