@@ -29,11 +29,6 @@ namespace BadScript2.Interop.Common.Apis;
 public class BadRuntimeApi : BadInteropApi
 {
     /// <summary>
-    ///     The Exported Objects
-    /// </summary>
-    private readonly Dictionary<string, BadObject> m_Exports = new Dictionary<string, BadObject>();
-
-    /// <summary>
     ///     Constructs a new Runtime API Instance
     /// </summary>
     public BadRuntimeApi() : base("Runtime") { }
@@ -224,9 +219,6 @@ public class BadRuntimeApi : BadInteropApi
         );
         target.SetFunction("GetStackTrace", ctx => ctx.Scope.GetStackTrace(), BadNativeClassBuilder.GetNative("Array"));
         target.SetProperty("Native", MakeNative());
-        target.SetFunction<string, BadObject>("Export", Export);
-        target.SetFunction<string>("Import", Import, BadAnyPrototype.Instance);
-        target.SetFunction<string>("HasPackage", HasPackage, BadNativeClassBuilder.GetNative("bool"));
         target.SetFunction("GetArguments", GetArguments, BadNativeClassBuilder.GetNative("Array"));
         target.SetFunction<BadObject>("GetExtensionNames", GetExtensionNames, BadNativeClassBuilder.GetNative("Array"));
         target.SetFunction(
@@ -257,7 +249,7 @@ public class BadRuntimeApi : BadInteropApi
         target.SetFunction<BadClass>("RegisterImportHandler", RegisterImportHandler, BadAnyPrototype.Instance);
         target.SetFunction<string>("IsApiRegistered", IsApiRegistered, BadNativeClassBuilder.GetNative("bool"));
     }
-    
+
     private static BadObject IsApiRegistered(BadExecutionContext ctx, string api)
     {
         return ctx.Scope.RegisteredApis.Contains(api);
@@ -541,36 +533,6 @@ public class BadRuntimeApi : BadInteropApi
     private static BadObject GetArguments()
     {
         return StartupArguments == null ? new BadArray() : new BadArray(StartupArguments.Select(x => (BadObject)x).ToList());
-    }
-
-    /// <summary>
-    ///     Exports a package
-    /// </summary>
-    /// <param name="name">Package Name</param>
-    /// <param name="obj">Package</param>
-    private void Export(string name, BadObject obj)
-    {
-        m_Exports.Add(name, obj);
-    }
-
-    /// <summary>
-    ///     Returns true if the given package is exported
-    /// </summary>
-    /// <param name="name">Package Name</param>
-    /// <returns>True if package exists</returns>
-    private BadObject HasPackage(string name)
-    {
-        return m_Exports.ContainsKey(name);
-    }
-
-    /// <summary>
-    ///     Imports a package
-    /// </summary>
-    /// <param name="name">Package Name</param>
-    /// <returns>Package</returns>
-    private BadObject Import(string name)
-    {
-        return m_Exports[name];
     }
 
 
