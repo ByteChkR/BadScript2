@@ -47,6 +47,10 @@ function ChangeVersion()
 	Console.WriteLine($"New Version: {newVer}");
 
 	config.Info.Version = newVer.ToString();
+	if(Context?.Project?.Info != null)
+	{
+		Context.Project.Info = config.Info.Version;
+	}
 
 	Console.WriteLine($"Saving Project Config");
 	SaveProjectConfig(config);

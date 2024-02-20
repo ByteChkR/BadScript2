@@ -2,6 +2,7 @@
   "Name": "Release",
   "Description": "Builds the project in Release Mode",
   "Dependencies": [
+    "ChangeVersion",
     "Build",
     "Minify",
     "Install"

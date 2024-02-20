@@ -1,10 +1,10 @@
 
 function ValidateOutput()
 {
-	const info = Context.Project?.AppInfo;
+	const info = Context.Project?.Info;
 	if(info == null)
 	{
-		Console.WriteLine("App Info Not Found");
+		Console.WriteLine("Info Not Found");
 		return;
 	}
 	try

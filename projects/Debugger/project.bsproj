@@ -1,16 +1,20 @@
 {
-	"Info": {
-		"Name": "Debugger",
-		"Version": "2023.7.21.0",
-		"Author": "UNKNOWN"
-	},
-	"Build": {
-		"ModuleType": "debugger",
-		"OutputFile": "./bin/Debugger.bs",
-		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
-		"Sources": [
-			"./src/**.bs"
-		]
-	},
-	"Targets": ["default", "Debug", "Release"]
+  "Info": {
+    "Name": "Debugger",
+    "Version": "2024.2.20.0",
+    "Author": "UNKNOWN"
+  },
+  "Build": {
+    "ModuleType": "debugger",
+    "OutputFile": "./bin/Debugger.bs",
+    "VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+    "Sources": [
+      "./src/**.bs"
+    ]
+  },
+  "Targets": [
+    "default",
+    "Debug",
+    "Release"
+  ]
 }

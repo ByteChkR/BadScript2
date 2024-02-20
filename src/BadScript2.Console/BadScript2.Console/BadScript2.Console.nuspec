@@ -47,8 +47,6 @@
               target="tools/net6.0/any/data/subsystems/build/scripts/ProcessDirectives.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessEvals.bs"
               target="tools/net6.0/any/data/subsystems/build/scripts/ProcessEvals.bs" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ProcessImports.bs"
-              target="tools/net6.0/any/data/subsystems/build/scripts/ProcessImports.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/RunOutput.bs"
               target="tools/net6.0/any/data/subsystems/build/scripts/RunOutput.bs" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/SaveToOutput.bs"
@@ -77,8 +75,6 @@
               target="tools/net6.0/any/data/subsystems/build/targets/ProcessDirectives.json" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessEvals.json"
               target="tools/net6.0/any/data/subsystems/build/targets/ProcessEvals.json" />
-        <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/ProcessImports.json"
-              target="tools/net6.0/any/data/subsystems/build/targets/ProcessImports.json" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/Release.json"
               target="tools/net6.0/any/data/subsystems/build/targets/Release.json" />
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/targets/RunOutput.json"
