@@ -4,7 +4,7 @@ import SourceReader from '<SourceReader>';
 function ProcessImports()
 {
 	Console.WriteLine("Processing #import directives");
-	let reader = new SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.Project.Build.SourceCode);
 	let newSrc = "";
 	let imports = [];
 	while(!reader.IsEOF())
@@ -52,7 +52,7 @@ function ProcessImports()
 			reader.MoveNext();
 		}
 	}
-	Context.SourceCode = newSrc;
+	Context.Project.Build.SourceCode = newSrc;
 }
 
 

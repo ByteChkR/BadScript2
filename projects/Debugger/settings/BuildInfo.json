@@ -1,5 +1,0 @@
-{
-	"ModuleType": "debugger",
-	"OutputFile": "./bin/Debugger.bs",
-	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
-}

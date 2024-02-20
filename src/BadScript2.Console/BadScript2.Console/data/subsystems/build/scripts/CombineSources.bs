@@ -2,14 +2,15 @@
 
 function Combine()
 {
-	Console.WriteLine("Combining Source Files: " + Context.Sources);
+	const project = Context.Project;
+	Console.WriteLine("Combining Source Files: " + project.Build.Sources);
 	let src = "";
-	for(let i = 0; i < Context.Sources.Length; i++)
+	for(let i = 0; i < project.Build.Sources.Length; i++)
 	{
-		const file = Context.Sources[i];
+		const file = project.Build.Sources[i];
 		src += IO.File.ReadAllText(file);
 	}
-	Context.SourceCode = src;
+	project.Build.SourceCode = src;
 }
 
 

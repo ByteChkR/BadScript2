@@ -1,5 +1,32 @@
 import BuildSystem from '<BuildSystem>';
 
+function LoadProject()
+{
+	if(!IO.File.Exists("project.bsproj"))
+	{
+		Console.WriteLine("'project.bsproj' not found");
+		return null;
+	}
+
+	try
+	{
+		return Json.FromJson(IO.File.ReadAllText("project.bsproj"));
+	}
+	catch (e)
+	{
+		return null;
+	}
+}
+
+function IsTargetAllowed(config, target)
+{
+	if(Runtime.Native.IsArray(config?.Targets))
+	{
+		return config.Targets.Contains(target);
+	}
+	return true;
+}
+
 const Array args = Runtime.GetArguments();
 const Array targets = args.Length == 0 ? ["default"] : args;
 
@@ -8,12 +35,27 @@ Console.WriteLine("Targets: " + targets);
 foreach(target in targets)
 {
 	const bs = new BuildSystem.BuildSystem();
+	const Table projectConfig = LoadProject();
+	Console.WriteLine(projectConfig);
+	if(projectConfig == null)
+	{
+		Console.WriteLine("Could not load Project File");
+		return;
+	}
+
+	if(!IsTargetAllowed(projectConfig, target))
+	{
+		Console.WriteLine($"Target '{target}' is not defined in project.bsproj, skipping...");
+		continue;
+	}
+
 	const context = {
 		Builder: bs,
 		DEFAULT_TARGETSCRIPT_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "scripts"),
 		DEFAULT_TARGET_PATH: IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "build", "targets"),
 		StartTarget: target,
-		Environment: {Runtime: "Runtime"}
+		Environment: {Runtime: "Runtime"},
+		Project: projectConfig
 	};
 	bs.AddTargetSource("./targets", context);
 	bs.AddTargetSource(context.DEFAULT_TARGET_PATH, context);

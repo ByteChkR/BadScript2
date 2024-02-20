@@ -1,5 +1,0 @@
-{
-	"ModuleType": "app",
-	"OutputFile": "./bin/vchange.bs",
-	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
-}

@@ -1,0 +1,16 @@
+{
+	"Info": {
+		"Name": "Enumerable",
+		"Version": "2023.10.8.0",
+		"Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "lib",
+		"OutputFile": "./bin/Enumerable.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/Enumerable.bs",
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

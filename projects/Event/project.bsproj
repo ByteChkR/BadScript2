@@ -1,0 +1,16 @@
+{
+	"Info": {
+		"Name": "Event",
+		"Version": "2023.10.8.0",
+		"Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "lib",
+		"OutputFile": "./bin/Event.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/Event.bs",
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

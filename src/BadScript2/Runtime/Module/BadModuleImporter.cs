@@ -1,4 +1,6 @@
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Runtime.Module;
 
@@ -49,7 +51,7 @@ public class BadModuleImporter
         {
             BadImportHandler handler = m_Handlers[i];
             string hash = handler.GetHash(path);
-            if (m_Store.IsCached(hash))
+            if (BadModuleSettings.Instance.UseModuleCaching && m_Store.IsCached(hash))
             {
                 yield return m_Store.Get(hash);
 
@@ -68,7 +70,13 @@ public class BadModuleImporter
                 }
 
                 r = r.Dereference();
-                if (r != BadObject.Null)
+
+                if (!BadModuleSettings.Instance.AllowImportHandlerNullReturn && r == BadObject.Null)
+                {
+                    continue;
+                }
+
+                if (BadModuleSettings.Instance.UseModuleCaching && r != BadObject.Null)
                 {
                     m_Store.Cache(hash, r);
                 }
@@ -77,6 +85,11 @@ public class BadModuleImporter
 
                 yield break;
             }
+        }
+
+        if (BadModuleSettings.Instance.ThrowOnModuleUnresolved)
+        {
+            throw new BadRuntimeException("Module " + path + " could not be resolved.");
         }
 
         yield return BadObject.Null;
