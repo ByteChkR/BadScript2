@@ -1,16 +1,20 @@
 {
-	"Info": {
-		"Name": "BuildSystem.Console",
-		"Version": "2023.10.8.0",
-		"Author": "UNKNOWN"
-	},
-	"Build": {
-		"ModuleType": "app",
-		"OutputFile": "./bin/build.bs",
-		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
-		"Sources": [
-			"./src/*"
-		]
-	},
-	"Targets": ["default", "Debug", "Release"]
+  "Info": {
+    "Name": "BuildSystem.Console",
+    "Version": "2024.2.20.0",
+    "Author": "UNKNOWN"
+  },
+  "Build": {
+    "ModuleType": "app",
+    "OutputFile": "./bin/build.bs",
+    "VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+    "Sources": [
+      "./src/*"
+    ]
+  },
+  "Targets": [
+    "default",
+    "Debug",
+    "Release"
+  ]
 }
