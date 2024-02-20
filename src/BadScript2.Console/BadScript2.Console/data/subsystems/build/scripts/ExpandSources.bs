@@ -2,28 +2,27 @@
 
 function Expand()
 {
-	Console.WriteLine($"Expanding Source Files: {Context.Sources}");
-	for(let i = Context.Sources.Length - 1; i >= 0; i--)
+	for(let i = Context.Project.Build.Sources.Length - 1; i >= 0; i--)
 	{
-		const file = Context.Sources[i];
+		const file = Context.Project.Build.Sources[i];
 		if(file.Contains("**"))
 		{
-			Context.Sources.RemoveAt(i);
+			Context.Project.Build.Sources.RemoveAt(i);
 			const parts = file.Split("**");
 			const dir = parts[0];
 			const ext = parts[1];
-			Context.Sources.InsertRange(i, IO.Directory.GetFiles(dir, ext, true));
+			Context.Project.Build.Sources.InsertRange(i, IO.Directory.GetFiles(dir, ext, true));
 		}
 		else if(file.Contains("*"))
 		{
-			Context.Sources.RemoveAt(i);
+			Context.Project.Build.Sources.RemoveAt(i);
 			const parts = file.Split("*");
 			const dir = parts[0];
 			const ext = parts[1];
-			Context.Sources.InsertRange(i, IO.Directory.GetFiles(dir, ext, false));
+			Context.Project.Build.Sources.InsertRange(i, IO.Directory.GetFiles(dir, ext, false));
 		}
 	}
-	Console.WriteLine($"Expanded Source Files: {Context.Sources}");
+	Console.WriteLine($"Expanded Source Files: {Context.Project.Build.Sources}");
 }
 
 

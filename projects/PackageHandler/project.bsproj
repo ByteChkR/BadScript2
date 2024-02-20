@@ -1,0 +1,16 @@
+{
+	"Info": {
+		"Name": "PackageHandler",
+		"Version": "2023.7.21.0",
+		"Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "startup",
+		"OutputFile": "./bin/PackageHandler.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/PackageHandler.bs"
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

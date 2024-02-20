@@ -4,7 +4,6 @@
   "Dependencies": [
     "Build",
     "Minify",
-    "SaveToOutput",
     "Install"
   ]
 }

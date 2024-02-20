@@ -1,0 +1,16 @@
+{
+	"Info": {
+		"Name": "VersionChange",
+		"Version": "2023.10.8.0",
+		"Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "app",
+		"OutputFile": "./bin/vchange.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/*"
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

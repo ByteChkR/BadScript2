@@ -1,0 +1,16 @@
+{
+	"Info": {
+	  "Name": "Assert",
+	  "Version": "2023.10.8.0",
+	  "Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "lib",
+		"OutputFile": "./bin/Assert.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/Assert.bs"
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

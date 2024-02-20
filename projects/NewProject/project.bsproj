@@ -1,0 +1,16 @@
+{
+	"Info": {
+		"Name": "NewProject",
+		"Version": "2023.10.8.0",
+		"Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "app",
+		"OutputFile": "./bin/new.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/*"
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

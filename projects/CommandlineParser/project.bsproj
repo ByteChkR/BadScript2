@@ -1,0 +1,16 @@
+{
+	"Info": {
+		"Name": "CommandlineParser",
+		"Version": "2023.10.8.0",
+		"Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "lib",
+		"OutputFile": "./bin/CommandlineParser.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/Main.bs"
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

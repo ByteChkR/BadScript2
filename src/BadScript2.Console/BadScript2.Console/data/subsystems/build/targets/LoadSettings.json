@@ -1,5 +1,0 @@
-{
-  "Name": "LoadSettings",
-  "Description": "Loads the Settings for the Project",
-  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/LoadSettings.bs"
-}

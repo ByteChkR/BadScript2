@@ -1,39 +1,55 @@
+function LoadProjectConfig()
+{
+	return Json.FromJson(IO.File.ReadAllText("project.bsproj"));
+}
 
+function SaveProjectConfig(config)
+{
+	IO.File.WriteAllText("project.bsproj", Json.ToJson(config));
+}
 
 function ChangeVersion()
 {
-	if(!("BuildInfo" in Context))
+	if(!IO.File.Exists("project.bsproj"))
 	{
-		Console.WriteLine("Build Info Not Found");
+		Console.WriteLine("Project Config not found.");
 		return;
 	}
-	if(!("AppInfo" in Context))
+	
+	const config = LoadProjectConfig();
+
+	if(!("Build" in config))
 	{
-		Console.WriteLine("App Info Not Found");
+		Console.WriteLine("ProjectConfig.Build not found.");
+		return;
+	}
+	if(!("Info" in config))
+	{
+		Console.WriteLine("ProjectConfig.Info not found.");
 		return;
 	}
 
-	if(!("VersionChange" in Context.BuildInfo))
+	if(!("VersionChange" in config.Build))
 	{
-		Console.WriteLine("VersionChange Property not found in BuildInfo");
+		Console.WriteLine("VersionChange Property not found in Build Settings");
 		return;
 	}
-	if(!("Version" in Context.AppInfo))
+	if(!("Version" in config.Info))
 	{
 		Console.WriteLine("Version Property not found in AppInfo");
 		return;
 	}
 
-	const curVer = new Version(Context.AppInfo.Version);
-	const verChange = Context.BuildInfo.VersionChange;
+	const curVer = new Version(config.Info.Version);
+	const verChange = config.Build.VersionChange;
 
 	const newVer = curVer.ChangeVersion(verChange);
 	Console.WriteLine($"New Version: {newVer}");
 
-	Context.AppInfo.Version = newVer.ToString();
+	config.Info.Version = newVer.ToString();
 
-	Console.WriteLine($"Saving: {Context.AppInfo}");
-	IO.File.WriteAllText("./settings/AppInfo.json", Json.ToJson(Context.AppInfo));
+	Console.WriteLine($"Saving Project Config");
+	SaveProjectConfig(config);
 }
 
 
