@@ -4,9 +4,9 @@ import SourceReader from '<SourceReader>';
 function Minify()
 {
 	Console.WriteLine("Minify Build Output");
-	let reader = new SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.Project.Build.SourceCode);
 
-	let newSrc = Context.SourceCode;
+	let newSrc = Context.Project.Build.SourceCode;
 	try
 	{
 		newSrc = reader.StripComments();
@@ -29,7 +29,7 @@ function Minify()
 		newSrc += part + " ";
 	}
 
-	Context.SourceCode = newSrc.Trim();
+	Context.Project.Build.SourceCode = newSrc.Trim();
 }
 
 

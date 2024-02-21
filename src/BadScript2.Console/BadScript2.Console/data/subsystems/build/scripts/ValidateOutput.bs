@@ -1,16 +1,17 @@
 
 function ValidateOutput()
 {
-	if(!("AppInfo" in Context))
+	const info = Context.Project?.Info;
+	if(info == null)
 	{
-		Console.WriteLine("App Info Not Found");
+		Console.WriteLine("Info Not Found");
 		return;
 	}
 	try
 	{
 		Console.WriteLine("Validate Build Output");
-		const src = Context.SourceCode;
-		const result = Runtime.Validate(src, $"{Context.AppInfo.Name}@{Context.AppInfo.Version}");
+		const src = Context.Project.Build.SourceCode;
+		const result = Runtime.Validate(src, $"{info.Name}@{info.Version}");
 		Console.WriteLine(result.GetMessageString());
 	}
 	catch (e)

@@ -2,6 +2,6 @@
   "Name": "default",
   "Description": "The Default Build Target",
   "Dependencies": [
-    "Debug"
+    "Build"
   ]
 }

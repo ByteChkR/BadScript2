@@ -2,14 +2,14 @@
 
 function RunOutput()
 {
-	let dir = IO.Path.GetDirectoryName(Context.BuildInfo.OutputFile);
+	let dir = IO.Path.GetDirectoryName(Context.Project.Build.OutputFile);
 	let original = IO.Directory.GetCurrentDirectory();
 	IO.Directory.SetCurrentDirectory(dir);
-	let name = IO.Path.GetFileName(Context.BuildInfo.OutputFile);
+	let name = IO.Path.GetFileName(Context.Project.Build.OutputFile);
 
-	Console.WriteLine("Running File: " + Context.BuildInfo.OutputFile);
+	Console.WriteLine("Running File: " + Context.Project.Build.OutputFile);
 
-	await Runtime.EvaluateAsync(IO.File.ReadAllText(name), Context.BuildInfo.OutputFile);
+	await Runtime.EvaluateAsync(IO.File.ReadAllText(name), Context.Project.Build.OutputFile);
 
 	IO.Directory.SetCurrentDirectory(original);
 }

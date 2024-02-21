@@ -1,5 +1,0 @@
-{
-	"ModuleType": "lib",
-	"OutputFile": "./bin/Logging.bs",
-	"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+"
-}

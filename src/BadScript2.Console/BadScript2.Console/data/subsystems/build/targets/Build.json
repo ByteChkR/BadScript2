@@ -2,12 +2,11 @@
   "Name": "Build",
   "Description": "Builds the Project",
   "Dependencies": [
-    "LoadSettings",
     "ExpandSources",
     "CombineSources",
     "ProcessDirectives",
-    "ProcessImports",
     "ProcessEvals",
-    "ValidateOutput"
+    "ValidateOutput",
+    "SaveToOutput"
   ]
 }

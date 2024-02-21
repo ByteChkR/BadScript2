@@ -1,20 +1,25 @@
 
 function GetInstallPath()
 {
-	const outName = IO.Path.GetFileName(IO.Path.GetFullPath(Context.BuildInfo.OutputFile));
-	if(Context.BuildInfo.ModuleType == "app")
+	if(Context.Project?.Build?.OutputFile == null)
+	{
+		return null;
+	}
+	const moduleType = Context.Project?.Build?.ModuleType ?? "lib";
+	const outName = IO.Path.GetFileName(IO.Path.GetFullPath(Context.Project.Build.OutputFile));
+	if(moduleType == "app")
 	{
 		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "apps", outName);
 	}
-	else if(Context.BuildInfo.ModuleType == "lib")
+	else if(moduleType == "lib")
 	{
 		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs", outName);
 	}
-	else if(Context.BuildInfo.ModuleType == "startup")
+	else if(moduleType == "startup")
 	{
 		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "startup", outName);
 	}
-	else if(Context.BuildInfo.ModuleType == "debugger")
+	else if(moduleType == "debugger")
 	{
 		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "Debugger.bs");
 	}
@@ -32,7 +37,7 @@ function Install()
 	}
 	Console.WriteLine($"Installing to '{outFile}'");
 	IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(outFile)));
-	IO.File.WriteAllText(outFile, Context.SourceCode);
+	IO.File.WriteAllText(outFile, Context.Project.Build.SourceCode);
 }
 
 

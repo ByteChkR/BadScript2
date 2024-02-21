@@ -87,7 +87,7 @@ function Evaluate(expr)
 function ProcessDirectives()
 {
 	Console.WriteLine("Processing #if directives");
-	let reader = new SourceReader(Context.SourceCode);
+	let reader = new SourceReader(Context.Project.Build.SourceCode);
 	let newSrc = "";
 	while(!reader.IsEOF())
 	{
@@ -131,7 +131,7 @@ function ProcessDirectives()
 			reader.MoveNext();
 		}
 	}
-	Context.SourceCode = newSrc;
+	Context.Project.Build.SourceCode = newSrc;
 }
 
 

@@ -3,7 +3,6 @@
   "Description": "Builds the Project in a debugging configuration",
   "Dependencies": [
     "Build",
-    "SaveToOutput",
     "Install"
   ]
 }

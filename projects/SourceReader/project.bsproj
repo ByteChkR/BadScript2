@@ -1,0 +1,20 @@
+{
+  "Info": {
+    "Name": "SourceReader",
+    "Version": "2024.2.20.0",
+    "Author": "UNKNOWN"
+  },
+  "Build": {
+    "ModuleType": "lib",
+    "OutputFile": "./bin/SourceReader.bs",
+    "VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+    "Sources": [
+      "./src/SourceReader.bs"
+    ]
+  },
+  "Targets": [
+    "default",
+    "Debug",
+    "Release"
+  ]
+}

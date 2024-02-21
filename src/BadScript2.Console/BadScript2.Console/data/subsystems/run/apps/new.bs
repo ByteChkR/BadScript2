@@ -82,20 +82,16 @@ function string GetTemplateDir(string template)
 
 function EditSettings(string template, string dir, string name, string version, string author)
 {
-	const appInfoPath = IO.Path.Combine(dir, "settings", "AppInfo.json");
-	const appInfo = {
+	const projPath = IO.Path.Combine(dir, "project.bsproj");
+	const proj = Json.FromJson(IO.File.ReadAllText(projPath));
+	proj.Info = {
 		Name: name,
 		Version: version,
 		Author: author
 	};
-	const buildInfoPath = IO.Path.Combine(dir, "settings", "BuildInfo.json");
-	const buildInfo = {
-		ModuleType: template,
-		OutputFile: $"./bin/{name}.bs",
-		VersionChange: "(~){yyyy}.(~){MM}.(~){dd}.+"
-	};
-	IO.File.WriteAllText(appInfoPath, Json.ToJson(appInfo));
-	IO.File.WriteAllText(buildInfoPath, Json.ToJson(buildInfo));
+	proj.Build.ModuleType = template;
+	proj.Build.OutputFile = $"./bin/{name}.bs";
+	IO.File.WriteAllText(projPath, Json.ToJson(proj));
 }
 
 function CreateTemplate(string template, string name, string version, string author)

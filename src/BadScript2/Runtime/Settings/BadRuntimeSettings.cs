@@ -8,20 +8,20 @@ namespace BadScript2.Runtime.Settings;
 public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
 {
     /// <summary>
-    /// Editable Setting for the Setting CatchRuntimeExceptions
+    ///     Editable Setting for the Setting CatchRuntimeExceptions
     /// </summary>
     private readonly BadEditableSetting<BadRuntimeSettings, bool> m_CatchRuntimeExceptions =
         new BadEditableSetting<BadRuntimeSettings, bool>(nameof(CatchRuntimeExceptions), true);
 
     /// <summary>
-    /// Editable Setting for the Setting FileExtension
+    ///     Editable Setting for the Setting FileExtension
     /// </summary>
     private readonly BadEditableSetting<BadRuntimeSettings, string> m_FileExtension =
         new BadEditableSetting<BadRuntimeSettings, string>(nameof(FileExtension), "bs");
 
 
     /// <summary>
-    /// Editable Setting for the Setting WriteStackTraceInRuntimeErrors
+    ///     Editable Setting for the Setting WriteStackTraceInRuntimeErrors
     /// </summary>
     private readonly BadEditableSetting<BadRuntimeSettings, bool> m_WriteStackTraceInRuntimeErrors =
         new BadEditableSetting<BadRuntimeSettings, bool>(nameof(WriteStackTraceInRuntimeErrors));
@@ -32,7 +32,7 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
     public BadRuntimeSettings() : base("Runtime") { }
 
     /// <summary>
-    /// If true, the runtime will write the stack trace of runtime errors to the console.
+    ///     If true, the runtime will write the stack trace of runtime errors to the console.
     /// </summary>
     public bool WriteStackTraceInRuntimeErrors
     {
@@ -50,7 +50,7 @@ public class BadRuntimeSettings : BadSettingsProvider<BadRuntimeSettings>
     }
 
     /// <summary>
-    /// If true, the runtime will catch C# exceptions and expose them as runtime errors.
+    ///     If true, the runtime will catch C# exceptions and expose them as runtime errors.
     /// </summary>
     public bool CatchRuntimeExceptions
     {
