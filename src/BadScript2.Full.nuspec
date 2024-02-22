@@ -20,6 +20,7 @@
         <dependency id="BadScript2.Interop.Net" version="23.11.6.2" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Interop.NetHost" version="23.11.6.2" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Interop.NUnit" version="23.11.6.2" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Generator" version="23.11.6.2" exclude="Build" />
         <dependency id="BadHtml" version="23.11.6.2" exclude="Build,Analyzers" />
       </group>
     </dependencies>
