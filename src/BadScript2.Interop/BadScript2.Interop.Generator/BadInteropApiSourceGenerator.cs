@@ -54,7 +54,7 @@ public class BadInteropApiSourceGenerator
 
     private static string GenerateParameterSource(ParameterModel model)
     {
-        return $"new BadFunctionParameter(\"{model.Name}\", false, {model.IsNullable.ToString().ToLower()}, false, null, BadNativeClassBuilder.GetNative(\"{model.Type}\"))";
+        return $"new BadFunctionParameter(\"{model.Name}\", false, {(!model.IsNullable).ToString().ToLower()}, false, null, BadNativeClassBuilder.GetNative(\"{model.Type}\"))";
     }
 
     private static void GenerateMethodSource(IndentedTextWriter sb, ApiModel apiModel, MethodModel method)
