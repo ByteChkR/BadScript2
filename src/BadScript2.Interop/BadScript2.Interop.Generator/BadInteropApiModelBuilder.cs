@@ -66,7 +66,7 @@ public static class BadInteropApiModelBuilder
                 if (attribute != null)
                 {
                     ImmutableArray<TypedConstant> cargs = attribute.ConstructorArguments;
-                    name = cargs.Length > 0 ? cargs[0].Value?.ToString() : name;
+                    name = cargs.Length > 0 ? cargs[0].Value?.ToString() ?? name : name;
                     description = cargs.Length > 1 ? cargs[1].Value?.ToString() : null;
                 }
 
