@@ -6,42 +6,6 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop.Functions.Extensions;
 
-public class TestApi : BadInteropApi
-{
-    public TestApi(string name) : base(name) { }
-
-    private string Test(string a, decimal b)
-    {
-        return a + b;
-    }
-    protected override void LoadApi(BadTable target)
-    {
-        T? GetParameter<T>(BadObject[] args, int i) => args.Length>i?args[i].Unwrap<T>():default;
-        target.SetProperty(
-            "Test",
-            new BadInteropFunction(
-                "Test",
-                (ctx, args) => BadObject.Wrap(Test(GetParameter<string>(args, 0), GetParameter<decimal>(args, 1)), true),
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter("a", false, false, false, null, BadNativeClassBuilder.GetNative("string")),
-                new BadFunctionParameter("b", false, false, false, null, BadNativeClassBuilder.GetNative("num"))
-            ).SetMetaData(
-                new BadMetaData(
-                    "FUNC DESC",
-                    "RET DESC",
-                    "string",
-                    new Dictionary<string, BadParameterMetaData>
-                    {
-                        { "a", new BadParameterMetaData("string", "A DESC") },
-                        { "b", new BadParameterMetaData("num", "B DESC") }
-                    }
-                )
-            )
-        );
-    }
-}
-
 public static partial class BadDynamicFunctionExtensions
 {
     /// <summary>
