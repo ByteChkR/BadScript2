@@ -54,9 +54,9 @@ namespace BadScript2.Interop
     [AttributeUsage(AttributeTargets.Class)]
     internal sealed class BadInteropApiAttribute : Attribute
     {
-        public string Name { get; }
+        public string? Name { get; }
         public string? Description { get; }
-        public BadInteropApiAttribute(string name, string? description = null)
+        public BadInteropApiAttribute(string? name = null, string? description = null)
         {
             Name = name;
             Description = description;
@@ -78,9 +78,9 @@ namespace BadScript2.Interop
     [AttributeUsage(AttributeTargets.Parameter)]
     internal sealed class BadParameterAttribute : Attribute
     {
-        public string Name { get; }
+        public string? Name { get; }
         public string? Description { get; }
-        public BadParameterAttribute(string name, string? description = null)
+        public BadParameterAttribute(string? name = null, string? description = null)
         {
             Name = name;
             Description = description;
