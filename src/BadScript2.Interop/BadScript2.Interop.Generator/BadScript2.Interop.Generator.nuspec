@@ -8,8 +8,6 @@
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="BadScript2" version="24.2.22.0" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.CodeAnalysis.CSharp" version="4.8.0" />
-        <dependency id="Microsoft.CodeAnalysis.Analyzers" version="3.3.4" />
       </group>
     </dependencies>
     <version xmlns="">24.2.22.0</version>
