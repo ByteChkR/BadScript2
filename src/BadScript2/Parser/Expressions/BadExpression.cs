@@ -40,13 +40,13 @@ public abstract class BadExpression
     public virtual void Optimize() { }
 
     /// <summary>
-    /// Returns all Descendants of the Expression
+    ///     Returns all Descendants of the Expression
     /// </summary>
     /// <returns>Enumeration of all Descendants</returns>
     public abstract IEnumerable<BadExpression> GetDescendants();
 
     /// <summary>
-    /// Returns all Descendants of the Expression and the Expression itself
+    ///     Returns all Descendants of the Expression and the Expression itself
     /// </summary>
     /// <returns>Enumeration of all Descendants and the Expression itself</returns>
     public IEnumerable<BadExpression> GetDescendantsAndSelf()
@@ -60,7 +60,7 @@ public abstract class BadExpression
     }
 
     /// <summary>
-    /// Sets the Source Position of the Expression
+    ///     Sets the Source Position of the Expression
     /// </summary>
     /// <param name="pos"></param>
     public void SetPosition(BadSourcePosition pos)
@@ -159,7 +159,7 @@ public abstract class BadExpression
     }
 
     /// <summary>
-    /// Executes an operator override function if implemented.
+    ///     Executes an operator override function if implemented.
     /// </summary>
     /// <param name="left">Left Expression Part</param>
     /// <param name="context">The current Execution context the expression is evaluated in</param>

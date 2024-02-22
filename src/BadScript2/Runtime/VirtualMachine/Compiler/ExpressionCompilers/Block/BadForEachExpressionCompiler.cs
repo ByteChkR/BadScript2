@@ -5,13 +5,14 @@ using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains Block Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
-/// Compiles the <see cref="BadForEachExpression" />.
+///     Compiles the <see cref="BadForEachExpression" />.
 /// </summary>
 public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpression>
 {

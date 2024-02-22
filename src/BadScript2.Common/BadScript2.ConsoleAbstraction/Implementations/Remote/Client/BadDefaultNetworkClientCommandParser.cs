@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
+
 /// <summary>
 /// Contains the Console Client Implementation for the Remote Console Abstraction over TCP
 /// </summary>
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 
 /// <summary>
-/// The Default Command Parser for the Remote Console Client
+///     The Default Command Parser for the Remote Console Client
 /// </summary>
 public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientCommandParser
 {
     /// <summary>
-    /// The Client
+    ///     The Client
     /// </summary>
     private readonly BadNetworkConsoleClient m_Client;
 
@@ -24,7 +25,7 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
     private readonly List<BadNetworkConsoleClientCommand> m_Commands = new List<BadNetworkConsoleClientCommand>();
 
     /// <summary>
-    /// Creates a new Command Parser
+    ///     Creates a new Command Parser
     /// </summary>
     /// <param name="client">The Client</param>
     public BadDefaultNetworkClientCommandParser(BadNetworkConsoleClient client)
@@ -33,11 +34,11 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
     }
 
     /// <summary>
-    /// The Commands
+    ///     The Commands
     /// </summary>
     public IEnumerable<BadNetworkConsoleClientCommand> Commands => m_Commands;
 
-    
+
     /// <inheritdoc />
     public void ExecuteCommand(string command)
     {

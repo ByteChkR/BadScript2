@@ -19,7 +19,7 @@ public class BadScriptDebuggerApi : BadInteropApi
     private readonly BadScriptDebugger m_Debugger;
 
     /// <summary>
-    /// The Debugger Path
+    ///     The Debugger Path
     /// </summary>
     private readonly string m_DebuggerPath;
 
@@ -78,7 +78,7 @@ public class BadScriptDebuggerApi : BadInteropApi
         };
     }
 
-    
+
     /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {

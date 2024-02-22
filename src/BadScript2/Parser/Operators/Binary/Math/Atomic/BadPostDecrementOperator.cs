@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math.Atomic;
+
 /// <summary>
 /// Contains the Atomic Math Operators for the BadScript2 Language
 /// </summary>
@@ -16,7 +17,7 @@ public class BadPostDecrementOperator : BadBinaryOperator
 	public BadPostDecrementOperator() : base(2, "--") { }
 
 
-	/// <inheritdoc cref="BadBinaryOperator.Parse" />
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         return new BadPostDecrementExpression(left, left.Position);

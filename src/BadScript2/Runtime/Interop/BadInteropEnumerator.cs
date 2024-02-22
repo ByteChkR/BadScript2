@@ -14,7 +14,7 @@ namespace BadScript2.Runtime.Interop;
 public class BadInteropEnumerator : BadObject, IBadEnumerator
 {
     /// <summary>
-    /// The Prototype for the Interop Enumerator Object
+    ///     The Prototype for the Interop Enumerator Object
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
         "Enumerator",
@@ -61,7 +61,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     }
 
     /// <summary>
-    /// Moves the Enumerator to the next element
+    ///     Moves the Enumerator to the next element
     /// </summary>
     /// <returns>True if the Enumerator moved to the next element</returns>
     public bool MoveNext()
@@ -70,7 +70,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     }
 
     /// <summary>
-    /// Resets the Enumerator
+    ///     Resets the Enumerator
     /// </summary>
     public void Reset()
     {
@@ -78,30 +78,30 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     }
 
     /// <summary>
-    /// The Current Element
+    ///     The Current Element
     /// </summary>
     public BadObject Current => m_Enumerator.Current!;
 
     /// <summary>
-    /// The Current Element
+    ///     The Current Element
     /// </summary>
     object IEnumerator.Current => m_Enumerator.Current!;
 
     /// <summary>
-    /// Disposes the Enumerator
+    ///     Disposes the Enumerator
     /// </summary>
     public void Dispose()
     {
         m_Enumerator.Dispose();
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
@@ -109,7 +109,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
                base.HasProperty(propName, caller);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString str)
@@ -128,7 +128,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
         return base.GetProperty(propName, caller);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         return "InteropEnumerator";

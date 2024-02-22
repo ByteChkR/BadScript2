@@ -364,7 +364,7 @@ public static class BadSourceReaderExtensions
     }
 
     /// <summary>
-    /// Parses a Multi Line String
+    ///     Parses a Multi Line String
     /// </summary>
     /// <param name="reader">The Reader Instance</param>
     /// <returns>The Resulting BadStringToken Instance</returns>

@@ -8,7 +8,7 @@ namespace BadScript2.Runtime.Objects.Native;
 public class BadString : BadNative<string>, IBadString, IComparable, IComparable<BadObject>, IComparable<IBadString>
 {
     /// <summary>
-    /// The Prototype for the Native String Object
+    ///     The Prototype for the Native String Object
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("string");
 
@@ -19,12 +19,12 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     public BadString(string value) : base(value) { }
 
     /// <summary>
-    /// The Value of the Native String
+    ///     The Value of the Native String
     /// </summary>
     string IBadString.Value => Value;
 
     /// <summary>
-    /// Compares this String to another String
+    ///     Compares this String to another String
     /// </summary>
     /// <param name="obj">The String to compare to</param>
     /// <returns>0 if equal, -1 if this is smaller, 1 if this is bigger</returns>
@@ -40,7 +40,7 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     }
 
     /// <summary>
-    /// Compares this String to another String
+    ///     Compares this String to another String
     /// </summary>
     /// <param name="other">The String to compare to</param>
     /// <returns>0 if equal, -1 if this is smaller, 1 if this is bigger</returns>
@@ -56,7 +56,7 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     }
 
     /// <summary>
-    /// Compares this String to another String
+    ///     Compares this String to another String
     /// </summary>
     /// <param name="other">The String to compare to</param>
     /// <returns>0 if equal, -1 if this is smaller, 1 if this is bigger</returns>

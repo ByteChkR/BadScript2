@@ -4,6 +4,7 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 ///<summary>
 ///	Contains Versioning Extensions and APIs for the BadScript2 Runtime
 /// </summary>
@@ -21,7 +22,7 @@ public class BadVersion : BadObject, IBadNative
         Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
 
     /// <summary>
-    /// The Version Class Prototype
+    ///     The Version Class Prototype
     /// </summary>
     private static readonly BadClassPrototype s_Prototype;
 
@@ -58,7 +59,7 @@ public class BadVersion : BadObject, IBadNative
     }
 
     /// <summary>
-    /// Checks if the Version is equal to another Version
+    ///     Checks if the Version is equal to another Version
     /// </summary>
     /// <param name="other">Other Version</param>
     /// <returns>True if the Versions are equal</returns>
@@ -67,14 +68,14 @@ public class BadVersion : BadObject, IBadNative
         return other is BadVersion v && m_Version.Equals(v.m_Version);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public object Value => m_Version;
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public Type Type => typeof(Version);
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString str &&
@@ -82,7 +83,7 @@ public class BadVersion : BadObject, IBadNative
                base.HasProperty(propName, caller);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString str)
@@ -101,7 +102,7 @@ public class BadVersion : BadObject, IBadNative
         };
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
@@ -175,7 +176,7 @@ public class BadVersion : BadObject, IBadNative
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count for Version Constructor");
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         return m_Version.ToString();

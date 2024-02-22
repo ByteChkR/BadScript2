@@ -1,20 +1,22 @@
 namespace BadScript2.Parser.Validation;
 
 /// <summary>
-/// Defines the type of a <see cref="BadExpressionValidatorMessage" />.
+///     Defines the type of a <see cref="BadExpressionValidatorMessage" />.
 /// </summary>
 public enum BadExpressionValidatorMessageType
 {
     /// <summary>
-    /// Informational message.
+    ///     Informational message.
     /// </summary>
     Info,
+
     /// <summary>
-    /// Warning message.
+    ///     Warning message.
     /// </summary>
     Warning,
+
     /// <summary>
-    /// Error message.
+    ///     Error message.
     /// </summary>
     Error,
 }

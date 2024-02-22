@@ -27,7 +27,7 @@ public class BadRuntimeException : BadScriptException
     ) { }
 
     /// <summary>
-    /// Creates a new BadScriptException
+    ///     Creates a new BadScriptException
     /// </summary>
     /// <param name="scope">The Scope the Exception was thrown in</param>
     /// <param name="message">The Exception Message</param>
@@ -43,7 +43,7 @@ public class BadRuntimeException : BadScriptException
     }
 
     /// <summary>
-    /// Creates a new BadScriptException
+    ///     Creates a new BadScriptException
     /// </summary>
     /// <param name="scope">The Scope the Exception was thrown in</param>
     /// <param name="message">The Exception Message</param>

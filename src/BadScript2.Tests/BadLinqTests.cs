@@ -8,7 +8,7 @@ namespace BadScript2.Tests;
 public class BadLinqTests
 {
     /// <summary>
-    /// Tests the LINQ.Select Function
+    ///     Tests the LINQ.Select Function
     /// </summary>
     [Test]
     public void SelectTest()
@@ -28,7 +28,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the LINQ.Where Function
+    ///     Tests the LINQ.Where Function
     /// </summary>
     [Test]
     public void WhereTest()
@@ -48,7 +48,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the LINQ.Last Function
+    ///     Tests the LINQ.Last Function
     /// </summary>
     [Test]
     public void LastTest()
@@ -60,7 +60,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.First Function
+    ///     Tests the Linq.First Function
     /// </summary>
     [Test]
     public void FirstTest()
@@ -72,7 +72,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.LastOrDefault Function
+    ///     Tests the Linq.LastOrDefault Function
     /// </summary>
     [Test]
     public void LastOrDefaultTest()
@@ -83,7 +83,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.FirstOrDefault Function
+    ///     Tests the Linq.FirstOrDefault Function
     /// </summary>
     [Test]
     public void FirstOrDefaultTest()
@@ -95,7 +95,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.Take Function
+    ///     Tests the Linq.Take Function
     /// </summary>
     [Test]
     public void TakeTest()
@@ -106,7 +106,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.Skip Function
+    ///     Tests the Linq.Skip Function
     /// </summary>
     [Test]
     public void SkipTest()
@@ -117,7 +117,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.TakeLast Function
+    ///     Tests the Linq.TakeLast Function
     /// </summary>
     [Test]
     public void TakeLastTest()
@@ -128,7 +128,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.SkipLast Function
+    ///     Tests the Linq.SkipLast Function
     /// </summary>
     [Test]
     public void SkipLastTest()
@@ -140,7 +140,7 @@ public class BadLinqTests
 
 
     /// <summary>
-    /// Tests the Linq.SelectMany Function
+    ///     Tests the Linq.SelectMany Function
     /// </summary>
     [Test]
     public void SelectManyTest()
@@ -160,7 +160,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.SkipWhile Function
+    ///     Tests the Linq.SkipWhile Function
     /// </summary>
     [Test]
     public void SkipWhileTest()
@@ -171,7 +171,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Test the Linq.TakeWhile Function
+    ///     Test the Linq.TakeWhile Function
     /// </summary>
     [Test]
     public void TakeWhileTest()
@@ -182,7 +182,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.All Function
+    ///     Tests the Linq.All Function
     /// </summary>
     [Test]
     public void AllTest()
@@ -204,7 +204,7 @@ public class BadLinqTests
     }
 
     /// <summary>
-    /// Tests the Linq.Any Function
+    ///     Tests the Linq.Any Function
     /// </summary>
     [Test]
     public void AnyTest()

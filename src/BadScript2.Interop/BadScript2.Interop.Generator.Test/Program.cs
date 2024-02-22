@@ -44,7 +44,7 @@ internal partial class Program
             Greet();
         }
     }
-    
+
     [BadMethod(description: "Greets a list of users and resets the name")]
     private void ParamsTest2(string resetName, params string[] names)
     {

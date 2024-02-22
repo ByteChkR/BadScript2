@@ -7,12 +7,12 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Parser.Expressions.Binary.Math;
 
 /// <summary>
-/// Implements the Negation Expression
+///     Implements the Negation Expression
 /// </summary>
 public class BadNegationExpression : BadExpression
 {
     /// <summary>
-    /// Creates a new Negation Expression
+    ///     Creates a new Negation Expression
     /// </summary>
     /// <param name="position">Position of the Expression</param>
     /// <param name="expression">The Expression to negate</param>
@@ -25,7 +25,7 @@ public class BadNegationExpression : BadExpression
     }
 
     /// <summary>
-    /// The Expression to negate
+    ///     The Expression to negate
     /// </summary>
     public BadExpression Expression { get; }
 
@@ -36,7 +36,7 @@ public class BadNegationExpression : BadExpression
     }
 
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="context">The Execution Context</param>
     /// <param name="left">Subexpression to negate</param>
@@ -68,7 +68,7 @@ public class BadNegationExpression : BadExpression
     }
 
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="obj">Subexpression to negate</param>
     /// <param name="pos">Position of the expression</param>

@@ -12,7 +12,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler;
 public class BadCompilerApi : BadInteropApi
 {
     /// <summary>
-    /// Creates a new API Instance.
+    ///     Creates a new API Instance.
     /// </summary>
     public BadCompilerApi() : base("Compiler") { }
 
@@ -27,7 +27,7 @@ public class BadCompilerApi : BadInteropApi
     }
 
     /// <summary>
-    /// Compiles a Function.
+    ///     Compiles a Function.
     /// </summary>
     /// <param name="func">The Function to compile.</param>
     /// <param name="useOverride">If the compiled function should support operator overrides.</param>
@@ -38,7 +38,7 @@ public class BadCompilerApi : BadInteropApi
     }
 
     /// <summary>
-    /// Compiles a Function.
+    ///     Compiles a Function.
     /// </summary>
     /// <param name="compiler">The Compiler to use.</param>
     /// <param name="func">The Function to compile.</param>

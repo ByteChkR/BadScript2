@@ -8,7 +8,7 @@ using BadScript2.Parser.Expressions.Function;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if the function has a return type but not all paths have a return statement.
+///     Checks if the function has a return type but not all paths have a return statement.
 /// </summary>
 public class
     BadFunctionReturnTypeIsNotNullButNotAllPathsHaveAReturnStatementValidator : BadExpressionValidator<

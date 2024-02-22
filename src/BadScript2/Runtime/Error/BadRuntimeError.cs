@@ -1,6 +1,7 @@
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Error Objects for the BadScript2 Language
 /// </summary>
@@ -45,7 +46,7 @@ public class BadRuntimeError : BadObject
     public BadObject ErrorObject { get; }
 
     /// <summary>
-    /// Creates a BadRuntimeError from an Exception
+    ///     Creates a BadRuntimeError from an Exception
     /// </summary>
     /// <param name="e">The Exception</param>
     /// <param name="scriptStackTrace">The Script Stack Trace</param>
@@ -74,13 +75,13 @@ public class BadRuntimeError : BadObject
         return new BadRuntimeError(inner, e.Message, st);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         done.Add(this);
@@ -88,7 +89,7 @@ public class BadRuntimeError : BadObject
         return $"{ErrorObject.ToSafeString(done)} at\n{StackTrace}\n{InnerError?.ToSafeString(done) ?? ""}";
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {
         if (propName is not IBadString str)
@@ -109,7 +110,7 @@ public class BadRuntimeError : BadObject
         return base.GetProperty(propName, caller);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool HasProperty(BadObject propName, BadScope? caller = null)
     {
         return propName is IBadString

@@ -14,15 +14,15 @@ namespace BadScript2.ConsoleCore.Systems.Test;
 public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
 {
     /// <summary>
-    /// Creates a new BadTestSystem instance
+    ///     Creates a new BadTestSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
     public BadTestSystem(BadRuntime runtime) : base(runtime) { }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override string Name => "test";
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override int Run(BadTestSystemSettings settings)
     {
         try

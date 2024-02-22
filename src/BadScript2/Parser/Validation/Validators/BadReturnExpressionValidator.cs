@@ -8,12 +8,12 @@ using BadScript2.Parser.Expressions.Function;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Base class for Validators that work with return statements.
+///     Base class for Validators that work with return statements.
 /// </summary>
 public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadFunctionExpression>
 {
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -45,8 +45,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
             }
         }
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -54,8 +55,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
     {
         return expr.Body.SelectMany(GetReturnExpressions);
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -63,8 +65,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
     {
         return expr.Expressions.SelectMany(GetReturnExpressions);
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -72,8 +75,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
     {
         return expr.Body.SelectMany(GetReturnExpressions);
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -81,8 +85,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
     {
         return expr.Body.SelectMany(GetReturnExpressions);
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -90,8 +95,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
     {
         return expr.Block.SelectMany(GetReturnExpressions);
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -113,8 +119,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
             }
         }
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expression.
+    ///     Returns all return expressions in the given expression.
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
@@ -191,8 +198,9 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
                 break;
         }
     }
+
     /// <summary>
-    /// Returns all return expressions in the given expressions.
+    ///     Returns all return expressions in the given expressions.
     /// </summary>
     /// <param name="expressions">The expressions to check.</param>
     /// <returns>All return expressions in the given expression.</returns>

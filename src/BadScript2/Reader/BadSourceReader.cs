@@ -1,5 +1,6 @@
 ﻿using BadScript2.Common;
 using BadScript2.IO;
+
 /// <summary>
 /// Contains the Source Reader for the BadScript2 Language
 /// </summary>
@@ -18,13 +19,13 @@ public class BadSourceReader
     private readonly string m_Source;
 
     /// <summary>
-    /// Start Index of the Source Code
+    ///     Start Index of the Source Code
     /// </summary>
     private readonly int m_StartIndex;
 
 
     /// <summary>
-    /// Creates a new Source Code Reader
+    ///     Creates a new Source Code Reader
     /// </summary>
     /// <param name="fileName">Filename of the Source Code</param>
     /// <param name="source">The Source Code</param>
@@ -59,12 +60,12 @@ public class BadSourceReader
     public BadSourceReader(string fileName, string source) : this(fileName, source, 0, source.Length) { }
 
     /// <summary>
-    /// Preview of the Source Code
+    ///     Preview of the Source Code
     /// </summary>
     public string Preview => IsEof() ? "END OF FILE" : Source.Substring(CurrentIndex);
 
     /// <summary>
-    /// The Source Code
+    ///     The Source Code
     /// </summary>
     public string Source => m_Source.Substring(m_StartIndex, m_EndIndex - m_StartIndex);
 

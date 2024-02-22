@@ -4,7 +4,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
-/// Compiles the <see cref="BadUsingExpression" />.
+///     Compiles the <see cref="BadUsingExpression" />.
 /// </summary>
 public class BadUsingExpressionCompiler : BadExpressionCompiler<BadUsingExpression>
 {
@@ -26,6 +26,7 @@ public class BadUsingExpressionCompiler : BadExpressionCompiler<BadUsingExpressi
         {
             yield return instruction;
         }
+
         foreach (BadInstruction instruction in compiler.Compile(expression.Expressions)) //Compile the block
         {
             yield return instruction;

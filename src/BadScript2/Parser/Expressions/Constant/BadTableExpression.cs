@@ -30,7 +30,7 @@ public class BadTableExpression : BadExpression
     }
 
     /// <summary>
-    /// The Length of the initializer list
+    ///     The Length of the initializer list
     /// </summary>
     public int Length => m_Table.Count;
 

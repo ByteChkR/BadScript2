@@ -9,14 +9,16 @@ using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the BadScript2 Constant Substitution Optimizations
 /// </summary>
 namespace BadScript2.Optimizations.Substitution;
 
 /// <summary>
-/// Contains the Implementation of the Constant Substitution Optimization
-/// This optimization replaces expressions that only contain constants and constant variables with the result of the expression.
+///     Contains the Implementation of the Constant Substitution Optimization
+///     This optimization replaces expressions that only contain constants and constant variables with the result of the
+///     expression.
 /// </summary>
 public static class BadConstantSubstitutionOptimizer
 {
@@ -45,7 +47,7 @@ public static class BadConstantSubstitutionOptimizer
     }
 
     /// <summary>
-    /// Substitutes all variables in the expression with their constant value.
+    ///     Substitutes all variables in the expression with their constant value.
     /// </summary>
     /// <param name="scope">The scope to use</param>
     /// <param name="expr">The expression to substitute</param>
@@ -70,8 +72,9 @@ public static class BadConstantSubstitutionOptimizer
 
         return expr;
     }
+
     /// <summary>
-    /// Substitutes all variables in the expressions with their constant value.
+    ///     Substitutes all variables in the expressions with their constant value.
     /// </summary>
     /// <param name="scope">The scope to use</param>
     /// <param name="expressions">The expressions to substitute</param>
@@ -241,7 +244,7 @@ public static class BadConstantSubstitutionOptimizer
     }
 
     /// <summary>
-    /// Runs the Constant Substitution Optimization on the given expressions
+    ///     Runs the Constant Substitution Optimization on the given expressions
     /// </summary>
     /// <param name="expressions">The expressions to optimize</param>
     /// <returns>The optimized expressions</returns>

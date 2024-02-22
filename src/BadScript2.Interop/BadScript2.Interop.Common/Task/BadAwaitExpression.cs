@@ -3,6 +3,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 ///<summary>
 ///	Contains task/async Extensions and Integrations for the BadScript2 Runtime
 /// </summary>
@@ -28,13 +29,13 @@ public class BadAwaitExpression : BadExpression
         m_TaskExpr = expr;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return m_TaskExpr.GetDescendantsAndSelf();
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject obj = BadObject.Null;
@@ -60,7 +61,7 @@ public class BadAwaitExpression : BadExpression
             yield break;
         }
 
-        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ?? 
+        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ??
                                throw BadRuntimeException.Create(context.Scope, "Task Runner not found", Position);
 
         //Run Task

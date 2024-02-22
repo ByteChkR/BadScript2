@@ -3,6 +3,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
 using Newtonsoft.Json.Linq;
+
 ///<summary>
 ///	Contains JSON Extensions and APIs for the BadScript2 Runtime
 /// </summary>
@@ -14,7 +15,7 @@ namespace BadScript2.Interop.Json;
 public static class BadJson
 {
     /// <summary>
-    /// Configures the Runtime to use the Json API
+    ///     Configures the Runtime to use the Json API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <returns>The Runtime</returns>

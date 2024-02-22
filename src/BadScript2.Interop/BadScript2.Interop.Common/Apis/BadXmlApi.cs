@@ -1,10 +1,7 @@
 using System.Xml;
 
-using BadScript2.Runtime.Interop;
-using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Apis;
 
@@ -20,14 +17,12 @@ internal partial class BadXmlApi
 	/// <param name="xml">Xml String</param>
 	/// <returns>The XmlDocument wrapped in a Reflected Object</returns>
 	[BadMethod(description: "Loads an XML Document from a string")]
-	[return: BadReturn("XmlDocument")]
-	private BadObject Load(string xml)
-	{
-		
-		XmlDocument doc = new XmlDocument();
-		doc.LoadXml(xml);
+    [return: BadReturn("XmlDocument")]
+    private BadObject Load(string xml)
+    {
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(xml);
 
-		return new BadReflectedObject(doc);
-	}
-
+        return new BadReflectedObject(doc);
+    }
 }

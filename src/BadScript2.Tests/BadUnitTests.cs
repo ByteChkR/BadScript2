@@ -21,57 +21,63 @@ namespace BadScript2.Tests;
 public class BadUnitTests
 {
     /// <summary>
-    /// The Test Context
+    ///     The Test Context
     /// </summary>
     private static BadUnitTestContext? s_Context;
+
     /// <summary>
-    /// The Optimized Folding Test Context
+    ///     The Optimized Folding Test Context
     /// </summary>
     private static BadUnitTestContext? s_OptimizedFoldingContext;
-    
+
     /// <summary>
-    /// The Optimized Substitution Test Context
+    ///     The Optimized Substitution Test Context
     /// </summary>
     private static BadUnitTestContext? s_OptimizedSubstitutionContext;
+
     /// <summary>
-    /// The Optimized Test Context
+    ///     The Optimized Test Context
     /// </summary>
     private static BadUnitTestContext? s_OptimizedContext;
+
     /// <summary>
-    /// The Compiled Test Context
+    ///     The Compiled Test Context
     /// </summary>
     private static BadUnitTestContext? s_CompiledContext;
+
     /// <summary>
-    /// The Compiled Optimized Folding Test Context
+    ///     The Compiled Optimized Folding Test Context
     /// </summary>
     private static BadUnitTestContext? s_CompiledOptimizedFoldingContext;
+
     /// <summary>
-    /// The Compiled Optimized Substitution Test Context
+    ///     The Compiled Optimized Substitution Test Context
     /// </summary>
     private static BadUnitTestContext? s_CompiledOptimizedSubstitutionContext;
+
     /// <summary>
-    /// The Compiled Optimized Test Context
+    ///     The Compiled Optimized Test Context
     /// </summary>
     private static BadUnitTestContext? s_CompiledOptimizedContext;
 
 
     /// <summary>
-    /// The Test Directory
+    ///     The Test Directory
     /// </summary>
     private static string TestDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "tests");
 
     /// <summary>
-    /// The Script Test Directory
+    ///     The Script Test Directory
     /// </summary>
     private static string ScriptTestDirectory => Path.Combine(TestDirectory, "basic");
 
     /// <summary>
-    /// The HTML Test Directory
+    ///     The HTML Test Directory
     /// </summary>
     private static string HtmlTestDirectory => Path.Combine(TestDirectory, "html");
 
     /// <summary>
-    /// The Test Context
+    ///     The Test Context
     /// </summary>
     private static BadUnitTestContext Context
     {
@@ -113,7 +119,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// The Optimized Folding Test Context
+    ///     The Optimized Folding Test Context
     /// </summary>
     private static BadUnitTestContext OptimizedFoldingContext
     {
@@ -155,7 +161,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// The Optimized Substitution Test Context
+    ///     The Optimized Substitution Test Context
     /// </summary>
     private static BadUnitTestContext OptimizedSubstitutionContext
     {
@@ -197,7 +203,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// The Optimized Test Context
+    ///     The Optimized Test Context
     /// </summary>
     private static BadUnitTestContext OptimizedContext
     {
@@ -239,7 +245,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// The Compiled Test Context
+    ///     The Compiled Test Context
     /// </summary>
     private static BadUnitTestContext CompiledContext
     {
@@ -281,7 +287,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// The Compiled Optimized Folding Test Context
+    ///     The Compiled Optimized Folding Test Context
     /// </summary>
     private static BadUnitTestContext CompiledOptimizedFoldingContext
     {
@@ -324,7 +330,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// The Compiled Optimized Substitution Test Context
+    ///     The Compiled Optimized Substitution Test Context
     /// </summary>
     private static BadUnitTestContext CompiledOptimizedSubstitutionContext
     {
@@ -367,7 +373,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// The Compiled Optimized Test Context
+    ///     The Compiled Optimized Test Context
     /// </summary>
     private static BadUnitTestContext CompiledOptimizedContext
     {
@@ -410,7 +416,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// Setup the Test Contexts
+    ///     Setup the Test Contexts
     /// </summary>
     [SetUp]
     public void Setup()
@@ -429,7 +435,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -440,7 +446,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -451,7 +457,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -462,7 +468,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -472,7 +478,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -499,7 +505,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Gets all HTML Test Cases
+    ///     Gets all HTML Test Cases
     /// </summary>
     /// <returns>Array of Template Files</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -508,9 +514,9 @@ public class BadUnitTests
         return BadFileSystem.Instance.GetFiles(HtmlTestDirectory, ".bhtml", true).ToArray();
     }
 
-    
+
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -538,7 +544,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -566,7 +572,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// Gets all Test Cases
+    ///     Gets all Test Cases
     /// </summary>
     /// <returns>Array of BadNUnitTestCase</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
@@ -594,7 +600,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetTestCases))]
@@ -604,7 +610,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetOptimizedFoldingTestCases))]
@@ -614,7 +620,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetOptimizedSubstitutionTestCases))]
@@ -624,7 +630,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetOptimizedTestCases))]
@@ -634,7 +640,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledTestCases))]
@@ -644,7 +650,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledOptimizedFoldingTestCases))]
@@ -654,7 +660,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledOptimizedSubstitutionTestCases))]
@@ -664,7 +670,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Runs a Test Case
+    ///     Runs a Test Case
     /// </summary>
     /// <param name="testCase">The Test Case</param>
     [TestCaseSource(nameof(GetCompiledOptimizedTestCases))]
@@ -674,7 +680,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Loads a Reference File
+    ///     Loads a Reference File
     /// </summary>
     /// <param name="file">The File</param>
     /// <returns>The Reference File</returns>
@@ -687,7 +693,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Tests the Html Templates with the default options
+    ///     Tests the Html Templates with the default options
     /// </summary>
     /// <param name="file">The File</param>
     [Test]
@@ -712,7 +718,7 @@ public class BadUnitTests
     }
 
     /// <summary>
-    /// Tests the Html Templates with the SkipEmptyTextNodes option
+    ///     Tests the Html Templates with the SkipEmptyTextNodes option
     /// </summary>
     /// <param name="file">The File</param>
     [Test]
@@ -741,7 +747,7 @@ public class BadUnitTests
 
 
     /// <summary>
-    /// Tears down the Test Contexts
+    ///     Tears down the Test Contexts
     /// </summary>
     [TearDown]
     public void TearDown()

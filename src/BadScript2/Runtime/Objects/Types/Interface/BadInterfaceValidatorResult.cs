@@ -28,7 +28,7 @@ public readonly struct BadInterfaceValidatorResult
     }
 
 
-	/// <inheritdoc />
+    /// <inheritdoc />
     public override string ToString()
     {
         IndentedTextWriter writer = new IndentedTextWriter(new StringWriter());

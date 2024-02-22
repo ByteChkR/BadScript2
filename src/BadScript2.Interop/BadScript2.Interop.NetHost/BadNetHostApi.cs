@@ -1,10 +1,6 @@
 using BadScript2.Interop.Common.Task;
-using BadScript2.Runtime.Error;
-using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Native;
-using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.NetHost;
 
@@ -14,10 +10,9 @@ namespace BadScript2.Interop.NetHost;
 [BadInteropApi("NetHost")]
 internal partial class BadNetHostApi
 {
-
-    [BadMethod(description:"Creates a new NetHost Instance")]
+    [BadMethod(description: "Creates a new NetHost Instance")]
     [return: BadReturn("The NetHost Instance")]
-    private BadTable Create([BadParameter(description:"Array of string prefixes")] string[] prefixes)
+    private BadTable Create([BadParameter(description: "Array of string prefixes")] string[] prefixes)
     {
         BadNetHost host = new BadNetHost(prefixes);
         BadTable table = new BadTable();

@@ -12,13 +12,13 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadTextNodeTransformer : BadHtmlNodeTransformer
 {
-    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "#text";
     }
 
-    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
     protected override void TransformNode(BadHtmlContext context)
     {
         if (context.InputNode.InnerText.All(x => char.IsWhiteSpace(x) || x == '\n' || x == '\r' || x == '\t'))

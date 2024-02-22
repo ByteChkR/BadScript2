@@ -8,6 +8,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 /// <summary>
 /// Contains the Linq Implementation and Extensions
 /// </summary>
@@ -19,12 +20,12 @@ namespace BadScript2.Utility.Linq;
 internal static class BadLinqCommon
 {
     /// <summary>
-    /// The Predicate Context Options for the Linq Extensions.
+    ///     The Predicate Context Options for the Linq Extensions.
     /// </summary>
     public static readonly BadExecutionContextOptions PredicateContextOptions = new BadExecutionContextOptions();
 
     /// <summary>
-    /// Parses a Predicate Query into a Variable Name and a Query Expression.
+    ///     Parses a Predicate Query into a Variable Name and a Query Expression.
     /// </summary>
     /// <param name="query">The Query to parse</param>
     /// <returns>(Variable Name, Query Expression)</returns>
@@ -44,7 +45,7 @@ internal static class BadLinqCommon
     }
 
     /// <summary>
-    /// The Where Lamda Function for the Linq Extensions.
+    ///     The Where Lamda Function for the Linq Extensions.
     /// </summary>
     /// <param name="varName">The Variable Name</param>
     /// <param name="query">The Query Expression</param>
@@ -87,7 +88,7 @@ internal static class BadLinqCommon
     }
 
     /// <summary>
-    /// Materializes the given IEnumerable into an Array.
+    ///     Materializes the given IEnumerable into an Array.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to materialize.</param>
     /// <returns>The Materialized Array.</returns>
@@ -97,7 +98,7 @@ internal static class BadLinqCommon
     }
 
     /// <summary>
-    /// Parses the given source into an IEnumerable of BadExpressions.
+    ///     Parses the given source into an IEnumerable of BadExpressions.
     /// </summary>
     /// <param name="src">The Source to parse.</param>
     /// <returns>The IEnumerable of BadExpressions.</returns>

@@ -17,11 +17,11 @@ public class BadStringToken : BadPrimitiveToken
         Value = str;
     }
 
-	/// <inheritdoc/>
-    public override BadPrimitiveType Type => BadPrimitiveType.String;
+	/// <inheritdoc />
+	public override BadPrimitiveType Type => BadPrimitiveType.String;
 
-    /// <summary>
-    ///     The Value of the Token
-    /// </summary>
-    public string Value { get; }
+	/// <summary>
+	///     The Value of the Token
+	/// </summary>
+	public string Value { get; }
 }

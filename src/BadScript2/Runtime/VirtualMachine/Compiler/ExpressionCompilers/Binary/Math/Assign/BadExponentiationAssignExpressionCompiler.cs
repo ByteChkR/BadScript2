@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Binary.Math.Assign;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Assign;
 
 /// <summary>
-/// Compiles the <see cref="BadExponentiationAssignExpression" />.
+///     Compiles the <see cref="BadExponentiationAssignExpression" />.
 /// </summary>
 public class BadExponentiationAssignExpressionCompiler : BadBinaryExpressionCompiler<BadExponentiationAssignExpression>
 {

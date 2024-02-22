@@ -14,7 +14,7 @@ namespace BadScript2.Utility.Linq;
 public static class BadLinqExtensions
 {
     /// <summary>
-    /// Unpacks the given BadObject.
+    ///     Unpacks the given BadObject.
     /// </summary>
     /// <param name="obj">The Object to unpack</param>
     /// <returns>The unpacked Object</returns>
@@ -34,7 +34,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// The inner select function for the Linq Extensions.
+    ///     The inner select function for the Linq Extensions.
     /// </summary>
     /// <param name="varName">The Variable Name</param>
     /// <param name="query">The Query Expression</param>
@@ -70,7 +70,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Returns the first element of a sequence, or a default value if the sequence contains no elements.
+    ///     Returns the first element of a sequence, or a default value if the sequence contains no elements.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to get the first element from.</param>
     /// <returns>The first element of the sequence, or a default value if the sequence contains no elements.</returns>
@@ -80,7 +80,8 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Returns the first element of the sequence that satisfies a condition or a default value if no such element is found.
+    ///     Returns the first element of the sequence that satisfies a condition or a default value if no such element is
+    ///     found.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to get the first element from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -94,7 +95,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Returns the first element of the sequence that satisfies a condition.
+    ///     Returns the first element of the sequence that satisfies a condition.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to get the first element from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -115,8 +116,9 @@ public static class BadLinqExtensions
 
         throw new Exception("No matching element found");
     }
+
     /// <summary>
-    /// Returns the last element of the sequence that satisfies a condition or a default value if no such element is found.
+    ///     Returns the last element of the sequence that satisfies a condition or a default value if no such element is found.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to get the last element from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -139,7 +141,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Returns the last element of the sequence that satisfies a condition.
+    ///     Returns the last element of the sequence that satisfies a condition.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to get the last element from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -163,7 +165,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Takes the first count elements from the given IEnumerable.
+    ///     Takes the first count elements from the given IEnumerable.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to take the elements from.</param>
     /// <param name="count">The number of elements to take.</param>
@@ -186,7 +188,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Skips the first count elements from the given IEnumerable.
+    ///     Skips the first count elements from the given IEnumerable.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to skip the elements from.</param>
     /// <param name="count">The number of elements to skip.</param>
@@ -207,7 +209,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Takes the last count elements from the given IEnumerable.
+    ///     Takes the last count elements from the given IEnumerable.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to take the elements from.</param>
     /// <param name="count">The number of elements to take.</param>
@@ -223,7 +225,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Skips the last count elements from the given IEnumerable.
+    ///     Skips the last count elements from the given IEnumerable.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to skip the elements from.</param>
     /// <param name="count">The number of elements to skip.</param>
@@ -239,7 +241,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Selects the given elements from the given IEnumerable.
+    ///     Selects the given elements from the given IEnumerable.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to select the elements from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -267,7 +269,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Selects the given elements from the given IEnumerable.
+    ///     Selects the given elements from the given IEnumerable.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to select the elements from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -284,7 +286,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Orders the given IEnumerable by the given predicate.
+    ///     Orders the given IEnumerable by the given predicate.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to order.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -300,7 +302,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Orders the given IEnumerable by the given predicate in descending order.
+    ///     Orders the given IEnumerable by the given predicate in descending order.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to order.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -317,7 +319,7 @@ public static class BadLinqExtensions
 
 
     /// <summary>
-    /// Skips elements from the given IEnumerable while the given predicate is true.
+    ///     Skips elements from the given IEnumerable while the given predicate is true.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to skip the elements from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -342,7 +344,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Takes elements from the given IEnumerable while the given predicate is true.
+    ///     Takes elements from the given IEnumerable while the given predicate is true.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to take the elements from.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -366,7 +368,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Returns true if all elements of the given IEnumerable satisfy the given predicate.
+    ///     Returns true if all elements of the given IEnumerable satisfy the given predicate.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to check.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -387,9 +389,9 @@ public static class BadLinqExtensions
         return true;
     }
 
-    
+
     /// <summary>
-    /// Returns true if there is any element in the given IEnumerable
+    ///     Returns true if there is any element in the given IEnumerable
     /// </summary>
     /// <param name="enumerable">The IEnumerable to check.</param>
     /// <returns>True if there is any element in the given IEnumerable</returns>
@@ -399,7 +401,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Returns true if any element of the given IEnumerable satisfies the given predicate.
+    ///     Returns true if any element of the given IEnumerable satisfies the given predicate.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to check.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>
@@ -413,7 +415,7 @@ public static class BadLinqExtensions
     }
 
     /// <summary>
-    /// Filters the given IEnumerable by the given predicate.
+    ///     Filters the given IEnumerable by the given predicate.
     /// </summary>
     /// <param name="enumerable">The IEnumerable to filter.</param>
     /// <param name="predicate">The predicate to apply to the elements.</param>

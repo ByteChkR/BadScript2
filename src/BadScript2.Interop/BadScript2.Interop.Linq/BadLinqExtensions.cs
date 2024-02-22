@@ -355,8 +355,8 @@ public class BadLinqExtensions : BadInteropExtension
         return new BadInteropEnumerable(e.Reverse());
     }
 
-	/// <inheritdoc/>
-    protected override void AddExtensions(BadInteropExtensionProvider provider)
+	/// <inheritdoc />
+	protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         Register(provider, "ToArray", (_, e) => ToArray(e), BadNativeClassBuilder.GetNative("Array"));
         Register(provider, "Reverse", (_, e) => Reverse(e), BadAnyPrototype.Instance);
@@ -445,14 +445,14 @@ public class BadLinqExtensions : BadInteropExtension
         );
     }
 
-    /// <summary>
-    ///     Implementation for 'OrderBy' function.
-    /// </summary>
-    /// <param name="ctx">The Execution Context</param>
-    /// <param name="e">The Enumerable</param>
-    /// <param name="function">The Selector Function</param>
-    /// <returns>Enumeration</returns>
-    private static BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
+	/// <summary>
+	///     Implementation for 'OrderBy' function.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="function">The Selector Function</param>
+	/// <returns>Enumeration</returns>
+	private static BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
     {
         return new BadInteropEnumerable(
             e.OrderBy(
@@ -477,15 +477,15 @@ public class BadLinqExtensions : BadInteropExtension
         );
     }
 
-    /// <summary>
-    ///     Shorthand Wrapper for RegisterObject.
-    ///     Registers a Linq Function that takes a IBadEnumerable object and returns a BadObject.
-    /// </summary>
-    /// <param name="provider">The Extension Provider of the Runtime</param>
-    /// <param name="name">Name of the Function</param>
-    /// <param name="func">Function</param>
-    /// <param name="returnType">The Return Type of the Function</param>
-    private static void Register(
+	/// <summary>
+	///     Shorthand Wrapper for RegisterObject.
+	///     Registers a Linq Function that takes a IBadEnumerable object and returns a BadObject.
+	/// </summary>
+	/// <param name="provider">The Extension Provider of the Runtime</param>
+	/// <param name="name">Name of the Function</param>
+	/// <param name="func">Function</param>
+	/// <param name="returnType">The Return Type of the Function</param>
+	private static void Register(
         BadInteropExtensionProvider provider,
         string name,
         Func<BadExecutionContext, IBadEnumerable, BadObject> func,
@@ -497,15 +497,15 @@ public class BadLinqExtensions : BadInteropExtension
         );
     }
 
-    /// <summary>
-    ///     Shorthand Wrapper for RegisterObject.
-    ///     Registers a Linq Function that takes a IBadEnumerable object, an arbitrary object and returns a BadObject.
-    /// </summary>
-    /// <param name="provider">The Extension Provider of the Runtime</param>
-    /// <param name="name">Name of the Function</param>
-    /// <param name="func">Function</param>
-    /// <param name="returnType">The Return Type of the Function</param>
-    private static void Register<T>(
+	/// <summary>
+	///     Shorthand Wrapper for RegisterObject.
+	///     Registers a Linq Function that takes a IBadEnumerable object, an arbitrary object and returns a BadObject.
+	/// </summary>
+	/// <param name="provider">The Extension Provider of the Runtime</param>
+	/// <param name="name">Name of the Function</param>
+	/// <param name="func">Function</param>
+	/// <param name="returnType">The Return Type of the Function</param>
+	private static void Register<T>(
         BadInteropExtensionProvider provider,
         string name,
         Func<BadExecutionContext, IBadEnumerable, T, BadObject> func,

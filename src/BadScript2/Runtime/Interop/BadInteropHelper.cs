@@ -14,7 +14,7 @@ namespace BadScript2.Runtime.Interop;
 public static class BadInteropHelper
 {
     /// <summary>
-    /// Sets the Property with the given name to the given value
+    ///     Sets the Property with the given name to the given value
     /// </summary>
     /// <param name="elem">The Object to set the Property on</param>
     /// <param name="propName">The Name of the Property</param>
@@ -30,7 +30,7 @@ public static class BadInteropHelper
     }
 
     /// <summary>
-    /// Returns true if the given object can be unwrapped
+    ///     Returns true if the given object can be unwrapped
     /// </summary>
     /// <param name="obj">The Object to check</param>
     /// <returns>True if the given object can be unwrapped</returns>
@@ -40,7 +40,7 @@ public static class BadInteropHelper
     }
 
     /// <summary>
-    /// Unwraps the given object
+    ///     Unwraps the given object
     /// </summary>
     /// <param name="obj">The Object to unwrap</param>
     /// <param name="caller">The Caller Scope</param>
@@ -57,7 +57,7 @@ public static class BadInteropHelper
     }
 
     /// <summary>
-    /// Unwraps the given object to the given type
+    ///     Unwraps the given object to the given type
     /// </summary>
     /// <param name="obj">The Object to unwrap</param>
     /// <param name="t">The Type to unwrap to</param>
@@ -133,7 +133,7 @@ public static class BadInteropHelper
     }
 
     /// <summary>
-    /// Unwraps the given object to the given type
+    ///     Unwraps the given object to the given type
     /// </summary>
     /// <param name="obj">The Object to unwrap</param>
     /// <param name="caller">The Caller Scope</param>
@@ -222,7 +222,7 @@ public static class BadInteropHelper
     }
 
     /// <summary>
-    /// Returns true if the given type is a Func of any kind 
+    ///     Returns true if the given type is a Func of any kind
     /// </summary>
     /// <param name="t">The Type to check</param>
     /// <returns>True if the given type is a Func of any kind</returns>
@@ -255,7 +255,7 @@ public static class BadInteropHelper
     }
 
     /// <summary>
-    /// Returns true if the given type is an Action of any kind
+    ///     Returns true if the given type is an Action of any kind
     /// </summary>
     /// <param name="t">The Type to check</param>
     /// <returns>True if the given type is an Action of any kind</returns>

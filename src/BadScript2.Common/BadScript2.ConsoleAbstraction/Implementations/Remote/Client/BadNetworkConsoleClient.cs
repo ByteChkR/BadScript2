@@ -14,31 +14,31 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 /// </summary>
 public class BadNetworkConsoleClient
 {
-	/// <summary>
-	///     The Address of the Remote Console
-	/// </summary>
-	private readonly string m_Address;
-
-	/// <summary>
-	///     The TCP Client
-	/// </summary>
-	private readonly TcpClient m_Client;
-
-
-	/// <summary>
-	///     The Port of the Remote Console
-	/// </summary>
-	private readonly int m_Port;
-
-	/// <summary>
-	///     If true the client will exit
-	/// </summary>
-	private bool m_ExitRequested;
+    /// <summary>
+    ///     The Address of the Remote Console
+    /// </summary>
+    private readonly string m_Address;
 
     /// <summary>
-    /// The Parser
+    ///     The TCP Client
+    /// </summary>
+    private readonly TcpClient m_Client;
+
+    /// <summary>
+    ///     The Parser
     /// </summary>
     private readonly IBadNetworkConsoleClientCommandParser m_Parser;
+
+
+    /// <summary>
+    ///     The Port of the Remote Console
+    /// </summary>
+    private readonly int m_Port;
+
+    /// <summary>
+    ///     If true the client will exit
+    /// </summary>
+    private bool m_ExitRequested;
 
     /// <summary>
     ///     The Read Thread
@@ -101,7 +101,7 @@ public class BadNetworkConsoleClient
     public static int ConsoleWriteSleep { get; set; } = 100;
 
     /// <summary>
-    /// The Default Parser Factory
+    ///     The Default Parser Factory
     /// </summary>
     /// <param name="client">The Client</param>
     /// <returns>The Parser</returns>

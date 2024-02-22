@@ -1,11 +1,12 @@
 using BadScript2.Parser.Expressions.Access;
+
 /// <summary>
 /// Contains Access Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
 /// <summary>
-/// Compiles the <see cref="BadArrayAccessExpression" />.
+///     Compiles the <see cref="BadArrayAccessExpression" />.
 /// </summary>
 public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAccessExpression>
 {

@@ -10,18 +10,12 @@ namespace BadScript2.Interop.IO;
 /// <summary>
 ///     Implements the "IO" Api
 /// </summary>
-[BadInteropApi("IO")]
+[BadInteropApi("IO", true)]
 internal partial class BadIOApi
 {
-    private readonly BadDirectoryApi m_DirectoryApi;
-    private readonly BadFileApi m_FileApi;
-
-    /// <summary>
-    ///     The FileSystem Instance
-    /// </summary>
-    private readonly IFileSystem m_FileSystem;
-
-    private readonly BadPathApi m_PathApi;
+    private readonly BadDirectoryApi m_DirectoryApi = new BadDirectoryApi(BadFileSystem.Instance);
+    private readonly BadFileApi m_FileApi = new BadFileApi(BadFileSystem.Instance);
+    private readonly BadPathApi m_PathApi = new BadPathApi(BadFileSystem.Instance);
 
 
     /// <summary>
@@ -30,7 +24,6 @@ internal partial class BadIOApi
     /// <param name="fileSystem">File System Instance</param>
     public BadIOApi(IFileSystem fileSystem) : this()
     {
-        m_FileSystem = fileSystem;
         m_FileApi = new BadFileApi(fileSystem);
         m_PathApi = new BadPathApi(fileSystem);
         m_DirectoryApi = new BadDirectoryApi(fileSystem);

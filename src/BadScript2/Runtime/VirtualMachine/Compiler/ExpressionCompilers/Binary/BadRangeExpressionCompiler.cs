@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Binary;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 /// <summary>
-/// Compiles the <see cref="BadRangeExpression" />.
+///     Compiles the <see cref="BadRangeExpression" />.
 /// </summary>
 public class BadRangeExpressionCompiler : BadExpressionCompiler<BadRangeExpression>
 {

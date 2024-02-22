@@ -31,7 +31,7 @@ public class BadFunctionParameter
     }
 
     /// <summary>
-    /// Creates a new Function Parameter Info
+    ///     Creates a new Function Parameter Info
     /// </summary>
     /// <param name="name">Name of the Parameter</param>
     /// <param name="isOptional">Indicates if this parameter is optional</param>

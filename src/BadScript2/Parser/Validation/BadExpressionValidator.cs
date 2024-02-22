@@ -1,16 +1,17 @@
 using BadScript2.Parser.Expressions;
+
 /// <summary>
 /// Contains the Comparison Operators for the BadScript2 Language
 /// </summary>
 namespace BadScript2.Parser.Validation;
 
 /// <summary>
-/// Base class for all expression validators.
+///     Base class for all expression validators.
 /// </summary>
 public abstract class BadExpressionValidator
 {
     /// <summary>
-    /// Validates the given expression.
+    ///     Validates the given expression.
     /// </summary>
     /// <param name="context">The validation context.</param>
     /// <param name="expr">The expression to validate.</param>
@@ -18,14 +19,14 @@ public abstract class BadExpressionValidator
 }
 
 /// <summary>
-/// Base class for all expression validators that work with a specific expression type.
+///     Base class for all expression validators that work with a specific expression type.
 /// </summary>
 /// <typeparam name="T">The expression type.</typeparam>
 public abstract class BadExpressionValidator<T> : BadExpressionValidator
     where T : BadExpression
 {
     /// <summary>
-    /// Validates the given expression.
+    ///     Validates the given expression.
     /// </summary>
     /// <param name="context">The validation context.</param>
     /// <param name="expr">The expression to validate.</param>

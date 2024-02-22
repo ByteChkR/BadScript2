@@ -12,14 +12,13 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadCopyNodeTransformer : BadHtmlNodeTransformer
 {
-    
-    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
         return true;
     }
 
-    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
     protected override void TransformNode(BadHtmlContext context)
     {
         //Clone Node(not children)

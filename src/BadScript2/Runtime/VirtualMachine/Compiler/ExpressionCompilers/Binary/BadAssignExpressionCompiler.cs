@@ -1,11 +1,12 @@
 using BadScript2.Parser.Expressions.Binary;
+
 /// <summary>
 /// Contains Binary Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 /// <summary>
-/// Compiles the <see cref="BadAssignExpression" />.
+///     Compiles the <see cref="BadAssignExpression" />.
 /// </summary>
 public class BadAssignExpressionCompiler : BadExpressionCompiler<BadAssignExpression>
 {

@@ -4,7 +4,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
 /// <summary>
-/// Compiles the <see cref="BadVariableDefinitionExpression" />.
+///     Compiles the <see cref="BadVariableDefinitionExpression" />.
 /// </summary>
 public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<BadVariableDefinitionExpression>
 {

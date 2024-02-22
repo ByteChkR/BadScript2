@@ -35,8 +35,10 @@ internal partial class BadNetApi
     [BadMethod(description: "Performs a POST request to the given url with the given content")]
     [return: BadReturn("The Awaitable Task")]
     private static BadTask Post(
-        [BadParameter(description: "The URL of the POST request")] string url,
-        [BadParameter(description: "The String content of the post request")] string content)
+        [BadParameter(description: "The URL of the POST request")]
+        string url,
+        [BadParameter(description: "The String content of the post request")]
+        string content)
     {
         HttpClient cl = new HttpClient();
 

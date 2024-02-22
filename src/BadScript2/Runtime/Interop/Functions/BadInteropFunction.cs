@@ -12,19 +12,17 @@ namespace BadScript2.Runtime.Interop.Functions;
 public class BadInteropFunction : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, BadObject[], BadObject> m_Func;
 
     /// <summary>
-    /// Contains meta data for this function
+    ///     Contains meta data for this function
     /// </summary>
     private BadMetaData? _metaData;
-    /// <inheritdoc/>
-    public override BadMetaData MetaData => _metaData ?? BadMetaData.Empty;
 
     /// <summary>
-    /// Creates a new BadInteropFunction
+    ///     Creates a new BadInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -40,21 +38,10 @@ public class BadInteropFunction : BadFunction
     {
         m_Func = (_, args) => func(args);
     }
-    
-    /// <summary>
-    /// Sets the MetaData for this Function
-    /// </summary>
-    /// <param name="metaData">The MetaData to set</param>
-    /// <returns>This Function</returns>
-    public BadInteropFunction SetMetaData(BadMetaData metaData)
-    {
-        _metaData = metaData;
-        return this;
-    }
-    
+
 
     /// <summary>
-    /// Creates a new BadInteropFunction
+    ///     Creates a new BadInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -71,9 +58,24 @@ public class BadInteropFunction : BadFunction
         m_Func = func;
     }
 
+    /// <inheritdoc />
+    public override BadMetaData MetaData => _metaData ?? BadMetaData.Empty;
 
     /// <summary>
-    /// Creates a new BadInteropFunction
+    ///     Sets the MetaData for this Function
+    /// </summary>
+    /// <param name="metaData">The MetaData to set</param>
+    /// <returns>This Function</returns>
+    public BadInteropFunction SetMetaData(BadMetaData metaData)
+    {
+        _metaData = metaData;
+
+        return this;
+    }
+
+
+    /// <summary>
+    ///     Creates a new BadInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <param name="isStatic">Indicates if the Function is Static</param>
@@ -97,7 +99,7 @@ public class BadInteropFunction : BadFunction
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         CheckParameters(args, caller);

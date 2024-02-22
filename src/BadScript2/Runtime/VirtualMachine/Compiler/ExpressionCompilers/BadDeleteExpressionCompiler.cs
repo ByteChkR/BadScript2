@@ -6,7 +6,7 @@ using BadScript2.Parser.Expressions;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 /// <summary>
-/// Compiles the <see cref="BadDeleteExpression" />.
+///     Compiles the <see cref="BadDeleteExpression" />.
 /// </summary>
 public class BadDeleteExpressionCompiler : BadExpressionCompiler<BadDeleteExpression>
 {

@@ -75,6 +75,13 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// </summary>
     public string Name { get; }
 
+
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
+    {
+        return Name;
+    }
+
     /// <summary>
     ///     Sets the body of the class
     /// </summary>
@@ -218,12 +225,5 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         context.Scope.DefineVariable(Name, p);
 
         yield return p;
-    }
-
-
-    /// <inheritdoc cref="IBadNamedExpression.GetName" />
-    public string? GetName()
-    {
-        return Name;
     }
 }

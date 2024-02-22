@@ -3,21 +3,22 @@ using BadScript2.Parser.Expressions;
 namespace BadScript2.Optimizations.Substitution;
 
 /// <summary>
-/// The scope of the Constant Substitution Optimizer
+///     The scope of the Constant Substitution Optimizer
 /// </summary>
 public class BadConstantSubstitutionOptimizerScope
 {
     /// <summary>
-    /// The constants in this scope
+    ///     The constants in this scope
     /// </summary>
     private readonly Dictionary<string, BadExpression> m_Constants = new Dictionary<string, BadExpression>();
+
     /// <summary>
-    /// The parent scope
+    ///     The parent scope
     /// </summary>
     private readonly BadConstantSubstitutionOptimizerScope? m_Parent;
 
     /// <summary>
-    /// Creates a new scope
+    ///     Creates a new scope
     /// </summary>
     public BadConstantSubstitutionOptimizerScope()
     {
@@ -25,7 +26,7 @@ public class BadConstantSubstitutionOptimizerScope
     }
 
     /// <summary>
-    /// Creates a new scope with a parent scope
+    ///     Creates a new scope with a parent scope
     /// </summary>
     /// <param name="parent">The parent scope</param>
     private BadConstantSubstitutionOptimizerScope(BadConstantSubstitutionOptimizerScope? parent)
@@ -34,7 +35,7 @@ public class BadConstantSubstitutionOptimizerScope
     }
 
     /// <summary>
-    /// Returns a constant from this scope or a parent scope
+    ///     Returns a constant from this scope or a parent scope
     /// </summary>
     /// <param name="name">The name of the constant</param>
     /// <returns>The constant</returns>
@@ -55,7 +56,7 @@ public class BadConstantSubstitutionOptimizerScope
     }
 
     /// <summary>
-    /// Returns true if the constant is defined in this scope or a parent scope
+    ///     Returns true if the constant is defined in this scope or a parent scope
     /// </summary>
     /// <param name="name">The name of the constant</param>
     /// <returns>True if the constant is defined in this scope or a parent scope</returns>
@@ -65,7 +66,7 @@ public class BadConstantSubstitutionOptimizerScope
     }
 
     /// <summary>
-    /// Adds a constant to this scope
+    ///     Adds a constant to this scope
     /// </summary>
     /// <param name="name">The name of the constant</param>
     /// <param name="expr">The expression of the constant</param>
@@ -75,7 +76,7 @@ public class BadConstantSubstitutionOptimizerScope
     }
 
     /// <summary>
-    /// Creates a child scope
+    ///     Creates a child scope
     /// </summary>
     /// <returns>The child scope</returns>
     public BadConstantSubstitutionOptimizerScope CreateChildScope()

@@ -15,9 +15,9 @@ internal partial class BadDeflateApi
     /// </summary>
     /// <param name="obj">String</param>
     /// <returns>Compressed Array</returns>
-    [BadMethod(description:"Compresses the given string using the Deflate Algorithm")]
+    [BadMethod(description: "Compresses the given string using the Deflate Algorithm")]
     [return: BadReturn("Compressed Array of bytes")]
-    private static BadArray Compress([BadParameter(description:"String to Compress")] string obj)
+    private static BadArray Compress([BadParameter(description: "String to Compress")] string obj)
     {
         MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj));
         MemoryStream compressed = new MemoryStream();
@@ -34,9 +34,9 @@ internal partial class BadDeflateApi
     /// <param name="ctx">The Current Calling Execution Context</param>
     /// <param name="obj">Array</param>
     /// <returns>String</returns>
-    [BadMethod(description:"Inflates the given array of bytes using the Deflate Algorithm")]
+    [BadMethod(description: "Inflates the given array of bytes using the Deflate Algorithm")]
     [return: BadReturn("Decompressed String")]
-    private static string Decompress(BadExecutionContext ctx,[BadParameter(description:"Bytes to Decompress")] byte[] obj)
+    private static string Decompress(BadExecutionContext ctx, [BadParameter(description: "Bytes to Decompress")] byte[] obj)
     {
         MemoryStream ms = new MemoryStream(obj);
         MemoryStream decompressed = new MemoryStream();

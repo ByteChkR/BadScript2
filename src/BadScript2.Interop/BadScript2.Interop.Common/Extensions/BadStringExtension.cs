@@ -57,7 +57,7 @@ public class BadStringExtension : BadInteropExtension
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<string>(

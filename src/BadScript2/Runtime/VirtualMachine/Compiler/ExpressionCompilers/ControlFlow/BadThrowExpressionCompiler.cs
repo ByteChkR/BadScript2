@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.ControlFlow;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow;
 
 /// <summary>
-/// Compiles the <see cref="BadThrowExpression" />.
+///     Compiles the <see cref="BadThrowExpression" />.
 /// </summary>
 public class BadThrowExpressionCompiler : BadExpressionCompiler<BadThrowExpression>
 {

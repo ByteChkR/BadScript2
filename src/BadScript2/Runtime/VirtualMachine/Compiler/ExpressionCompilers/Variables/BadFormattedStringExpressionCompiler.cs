@@ -1,11 +1,12 @@
 using BadScript2.Parser.Expressions.Variables;
+
 /// <summary>
 /// Contains Variable Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
 /// <summary>
-/// Compiles the <see cref="BadFormattedStringExpression" />.
+///     Compiles the <see cref="BadFormattedStringExpression" />.
 /// </summary>
 public class BadFormattedStringExpressionCompiler : BadExpressionCompiler<BadFormattedStringExpression>
 {

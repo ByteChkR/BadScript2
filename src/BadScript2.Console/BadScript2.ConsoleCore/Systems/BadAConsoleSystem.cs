@@ -1,6 +1,7 @@
 /// <summary>
 /// Contains the Console Subsystems of the Console Application
 /// </summary>
+
 namespace BadScript2.ConsoleCore.Systems;
 
 /// <summary>
@@ -9,12 +10,12 @@ namespace BadScript2.ConsoleCore.Systems;
 public abstract class BadAConsoleSystem
 {
     /// <summary>
-    /// The Runtime to use
+    ///     The Runtime to use
     /// </summary>
     protected readonly BadRuntime Runtime;
 
     /// <summary>
-    /// Creates a new BadAConsoleSystem instance
+    ///     Creates a new BadAConsoleSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
     protected BadAConsoleSystem(BadRuntime runtime)

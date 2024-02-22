@@ -15,12 +15,12 @@ namespace BadScript2.Utility.Linq.Queries;
 public static class BadLinqQuery
 {
     /// <summary>
-    /// The registered commands.
+    ///     The registered commands.
     /// </summary>
     private static readonly List<BadLinqQueryCommand> s_Commands = new List<BadLinqQueryCommand>();
 
     /// <summary>
-    /// Static Constructor.
+    ///     Static Constructor.
     /// </summary>
     static BadLinqQuery()
     {
@@ -38,7 +38,7 @@ public static class BadLinqQuery
     }
 
     /// <summary>
-    /// Registers a new command.
+    ///     Registers a new command.
     /// </summary>
     /// <param name="command">The command to register.</param>
     public static void RegisterCommand(BadLinqQueryCommand command)
@@ -47,7 +47,7 @@ public static class BadLinqQuery
     }
 
     /// <summary>
-    /// Parses the given linq query and applies it to the given input.
+    ///     Parses the given linq query and applies it to the given input.
     /// </summary>
     /// <param name="linqQuery">The linq query to parse.</param>
     /// <param name="input">The input to apply the query to.</param>

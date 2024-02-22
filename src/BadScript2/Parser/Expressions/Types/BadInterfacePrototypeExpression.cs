@@ -53,6 +53,12 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     /// </summary>
     public string Name { get; }
 
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
+    {
+        return Name;
+    }
+
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
@@ -160,11 +166,5 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                 propProto
             );
         }
-    }
-
-    /// <inheritdoc cref="IBadNamedExpression.GetName" />
-    public string? GetName()
-    {
-        return Name;
     }
 }

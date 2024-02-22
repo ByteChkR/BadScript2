@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Math;
+
 /// <summary>
 /// Contains the Math Operators for the BadScript2 Language
 /// </summary>
@@ -15,7 +16,7 @@ public class BadAddOperator : BadBinaryOperator
 	/// </summary>
 	public BadAddOperator() : base(6, "+") { }
 
-	/// <inheritdoc cref="BadBinaryOperator.Parse" />
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

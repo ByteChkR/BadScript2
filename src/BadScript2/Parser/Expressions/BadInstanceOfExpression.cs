@@ -23,6 +23,7 @@ public class BadInstanceOfExpression : BadBinaryExpression
         right,
         position
     ) { }
+
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {

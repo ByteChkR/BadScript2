@@ -43,7 +43,7 @@ public class BadGreaterOrEqualExpression : BadBinaryExpression
     }
 
     /// <summary>
-    /// Executes the expression
+    ///     Executes the expression
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="left">The left.</param>

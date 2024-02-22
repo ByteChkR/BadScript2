@@ -10,15 +10,14 @@ namespace BadScript2.Interop.Compression;
 [BadInteropApi("ZLib")]
 internal partial class BadZLibApi
 {
-    
     /// <summary>
     ///     ZLib Compress the given string
     /// </summary>
     /// <param name="obj">String</param>
     /// <returns>Compressed Array</returns>
-    [BadMethod(description:"Compresses the given string using the ZLib Algorithm")]
+    [BadMethod(description: "Compresses the given string using the ZLib Algorithm")]
     [return: BadReturn("Compressed Array of bytes")]
-    private static BadObject Compress([BadParameter(description:"String to Compress")]string obj)
+    private static BadObject Compress([BadParameter(description: "String to Compress")] string obj)
     {
         MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(obj));
         MemoryStream compressed = new MemoryStream();
@@ -37,9 +36,8 @@ internal partial class BadZLibApi
     /// <returns>String</returns>
     [BadMethod(description: "Inflates the given array of bytes using the ZLib Algorithm")]
     [return: BadReturn("Decompressed String")]
-    private static BadObject Decompress(BadExecutionContext ctx, [BadParameter(description:"Bytes to Decompress")]byte[] obj)
+    private static BadObject Decompress(BadExecutionContext ctx, [BadParameter(description: "Bytes to Decompress")] byte[] obj)
     {
-       
         MemoryStream ms = new MemoryStream(obj);
         MemoryStream decompressed = new MemoryStream();
         using ZLibStream ds = new ZLibStream(ms, CompressionMode.Decompress);

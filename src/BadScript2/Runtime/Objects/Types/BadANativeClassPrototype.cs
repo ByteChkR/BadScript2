@@ -40,7 +40,7 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
         yield return m_Func(caller, args);
     }
 
-	/// <inheritdoc />
+    /// <inheritdoc />
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
     {
         return CreateInstance(caller, Array.Empty<BadObject>());

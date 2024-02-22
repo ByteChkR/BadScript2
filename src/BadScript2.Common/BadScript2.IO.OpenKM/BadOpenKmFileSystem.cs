@@ -2,32 +2,34 @@
 
 using ewu.adam.openkm.rest;
 using ewu.adam.openkm.rest.Bean;
+
 ///<summary>
 ///	File System Implementation for OpenKM
 /// </summary>
 namespace BadScript2.IO.OpenKM;
 
 /// <summary>
-/// Implements a FileSystem for OpenKM
+///     Implements a FileSystem for OpenKM
 /// </summary>
 public class BadOpenKmFileSystem : IFileSystem
 {
     /// <summary>
-    /// The OpenKM Webservice
+    ///     The OpenKM Webservice
     /// </summary>
     private readonly IOkmWebservice m_Webservice;
+
     /// <summary>
-    /// The Current Directory
+    ///     The Current Directory
     /// </summary>
     private Folder m_Current;
 
     /// <summary>
-    /// The Startup Directory
+    ///     The Startup Directory
     /// </summary>
     private string? m_StartupDirectory;
 
     /// <summary>
-    /// Constructs a new BadOpenKmFileSystem instance
+    ///     Constructs a new BadOpenKmFileSystem instance
     /// </summary>
     /// <param name="webService">The OpenKM Webservice</param>
     public BadOpenKmFileSystem(IOkmWebservice webService)
@@ -37,7 +39,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Constructs a new BadOpenKmFileSystem instance
+    ///     Constructs a new BadOpenKmFileSystem instance
     /// </summary>
     /// <param name="url">The OpenKM URL</param>
     /// <param name="user">The OpenKM User</param>
@@ -46,7 +48,7 @@ public class BadOpenKmFileSystem : IFileSystem
         OkmWebserviceFactory.NewInstance(url, user, password)
     ) { }
 
-    
+
     /// <inheritdoc />
     public string GetStartupDirectory()
     {
@@ -252,7 +254,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Makes the given path a full path
+    ///     Makes the given path a full path
     /// </summary>
     /// <param name="path">The path to make full</param>
     /// <returns>The full path</returns>
@@ -264,7 +266,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Returns true if the given path has children
+    ///     Returns true if the given path has children
     /// </summary>
     /// <param name="path">The path to check</param>
     /// <returns>true if the given path has children</returns>
@@ -275,7 +277,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Returns all directories in the given directory
+    ///     Returns all directories in the given directory
     /// </summary>
     /// <param name="path">The path to the directory</param>
     /// <returns>Enumeration of all directories in the given directory</returns>
@@ -287,7 +289,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Returns all files in the given directory that match the specified extension
+    ///     Returns all files in the given directory that match the specified extension
     /// </summary>
     /// <param name="path">The path to the directory</param>
     /// <param name="extension">The extension to match</param>
@@ -313,7 +315,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Recursively returns all directories in the given directory
+    ///     Recursively returns all directories in the given directory
     /// </summary>
     /// <param name="path">The path to the directory</param>
     /// <returns>Enumeration of all directories in the given directory</returns>
@@ -331,7 +333,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Recursively returns all files in the given directory that match the specified extension
+    ///     Recursively returns all files in the given directory that match the specified extension
     /// </summary>
     /// <param name="path">The path to the directory</param>
     /// <param name="extension">The extension to match</param>
@@ -354,7 +356,7 @@ public class BadOpenKmFileSystem : IFileSystem
 
 
     /// <summary>
-    /// Creates a directory recursively
+    ///     Creates a directory recursively
     /// </summary>
     /// <param name="path">The path to the directory</param>
     private void InnerCreateDirectoryRecursive(string path)
@@ -375,7 +377,7 @@ public class BadOpenKmFileSystem : IFileSystem
     }
 
     /// <summary>
-    /// Creates a directory
+    ///     Creates a directory
     /// </summary>
     /// <param name="path">The path to the directory</param>
     private void InnerCreateDirectory(string path)

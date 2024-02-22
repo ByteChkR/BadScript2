@@ -10,7 +10,7 @@ namespace BadScript2.Runtime.Objects.Native;
 public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparable<BadObject>, IComparable<IBadNumber>
 {
     /// <summary>
-    /// The Prototype for the Native Number Object
+    ///     The Prototype for the Native Number Object
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("num");
 
@@ -20,12 +20,12 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
     /// <param name="value">The Number Value</param>
     public BadNumber(decimal value) : base(value) { }
 
-    
+
     /// <inheritdoc />
     decimal IBadNumber.Value => Value;
 
     /// <summary>
-    /// Compares this Number to another Number
+    ///     Compares this Number to another Number
     /// </summary>
     /// <param name="obj">The Number to compare to</param>
     /// <returns>0 if equal, -1 if this is smaller, 1 if this is bigger</returns>
@@ -41,7 +41,7 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
     }
 
     /// <summary>
-    /// Compares this Number to another Number
+    ///     Compares this Number to another Number
     /// </summary>
     /// <param name="other">The Number to compare to</param>
     /// <returns>0 if equal, -1 if this is smaller, 1 if this is bigger</returns>
@@ -57,7 +57,7 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
     }
 
     /// <summary>
-    /// Compares this Number to another Number
+    ///     Compares this Number to another Number
     /// </summary>
     /// <param name="other">The Number to compare to</param>
     /// <returns>0 if equal, -1 if this is smaller, 1 if this is bigger</returns>

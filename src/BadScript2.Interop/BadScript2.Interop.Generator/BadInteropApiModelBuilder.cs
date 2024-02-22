@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 using BadScript2.Interop.Generator.Model;
 
@@ -35,16 +34,20 @@ public static class BadInteropApiModelBuilder
         }
 
         string apiName = api.Name;
+        bool constructorPrivate = false;
         if (apiAttribute.ConstructorArguments.Length > 0)
         {
             apiName = apiAttribute.ConstructorArguments[0].Value?.ToString() ?? apiName;
+            bool? priv = apiAttribute.ConstructorArguments[1].Value as bool?;
+            constructorPrivate = apiAttribute.ConstructorArguments.Length > 1 && priv != null && priv.Value;
         }
 
         return new ApiModel(
             api.ContainingNamespace?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted))!,
             api.Name,
             GenerateMethodModels(methods).ToArray(),
-            apiName
+            apiName,
+            constructorPrivate
         );
     }
 
@@ -52,7 +55,7 @@ public static class BadInteropApiModelBuilder
     {
         return str.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n");
     }
-    
+
     private static IEnumerable<ParameterModel> GenerateParameterModel(IMethodSymbol method)
     {
         foreach (IParameterSymbol symbol in method.Parameters.Where(x => x.Ordinal >= 0).OrderBy(x => x.Ordinal))
@@ -226,12 +229,13 @@ public static class BadInteropApiModelBuilder
         {
             return "Function";
         }
-        
-        if(type.ToDisplayString() == "BadScript2.Runtime.Objects.Types.BadClass")
+
+        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Types.BadClass")
         {
             return "Class";
         }
-        if(type.ToDisplayString() == "BadScript2.Runtime.Objects.Error.BadRuntimeError")
+
+        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Error.BadRuntimeError")
         {
             return "Error";
         }

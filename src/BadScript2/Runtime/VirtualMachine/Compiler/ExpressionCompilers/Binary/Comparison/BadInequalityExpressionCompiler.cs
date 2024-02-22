@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Binary.Comparison;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Comparison;
 
 /// <summary>
-/// Compiles the <see cref="BadInequalityExpression" />.
+///     Compiles the <see cref="BadInequalityExpression" />.
 /// </summary>
 public class BadInequalityExpressionCompiler : BadBinaryExpressionCompiler<BadInequalityExpression>
 {

@@ -3,8 +3,9 @@ using BadScript2.Parser.Expressions.Block;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
-/// Compiles the <see cref="BadUsingStatementExpression" />.
-/// </summary>c
+///     Compiles the <see cref="BadUsingStatementExpression" />.
+/// </summary>
+/// c
 public class BadUsingStatementExpressionCompiler : BadExpressionCompiler<BadUsingStatementExpression>
 {
     /// <inheritdoc />

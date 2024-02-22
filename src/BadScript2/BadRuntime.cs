@@ -263,7 +263,7 @@ public class BadRuntime : IDisposable
         }
 
         ctx.Scope.AddSingleton(this);
-        if(Importer == null)
+        if (Importer == null)
         {
             Importer = new BadModuleImporter(ModuleStore);
             foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
@@ -273,6 +273,7 @@ public class BadRuntime : IDisposable
         }
 
         ctx.Scope.AddSingleton(Importer);
+
         return ctx;
     }
 

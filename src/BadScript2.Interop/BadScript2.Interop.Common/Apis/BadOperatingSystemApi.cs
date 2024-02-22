@@ -4,10 +4,8 @@ using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Apis;
-
 
 /// <summary>
 ///     Implements the "OS" API
@@ -15,7 +13,6 @@ namespace BadScript2.Interop.Common.Apis;
 [BadInteropApi("OS")]
 internal partial class BadOperatingSystemApi
 {
-
     /// <summary>
     ///     Creates the "Environment" Table
     /// </summary>
@@ -25,7 +22,7 @@ internal partial class BadOperatingSystemApi
         BadTable env = new BadTable();
 
         new BadEnvironmentApi().LoadRawApi(env);
-        
+
         return env;
     }
 
@@ -84,10 +81,31 @@ internal partial class BadOperatingSystemApi
         return t;
     }
 
-    
-    [BadMethod(description:"Runs a Process")]
+
+    [BadMethod(description: "Runs a Process")]
     [return: BadReturn("Process Table")]
-    private BadTable Run([BadParameter(description:"The name of the application to start, or the name of a document of a file type that is associated with an application and that has a default open action available to it. The default is an empty string (\"\").")] string fileName,[BadParameter(description:"A single string containing the arguments to pass to the target application specified in the FileName property. The default is an empty string (\"\"). On Windows Vista and earlier versions of the Windows operating system, the length of the arguments added to the length of the full path to the process must be less than 2080. On Windows 7 and later versions, the length must be less than 32699. Arguments are parsed and interpreted by the target application, so must align with the expectations of that application. For.NET applications as demonstrated in the Examples below, spaces are interpreted as a separator between multiple arguments. A single argument that includes spaces must be surrounded by quotation marks, but those quotation marks are not carried through to the target application. In include quotation marks in the final parsed argument, triple-escape each mark.")] string arguments, [BadParameter(description:"When UseShellExecute is true, the fully qualified name of the directory that contains the process to be started. When the UseShellExecute property is false, the working directory for the process to be started. The default is an empty string (\"\")")]string workingDirectory, [BadParameter(description:"\ntrue if the process should be started without creating a new window to contain it; otherwise, false. The default is false.")]bool createNoWindow, [BadParameter(description:"true if the shell should be used when starting the process; false if the process should be created directly from the executable file. The default is true")]bool useShellExecute)
+    private BadTable Run(
+        [BadParameter(
+            description:
+            "The name of the application to start, or the name of a document of a file type that is associated with an application and that has a default open action available to it. The default is an empty string (\"\")."
+        )]
+        string fileName,
+        [BadParameter(
+            description:
+            "A single string containing the arguments to pass to the target application specified in the FileName property. The default is an empty string (\"\"). On Windows Vista and earlier versions of the Windows operating system, the length of the arguments added to the length of the full path to the process must be less than 2080. On Windows 7 and later versions, the length must be less than 32699. Arguments are parsed and interpreted by the target application, so must align with the expectations of that application. For.NET applications as demonstrated in the Examples below, spaces are interpreted as a separator between multiple arguments. A single argument that includes spaces must be surrounded by quotation marks, but those quotation marks are not carried through to the target application. In include quotation marks in the final parsed argument, triple-escape each mark."
+        )]
+        string arguments,
+        [BadParameter(
+            description:
+            "When UseShellExecute is true, the fully qualified name of the directory that contains the process to be started. When the UseShellExecute property is false, the working directory for the process to be started. The default is an empty string (\"\")"
+        )]
+        string workingDirectory,
+        [BadParameter(description: "\ntrue if the process should be started without creating a new window to contain it; otherwise, false. The default is false.")]
+        bool createNoWindow,
+        [BadParameter(
+            description: "true if the shell should be used when starting the process; false if the process should be created directly from the executable file. The default is true"
+        )]
+        bool useShellExecute)
     {
         Process p = new Process();
         p.StartInfo.FileName = fileName;

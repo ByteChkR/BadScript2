@@ -5,7 +5,6 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
 /// </summary>
 public class BadNetworkConsoleClientListCommand : BadNetworkConsoleClientCommand
 {
-
 	/// <summary>
 	///     The Command Parser
 	/// </summary>
@@ -21,7 +20,7 @@ public class BadNetworkConsoleClientListCommand : BadNetworkConsoleClientCommand
         m_Parser = parser;
     }
 
-	/// <inheritdoc />
+    /// <inheritdoc />
     public override void Invoke(string[] args)
     {
         BadConsole.WriteLine("Commands:");

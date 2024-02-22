@@ -13,7 +13,7 @@ namespace BadScript2.Tests;
 public class BadInteropTests
 {
     /// <summary>
-    /// Tests the Unwrap Functions of the Runtime
+    ///     Tests the Unwrap Functions of the Runtime
     /// </summary>
     [Test]
     public void Unwrap()
@@ -32,7 +32,7 @@ public class BadInteropTests
     }
 
     /// <summary>
-    /// Tests the Generic Unwrap Functions of the Runtime
+    ///     Tests the Generic Unwrap Functions of the Runtime
     /// </summary>
     [Test]
     public void UnwrapGeneric()
@@ -53,7 +53,7 @@ public class BadInteropTests
     }
 
     /// <summary>
-    /// Tests the Extension Provider Functions
+    ///     Tests the Extension Provider Functions
     /// </summary>
     [Test]
     public void GetExtensions()
@@ -66,7 +66,7 @@ public class BadInteropTests
     }
 
     /// <summary>
-    /// Tests the Enumerable/Enumerator Interop
+    ///     Tests the Enumerable/Enumerator Interop
     /// </summary>
     [Test]
     public void Enumerable()
@@ -89,7 +89,7 @@ public class BadInteropTests
     }
 
     /// <summary>
-    /// Tests the Reflection Subsystem
+    ///     Tests the Reflection Subsystem
     /// </summary>
     [Test]
     public void Reflection()

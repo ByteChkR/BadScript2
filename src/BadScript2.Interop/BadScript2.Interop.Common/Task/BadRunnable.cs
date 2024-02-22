@@ -11,7 +11,7 @@ namespace BadScript2.Interop.Common.Task;
 public abstract class BadRunnable
 {
     /// <summary>
-    /// The Runtime Error
+    ///     The Runtime Error
     /// </summary>
     public BadRuntimeError? Error { get; private set; }
 
@@ -32,7 +32,7 @@ public abstract class BadRunnable
     public abstract BadObject GetReturn();
 
     /// <summary>
-    /// Sets the Runtime Error
+    ///     Sets the Runtime Error
     /// </summary>
     /// <param name="err">The Error</param>
     public void SetError(BadRuntimeError err)
@@ -101,10 +101,10 @@ public abstract class BadRunnable
             Enumerator = enumerator;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override IEnumerator<BadObject> Enumerator { get; }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override BadObject GetReturn()
         {
             return BadObject.Null;
@@ -132,7 +132,7 @@ public abstract class BadRunnable
             Enumerator = RunnableFunction(func, ctx, args).GetEnumerator();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override IEnumerator<BadObject> Enumerator { get; }
 
 
@@ -160,7 +160,7 @@ public abstract class BadRunnable
             m_ReturnValue = obj.Dereference();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override BadObject GetReturn()
         {
             return m_ReturnValue;

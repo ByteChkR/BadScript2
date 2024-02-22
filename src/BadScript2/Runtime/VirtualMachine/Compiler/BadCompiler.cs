@@ -34,6 +34,7 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Function;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Module;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
+
 /// <summary>
 /// Contains the Compiler for the BadVirtualMachine.
 /// </summary>
@@ -45,17 +46,17 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler;
 public class BadCompiler
 {
     /// <summary>
-    /// The Default Compiler Instance.
+    ///     The Default Compiler Instance.
     /// </summary>
     public static readonly BadCompiler Instance = new BadCompiler();
 
     /// <summary>
-    /// Indicates whether or not the Compiler should allow Eval Instructions.
+    ///     Indicates whether or not the Compiler should allow Eval Instructions.
     /// </summary>
     public readonly bool AllowEval;
 
     /// <summary>
-    /// The Dictionary of Compilers for the different <see cref="BadExpression" /> types.
+    ///     The Dictionary of Compilers for the different <see cref="BadExpression" /> types.
     /// </summary>
     private readonly Dictionary<Type, IBadExpressionCompiler> m_Compilers = new Dictionary<Type, IBadExpressionCompiler>
     {
@@ -284,7 +285,7 @@ public class BadCompiler
     };
 
     /// <summary>
-    /// Creates a new BadCompiler instance.
+    ///     Creates a new BadCompiler instance.
     /// </summary>
     /// <param name="allowEval">Indicates whether or not the Compiler should allow Eval Instructions.</param>
     public BadCompiler(bool allowEval = false)
@@ -293,11 +294,14 @@ public class BadCompiler
     }
 
     /// <summary>
-    /// Compiles the given <see cref="BadExpression" /> into a set of <see cref="BadInstruction" />s.
+    ///     Compiles the given <see cref="BadExpression" /> into a set of <see cref="BadInstruction" />s.
     /// </summary>
     /// <param name="expression">The <see cref="BadExpression" /> to compile.</param>
     /// <returns>List of <see cref="BadInstruction" />s.</returns>
-    /// <exception cref="BadCompilerException">If no Compiler for the given <see cref="BadExpression" /> type exists and AllowEval is set to false.</exception>
+    /// <exception cref="BadCompilerException">
+    ///     If no Compiler for the given <see cref="BadExpression" /> type exists and
+    ///     AllowEval is set to false.
+    /// </exception>
     public IEnumerable<BadInstruction> Compile(BadExpression expression)
     {
         Type t = expression.GetType();
@@ -319,7 +323,7 @@ public class BadCompiler
     }
 
     /// <summary>
-    /// Compiles the given <see cref="BadExpression" />s into a set of <see cref="BadInstruction" />s.
+    ///     Compiles the given <see cref="BadExpression" />s into a set of <see cref="BadInstruction" />s.
     /// </summary>
     /// <param name="expressions">The <see cref="BadExpression" />s to compile.</param>
     /// <param name="clearStack">Indicates whether or not the Stack should be cleared after each expression.</param>
@@ -345,7 +349,7 @@ public class BadCompiler
     }
 
     /// <summary>
-    /// Compiles the given source into a set of <see cref="BadInstruction" />s.
+    ///     Compiles the given source into a set of <see cref="BadInstruction" />s.
     /// </summary>
     /// <param name="src">The source to compile.</param>
     /// <returns>List of <see cref="BadInstruction" />s.</returns>

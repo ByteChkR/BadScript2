@@ -19,7 +19,7 @@ public class BadUnitTestContext
     private readonly List<BadNUnitTestCase> m_Cases;
 
     /// <summary>
-    /// The Runtime
+    ///     The Runtime
     /// </summary>
     private readonly BadRuntime m_Runtime;
 
@@ -32,9 +32,9 @@ public class BadUnitTestContext
     ///     The Teardown Functions
     /// </summary>
     private readonly List<BadFunction> m_Teardown;
-    
+
     /// <summary>
-    /// The Working Directory
+    ///     The Working Directory
     /// </summary>
     private readonly string m_WorkingDir;
 

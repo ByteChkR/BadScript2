@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 /// <summary>
 /// Contains the Self-Assigning Math Expressions for the BadScript2 Language
 /// </summary>
@@ -27,7 +28,7 @@ public class BadAddAssignExpression : BadBinaryExpression
 
 
     /// <summary>
-    /// Executes the Add Assignment Operator
+    ///     Executes the Add Assignment Operator
     /// </summary>
     /// <param name="leftRef">Reference to the left side of the expression</param>
     /// <param name="left">Left side of the expression</param>
@@ -84,7 +85,7 @@ public class BadAddAssignExpression : BadBinaryExpression
     }
 
     /// <summary>
-    /// Executes the Operator with operator override
+    ///     Executes the Operator with operator override
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="leftRef">Reference to the left side of the expression</param>

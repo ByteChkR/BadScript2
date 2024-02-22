@@ -57,7 +57,7 @@ public class BadLogicNotExpression : BadExpression
     }
 
     /// <summary>
-    /// Executes the expression
+    ///     Executes the expression
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="left">The left.</param>
@@ -107,7 +107,7 @@ public class BadLogicNotExpression : BadExpression
     }
 
     /// <summary>
-    /// Returns the string representation of the Expression
+    ///     Returns the string representation of the Expression
     /// </summary>
     /// <returns>!{Right}</returns>
     public override string ToString()

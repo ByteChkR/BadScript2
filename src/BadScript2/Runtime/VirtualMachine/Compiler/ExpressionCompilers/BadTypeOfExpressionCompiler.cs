@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 /// <summary>
-/// Compiles the <see cref="BadTypeOfExpression" />.
+///     Compiles the <see cref="BadTypeOfExpression" />.
 /// </summary>
 public class BadTypeOfExpressionCompiler : BadExpressionCompiler<BadTypeOfExpression>
 {

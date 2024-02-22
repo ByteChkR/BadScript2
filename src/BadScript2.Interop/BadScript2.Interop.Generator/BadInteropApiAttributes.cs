@@ -55,11 +55,11 @@ namespace BadScript2.Interop
     internal sealed class BadInteropApiAttribute : Attribute
     {
         public string? Name { get; }
-        public string? Description { get; }
-        public BadInteropApiAttribute(string? name = null, string? description = null)
+        public bool ConstructorPrivate { get; }
+        public BadInteropApiAttribute(string? name = null, bool constructorPrivate = false)
         {
             Name = name;
-            Description = description;
+            ConstructorPrivate = constructorPrivate;
         }
     }
     

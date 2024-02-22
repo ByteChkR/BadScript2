@@ -11,7 +11,7 @@ namespace BadScript2.Interop.Net;
 /// </summary>
 public class BadNetInteropExtensions : BadInteropExtension
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<HttpResponseMessage>("Status", resp => (decimal)resp.StatusCode);

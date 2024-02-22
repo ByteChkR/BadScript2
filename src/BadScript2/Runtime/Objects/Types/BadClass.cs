@@ -102,7 +102,7 @@ public class BadClass : BadObject
 
 
     /// <summary>
-    /// Gets a property from this class or any of its base classes.
+    ///     Gets a property from this class or any of its base classes.
     /// </summary>
     /// <param name="propName">The name of the property to get.</param>
     /// <param name="visibility">The visibility of the property to get.</param>

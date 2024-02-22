@@ -8,6 +8,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 ///<summary>
 ///	Contains Common Interop Extensions and APIs for the BadScript2 Runtime
 /// </summary>
@@ -37,7 +38,7 @@ public static class BadCommonInterop
 
 
     /// <summary>
-    /// Configures the Runtime to use the specified startup arguments
+    ///     Configures the Runtime to use the specified startup arguments
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="args">The Startup Arguments</param>
@@ -50,7 +51,7 @@ public static class BadCommonInterop
     }
 
     /// <summary>
-    /// The Default Executor for synchronous execution
+    ///     The Default Executor for synchronous execution
     /// </summary>
     /// <param name="context">The Execution Context</param>
     /// <param name="expressions">The Expressions to execute</param>
@@ -69,7 +70,7 @@ public static class BadCommonInterop
     }
 
     /// <summary>
-    /// The Default Executor for asynchronous execution
+    ///     The Default Executor for asynchronous execution
     /// </summary>
     /// <param name="ctx">The Execution Context</param>
     /// <param name="exprs">The Expressions to execute</param>
@@ -95,7 +96,7 @@ public static class BadCommonInterop
     }
 
     /// <summary>
-    /// Configures the Runtime to use the Common Interop Extensions
+    ///     Configures the Runtime to use the Common Interop Extensions
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="useAsync">Whether to use the Async Extensions</param>
@@ -128,7 +129,7 @@ public static class BadCommonInterop
     }
 
     /// <summary>
-    /// Configures the Runtime to use the Console API
+    ///     Configures the Runtime to use the Console API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="console">The Console to use</param>

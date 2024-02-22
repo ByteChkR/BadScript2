@@ -24,7 +24,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
 
     /// <summary>
-    /// The Meta data of the Function
+    ///     The Meta data of the Function
     /// </summary>
     private readonly BadMetaData? m_MetaData;
 
@@ -71,7 +71,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     }
 
     /// <summary>
-    /// Indicates if the function is a single line function(e.g. a lambda expression)?
+    ///     Indicates if the function is a single line function(e.g. a lambda expression)?
     /// </summary>
     public bool IsSingleLine { get; }
 
@@ -81,7 +81,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     public bool IsConstantFunction { get; }
 
     /// <summary>
-    /// Indicates if the function is static
+    ///     Indicates if the function is static
     /// </summary>
     public bool IsStatic { get; }
 
@@ -106,12 +106,19 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     public BadWordToken? Name { get; }
 
     /// <summary>
-    /// The Compile Level of the Function
+    ///     The Compile Level of the Function
     /// </summary>
     public BadFunctionCompileLevel CompileLevel { get; private set; }
 
+
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
+    {
+        return Name?.Text;
+    }
+
     /// <summary>
-    /// Sets the Compile Level of the Function
+    ///     Sets the Compile Level of the Function
     /// </summary>
     /// <param name="level">The Compile Level</param>
     public void SetCompileLevel(BadFunctionCompileLevel level)
@@ -120,7 +127,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     }
 
     /// <summary>
-    /// Sets the Body of the Function
+    ///     Sets the Body of the Function
     /// </summary>
     /// <param name="body">The Body of the Function</param>
     public void SetBody(IEnumerable<BadExpression> body)
@@ -171,13 +178,6 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
         sb.AppendLine("}");
 
         return sb.ToString();
-    }
-
-
-    /// <inheritdoc cref="IBadNamedExpression.GetName" />
-    public string? GetName()
-    {
-        return Name?.Text;
     }
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />

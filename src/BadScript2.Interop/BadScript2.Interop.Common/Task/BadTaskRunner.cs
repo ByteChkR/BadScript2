@@ -125,14 +125,15 @@ public class BadTaskRunner
     }
 
 	/// <summary>
-	/// Checks if a Task is added to the Task Runner
+	///     Checks if a Task is added to the Task Runner
 	/// </summary>
 	/// <param name="task">Task</param>
 	/// <returns>true if the Task is added</returns>
 	public bool IsTaskAdded(BadTask task)
-	{
-		return m_TaskList.Contains(task);
-	}
+    {
+        return m_TaskList.Contains(task);
+    }
+
 	/// <summary>
 	///     Adds a Task to the Task Runner
 	/// </summary>

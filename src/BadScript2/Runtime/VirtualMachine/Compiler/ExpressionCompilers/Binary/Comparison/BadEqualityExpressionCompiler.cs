@@ -1,11 +1,12 @@
 using BadScript2.Parser.Expressions.Binary.Comparison;
+
 /// <summary>
 /// Contains Binary Comparison Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Comparison;
 
 /// <summary>
-/// Compiles the <see cref="BadEqualityExpression" />.
+///     Compiles the <see cref="BadEqualityExpression" />.
 /// </summary>
 public class BadEqualityExpressionCompiler : BadBinaryExpressionCompiler<BadEqualityExpression>
 {

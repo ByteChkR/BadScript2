@@ -23,7 +23,7 @@ public class BadInteropRunnable : BadRunnable
         Enumerator = setLastAsReturn ? CreateEnumerator(enumerator) : enumerator;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override IEnumerator<BadObject> Enumerator { get; }
 
     /// <summary>
@@ -54,7 +54,7 @@ public class BadInteropRunnable : BadRunnable
         m_ReturnValue = obj;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObject GetReturn()
     {
         return m_ReturnValue;

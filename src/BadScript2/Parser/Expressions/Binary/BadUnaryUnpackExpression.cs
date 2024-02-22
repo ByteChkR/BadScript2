@@ -32,7 +32,7 @@ public class BadUnaryUnpackExpression : BadExpression
     }
 
     /// <summary>
-    /// Implements the logic of the unary ... operator.
+    ///     Implements the logic of the unary ... operator.
     /// </summary>
     /// <param name="table">The table to unpack into</param>
     /// <param name="right">The table to unpack</param>

@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Binary.Logic;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic;
 
 /// <summary>
-/// Compiles the <see cref="BadLogicOrExpression" />.
+///     Compiles the <see cref="BadLogicOrExpression" />.
 /// </summary>
 public class BadLogicOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogicOrExpression>
 {

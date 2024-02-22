@@ -10,7 +10,7 @@ namespace BadScript2.Runtime.Objects.Native;
 public class BadNative<T> : BadObject, IBadNative
 {
     /// <summary>
-    /// The Prototype for the Native Type
+    ///     The Prototype for the Native Type
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNative<T>>(
         typeof(T).Name,
@@ -47,17 +47,17 @@ public class BadNative<T> : BadObject, IBadNative
     }
 
     /// <summary>
-    /// The Value of the Native Type
+    ///     The Value of the Native Type
     /// </summary>
     public T Value => m_Value;
 
     /// <summary>
-    /// The Value of the Native Type
+    ///     The Value of the Native Type
     /// </summary>
     object IBadNative.Value => m_Value!;
 
     /// <summary>
-    /// The Type of the Native Type
+    ///     The Type of the Native Type
     /// </summary>
     Type IBadNative.Type => m_Value!.GetType();
 
@@ -135,7 +135,7 @@ public class BadNative<T> : BadObject, IBadNative
     {
         return caller != null && caller.Provider.HasObject<T>(propName);
     }
-    
+
     /// <inheritdoc />
     public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
     {

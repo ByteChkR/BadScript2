@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Access;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
 /// <summary>
-/// Compiles the <see cref="BadNullCoalescingExpression" />.
+///     Compiles the <see cref="BadNullCoalescingExpression" />.
 /// </summary>
 public class BadNullCoalescingExpressionCompiler : BadExpressionCompiler<BadNullCoalescingExpression>
 {

@@ -41,7 +41,7 @@ public abstract class BadBinaryExpression : BadExpression
     }
 
     /// <summary>
-    /// Sets the Left side of the Expression
+    ///     Sets the Left side of the Expression
     /// </summary>
     /// <param name="expr">The new Left side of the Expression</param>
     public void SetLeft(BadExpression expr)
@@ -50,7 +50,7 @@ public abstract class BadBinaryExpression : BadExpression
     }
 
     /// <summary>
-    /// Sets the Right side of the Expression
+    ///     Sets the Right side of the Expression
     /// </summary>
     /// <param name="expr">The new Right side of the Expression</param>
     public void SetRight(BadExpression expr)

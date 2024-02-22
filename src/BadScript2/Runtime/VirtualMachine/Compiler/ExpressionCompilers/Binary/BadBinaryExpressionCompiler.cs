@@ -10,17 +10,17 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
     where T : BadBinaryExpression
 {
     /// <summary>
-    /// Indicates if the Expression is Left Associative
+    ///     Indicates if the Expression is Left Associative
     /// </summary>
     protected virtual bool IsLeftAssociative => true;
 
     /// <summary>
-    /// Indicates if the Left Expression should be emitted
+    ///     Indicates if the Left Expression should be emitted
     /// </summary>
     protected virtual bool EmitLeft => true;
 
     /// <summary>
-    /// Indicates if the Right Expression should be emitted
+    ///     Indicates if the Right Expression should be emitted
     /// </summary>
     protected virtual bool EmitRight => true;
 

@@ -161,13 +161,13 @@ public class BadHtmlContext
     }
 
 	/// <summary>
-	/// Parses a single Expression from the specified code and returns it with its position set to the specified position
+	///     Parses a single Expression from the specified code and returns it with its position set to the specified position
 	/// </summary>
 	/// <param name="code">The Bad Script Source Code</param>
 	/// <param name="pos">The Source Position of the Code</param>
 	/// <returns>Parsed Expression</returns>
 	/// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
-    public BadExpression ParseSingle(string code, BadSourcePosition pos)
+	public BadExpression ParseSingle(string code, BadSourcePosition pos)
     {
         try
         {
@@ -201,14 +201,14 @@ public class BadHtmlContext
         }
     }
 
-    /// <summary>
-    ///     Parses the specified code and returns the expressions with their positions set to the specified position
-    /// </summary>
-    /// <param name="code">The Bad Script Source Code</param>
-    /// <param name="pos">The Source Position of the Code</param>
-    /// <returns>Parsed Expressions</returns>
-    /// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
-    public BadExpression[] Parse(string code, BadSourcePosition pos)
+	/// <summary>
+	///     Parses the specified code and returns the expressions with their positions set to the specified position
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>Parsed Expressions</returns>
+	/// <exception cref="BadSourceReaderException">Gets raised if the Source Could not be parsed.</exception>
+	public BadExpression[] Parse(string code, BadSourcePosition pos)
     {
         try
         {
@@ -241,14 +241,14 @@ public class BadHtmlContext
         }
     }
 
-    /// <summary>
-    ///     Executes the specified expressions
-    /// </summary>
-    /// <param name="expressions">The Expressions</param>
-    /// <param name="position">The Source Position of the Expressions</param>
-    /// <returns>The Result of the Execution</returns>
-    /// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
-    public BadObject Execute(IEnumerable<BadExpression> expressions, BadSourcePosition position)
+	/// <summary>
+	///     Executes the specified expressions
+	/// </summary>
+	/// <param name="expressions">The Expressions</param>
+	/// <param name="position">The Source Position of the Expressions</param>
+	/// <returns>The Result of the Execution</returns>
+	/// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
+	public BadObject Execute(IEnumerable<BadExpression> expressions, BadSourcePosition position)
     {
         try
         {
@@ -267,15 +267,15 @@ public class BadHtmlContext
         }
     }
 
-    /// <summary>
-    /// Executes the specified expression
-    /// </summary>
-    /// <param name="expression">The Expression</param>
-    /// <param name="position">The Source Position of the Expression</param>
-    /// <returns>The Result of the Execution</returns>
-    /// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
-    /// <exception cref="BadRuntimeException">Gets raised if the execution failed.</exception>
-    public BadObject Execute(BadExpression expression, BadSourcePosition position)
+	/// <summary>
+	///     Executes the specified expression
+	/// </summary>
+	/// <param name="expression">The Expression</param>
+	/// <param name="position">The Source Position of the Expression</param>
+	/// <returns>The Result of the Execution</returns>
+	/// <exception cref="BadRuntimeErrorException">Gets raised if the execution failed.</exception>
+	/// <exception cref="BadRuntimeException">Gets raised if the execution failed.</exception>
+	public BadObject Execute(BadExpression expression, BadSourcePosition position)
     {
         try
         {
@@ -294,26 +294,26 @@ public class BadHtmlContext
         }
     }
 
-    /// <summary>
-    ///     Parses and executes the specified code
-    /// </summary>
-    /// <param name="code">The Bad Script Source Code</param>
-    /// <param name="pos">The Source Position of the Code</param>
-    /// <returns>The Result of the Execution</returns>
-    public BadObject ParseAndExecute(string code, BadSourcePosition pos)
+	/// <summary>
+	///     Parses and executes the specified code
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>The Result of the Execution</returns>
+	public BadObject ParseAndExecute(string code, BadSourcePosition pos)
     {
         BadExpression[] expressions = Parse(code, pos);
 
         return Execute(expressions, pos);
     }
 
-    /// <summary>
-    /// Parses and executes the specified code and returns the result of the last expression
-    /// </summary>
-    /// <param name="code">The Bad Script Source Code</param>
-    /// <param name="pos">The Source Position of the Code</param>
-    /// <returns>The Result of the Execution</returns>
-    public BadObject ParseAndExecuteSingle(string code, BadSourcePosition pos)
+	/// <summary>
+	///     Parses and executes the specified code and returns the result of the last expression
+	/// </summary>
+	/// <param name="code">The Bad Script Source Code</param>
+	/// <param name="pos">The Source Position of the Code</param>
+	/// <returns>The Result of the Execution</returns>
+	public BadObject ParseAndExecuteSingle(string code, BadSourcePosition pos)
     {
         BadExpression expression = ParseSingle(code, pos);
 

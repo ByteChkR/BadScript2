@@ -1,11 +1,12 @@
 using BadScript2.Parser.Expressions.Constant;
+
 /// <summary>
 /// Contains Constant Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
 /// <summary>
-/// Compiles the <see cref="BadArrayExpression" />.
+///     Compiles the <see cref="BadArrayExpression" />.
 /// </summary>
 public class BadArrayExpressionCompiler : BadExpressionCompiler<BadArrayExpression>
 {

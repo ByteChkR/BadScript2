@@ -1,11 +1,13 @@
 using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions.Types;
+
 /// <summary>
 /// Contains Type Expression Compilers
 /// </summary>
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
+
 /// <summary>
-/// Compiles the <see cref="BadClassPrototypeExpression" />.
+///     Compiles the <see cref="BadClassPrototypeExpression" />.
 /// </summary>
 public class BadClassPrototypeExpressionCompiler : BadExpressionCompiler<BadClassPrototypeExpression>
 {

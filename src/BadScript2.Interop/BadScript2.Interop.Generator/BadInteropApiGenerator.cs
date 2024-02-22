@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Text;
+﻿using System.Text;
 
 using BadScript2.Interop.Generator.Model;
 
@@ -41,6 +39,4 @@ public class BadInteropApiGenerator : IIncrementalGenerator
             }
         );
     }
-
-    
 }

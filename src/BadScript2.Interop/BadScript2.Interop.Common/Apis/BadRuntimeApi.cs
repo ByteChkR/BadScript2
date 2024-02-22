@@ -29,15 +29,15 @@ namespace BadScript2.Interop.Common.Apis;
 [BadInteropApi("Runtime")]
 internal partial class BadRuntimeApi
 {
-    protected override void AdditionalData(BadTable target)
-    {
-        target.SetProperty("Native", MakeNative());
-    }
-
     /// <summary>
     ///     The Startup Arguments that were passed to the Runtime
     /// </summary>
     public static IEnumerable<string>? StartupArguments { get; set; }
+
+    protected override void AdditionalData(BadTable target)
+    {
+        target.SetProperty("Native", MakeNative());
+    }
 
     /// <summary>
     ///     Creates the "Native" Table
@@ -61,11 +61,23 @@ internal partial class BadRuntimeApi
 
     [BadMethod(description: "Evaluates a BadScript Source String")]
     [return: BadReturn("An Awaitable Task")]
-    private BadTask EvaluateAsync(BadExecutionContext caller, [BadParameter(description: "The Source of the Script")] string source, [BadParameter(description: "An (optional but recommended) file path, it will be used to determine the working directory of the script.")]string? file = null, [BadParameter(description: "If true, any optimizations that are activated in the settings will be applied.")]bool optimize = true, [BadParameter(description: "An (optional) scope that the execution takes place in, if not specified, an Instance of BadRuntime will get searched and a scope will be created from it, if its not found, a scope will be created from the root scope of the caller.")]BadScope? scope = null, [BadParameter(description: "If true, the last element that was returned from the enumeration will be the result of the task. Otherwise the result will be the exported objects of the script.")]bool setLastAsReturn = false)
+    private BadTask EvaluateAsync(
+        BadExecutionContext caller,
+        [BadParameter(description: "The Source of the Script")] string source,
+        [BadParameter(description: "An (optional but recommended) file path, it will be used to determine the working directory of the script.")] string? file = null,
+        [BadParameter(description: "If true, any optimizations that are activated in the settings will be applied.")] bool optimize = true,
+        [BadParameter(
+            description:
+            "An (optional) scope that the execution takes place in, if not specified, an Instance of BadRuntime will get searched and a scope will be created from it, if its not found, a scope will be created from the root scope of the caller."
+        )]
+        BadScope? scope = null,
+        [BadParameter(
+            description:
+            "If true, the last element that was returned from the enumeration will be the result of the task. Otherwise the result will be the exported objects of the script."
+        )]
+        bool setLastAsReturn = false)
     {
-
         file = BadFileSystem.Instance.GetFullPath(file ?? "<eval>");
-        
 
 
         bool optimizeConstantFolding =
@@ -130,7 +142,7 @@ internal partial class BadRuntimeApi
 
         return task;
     }
-    
+
     [BadMethod(description: "Returns the Stack Trace of the current Execution Context")]
     [return: BadReturn("The Stack Trace")]
     private string GetStackTrace(BadExecutionContext ctx)
@@ -140,16 +152,19 @@ internal partial class BadRuntimeApi
 
 
     [BadMethod]
-    private BadScope GetRootScope(BadExecutionContext ctx) => ctx.Scope.GetRootScope(); 
-    
-    
+    private BadScope GetRootScope(BadExecutionContext ctx)
+    {
+        return ctx.Scope.GetRootScope();
+    }
+
+
     [BadMethod(description: "Returns all Native Types")]
     [return: BadReturn("An Array containing all Native Types")]
     private BadArray GetNativeTypes()
     {
         return new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList());
     }
-    
+
     [BadMethod(description: "Returns the Assembly Path of the current Runtime")]
     [return: BadReturn("The Assembly Path")]
     private string GetRuntimeAssemblyPath()
@@ -158,7 +173,7 @@ internal partial class BadRuntimeApi
 
         return path;
     }
-    
+
     [BadMethod(description: "Returns a new Guid")]
     [return: BadReturn("A new Guid")]
     private string NewGuid()
@@ -168,7 +183,7 @@ internal partial class BadRuntimeApi
 
     [BadMethod(description: "Returns true if an api with that name is registered")]
     [return: BadReturn("True if the api is registered")]
-    private BadObject IsApiRegistered(BadExecutionContext ctx, [BadParameter(description:"The Api Name")] string api)
+    private BadObject IsApiRegistered(BadExecutionContext ctx, [BadParameter(description: "The Api Name")] string api)
     {
         return ctx.Scope.RegisteredApis.Contains(api);
     }
@@ -181,7 +196,7 @@ internal partial class BadRuntimeApi
     /// <returns>Null</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Import Handler is invalid</exception>
     [BadMethod(description: "Registers an Import Handler")]
-    private static void RegisterImportHandler(BadExecutionContext ctx, [BadParameter(description:"An Import handler implementing the IImportHandler Interface")] BadClass cls)
+    private static void RegisterImportHandler(BadExecutionContext ctx, [BadParameter(description: "An Import handler implementing the IImportHandler Interface")] BadClass cls)
     {
         BadClassPrototype proto = cls.GetPrototype();
         if (!BadNativeClassBuilder.ImportHandler.IsSuperClassOf(proto))
@@ -197,7 +212,6 @@ internal partial class BadRuntimeApi
 
         BadInteropImportHandler handler = new BadInteropImportHandler(ctx, cls);
         importer.AddHandler(handler);
-
     }
 
     /// <summary>
@@ -208,7 +222,7 @@ internal partial class BadRuntimeApi
     /// <returns>Validation Result</returns>
     [BadMethod(description: "Validates a source string")]
     [return: BadReturn("Validation Result")]
-    private static BadTable ValidateSource([BadParameter(description:"The Source to Validate")] string source, [BadParameter(description:"The File Name")]string file)
+    private static BadTable ValidateSource([BadParameter(description: "The Source to Validate")] string source, [BadParameter(description: "The File Name")] string file)
     {
         BadExpressionValidatorContext result =
             BadExpressionValidatorContext.Validate(BadSourceParser.Parse(file, source));
@@ -244,7 +258,7 @@ internal partial class BadRuntimeApi
     /// <returns>Bad Table with the parsed date</returns>
     [BadMethod(description: "Parses a date string")]
     [return: BadReturn("Bad Table with the parsed date")]
-    private static BadObject ParseDate([BadParameter(description:"The date string")] string date)
+    private static BadObject ParseDate([BadParameter(description: "The date string")] string date)
     {
         DateTimeOffset d = DateTimeOffset.Parse(date);
 
@@ -438,7 +452,7 @@ internal partial class BadRuntimeApi
     /// <returns>Array of Extension Names</returns>
     [BadMethod(description: "Lists all extension names of the given object")]
     [return: BadReturn("An Array containing all Extension Names")]
-    private static BadArray GetExtensionNames(BadExecutionContext ctx, [BadParameter(description:"Object")]BadObject o)
+    private static BadArray GetExtensionNames(BadExecutionContext ctx, [BadParameter(description: "Object")] BadObject o)
     {
         return new BadArray(ctx.Scope.Provider.GetExtensionNames(o).ToList());
     }

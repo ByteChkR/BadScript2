@@ -3,6 +3,7 @@ using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains Runtime Function Objects
 /// </summary>
@@ -19,7 +20,7 @@ public class BadExpressionFunction : BadFunction
     private readonly List<BadExpression> m_Body;
 
     /// <summary>
-    /// The Function String
+    ///     The Function String
     /// </summary>
     private readonly string m_FuncString;
 
@@ -104,9 +105,10 @@ public class BadExpressionFunction : BadFunction
         if (m_Body.Count == 0)
         {
             yield return Null;
+
             yield break;
         }
-        
+
         foreach (BadObject o in ctx.Execute(Body))
         {
             yield return o;

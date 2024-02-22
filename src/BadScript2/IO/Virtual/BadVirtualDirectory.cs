@@ -1,4 +1,5 @@
 using BadScript2.Common.Logging;
+
 ///<summary>
 ///	Contains the Implementation of the BadScript Virtual File System
 /// </summary>

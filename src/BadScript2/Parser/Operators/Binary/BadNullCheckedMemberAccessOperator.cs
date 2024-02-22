@@ -15,7 +15,7 @@ public class BadNullCheckedMemberAccessOperator : BadBinaryOperator
 	/// </summary>
 	public BadNullCheckedMemberAccessOperator() : base(2, "?.") { }
 
-	/// <inheritdoc cref="BadBinaryOperator.Parse" />
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadWordToken right = parser.Reader.ParseWord();

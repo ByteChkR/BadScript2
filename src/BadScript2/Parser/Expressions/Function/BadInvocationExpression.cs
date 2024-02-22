@@ -49,7 +49,7 @@ public class BadInvocationExpression : BadExpression
     public BadExpression Left { get; }
 
     /// <summary>
-    /// Sets the arguments of the invocation
+    ///     Sets the arguments of the invocation
     /// </summary>
     /// <param name="exprs">The Arguments</param>
     public void SetArgs(IEnumerable<BadExpression> exprs)

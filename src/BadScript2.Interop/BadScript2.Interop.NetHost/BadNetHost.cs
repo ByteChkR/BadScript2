@@ -69,11 +69,11 @@ public class BadNetHost
 	/// <returns>Awaitable task</returns>
 	public BadTask AcceptClient()
     {
-        BadInteropRunnable runnable = null;
+        BadInteropRunnable? runnable = null;
 
         // ReSharper disable once AccessToModifiedClosure
         // ReSharper disable once PossibleNullReferenceException
-        runnable = new BadInteropRunnable(AcceptClient(m_Listener, r => runnable.SetReturn(r)));
+        runnable = new BadInteropRunnable(AcceptClient(m_Listener, r => runnable!.SetReturn(r)));
 
         return new BadTask(runnable, "AcceptClient");
     }

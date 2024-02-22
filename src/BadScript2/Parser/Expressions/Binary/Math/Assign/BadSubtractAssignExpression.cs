@@ -22,8 +22,9 @@ public class BadSubtractAssignExpression : BadBinaryExpression
         right,
         position
     ) { }
+
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="leftRef">Reference to the left side of the expression</param>
     /// <param name="left">Left side of the expression</param>
@@ -49,8 +50,9 @@ public class BadSubtractAssignExpression : BadBinaryExpression
 
         return r;
     }
+
     /// <summary>
-    /// Executes the Operator with operator override
+    ///     Executes the Operator with operator override
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="leftRef">Reference to the left side of the expression</param>

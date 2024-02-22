@@ -4,14 +4,13 @@ using BadScript2.IO;
 
 namespace BadScript2.Interop.Compression;
 
-[BadInteropApi("Zip")]
+[BadInteropApi("Zip", true)]
 internal partial class BadZipApi
 {
-    
     /// <summary>
     ///     The FileSystem Instance
     /// </summary>
-    private readonly IFileSystem m_FileSystem;
+    private readonly IFileSystem m_FileSystem = BadFileSystem.Instance;
 
 
     /// <summary>
@@ -22,14 +21,14 @@ internal partial class BadZipApi
     {
         m_FileSystem = fileSystem;
     }
-    
+
     /// <summary>
     ///     Decompresses the given file to the given output directory
     /// </summary>
     /// <param name="outputDir">Output Directory</param>
     /// <param name="inputFile">Input File</param>
-    [BadMethod("ToDirectory","Extracts a Zip Archive to the given directory")]
-    private void ToDirectoryApi([BadParameter(description:"Output Directory")]string outputDir, [BadParameter(description:"Input File")]string inputFile)
+    [BadMethod("ToDirectory", "Extracts a Zip Archive to the given directory")]
+    private void ToDirectoryApi([BadParameter(description: "Output Directory")] string outputDir, [BadParameter(description: "Input File")] string inputFile)
     {
         using Stream s = m_FileSystem.OpenRead(inputFile);
         ToDirectory(outputDir, s);
@@ -40,8 +39,8 @@ internal partial class BadZipApi
     /// </summary>
     /// <param name="inputDir">Input Directory</param>
     /// <param name="outputFile">Output File</param>
-    [BadMethod("FromDirectory","Creates a new Zip Archive from the given directory")]
-    private void FromDirectoryApi([BadParameter(description:"Input Directory")]string inputDir,[BadParameter(description:"Output File")] string outputFile)
+    [BadMethod("FromDirectory", "Creates a new Zip Archive from the given directory")]
+    private void FromDirectoryApi([BadParameter(description: "Input Directory")] string inputDir, [BadParameter(description: "Output File")] string outputFile)
     {
         using Stream s = m_FileSystem.OpenWrite(outputFile, BadWriteMode.CreateNew);
         FromDirectory(inputDir, s);

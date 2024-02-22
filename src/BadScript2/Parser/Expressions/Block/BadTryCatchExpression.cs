@@ -25,9 +25,9 @@ public class BadTryCatchExpression : BadExpression
     ///     The Try Block
     /// </summary>
     private readonly BadExpression[] m_Expressions;
-    
+
     /// <summary>
-    /// The Finally Block
+    ///     The Finally Block
     /// </summary>
     private readonly BadExpression[] m_FinallyExpressions;
 
@@ -60,9 +60,9 @@ public class BadTryCatchExpression : BadExpression
     ///     The Try Block
     /// </summary>
     public IEnumerable<BadExpression> TryExpressions => m_Expressions;
-    
+
     /// <summary>
-    /// The Finally Block
+    ///     The Finally Block
     /// </summary>
     public IEnumerable<BadExpression> FinallyExpressions => m_FinallyExpressions;
 
@@ -78,7 +78,7 @@ public class BadTryCatchExpression : BadExpression
         {
             m_Expressions[i] = BadConstantFoldingOptimizer.Optimize(m_Expressions[i]);
         }
-        
+
         for (int i = 0; i < m_FinallyExpressions.Length; i++)
         {
             m_FinallyExpressions[i] = BadConstantFoldingOptimizer.Optimize(m_FinallyExpressions[i]);
@@ -103,7 +103,7 @@ public class BadTryCatchExpression : BadExpression
                 yield return e;
             }
         }
-        
+
         foreach (BadExpression expression in m_FinallyExpressions)
         {
             foreach (BadExpression e in expression.GetDescendantsAndSelf())
@@ -150,7 +150,7 @@ public class BadTryCatchExpression : BadExpression
             using BadExecutionContext finallyContext = new BadExecutionContext(
                 context.Scope.CreateChild("FinallyBlock", context.Scope, null)
             );
-        
+
             foreach (BadObject e in finallyContext.Execute(m_FinallyExpressions))
             {
                 yield return e;

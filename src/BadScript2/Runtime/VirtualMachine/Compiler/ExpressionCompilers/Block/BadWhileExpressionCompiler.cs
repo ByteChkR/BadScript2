@@ -4,7 +4,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
-/// Compiles the <see cref="BadWhileExpression" />.
+///     Compiles the <see cref="BadWhileExpression" />.
 /// </summary>
 public class BadWhileExpressionCompiler : BadExpressionCompiler<BadWhileExpression>
 {

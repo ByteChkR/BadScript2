@@ -1,12 +1,12 @@
 namespace BadScript2.Interop.Net;
 
 /// <summary>
-/// Net Api Extensions
+///     Net Api Extensions
 /// </summary>
 public static class BadNetApiExtensions
 {
     /// <summary>
-    /// Configures the Runtime to use the Net API
+    ///     Configures the Runtime to use the Net API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <returns>The Runtime</returns>

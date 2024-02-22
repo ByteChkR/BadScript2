@@ -12,33 +12,6 @@ namespace BadScript2.Runtime;
 public class BadScope : BadObject, IDisposable
 {
     /// <summary>
-    /// A List of Registered APIs
-    /// </summary>
-    private readonly List<string> m_RegisteredApis = new List<string>();
-    
-    /// <summary>
-    /// A List of Registered APIs
-    /// </summary>
-    public IReadOnlyCollection<string> RegisteredApis => Parent?.RegisteredApis ??  m_RegisteredApis;
-
-    /// <summary>
-    /// Registers an API
-    /// </summary>
-    /// <param name="api"></param>
-    internal void SetRegisteredApi(string api)
-    {
-        if (Parent != null)
-        {
-            Parent.SetRegisteredApi(api);
-
-            return;
-        }
-        if(!m_RegisteredApis.Contains(api))
-        {
-            m_RegisteredApis.Add(api);
-        }
-    }
-    /// <summary>
     ///     The Finalizer List of the Scope
     /// </summary>
     private readonly List<Action> m_Finalizers = new List<Action>();
@@ -47,6 +20,11 @@ public class BadScope : BadObject, IDisposable
     ///     The Extension Provider
     /// </summary>
     private readonly BadInteropExtensionProvider m_Provider;
+
+    /// <summary>
+    ///     A List of Registered APIs
+    /// </summary>
+    private readonly List<string> m_RegisteredApis = new List<string>();
 
     /// <summary>
     ///     The Scope Variables
@@ -139,6 +117,11 @@ public class BadScope : BadObject, IDisposable
         m_UseVisibility = useVisibility;
         Parent = parent;
     }
+
+    /// <summary>
+    ///     A List of Registered APIs
+    /// </summary>
+    public IReadOnlyCollection<string> RegisteredApis => Parent?.RegisteredApis ?? m_RegisteredApis;
 
     /// <summary>
     ///     The Extension Provider
@@ -251,6 +234,25 @@ public class BadScope : BadObject, IDisposable
         }
 
         m_Finalizers.Clear();
+    }
+
+    /// <summary>
+    ///     Registers an API
+    /// </summary>
+    /// <param name="api"></param>
+    internal void SetRegisteredApi(string api)
+    {
+        if (Parent != null)
+        {
+            Parent.SetRegisteredApi(api);
+
+            return;
+        }
+
+        if (!m_RegisteredApis.Contains(api))
+        {
+            m_RegisteredApis.Add(api);
+        }
     }
 
     /// <summary>

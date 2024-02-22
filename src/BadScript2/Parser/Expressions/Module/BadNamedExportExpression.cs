@@ -7,12 +7,12 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>
-/// Exports a Named Value from the current execution
+///     Exports a Named Value from the current execution
 /// </summary>
 public class BadNamedExportExpression : BadExpression
 {
     /// <summary>
-    /// Creates a new Named Export Expression
+    ///     Creates a new Named Export Expression
     /// </summary>
     /// <param name="name">Name of the Export</param>
     /// <param name="expression">The Expression to export</param>
@@ -24,11 +24,12 @@ public class BadNamedExportExpression : BadExpression
     }
 
     /// <summary>
-    /// The Expression to export
+    ///     The Expression to export
     /// </summary>
     public BadExpression Expression { get; private set; }
+
     /// <summary>
-    /// The Name of the Export
+    ///     The Name of the Export
     /// </summary>
     public string? Name { get; }
 

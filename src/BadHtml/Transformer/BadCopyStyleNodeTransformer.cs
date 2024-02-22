@@ -7,13 +7,13 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadCopyStyleNodeTransformer : BadHtmlNodeTransformer
 {
-    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "style";
     }
 
-    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
     protected override void TransformNode(BadHtmlContext context)
     {
         //Deep Clone

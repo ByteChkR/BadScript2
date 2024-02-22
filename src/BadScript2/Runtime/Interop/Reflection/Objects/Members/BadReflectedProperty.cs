@@ -12,12 +12,12 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 public class BadReflectedProperty : BadReflectedMember
 {
     /// <summary>
-    /// The Reflected Property
+    ///     The Reflected Property
     /// </summary>
     private readonly PropertyInfo m_Property;
 
     /// <summary>
-    /// Creates a new BadReflectedProperty
+    ///     Creates a new BadReflectedProperty
     /// </summary>
     /// <param name="property">The Reflected Property</param>
     public BadReflectedProperty(PropertyInfo property) : base(property.Name)
@@ -25,16 +25,16 @@ public class BadReflectedProperty : BadReflectedMember
         m_Property = property;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsReadOnly => !m_Property.CanWrite;
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObject Get(object instance)
     {
         return Wrap(m_Property.GetValue(instance));
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Set(object instance, BadObject o)
     {
         if (o is not IBadNative native || !m_Property.PropertyType.IsAssignableFrom(native.Type))

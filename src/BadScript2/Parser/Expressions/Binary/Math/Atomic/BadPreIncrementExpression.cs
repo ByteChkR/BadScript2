@@ -34,8 +34,9 @@ public class BadPreIncrementExpression : BadExpression
     {
         return Right.GetDescendantsAndSelf();
     }
+
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="reference">Reference to the left side of the expression</param>
     /// <param name="position">Position of the expression</param>
@@ -78,8 +79,9 @@ public class BadPreIncrementExpression : BadExpression
             yield return o;
         }
     }
+
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="leftRef">Reference to the left side of the expression</param>

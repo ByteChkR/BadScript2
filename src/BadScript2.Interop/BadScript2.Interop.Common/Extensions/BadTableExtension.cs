@@ -15,7 +15,7 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadTableExtension : BadInteropExtension
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadTable>(

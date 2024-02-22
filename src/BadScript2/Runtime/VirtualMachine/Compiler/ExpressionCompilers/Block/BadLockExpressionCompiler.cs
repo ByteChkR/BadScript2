@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Block.Lock;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
-/// Compiles the <see cref="BadLockExpression" />.
+///     Compiles the <see cref="BadLockExpression" />.
 /// </summary>
 public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression>
 {

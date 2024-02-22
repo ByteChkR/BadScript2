@@ -1,12 +1,13 @@
 using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime.Objects.Functions;
+
 /// <summary>
 /// Contains the Expression Validators for the BadScript2 Language
 /// </summary>
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks for duplicate parameter names in function definitions.
+///     Checks for duplicate parameter names in function definitions.
 /// </summary>
 public class BadDuplicateFunctionParameterNameValidator : BadExpressionValidator<BadFunctionExpression>
 {

@@ -11,7 +11,6 @@ namespace BadScript2.Interop.Json;
 [BadInteropApi("Json")]
 internal partial class BadJsonApi
 {
-
     [BadMethod(description: "Converts a JSON String to a BadObject")]
     [return: BadReturn("The Parsed Object")]
     private BadObject FromJson(BadExecutionContext ctx, [BadParameter(description: "The JSON String")] string str)
@@ -27,7 +26,7 @@ internal partial class BadJsonApi
 
         return BadObject.Null;
     }
-    
+
     [BadMethod(description: "Converts a BadObject to a JSON String")]
     [return: BadReturn("The JSON String")]
     private string ToJson([BadParameter(description: "The Object to be converted.")] BadObject o)

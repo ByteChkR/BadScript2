@@ -111,7 +111,7 @@ public static class BadNativeClassHelper
         };
 
     /// <summary>
-    /// Executes the Enumerator
+    ///     Executes the Enumerator
     /// </summary>
     /// <param name="ctx">The Execution Context</param>
     /// <param name="enumerator">The Enumerator</param>
@@ -151,7 +151,7 @@ public static class BadNativeClassHelper
     }
 
     /// <summary>
-    /// Executes the Enumerable
+    ///     Executes the Enumerable
     /// </summary>
     /// <param name="ctx">The Execution Context</param>
     /// <param name="enumerable">The Enumerable</param>
