@@ -29,57 +29,55 @@ public class BadInteropApiGenerator : IIncrementalGenerator
                 postInitializationContext.AddSource(
                     "BadInteropAttributes.cs",
                     SourceText.From(
-                        """
-                        using System;
-                        namespace BadScript2.Interop
-                        {
-                            [AttributeUsage(AttributeTargets.Class)]
-                            internal sealed class BadInteropApiAttribute : Attribute
-                            {
-                                public string Name { get; }
-                                public string? Description { get; }
-                                public BadInteropApiAttribute(string name, string? description = null)
-                                {
-                                    Name = name;
-                                    Description = description;
-                                }
-                            }
-                            
-                            [AttributeUsage(AttributeTargets.Method)]
-                            internal sealed class BadMethodAttribute : Attribute
-                            {
-                                public string? Name { get; }
-                                public string? Description { get; }
-                                public BadMethodAttribute(string? name = null, string? description = null)
-                                {
-                                    Name = name;
-                                    Description = description;
-                                }
-                            }
-                            
-                            [AttributeUsage(AttributeTargets.Parameter)]
-                            internal sealed class BadParameterAttribute : Attribute
-                            {
-                                public string Name { get; }
-                                public string? Description { get; }
-                                public BadParameterAttribute(string name, string? description = null)
-                                {
-                                    Name = name;
-                                    Description = description;
-                                }
-                            }
-                            
-                            [AttributeUsage(AttributeTargets.ReturnValue)]
-                            internal sealed class BadReturnAttribute : Attribute
-                            {
-                                public string? Description { get; }
-                                public BadReturnAttribute(string? description = null)
-                                {
-                                    Description = description;
-                                }
-                            }
-                        }
-                        """,
+                        @"using System;
+namespace BadScript2.Interop
+{
+    [AttributeUsage(AttributeTargets.Class)]
+    internal sealed class BadInteropApiAttribute : Attribute
+    {
+        public string Name { get; }
+        public string? Description { get; }
+        public BadInteropApiAttribute(string name, string? description = null)
+        {
+            Name = name;
+            Description = description;
+        }
+    }
+    
+    [AttributeUsage(AttributeTargets.Method)]
+    internal sealed class BadMethodAttribute : Attribute
+    {
+        public string? Name { get; }
+        public string? Description { get; }
+        public BadMethodAttribute(string? name = null, string? description = null)
+        {
+            Name = name;
+            Description = description;
+        }
+    }
+    
+    [AttributeUsage(AttributeTargets.Parameter)]
+    internal sealed class BadParameterAttribute : Attribute
+    {
+        public string Name { get; }
+        public string? Description { get; }
+        public BadParameterAttribute(string name, string? description = null)
+        {
+            Name = name;
+            Description = description;
+        }
+    }
+    
+    [AttributeUsage(AttributeTargets.ReturnValue)]
+    internal sealed class BadReturnAttribute : Attribute
+    {
+        public string? Description { get; }
+        public BadReturnAttribute(string? description = null)
+        {
+            Description = description;
+        }
+    }
+}",
                         Encoding.UTF8
                     )
                 )
