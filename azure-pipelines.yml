@@ -51,6 +51,15 @@ steps:
     zipAfterPublish: false
     modifyOutputPath: false
 - task: DotNetCoreCLI@2
+  displayName: Publish Source Generator
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: './src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj'
+    arguments: '-c Release'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: DotNetCoreCLI@2
   displayName: Pack Nuget Packages
   inputs:
     command: 'pack'
