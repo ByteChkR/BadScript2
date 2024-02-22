@@ -14,12 +14,12 @@
     <version xmlns="">24.2.22.0</version>
   </metadata>
   <files>
-    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Generator.dll" target="analyzers/dotnet/cs/BadScript2.Interop.Generator.dll" />
-    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Generator.pdb" target="analyzers/dotnet/cs/BadScript2.Interop.Generator.pdb" />
-    <file src="./bin/Release/netstandard2.0/Microsoft.CodeAnalysis.CSharp.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.dll" />
-    <file src="./bin/Release/netstandard2.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.dll" />
-    <file src="./bin/Release/netstandard2.0/Microsoft.CodeAnalysis.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.dll" />
-    <file src="./bin/Release/netstandard2.0/Microsoft.CodeAnalysis.Workspaces.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.Workspaces.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/BadScript2.Interop.Generator.dll" target="analyzers/dotnet/cs/BadScript2.Interop.Generator.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/BadScript2.Interop.Generator.pdb" target="analyzers/dotnet/cs/BadScript2.Interop.Generator.pdb" />
+    <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.CSharp.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.CSharp.Workspaces.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.Workspaces.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.Workspaces.dll" />
     <file src="../../../res/Logo.png" target="Logo.png" />
   </files>
 </package>
