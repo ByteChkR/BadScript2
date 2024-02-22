@@ -21,7 +21,7 @@ public static class BadIOApiExtensions
         }
         else
         {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadIOApi()));
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadIOApi(BadFileSystem.Instance)));
         }
 
         return runtime;

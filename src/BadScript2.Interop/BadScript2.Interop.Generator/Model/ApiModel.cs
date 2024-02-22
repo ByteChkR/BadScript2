@@ -1,6 +1,6 @@
 using System;
 
-namespace BadScript2.Interop.Generator;
+namespace BadScript2.Interop.Generator.Model;
 
 public readonly struct ApiModel : IEquatable<ApiModel>
 {

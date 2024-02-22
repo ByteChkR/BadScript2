@@ -1,8 +1,5 @@
 using BadScript2.Interop.Common.Task;
-using BadScript2.Runtime.Interop;
-using BadScript2.Runtime.Interop.Functions.Extensions;
-using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Types;
+
 ///<summary>
 ///	Contains Networking Extensions and APIs for the BadScript2 Runtime
 /// </summary>
@@ -11,28 +8,21 @@ namespace BadScript2.Interop.Net;
 /// <summary>
 ///     Implements the "Net" Api
 /// </summary>
-public class BadNetApi : BadInteropApi
+[BadInteropApi("Net")]
+internal partial class BadNetApi
 {
-    /// <summary>
-    ///     Public Constructor
-    /// </summary>
-    public BadNetApi() : base("Net") { }
-
-    /// <inheritdoc/>
-    protected override void LoadApi(BadTable target)
+    [BadMethod(description: "Encodes a URI Component")]
+    [return: BadReturn("The encoded URI Component")]
+    private string EncodeUriComponent([BadParameter(description: "The component to encode")] string s)
     {
-        target.SetFunction<string>("Get", Get, BadTask.Prototype);
-        target.SetFunction<string, string>("Post", Post, BadTask.Prototype);
-        target.SetFunction<string>(
-            "EncodeUriComponent",
-            s => Uri.EscapeDataString(s),
-            BadNativeClassBuilder.GetNative("string")
-        );
-        target.SetFunction<string>(
-            "DecodeUriComponent",
-            s => Uri.UnescapeDataString(s),
-            BadNativeClassBuilder.GetNative("string")
-        );
+        return Uri.EscapeDataString(s);
+    }
+
+    [BadMethod(description: "Decodes a URI Component")]
+    [return: BadReturn("The decoded URI Component")]
+    private string DecodeUriComponent([BadParameter(description: "The component to decode")] string s)
+    {
+        return Uri.UnescapeDataString(s);
     }
 
 
@@ -42,7 +32,11 @@ public class BadNetApi : BadInteropApi
     /// <param name="url">Url</param>
     /// <param name="content">Body</param>
     /// <returns>Awaitable Task</returns>
-    private static BadTask Post(string url, string content)
+    [BadMethod(description: "Performs a POST request to the given url with the given content")]
+    [return: BadReturn("The Awaitable Task")]
+    private static BadTask Post(
+        [BadParameter(description: "The URL of the POST request")] string url,
+        [BadParameter(description: "The String content of the post request")] string content)
     {
         HttpClient cl = new HttpClient();
 
@@ -57,7 +51,9 @@ public class BadNetApi : BadInteropApi
     /// </summary>
     /// <param name="url">Url</param>
     /// <returns>Awaitable Task</returns>
-    private static BadTask Get(string url)
+    [BadMethod(description: "Performs a GET request to the given url")]
+    [return: BadReturn("The Awaitable Task")]
+    private static BadTask Get([BadParameter(description: "The URL of the GET request")] string url)
     {
         HttpClient cl = new HttpClient();
         Task<HttpResponseMessage>? task = cl.GetAsync(url);

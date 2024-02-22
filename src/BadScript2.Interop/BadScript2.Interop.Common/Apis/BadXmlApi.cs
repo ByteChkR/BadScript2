@@ -11,29 +11,23 @@ namespace BadScript2.Interop.Common.Apis;
 /// <summary>
 ///     Implements the "Xml" API
 /// </summary>
-public class BadXmlApi : BadInteropApi
+[BadInteropApi("Xml")]
+internal partial class BadXmlApi
 {
-	/// <summary>
-	///     Constructs a new Xml API Instance
-	/// </summary>
-	public BadXmlApi() : base("Xml") { }
-
 	/// <summary>
 	///     Loads an XML Document from a string
 	/// </summary>
-	/// <param name="s">Xml String</param>
+	/// <param name="xml">Xml String</param>
 	/// <returns>The XmlDocument wrapped in a Reflected Object</returns>
-	public static BadObject LoadXml(string s)
-    {
-        XmlDocument doc = new XmlDocument();
-        doc.LoadXml(s);
+	[BadMethod(description: "Loads an XML Document from a string")]
+	[return: BadReturn("XmlDocument")]
+	private BadObject Load(string xml)
+	{
+		
+		XmlDocument doc = new XmlDocument();
+		doc.LoadXml(xml);
 
-        return new BadReflectedObject(doc);
-    }
+		return new BadReflectedObject(doc);
+	}
 
-	/// <inheritdoc/>
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetFunction<string>("Load", LoadXml, BadAnyPrototype.Instance);
-    }
 }

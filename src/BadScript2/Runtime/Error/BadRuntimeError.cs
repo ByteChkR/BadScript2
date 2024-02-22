@@ -11,7 +11,7 @@ namespace BadScript2.Runtime.Error;
 /// </summary>
 public class BadRuntimeError : BadObject
 {
-    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadRuntimeError>(
+    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadRuntimeError>(
         "Error",
         (_, _) => throw new BadRuntimeException("Error")
     );
@@ -77,7 +77,7 @@ public class BadRuntimeError : BadObject
     /// <inheritdoc/>
     public override BadClassPrototype GetPrototype()
     {
-        return s_Prototype;
+        return Prototype;
     }
 
     /// <inheritdoc/>

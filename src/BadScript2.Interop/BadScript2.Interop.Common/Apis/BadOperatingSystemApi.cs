@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Diagnostics;
 
 using BadScript2.Interop.Common.Task;
@@ -9,15 +8,13 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Interop.Common.Apis;
 
+
 /// <summary>
 ///     Implements the "OS" API
 /// </summary>
-public class BadOperatingSystemApi : BadInteropApi
+[BadInteropApi("OS")]
+internal partial class BadOperatingSystemApi
 {
-    /// <summary>
-    ///     Constructs a new OS API Instance
-    /// </summary>
-    public BadOperatingSystemApi() : base("OS") { }
 
     /// <summary>
     ///     Creates the "Environment" Table
@@ -27,66 +24,8 @@ public class BadOperatingSystemApi : BadInteropApi
     {
         BadTable env = new BadTable();
 
-        env.SetProperty("CommandLine", Environment.CommandLine);
-        env.SetProperty("CurrentDirectory", Environment.CurrentDirectory);
-        env.SetProperty("ExitCode", Environment.ExitCode);
-        env.SetProperty("HasShutdownStarted", Environment.HasShutdownStarted);
-        env.SetProperty("Is64BitOperatingSystem", Environment.Is64BitOperatingSystem);
-        env.SetProperty("Is64BitProcess", Environment.Is64BitProcess);
-        env.SetProperty("MachineName", Environment.MachineName);
-        env.SetProperty("NewLine", Environment.NewLine);
-        env.SetProperty("OSVersion", Environment.OSVersion.ToString());
-        env.SetProperty("ProcessorCount", Environment.ProcessorCount);
-        env.SetProperty("StackTrace", Environment.StackTrace);
-        env.SetProperty("SystemDirectory", Environment.SystemDirectory);
-        env.SetProperty("SystemPageSize", Environment.SystemPageSize);
-        env.SetProperty("TickCount", Environment.TickCount);
-        env.SetProperty("UserDomainName", Environment.UserDomainName);
-        env.SetProperty("UserInteractive", Environment.UserInteractive);
-        env.SetProperty("UserName", Environment.UserName);
-        env.SetProperty("WorkingSet", Environment.WorkingSet);
-        env.SetProperty("CurrentManagedThreadId", Environment.CurrentManagedThreadId);
-        env.SetFunction<string>(
-            "ExpandEnvironmentVariables",
-            (_, s) => Environment.ExpandEnvironmentVariables(s),
-            BadNativeClassBuilder.GetNative("string")
-        );
-        env.SetFunction<string>(
-            "GetEnvironmentVariable",
-            (_, s) => Environment.GetEnvironmentVariable(s),
-            BadNativeClassBuilder.GetNative("string")
-        );
-        env.SetFunction<string, string>("SetEnvironmentVariable", Environment.SetEnvironmentVariable);
-        env.SetFunction(
-            "GetEnvironmentVariables",
-            () =>
-            {
-                IDictionary d = Environment.GetEnvironmentVariables();
-                BadTable t = new BadTable();
-
-                foreach (DictionaryEntry de in d)
-                {
-                    t.SetProperty(de.Key.ToString(), de.Value.ToString());
-                }
-
-                return t;
-            },
-            BadNativeClassBuilder.GetNative("Table")
-        );
-        env.SetFunction(
-            "GetCommandlineArguments",
-            () => { return new BadArray(Environment.GetCommandLineArgs().Select(x => (BadObject)x).ToList()); },
-            BadNativeClassBuilder.GetNative("Array")
-        );
-
-        env.SetFunction(
-            "GetLogicalDrives",
-            () => { return new BadArray(Environment.GetLogicalDrives().Select(x => (BadObject)x).ToList()); },
-            BadNativeClassBuilder.GetNative("Array")
-        );
-        env.SetFunction<decimal>("Exit", e => Environment.Exit((int)e));
-        env.SetFunction<string>("FailFast", Environment.FailFast);
-
+        new BadEnvironmentApi().LoadRawApi(env);
+        
         return env;
     }
 
@@ -145,25 +84,24 @@ public class BadOperatingSystemApi : BadInteropApi
         return t;
     }
 
-    /// <inheritdoc/>
-    protected override void LoadApi(BadTable target)
+    
+    [BadMethod(description:"Runs a Process")]
+    [return: BadReturn("Process Table")]
+    private BadTable Run([BadParameter(description:"The name of the application to start, or the name of a document of a file type that is associated with an application and that has a default open action available to it. The default is an empty string (\"\").")] string fileName,[BadParameter(description:"A single string containing the arguments to pass to the target application specified in the FileName property. The default is an empty string (\"\"). On Windows Vista and earlier versions of the Windows operating system, the length of the arguments added to the length of the full path to the process must be less than 2080. On Windows 7 and later versions, the length must be less than 32699. Arguments are parsed and interpreted by the target application, so must align with the expectations of that application. For.NET applications as demonstrated in the Examples below, spaces are interpreted as a separator between multiple arguments. A single argument that includes spaces must be surrounded by quotation marks, but those quotation marks are not carried through to the target application. In include quotation marks in the final parsed argument, triple-escape each mark.")] string arguments, [BadParameter(description:"When UseShellExecute is true, the fully qualified name of the directory that contains the process to be started. When the UseShellExecute property is false, the working directory for the process to be started. The default is an empty string (\"\")")]string workingDirectory, [BadParameter(description:"\ntrue if the process should be started without creating a new window to contain it; otherwise, false. The default is false.")]bool createNoWindow, [BadParameter(description:"true if the shell should be used when starting the process; false if the process should be created directly from the executable file. The default is true")]bool useShellExecute)
+    {
+        Process p = new Process();
+        p.StartInfo.FileName = fileName;
+        p.StartInfo.Arguments = arguments;
+        p.StartInfo.WorkingDirectory = workingDirectory;
+        p.StartInfo.CreateNoWindow = createNoWindow;
+        p.StartInfo.UseShellExecute = useShellExecute;
+        p.Start();
+
+        return CreateProcessTable(p);
+    }
+
+    protected override void AdditionalData(BadTable target)
     {
         target.SetProperty("Environment", CreateEnvironmentTable());
-        target.SetFunction<string, string, string, bool, bool>(
-            "Run",
-            (f, a, w, cnoWnd, useShell) =>
-            {
-                Process p = new Process();
-                p.StartInfo.FileName = f;
-                p.StartInfo.Arguments = a;
-                p.StartInfo.WorkingDirectory = w;
-                p.StartInfo.CreateNoWindow = cnoWnd;
-                p.StartInfo.UseShellExecute = useShell;
-                p.Start();
-
-                return CreateProcessTable(p);
-            },
-            BadNativeClassBuilder.GetNative("Table")
-        );
     }
 }

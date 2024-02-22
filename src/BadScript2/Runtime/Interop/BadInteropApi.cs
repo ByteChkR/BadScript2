@@ -34,6 +34,15 @@ public abstract class BadInteropApi
     /// </summary>
     /// <param name="target">Table Target</param>
     protected abstract void LoadApi(BadTable target);
+    
+    /// <summary>
+    /// Loads the API into the given Table
+    /// </summary>
+    /// <param name="target">The Table to load the API into</param>
+    public void LoadRawApi(BadTable target)
+	{
+		LoadApi(target);
+	}
 
     /// <summary>
     /// Loads the API into the given Table

@@ -23,7 +23,7 @@ public static class BadCommonInterop
     /// </summary>
     private static readonly BadInteropApi[] s_CommonApis =
     {
-        new BadConsoleApi(),
+        new BadConsoleApi(BadConsole.GetConsole()),
         new BadRuntimeApi(),
         new BadMathApi(),
         new BadOperatingSystemApi(),
@@ -141,7 +141,7 @@ public static class BadCommonInterop
         }
         else
         {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi()));
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi(BadConsole.GetConsole())));
         }
 
         return runtime;

@@ -13,23 +13,20 @@ namespace BadScript2.Interop.Common.Apis;
 /// <summary>
 ///     Implements the "Console" API
 /// </summary>
-public class BadConsoleApi : BadInteropApi
+[BadInteropApi("Console")]
+internal partial class BadConsoleApi
 {
 	/// <summary>
 	///     The Console Implementation that is used
 	/// </summary>
 	private readonly IBadConsole? m_Console;
 
-	/// <summary>
-	///     Constructs a new Console API Instance
-	/// </summary>
-	public BadConsoleApi() : this(BadConsole.GetConsole()) { }
 
 	/// <summary>
 	///     Constructs a new Console API Instance
 	/// </summary>
 	/// <param name="console">Console Implementation to use</param>
-	public BadConsoleApi(IBadConsole console) : base("Console")
+	public BadConsoleApi(IBadConsole console):this()
     {
         m_Console = console;
         OnWrite = Write;
@@ -83,22 +80,41 @@ public class BadConsoleApi : BadInteropApi
         return System.Threading.Tasks.Task.Run(Console.ReadLine);
     }
 
-	/// <inheritdoc/>
-    protected override void LoadApi(BadTable target)
-    {
-        target.SetFunction("WriteLine", OnWriteLine);
-        target.SetFunction("Write", OnWrite);
-        target.SetFunction("Clear", OnClear);
-        target.SetFunction("ReadLine", () => OnReadLine(), BadNativeClassBuilder.GetNative("string"));
-        target.SetFunction(
-            "ReadLineAsync",
-            () => new BadTask(
-                new BadReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()),
-                "Console.ReadLineAsync"
-            ),
-            BadTask.Prototype
-        );
-    }
+	
+	[BadMethod("WriteLine", "Writes a line to the Console")]
+	private void InvokeWriteLine([BadParameter(description:"The Object to Write")] BadObject obj)
+	{
+		OnWriteLine(obj);
+	}
+	
+	[BadMethod("Write", "Writes to the Console")]
+	private void InvokeWrite([BadParameter(description:"The Object to Write")] BadObject obj)
+	{
+		OnWrite(obj);
+	}
+	
+	[BadMethod("Clear", "Clears the Console")]
+	private void InvokeClear()
+	{
+		OnClear();
+	}
+	
+	[BadMethod("ReadLine", "Reads a line from the Console")]
+	[return: BadReturn("The Console Input")]
+	private string InvokeReadLine()
+	{
+		return OnReadLine();
+	}
+	
+	[BadMethod("ReadLineAsync", "Reads a line from the Console asynchronously")]
+	[return: BadReturn("The Console Input")]
+	private BadTask InvokeReadLineAsync()
+	{
+		return new BadTask(
+			new BadReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()),
+			"Console.ReadLineAsync"
+		);
+	}
 
     /// <summary>
     ///     Wrapper that will block until the Task is completed

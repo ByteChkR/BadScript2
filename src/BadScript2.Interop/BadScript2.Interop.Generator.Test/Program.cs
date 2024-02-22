@@ -5,7 +5,7 @@ using BadScript2.Interop.Common;
 namespace BadScript2.Generator.Test;
 
 [BadInteropApi("TestApi")]
-public partial class Program
+internal partial class Program
 {
     private string m_Name = "World";
 
@@ -23,7 +23,7 @@ public partial class Program
     }
 
     [BadMethod(description: "Sets the Name")]
-    private void SetName([BadParameter(description: "The Name to be set.")] string name)
+    private void SetName([BadParameter(description: "The Name to be set.")] string name = "World")
     {
         m_Name = name;
     }
@@ -33,6 +33,23 @@ public partial class Program
     private string GetName()
     {
         return m_Name;
+    }
+
+    [BadMethod(description: "Greets a list of users")]
+    private void ParamsTest(params string[] names)
+    {
+        foreach (string name in names)
+        {
+            SetName(name);
+            Greet();
+        }
+    }
+    
+    [BadMethod(description: "Greets a list of users and resets the name")]
+    private void ParamsTest2(string resetName, params string[] names)
+    {
+        ParamsTest(names);
+        SetName(resetName);
     }
 
     [BadMethod(description: "Greets the User")]
