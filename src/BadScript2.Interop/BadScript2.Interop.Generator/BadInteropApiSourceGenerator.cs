@@ -1,6 +1,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace BadScript2.Interop.Generator;
@@ -66,8 +67,16 @@ public class BadInteropApiSourceGenerator
         sb.WriteLine($"\"{method.ApiMethodName}\",");
         sb.WriteLine($"(ctx, args) => {GenerateInvocation(method)},");
         sb.WriteLine("false,");
-        sb.WriteLine($"BadNativeClassBuilder.GetNative(\"{method.ReturnType}\"),");
-        List<string> parameters = new List<string>();
+        sb.Write($"BadNativeClassBuilder.GetNative(\"{method.ReturnType}\")");
+        if (method.Parameters.Any(x => !x.IsContext))
+        {
+            sb.WriteLine(",");
+        }
+        else
+        {
+            sb.WriteLine();
+        }
+
         for (int i = 0; i < method.Parameters.Length; i++)
         {
             ParameterModel parameter = method.Parameters[i];
