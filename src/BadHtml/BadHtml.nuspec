@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-    <metadata>
-        <id>BadHtml</id>
-        <authors>BadHtml</authors>
-        <icon>Logo.png</icon>
-        <description>Html Templating Engine</description>
-        <dependencies>
-            <group targetFramework=".NETStandard2.0">
-                <dependency id="BadScript2.Debugger" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="BadScript2.Interop.Common" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="BadScript2.Interop.IO" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="BadScript2.Interop.Json" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="BadScript2.Interop.Linq" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers"/>
-                <dependency id="HtmlAgilityPack" version="1.11.55" exclude="Build,Analyzers"/>
-                <dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers"/>
-            </group>
-        </dependencies>
-        <version xmlns="">23.11.6.1</version>
-    </metadata>
-    <files>
-        <file src="./bin/Release/netstandard2.0/BadHtml.dll" target="lib/netstandard2.0/BadHtml.dll"/>
-        <file src="./bin/Release/netstandard2.0/BadHtml.pdb" target="lib/netstandard2.0/BadHtml.pdb"/>
-        <file src="../../res/Logo.png" target="Logo.png"/>
-    </files>
+  <metadata>
+    <id>BadHtml</id>
+    <authors>BadHtml</authors>
+    <icon>Logo.png</icon>
+    <description>Html Templating Engine</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="BadScript2.Debugger" version="24.2.22.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Common" version="24.2.22.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.IO" version="24.2.22.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Json" version="24.2.22.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Interop.Linq" version="24.2.22.0" exclude="Build,Analyzers" />
+        <dependency id="BadScript2" version="24.2.22.0" exclude="Build,Analyzers" />
+        <dependency id="HtmlAgilityPack" version="1.11.55" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <version xmlns="">24.2.22.0</version>
+  </metadata>
+  <files>
+    <file src="./bin/Release/netstandard2.0/BadHtml.dll" target="lib/netstandard2.0/BadHtml.dll" />
+    <file src="./bin/Release/netstandard2.0/BadHtml.pdb" target="lib/netstandard2.0/BadHtml.pdb" />
+    <file src="../../res/Logo.png" target="Logo.png" />
+  </files>
 </package>
