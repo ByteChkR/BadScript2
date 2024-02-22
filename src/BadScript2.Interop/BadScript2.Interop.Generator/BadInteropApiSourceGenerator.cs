@@ -122,6 +122,7 @@ public class BadInteropApiSourceGenerator
     public static string GenerateModelSource(ApiModel apiModel)
     {
         IndentedTextWriter tw = new IndentedTextWriter(new StringWriter());
+        tw.WriteLine("#nullable enable");
         tw.WriteLine("using System.Collections.Generic;");
         tw.WriteLine("using BadScript2.Parser;");
         tw.WriteLine("using BadScript2.Runtime.Interop.Reflection;");
