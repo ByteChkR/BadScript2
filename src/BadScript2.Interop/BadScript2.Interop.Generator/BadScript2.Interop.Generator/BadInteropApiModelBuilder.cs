@@ -9,9 +9,34 @@ using Microsoft.CodeAnalysis;
 
 namespace BadScript2.Interop.Generator;
 
-public static class BadInteropApiModelBuilder
+public class BadInteropApiModelBuilder
 {
-    private static IEnumerable<IMethodSymbol> FindMethods(INamedTypeSymbol api)
+    private static readonly DiagnosticDescriptor s_CanNotConvertTypeDiagnostic = new DiagnosticDescriptor(
+        "BAS0001",
+        "Can not convert type",
+        "Can not convert type {0}",
+        "BadScript2.Interop.Generator",
+        DiagnosticSeverity.Error,
+        true
+    );
+
+    private static readonly DiagnosticDescriptor s_CanNotStringifyDefaultValue = new DiagnosticDescriptor(
+        "BAS0002",
+        "Can not stringify default value",
+        "Can not stringify default value {0}",
+        "BadScript2.Interop.Generator",
+        DiagnosticSeverity.Error,
+        true
+    );
+
+    private readonly List<Diagnostic> m_Diagnostics = new List<Diagnostic>();
+
+    private void AddDiagnostic(Diagnostic diagnostic)
+    {
+        m_Diagnostics.Add(diagnostic);
+    }
+
+    private IEnumerable<IMethodSymbol> FindMethods(INamedTypeSymbol api)
     {
         IEnumerable<IMethodSymbol> methods = api.GetMembers().Where(x => x is IMethodSymbol).Cast<IMethodSymbol>();
         foreach (IMethodSymbol method in methods)
@@ -24,7 +49,7 @@ public static class BadInteropApiModelBuilder
         }
     }
 
-    public static ApiModel GenerateModel(INamedTypeSymbol api)
+    public ApiModel GenerateModel(INamedTypeSymbol api)
     {
         IEnumerable<IMethodSymbol> methods = FindMethods(api);
         AttributeData? apiAttribute = api.GetInteropApiAttribute();
@@ -42,21 +67,30 @@ public static class BadInteropApiModelBuilder
             constructorPrivate = apiAttribute.ConstructorArguments.Length > 1 && priv != null && priv.Value;
         }
 
+        MethodModel[] methodModels = GenerateMethodModels(methods).ToArray();
+        Diagnostic[] diagnostics = Array.Empty<Diagnostic>();
+        if (m_Diagnostics.Count != 0)
+        {
+            diagnostics = m_Diagnostics.ToArray();
+            m_Diagnostics.Clear();
+        }
+
         return new ApiModel(
             api.ContainingNamespace?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted))!,
             api.Name,
-            GenerateMethodModels(methods).ToArray(),
+            methodModels,
             apiName,
-            constructorPrivate
+            constructorPrivate,
+            diagnostics
         );
     }
 
-    private static string EscapeDescription(string str)
+    private string EscapeDescription(string str)
     {
         return str.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n");
     }
 
-    private static IEnumerable<ParameterModel> GenerateParameterModel(IMethodSymbol method)
+    private IEnumerable<ParameterModel> GenerateParameterModel(IMethodSymbol method)
     {
         foreach (IParameterSymbol symbol in method.Parameters.Where(x => x.Ordinal >= 0).OrderBy(x => x.Ordinal))
         {
@@ -71,7 +105,7 @@ public static class BadInteropApiModelBuilder
                 string? name = symbol.Name;
                 string? description = null;
                 bool isNullable = symbol.NullableAnnotation == NullableAnnotation.Annotated;
-                string type = ConvertType(symbol.Type);
+                string type = ConvertType(symbol.Type, true, symbol);
 
                 if (attribute != null)
                 {
@@ -88,7 +122,7 @@ public static class BadInteropApiModelBuilder
                 string? defaultValue = null;
                 if (hasDefaultValue)
                 {
-                    defaultValue = StringifyDefaultValue(symbol.ExplicitDefaultValue);
+                    defaultValue = StringifyDefaultValue(symbol.ExplicitDefaultValue, symbol);
                 }
 
                 bool isRestArgs = symbol.IsParams;
@@ -98,32 +132,54 @@ public static class BadInteropApiModelBuilder
         }
     }
 
-    private static string StringifyDefaultValue(object? obj)
+    private string StringifyDefaultValue(object? obj, ISymbol symbol)
     {
-        return obj switch
+        switch (obj)
         {
-            string str => $"\"{str}\"",
-            char c => $"'{c}'",
-            bool b => b.ToString().ToLower(),
-            float f => $"{f}f",
-            double d => $"{d}d",
-            decimal m => $"{m}m",
-            int i => i.ToString(),
-            long l => $"{l}L",
-            uint u => $"{u}u",
-            ulong ul => $"{ul}ul",
-            short s => $"{s}s",
-            ushort us => $"{us}us",
-            byte by => $"{by}b",
-            sbyte sb => $"{sb}sb",
-            Enum e => $"{e.GetType().Name}.{e}",
-            Type t => $"typeof({t.Name})",
-            null => "null",
-            _ => throw new NotSupportedException($"Type {obj.GetType()} is not supported"),
-        };
+            case string str:
+                return $"\"{str}\"";
+            case char c:
+                return $"'{c}'";
+            case bool b:
+                return b.ToString().ToLower();
+            case float f:
+                return $"{f}f";
+            case double d:
+                return $"{d}d";
+            case decimal m:
+                return $"{m}m";
+            case int i:
+                return i.ToString();
+            case long l:
+                return $"{l}L";
+            case uint u:
+                return $"{u}u";
+            case ulong ul:
+                return $"{ul}ul";
+            case short s:
+                return $"{s}s";
+            case ushort us:
+                return $"{us}us";
+            case byte by:
+                return $"{by}b";
+            case sbyte sb:
+                return $"{sb}sb";
+            case Enum e:
+                return $"{e.GetType().Name}.{e}";
+            case Type t:
+                return $"typeof({t.Name})";
+            case null:
+                return "null";
+            default:
+            {
+                AddDiagnostic(symbol.CreateDiagnostic(s_CanNotStringifyDefaultValue, obj));
+
+                return "null";
+            }
+        }
     }
 
-    private static IEnumerable<MethodModel> GenerateMethodModels(IEnumerable<IMethodSymbol> symbols)
+    private IEnumerable<MethodModel> GenerateMethodModels(IEnumerable<IMethodSymbol> symbols)
     {
         foreach (IMethodSymbol symbol in symbols)
         {
@@ -144,20 +200,43 @@ public static class BadInteropApiModelBuilder
 
             //Check if the symbol is a void return
             bool isVoidReturn = symbol.ReturnsVoid;
+            AttributeData? returnAttribute = symbol.GetReturnTypeAttribute();
+            string returnDescription = string.Empty;
+            bool allowNativeReturn = false;
+            if (returnAttribute != null)
+            {
+                if (returnAttribute.ConstructorArguments.Length > 0)
+                {
+                    returnDescription = EscapeDescription(returnAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty);
+                }
+
+                if (returnAttribute.ConstructorArguments.Length > 1)
+                {
+                    allowNativeReturn = (bool)returnAttribute.ConstructorArguments[1].Value!;
+                }
+            }
+
 
             //The return type, if its not provided, use the symbol's return type
-            string returnType = isVoidReturn ? "any" : ConvertType(symbol.ReturnType);
+            string returnType = isVoidReturn ? "any" : ConvertType(symbol.ReturnType, allowNativeReturn, symbol);
 
-            AttributeData? returnAttribute = symbol.GetReturnTypeAttribute();
-            string returnDescription = EscapeDescription(returnAttribute?.ConstructorArguments[0].Value?.ToString() ?? string.Empty);
 
-            MethodModel model = new MethodModel(symbol.Name, name, returnType, description, GenerateParameterModel(symbol).ToArray(), isVoidReturn, returnDescription);
+            MethodModel model = new MethodModel(
+                symbol.Name,
+                name,
+                returnType,
+                description,
+                GenerateParameterModel(symbol).ToArray(),
+                isVoidReturn,
+                returnDescription,
+                allowNativeReturn
+            );
 
             yield return model;
         }
     }
 
-    private static string ConvertType(ITypeSymbol type)
+    private string ConvertType(ITypeSymbol type, bool allowAny, ISymbol sourceSymbol)
     {
         if (type.NullableAnnotation == NullableAnnotation.Annotated)
         {
@@ -264,6 +343,13 @@ public static class BadInteropApiModelBuilder
             return "Scope";
         }
 
-        throw new NotSupportedException($"Type {type.ToDisplayString()} is not supported");
+        if (allowAny)
+        {
+            return "any";
+        }
+
+        AddDiagnostic(sourceSymbol.CreateDiagnostic(s_CanNotConvertTypeDiagnostic, type.ToDisplayString()));
+
+        return "any";
     }
 }

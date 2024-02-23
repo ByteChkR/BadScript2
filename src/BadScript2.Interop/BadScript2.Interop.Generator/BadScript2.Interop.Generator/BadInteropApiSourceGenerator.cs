@@ -6,11 +6,20 @@ using System.Text;
 
 using BadScript2.Interop.Generator.Model;
 
+using Microsoft.CodeAnalysis;
+
 namespace BadScript2.Interop.Generator;
 
 public class BadInteropApiSourceGenerator
 {
-    private static string GenerateInvocation(MethodModel method)
+    
+    private readonly SourceProductionContext m_Context;
+    public BadInteropApiSourceGenerator(SourceProductionContext context)
+    {
+        m_Context = context;
+    }
+
+    private string GenerateInvocation(MethodModel method)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -69,19 +78,19 @@ public class BadInteropApiSourceGenerator
         }
         else
         {
-            sb.Append(")");
+            sb.Append($", {method.AllowNativeReturn.ToString().ToLower()})");
         }
 
         return sb.ToString();
     }
 
-    private static string GenerateParameterSource(ParameterModel model)
+    private string GenerateParameterSource(ParameterModel model)
     {
         return
             $"new BadFunctionParameter(\"{model.Name}\", {model.HasDefaultValue.ToString().ToLower()}, {(!model.IsNullable).ToString().ToLower()}, {model.IsRestArgs.ToString().ToLower()}, null, BadNativeClassBuilder.GetNative(\"{model.Type}\"))";
     }
 
-    private static void GenerateMethodSource(IndentedTextWriter sb, MethodModel method)
+    private void GenerateMethodSource(IndentedTextWriter sb, MethodModel method)
     {
         sb.WriteLine("target.SetProperty(");
         sb.Indent++;
@@ -153,7 +162,7 @@ public class BadInteropApiSourceGenerator
         sb.WriteLine(");");
     }
 
-    public static string GenerateModelSource(ApiModel apiModel)
+    public string GenerateModelSource(SourceProductionContext context, ApiModel apiModel, bool isError)
     {
         IndentedTextWriter tw = new IndentedTextWriter(new StringWriter());
         tw.WriteLine("#nullable enable");
@@ -175,7 +184,7 @@ public class BadInteropApiSourceGenerator
         tw.WriteLine("protected override void LoadApi(BadTable target)");
         tw.WriteLine("{");
         tw.Indent++;
-        if (apiModel.Methods.Length != 0)
+        if (!isError && apiModel.Methods.Length != 0)
         {
             tw.WriteLine("T? GetParameter<T>(BadObject[] args, int i, T? defaultValue = default(T)) => args.Length>i?args[i].Unwrap<T>():defaultValue;");
             foreach (MethodModel method in apiModel.Methods)

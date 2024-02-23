@@ -8,6 +8,25 @@ namespace BadScript2.Interop.Generator;
 
 public static class BadInteropApiAttributes
 {
+    public static DiagnosticDescriptor CreateDescriptor(string id, string title, string messageFormat, string category, DiagnosticSeverity severity)
+    {
+        return new DiagnosticDescriptor(id, title, messageFormat, category, severity, true);
+    }
+    public static Diagnostic CreateDiagnostic(this ISymbol symbol, string id, string title, string messageFormat, string category, DiagnosticSeverity severity, params object?[]? args)
+    {
+        return CreateDescriptor(id, title, messageFormat, category, severity).CreateDiagnostic(symbol, args);
+    }
+    
+    public static Diagnostic CreateDiagnostic(this DiagnosticDescriptor descriptor, ISymbol symbol, params object?[]? args)
+    {
+        return Diagnostic.Create(descriptor, symbol.Locations.FirstOrDefault(), args);
+    }
+    public static Diagnostic CreateDiagnostic(this ISymbol symbol, DiagnosticDescriptor descriptor, params object?[]? args)
+    {
+        return Diagnostic.Create(descriptor, symbol.Locations.FirstOrDefault(), args);
+    }
+    
+    
     public const string INTEROP_API_ATTRIBUTE = "BadScript2.Interop.BadInteropApiAttribute";
     public const string INTEROP_METHOD_ATTRIBUTE = "BadScript2.Interop.BadMethodAttribute";
     public const string INTEROP_METHOD_PARAMETER_ATTRIBUTE = "BadScript2.Interop.BadParameterAttribute";
@@ -91,9 +110,11 @@ namespace BadScript2.Interop
     internal sealed class BadReturnAttribute : Attribute
     {
         public string? Description { get; }
-        public BadReturnAttribute(string? description = null)
+        public bool AllowNativeTypes { get; }
+        public BadReturnAttribute(string? description = null, bool allowNativeTypes = false)
         {
             Description = description;
+            AllowNativeTypes = allowNativeTypes;
         }
     }
 

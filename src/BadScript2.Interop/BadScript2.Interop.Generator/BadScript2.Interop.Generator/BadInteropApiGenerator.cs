@@ -21,8 +21,9 @@ public class BadInteropApiGenerator : IIncrementalGenerator
             static (context, _) =>
             {
                 INamedTypeSymbol api = (INamedTypeSymbol)context.TargetSymbol;
+                BadInteropApiModelBuilder builder = new BadInteropApiModelBuilder();
 
-                return BadInteropApiModelBuilder.GenerateModel(api);
+                return builder.GenerateModel(api);
             }
         );
 
@@ -30,10 +31,22 @@ public class BadInteropApiGenerator : IIncrementalGenerator
             pipeline,
             static (context, model) =>
             {
+                bool isError = false;
+                if (model.Diagnostics.Length != 0)
+                {
+                    foreach (Diagnostic diagnostic in model.Diagnostics)
+                    {
+                        context.ReportDiagnostic(diagnostic);
+                        isError |= diagnostic.Severity == DiagnosticSeverity.Error;
+                    }
+                }
+
+                BadInteropApiSourceGenerator gen = new BadInteropApiSourceGenerator(context);
                 SourceText sourceText = SourceText.From(
-                    BadInteropApiSourceGenerator.GenerateModelSource(model),
+                    gen.GenerateModelSource(context, model, isError),
                     Encoding.UTF8
                 );
+
 
                 context.AddSource($"{model.ClassName}.g.cs", sourceText);
             }
