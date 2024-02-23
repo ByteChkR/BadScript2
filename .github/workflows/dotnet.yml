@@ -42,23 +42,23 @@ jobs:
       run: dotnet publish ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -c Release
     - name: Pack Nuget Packages
       run: |
-        dotnet pack ./src/BadHtml/BadHtml.csproj -p:NuspecFile=./BadHtml.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=./BadScript2.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NetHost/BadScript2.Interop.NetHost.csproj -p:NuspecFile=./BadScript2.Interop.NetHost.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Net/BadScript2.Interop.Net.csproj -p:NuspecFile=./BadScript2.Interop.Net.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NUnit/BadScript2.Interop.NUnit.csproj -p:NuspecFile=./BadScript2.Interop.NUnit.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Linq/BadScript2.Interop.Linq.csproj -p:NuspecFile=./BadScript2.Interop.Linq.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Json/BadScript2.Interop.Json.csproj -p:NuspecFile=./BadScript2.Interop.Json.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.IO/BadScript2.Interop.IO.csproj -p:NuspecFile=./BadScript2.Interop.IO.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Html/BadScript2.Interop.Html.csproj -p:NuspecFile=./BadScript2.Interop.Html.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -p:NuspecFile=./BadScript2.Interop.Generator.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Compression/BadScript2.Interop.Compression.csproj -p:NuspecFile=./BadScript2.Interop.Compression.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Common/BadScript2.Interop.Common.csproj -p:NuspecFile=./BadScript2.Interop.Common.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -p:NuspecFile=./BadScript2.Console.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.csproj -p:NuspecFile=./BadScript2.Interactive.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj -p:NuspecFile=./BadScript2.Debugger.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=../BadScript2.Full.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadHtml/BadHtml.csproj -p:NuspecFile=./BadHtml.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=./BadScript2.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NetHost/BadScript2.Interop.NetHost.csproj -p:NuspecFile=./BadScript2.Interop.NetHost.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Net/BadScript2.Interop.Net.csproj -p:NuspecFile=./BadScript2.Interop.Net.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NUnit/BadScript2.Interop.NUnit.csproj -p:NuspecFile=./BadScript2.Interop.NUnit.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Linq/BadScript2.Interop.Linq.csproj -p:NuspecFile=./BadScript2.Interop.Linq.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Json/BadScript2.Interop.Json.csproj -p:NuspecFile=./BadScript2.Interop.Json.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.IO/BadScript2.Interop.IO.csproj -p:NuspecFile=./BadScript2.Interop.IO.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Html/BadScript2.Interop.Html.csproj -p:NuspecFile=./BadScript2.Interop.Html.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -p:NuspecFile=./BadScript2.Interop.Generator.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Compression/BadScript2.Interop.Compression.csproj -p:NuspecFile=./BadScript2.Interop.Compression.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Common/BadScript2.Interop.Common.csproj -p:NuspecFile=./BadScript2.Interop.Common.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -p:NuspecFile=./BadScript2.Console.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.csproj -p:NuspecFile=./BadScript2.Interactive.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj -p:NuspecFile=./BadScript2.Debugger.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=../BadScript2.Full.nuspec /p:PackageVersion=${{ steps.setcalver.outputs.package_version }}-public --output ./out --include-symbols --include-source
     - name: Upload NuGet package to GitHub
       uses: actions/upload-artifact@v2
       with:
