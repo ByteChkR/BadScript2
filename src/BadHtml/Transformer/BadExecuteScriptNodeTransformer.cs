@@ -22,6 +22,5 @@ public class BadExecuteScriptNodeTransformer : BadHtmlNodeTransformer
 
         BadObject result = context.ParseAndExecute(code, context.CreateInnerPosition());
 
-        Console.WriteLine("Result of Script Block: " + result);
     }
 }

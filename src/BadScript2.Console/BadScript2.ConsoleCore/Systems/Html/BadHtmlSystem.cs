@@ -76,7 +76,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
             SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
         };
 
-        BadObject model = new BadTable();
+        BadObject? model = null;
 
         if (!string.IsNullOrEmpty(settings.Model))
         {

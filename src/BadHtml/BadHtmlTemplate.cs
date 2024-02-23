@@ -91,13 +91,16 @@ public class BadHtmlTemplate
         BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).CreateContext(Path.GetDirectoryName(m_FileSystem.GetFullPath(FilePath)) ?? "/");
         executionContext.Scope.SetCaller(caller);
 
-        BadObject mod = model as BadObject ?? BadObject.Wrap(model);
-        executionContext.Scope.DefineVariable(
-            "Model",
-            mod,
-            executionContext.Scope,
-            new BadPropertyInfo(BadAnyPrototype.Instance, true)
-        );
+        if (model != null)
+        {
+	        BadObject mod = model as BadObject ?? BadObject.Wrap(model);
+	        executionContext.Scope.DefineVariable(
+		        "Model",
+		        mod,
+		        executionContext.Scope,
+		        new BadPropertyInfo(BadAnyPrototype.Instance, true)
+	        );
+        }
 
         foreach (HtmlNode node in input.DocumentNode.ChildNodes)
         {

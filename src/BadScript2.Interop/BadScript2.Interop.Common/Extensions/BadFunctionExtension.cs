@@ -16,6 +16,7 @@ public class BadFunctionExtension : BadInteropExtension
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadFunction>("Name", f => f.Name?.Text ?? "<anonymous>");
+        provider.RegisterObject<BadFunction>("ReturnType", f => f.ReturnType);
         provider.RegisterObject<BadFunction>(
             "Parameters",
             f => new BadArray(f.Parameters.Select(x => BadObject.Wrap(x)).ToList())

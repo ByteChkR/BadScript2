@@ -184,6 +184,8 @@ public class BadInteropApiSourceGenerator
         tw.WriteLine("protected override void LoadApi(BadTable target)");
         tw.WriteLine("{");
         tw.Indent++;
+        tw.WriteLine("AdditionalData(target);");
+        
         if (!isError && apiModel.Methods.Length != 0)
         {
             tw.WriteLine("T? GetParameter<T>(BadObject[] args, int i, T? defaultValue = default(T)) => args.Length>i?args[i].Unwrap<T>():defaultValue;");
@@ -193,7 +195,6 @@ public class BadInteropApiSourceGenerator
             }
         }
 
-        tw.WriteLine("AdditionalData(target);");
 
         tw.Indent--;
         tw.WriteLine("}");

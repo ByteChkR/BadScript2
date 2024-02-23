@@ -287,7 +287,7 @@ public class BadTask : BadObject
     /// <param name="name">Name</param>
     /// <param name="args">Function Arguments</param>
     /// <returns>Bad Task Instance</returns>
-    public static BadObject Create(BadFunction f, BadExecutionContext caller, string? name, params BadObject[] args)
+    public static BadTask Create(BadFunction f, BadExecutionContext caller, string? name, params BadObject[] args)
     {
         return new BadTask(BadRunnable.Create(f, caller, args), name ?? f.ToString());
     }

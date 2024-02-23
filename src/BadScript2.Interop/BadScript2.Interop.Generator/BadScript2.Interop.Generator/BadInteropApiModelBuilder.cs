@@ -116,6 +116,7 @@ public class BadInteropApiModelBuilder
                     {
                         description = EscapeDescription(description);
                     }
+                    type = cargs.Length > 2 ? cargs[2].Value?.ToString() ?? type : type;
                 }
 
                 bool hasDefaultValue = symbol.HasExplicitDefaultValue;
@@ -309,9 +310,9 @@ public class BadInteropApiModelBuilder
             return "Function";
         }
 
-        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Types.BadClass")
+        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Types.BadClassPrototype")
         {
-            return "Class";
+            return "Type";
         }
 
         if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Error.BadRuntimeError")
