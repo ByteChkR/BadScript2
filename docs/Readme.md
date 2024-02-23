@@ -1,3 +1,5 @@
+[![build](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml)
+
 # BadScript2 Landing Page
 
 <div style="display: flex; justify-content: center;">
