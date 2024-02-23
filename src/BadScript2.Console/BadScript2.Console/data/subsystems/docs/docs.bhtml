@@ -1,0 +1,242 @@
+<script lang="bs2">
+	import Model from './Model.bs';
+	import ModelBuilder from './ModelBuilder.bs';
+
+	...Model; //Load the Model Types into the root scope
+
+	const models = ModelBuilder.GenerateApiModels();
+
+
+	function string ReplaceNewLines(string in!)
+	{
+		return in.Replace("\n", "<br/>");
+	}
+
+	function string ReplaceWhiteSpace(string in!)
+	{
+		return ReplaceNewLines(in).Replace("\t", "    ").Replace(" ", "&nbsp");
+	}
+
+</script>
+
+<style>
+
+	.label {
+		display: none;
+	}
+
+	.api.depth-0 {
+		border: 1px solid black;
+		margin: 15px;
+		padding: 15px;
+	}
+
+	.api.depth-1 {
+		border: 1px solid grey;
+		border-radius: 15px;
+		margin: 5px;
+		padding: 5px;
+	}
+
+	.api.depth-2 {
+		border: 1px solid grey;
+		border-radius: 15px;
+		margin: 5px;
+		padding: 5px;
+	}
+
+	.api.depth-3 {
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin: 5px;
+		padding: 5px;
+	}
+
+	.api.info.container {
+		margin-bottom: 25px;
+		border-bottom: 1px solid black;
+	}
+
+	.api.info.version {
+		color: gray;
+		font-size: 13px;
+		margin-bottom: 5px;
+	}
+
+	.api.functions.function.container {
+		padding: 5px;
+		background-color: lightgray;
+		margin-bottom: 5px;
+	}
+
+	.api.functions.function.function-name {
+		font-weight: bold;
+		font-size: 18px;
+		padding: 5px;
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	.api.functions.function.description {
+		padding: 5px;
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	.api.functions.function.return.type {
+		display: inline;
+	}
+
+	.api.functions.function.return.container, .api.functions.function.parameters.container {
+		border: 1px solid black;
+		margin-bottom: 2px;
+	}
+
+	.api.functions.function.return.description {
+		margin-bottom: 0;
+		margin-top: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.api.functions.function.parameters.parameter.name, .api.functions.function.parameters.parameter.type{
+		display: inline;
+	}
+	.api.functions.function.parameters.parameter.name.label, .api.functions.function.parameters.parameter.type.label {
+		display: none;
+	}
+
+	.flags, .flag-container {
+		display: flex;
+	}
+
+	.flag-container > * {
+		display: initial;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.flags {
+		flex-direction: column;
+	}
+
+	.api.functions.function.parameters.container.heading {
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	.api.properties.property.name {
+		display: inline;
+	}
+
+	.api.properties.property.value {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.value-container {
+		font-style: italic;
+		padding: 5px;
+		background-color: lightgray;
+		width: 100%;
+	}
+
+</style>
+
+<bs:function name="GenerateFunctionDocs" param:model="TableModel!">
+	<bs:if test="model.Properties.Any(x => x instanceof FunctionModel)">
+		<div class="api functions container">
+			<h2 class="api functions heading">Functions</h2>
+			<bs:each on="model.Properties.Where(x=>x instanceof FunctionModel)" as="func">
+				<div class="api functions function container">
+					<p class="api functions function name label">Name:</p>
+					<p class="api functions function function-name">{func.Name}</p>
+					<p class="api functions function description label">Description:</p>
+					<p class="api functions function description">{func.Description}</p>
+					<div class="api functions function return container">
+						<p class="api functions function return type label">Returns:</p>
+						<p class="api functions function return type">{func.Return.ReturnType}</p>
+						<bs:if test="func.Return.Description != ''">
+							<p class="api functions function return description label">Description:</p>
+							<p class="api functions function return description">{func.Return.Description}</p>
+						</bs:if>
+					</div>
+					<bs:if test="func.Parameters.Length > 0">
+						<div class="api functions function parameters container">
+							<h4 class="api functions function parameters container heading">Parameters</h4>
+							<bs:each on="func.Parameters" as="param">
+								<div class="api functions function parameters parameter container">
+									<p class="api functions function parameters parameter type label">Type:</p>
+									<p class="api functions function parameters parameter type">{param.ParameterType.Name}</p>
+									<p class="api functions function parameters parameter name label">Name:</p>
+									<p class="api functions function parameters parameter name"> {param.Name}</p>
+									<p class="api functions function parameters parameter description label">Description:</p>
+									<p class="api functions function parameters parameter description">{ReplaceNewLines(param.Description)}</p>
+									<div class="api functions function parameters parameter flags">
+										<div class="api functions function parameters parameter flag-container">
+											<p class="api functions function parameters parameter isNullChecked label">Is Null Checked: </p>
+											<p class="api functions function parameters parameter isNullChecked">{param.IsNullChecked}</p>
+										</div>
+										<div class="api functions function parameters parameter flag-container">
+											<p class="api functions function parameters parameter isOptional label">Is Optional: </p>
+											<p class="api functions function parameters parameter isOptional">{param.IsOptional}</p>
+										</div>
+										<div class="api functions function parameters parameter flag-container">
+											<p class="api functions function parameters parameter isRestArgs label">Is Rest Args: </p>
+											<p class="api functions function parameters parameter isRestArgs">{param.IsRestArgs}</p>
+										</div>
+									</div>
+								</div>
+							</bs:each>
+						</div>
+					</bs:if>
+				</div>
+			</bs:each>
+		</div>
+	</bs:if>
+</bs:function>
+
+
+<bs:function name="GeneratePropertyDocs" param:model="TableModel!">
+	<bs:if test="model.Properties.Any(x => x instanceof PropertyModel)">
+		<div class="api properties container">
+			<h2 class="api properties heading">Properties</h2>
+			<bs:each on="model.Properties.Where(x=>x instanceof PropertyModel) " as="prop">
+				<div class="api properties property container">
+					<p class="api properties property name label">Name:</p>
+					<p class="api properties property name">{prop.Name}({prop.PropertyType.Name})</p>
+					<div class="api properties property value-container">
+						<p class="api properties property value label">Value:</p>
+						<p class="api properties property value">{ReplaceWhiteSpace(prop.Value?.ToString() ?? "null")}</p>
+					</div>
+				</div>
+			</bs:each>
+		</div>
+	</bs:if>
+</bs:function>
+
+
+<bs:function name="GenerateApiInfoDocs" param:table="TableModel!">
+	<div class="api info container">
+		<h1 class="api info name">{table.Name}</h1>
+		<bs:if test="table instanceof ApiModel">
+			<p class="label">Version:</p>
+			<p class="api info version">{table.Info.AssemblyName}@{table.Info.Version}</p>
+		</bs:if>
+	</div>
+</bs:function>
+
+<bs:function name="GenerateRootDocs" param:model="TableModel!" param:depth="num?">
+		<div class="api depth-{depth ?? 0}">
+			{GenerateApiInfoDocs(model)}
+			{GeneratePropertyDocs(model)}
+			{GenerateFunctionDocs(model)}
+			<bs:each on="model.Properties.Where(x=>x instanceof TableModel) " as="sub">
+				{GenerateRootDocs(sub, (depth ?? 0) + 1)}
+			</bs:each>
+		</div>
+</bs:function>
+
+<bs:each on="models" as="model">
+	{GenerateRootDocs(model)}
+</bs:each>
