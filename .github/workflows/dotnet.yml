@@ -1,0 +1,86 @@
+name: Action to build and publish the project as a nuget package to github package registry
+
+on:
+  push:
+    branches: [master]
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    outputs: 
+      Version: ${{ steps.gitversion.outputs.SemVer }}
+      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }} 
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Calver Version
+      uses: Nelyx/action-calver@v1.0.0
+      id: setcalver
+      with:
+        default_branch: 'refs/heads/main'
+        format: 'YYYY.MM.DD'
+        version_prefix: ''
+    - name: Display Version outputs
+      run: |
+        echo "Version: ${{ steps.setcalver.outputs.package_version }}"
+    
+        
+    #Build/pack the projects
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    
+    - name: Run Unit Tests
+      run: dotnet test ./src/BadScript2.Tests/BadScript2.Tests.csproj
+      
+    - name: Update Nuget Package Versions
+      uses: Amadevus/pwsh-script@v2.0.3
+      with:
+        # PowerShell script to execute in Actions-hydrated context
+        script: ./newNugetVersion.ps1
+        
+    - name: Publish Console
+      run: dotnet publish ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -c Release
+    - name: Publish Source Generator
+      run: dotnet publish ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -c Release
+    - name: Pack Nuget Packages
+      run: dotnet pack -p:NuspecFile=**/*.nuspec --output ./out --include-symbols --include-source
+    - name: Upload NuGet package to GitHub
+      uses: actions/upload-artifact@v2
+      with:
+        name: nugetPackage
+        path: ./out
+        
+  release:
+    runs-on: ubuntu-latest    
+    needs: build
+    if: github.ref == 'refs/heads/master' # only run job if on the master branch   
+    
+    steps:  
+    #Push NuGet package to GitHub packages
+    - name: Download nuget package artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: nugetPackage
+    - name: Prep packages
+      run: dotnet nuget add source --username ByteChkR --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ByteChkR/index.json"
+    - name: Push package to GitHub packages 
+      run: dotnet nuget push nugetPackage/*.symbols.nupkg --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }}  --source "github"
+    
+    #Create release
+    - name: Create Release
+      if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.NUGET_PACKAGE_TOKEN }} 
+      with:
+        tag_name: ${{ needs.build.outputs.Version }}
+        release_name: Release ${{ needs.build.outputs.Version }}
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ needs.build.outputs.Version }}
+        name: Release ${{ needs.build.outputs.Version }}
+        artifacts: "nugetPackage/*"
+        token: ${{ secrets.NUGET_PACKAGE_TOKEN }}
