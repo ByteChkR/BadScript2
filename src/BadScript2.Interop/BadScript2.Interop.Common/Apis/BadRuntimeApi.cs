@@ -187,6 +187,13 @@ internal partial class BadRuntimeApi
     {
         return ctx.Scope.RegisteredApis.Contains(api);
     }
+    
+    [BadMethod(description: "Returns all registered apis")]
+    [return: BadReturn("An Array containing all registered apis")]
+    private BadArray GetRegisteredApis(BadExecutionContext ctx)
+    {
+        return new BadArray(ctx.Scope.RegisteredApis.Select(x => (BadObject)x).ToList());
+    }
 
     /// <summary>
     ///     Registers an Import Handler
@@ -196,7 +203,7 @@ internal partial class BadRuntimeApi
     /// <returns>Null</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Import Handler is invalid</exception>
     [BadMethod(description: "Registers an Import Handler")]
-    private static void RegisterImportHandler(BadExecutionContext ctx, [BadParameter(description: "An Import handler implementing the IImportHandler Interface")] BadClass cls)
+    private static void RegisterImportHandler(BadExecutionContext ctx, [BadParameter(description: "An Import handler implementing the IImportHandler Interface", nativeType: "IImportHandler")] BadClass cls)
     {
         BadClassPrototype proto = cls.GetPrototype();
         if (!BadNativeClassBuilder.ImportHandler.IsSuperClassOf(proto))

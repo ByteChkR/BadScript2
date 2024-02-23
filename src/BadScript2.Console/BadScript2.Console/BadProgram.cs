@@ -1,5 +1,6 @@
 ﻿using BadScript2.Common.Logging;
 using BadScript2.ConsoleCore;
+using BadScript2.ConsoleCore.Systems.Docs;
 using BadScript2.ConsoleCore.Systems.Html;
 using BadScript2.ConsoleCore.Systems.Run;
 using BadScript2.ConsoleCore.Systems.Settings;
@@ -90,7 +91,8 @@ internal static class BadProgram
             new BadRunSystem(runtime),
             new BadSettingsSystem(runtime),
             new BadHtmlSystem(runtime),
-            new BadRemoteConsoleSystem(runtime)
+            new BadRemoteConsoleSystem(runtime),
+            new BadDocsSystem(runtime)
         );
 
 

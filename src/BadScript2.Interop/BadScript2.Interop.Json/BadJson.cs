@@ -1,6 +1,9 @@
-﻿using BadScript2.Runtime.Interop.Reflection.Objects;
+﻿using BadScript2.Runtime;
+using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 using Newtonsoft.Json.Linq;
 
@@ -76,6 +79,7 @@ public static class BadJson
             BadArray a => ConvertArray(a),
             BadTable t => ConvertTable(t),
             BadReflectedObject ro => JToken.FromObject(ro.Instance),
+            BadFunction f => new JValue(f.ToSafeString()),
             _ => throw new Exception("Unsupported value type: " + value.GetType()),
         };
     }

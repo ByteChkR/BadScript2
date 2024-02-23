@@ -1,3 +1,4 @@
+using BadScript2.Common;
 using BadScript2.Parser.Expressions;
 
 namespace BadScript2.Parser.Operators;
@@ -10,7 +11,7 @@ public class BadInstanceOfExpressionOperator : BadBinaryOperator
 	/// <summary>
 	///     Creates a new Instance Of Operator
 	/// </summary>
-	public BadInstanceOfExpressionOperator() : base(3, "instanceof", false) { }
+	public BadInstanceOfExpressionOperator() : base(3, BadStaticKeys.INSTANCE_OF, false) { }
 
     /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)

@@ -55,7 +55,7 @@ public class BadInstanceOfExpression : BadBinaryExpression
 
         if (right is not BadClassPrototype type)
         {
-            throw BadRuntimeException.Create(context.Scope, "Right side of instanceof must be a class", Position);
+            throw BadRuntimeException.Create(context.Scope, $"Right side of {BadStaticKeys.INSTANCE_OF} must be a class", Position);
         }
 
 
@@ -65,6 +65,6 @@ public class BadInstanceOfExpression : BadBinaryExpression
     /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
-        return "instanceof";
+        return BadStaticKeys.INSTANCE_OF;
     }
 }

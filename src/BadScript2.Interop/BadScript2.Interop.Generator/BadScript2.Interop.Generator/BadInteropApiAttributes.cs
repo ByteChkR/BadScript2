@@ -99,10 +99,12 @@ namespace BadScript2.Interop
     {
         public string? Name { get; }
         public string? Description { get; }
-        public BadParameterAttribute(string? name = null, string? description = null)
+        public string? NativeType { get; }
+        public BadParameterAttribute(string? name = null, string? description = null, string? nativeType = null)
         {
             Name = name;
             Description = description;
+            NativeType = nativeType;
         }
     }
     

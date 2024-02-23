@@ -31,6 +31,14 @@
               target="tools/net6.0/any/data/settings/Subsystems/New/Directories.json"/>
         <file src="./bin/Release/net6.0/publish/data/settings/Subsystems/Test/Directories.json"
               target="tools/net6.0/any/data/settings/Subsystems/Test/Directories.json"/>
+        <file src="./bin/Release/net6.0/publish/data/settings/Subsystems/Docs/Directories.json"
+              target="tools/net6.0/any/data/settings/Subsystems/Docs/Directories.json"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/docs/docs.bhtml"
+              target="tools/net6.0/any/data/subsystems/docs/docs.bhtml"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/docs/Model.bs"
+              target="tools/net6.0/any/data/subsystems/docs/Model.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/docs/ModelBuilder.bs"
+              target="tools/net6.0/any/data/subsystems/docs/ModelBuilder.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/ChangeVersion.bs"
               target="tools/net6.0/any/data/subsystems/build/scripts/ChangeVersion.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/build/scripts/Clean.bs"

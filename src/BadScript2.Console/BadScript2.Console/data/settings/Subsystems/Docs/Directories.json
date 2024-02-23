@@ -1,0 +1,7 @@
+{
+  "Subsystems": {
+    "Docs": {
+      "RootDirectory": "$(Console.SubsystemDirectory)/docs"
+    }
+  }
+}

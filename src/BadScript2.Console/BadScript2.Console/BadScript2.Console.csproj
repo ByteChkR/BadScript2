@@ -766,6 +766,18 @@
         <None Update="data\subsystems\new\templates\debugger\src\Main.bs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="data\subsystems\docs\docs.bhtml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\docs\Model.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\subsystems\docs\ModelBuilder.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\settings\Subsystems\Docs\Directories.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Content Include="data\subsystems\new\templates\app\project.bsproj">
@@ -780,5 +792,8 @@
         <Content Include="data\subsystems\new\templates\startup\project.bsproj">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="data\subsystems\docs\" />
     </ItemGroup>
 </Project>

@@ -1,0 +1,102 @@
+
+export class ApiInfo
+{
+	const string Name;
+	const string Version;
+	const string AssemblyName;
+	function ApiInfo(string name!, string version!, string assemblyName!)
+	{
+		Name = name;
+		Version = version;
+		AssemblyName = assemblyName;
+	}
+}
+
+export class ParameterModel
+{
+	const string Name;
+	const bool IsNullChecked;
+	const bool IsOptional;
+	const bool IsRestArgs;
+	const Type ParameterType;
+	const string Description;
+	function ParameterModel(string name!, bool isNullChecked!, bool isOptional!, bool isRestArgs!, Type parameterType!, string description!)
+	{
+		Name = name;
+		IsNullChecked = isNullChecked;
+		IsOptional = isOptional;
+		IsRestArgs = isRestArgs;
+		ParameterType = parameterType;
+		Description = description;
+	}
+}
+
+export class ReturnModel
+{
+	const Type ReturnType;
+	const string Description;
+	function ReturnModel(Type returnType!, string description!)
+	{
+		ReturnType = returnType;
+		Description = description;
+	}
+}
+
+export class AbstractModel
+{
+	const string Name;
+	const Type PropertyType;
+	function AbstractModel(string name!, Type propertyType!)
+	{
+		Name = name;
+		PropertyType = propertyType;
+	}
+}
+
+
+export class PropertyModel : AbstractModel
+{
+	const any Value;
+	function PropertyModel(string name!, any value)
+	{
+		const type = value != null ? typeof value : any;
+		base.AbstractModel(name, type);
+		Value = value;
+	}
+}
+
+export class FunctionModel : AbstractModel
+{
+	const ReturnModel Return;
+	const Array Parameters;
+	const string Description;
+	function FunctionModel(string name!, ReturnModel returnModel!, Array parameters!, string description!)
+	{
+		base.AbstractModel(name, Function);
+		Return = returnModel;
+		Parameters = parameters;
+		Description = description;
+	}
+}
+
+export class TableModel : AbstractModel
+{
+	const Array Properties;
+	function TableModel(string name!, Array properties!)
+	{
+		base.AbstractModel(name, Table);
+		Properties = properties;
+	}
+}
+
+export class ApiModel : TableModel
+{
+	const ApiInfo Info;
+	function ApiModel(ApiInfo info!, Array properties!)
+	{
+		base.TableModel(info.Name, properties);
+		Info = info;
+	}
+}
+
+
