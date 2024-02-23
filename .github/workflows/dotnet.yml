@@ -51,7 +51,7 @@ jobs:
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Json/BadScript2.Interop.Json.csproj -p:NuspecFile=./BadScript2.Interop.Json.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.IO/BadScript2.Interop.IO.csproj -p:NuspecFile=./BadScript2.Interop.IO.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Html/BadScript2.Interop.Html.csproj -p:NuspecFile=./BadScript2.Interop.Html.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -p:NuspecFile=./BadScript2.Interop.Generator.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -p:NuspecFile=./BadScript2.Interop.Generator.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Compression/BadScript2.Interop.Compression.csproj -p:NuspecFile=./BadScript2.Interop.Compression.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Common/BadScript2.Interop.Common.csproj -p:NuspecFile=./BadScript2.Interop.Common.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -p:NuspecFile=./BadScript2.Console.nuspec --output ./out --include-symbols --include-source
