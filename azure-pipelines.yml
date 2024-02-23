@@ -39,7 +39,7 @@ steps:
   displayName: Update Nuspec Version
   inputs:
     filePath: './newNugetVersion.ps1'
-    arguments: '-version $(Build.BuildNumber)'
+    arguments: '-version $(Build.BuildNumber) -postfix ewu'
 
 - task: DotNetCoreCLI@2
   displayName: Publish Console Tool
@@ -66,7 +66,7 @@ steps:
     packagesToPack: '**/*.nuspec'
     includesymbols: true
     includesource: true
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'off'
 - task: DotNetCoreCLI@2
   displayName: Publish Nuget Packages
   inputs:
