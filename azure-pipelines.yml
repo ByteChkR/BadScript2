@@ -55,7 +55,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: './src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj'
+    projects: './src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj'
     arguments: '-c Release'
     zipAfterPublish: false
     modifyOutputPath: false

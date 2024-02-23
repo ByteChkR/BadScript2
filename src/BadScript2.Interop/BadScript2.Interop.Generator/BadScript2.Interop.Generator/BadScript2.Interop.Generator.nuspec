@@ -23,6 +23,6 @@
               target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.dll"/>
         <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.dll"
               target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.dll"/>
-        <file src="../../../res/Logo.png" target="Logo.png"/>
+        <file src="../../../../res/Logo.png" target="Logo.png"/>
     </files>
 </package>

@@ -44,11 +44,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Html", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.IO.OpenKM", "BadScript2.Common\BadScript2.IO.OpenKM\BadScript2.IO.OpenKM.csproj", "{A4798EB3-D882-4444-984F-A0406B820DF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Generator", "BadScript2.Interop\BadScript2.Interop.Generator\BadScript2.Interop.Generator.csproj", "{FBB96554-3500-4491-AF1F-2821D806B831}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Generator", "BadScript2.Interop\BadScript2.Interop.Generator\BadScript2.Interop.Generator\BadScript2.Interop.Generator.csproj", "{FBB96554-3500-4491-AF1F-2821D806B831}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Generator", "{E3DB699E-25F0-4A0D-8375-97BB97B2FACB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Generator.Test", "BadScript2.Interop\BadScript2.Interop.Generator.Test\BadScript2.Interop.Generator.Test.csproj", "{266E9623-889A-44D8-87F9-90E62A91DA24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Generator.Test", "BadScript2.Interop\BadScript2.Interop.Generator\BadScript2.Interop.Generator.Test\BadScript2.Interop.Generator.Test.csproj", "{266E9623-889A-44D8-87F9-90E62A91DA24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
