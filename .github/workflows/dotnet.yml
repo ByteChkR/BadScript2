@@ -77,16 +77,16 @@ jobs:
       with:
         name: nugetPackage
     - name: Prep packages
-      run: dotnet nuget add source "https://nuget.pkg.github.com/ByteChkR/index.json" -n github --store-password-in-clear-text -u ByteChkR -p ${{ secrets.NUGET_PACKAGE_TOKEN }}
+      run: dotnet nuget add source "https://nuget.pkg.github.com/ByteChkR/index.json" -n github --store-password-in-clear-text -u ByteChkR -p ${{ secrets.NUGET_API_KEY }}
     - name: Push package to GitHub packages 
-      run: dotnet nuget push nugetPackage/*.symbols.nupkg --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }}  --source "github"
+      run: dotnet nuget push nugetPackage/*.symbols.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
     
     #Create release
     - name: Create Release
       if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_PACKAGE_TOKEN }} 
+        GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }} 
       with:
         tag_name: ${{ needs.build.outputs.Version }}
         release_name: Release ${{ needs.build.outputs.Version }}
@@ -96,4 +96,4 @@ jobs:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
         artifacts: "nugetPackage/*"
-        token: ${{ secrets.NUGET_PACKAGE_TOKEN }}
+        token: ${{ secrets.NUGET_API_KEY }}
