@@ -34,7 +34,7 @@ jobs:
       run: dotnet test ./src/BadScript2.Tests/BadScript2.Tests.csproj
       
     - name: Update Nuget Package Versions
-      run: /usr/bin/pwsh ./newNugetVersion.ps1
+      run: /usr/bin/pwsh ./newNugetVersion.ps1 -version ${{ steps.setcalver.outputs.package_version }}
         
     - name: Publish Console
       run: dotnet publish ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -c Release
@@ -58,7 +58,7 @@ jobs:
         dotnet pack ./src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.csproj -p:NuspecFile=./BadScript2.Interactive.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj -p:NuspecFile=./BadScript2.Debugger.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2.sln -p:NuspecFile=./BadScript2.Full.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=../BadScript2.Full.nuspec --output ./out --include-symbols --include-source
     - name: Upload NuGet package to GitHub
       uses: actions/upload-artifact@v2
       with:
