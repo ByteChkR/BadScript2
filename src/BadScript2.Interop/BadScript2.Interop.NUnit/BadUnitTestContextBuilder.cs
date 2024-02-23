@@ -20,7 +20,7 @@ public class BadUnitTestContextBuilder
     private readonly List<BadNUnitTestCase> m_Cases = new List<BadNUnitTestCase>();
 
     /// <summary>
-    /// The Runtime
+    ///     The Runtime
     /// </summary>
     private readonly BadRuntime m_Runtime;
 
@@ -44,7 +44,10 @@ public class BadUnitTestContextBuilder
                 opts =>
                 {
                     opts.AddApi(new BadNUnitApi());
-                    opts.AddApi(new BadNUnitConsoleApi(this));
+
+                    BadNUnitConsoleApi api = new BadNUnitConsoleApi();
+                    api.SetContext(this);
+                    opts.AddApi(api);
                 }
             );
     }

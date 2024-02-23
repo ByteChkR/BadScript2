@@ -1,6 +1,7 @@
 /// <summary>
 /// Contains the network packets for the remote console
 /// </summary>
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>
@@ -33,7 +34,7 @@ public class BadConsoleClearPacket : BadConsolePacket
         return Packet;
     }
 
-	/// <inheritdoc />
+    /// <inheritdoc />
     public override byte[] Serialize()
     {
         return new[]

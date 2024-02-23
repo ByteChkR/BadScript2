@@ -9,7 +9,7 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 public class BadInterfacePrototype : BadClassPrototype
 {
     /// <summary>
-    /// The Prototype for the Interface Prototype
+    ///     The Prototype for the Interface Prototype
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>(
         "Interface",
@@ -47,7 +47,7 @@ public class BadInterfacePrototype : BadClassPrototype
         m_ConstraintsFunc = constraints;
     }
 
-    
+
     /// <inheritdoc />
     public override bool IsAbstract => true;
 

@@ -6,31 +6,37 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 public enum BadConsolePacketType : byte
 {
     /// <summary>
-    /// Write Packet Type
+    ///     Write Packet Type
     /// </summary>
     Write,
+
     /// <summary>
-    /// Read Packet Type
+    ///     Read Packet Type
     /// </summary>
     Read,
+
     /// <summary>
-    /// Color Packet Type
+    ///     Color Packet Type
     /// </summary>
     Color,
+
     /// <summary>
-    /// Clear Packet Type
+    ///     Clear Packet Type
     /// </summary>
     Clear,
+
     /// <summary>
-    /// Disconnect Packet Type
+    ///     Disconnect Packet Type
     /// </summary>
     Disconnect,
+
     /// <summary>
-    /// HeartBeat Packet Type
+    ///     HeartBeat Packet Type
     /// </summary>
     HeartBeat,
+
     /// <summary>
-    /// Hello Packet Type
+    ///     Hello Packet Type
     /// </summary>
     Hello,
 }

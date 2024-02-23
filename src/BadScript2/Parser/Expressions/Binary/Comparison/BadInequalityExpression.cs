@@ -31,8 +31,9 @@ public class BadInequalityExpression : BadBinaryExpression
     {
         return left.Equals(right) ? BadObject.False : BadObject.True;
     }
+
     /// <summary>
-    /// Executes the expression
+    ///     Executes the expression
     /// </summary>
     /// <param name="caller">The caller.</param>
     /// <param name="left">The left.</param>

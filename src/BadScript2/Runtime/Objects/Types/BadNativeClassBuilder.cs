@@ -53,6 +53,8 @@ public static class BadNativeClassBuilder
         CreateNativeType<BadArray>("Array", ArrayLike),
         CreateNativeType<BadTable>("Table", Enumerable),
         BadScope.Prototype,
+        BadClassPrototype.Prototype,
+        BadRuntimeError.Prototype,
         Enumerable,
         Enumerator,
         Disposable,

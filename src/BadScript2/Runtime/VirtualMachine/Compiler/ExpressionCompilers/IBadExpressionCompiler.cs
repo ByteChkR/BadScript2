@@ -8,7 +8,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 public interface IBadExpressionCompiler
 {
     /// <summary>
-    /// Compiles the given <see cref="BadExpression" /> into a set of <see cref="BadInstruction" />s.
+    ///     Compiles the given <see cref="BadExpression" /> into a set of <see cref="BadInstruction" />s.
     /// </summary>
     /// <param name="compiler">The <see cref="BadCompiler" /> instance to use.</param>
     /// <param name="expression">The <see cref="BadExpression" /> to compile.</param>

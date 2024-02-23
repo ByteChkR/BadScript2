@@ -9,21 +9,22 @@ namespace BadScript2.Parser.Expressions.Types;
 public class BadInterfacePropertyConstraint : BadInterfaceConstraint
 {
     /// <summary>
-    /// The Property Prototype
+    ///     The Property Prototype
     /// </summary>
     private readonly BadClassPrototype? m_Prototype;
+
     /// <summary>
-    /// The Property Name
+    ///     The Property Name
     /// </summary>
     public readonly string Name;
-    
+
     /// <summary>
-    /// The Property Type Expression
+    ///     The Property Type Expression
     /// </summary>
     public readonly BadExpression? Type;
 
     /// <summary>
-    /// Creates a new Property Constraint
+    ///     Creates a new Property Constraint
     /// </summary>
     /// <param name="name">The Property Name</param>
     /// <param name="type">The Property Type Expression</param>
@@ -34,7 +35,7 @@ public class BadInterfacePropertyConstraint : BadInterfaceConstraint
     }
 
     /// <summary>
-    /// Creates a new Property Constraint
+    ///     Creates a new Property Constraint
     /// </summary>
     /// <param name="name">The Property Name</param>
     /// <param name="type">The Property Type Expression</param>

@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Block.Lock;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if there are any expressions in the lock block.
+///     Checks if there are any expressions in the lock block.
 /// </summary>
 public class BadEmptyLockBlockValidator : BadExpressionValidator<BadLockExpression>
 {

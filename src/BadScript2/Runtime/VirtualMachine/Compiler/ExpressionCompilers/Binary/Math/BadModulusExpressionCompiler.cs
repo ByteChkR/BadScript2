@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Binary.Math;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math;
 
 /// <summary>
-/// Compiles the <see cref="BadModulusExpression" />.
+///     Compiles the <see cref="BadModulusExpression" />.
 /// </summary>
 public class BadModulusExpressionCompiler : BadBinaryExpressionCompiler<BadModulusExpression>
 {

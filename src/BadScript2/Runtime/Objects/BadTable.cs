@@ -13,7 +13,7 @@ namespace BadScript2.Runtime.Objects;
 public class BadTable : BadObject, IBadEnumerable
 {
     /// <summary>
-    /// The Prototype for the BadScript Table
+    ///     The Prototype for the BadScript Table
     /// </summary>
     private static BadClassPrototype? s_Prototype;
 
@@ -54,7 +54,7 @@ public class BadTable : BadObject, IBadEnumerable
     public Dictionary<BadObject, BadPropertyInfo> PropertyInfos { get; }
 
     /// <summary>
-    /// Returns the Enumerator for this Table
+    ///     Returns the Enumerator for this Table
     /// </summary>
     /// <returns>The Enumerator for this Table</returns>
     public IEnumerator<BadObject> GetEnumerator()
@@ -77,7 +77,7 @@ public class BadTable : BadObject, IBadEnumerable
     }
 
     /// <summary>
-    /// Returns the Enumerator for this Table
+    ///     Returns the Enumerator for this Table
     /// </summary>
     /// <returns>The Enumerator for this Table</returns>
     IEnumerator IEnumerable.GetEnumerator()
@@ -122,7 +122,7 @@ public class BadTable : BadObject, IBadEnumerable
 
 
     /// <summary>
-    /// Returns a Reference to the Property with the given Name
+    ///     Returns a Reference to the Property with the given Name
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <param name="useExtensions">Use Extension Properties</param>
@@ -134,7 +134,7 @@ public class BadTable : BadObject, IBadEnumerable
     }
 
     /// <summary>
-    /// Returns a Reference to a Local Property with the given Name
+    ///     Returns a Reference to a Local Property with the given Name
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <returns>The Property Reference</returns>

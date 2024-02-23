@@ -2,6 +2,7 @@ using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the BadScript2 Constant Folding Optimizations
 /// </summary>

@@ -8,7 +8,7 @@
         <dependencies>
             <group targetFramework=".NETStandard2.0"/>
         </dependencies>
-        <version xmlns="">23.11.6.1</version>
+        <version xmlns="">24.2.22.0</version>
     </metadata>
     <files>
         <file src="./bin/Release/netstandard2.0/BadScript2.ConsoleAbstraction.dll"

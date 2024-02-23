@@ -25,7 +25,7 @@ public class BadTaskRunnerApi : BadInteropApi
         m_Runner = runner;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void LoadApi(BadTable target)
     {
         target.SetFunction<BadTask>("Run", AddTask);

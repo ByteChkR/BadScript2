@@ -1,5 +1,4 @@
 using BadScript2.Common;
-using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 
@@ -10,13 +9,6 @@ namespace BadScript2.Parser.Expressions.Block;
 /// </summary>
 public class BadUsingStatementExpression : BadExpression
 {
-    /// <summary>
-    ///     The Expression defining the object
-    /// </summary>
-    private readonly BadExpression m_Expression;
-    
-    public BadExpression Expression => m_Expression;
-
     /// <summary>
     ///     The name of the variable that holds the object
     /// </summary>
@@ -31,20 +23,25 @@ public class BadUsingStatementExpression : BadExpression
     public BadUsingStatementExpression(BadSourcePosition position, string name, BadExpression expression) : base(false, position)
     {
         Name = name;
-        m_Expression = expression;
+        Expression = expression;
     }
+
+    /// <summary>
+    ///     The Expression defining the object
+    /// </summary>
+    public BadExpression Expression { get; }
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
-        return m_Expression.GetDescendantsAndSelf();
+        return Expression.GetDescendantsAndSelf();
     }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         //Run expression
-        foreach (BadObject o in context.Execute(m_Expression))
+        foreach (BadObject o in context.Execute(Expression))
         {
             yield return o;
         }

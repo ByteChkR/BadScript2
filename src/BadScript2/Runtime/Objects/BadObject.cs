@@ -8,29 +8,32 @@ using BadScript2.Runtime.Settings;
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>
-/// The Base Class for all BadScript Objects
+///     The Base Class for all BadScript Objects
 /// </summary>
 public abstract class BadObject
 {
     /// <summary>
-    /// The Any Prototype for the BadScript Language
+    ///     The Any Prototype for the BadScript Language
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadAnyPrototype.Instance;
 
     /// <summary>
-    /// The String Cache for the BadScript Language
+    ///     The String Cache for the BadScript Language
     /// </summary>
     private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
+
     /// <summary>
-    /// The Null Value for the BadScript Language
+    ///     The Null Value for the BadScript Language
     /// </summary>
     public static readonly BadObject Null = new BadNullObject();
+
     /// <summary>
-    /// The True Value for the BadScript Language
+    ///     The True Value for the BadScript Language
     /// </summary>
     public static readonly BadObject True = new BadBoolean(true);
+
     /// <summary>
-    /// The False Value for the BadScript Language
+    ///     The False Value for the BadScript Language
     /// </summary>
     public static readonly BadObject False = new BadBoolean(false);
 
@@ -41,7 +44,7 @@ public abstract class BadObject
     public abstract BadClassPrototype GetPrototype();
 
     /// <summary>
-    /// Returns true if the given object cam be wrapped
+    ///     Returns true if the given object cam be wrapped
     /// </summary>
     /// <param name="o">The Object</param>
     /// <returns>True if the given object cam be wrapped</returns>
@@ -51,7 +54,7 @@ public abstract class BadObject
     }
 
     /// <summary>
-    /// Wraps the given object into a BadObject Instance
+    ///     Wraps the given object into a BadObject Instance
     /// </summary>
     /// <param name="obj">The Object</param>
     /// <param name="allowNative">Allow Native Wrapping</param>
@@ -144,7 +147,7 @@ public abstract class BadObject
     }
 
     /// <summary>
-    /// Converts the given object to a BadObject Instance
+    ///     Converts the given object to a BadObject Instance
     /// </summary>
     /// <param name="b">The Object</param>
     /// <returns>The BadObject Instance</returns>
@@ -164,7 +167,7 @@ public abstract class BadObject
     }
 
     /// <summary>
-    /// Converts the given object to a BadObject Instance
+    ///     Converts the given object to a BadObject Instance
     /// </summary>
     /// <param name="b">The Object</param>
     /// <returns>The BadObject Instance</returns>
@@ -184,7 +187,7 @@ public abstract class BadObject
     }
 
     /// <summary>
-    /// Converts the given object to a BadObject Instance
+    ///     Converts the given object to a BadObject Instance
     /// </summary>
     /// <param name="b">The Object</param>
     /// <returns>The BadObject Instance</returns>
@@ -214,15 +217,14 @@ public abstract class BadObject
     /// </summary>
     private class BadNullObject : BadObject, IBadNative
     {
-        
-        /// <inheritdoc cref="IBadNative.Value"/>
+        /// <inheritdoc cref="IBadNative.Value" />
         public object Value => null!;
 
-        /// <inheritdoc cref="IBadNative.Type"/>
+        /// <inheritdoc cref="IBadNative.Type" />
         public Type Type => typeof(object);
 
         /// <summary>
-        /// Returns the Prototype for the Null Object
+        ///     Returns the Prototype for the Null Object
         /// </summary>
         /// <param name="other">The Other Object</param>
         /// <returns>True if the Objects are equal</returns>
@@ -231,7 +233,7 @@ public abstract class BadObject
             return Equals((object?)other);
         }
 
-        
+
         /// <inheritdoc />
         public override BadClassPrototype GetPrototype()
         {

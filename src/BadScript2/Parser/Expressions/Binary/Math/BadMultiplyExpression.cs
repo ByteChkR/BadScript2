@@ -81,6 +81,7 @@ public class BadMultiplyExpression : BadBinaryExpression
             yield return o;
         }
     }
+
     /// <summary>
     ///     Executes the Operator with operator overrides
     /// </summary>

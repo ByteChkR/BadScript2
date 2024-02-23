@@ -4,7 +4,7 @@ using BadScript2.Parser.Expressions.Function;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if the function has no return type but returns a value.
+///     Checks if the function has no return type but returns a value.
 /// </summary>
 public class
     BadFunctionWithoutReturnTypeHasReturnWithExpressionValidator : BadReturnExpressionValidator

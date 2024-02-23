@@ -77,7 +77,7 @@ public class BadScriptDebuggerExtension : BadInteropExtension
     }
 
     /// <summary>
-    /// Returns the Source View for the Debugger Step
+    ///     Returns the Source View for the Debugger Step
     /// </summary>
     /// <param name="step">The Debugger Step</param>
     /// <param name="breakpoints">The Breakpoints</param>

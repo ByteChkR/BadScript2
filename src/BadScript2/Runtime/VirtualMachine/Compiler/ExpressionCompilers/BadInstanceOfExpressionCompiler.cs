@@ -3,9 +3,8 @@ using BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
-
 /// <summary>
-/// Compiles the <see cref="BadInstanceOfExpression" />.
+///     Compiles the <see cref="BadInstanceOfExpression" />.
 /// </summary>
 public class BadInstanceOfExpressionCompiler : BadBinaryExpressionCompiler<BadInstanceOfExpression>
 {

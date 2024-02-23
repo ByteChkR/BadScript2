@@ -5,6 +5,7 @@ using BadScript2.Common.Logging;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Reflection.Objects.Members;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Classes for Reflection Objects
 /// </summary>
@@ -17,18 +18,18 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects;
 public class BadReflectedMemberTable
 {
     /// <summary>
-    /// The Member Table Cache
+    ///     The Member Table Cache
     /// </summary>
     private static readonly Dictionary<Type, BadReflectedMemberTable> s_TableCache =
         new Dictionary<Type, BadReflectedMemberTable>();
 
     /// <summary>
-    /// The Reflected Members
+    ///     The Reflected Members
     /// </summary>
     private readonly Dictionary<string, BadReflectedMember> m_Members;
 
     /// <summary>
-    /// Creates a new BadReflectedMemberTable
+    ///     Creates a new BadReflectedMemberTable
     /// </summary>
     /// <param name="members">The Reflected Members</param>
     private BadReflectedMemberTable(Dictionary<string, BadReflectedMember> members)
@@ -37,12 +38,12 @@ public class BadReflectedMemberTable
     }
 
     /// <summary>
-    /// The Member Names
+    ///     The Member Names
     /// </summary>
     public IEnumerable<string> MemberNames => m_Members.Keys;
 
     /// <summary>
-    /// Returns true if the Member Table contains the given Member
+    ///     Returns true if the Member Table contains the given Member
     /// </summary>
     /// <param name="name">The Member Name</param>
     /// <returns>True if the Member Table contains the given Member</returns>
@@ -52,7 +53,7 @@ public class BadReflectedMemberTable
     }
 
     /// <summary>
-    /// Returns a reference to the Member with the given Name
+    ///     Returns a reference to the Member with the given Name
     /// </summary>
     /// <param name="instance">Instance to get the Member from</param>
     /// <param name="name">The Member Name</param>
@@ -71,7 +72,7 @@ public class BadReflectedMemberTable
     }
 
     /// <summary>
-    /// Creates a new Member Table for the given Type
+    ///     Creates a new Member Table for the given Type
     /// </summary>
     /// <typeparam name="T">The Type to create the Member Table for</typeparam>
     /// <returns>The Member Table</returns>
@@ -81,7 +82,7 @@ public class BadReflectedMemberTable
     }
 
     /// <summary>
-    /// Creates a new Member Table for the given Type
+    ///     Creates a new Member Table for the given Type
     /// </summary>
     /// <param name="t">The Type to create the Member Table for</param>
     /// <returns>The Member Table</returns>
@@ -100,7 +101,7 @@ public class BadReflectedMemberTable
     }
 
     /// <summary>
-    /// Creates a new Member Table for the given Type
+    ///     Creates a new Member Table for the given Type
     /// </summary>
     /// <param name="t">The Type to create the Member Table for</param>
     /// <returns>The Member Table</returns>

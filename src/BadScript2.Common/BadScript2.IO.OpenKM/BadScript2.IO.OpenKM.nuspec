@@ -7,11 +7,11 @@
         <description>OpenKM IO Api Wrapper</description>
         <dependencies>
             <group targetFramework=".NETStandard2.1">
-                <dependency id="BadScript2" version="1.0.0" exclude="Build,Analyzers"/>
+                <dependency id="BadScript2" version="24.2.22.0" exclude="Build,Analyzers"/>
                 <dependency id="ewu.adam.openkm.rest" version="23.11.24.2" exclude="Build,Analyzers"/>
             </group>
         </dependencies>
-        <version xmlns="">23.11.6.1</version>
+        <version xmlns="">24.2.22.0</version>
     </metadata>
     <files>
         <file src="./bin/Release/netstandard2.1/BadScript2.IO.OpenKM.dll"

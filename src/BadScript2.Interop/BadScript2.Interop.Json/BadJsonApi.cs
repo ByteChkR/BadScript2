@@ -1,9 +1,6 @@
+using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
-using BadScript2.Runtime.Interop.Functions;
-using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Functions;
-using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
 
 namespace BadScript2.Interop.Json;
@@ -11,42 +8,38 @@ namespace BadScript2.Interop.Json;
 /// <summary>
 ///     Implements the "Json" Api
 /// </summary>
-public class BadJsonApi : BadInteropApi
+[BadInteropApi("Json")]
+internal partial class BadJsonApi
 {
-    /// <summary>
-    ///     Creates a new "Json" Api
-    /// </summary>
-    public BadJsonApi() : base("Json") { }
-
-    /// <inheritdoc/>
-    protected override void LoadApi(BadTable target)
+    [BadMethod(description: "Converts a JSON String to a BadObject")]
+    [return: BadReturn("The Parsed Object")]
+    private BadObject FromJson(BadExecutionContext ctx, [BadParameter(description: "The JSON String")] string str)
     {
-        target.SetProperty(
-            "FromJson",
-            new BadDynamicInteropFunction<string>(
-                "FromJson",
-                (ctx, str) =>
-                {
-                    try
-                    {
-                        return BadJson.FromJson(str);
-                    }
-                    catch (Exception e)
-                    {
-                        ctx.Scope.SetError(e.Message, null);
-                    }
+        try
+        {
+            return BadJson.FromJson(str);
+        }
+        catch (Exception e)
+        {
+            ctx.Scope.SetError(e.Message, null);
+        }
 
-                    return BadObject.Null;
-                },
-                BadAnyPrototype.Instance,
-                new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
-            )
-        );
-        target.SetFunction<BadObject>("ToJson", o => BadJson.ToJson(o), BadNativeClassBuilder.GetNative("string"));
+        return BadObject.Null;
+    }
+
+    [BadMethod(description: "Converts a BadObject to a JSON String")]
+    [return: BadReturn("The JSON String")]
+    private string ToJson([BadParameter(description: "The Object to be converted.")] BadObject o)
+    {
+        return BadJson.ToJson(o);
+    }
+
+    protected override void AdditionalData(BadTable target)
+    {
         target.SetProperty(
             "Settings",
             new BadSettingsObject(BadSettingsProvider.RootSettings),
-            new BadPropertyInfo(BadSettingsObject.Prototype)
+            new BadPropertyInfo(BadSettingsObject.Prototype, true)
         );
     }
 }

@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Expressions for the BadScript2 Language
 /// </summary>

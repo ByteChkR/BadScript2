@@ -85,7 +85,7 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
         }
     }
 
-	/// <inheritdoc cref="BadExpression.InnerExecute" />
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -119,7 +119,7 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
         }
     }
 
-	/// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
+    /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {
         return "**=";

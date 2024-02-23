@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BadScript2.Generator.Test</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\BadScript2.Common\BadScript2.Interactive\BadScript2.Interactive.csproj"/>
+        <ProjectReference Include="..\..\..\BadScript2\BadScript2.csproj"/>
+        <ProjectReference Include="..\..\BadScript2.Interop.Common\BadScript2.Interop.Common.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop.Generator\BadScript2.Interop.Generator.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+</Project>

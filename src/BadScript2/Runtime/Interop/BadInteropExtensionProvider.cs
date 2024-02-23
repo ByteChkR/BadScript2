@@ -31,12 +31,12 @@ public class BadInteropExtensionProvider
         new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
 
     /// <summary>
-    /// Creates a new BadInteropExtensionProvider
+    ///     Creates a new BadInteropExtensionProvider
     /// </summary>
     public BadInteropExtensionProvider() { }
 
     /// <summary>
-    /// Creates a new BadInteropExtensionProvider
+    ///     Creates a new BadInteropExtensionProvider
     /// </summary>
     /// <param name="extensions">The Extensions to add</param>
     public BadInteropExtensionProvider(BadInteropExtension[] extensions)
@@ -311,7 +311,7 @@ public class BadInteropExtensionProvider
     }
 
     /// <summary>
-    /// Adds the specified extensions to the list of registered extensions
+    ///     Adds the specified extensions to the list of registered extensions
     /// </summary>
     /// <param name="extensions">The Extensions to add</param>
     public void AddExtensions(params BadInteropExtension[] extensions)
@@ -323,7 +323,7 @@ public class BadInteropExtensionProvider
     }
 
     /// <summary>
-    /// Adds the specified extension to the list of registered extensions
+    ///     Adds the specified extension to the list of registered extensions
     /// </summary>
     /// <param name="extension">The Extension to add</param>
     public void AddExtension(BadInteropExtension extension)
@@ -332,7 +332,7 @@ public class BadInteropExtensionProvider
     }
 
     /// <summary>
-    /// Initializes the extension
+    ///     Initializes the extension
     /// </summary>
     /// <param name="ext">The Extension to initialize</param>
     private void Initialize(BadInteropExtension ext)

@@ -2,6 +2,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Interop Function Classes for the BadScript2 Language
 /// </summary>
@@ -13,12 +14,12 @@ namespace BadScript2.Runtime.Interop.Functions;
 public class BadDynamicInteropFunction : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, BadObject> m_Func;
 
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -40,7 +41,7 @@ public class BadDynamicInteropFunction : BadFunction
     }
 
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -67,7 +68,7 @@ public class BadDynamicInteropFunction : BadFunction
     }
 
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -102,7 +103,7 @@ public class BadDynamicInteropFunction : BadFunction
     }
 
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -123,11 +124,12 @@ public class BadDynamicInteropFunction : BadFunction
 public class BadDynamicInteropFunction<T> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -155,8 +157,9 @@ public class BadDynamicInteropFunction<T> : BadFunction
 
         yield return m_Func.Invoke(caller, GetParameter(args, 0).Unwrap<T>());
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -179,11 +182,12 @@ public class BadDynamicInteropFunction<T> : BadFunction
 public class BadDynamicInteropFunction<T1, T2> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -215,8 +219,9 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
             GetParameter(args, 1).Unwrap<T2>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -241,11 +246,12 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
 public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -278,8 +284,9 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
             GetParameter(args, 2).Unwrap<T3>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -307,11 +314,12 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
 public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -345,8 +353,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
             GetParameter(args, 3).Unwrap<T4>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -376,11 +385,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -415,8 +425,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
             GetParameter(args, 4).Unwrap<T5>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -448,11 +459,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -488,8 +500,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
             GetParameter(args, 5).Unwrap<T6>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -523,11 +536,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -564,8 +578,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
             GetParameter(args, 6).Unwrap<T7>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -601,11 +616,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -643,8 +659,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
             GetParameter(args, 7).Unwrap<T8>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -682,11 +699,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -725,8 +743,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
             GetParameter(args, 8).Unwrap<T9>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -766,11 +785,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -810,8 +830,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
             GetParameter(args, 9).Unwrap<T10>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -853,11 +874,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -898,8 +920,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             GetParameter(args, 10).Unwrap<T11>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -943,11 +966,12 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, BadObject> m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -989,8 +1013,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             GetParameter(args, 11).Unwrap<T12>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -1036,12 +1061,13 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, BadObject>
         m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -1084,8 +1110,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             GetParameter(args, 12).Unwrap<T13>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -1133,12 +1160,13 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, BadObject>
         m_Func;
+
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -1182,8 +1210,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             GetParameter(args, 13).Unwrap<T14>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>
@@ -1234,13 +1263,13 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
 public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15,
         BadObject> m_Func;
 
     /// <summary>
-    /// Creates a new BadDynamicInteropFunction
+    ///     Creates a new BadDynamicInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -1285,8 +1314,9 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
             GetParameter(args, 14).Unwrap<T15>()
         );
     }
+
     /// <summary>
-    /// Converts a Function Lambda to a BadDynamicInteropFunction
+    ///     Converts a Function Lambda to a BadDynamicInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <returns>A new BadDynamicInteropFunction</returns>

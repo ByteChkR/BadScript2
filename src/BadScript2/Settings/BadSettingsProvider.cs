@@ -8,28 +8,28 @@ namespace BadScript2.Settings;
 public static class BadSettingsProvider
 {
 	/// <summary>
-	/// The Root Settings Object
+	///     The Root Settings Object
 	/// </summary>
-    private static BadSettings? s_RootSettings;
+	private static BadSettings? s_RootSettings;
 
-    /// <summary>
-    ///     Returns true if the root setting has been set
-    /// </summary>
-    public static bool HasRootSettings => s_RootSettings != null;
+	/// <summary>
+	///     Returns true if the root setting has been set
+	/// </summary>
+	public static bool HasRootSettings => s_RootSettings != null;
 
-    /// <summary>
-    ///     Returns the Root Settings Object
-    /// </summary>
-    /// <exception cref="BadRuntimeException">Gets raised if the Root Settings Object has not been set.</exception>
-    public static BadSettings RootSettings =>
+	/// <summary>
+	///     Returns the Root Settings Object
+	/// </summary>
+	/// <exception cref="BadRuntimeException">Gets raised if the Root Settings Object has not been set.</exception>
+	public static BadSettings RootSettings =>
         s_RootSettings ??
         throw new BadRuntimeException("BadSettingsProvider.RootSettings is not initialized");
 
-    /// <summary>
-    ///     Sets the Root Settings Object
-    /// </summary>
-    /// <param name="settings">Root Settings</param>
-    public static void SetRootSettings(BadSettings settings)
+	/// <summary>
+	///     Sets the Root Settings Object
+	/// </summary>
+	/// <param name="settings">Root Settings</param>
+	public static void SetRootSettings(BadSettings settings)
     {
         s_RootSettings = settings;
     }

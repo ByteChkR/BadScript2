@@ -51,6 +51,7 @@ public class BadDivideExpression : BadBinaryExpression
 
         throw new BadRuntimeException($"Can not apply operator '/' to {left} and {right}", pos);
     }
+
     /// <summary>
     ///     Executes the Operator with operator overrides
     /// </summary>

@@ -3,20 +3,22 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2;
 
 /// <summary>
-/// Gets returned by the bad runtime when an execution is finished
+///     Gets returned by the bad runtime when an execution is finished
 /// </summary>
 public readonly struct BadRuntimeExecutionResult
 {
     /// <summary>
-    /// The Result of the Execution
+    ///     The Result of the Execution
     /// </summary>
     public readonly BadObject Result;
+
     /// <summary>
-    /// The Exported Object
+    ///     The Exported Object
     /// </summary>
     public readonly BadObject? Exports;
+
     /// <summary>
-    /// Creates a new BadRuntimeExecutionResult
+    ///     Creates a new BadRuntimeExecutionResult
     /// </summary>
     /// <param name="result">The Result of the Execution</param>
     /// <param name="exports">The Exported Object</param>

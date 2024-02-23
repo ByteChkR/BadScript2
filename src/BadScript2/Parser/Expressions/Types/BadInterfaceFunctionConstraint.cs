@@ -14,7 +14,7 @@ namespace BadScript2.Parser.Expressions.Types;
 public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 {
     /// <summary>
-    /// The Return Type Prototype
+    ///     The Return Type Prototype
     /// </summary>
     private readonly BadClassPrototype? m_Prototype;
 

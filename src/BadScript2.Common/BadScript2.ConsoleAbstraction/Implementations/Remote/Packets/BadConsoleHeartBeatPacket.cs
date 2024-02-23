@@ -5,15 +5,15 @@ namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 /// </summary>
 public class BadConsoleHeartBeatPacket : BadConsolePacket
 {
-	/// <summary>
-	///     Static Instance of this Packet
-	/// </summary>
-	public static readonly BadConsoleHeartBeatPacket Packet = new BadConsoleHeartBeatPacket();
+    /// <summary>
+    ///     Static Instance of this Packet
+    /// </summary>
+    public static readonly BadConsoleHeartBeatPacket Packet = new BadConsoleHeartBeatPacket();
 
-	/// <summary>
-	///     Private Constructor
-	/// </summary>
-	private BadConsoleHeartBeatPacket() { }
+    /// <summary>
+    ///     Private Constructor
+    /// </summary>
+    private BadConsoleHeartBeatPacket() { }
 
     /// <inheritdoc />
     public override byte[] Serialize()

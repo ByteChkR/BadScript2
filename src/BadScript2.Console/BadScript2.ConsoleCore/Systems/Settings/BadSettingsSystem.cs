@@ -12,15 +12,15 @@ namespace BadScript2.ConsoleCore.Systems.Settings;
 public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 {
     /// <summary>
-    /// Creates a new BadSettingsSystem instance
+    ///     Creates a new BadSettingsSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
     public BadSettingsSystem(BadRuntime runtime) : base(runtime) { }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override string Name => "settings";
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override int Run(BadSettingsSystemSettings settings)
     {
         BadSettings? setting = string.IsNullOrEmpty(settings.Path) ? BadSettingsProvider.RootSettings : BadSettingsProvider.RootSettings.FindProperty(settings.Path);

@@ -24,28 +24,28 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
 	/// </summary>
 	public string Name { get; }
 
-	/// <summary>
-	///     Returns the String representation of the Variable Expression
-	/// </summary>
-	/// <returns>String Representation</returns>
-	public override string ToString()
+    /// <inheritdoc cref="IBadNamedExpression.GetName" />
+    public string? GetName()
     {
         return Name;
     }
 
-	/// <inheritdoc cref="IBadNamedExpression.GetName" />
-	public string? GetName()
-	{
-		return Name;
-	}
+    /// <summary>
+    ///     Returns the String representation of the Variable Expression
+    /// </summary>
+    /// <returns>String Representation</returns>
+    public override string ToString()
+    {
+        return Name;
+    }
 
-	/// <inheritdoc cref="BadExpression.GetDescendants" />
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield break;
     }
 
-	/// <inheritdoc cref="BadExpression.InnerExecute" />
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject name = BadObject.Wrap(Name);

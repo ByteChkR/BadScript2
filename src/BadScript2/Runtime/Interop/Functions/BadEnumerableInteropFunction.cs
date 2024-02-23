@@ -11,12 +11,12 @@ namespace BadScript2.Runtime.Interop.Functions;
 public class BadEnumerableInteropFunction : BadFunction
 {
     /// <summary>
-    /// The Function Lambda
+    ///     The Function Lambda
     /// </summary>
     private readonly Func<BadExecutionContext, BadObject[], IEnumerable<BadObject>> m_Func;
 
     /// <summary>
-    /// Creates a new BadInteropFunction
+    ///     Creates a new BadInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -34,7 +34,7 @@ public class BadEnumerableInteropFunction : BadFunction
     }
 
     /// <summary>
-    /// Creates a new BadInteropFunction
+    ///     Creates a new BadInteropFunction
     /// </summary>
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
@@ -53,7 +53,7 @@ public class BadEnumerableInteropFunction : BadFunction
 
 
     /// <summary>
-    /// Creates a new BadInteropFunction
+    ///     Creates a new BadInteropFunction
     /// </summary>
     /// <param name="func">The Function Lambda</param>
     /// <param name="isStatic">Indicates if the Function is Static</param>
@@ -77,7 +77,7 @@ public class BadEnumerableInteropFunction : BadFunction
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
         CheckParameters(args, caller);

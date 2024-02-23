@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 /// <summary>
 /// Contains the Atomic Math Expressions for the BadScript2 Language
 /// </summary>
@@ -31,7 +32,7 @@ public class BadPostDecrementExpression : BadExpression
         Left = left;
     }
 
-    
+
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
@@ -40,7 +41,7 @@ public class BadPostDecrementExpression : BadExpression
 
 
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="reference">Reference to the left side of the expression</param>
     /// <param name="position">Position of the expression</param>
@@ -61,7 +62,7 @@ public class BadPostDecrementExpression : BadExpression
     }
 
     /// <summary>
-    /// Executes the Operator
+    ///     Executes the Operator
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="leftRef">Reference to the left side of the expression</param>

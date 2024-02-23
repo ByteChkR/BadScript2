@@ -14,6 +14,9 @@
         <ProjectReference Include="..\BadScript2.Interop.IO\BadScript2.Interop.IO.csproj"/>
         <ProjectReference Include="..\BadScript2.Interop.Json\BadScript2.Interop.Json.csproj"/>
         <ProjectReference Include="..\BadScript2.Interop.Linq\BadScript2.Interop.Linq.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop.Generator\BadScript2.Interop.Generator\BadScript2.Interop.Generator.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="NUnit" Version="4.0.1"/>

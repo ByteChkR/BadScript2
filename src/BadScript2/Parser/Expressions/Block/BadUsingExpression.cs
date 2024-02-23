@@ -23,7 +23,7 @@ public class BadUsingExpression : BadExpression
     public readonly string Name;
 
     /// <summary>
-    /// The definition of the object
+    ///     The definition of the object
     /// </summary>
     private BadExpression m_Definition;
 
@@ -44,9 +44,9 @@ public class BadUsingExpression : BadExpression
     ///     Creates a new Using Expression
     /// </summary>
     public IEnumerable<BadExpression> Expressions => m_Expressions;
-    
+
     /// <summary>
-    /// The definition of the object
+    ///     The definition of the object
     /// </summary>
     public BadExpression Definition => m_Definition;
 

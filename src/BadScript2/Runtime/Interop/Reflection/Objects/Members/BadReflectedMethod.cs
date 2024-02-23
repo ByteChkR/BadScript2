@@ -14,12 +14,12 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 public class BadReflectedMethod : BadReflectedMember
 {
     /// <summary>
-    /// The Reflected Methods
+    ///     The Reflected Methods
     /// </summary>
     private readonly List<MethodInfo> m_Methods = new List<MethodInfo>();
 
     /// <summary>
-    /// Creates a new BadReflectedMethod
+    ///     Creates a new BadReflectedMethod
     /// </summary>
     /// <param name="method">The Reflected Method</param>
     public BadReflectedMethod(MethodInfo method) : base(method.Name)
@@ -27,12 +27,12 @@ public class BadReflectedMethod : BadReflectedMember
         m_Methods.Add(method);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsReadOnly => true;
 
 
     /// <summary>
-    /// Adds a Method to the Reflected Method
+    ///     Adds a Method to the Reflected Method
     /// </summary>
     /// <param name="method">The Method to add</param>
     public void AddMethod(MethodInfo method)
@@ -41,7 +41,7 @@ public class BadReflectedMethod : BadReflectedMember
     }
 
     /// <summary>
-    /// Creates a new Function for the Reflected Method
+    ///     Creates a new Function for the Reflected Method
     /// </summary>
     /// <param name="instance">The Instance to create the Function for</param>
     /// <returns>The Function</returns>
@@ -59,7 +59,7 @@ public class BadReflectedMethod : BadReflectedMember
     }
 
     /// <summary>
-    /// Indicates if the given Object can be converted to the given Type
+    ///     Indicates if the given Object can be converted to the given Type
     /// </summary>
     /// <param name="o">The Object to convert</param>
     /// <param name="t">The Type to convert to</param>
@@ -92,7 +92,7 @@ public class BadReflectedMethod : BadReflectedMember
     }
 
     /// <summary>
-    /// Converts the given Object to the given Type
+    ///     Converts the given Object to the given Type
     /// </summary>
     /// <param name="o">The Object to convert</param>
     /// <param name="t">The Type to convert to</param>
@@ -135,7 +135,7 @@ public class BadReflectedMethod : BadReflectedMember
     }
 
     /// <summary>
-    /// Finds the Implementation of the Method that matches the given Arguments
+    ///     Finds the Implementation of the Method that matches the given Arguments
     /// </summary>
     /// <param name="instance">The Instance to find the Implementation for</param>
     /// <param name="args">The Arguments to find the Implementation for</param>
@@ -190,7 +190,7 @@ public class BadReflectedMethod : BadReflectedMember
     }
 
     /// <summary>
-    /// Invokes the Method with the given Arguments
+    ///     Invokes the Method with the given Arguments
     /// </summary>
     /// <param name="instance">The Instance to invoke the Method on</param>
     /// <param name="args">The Arguments to invoke the Method with</param>
@@ -202,13 +202,13 @@ public class BadReflectedMethod : BadReflectedMember
         return Wrap(info.Invoke(instance, implArgs));
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObject Get(object? instance)
     {
         return CreateFunction(instance);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Set(object? instance, BadObject o)
     {
         throw new BadRuntimeException("Can not set a value to a method");

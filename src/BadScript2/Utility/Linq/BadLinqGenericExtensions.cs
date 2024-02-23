@@ -14,7 +14,7 @@ namespace BadScript2.Utility.Linq;
 public static class BadLinqGenericExtensions
 {
     /// <summary>
-    /// Select Lambda Function
+    ///     Select Lambda Function
     /// </summary>
     /// <param name="varName">The Variable Name</param>
     /// <param name="query">The Query Expression</param>
@@ -72,12 +72,16 @@ public static class BadLinqGenericExtensions
 
 
     /// <summary>
-    /// Returns the first element in the enumerable that matches the given predicate or the default value if no element matches the predicate.
+    ///     Returns the first element in the enumerable that matches the given predicate or the default value if no element
+    ///     matches the predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to search.</param>
     /// <param name="predicate">The predicate to match.</param>
     /// <typeparam name="T">The enumerable type.</typeparam>
-    /// <returns>The first element in the enumerable that matches the given predicate or the default value if no element matches the predicate.</returns>
+    /// <returns>
+    ///     The first element in the enumerable that matches the given predicate or the default value if no element
+    ///     matches the predicate.
+    /// </returns>
     public static T FirstOrDefault<T>(this IEnumerable<T> enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
@@ -87,12 +91,16 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Returns the first element in the enumerable that matches the given predicate or throws an exception if no element matches the predicate.
+    ///     Returns the first element in the enumerable that matches the given predicate or throws an exception if no element
+    ///     matches the predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to search.</param>
     /// <param name="predicate">The predicate to match.</param>
     /// <typeparam name="T">The enumerable type.</typeparam>
-    /// <returns>The first element in the enumerable that matches the given predicate or throws an exception if no element matches the predicate.</returns>
+    /// <returns>
+    ///     The first element in the enumerable that matches the given predicate or throws an exception if no element
+    ///     matches the predicate.
+    /// </returns>
     public static T First<T>(this IEnumerable<T> enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
@@ -102,12 +110,16 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Returns the last element in the enumerable that matches the given predicate or the default value if no element matches the predicate.
+    ///     Returns the last element in the enumerable that matches the given predicate or the default value if no element
+    ///     matches the predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to search.</param>
     /// <param name="predicate">The predicate to match.</param>
     /// <typeparam name="T">The enumerable type.</typeparam>
-    /// <returns>The last element in the enumerable that matches the given predicate or the default value if no element matches the predicate.</returns>
+    /// <returns>
+    ///     The last element in the enumerable that matches the given predicate or the default value if no element matches
+    ///     the predicate.
+    /// </returns>
     public static T LastOrDefault<T>(this IEnumerable<T> enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
@@ -117,12 +129,16 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Returns the last element in the enumerable that matches the given predicate or throws an exception if no element matches the predicate.
+    ///     Returns the last element in the enumerable that matches the given predicate or throws an exception if no element
+    ///     matches the predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to search.</param>
     /// <param name="predicate">The predicate to match.</param>
     /// <typeparam name="T">The enumerable type.</typeparam>
-    /// <returns>The last element in the enumerable that matches the given predicate or throws an exception if no element matches the predicate.</returns>
+    /// <returns>
+    ///     The last element in the enumerable that matches the given predicate or throws an exception if no element
+    ///     matches the predicate.
+    /// </returns>
     public static T Last<T>(this IEnumerable<T> enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
@@ -132,7 +148,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Selects a property from the given enumerables elements.
+    ///     Selects a property from the given enumerables elements.
     /// </summary>
     /// <param name="enumerable">The enumerable to select from.</param>
     /// <param name="predicate">The predicate to select the property.</param>
@@ -148,7 +164,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Selects a property from the given enumerables elements and flattens the result.
+    ///     Selects a property from the given enumerables elements and flattens the result.
     /// </summary>
     /// <param name="enumerable">The enumerable to select from.</param>
     /// <param name="predicate">The predicate to select the property.</param>
@@ -180,7 +196,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Orders the given enumerable by the given predicate.
+    ///     Orders the given enumerable by the given predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to order.</param>
     /// <param name="predicate">The predicate to order by.</param>
@@ -195,7 +211,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Orders the given enumerable by the given predicate in descending order.
+    ///     Orders the given enumerable by the given predicate in descending order.
     /// </summary>
     /// <param name="enumerable">The enumerable to order.</param>
     /// <param name="predicate">The predicate to order by.</param>
@@ -210,7 +226,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Skips the elements while the given predicate is true.
+    ///     Skips the elements while the given predicate is true.
     /// </summary>
     /// <param name="enumerable">The enumerable to skip.</param>
     /// <param name="predicate">The predicate to skip by.</param>
@@ -225,7 +241,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Takes the elements while the given predicate is true.
+    ///     Takes the elements while the given predicate is true.
     /// </summary>
     /// <param name="enumerable">The enumerable to take.</param>
     /// <param name="predicate">The predicate to take by.</param>
@@ -240,7 +256,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Returns true if all elements in the enumerable match the given predicate.
+    ///     Returns true if all elements in the enumerable match the given predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to check.</param>
     /// <param name="predicate">The predicate to check.</param>
@@ -255,7 +271,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Returns true if any element in the enumerable matches the given predicate.
+    ///     Returns true if any element in the enumerable matches the given predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to check.</param>
     /// <param name="predicate">The predicate to check.</param>
@@ -270,7 +286,7 @@ public static class BadLinqGenericExtensions
     }
 
     /// <summary>
-    /// Filters the given enumerable by the given predicate.
+    ///     Filters the given enumerable by the given predicate.
     /// </summary>
     /// <param name="enumerable">The enumerable to filter.</param>
     /// <param name="predicate">The predicate to filter by.</param>

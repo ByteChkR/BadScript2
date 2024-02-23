@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Logic;
+
 /// <summary>
 /// Contains the Logic Operators for the BadScript2 Language
 /// </summary>
@@ -15,7 +16,7 @@ public class BadLogicAndOperator : BadBinaryOperator
 	/// </summary>
 	public BadLogicAndOperator() : base(14, "&&") { }
 
-	/// <inheritdoc cref="BadBinaryOperator.Parse" />
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

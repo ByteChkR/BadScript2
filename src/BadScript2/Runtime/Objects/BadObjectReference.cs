@@ -87,19 +87,19 @@ public abstract class BadObjectReference : BadObject
             m_RefText = refText;
         }
 
-	    /// <inheritdoc />
+        /// <inheritdoc />
         public override BadClassPrototype GetPrototype()
         {
             return m_Getter().GetPrototype();
         }
 
-	    /// <inheritdoc />
+        /// <inheritdoc />
         public override BadObject Resolve()
         {
             return m_Getter();
         }
 
-	    /// <inheritdoc />
+        /// <inheritdoc />
         public override void Set(BadObject obj, BadPropertyInfo? info = null)
         {
             if (m_Setter == null)
@@ -110,13 +110,13 @@ public abstract class BadObjectReference : BadObject
             m_Setter(obj, info ?? new BadPropertyInfo(BadAnyPrototype.Instance));
         }
 
-	    /// <inheritdoc />
+        /// <inheritdoc />
         public override string ToSafeString(List<BadObject> done)
         {
             return m_RefText;
         }
 
-	    /// <inheritdoc />
+        /// <inheritdoc />
         public override void Delete()
         {
             if (m_Delete == null)

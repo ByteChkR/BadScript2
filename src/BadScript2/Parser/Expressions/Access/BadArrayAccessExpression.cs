@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+
 /// <summary>
 /// Contains the Access Expressions for the BadScript2 Language
 /// </summary>
@@ -90,7 +91,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     }
 
     /// <summary>
-    /// Executes the Array Access Expression.
+    ///     Executes the Array Access Expression.
     /// </summary>
     /// <param name="context">The execution context.</param>
     /// <param name="left">Left side of the expression.</param>
@@ -128,7 +129,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
         }
     }
 
-    
+
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {

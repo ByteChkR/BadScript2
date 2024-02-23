@@ -3,7 +3,5 @@
 /// </summary>
 // ReSharper disable once CheckNamespace
 // ReSharper disable once EmptyNamespace
-namespace BadScript2.Interop
-{
-    
-}
+
+namespace BadScript2.Interop;

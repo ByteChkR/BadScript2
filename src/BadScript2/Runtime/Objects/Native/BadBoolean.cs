@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Native Runtime Objects
 /// </summary>
@@ -10,7 +11,7 @@ namespace BadScript2.Runtime.Objects.Native;
 public class BadBoolean : BadNative<bool>, IBadBoolean
 {
     /// <summary>
-    /// The Prototype for the Native Boolean Object
+    ///     The Prototype for the Native Boolean Object
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("bool");
 

@@ -19,11 +19,19 @@ MyCustomApi.Say(MyCustomApi.WhoAmI());
 MyCustomApi.Say(MyCustomApi.MyName);
 MyCustomApi.Say(MyCustomApi.MyTable.Nested);
 MyCustomApi.OldSchool(""Name"");
-MyCustomApi.OldSchool(""Name"", ""The Description"");";
+MyCustomApi.OldSchool(""Name"", ""The Description"");
+MySourceGenApi.SayHello();
+MySourceGenApi.Say(MySourceGenApi.GetHello());
+MySourceGenApi.SayMultiple(""Params"",""are"",""cool"");
+const encoding = MySourceGenApi.MyNativeMethod();
+const encoded = MySourceGenApi.Encode(encoding, ""Hello World!"");
+MySourceGenApi.SayEncoded(encoding, encoded);
+";
 
         // Create the Runtime
         using BadRuntime runtime = new BadRuntime()
-            .ConfigureContextOptions(opts => opts.AddApi(new MyCustomApi()));
+            .ConfigureContextOptions(opts => opts.AddApi(new MyCustomApi()))
+            .ConfigureContextOptions(opts => opts.AddApi(new MySourceGeneratedCustomApi()));
 
 
         // Run the Script

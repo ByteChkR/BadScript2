@@ -4,9 +4,13 @@
         <LangVersion>latest</LangVersion>
         <AssemblyVersion>2023.10.8.0</AssemblyVersion>
         <FileVersion>2023.10.8.0</FileVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\BadHtml\BadHtml.csproj"/>
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
+        <ProjectReference Include="..\BadScript2.Interop.Generator\BadScript2.Interop.Generator\BadScript2.Interop.Generator.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
     </ItemGroup>
 </Project>

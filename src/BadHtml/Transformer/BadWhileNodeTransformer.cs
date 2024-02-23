@@ -14,7 +14,7 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 {
-    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
         return context.InputNode.Name == "bs:while";
@@ -45,7 +45,7 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
         return result.Value;
     }
 
-    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode"/>
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
     protected override void TransformNode(BadHtmlContext context)
     {
         HtmlAttribute? conditionAttribute = context.InputNode.Attributes["test"];

@@ -4,6 +4,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 ///<summary>
 ///	Contains Common Interop Extensions for the BadScript2 Runtime
 /// </summary>
@@ -14,7 +15,7 @@ namespace BadScript2.Interop.Common.Extensions;
 /// </summary>
 public class BadArrayExtension : BadInteropExtension
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<BadArray>(

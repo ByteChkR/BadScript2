@@ -3,12 +3,12 @@ using BadScript2.IO;
 namespace BadScript2.Interop.Compression;
 
 /// <summary>
-/// Compression API Extensions
+///     Compression API Extensions
 /// </summary>
 public static class BadCompressionApiExtensions
 {
     /// <summary>
-    /// Configures the Runtime to use the Compression API
+    ///     Configures the Runtime to use the Compression API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="fileSystem">The File System to use</param>
@@ -21,7 +21,7 @@ public static class BadCompressionApiExtensions
         }
         else
         {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadCompressionApi()));
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadCompressionApi(BadFileSystem.Instance)));
         }
 
         return runtime;

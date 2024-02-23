@@ -3,12 +3,12 @@ using BadScript2.Debugger.Scriptable;
 namespace BadScript2.Debugger;
 
 /// <summary>
-/// Debugger Extensions for the BadScript Runtime
+///     Debugger Extensions for the BadScript Runtime
 /// </summary>
 public static class BadDebuggerExtensions
 {
     /// <summary>
-    /// Configures the Runtime to use the Console Debugger
+    ///     Configures the Runtime to use the Console Debugger
     /// </summary>
     /// <param name="runtime">The Runtime to configure</param>
     /// <returns>The configured Runtime</returns>
@@ -20,7 +20,7 @@ public static class BadDebuggerExtensions
     }
 
     /// <summary>
-    /// Configures the Runtime to use the Debugger Extensions
+    ///     Configures the Runtime to use the Debugger Extensions
     /// </summary>
     /// <param name="runtime">The Runtime to configure</param>
     /// <returns>The configured Runtime</returns>
@@ -30,7 +30,7 @@ public static class BadDebuggerExtensions
     }
 
     /// <summary>
-    /// Configures the Runtime to use the Script Debugger
+    ///     Configures the Runtime to use the Script Debugger
     /// </summary>
     /// <param name="runtime">The Runtime to configure</param>
     /// <param name="debuggerPath">The File Path to the Debugger</param>

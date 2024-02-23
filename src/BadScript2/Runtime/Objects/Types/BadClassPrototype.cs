@@ -23,12 +23,12 @@ public abstract class BadClassPrototype : BadObject
     protected readonly BadClassPrototype? BaseClass;
 
     /// <summary>
-    /// The Implemented Interfaces
+    ///     The Implemented Interfaces
     /// </summary>
     private readonly BadInterfacePrototype[] m_Interfaces;
 
     /// <summary>
-    /// The Metadata of the Class
+    ///     The Metadata of the Class
     /// </summary>
     public readonly BadMetaData MetaData;
 
@@ -52,12 +52,12 @@ public abstract class BadClassPrototype : BadObject
     }
 
     /// <summary>
-    /// Indicates if the Class is Abstract(e.g. can not be instantiated)
+    ///     Indicates if the Class is Abstract(e.g. can not be instantiated)
     /// </summary>
     public abstract bool IsAbstract { get; }
 
     /// <summary>
-    /// The Implemented Interfaces
+    ///     The Implemented Interfaces
     /// </summary>
     public IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_Interfaces;
 
@@ -67,7 +67,7 @@ public abstract class BadClassPrototype : BadObject
     public string Name { get; }
 
     /// <summary>
-    /// Returns the base class
+    ///     Returns the base class
     /// </summary>
     /// <returns>The base class</returns>
     public BadClassPrototype? GetBaseClass()

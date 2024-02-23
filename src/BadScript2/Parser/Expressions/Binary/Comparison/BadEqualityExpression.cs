@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Comparison Expressions for the BadScript2 Language
 /// </summary>
@@ -36,7 +37,7 @@ public class BadEqualityExpression : BadBinaryExpression
     }
 
     /// <summary>
-    /// Executes the operator override for the given operator name.
+    ///     Executes the operator override for the given operator name.
     /// </summary>
     /// <param name="caller">The caller.</param>
     /// <param name="left">The left.</param>
@@ -81,7 +82,7 @@ public class BadEqualityExpression : BadBinaryExpression
         }
     }
 
-    
+
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
@@ -112,7 +113,7 @@ public class BadEqualityExpression : BadBinaryExpression
         }
     }
 
-    
+
     /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {

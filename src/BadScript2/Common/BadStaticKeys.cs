@@ -1,7 +1,7 @@
-
 /// <summary>
 /// Contains Shared Data Structures and Functionality
 /// </summary>
+
 namespace BadScript2.Common;
 
 /// <summary>

@@ -1,8 +1,9 @@
 using BadScript2.Parser.Expressions.Binary;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
+
 /// <summary>
-/// Compiles the <see cref="BadUnaryUnpackExpression" />.
+///     Compiles the <see cref="BadUnaryUnpackExpression" />.
 /// </summary>
 public class BadUnaryUnpackExpressionCompiler : BadExpressionCompiler<BadUnaryUnpackExpression>
 {

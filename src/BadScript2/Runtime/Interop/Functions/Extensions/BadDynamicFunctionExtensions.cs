@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Extension Classes for Functions
 /// </summary>
@@ -11,7 +12,7 @@ namespace BadScript2.Runtime.Interop.Functions.Extensions;
 public static partial class BadDynamicFunctionExtensions
 {
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -29,8 +30,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -49,8 +51,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -73,8 +76,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -98,8 +102,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -124,8 +129,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -157,8 +163,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -192,8 +199,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -229,8 +237,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -268,8 +277,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -309,8 +319,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -352,8 +363,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -397,8 +409,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -444,8 +457,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -493,8 +507,9 @@ public static partial class BadDynamicFunctionExtensions
             BadAnyPrototype.Instance
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -546,7 +561,7 @@ public static partial class BadDynamicFunctionExtensions
     }
 
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>

@@ -59,7 +59,7 @@ public class BadForExpression : BadExpression
     public BadExpression VarIncrement { get; private set; }
 
     /// <summary>
-    /// Sets the Body of the Loop
+    ///     Sets the Body of the Loop
     /// </summary>
     /// <param name="body">The new Body of the Loop</param>
     public void SetBody(IEnumerable<BadExpression> body)

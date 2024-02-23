@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 /// <summary>
 /// Contains the Self-Assigning Logic Expressions for the BadScript2 Language
 /// </summary>
@@ -72,7 +73,7 @@ public class BadLogicAssignAndExpression : BadBinaryExpression
         }
     }
 
-    
+
     /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
     protected override string GetSymbol()
     {

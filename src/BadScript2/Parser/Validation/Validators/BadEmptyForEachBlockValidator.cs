@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Block.Loop;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if there are any expressions in the foreach block.
+///     Checks if there are any expressions in the foreach block.
 /// </summary>
 public class BadEmptyForEachBlockValidator : BadExpressionValidator<BadForEachExpression>
 {

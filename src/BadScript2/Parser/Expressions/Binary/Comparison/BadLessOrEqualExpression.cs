@@ -46,8 +46,9 @@ public class BadLessOrEqualExpression : BadBinaryExpression
 
         throw new BadRuntimeException($"Can not apply operator '<=' to {left} and {right}", pos);
     }
+
     /// <summary>
-    /// Executes the expression
+    ///     Executes the expression
     /// </summary>
     /// <param name="context">The caller.</param>
     /// <param name="left">The left.</param>

@@ -1,12 +1,12 @@
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
-/// Nunit API Extensions
+///     Nunit API Extensions
 /// </summary>
 public static class BadNUnitApiExtensions
 {
     /// <summary>
-    /// Configures the Runtime to use the NUnit API
+    ///     Configures the Runtime to use the NUnit API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <returns>The Runtime</returns>
@@ -18,7 +18,7 @@ public static class BadNUnitApiExtensions
     }
 
     /// <summary>
-    /// Configures the Runtime to use the NUnit Console API
+    ///     Configures the Runtime to use the NUnit Console API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="console">The Console Builder</param>
@@ -26,7 +26,14 @@ public static class BadNUnitApiExtensions
     public static BadRuntime UseNUnitConsole(this BadRuntime runtime, BadUnitTestContextBuilder console)
     {
         return runtime
-            .ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadNUnitConsoleApi(console)))
+            .ConfigureContextOptions(
+                opts =>
+                {
+                    BadNUnitConsoleApi api = new BadNUnitConsoleApi();
+                    api.SetContext(console);
+                    opts.AddOrReplaceApi(api);
+                }
+            )
             .UseConsole(new BadNUnitTestConsole())
             .UseConsoleLogWriter();
     }

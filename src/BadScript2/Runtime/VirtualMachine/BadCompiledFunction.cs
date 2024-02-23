@@ -4,6 +4,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Virtual Machine Implementation.
 /// </summary>
@@ -15,30 +16,32 @@ namespace BadScript2.Runtime.VirtualMachine;
 public class BadCompiledFunction : BadFunction
 {
     /// <summary>
-    /// The Compiled Function's Instructions.
+    ///     The Compiled Function's Instructions.
     /// </summary>
     private readonly BadInstruction[] m_Instructions;
+
     /// <summary>
-    /// The Compiled Function's Parent Scope.
+    ///     The Compiled Function's Parent Scope.
     /// </summary>
     private readonly BadScope m_ParentScope;
+
     /// <summary>
-    /// The Original Source Position.
+    ///     The Original Source Position.
     /// </summary>
     private readonly BadSourcePosition m_Position;
 
     /// <summary>
-    /// The Signature
+    ///     The Signature
     /// </summary>
     private readonly string m_StringSignature;
-    
+
     /// <summary>
-    /// Indicates if the Function should use Operator Overrides.
+    ///     Indicates if the Function should use Operator Overrides.
     /// </summary>
     private readonly bool m_UseOverrides;
 
     /// <summary>
-    /// Creates a new <see cref="BadCompiledFunction" /> instance.
+    ///     Creates a new <see cref="BadCompiledFunction" /> instance.
     /// </summary>
     /// <param name="instructions">The list of Instructions.</param>
     /// <param name="useOverrides">Indicates if the Function should use Operator Overrides.</param>
@@ -95,8 +98,10 @@ public class BadCompiledFunction : BadFunction
         if (m_Instructions.Length == 0)
         {
             yield return Null;
+
             yield break;
         }
+
         BadRuntimeVirtualMachine vm = new BadRuntimeVirtualMachine(m_Instructions, m_UseOverrides);
 
         foreach (BadObject o in vm.Execute(ctx))
@@ -120,7 +125,7 @@ public class BadCompiledFunction : BadFunction
     }
 
     /// <summary>
-    /// Creates a Signature for this Function.
+    ///     Creates a Signature for this Function.
     /// </summary>
     /// <returns>The Signature.</returns>
     private string MakeSignature()

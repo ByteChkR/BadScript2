@@ -3,6 +3,7 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Variable Expressions for the BadScript2 Language
 /// </summary>
@@ -57,8 +58,10 @@ public class BadFormattedStringExpression : BadStringExpression
         if (m_Expressions.Length == 0)
         {
             yield return Value;
+
             yield break;
         }
+
         List<BadObject> objs = new List<BadObject>();
 
         foreach (BadExpression expr in m_Expressions)

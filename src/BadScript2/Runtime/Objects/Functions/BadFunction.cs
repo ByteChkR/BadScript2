@@ -16,7 +16,7 @@ namespace BadScript2.Runtime.Objects.Functions;
 public abstract class BadFunction : BadObject
 {
     /// <summary>
-    /// The Prototype for the Function Object
+    ///     The Prototype for the Function Object
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("Function");
 
@@ -48,17 +48,17 @@ public abstract class BadFunction : BadObject
     }
 
     /// <summary>
-    /// The Return Type of the Function
+    ///     The Return Type of the Function
     /// </summary>
     public BadClassPrototype ReturnType { get; }
 
     /// <summary>
-    /// Indicates if the Function is static
+    ///     Indicates if the Function is static
     /// </summary>
     public bool IsStatic { get; }
 
     /// <summary>
-    /// The Metadata of the Function
+    ///     The Metadata of the Function
     /// </summary>
     public virtual BadMetaData MetaData => BadMetaData.Empty;
 
@@ -94,7 +94,7 @@ public abstract class BadFunction : BadObject
     }
 
     /// <summary>
-    /// Returns the Function Parameter at the given index
+    ///     Returns the Function Parameter at the given index
     /// </summary>
     /// <param name="args">Arguments</param>
     /// <param name="i">Index</param>
@@ -139,7 +139,7 @@ public abstract class BadFunction : BadObject
     }
 
     /// <summary>
-    /// Applies the function arguments to the context of the function
+    ///     Applies the function arguments to the context of the function
     /// </summary>
     /// <param name="funcStr">The Function String</param>
     /// <param name="parameters">The Function Parameters</param>
@@ -301,7 +301,7 @@ public abstract class BadFunction : BadObject
     }
 
     /// <summary>
-    /// Returns the Header of the function
+    ///     Returns the Header of the function
     /// </summary>
     /// <param name="name">The Function Name</param>
     /// <param name="returnType">The Return Type</param>

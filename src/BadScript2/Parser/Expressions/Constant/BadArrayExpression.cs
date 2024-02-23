@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Constant Expressions for the BadScript2 Language
 /// </summary>
@@ -31,7 +32,7 @@ public class BadArrayExpression : BadExpression
     }
 
     /// <summary>
-    /// Length of the Initializer List
+    ///     Length of the Initializer List
     /// </summary>
     public int Length => m_InitExpressions.Length;
 

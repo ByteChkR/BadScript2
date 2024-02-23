@@ -6,6 +6,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+
 /// <summary>
 /// Contains the Loop Expressions for the BadScript2 Language
 /// </summary>
@@ -53,12 +54,12 @@ public class BadForEachExpression : BadExpression
     }
 
     /// <summary>
-    /// The Loop Body
+    ///     The Loop Body
     /// </summary>
     public IEnumerable<BadExpression> Body => m_Body;
 
     /// <summary>
-    /// Sets the Body of the Loop
+    ///     Sets the Body of the Loop
     /// </summary>
     /// <param name="body">The new Body of the Loop</param>
     public void SetBody(IEnumerable<BadExpression> body)
@@ -67,7 +68,7 @@ public class BadForEachExpression : BadExpression
         m_Body.AddRange(body);
     }
 
-    
+
     /// <inheritdoc cref="BadExpression.Optimize" />
     public override void Optimize()
     {

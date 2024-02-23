@@ -26,7 +26,7 @@ public readonly struct BadInterfaceValidatorError
 	/// </summary>
 	public BadInterfaceConstraint Constraint { get; }
 
-	/// <inheritdoc />
+    /// <inheritdoc />
     public override string ToString()
     {
         return $"-- {Constraint} | {Message}";

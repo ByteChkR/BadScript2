@@ -12,12 +12,12 @@ namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 public class BadReflectedField : BadReflectedMember
 {
     /// <summary>
-    /// The Reflected Field
+    ///     The Reflected Field
     /// </summary>
     private readonly FieldInfo m_Info;
 
     /// <summary>
-    /// Creates a new BadReflectedField
+    ///     Creates a new BadReflectedField
     /// </summary>
     /// <param name="field">The Reflected Field</param>
     public BadReflectedField(FieldInfo field) : base(field.Name)
@@ -25,16 +25,16 @@ public class BadReflectedField : BadReflectedMember
         m_Info = field;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsReadOnly => m_Info.IsInitOnly;
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override BadObject Get(object instance)
     {
         return Wrap(m_Info.GetValue(instance));
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Set(object instance, BadObject o)
     {
         if (o is not IBadNative native || !m_Info.FieldType.IsAssignableFrom(native.Type))

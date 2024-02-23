@@ -3,6 +3,7 @@ using System.Text;
 
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Runtime Objects
 /// </summary>
@@ -15,7 +16,7 @@ public class BadArray : BadObject, IBadEnumerable
 
 {
     /// <summary>
-    /// The Prototype for the BadScript Array
+    ///     The Prototype for the BadScript Array
     /// </summary>
     private static BadClassPrototype? s_Prototype;
 
@@ -34,7 +35,7 @@ public class BadArray : BadObject, IBadEnumerable
     public BadArray() : this(new List<BadObject>()) { }
 
     /// <summary>
-    /// The Prototype for the BadScript Array
+    ///     The Prototype for the BadScript Array
     /// </summary>
     public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Array");
 
@@ -44,7 +45,7 @@ public class BadArray : BadObject, IBadEnumerable
     public List<BadObject> InnerArray { get; }
 
     /// <summary>
-    /// Returns the Enumerator for this Array
+    ///     Returns the Enumerator for this Array
     /// </summary>
     /// <returns></returns>
     public IEnumerator<BadObject> GetEnumerator()
@@ -53,7 +54,7 @@ public class BadArray : BadObject, IBadEnumerable
     }
 
     /// <summary>
-    /// Returns the Enumerator for this Array
+    ///     Returns the Enumerator for this Array
     /// </summary>
     /// <returns>The Enumerator for this Array</returns>
     IEnumerator IEnumerable.GetEnumerator()

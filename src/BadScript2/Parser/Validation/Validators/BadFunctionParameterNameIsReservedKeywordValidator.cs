@@ -5,11 +5,10 @@ using BadScript2.Runtime.Objects.Functions;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if the function parameter name is a reserved keyword.
+///     Checks if the function parameter name is a reserved keyword.
 /// </summary>
 public class BadFunctionParameterNameIsReservedKeywordValidator : BadExpressionValidator<BadFunctionExpression>
 {
-    
     /// <inheritdoc cref="BadExpressionValidator{T}.Validate" />
     protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
     {

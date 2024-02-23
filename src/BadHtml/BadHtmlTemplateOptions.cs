@@ -8,12 +8,12 @@ namespace BadHtml;
 public class BadHtmlTemplateOptions
 {
     /// <summary>
-    /// The Runtime to use for the Template
+    ///     The Runtime to use for the Template
     /// </summary>
     public BadRuntime? Runtime = null;
-    
+
     /// <summary>
-    /// If true, empty Html Text Nodes will be omitted from the output
+    ///     If true, empty Html Text Nodes will be omitted from the output
     /// </summary>
     public bool SkipEmptyTextNodes = false;
 }

@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 /// <summary>
 /// Contains the Interop Abstractions and Implementations for the BadScript2 Language
 /// </summary>
@@ -25,21 +26,30 @@ public abstract class BadInteropApi
 	public string Name { get; }
 
 	/// <summary>
-	/// The Version of the API
+	///     The Version of the API
 	/// </summary>
-    public virtual Version Version => GetType().Assembly.GetName().Version;
+	public virtual Version Version => GetType().Assembly.GetName().Version;
 
-    /// <summary>
-    ///     Loads the API into the given Table
-    /// </summary>
-    /// <param name="target">Table Target</param>
-    protected abstract void LoadApi(BadTable target);
+	/// <summary>
+	///     Loads the API into the given Table
+	/// </summary>
+	/// <param name="target">Table Target</param>
+	protected abstract void LoadApi(BadTable target);
 
-    /// <summary>
-    /// Loads the API into the given Table
-    /// </summary>
-    /// <param name="table">The Table to load the API into</param>
-    public void Load(BadExecutionContext ctx, BadTable table)
+	/// <summary>
+	///     Loads the API into the given Table
+	/// </summary>
+	/// <param name="target">The Table to load the API into</param>
+	public void LoadRawApi(BadTable target)
+    {
+        LoadApi(target);
+    }
+
+	/// <summary>
+	///     Loads the API into the given Table
+	/// </summary>
+	/// <param name="table">The Table to load the API into</param>
+	public void Load(BadExecutionContext ctx, BadTable table)
     {
         BadTable info = new BadTable();
         info.SetProperty("Name", Name, new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));

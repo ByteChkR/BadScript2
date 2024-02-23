@@ -212,7 +212,7 @@ public class BadNetHostExtensions : BadInteropExtension
         return table;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         AddContextExtensions(provider);

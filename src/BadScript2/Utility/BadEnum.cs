@@ -1,6 +1,7 @@
 /// <summary>
 /// Contains Utility Functions and Classes
 /// </summary>
+
 namespace BadScript2.Utility;
 
 /// <summary>

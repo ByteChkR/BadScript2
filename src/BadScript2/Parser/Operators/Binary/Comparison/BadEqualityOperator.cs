@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary.Comparison;
+
 /// <summary>
 /// Contains the Comparison Operators for the BadScript2 Language
 /// </summary>
@@ -15,7 +16,7 @@ public class BadEqualityOperator : BadBinaryOperator
 	/// </summary>
 	public BadEqualityOperator() : base(10, "==") { }
 
-	/// <inheritdoc cref="BadBinaryOperator.Parse" />
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

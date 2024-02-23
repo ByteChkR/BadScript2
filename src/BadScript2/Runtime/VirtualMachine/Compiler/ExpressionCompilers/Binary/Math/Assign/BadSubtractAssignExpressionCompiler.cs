@@ -1,8 +1,9 @@
 using BadScript2.Parser.Expressions.Binary.Math.Assign;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Assign;
+
 /// <summary>
-/// Compiles the <see cref="BadSubtractAssignExpression" />.
+///     Compiles the <see cref="BadSubtractAssignExpression" />.
 /// </summary>
 public class BadSubtractAssignExpressionCompiler : BadBinaryExpressionCompiler<BadSubtractAssignExpression>
 {

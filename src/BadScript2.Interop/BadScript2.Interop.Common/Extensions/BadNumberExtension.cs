@@ -62,7 +62,7 @@ public class BadNumberExtension : BadInteropExtension
         return d.ToString(format.Value, cultureInfo);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         provider.RegisterObject<decimal>(

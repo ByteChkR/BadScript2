@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Block;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if there are any expressions in the using block.
+///     Checks if there are any expressions in the using block.
 /// </summary>
 public class BadEmptyUsingBlockValidator : BadExpressionValidator<BadUsingExpression>
 {

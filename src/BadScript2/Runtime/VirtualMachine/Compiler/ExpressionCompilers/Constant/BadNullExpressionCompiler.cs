@@ -4,7 +4,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
 /// <summary>
-/// Compiles the <see cref="BadNullExpression" />.
+///     Compiles the <see cref="BadNullExpression" />.
 /// </summary>
 public class BadNullExpressionCompiler : BadExpressionCompiler<BadNullExpression>
 {

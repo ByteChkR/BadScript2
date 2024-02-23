@@ -3,12 +3,12 @@ using BadScript2.IO;
 namespace BadScript2.Interop.IO;
 
 /// <summary>
-/// IO Api Extensions
+///     IO Api Extensions
 /// </summary>
 public static class BadIOApiExtensions
 {
     /// <summary>
-    /// Configures the Runtime to use the IO API
+    ///     Configures the Runtime to use the IO API
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="fileSystem">The File System to use</param>
@@ -21,7 +21,7 @@ public static class BadIOApiExtensions
         }
         else
         {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadIOApi()));
+            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadIOApi(BadFileSystem.Instance)));
         }
 
         return runtime;

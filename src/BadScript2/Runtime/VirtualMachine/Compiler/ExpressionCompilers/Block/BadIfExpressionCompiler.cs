@@ -5,7 +5,7 @@ using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
-/// Compiles the <see cref="BadIfExpression" />.
+///     Compiles the <see cref="BadIfExpression" />.
 /// </summary>
 public class BadIfExpressionCompiler : BadExpressionCompiler<BadIfExpression>
 {

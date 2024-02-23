@@ -7,7 +7,7 @@ using BadScript2.Reader.Token.Primitive;
 namespace BadScript2.Parser.Operators.Module;
 
 /// <summary>
-/// Parses the Import Expression
+///     Parses the Import Expression
 /// </summary>
 public class BadImportExpressionParser : BadValueParser
 {

@@ -25,7 +25,7 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
 
 
     /// <summary>
-    /// Executes the binary ... operator
+    ///     Executes the binary ... operator
     /// </summary>
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>

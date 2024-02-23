@@ -40,12 +40,12 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     }
 
     /// <summary>
-    /// The Arguments of the Array Access.
+    ///     The Arguments of the Array Access.
     /// </summary>
     public IEnumerable<BadExpression> Arguments => m_Arguments;
 
     /// <summary>
-    /// The count of the right side arguments.
+    ///     The count of the right side arguments.
     /// </summary>
     public int ArgumentCount => m_Arguments.Length;
 
@@ -59,7 +59,7 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     /// </summary>
     public bool NullChecked { get; }
 
-    
+
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
@@ -90,7 +90,7 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     }
 
     /// <summary>
-    /// Executes the Array Access Expression.
+    ///     Executes the Array Access Expression.
     /// </summary>
     /// <param name="context">The execution context.</param>
     /// <param name="left">Left side of the expression.</param>

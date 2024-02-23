@@ -4,7 +4,7 @@ using BadScript2.Parser.Expressions.Function;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if the function name is a reserved keyword.
+///     Checks if the function name is a reserved keyword.
 /// </summary>
 public class BadFunctionNameIsReservedKeywordValidator : BadExpressionValidator<BadFunctionExpression>
 {

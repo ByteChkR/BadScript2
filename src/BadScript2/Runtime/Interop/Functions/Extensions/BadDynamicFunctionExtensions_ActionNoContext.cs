@@ -5,7 +5,7 @@ namespace BadScript2.Runtime.Interop.Functions.Extensions;
 public static partial class BadDynamicFunctionExtensions
 {
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -14,8 +14,9 @@ public static partial class BadDynamicFunctionExtensions
     {
         elem.SetFunction(propName, _ => func());
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -25,8 +26,9 @@ public static partial class BadDynamicFunctionExtensions
     {
         elem.SetFunction<T>(propName, (_, t) => func(t));
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -37,8 +39,9 @@ public static partial class BadDynamicFunctionExtensions
     {
         elem.SetFunction<T1, T2>(propName, (_, t1, t2) => func(t1, t2));
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -50,8 +53,9 @@ public static partial class BadDynamicFunctionExtensions
     {
         elem.SetFunction<T1, T2, T3>(propName, (_, t1, t2, t3) => func(t1, t2, t3));
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -64,8 +68,9 @@ public static partial class BadDynamicFunctionExtensions
     {
         elem.SetFunction<T1, T2, T3, T4>(propName, (_, t1, t2, t3, t4) => func(t1, t2, t3, t4));
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -91,8 +96,9 @@ public static partial class BadDynamicFunctionExtensions
                 t5) => func(t1, t2, t3, t4, t5)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -120,8 +126,9 @@ public static partial class BadDynamicFunctionExtensions
                 t6) => func(t1, t2, t3, t4, t5, t6)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -151,8 +158,9 @@ public static partial class BadDynamicFunctionExtensions
                 t7) => func(t1, t2, t3, t4, t5, t6, t7)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -184,8 +192,9 @@ public static partial class BadDynamicFunctionExtensions
                 t8) => func(t1, t2, t3, t4, t5, t6, t7, t8)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -219,8 +228,9 @@ public static partial class BadDynamicFunctionExtensions
                 t9) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -256,8 +266,9 @@ public static partial class BadDynamicFunctionExtensions
                 t10) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -295,8 +306,9 @@ public static partial class BadDynamicFunctionExtensions
                 t11) => func(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11)
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -349,8 +361,9 @@ public static partial class BadDynamicFunctionExtensions
             )
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -406,8 +419,9 @@ public static partial class BadDynamicFunctionExtensions
             )
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>
@@ -466,8 +480,9 @@ public static partial class BadDynamicFunctionExtensions
             )
         );
     }
+
     /// <summary>
-    /// Sets a Function on the given Object
+    ///     Sets a Function on the given Object
     /// </summary>
     /// <param name="elem">The Object to set the Function on</param>
     /// <param name="propName">The Property Name</param>

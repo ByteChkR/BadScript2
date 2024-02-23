@@ -36,7 +36,7 @@ public class BadReturnExpression : BadExpression
     public BadExpression? Right { get; private set; }
 
     /// <summary>
-    /// Sets the return value
+    ///     Sets the return value
     /// </summary>
     /// <param name="expr">The return value</param>
     public void SetRight(BadExpression? expr)

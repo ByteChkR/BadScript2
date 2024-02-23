@@ -8,20 +8,22 @@ namespace BadScript2.Runtime.VirtualMachine;
 public struct BadInstruction
 {
     /// <summary>
-    /// The OpCode of this Instruction.
+    ///     The OpCode of this Instruction.
     /// </summary>
     public readonly BadOpCode OpCode;
+
     /// <summary>
-    /// The arguments of this Instruction.
+    ///     The arguments of this Instruction.
     /// </summary>
     public readonly object[] Arguments;
+
     /// <summary>
-    /// The position of this Instruction in the source code.
+    ///     The position of this Instruction in the source code.
     /// </summary>
     public readonly BadSourcePosition Position;
 
     /// <summary>
-    /// Creates a new <see cref="BadInstruction" /> instance.
+    ///     Creates a new <see cref="BadInstruction" /> instance.
     /// </summary>
     /// <param name="opCode">The OpCode of this Instruction.</param>
     /// <param name="position">The position of this Instruction in the source code.</param>

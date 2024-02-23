@@ -1,6 +1,7 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Runtime Implementation
 /// </summary>
@@ -13,7 +14,6 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadExecutionContext : IDisposable
 {
-    
     /// <summary>
     ///     Creates a new Execution Context
     /// </summary>
@@ -27,6 +27,14 @@ public class BadExecutionContext : IDisposable
     ///     The Root Scope of the Context
     /// </summary>
     public BadScope Scope { get; }
+
+    /// <summary>
+    ///     Disposes the context.
+    /// </summary>
+    public void Dispose()
+    {
+        Scope.Dispose();
+    }
 
     /// <summary>
     ///     Creates a new Execution Context with an empty scope
@@ -54,7 +62,7 @@ public class BadExecutionContext : IDisposable
     }
 
     /// <summary>
-    /// Executes an enumeration of expressions and returns the last value.
+    ///     Executes an enumeration of expressions and returns the last value.
     /// </summary>
     /// <param name="expressions">Expression Enumeration</param>
     /// <returns>The last value of the enumeration.</returns>
@@ -72,7 +80,7 @@ public class BadExecutionContext : IDisposable
 
 
     /// <summary>
-    /// Executes an expression and returns the last value.
+    ///     Executes an expression and returns the last value.
     /// </summary>
     /// <param name="expression">The expression to execute.</param>
     /// <returns>The last value of the enumeration.</returns>
@@ -99,7 +107,7 @@ public class BadExecutionContext : IDisposable
     }
 
     /// <summary>
-    /// Executes an expression.
+    ///     Executes an expression.
     /// </summary>
     /// <param name="expression">The expression to execute.</param>
     /// <returns>Enumeration of the resulting objects</returns>
@@ -117,13 +125,5 @@ public class BadExecutionContext : IDisposable
                 yield break;
             }
         }
-    }
-
-    /// <summary>
-    /// Disposes the context.
-    /// </summary>
-    public void Dispose()
-    {
-        Scope.Dispose();
     }
 }

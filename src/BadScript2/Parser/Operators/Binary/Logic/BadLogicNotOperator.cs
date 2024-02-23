@@ -13,7 +13,7 @@ public class BadLogicNotOperator : BadUnaryPrefixOperator
 	/// </summary>
 	public BadLogicNotOperator() : base(3, "!", false) { }
 
-	/// <inheritdoc cref="BadBinaryOperator.Parse" />
+    /// <inheritdoc cref="BadBinaryOperator.Parse" />
     public override BadExpression Parse(BadSourceParser parser)
     {
         BadExpression right = parser.ParseExpression(null, Precedence);

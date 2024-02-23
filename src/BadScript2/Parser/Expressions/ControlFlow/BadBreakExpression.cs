@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 /// <summary>
 /// Contains the Controlflow Expressions for the BadScript2 Language
 /// </summary>
@@ -17,7 +18,7 @@ public class BadBreakExpression : BadExpression
 	/// <param name="position">Source Position of the Expression</param>
 	public BadBreakExpression(BadSourcePosition position) : base(false, position) { }
 
-	/// <inheritdoc cref="BadExpression.InnerExecute" />
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         context.Scope.SetBreak();
@@ -25,7 +26,7 @@ public class BadBreakExpression : BadExpression
         yield return BadObject.Null;
     }
 
-	/// <inheritdoc cref="BadExpression.GetDescendants" />
+    /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield break;

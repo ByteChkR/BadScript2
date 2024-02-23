@@ -1,6 +1,7 @@
 /// <summary>
 /// Contains the Interop Reflection Classes for the BadScript2 Language
 /// </summary>
+
 namespace BadScript2.Runtime.Interop.Reflection;
 
 /// <summary>
@@ -9,7 +10,7 @@ namespace BadScript2.Runtime.Interop.Reflection;
 public static class BadReflectionExtensions
 {
     /// <summary>
-    /// Returns true if the Type is a Numeric Type
+    ///     Returns true if the Type is a Numeric Type
     /// </summary>
     /// <param name="t">The Type to check</param>
     /// <returns>True if the Type is a Numeric Type</returns>
