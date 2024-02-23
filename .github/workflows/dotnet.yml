@@ -77,7 +77,7 @@ jobs:
       with:
         name: nugetPackage
     - name: Prep packages
-      run: dotnet nuget add source --username ByteChkR --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ByteChkR/index.json"
+      run: dotnet nuget add source --store-password-in-clear-text --username ByteChkR --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --name github "https://nuget.pkg.github.com/ByteChkR/index.json"
     - name: Push package to GitHub packages 
       run: dotnet nuget push nugetPackage/*.symbols.nupkg --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }}  --source "github"
     
