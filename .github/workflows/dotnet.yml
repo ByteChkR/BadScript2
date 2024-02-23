@@ -1,4 +1,4 @@
-name: Action to build and publish the project as a nuget package to github package registry
+name: Create Release
 
 on:
   push:
@@ -8,8 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest    
     outputs: 
-      Version: ${{ steps.gitversion.outputs.SemVer }}
-      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }} 
+      Version: ${{ steps.setcalver.outputs.package_version }}
 
     steps:
     - uses: actions/checkout@v2
@@ -17,7 +16,7 @@ jobs:
       uses: Nelyx/action-calver@v1.0.0
       id: setcalver
       with:
-        default_branch: 'refs/heads/main'
+        default_branch: 'refs/heads/master'
         format: 'YYYY.MM.DD'
         version_prefix: ''
     - name: Display Version outputs
@@ -45,7 +44,23 @@ jobs:
     - name: Publish Source Generator
       run: dotnet publish ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -c Release
     - name: Pack Nuget Packages
-      run: dotnet pack -p:NuspecFile=**/*.nuspec --output ./out --include-symbols --include-source
+      run: |
+        dotnet pack -p:NuspecFile=./src/BadHtml/BadHtml.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2/BadScript2.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.NetHost/BadScript2.Interop.NetHost.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Net/BadScript2.Interop.Net.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.NUnit/BadScript2.Interop.NUnit.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Linq/BadScript2.Interop.Linq.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Json/BadScript2.Interop.Json.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.IO/BadScript2.Interop.IO.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Html/BadScript2.Interop.Html.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Compression/BadScript2.Interop.Compression.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Interop/BadScript2.Interop.Common/BadScript2.Interop.Common.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.nuspec --output ./out --include-symbols --include-source
+        dotnet pack -p:NuspecFile=./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
     - name: Upload NuGet package to GitHub
       uses: actions/upload-artifact@v2
       with:
