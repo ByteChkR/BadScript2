@@ -9,7 +9,13 @@ function FindNode(n, string name!)
 	}
 }
 
-function ChangeVersion(string file!, string versionFormat!)
+function StripPostfix(string version!)
+{
+	const parts = version.Split("-", true);
+	return parts[0];
+}
+
+function ChangeVersion(string file!, string versionFormat!, string postfix!)
 {
 	const content = Xml.Load(IO.File.ReadAllText(file));
 	const package = FindNode(content, "package");
@@ -34,12 +40,18 @@ function ChangeVersion(string file!, string versionFormat!)
 		versionElement.InnerText = "1.0.0.0";
 		metadata.AppendChild(versionElement);
 	}
-	const version = new Version(versionElement.InnerText);
+	const version = new Version(StripPostfix(versionElement.InnerText));
 	const newVersion = version.ChangeVersion(versionFormat);
 
-	versionElement.InnerText = newVersion.ToString();
+	let newVersionStr = newVersion.ToString();
+	if(postfix != "")
+	{
+		newVersionStr = newVersionStr + "-" + postfix;
+	}
+
+	versionElement.InnerText = newVersionStr;
 	content.Save(file);
-	return newVersion.ToString();
+	return newVersionStr;
 }
 
 function ChangeDependencies(string file!, Table versionTable!)
@@ -94,6 +106,7 @@ function Main(Array args!)
 {
 	const versionFormat = args.Length > 0 ? args[0] : "(~){yy}.(~){MM}.(~){dd}.+";
 	const sourceDir = args.Length > 1 ? args[1] : "./src";
+	const postfix = args.Length > 2 ? args[2] : "";
 	const specFiles = IO.Directory.GetFiles(sourceDir, ".nuspec", true);
 	Console.WriteLine("Updating Nuget Versions");
 
@@ -104,7 +117,7 @@ function Main(Array args!)
 		const name = IO.Path.GetFileNameWithoutExtension(file);
 		try
 		{
-			versionTable[name] = ChangeVersion(file, versionFormat);
+			versionTable[name] = ChangeVersion(file, versionFormat, postfix);
 		}
 		catch(e)
 		{
