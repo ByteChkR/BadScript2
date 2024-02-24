@@ -3,6 +3,7 @@
 
 ```js
 {
+	ReturnType: <return type>
 	Name: <function name>
 	Parameters: <parameter list>
 	Invoke: function Invoke(argArray)

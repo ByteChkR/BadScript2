@@ -68,9 +68,8 @@ Hello World!
 ## More Information
 
 - [Getting Started](./GettingStarted.md)
-- [Common API Reference](./common/api/Readme.md)
 - [Common Extension Reference](./common/extensions/Readme.md)
-- [Common Libraries Reference](./common/libraries/Readme.md)
+- Common Libraries Reference(coming soon)
 - [Further Reading](./FurtherReading.md)
 
 
