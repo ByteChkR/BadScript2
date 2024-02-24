@@ -2,6 +2,15 @@
 
 The Commandline Application included in this Project has multiple subsystems.
 
+## Subsystem `docs`
+
+The `docs` subsystem can be used to display a auto generated documentation of all apis.
+
+Example Command:
+```
+bs docs
+```
+
 ## Subsystem `run`
 
 The `run` subsystem can run BadScripts inside a commandline environment.
