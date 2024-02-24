@@ -111,13 +111,13 @@ jobs:
       with:
         name: documentation
     - name: Copy Documentation to Webserver
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: documentation/docs.zip
-          remote: ~/badscript2.docs.zip
-          host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
-          username: ${{ secrets.DOCUMENTATION_SSH_USER }}
-          privateKey: ${{ secrets.DOCUMENTATION_SSH_KEY }}
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: documentation/docs.zip
+        remote: ~/badscript2.docs.zip
+        host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
+        username: ${{ secrets.DOCUMENTATION_SSH_USER }}
+        privateKey: ${{ secrets.DOCUMENTATION_SSH_KEY }}
     - name: Deploying Documentation
       uses: appleboy/ssh-action@v1.0.3
       with:
