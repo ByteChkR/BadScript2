@@ -59,12 +59,74 @@ jobs:
         dotnet pack ./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj -p:NuspecFile=./BadScript2.Debugger.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=../BadScript2.Full.nuspec --output ./out --include-symbols --include-source
-    - name: Upload NuGet package to GitHub
+    - name: Publish Nuget Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: nugetPackage
         path: ./out
-        
+  
+  documentation:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    outputs: 
+      Version: ${{ steps.setcalver.outputs.package_version }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Calver Version
+      uses: Nelyx/action-calver@v1.0.0
+      id: setcalver
+      with:
+        default_branch: 'refs/heads/master'
+        format: 'YYYY.MM.DD'
+        version_prefix: ''
+    - name: Display Version outputs
+      run: |
+        echo "Version: ${{ steps.setcalver.outputs.package_version }}"
+
+    - name: Generate Documentation
+      run: /usr/bin/bash ./_docs/Generate.sh
+
+    - name: Make Out Directory
+      run: mkdir ./out
+
+    - name: Archive Documentation
+      run: /usr/bin/bash -c '(cd ./docs/reference && zip -r ../../out/docs.zip .)'
+
+    - name: Publish Documentation Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: documentation
+        path: ./out
+
+  release-documentation:
+    runs-on: ubuntu-latest
+    needs: documentation
+    if: github.ref == 'refs/heads/master' # only run job if on the master branch   
+    
+    steps:  
+    #Push NuGet package to GitHub packages
+    - name: Download Documentation Artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: documentation
+    - name: Copy Documentation to Webserver
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: documentation/docs.zip
+          remote: ~/badscript2.docs.zip
+          host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
+          username: ${{ secrets.DOCUMENTATION_SSH_USER }}
+          privateKey: ${{ secrets.DOCUMENTATION_SSH_KEY }}
+    - name: Deploying Documentation
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
+        username: ${{ secrets.DOCUMENTATION_SSH_USER }}
+        key: ${{ secrets.DOCUMENTATION_SSH_KEY }}
+        port: ${{ secrets.DOCUMENTATION_SSH_PORT }}
+        script: ./updateDocs.sh
+
   release:
     runs-on: ubuntu-latest    
     needs: build
@@ -80,7 +142,7 @@ jobs:
       run: dotnet nuget add source "https://nuget.pkg.github.com/ByteChkR/index.json" -n github --store-password-in-clear-text -u ByteChkR -p ${{ secrets.NUGET_API_KEY }}
     - name: Push package to GitHub packages 
       run: dotnet nuget push nugetPackage/*.symbols.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
-    
+
     #Create release
     - name: Create Release
       if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
