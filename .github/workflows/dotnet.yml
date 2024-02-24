@@ -1,0 +1,161 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    outputs: 
+      Version: ${{ steps.setcalver.outputs.package_version }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Calver Version
+      uses: Nelyx/action-calver@v1.0.0
+      id: setcalver
+      with:
+        default_branch: 'refs/heads/master'
+        format: 'YYYY.MM.DD'
+        version_prefix: ''
+    - name: Display Version outputs
+      run: |
+        echo "Version: ${{ steps.setcalver.outputs.package_version }}"
+    
+        
+    #Build/pack the projects
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    
+    - name: Run Unit Tests
+      run: dotnet test ./src/BadScript2.Tests/BadScript2.Tests.csproj
+      
+    - name: Update Nuget Package Versions
+      run: /usr/bin/pwsh ./newNugetVersion.ps1 -version ${{ steps.setcalver.outputs.package_version }} -postfix public
+        
+    - name: Publish Console
+      run: dotnet publish ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -c Release
+    - name: Publish Source Generator
+      run: dotnet publish ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -c Release
+    - name: Pack Nuget Packages
+      run: |
+        dotnet pack ./src/BadHtml/BadHtml.csproj -p:NuspecFile=./BadHtml.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=./BadScript2.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NetHost/BadScript2.Interop.NetHost.csproj -p:NuspecFile=./BadScript2.Interop.NetHost.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Net/BadScript2.Interop.Net.csproj -p:NuspecFile=./BadScript2.Interop.Net.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NUnit/BadScript2.Interop.NUnit.csproj -p:NuspecFile=./BadScript2.Interop.NUnit.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Linq/BadScript2.Interop.Linq.csproj -p:NuspecFile=./BadScript2.Interop.Linq.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Json/BadScript2.Interop.Json.csproj -p:NuspecFile=./BadScript2.Interop.Json.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.IO/BadScript2.Interop.IO.csproj -p:NuspecFile=./BadScript2.Interop.IO.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Html/BadScript2.Interop.Html.csproj -p:NuspecFile=./BadScript2.Interop.Html.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -p:NuspecFile=./BadScript2.Interop.Generator.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Compression/BadScript2.Interop.Compression.csproj -p:NuspecFile=./BadScript2.Interop.Compression.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Common/BadScript2.Interop.Common.csproj -p:NuspecFile=./BadScript2.Interop.Common.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -p:NuspecFile=./BadScript2.Console.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.csproj -p:NuspecFile=./BadScript2.Interactive.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj -p:NuspecFile=./BadScript2.Debugger.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=../BadScript2.Full.nuspec --output ./out --include-symbols --include-source
+    - name: Publish Nuget Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: nugetPackage
+        path: ./out
+  
+  documentation:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    outputs: 
+      Version: ${{ steps.setcalver.outputs.package_version }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Calver Version
+      uses: Nelyx/action-calver@v1.0.0
+      id: setcalver
+      with:
+        default_branch: 'refs/heads/master'
+        format: 'YYYY.MM.DD'
+        version_prefix: ''
+    - name: Display Version outputs
+      run: |
+        echo "Version: ${{ steps.setcalver.outputs.package_version }}"
+
+    - name: Generate Documentation
+      run: /usr/bin/bash ./_docs/Generate.sh
+
+    - name: Make Out Directory
+      run: mkdir ./out
+
+    - name: Archive Documentation
+      run: /usr/bin/bash -c '(cd ./docs/reference && zip -r ../../out/docs.zip .)'
+
+    - name: Publish Documentation Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: documentation
+        path: ./out
+
+  release-documentation:
+    runs-on: ubuntu-latest
+    needs: documentation
+    if: github.ref == 'refs/heads/master' # only run job if on the master branch   
+    
+    steps:  
+    #Push NuGet package to GitHub packages
+    - name: Download Documentation Artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: documentation
+    - name: Copy Documentation to Webserver
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: documentation/docs.zip
+        remote: ./badscript2.docs.zip
+        host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
+        username: ${{ secrets.DOCUMENTATION_SSH_USER }}
+        privateKey: ${{ secrets.DOCUMENTATION_SSH_KEY }}
+    - name: Deploying Documentation
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
+        username: ${{ secrets.DOCUMENTATION_SSH_USER }}
+        key: ${{ secrets.DOCUMENTATION_SSH_KEY }}
+        port: ${{ secrets.DOCUMENTATION_SSH_PORT }}
+        script: ./updateDocs.sh ${{ needs.documentation.outputs.Version }}
+
+  release:
+    runs-on: ubuntu-latest    
+    needs: build
+    if: github.ref == 'refs/heads/master' # only run job if on the master branch   
+    
+    steps:  
+    #Push NuGet package to GitHub packages
+    - name: Download nuget package artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: nugetPackage
+    - name: Prep packages
+      run: dotnet nuget add source "https://nuget.pkg.github.com/ByteChkR/index.json" -n github --store-password-in-clear-text -u ByteChkR -p ${{ secrets.NUGET_API_KEY }}
+    - name: Push package to GitHub packages 
+      run: dotnet nuget push nugetPackage/*.symbols.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+
+    #Create release
+    - name: Create Release
+      if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }} 
+      with:
+        tag_name: ${{ needs.build.outputs.Version }}
+        release_name: Release ${{ needs.build.outputs.Version }}
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ needs.build.outputs.Version }}
+        name: Release ${{ needs.build.outputs.Version }}
+        artifacts: "nugetPackage/*"
+        token: ${{ secrets.NUGET_API_KEY }}
