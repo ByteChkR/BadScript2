@@ -125,7 +125,7 @@ jobs:
         username: ${{ secrets.DOCUMENTATION_SSH_USER }}
         key: ${{ secrets.DOCUMENTATION_SSH_KEY }}
         port: ${{ secrets.DOCUMENTATION_SSH_PORT }}
-        script: ./updateDocs.sh
+        script: ./updateDocs.sh ${{ needs.documentation.outputs.Version }}
 
   release:
     runs-on: ubuntu-latest    
