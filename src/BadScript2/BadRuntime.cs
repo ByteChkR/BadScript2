@@ -373,9 +373,9 @@ public class BadRuntime : IDisposable
     ///     Registers the Local Path Handler to the Module Importer
     /// </summary>
     /// <returns>This Runtime</returns>
-    public BadRuntime UseLocalModules()
+    public BadRuntime UseLocalModules(IFileSystem? fs = null)
     {
-        return UseImportHandler((workingDir, _) => new BadLocalPathImportHandler(this, workingDir));
+        return UseImportHandler((workingDir, _) => new BadLocalPathImportHandler(this, workingDir, fs ?? BadFileSystem.Instance));
     }
 
     /// <summary>
