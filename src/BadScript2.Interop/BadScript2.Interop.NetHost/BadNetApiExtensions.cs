@@ -12,9 +12,8 @@ public static class BadNetApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseNetHostApi(this BadRuntime runtime)
     {
-        runtime.ConfigureContextOptions(opts => opts.AddExtension<BadNetHostExtensions>());
-        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadNetHostApi()));
-
-        return runtime;
+        return runtime
+            .UseExtension<BadNetHostExtensions>()
+            .UseApi(new BadNetHostApi(), true);
     }
 }

@@ -26,7 +26,7 @@ public static class BadDebuggerExtensions
     /// <returns>The configured Runtime</returns>
     public static BadRuntime UseDebuggerExtensions(this BadRuntime runtime)
     {
-        return runtime.ConfigureContextOptions(opts => opts.AddExtension<BadScriptDebuggerExtension>());
+        return runtime.UseExtension<BadScriptDebuggerExtension>();
     }
 
     /// <summary>

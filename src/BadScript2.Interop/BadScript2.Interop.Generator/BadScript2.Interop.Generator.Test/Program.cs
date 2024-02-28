@@ -62,7 +62,7 @@ internal partial class Program
     {
         BadRuntime runtime = new BadRuntime()
             .UseCommonInterop()
-            .ConfigureContextOptions(x => x.AddApi(new Program()));
+            .UseApi(new Program());
 
 
         runtime.RunInteractive(Enumerable.Empty<string>());

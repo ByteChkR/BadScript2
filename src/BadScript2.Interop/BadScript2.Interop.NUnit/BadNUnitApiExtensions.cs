@@ -12,9 +12,7 @@ public static class BadNUnitApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseNUnitApi(this BadRuntime runtime)
     {
-        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadNUnitApi()));
-
-        return runtime;
+        return runtime.UseApi(new BadNUnitApi(), true);
     }
 
     /// <summary>
@@ -25,15 +23,10 @@ public static class BadNUnitApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseNUnitConsole(this BadRuntime runtime, BadUnitTestContextBuilder console)
     {
+        BadNUnitConsoleApi api = new BadNUnitConsoleApi();
+        api.SetContext(console);
         return runtime
-            .ConfigureContextOptions(
-                opts =>
-                {
-                    BadNUnitConsoleApi api = new BadNUnitConsoleApi();
-                    api.SetContext(console);
-                    opts.AddOrReplaceApi(api);
-                }
-            )
+            .UseApi(api, true)
             .UseConsole(new BadNUnitTestConsole())
             .UseConsoleLogWriter();
     }

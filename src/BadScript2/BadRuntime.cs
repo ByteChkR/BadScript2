@@ -8,6 +8,7 @@ using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Module;
 using BadScript2.Runtime.Module.Handlers;
 using BadScript2.Runtime.Objects;
@@ -374,7 +375,7 @@ public class BadRuntime : IDisposable
     /// <returns>This Runtime</returns>
     public BadRuntime UseLocalModules()
     {
-        return ConfigureModuleImporter((_, workingDir, importer) => importer.AddHandler(new BadLocalPathImportHandler(this, workingDir)));
+        return UseImportHandler((workingDir, _) => new BadLocalPathImportHandler(this, workingDir));
     }
 
     /// <summary>
@@ -389,6 +390,102 @@ public class BadRuntime : IDisposable
         return this;
     }
 
+    /// <summary>
+    ///     Adds or Replaces a specified API
+    /// </summary>
+    /// <param name="api">The API to add or replace</param>
+    /// <param name="replace">If the API should be replaced if it already exists</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseApi(BadInteropApi api, bool replace = false)
+    {
+        if (replace)
+        {
+            return ConfigureContextOptions(opt => opt.AddOrReplaceApi(api));
+        }
+
+        return ConfigureContextOptions(opt => opt.AddApi(api));
+    }
+
+
+    /// <summary>
+    ///     Adds or Replaces a specified APIs
+    /// </summary>
+    /// <param name="api">The APIs to add or replace</param>
+    /// <param name="replace">If the APIs should be replaced if they already exist</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseApis(IEnumerable<BadInteropApi> apis, bool replace = false)
+    {
+        if (replace)
+        {
+            return ConfigureContextOptions(opt => opt.AddOrReplaceApis(apis));
+        }
+
+        return ConfigureContextOptions(opt => opt.AddApis(apis));
+    }
+
+
+    /// <summary>
+    ///     Uses a specified Extension
+    /// </summary>
+    /// <typeparam name="T">The Extension Type</typeparam>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseExtension<T>() where T : BadInteropExtension, new()
+    {
+        return ConfigureContextOptions(opts => opts.AddExtension<T>());
+    }
+
+
+    /// <summary>
+    /// Configures a Module Importer to use the specified Import Handler
+    /// </summary>
+    /// <param name="f">Handler Factory</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseImportHandler(Func<BadExecutionContext, string, BadModuleImporter, BadImportHandler> f)
+    {
+        return ConfigureModuleImporter((ctx, workingDir, importer) => importer.AddHandler(f(ctx, workingDir, importer)));
+    }
+
+    /// <summary>
+    /// Configures a Module Importer to use the specified Import Handler
+    /// </summary>
+    /// <param name="f">Handler Factory</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseImportHandler(Func<BadExecutionContext, BadModuleImporter, BadImportHandler> f)
+    {
+        return ConfigureModuleImporter((ctx, importer) => importer.AddHandler(f(ctx, importer)));
+    }
+
+    /// <summary>
+    /// Configures a Module Importer to use the specified Import Handler
+    /// </summary>
+    /// <param name="f">Handler Factory</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseImportHandler(Func<BadModuleImporter, BadImportHandler> f)
+    {
+        return ConfigureModuleImporter(importer => importer.AddHandler(f(importer)));
+    }
+
+    /// <summary>
+    /// Configures a Module Importer to use the specified Import Handler
+    /// </summary>
+    /// <param name="f">Handler Factory</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseImportHandler(Func<string, BadModuleImporter, BadImportHandler> f)
+    {
+        return ConfigureModuleImporter((workingDir, importer) => importer.AddHandler(f(workingDir, importer)));
+    }
+
+    /// <summary>
+    /// Configures a Module Importer to use the specified Import Handler
+    /// </summary>
+    /// <param name="handler">The Import Handler to use</param>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseImportHandler(BadImportHandler handler)
+    {
+        return ConfigureModuleImporter(importer => importer.AddHandler(handler));
+    }
+    
+    
     /// <summary>
     ///     Configures the Module Importer
     /// </summary>
@@ -429,6 +526,17 @@ public class BadRuntime : IDisposable
     public BadRuntime ConfigureModuleImporter(Action<string, BadModuleImporter> action)
     {
         return ConfigureModuleImporter((_, workingDir, importer) => action(workingDir, importer));
+    }
+
+    /// <summary>
+    ///     Uses the specified Singleton Object
+    /// </summary>
+    /// <param name="obj">The Object to use</param>
+    /// <typeparam name="T">Type of the Object</typeparam>
+    /// <returns>This Runtime</returns>
+    public BadRuntime UseSingleton<T>(T obj) where T : class
+    {
+        return ConfigureContext(ctx => ctx.Scope.AddSingleton(obj));
     }
 
     /// <summary>

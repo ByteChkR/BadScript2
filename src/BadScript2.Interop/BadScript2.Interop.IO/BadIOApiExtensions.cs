@@ -17,13 +17,10 @@ public static class BadIOApiExtensions
     {
         if (fileSystem != null)
         {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadIOApi(fileSystem)));
+            return runtime.UseApi(new BadIOApi(fileSystem), true);
         }
-        else
-        {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadIOApi(BadFileSystem.Instance)));
-        }
+        
+        return runtime.UseApi(new BadIOApi(BadFileSystem.Instance), true);
 
-        return runtime;
     }
 }
