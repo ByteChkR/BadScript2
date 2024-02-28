@@ -328,7 +328,7 @@ public class BadRuntime : IDisposable
     /// </summary>
     /// <param name="source">The Source to parse</param>
     /// <returns>The Parsed Expressions</returns>
-    public IEnumerable<BadExpression> Parse(string source)
+    public static IEnumerable<BadExpression> Parse(string source)
     {
         return Parse(source, "<memory>");
     }
