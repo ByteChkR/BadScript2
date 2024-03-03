@@ -25,4 +25,8 @@
       <None Remove="AnalyzerReleases.Unshipped.md" />
       <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Object\BadInteropObjectSourceGenerator.cs" />
+    </ItemGroup>
 </Project>

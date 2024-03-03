@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace BadScript2.Interop.Generator;
 
-public static class BadInteropApiAttributes
+public static class BadInteropStaticCode
 {
     public static DiagnosticDescriptor CreateDescriptor(string id, string title, string messageFormat, string category, DiagnosticSeverity severity)
     {
