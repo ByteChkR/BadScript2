@@ -14,6 +14,13 @@ internal partial class BadPathApi
     {
         m_FileSystem = fileSystem;
     }
+    
+    [BadMethod(description: "Returns the file name and extension of the specified path string.")]
+    [return: BadReturn("The characters after the last directory character in path.")]
+    private string GetFileName([BadParameter(description: "The Path to get the file name from.")] string path)
+    {
+        return Path.GetFileName(path);
+    }
 
     [BadMethod(description: "Returns the file name of the specified path string without the extension")]
     [return: BadReturn("The string returned by GetFileName(string), minus the last period (.) and all characters following it")]

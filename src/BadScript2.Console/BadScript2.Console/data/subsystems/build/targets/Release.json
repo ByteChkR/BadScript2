@@ -5,6 +5,7 @@
     "ChangeVersion",
     "Build",
     "Minify",
+    "SaveToOutput",
     "Install"
   ]
 }

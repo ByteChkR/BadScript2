@@ -1,6 +1,15 @@
 
 import SourceReader from '<SourceReader>';
 
+function GetNewOutputFile()
+{
+	const outFile = Context.Project.Build?.ActualOutputFile ?? Context.Project.Build.OutputFile;
+	const dir = IO.Path.GetDirectoryName(outFile);
+	const file = IO.Path.GetFileNameWithoutExtension(outFile);
+	const ext = IO.Path.GetExtension(outFile);
+	return IO.Path.Combine(dir, file + ".min" + ext);
+}
+
 function Minify()
 {
 	Console.WriteLine("Minify Build Output");
@@ -30,6 +39,7 @@ function Minify()
 	}
 
 	Context.Project.Build.SourceCode = newSrc.Trim();
+	Context.Project.Build.ActualOutputFile = GetNewOutputFile();
 }
 
 
