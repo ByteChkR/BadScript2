@@ -32,6 +32,9 @@ jobs:
     
     - name: Run Unit Tests
       run: dotnet test ./src/BadScript2.Tests/BadScript2.Tests.csproj
+
+    - name: Update Console Data Directory
+      run: /usr/bin/pwsh ./build.ps1 -config Release -noTests -updateSource -writeLog
       
     - name: Update Nuget Package Versions
       run: /usr/bin/pwsh ./newNugetVersion.ps1 -version ${{ steps.setcalver.outputs.package_version }} -postfix public
