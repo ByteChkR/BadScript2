@@ -1,23 +1,34 @@
 
+function RemoveAllExtensions(f)
+{
+	if(f.Contains("."))
+	{
+		return f.Split(".", true)[0];
+	}
+	return f;
+}
+
 function GetInstallPath()
 {
-	if(Context.Project?.Build?.OutputFile == null)
+	let outFile = Context.Project?.Build?.ActualOutputFile ?? Context.Project?.Build?.OutputFile;
+	if(outFile == null)
 	{
 		return null;
 	}
+	
 	const moduleType = Context.Project?.Build?.ModuleType ?? "lib";
-	const outName = IO.Path.GetFileName(IO.Path.GetFullPath(Context.Project.Build.OutputFile));
+	const outName = RemoveAllExtensions(IO.Path.GetFileName(IO.Path.GetFullPath(outFile)));
 	if(moduleType == "app")
 	{
-		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "apps", outName);
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "apps", outName + ".bs");
 	}
 	else if(moduleType == "lib")
 	{
-		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs", outName);
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "libs", outName + ".bs");
 	}
 	else if(moduleType == "startup")
 	{
-		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "startup", outName);
+		return IO.Path.Combine(IO.Directory.GetStartupDirectory(), "data", "subsystems", "run", "startup", outName + ".bs");
 	}
 	else if(moduleType == "debugger")
 	{
