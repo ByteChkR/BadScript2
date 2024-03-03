@@ -19,6 +19,21 @@ public class BadModuleImporter
     /// </summary>
     private readonly BadModuleStore m_Store;
 
+    public BadModuleImporter Clone(bool onlyTransient = true)
+    {
+        BadModuleImporter importer = new BadModuleImporter(m_Store);
+        if (onlyTransient)
+        {
+            importer.m_Handlers.AddRange(m_Handlers.Where(x => x.IsTransient()));
+        }
+        else
+        {
+            importer.m_Handlers.AddRange(m_Handlers);
+        }
+
+        return importer;
+    }
+
     /// <summary>
     ///     Creates a new BadModuleImporter
     /// </summary>

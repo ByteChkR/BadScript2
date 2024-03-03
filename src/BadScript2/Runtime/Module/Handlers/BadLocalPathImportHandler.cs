@@ -54,6 +54,8 @@ public class BadLocalPathImportHandler : BadImportHandler
         return p;
     }
 
+    public override bool IsTransient() => false;
+
     /// <inheritdoc />
     public override bool Has(string path)
     {

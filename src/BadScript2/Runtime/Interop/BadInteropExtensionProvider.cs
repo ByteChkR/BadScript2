@@ -15,20 +15,22 @@ public class BadInteropExtensionProvider
     /// <summary>
     ///     Global extensions that are available for all objects in the runtime
     /// </summary>
-    private readonly Dictionary<BadObject, Func<BadObject, BadObject>> m_GlobalExtensions =
-        new Dictionary<BadObject, Func<BadObject, BadObject>>();
+    private readonly Dictionary<string, Func<BadObject, BadObject>> m_GlobalExtensions =
+        new Dictionary<string, Func<BadObject, BadObject>>();
 
     /// <summary>
     ///     Object Extensions that are available for objects of the specified type
     /// </summary>
-    private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_ObjectExtensions =
-        new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
+    private readonly Dictionary<Type, Dictionary<string, Func<BadObject, BadObject>>> m_ObjectExtensions =
+        new Dictionary<Type, Dictionary<string, Func<BadObject, BadObject>>>();
 
     /// <summary>
     ///     Cache for already built extension tables.
     /// </summary>
-    private readonly Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> m_StaticExtensionCache =
-        new Dictionary<Type, Dictionary<BadObject, Func<BadObject, BadObject>>>();
+    private readonly Dictionary<Type, Dictionary<string, Func<BadObject, BadObject>>> m_StaticExtensionCache =
+        new Dictionary<Type, Dictionary<string, Func<BadObject, BadObject>>>();
+
+    private readonly Dictionary<Type, bool> m_SupportedTypes = new Dictionary<Type, bool>();
 
     /// <summary>
     ///     Creates a new BadInteropExtensionProvider
@@ -50,7 +52,7 @@ public class BadInteropExtensionProvider
     /// <returns>List of Extension Names</returns>
     public BadObject[] GetExtensionNames()
     {
-        return m_GlobalExtensions.Keys.ToArray();
+        return m_GlobalExtensions.Keys.Select(x=>(BadObject)x).ToArray();
     }
 
     /// <summary>
@@ -67,7 +69,7 @@ public class BadInteropExtensionProvider
 
         if (HasTypeExtensions(t))
         {
-            objs.AddRange(GetTypeExtensions(t).Keys);
+            objs.AddRange(GetTypeExtensions(t).Keys.Select(x=>(BadObject)x));
         }
 
         if (obj is not IBadNative native)
@@ -79,10 +81,17 @@ public class BadInteropExtensionProvider
 
         if (HasTypeExtensions(t))
         {
-            objs.AddRange(GetTypeExtensions(t).Keys);
+            objs.AddRange(GetTypeExtensions(t).Keys.Select(x=>(BadObject)x));
         }
 
         return objs.ToArray();
+    }
+    
+    private bool InnerHasTypeExtensions(Type t)
+    {
+        bool r = m_ObjectExtensions.Any(x => x.Key.IsAssignableFrom(t));
+        m_SupportedTypes.Add(t, r);
+        return r;
     }
 
     /// <summary>
@@ -92,7 +101,7 @@ public class BadInteropExtensionProvider
     /// <returns>True if any extensions are available</returns>
     private bool HasTypeExtensions(Type t)
     {
-        return m_ObjectExtensions.Any(x => x.Key.IsAssignableFrom(t));
+        return m_SupportedTypes.TryGetValue(t, out bool r) ? r : InnerHasTypeExtensions(t);
     }
 
     /// <summary>
@@ -100,7 +109,7 @@ public class BadInteropExtensionProvider
     /// </summary>
     /// <param name="propName">Extension Name</param>
     /// <returns>True if the extension is available</returns>
-    private bool HasGlobalExtensions(BadObject propName)
+    private bool HasGlobalExtensions(string propName)
     {
         return m_GlobalExtensions.ContainsKey(propName);
     }
@@ -110,21 +119,21 @@ public class BadInteropExtensionProvider
     /// </summary>
     /// <param name="type">Type</param>
     /// <returns>Type Extensions</returns>
-    private Dictionary<BadObject, Func<BadObject, BadObject>> GetTypeExtensions(Type type)
+    private Dictionary<string, Func<BadObject, BadObject>> GetTypeExtensions(Type type)
     {
-        if (m_StaticExtensionCache.TryGetValue(type, out Dictionary<BadObject, Func<BadObject, BadObject>>? extensions))
+        if (m_StaticExtensionCache.TryGetValue(type, out Dictionary<string, Func<BadObject, BadObject>>? extensions))
         {
             return extensions;
         }
 
-        Dictionary<BadObject, Func<BadObject, BadObject>>
-            exts = new Dictionary<BadObject, Func<BadObject, BadObject>>();
+        Dictionary<string, Func<BadObject, BadObject>>
+            exts = new Dictionary<string, Func<BadObject, BadObject>>();
 
-        foreach (KeyValuePair<Type, Dictionary<BadObject, Func<BadObject, BadObject>>> kvp in m_ObjectExtensions.Where(
+        foreach (KeyValuePair<Type, Dictionary<string, Func<BadObject, BadObject>>> kvp in m_ObjectExtensions.Where(
                      x => x.Key.IsAssignableFrom(type)
                  ))
         {
-            foreach (KeyValuePair<BadObject, Func<BadObject, BadObject>> keyValuePair in kvp.Value)
+            foreach (KeyValuePair<string, Func<BadObject, BadObject>> keyValuePair in kvp.Value)
             {
                 exts[keyValuePair.Key] = keyValuePair.Value;
             }
@@ -143,7 +152,7 @@ public class BadInteropExtensionProvider
     /// </summary>
     /// <param name="propName">The Extension Name</param>
     /// <param name="func">The Extension Provider Function</param>
-    public void RegisterGlobal(BadObject propName, Func<BadObject, BadObject> func)
+    public void RegisterGlobal(string propName, Func<BadObject, BadObject> func)
     {
         m_GlobalExtensions.Add(propName, func);
     }
@@ -153,7 +162,7 @@ public class BadInteropExtensionProvider
     /// </summary>
     /// <param name="propName">The Extension Name</param>
     /// <param name="obj">The Extension</param>
-    public void RegisterGlobal(BadObject propName, BadObject obj)
+    public void RegisterGlobal(string propName, BadObject obj)
     {
         RegisterGlobal(propName, _ => obj);
     }
@@ -165,7 +174,7 @@ public class BadInteropExtensionProvider
     /// <param name="obj">The Extension</param>
     /// <typeparam name="T">Object Type</typeparam>
     /// <exception cref="BadRuntimeException">Gets raised if the provided object can not be cast to the type for the extension</exception>
-    public void RegisterObject<T>(BadObject propName, Func<T, BadObject> obj)
+    public void RegisterObject<T>(string propName, Func<T, BadObject> obj)
     {
         RegisterObject(
             typeof(T),
@@ -189,7 +198,7 @@ public class BadInteropExtensionProvider
     /// <param name="propName">The Extension Name</param>
     /// <param name="obj">The Extension</param>
     /// <exception cref="BadRuntimeException">Gets raised if the provided object can not be cast to the type for the extension</exception>
-    public void RegisterObject(Type t, BadObject propName, BadObject obj)
+    public void RegisterObject(Type t, string propName, BadObject obj)
     {
         RegisterObject(t, propName, _ => obj);
     }
@@ -201,15 +210,15 @@ public class BadInteropExtensionProvider
     /// <param name="obj">The Extension</param>
     /// <param name="t">The Type</param>
     /// <exception cref="BadRuntimeException">Gets raised if the provided object can not be cast to the type for the extension</exception>
-    public void RegisterObject(Type t, BadObject propName, Func<BadObject, BadObject> obj)
+    public void RegisterObject(Type t, string propName, Func<BadObject, BadObject> obj)
     {
-        if (m_ObjectExtensions.TryGetValue(t, out Dictionary<BadObject, Func<BadObject, BadObject>>? extension))
+        if (m_ObjectExtensions.TryGetValue(t, out Dictionary<string, Func<BadObject, BadObject>>? extension))
         {
             extension[propName] = obj;
         }
         else
         {
-            m_ObjectExtensions[t] = new Dictionary<BadObject, Func<BadObject, BadObject>>
+            m_ObjectExtensions[t] = new Dictionary<string, Func<BadObject, BadObject>>
             {
                 {
                     propName, obj
@@ -225,7 +234,7 @@ public class BadInteropExtensionProvider
     /// <param name="t">Type</param>
     /// <param name="propName">Extension Name</param>
     /// <returns>True if the extension is available</returns>
-    public bool HasObject(Type t, BadObject propName)
+    public bool HasObject(Type t, string propName)
     {
         return HasGlobalExtensions(propName) || HasTypeExtensions(t) && GetTypeExtensions(t).ContainsKey(propName);
     }
@@ -236,7 +245,7 @@ public class BadInteropExtensionProvider
     /// <param name="propName">Extension Name</param>
     /// <typeparam name="T">Object Type</typeparam>
     /// <returns>True if the extension is available</returns>
-    public bool HasObject<T>(BadObject propName)
+    public bool HasObject<T>(string propName)
     {
         return HasObject(typeof(T), propName);
     }
@@ -251,7 +260,7 @@ public class BadInteropExtensionProvider
     /// <returns>Object Reference</returns>
     public BadObjectReference GetObjectReference(
         Type t,
-        BadObject propName,
+        string propName,
         BadObject instance,
         BadScope? caller)
     {
@@ -269,9 +278,9 @@ public class BadInteropExtensionProvider
     /// <param name="instance">Object Instance</param>
     /// <param name="caller">The Caller Scope</param>
     /// <returns>Object Instance</returns>
-    public BadObject GetObject(Type t, BadObject propName, BadObject instance, BadScope? caller)
+    public BadObject GetObject(Type t, string propName, BadObject instance, BadScope? caller)
     {
-        Dictionary<BadObject, Func<BadObject, BadObject>> ext = GetTypeExtensions(t);
+        Dictionary<string, Func<BadObject, BadObject>> ext = GetTypeExtensions(t);
 
         if (ext.ContainsKey(propName))
         {
@@ -295,7 +304,7 @@ public class BadInteropExtensionProvider
     /// <param name="caller">The Caller Scope</param>
     /// <typeparam name="T">Type</typeparam>
     /// <returns>Object Instance</returns>
-    public BadObject GetObject<T>(BadObject propName, BadObject instance, BadScope? caller = null)
+    public BadObject GetObject<T>(string propName, BadObject instance, BadScope? caller = null)
     {
         return GetObject(typeof(T), propName, instance, caller);
     }

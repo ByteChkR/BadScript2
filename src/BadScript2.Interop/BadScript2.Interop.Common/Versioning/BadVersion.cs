@@ -76,22 +76,17 @@ public class BadVersion : BadObject, IBadNative
 
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        return propName is IBadString str &&
-               str.Value is "Major" or "Minor" or "Build" or "Revision" ||
+        return propName is  "Major" or "Minor" or "Build" or "Revision" ||
                base.HasProperty(propName, caller);
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        if (propName is not IBadString str)
-        {
-            return base.GetProperty(propName, caller);
-        }
 
-        return str.Value switch
+        return propName switch
         {
             "Major" => BadObjectReference.Make("Version.Major", () => m_Version.Major),
             "Minor" => BadObjectReference.Make("Version.Minor", () => m_Version.Minor),

@@ -45,7 +45,7 @@ public class BadUnaryUnpackExpression : BadExpression
             throw new BadRuntimeException("Unpack operator requires 1 table", position);
         }
 
-        foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+        foreach (KeyValuePair<string, BadObject> o in rightT.InnerTable)
         {
             table.InnerTable[o.Key] = o.Value;
             table.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];

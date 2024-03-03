@@ -74,22 +74,16 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        return propName is IBadString
-               {
-                   Value: "GetEnumerator",
-               } ||
+        return propName  == "GetEnumerator" ||
                base.HasProperty(propName, caller);
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        return propName is IBadString
-        {
-            Value: "GetEnumerator",
-        }
+        return propName   == "GetEnumerator"
             ? BadObjectReference.Make("GetEnumerator", () => m_Func)
             : base.GetProperty(propName, caller);
     }

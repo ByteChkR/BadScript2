@@ -41,13 +41,13 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
             throw new BadRuntimeException("Unpack operator requires 2 tables", position);
         }
 
-        foreach (KeyValuePair<BadObject, BadObject> o in leftT.InnerTable)
+        foreach (KeyValuePair<string, BadObject> o in leftT.InnerTable)
         {
             result.InnerTable[o.Key] = o.Value;
             result.PropertyInfos[o.Key] = leftT.PropertyInfos[o.Key];
         }
 
-        foreach (KeyValuePair<BadObject, BadObject> o in rightT.InnerTable)
+        foreach (KeyValuePair<string, BadObject> o in rightT.InnerTable)
         {
             result.InnerTable[o.Key] = o.Value;
             result.PropertyInfos[o.Key] = rightT.PropertyInfos[o.Key];

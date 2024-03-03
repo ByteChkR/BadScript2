@@ -20,8 +20,8 @@ public class BadNetInteropExtensions : BadInteropExtension
             "Headers",
             resp =>
             {
-                Dictionary<BadObject, BadObject> v = resp.Headers.ToDictionary(
-                    x => (BadObject)x.Key,
+                Dictionary<string, BadObject> v = resp.Headers.ToDictionary(
+                    x => x.Key,
                     x => (BadObject)new BadArray(x.Value.Select(y => (BadObject)y).ToList())
                 );
 

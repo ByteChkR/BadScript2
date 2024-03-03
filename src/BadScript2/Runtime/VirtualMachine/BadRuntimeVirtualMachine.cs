@@ -230,13 +230,17 @@ public class BadRuntimeVirtualMachine
                 case BadOpCode.TableInit:
                 {
                     int length = (int)instr.Arguments[0];
-                    Dictionary<BadObject, BadObject> arr = new Dictionary<BadObject, BadObject>();
+                    Dictionary<string, BadObject> arr = new Dictionary<string, BadObject>();
 
                     for (int i = 0; i < length; i++)
                     {
                         BadObject val = m_ArgumentStack.Pop().Dereference();
                         BadObject key = m_ArgumentStack.Pop().Dereference();
-                        arr.Add(key, val);
+                        if (key is not IBadString s)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Invalid Property Key", instr.Position);
+                        }
+                        arr.Add(s.Value, val);
                     }
 
                     m_ArgumentStack.Push(new BadTable(arr));
@@ -354,7 +358,7 @@ public class BadRuntimeVirtualMachine
                 }
                 case BadOpCode.DefVar:
                 {
-                    BadObject name = (BadObject)instr.Arguments[0];
+                    string name = (string)instr.Arguments[0];
                     bool isReadOnly = (bool)instr.Arguments[1];
                     ctx.Scope.DefineVariable(name, BadObject.Null, ctx.Scope, new BadPropertyInfo(BadAnyPrototype.Instance, isReadOnly));
                     m_ArgumentStack.Push(ctx.Scope.GetVariable(name));
@@ -364,7 +368,7 @@ public class BadRuntimeVirtualMachine
                 case BadOpCode.DefVarTyped:
 
                 {
-                    BadObject name = (BadObject)instr.Arguments[0];
+                    string name = (string)instr.Arguments[0];
                     bool isReadOnly = (bool)instr.Arguments[1];
                     ctx.Scope.DefineVariable(
                         name,
@@ -377,7 +381,7 @@ public class BadRuntimeVirtualMachine
                     break;
                 }
                 case BadOpCode.LoadVar:
-                    m_ArgumentStack.Push(ctx.Scope.GetVariable((BadObject)instr.Arguments[0]));
+                    m_ArgumentStack.Push(ctx.Scope.GetVariable((string)instr.Arguments[0]));
 
                     break;
                 case BadOpCode.LoadMember:
@@ -391,7 +395,7 @@ public class BadRuntimeVirtualMachine
                 case BadOpCode.LoadMemberNullChecked:
                 {
                     BadObject obj = m_ArgumentStack.Pop().Dereference();
-                    BadObject name = (string)instr.Arguments[0];
+                    string name = (string)instr.Arguments[0];
 
                     m_ArgumentStack.Push(!obj.HasProperty(name, ctx.Scope) ? BadObject.Null : obj.GetProperty(name, ctx.Scope));
 
@@ -1494,10 +1498,6 @@ public class BadRuntimeVirtualMachine
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            //IF not control flow instruction and not an internal instruction
-            //  => return argumentstack.peek()
-            //yield return BadObject.Null; //make it return something
         }
     }
 

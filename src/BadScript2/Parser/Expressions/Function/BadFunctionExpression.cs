@@ -259,7 +259,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
         if (Name != null)
         {
             context.Scope.DefineVariable(
-                BadObject.Wrap(Name.Text),
+                Name.Text,
                 fFinal,
                 null,
                 new BadPropertyInfo(fFinal.GetPrototype())

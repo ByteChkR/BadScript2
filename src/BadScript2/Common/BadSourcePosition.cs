@@ -58,10 +58,11 @@ public class BadSourcePosition
     /// </summary>
     public int Length { get; }
 
+    private string? m_Text;
     /// <summary>
     ///     Returns the Position as a string.
     /// </summary>
-    public string Text => GetExcerpt(0);
+    public string Text => m_Text ??= GetExcerpt(0);
 
     /// <summary>
     ///     Creates a new Source Position

@@ -227,7 +227,7 @@ internal partial class BadRuntimeApi
     /// <param name="source">The Source String</param>
     /// <param name="file">The File Name</param>
     /// <returns>Validation Result</returns>
-    [BadMethod(description: "Validates a source string")]
+    [BadMethod("Validate", description: "Validates a source string")]
     [return: BadReturn("Validation Result")]
     private static BadTable ValidateSource([BadParameter(description: "The Source to Validate")] string source, [BadParameter(description: "The File Name")] string file)
     {

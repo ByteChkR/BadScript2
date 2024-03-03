@@ -45,7 +45,7 @@ public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpr
         );
 
         //Write target into variable
-        yield return new BadInstruction(BadOpCode.DefVar, expression.Position, (BadObject)"~ENUMERATOR~", true);
+        yield return new BadInstruction(BadOpCode.DefVar, expression.Position, "~ENUMERATOR~", true);
         yield return new BadInstruction(BadOpCode.Swap, expression.Position);
         yield return new BadInstruction(BadOpCode.Assign, expression.Position);
 

@@ -80,7 +80,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
         }
         else
         {
-            BadObject ret = left.GetProperty(BadObject.Wrap(Right.Text), context.Scope);
+            BadObject ret = left.GetProperty(Right.Text, context.Scope);
 
             yield return ret;
         }

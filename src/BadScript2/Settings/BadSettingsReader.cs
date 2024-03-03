@@ -52,7 +52,7 @@ public class BadSettingsReader
         }
 
         BadSettings s = new BadSettings();
-        s.Populate(settings.ToArray());
+        s.Populate(true, settings.ToArray());
 
         BadLogger.Log("Resolving environment variables", "SettingsReader");
         BadSettings.ResolveEnvironmentVariables(s);
@@ -161,7 +161,7 @@ public class BadSettingsReader
                 }
             }
 
-            settings.Populate(setting.ToArray());
+            settings.Populate(true, setting.ToArray());
 
 
             BadLogger.Log("Resolving environment variables", "SettingsReader");

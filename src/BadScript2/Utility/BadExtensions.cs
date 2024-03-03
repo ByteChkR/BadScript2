@@ -74,7 +74,7 @@ public static class BadExtensions
 	/// <param name="propName">The Property Name</param>
 	/// <typeparam name="T">The Property Type</typeparam>
 	/// <returns>The Property Value</returns>
-	public static T GetProperty<T>(this BadObject obj, BadObject propName)
+	public static T GetProperty<T>(this BadObject obj, string propName)
     {
         BadObjectReference reference = obj.GetProperty(propName);
 

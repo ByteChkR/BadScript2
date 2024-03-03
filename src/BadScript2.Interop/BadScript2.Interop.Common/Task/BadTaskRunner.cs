@@ -41,7 +41,7 @@ public class BadTaskRunner
 	/// </summary>
 	public void RunStep()
     {
-        for (int i = m_TaskList.Count - 1; i >= 0; i--)
+        for (int i = m_TaskList.Count - 1; i >= 0; --i)
         {
             if (i >= m_TaskList.Count)
             {

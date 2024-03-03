@@ -12,6 +12,7 @@ public class BadInteropImportHandler : BadImportHandler
     private readonly BadFunction m_GetHashFunction;
     private readonly BadExecutionContext m_HandlerContext;
     private readonly BadFunction m_HasFunction;
+    private readonly BadFunction m_IsTransientFunction;
 
     public BadInteropImportHandler(BadExecutionContext ctx, BadObject scriptHandler)
     {
@@ -37,6 +38,15 @@ public class BadInteropImportHandler : BadImportHandler
         }
 
         m_GetHashFunction = getHashF;
+        
+        BadObject isTransient = scriptHandler.GetProperty("IsTransient").Dereference();
+        
+        if (isTransient is not BadFunction isTransientF)
+        {
+            throw new BadRuntimeException("IsTransient function not found");
+        }
+        
+        m_IsTransientFunction = isTransientF;
     }
 
     private void EnsureSuccess()
@@ -60,7 +70,16 @@ public class BadInteropImportHandler : BadImportHandler
 
         return result.Dereference();
     }
+    public override bool IsTransient()
+    {
+        BadObject result = RunFunction(m_IsTransientFunction);
+        if (result is not IBadBoolean b)
+        {
+            throw new BadRuntimeException("IsTransient function did not return a boolean");
+        }
 
+        return b.Value;
+    }
     public override bool Has(string path)
     {
         BadObject result = RunFunction(m_HasFunction, path);

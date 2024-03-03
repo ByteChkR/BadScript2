@@ -85,7 +85,7 @@ public class BadClass : BadObject
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         if (Scope.GetTable().InnerTable.ContainsKey(propName))
         {
@@ -109,7 +109,7 @@ public class BadClass : BadObject
     /// <param name="caller">The scope of the caller.</param>
     /// <returns>The property.</returns>
     /// <exception cref="BadRuntimeException">Thrown if the property is not found or is not visible.</exception>
-    public BadObjectReference GetProperty(BadObject propName, BadPropertyVisibility visibility, BadScope? caller = null)
+    public BadObjectReference GetProperty(string propName, BadPropertyVisibility visibility, BadScope? caller = null)
     {
         BadPropertyVisibility vis = BadScope.GetPropertyVisibility(propName);
 
@@ -197,7 +197,7 @@ public class BadClass : BadObject
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return GetProperty(propName, BadPropertyVisibility.Public, caller);
     }

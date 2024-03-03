@@ -18,7 +18,7 @@ public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<Bad
             yield return new BadInstruction(
                 BadOpCode.DefVar,
                 expression.Position,
-                (BadObject)expression.Name,
+                expression.Name,
                 expression.IsReadOnly
             );
         }
@@ -32,7 +32,7 @@ public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<Bad
             yield return new BadInstruction(
                 BadOpCode.DefVarTyped,
                 expression.Position,
-                (BadObject)expression.Name,
+                expression.Name,
                 expression.IsReadOnly
             );
         }

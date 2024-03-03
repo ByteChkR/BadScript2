@@ -48,9 +48,8 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        BadObject name = BadObject.Wrap(Name);
 
-        BadObjectReference obj = context.Scope.GetVariable(name, context.Scope);
+        BadObjectReference obj = context.Scope.GetVariable(Name, context.Scope);
 
 
         yield return obj;

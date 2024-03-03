@@ -33,7 +33,7 @@ public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchEx
             new BadInstruction(
                 BadOpCode.DefVar,
                 expression.Position,
-                (BadObject)expression.ErrorName,
+                expression.ErrorName,
                 true
             )
         );

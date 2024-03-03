@@ -24,7 +24,7 @@ public class BadSettingsObject : BadObject
     /// <summary>
     ///     Property References
     /// </summary>
-    private readonly Dictionary<BadObject, BadObjectReference> m_PropertyReferences;
+    private readonly Dictionary<string, BadObjectReference> m_PropertyReferences;
 
     /// <summary>
     ///     Inner Settings Object
@@ -38,7 +38,7 @@ public class BadSettingsObject : BadObject
     public BadSettingsObject(BadSettings settings)
     {
         m_Settings = settings;
-        Dictionary<BadObject, BadObject> properties = new Dictionary<BadObject, BadObject>
+        Dictionary<string, BadObject> properties = new Dictionary<string, BadObject>
         {
             {
                 "HasValue",
@@ -161,9 +161,9 @@ public class BadSettingsObject : BadObject
             },
         };
 
-        m_PropertyReferences = new Dictionary<BadObject, BadObjectReference>();
+        m_PropertyReferences = new Dictionary<string, BadObjectReference>();
 
-        foreach (KeyValuePair<BadObject, BadObject> property in properties)
+        foreach (KeyValuePair<string, BadObject> property in properties)
         {
             m_PropertyReferences.Add(
                 property.Key,
@@ -206,26 +206,26 @@ public class BadSettingsObject : BadObject
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return m_PropertyReferences.ContainsKey(propName) ||
-               propName is IBadString str && m_Settings.HasProperty(str.Value) ||
+               m_Settings.HasProperty(propName) ||
                base.HasProperty(propName, caller);
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         if (m_PropertyReferences.TryGetValue(propName, out BadObjectReference? property))
         {
             return property;
         }
 
-        if (propName is IBadString str && m_Settings.HasProperty(str.Value))
+        if (m_Settings.HasProperty(propName))
         {
             return BadObjectReference.Make(
                 $"BadSettings.{propName}",
-                () => new BadSettingsObject(m_Settings.GetProperty(str.Value))
+                () => new BadSettingsObject(m_Settings.GetProperty(propName))
             );
         }
 

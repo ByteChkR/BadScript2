@@ -22,20 +22,20 @@ public class BadTable : BadObject, IBadEnumerable
     /// </summary>
     public BadTable()
     {
-        InnerTable = new Dictionary<BadObject, BadObject>();
-        PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
+        InnerTable = new Dictionary<string, BadObject>();
+        PropertyInfos = new Dictionary<string, BadPropertyInfo>();
     }
 
     /// <summary>
     ///     Creates a new Table Object
     /// </summary>
     /// <param name="table">The Initial Values of the Table</param>
-    public BadTable(Dictionary<BadObject, BadObject> table)
+    public BadTable(Dictionary<string, BadObject> table)
     {
         InnerTable = table;
-        PropertyInfos = new Dictionary<BadObject, BadPropertyInfo>();
+        PropertyInfos = new Dictionary<string, BadPropertyInfo>();
 
-        foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
+        foreach (KeyValuePair<string, BadObject> kvp in InnerTable)
         {
             PropertyInfos[kvp.Key] = new BadPropertyInfo(BadAnyPrototype.Instance);
         }
@@ -46,12 +46,14 @@ public class BadTable : BadObject, IBadEnumerable
     /// <summary>
     ///     The Inner Table for this Object
     /// </summary>
-    public Dictionary<BadObject, BadObject> InnerTable { get; }
+    public Dictionary<string, BadObject> InnerTable { get; }
 
     /// <summary>
     ///     A Table of additional property information
     /// </summary>
-    public Dictionary<BadObject, BadPropertyInfo> PropertyInfos { get; }
+    public Dictionary<string, BadPropertyInfo> PropertyInfos { get; }
+    
+    private readonly Dictionary<string, BadObjectReference> m_ReferenceCache = new Dictionary<string, BadObjectReference>();
 
     /// <summary>
     ///     Returns the Enumerator for this Table
@@ -61,7 +63,7 @@ public class BadTable : BadObject, IBadEnumerable
     {
         return InnerTable.Select(
                 kvp => new BadTable(
-                    new Dictionary<BadObject, BadObject>
+                    new Dictionary<string, BadObject>
                     {
                         {
                             "Key", kvp.Key
@@ -97,7 +99,7 @@ public class BadTable : BadObject, IBadEnumerable
     /// </summary>
     /// <param name="propName">Property Name</param>
     /// <returns>Property Info</returns>
-    public BadPropertyInfo GetPropertyInfo(BadObject propName)
+    public BadPropertyInfo GetPropertyInfo(string propName)
     {
         return PropertyInfos[propName];
     }
@@ -106,7 +108,7 @@ public class BadTable : BadObject, IBadEnumerable
     ///     Removes a Property from the Table
     /// </summary>
     /// <param name="key">Property Key</param>
-    public bool RemoveKey(BadObject key)
+    public bool RemoveKey(string key)
     {
         PropertyInfos.Remove(key);
 
@@ -115,7 +117,7 @@ public class BadTable : BadObject, IBadEnumerable
 
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return InnerTable.ContainsKey(propName) || caller != null && caller.Provider.HasObject<BadTable>(propName);
     }
@@ -128,7 +130,7 @@ public class BadTable : BadObject, IBadEnumerable
     /// <param name="useExtensions">Use Extension Properties</param>
     /// <param name="caller">The caller Scope</param>
     /// <returns>The Property Reference</returns>
-    public BadObjectReference GetProperty(BadObject propName, bool useExtensions, BadScope? caller = null)
+    public BadObjectReference GetProperty(string propName, bool useExtensions, BadScope? caller = null)
     {
         return !useExtensions ? GetLocalReference(propName) : GetProperty(propName, caller);
     }
@@ -138,9 +140,13 @@ public class BadTable : BadObject, IBadEnumerable
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <returns>The Property Reference</returns>
-    private BadObjectReference GetLocalReference(BadObject propName)
+    private BadObjectReference GetLocalReference(string propName)
     {
-        return BadObjectReference.Make(
+        if (m_ReferenceCache.TryGetValue(propName, out BadObjectReference reference))
+        {
+            return reference;
+        }
+        BadObjectReference r= BadObjectReference.Make(
             $"BadTable.{propName}",
             () => InnerTable[propName],
             (o, t) =>
@@ -177,10 +183,14 @@ public class BadTable : BadObject, IBadEnumerable
             },
             () => { InnerTable.Remove(propName); }
         );
+        
+        m_ReferenceCache[propName] = r;
+        
+        return r;
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         if (!InnerTable.ContainsKey(propName) && caller != null && caller.Provider.HasObject<BadTable>(propName))
         {
@@ -199,21 +209,16 @@ public class BadTable : BadObject, IBadEnumerable
         sb.Append("{");
         sb.AppendLine();
 
-        foreach (KeyValuePair<BadObject, BadObject> kvp in InnerTable)
+        foreach (KeyValuePair<string, BadObject> kvp in InnerTable)
         {
-            if (kvp.Key is BadScope || kvp.Value is BadScope)
+            if (kvp.Value is BadScope)
             {
                 sb.AppendLine("RECURSION_PROTECT");
 
                 continue;
             }
 
-            string kStr = "{...}";
-
-            if (!done.Contains(kvp.Key))
-            {
-                kStr = kvp.Key.ToSafeString(done).Trim();
-            }
+            string kStr = kvp.Key;
 
             string vStr = "{...}";
 

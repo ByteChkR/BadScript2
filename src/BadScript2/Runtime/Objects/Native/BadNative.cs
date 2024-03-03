@@ -131,13 +131,13 @@ public class BadNative<T> : BadObject, IBadNative
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return caller != null && caller.Provider.HasObject<T>(propName);
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return BadObjectReference.Make(
             $"BadNative<{typeof(T).Name}>.{propName}",

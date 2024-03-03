@@ -74,6 +74,7 @@ public class BadRuntime : IDisposable
     public BadRuntime() : this(new BadExecutionContextOptions()) { }
 
     private BadModuleStore ModuleStore { get; } = new BadModuleStore();
+    private BadModuleImporter? Importer { get; set; }
 
     //private BadModuleImporter? Importer { get; set; }
 
@@ -265,7 +266,15 @@ public class BadRuntime : IDisposable
         }
 
         ctx.Scope.AddSingleton(this);
-        BadModuleImporter importer = new BadModuleImporter(ModuleStore);
+        BadModuleImporter importer;
+        if (Importer == null)
+        {
+            importer = Importer = new BadModuleImporter(ModuleStore);
+        }
+        else
+        {
+            importer = Importer.Clone();
+        }
         foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
         {
             action(ctx, workingDirectory, importer);

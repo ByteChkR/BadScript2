@@ -26,7 +26,7 @@ public class BadDefaultExportExpressionCompiler : BadExpressionCompiler<BadDefau
                 throw new BadCompilerException("Named export expression is null");
             }
 
-            yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, (BadObject)name);
+            yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, name);
         }
 
         yield return new BadInstruction(BadOpCode.Export, expression.Position);
