@@ -273,7 +273,7 @@ public class BadRuntime : IDisposable
         }
         else
         {
-            importer = Importer.Clone();
+            importer = Importer = Importer.Clone();
         }
         foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
         {
