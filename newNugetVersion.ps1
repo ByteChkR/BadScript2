@@ -1,7 +1,9 @@
 param ($version="(~){yy}.(~){MM}.(~){dd}.+", $sources="./src", $postfix="")
-. ./build.ps1 -noProjects -noTests
-
 $bs = "$pwd/build/"
+
+if (-not(Test-Path $bs)) { #Only Build if the directory does not exist.
+    . ./build.ps1 -noProjects -noTests -writeLog
+}
 
 if ($IsWindows -eq $true) {
     $bsFile = $bs + 'bs.exe'

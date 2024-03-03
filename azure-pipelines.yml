@@ -36,6 +36,11 @@ steps:
     projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
     testRunTitle: 'Run Unit Tests'
 - task: PowerShell@2
+  displayName: Update Console Data Directory
+  inputs:
+    filePath: './build.ps1'
+    arguments: '-config Release -noTests -updateSource -writeLog'
+- task: PowerShell@2
   displayName: Update Nuspec Version
   inputs:
     filePath: './newNugetVersion.ps1'
