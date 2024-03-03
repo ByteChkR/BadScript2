@@ -21,7 +21,10 @@ function Build-Language {
     if ($noBuild -eq $false)
     {
         echo "Building Language for OS: '$os' with Config: '$config'.."
-        Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Runtime "
+        if($writeLog -eq $false)
+        {
+            Write-Progress -Activity "BadScript2 Build" -Status "Build BadScript2 Runtime"
+        }
         if (Test-Path "build") {
             Remove-Item "build" -Force -Recurse
         }
@@ -65,7 +68,10 @@ function Build-Projects {
         for (($i = 0); $i -lt $projects.Length; $i++)
         {
             $project = $projects[$i]
-            Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $($i + 1)/$($projects.Length)" -PercentComplete $((($i + 1) / $projects.Length) * 100)
+            if($writeLog -eq $false)
+            {
+                Write-Progress -Activity "BadScript2 Build" -Status "Build Project '$($project.Name)' $($i + 1)/$($projects.Length)" -PercentComplete $((($i + 1) / $projects.Length) * 100)
+            }
             Build-Project $project.Name $project.Target
         }
 
