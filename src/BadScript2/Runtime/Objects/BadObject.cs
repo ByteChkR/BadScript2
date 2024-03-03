@@ -115,7 +115,7 @@ public abstract class BadObject
     /// <param name="propName">The Property Name</param>
     /// <param name="caller">The caller Scope</param>
     /// <returns>True if the Property or an Extension with that name exists</returns>
-    public virtual bool HasProperty(BadObject propName, BadScope? caller = null)
+    public virtual bool HasProperty(string propName, BadScope? caller = null)
     {
         return caller != null && caller.Provider.HasObject(GetType(), propName);
     }
@@ -126,7 +126,7 @@ public abstract class BadObject
     /// <param name="propName">The Property Name</param>
     /// <param name="caller">The caller Scope</param>
     /// <returns>The Property Reference</returns>
-    public virtual BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public virtual BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         if (caller == null)
         {
@@ -185,7 +185,7 @@ public abstract class BadObject
     {
         return Wrap(s);
     }
-
+    
     /// <summary>
     ///     Converts the given object to a BadObject Instance
     /// </summary>

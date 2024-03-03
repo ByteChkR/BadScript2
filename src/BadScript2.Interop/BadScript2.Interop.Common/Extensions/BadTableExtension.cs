@@ -22,7 +22,14 @@ public class BadTableExtension : BadInteropExtension
             "RemoveKey",
             o => new BadDynamicInteropFunction<BadObject>(
                 "RemoveKey",
-                (_, k) => RemoveKey(o, k),
+                (c, k) =>
+                {
+                    if (k is not IBadString s)
+                    {
+                        throw BadRuntimeException.Create(c.Scope, "Key is not a string");
+                    }
+                    return RemoveKey(o, s.Value);
+                },
                 BadNativeClassBuilder.GetNative("bool"),
                 "key"
             )
@@ -34,7 +41,7 @@ public class BadTableExtension : BadInteropExtension
                 "MakeReadOnly",
                 _ =>
                 {
-                    foreach (BadObject key in table.InnerTable.Keys)
+                    foreach (string key in table.InnerTable.Keys)
                     {
                         table.PropertyInfos[key].IsReadOnly = true;
                     }
@@ -49,7 +56,14 @@ public class BadTableExtension : BadInteropExtension
             BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
             t => new BadDynamicInteropFunction<BadObject>(
                 BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-                (c, o) => t.GetProperty(o, c.Scope),
+                (c, o) =>
+                {
+                    if (o is not IBadString s)
+                    {
+                        throw BadRuntimeException.Create(c.Scope, "Key is not a string");
+                    }
+                    return t.GetProperty(s.Value, c.Scope);
+                },
                 BadAnyPrototype.Instance,
                 "key"
             )
@@ -109,7 +123,7 @@ public class BadTableExtension : BadInteropExtension
                 throw BadRuntimeException.Create(ctx.Scope, "Others can only be tables");
             }
 
-            foreach (KeyValuePair<BadObject, BadObject> kvp in other.InnerTable)
+            foreach (KeyValuePair<string, BadObject> kvp in other.InnerTable)
             {
                 if (ov.Value || !self.InnerTable.ContainsKey(kvp.Key))
                 {
@@ -127,7 +141,7 @@ public class BadTableExtension : BadInteropExtension
     /// <param name="table">Table</param>
     /// <param name="key">Key</param>
     /// <returns>NULL</returns>
-    private static BadObject RemoveKey(BadTable table, BadObject key)
+    private static BadObject RemoveKey(BadTable table, string key)
     {
         return table.RemoveKey(key);
     }
@@ -139,7 +153,7 @@ public class BadTableExtension : BadInteropExtension
     /// <returns>Array of keys</returns>
     private static BadObject Keys(BadTable table)
     {
-        return new BadArray(table.InnerTable.Keys.ToList());
+        return new BadArray(table.InnerTable.Keys.Select(x=>(BadObject)x).ToList());
     }
 
     /// <summary>

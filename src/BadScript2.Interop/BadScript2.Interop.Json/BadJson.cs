@@ -24,9 +24,7 @@ public static class BadJson
     /// <returns>The Runtime</returns>
     public static BadRuntime UseJsonApi(this BadRuntime runtime)
     {
-        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadJsonApi()));
-
-        return runtime;
+        return runtime.UseApi(new BadJsonApi(), true);
     }
 
     /// <summary>
@@ -48,7 +46,7 @@ public static class BadJson
     /// <returns>Object</returns>
     private static BadTable ConvertObject(JObject obj)
     {
-        Dictionary<BadObject, BadObject> t = new Dictionary<BadObject, BadObject>();
+        Dictionary<string, BadObject> t = new Dictionary<string, BadObject>();
 
         foreach (KeyValuePair<string, JToken?> keyValuePair in obj)
         {
@@ -94,14 +92,9 @@ public static class BadJson
     {
         JObject obj = new JObject();
 
-        foreach (KeyValuePair<BadObject, BadObject> keyValuePair in table.InnerTable)
+        foreach (KeyValuePair<string, BadObject> keyValuePair in table.InnerTable)
         {
-            if (keyValuePair.Key is not IBadString key)
-            {
-                throw new Exception("Key is not a string");
-            }
-
-            obj.Add(key.Value, ConvertNode(keyValuePair.Value));
+            obj.Add(keyValuePair.Key, ConvertNode(keyValuePair.Value));
         }
 
         return obj;

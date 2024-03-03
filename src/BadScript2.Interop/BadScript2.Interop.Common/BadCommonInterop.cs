@@ -110,11 +110,10 @@ public static class BadCommonInterop
                 BadNativeClassBuilder.AddNative(BadTask.Prototype);
             }
 
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadTaskRunnerApi(BadTaskRunner.Instance)));
-
-            runtime.UseExecutor(ExecuteTask);
-
-            runtime.ConfigureContext(ctx => ctx.Scope.AddSingleton(BadTaskRunner.Instance));
+            runtime
+                .UseApi(new BadTaskRunnerApi(BadTaskRunner.Instance), true)
+                .UseExecutor(ExecuteTask)
+                .UseSingleton(BadTaskRunner.Instance);
         }
 
         if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))
@@ -122,10 +121,8 @@ public static class BadCommonInterop
             BadNativeClassBuilder.AddNative(BadVersion.Prototype);
         }
 
-        runtime.ConfigureContextOptions(opts => AddExtensions(opts, useAsync));
-        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApis(Apis));
-
-        return runtime;
+        return runtime.UseCommonExtensions(useAsync)
+            .UseApis(Apis, true);
     }
 
     /// <summary>
@@ -138,33 +135,27 @@ public static class BadCommonInterop
     {
         if (console != null)
         {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi(console)));
-        }
-        else
-        {
-            runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadConsoleApi(BadConsole.GetConsole())));
+            return runtime.UseApi(new BadConsoleApi(console), true);
         }
 
-        return runtime;
+        return runtime.UseApi(new BadConsoleApi(BadConsole.GetConsole()), true);
     }
 
-    /// <summary>
-    ///     Adds all Common Interop Extensions to the BadScript Runtime
-    /// </summary>
-    public static void AddExtensions(BadExecutionContextOptions options, bool useAsync = true)
+    public static BadRuntime UseCommonExtensions(this BadRuntime runtime, bool useAsync = true)
     {
-        options.AddExtension<BadObjectExtension>();
-        options.AddExtension<BadStringExtension>();
-        options.AddExtension<BadNumberExtension>();
-        options.AddExtension<BadTableExtension>();
-        options.AddExtension<BadScopeExtension>();
-        options.AddExtension<BadArrayExtension>();
-        options.AddExtension<BadFunctionExtension>();
-        options.AddExtension<BadTypeSystemExtension>();
-
         if (useAsync)
         {
-            options.AddExtension<BadTaskExtensions>();
+            runtime.UseExtension<BadTaskExtensions>();
         }
+
+        return runtime
+            .UseExtension<BadObjectExtension>()
+            .UseExtension<BadStringExtension>()
+            .UseExtension<BadNumberExtension>()
+            .UseExtension<BadTableExtension>()
+            .UseExtension<BadScopeExtension>()
+            .UseExtension<BadArrayExtension>()
+            .UseExtension<BadFunctionExtension>()
+            .UseExtension<BadTypeSystemExtension>();
     }
 }

@@ -7,6 +7,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Utility;
 
@@ -295,7 +296,16 @@ public class BadLinqExtensions : BadInteropExtension
         BadFunction keySelector,
         BadFunction valueSelector)
     {
-        return new BadTable(e.ToDictionary(v => Invoke(keySelector, ctx, v), v => Invoke(valueSelector, ctx, v)));
+        return new BadTable(e.ToDictionary(
+	        v =>
+	        {
+		        var k = Invoke(keySelector, ctx, v);
+		        if (k is not IBadString s)
+		        {
+			        throw BadRuntimeException.Create(ctx.Scope, "Invalid Key");
+		        }
+		        return s.Value;
+	        }, v => Invoke(valueSelector, ctx, v)));
     }
 
 

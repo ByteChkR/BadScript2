@@ -7,6 +7,7 @@ namespace BadScript2.Runtime.Module;
 /// </summary>
 public abstract class BadImportHandler
 {
+    public abstract bool IsTransient();
     /// <summary>
     ///     Returns true if the specified path is available
     /// </summary>

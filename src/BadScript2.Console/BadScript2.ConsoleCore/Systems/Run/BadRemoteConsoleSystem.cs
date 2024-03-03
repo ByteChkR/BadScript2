@@ -80,7 +80,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
             try
             {
                 BadExecutionContext ctx = GetContext();
-                IEnumerable<BadExpression> parsed = m_Runtime.Parse(command);
+                IEnumerable<BadExpression> parsed = BadRuntime.Parse(command);
                 foreach (BadObject _ in ctx.Execute(parsed))
                 {
                     //Do nothing

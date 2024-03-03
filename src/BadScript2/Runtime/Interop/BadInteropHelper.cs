@@ -22,7 +22,7 @@ public static class BadInteropHelper
     /// <param name="info">The Property Info for the Property</param>
     public static void SetProperty(
         this BadObject elem,
-        BadObject propName,
+        string propName,
         BadObject value,
         BadPropertyInfo? info = null)
     {

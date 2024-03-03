@@ -14,6 +14,11 @@ public class BadLocalPathImportHandler : BadImportHandler
     ///     The Runtime
     /// </summary>
     private readonly BadRuntime m_Runtime;
+    
+    /// <summary>
+    /// The File System
+    /// </summary>
+    private readonly IFileSystem m_FileSystem;
 
     /// <summary>
     ///     The Working Directory
@@ -25,10 +30,11 @@ public class BadLocalPathImportHandler : BadImportHandler
     /// </summary>
     /// <param name="runtime"></param>
     /// <param name="workingDirectory"></param>
-    public BadLocalPathImportHandler(BadRuntime runtime, string workingDirectory)
+    public BadLocalPathImportHandler(BadRuntime runtime, string workingDirectory, IFileSystem mFileSystem)
     {
         m_Runtime = runtime;
         m_WorkingDirectory = workingDirectory;
+        m_FileSystem = mFileSystem;
     }
 
     /// <summary>
@@ -38,7 +44,7 @@ public class BadLocalPathImportHandler : BadImportHandler
     /// <returns>The Full Path</returns>
     private string GetPath(string path)
     {
-        string p = BadFileSystem.Instance.GetFullPath(Path.Combine(m_WorkingDirectory, path));
+        string p = m_FileSystem.GetFullPath(Path.Combine(m_WorkingDirectory, path));
 
         if (!p.EndsWith("." + BadRuntimeSettings.Instance.FileExtension))
         {
@@ -48,12 +54,14 @@ public class BadLocalPathImportHandler : BadImportHandler
         return p;
     }
 
+    public override bool IsTransient() => false;
+
     /// <inheritdoc />
     public override bool Has(string path)
     {
         string fullPath = GetPath(path);
 
-        return BadFileSystem.Instance.IsFile(fullPath);
+        return m_FileSystem.IsFile(fullPath);
     }
 
     /// <inheritdoc />

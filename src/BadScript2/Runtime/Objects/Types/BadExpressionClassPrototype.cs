@@ -112,13 +112,13 @@ public class BadExpressionClassPrototype : BadClassPrototype
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return m_StaticScope.HasLocal(propName, caller ?? m_StaticScope) || base.HasProperty(propName, caller);
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return m_StaticScope.HasLocal(propName, caller ?? m_StaticScope) ? m_StaticScope.GetVariable(propName, caller ?? m_ParentScope) : base.GetProperty(propName, caller);
     }

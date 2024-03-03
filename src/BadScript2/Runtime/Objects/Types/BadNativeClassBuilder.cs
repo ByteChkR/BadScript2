@@ -123,6 +123,12 @@ public static class BadNativeClassBuilder
                     new BadFunctionParameter("path", false, true, false, null, GetNative("string")),
                 }
             ),
+            new BadInterfaceFunctionConstraint(
+                "IsTransient",
+                null,
+                GetNative("bool"),
+                Array.Empty<BadFunctionParameter>()
+            )
         };
     }
 

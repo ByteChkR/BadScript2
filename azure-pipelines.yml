@@ -1,0 +1,86 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+name: $(Date:yy).$(Date:MM).$(Date:dd).$(Rev:rr)
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UseDotNet@2
+  displayName: Install .NET
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+- task: DotNetCoreCLI@2
+  displayName: Restore Projects
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    vstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
+- task: DotNetCoreCLI@2
+  displayName: Build Projects
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '-c Release'
+- task: DotNetCoreCLI@2
+  displayName: Run Unit Tests
+  inputs:
+    command: 'test'
+    projects: './src/BadScript2.Tests/BadScript2.Tests.csproj'
+    testRunTitle: 'Run Unit Tests'
+- task: PowerShell@2
+  displayName: Update Nuspec Version
+  inputs:
+    filePath: './newNugetVersion.ps1'
+    arguments: '-version $(Build.BuildNumber) -postfix ewu'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish Console Tool
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: './src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj'
+    arguments: '-c Release'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: DotNetCoreCLI@2
+  displayName: Publish Source Generator
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: './src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj'
+    arguments: '-c Release'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: DotNetCoreCLI@2
+  displayName: Pack Nuget Packages
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.nuspec'
+    includesymbols: true
+    includesource: true
+    versioningScheme: 'off'
+- task: DotNetCoreCLI@2
+  displayName: Publish Nuget Packages
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'e6d52dbd-ece6-4c79-949c-1ee577f0eb25'
+- task: Bash@3
+  displayName: "Generate Documentation"
+  inputs:
+    filePath: '_docs/Generate.sh'
+- task: PublishPipelineArtifact@1
+  displayName: "Publish Documentation Artifact"
+  inputs:
+    targetPath: 'docs/reference'
+    artifact: 'badscript2.docs'
+    publishLocation: 'pipeline'

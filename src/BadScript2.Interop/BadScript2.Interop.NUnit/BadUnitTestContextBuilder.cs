@@ -39,17 +39,11 @@ public class BadUnitTestContextBuilder
     /// </summary>
     public BadUnitTestContextBuilder(BadRuntime runtime)
     {
+        BadNUnitConsoleApi api = new BadNUnitConsoleApi();
+        api.SetContext(this);
         m_Runtime = runtime.Clone()
-            .ConfigureContextOptions(
-                opts =>
-                {
-                    opts.AddApi(new BadNUnitApi());
-
-                    BadNUnitConsoleApi api = new BadNUnitConsoleApi();
-                    api.SetContext(this);
-                    opts.AddApi(api);
-                }
-            );
+            .UseApi(new BadNUnitApi())
+            .UseApi(api);
     }
 
 

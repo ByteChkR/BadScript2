@@ -16,8 +16,6 @@ public static class BadLinqApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseLinqApi(this BadRuntime runtime)
     {
-        runtime.ConfigureContextOptions(opts => opts.AddExtension<BadLinqExtensions>());
-
-        return runtime;
+        return runtime.UseExtension<BadLinqExtensions>();
     }
 }

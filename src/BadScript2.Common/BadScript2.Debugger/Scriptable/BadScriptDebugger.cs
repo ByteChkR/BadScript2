@@ -37,7 +37,7 @@ public class BadScriptDebugger : IBadDebugger
     {
         m_Runtime = runtime
             .Clone()
-            .ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this, debuggerPath)));
+            .UseApi(new BadScriptDebuggerApi(this, debuggerPath));
         LoadDebugger(debuggerPath);
     }
 
@@ -49,7 +49,7 @@ public class BadScriptDebugger : IBadDebugger
     {
         m_Runtime = runtime
             .Clone()
-            .ConfigureContextOptions(opts => opts.AddApi(new BadScriptDebuggerApi(this)));
+            .UseApi(new BadScriptDebuggerApi(this));
 
 
         LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);

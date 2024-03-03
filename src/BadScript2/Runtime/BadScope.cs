@@ -510,7 +510,7 @@ public class BadScope : BadObject, IDisposable
     /// </summary>
     /// <param name="key">The Key</param>
     /// <param name="value">The Value</param>
-    public void AddExport(BadObject key, BadObject value)
+    public void AddExport(string key, BadObject value)
     {
         if (Parent != null)
         {
@@ -619,7 +619,7 @@ public class BadScope : BadObject, IDisposable
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="info">Variable Info</param>
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
-    public void DefineVariable(BadObject name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
+    public void DefineVariable(string name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
     {
         if (HasLocal(name, caller ?? this, false))
         {
@@ -635,7 +635,7 @@ public class BadScope : BadObject, IDisposable
     /// <param name="name">Variable Name</param>
     /// <returns>Variable Info</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
-    public BadPropertyInfo GetVariableInfo(BadObject name)
+    public BadPropertyInfo GetVariableInfo(string name)
     {
         if (HasLocal(name, this))
         {
@@ -655,10 +655,15 @@ public class BadScope : BadObject, IDisposable
     /// </summary>
     /// <param name="propName">The Property Name</param>
     /// <returns>The Visibility of the Property</returns>
-    public static BadPropertyVisibility GetPropertyVisibility(BadObject propName)
+    public static BadPropertyVisibility GetPropertyVisibility(string propName)
     {
-        return propName is not IBadString s || !s.Value.StartsWith("_") ? BadPropertyVisibility.Public :
-            s.Value.StartsWith("__") ? BadPropertyVisibility.Private : BadPropertyVisibility.Protected;
+        char first = propName[0];
+        char second = propName.Length > 1 ? propName[1] : '\0';
+        return second switch
+        {
+            '_' => first == '_' ? BadPropertyVisibility.Private : BadPropertyVisibility.Public,
+            _ => first == '_' ? BadPropertyVisibility.Protected : BadPropertyVisibility.Public,
+        };
     }
 
     /// <summary>
@@ -701,7 +706,7 @@ public class BadScope : BadObject, IDisposable
     /// <param name="caller">The Calling Scope</param>
     /// <returns>Variable Reference</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found or is not visible</exception>
-    public BadObjectReference GetVariable(BadObject name, BadScope caller)
+    public BadObjectReference GetVariable(string name, BadScope caller)
     {
         if (m_UseVisibility)
         {
@@ -732,7 +737,7 @@ public class BadScope : BadObject, IDisposable
     /// <param name="name">Variable Name</param>
     /// <returns>Variable Reference</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
-    public BadObjectReference GetVariable(BadObject name)
+    public BadObjectReference GetVariable(string name)
     {
         return GetVariable(name, this);
     }
@@ -744,7 +749,7 @@ public class BadScope : BadObject, IDisposable
     /// <param name="value">The Value</param>
     /// <param name="caller">The Calling Scope</param>
     /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
-    public void SetVariable(BadObject name, BadObject value, BadScope? caller = null)
+    public void SetVariable(string name, BadObject value, BadScope? caller = null)
     {
         if (HasLocal(name, caller ?? this))
         {
@@ -768,7 +773,7 @@ public class BadScope : BadObject, IDisposable
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="useExtensions">Should the Extension Subsystem be searched for the property</param>
     /// <returns>true if the variable is defined</returns>
-    public bool HasLocal(BadObject name, BadScope caller, bool useExtensions = true)
+    public bool HasLocal(string name, BadScope caller, bool useExtensions = true)
     {
         return !useExtensions ? m_ScopeVariables.InnerTable.ContainsKey(name) : m_ScopeVariables.HasProperty(name, caller);
     }
@@ -779,20 +784,20 @@ public class BadScope : BadObject, IDisposable
     /// <param name="name">The Name</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <returns>true if the variable is defined</returns>
-    public bool HasVariable(BadObject name, BadScope caller)
+    public bool HasVariable(string name, BadScope caller)
     {
         return HasLocal(name, caller) || Parent != null && Parent.HasVariable(name, caller);
     }
 
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return HasVariable(propName, caller ?? this) ? GetVariable(propName, caller ?? this) : base.GetProperty(propName, caller);
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return HasVariable(propName, caller ?? this) || base.HasProperty(propName, caller);
     }

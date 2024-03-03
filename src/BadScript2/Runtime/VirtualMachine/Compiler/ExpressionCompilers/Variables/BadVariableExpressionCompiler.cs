@@ -11,6 +11,6 @@ public class BadVariableExpressionCompiler : BadExpressionCompiler<BadVariableEx
     /// <inheritdoc />
     public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadVariableExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, (BadObject)expression.Name);
+        yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, expression.Name);
     }
 }

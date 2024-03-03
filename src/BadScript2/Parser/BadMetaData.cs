@@ -67,24 +67,17 @@ public class BadMetaData : BadObject
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        return propName is IBadString
-               {
-                   Value: "Description" or "Return" or "Parameters",
-               } ||
+        return propName is "Description" or "Return" or "Parameters" ||
                base.HasProperty(propName, caller);
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        if (propName is not IBadString s)
-        {
-            return base.GetProperty(propName, caller);
-        }
 
-        switch (s.Value)
+        switch (propName)
         {
             case "Description":
                 return BadObjectReference.Make("BadMetaData.Description", () => Description);
@@ -92,7 +85,7 @@ public class BadMetaData : BadObject
                 return BadObjectReference.Make(
                     "BadMetaData.Return",
                     () => new BadTable(
-                        new Dictionary<BadObject, BadObject>
+                        new Dictionary<string, BadObject>
                         {
                             {
                                 "Type", ReturnType
@@ -108,9 +101,9 @@ public class BadMetaData : BadObject
                     "BadMetaData.Parameters",
                     () => new BadTable(
                         ParameterDescriptions.ToDictionary(
-                            x => (BadObject)x.Key,
+                            x => x.Key,
                             x => (BadObject)new BadTable(
-                                new Dictionary<BadObject, BadObject>
+                                new Dictionary<string, BadObject>
                                 {
                                     {
                                         "Type", x.Value.Type

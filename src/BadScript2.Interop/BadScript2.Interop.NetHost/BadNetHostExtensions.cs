@@ -64,14 +64,14 @@ public class BadNetHostExtensions : BadInteropExtension
     /// <exception cref="BadRuntimeException">Gets raised if the Source Table contains invalid object keys</exception>
     private static void CopyHeaderTable(NameValueCollection dst, BadTable src)
     {
-        foreach (KeyValuePair<BadObject, BadObject> kvp in src.InnerTable)
+        foreach (KeyValuePair<string, BadObject> kvp in src.InnerTable)
         {
-            if (kvp.Key is not IBadString k || kvp.Value is not IBadString v)
+            if (kvp.Value is not IBadString v)
             {
                 throw new BadRuntimeException("Header Table must only contain string keys and values");
             }
 
-            dst[k.Value] = v.Value;
+            dst[kvp.Key] = v.Value;
         }
     }
 

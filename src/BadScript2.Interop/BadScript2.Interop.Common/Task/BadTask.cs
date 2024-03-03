@@ -49,8 +49,8 @@ public class BadTask : BadObject
     /// <summary>
     ///     The Task Properties
     /// </summary>
-    private readonly Dictionary<BadObject, BadObjectReference> m_Properties =
-        new Dictionary<BadObject, BadObjectReference>();
+    private readonly Dictionary<string, BadObjectReference> m_Properties =
+        new Dictionary<string, BadObjectReference>();
 
     /// <summary>
     ///     Constructs a new Task
@@ -293,7 +293,7 @@ public class BadTask : BadObject
     }
 
     /// <inheritdoc />
-    public override BadObjectReference GetProperty(BadObject propName, BadScope? caller = null)
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return m_Properties.TryGetValue(propName, out BadObjectReference? property) ? property : base.GetProperty(propName, caller);
     }
@@ -304,7 +304,7 @@ public class BadTask : BadObject
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("{");
 
-        foreach (KeyValuePair<BadObject, BadObjectReference> props in m_Properties)
+        foreach (KeyValuePair<string, BadObjectReference> props in m_Properties)
         {
             sb.AppendLine($"\t{props.Key}: {props.Value.Dereference()}");
         }
@@ -321,7 +321,7 @@ public class BadTask : BadObject
     }
 
     /// <inheritdoc />
-    public override bool HasProperty(BadObject propName, BadScope? caller = null)
+    public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return m_Properties.ContainsKey(propName) ||
                base.HasProperty(propName, caller);

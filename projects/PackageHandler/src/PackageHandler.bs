@@ -2,7 +2,7 @@
 let LIB_DIR;
 if(Runtime.IsApiRegistered("Json"))
 {
-	LIB_DIR = Json.Settings?.Subsystems?.Run?.LibraryDirectory;
+	LIB_DIR = Json.Settings?.Subsystems?.Run?.LibraryDirectory.GetValue();
 }
 
 if(LIB_DIR == null)
@@ -28,6 +28,8 @@ class LibraryImportHandler : IImportHandler
 	function string GetHash(string path!) => $"lib://{GetPath(path)}";
 
 	function bool Has(string path!) => path.StartsWith("<") && path.EndsWith(">");
+
+	function bool IsTransient() => true;
 
 	function any Get(string path!)
 	{

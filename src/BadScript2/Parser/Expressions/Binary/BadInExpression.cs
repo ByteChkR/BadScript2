@@ -1,6 +1,8 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Parser.Expressions.Binary;
 
@@ -60,7 +62,8 @@ public class BadInExpression : BadBinaryExpression
     /// <returns>Returns true if the left side is a property of the right side</returns>
     public static BadObject In(BadExecutionContext ctx, BadObject left, BadObject right)
     {
-        return right.HasProperty(left, ctx.Scope);
+        if (left is not IBadString s) throw BadRuntimeException.Create(ctx.Scope, "Invalid Property Key");
+        return right.HasProperty( s.Value, ctx.Scope);
     }
 
     /// <summary>

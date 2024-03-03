@@ -12,8 +12,6 @@ public static class BadHtmlApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseHtmlApi(this BadRuntime runtime)
     {
-        runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new BadHtmlApi()));
-
-        return runtime;
+        return runtime.UseApi(new BadHtmlApi(), true);
     }
 }

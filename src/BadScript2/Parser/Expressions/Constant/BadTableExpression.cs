@@ -60,11 +60,10 @@ public class BadTableExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        Dictionary<BadObject, BadObject> table = new Dictionary<BadObject, BadObject>();
+        Dictionary<string, BadObject> table = new Dictionary<string, BadObject>();
 
         foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
         {
-            BadObject key = BadObject.Wrap(entry.Key.Text);
 
             BadObject value = BadObject.Null;
 
@@ -77,7 +76,7 @@ public class BadTableExpression : BadExpression
 
             value = value.Dereference();
 
-            table[key] = value;
+            table[entry.Key.Text] = value;
         }
 
         yield return new BadTable(table);
