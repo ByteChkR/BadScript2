@@ -146,6 +146,12 @@ public static class BadInteropHelper
         {
             return t;
         }
+        
+
+        if (obj == BadObject.Null)
+        {
+            return default(T)!; //Ignore
+        }
 
         if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(BadNullable<>))
         {
