@@ -201,18 +201,9 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     {
         BadClassPrototype basePrototype = GetPrototype(context, out BadInterfacePrototype[] interfaces);
 
-
         BadExecutionContext staticContext =
             new BadExecutionContext(context.Scope.CreateChild($"static:{Name}", context.Scope, true));
-
-        if (m_StaticBody.Count != 0)
-        {
-            foreach (BadObject o in staticContext.Execute(m_StaticBody))
-            {
-                yield return o;
-            }
-        }
-
+        
         BadClassPrototype p = new BadExpressionClassPrototype(
             Name,
             context.Scope,
@@ -223,6 +214,16 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             staticContext.Scope
         );
         context.Scope.DefineVariable(Name, p);
+
+
+        if (m_StaticBody.Count != 0)
+        {
+            foreach (BadObject o in staticContext.Execute(m_StaticBody))
+            {
+                yield return o;
+            }
+        }
+
 
         yield return p;
     }

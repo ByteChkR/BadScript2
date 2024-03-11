@@ -1741,6 +1741,21 @@ public class BadSourceParser
         Reader.SkipNonToken();
         BadWordToken name = Reader.ParseWord();
         Reader.SkipNonToken();
+
+        List<BadFunctionParameter>? primaryConstructor = null;
+        List<BadExpression>? baseInvocationParameters = null;
+        BadSourcePosition? primaryConstructorPosition = null;
+        BadSourcePosition? baseInvocationParametersPosition = null;
+        List<BadExpression> members = new List<BadExpression>();
+        List<BadExpression> staticMembers = new List<BadExpression>();
+        if (Reader.Is('('))
+        {
+            int ctorStart = Reader.CurrentIndex;
+            primaryConstructor = ParseParameters(start);
+            primaryConstructorPosition = Reader.MakeSourcePosition(ctorStart, Reader.CurrentIndex - ctorStart);
+            Reader.SkipNonToken();
+        }
+
         List<BadExpression> baseClasses = new List<BadExpression>();
 
         if (Reader.Is(':'))
@@ -1750,7 +1765,24 @@ public class BadSourceParser
             while (!Reader.IsEof())
             {
                 Reader.SkipNonToken();
-                baseClasses.Add(ParseExpression());
+                BadExpression baseExpr = ParseExpression();
+                if (baseClasses.Count == 0)
+                {
+                    if (baseExpr is BadInvocationExpression baseInvoc)
+                    {
+                        baseInvocationParameters = baseInvoc.Arguments.ToList();
+                        baseInvocationParametersPosition = baseInvoc.Position;
+                        baseExpr = baseInvoc.Left;
+                    }
+                }
+                else if (baseExpr is BadInvocationExpression)
+                {
+                    throw new BadParserException(
+                        "Base Class Invocation must be the first base class",
+                        baseExpr.Position
+                    );
+                }
+                baseClasses.Add(baseExpr);
                 Reader.SkipNonToken();
 
                 if (!Reader.Is(','))
@@ -1763,40 +1795,101 @@ public class BadSourceParser
             }
         }
 
-        Reader.Eat('{');
-        Reader.SkipNonToken();
-        List<BadExpression> members = new List<BadExpression>();
-        List<BadExpression> staticMembers = new List<BadExpression>();
-
-        while (!Reader.Is('}'))
+        if (!Reader.Is(BadStaticKeys.STATEMENT_END_KEY))
         {
+            Reader.Eat('{');
             Reader.SkipNonToken();
-            BadExpression expr = ParseExpression();
 
-            if (expr is BadFunctionExpression
-                {
-                    IsStatic: true,
-                })
+            while (!Reader.Is('}'))
             {
-                staticMembers.Add(expr);
+                Reader.SkipNonToken();
+                BadExpression expr = ParseExpression();
+
+                if (expr is BadFunctionExpression
+                    {
+                        IsStatic: true,
+                    })
+                {
+                    staticMembers.Add(expr);
+                }
+                else if (expr is BadFunctionExpression fExpr && fExpr.Name?.Text == name.Text)
+                {
+                    if (primaryConstructor != null)
+                    {
+                        throw new BadParserException(
+                            "Primary Constructor already defined",
+                            expr.Position
+                        );
+                    }
+                    fExpr.SetName(BadStaticKeys.CONSTRUCTOR_NAME);
+                    members.Add(expr);
+                }
+                else
+                {
+                    members.Add(expr);
+                }
+                if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)
+                {
+                    throw new BadParserException(
+                        "Class Member cannot have the same name as the class",
+                        expr.Position
+                    );
+                }
+
+                Reader.SkipNonToken();
+
+                if (RequireSemicolon(expr))
+                {
+                    Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
+                }
+
+                Reader.SkipNonToken();
+            }
+
+            Reader.Eat('}');
+        }
+        else
+        {
+            Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
+        }
+
+        Reader.SkipNonToken();
+        if (primaryConstructor != null)
+        {
+            List<BadExpression> block = new List<BadExpression>();
+            //2. Add the primary constructor as a function to the class
+            BadFunctionExpression ctor = new BadFunctionExpression(BadStaticKeys.CONSTRUCTOR_NAME, primaryConstructor, block, primaryConstructorPosition!, false, null, false, false);
+            members.Add(ctor);
+            if (baseInvocationParameters != null)
+            {
+                //  2.1. (call base class constructor if baseInvocationParameters is not null)
+                BadInvocationExpression baseInvocation = new BadInvocationExpression(
+                    new BadVariableExpression("base", primaryConstructorPosition!),
+                    baseInvocationParameters,
+                    baseInvocationParametersPosition!
+                );
+                block.Add(baseInvocation);
             }
             else
             {
-                members.Add(expr);
+                BadVariableExpression thisExpr = new BadVariableExpression(BadStaticKeys.THIS_KEY, primaryConstructorPosition!);
+                foreach (BadFunctionParameter parameter in primaryConstructor)
+                {
+                    //  2.2. (if baseInvocationParameters is null, assign the parameters to the class members)
+                    // this.{parameter.Name} = {parameter.Name};
+                    block.Add(
+                        new BadAssignExpression(
+                            new BadMemberAccessExpression(thisExpr, parameter.Name, primaryConstructorPosition!),
+                            new BadVariableExpression(parameter.Name, primaryConstructorPosition!),
+                            primaryConstructorPosition!
+                        )
+                    );
+                    //3. (if baseInvocationParameters is null, define the properties for the parameters)
+                    //let {type} {parameter.Name};
+                    members.Add(new BadVariableDefinitionExpression(parameter.Name, primaryConstructorPosition!, parameter.TypeExpr, true));
+                }
             }
-
-            Reader.SkipNonToken();
-
-            if (RequireSemicolon(expr))
-            {
-                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
-            }
-
-            Reader.SkipNonToken();
         }
-
-        Reader.Eat('}');
-        Reader.SkipNonToken();
 
         return new BadClassPrototypeExpression(
             name.Text,

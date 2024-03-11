@@ -15,7 +15,7 @@ function Test()
 	{
 		function D(pass)
 		{
-			base.C(pass);
+			base(pass);
 		}
 	}
 	let d = new D(true);
@@ -41,7 +41,7 @@ function TestTypesafe()
 	{
 		function D(bool pass)
 		{
-			base.C(pass);
+			base(pass);
 		}
 	}
 	let D d = new D(true);

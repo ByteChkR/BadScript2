@@ -100,6 +100,9 @@ public class BadExpressionFunction : BadFunction
                 BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
             )
         );
+
+        ctx.Scope.FunctionObject = this;
+        
         ApplyParameters(ctx, args, Position);
 
         if (m_Body.Count == 0)

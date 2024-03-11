@@ -147,6 +147,8 @@
               target="tools/net6.0/any/data/subsystems/test/classes/typesafe.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/visibility.bs"
               target="tools/net6.0/any/data/subsystems/test/classes/visibility.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/classes/primaryConstructor.bs"
+              target="tools/net6.0/any/data/subsystems/test/classes/primaryConstructor.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/functions/arguments/TestMixed.bs"
               target="tools/net6.0/any/data/subsystems/test/functions/arguments/TestMixed.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/module/exports.bs"
