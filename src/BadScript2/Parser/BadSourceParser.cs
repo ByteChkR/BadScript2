@@ -1780,9 +1780,21 @@ public class BadSourceParser
             {
                 staticMembers.Add(expr);
             }
+            else if (expr is BadFunctionExpression fExpr && fExpr.Name?.Text == name.Text)
+            {
+                fExpr.SetName(BadStaticKeys.CONSTRUCTOR_NAME);
+                members.Add(expr);
+            }
             else
             {
                 members.Add(expr);
+            }
+            if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)
+            {
+                throw new BadParserException(
+                    "Class Member cannot have the same name as the class",
+                    expr.Position
+                );
             }
 
             Reader.SkipNonToken();

@@ -1,6 +1,7 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
@@ -132,6 +133,11 @@ public class BadScope : BadObject, IDisposable
     ///     The Class Object of the Scope
     /// </summary>
     public BadClass? ClassObject { get; internal set; }
+    
+    /// <summary>
+    /// The Function Object of the Scope
+    /// </summary>
+    public BadFunction? FunctionObject { get; internal set; }
 
 
     /// <summary>
@@ -605,6 +611,7 @@ public class BadScope : BadObject, IDisposable
         BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility)
         {
             ClassObject = ClassObject,
+            FunctionObject = FunctionObject,
         };
 
         return sc;

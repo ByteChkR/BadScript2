@@ -103,7 +103,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     /// <summary>
     ///     The (optional) Function Name
     /// </summary>
-    public BadWordToken? Name { get; }
+    public BadWordToken? Name { get; private set; }
 
     /// <summary>
     ///     The Compile Level of the Function
@@ -115,6 +115,11 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     public string? GetName()
     {
         return Name?.Text;
+    }
+    
+    public void SetName(string name)
+    {
+        Name = name;
     }
 
     /// <summary>

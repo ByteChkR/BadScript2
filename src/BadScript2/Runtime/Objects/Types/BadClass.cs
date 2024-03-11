@@ -1,3 +1,4 @@
+using BadScript2.Common;
 using BadScript2.Runtime.Error;
 
 namespace BadScript2.Runtime.Objects.Types;
@@ -74,7 +75,7 @@ public class BadClass : BadObject
     private void SetThis(BadClass thisInstance)
     {
         SuperClass = thisInstance;
-        Scope.GetTable().GetProperty("this").Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
+        Scope.GetTable().GetProperty(BadStaticKeys.THIS_KEY).Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
         m_BaseClass?.SetThis(thisInstance);
     }
 

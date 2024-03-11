@@ -87,9 +87,9 @@ public class BadNewExpression : BadExpression
 
         //Call Constructor if exists
 
-        if (cls.HasProperty(cls.Name, cls.Scope))
+        if (cls.HasProperty(BadStaticKeys.CONSTRUCTOR_NAME, cls.Scope))
         {
-            BadObject ctor = cls.GetProperty(cls.Name, context.Scope).Dereference();
+            BadObject ctor = cls.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME, context.Scope).Dereference();
 
             if (ctor is not BadFunction func)
             {

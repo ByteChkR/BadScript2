@@ -1,3 +1,4 @@
+using BadScript2.Common;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
@@ -76,7 +77,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
             }
 
             baseInstance = cls;
-            ctx.Scope.GetTable().SetProperty("base", baseInstance, new BadPropertyInfo(BaseClass, true));
+            ctx.Scope.GetTable().SetProperty(BadStaticKeys.BASE_KEY, baseInstance, new BadPropertyInfo(BaseClass, true));
         }
 
         if (m_Body.Length != 0)
