@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Parser.Expressions.Access;
+using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -185,6 +186,12 @@ public class BadInvocationExpression : BadExpression
             yield return BadObject.Null;
 
             yield break;
+        }
+
+        if (Left is BadVariableExpression vExpr && vExpr.Name == BadStaticKeys.BASE_KEY && context.Scope.FunctionObject?.Name?.Text == BadStaticKeys.CONSTRUCTOR_NAME)
+        {
+            //Invoke Base Constructor
+            left = left.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME).Dereference();
         }
 
         List<BadObject> args = new List<BadObject>();

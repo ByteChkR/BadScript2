@@ -1,5 +1,6 @@
 ﻿using System.Text;
 
+using BadScript2.Interop.Generator.Interop;
 using BadScript2.Interop.Generator.Model;
 
 using Microsoft.CodeAnalysis;
@@ -9,14 +10,14 @@ using Microsoft.CodeAnalysis.Text;
 namespace BadScript2.Interop.Generator;
 
 [Generator]
-public class BadInteropApiGenerator : IIncrementalGenerator
+public class BadInteropGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        context.RegisterPostInitializationOutput(BadInteropApiAttributes.RegisterAttributeSource);
+        context.RegisterPostInitializationOutput(BadInteropStaticCode.RegisterAttributeSource);
 
         IncrementalValuesProvider<ApiModel> pipeline = context.SyntaxProvider.ForAttributeWithMetadataName(
-            BadInteropApiAttributes.INTEROP_API_ATTRIBUTE,
+            BadInteropStaticCode.INTEROP_API_ATTRIBUTE,
             static (syntaxNode, _) => syntaxNode is ClassDeclarationSyntax,
             static (context, _) =>
             {

@@ -7,8 +7,7 @@ using System.Text;
 using BadScript2.Interop.Generator.Model;
 
 using Microsoft.CodeAnalysis;
-
-namespace BadScript2.Interop.Generator;
+namespace BadScript2.Interop.Generator.Interop;
 
 public class BadInteropApiSourceGenerator
 {

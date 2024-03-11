@@ -52,7 +52,7 @@ export class TagLogger : Logger
 	|@
 	function TagLogger()
 	{
-		base.Logger();
+		base();
 	}
 
 	@|
