@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Runtime.Objects.Types;
 
@@ -20,10 +21,10 @@ public class BadClass : BadObject
     /// <param name="scope">Table of all members of this type(excluding base class members)</param>
     /// <param name="baseClass">Base Class Instance</param>
     /// <param name="prototype">The Class Prototype used to create this instance.</param>
-    public BadClass(string name, BadScope scope, BadClass? baseClass, BadClassPrototype prototype)
+    public BadClass(string name, BadExecutionContext context, BadClass? baseClass, BadClassPrototype prototype)
     {
         Name = name;
-        Scope = scope;
+        Context = context;
         m_BaseClass = baseClass;
         Prototype = prototype;
     }
@@ -31,7 +32,9 @@ public class BadClass : BadObject
     /// <summary>
     ///     Table of all members of this type(excluding base class members)
     /// </summary>
-    public BadScope Scope { get; }
+    public BadScope Scope => Context.Scope;
+    
+    public BadExecutionContext Context { get; }
 
     /// <summary>
     ///     The Type Name
@@ -208,6 +211,17 @@ public class BadClass : BadObject
     public override string ToSafeString(List<BadObject> done)
     {
         done.Add(this);
+
+        if (Scope.HasLocal("ToString", Scope, false) && Scope.GetProperty("ToString", Scope).Dereference() is BadFunction toString)
+        {
+            BadObject? result = Null;
+            foreach (var o in toString.Invoke(Array.Empty<BadObject>(), Context))
+            {
+                result = o;
+            }
+            result = result.Dereference();
+            return result.ToSafeString(done);
+        }
 
         return
             $"class {Name}\n{Scope.ToSafeString(done)}";

@@ -88,7 +88,7 @@ public class BadExpressionClassPrototype : BadClassPrototype
             }
         }
 
-        BadClass thisInstance = new BadClass(Name, ctx.Scope, baseInstance, this);
+        BadClass thisInstance = new BadClass(Name, ctx, baseInstance, this);
         ctx.Scope.ClassObject = thisInstance;
 
         if (setThis)

@@ -31,7 +31,7 @@ function Test()
 	{
 		function D()
 		{
-			base.C();
+			base();
 			const prot = base._ProtectedVar;
 			base._ProtectedFunc();
 		}
