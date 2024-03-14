@@ -133,9 +133,9 @@ public class BadScope : BadObject, IDisposable
     ///     The Class Object of the Scope
     /// </summary>
     public BadClass? ClassObject { get; internal set; }
-    
+
     /// <summary>
-    /// The Function Object of the Scope
+    ///     The Function Object of the Scope
     /// </summary>
     public BadFunction? FunctionObject { get; internal set; }
 
@@ -666,6 +666,7 @@ public class BadScope : BadObject, IDisposable
     {
         char first = propName[0];
         char second = propName.Length > 1 ? propName[1] : '\0';
+
         return second switch
         {
             '_' => first == '_' ? BadPropertyVisibility.Private : BadPropertyVisibility.Public,

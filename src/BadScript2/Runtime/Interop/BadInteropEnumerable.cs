@@ -4,7 +4,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
-using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime.Interop;
@@ -76,14 +75,14 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
     /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        return propName  == "GetEnumerator" ||
+        return propName == "GetEnumerator" ||
                base.HasProperty(propName, caller);
     }
 
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        return propName   == "GetEnumerator"
+        return propName == "GetEnumerator"
             ? BadObjectReference.Make("GetEnumerator", () => m_Func)
             : base.GetProperty(propName, caller);
     }

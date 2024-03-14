@@ -25,6 +25,7 @@ public static class BadNUnitApiExtensions
     {
         BadNUnitConsoleApi api = new BadNUnitConsoleApi();
         api.SetContext(console);
+
         return runtime
             .UseApi(api, true)
             .UseConsole(new BadNUnitTestConsole())

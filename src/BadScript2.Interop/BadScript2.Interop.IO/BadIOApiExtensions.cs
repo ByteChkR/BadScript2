@@ -19,8 +19,7 @@ public static class BadIOApiExtensions
         {
             return runtime.UseApi(new BadIOApi(fileSystem), true);
         }
-        
-        return runtime.UseApi(new BadIOApi(BadFileSystem.Instance), true);
 
+        return runtime.UseApi(new BadIOApi(BadFileSystem.Instance), true);
     }
 }

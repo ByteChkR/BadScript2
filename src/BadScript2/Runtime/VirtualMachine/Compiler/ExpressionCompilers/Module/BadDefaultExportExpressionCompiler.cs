@@ -1,6 +1,5 @@
 using BadScript2.Parser.Expressions.Module;
 using BadScript2.Parser.Operators.Module;
-using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Module;
 

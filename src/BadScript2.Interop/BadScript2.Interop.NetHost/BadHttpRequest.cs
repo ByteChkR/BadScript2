@@ -34,14 +34,14 @@ public class BadHttpRequest : BadObject
 	/// </summary>
 	public HttpListenerRequest Request { get; }
 
-	/// <inheritdoc />
-	public override BadClassPrototype GetPrototype()
+    /// <inheritdoc />
+    public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
     }
 
-	/// <inheritdoc />
-	public override string ToSafeString(List<BadObject> done)
+    /// <inheritdoc />
+    public override string ToSafeString(List<BadObject> done)
     {
         return Request.ToString();
     }

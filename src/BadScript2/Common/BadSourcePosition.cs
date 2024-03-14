@@ -9,6 +9,8 @@ public class BadSourcePosition
 {
     private string? m_PositionInfo;
 
+    private string? m_Text;
+
     /// <summary>
     ///     Constructor for a Source Position
     /// </summary>
@@ -58,7 +60,6 @@ public class BadSourcePosition
     /// </summary>
     public int Length { get; }
 
-    private string? m_Text;
     /// <summary>
     ///     Returns the Position as a string.
     /// </summary>

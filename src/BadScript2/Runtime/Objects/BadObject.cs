@@ -185,7 +185,7 @@ public abstract class BadObject
     {
         return Wrap(s);
     }
-    
+
     /// <summary>
     ///     Converts the given object to a BadObject Instance
     /// </summary>

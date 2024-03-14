@@ -13,7 +13,15 @@ public readonly struct MethodModel : IEquatable<MethodModel>
     public readonly ParameterModel[] Parameters;
     public readonly bool AllowNativeReturn;
 
-    public MethodModel(string methodName, string apiMethodName, string returnType, string description, ParameterModel[] parameters, bool isVoidReturn, string returnDescription, bool allowNativeReturn)
+    public MethodModel(
+        string methodName,
+        string apiMethodName,
+        string returnType,
+        string description,
+        ParameterModel[] parameters,
+        bool isVoidReturn,
+        string returnDescription,
+        bool allowNativeReturn)
     {
         MethodName = methodName;
         ApiMethodName = apiMethodName;
@@ -27,7 +35,14 @@ public readonly struct MethodModel : IEquatable<MethodModel>
 
     public bool Equals(MethodModel other)
     {
-        return MethodName == other.MethodName && ApiMethodName == other.ApiMethodName && ReturnType == other.ReturnType && ReturnDescription == other.ReturnDescription && Description == other.Description && IsVoidReturn == other.IsVoidReturn && Parameters.Equals(other.Parameters) && AllowNativeReturn == other.AllowNativeReturn;
+        return MethodName == other.MethodName &&
+               ApiMethodName == other.ApiMethodName &&
+               ReturnType == other.ReturnType &&
+               ReturnDescription == other.ReturnDescription &&
+               Description == other.Description &&
+               IsVoidReturn == other.IsVoidReturn &&
+               Parameters.Equals(other.Parameters) &&
+               AllowNativeReturn == other.AllowNativeReturn;
     }
 
     public override bool Equals(object? obj)
@@ -40,13 +55,13 @@ public readonly struct MethodModel : IEquatable<MethodModel>
         unchecked
         {
             int hashCode = MethodName.GetHashCode();
-            hashCode = (hashCode * 397) ^ ApiMethodName.GetHashCode();
-            hashCode = (hashCode * 397) ^ ReturnType.GetHashCode();
-            hashCode = (hashCode * 397) ^ ReturnDescription.GetHashCode();
-            hashCode = (hashCode * 397) ^ Description.GetHashCode();
-            hashCode = (hashCode * 397) ^ IsVoidReturn.GetHashCode();
-            hashCode = (hashCode * 397) ^ Parameters.GetHashCode();
-            hashCode = (hashCode * 397) ^ AllowNativeReturn.GetHashCode();
+            hashCode = hashCode * 397 ^ ApiMethodName.GetHashCode();
+            hashCode = hashCode * 397 ^ ReturnType.GetHashCode();
+            hashCode = hashCode * 397 ^ ReturnDescription.GetHashCode();
+            hashCode = hashCode * 397 ^ Description.GetHashCode();
+            hashCode = hashCode * 397 ^ IsVoidReturn.GetHashCode();
+            hashCode = hashCode * 397 ^ Parameters.GetHashCode();
+            hashCode = hashCode * 397 ^ AllowNativeReturn.GetHashCode();
 
             return hashCode;
         }

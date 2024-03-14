@@ -28,6 +28,7 @@ public class BadTableExtension : BadInteropExtension
                     {
                         throw BadRuntimeException.Create(c.Scope, "Key is not a string");
                     }
+
                     return RemoveKey(o, s.Value);
                 },
                 BadNativeClassBuilder.GetNative("bool"),
@@ -62,6 +63,7 @@ public class BadTableExtension : BadInteropExtension
                     {
                         throw BadRuntimeException.Create(c.Scope, "Key is not a string");
                     }
+
                     return t.GetProperty(s.Value, c.Scope);
                 },
                 BadAnyPrototype.Instance,
@@ -153,7 +155,7 @@ public class BadTableExtension : BadInteropExtension
     /// <returns>Array of keys</returns>
     private static BadObject Keys(BadTable table)
     {
-        return new BadArray(table.InnerTable.Keys.Select(x=>(BadObject)x).ToList());
+        return new BadArray(table.InnerTable.Keys.Select(x => (BadObject)x).ToList());
     }
 
     /// <summary>

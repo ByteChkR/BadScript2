@@ -203,7 +203,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
 
         BadExecutionContext staticContext =
             new BadExecutionContext(context.Scope.CreateChild($"static:{Name}", context.Scope, true));
-        
+
         BadClassPrototype p = new BadExpressionClassPrototype(
             Name,
             context.Scope,

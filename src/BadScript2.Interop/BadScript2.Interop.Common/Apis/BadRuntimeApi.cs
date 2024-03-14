@@ -63,9 +63,12 @@ internal partial class BadRuntimeApi
     [return: BadReturn("An Awaitable Task")]
     private BadTask EvaluateAsync(
         BadExecutionContext caller,
-        [BadParameter(description: "The Source of the Script")] string source,
-        [BadParameter(description: "An (optional but recommended) file path, it will be used to determine the working directory of the script.")] string? file = null,
-        [BadParameter(description: "If true, any optimizations that are activated in the settings will be applied.")] bool optimize = true,
+        [BadParameter(description: "The Source of the Script")]
+        string source,
+        [BadParameter(description: "An (optional but recommended) file path, it will be used to determine the working directory of the script.")]
+        string? file = null,
+        [BadParameter(description: "If true, any optimizations that are activated in the settings will be applied.")]
+        bool optimize = true,
         [BadParameter(
             description:
             "An (optional) scope that the execution takes place in, if not specified, an Instance of BadRuntime will get searched and a scope will be created from it, if its not found, a scope will be created from the root scope of the caller."
@@ -187,7 +190,7 @@ internal partial class BadRuntimeApi
     {
         return ctx.Scope.RegisteredApis.Contains(api);
     }
-    
+
     [BadMethod(description: "Returns all registered apis")]
     [return: BadReturn("An Array containing all registered apis")]
     private BadArray GetRegisteredApis(BadExecutionContext ctx)
@@ -203,7 +206,9 @@ internal partial class BadRuntimeApi
     /// <returns>Null</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Import Handler is invalid</exception>
     [BadMethod(description: "Registers an Import Handler")]
-    private static void RegisterImportHandler(BadExecutionContext ctx, [BadParameter(description: "An Import handler implementing the IImportHandler Interface", nativeType: "IImportHandler")] BadClass cls)
+    private static void RegisterImportHandler(
+        BadExecutionContext ctx,
+        [BadParameter(description: "An Import handler implementing the IImportHandler Interface", nativeType: "IImportHandler")] BadClass cls)
     {
         BadClassPrototype proto = cls.GetPrototype();
         if (!BadNativeClassBuilder.ImportHandler.IsSuperClassOf(proto))
@@ -227,7 +232,7 @@ internal partial class BadRuntimeApi
     /// <param name="source">The Source String</param>
     /// <param name="file">The File Name</param>
     /// <returns>Validation Result</returns>
-    [BadMethod("Validate", description: "Validates a source string")]
+    [BadMethod("Validate", "Validates a source string")]
     [return: BadReturn("Validation Result")]
     private static BadTable ValidateSource([BadParameter(description: "The Source to Validate")] string source, [BadParameter(description: "The File Name")] string file)
     {

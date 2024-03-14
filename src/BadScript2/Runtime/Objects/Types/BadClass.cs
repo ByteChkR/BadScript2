@@ -33,7 +33,7 @@ public class BadClass : BadObject
     ///     Table of all members of this type(excluding base class members)
     /// </summary>
     public BadScope Scope => Context.Scope;
-    
+
     public BadExecutionContext Context { get; }
 
     /// <summary>
@@ -215,11 +215,13 @@ public class BadClass : BadObject
         if (Scope.HasLocal("ToString", Scope, false) && Scope.GetProperty("ToString", Scope).Dereference() is BadFunction toString)
         {
             BadObject? result = Null;
-            foreach (var o in toString.Invoke(Array.Empty<BadObject>(), Context))
+            foreach (BadObject? o in toString.Invoke(Array.Empty<BadObject>(), Context))
             {
                 result = o;
             }
+
             result = result.Dereference();
+
             return result.ToSafeString(done);
         }
 

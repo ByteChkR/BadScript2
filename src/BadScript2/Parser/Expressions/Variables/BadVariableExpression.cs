@@ -9,20 +9,20 @@ namespace BadScript2.Parser.Expressions.Variables;
 /// </summary>
 public class BadVariableExpression : BadExpression, IBadNamedExpression
 {
-	/// <summary>
-	///     Constructor of the Variable Expression
-	/// </summary>
-	/// <param name="name">Name of the Variable</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadVariableExpression(string name, BadSourcePosition position) : base(false, position)
+    /// <summary>
+    ///     Constructor of the Variable Expression
+    /// </summary>
+    /// <param name="name">Name of the Variable</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadVariableExpression(string name, BadSourcePosition position) : base(false, position)
     {
         Name = name;
     }
 
-	/// <summary>
-	///     Name of the Variable
-	/// </summary>
-	public string Name { get; }
+    /// <summary>
+    ///     Name of the Variable
+    /// </summary>
+    public string Name { get; }
 
     /// <inheritdoc cref="IBadNamedExpression.GetName" />
     public string? GetName()
@@ -48,7 +48,6 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-
         BadObjectReference obj = context.Scope.GetVariable(Name, context.Scope);
 
 

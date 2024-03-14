@@ -128,7 +128,7 @@ public static class BadNativeClassBuilder
                 null,
                 GetNative("bool"),
                 Array.Empty<BadFunctionParameter>()
-            )
+            ),
         };
     }
 

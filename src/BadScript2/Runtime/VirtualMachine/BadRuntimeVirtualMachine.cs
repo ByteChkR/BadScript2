@@ -240,6 +240,7 @@ public class BadRuntimeVirtualMachine
                         {
                             throw BadRuntimeException.Create(ctx.Scope, "Invalid Property Key", instr.Position);
                         }
+
                         arr.Add(s.Value, val);
                     }
 

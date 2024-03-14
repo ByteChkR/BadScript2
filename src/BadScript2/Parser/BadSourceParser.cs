@@ -1782,6 +1782,7 @@ public class BadSourceParser
                         baseExpr.Position
                     );
                 }
+
                 baseClasses.Add(baseExpr);
                 Reader.SkipNonToken();
 
@@ -1821,6 +1822,7 @@ public class BadSourceParser
                             expr.Position
                         );
                     }
+
                     fExpr.SetName(BadStaticKeys.CONSTRUCTOR_NAME);
                     members.Add(expr);
                 }
@@ -1828,6 +1830,7 @@ public class BadSourceParser
                 {
                     members.Add(expr);
                 }
+
                 if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)
                 {
                     throw new BadParserException(
@@ -1857,6 +1860,7 @@ public class BadSourceParser
         if (primaryConstructor != null)
         {
             List<BadExpression> block = new List<BadExpression>();
+
             //2. Add the primary constructor as a function to the class
             BadFunctionExpression ctor = new BadFunctionExpression(BadStaticKeys.CONSTRUCTOR_NAME, primaryConstructor, block, primaryConstructorPosition!, false, null, false, false);
             members.Add(ctor);
@@ -1884,6 +1888,7 @@ public class BadSourceParser
                             primaryConstructorPosition!
                         )
                     );
+
                     //3. (if baseInvocationParameters is null, define the properties for the parameters)
                     //let {type} {parameter.Name};
                     members.Add(new BadVariableDefinitionExpression(parameter.Name, primaryConstructorPosition!, parameter.TypeExpr, true));

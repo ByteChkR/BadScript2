@@ -116,7 +116,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     {
         return Name?.Text;
     }
-    
+
     public void SetName(string name)
     {
         Name = name;

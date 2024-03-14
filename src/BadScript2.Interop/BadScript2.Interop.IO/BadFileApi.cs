@@ -81,18 +81,24 @@ internal partial class BadFileApi
 
     [BadMethod(description: "Moves a specified file to a new location, providing the option to specify a new file name.")]
     private void Move(
-        [BadParameter(description: "The Path of the file to move")] string source,
-        [BadParameter(description: "The Destination Path")] string destination,
-        [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")] bool overwrite)
+        [BadParameter(description: "The Path of the file to move")]
+        string source,
+        [BadParameter(description: "The Destination Path")]
+        string destination,
+        [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")]
+        bool overwrite)
     {
         m_FileSystem.Move(source, destination, overwrite);
     }
 
     [BadMethod(description: "Copies a specified file to a new location, providing the option to specify a new file name.")]
     private void Copy(
-        [BadParameter(description: "The Path of the file to copy")] string source,
-        [BadParameter(description: "The Destination Path")] string destination,
-        [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")] bool overwrite)
+        [BadParameter(description: "The Path of the file to copy")]
+        string source,
+        [BadParameter(description: "The Destination Path")]
+        string destination,
+        [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")]
+        bool overwrite)
     {
         m_FileSystem.Copy(source, destination, overwrite);
     }

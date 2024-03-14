@@ -23,8 +23,10 @@ internal partial class BadNUnitAssertApi
     [BadMethod("Throws", "Asserts that the given function throws a BadRuntimeException")]
     private static void Assert_Throws(
         BadExecutionContext ctx,
-        [BadParameter(description: "The Function that is expected to throw")] BadFunction func,
-        [BadParameter(description: "The Message")] string message)
+        [BadParameter(description: "The Function that is expected to throw")]
+        BadFunction func,
+        [BadParameter(description: "The Message")]
+        string message)
     {
         Assert.Throws<BadRuntimeException>(
             () =>
@@ -202,8 +204,10 @@ internal partial class BadNUnitAssertApi
     [BadMethod("Greater", "Asserts that the given object is greater than the other object")]
     private static void Assert_Greater(
         [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")] decimal b,
-        [BadParameter(description: "The Message")] string message)
+        [BadParameter(description: "Expected")]
+        decimal b,
+        [BadParameter(description: "The Message")]
+        string message)
     {
         Assert.That(a, Is.GreaterThan(b), message);
     }
@@ -217,8 +221,10 @@ internal partial class BadNUnitAssertApi
     [BadMethod("GreaterOrEqual", "Asserts that the given object is greater or equal the other object")]
     private static void Assert_GreaterOrEqual(
         [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")] decimal b,
-        [BadParameter(description: "The Message")] string message)
+        [BadParameter(description: "Expected")]
+        decimal b,
+        [BadParameter(description: "The Message")]
+        string message)
     {
         Assert.That(a, Is.GreaterThanOrEqualTo(b), message);
     }
@@ -232,8 +238,10 @@ internal partial class BadNUnitAssertApi
     [BadMethod("Less", "Asserts that the given object is less than the other object")]
     private static void Assert_Less(
         [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")] decimal b,
-        [BadParameter(description: "The Message")] string message)
+        [BadParameter(description: "Expected")]
+        decimal b,
+        [BadParameter(description: "The Message")]
+        string message)
     {
         Assert.That(a, Is.LessThan(b), message);
     }
@@ -247,8 +255,10 @@ internal partial class BadNUnitAssertApi
     [BadMethod("LessOrEqual", "Asserts that the given object is less or equal the other object")]
     private static void Assert_LessOrEqual(
         [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")] decimal b,
-        [BadParameter(description: "The Message")] string message)
+        [BadParameter(description: "Expected")]
+        decimal b,
+        [BadParameter(description: "The Message")]
+        string message)
     {
         Assert.That(a, Is.LessThanOrEqualTo(b), message);
     }

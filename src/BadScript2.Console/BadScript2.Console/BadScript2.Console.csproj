@@ -767,19 +767,19 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\subsystems\docs\docs.bhtml">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\subsystems\docs\Model.bs">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\subsystems\docs\ModelBuilder.bs">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\settings\Subsystems\Docs\Directories.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="data\subsystems\test\classes\primaryConstructor.bs">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
     <ItemGroup>
@@ -797,6 +797,6 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="data\subsystems\docs\" />
+        <Folder Include="data\subsystems\docs\"/>
     </ItemGroup>
 </Project>
