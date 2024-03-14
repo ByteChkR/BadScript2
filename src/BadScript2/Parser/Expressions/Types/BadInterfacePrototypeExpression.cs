@@ -77,6 +77,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             foreach (BadObject o in interfae.Execute(context))
             {
                 obj = o;
+                yield return o;
             }
 
             if (obj.Dereference() is not BadInterfacePrototype cls)

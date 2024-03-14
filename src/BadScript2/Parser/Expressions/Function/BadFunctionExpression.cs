@@ -227,6 +227,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
             foreach (BadObject o in TypeExpression.Execute(context))
             {
                 obj = o;
+                yield return o;
             }
 
             obj = obj.Dereference();

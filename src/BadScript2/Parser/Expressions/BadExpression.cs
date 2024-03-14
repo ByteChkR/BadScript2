@@ -75,6 +75,31 @@ public abstract class BadExpression
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     protected abstract IEnumerable<BadObject> InnerExecute(BadExecutionContext context);
 
+    private IEnumerable<BadObject> ExecuteWithCatch(BadExecutionContext context)
+    {
+        using IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
+
+        while (true)
+        {
+            try
+            {
+                if (!e.MoveNext())
+                {
+                    break;
+                }
+            }
+            catch (Exception exception)
+            {
+                context.Scope.SetErrorObject(
+                    BadRuntimeError.FromException(exception, context.Scope.GetStackTrace())
+                );
+
+                break;
+            }
+
+            yield return e.Current ?? BadObject.Null;
+        }
+    }
     /// <summary>
     ///     Evaluates the Expression within the current Execution Context.
     /// </summary>
@@ -89,36 +114,9 @@ public abstract class BadExpression
 
         if (BadRuntimeSettings.Instance.CatchRuntimeExceptions)
         {
-            using IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
-
-            while (true)
-            {
-                try
-                {
-                    if (!e.MoveNext())
-                    {
-                        break;
-                    }
-                }
-                catch (Exception exception)
-                {
-                    context.Scope.SetErrorObject(
-                        BadRuntimeError.FromException(exception, context.Scope.GetStackTrace())
-                    );
-
-                    break;
-                }
-
-                yield return e.Current ?? BadObject.Null;
-            }
+            return ExecuteWithCatch(context);
         }
-        else
-        {
-            foreach (BadObject o in InnerExecute(context))
-            {
-                yield return o;
-            }
-        }
+        return InnerExecute(context);
     }
 
     /// <summary>

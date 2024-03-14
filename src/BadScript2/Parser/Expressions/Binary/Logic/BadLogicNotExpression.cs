@@ -89,6 +89,7 @@ public class BadLogicNotExpression : BadExpression
         foreach (BadObject o in Right.Execute(context))
         {
             r = o;
+            yield return o;
         }
 
         //Can be null when evaluated as an optimization step
