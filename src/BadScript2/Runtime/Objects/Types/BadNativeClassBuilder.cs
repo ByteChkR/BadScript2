@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types.Interface;
@@ -39,16 +40,103 @@ public static class BadNativeClassBuilder
     public static readonly BadInterfacePrototype ImportHandler =
         new BadInterfacePrototype("IImportHandler", Array.Empty<BadInterfacePrototype>(), null, ImportHandlerConstraints);
 
+    private static readonly Dictionary<string, BadObjectReference> s_NumberStaticMembers = new Dictionary<string, BadObjectReference>
+    {
+        {
+            "Parse", BadObjectReference.Make(
+                "num.Parse",
+                () => new BadInteropFunction(
+                    "Parse",
+                    ParseNumber,
+                    true,
+                    GetNative("num"),
+                    new BadFunctionParameter("str", false, true, false, null, GetNative("string"))
+                )
+            )
+        }
+    };
+    
+    private static readonly Dictionary<string, BadObjectReference> s_BooleanStaticMembers = new Dictionary<string, BadObjectReference>
+    {
+        {
+            "Parse", BadObjectReference.Make(
+                "bool.Parse",
+                () => new BadInteropFunction(
+                    "Parse",
+                    ParseBoolean,
+                    true,
+                    GetNative("bool"),
+                    new BadFunctionParameter("str", false, true, false, null, GetNative("string"))
+                )
+            )
+        }
+    };
+    
+    private static readonly Dictionary<string, BadObjectReference> s_StringStaticMembers = new Dictionary<string, BadObjectReference>
+    {
+        { "Empty", BadObjectReference.Make("string.Empty", () => StringEmpty) },
+        { "IsNullOrEmpty" ,BadObjectReference.Make(
+            "string.IsNullOrEmpty",
+            () => new BadInteropFunction(
+                "IsNullOrEmpty",
+                StringIsNullOrEmpty,
+                true,
+                GetNative("bool"),
+                new BadFunctionParameter("str", false, false, false, null, GetNative("string"))
+            )
+        )}
+    };
 
+    private static readonly BadObject StringEmpty = "";
+    
+    private static BadObject StringIsNullOrEmpty(BadExecutionContext ctx, BadObject[] arg)
+    {
+        if (arg[0] is not IBadString str)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Type");
+        }
+
+        return string.IsNullOrEmpty(str.Value);
+    }
+    private static BadObject ParseNumber(BadExecutionContext ctx, BadObject[] arg)
+    {
+        if (arg[0] is not IBadString str)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Type");
+        }
+
+        if (decimal.TryParse(str.Value, out decimal d))
+        {
+            return d;
+        }
+
+        throw BadRuntimeException.Create(ctx.Scope, $"The Supplied String '{str.Value}' is not a valid number");
+    }
+    
+    private static BadObject ParseBoolean(BadExecutionContext ctx, BadObject[] arg)
+    {
+        if (arg[0] is not IBadString str)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Type");
+        }
+
+        if (bool.TryParse(str.Value, out bool d))
+        {
+            return d;
+        }
+
+        throw BadRuntimeException.Create(ctx.Scope, $"The Supplied String '{str.Value}' is not a valid boolean");
+    }
+        
     /// <summary>
     ///     Collection of all Native Class Prototypes
     /// </summary>
     private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
     {
         BadAnyPrototype.Instance,
-        CreateNativeType<BadString>("string"),
-        CreateNativeType<BadBoolean>("bool"),
-        CreateNativeType<BadNumber>("num"),
+        CreateNativeType<BadString>("string", s_StringStaticMembers),
+        CreateNativeType<BadBoolean>("bool", s_BooleanStaticMembers),
+        CreateNativeType<BadNumber>("num", s_NumberStaticMembers),
         CreateNativeType<BadFunction>("Function"),
         CreateNativeType<BadArray>("Array", ArrayLike),
         CreateNativeType<BadTable>("Table", Enumerable),
@@ -273,6 +361,29 @@ public static class BadNativeClassBuilder
             interfaces
         );
     }
+    
+    /// <summary>
+    ///     Creates a Native Class Prototype
+    /// </summary>
+    /// <param name="name">Type Name</param>
+    /// <param name="constructor">The Constructor</param>
+    /// <param name="staticMembers">The Static Members</param>
+    /// <param name="interfaces">The Implemented Interfaces</param>
+    /// <typeparam name="T">The BadObject Type</typeparam>
+    /// <returns>The Prototype</returns>
+    private static BadNativeClassPrototype<T> Create<T>(
+        string name,
+        Func<BadObject[], BadObject> constructor,
+        Dictionary<string, BadObjectReference> staticMembers,
+        params BadInterfacePrototype[] interfaces) where T : BadObject
+    {
+        return new BadNativeClassPrototype<T>(
+            name,
+            (_, a) => constructor(a),
+            staticMembers,
+            interfaces
+        );
+    }
 
     /// <summary>
     ///     Creates a Native Class Prototype
@@ -284,6 +395,20 @@ public static class BadNativeClassBuilder
     private static BadNativeClassPrototype<T> CreateNativeType<T>(string name, params BadInterfacePrototype[] interfaces) where T : BadObject
     {
         return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name), interfaces);
+    }
+    
+
+    /// <summary>
+    ///     Creates a Native Class Prototype
+    /// </summary>
+    /// <param name="name">Name of the Type</param>
+    /// <param name="interfaces">The Implemented Interfaces</param>
+    /// <param name="staticMembers">The Static Members</param>
+    /// <typeparam name="T">BadObject Type</typeparam>
+    /// <returns>Class Prototype</returns>
+    private static BadNativeClassPrototype<T> CreateNativeType<T>(string name, Dictionary<string, BadObjectReference> staticMembers, params BadInterfacePrototype[] interfaces) where T : BadObject
+    {
+        return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name), staticMembers, interfaces);
     }
 
 
@@ -301,5 +426,23 @@ public static class BadNativeClassBuilder
         params BadInterfacePrototype[] interfaces) where T : BadObject
     {
         return Create<T>(name, constructor, interfaces);
+    }
+    
+    /// <summary>
+    ///     Creates a Native Class Prototype
+    /// </summary>
+    /// <param name="name">Type Name</param>
+    /// <param name="constructor">The Constructor</param>
+    /// <param name="staticMembers">The Static Members</param>
+    /// <param name="interfaces">The Implemented Interfaces</param>
+    /// <typeparam name="T">The BadObject Type</typeparam>
+    /// <returns>The Prototype</returns>
+    private static BadNativeClassPrototype<T> CreateNativeType<T>(
+        string name,
+        Func<BadObject[], BadObject> constructor,
+        Dictionary<string, BadObjectReference> staticMembers,
+        params BadInterfacePrototype[] interfaces) where T : BadObject
+    {
+        return Create<T>(name, constructor, staticMembers, interfaces);
     }
 }
