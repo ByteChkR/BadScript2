@@ -41,7 +41,7 @@ export default class SourceReader
 		|PARAM str string: The string sequence to test against
 		|RET: void
 	|@
-	function string Eat(string str!)
+	compiled fast function string Eat(string str!)
 	{
 		if(!Is(str))
 		{
@@ -56,7 +56,7 @@ export default class SourceReader
 		Returns true if the next character is a whitespace character
 		|RET bool: True if the next character is a whitespace character
 	|@
-	function bool IsWhiteSpace()
+	compiled fast function bool IsWhiteSpace()
 	{
 		return Is("\n") || Is("\r") || Is(" ") || Is("\t");
 	}
@@ -93,18 +93,18 @@ export default class SourceReader
 		Returns True if the current reader position plus the offset is out of bounds
 		|RET bool:
 	|@
-	function bool IsEOF(num offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0;
+	compiled fast function bool IsEOF(num offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0;
 	@|
 		Returns a character at the specified offset(default=0) or '\0' if IsEOF(offset) is true.
 		|RET string:
 	|@
-	function string GetCurrent(num offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)];
+	compiled fast function string GetCurrent(num offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)];
 
 	@|
 		Moves the reader to the next position
 		|RET void:
 	|@
-	function MoveNext()
+	compiled fast function MoveNext()
 	{
 		_current++;
 	}
