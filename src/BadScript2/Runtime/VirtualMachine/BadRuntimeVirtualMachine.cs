@@ -75,15 +75,11 @@ public class BadRuntimeVirtualMachine
     /// <exception cref="ArgumentOutOfRangeException">Gets thrown when the Virtual Machine encounters an invalid Instruction.</exception>
     private IEnumerable<BadObject> Execute()
     {
-        while (m_InstructionPointer < m_Instructions.Length)
+        while (m_InstructionPointer <= m_Instructions.Length)
         {
-            BadInstruction instr = m_Instructions[m_InstructionPointer];
             BadExecutionContext ctx = m_ContextStack.Peek().Context;
 
-            if (BadDebugger.IsAttached)
-            {
-                BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
-            }
+            
 
             if (ctx.Scope.ReturnValue != null)
             {
@@ -186,7 +182,16 @@ public class BadRuntimeVirtualMachine
 
                 continue;
             }
-
+            if (m_InstructionPointer >= m_Instructions.Length)
+            {
+                break;
+            }
+            
+            BadInstruction instr = m_Instructions[m_InstructionPointer];
+            if (BadDebugger.IsAttached)
+            {
+                BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
+            }
             //Console.WriteLine($"{m_InstructionPointer}\t: {instr}");
             m_InstructionPointer++;
 

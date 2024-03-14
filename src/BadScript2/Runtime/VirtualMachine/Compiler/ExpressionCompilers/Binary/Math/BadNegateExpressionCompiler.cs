@@ -8,13 +8,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadNegateExpressionCompiler : BadExpressionCompiler<BadNegationExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNegationExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadNegationExpression expression)
     {
-        foreach (BadInstruction instr in compiler.Compile(expression.Expression))
-        {
-            yield return instr;
-        }
-
-        yield return new BadInstruction(BadOpCode.Neg, expression.Position);
+        context.Compile(expression.Expression);
+        context.Emit(BadOpCode.Neg, expression.Position);
     }
 }

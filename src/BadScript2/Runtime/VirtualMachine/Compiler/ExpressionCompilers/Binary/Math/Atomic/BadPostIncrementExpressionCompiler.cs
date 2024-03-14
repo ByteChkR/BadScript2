@@ -8,13 +8,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadPostIncrementExpressionCompiler : BadExpressionCompiler<BadPostIncrementExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadPostIncrementExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadPostIncrementExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.PostInc, expression.Position);
+        context.Compile(expression.Left);
+        context.Emit(BadOpCode.PostInc, expression.Position);
     }
 }

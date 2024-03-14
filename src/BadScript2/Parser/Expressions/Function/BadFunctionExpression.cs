@@ -256,8 +256,8 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
         BadFunction fFinal = CompileLevel switch
         {
-            BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true),
-            BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false),
+            BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(f, true),
+            BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(f, false),
             _ => f,
         };
 

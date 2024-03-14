@@ -17,41 +17,22 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadForEachExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadForEachExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Target))
-        {
-            yield return instruction;
-        }
-
-        //DUPLICATE TARGET
-        yield return new BadInstruction(BadOpCode.Dup, expression.Position);
-
-        //Find out if GetEnumerator is implemented
-        yield return new BadInstruction(BadOpCode.Push, expression.Position, (BadObject)"GetEnumerator");
-        yield return new BadInstruction(BadOpCode.HasProperty, expression.Position);
-
-        //Call GetEnumerator on target if it exists
-        yield return new BadInstruction(BadOpCode.JumpRelativeIfFalse, expression.Position, 2);
-        yield return new BadInstruction(BadOpCode.LoadMember, expression.Position, "GetEnumerator");
-        yield return new BadInstruction(BadOpCode.Invoke, expression.Position, 0);
-
-        //Create TempScope for the target
-        yield return new BadInstruction(
-            BadOpCode.CreateScope,
-            expression.Position,
-            "FOREACH_ENUMERATOR_SCOPE",
-            BadObject.Null
-        );
-
-        //Write target into variable
-        yield return new BadInstruction(BadOpCode.DefVar, expression.Position, "~ENUMERATOR~", true);
-        yield return new BadInstruction(BadOpCode.Swap, expression.Position);
-        yield return new BadInstruction(BadOpCode.Assign, expression.Position);
-
-
-        IEnumerable<BadExpression> loopBody = expression.Body;
-        loopBody = loopBody.Prepend(
+        context.Compile(expression.Target);
+        context.Emit(BadOpCode.Dup, expression.Position);
+        context.Emit(BadOpCode.Push, expression.Position, (BadObject)"GetEnumerator");
+        context.Emit(BadOpCode.HasProperty, expression.Position);
+        context.Emit(BadOpCode.JumpRelativeIfFalse, expression.Position, 2);
+        context.Emit(BadOpCode.LoadMember, expression.Position, "GetEnumerator");
+        context.Emit(BadOpCode.Invoke, expression.Position, 0);
+        context.Emit(BadOpCode.CreateScope, expression.Position, "FOREACH_ENUMERATOR_SCOPE", BadObject.Null);
+        context.Emit(BadOpCode.DefVar, expression.Position, "~ENUMERATOR~", true);
+        context.Emit(BadOpCode.Swap, expression.Position);
+        context.Emit(BadOpCode.Assign, expression.Position);
+        var body = expression.Body.ToList();
+        body.Insert(
+            0,
             new BadAssignExpression(
                 new BadVariableDefinitionExpression(
                     expression.LoopVariable.Text,
@@ -71,36 +52,21 @@ public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpr
                 expression.Position
             )
         );
-
-
-        //Create While Expression
-        BadWhileExpression whileExpr = new BadWhileExpression(
-            new BadInvocationExpression(
-                new BadMemberAccessExpression(
-                    new BadVariableExpression("~ENUMERATOR~", expression.LoopVariable.SourcePosition),
-                    "MoveNext",
-                    expression.LoopVariable.SourcePosition
+        context.Compile(
+            new BadWhileExpression(
+                new BadInvocationExpression(
+                    new BadMemberAccessExpression(
+                        new BadVariableExpression("~ENUMERATOR~", expression.LoopVariable.SourcePosition),
+                        "MoveNext",
+                        expression.LoopVariable.SourcePosition
+                    ),
+                    Array.Empty<BadExpression>(),
+                    expression.Position
                 ),
-                Array.Empty<BadExpression>(),
+                body,
                 expression.Position
-            ),
-            loopBody.ToList(),
-            expression.Position
+            )
         );
-
-        //Console.WriteLine(whileExpr.ToString());
-
-        foreach (BadInstruction instruction in compiler.Compile(whileExpr))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.DestroyScope, expression.Position);
-
-        //  while(<target>.MoveNext())
-        //  {
-        //      const <LoopVariable> = <target>.GetCurrent();
-        //      <Body>
-        //  }
+        context.Emit(BadOpCode.DestroyScope, expression.Position);
     }
 }

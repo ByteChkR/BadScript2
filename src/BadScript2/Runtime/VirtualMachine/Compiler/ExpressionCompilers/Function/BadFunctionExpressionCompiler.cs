@@ -12,7 +12,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Functio
 public class BadFunctionExpressionCompiler : BadExpressionCompiler<BadFunctionExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFunctionExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadFunctionExpression expression)
     {
         BadLogger.Warn(
             $"Can not compile '{expression.GetHeader()}'",
@@ -20,6 +20,6 @@ public class BadFunctionExpressionCompiler : BadExpressionCompiler<BadFunctionEx
             expression.Position
         );
 
-        yield return new BadInstruction(BadOpCode.Eval, expression.Position, expression);
+        context.Emit(BadOpCode.Eval, expression.Position, expression);
     }
 }

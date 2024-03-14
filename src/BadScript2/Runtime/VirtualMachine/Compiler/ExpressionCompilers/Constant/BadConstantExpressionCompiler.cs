@@ -8,8 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 public class BadConstantExpressionCompiler : BadExpressionCompiler<BadConstantExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadConstantExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadConstantExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.Push, expression.Position, expression.Value);
+        context.Emit(BadOpCode.Push, expression.Position, expression.Value);
     }
 }

@@ -9,25 +9,17 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Module;
 public class BadDefaultExportExpressionCompiler : BadExpressionCompiler<BadDefaultExportExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadDefaultExportExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadDefaultExportExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Expression))
-        {
-            yield return instruction;
-        }
-
+        context.Compile(expression.Expression);
         if (BadExportExpressionParser.IsNamed(expression.Expression, out string? name))
         {
-            //Was named export but was overridden with the default keyword
-            //Load variable onto the stack
-            if (name == null)
+            if(name == null)
             {
                 throw new BadCompilerException("Named export expression is null");
             }
-
-            yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, name);
+            context.Emit(BadOpCode.LoadVar, expression.Position, name);
         }
-
-        yield return new BadInstruction(BadOpCode.Export, expression.Position);
+        context.Emit(BadOpCode.Export, expression.Position);
     }
 }

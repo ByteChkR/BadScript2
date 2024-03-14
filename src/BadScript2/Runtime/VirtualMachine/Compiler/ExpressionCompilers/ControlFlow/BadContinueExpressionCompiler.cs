@@ -8,8 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Control
 public class BadContinueExpressionCompiler : BadExpressionCompiler<BadContinueExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadContinueExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadContinueExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.Continue, expression.Position);
+        context.Emit(BadOpCode.Continue, expression.Position);
     }
 }

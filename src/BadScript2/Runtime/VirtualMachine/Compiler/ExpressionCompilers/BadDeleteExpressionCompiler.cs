@@ -11,13 +11,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 public class BadDeleteExpressionCompiler : BadExpressionCompiler<BadDeleteExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadDeleteExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadDeleteExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Expression))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.Delete, expression.Position);
+        context.Compile(expression.Expression);
+        context.Emit(BadOpCode.Delete, expression.Position);
     }
 }

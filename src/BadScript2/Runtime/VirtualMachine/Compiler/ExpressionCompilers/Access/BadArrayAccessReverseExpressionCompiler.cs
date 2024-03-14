@@ -8,35 +8,17 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 public class BadArrayAccessReverseExpressionCompiler : BadExpressionCompiler<BadArrayAccessReverseExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(
-        BadCompiler compiler,
-        BadArrayAccessReverseExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadArrayAccessReverseExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Arguments, false))
-        {
-            yield return instruction;
-        }
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-        {
-            yield return instruction;
-        }
-
+        context.Compile(expression.Arguments);
+        context.Compile(expression.Left);
         if (expression.NullChecked)
         {
-            yield return new BadInstruction(
-                BadOpCode.LoadArrayAccessReverseNullChecked,
-                expression.Position,
-                expression.ArgumentCount
-            );
+            context.Emit(BadOpCode.LoadArrayAccessReverseNullChecked, expression.Position, expression.ArgumentCount);
         }
         else
         {
-            yield return new BadInstruction(
-                BadOpCode.LoadArrayAccessReverse,
-                expression.Position,
-                expression.ArgumentCount
-            );
+            context.Emit(BadOpCode.LoadArrayAccessReverse, expression.Position, expression.ArgumentCount);
         }
     }
 }

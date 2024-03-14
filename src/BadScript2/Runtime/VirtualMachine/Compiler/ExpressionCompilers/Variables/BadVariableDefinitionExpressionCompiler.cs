@@ -8,32 +8,16 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<BadVariableDefinitionExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(
-        BadCompiler compiler,
-        BadVariableDefinitionExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadVariableDefinitionExpression expression)
     {
         if (expression.TypeExpression == null)
         {
-            yield return new BadInstruction(
-                BadOpCode.DefVar,
-                expression.Position,
-                expression.Name,
-                expression.IsReadOnly
-            );
+            context.Emit(BadOpCode.DefVar, expression.Position, expression.Name, expression.IsReadOnly);
         }
         else
         {
-            foreach (BadInstruction instruction in compiler.Compile(expression.TypeExpression))
-            {
-                yield return instruction;
-            }
-
-            yield return new BadInstruction(
-                BadOpCode.DefVarTyped,
-                expression.Position,
-                expression.Name,
-                expression.IsReadOnly
-            );
+            context.Compile(expression.TypeExpression);
+            context.Emit(BadOpCode.DefVarTyped, expression.Position, expression.Name, expression.IsReadOnly);
         }
     }
 }

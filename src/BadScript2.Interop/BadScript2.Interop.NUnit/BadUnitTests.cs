@@ -440,7 +440,7 @@ public class BadUnitTests
                 x =>
                 {
                     BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(BadCompiler.Instance, func, true);
+                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
 
                     return new BadNUnitTestCase(compiled, x.TestName, true);
                 }
@@ -467,7 +467,7 @@ public class BadUnitTests
                 x =>
                 {
                     BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(BadCompiler.Instance, func, true);
+                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
 
                     return new BadNUnitTestCase(compiled, x.TestName, true);
                 }
@@ -494,7 +494,7 @@ public class BadUnitTests
                 x =>
                 {
                     BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(BadCompiler.Instance, func, true);
+                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
 
                     return new BadNUnitTestCase(compiled, x.TestName, true);
                 }
@@ -521,7 +521,7 @@ public class BadUnitTests
                 x =>
                 {
                     BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(BadCompiler.Instance, func, true);
+                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
 
                     return new BadNUnitTestCase(compiled, x.TestName, true);
                 }

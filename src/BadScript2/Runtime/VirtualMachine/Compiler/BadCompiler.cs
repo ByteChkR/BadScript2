@@ -302,24 +302,22 @@ public class BadCompiler
     ///     If no Compiler for the given <see cref="BadExpression" /> type exists and
     ///     AllowEval is set to false.
     /// </exception>
-    public IEnumerable<BadInstruction> Compile(BadExpression expression)
+    public void Compile(BadExpressionCompileContext context, BadExpression expression)
     {
         Type t = expression.GetType();
 
         if (m_Compilers.TryGetValue(t, out IBadExpressionCompiler compiler))
         {
-            return compiler.Compile(this, expression);
+            compiler.Compile(context, expression);
         }
-
-        if (AllowEval)
+        else if (!AllowEval)
         {
-            return new[]
-            {
-                new BadInstruction(BadOpCode.Eval, expression.Position, expression),
-            };
+            throw new BadCompilerException("No Compiler for Expression Type " + expression.GetType().Name);
         }
-
-        throw new BadCompilerException("No Compiler for Expression Type " + expression.GetType().Name);
+        else
+        {
+            context.Emit(BadOpCode.Eval, expression.Position, expression);
+        }
     }
 
     /// <summary>
@@ -328,22 +326,17 @@ public class BadCompiler
     /// <param name="expressions">The <see cref="BadExpression" />s to compile.</param>
     /// <param name="clearStack">Indicates whether or not the Stack should be cleared after each expression.</param>
     /// <returns>List of <see cref="BadInstruction" />s.</returns>
-    public IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions, bool clearStack = true)
+    public void Compile(BadExpressionCompileContext context, IEnumerable<BadExpression> expressions, bool clearStack = true)
     {
         foreach (BadExpression expression in expressions)
         {
             BadSourcePosition? position = null;
 
-            foreach (BadInstruction instruction in Compile(expression))
-            {
-                position = instruction.Position;
-
-                yield return instruction;
-            }
+            Compile(context, expression);
 
             if (clearStack && position != null)
             {
-                yield return new BadInstruction(BadOpCode.ClearStack, position);
+                context.Emit(BadOpCode.ClearStack, position);
             }
         }
     }
@@ -357,6 +350,14 @@ public class BadCompiler
     {
         BadSourceParser parser = BadSourceParser.Create("<nofile>", src);
 
-        return Instance.Compile(parser.Parse());
+        return Compile(parser.Parse());   
     }
+
+    public static IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions)
+    {
+        var ctx = new BadExpressionCompileContext(Instance);
+        Instance.Compile(ctx, expressions);
+        return ctx.GetInstructions();
+    }
+    
 }

@@ -8,8 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 public class BadVariableExpressionCompiler : BadExpressionCompiler<BadVariableExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadVariableExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadVariableExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, expression.Name);
+        context.Emit(BadOpCode.LoadVar, expression.Position, expression.Name);
     }
 }
