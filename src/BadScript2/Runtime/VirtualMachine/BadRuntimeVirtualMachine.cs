@@ -39,6 +39,11 @@ public class BadRuntimeVirtualMachine
     ///     The Instructions
     /// </summary>
     private readonly BadInstruction[] m_Instructions;
+    
+    /// <summary>
+    /// The Function that is executed by this Virtual Machine
+    /// </summary>
+    private readonly BadCompiledFunction m_Function;
 
     /// <summary>
     ///     Indicates if the Virtual Machine should use Operator Overrides.
@@ -55,8 +60,9 @@ public class BadRuntimeVirtualMachine
     /// </summary>
     /// <param name="instructions">The Instructions to execute.</param>
     /// <param name="useOverrides">Indicates if the Virtual Machine should use Operator Overrides.</param>
-    public BadRuntimeVirtualMachine(BadInstruction[] instructions, bool useOverrides = true)
+    public BadRuntimeVirtualMachine(BadCompiledFunction function, BadInstruction[] instructions, bool useOverrides = true)
     {
+        m_Function = function;
         m_Instructions = instructions;
         m_UseOverrides = useOverrides;
     }
@@ -98,13 +104,16 @@ public class BadRuntimeVirtualMachine
                     m_InstructionPointer = sf.ReturnPointer;
                 }
 
-                m_ContextStack.Pop();
+                var retSf = m_ContextStack.Pop();
 
                 if (m_ContextStack.Count == 0)
                 {
                     yield break; //We exited the virtual machine. Quit the Execute method.
                 }
 
+                //We found a scope that captures return, we push the return value to the stack and continue execution
+                m_ArgumentStack.Push(ctx.Scope.ReturnValue!);
+                m_InstructionPointer = retSf.ReturnPointer;
                 continue;
             }
 
@@ -283,6 +292,12 @@ public class BadRuntimeVirtualMachine
 
                     BadObject r = BadObject.Null;
 
+                    if (m_Function == func) //Invoke Self
+                    {
+                        m_ContextStack.Push(new BadRuntimeVirtualStackFrame(m_Function.CreateExecutionContext(ctx, args)){ReturnPointer = m_InstructionPointer});
+                        m_InstructionPointer = 0;
+                        break;
+                    }
                     foreach (BadObject o in BadInvocationExpression.Invoke(func, args, instr.Position, ctx))
                     {
                         r = o;

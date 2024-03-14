@@ -82,10 +82,9 @@ public class BadCompiledFunction : BadFunction
     /// <inheritdoc />
     public override BadMetaData MetaData { get; }
 
-    /// <inheritdoc />
-    protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
+    public BadExecutionContext CreateExecutionContext(BadExecutionContext caller, BadObject[] args)
     {
-        using BadExecutionContext ctx = new BadExecutionContext(
+        BadExecutionContext ctx = new BadExecutionContext(
             m_ParentScope.CreateChild(
                 "Compiled Function",
                 caller.Scope,
@@ -94,6 +93,13 @@ public class BadCompiledFunction : BadFunction
             )
         );
         ApplyParameters(ctx, args, m_Position);
+        return ctx;
+    }
+    
+    /// <inheritdoc />
+    protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
+    {
+        using BadExecutionContext ctx = CreateExecutionContext(caller, args);
 
         if (m_Instructions.Length == 0)
         {
@@ -102,7 +108,7 @@ public class BadCompiledFunction : BadFunction
             yield break;
         }
 
-        BadRuntimeVirtualMachine vm = new BadRuntimeVirtualMachine(m_Instructions, m_UseOverrides);
+        BadRuntimeVirtualMachine vm = new BadRuntimeVirtualMachine(this, m_Instructions, m_UseOverrides);
 
         foreach (BadObject o in vm.Execute(ctx))
         {
