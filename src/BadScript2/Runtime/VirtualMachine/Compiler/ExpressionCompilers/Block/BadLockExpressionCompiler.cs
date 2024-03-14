@@ -12,8 +12,11 @@ public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression
     {
         context.Compile(expression.LockExpression);
         context.Emit(BadOpCode.Dup, expression.Position);
-        context.Emit(BadOpCode.AquireLock, expression.Position);
-        context.Compile(expression.Block);
-        context.Emit(BadOpCode.ReleaseLock, expression.Position);
+        if(expression.Block.Any()) // Dont aquire lock if there are no expressions in the block
+        {
+            context.Emit(BadOpCode.AquireLock, expression.Position);
+            context.Compile(expression.Block);
+            context.Emit(BadOpCode.ReleaseLock, expression.Position);
+        }
     }
 }
