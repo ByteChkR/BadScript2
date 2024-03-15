@@ -923,6 +923,8 @@ public class BadSourceParser
                     Reader.Eat("=>");
                     Reader.SkipNonToken();
                     setExpr = ParseExpression();
+                    Reader.SkipNonToken();
+                    Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
                 }
                 
                 Reader.SkipNonToken();

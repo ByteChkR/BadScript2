@@ -17,6 +17,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.VirtualMachine;
 
@@ -400,23 +401,96 @@ public class BadRuntimeVirtualMachine
                     break;
                 }
                 case BadOpCode.LoadVar:
-                    m_ArgumentStack.Push(ctx.Scope.GetVariable((string)instr.Arguments[0]));
+                {
+                    if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
+                    {
+                        var item = ctx.Scope.GetVariable((string)instr.Arguments[0]).Dereference();
+                        if (item is not IBadGenericObject genItem)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
+                        }
+                        BadObject[] genericArgs = new BadObject[genericArgCount];
+                        for (int i = genericArgCount - 1; i >= 0; i--)
+                        {
+                            genericArgs[i] = m_ArgumentStack.Pop().Dereference();
+                        }
+                        m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
+                    }
+                    else
+                    {
+                        m_ArgumentStack.Push(ctx.Scope.GetVariable((string)instr.Arguments[0]));
+                    }
 
                     break;
+                }
                 case BadOpCode.LoadMember:
-                    m_ArgumentStack.Push(
-                        m_ArgumentStack.Pop()
-                            .Dereference()
-                            .GetProperty((string)instr.Arguments[0], ctx.Scope)
-                    );
+                {
+                    if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
+                    {
+                        var left =
+                            m_ArgumentStack.Pop()
+                                .Dereference()
+                                .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                                .Dereference();
+                        if (left is not IBadGenericObject genItem)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
+                        }
+                        
+                        BadObject[] genericArgs = new BadObject[genericArgCount];
+                        for (int i = genericArgCount - 1; i >= 0; i--)
+                        {
+                            genericArgs[i] = m_ArgumentStack.Pop().Dereference();
+                        }
+                        m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
+                    }
+                    else
+                    {
+                        m_ArgumentStack.Push(
+                            m_ArgumentStack.Pop()
+                                .Dereference()
+                                .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                        );
+                    }
 
                     break;
+                }
                 case BadOpCode.LoadMemberNullChecked:
                 {
                     BadObject obj = m_ArgumentStack.Pop().Dereference();
                     string name = (string)instr.Arguments[0];
 
-                    m_ArgumentStack.Push(!obj.HasProperty(name, ctx.Scope) ? BadObject.Null : obj.GetProperty(name, ctx.Scope));
+                    if (obj.HasProperty(name, ctx.Scope))
+                    {
+                        if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
+                        {
+                            var left = obj
+                                    .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                                    .Dereference();
+                            if (left is not IBadGenericObject genItem)
+                            {
+                                throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
+                            }
+                        
+                            BadObject[] genericArgs = new BadObject[genericArgCount];
+                            for (int i = genericArgCount - 1; i >= 0; i--)
+                            {
+                                genericArgs[i] = m_ArgumentStack.Pop().Dereference();
+                            }
+                            m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
+                        }
+                        else
+                        {
+                            m_ArgumentStack.Push(
+                                obj.GetProperty(name, ctx.Scope)
+                            );
+                        
+                        }
+                    }
+                    else
+                    {
+                        m_ArgumentStack.Push(BadObject.Null);
+                    }
 
                     break;
                 }

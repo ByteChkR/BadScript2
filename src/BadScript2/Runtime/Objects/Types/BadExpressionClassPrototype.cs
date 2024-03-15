@@ -173,6 +173,10 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         yield return thisInstance;
     }
 
+    public override bool IsSuperClassOf(BadClassPrototype proto)
+    {
+        return GenericParameters.Count != 0 && proto is BadExpressionClassPrototype gProto && gProto.m_GenericDefinition == this || base.IsSuperClassOf(proto);
+    }
     /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {

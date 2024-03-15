@@ -158,27 +158,33 @@ public class BadClass : BadObject
             return BadObjectReference.Make(
                 $"{Name}.{propName}",
                 () => Scope.GetTable().InnerTable[propName],
-                (o, _) =>
+                (o, t) =>
                 {
-                    if (Scope.GetTable().InnerTable.ContainsKey(propName))
+                    BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);
+                    
+                    var existing = Scope.GetTable().InnerTable[propName];
+
+                    if (existing != Null && info.IsReadOnly)
                     {
-                        BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);
-
-                        if (Scope.GetTable().InnerTable[propName] != Null && info.IsReadOnly)
-                        {
-                            throw BadRuntimeException.Create(caller, $"{Name}.{propName} is read-only");
-                        }
-
-                        if (info.Type != null && !info.Type.IsAssignableFrom(o))
-                        {
-                            throw BadRuntimeException.Create(
-                                caller,
-                                $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
-                            );
-                        }
+                        throw BadRuntimeException.Create(caller, $"{Name}.{propName} is read-only");
                     }
 
-                    Scope.GetTable().InnerTable[propName] = o;
+                    if (info.Type != null && !info.Type.IsAssignableFrom(o))
+                    {
+                        throw BadRuntimeException.Create(
+                            caller,
+                            $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
+                        );
+                    }
+
+                    if (existing is BadObjectReference reference)
+                    {
+                        reference.Set(o, t);
+                    }
+                    else
+                    {
+                        Scope.GetTable().InnerTable[propName] = o;
+                    }
                 }
             );
         }

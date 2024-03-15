@@ -14,7 +14,7 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 {
-	private readonly List<BadExpression> m_GenericArguments;
+	public IReadOnlyList<BadExpression> GenericArguments { get; }
 	/// <summary>
 	///     Constructor for the Member Access Expression.
 	/// </summary>
@@ -37,7 +37,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
     {
         Left = left;
         Right = right;
-        m_GenericArguments = genericArguments;
+        GenericArguments = genericArguments;
         NullChecked = nullChecked;
     }
 
@@ -87,7 +87,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
         {
             BadObject ret = left.GetProperty(Right.Text, context.Scope);
 
-            if (m_GenericArguments.Count != 0)
+            if (GenericArguments.Count != 0)
             {
 	            ret = ret.Dereference();
 	            if (ret is not IBadGenericObject genType)
@@ -98,10 +98,10 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 			            Position
 		            );
 	            }
-	            BadObject[] genParams = new BadObject[m_GenericArguments.Count];
-	            for (int i = 0; i < m_GenericArguments.Count; i++)
+	            BadObject[] genParams = new BadObject[GenericArguments.Count];
+	            for (int i = 0; i < GenericArguments.Count; i++)
 	            {
-		            foreach (var o in m_GenericArguments[i].Execute(context))
+		            foreach (var o in GenericArguments[i].Execute(context))
 		            {
 			            genParams[i] = o;
 		            }

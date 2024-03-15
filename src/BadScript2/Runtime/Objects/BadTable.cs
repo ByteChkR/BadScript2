@@ -167,6 +167,11 @@ public class BadTable : BadObject, IBadEnumerable
                             $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
                         );
                     }
+                    if (propValue is BadObjectReference propRef)
+                    {
+                        propRef.Set(o, t);
+                        return;
+                    }
                 }
                 else
                 {

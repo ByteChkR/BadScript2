@@ -1,0 +1,18 @@
+let Assert = NUnit.Assert;
+
+function Test_Static()
+{
+	class C<T>
+	{
+		static function T F()
+		{
+			return true;
+		}
+	}
+	let c = C<bool>.F();
+	Assert.IsTrue(c, "Static function returned something else or did not execute");
+}
+
+NUnit.AddTest(Test_Static, "Generic Static Member and Member Access");
+
+

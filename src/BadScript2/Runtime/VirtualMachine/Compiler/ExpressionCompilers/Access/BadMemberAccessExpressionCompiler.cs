@@ -10,14 +10,18 @@ public class BadMemberAccessExpressionCompiler : BadExpressionCompiler<BadMember
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadMemberAccessExpression expression)
     {
+        foreach (var parameter in expression.GenericArguments)
+        {
+            context.Compile(parameter);
+        }
         context.Compile(expression.Left);
         if (expression.NullChecked)
         {
-            context.Emit(BadOpCode.LoadMemberNullChecked, expression.Position, expression.Right.Text);
+            context.Emit(BadOpCode.LoadMemberNullChecked, expression.Position, expression.Right.Text, expression.GenericArguments.Count);
         }
         else
         {
-            context.Emit(BadOpCode.LoadMember, expression.Position, expression.Right.Text);
+            context.Emit(BadOpCode.LoadMember, expression.Position, expression.Right.Text, expression.GenericArguments.Count);
         }
     }
 }
