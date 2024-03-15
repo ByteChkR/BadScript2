@@ -9,6 +9,7 @@
 - [Native Types](./badlang/NativeTypes.md)
 - [Operators](./badlang/Operators.md)
 - [Comments](./badlang/Comments.md)
+- [Branching](./badlang/Branching.md)
 - [Loops](./badlang/Loops.md)
 - [Locking](./badlang/Locking.md)
 - [Using](./badlang/Using.md)
