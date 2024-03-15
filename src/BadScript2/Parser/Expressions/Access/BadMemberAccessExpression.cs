@@ -2,7 +2,9 @@ using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Parser.Expressions.Access;
 
@@ -12,6 +14,7 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 {
+	private readonly List<BadExpression> m_GenericArguments;
 	/// <summary>
 	///     Constructor for the Member Access Expression.
 	/// </summary>
@@ -26,6 +29,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
         BadExpression left,
         BadWordToken right,
         BadSourcePosition position,
+        List<BadExpression> genericArguments,
         bool nullChecked = false) : base(
         false,
         position
@@ -33,6 +37,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
     {
         Left = left;
         Right = right;
+        m_GenericArguments = genericArguments;
         NullChecked = nullChecked;
     }
 
@@ -82,7 +87,33 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
         {
             BadObject ret = left.GetProperty(Right.Text, context.Scope);
 
-            yield return ret;
+            if (m_GenericArguments.Count != 0)
+            {
+	            ret = ret.Dereference();
+	            if (ret is not IBadGenericObject genType)
+	            {
+		            throw BadRuntimeException.Create(
+			            context.Scope,
+			            $"Object {ret} does not support generic arguments",
+			            Position
+		            );
+	            }
+	            BadObject[] genParams = new BadObject[m_GenericArguments.Count];
+	            for (int i = 0; i < m_GenericArguments.Count; i++)
+	            {
+		            foreach (var o in m_GenericArguments[i].Execute(context))
+		            {
+			            genParams[i] = o;
+		            }
+
+		            genParams[i] = genParams[i].Dereference();
+	            }
+
+	            yield return genType.CreateGeneric(genParams);
+            }
+			else{
+				yield return ret;
+			}	
         }
     }
 

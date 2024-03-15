@@ -19,6 +19,8 @@ public static class BadStaticKeys
     public const string MULTI_LINE_COMMENT_END = "*/";
     public const string VARIABLE_DEFINITION_KEY = "let";
     public const string CONSTANT_DEFINITION_KEY = "const";
+    public const string SET_ACCESSOR_KEY = "set";
+    public const string GET_ACCESSOR_KEY = "get";
     public const string STATIC_DEFINITION_KEY = "static";
     public const string COMPILED_DEFINITION_KEY = "compiled";
     public const string COMPILED_FAST_DEFINITION_KEY = "fast";

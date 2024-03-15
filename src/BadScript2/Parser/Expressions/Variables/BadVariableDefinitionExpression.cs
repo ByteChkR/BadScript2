@@ -1,4 +1,5 @@
 using BadScript2.Common;
+using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
@@ -6,6 +7,79 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser.Expressions.Variables;
 
+public class BadPropertyDefinitionExpression : BadExpression
+{
+
+    public BadWordToken Name { get; }
+    public bool IsReadOnly { get; }
+    public BadExpression? TypeExpression { get; }
+    public BadExpression GetExpression { get; }
+    public BadExpression? SetExpression { get; }
+    
+    public BadPropertyDefinitionExpression(
+        BadWordToken name,
+        BadSourcePosition position,
+        BadExpression getExpression,
+        BadExpression? typeExpression = null,
+        BadExpression? setExpression = null,
+        bool isReadOnly = false) : base(false, position)
+    {
+        Name = name;
+        IsReadOnly = isReadOnly;
+        TypeExpression = typeExpression;
+        GetExpression = getExpression;
+        SetExpression = setExpression;
+    }
+    
+    public override IEnumerable<BadExpression> GetDescendants()
+    {
+        yield return GetExpression;
+        if (TypeExpression != null)
+        {
+            yield return TypeExpression;
+        }
+        if (SetExpression != null)
+        {
+            yield return SetExpression;
+        }
+    }
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        if (context.Scope.ClassObject == null)
+        {
+            throw BadRuntimeException.Create(context.Scope, "Can only define properties in class scope", Position);
+        }
+        BadClassPrototype type = BadAnyPrototype.Instance;
+
+        if (TypeExpression != null)
+        {
+            BadObject obj = BadObject.Null;
+
+            foreach (BadObject o in TypeExpression.Execute(context))
+            {
+                obj = o;
+
+                yield return o;
+            }
+
+            if (context.Scope.IsError)
+            {
+                yield break;
+            }
+
+            obj = obj.Dereference();
+
+            if (obj is not BadClassPrototype proto)
+            {
+                throw new BadRuntimeException("Type expression must be a class prototype", Position);
+            }
+
+            type = proto;
+        }
+
+        context.Scope.DefineProperty(Name.Text, type, GetExpression, SetExpression, context);
+    }
+}
 /// <summary>
 ///     Implements the Variable Definition Expression
 /// </summary>
@@ -24,7 +98,8 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         BadExpression? typeExpression = null,
         bool isReadOnly = false) : base(
         name,
-        position
+        position,
+        Array.Empty<BadExpression>()
     )
     {
         IsReadOnly = isReadOnly;

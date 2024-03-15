@@ -866,10 +866,12 @@ public class BadSourceParser
             {
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
+                var genArgs = ParseGenericArguments();
                 nameExpr = new BadMemberAccessExpression(
                     nameExpr,
                     right,
-                    nameExpr.Position.Combine(right.SourcePosition)
+                    nameExpr.Position.Combine(right.SourcePosition),
+                    genArgs
                 );
                 Reader.SkipNonToken();
             }
@@ -895,14 +897,50 @@ public class BadSourceParser
 
             Reader.SkipNonToken();
 
+            if (Reader.Is('{'))
+            {
+                //Parse Property Accessors
+                // => { get => <expr> [set => <expr>] }
+                Reader.Eat('{');
+                Reader.SkipNonToken();
+                Reader.Eat(BadStaticKeys.GET_ACCESSOR_KEY);
+                Reader.SkipNonToken();
+                Reader.Eat("=>");
+                Reader.SkipNonToken();
+                BadExpression getExpr = ParseExpression();
+                Reader.SkipNonToken();
+                Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
+                Reader.SkipNonToken();
+                BadExpression? setExpr = null;
+                if (Reader.Is(BadStaticKeys.SET_ACCESSOR_KEY))
+                {
+                    if (isReadOnly)
+                    {
+                        throw new BadParserException("Cannot define a set accessor for a constant", Reader.MakeSourcePosition(wordStart, Reader.CurrentIndex - wordStart));
+                    }
+                    Reader.Eat(BadStaticKeys.SET_ACCESSOR_KEY);
+                    Reader.SkipNonToken();
+                    Reader.Eat("=>");
+                    Reader.SkipNonToken();
+                    setExpr = ParseExpression();
+                }
+                
+                Reader.SkipNonToken();
+                Reader.Eat('}');
+
+                return new BadPropertyDefinitionExpression(name.Text, word.SourcePosition,  getExpr, type, setExpr, isReadOnly);
+            }
+
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
         }
 
         Reader.SkipNonToken();
 
+        List<BadExpression> typeArgs = ParseGenericArguments();
+
         if (precedence <= 0 || !Reader.Is("=>") && !Reader.Is('*') && !Reader.Is('?') && !Reader.Is('!'))
         {
-            return new BadVariableExpression(word.Text, word.SourcePosition);
+            return new BadVariableExpression(word.Text, word.SourcePosition, typeArgs.ToArray());
         }
 
         {
@@ -958,7 +996,44 @@ public class BadSourceParser
             }
         }
 
-        return new BadVariableExpression(word.Text, word.SourcePosition);
+        return new BadVariableExpression(word.Text, word.SourcePosition, typeArgs.ToArray());
+    }
+
+    public List<BadExpression> ParseGenericArguments()
+    {
+        List<BadExpression> typeArgs = new List<BadExpression>();
+        if (Reader.Is('<'))
+        {
+            int genStart = Reader.CurrentIndex;
+            try
+            {
+                Reader.Eat('<');
+                Reader.SkipNonToken();
+                while (true)
+                {
+                    var expr = ParseExpression(null, 3);
+                    typeArgs.Add(expr);
+                    Reader.SkipNonToken();
+                    if (!Reader.Is(','))
+                    {
+                        break;
+                    }
+                    Reader.Eat(',');
+                    Reader.SkipNonToken();
+                }
+                
+                Reader.Eat('>');
+                
+                Reader.SkipNonToken();
+            }
+            catch (Exception)
+            {
+                Reader.SetPosition(genStart);
+                typeArgs.Clear();
+            }
+        }
+        
+        return typeArgs;
     }
 
     /// <summary>
@@ -1663,10 +1738,12 @@ public class BadSourceParser
             {
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
+                var genArgs = ParseGenericArguments();
                 nameExpr = new BadMemberAccessExpression(
                     nameExpr,
                     right,
-                    nameExpr.Position.Combine(right.SourcePosition)
+                    nameExpr.Position.Combine(right.SourcePosition),
+                    genArgs
                 );
                 Reader.SkipNonToken();
             }
@@ -1719,6 +1796,32 @@ public class BadSourceParser
         return new BadInterfacePropertyConstraint(name, type);
     }
 
+    private List<BadWordToken> ParseGenericParameters()
+    {
+        List<BadWordToken> genericParameters = new List<BadWordToken>();
+        Reader.SkipNonToken();
+        if (Reader.Is('<'))
+        {
+            Reader.Eat('<');
+            Reader.SkipNonToken();
+            while (!Reader.IsEof())
+            {
+                genericParameters.Add(Reader.ParseWord());
+                Reader.SkipNonToken();
+                if (Reader.Is('>'))
+                {
+                    break;
+                }
+                Reader.Eat(',');
+                Reader.SkipNonToken();
+            }
+            Reader.Eat('>');
+            Reader.SkipNonToken();
+        }
+        
+        return genericParameters;
+    }
+
     /// <summary>
     ///     Parses an Interface prototype. Moves the reader to the next token.
     /// </summary>
@@ -1731,6 +1834,7 @@ public class BadSourceParser
         Reader.Eat(BadStaticKeys.INTERFACE_KEY);
         Reader.SkipNonToken();
         BadWordToken name = Reader.ParseWord();
+        List<BadWordToken> genericParameters = ParseGenericParameters();
         Reader.SkipNonToken();
         List<BadExpression> interfaces = new List<BadExpression>();
 
@@ -1776,7 +1880,8 @@ public class BadSourceParser
             constraints.ToArray(),
             interfaces.ToArray(),
             meta,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+            genericParameters.ToArray()
         );
     }
 
@@ -1793,6 +1898,7 @@ public class BadSourceParser
         Reader.SkipNonToken();
         BadWordToken name = Reader.ParseWord();
         Reader.SkipNonToken();
+        List<BadWordToken> genericParameters = ParseGenericParameters();
 
         List<BadFunctionParameter>? primaryConstructor = null;
         List<BadExpression>? baseInvocationParameters = null;
@@ -1856,6 +1962,7 @@ public class BadSourceParser
             while (!Reader.Is('}'))
             {
                 Reader.SkipNonToken();
+                
                 BadExpression expr = ParseExpression();
 
                 if (expr is BadFunctionExpression
@@ -1935,7 +2042,7 @@ public class BadSourceParser
                     // this.{parameter.Name} = {parameter.Name};
                     block.Add(
                         new BadAssignExpression(
-                            new BadMemberAccessExpression(thisExpr, parameter.Name, primaryConstructorPosition!),
+                            new BadMemberAccessExpression(thisExpr, parameter.Name, primaryConstructorPosition!, new List<BadExpression>()),
                             new BadVariableExpression(parameter.Name, primaryConstructorPosition!),
                             primaryConstructorPosition!
                         )
@@ -1954,7 +2061,8 @@ public class BadSourceParser
             staticMembers.ToArray(),
             baseClasses.ToArray(),
             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            meta
+            meta,
+            genericParameters.ToArray()
         );
     }
 
@@ -1972,10 +2080,12 @@ public class BadSourceParser
         {
             Reader.Eat(".");
             BadWordToken right = Reader.ParseWord();
+            var genArgs = ParseGenericArguments();
             nameExpr = new BadMemberAccessExpression(
                 nameExpr,
                 right,
-                nameExpr.Position.Combine(right.SourcePosition)
+                nameExpr.Position.Combine(right.SourcePosition),
+                genArgs
             );
             Reader.SkipNonToken();
         }
@@ -2209,10 +2319,12 @@ public class BadSourceParser
             {
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
+                var genArgs = ParseGenericArguments();
                 functionNameExpr = new BadMemberAccessExpression(
                     functionNameExpr,
                     right,
-                    functionNameExpr.Position.Combine(right.SourcePosition)
+                    functionNameExpr.Position.Combine(right.SourcePosition),
+                    genArgs
                 );
                 Reader.SkipNonToken();
             }
@@ -2271,6 +2383,7 @@ public class BadSourceParser
             or BadLockExpression
             or BadUsingExpression
             or BadSwitchExpression
+            or BadPropertyDefinitionExpression
             or BadFunctionExpression
             {
                 IsSingleLine: false,

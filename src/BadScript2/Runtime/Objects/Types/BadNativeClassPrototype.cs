@@ -1,3 +1,4 @@
+using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Objects.Types;
@@ -12,6 +13,8 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     
     private readonly Dictionary<string, BadObjectReference> m_StaticMembers = new Dictionary<string, BadObjectReference>();
 
+    private readonly Func<BadInterfacePrototype[]> m_InterfaceFunc;
+    private BadInterfacePrototype[]? m_InterfacesCache;
     /// <summary>
     ///     Creates a new Native Class Prototype
     /// </summary>
@@ -21,8 +24,20 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     public BadNativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func,
-        params BadInterfacePrototype[] interfaces) : base(name, func, null, interfaces)
+        Func<BadInterfacePrototype[]> interfaces) : base(name, func)
     {
+        m_InterfaceFunc = interfaces;
+    }
+    /// <summary>
+    ///     Creates a new Native Class Prototype
+    /// </summary>
+    /// <param name="name">Class Name</param>
+    /// <param name="func">Class Constructor</param>
+    public BadNativeClassPrototype(
+        string name,
+        Func<BadExecutionContext, BadObject[], BadObject> func) : base(name, func)
+    {
+        m_InterfaceFunc = () => Array.Empty<BadInterfacePrototype>();
     }
     
     /// <summary>
@@ -35,14 +50,32 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     public BadNativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func,
-        Dictionary<string, BadObjectReference> staticMembers,
-        params BadInterfacePrototype[] interfaces) : base(name, func, null, interfaces)
+        Dictionary<string, BadObjectReference> staticMembers) : base(name, func)
     {
         m_StaticMembers = staticMembers;
+        m_InterfaceFunc = () => Array.Empty<BadInterfacePrototype>();
+    }
+    /// <summary>
+    ///     Creates a new Native Class Prototype
+    /// </summary>
+    /// <param name="name">Class Name</param>
+    /// <param name="func">Class Constructor</param>
+    /// <param name="staticMembers">Static Members of the Type</param>
+    /// <param name="interfaces">The Implemented interfaces</param>
+    public BadNativeClassPrototype(
+        string name,
+        Func<BadExecutionContext, BadObject[], BadObject> func,
+        Dictionary<string, BadObjectReference> staticMembers,
+        Func<BadInterfacePrototype[]> interfaces) : base(name, func)
+    {
+        m_StaticMembers = staticMembers;
+        m_InterfaceFunc = interfaces;
     }
 
     /// <inheritdoc />
     public override bool IsAbstract => false;
+
+    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_InterfacesCache ??= m_InterfaceFunc();
 
     /// <inheritdoc />
     public override bool IsAssignableFrom(BadObject obj)
@@ -69,4 +102,5 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
 
         return base.GetProperty(propName, caller);
     }
+
 }

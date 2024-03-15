@@ -4,6 +4,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Interop;
 
@@ -18,7 +19,7 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
         "Enumerator",
         (_, _) => throw new BadRuntimeException("Cannot call method on enumerator"),
-        BadNativeClassBuilder.Enumerator
+        () => new []{(BadInterfacePrototype)BadNativeClassBuilder.Enumerator.CreateGeneric(new []{BadAnyPrototype.Instance})}
     );
 
     /// <summary>

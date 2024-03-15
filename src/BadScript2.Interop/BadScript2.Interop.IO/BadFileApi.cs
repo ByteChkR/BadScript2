@@ -86,7 +86,7 @@ internal partial class BadFileApi
         [BadParameter(description: "The Destination Path")]
         string destination,
         [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")]
-        bool overwrite)
+        bool overwrite = false)
     {
         m_FileSystem.Move(source, destination, overwrite);
     }
@@ -98,7 +98,7 @@ internal partial class BadFileApi
         [BadParameter(description: "The Destination Path")]
         string destination,
         [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")]
-        bool overwrite)
+        bool overwrite = false)
     {
         m_FileSystem.Copy(source, destination, overwrite);
     }

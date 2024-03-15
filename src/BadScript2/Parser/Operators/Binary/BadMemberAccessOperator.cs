@@ -20,6 +20,8 @@ public class BadMemberAccessOperator : BadBinaryOperator
     {
         BadWordToken right = parser.Reader.ParseWord();
 
-        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition));
+        var args = parser.ParseGenericArguments();
+
+        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition), args);
     }
 }

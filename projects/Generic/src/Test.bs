@@ -1,0 +1,36 @@
+
+import Generic from './Main.bs';
+
+
+class Person(string FirstName!, string LastName!)
+{
+	function ToString()
+	{
+		return $"{FirstName} {LastName}";
+	}
+}
+
+function Main()
+{
+	
+	const IArray<Person> persons = new Generic.Array<Person>();
+
+	persons.Add(new Person("Tim", "Akermann"));
+	persons.Add(new Person("John", "Doe"));
+	persons.Add(new Person("Jane", "Doe"));
+
+	foreach(person in persons)
+	{
+		Console.WriteLine(person);
+	}
+
+
+	persons[0] = new Person("Jimmy", "Neutron");
+
+	for(let num i = 1; i <= persons.Length; i++)
+	{
+		Console.WriteLine(persons[^i]);
+	}
+}
+
+Main();

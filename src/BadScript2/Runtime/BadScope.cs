@@ -1,3 +1,4 @@
+using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
@@ -617,6 +618,39 @@ public class BadScope : BadObject, IDisposable
         return sc;
     }
 
+    public void DefineProperty(string name, BadClassPrototype type, BadExpression getAccessor, BadExpression? setAccessor, BadExecutionContext caller)
+    {
+        if (HasLocal(name, caller.Scope, false))
+        {
+            throw new BadRuntimeException($"Property {name} is already defined");
+        }
+        Action<BadObject, BadPropertyInfo?>? setter = null;
+        if (setAccessor != null)
+        {
+            setter = (value, pi) =>
+            {
+                var setCtx = new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
+                setCtx.Scope.DefineVariable("value", value, setCtx.Scope, new BadPropertyInfo(BadAnyPrototype.Instance, true));
+                foreach (BadObject o in setCtx.Execute(setAccessor))
+                {
+                    //Execute
+                }
+            };
+        }
+        m_ScopeVariables.PropertyInfos.Add(name, new BadPropertyInfo(type, setter == null));
+        m_ScopeVariables.InnerTable.Add(name, BadObjectReference.Make($"property {name}",
+            () =>
+            {
+                var getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
+                var get = Null;
+                foreach (BadObject o in getCtx.Execute(getAccessor))
+                {
+                    get = o;
+                }
+                return get.Dereference();
+            },
+            setter));
+    }
 
     /// <summary>
     ///     Defines a new Variable in the current scope
