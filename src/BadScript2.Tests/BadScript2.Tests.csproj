@@ -600,6 +600,9 @@
         <None Update="tests\basic\classes\primaryConstructor.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\Switch.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
       <Folder Include="tests\basic\module\" />

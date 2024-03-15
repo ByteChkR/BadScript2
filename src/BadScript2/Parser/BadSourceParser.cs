@@ -121,6 +121,53 @@ public class BadSourceParser
         return null;
     }
 
+    private BadExpression ParseSwitch()
+    {
+        int start = Reader.CurrentIndex;
+        Reader.Eat(BadStaticKeys.SWITCH_KEY);
+        Reader.SkipNonToken();
+        Reader.Eat('(');
+        Reader.SkipNonToken();
+        BadExpression value = ParseExpression();
+        Reader.SkipNonToken();
+        Reader.Eat(')');
+        Reader.SkipNonToken();
+        Reader.Eat('{');
+        Reader.SkipNonToken();
+        Dictionary<BadExpression, BadExpression[]> cases = new Dictionary<BadExpression, BadExpression[]>();
+        List<BadExpression>? defaultCase = null;
+        while (!Reader.IsEof() && !Reader.Is('}'))
+        {
+            Reader.SkipNonToken();
+            if (Reader.Is(BadStaticKeys.DEFAULT_KEY))
+            {
+                Reader.Eat(BadStaticKeys.DEFAULT_KEY);
+                Reader.SkipNonToken();
+                Reader.Eat(':');
+                Reader.SkipNonToken();
+                defaultCase = ParseBlock(out bool _);
+                Reader.SkipNonToken();
+                break;
+            }
+            Reader.Eat(BadStaticKeys.CASE_KEY);
+            Reader.SkipNonToken();
+            BadExpression caseValue = ParseExpression();
+            Reader.SkipNonToken();
+            Reader.Eat(':');
+            Reader.SkipNonToken();
+            List<BadExpression> caseBody = new List<BadExpression>();
+            if(Reader.Is('{'))
+            {
+                caseBody = ParseBlock(out bool _);
+            }
+            Reader.SkipNonToken();
+            cases[caseValue] = caseBody.ToArray();
+        }
+        Reader.Eat('}');
+        
+        return new BadSwitchExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), value, cases, defaultCase);
+    }
+    
     /// <summary>
     ///     Parses an If Expression. Moves the Reader to the Next Token
     /// </summary>
@@ -571,6 +618,11 @@ public class BadSourceParser
         if (Reader.IsKey(BadStaticKeys.IF_KEY))
         {
             return ParseIf();
+        }
+        
+        if (Reader.IsKey(BadStaticKeys.SWITCH_KEY))
+        {
+            return ParseSwitch();
         }
 
         if (Reader.IsKey(BadStaticKeys.CONTINUE_KEY))
@@ -2218,6 +2270,7 @@ public class BadSourceParser
             or BadTryCatchExpression
             or BadLockExpression
             or BadUsingExpression
+            or BadSwitchExpression
             or BadFunctionExpression
             {
                 IsSingleLine: false,

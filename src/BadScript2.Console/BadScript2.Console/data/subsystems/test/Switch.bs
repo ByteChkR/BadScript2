@@ -1,0 +1,112 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Switch()
+{
+	const n = 10;
+	let pass = false;
+	switch(n)
+	{
+		case 10:
+		{
+			pass = true;
+			break;
+		}
+	}
+
+	Assert.IsTrue(pass, "Switch Statement did not hit");
+}
+
+NUnit.AddTest(Test_Switch, "switch test");
+
+function Test_SwitchFallThrough()
+{
+	const n = 10;
+	let pass = false;
+	switch(n)
+	{
+		case 10:
+		case 1:
+		case 0:
+		{
+			pass = true;
+			break;
+		}
+	}
+
+	Assert.IsTrue(pass, "Switch Fallthrough Statement did not hit");
+}
+
+NUnit.AddTest(Test_SwitchFallThrough, "switch fallthrough test");
+
+
+function Test_SwitchDefault()
+{
+	const n = 10;
+	let pass = false;
+	switch(n)
+	{
+		case 1:
+		{
+			break;
+		}
+		default:
+		{
+			pass = true;
+			break;
+		}
+	}
+
+	Assert.IsTrue(pass, "Switch Default Statement did not hit");
+}
+
+NUnit.AddTest(Test_SwitchDefault, "switch default test");
+
+
+function Test_SwitchDefaultFallthrough1()
+{
+	const n = 10;
+	let pass = false;
+	switch(n)
+	{
+		case 1:
+		{
+			break;
+		}
+		case 10:
+		default:
+		{
+			pass = true;
+			break;
+		}
+	}
+
+	Assert.IsTrue(pass, "1: Switch Default Fallthrough Statement did not hit");
+}
+
+NUnit.AddTest(Test_SwitchDefaultFallthrough1, "1: switch default fallthrough test");
+
+function Test_SwitchDefaultFallthrough2()
+{
+	const n = 10;
+	let pass = false;
+	switch(n)
+	{
+		case 10:
+		case 1:
+		{
+			pass = true;
+			break;
+		}
+		default:
+		{
+			pass = false;
+			break;
+		}
+	}
+
+	Assert.IsTrue(pass, "2: Switch Default Fallthrough Statement did not hit");
+}
+
+NUnit.AddTest(Test_SwitchDefaultFallthrough2, "2: switch default fallthrough test");

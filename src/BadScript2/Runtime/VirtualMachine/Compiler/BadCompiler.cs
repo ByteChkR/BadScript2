@@ -193,6 +193,9 @@ public class BadCompiler
             typeof(BadIfExpression), new BadIfExpressionCompiler()
         },
         {
+            typeof(BadSwitchExpression), new BadSwitchExpressionCompiler()
+        },
+        {
             typeof(BadReturnExpression), new BadReturnExpressionCompiler()
         },
         {

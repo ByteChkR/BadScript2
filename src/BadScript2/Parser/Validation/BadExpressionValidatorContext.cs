@@ -83,6 +83,7 @@ public readonly struct BadExpressionValidatorContext
         new BadEmptyIfBranchValidator(),
         new BadEmptyLockBlockValidator(),
         new BadEmptyUsingBlockValidator(),
+        new BadEmptySwitchStatementValidator(),
     };
 
     /// <summary>

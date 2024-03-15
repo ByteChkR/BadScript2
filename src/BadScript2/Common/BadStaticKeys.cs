@@ -44,6 +44,8 @@ public static class BadStaticKeys
     public const string THROW_KEY = "throw";
     public const string IF_KEY = "if";
     public const string ELSE_KEY = "else";
+    public const string SWITCH_KEY = "switch";
+    public const string CASE_KEY = "case";
     public const string FOR_KEY = "for";
     public const string FOR_EACH_KEY = "foreach";
     public const string TRY_KEY = "try";

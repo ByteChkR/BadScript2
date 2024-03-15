@@ -12,3 +12,20 @@ function Test_ArrayAccess()
 }
 
 NUnit.AddTest(Test_ArrayAccess, "Operator '[]' tests");
+
+
+function Test_EnumeratedArrayAccess()
+{
+	let a = ["ABC", "Hallo", "Welt"];
+	let aResult = a[1..a.Length];
+	Assert.AreEqual(aResult[0], "Hallo", "aResult[0] == \"Hallo\"");
+	Assert.AreEqual(aResult[1], "Welt", "aResult[1] == \"Welt\"");
+
+	a = { A: 2, B: 3, C: 4 };
+	aResult = a[["A", "C"]];
+	Assert.AreEqual(aResult["A"], 2, "aResult[\"A\"] == 2");
+	Assert.IsFalse("B" in aResult, "\"B\" in aResult");
+	Assert.AreEqual(aResult["C"], 4, "aResult[\"C\"] == 4");
+}
+
+NUnit.AddTest(Test_EnumeratedArrayAccess, "Enumerated Operator '[]' tests");

@@ -156,6 +156,26 @@ public static class BadConstantSubstitutionOptimizer
 
                     continue;
                 }
+                case BadSwitchExpression switchExpr:
+                {
+                    foreach (KeyValuePair<BadExpression, BadExpression[]> branch in switchExpr.Cases.ToArray())
+                    {
+                        BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                        BadExpression[] newBody = Optimize(childScope, branch.Value).ToArray();
+                        switchExpr.Cases[branch.Key] = newBody;
+                    }
+
+                    if (switchExpr.DefaultCase != null)
+                    {
+                        BadConstantSubstitutionOptimizerScope childScope = scope.CreateChildScope();
+                        BadExpression[] newBody = Optimize(childScope, switchExpr.DefaultCase).ToArray();
+                        switchExpr.SetDefaultCase(newBody);
+                    }
+
+                    yield return switchExpr;
+
+                    continue;
+                }
                 case BadInvocationExpression invoc:
                 {
                     List<BadExpression> args = (from arg in invoc.Arguments

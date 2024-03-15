@@ -167,6 +167,8 @@
               target="tools/net6.0/any/data/subsystems/test/functions/typesafe.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/IfBranches.bs"
               target="tools/net6.0/any/data/subsystems/test/IfBranches.bs"/>
+        <file src="./bin/Release/net6.0/publish/data/subsystems/test/Switch.bs"
+              target="tools/net6.0/any/data/subsystems/test/Switch.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/Locking.bs"
               target="tools/net6.0/any/data/subsystems/test/Locking.bs"/>
         <file src="./bin/Release/net6.0/publish/data/subsystems/test/NumberDefinitions.bs"

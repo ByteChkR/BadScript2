@@ -147,14 +147,13 @@ public class BadRuntimeVirtualMachine
                         throw BadRuntimeException.Create(ctx.Scope, "VIRTUAL MACHINE BREAK ERROR");
                     }
 
-                    BadRuntimeVirtualStackFrame sf = m_ContextStack.Peek();
-                    ctx = sf.Context;
-
-                    //Set Return Pointer to the next instruction
-                    m_InstructionPointer = sf.CreatePointer + sf.BreakPointer;
+                    ctx = m_ContextStack.Peek().Context;
                 }
 
-                m_ContextStack.Pop();
+                var sf = m_ContextStack.Pop();
+
+                //Set Return Pointer to the next instruction
+                m_InstructionPointer = sf.CreatePointer + sf.BreakPointer;
 
                 continue;
             }
@@ -192,7 +191,6 @@ public class BadRuntimeVirtualMachine
             {
                 BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
             }
-            //Console.WriteLine($"{m_InstructionPointer}\t: {instr}");
             m_InstructionPointer++;
 
             switch (instr.OpCode)

@@ -4,7 +4,7 @@ let Assert = NUnit.Assert;
 function MakeEnumerator()
 {
 	let e = {
-		index: 0,
+		index: -1,
 		length: 3,
 		MoveNext: function() => e.index++ < e.length,
 		GetCurrent: function() => e.index

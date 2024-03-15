@@ -74,7 +74,7 @@ public static class BadNativeClassBuilder
     
     private static readonly Dictionary<string, BadObjectReference> s_StringStaticMembers = new Dictionary<string, BadObjectReference>
     {
-        { "Empty", BadObjectReference.Make("string.Empty", () => s_StringEmpty) },
+        { "Empty", BadObjectReference.Make("string.Empty", () => BadString.Empty) },
         { "IsNullOrEmpty" ,BadObjectReference.Make(
             "string.IsNullOrEmpty",
             () => new BadInteropFunction(
@@ -87,7 +87,6 @@ public static class BadNativeClassBuilder
         )}
     };
 
-    private static readonly BadObject s_StringEmpty = "";
     
     private static BadObject StringIsNullOrEmpty(BadExecutionContext ctx, BadObject[] arg)
     {
