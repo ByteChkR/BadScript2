@@ -1,0 +1,71 @@
+
+const NativeArray = Array;
+
+class GenericArrayEnumerator<T> : IEnumerator<T>
+{
+	const IEnumerator<any> __nativeEnumerator;
+	function GenericArrayEnumerator(IEnumerator<any> nativeEnumerator)
+	{
+		__nativeEnumerator = nativeEnumerator;
+	}
+
+	function bool MoveNext() => __nativeEnumerator.MoveNext();
+	function T GetCurrent() => __nativeEnumerator.GetCurrent();
+}
+
+class GenericArray<T> : IArray<T>
+{
+	const NativeArray __nativeArray = [];
+
+	const num Length { get => __nativeArray.Length; }
+	
+	function IEnumerator<T> GetEnumerator() => new GenericArrayEnumerator<T>(__nativeArray.GetEnumerator());
+
+	function Clear() => __nativeArray.Clear();
+
+	function Add(T item) => __nativeArray.Add(item);
+
+	function Insert(num index, T item) => __nativeArray.Insert(index, item);
+
+	function bool Remove(T item) => __nativeArray.Remove(item);
+
+	function RemoveAt(num index) => __nativeArray.RemoveAt(index);
+
+	function bool Contains(T item) => __nativeArray.Contains(item);
+
+	function T Get(num index) => __nativeArray.Get(index);
+
+	function Set(num index, T item) => __nativeArray.Set(index, item);
+
+	function op_ArrayAccess(num index)
+	{
+		return ref __nativeArray[index];
+	}
+
+	function op_ArrayAccessReverse(num index)
+	{
+		return ref __nativeArray[^index];
+	}
+
+	function InsertRange(num index, IEnumerable<T> range)
+	{
+		foreach(item in range)
+		{
+			Insert(index++, item);
+		}
+	}
+
+	function AddRange(IEnumerable<T> range)
+	{
+		foreach(item in range)
+		{
+			Add(item);
+		}
+	}
+
+}
+
+
+export {
+	Array: GenericArray
+};

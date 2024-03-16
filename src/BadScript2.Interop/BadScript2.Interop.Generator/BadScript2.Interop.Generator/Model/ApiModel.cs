@@ -25,7 +25,12 @@ public readonly struct ApiModel : IEquatable<ApiModel>
 
     public bool Equals(ApiModel other)
     {
-        return Namespace == other.Namespace && ClassName == other.ClassName && ApiName == other.ApiName && Methods.Equals(other.Methods) && ConstructorPrivate == other.ConstructorPrivate && Diagnostics.Equals(other.Diagnostics);
+        return Namespace == other.Namespace &&
+               ClassName == other.ClassName &&
+               ApiName == other.ApiName &&
+               Methods.Equals(other.Methods) &&
+               ConstructorPrivate == other.ConstructorPrivate &&
+               Diagnostics.Equals(other.Diagnostics);
     }
 
     public override bool Equals(object? obj)
@@ -38,11 +43,11 @@ public readonly struct ApiModel : IEquatable<ApiModel>
         unchecked
         {
             int hashCode = Namespace.GetHashCode();
-            hashCode = (hashCode * 397) ^ ClassName.GetHashCode();
-            hashCode = (hashCode * 397) ^ ApiName.GetHashCode();
-            hashCode = (hashCode * 397) ^ Methods.GetHashCode();
-            hashCode = (hashCode * 397) ^ ConstructorPrivate.GetHashCode();
-            hashCode = (hashCode * 397) ^ Diagnostics.GetHashCode();
+            hashCode = hashCode * 397 ^ ClassName.GetHashCode();
+            hashCode = hashCode * 397 ^ ApiName.GetHashCode();
+            hashCode = hashCode * 397 ^ Methods.GetHashCode();
+            hashCode = hashCode * 397 ^ ConstructorPrivate.GetHashCode();
+            hashCode = hashCode * 397 ^ Diagnostics.GetHashCode();
 
             return hashCode;
         }

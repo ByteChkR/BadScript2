@@ -10,20 +10,19 @@ namespace BadScript2.Settings;
 public class BadSettings
 {
     /// <summary>
-    ///     Cache for the Serialized Value of the Settings
-    /// </summary>
-    private object? m_Cache;
-    /// <summary>
-    /// Indicates if the current object is dirty and needs to be re-serialized
-    /// </summary>
-    private bool m_IsDirty;
-
-    public event Action OnValueChanged = delegate{};
-
-    /// <summary>
     ///     The properties of the Current Settings Object
     /// </summary>
     private readonly Dictionary<string, BadSettings> m_Properties;
+
+    /// <summary>
+    ///     Cache for the Serialized Value of the Settings
+    /// </summary>
+    private object? m_Cache;
+
+    /// <summary>
+    ///     Indicates if the current object is dirty and needs to be re-serialized
+    /// </summary>
+    private bool m_IsDirty;
 
     /// <summary>
     ///     The Json Token of the Settings Object
@@ -51,16 +50,6 @@ public class BadSettings
         m_Properties = new Dictionary<string, BadSettings>();
     }
 
-    private void PropertyValueChanged()
-    {
-        m_IsDirty = true;
-        InvokeValueChanged();
-    }
-    private void InvokeValueChanged()
-    {
-        OnValueChanged();
-    }
-
     /// <summary>
     ///     Creates a new Settings Object from a Dictionary of Properties
     /// </summary>
@@ -80,6 +69,19 @@ public class BadSettings
     ///     The Property Names of the Settings Object
     /// </summary>
     public IEnumerable<string> PropertyNames => m_Properties.Keys;
+
+    public event Action OnValueChanged = delegate { };
+
+    private void PropertyValueChanged()
+    {
+        m_IsDirty = true;
+        InvokeValueChanged();
+    }
+
+    private void InvokeValueChanged()
+    {
+        OnValueChanged();
+    }
 
     /// <summary>
     ///     Returns the Json Token of the Settings Object
@@ -101,6 +103,7 @@ public class BadSettings
         {
             return (T?)m_Cache;
         }
+
         if (m_Value == null)
         {
             return default;
@@ -191,10 +194,11 @@ public class BadSettings
     /// <param name="value">The Property Value</param>
     public void SetProperty(string propertyName, BadSettings value, bool invokeOnChange = true)
     {
-        if (m_Properties.TryGetValue(propertyName, out var old))
+        if (m_Properties.TryGetValue(propertyName, out BadSettings? old))
         {
             old.OnValueChanged -= PropertyValueChanged;
         }
+
         m_Properties[propertyName] = value;
         if (invokeOnChange)
         {
@@ -212,10 +216,11 @@ public class BadSettings
     /// <param name="propertyName">The Property Name</param>
     public bool RemoveProperty(string propertyName, bool invokeOnChange = true)
     {
-        if (m_Properties.TryGetValue(propertyName, out var old))
+        if (m_Properties.TryGetValue(propertyName, out BadSettings? old))
         {
             old.OnValueChanged -= PropertyValueChanged;
         }
+
         bool r = m_Properties.Remove(propertyName);
 
         if (invokeOnChange)
@@ -226,6 +231,7 @@ public class BadSettings
         {
             m_IsDirty = true;
         }
+
         return r;
     }
 

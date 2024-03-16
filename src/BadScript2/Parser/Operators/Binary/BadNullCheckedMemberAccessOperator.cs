@@ -19,7 +19,9 @@ public class BadNullCheckedMemberAccessOperator : BadBinaryOperator
     public override BadExpression Parse(BadExpression left, BadSourceParser parser)
     {
         BadWordToken right = parser.Reader.ParseWord();
+        
+        var args = parser.ParseGenericArguments();
 
-        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition), true);
+        return new BadMemberAccessExpression(left, right, left.Position.Combine(right.SourcePosition), args, true);
     }
 }

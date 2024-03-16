@@ -850,7 +850,7 @@ ___
 
 ### ArrayAccess(\[\])
 
-Selects a property from an object.
+Selects a property from an object or array.
 
 ```js
 
@@ -862,6 +862,25 @@ t["MyValue"] = false;
 
 
 ```
+
+#### Slicing Array Access
+
+It is possible to slice an array or table by supplying the Array Access Expression with a list of Keys or Indices.
+
+```js
+
+let t = {MyFirstValue: true, MySecondValue: false, MyThirdValue: true};
+
+//Create a new table with only the selected keys:
+let selected = ["MyFirstValue", "MyThirdValue"];
+let result = t[selected];
+
+//Result contains: {MyFirstValue: true, MyThirdValue: true}
+
+```
+
+> For arrays this works the same way, but instead it requires the indices instead of the keys.
+> Using the [Range Operator](#range-operatorab) is a very clean way to get only a subset of an array.
 
 ___
 
@@ -947,6 +966,22 @@ const myVal = combined.MyValue; //contains "abc"
 const myNum = combined.MyNumber; //contains 3.1415
 
 ```
+
+#### Range Operator(a..b)
+
+Creates an enumeration that contains a to (exclusive) b
+
+```js
+
+let even = [];
+foreach(n in 0..100) //Gets the first 100 even numbers
+{
+	even.Add(n * 2);
+}
+
+```
+
+> Particularly useful for [Slicing with the Array Access Operator](#slicing-array-access)
 
 ___
 

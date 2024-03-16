@@ -1,0 +1,20 @@
+let Assert = NUnit.Assert;
+
+function Test_TypeLookahead()
+{
+	class C<T>
+	{
+		function D<T> F() => new D<T>();
+	}
+
+	class D<T>
+	{
+
+	}
+
+	let c = new C<num>();
+	Assert.IsTrue(c.F().IsInstanceOf(D), "Generic Definition Type Lookahead failed");
+	Assert.IsTrue(c.F().IsInstanceOf(D<num>), "Type Lookahead failed");
+}
+
+NUnit.AddTest(Test_TypeLookahead, "Generic Test Type Lookahead");

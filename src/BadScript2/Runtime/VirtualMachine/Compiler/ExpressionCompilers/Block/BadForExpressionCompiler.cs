@@ -9,78 +9,32 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadForExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadForExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.CreateScope, expression.Position, "ForLoop", BadObject.Null);
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.VarDef))
-        {
-            yield return instruction;
-        }
-
-        List<BadInstruction> instructions = compiler.Compile(expression.Condition).ToList();
-
-        //jump to end if false
-        int endJump = instructions.Count;
-        instructions.Add(new BadInstruction());
-
-        //Create Scope
-        int loopScopeStart = instructions.Count;
-        instructions.Add(
-            new BadInstruction(
-                BadOpCode.CreateScope,
-                expression.Position,
-                "ForLoopBody",
-                BadObject.Null,
-                BadScopeFlags.Breakable | BadScopeFlags.Continuable
-            )
-        );
-        int setBreakInstruction = instructions.Count;
-        instructions.Add(new BadInstruction());
-        int setContinueInstruction = instructions.Count;
-        instructions.Add(new BadInstruction());
-
-        //Loop
-        instructions.AddRange(compiler.Compile(expression.Body));
-
-        //DestroyScope
-        instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
-
-        //jump to condition
-        int continueJump = instructions.Count;
-
-        //Increment
-        instructions.AddRange(compiler.Compile(expression.VarIncrement));
-
-
-        instructions.Add(new BadInstruction(BadOpCode.JumpRelative, expression.Position, -instructions.Count - 1));
-
-        //set end jump
-        int endJumpPos = instructions.Count - endJump - 1;
-        instructions[endJump] = new BadInstruction(BadOpCode.JumpRelativeIfFalse, expression.Position, endJumpPos);
-
-
-        //DestroyScope
-        instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
-
-        //Set Break/Continue Pointer
-        //address to the end of the loop(relative to the create scope instruction)
-        instructions[setBreakInstruction] = new BadInstruction(
-            BadOpCode.SetBreakPointer,
+        context.Emit(BadOpCode.CreateScope, expression.Position, "ForLoop", BadObject.Null);
+        context.Compile(expression.VarDef);
+        int conditionJump = context.InstructionCount;
+        context.Compile(expression.Condition);
+        int endJump = context.EmitEmpty();
+        int loopScopeStart = context.InstructionCount;
+        context.Emit(
+            BadOpCode.CreateScope,
             expression.Position,
-            instructions.Count - loopScopeStart
+            "ForLoopBody",
+            BadObject.Null,
+            BadScopeFlags.Breakable | BadScopeFlags.Continuable
         );
-
-        //Address to start of the condition(relative to the start of the loop)
-        instructions[setContinueInstruction] = new BadInstruction(
-            BadOpCode.SetContinuePointer,
-            expression.Position,
-            continueJump - loopScopeStart - 1
-        );
-
-        foreach (BadInstruction instruction in instructions)
-        {
-            yield return instruction;
-        }
+        int setBreakInstruction = context.EmitEmpty();
+        int setContinueInstruction = context.EmitEmpty();
+        context.Compile(expression.Body);
+        context.Emit(BadOpCode.DestroyScope, expression.Position);
+        int continueJump = context.InstructionCount;
+        context.Compile(expression.VarIncrement);
+        context.Emit(BadOpCode.JumpRelative, expression.Position, conditionJump - context.InstructionCount - 1);
+        int endJumpPos = context.InstructionCount - endJump - 1;
+        context.ResolveEmpty(endJump, BadOpCode.JumpRelativeIfFalse, expression.Position, endJumpPos);
+        context.Emit(BadOpCode.DestroyScope, expression.Position);
+        context.ResolveEmpty(setBreakInstruction, BadOpCode.SetBreakPointer, expression.Position, context.InstructionCount - loopScopeStart);
+        context.ResolveEmpty(setContinueInstruction, BadOpCode.SetContinuePointer, expression.Position, continueJump - loopScopeStart - 1);
     }
 }

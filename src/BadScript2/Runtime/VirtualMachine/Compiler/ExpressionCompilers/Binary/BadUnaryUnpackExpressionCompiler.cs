@@ -8,13 +8,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 public class BadUnaryUnpackExpressionCompiler : BadExpressionCompiler<BadUnaryUnpackExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadUnaryUnpackExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadUnaryUnpackExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Right))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.UnaryUnpack, expression.Position);
+        context.Compile(expression.Right);
+        context.Emit(BadOpCode.UnaryUnpack, expression.Position);
     }
 }

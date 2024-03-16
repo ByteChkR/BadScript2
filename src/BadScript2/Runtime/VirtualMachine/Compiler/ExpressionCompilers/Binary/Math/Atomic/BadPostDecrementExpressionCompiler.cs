@@ -11,13 +11,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadPostDecrementExpressionCompiler : BadExpressionCompiler<BadPostDecrementExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadPostDecrementExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadPostDecrementExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.PostDec, expression.Position);
+        context.Compile(expression.Left);
+        context.Emit(BadOpCode.PostDec, expression.Position);
     }
 }

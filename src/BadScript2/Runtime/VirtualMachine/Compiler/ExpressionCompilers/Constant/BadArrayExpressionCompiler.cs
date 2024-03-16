@@ -11,13 +11,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 public class BadArrayExpressionCompiler : BadExpressionCompiler<BadArrayExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadArrayExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.InitExpressions, false))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.ArrayInit, expression.Position, expression.Length);
+        context.Compile(expression.InitExpressions, false);
+        context.Emit(BadOpCode.ArrayInit, expression.Position, expression.Length);
     }
 }

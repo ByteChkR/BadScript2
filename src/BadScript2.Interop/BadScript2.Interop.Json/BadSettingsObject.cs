@@ -4,7 +4,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
 

@@ -8,8 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadSubtractExpressionCompiler : BadBinaryExpressionCompiler<BadSubtractExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadSubtractExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context, BadSubtractExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.Sub, expression.Position);
+        context.Emit(BadOpCode.Sub, expression.Position);
     }
 }

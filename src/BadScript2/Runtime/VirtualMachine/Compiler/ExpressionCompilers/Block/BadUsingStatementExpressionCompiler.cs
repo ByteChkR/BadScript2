@@ -9,13 +9,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 public class BadUsingStatementExpressionCompiler : BadExpressionCompiler<BadUsingStatementExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadUsingStatementExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadUsingStatementExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Expression)) //Compile the expression
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.AddDisposeFinalizer, expression.Position, expression.Name); //Add the finalizer
+        context.Compile(expression.Expression);
+        context.Emit(BadOpCode.AddDisposeFinalizer, expression.Position, expression.Name);
     }
 }

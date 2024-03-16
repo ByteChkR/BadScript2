@@ -40,13 +40,10 @@ public class BadUsingStatementExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        //Run expression
-        foreach (BadObject o in context.Execute(Expression))
-        {
-            yield return o;
-        }
-
         //Register finalizer in scope
         context.Scope.AddFinalizer(() => BadUsingExpression.Finalize(context, Name, Position));
+        //Run expression
+        return context.Execute(Expression);
+
     }
 }

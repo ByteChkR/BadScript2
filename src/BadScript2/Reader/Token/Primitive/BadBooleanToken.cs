@@ -16,11 +16,11 @@ public class BadBooleanToken : BadPrimitiveToken
 	/// <param name="position">Source Position of the Token</param>
 	public BadBooleanToken(BadSourcePosition position) : base(position) { }
 
-	/// <inheritdoc />
-	public override BadPrimitiveType Type => BadPrimitiveType.Boolean;
+    /// <inheritdoc />
+    public override BadPrimitiveType Type => BadPrimitiveType.Boolean;
 
-	/// <summary>
-	///     The Value of the Token
-	/// </summary>
-	public bool Value => bool.Parse(Text);
+    /// <summary>
+    ///     The Value of the Token
+    /// </summary>
+    public bool Value => bool.Parse(Text);
 }

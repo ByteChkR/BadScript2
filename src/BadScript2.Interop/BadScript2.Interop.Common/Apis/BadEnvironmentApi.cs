@@ -51,8 +51,10 @@ internal partial class BadEnvironmentApi
 
     [BadMethod(description: "Sets the value of an Environment Variable")]
     private void SetEnvironmentVariable(
-        [BadParameter(description: "The name of an environment variable")] string n,
-        [BadParameter(description: "A value to assign to variable")] string v)
+        [BadParameter(description: "The name of an environment variable")]
+        string n,
+        [BadParameter(description: "A value to assign to variable")]
+        string v)
     {
         Environment.SetEnvironmentVariable(n, v);
     }

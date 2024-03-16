@@ -9,10 +9,9 @@ public class BadInExpressionCompiler : BadBinaryExpressionCompiler<BadInExpressi
 {
     /// <inheritdoc />
     protected override bool IsLeftAssociative => false;
-
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadInExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context, BadInExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.HasProperty, expression.Position);
+        context.Emit(BadOpCode.HasProperty, expression.Position);
     }
 }

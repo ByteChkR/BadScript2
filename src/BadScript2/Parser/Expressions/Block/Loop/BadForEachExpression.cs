@@ -101,21 +101,21 @@ public class BadForEachExpression : BadExpression
     /// <param name="context">The Calling Context</param>
     /// <returns>Tuple of Functions used in the for each loop</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
-    private (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context)
+    public static (BadFunction moveNext, BadFunction getCurrent) FindEnumerator(BadObject target, BadExecutionContext context, BadSourcePosition position)
     {
         if (!target.HasProperty("MoveNext", context.Scope))
         {
-            throw new BadRuntimeException("Invalid enumerator", Position);
+            throw new BadRuntimeException("Invalid enumerator", position);
         }
 
         if (target.GetProperty("MoveNext", context.Scope).Dereference() is not BadFunction moveNext)
         {
-            throw new BadRuntimeException("Invalid enumerator", Position);
+            throw new BadRuntimeException("Invalid enumerator", position);
         }
 
         if (!target.HasProperty("GetCurrent", context.Scope))
         {
-            throw new BadRuntimeException("Invalid enumerator", Position);
+            throw new BadRuntimeException("Invalid enumerator", position);
         }
 
         if (target.GetProperty("GetCurrent", context.Scope).Dereference() is BadFunction getCurrent)
@@ -123,32 +123,15 @@ public class BadForEachExpression : BadExpression
             return (moveNext, getCurrent);
         }
 
-        throw new BadRuntimeException("Invalid enumerator", Position);
+        throw new BadRuntimeException("Invalid enumerator", position);
     }
-
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadObject target, BadSourcePosition position, Func<Action, BadExecutionContext, BadObject, IEnumerable<BadObject>> action)
     {
-        BadObject target = BadObject.Null;
-
-        foreach (BadObject o in Target.Execute(context))
-        {
-            target = o;
-
-            yield return o;
-        }
-
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
-
-        target = target.Dereference();
-
         if (target.HasProperty("GetEnumerator", context.Scope))
         {
             if (target.GetProperty("GetEnumerator", context.Scope).Dereference() is not BadFunction getEnumerator)
             {
-                throw new BadRuntimeException("Invalid enumerator", Position);
+                throw new BadRuntimeException("Invalid enumerator", position);
             }
 
             BadObject newTarget = BadObject.Null;
@@ -167,13 +150,13 @@ public class BadForEachExpression : BadExpression
 
             if (newTarget == BadObject.Null)
             {
-                throw BadRuntimeException.Create(context.Scope, $"Invalid enumerator: {target}", Position);
+                throw BadRuntimeException.Create(context.Scope, $"Invalid enumerator: {target}", position);
             }
 
             target = newTarget.Dereference();
         }
 
-        (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context);
+        (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context, position);
 
         if (context.Scope.IsError)
         {
@@ -195,7 +178,7 @@ public class BadForEachExpression : BadExpression
         }
 
         IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
-                           throw new BadRuntimeException("While Condition is not a boolean", Position);
+                           throw new BadRuntimeException("While Condition is not a boolean", position);
 
         while (bRet.Value)
         {
@@ -223,20 +206,15 @@ public class BadForEachExpression : BadExpression
             }
 
 
-            if (m_Body.Count != 0)
+            bool bBreak = false;
+            foreach (var o in action(() => bBreak = true, loopContext, current.Dereference()))
             {
-                current = current.Dereference();
-                loopContext.Scope.DefineVariable(LoopVariable.Text, current);
-
-                foreach (BadObject o in loopContext.Execute(m_Body))
-                {
-                    yield return o;
-                }
-
-                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
-                {
-                    break;
-                }
+                yield return o;
+            }
+            
+            if (bBreak)
+            {
+                break;
             }
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
@@ -256,8 +234,50 @@ public class BadForEachExpression : BadExpression
                    throw BadRuntimeException.Create(
                        context.Scope,
                        "Enumerator MoveNext did not return a boolean",
-                       Position
+                       position
                    );
+        }
+    }
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        BadObject target = BadObject.Null;
+
+        foreach (BadObject o in Target.Execute(context))
+        {
+            target = o;
+
+            yield return o;
+        }
+
+        if (context.Scope.IsError)
+        {
+            yield break;
+        }
+
+        target = target.Dereference();
+
+        foreach (var o in Enumerate(context, target, Position, LoopBody))
+        {
+            yield return o;
+        }
+    }
+    private IEnumerable<BadObject> LoopBody(Action breakLoop, BadExecutionContext loopContext, BadObject current)
+    {
+        if (m_Body.Count != 0)
+        {
+            current = current.Dereference();
+            loopContext.Scope.DefineVariable(LoopVariable.Text, current);
+
+            foreach (BadObject o in loopContext.Execute(m_Body))
+            {
+                yield return o;
+            }
+
+            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+            {
+                breakLoop();
+                yield break;
+            }
         }
     }
 }

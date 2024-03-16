@@ -11,10 +11,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadLogicAssignAndExpressionCompiler : BadBinaryExpressionCompiler<BadLogicAssignAndExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> CompileBinary(
-        BadCompiler compiler,
-        BadLogicAssignAndExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context, BadLogicAssignAndExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.AndAssign, expression.Position);
+        context.Emit(BadOpCode.AndAssign, expression.Position);
     }
 }

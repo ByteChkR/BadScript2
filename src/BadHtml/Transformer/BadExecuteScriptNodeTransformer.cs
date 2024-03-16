@@ -1,5 +1,3 @@
-using System;
-
 using BadScript2.Runtime.Objects;
 
 namespace BadHtml.Transformer;
@@ -21,6 +19,5 @@ public class BadExecuteScriptNodeTransformer : BadHtmlNodeTransformer
         string code = context.InputNode.InnerText;
 
         BadObject result = context.ParseAndExecute(code, context.CreateInnerPosition());
-
     }
 }

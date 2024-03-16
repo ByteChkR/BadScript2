@@ -2,7 +2,6 @@ using System.Text;
 
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -76,7 +75,6 @@ public class BadMetaData : BadObject
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-
         switch (propName)
         {
             case "Description":

@@ -64,7 +64,6 @@ public class BadTableExpression : BadExpression
 
         foreach (KeyValuePair<BadWordToken, BadExpression> entry in m_Table)
         {
-
             BadObject value = BadObject.Null;
 
             foreach (BadObject o in entry.Value.Execute(context))

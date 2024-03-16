@@ -32,24 +32,9 @@ public class BadCompilerApi : BadInteropApi
     /// <param name="func">The Function to compile.</param>
     /// <param name="useOverride">If the compiled function should support operator overrides.</param>
     /// <returns>The compiled function.</returns>
-    public static BadObject CompileFunction(BadExpressionFunction func, bool useOverride)
+    public static BadCompiledFunction CompileFunction(BadExpressionFunction func, bool useOverride)
     {
-        return CompileFunction(BadCompiler.Instance, func, useOverride);
-    }
-
-    /// <summary>
-    ///     Compiles a Function.
-    /// </summary>
-    /// <param name="compiler">The Compiler to use.</param>
-    /// <param name="func">The Function to compile.</param>
-    /// <param name="useOverride">If the compiled function should support operator overrides.</param>
-    /// <returns>The compiled function.</returns>
-    public static BadCompiledFunction CompileFunction(
-        BadCompiler compiler,
-        BadExpressionFunction func,
-        bool useOverride)
-    {
-        BadInstruction[] instrs = compiler.Compile(func.Body).ToArray();
+        BadInstruction[] instrs = BadCompiler.Compile(func.Body).ToArray();
 
 
         return new BadCompiledFunction(

@@ -12,7 +12,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 public class BadClassPrototypeExpressionCompiler : BadExpressionCompiler<BadClassPrototypeExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadClassPrototypeExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadClassPrototypeExpression expression)
     {
         BadLogger.Warn(
             "Can not compile class prototypes, emitting eval instruction",
@@ -20,6 +20,6 @@ public class BadClassPrototypeExpressionCompiler : BadExpressionCompiler<BadClas
             expression.Position
         );
 
-        yield return new BadInstruction(BadOpCode.Eval, expression.Position, expression);
+        context.Emit(BadOpCode.Eval, expression.Position, expression);
     }
 }

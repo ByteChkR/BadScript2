@@ -52,7 +52,7 @@ public class BadInteropExtensionProvider
     /// <returns>List of Extension Names</returns>
     public BadObject[] GetExtensionNames()
     {
-        return m_GlobalExtensions.Keys.Select(x=>(BadObject)x).ToArray();
+        return m_GlobalExtensions.Keys.Select(x => (BadObject)x).ToArray();
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public class BadInteropExtensionProvider
 
         if (HasTypeExtensions(t))
         {
-            objs.AddRange(GetTypeExtensions(t).Keys.Select(x=>(BadObject)x));
+            objs.AddRange(GetTypeExtensions(t).Keys.Select(x => (BadObject)x));
         }
 
         if (obj is not IBadNative native)
@@ -81,16 +81,17 @@ public class BadInteropExtensionProvider
 
         if (HasTypeExtensions(t))
         {
-            objs.AddRange(GetTypeExtensions(t).Keys.Select(x=>(BadObject)x));
+            objs.AddRange(GetTypeExtensions(t).Keys.Select(x => (BadObject)x));
         }
 
         return objs.ToArray();
     }
-    
+
     private bool InnerHasTypeExtensions(Type t)
     {
         bool r = m_ObjectExtensions.Any(x => x.Key.IsAssignableFrom(t));
         m_SupportedTypes.Add(t, r);
+
         return r;
     }
 

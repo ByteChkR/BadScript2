@@ -165,7 +165,7 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
                 yield return arg;
             }
 
-            args.Add(argObj);
+            args.Add(argObj.Dereference());
         }
 
         foreach (BadObject o in Access(context, left, args.ToArray(), Position))

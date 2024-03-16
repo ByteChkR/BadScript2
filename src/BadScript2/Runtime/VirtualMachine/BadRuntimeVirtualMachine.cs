@@ -17,6 +17,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.VirtualMachine;
 
@@ -39,6 +40,11 @@ public class BadRuntimeVirtualMachine
     ///     The Instructions
     /// </summary>
     private readonly BadInstruction[] m_Instructions;
+    
+    /// <summary>
+    /// The Function that is executed by this Virtual Machine
+    /// </summary>
+    private readonly BadCompiledFunction m_Function;
 
     /// <summary>
     ///     Indicates if the Virtual Machine should use Operator Overrides.
@@ -55,8 +61,9 @@ public class BadRuntimeVirtualMachine
     /// </summary>
     /// <param name="instructions">The Instructions to execute.</param>
     /// <param name="useOverrides">Indicates if the Virtual Machine should use Operator Overrides.</param>
-    public BadRuntimeVirtualMachine(BadInstruction[] instructions, bool useOverrides = true)
+    public BadRuntimeVirtualMachine(BadCompiledFunction function, BadInstruction[] instructions, bool useOverrides = true)
     {
+        m_Function = function;
         m_Instructions = instructions;
         m_UseOverrides = useOverrides;
     }
@@ -69,15 +76,11 @@ public class BadRuntimeVirtualMachine
     /// <exception cref="ArgumentOutOfRangeException">Gets thrown when the Virtual Machine encounters an invalid Instruction.</exception>
     private IEnumerable<BadObject> Execute()
     {
-        while (m_InstructionPointer < m_Instructions.Length)
+        while (m_InstructionPointer <= m_Instructions.Length)
         {
-            BadInstruction instr = m_Instructions[m_InstructionPointer];
             BadExecutionContext ctx = m_ContextStack.Peek().Context;
 
-            if (BadDebugger.IsAttached)
-            {
-                BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
-            }
+            
 
             if (ctx.Scope.ReturnValue != null)
             {
@@ -98,13 +101,16 @@ public class BadRuntimeVirtualMachine
                     m_InstructionPointer = sf.ReturnPointer;
                 }
 
-                m_ContextStack.Pop();
+                var retSf = m_ContextStack.Pop();
 
                 if (m_ContextStack.Count == 0)
                 {
                     yield break; //We exited the virtual machine. Quit the Execute method.
                 }
 
+                //We found a scope that captures return, we push the return value to the stack and continue execution
+                m_ArgumentStack.Push(ctx.Scope.ReturnValue!);
+                m_InstructionPointer = retSf.ReturnPointer;
                 continue;
             }
 
@@ -142,14 +148,13 @@ public class BadRuntimeVirtualMachine
                         throw BadRuntimeException.Create(ctx.Scope, "VIRTUAL MACHINE BREAK ERROR");
                     }
 
-                    BadRuntimeVirtualStackFrame sf = m_ContextStack.Peek();
-                    ctx = sf.Context;
-
-                    //Set Return Pointer to the next instruction
-                    m_InstructionPointer = sf.CreatePointer + sf.BreakPointer;
+                    ctx = m_ContextStack.Peek().Context;
                 }
 
-                m_ContextStack.Pop();
+                var sf = m_ContextStack.Pop();
+
+                //Set Return Pointer to the next instruction
+                m_InstructionPointer = sf.CreatePointer + sf.BreakPointer;
 
                 continue;
             }
@@ -177,8 +182,16 @@ public class BadRuntimeVirtualMachine
 
                 continue;
             }
-
-            //Console.WriteLine($"{m_InstructionPointer}\t: {instr}");
+            if (m_InstructionPointer >= m_Instructions.Length)
+            {
+                break;
+            }
+            
+            BadInstruction instr = m_Instructions[m_InstructionPointer];
+            if (BadDebugger.IsAttached)
+            {
+                BadDebugger.Step(new BadDebuggerStep(ctx, instr.Position, instr));
+            }
             m_InstructionPointer++;
 
             switch (instr.OpCode)
@@ -240,6 +253,7 @@ public class BadRuntimeVirtualMachine
                         {
                             throw BadRuntimeException.Create(ctx.Scope, "Invalid Property Key", instr.Position);
                         }
+
                         arr.Add(s.Value, val);
                     }
 
@@ -282,6 +296,12 @@ public class BadRuntimeVirtualMachine
 
                     BadObject r = BadObject.Null;
 
+                    if (m_Function == func) //Invoke Self
+                    {
+                        m_ContextStack.Push(new BadRuntimeVirtualStackFrame(m_Function.CreateExecutionContext(ctx, args)){ReturnPointer = m_InstructionPointer});
+                        m_InstructionPointer = 0;
+                        break;
+                    }
                     foreach (BadObject o in BadInvocationExpression.Invoke(func, args, instr.Position, ctx))
                     {
                         r = o;
@@ -381,23 +401,96 @@ public class BadRuntimeVirtualMachine
                     break;
                 }
                 case BadOpCode.LoadVar:
-                    m_ArgumentStack.Push(ctx.Scope.GetVariable((string)instr.Arguments[0]));
+                {
+                    if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
+                    {
+                        var item = ctx.Scope.GetVariable((string)instr.Arguments[0]).Dereference();
+                        if (item is not IBadGenericObject genItem)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
+                        }
+                        BadObject[] genericArgs = new BadObject[genericArgCount];
+                        for (int i = genericArgCount - 1; i >= 0; i--)
+                        {
+                            genericArgs[i] = m_ArgumentStack.Pop().Dereference();
+                        }
+                        m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
+                    }
+                    else
+                    {
+                        m_ArgumentStack.Push(ctx.Scope.GetVariable((string)instr.Arguments[0]));
+                    }
 
                     break;
+                }
                 case BadOpCode.LoadMember:
-                    m_ArgumentStack.Push(
-                        m_ArgumentStack.Pop()
-                            .Dereference()
-                            .GetProperty((string)instr.Arguments[0], ctx.Scope)
-                    );
+                {
+                    if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
+                    {
+                        var left =
+                            m_ArgumentStack.Pop()
+                                .Dereference()
+                                .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                                .Dereference();
+                        if (left is not IBadGenericObject genItem)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
+                        }
+                        
+                        BadObject[] genericArgs = new BadObject[genericArgCount];
+                        for (int i = genericArgCount - 1; i >= 0; i--)
+                        {
+                            genericArgs[i] = m_ArgumentStack.Pop().Dereference();
+                        }
+                        m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
+                    }
+                    else
+                    {
+                        m_ArgumentStack.Push(
+                            m_ArgumentStack.Pop()
+                                .Dereference()
+                                .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                        );
+                    }
 
                     break;
+                }
                 case BadOpCode.LoadMemberNullChecked:
                 {
                     BadObject obj = m_ArgumentStack.Pop().Dereference();
                     string name = (string)instr.Arguments[0];
 
-                    m_ArgumentStack.Push(!obj.HasProperty(name, ctx.Scope) ? BadObject.Null : obj.GetProperty(name, ctx.Scope));
+                    if (obj.HasProperty(name, ctx.Scope))
+                    {
+                        if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
+                        {
+                            var left = obj
+                                    .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                                    .Dereference();
+                            if (left is not IBadGenericObject genItem)
+                            {
+                                throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
+                            }
+                        
+                            BadObject[] genericArgs = new BadObject[genericArgCount];
+                            for (int i = genericArgCount - 1; i >= 0; i--)
+                            {
+                                genericArgs[i] = m_ArgumentStack.Pop().Dereference();
+                            }
+                            m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
+                        }
+                        else
+                        {
+                            m_ArgumentStack.Push(
+                                obj.GetProperty(name, ctx.Scope)
+                            );
+                        
+                        }
+                    }
+                    else
+                    {
+                        m_ArgumentStack.Push(BadObject.Null);
+                    }
 
                     break;
                 }

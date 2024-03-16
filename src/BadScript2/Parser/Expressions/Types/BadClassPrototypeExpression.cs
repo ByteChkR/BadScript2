@@ -1,10 +1,12 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
+using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+using BadScript2.Utility.Linq;
 
 /// <summary>
 /// Contains the Type Expressions for the BadScript2 Language
@@ -21,6 +23,8 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// </summary>
     private readonly BadExpression[] m_BaseClasses;
 
+    private readonly BadWordToken[] m_GenericParameters;
+    
     /// <summary>
     ///     The Class Body
     /// </summary>
@@ -51,12 +55,14 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         IEnumerable<BadExpression> staticBody,
         BadExpression[] baseClasses,
         BadSourcePosition position,
-        BadMetaData? metaData) : base(false, position)
+        BadMetaData? metaData,
+        BadWordToken[] genericParameters) : base(false, position)
     {
         Name = name;
         m_Body = new List<BadExpression>(body);
         m_BaseClasses = baseClasses;
         m_MetaData = metaData;
+        m_GenericParameters = genericParameters;
         m_StaticBody = new List<BadExpression>(staticBody);
     }
 
@@ -199,32 +205,60 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        BadClassPrototype basePrototype = GetPrototype(context, out BadInterfacePrototype[] interfaces);
 
-        BadExecutionContext staticContext =
-            new BadExecutionContext(context.Scope.CreateChild($"static:{Name}", context.Scope, true));
+        BadExecutionContext MakeGenericContext(BadObject[] typeArgs)
+        {
+            if(typeArgs.Length != m_GenericParameters.Length)
+            {
+                throw new BadRuntimeException("Invalid Type Argument Count");
+            }
+            var genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+            for(int i = 0; i < m_GenericParameters.Length; i++)
+            {
+                BadWordToken genericParameter = m_GenericParameters[i];
+                genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
+            }
+            
+            return genericContext;
+        }
+        BadClassPrototype GetBaseClass(BadObject[] typeArgs)
+        {
+            var ctx = MakeGenericContext(typeArgs);
+            return GetPrototype(ctx, out _);
+        }
+        
+        BadScope GetStaticScope(BadObject[] typeArgs)
+        {
+            var ctx = MakeGenericContext(typeArgs);
+            var staticContext = new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
+            if (m_StaticBody.Count != 0)
+            {
+                foreach (BadObject _ in staticContext.Execute(m_StaticBody))
+                {
+                }
+            }
+            return staticContext.Scope;
+        }
+        
+        BadInterfacePrototype[] GetInterfaces(BadObject[] typeArgs)
+        {
+            var ctx = MakeGenericContext(typeArgs);
+            GetPrototype(ctx, out BadInterfacePrototype[] interfaces);
+            return interfaces;
+        }
         
         BadClassPrototype p = new BadExpressionClassPrototype(
             Name,
             context.Scope,
             m_Body.ToArray(),
-            basePrototype,
-            interfaces,
+            GetBaseClass,
+            GetInterfaces,
             m_MetaData,
-            staticContext.Scope
+            GetStaticScope,
+            m_GenericParameters.Select(x=>x.Text).ToArray()
         );
         context.Scope.DefineVariable(Name, p);
-
-
-        if (m_StaticBody.Count != 0)
-        {
-            foreach (BadObject o in staticContext.Execute(m_StaticBody))
-            {
-                yield return o;
-            }
-        }
-
-
+        
         yield return p;
     }
 }

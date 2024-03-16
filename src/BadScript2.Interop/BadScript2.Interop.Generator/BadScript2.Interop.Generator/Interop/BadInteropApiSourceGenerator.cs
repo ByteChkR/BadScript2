@@ -7,12 +7,13 @@ using System.Text;
 using BadScript2.Interop.Generator.Model;
 
 using Microsoft.CodeAnalysis;
+
 namespace BadScript2.Interop.Generator.Interop;
 
 public class BadInteropApiSourceGenerator
 {
-    
     private readonly SourceProductionContext m_Context;
+
     public BadInteropApiSourceGenerator(SourceProductionContext context)
     {
         m_Context = context;
@@ -184,7 +185,7 @@ public class BadInteropApiSourceGenerator
         tw.WriteLine("{");
         tw.Indent++;
         tw.WriteLine("AdditionalData(target);");
-        
+
         if (!isError && apiModel.Methods.Length != 0)
         {
             tw.WriteLine("T? GetParameter<T>(BadObject[] args, int i, T? defaultValue = default(T)) => args.Length>i?args[i].Unwrap<T>():defaultValue;");

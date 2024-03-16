@@ -62,8 +62,12 @@ public class BadInExpression : BadBinaryExpression
     /// <returns>Returns true if the left side is a property of the right side</returns>
     public static BadObject In(BadExecutionContext ctx, BadObject left, BadObject right)
     {
-        if (left is not IBadString s) throw BadRuntimeException.Create(ctx.Scope, "Invalid Property Key");
-        return right.HasProperty( s.Value, ctx.Scope);
+        if (left is not IBadString s)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Invalid Property Key");
+        }
+
+        return right.HasProperty(s.Value, ctx.Scope);
     }
 
     /// <summary>

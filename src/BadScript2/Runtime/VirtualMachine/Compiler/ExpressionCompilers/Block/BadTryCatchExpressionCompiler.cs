@@ -9,52 +9,36 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTryCatchExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadTryCatchExpression expression)
     {
-        List<BadInstruction> instructions = new List<BadInstruction>
+        context.Emit(BadOpCode.CreateScope, expression.Position, "TryScope", BadObject.Null, BadScopeFlags.CaptureThrow);
+        int setThrowInstruction = context.EmitEmpty();
+        context.Compile(expression.TryExpressions);
+        context.Emit(BadOpCode.DestroyScope, expression.Position);
+        int jumpToEnd = context.EmitEmpty();
+        int catchStart = context.InstructionCount;
+        if (expression.CatchExpressions.Any()) // If there are catch expressions, compile them
         {
-            new BadInstruction(
-                BadOpCode.CreateScope,
-                expression.Position,
-                "TryScope",
-                BadObject.Null,
-                BadScopeFlags.CaptureThrow
-            ),
-        };
-        int setThrowInstruction = instructions.Count;
-        instructions.Add(new BadInstruction());
-        instructions.AddRange(compiler.Compile(expression.TryExpressions));
-        instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
-        int jumpToEnd = instructions.Count;
-        instructions.Add(new BadInstruction());
-        int catchStart = instructions.Count;
-        instructions.Add(new BadInstruction(BadOpCode.CreateScope, expression.Position, "CatchScope", BadObject.Null));
-        instructions.Add(
-            new BadInstruction(
-                BadOpCode.DefVar,
-                expression.Position,
-                expression.ErrorName,
-                true
-            )
-        );
-        instructions.Add(new BadInstruction(BadOpCode.Swap, expression.Position));
-        instructions.Add(new BadInstruction(BadOpCode.Assign, expression.Position));
-        instructions.AddRange(compiler.Compile(expression.CatchExpressions));
-        instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
-        instructions[setThrowInstruction] =
-            new BadInstruction(BadOpCode.SetThrowPointer, expression.Position, catchStart - 1);
-        instructions[jumpToEnd] =
-            new BadInstruction(BadOpCode.JumpRelative, expression.Position, instructions.Count - jumpToEnd - 1);
-
-
-        //Simply append the instructions for the finally block
-        instructions.Add(new BadInstruction(BadOpCode.CreateScope, expression.Position, "FinallyScope", BadObject.Null));
-        instructions.AddRange(compiler.Compile(expression.FinallyExpressions));
-        instructions.Add(new BadInstruction(BadOpCode.DestroyScope, expression.Position));
-
-        foreach (BadInstruction instruction in instructions)
-        {
-            yield return instruction;
+            context.Emit(BadOpCode.CreateScope, expression.Position, "CatchScope", BadObject.Null);
+            context.Emit(BadOpCode.DefVar, expression.Position, expression.ErrorName, true);
+            context.Emit(BadOpCode.Swap, expression.Position);
+            context.Emit(BadOpCode.Assign, expression.Position);
+            context.Compile(expression.CatchExpressions);
+            context.Emit(BadOpCode.DestroyScope, expression.Position);
         }
+        else
+        {
+            // If there are no catch expressions, we need to clean up the exception from the stack
+            context.Emit(BadOpCode.Pop, expression.Position);
+        }
+        context.ResolveEmpty(setThrowInstruction, BadOpCode.SetThrowPointer, expression.Position, catchStart - 1);
+        context.ResolveEmpty(jumpToEnd, BadOpCode.JumpRelative, expression.Position, context.InstructionCount - catchStart);
+        if(expression.FinallyExpressions.Any()) // If there are finally expressions, compile them
+        {
+            context.Emit(BadOpCode.CreateScope, expression.Position, "FinallyScope", BadObject.Null);
+            context.Compile(expression.FinallyExpressions);
+            context.Emit(BadOpCode.DestroyScope, expression.Position);
+        }
+        
     }
 }

@@ -19,6 +19,8 @@ public static class BadStaticKeys
     public const string MULTI_LINE_COMMENT_END = "*/";
     public const string VARIABLE_DEFINITION_KEY = "let";
     public const string CONSTANT_DEFINITION_KEY = "const";
+    public const string SET_ACCESSOR_KEY = "set";
+    public const string GET_ACCESSOR_KEY = "get";
     public const string STATIC_DEFINITION_KEY = "static";
     public const string COMPILED_DEFINITION_KEY = "compiled";
     public const string COMPILED_FAST_DEFINITION_KEY = "fast";
@@ -44,6 +46,8 @@ public static class BadStaticKeys
     public const string THROW_KEY = "throw";
     public const string IF_KEY = "if";
     public const string ELSE_KEY = "else";
+    public const string SWITCH_KEY = "switch";
+    public const string CASE_KEY = "case";
     public const string FOR_KEY = "for";
     public const string FOR_EACH_KEY = "foreach";
     public const string TRY_KEY = "try";

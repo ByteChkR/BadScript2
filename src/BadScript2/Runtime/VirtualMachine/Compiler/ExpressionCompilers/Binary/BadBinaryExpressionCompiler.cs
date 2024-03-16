@@ -30,51 +30,35 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
     /// <param name="compiler">The Compiler Instance</param>
     /// <param name="expression">The Expression to compile</param>
     /// <returns>List of Instructions</returns>
-    public abstract IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, T expression);
+    public abstract void CompileBinary(BadExpressionCompileContext context, T expression);
 
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, T expression)
+    public override void Compile(BadExpressionCompileContext context, T expression)
     {
         if (IsLeftAssociative)
         {
             if (EmitLeft)
             {
-                foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-                {
-                    yield return instruction;
-                }
+                context.Compile(expression.Left);
             }
 
             if (EmitRight)
             {
-                foreach (BadInstruction instruction in compiler.Compile(expression.Right))
-                {
-                    yield return instruction;
-                }
+                context.Compile(expression.Right);
             }
         }
         else
         {
             if (EmitRight)
             {
-                foreach (BadInstruction instruction in compiler.Compile(expression.Right))
-                {
-                    yield return instruction;
-                }
+                context.Compile(expression.Right);
             }
 
             if (EmitLeft)
             {
-                foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-                {
-                    yield return instruction;
-                }
+                context.Compile(expression.Left);
             }
         }
-
-        foreach (BadInstruction instruction in CompileBinary(compiler, expression))
-        {
-            yield return instruction;
-        }
+        CompileBinary(context, expression);
     }
 }

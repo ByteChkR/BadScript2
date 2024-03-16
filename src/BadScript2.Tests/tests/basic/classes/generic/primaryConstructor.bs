@@ -1,0 +1,24 @@
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	class C<T>(T Pass!);
+	const c = new C<bool>(true);
+	Assert.IsTrue(c.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(Test, "Generic Class Definition + Primary Constructor");
+
+
+
+
+function TestPassThrough()
+{
+	class C<T>(T Pass!);
+	class D<T>(T Fail!) : C<T>(!Fail);
+	const d = new D<bool>(false);
+	Assert.IsTrue(d.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestPassThrough, "Generic Class Definition + Primary Constructor + Parameter Passthrough");

@@ -8,10 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadMultiplyAssignExpressionCompiler : BadBinaryExpressionCompiler<BadMultiplyAssignExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> CompileBinary(
-        BadCompiler compiler,
-        BadMultiplyAssignExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context, BadMultiplyAssignExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.MulAssign, expression.Position);
+        context.Emit(BadOpCode.MulAssign, expression.Position);
     }
 }

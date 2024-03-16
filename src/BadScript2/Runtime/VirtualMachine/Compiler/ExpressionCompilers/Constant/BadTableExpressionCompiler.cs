@@ -11,18 +11,14 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 public class BadTableExpressionCompiler : BadExpressionCompiler<BadTableExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTableExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadTableExpression expression)
     {
         foreach (KeyValuePair<BadWordToken, BadExpression> kvp in expression.Table.ToArray().Reverse())
         {
-            yield return new BadInstruction(BadOpCode.Push, kvp.Key.SourcePosition, (BadObject)kvp.Key.Text);
-
-            foreach (BadInstruction instruction in compiler.Compile(kvp.Value))
-            {
-                yield return instruction;
-            }
+            context.Emit(BadOpCode.Push, kvp.Key.SourcePosition, (BadObject)kvp.Key.Text);
+            context.Compile(kvp.Value);
         }
 
-        yield return new BadInstruction(BadOpCode.TableInit, expression.Position, expression.Length);
+        context.Emit(BadOpCode.TableInit, expression.Position, expression.Length);
     }
 }

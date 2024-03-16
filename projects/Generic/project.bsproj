@@ -1,0 +1,20 @@
+{
+  "Info": {
+    "Name": "Generic",
+    "Version": "1.0.0.0",
+    "Author": "Unknown"
+  },
+  "Build": {
+    "ModuleType": "lib",
+    "OutputFile": "./bin/Generic.bs",
+    "VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+    "Sources": [
+      "./src/Main.bs"
+    ]
+  },
+  "Targets": [
+    "default",
+    "Debug",
+    "Release"
+  ]
+}

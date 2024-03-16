@@ -1,4 +1,5 @@
 using BadScript2.Common;
+using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -28,6 +29,7 @@ public class BadTableExtension : BadInteropExtension
                     {
                         throw BadRuntimeException.Create(c.Scope, "Key is not a string");
                     }
+
                     return RemoveKey(o, s.Value);
                 },
                 BadNativeClassBuilder.GetNative("bool"),
@@ -56,14 +58,7 @@ public class BadTableExtension : BadInteropExtension
             BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
             t => new BadDynamicInteropFunction<BadObject>(
                 BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-                (c, o) =>
-                {
-                    if (o is not IBadString s)
-                    {
-                        throw BadRuntimeException.Create(c.Scope, "Key is not a string");
-                    }
-                    return t.GetProperty(s.Value, c.Scope);
-                },
+                (c, o) => ArrayAccess(c, t, o),
                 BadAnyPrototype.Instance,
                 "key"
             )
@@ -91,6 +86,101 @@ public class BadTableExtension : BadInteropExtension
                 new BadFunctionParameter("others", false, true, true, null)
             )
         );
+    }
+    
+    private static BadObject ArrayAccess(BadExecutionContext context, BadTable table, BadObject enumerator)
+    {
+        BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);
+        if (enumerator is IBadString str)
+        {
+            return table.GetProperty(str.Value, context.Scope);
+        }
+
+        BadTable result = new BadTable();
+
+        if (enumerator.HasProperty("GetEnumerator", context.Scope) && enumerator.GetProperty("GetEnumerator", context.Scope).Dereference() is BadFunction getEnumerator)
+        {
+            foreach (BadObject e in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
+            {
+                enumerator = e;
+            }
+
+            enumerator = enumerator.Dereference();
+        }
+        (BadFunction moveNext, BadFunction getCurrent) = BadForEachExpression.FindEnumerator(enumerator, context, position);
+        BadObject r = BadObject.Null;
+        
+        if (context.Scope.IsError)
+        {
+            return BadObject.Null;
+        }
+
+        BadObject cond = BadObject.Null;
+
+        foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), context))
+        {
+            cond = o;
+        }
+
+        if (context.Scope.IsError)
+        {
+            return BadObject.Null;
+        }
+
+        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+                           throw new BadRuntimeException("While Condition is not a boolean", position);
+
+        while (bRet.Value)
+        {
+            using BadExecutionContext loopContext = new BadExecutionContext(
+                context.Scope.CreateChild(
+                    "ForEachLoop",
+                    context.Scope,
+                    null,
+                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                )
+            );
+
+            BadObject current = BadObject.Null;
+
+            foreach (BadObject o in getCurrent.Invoke(Array.Empty<BadObject>(), loopContext))
+            {
+                current = o;
+            }
+
+            if (loopContext.Scope.IsError)
+            {
+                return BadObject.Null;
+            }
+
+
+            if (current is not IBadString key)
+            {
+                throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a string", position);
+            }
+            
+            result.SetProperty(key.Value, table.GetProperty(key.Value, context.Scope).Dereference());
+
+            foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
+            {
+                cond = o;
+            }
+
+
+            if (loopContext.Scope.IsError)
+            {
+                return BadObject.Null;
+            }
+
+            bRet = cond.Dereference() as IBadBoolean ??
+                   throw BadRuntimeException.Create(
+                       context.Scope,
+                       "Enumerator MoveNext did not return a boolean",
+                       position
+                   );
+        }
+        
+        return result;
     }
 
     /// <summary>
@@ -153,7 +243,7 @@ public class BadTableExtension : BadInteropExtension
     /// <returns>Array of keys</returns>
     private static BadObject Keys(BadTable table)
     {
-        return new BadArray(table.InnerTable.Keys.Select(x=>(BadObject)x).ToList());
+        return new BadArray(table.InnerTable.Keys.Select(x => (BadObject)x).ToList());
     }
 
     /// <summary>

@@ -9,12 +9,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 public class BadStringExpressionCompiler : BadExpressionCompiler<BadStringExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadStringExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadStringExpression expression)
     {
-        yield return new BadInstruction(
-            BadOpCode.Push,
-            expression.Position,
-            (BadObject)expression.Value.Substring(1, expression.Value.Length - 2)
-        );
+        context.Emit(BadOpCode.Push, expression.Position, (BadObject)expression.Value.Substring(1, expression.Value.Length - 2));
     }
 }
