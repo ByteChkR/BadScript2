@@ -17,16 +17,28 @@ public class
             return;
         }
 
-        foreach (BadReturnExpression e in GetReturnExpressions(expr.Body))
+        if (expr.IsSingleLine)
         {
-            if (e.Right != null)
+            context.AddInfo(
+                "The Function is declared as a single line function, but has no return type. The Runtime will implicitly wrap the expression body of the function into a return expression. This can lead to unexpected behaviour when the expression returns a value.",
+                expr,
+                expr.Body.First(),
+                this
+            );
+        }
+        else
+        {
+            foreach (BadReturnExpression e in GetReturnExpressions(expr.Body))
             {
-                context.AddWarning(
-                    $"The Return statement '{e}' can not return a value.",
-                    expr,
-                    e,
-                    this
-                );
+                if (e.Right != null)
+                {
+                    context.AddWarning(
+                        $"The Return statement '{e}' can not return a value.",
+                        expr,
+                        e,
+                        this
+                    );
+                }
             }
         }
     }
