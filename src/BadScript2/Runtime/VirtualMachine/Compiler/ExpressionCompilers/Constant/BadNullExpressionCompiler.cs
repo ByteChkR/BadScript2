@@ -9,8 +9,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constan
 public class BadNullExpressionCompiler : BadExpressionCompiler<BadNullExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadNullExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.Push, expression.Position, BadObject.Null);
+        context.Emit(BadOpCode.Push, expression.Position, BadObject.Null);
     }
 }

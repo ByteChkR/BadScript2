@@ -38,23 +38,15 @@ public class BadInteropImportHandler : BadImportHandler
         }
 
         m_GetHashFunction = getHashF;
-        
+
         BadObject isTransient = scriptHandler.GetProperty("IsTransient").Dereference();
-        
+
         if (isTransient is not BadFunction isTransientF)
         {
             throw new BadRuntimeException("IsTransient function not found");
         }
-        
-        m_IsTransientFunction = isTransientF;
-    }
 
-    private void EnsureSuccess()
-    {
-        if (m_HandlerContext.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(m_HandlerContext.Scope.Error);
-        }
+        m_IsTransientFunction = isTransientF;
     }
 
     private BadObject RunFunction(BadFunction func, params BadObject[] args)
@@ -66,10 +58,10 @@ public class BadInteropImportHandler : BadImportHandler
             result = o;
         }
 
-        EnsureSuccess();
 
         return result.Dereference();
     }
+
     public override bool IsTransient()
     {
         BadObject result = RunFunction(m_IsTransientFunction);
@@ -80,6 +72,7 @@ public class BadInteropImportHandler : BadImportHandler
 
         return b.Value;
     }
+
     public override bool Has(string path)
     {
         BadObject result = RunFunction(m_HasFunction, path);
@@ -112,7 +105,6 @@ public class BadInteropImportHandler : BadImportHandler
             yield return o;
         }
 
-        EnsureSuccess();
 
         yield return result.Dereference();
     }

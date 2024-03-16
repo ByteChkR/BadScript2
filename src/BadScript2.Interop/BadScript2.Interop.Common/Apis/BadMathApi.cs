@@ -120,8 +120,10 @@ internal partial class BadMathApi
     [BadMethod(description: "Returns the larger of two numbers.")]
     [return: BadReturn("The larger of x or y. If x, or y, or both x and y are equal to NaN, NaN is returned.")]
     private decimal Max(
-        [BadParameter(description: "The first of two decimal numbers to compare.")] decimal x,
-        [BadParameter(description: "The second of two decimal numbers to compare.")] decimal y)
+        [BadParameter(description: "The first of two decimal numbers to compare.")]
+        decimal x,
+        [BadParameter(description: "The second of two decimal numbers to compare.")]
+        decimal y)
     {
         return Math.Max(x, y);
     }
@@ -129,8 +131,10 @@ internal partial class BadMathApi
     [BadMethod(description: "Returns the smaller of two numbers.")]
     [return: BadReturn("The smaller of x or y. If x, or y, or both x and y are equal to NaN, NaN is returned.")]
     private decimal Min(
-        [BadParameter(description: "The first of two decimal numbers to compare.")] decimal x,
-        [BadParameter(description: "The second of two decimal numbers to compare.")] decimal y)
+        [BadParameter(description: "The first of two decimal numbers to compare.")]
+        decimal x,
+        [BadParameter(description: "The second of two decimal numbers to compare.")]
+        decimal y)
     {
         return Math.Min(x, y);
     }
@@ -138,8 +142,10 @@ internal partial class BadMathApi
     [BadMethod(description: "Returns a specified number raised to the specified power.")]
     [return: BadReturn("The number x raised to the power y.")]
     private decimal Pow(
-        [BadParameter(description: "A double-precision floating-point number to be raised to a power")] decimal x,
-        [BadParameter(description: "A double-precision floating-point number that specifies a power")] decimal y)
+        [BadParameter(description: "A double-precision floating-point number to be raised to a power")]
+        decimal x,
+        [BadParameter(description: "A double-precision floating-point number that specifies a power")]
+        decimal y)
     {
         return (decimal)Math.Pow((double)x, (double)y);
     }
@@ -147,8 +153,10 @@ internal partial class BadMathApi
     [BadMethod(description: "Rounds a value to the nearest integer or to the specified number of decimal places.")]
     [return: BadReturn("The number nearest to x that contains a number of fractional digits equal to decimals.")]
     private decimal Round(
-        [BadParameter(description: "A decimal number to be rounded")] decimal x,
-        [BadParameter(description: "The number nearest to x that contains a number of fractional digits equal to decimals")] int y)
+        [BadParameter(description: "A decimal number to be rounded")]
+        decimal x,
+        [BadParameter(description: "The number nearest to x that contains a number of fractional digits equal to decimals")]
+        int y)
     {
         return Math.Round(x, y);
     }

@@ -1,5 +1,5 @@
+using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Variables;
-using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
@@ -9,8 +9,12 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 public class BadVariableExpressionCompiler : BadExpressionCompiler<BadVariableExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadVariableExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadVariableExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.LoadVar, expression.Position, expression.Name);
+        foreach (BadExpression parameter in expression.GenericParameters)
+        {
+            context.Compile(parameter);
+        }
+        context.Emit(BadOpCode.LoadVar, expression.Position, expression.Name, expression.GenericParameters.Count);
     }
 }

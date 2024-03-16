@@ -11,29 +11,17 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAccessExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadArrayAccessExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadArrayAccessExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Arguments, false))
-        {
-            yield return instruction;
-        }
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-        {
-            yield return instruction;
-        }
-
+        context.Compile(expression.Arguments);
+        context.Compile(expression.Left);
         if (expression.NullChecked)
         {
-            yield return new BadInstruction(
-                BadOpCode.LoadArrayAccessNullChecked,
-                expression.Position,
-                expression.ArgumentCount
-            );
+            context.Emit(BadOpCode.LoadArrayAccessNullChecked, expression.Position, expression.ArgumentCount);
         }
         else
         {
-            yield return new BadInstruction(BadOpCode.LoadArrayAccess, expression.Position, expression.ArgumentCount);
+            context.Emit(BadOpCode.LoadArrayAccess, expression.Position, expression.ArgumentCount);
         }
     }
 }

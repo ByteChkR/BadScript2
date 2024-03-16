@@ -1,9 +1,7 @@
-﻿using BadScript2.Runtime;
-using BadScript2.Runtime.Interop.Reflection.Objects;
+﻿using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
-using BadScript2.Runtime.Objects.Types;
 
 using Newtonsoft.Json.Linq;
 

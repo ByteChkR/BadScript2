@@ -102,7 +102,7 @@ public class BadExpressionFunction : BadFunction
         );
 
         ctx.Scope.FunctionObject = this;
-        
+
         ApplyParameters(ctx, args, Position);
 
         if (m_Body.Count == 0)
@@ -126,10 +126,6 @@ public class BadExpressionFunction : BadFunction
             yield return Null;
         }
 
-        if (ctx.Scope.Error != null)
-        {
-            caller.Scope.SetErrorObject(ctx.Scope.Error);
-        }
     }
 
     /// <inheritdoc />

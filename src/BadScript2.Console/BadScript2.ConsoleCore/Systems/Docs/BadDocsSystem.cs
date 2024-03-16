@@ -43,6 +43,7 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
             return s;
         }
     }
+
     private static string TemplatePath => Path.Combine(DocsPath, "docs.bhtml");
 
     /// <inheritdoc />

@@ -19,6 +19,15 @@ public class BadModuleImporter
     /// </summary>
     private readonly BadModuleStore m_Store;
 
+    /// <summary>
+    ///     Creates a new BadModuleImporter
+    /// </summary>
+    /// <param name="store">The Module Store</param>
+    public BadModuleImporter(BadModuleStore store)
+    {
+        m_Store = store;
+    }
+
     public BadModuleImporter Clone(bool onlyTransient = true)
     {
         BadModuleImporter importer = new BadModuleImporter(m_Store);
@@ -32,15 +41,6 @@ public class BadModuleImporter
         }
 
         return importer;
-    }
-
-    /// <summary>
-    ///     Creates a new BadModuleImporter
-    /// </summary>
-    /// <param name="store">The Module Store</param>
-    public BadModuleImporter(BadModuleStore store)
-    {
-        m_Store = store;
     }
 
     /// <summary>

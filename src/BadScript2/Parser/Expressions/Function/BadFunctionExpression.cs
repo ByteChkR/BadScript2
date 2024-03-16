@@ -116,7 +116,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     {
         return Name?.Text;
     }
-    
+
     public void SetName(string name)
     {
         Name = name;
@@ -227,6 +227,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
             foreach (BadObject o in TypeExpression.Execute(context))
             {
                 obj = o;
+                yield return o;
             }
 
             obj = obj.Dereference();
@@ -256,8 +257,8 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
         BadFunction fFinal = CompileLevel switch
         {
-            BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, true),
-            BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(BadCompiler.Instance, f, false),
+            BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(f, true),
+            BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(f, false),
             _ => f,
         };
 

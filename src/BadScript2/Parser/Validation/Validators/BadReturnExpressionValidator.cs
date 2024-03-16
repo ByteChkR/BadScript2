@@ -51,6 +51,40 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
     /// </summary>
     /// <param name="expr">The expression to check.</param>
     /// <returns>All return expressions in the given expression.</returns>
+    protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadSwitchExpression expr)
+    {
+        foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.Cases)
+        {
+            foreach (BadExpression e in branch.Value)
+            {
+                foreach (BadReturnExpression r in GetReturnExpressions(e))
+                {
+                    yield return r;
+                }
+            }
+        }
+
+        if (expr.DefaultCase == null)
+        {
+            yield break;
+        }
+
+        {
+            foreach (BadExpression e in expr.DefaultCase)
+            {
+                foreach (BadReturnExpression r in GetReturnExpressions(e))
+                {
+                    yield return r;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Returns all return expressions in the given expression.
+    /// </summary>
+    /// <param name="expr">The expression to check.</param>
+    /// <returns>All return expressions in the given expression.</returns>
     protected IEnumerable<BadReturnExpression> GetReturnExpressions(BadWhileExpression expr)
     {
         return expr.Body.SelectMany(GetReturnExpressions);
@@ -132,6 +166,15 @@ public abstract class BadReturnExpressionValidator : BadExpressionValidator<BadF
             case BadIfExpression ifExpr:
             {
                 foreach (BadReturnExpression? e in GetReturnExpressions(ifExpr))
+                {
+                    yield return e;
+                }
+
+                break;
+            }
+            case BadSwitchExpression switchExpr:
+            {
+                foreach (BadReturnExpression? e in GetReturnExpressions(switchExpr))
                 {
                     yield return e;
                 }

@@ -112,13 +112,12 @@ public class BadInteractiveConsole
             throw new BadRuntimeException("Context is not initialized");
         }
 
-        BadExecutionContext ctx = m_Context;
-        Reset();
+		Reset();
         BadExecutionContext current = m_Context;
         BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
         Run(parser.Parse());
 
-        m_Context = ctx;
+        Reset();
 
         return current.Scope.ReturnValue ?? current.Scope.GetTable();
     }
@@ -173,13 +172,6 @@ public class BadInteractiveConsole
             yield return null;
         }
 
-        if (m_Context.Scope.Error == null)
-        {
-            yield break;
-        }
-
-        BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
-        m_Context.Scope.UnsetError();
     }
 
 	/// <summary>
@@ -231,13 +223,6 @@ public class BadInteractiveConsole
             }
         }
 
-        if (m_Context.Scope.Error == null)
-        {
-            return;
-        }
-
-        BadConsole.WriteLine("Error: " + m_Context.Scope.Error);
-        m_Context.Scope.UnsetError();
     }
 
 	/// <summary>

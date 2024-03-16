@@ -20,12 +20,8 @@ public abstract class BadClassPrototype : BadObject
     /// <summary>
     ///     The Base Class of the Prototype
     /// </summary>
-    protected readonly BadClassPrototype? BaseClass;
+    protected abstract BadClassPrototype? BaseClass { get; }
 
-    /// <summary>
-    ///     The Implemented Interfaces
-    /// </summary>
-    private readonly BadInterfacePrototype[] m_Interfaces;
 
     /// <summary>
     ///     The Metadata of the Class
@@ -37,17 +33,12 @@ public abstract class BadClassPrototype : BadObject
     /// </summary>
     /// <param name="name">Class Name</param>
     /// <param name="baseClass">Base Class Prototype</param>
-    /// <param name="interfaces">The Implemented Interfaces</param>
     /// <param name="metaData">The Metadata of the Class</param>
     protected BadClassPrototype(
         string name,
-        BadClassPrototype? baseClass,
-        BadInterfacePrototype[] interfaces,
         BadMetaData? metaData)
     {
         Name = name;
-        BaseClass = baseClass;
-        m_Interfaces = interfaces;
         MetaData = metaData ?? BadMetaData.Empty;
     }
 
@@ -59,7 +50,7 @@ public abstract class BadClassPrototype : BadObject
     /// <summary>
     ///     The Implemented Interfaces
     /// </summary>
-    public IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_Interfaces;
+    public abstract IReadOnlyCollection<BadInterfacePrototype> Interfaces { get; }
 
     /// <summary>
     ///     The Name of the Type

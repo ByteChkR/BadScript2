@@ -1,8 +1,12 @@
 using BadScript2.Common;
+using BadScript2.Parser.Expressions.Block.Loop;
+using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 ///<summary>
@@ -165,9 +169,9 @@ public class BadArrayExtension : BadInteropExtension
 
         provider.RegisterObject<BadArray>(
             BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-            a => new BadDynamicInteropFunction<decimal>(
+            a => new BadDynamicInteropFunction<BadObject>(
                 BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-                (_, i) => BadObjectReference.Make($"{a}[{i}]", () => Get(a, i), (v, _) => Set(a, i, v)),
+                (c, i) => ArrayAccess(c, a, i),
                 BadAnyPrototype.Instance,
                 "index"
             )
@@ -187,6 +191,83 @@ public class BadArrayExtension : BadInteropExtension
         );
 
         provider.RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
+    }
+
+    private static BadObject ArrayAccess(BadExecutionContext context, BadArray array, BadObject enumerator)
+    {
+        BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);
+        if (enumerator is IBadNumber num)
+        {
+            return BadObjectReference.Make($"{array}[{num.Value}]", () => Get(array, num.Value), (v, _) => Set(array, num.Value, v));
+        }
+
+        BadArray result = new BadArray();
+
+        if (enumerator.HasProperty("GetEnumerator", context.Scope) && enumerator.GetProperty("GetEnumerator", context.Scope).Dereference() is BadFunction getEnumerator)
+        {
+            foreach (BadObject e in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
+            {
+                enumerator = e;
+            }
+
+            enumerator = enumerator.Dereference();
+        }
+        (BadFunction moveNext, BadFunction getCurrent) = BadForEachExpression.FindEnumerator(enumerator, context, position);
+        
+
+        BadObject cond = BadObject.Null;
+
+        foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), context))
+        {
+            cond = o;
+        }
+
+        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+                           throw new BadRuntimeException("While Condition is not a boolean", position);
+
+        while (bRet.Value)
+        {
+            using BadExecutionContext loopContext = new BadExecutionContext(
+                context.Scope.CreateChild(
+                    "ForEachLoop",
+                    context.Scope,
+                    null,
+                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                )
+            );
+
+            BadObject current = BadObject.Null;
+
+            foreach (BadObject o in getCurrent.Invoke(Array.Empty<BadObject>(), loopContext))
+            {
+                current = o;
+            }
+
+
+
+            if (current is not IBadNumber n)
+            {
+                throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a number", position);
+            }
+            
+            result.InnerArray.Add(Get(array, n.Value));
+
+            foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
+            {
+                cond = o;
+            }
+
+
+
+            bRet = cond.Dereference() as IBadBoolean ??
+                   throw BadRuntimeException.Create(
+                       context.Scope,
+                       "Enumerator MoveNext did not return a boolean",
+                       position
+                   );
+        }
+        
+        return result;
     }
 
     /// <summary>

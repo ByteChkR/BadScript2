@@ -17,6 +17,8 @@ public class BadTable : BadObject, IBadEnumerable
     /// </summary>
     private static BadClassPrototype? s_Prototype;
 
+    private readonly Dictionary<string, BadObjectReference> m_ReferenceCache = new Dictionary<string, BadObjectReference>();
+
     /// <summary>
     ///     Creates a new Table Object
     /// </summary>
@@ -52,8 +54,6 @@ public class BadTable : BadObject, IBadEnumerable
     ///     A Table of additional property information
     /// </summary>
     public Dictionary<string, BadPropertyInfo> PropertyInfos { get; }
-    
-    private readonly Dictionary<string, BadObjectReference> m_ReferenceCache = new Dictionary<string, BadObjectReference>();
 
     /// <summary>
     ///     Returns the Enumerator for this Table
@@ -146,7 +146,8 @@ public class BadTable : BadObject, IBadEnumerable
         {
             return reference;
         }
-        BadObjectReference r= BadObjectReference.Make(
+
+        BadObjectReference r = BadObjectReference.Make(
             $"BadTable.{propName}",
             () => InnerTable[propName],
             (o, t) =>
@@ -166,6 +167,11 @@ public class BadTable : BadObject, IBadEnumerable
                             $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
                         );
                     }
+                    if (propValue is BadObjectReference propRef)
+                    {
+                        propRef.Set(o, t);
+                        return;
+                    }
                 }
                 else
                 {
@@ -183,9 +189,9 @@ public class BadTable : BadObject, IBadEnumerable
             },
             () => { InnerTable.Remove(propName); }
         );
-        
+
         m_ReferenceCache[propName] = r;
-        
+
         return r;
     }
 

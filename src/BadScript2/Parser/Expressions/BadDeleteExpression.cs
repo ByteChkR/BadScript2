@@ -46,11 +46,6 @@ public class BadDeleteExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
-
         if (obj is not BadObjectReference r)
         {
             throw BadRuntimeException.Create(context.Scope, $"Cannot delete {Expression}", Position);

@@ -78,9 +78,7 @@ public class BadAwaitExpression : BadExpression
 
         if (task.Runnable.Error != null)
         {
-            context.Scope.SetError($"Task {task.Name} failed", task.Runnable.Error);
-
-            yield return BadObject.Null;
+            throw new BadRuntimeErrorException(task.Runnable.Error);
         }
         else
         {

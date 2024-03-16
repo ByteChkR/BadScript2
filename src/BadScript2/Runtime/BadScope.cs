@@ -1,3 +1,4 @@
+using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
@@ -133,9 +134,9 @@ public class BadScope : BadObject, IDisposable
     ///     The Class Object of the Scope
     /// </summary>
     public BadClass? ClassObject { get; internal set; }
-    
+
     /// <summary>
-    /// The Function Object of the Scope
+    ///     The Function Object of the Scope
     /// </summary>
     public BadFunction? FunctionObject { get; internal set; }
 
@@ -171,19 +172,10 @@ public class BadScope : BadObject, IDisposable
     public bool IsContinue { get; private set; }
 
     /// <summary>
-    ///     Is true if the Scope encountered an error
-    /// </summary>
-    public bool IsError { get; private set; }
-
-    /// <summary>
     ///     The Return value of the scope
     /// </summary>
     public BadObject? ReturnValue { get; private set; }
 
-    /// <summary>
-    ///     The Runtime Error that occured in the Scope
-    /// </summary>
-    public BadRuntimeError? Error { get; private set; }
 
     /// <summary>
     ///     A Class Prototype for the Scope
@@ -398,17 +390,6 @@ public class BadScope : BadObject, IDisposable
     }
 
     /// <summary>
-    ///     Unsets the Error if it was set
-    /// </summary>
-    public void UnsetError()
-    {
-        IsError = false;
-        Error = null;
-
-        Parent?.UnsetError();
-    }
-
-    /// <summary>
     ///     Returns the Stack Trace of the Current scope
     /// </summary>
     /// <returns>Stack Trace</returns>
@@ -534,37 +515,6 @@ public class BadScope : BadObject, IDisposable
     }
 
     /// <summary>
-    ///     Sets an error object inside this scope
-    /// </summary>
-    /// <param name="error">The Error</param>
-    public void SetErrorObject(BadRuntimeError error)
-    {
-        Error = error;
-        IsError = true;
-
-        if ((Flags & BadScopeFlags.CaptureThrow) == 0)
-        {
-            Parent?.SetErrorObject(error);
-        }
-    }
-
-    /// <summary>
-    ///     Sets an error object inside this scope
-    /// </summary>
-    /// <param name="obj">The Error</param>
-    /// <param name="inner">The Inner Error</param>
-    /// <exception cref="BadRuntimeException">Gets Raised if an error can not be set in this scope</exception>
-    public void SetError(BadObject obj, BadRuntimeError? inner)
-    {
-        if ((Flags & BadScopeFlags.AllowThrow) == 0)
-        {
-            throw new BadRuntimeException("Throw not allowed in this scope");
-        }
-
-        SetErrorObject(new BadRuntimeError(inner, obj, GetStackTrace()));
-    }
-
-    /// <summary>
     ///     Sets the Return value of this scope
     /// </summary>
     /// <param name="value">The Return Value</param>
@@ -617,6 +567,39 @@ public class BadScope : BadObject, IDisposable
         return sc;
     }
 
+    public void DefineProperty(string name, BadClassPrototype type, BadExpression getAccessor, BadExpression? setAccessor, BadExecutionContext caller)
+    {
+        if (HasLocal(name, caller.Scope, false))
+        {
+            throw new BadRuntimeException($"Property {name} is already defined");
+        }
+        Action<BadObject, BadPropertyInfo?>? setter = null;
+        if (setAccessor != null)
+        {
+            setter = (value, pi) =>
+            {
+                var setCtx = new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
+                setCtx.Scope.DefineVariable("value", value, setCtx.Scope, new BadPropertyInfo(BadAnyPrototype.Instance, true));
+                foreach (BadObject o in setCtx.Execute(setAccessor))
+                {
+                    //Execute
+                }
+            };
+        }
+        m_ScopeVariables.PropertyInfos.Add(name, new BadPropertyInfo(type, setter == null));
+        m_ScopeVariables.InnerTable.Add(name, BadObjectReference.Make($"property {name}",
+            () =>
+            {
+                var getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
+                var get = Null;
+                foreach (BadObject o in getCtx.Execute(getAccessor))
+                {
+                    get = o;
+                }
+                return get.Dereference();
+            },
+            setter));
+    }
 
     /// <summary>
     ///     Defines a new Variable in the current scope
@@ -666,6 +649,7 @@ public class BadScope : BadObject, IDisposable
     {
         char first = propName[0];
         char second = propName.Length > 1 ? propName[1] : '\0';
+
         return second switch
         {
             '_' => first == '_' ? BadPropertyVisibility.Private : BadPropertyVisibility.Public,

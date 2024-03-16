@@ -93,13 +93,13 @@ public class BadHtmlTemplate
 
         if (model != null)
         {
-	        BadObject mod = model as BadObject ?? BadObject.Wrap(model);
-	        executionContext.Scope.DefineVariable(
-		        "Model",
-		        mod,
-		        executionContext.Scope,
-		        new BadPropertyInfo(BadAnyPrototype.Instance, true)
-	        );
+            BadObject mod = model as BadObject ?? BadObject.Wrap(model);
+            executionContext.Scope.DefineVariable(
+                "Model",
+                mod,
+                executionContext.Scope,
+                new BadPropertyInfo(BadAnyPrototype.Instance, true)
+            );
         }
 
         foreach (HtmlNode node in input.DocumentNode.ChildNodes)

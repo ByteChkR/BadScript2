@@ -23,11 +23,12 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
 	protected BadANativeClassPrototype(
         string name,
         Func<BadExecutionContext, BadObject[], BadObject> func,
-        BadMetaData? meta = null,
-        params BadInterfacePrototype[] interfaces) : base(name, BadAnyPrototype.Instance, interfaces, meta)
+        BadMetaData? meta = null) : base(name, meta)
     {
         m_Func = func;
     }
+
+	protected override BadClassPrototype? BaseClass { get; } = BadAnyPrototype.Instance;
 
 	/// <summary>
 	///     Creates an instance of the Class

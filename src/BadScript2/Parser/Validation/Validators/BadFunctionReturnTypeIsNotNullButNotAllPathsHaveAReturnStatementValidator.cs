@@ -23,6 +23,10 @@ public class
                 Validate(parent, ifExpr);
 
                 break;
+            case BadSwitchExpression switchExpr:
+                Validate(parent, switchExpr);
+
+                break;
             case BadWhileExpression whileExpr:
                 Validate(parent, whileExpr);
 
@@ -123,6 +127,41 @@ public class
             foreach (BadExpression expression in expr.ElseBranch)
             {
                 Validate(elsePath, expression);
+            }
+        }
+    }
+    
+    
+
+    private void Validate(BadExpressionPath parent, BadSwitchExpression expr)
+    {
+        BadExpressionPath switchParent = new BadExpressionPath(expr);
+        parent.AddChildPath(switchParent);
+
+
+        foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.Cases)
+        {
+            BadExpressionPath path = new BadExpressionPath(expr);
+            switchParent.AddChildPath(path);
+
+            foreach (BadExpression expression in branch.Value)
+            {
+                Validate(path, expression);
+            }
+        }
+
+        BadExpressionPath defaultPath = new BadExpressionPath(expr);
+        switchParent.AddChildPath(defaultPath);
+
+        if (expr.DefaultCase == null)
+        {
+            return;
+        }
+
+        {
+            foreach (BadExpression expression in expr.DefaultCase)
+            {
+                Validate(defaultPath, expression);
             }
         }
     }

@@ -8,18 +8,10 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Functio
 public class BadInvocationExpressionCompiler : BadExpressionCompiler<BadInvocationExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadInvocationExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadInvocationExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Arguments, false))
-        {
-            yield return instruction;
-        }
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.Invoke, expression.Position, expression.ArgumentCount);
+        context.Compile(expression.Arguments, false);
+        context.Compile(expression.Left);
+        context.Emit(BadOpCode.Invoke, expression.Position, expression.ArgumentCount);
     }
 }

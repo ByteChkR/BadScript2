@@ -35,9 +35,12 @@ internal partial class BadNUnitConsoleApi
 
     [BadMethod(description: "Adds a Test to the Unit Test Context")]
     private void AddTest(
-        [BadParameter(description: "The Test Function")] BadFunction func,
-        [BadParameter(description: "The Unit Test Name")] string name,
-        [BadParameter(description: "Specifies if the runtime is allowed to compile the Function")] bool allowCompile = true)
+        [BadParameter(description: "The Test Function")]
+        BadFunction func,
+        [BadParameter(description: "The Unit Test Name")]
+        string name,
+        [BadParameter(description: "Specifies if the runtime is allowed to compile the Function")]
+        bool allowCompile = true)
     {
         Console.AddTest(func, name, allowCompile);
     }

@@ -126,10 +126,6 @@ public class BadForExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", Position);
@@ -152,7 +148,7 @@ public class BadForExpression : BadExpression
                     yield return o;
                 }
 
-                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+                if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null)
                 {
                     break;
                 }
@@ -170,10 +166,6 @@ public class BadForExpression : BadExpression
                 yield return o;
             }
 
-            if (loopContext.Scope.IsError)
-            {
-                yield break;
-            }
 
             bRet = cond.Dereference() as IBadBoolean ??
                    throw new BadRuntimeException("While Condition is not a boolean", Position);

@@ -255,6 +255,7 @@ public abstract class BadFunction : BadObject
 
             yield return o;
         }
+        
 
         if (ret != null && !ReturnType.IsAssignableFrom(ret))
         {
@@ -263,8 +264,7 @@ public abstract class BadFunction : BadObject
             );
         }
 
-        if (caller.Scope.IsError ||
-            !IsConstant ||
+        if (!IsConstant ||
             ret == null ||
             !BadNativeOptimizationSettings.Instance.UseConstantFunctionCaching)
         {

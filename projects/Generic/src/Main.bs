@@ -1,0 +1,200 @@
+
+const NativeArray = Array;
+
+class GenericEnumerator<T> : IEnumerator<T>
+{
+	const IEnumerator<any> __nativeEnumerator;
+	function GenericEnumerator(IEnumerator<any> nativeEnumerator!)
+	{
+		__nativeEnumerator = nativeEnumerator;
+	}
+
+	function bool MoveNext() => __nativeEnumerator.MoveNext();
+	function T GetCurrent() => __nativeEnumerator.GetCurrent();
+}
+
+class GenericEnumerable<T> : IEnumerable<T>
+{
+	const IEnumerable<any> __nativeEnumerable;
+	function GenericEnumerable(IEnumerable<any> nativeEnumerable!)
+	{
+		__nativeEnumerable = nativeEnumerable;
+	}
+
+	function IEnumerator<T> GetEnumerator() => new GenericEnumerator<T>(__nativeEnumerable.GetEnumerator());
+
+	function IEnumerable<T> Where(Function selector!) => new GenericEnumerable<T>(__nativeEnumerable.Where(selector));
+
+	function IEnumerable<any> Select(Function selector!) => __nativeEnumerable.Select(selector);
+
+	function IEnumerable<T> Reverse() => new GenericEnumerable<T>(__nativeEnumerable.Reverse());
+
+	function bool All(Function selector!) => __nativeEnumerable.All(selector);
+
+	function bool Any(Function selector?) => __nativeEnumerable.All(selector);
+
+	function IEnumerable<T> Append(T item) => new GenericEnumerable<T>(__nativeEnumerable.Append(item));
+
+	//Might actually not work because of how the LinqInterop Functions are identifying Enumerables
+	//function IEnumerable<T> Concat(IEnumerable<T> other) => new GenericEnumerable<T>(__nativeEnumerable.Concat(other));
+
+	function T ElementAt(num i!) => __nativeEnumerable.ElementAt(i);
+
+	function T ElementAtOrDefault(num i!) => __nativeEnumerable.ElementAtOrDefault(i);
+
+	function IEnumerable<T> Skip(num count!) => new GenericEnumerable<T>(__nativeEnumerable.Skip(count));
+
+	function IEnumerable<T> SkipLast(num count!) => new GenericEnumerable<T>(__nativeEnumerable.SkipLast(count));
+
+	function IEnumerable<T> Take(num count!) => new GenericEnumerable<T>(__nativeEnumerable.Take(count));
+
+	function IEnumerable<T> OrderBy(Function selector!) => new GenericEnumerable<T>(__nativeEnumerable.OrderBy(selector));
+
+	function T First(Function selector?) => __nativeEnumerable.First(selector);
+
+	function T FirstOrDefault(Function selector?) => __nativeEnumerable.FirstOrDefault(selector);
+
+	function T Last(Function selector?) => __nativeEnumerable.Last(selector);
+
+	function T LastOrDefault(Function selector?) => __nativeEnumerable.LastOrDefault(selector);
+
+	function num Count() => __nativeEnumerable.Count();
+
+	function Table ToTable(Function keySelector!, Function valueSelector!) => __nativeEnumerable.ToTable(keySelector, valueSelector);
+
+	static function IEnumerable<T> Empty() => new GenericEnumerable<T>([]);
+}
+
+class GenericArray<T> : GenericEnumerable<T>, IArray<T>
+{
+	const NativeArray __nativeArray = [];
+
+	const num Length { get => __nativeArray.Length; }
+
+	function GenericArray(IEnumerable elems?)
+	{
+		base(__nativeArray);
+		if(elems != null)
+		{
+			foreach(elem in elems)
+			{
+				Add(elem);
+			}
+		}
+	}
+
+	function Array GetNativeArray() => __nativeArray;
+
+	function Clear() => __nativeArray.Clear();
+
+	function Add(T item) => __nativeArray.Add(item);
+
+	function Insert(num index, T item) => __nativeArray.Insert(index, item);
+
+	function bool Remove(T item) => __nativeArray.Remove(item);
+
+	function RemoveAt(num index) => __nativeArray.RemoveAt(index);
+
+	function bool Contains(T item) => __nativeArray.Contains(item);
+
+	function T Get(num index) => __nativeArray.Get(index);
+
+	function Set(num index, T item) => __nativeArray.Set(index, item);
+
+	function T op_ArrayAccess(num index)
+	{
+		return ref __nativeArray[index];
+	}
+
+	function T op_ArrayAccessReverse(num index)
+	{
+		return ref __nativeArray[^index];
+	}
+
+	function InsertRange(num index, IEnumerable<T> range)
+	{
+		foreach(item in range)
+		{
+			Insert(index++, item);
+		}
+	}
+
+	function AddRange(IEnumerable<T> range)
+	{
+		foreach(item in range)
+		{
+			Add(item);
+		}
+	}
+}
+
+class GenericStack<T> : GenericEnumerable<T>
+{
+	const GenericArray<T> __innerArray;
+
+	const num Length { get => __innerArray.Length; }
+
+	function GenericStack(IEnumerable elems?)
+	{
+		__innerArray = new GenericArray<T>(elems);
+		base(__innerArray.GetNativeArray());
+	}
+
+	function IEnumerator<T> GetEnumerator() => __innerArray.GetEnumerator();
+
+	function Push(T item) => __innerArray.Add(item);
+
+	function T Peek() => __innerArray.Length > 0 ? __innerArray[^1] : throw "Stack is empty";
+
+	function T Pop()
+	{
+		if(__innerArray.Length > 0)
+		{
+			const T item = __innerArray[^1];
+			__innerArray.RemoveAt(__innerArray.Length - 1);
+			return item;
+		}
+
+		throw "Stack is empty";
+	}
+}
+
+class GenericQueue<T> : GenericEnumerable<T>
+{
+	const GenericArray<T> __innerArray;
+
+	const num Length { get => __innerArray.Length; }
+
+	function GenericQueue(IEnumerable elems?)
+	{
+		__innerArray = new GenericArray<T>(elems);
+		base(__innerArray.GetNativeArray());
+	}
+
+	function IEnumerator<T> GetEnumerator() => __innerArray.GetEnumerator();
+
+	function Enqueue(T item) => __innerArray.Add(item);
+
+	function T Peek() => __innerArray.Length > 0 ? __innerArray[0] : throw "Queue is empty";
+
+	function T Dequeue()
+	{
+		if(__innerArray.Length > 0)
+		{
+			const T item = __innerArray[0];
+			__innerArray.RemoveAt(0);
+			return item;
+		}
+
+		throw "Queue is empty";
+	}
+}
+
+
+export {
+	Array: GenericArray,
+	Stack: GenericStack,
+	Queue: GenericQueue,
+	Enumerable: GenericEnumerable,
+	Enumerator: GenericEnumerator
+};

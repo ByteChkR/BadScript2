@@ -8,28 +8,13 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 public class BadNullCoalescingExpressionCompiler : BadExpressionCompiler<BadNullCoalescingExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadNullCoalescingExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadNullCoalescingExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Left))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.Dup, expression.Position);
-
-        List<BadInstruction> instructions = new List<BadInstruction>
-        {
-            new BadInstruction(), //Jump to end if not null
-            new BadInstruction(BadOpCode.Pop, expression.Position),
-        };
-        instructions.AddRange(compiler.Compile(expression.Right));
-
-        instructions[0] =
-            new BadInstruction(BadOpCode.JumpRelativeIfNotNull, expression.Position, instructions.Count - 1);
-
-        foreach (BadInstruction instruction in instructions)
-        {
-            yield return instruction;
-        }
+        context.Compile(expression.Left);
+        context.Emit(BadOpCode.Dup, expression.Position);
+        int jend = context.EmitEmpty();
+        context.Emit(BadOpCode.Pop, expression.Position);
+        context.Compile(expression.Right);
+        context.ResolveEmpty(jend, BadOpCode.JumpRelativeIfNotNull, expression.Position, context.InstructionCount - jend - 1);
     }
 }

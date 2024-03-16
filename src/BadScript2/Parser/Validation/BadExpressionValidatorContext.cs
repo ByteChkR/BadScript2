@@ -24,7 +24,7 @@ public readonly struct BadExpressionValidatorContext
         {
             sb.AppendLine("Validation failed:");
         }
-        else if (Messages.Count > 0)
+        else if (HasWarnings)
         {
             sb.AppendLine("Validation succeeded with warnings:");
         }
@@ -35,16 +35,7 @@ public readonly struct BadExpressionValidatorContext
 
         foreach (BadExpressionValidatorMessage message in Messages)
         {
-            sb.Append($"\t{message.Type}: {message.Message} in ");
-
-            if (message.ParentExpression is BadFunctionExpression func)
-            {
-                sb.AppendLine($"'{func.GetHeader()}':{message.Expression.Position.GetPositionInfo()}");
-            }
-            else
-            {
-                sb.AppendLine($"{message.Expression.Position.GetPositionInfo()}");
-            }
+            sb.AppendLine(message.ToString());
         }
 
 
@@ -65,6 +56,7 @@ public readonly struct BadExpressionValidatorContext
     ///     Indicates whether there are any messages of type Error.
     /// </summary>
     public bool IsError => m_Messages.Any(m => m.Type == BadExpressionValidatorMessageType.Error);
+    public bool HasWarnings => m_Messages.Any(m => m.Type == BadExpressionValidatorMessageType.Warning);
 
     /// <summary>
     ///     The validators used by this context.
@@ -83,6 +75,7 @@ public readonly struct BadExpressionValidatorContext
         new BadEmptyIfBranchValidator(),
         new BadEmptyLockBlockValidator(),
         new BadEmptyUsingBlockValidator(),
+        new BadEmptySwitchStatementValidator(),
     };
 
     /// <summary>

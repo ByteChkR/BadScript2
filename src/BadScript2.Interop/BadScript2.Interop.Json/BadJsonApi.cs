@@ -1,4 +1,7 @@
+using System.Runtime.ExceptionServices;
+
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Settings;
@@ -19,9 +22,13 @@ internal partial class BadJsonApi
         {
             return BadJson.FromJson(str);
         }
+        catch (BadRuntimeErrorException e)
+        {
+            ExceptionDispatchInfo.Capture(e).Throw();
+        }
         catch (Exception e)
         {
-            ctx.Scope.SetError(e.Message, null);
+            throw new BadRuntimeErrorException(BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace()));
         }
 
         return BadObject.Null;

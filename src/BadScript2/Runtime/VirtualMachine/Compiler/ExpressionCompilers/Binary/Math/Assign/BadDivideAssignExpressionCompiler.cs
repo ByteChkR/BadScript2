@@ -8,10 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadDivideAssignExpressionCompiler : BadBinaryExpressionCompiler<BadDivideAssignExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> CompileBinary(
-        BadCompiler compiler,
-        BadDivideAssignExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context, BadDivideAssignExpression expression)
     {
-        yield return new BadInstruction(BadOpCode.DivAssign, expression.Position);
+        context.Emit(BadOpCode.DivAssign, expression.Position);
     }
 }

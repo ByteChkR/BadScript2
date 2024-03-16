@@ -1,0 +1,64 @@
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	class C<T>
+	{
+		let T Pass;
+		function C(T pass)
+		{
+			Pass = pass;
+		}
+	}
+	class D : C<bool>
+	{
+		function D(bool pass)
+		{
+			base(pass);
+		}
+	}
+	let d = new D(true);
+	Assert.IsTrue(d.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(Test, "Generic Class Definition + Inherit + Create + Constructor + BaseConstructor: default");
+
+
+
+
+function TestFullyGeneric()
+{
+	class C<T>
+	{
+		let T Pass;
+		function C(T pass)
+		{
+			Pass = pass;
+		}
+	}
+	class D<T> : C<T>
+	{
+		function D(T pass)
+		{
+			base(pass);
+		}
+	}
+	let D<bool> d = new D<bool>(true);
+	Assert.IsTrue(d.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestFullyGeneric, "Generic Class Definition + Inherit + Create + Constructor + BaseConstructor: typesafe");
+
+function TestInstance()
+{
+	class C<T> {}
+	class D<T> : C<T> {}
+	let d = new D<bool>();
+	Assert.IsTrue(d.IsInstanceOf(C), "Class instance is not instance of its generic base class");
+	Assert.IsTrue(d.IsInstanceOf(C<bool>), "Class instance is not instance of its base class");
+	Assert.IsTrue(d.IsInstanceOf(D), "Class instance is not instance of its generic definition");
+	Assert.IsTrue(d.IsInstanceOf(D<bool>), "Class instance is not instance of its generic definition");
+}
+
+NUnit.AddTest(TestInstance, "Generic Class Definition + Inherit + Create + Instance test");

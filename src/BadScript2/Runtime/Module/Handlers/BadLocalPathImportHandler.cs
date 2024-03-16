@@ -11,14 +11,14 @@ namespace BadScript2.Runtime.Module.Handlers;
 public class BadLocalPathImportHandler : BadImportHandler
 {
     /// <summary>
+    ///     The File System
+    /// </summary>
+    private readonly IFileSystem m_FileSystem;
+
+    /// <summary>
     ///     The Runtime
     /// </summary>
     private readonly BadRuntime m_Runtime;
-    
-    /// <summary>
-    /// The File System
-    /// </summary>
-    private readonly IFileSystem m_FileSystem;
 
     /// <summary>
     ///     The Working Directory
@@ -54,7 +54,10 @@ public class BadLocalPathImportHandler : BadImportHandler
         return p;
     }
 
-    public override bool IsTransient() => false;
+    public override bool IsTransient()
+    {
+        return false;
+    }
 
     /// <inheritdoc />
     public override bool Has(string path)

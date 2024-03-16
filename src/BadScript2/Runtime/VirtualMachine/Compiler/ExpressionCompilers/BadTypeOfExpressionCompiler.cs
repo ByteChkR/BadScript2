@@ -8,13 +8,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 public class BadTypeOfExpressionCompiler : BadExpressionCompiler<BadTypeOfExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadTypeOfExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadTypeOfExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Expression))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.TypeOf, expression.Position);
+        context.Compile(expression.Expression);
+        context.Emit(BadOpCode.TypeOf, expression.Position);
     }
 }

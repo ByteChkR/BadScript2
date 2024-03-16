@@ -95,13 +95,13 @@ public class BadRuntime : IDisposable
     /// <returns>Cloned Runtime</returns>
     public BadRuntime Clone()
     {
-        
-        var r= new BadRuntime(CreateOptions())
+        BadRuntime r = new BadRuntime(CreateOptions())
             .UseExecutor(m_Executor);
+
         //Copy the configurators that are not part of the options
         r.m_ConfigureModuleImporter.AddRange(m_ConfigureModuleImporter);
         r.m_ConfigureContext.AddRange(m_ConfigureContext);
-        
+
         return r;
     }
 
@@ -281,6 +281,7 @@ public class BadRuntime : IDisposable
         {
             importer = Importer = Importer.Clone();
         }
+
         foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
         {
             action(ctx, workingDirectory, importer);
@@ -451,7 +452,7 @@ public class BadRuntime : IDisposable
 
 
     /// <summary>
-    /// Configures a Module Importer to use the specified Import Handler
+    ///     Configures a Module Importer to use the specified Import Handler
     /// </summary>
     /// <param name="f">Handler Factory</param>
     /// <returns>This Runtime</returns>
@@ -461,7 +462,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures a Module Importer to use the specified Import Handler
+    ///     Configures a Module Importer to use the specified Import Handler
     /// </summary>
     /// <param name="f">Handler Factory</param>
     /// <returns>This Runtime</returns>
@@ -471,7 +472,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures a Module Importer to use the specified Import Handler
+    ///     Configures a Module Importer to use the specified Import Handler
     /// </summary>
     /// <param name="f">Handler Factory</param>
     /// <returns>This Runtime</returns>
@@ -481,7 +482,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures a Module Importer to use the specified Import Handler
+    ///     Configures a Module Importer to use the specified Import Handler
     /// </summary>
     /// <param name="f">Handler Factory</param>
     /// <returns>This Runtime</returns>
@@ -491,7 +492,7 @@ public class BadRuntime : IDisposable
     }
 
     /// <summary>
-    /// Configures a Module Importer to use the specified Import Handler
+    ///     Configures a Module Importer to use the specified Import Handler
     /// </summary>
     /// <param name="handler">The Import Handler to use</param>
     /// <returns>This Runtime</returns>
@@ -499,8 +500,8 @@ public class BadRuntime : IDisposable
     {
         return ConfigureModuleImporter(importer => importer.AddHandler(handler));
     }
-    
-    
+
+
     /// <summary>
     ///     Configures the Module Importer
     /// </summary>

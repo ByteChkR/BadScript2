@@ -11,18 +11,9 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variabl
 public class BadFormattedStringExpressionCompiler : BadExpressionCompiler<BadFormattedStringExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadFormattedStringExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadFormattedStringExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.Expressions, false))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(
-            BadOpCode.FormatString,
-            expression.Position,
-            expression.Value,
-            expression.ExpressionCount
-        );
+        context.Compile(expression.Expressions, false);
+        context.Emit(BadOpCode.FormatString, expression.Position, expression.Value, expression.ExpressionCount);
     }
 }

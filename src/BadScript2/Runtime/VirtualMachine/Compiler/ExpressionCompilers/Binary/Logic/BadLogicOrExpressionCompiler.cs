@@ -12,26 +12,15 @@ public class BadLogicOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogic
 
     /// <inheritdoc />
     protected override bool EmitRight => false;
-
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> CompileBinary(BadCompiler compiler, BadLogicOrExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context, BadLogicOrExpression expression)
     {
-        List<BadInstruction> instructions = new List<BadInstruction>();
-        instructions.AddRange(compiler.Compile(expression.Left));
-        instructions.Add(new BadInstruction(BadOpCode.Dup, expression.Position));
-        int jumpPos = instructions.Count;
-        instructions.Add(new BadInstruction());
-        instructions.Add(new BadInstruction(BadOpCode.Pop, expression.Position));
-        instructions.AddRange(compiler.Compile(expression.Right));
-        instructions[jumpPos] = new BadInstruction(
-            BadOpCode.JumpRelativeIfTrue,
-            expression.Position,
-            instructions.Count - jumpPos - 1
-        );
-
-        foreach (BadInstruction instruction in instructions)
-        {
-            yield return instruction;
-        }
+        context.Compile(expression.Left);
+        context.Emit(BadOpCode.Dup, expression.Position);
+        int jumpPos = context.EmitEmpty();
+        context.Emit(BadOpCode.Pop, expression.Position);
+        context.Compile(expression.Right);
+        context.ResolveEmpty(jumpPos, BadOpCode.JumpRelativeIfTrue, expression.Position, context.InstructionCount - jumpPos - 1);
     }
+
 }

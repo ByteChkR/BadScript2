@@ -600,6 +600,48 @@
         <None Update="tests\basic\classes\primaryConstructor.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\Switch.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\interfaces\generic\default_typed.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\interfaces\generic\default_typed_arguments.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\interfaces\generic\multiple_chain_typed.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\interfaces\generic\multiple_chain_typed_arguments.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\interfaces\generic\multiple_typed.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\interfaces\generic\multiple_typed_arguments.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\generic\inherit.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\generic\primaryConstructor.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\generic\selfreferencing.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\generic\static.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\generic\typeLookAhead.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\property.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tests\basic\classes\generic\property.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
       <Folder Include="tests\basic\module\" />

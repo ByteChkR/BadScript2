@@ -8,21 +8,15 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(BadCompiler compiler, BadLockExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadLockExpression expression)
     {
-        foreach (BadInstruction instruction in compiler.Compile(expression.LockExpression))
+        context.Compile(expression.LockExpression);
+        context.Emit(BadOpCode.Dup, expression.Position);
+        if(expression.Block.Any()) // Dont aquire lock if there are no expressions in the block
         {
-            yield return instruction;
+            context.Emit(BadOpCode.AquireLock, expression.Position);
+            context.Compile(expression.Block);
+            context.Emit(BadOpCode.ReleaseLock, expression.Position);
         }
-
-        yield return new BadInstruction(BadOpCode.Dup, expression.Position);
-        yield return new BadInstruction(BadOpCode.AquireLock, expression.Position);
-
-        foreach (BadInstruction instruction in compiler.Compile(expression.Block))
-        {
-            yield return instruction;
-        }
-
-        yield return new BadInstruction(BadOpCode.ReleaseLock, expression.Position);
     }
 }

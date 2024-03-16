@@ -1,0 +1,110 @@
+
+import Generic from './Main.bs';
+
+
+class Person(string FirstName!, string LastName!)
+{
+	function ToString()
+	{
+		return $"{FirstName} {LastName}";
+	}
+}
+
+function ArrayTest()
+{
+	
+	const IArray<Person> persons = new Generic.Array<Person>();
+
+	persons.Add(new Person("Tim", "Akermann"));
+	persons.Add(new Person("John", "Doe"));
+	persons.Add(new Person("Jane", "Doe"));
+
+	Console.WriteLine("Array:");
+	foreach(person in persons)
+	{
+		Console.WriteLine(person);
+	}
+
+
+	persons[0] = new Person("Jimmy", "Neutron");
+
+	Console.WriteLine("Array Reverse:");
+	for(let num i = 1; i <= persons.Length; i++)
+	{
+		Console.WriteLine(persons[^i]);
+	}
+
+	Console.WriteLine("Array Constructor:");
+	const IArray<Person> pers = new Generic.Array<Person>(
+		[
+			new Person("Tim", "Akermann"),
+			new Person("John", "Doe"),
+			new Person("Jane", "Doe")
+		]
+	);
+	foreach(person in pers)
+	{
+		Console.WriteLine(person);
+	}
+
+	const IArray<Person> pers1 = new Generic.Array<Person>(persons);
+	foreach(person in pers1)
+	{
+		Console.WriteLine(person);
+	}
+
+
+	Console.WriteLine("Linq Test:");
+	foreach(person in persons.Where(x=>x.LastName == "Doe"))
+	{
+		Console.WriteLine(person);
+	}
+}
+
+function StackTest()
+{
+	const stack = new Generic.Stack<Person>();
+
+	stack.Push(new Person("John", "Doe"));
+	stack.Push(new Person("Dwayne", "Johnson"));
+	stack.Push(new Person("Jim", "Knopf"));
+
+	Console.WriteLine("Stack:");
+	Console.WriteLine(stack.Peek());
+	Console.WriteLine(stack.Pop());
+	foreach(item in stack)
+	{
+		Console.WriteLine(item);
+	}
+}
+
+function QueueTest()
+{
+	const queue = new Generic.Queue<Person>();
+
+	queue.Enqueue(new Person("John", "Doe"));
+	queue.Enqueue(new Person("Dwayne", "Johnson"));
+	queue.Enqueue(new Person("Jim", "Knopf"));
+
+	Console.WriteLine("Queue:");
+	Console.WriteLine(queue.Peek());
+	Console.WriteLine(queue.Dequeue());
+	foreach(item in queue)
+	{
+		Console.WriteLine(item);
+	}
+}
+
+function EnumerableTest()
+{
+	const items = Generic.Enumerable<Person>.Empty();
+
+	foreach(item in items)
+	{
+		Console.WriteLine(item);
+	}
+}
+ArrayTest();
+StackTest();
+QueueTest();
+EnumerableTest();

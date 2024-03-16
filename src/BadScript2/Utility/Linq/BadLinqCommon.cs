@@ -69,11 +69,6 @@ internal static class BadLinqCommon
 
         foreach (BadObject o1 in query.Execute(ctx))
         {
-            if (ctx.Scope.IsError)
-            {
-                throw new Exception($"Error in LINQ Where: {varName} => {query} : {ctx.Scope.Error!.ToSafeString()}");
-            }
-
             r = o1;
         }
 

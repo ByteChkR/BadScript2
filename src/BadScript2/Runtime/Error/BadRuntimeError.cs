@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Objects;
-using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -92,7 +91,6 @@ public class BadRuntimeError : BadObject
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-
         switch (propName)
         {
             case "StackTrace":

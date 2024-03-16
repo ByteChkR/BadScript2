@@ -1,6 +1,8 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Parser.Expressions.Variables;
 
@@ -9,20 +11,23 @@ namespace BadScript2.Parser.Expressions.Variables;
 /// </summary>
 public class BadVariableExpression : BadExpression, IBadNamedExpression
 {
-	/// <summary>
-	///     Constructor of the Variable Expression
-	/// </summary>
-	/// <param name="name">Name of the Variable</param>
-	/// <param name="position">Source Position of the Expression</param>
-	public BadVariableExpression(string name, BadSourcePosition position) : base(false, position)
+    /// <summary>
+    ///     Constructor of the Variable Expression
+    /// </summary>
+    /// <param name="name">Name of the Variable</param>
+    /// <param name="position">Source Position of the Expression</param>
+    public BadVariableExpression(string name, BadSourcePosition position, params BadExpression[] genericParameters) : base(false, position)
     {
         Name = name;
+        GenericParameters = genericParameters;
     }
 
-	/// <summary>
-	///     Name of the Variable
-	/// </summary>
-	public string Name { get; }
+    /// <summary>
+    ///     Name of the Variable
+    /// </summary>
+    public string Name { get; }
+
+    public IReadOnlyList<BadExpression> GenericParameters { get; }
 
     /// <inheritdoc cref="IBadNamedExpression.GetName" />
     public string? GetName()
@@ -48,10 +53,33 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-
+        if (!context.Scope.HasVariable(Name, context.Scope))
+        {
+            throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is not defined", Position);
+        }
         BadObjectReference obj = context.Scope.GetVariable(Name, context.Scope);
 
+        if (GenericParameters.Count != 0)
+        {
+            if (obj.Dereference() is not IBadGenericObject genType)
+                throw BadRuntimeException.Create(context.Scope, "Type is not generic", Position);
 
-        yield return obj;
+            BadObject[] genParams = new BadObject[GenericParameters.Count];
+            for (int i = 0; i < GenericParameters.Count; i++)
+            {
+                foreach (var o in GenericParameters[i].Execute(context))
+                {
+                    genParams[i] = o;
+                }
+
+                genParams[i] = genParams[i].Dereference();
+            }
+
+            yield return genType.CreateGeneric(genParams);
+        }
+        else
+        {
+            yield return obj;
+        }
     }
 }

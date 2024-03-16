@@ -9,9 +9,7 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Types;
 public class BadInterfacePrototypeExpressionCompiler : BadExpressionCompiler<BadInterfacePrototypeExpression>
 {
     /// <inheritdoc />
-    public override IEnumerable<BadInstruction> Compile(
-        BadCompiler compiler,
-        BadInterfacePrototypeExpression expression)
+    public override void Compile(BadExpressionCompileContext context, BadInterfacePrototypeExpression expression)
     {
         BadLogger.Warn(
             "Can not compile interface prototypes, emitting eval instruction",
@@ -19,6 +17,6 @@ public class BadInterfacePrototypeExpressionCompiler : BadExpressionCompiler<Bad
             expression.Position
         );
 
-        yield return new BadInstruction(BadOpCode.Eval, expression.Position, expression);
+        context.Emit(BadOpCode.Eval, expression.Position, expression);
     }
 }

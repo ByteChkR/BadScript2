@@ -1,0 +1,32 @@
+let Assert = NUnit.Assert;
+
+function Test()
+{
+	class C 
+	{
+		let num __counter = 0;
+		const num Counter { get => __counter++; }
+	}
+	let c = new C();
+	Assert.AreEqual(c.Counter, 0, "Counter first Invocation is not 0");
+	Assert.AreEqual(c.Counter, 1, "Counter second Invocation is not 1");
+}
+
+NUnit.AddTest(Test, "Constant Field Backed Property");
+function Test_WithSet()
+{
+	class C 
+	{
+		let num __counter = 0;
+		let num Counter { get => __counter++; set => __counter = value; }
+	}
+	let c = new C();
+	Assert.AreEqual(c.Counter, 0, "Counter first Invocation is not 0");
+	Assert.AreEqual(c.Counter, 1, "Counter second Invocation is not 1");
+	c.Counter = 10;
+	Assert.AreEqual(c.Counter, 10, "Counter setter was not invoked");
+	Assert.AreEqual(c.Counter, 11, "Counter increment does not work after setter was invoked");
+
+}
+
+NUnit.AddTest(Test_WithSet, "Field Backed Property");

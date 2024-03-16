@@ -6,6 +6,7 @@ using System.Linq;
 using BadScript2.Interop.Generator.Model;
 
 using Microsoft.CodeAnalysis;
+
 namespace BadScript2.Interop.Generator.Interop;
 
 public class BadInteropApiModelBuilder
@@ -115,6 +116,7 @@ public class BadInteropApiModelBuilder
                     {
                         description = EscapeDescription(description);
                     }
+
                     type = cargs.Length > 2 ? cargs[2].Value?.ToString() ?? type : type;
                 }
 

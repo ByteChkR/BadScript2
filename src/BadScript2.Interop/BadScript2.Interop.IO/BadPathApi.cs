@@ -14,7 +14,7 @@ internal partial class BadPathApi
     {
         m_FileSystem = fileSystem;
     }
-    
+
     [BadMethod(description: "Returns the file name and extension of the specified path string.")]
     [return: BadReturn("The characters after the last directory character in path.")]
     private string GetFileName([BadParameter(description: "The Path to get the file name from.")] string path)
@@ -60,8 +60,10 @@ internal partial class BadPathApi
     [BadMethod(description: "Changes the extension of a path string.")]
     [return: BadReturn("The modified path information.")]
     private string ChangeExtension(
-        [BadParameter(description: "The path information to modify.")] string path,
-        [BadParameter(description: "The new extension (with or without a leading period). Specify null to remove an existing extension from path")] string extension)
+        [BadParameter(description: "The path information to modify.")]
+        string path,
+        [BadParameter(description: "The new extension (with or without a leading period). Specify null to remove an existing extension from path")]
+        string extension)
     {
         return Path.ChangeExtension(path, extension);
     }
