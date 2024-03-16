@@ -55,6 +55,7 @@ $projects = @(
         [pscustomobject]@{Name='Logging'; Target=$config}
         [pscustomobject]@{Name='SourceReader'; Target=$config}
         [pscustomobject]@{Name='VersionChange'; Target=$config}
+        [pscustomobject]@{Name='Generic'; Target=$config}
         [pscustomobject]@{Name='NewProject'; Target=$config}
     )
 
