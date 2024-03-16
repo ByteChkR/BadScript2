@@ -1,3 +1,4 @@
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Interop.Functions.Extensions;
@@ -51,9 +52,7 @@ public class MyCustomApi : BadInteropApi
                     //First argument is has no type specified so we need to check manually
                     if (args[0] is not IBadString name)
                     {
-                        ctx.Scope.SetError("Invalid Type for 'name' Expected String", null);
-
-                        return BadObject.Null;
+                        throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Type");
                     }
 
                     string desc = "";
