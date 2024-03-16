@@ -48,7 +48,7 @@ function TestFullyGeneric()
 	Assert.IsTrue(d.Pass, "Constructor has not been called");
 }
 
-NUnit.AddTest(TestTypesafe, "Generic Class Definition + Inherit + Create + Constructor + BaseConstructor: typesafe");
+NUnit.AddTest(TestFullyGeneric, "Generic Class Definition + Inherit + Create + Constructor + BaseConstructor: typesafe");
 
 function TestInstance()
 {

@@ -53,6 +53,10 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
+        if (!context.Scope.HasVariable(Name, context.Scope))
+        {
+            throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is not defined", Position);
+        }
         BadObjectReference obj = context.Scope.GetVariable(Name, context.Scope);
 
         if (GenericParameters.Count != 0)

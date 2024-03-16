@@ -42,11 +42,6 @@ public class BadTypeOfExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
-
         obj = obj.Dereference();
 
         yield return obj.GetPrototype();

@@ -101,12 +101,12 @@ class GenericArray<T> : GenericEnumerable<T>, IArray<T>
 
 	function Set(num index, T item) => __nativeArray.Set(index, item);
 
-	function op_ArrayAccess(num index)
+	function T op_ArrayAccess(num index)
 	{
 		return ref __nativeArray[index];
 	}
 
-	function op_ArrayAccessReverse(num index)
+	function T op_ArrayAccessReverse(num index)
 	{
 		return ref __nativeArray[^index];
 	}

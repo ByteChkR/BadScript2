@@ -141,10 +141,6 @@ public class BadIfExpression : BadExpression
             conditionResult = conditionResult.Dereference();
 
 
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
 
             if (conditionResult is not IBadBoolean cBool)
             {

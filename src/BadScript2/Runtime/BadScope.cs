@@ -172,19 +172,10 @@ public class BadScope : BadObject, IDisposable
     public bool IsContinue { get; private set; }
 
     /// <summary>
-    ///     Is true if the Scope encountered an error
-    /// </summary>
-    public bool IsError { get; private set; }
-
-    /// <summary>
     ///     The Return value of the scope
     /// </summary>
     public BadObject? ReturnValue { get; private set; }
 
-    /// <summary>
-    ///     The Runtime Error that occured in the Scope
-    /// </summary>
-    public BadRuntimeError? Error { get; private set; }
 
     /// <summary>
     ///     A Class Prototype for the Scope
@@ -399,17 +390,6 @@ public class BadScope : BadObject, IDisposable
     }
 
     /// <summary>
-    ///     Unsets the Error if it was set
-    /// </summary>
-    public void UnsetError()
-    {
-        IsError = false;
-        Error = null;
-
-        Parent?.UnsetError();
-    }
-
-    /// <summary>
     ///     Returns the Stack Trace of the Current scope
     /// </summary>
     /// <returns>Stack Trace</returns>
@@ -532,37 +512,6 @@ public class BadScope : BadObject, IDisposable
 
             m_Exports.SetProperty(key, value);
         }
-    }
-
-    /// <summary>
-    ///     Sets an error object inside this scope
-    /// </summary>
-    /// <param name="error">The Error</param>
-    public void SetErrorObject(BadRuntimeError error)
-    {
-        Error = error;
-        IsError = true;
-
-        if ((Flags & BadScopeFlags.CaptureThrow) == 0)
-        {
-            Parent?.SetErrorObject(error);
-        }
-    }
-
-    /// <summary>
-    ///     Sets an error object inside this scope
-    /// </summary>
-    /// <param name="obj">The Error</param>
-    /// <param name="inner">The Inner Error</param>
-    /// <exception cref="BadRuntimeException">Gets Raised if an error can not be set in this scope</exception>
-    public void SetError(BadObject obj, BadRuntimeError? inner)
-    {
-        if ((Flags & BadScopeFlags.AllowThrow) == 0)
-        {
-            throw new BadRuntimeException("Throw not allowed in this scope");
-        }
-
-        SetErrorObject(new BadRuntimeError(inner, obj, GetStackTrace()));
     }
 
     /// <summary>

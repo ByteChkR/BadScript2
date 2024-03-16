@@ -98,10 +98,6 @@ public class BadInvocationExpression : BadExpression
             {
                 argObj = arg;
 
-                if (context.Scope.IsError)
-                {
-                    yield break;
-                }
 
                 yield return arg;
             }
@@ -174,10 +170,6 @@ public class BadInvocationExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         left = left.Dereference();
 
@@ -201,10 +193,6 @@ public class BadInvocationExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         foreach (BadObject? o in Invoke(left, args.ToArray(), Position, context))
         {

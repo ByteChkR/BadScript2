@@ -49,14 +49,6 @@ public class BadInteropImportHandler : BadImportHandler
         m_IsTransientFunction = isTransientF;
     }
 
-    private void EnsureSuccess()
-    {
-        if (m_HandlerContext.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(m_HandlerContext.Scope.Error);
-        }
-    }
-
     private BadObject RunFunction(BadFunction func, params BadObject[] args)
     {
         IEnumerable<BadObject> e = func.Invoke(args, m_HandlerContext);
@@ -66,7 +58,6 @@ public class BadInteropImportHandler : BadImportHandler
             result = o;
         }
 
-        EnsureSuccess();
 
         return result.Dereference();
     }
@@ -114,7 +105,6 @@ public class BadInteropImportHandler : BadImportHandler
             yield return o;
         }
 
-        EnsureSuccess();
 
         yield return result.Dereference();
     }

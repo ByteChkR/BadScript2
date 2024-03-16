@@ -62,11 +62,6 @@ public class BadPropertyDefinitionExpression : BadExpression
                 yield return o;
             }
 
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
             obj = obj.Dereference();
 
             if (obj is not BadClassPrototype proto)
@@ -141,19 +136,18 @@ public class BadVariableDefinitionExpression : BadVariableExpression
                 yield return o;
             }
 
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
-
             obj = obj.Dereference();
 
             if (obj is not BadClassPrototype proto)
             {
-                throw new BadRuntimeException("Type expression must be a class prototype", Position);
+                throw BadRuntimeException.Create(context.Scope,"Type expression must be a class prototype", Position);
             }
 
             type = proto;
+        }
+        if (context.Scope.HasLocal(Name, context.Scope, false))
+        {
+            throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is already defined", Position);
         }
 
         context.Scope.DefineVariable(Name, BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly));

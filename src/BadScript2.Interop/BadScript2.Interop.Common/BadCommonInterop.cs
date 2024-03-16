@@ -51,25 +51,6 @@ public static class BadCommonInterop
     }
 
     /// <summary>
-    ///     The Default Executor for synchronous execution
-    /// </summary>
-    /// <param name="context">The Execution Context</param>
-    /// <param name="expressions">The Expressions to execute</param>
-    /// <returns>The Result of the Execution</returns>
-    private static IEnumerable<BadObject> Run(BadExecutionContext context, IEnumerable<BadObject> expressions)
-    {
-        foreach (BadObject o in expressions)
-        {
-            yield return o;
-        }
-
-        if (context.Scope.IsError)
-        {
-            BadConsole.WriteLine("Error: " + context.Scope.Error);
-        }
-    }
-
-    /// <summary>
     ///     The Default Executor for asynchronous execution
     /// </summary>
     /// <param name="ctx">The Execution Context</param>
@@ -78,7 +59,7 @@ public static class BadCommonInterop
     private static BadObject ExecuteTask(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
     {
         BadTask task = new BadTask(
-            new BadInteropRunnable(Run(ctx, ctx.Execute(exprs.ToArray())).GetEnumerator()),
+            new BadInteropRunnable(ctx.Execute(exprs.ToArray()).GetEnumerator()),
             "Main"
         );
         BadTaskRunner.Instance.AddTask(

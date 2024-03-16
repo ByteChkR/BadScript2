@@ -108,12 +108,6 @@ public class BadTableExtension : BadInteropExtension
             enumerator = enumerator.Dereference();
         }
         (BadFunction moveNext, BadFunction getCurrent) = BadForEachExpression.FindEnumerator(enumerator, context, position);
-        BadObject r = BadObject.Null;
-        
-        if (context.Scope.IsError)
-        {
-            return BadObject.Null;
-        }
 
         BadObject cond = BadObject.Null;
 
@@ -122,10 +116,6 @@ public class BadTableExtension : BadInteropExtension
             cond = o;
         }
 
-        if (context.Scope.IsError)
-        {
-            return BadObject.Null;
-        }
 
         IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", position);
@@ -147,13 +137,7 @@ public class BadTableExtension : BadInteropExtension
             {
                 current = o;
             }
-
-            if (loopContext.Scope.IsError)
-            {
-                return BadObject.Null;
-            }
-
-
+            
             if (current is not IBadString key)
             {
                 throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a string", position);
@@ -164,12 +148,6 @@ public class BadTableExtension : BadInteropExtension
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
             {
                 cond = o;
-            }
-
-
-            if (loopContext.Scope.IsError)
-            {
-                return BadObject.Null;
             }
 
             bRet = cond.Dereference() as IBadBoolean ??

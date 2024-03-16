@@ -1,3 +1,5 @@
+using System.Runtime.ExceptionServices;
+
 using BadScript2.Common;
 using BadScript2.Debugging;
 using BadScript2.Runtime;
@@ -88,13 +90,13 @@ public abstract class BadExpression
                     break;
                 }
             }
+            catch (BadRuntimeErrorException err)
+            {
+                ExceptionDispatchInfo.Capture(err).Throw();
+            }
             catch (Exception exception)
             {
-                context.Scope.SetErrorObject(
-                    BadRuntimeError.FromException(exception, context.Scope.GetStackTrace())
-                );
-
-                break;
+                throw new BadRuntimeErrorException(BadRuntimeError.FromException(exception, context.Scope.GetStackTrace()));
             }
 
             yield return e.Current ?? BadObject.Null;

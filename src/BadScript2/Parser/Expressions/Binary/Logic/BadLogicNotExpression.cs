@@ -92,13 +92,6 @@ public class BadLogicNotExpression : BadExpression
             yield return o;
         }
 
-        //Can be null when evaluated as an optimization step
-        // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
-        if (context?.Scope.IsError ?? false)
-        {
-            yield break;
-        }
-
         r = r.Dereference();
 
         foreach (BadObject? o in NotWithOverride(context!, r, Position))

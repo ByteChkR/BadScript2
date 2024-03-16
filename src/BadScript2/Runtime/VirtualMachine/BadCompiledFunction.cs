@@ -124,10 +124,6 @@ public class BadCompiledFunction : BadFunction
             yield return Null;
         }
 
-        if (ctx.Scope.Error != null)
-        {
-            caller.Scope.SetErrorObject(ctx.Scope.Error);
-        }
     }
 
     /// <summary>
