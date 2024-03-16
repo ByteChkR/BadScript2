@@ -143,10 +143,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
                 newTarget = o;
             }
 
-            if (context.Scope.IsError)
-            {
-                yield break;
-            }
 
             if (newTarget == BadObject.Null)
             {
@@ -158,10 +154,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
 
         (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context, position);
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         BadObject cond = BadObject.Null;
 
@@ -172,10 +164,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", position);
@@ -200,10 +188,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
                 yield return o;
             }
 
-            if (loopContext.Scope.IsError)
-            {
-                yield break;
-            }
 
 
             bool bBreak = false;
@@ -225,10 +209,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
             }
 
 
-            if (loopContext.Scope.IsError)
-            {
-                yield break;
-            }
 
             bRet = cond.Dereference() as IBadBoolean ??
                    throw BadRuntimeException.Create(
@@ -249,10 +229,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         target = target.Dereference();
 
@@ -273,10 +249,9 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
                 yield return o;
             }
 
-            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null || loopContext.Scope.IsError)
+            if (loopContext.Scope.IsBreak || loopContext.Scope.ReturnValue != null /*|| loopContext.Scope.IsError*/)
             {
                 breakLoop();
-                yield break;
             }
         }
     }

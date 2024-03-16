@@ -122,11 +122,6 @@ public class BadUnitTestContext
             {
                 yield return o;
             }
-
-            if (caller.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(caller.Scope.Error);
-            }
         }
     }
 
@@ -145,11 +140,6 @@ public class BadUnitTestContext
             foreach (BadObject o in function.Invoke(Array.Empty<BadObject>(), caller))
             {
                 yield return o;
-            }
-
-            if (caller.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(caller.Scope.Error);
             }
         }
     }
@@ -178,11 +168,6 @@ public class BadUnitTestContext
             BadTaskRunner.Instance.RunStep();
 
             yield return BadObject.Null;
-        }
-
-        if (caller.Scope.IsError)
-        {
-            throw new BadRuntimeErrorException(caller.Scope.Error);
         }
     }
 }

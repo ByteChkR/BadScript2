@@ -122,10 +122,6 @@ public class BadSwitchExpression : BadExpression
         {
             valueResult = o;
         }
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
         valueResult = valueResult.Dereference();
 
         var switchContext = new BadExecutionContext(context.Scope.CreateChild("SwitchContext", context.Scope, null, BadScopeFlags.Breakable));
@@ -140,10 +136,6 @@ public class BadSwitchExpression : BadExpression
                     keyResult = o;
                 }
             
-                if (switchContext.Scope.IsError)
-                {
-                    yield break;
-                }
             
                 keyResult = keyResult.Dereference();
                 var result = BadObject.Null;
@@ -152,10 +144,6 @@ public class BadSwitchExpression : BadExpression
                     result = o;
                 }
             
-                if (switchContext.Scope.IsError)
-                {
-                    yield break;
-                }
             
                 result = result.Dereference();
                 if (result is not IBadBoolean b)

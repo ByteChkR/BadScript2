@@ -119,8 +119,7 @@ public class BadExecutionContext : IDisposable
 
             if (Scope.ReturnValue != null ||
                 Scope.IsBreak ||
-                Scope.IsContinue ||
-                Scope.IsError)
+                Scope.IsContinue)
             {
                 yield break;
             }

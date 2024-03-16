@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Parser.Expressions.ControlFlow;
@@ -54,8 +55,8 @@ public class BadThrowExpression : BadExpression
 
         value = value.Dereference();
 
-        context.Scope.SetError(value, null);
+        var error = new BadRuntimeError(null, value, context.Scope.GetStackTrace());
 
-        yield return value;
+        throw new BadRuntimeErrorException(error);
     }
 }

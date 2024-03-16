@@ -254,11 +254,6 @@ public class BadHtmlContext
         {
             BadObject result = ExecutionContext.ExecuteScript(expressions);
 
-            if (ExecutionContext.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
-            }
-
             return result.Dereference();
         }
         catch (BadRuntimeException e)
@@ -277,17 +272,17 @@ public class BadHtmlContext
 	/// <exception cref="BadRuntimeException">Gets raised if the execution failed.</exception>
 	public BadObject Execute(BadExpression expression, BadSourcePosition position)
     {
-        try
-        {
-            BadObject result = ExecutionContext.ExecuteScript(expression);
+	    try
+	    {
+		    BadObject result = ExecutionContext.ExecuteScript(expression);
 
-            if (ExecutionContext.Scope.IsError)
-            {
-                throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
-            }
+		    // if (ExecutionContext.Scope.IsError)
+		    // {
+		    //     throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
+		    // }
 
-            return result.Dereference();
-        }
+		    return result.Dereference();
+	    }
         catch (BadRuntimeException e)
         {
             throw new BadRuntimeException(e.Message, position);

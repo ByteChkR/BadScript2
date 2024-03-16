@@ -48,10 +48,6 @@ public class BadInstanceOfExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         if (right is not BadClassPrototype type)
         {

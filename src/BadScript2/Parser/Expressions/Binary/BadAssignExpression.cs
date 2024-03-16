@@ -79,11 +79,6 @@ public class BadAssignExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
-
         BadObject right = BadObject.Null;
 
         foreach (BadObject o in Right.Execute(context))
@@ -93,10 +88,6 @@ public class BadAssignExpression : BadExpression
             yield return o;
         }
 
-        if (context.Scope.IsError)
-        {
-            yield break;
-        }
 
         right = right.Dereference();
 

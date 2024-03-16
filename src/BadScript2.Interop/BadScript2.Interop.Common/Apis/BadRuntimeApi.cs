@@ -135,7 +135,6 @@ internal partial class BadRuntimeApi
 
         task = new BadTask(
             new BadInteropRunnable(
-
                 // ReSharper disable once AccessToModifiedClosure
                 SafeExecute(executor, ctx, () => task).GetEnumerator(),
                 true
@@ -208,7 +207,8 @@ internal partial class BadRuntimeApi
     [BadMethod(description: "Registers an Import Handler")]
     private static void RegisterImportHandler(
         BadExecutionContext ctx,
-        [BadParameter(description: "An Import handler implementing the IImportHandler Interface", nativeType: "IImportHandler")] BadClass cls)
+        [BadParameter(description: "An Import handler implementing the IImportHandler Interface", nativeType: "IImportHandler")]
+        BadClass cls)
     {
         BadClassPrototype proto = cls.GetPrototype();
         if (!BadNativeClassBuilder.ImportHandler.IsSuperClassOf(proto))
@@ -519,14 +519,27 @@ internal partial class BadRuntimeApi
         BadExecutionContext ctx,
         Func<BadTask> getTask)
     {
-        foreach (BadObject o in script)
+        using var enumerator = script.GetEnumerator();
+        while (true)
         {
-            if (ctx.Scope.IsError)
+            try
             {
-                getTask().Runnable.SetError(ctx.Scope.Error!);
+                if (!enumerator.MoveNext())
+                {
+                    break;
+                }
             }
-
-            yield return o;
+            catch (BadRuntimeErrorException e)
+            {
+                getTask().Runnable.SetError(e.Error);
+                break;
+            }
+            catch (Exception e)
+            {
+                getTask().Runnable.SetError(BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace()));
+                break;
+            }
+            yield return enumerator.Current ?? BadObject.Null;
         }
     }
 }
