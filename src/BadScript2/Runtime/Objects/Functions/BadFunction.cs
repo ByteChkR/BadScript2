@@ -255,6 +255,11 @@ public abstract class BadFunction : BadObject
 
             yield return o;
         }
+        
+        if(caller.Scope.IsError)
+        {
+            yield break;
+        }
 
         if (ret != null && !ReturnType.IsAssignableFrom(ret))
         {

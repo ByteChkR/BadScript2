@@ -44,7 +44,7 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
         m_Func = new BadDynamicInteropFunction(
             "GetEnumerator",
             _ => new BadInteropEnumerator(m_Enumerable.GetEnumerator()),
-            BadAnyPrototype.Instance
+            (BadClassPrototype)BadNativeClassBuilder.Enumerator.CreateGeneric(new []{BadAnyPrototype.Instance})
         );
     }
 
