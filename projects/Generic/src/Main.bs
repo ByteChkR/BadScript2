@@ -101,6 +101,18 @@ class GenericArray<T> : GenericEnumerable<T>, IArray<T>
 
 	function Set(num index, T item) => __nativeArray.Set(index, item);
 
+	function num FindIndex(Function selector)
+	{
+		for(let i = 0; i < __nativeArray.Length; i++)
+		{
+			if(selector(__nativeArray[i]))
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	function T op_ArrayAccess(num index)
 	{
 		return ref __nativeArray[index];
@@ -140,8 +152,6 @@ class GenericStack<T> : GenericEnumerable<T>
 		base(__innerArray.GetNativeArray());
 	}
 
-	function IEnumerator<T> GetEnumerator() => __innerArray.GetEnumerator();
-
 	function Push(T item) => __innerArray.Add(item);
 
 	function T Peek() => __innerArray.Length > 0 ? __innerArray[^1] : throw "Stack is empty";
@@ -171,8 +181,6 @@ class GenericQueue<T> : GenericEnumerable<T>
 		base(__innerArray.GetNativeArray());
 	}
 
-	function IEnumerator<T> GetEnumerator() => __innerArray.GetEnumerator();
-
 	function Enqueue(T item) => __innerArray.Add(item);
 
 	function T Peek() => __innerArray.Length > 0 ? __innerArray[0] : throw "Queue is empty";
@@ -190,11 +198,98 @@ class GenericQueue<T> : GenericEnumerable<T>
 	}
 }
 
+class KeyValuePair<K, V>(K Key, V Value);
+
+class Map<K, V> : GenericEnumerable<KeyValuePair<K, V>>
+{
+	const GenericArray<KeyValuePair<K, V>> __innerArray;
+	const num Length { get => __innerArray.Length; }
+	const IEnumerable<K> Keys { get => __innerArray.Select(x => x.Key); }
+	const IEnumerable<V> Values { get => __innerArray.Select(x => x.Value); }
+
+	function Map()
+	{
+		__innerArray = new GenericArray<KeyValuePair<K, V>>();
+		base(__innerArray.GetNativeArray());
+	}
+
+	function Clear() => __innerArray.Clear();
+
+	function bool ContainsKey(K key)
+	{
+		return __innerArray.Any(x => x.Key == key);
+	}
+
+	function bool ContainsValue(V value)
+	{
+		return __innerArray.Any(x => x.Value == value);
+	}
+
+	function V Get(K key)
+	{
+		const existingIndex = __innerArray.FindIndex(x => x.Key == key);
+		if(existingIndex < 0)
+		{
+			throw $"Can not find key {key}";
+		}
+		return __innerArray[existingIndex].Value;
+	}
+
+	function Add(K key, V value)
+	{
+		const existingIndex = __innerArray.FindIndex(x => x.Key == key);
+		if(existingIndex < 0)
+		{
+			__innerArray.Add(new KeyValuePair<K, V>(key, value));
+		}
+		else
+		{
+			throw $"Key {key} already exists";
+		}
+	}
+
+	function SetOrAdd(K key, V value)
+	{
+		const existingIndex = __innerArray.FindIndex(x => x.Key == key);
+		if(existingIndex < 0)
+		{
+			__innerArray.Add(new KeyValuePair<K, V>(key, value));
+		}
+		else
+		{
+			__innerArray[existingIndex] = new KeyValuePair<K, V>(key, value);
+		}
+	}
+
+	function op_ArrayAccess(K key)
+	{
+		return ref Runtime.MakeReference(
+			"Map[key]",
+			() => Get(key),
+			(V value) => SetOrAdd(key, value),
+			() => Remove(key)
+		);
+	}
+
+	function bool Remove(K key)
+	{
+		const existingIndex = __innerArray.FindIndex(x => x.Key == key);
+		if(existingIndex < 0)
+		{
+			return false;
+		}
+		__innerArray.RemoveAt(existingIndex);
+		return true;
+	}
+}
+
 
 export {
 	Array: GenericArray,
 	Stack: GenericStack,
 	Queue: GenericQueue,
 	Enumerable: GenericEnumerable,
-	Enumerator: GenericEnumerator
+	Enumerator: GenericEnumerator,
+	Map: Map,
+	KeyValuePair: KeyValuePair
 };

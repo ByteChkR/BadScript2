@@ -190,6 +190,63 @@ internal partial class BadRuntimeApi
         return ctx.Scope.RegisteredApis.Contains(api);
     }
 
+    [BadMethod(description:"Creates a new Reference Object")]
+    [return: BadReturn("The Reference Object")]
+    private BadObject MakeReference(
+        BadExecutionContext ctx,
+        [BadParameter(description: "The Text for the Reference")] string refText,
+        [BadParameter(description: "The getter Function")]BadFunction get, 
+        [BadParameter(description: "The setter Function")]BadFunction? set = null, 
+        [BadParameter(description: "The delete Function")]BadFunction? delete = null)
+    {
+        if(set == null && delete == null)
+        {
+            return BadObjectReference.Make(refText, () => GetReferenceValue(ctx, get));
+        }
+
+        if (delete == null && set != null)
+        {
+            return BadObjectReference.Make(refText,
+                () => GetReferenceValue(ctx, get), 
+                (value, _) => SetReferenceValue(ctx, set, value));
+        }
+        
+        if (delete != null && set == null)
+        {
+            return BadObjectReference.Make(refText,
+                () => GetReferenceValue(ctx, get), 
+                null,
+                () => SetReferenceValue(ctx, delete, BadObject.Null));
+        }
+        
+        return BadObjectReference.Make(refText,
+            () => GetReferenceValue(ctx, get), 
+            (value, _) => SetReferenceValue(ctx, set!, value),
+            () => DeleteReference(ctx, delete!));
+    }
+
+    private void DeleteReference(BadExecutionContext ctx, BadFunction func)
+    {
+        foreach (var o in func.Invoke(Array.Empty<BadObject>(), ctx))
+        {         
+        }
+    }
+    private BadObject GetReferenceValue(BadExecutionContext ctx, BadFunction func)
+    {
+        var result = BadObject.Null;
+        foreach (var o in func.Invoke(Array.Empty<BadObject>(), ctx))
+        {
+            result = o;            
+        }
+        return result.Dereference();
+    }
+    private void SetReferenceValue(BadExecutionContext ctx, BadFunction func, BadObject value)
+    {
+        foreach (var o in func.Invoke(new []{value}, ctx))
+        {         
+        }
+    }
+
     [BadMethod(description: "Returns all registered apis")]
     [return: BadReturn("An Array containing all registered apis")]
     private BadArray GetRegisteredApis(BadExecutionContext ctx)

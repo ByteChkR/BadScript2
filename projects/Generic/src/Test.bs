@@ -104,7 +104,47 @@ function EnumerableTest()
 		Console.WriteLine(item);
 	}
 }
+
+
+function MapTest()
+{
+	const map = new Generic.Map<bool, string>();
+	map.Add(true, "TRUE");
+	map.Add(false, "FALSE");
+	Console.WriteLine("Map:");
+	foreach(value in map.Values)
+	{
+		Console.WriteLine(value);
+	}
+
+	map[true] = "VERY TRUE";
+	map[false] = "VERY FALSE";
+	foreach(key in map.Keys)
+	{
+		Console.WriteLine(map[key]);
+	}
+
+	Console.WriteLine("Raw Pairs:");
+	foreach(kvp in map)
+	{
+		Console.WriteLine(kvp);
+	}
+
+	delete map[true];
+
+	Console.WriteLine("Removed True:");
+	foreach(kvp in map)
+	{
+		Console.WriteLine(kvp);
+	}
+
+	Console.WriteLine($"Contains Key true: {map.ContainsKey(true)}");
+	Console.WriteLine($"Contains Value 'VERY FALSE': {map.ContainsValue("VERY FALSE")}");
+
+}
+
 ArrayTest();
 StackTest();
 QueueTest();
 EnumerableTest();
+MapTest();
