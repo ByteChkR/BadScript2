@@ -1414,7 +1414,17 @@ public class BadRuntimeVirtualMachine
                     }
                 }
 
-                ctx.Scope.SetReturnValue(ret);
+                if (ctx.Scope.FunctionObject != null && 
+                    ctx.Scope.FunctionObject.ReturnType == BadVoidPrototype.Instance)
+                {
+                    if (!ctx.Scope.FunctionObject.IsSingleLine)
+                    {
+                        throw BadRuntimeException.Create(ctx.Scope, "Cannot return a value from a void function", instr.Position);
+                    }
+                    ctx.Scope.SetReturnValue(BadVoidPrototype.Object);
+                }
+                else
+                    ctx.Scope.SetReturnValue(ret);
 
                 break;
             }

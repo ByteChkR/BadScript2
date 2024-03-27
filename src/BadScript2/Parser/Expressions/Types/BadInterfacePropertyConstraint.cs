@@ -65,6 +65,10 @@ public class BadInterfacePropertyConstraint : BadInterfaceConstraint
         BadPropertyInfo info = obj.Scope.GetVariableInfo(Name);
         BadClassPrototype actual = info.Type ?? BadAnyPrototype.Instance;
         BadClassPrototype expected = m_Prototype ?? BadAnyPrototype.Instance;
+        if (expected == BadVoidPrototype.Instance)
+        {
+            errors.Add(new BadInterfaceValidatorError("Interface Properties can not be of type 'void'", this));
+        }
         if (!expected.IsSuperClassOf(actual))
         {
             errors.Add(new BadInterfaceValidatorError($"Property Type Mismatch. Expected {expected} but got {actual}", this));

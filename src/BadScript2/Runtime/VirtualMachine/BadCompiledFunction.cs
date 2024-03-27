@@ -52,6 +52,7 @@ public class BadCompiledFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static.</param>
     /// <param name="metaData">The Function's MetaData.</param>
     /// <param name="returnType">The Function's Return Type.</param>
+    /// <param name="isSingleLine">Indicates if the function is a single line function</param>
     /// <param name="parameters">The Function's Parameters.</param>
     public BadCompiledFunction(
         BadInstruction[] instructions,
@@ -63,11 +64,13 @@ public class BadCompiledFunction : BadFunction
         bool isStatic,
         BadMetaData? metaData,
         BadClassPrototype returnType,
+        bool isSingleLine,
         params BadFunctionParameter[] parameters) : base(
         name,
         isConstant,
         isStatic,
         returnType,
+        isSingleLine,
         parameters
     )
     {

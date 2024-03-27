@@ -96,6 +96,10 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             for(int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
+                if (typeArgs[i] == BadVoidPrototype.Instance)
+                {
+                    throw BadRuntimeException.Create(context.Scope, "Cannot use 'void' as generic type parameter", Position);
+                }
                 genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
             }
             

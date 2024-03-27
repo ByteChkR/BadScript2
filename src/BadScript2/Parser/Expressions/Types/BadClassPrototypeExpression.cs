@@ -187,7 +187,10 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
                     );
                 case BadClassPrototype p:
                     baseClass = p;
-
+                    if (baseClass == BadVoidPrototype.Instance)
+                    {
+                        throw BadRuntimeException.Create(context.Scope, "Base Class cannot be 'void'.", Position);
+                    }
                     break;
                 default:
                     throw new BadRuntimeException(
@@ -198,7 +201,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         }
 
         interfaces = interfacesList.ToArray();
-
+        
         return baseClass;
     }
 
@@ -216,6 +219,10 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             for(int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
+                if (typeArgs[i] == BadVoidPrototype.Instance)
+                {
+                    throw BadRuntimeException.Create(context.Scope, "Cannot use 'void' as generic type parameter", Position);
+                }
                 genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
             }
             

@@ -133,6 +133,7 @@ public static class BadNativeClassBuilder
     /// </summary>
     private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
     {
+        BadVoidPrototype.Instance,
         BadAnyPrototype.Instance,
         CreateNativeType<BadString>("string", s_StringStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
         CreateNativeType<BadBoolean>("bool", s_BooleanStaticMembers, () => Array.Empty<BadInterfacePrototype>()),

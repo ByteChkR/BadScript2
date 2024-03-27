@@ -28,7 +28,7 @@ public class BadEnumerableInteropFunction : BadFunction
         Func<BadObject[], IEnumerable<BadObject>> func,
         bool isStatic,
         BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, parameters)
+        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false, parameters)
     {
         m_Func = (_, args) => func(args);
     }
@@ -46,7 +46,7 @@ public class BadEnumerableInteropFunction : BadFunction
         Func<BadExecutionContext, BadObject[], IEnumerable<BadObject>> func,
         bool isStatic,
         BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, parameters)
+        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false,parameters)
     {
         m_Func = func;
     }
