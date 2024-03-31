@@ -102,7 +102,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 	            BadObject[] genParams = new BadObject[GenericArguments.Count];
 	            for (int i = 0; i < GenericArguments.Count; i++)
 	            {
-		            foreach (var o in GenericArguments[i].Execute(context))
+		            foreach (BadObject? o in GenericArguments[i].Execute(context))
 		            {
 			            genParams[i] = o;
 		            }

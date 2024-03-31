@@ -191,7 +191,7 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
 
 
             bool bBreak = false;
-            foreach (var o in action(() => bBreak = true, loopContext, current.Dereference()))
+            foreach (BadObject? o in action(() => bBreak = true, loopContext, current.Dereference()))
             {
                 yield return o;
             }
@@ -232,7 +232,7 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
 
         target = target.Dereference();
 
-        foreach (var o in Enumerate(context, target, Position, LoopBody))
+        foreach (BadObject? o in Enumerate(context, target, Position, LoopBody))
         {
             yield return o;
         }

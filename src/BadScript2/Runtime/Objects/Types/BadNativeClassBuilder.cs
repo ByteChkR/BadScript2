@@ -226,7 +226,7 @@ public static class BadNativeClassBuilder
     /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] ArrayConstraints(BadObject[] typeParams)
     {
-        var listType = typeParams.Length > 0 ? (BadClassPrototype)typeParams[0] : BadAnyPrototype.Instance;
+        BadClassPrototype? listType = typeParams.Length > 0 ? (BadClassPrototype)typeParams[0] : BadAnyPrototype.Instance;
         return new BadInterfaceConstraint[]
         {
             //Add(any elem);
@@ -308,7 +308,7 @@ public static class BadNativeClassBuilder
     /// <returns>The Constraints</returns>
     private static BadInterfaceConstraint[] EnumeratorConstraints(BadObject[] typeParams)
     {
-        var type = (BadClassPrototype)(typeParams.Length > 0 ? typeParams[0] : BadAnyPrototype.Instance);
+        BadClassPrototype? type = (BadClassPrototype)(typeParams.Length > 0 ? typeParams[0] : BadAnyPrototype.Instance);
         return new BadInterfaceConstraint[]
         {
             new BadInterfaceFunctionConstraint("MoveNext", null, GetNative("bool"), Array.Empty<BadFunctionParameter>()),

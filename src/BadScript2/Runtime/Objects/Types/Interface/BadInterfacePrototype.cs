@@ -156,8 +156,8 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
             return cached;
         }
 
-        var types = args.Cast<BadClassPrototype>().ToArray();
-        var result= new BadInterfacePrototype(Name, _ => m_InterfacesFunc(args), MetaData, _ => m_ConstraintsFunc(args), GenericParameters.ToArray(), this,
+        BadClassPrototype[] types = args.Cast<BadClassPrototype>().ToArray();
+        BadInterfacePrototype result= new BadInterfacePrototype(Name, _ => m_InterfacesFunc(args), MetaData, _ => m_ConstraintsFunc(args), GenericParameters.ToArray(), this,
             $"{Name}<{string.Join(", ", types.Select(x=> x is IBadGenericObject g ? g.GenericName : x.Name))}>");
         s_GenericCache[hash] = result;
         return result;

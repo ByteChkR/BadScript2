@@ -292,7 +292,7 @@ public class BadRuntimeVirtualMachine
             {
                 if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
                 {
-                    var item = ctx.Scope.GetVariable((string)instr.Arguments[0]).Dereference();
+                    BadObject item = ctx.Scope.GetVariable((string)instr.Arguments[0]).Dereference();
                     if (item is not IBadGenericObject genItem)
                     {
                         throw BadRuntimeException.Create(ctx.Scope, "Variable is not a generic object", instr.Position);
@@ -315,7 +315,7 @@ public class BadRuntimeVirtualMachine
             {
                 if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
                 {
-                    var left =
+                    BadObject left =
                         m_ArgumentStack.Pop()
                             .Dereference()
                             .GetProperty((string)instr.Arguments[0], ctx.Scope)
@@ -352,7 +352,7 @@ public class BadRuntimeVirtualMachine
                 {
                     if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
                     {
-                        var left = obj
+                        BadObject left = obj
                             .GetProperty((string)instr.Arguments[0], ctx.Scope)
                             .Dereference();
                         if (left is not IBadGenericObject genItem)
@@ -1510,7 +1510,7 @@ public class BadRuntimeVirtualMachine
                     m_InstructionPointer = sf.ReturnPointer;
                 }
 
-                var retSf = m_ContextStack.Pop();
+                BadRuntimeVirtualStackFrame? retSf = m_ContextStack.Pop();
 
                 if (m_ContextStack.Count == 0)
                 {
@@ -1538,7 +1538,7 @@ public class BadRuntimeVirtualMachine
                     ctx = m_ContextStack.Peek().Context;
                 }
 
-                var sf = m_ContextStack.Pop();
+                BadRuntimeVirtualStackFrame? sf = m_ContextStack.Pop();
 
                 //Set Return Pointer to the next instruction
                 m_InstructionPointer = sf.CreatePointer + sf.BreakPointer;
@@ -1574,7 +1574,7 @@ public class BadRuntimeVirtualMachine
                 break;
             }
 
-            using var enumerator = ExecuteStep(ctx).GetEnumerator();
+            using IEnumerator<BadObject> enumerator = ExecuteStep(ctx).GetEnumerator();
             while (true)
             {
                 try

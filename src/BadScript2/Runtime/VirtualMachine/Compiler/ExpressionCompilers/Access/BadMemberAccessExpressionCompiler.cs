@@ -1,3 +1,4 @@
+using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
@@ -10,7 +11,7 @@ public class BadMemberAccessExpressionCompiler : BadExpressionCompiler<BadMember
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadMemberAccessExpression expression)
     {
-        foreach (var parameter in expression.GenericArguments)
+        foreach (BadExpression? parameter in expression.GenericArguments)
         {
             context.Compile(parameter);
         }

@@ -55,7 +55,7 @@ public class BadThrowExpression : BadExpression
 
         value = value.Dereference();
 
-        var error = new BadRuntimeError(null, value, context.Scope.GetStackTrace());
+        BadRuntimeError? error = new BadRuntimeError(null, value, context.Scope.GetStackTrace());
 
         throw new BadRuntimeErrorException(error);
     }

@@ -68,7 +68,7 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
             BadObject[] genParams = new BadObject[GenericParameters.Count];
             for (int i = 0; i < GenericParameters.Count; i++)
             {
-                foreach (var o in GenericParameters[i].Execute(context))
+                foreach (BadObject? o in GenericParameters[i].Execute(context))
                 {
                     genParams[i] = o;
                 }

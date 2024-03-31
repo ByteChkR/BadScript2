@@ -162,7 +162,7 @@ public class BadClass : BadObject
                 {
                     BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);
                     
-                    var existing = Scope.GetTable().InnerTable[propName];
+                    BadObject? existing = Scope.GetTable().InnerTable[propName];
 
                     if (existing != Null && info.IsReadOnly)
                     {
