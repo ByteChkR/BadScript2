@@ -49,6 +49,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// <param name="baseClasses">The (optional) base class</param>
     /// <param name="position">The Source Position of the Expression</param>
     /// <param name="metaData">The metadata of the Class</param>
+    /// <param name="genericParameters">The Generic Parameters of this Type</param>
     public BadClassPrototypeExpression(
         string name,
         IEnumerable<BadExpression> body,

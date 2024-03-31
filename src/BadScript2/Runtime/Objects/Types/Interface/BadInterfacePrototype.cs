@@ -3,14 +3,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Error;
 
 namespace BadScript2.Runtime.Objects.Types.Interface;
-public interface IBadGenericObject
-{
-    bool IsResolved { get; }
-    bool IsGeneric { get; }
-    string GenericName { get; }
-    IReadOnlyCollection<string> GenericParameters { get; }
-    BadObject CreateGeneric(BadObject[] args);
-}
+
 /// <summary>
 ///     Implements a BadScript Interface Prototype
 /// </summary>
