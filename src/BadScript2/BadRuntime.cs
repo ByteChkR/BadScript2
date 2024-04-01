@@ -205,7 +205,7 @@ public class BadRuntime : IDisposable
         BadLogger.Log("Loading Settings...", "Settings");
         BadSettingsReader settingsReader = new BadSettingsReader(
             BadSettingsProvider.RootSettings,
-            Path.Combine(settingsFile)
+            settingsFile
         );
 
         BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
