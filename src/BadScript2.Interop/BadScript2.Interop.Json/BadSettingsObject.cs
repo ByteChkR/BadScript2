@@ -187,7 +187,7 @@ public class BadSettingsObject : BadObject
     {
         if (args.Count != 1)
         {
-            return new BadSettingsObject(new BadSettings());
+            return new BadSettingsObject(new BadSettings(string.Empty));
         }
 
         if (args[0] is not BadSettingsObject settings)

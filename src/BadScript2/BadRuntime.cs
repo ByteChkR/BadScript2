@@ -64,7 +64,7 @@ public class BadRuntime : IDisposable
 
         if (!BadSettingsProvider.HasRootSettings)
         {
-            BadSettingsProvider.SetRootSettings(new BadSettings());
+            BadSettingsProvider.SetRootSettings(new BadSettings(string.Empty));
         }
     }
 
