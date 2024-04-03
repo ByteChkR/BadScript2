@@ -37,12 +37,12 @@ internal static class BadProgram
 	/// </summary>
 	private static BadRuntime LoadConsoleSettings(this BadRuntime runtime)
     {
-        BadSettings consoleSettings = new BadSettings();
+        BadSettings consoleSettings = new BadSettings(string.Empty);
         string rootDir = BadFileSystem.Instance.GetStartupDirectory();
         rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
-        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir));
-        consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory));
+        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
+        consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory, string.Empty));
         BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
 
         return runtime.LoadSettings(Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE));

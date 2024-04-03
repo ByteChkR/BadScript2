@@ -358,7 +358,7 @@ public class BadCompiler
 
     public static IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions)
     {
-        var ctx = new BadExpressionCompileContext(Instance);
+        BadExpressionCompileContext ctx = new BadExpressionCompileContext(Instance);
         Instance.Compile(ctx, expressions);
         return ctx.GetInstructions();
     }

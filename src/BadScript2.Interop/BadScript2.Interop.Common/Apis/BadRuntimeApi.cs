@@ -227,14 +227,14 @@ internal partial class BadRuntimeApi
 
     private void DeleteReference(BadExecutionContext ctx, BadFunction func)
     {
-        foreach (var o in func.Invoke(Array.Empty<BadObject>(), ctx))
+        foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx))
         {         
         }
     }
     private BadObject GetReferenceValue(BadExecutionContext ctx, BadFunction func)
     {
-        var result = BadObject.Null;
-        foreach (var o in func.Invoke(Array.Empty<BadObject>(), ctx))
+        BadObject? result = BadObject.Null;
+        foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx))
         {
             result = o;            
         }
@@ -242,7 +242,7 @@ internal partial class BadRuntimeApi
     }
     private void SetReferenceValue(BadExecutionContext ctx, BadFunction func, BadObject value)
     {
-        foreach (var o in func.Invoke(new []{value}, ctx))
+        foreach (BadObject? o in func.Invoke(new []{value}, ctx))
         {         
         }
     }
@@ -576,7 +576,7 @@ internal partial class BadRuntimeApi
         BadExecutionContext ctx,
         Func<BadTask> getTask)
     {
-        using var enumerator = script.GetEnumerator();
+        using IEnumerator<BadObject>? enumerator = script.GetEnumerator();
         while (true)
         {
             try
