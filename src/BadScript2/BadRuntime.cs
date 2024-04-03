@@ -64,7 +64,7 @@ public class BadRuntime : IDisposable
 
         if (!BadSettingsProvider.HasRootSettings)
         {
-            BadSettingsProvider.SetRootSettings(new BadSettings());
+            BadSettingsProvider.SetRootSettings(new BadSettings(string.Empty));
         }
     }
 
@@ -205,7 +205,7 @@ public class BadRuntime : IDisposable
         BadLogger.Log("Loading Settings...", "Settings");
         BadSettingsReader settingsReader = new BadSettingsReader(
             BadSettingsProvider.RootSettings,
-            Path.Combine(settingsFile)
+            settingsFile
         );
 
         BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());

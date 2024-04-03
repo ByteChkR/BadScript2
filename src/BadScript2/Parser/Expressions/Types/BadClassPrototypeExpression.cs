@@ -49,6 +49,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// <param name="baseClasses">The (optional) base class</param>
     /// <param name="position">The Source Position of the Expression</param>
     /// <param name="metaData">The metadata of the Class</param>
+    /// <param name="genericParameters">The Generic Parameters of this Type</param>
     public BadClassPrototypeExpression(
         string name,
         IEnumerable<BadExpression> body,
@@ -215,7 +216,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             {
                 throw new BadRuntimeException("Invalid Type Argument Count");
             }
-            var genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+            BadExecutionContext genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
             for(int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
@@ -230,14 +231,14 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         }
         BadClassPrototype GetBaseClass(BadObject[] typeArgs)
         {
-            var ctx = MakeGenericContext(typeArgs);
+            BadExecutionContext ctx = MakeGenericContext(typeArgs);
             return GetPrototype(ctx, out _);
         }
         
         BadScope GetStaticScope(BadObject[] typeArgs)
         {
-            var ctx = MakeGenericContext(typeArgs);
-            var staticContext = new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
+            BadExecutionContext ctx = MakeGenericContext(typeArgs);
+            BadExecutionContext staticContext = new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
             if (m_StaticBody.Count != 0)
             {
                 foreach (BadObject _ in staticContext.Execute(m_StaticBody))
@@ -249,7 +250,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         
         BadInterfacePrototype[] GetInterfaces(BadObject[] typeArgs)
         {
-            var ctx = MakeGenericContext(typeArgs);
+            BadExecutionContext ctx = MakeGenericContext(typeArgs);
             GetPrototype(ctx, out BadInterfacePrototype[] interfaces);
             return interfaces;
         }

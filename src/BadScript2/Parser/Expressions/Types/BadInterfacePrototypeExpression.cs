@@ -92,7 +92,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             {
                 throw new BadRuntimeException("Invalid Type Argument Count");
             }
-            var genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+            BadExecutionContext genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
             for(int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
@@ -108,7 +108,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
 
         BadInterfacePrototype[] PrepareInterfaces(BadObject[] typeArgs)
         {
-            var genericContext = MakeGenericContext(typeArgs);
+            BadExecutionContext genericContext = MakeGenericContext(typeArgs);
             List<BadInterfacePrototype> interfaces = new List<BadInterfacePrototype>();
 
             foreach (BadExpression interfae in m_Interfaces)
@@ -162,7 +162,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
         {
             Console.WriteLine($"Get Constraints for : {Name} {Position}");
 
-            var genericContext = MakeGenericContext(typeArgs);
+            BadExecutionContext genericContext = MakeGenericContext(typeArgs);
             
             BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
 

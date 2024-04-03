@@ -30,7 +30,7 @@ public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpr
         context.Emit(BadOpCode.DefVar, expression.Position, "~ENUMERATOR~", true);
         context.Emit(BadOpCode.Swap, expression.Position);
         context.Emit(BadOpCode.Assign, expression.Position);
-        var body = expression.Body.ToList();
+        List<BadExpression>? body = expression.Body.ToList();
         body.Insert(
             0,
             new BadAssignExpression(

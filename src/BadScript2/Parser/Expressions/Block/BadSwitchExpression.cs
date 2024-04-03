@@ -124,7 +124,7 @@ public class BadSwitchExpression : BadExpression
         }
         valueResult = valueResult.Dereference();
 
-        var switchContext = new BadExecutionContext(context.Scope.CreateChild("SwitchContext", context.Scope, null, BadScopeFlags.Breakable));
+        BadExecutionContext? switchContext = new BadExecutionContext(context.Scope.CreateChild("SwitchContext", context.Scope, null, BadScopeFlags.Breakable));
         bool executeNextBlock = false;
         foreach (KeyValuePair<BadExpression,BadExpression[]> branch in m_Cases)
         {
@@ -138,7 +138,7 @@ public class BadSwitchExpression : BadExpression
             
             
                 keyResult = keyResult.Dereference();
-                var result = BadObject.Null;
+                BadObject? result = BadObject.Null;
                 foreach (BadObject o in BadEqualityExpression.EqualWithOverride(switchContext, valueResult, keyResult, Position))
                 {
                     result = o;

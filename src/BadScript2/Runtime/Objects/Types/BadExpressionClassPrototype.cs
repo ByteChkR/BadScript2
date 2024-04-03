@@ -218,8 +218,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         {
             return cached;
         }
-        var types = args.Cast<BadClassPrototype>().ToArray();
-        var result = new BadExpressionClassPrototype(
+        BadClassPrototype[] types = args.Cast<BadClassPrototype>().ToArray();
+        BadExpressionClassPrototype result = new BadExpressionClassPrototype(
             Name,
             m_ParentScope,
             m_Body,

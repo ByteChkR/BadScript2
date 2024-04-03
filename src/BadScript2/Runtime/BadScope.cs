@@ -578,7 +578,7 @@ public class BadScope : BadObject, IDisposable
         {
             setter = (value, pi) =>
             {
-                var setCtx = new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
+                BadExecutionContext? setCtx = new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
                 setCtx.Scope.DefineVariable("value", value, setCtx.Scope, new BadPropertyInfo(BadAnyPrototype.Instance, true));
                 foreach (BadObject o in setCtx.Execute(setAccessor))
                 {
@@ -590,8 +590,8 @@ public class BadScope : BadObject, IDisposable
         m_ScopeVariables.InnerTable.Add(name, BadObjectReference.Make($"property {name}",
             () =>
             {
-                var getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
-                var get = Null;
+                BadExecutionContext? getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
+                BadObject? get = Null;
                 foreach (BadObject o in getCtx.Execute(getAccessor))
                 {
                     get = o;

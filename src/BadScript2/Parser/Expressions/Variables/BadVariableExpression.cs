@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Parser.Expressions.Variables;
@@ -67,7 +68,7 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
             BadObject[] genParams = new BadObject[GenericParameters.Count];
             for (int i = 0; i < GenericParameters.Count; i++)
             {
-                foreach (var o in GenericParameters[i].Execute(context))
+                foreach (BadObject? o in GenericParameters[i].Execute(context))
                 {
                     genParams[i] = o;
                 }

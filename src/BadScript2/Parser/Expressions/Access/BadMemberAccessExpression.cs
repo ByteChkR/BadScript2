@@ -4,6 +4,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Parser.Expressions.Access;
@@ -101,7 +102,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 	            BadObject[] genParams = new BadObject[GenericArguments.Count];
 	            for (int i = 0; i < GenericArguments.Count; i++)
 	            {
-		            foreach (var o in GenericArguments[i].Execute(context))
+		            foreach (BadObject? o in GenericArguments[i].Execute(context))
 		            {
 			            genParams[i] = o;
 		            }

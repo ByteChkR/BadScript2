@@ -13,7 +13,7 @@
                 <dependency id="BadScript2.Interop.Json" version="24.2.22.0" exclude="Build,Analyzers"/>
                 <dependency id="BadScript2.Interop.Linq" version="24.2.22.0" exclude="Build,Analyzers"/>
                 <dependency id="BadScript2" version="24.2.22.0" exclude="Build,Analyzers"/>
-                <dependency id="HtmlAgilityPack" version="1.11.55" exclude="Build,Analyzers"/>
+                <dependency id="HtmlAgilityPack" version="1.11.60" exclude="Build,Analyzers"/>
                 <dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers"/>
             </group>
         </dependencies>

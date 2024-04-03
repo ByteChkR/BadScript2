@@ -15,6 +15,14 @@ public class BadSettings
     private readonly Dictionary<string, BadSettings> m_Properties;
 
     /// <summary>
+    /// The Source Path of the Settings Object
+    /// </summary>
+    private readonly string m_SourcePath;
+
+    public bool HasSourcePath => !string.IsNullOrEmpty(m_SourcePath);
+    public string SourcePath => m_SourcePath;
+    
+    /// <summary>
     ///     Cache for the Serialized Value of the Settings
     /// </summary>
     private object? m_Cache;
@@ -32,8 +40,10 @@ public class BadSettings
     /// <summary>
     ///     Creates a new empty Settings Object
     /// </summary>
-    public BadSettings()
+    /// <param name="sourcePath">The Source Path of the Settings Object</param>
+    public BadSettings(string sourcePath)
     {
+        m_SourcePath = sourcePath;
         m_Value = null;
         m_IsDirty = true;
         m_Properties = new Dictionary<string, BadSettings>();
@@ -43,9 +53,11 @@ public class BadSettings
     ///     Creates a new Settings Object from a Json Token
     /// </summary>
     /// <param name="value">The Json Token</param>
-    public BadSettings(JToken? value)
+    /// <param name="sourcePath">The Source Path of the Settings Object</param>
+    public BadSettings(JToken? value, string sourcePath)
     {
         m_Value = value;
+        m_SourcePath = sourcePath;
         m_IsDirty = true;
         m_Properties = new Dictionary<string, BadSettings>();
     }
@@ -54,11 +66,13 @@ public class BadSettings
     ///     Creates a new Settings Object from a Dictionary of Properties
     /// </summary>
     /// <param name="properties">The Properties</param>
-    public BadSettings(Dictionary<string, BadSettings> properties)
+    /// <param name="sourcePath">The Source Path of the Settings Object</param>
+    public BadSettings(Dictionary<string, BadSettings> properties, string sourcePath)
     {
         m_Value = null;
         m_IsDirty = true;
         m_Properties = properties;
+        m_SourcePath = sourcePath;
         foreach (KeyValuePair<string, BadSettings> kvp in m_Properties)
         {
             kvp.Value.OnValueChanged += PropertyValueChanged;
@@ -145,6 +159,7 @@ public class BadSettings
     ///     Sets the Json Token of the Current Settings Object
     /// </summary>
     /// <param name="value">Json Token</param>
+    /// <param name="invokeOnChange">Indicates if the OnChange Event should be invoked</param>
     public void SetValue(JToken? value, bool invokeOnChange = true)
     {
         m_Value = value;
@@ -192,6 +207,7 @@ public class BadSettings
     /// </summary>
     /// <param name="propertyName">The Property Name</param>
     /// <param name="value">The Property Value</param>
+    /// <param name="invokeOnChange">Indicates if the OnChange Event should be invoked</param>
     public void SetProperty(string propertyName, BadSettings value, bool invokeOnChange = true)
     {
         if (m_Properties.TryGetValue(propertyName, out BadSettings? old))
@@ -214,6 +230,7 @@ public class BadSettings
     ///     Removes the Property with the given Name
     /// </summary>
     /// <param name="propertyName">The Property Name</param>
+    /// <param name="invokeOnChange">Indicates if the OnChange Event should be invoked</param>
     public bool RemoveProperty(string propertyName, bool invokeOnChange = true)
     {
         if (m_Properties.TryGetValue(propertyName, out BadSettings? old))
@@ -239,6 +256,7 @@ public class BadSettings
     /// <summary>
     ///     Populates the current object with the settings provided
     /// </summary>
+    /// <param name="invokeOnChanged">Indicates if the OnChanged Event should be invoked</param>
     /// <param name="settings">The settings this object will be populated with</param>
     public void Populate(bool invokeOnChanged, params BadSettings[] settings)
     {
@@ -317,7 +335,7 @@ public class BadSettings
         {
             if (!current.HasProperty(s))
             {
-                BadSettings se = new BadSettings();
+                BadSettings se = new BadSettings(string.Empty);
                 current.SetProperty(s, se);
                 current = se;
             }

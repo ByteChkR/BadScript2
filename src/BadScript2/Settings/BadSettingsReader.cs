@@ -48,10 +48,10 @@ public class BadSettingsReader
         {
             string file = files.Dequeue();
             BadLogger.Log("Reading settings from file: " + file, "SettingsReader");
-            settings.Add(CreateSettings(ReadJsonFile(file)));
+            settings.Add(CreateSettings(ReadJsonFile(file), file));
         }
 
-        BadSettings s = new BadSettings();
+        BadSettings s = new BadSettings(string.Empty);
         s.Populate(true, settings.ToArray());
 
         BadLogger.Log("Resolving environment variables", "SettingsReader");
@@ -80,7 +80,7 @@ public class BadSettingsReader
     /// </summary>
     /// <param name="token">JToken to convert</param>
     /// <returns>BadSettings Instance</returns>
-    private static BadSettings CreateSettings(JToken? token)
+    private static BadSettings CreateSettings(JToken? token, string path)
     {
         if (token is
             not
@@ -88,7 +88,7 @@ public class BadSettingsReader
                 Type: JTokenType.Object,
             })
         {
-            return new BadSettings(token);
+            return new BadSettings(token, path);
         }
 
         Dictionary<string, BadSettings> settings = new Dictionary<string, BadSettings>();
@@ -96,10 +96,10 @@ public class BadSettingsReader
 
         foreach (KeyValuePair<string, JToken?> keyValuePair in obj)
         {
-            settings.Add(keyValuePair.Key, CreateSettings(keyValuePair.Value));
+            settings.Add(keyValuePair.Key, CreateSettings(keyValuePair.Value, path));
         }
 
-        return new BadSettings(settings);
+        return new BadSettings(settings, path);
     }
 
 
@@ -149,7 +149,7 @@ public class BadSettingsReader
                             {
                                 BadLogger.Log("Reading settings from file: " + f, "SettingsReader");
 
-                                return CreateSettings(ReadJsonFile(f));
+                                return CreateSettings(ReadJsonFile(f), f);
                             }
                         )
                     );
@@ -157,7 +157,7 @@ public class BadSettingsReader
                 else
                 {
                     BadLogger.Log("Reading settings from file: " + include, "SettingsReader");
-                    setting.Add(CreateSettings(ReadJsonFile(include)));
+                    setting.Add(CreateSettings(ReadJsonFile(include), include));
                 }
             }
 

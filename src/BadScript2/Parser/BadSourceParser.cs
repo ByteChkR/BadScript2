@@ -866,7 +866,7 @@ public class BadSourceParser
             {
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
-                var genArgs = ParseGenericArguments();
+                List<BadExpression>? genArgs = ParseGenericArguments();
                 nameExpr = new BadMemberAccessExpression(
                     nameExpr,
                     right,
@@ -1013,7 +1013,7 @@ public class BadSourceParser
                 Reader.SkipNonToken();
                 while (true)
                 {
-                    var expr = ParseExpression(null, 3);
+                    BadExpression? expr = ParseExpression(null, 3);
                     typeArgs.Add(expr);
                     Reader.SkipNonToken();
                     if (!Reader.Is(','))
@@ -1740,7 +1740,7 @@ public class BadSourceParser
             {
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
-                var genArgs = ParseGenericArguments();
+                List<BadExpression>? genArgs = ParseGenericArguments();
                 nameExpr = new BadMemberAccessExpression(
                     nameExpr,
                     right,
@@ -2082,7 +2082,7 @@ public class BadSourceParser
         {
             Reader.Eat(".");
             BadWordToken right = Reader.ParseWord();
-            var genArgs = ParseGenericArguments();
+            List<BadExpression>? genArgs = ParseGenericArguments();
             nameExpr = new BadMemberAccessExpression(
                 nameExpr,
                 right,
@@ -2321,7 +2321,7 @@ public class BadSourceParser
             {
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
-                var genArgs = ParseGenericArguments();
+                List<BadExpression>? genArgs = ParseGenericArguments();
                 functionNameExpr = new BadMemberAccessExpression(
                     functionNameExpr,
                     right,

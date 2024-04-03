@@ -123,7 +123,7 @@ public class BadTryCatchExpression : BadExpression
                        context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
                    ))
             {
-                using var enumerator = tryContext.Execute(m_Expressions).GetEnumerator();
+                using IEnumerator<BadObject>? enumerator = tryContext.Execute(m_Expressions).GetEnumerator();
                 while (true)
                 {
                     BadObject o;
