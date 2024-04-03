@@ -145,6 +145,12 @@ public class BadVariableDefinitionExpression : BadVariableExpression
 
             type = proto;
         }
+
+        if (type == BadVoidPrototype.Instance)
+        {
+            throw BadRuntimeException.Create(context.Scope, "Cannot declare a variable of type 'void'", Position);
+        }
+        
         if (context.Scope.HasLocal(Name, context.Scope, false))
         {
             throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is already defined", Position);

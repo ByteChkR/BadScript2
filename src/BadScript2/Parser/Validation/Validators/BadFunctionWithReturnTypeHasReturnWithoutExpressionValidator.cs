@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
+using BadScript2.Parser.Expressions.Variables;
 
 namespace BadScript2.Parser.Validation.Validators;
 
@@ -11,7 +12,7 @@ public class
 {
     protected override void Validate(BadExpressionValidatorContext context, BadFunctionExpression expr)
     {
-        if (expr.TypeExpression == null)
+        if (expr.TypeExpression is null or BadVariableExpression { Name: "void" })
         {
             return;
         }

@@ -60,6 +60,11 @@ public class BadNewExpression : BadExpression
     {
         BadObject obj = BadObject.Null;
 
+        if (proto == BadVoidPrototype.Instance)
+        {
+            throw BadRuntimeException.Create(context.Scope, "Cannot create instance of void", pos);
+        }
+
         if (proto is BadANativeClassPrototype nativeType)
         {
             foreach (BadObject o in nativeType.CreateInstance(context, args))

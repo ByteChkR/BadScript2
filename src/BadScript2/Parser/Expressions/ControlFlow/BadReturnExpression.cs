@@ -1,7 +1,9 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Parser.Expressions.ControlFlow;
 
@@ -74,10 +76,17 @@ public class BadReturnExpression : BadExpression
 
         if (Right == null)
         {
-            context.Scope.SetReturnValue(value);
+            if (context.Scope.FunctionObject != null &&
+                context.Scope.FunctionObject.ReturnType == BadVoidPrototype.Instance)
+            {
+                context.Scope.SetReturnValue(BadVoidPrototype.Object);
+            }
+            else
+            {
+                context.Scope.SetReturnValue(value);
+            }
 
             yield return value;
-
             yield break;
         }
 
@@ -93,6 +102,17 @@ public class BadReturnExpression : BadExpression
             value = value.Dereference();
         }
 
+        if (context.Scope.FunctionObject != null && 
+            context.Scope.FunctionObject.ReturnType == BadVoidPrototype.Instance)
+        {
+            if (!context.Scope.FunctionObject.IsSingleLine)
+            {
+                throw BadRuntimeException.Create(context.Scope, "Cannot return a value from a void function", Position);
+            }
+            context.Scope.SetReturnValue(BadVoidPrototype.Object);
+            yield break;
+        }
+        
         context.Scope.SetReturnValue(value);
 
         yield return value;
