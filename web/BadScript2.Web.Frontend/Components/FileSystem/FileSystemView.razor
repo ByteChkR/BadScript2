@@ -1,0 +1,12 @@
+@using BadScript2.IO
+@using BadScript2.Web.Frontend.Utils
+
+<div>
+    <FileSystemNode Context="@Context" Path="/" Expanded="@true"></FileSystemNode>
+</div>
+
+
+@code {
+    [Parameter]
+    public BadReplContext Context { get; set; }
+}

@@ -1,0 +1,19 @@
+<pre>
+    @Content
+</pre>
+
+@code
+{
+    [Parameter]
+    public string Content { get; set; }
+    [Parameter]
+    public string Extension { get; set; }
+
+
+    public void SetContent(string ext, string content)
+    {
+        Extension = ext;
+        Content = content;
+        StateHasChanged();
+    }
+}

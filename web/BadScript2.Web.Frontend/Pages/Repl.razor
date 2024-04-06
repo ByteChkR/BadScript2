@@ -1,0 +1,85 @@
+﻿@page "/"
+@page "/{Workspace}"
+@using BadScript2.ConsoleAbstraction
+@using BadScript2.IO
+@using BadScript2.Web.Frontend.Components.FileSystem
+@using BadScript2.Web.Frontend.Components.Editor
+@using BadScript2.Web.Frontend.Components.Console
+@using BadScript2.Web.Frontend.Utils
+
+<PageTitle>REPL</PageTitle>
+    <div style="display: flex; flex-direction: column; height: calc(100vh - 56px);">
+        <h1 style="flex-grow: 0;">BadScript2 REPL</h1>
+
+            <div style="display: flex; height: 100%;">
+                    <div style="width: 300px; flex-grow: 0;">
+                        @if (IsLoaded)
+                        {
+                            <FileSystemView Context="@Context"/>
+                        }
+                    </div>
+                    <div style="background-color: #777777; flex-grow: 1; display: flex; flex-direction: column;">
+                        <div style="flex-grow: 1; width: 100%;">
+                            @if (IsLoaded)
+                            {
+                                <FileViewer @ref="_fileViewer" Extension="@Path.GetExtension(_currentPath)" Content="@_currentFile"></FileViewer>
+                            }
+                        </div>
+                        <div style="flex-grow: 0; width: 100%; height: 408px;">
+                            <ConsoleViewer @ref="_console"/>
+                        </div>
+                    </div>
+            </div>
+    </div>
+@code {
+    
+    [Parameter]
+    public string? Workspace { get; set; } = "default";
+
+    private BadReplContext? _context;
+    public BadReplContext Context => _context ??= new BadReplContext(SetCurrentFile);
+    
+    private string _currentPath = "";
+    private string _currentFile = "";
+    private FileViewer? _fileViewer;
+    private ConsoleViewer? _console;
+    private BadTerminal? _terminal;
+    
+    private bool IsLoaded { get; set; }
+    private int _renderCount = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        _renderCount++;
+        if (firstRender)
+        {
+            var console = _console!.GetConsoleWrapper();
+            BadConsole.SetConsole(console);
+            var fs = await BadRuntimeBuilder.BuildFileSystem(Workspace ?? "default");
+            Context.Load(
+                await BadRuntimeBuilder.BuildRuntime(fs),
+                console,
+                fs);
+            IsLoaded = true;
+            StateHasChanged();
+        }
+        if (_renderCount == 2)
+        {
+            BadConsole.WriteLine("Initialization Complete. Loading Terminal...");
+            _terminal = new BadTerminal(Context);
+            _terminal.Start();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void SetCurrentFile(string path)
+    {
+        if(path == _currentPath)
+        {
+            return;
+        }
+        _currentPath = path;
+        _currentFile = Context.FileSystem.ReadAllText(path);
+        _fileViewer?.SetContent(Path.GetExtension(_currentPath), _currentFile);
+    }
+}
