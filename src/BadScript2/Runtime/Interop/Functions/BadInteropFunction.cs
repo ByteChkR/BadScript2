@@ -34,7 +34,7 @@ public class BadInteropFunction : BadFunction
         Func<BadObject[], BadObject> func,
         bool isStatic,
         BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, parameters)
+        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false,parameters)
     {
         m_Func = (_, args) => func(args);
     }
@@ -53,7 +53,7 @@ public class BadInteropFunction : BadFunction
         Func<BadExecutionContext, BadObject[], BadObject> func,
         bool isStatic,
         BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, parameters)
+        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType,false, parameters)
     {
         m_Func = func;
     }

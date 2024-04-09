@@ -46,6 +46,7 @@ public class BadExpressionFunction : BadFunction
     /// <param name="isStatic">Is the Function Static</param>
     /// <param name="metaData">The Metadata of the Function</param>
     /// <param name="returnType">The Return type of the Function</param>
+    /// <param name="isSingleLine">Indicates if the function is a single line function</param>
     public BadExpressionFunction(
         BadScope parentScope,
         BadWordToken? name,
@@ -55,7 +56,8 @@ public class BadExpressionFunction : BadFunction
         bool isConstant,
         bool isStatic,
         BadMetaData? metaData,
-        BadClassPrototype returnType) : base(name, isConstant, isStatic, returnType, parameters)
+        BadClassPrototype returnType,
+        bool isSingleLine) : base(name, isConstant, isStatic, returnType, isSingleLine, parameters)
     {
         m_Body = expressions;
         Position = position;
@@ -85,7 +87,8 @@ public class BadExpressionFunction : BadFunction
             IsConstant,
             IsStatic,
             MetaData,
-            ReturnType
+            ReturnType,
+            IsSingleLine
         );
     }
 

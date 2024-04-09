@@ -252,7 +252,8 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
             IsConstantFunction,
             IsStatic,
             m_MetaData,
-            type
+            type,
+            IsSingleLine
         );
 
         BadFunction fFinal = CompileLevel switch

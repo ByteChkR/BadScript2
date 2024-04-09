@@ -37,7 +37,8 @@ public abstract class BadFunction : BadObject
         BadWordToken? name,
         bool isConstant,
         bool isStatic,
-        BadClassPrototype returnType,
+        BadClassPrototype returnType, 
+        bool isSingleLine, 
         params BadFunctionParameter[] parameters)
     {
         Name = name;
@@ -45,6 +46,7 @@ public abstract class BadFunction : BadObject
         IsStatic = isStatic;
         Parameters = parameters;
         ReturnType = returnType;
+        IsSingleLine = isSingleLine;
     }
 
     /// <summary>
@@ -66,6 +68,17 @@ public abstract class BadFunction : BadObject
     ///     Indicates if the function has no side effects and the result can be cached
     /// </summary>
     public bool IsConstant { get; }
+    
+    /// <summary>
+    /// Indicates if the function is a single line function(without block)
+    /// Is used to determine the behaviour of the return statement
+    /// The Runtime always wraps single line function bodies into a return statement
+    /// e.g. function f() => true; is transformed into function f() { return true; }
+    /// If the function declares the return type as void, the return statement does evaluate the inner expression,
+    /// but does not set the result in the scope. It sets a special BadObject (BadVoidPrototype.Object) as result)
+    /// If a void prototype is defined as return type, the function is NOT a single line function and the return statement has an inner expression, an exception is raised.
+    /// </summary>
+    public bool IsSingleLine { get; }
 
     /// <summary>
     ///     (optional) Name of the Function

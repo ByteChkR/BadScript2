@@ -122,6 +122,11 @@ public class BadFunctionParameter
             throw new BadRuntimeException("Type expression must return a class prototype.");
         }
 
+        if (proto == BadVoidPrototype.Instance)
+        {
+            throw BadRuntimeException.Create(context.Scope, $"Parameter '{Name}' Type cannot be 'void'.");
+        }
+
         type = proto;
 
         return new BadFunctionParameter(Name, IsOptional, IsNullChecked, IsRestArgs, TypeExpr, type);
