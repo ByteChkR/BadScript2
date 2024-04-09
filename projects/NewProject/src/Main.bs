@@ -63,7 +63,7 @@ function string AskFor(string message, string default?)
 	{
 		Console.Write($"{message}: ");
 	}
-	const value = Console.ReadLine();
+	const value = await Console.ReadLineAsync();
 	if(value == "")
 	{
 		if(default != null)
