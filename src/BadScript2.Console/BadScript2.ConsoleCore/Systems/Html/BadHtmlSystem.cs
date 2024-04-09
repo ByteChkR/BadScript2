@@ -50,7 +50,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
     }
 
     /// <inheritdoc />
-    protected override int Run(BadHtmlSystemSettings settings)
+    protected override Task<int> Run(BadHtmlSystemSettings settings)
     {
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
@@ -119,6 +119,6 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
         host?.Stop();
 
-        return 0;
+        return Task.FromResult(0);
     }
 }

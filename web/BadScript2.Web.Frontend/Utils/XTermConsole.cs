@@ -62,9 +62,20 @@ public class XTermConsole : IBadConsole
             }
             else if(args.Key.Length == 1)
             {
-                _inputBuffer.Insert(_cursorPosition, args.Key);
-                _cursorPosition++;
-                Write(args.Key);
+                if(_cursorPosition == _inputBuffer.Length)
+                {
+                    _inputBuffer.Append(args.Key);
+                    _cursorPosition++;
+                    Write(args.Key);
+                }
+                else
+                {
+                    _inputBuffer.Insert(_cursorPosition, args.Key);
+                    _cursorPosition++;
+                    Write(args.Key);
+                    Write(_inputBuffer.ToString().Substring(_cursorPosition));
+                    Write(new string('\b', _inputBuffer.Length - _cursorPosition));
+                }
             }
             else if(args.Key == "Tab")
             {
@@ -124,10 +135,29 @@ public class XTermConsole : IBadConsole
 
     public void Write(string str)
     {
+        if (str.Contains('\n'))
+        {
+            string[] lines = str.Split('\n');
+            foreach (string line in lines.SkipLast(1))
+            {
+                _terminal.WriteLine(line);
+            }
+            _terminal.Write(lines.Last());
+            return;
+        }
         _terminal.Write(str);
     }
     public void WriteLine(string str)
     {
+        if (str.Contains('\n'))
+        {
+            string[] lines = str.Split('\n');
+            foreach (string line in lines)
+            {
+                _terminal.WriteLine(line);
+            }
+            return;
+        }
         _terminal.WriteLine(str);
     }
     public string ReadLine()
@@ -136,11 +166,7 @@ public class XTermConsole : IBadConsole
         {
             return _inputQueue.Dequeue();
         }
-        while (_inputQueue.Count == 0)
-        {
-            Task.Delay(100).Wait();   
-        }
-        return _inputQueue.Dequeue();
+        throw new NotSupportedException("Can not read line synchronously from XTermConsole");
     }
     public async Task<string> ReadLineAsync()
     {

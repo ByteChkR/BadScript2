@@ -50,6 +50,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Generator", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Interop.Generator.Test", "BadScript2.Interop\BadScript2.Interop.Generator\BadScript2.Interop.Generator.Test\BadScript2.Interop.Generator.Test.csproj", "{266E9623-889A-44D8-87F9-90E62A91DA24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "..\deps\commandlineparser\src\CommandLine\CommandLine.csproj", "{04757990-26C2-4678-B991-E5B510A2F0D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,10 @@ Global
 		{266E9623-889A-44D8-87F9-90E62A91DA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{266E9623-889A-44D8-87F9-90E62A91DA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{266E9623-889A-44D8-87F9-90E62A91DA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04757990-26C2-4678-B991-E5B510A2F0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04757990-26C2-4678-B991-E5B510A2F0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04757990-26C2-4678-B991-E5B510A2F0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04757990-26C2-4678-B991-E5B510A2F0D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4EB6C75-A26C-4E1B-89F9-B630AAA9A848} = {A73351E3-752B-4A73-8EEC-7C3364A18F95}
@@ -157,5 +163,6 @@ Global
 		{E3DB699E-25F0-4A0D-8375-97BB97B2FACB} = {A73351E3-752B-4A73-8EEC-7C3364A18F95}
 		{FBB96554-3500-4491-AF1F-2821D806B831} = {E3DB699E-25F0-4A0D-8375-97BB97B2FACB}
 		{266E9623-889A-44D8-87F9-90E62A91DA24} = {E3DB699E-25F0-4A0D-8375-97BB97B2FACB}
+		{04757990-26C2-4678-B991-E5B510A2F0D6} = {F927E3BE-3BEE-48FF-B179-B76497FD3AFB}
 	EndGlobalSection
 EndGlobal

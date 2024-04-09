@@ -1,6 +1,6 @@
 @using BadScript2.ConsoleAbstraction
 @using BadScript2.Web.Frontend.Utils
-<Xterm Id="BS2-CONSOLE" @ref="_terminal" Options="@_options"/>
+<Xterm Id="BS2-CONSOLE" @ref="_terminal" Options="@_options" OnFirstRender="@OnFirstRender"/>
 
 
 @code {
@@ -12,6 +12,12 @@
     {
         return _consoleWrapper ??= new XTermConsole(_options, _terminal);
     }
+
+    private void OnFirstRender()
+    {
+        _terminal.Resize(239, 24);
+    }
+
 
     private TerminalOptions _options = new TerminalOptions
     {

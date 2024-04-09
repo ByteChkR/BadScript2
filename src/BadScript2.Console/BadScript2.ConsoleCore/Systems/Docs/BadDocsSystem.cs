@@ -47,7 +47,7 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
     private static string TemplatePath => Path.Combine(DocsPath, "docs.bhtml");
 
     /// <inheritdoc />
-    protected override int Run(BadDocsSystemSettings settings)
+    protected override Task<int> Run(BadDocsSystemSettings settings)
     {
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
@@ -61,6 +61,6 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
         };
         p.Start();
 
-        return 0;
+        return Task.FromResult(0);
     }
 }

@@ -1,0 +1,3 @@
+[submodule "deps/commandlineparser"]
+	path = deps/commandlineparser
+	url = https://github.com/ByteChkR/commandlineparser.git

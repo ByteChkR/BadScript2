@@ -19,16 +19,19 @@ public class BadSettingsReader
     ///     The Source Files that are used to read the Settings
     /// </summary>
     private readonly string[] m_SourceFiles;
+    
+    private readonly IFileSystem m_FileSystem;
 
     /// <summary>
     ///     Constructs a new BadSettingsReader
     /// </summary>
     /// <param name="rootSettings">Root Settings Object</param>
     /// <param name="sourceFiles">List of Source Files</param>
-    public BadSettingsReader(BadSettings rootSettings, params string[] sourceFiles)
+    public BadSettingsReader(BadSettings rootSettings, IFileSystem mFileSystem, params string[] sourceFiles)
     {
         m_SourceFiles = sourceFiles;
         m_RootSettings = rootSettings;
+        m_FileSystem = mFileSystem;
     }
 
     /// <summary>
@@ -67,9 +70,9 @@ public class BadSettingsReader
     /// </summary>
     /// <param name="fileName">Source File</param>
     /// <returns></returns>
-    private static JToken ReadJsonFile(string fileName)
+    private JToken ReadJsonFile(string fileName)
     {
-        string json = BadFileSystem.ReadAllText(fileName);
+        string json = m_FileSystem.ReadAllText(fileName);
         JToken token = JToken.Parse(json);
 
         return token;
@@ -138,7 +141,7 @@ public class BadSettingsReader
                     );
                     string path = parts[0];
                     string extension = parts[1];
-                    IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
+                    IEnumerable<string> files = m_FileSystem.GetFiles(
                         path,
                         extension,
                         allDirs

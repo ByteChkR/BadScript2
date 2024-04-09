@@ -23,19 +23,19 @@ public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
     public override string Name => "test";
 
     /// <inheritdoc />
-    protected override int Run(BadTestSystemSettings settings)
+    protected override Task<int> Run(BadTestSystemSettings settings)
     {
         try
         {
             new AutoRun(typeof(BadUnitTests).Assembly).Execute(Array.Empty<string>());
 
-            return 0;
+            return Task.FromResult(0);
         }
         catch (Exception e)
         {
             BadConsole.WriteLine(e.ToString());
 
-            return e.HResult;
+            return Task.FromResult(e.HResult);
         }
     }
 }

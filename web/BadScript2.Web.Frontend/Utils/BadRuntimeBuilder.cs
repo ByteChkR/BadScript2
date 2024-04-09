@@ -1,3 +1,5 @@
+using System.IO.Compression;
+
 using BadScript2.Common.Logging;
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common;
@@ -26,10 +28,24 @@ public static class BadRuntimeBuilder
     private const string SETTINGS_FILE = "Settings.json";
 
 
-    public static async Task<IFileSystem> BuildFileSystem(string workspace)
+    public static async Task<byte[]> GetWorkspace(string workspace, HttpClient client)
+    {
+        try
+        {
+            var result = await client.GetByteArrayAsync(workspace+".zip");
+            return result;
+        }
+        catch (Exception e)
+        {
+            BadConsole.WriteLine(e.ToString());
+            throw;
+        }
+    }
+    public static async Task<IFileSystem> BuildFileSystem(string workspace, byte[] data)
     {
         BadConsole.WriteLine("Building File System...");
         BadVirtualFileSystem fs = new BadVirtualFileSystem();
+        
         fs.CreateDirectory($"/.workspace/{workspace}", true);
         var meta = new
         {
@@ -37,6 +53,10 @@ public static class BadRuntimeBuilder
             BasedOn = "default"
         };
         fs.WriteAllText($"/.workspace/{workspace}/meta.json", JsonConvert.SerializeObject(meta, Formatting.Indented));
+
+        var ms = new MemoryStream(data);
+        fs.ImportZip(ms);
+        
         return fs;
     }
 
@@ -58,7 +78,7 @@ public static class BadRuntimeBuilder
         {
             return runtime;
         }
-        return runtime.LoadSettings(settingsFile);
+        return runtime.LoadSettings(settingsFile, fs);
     }
 
     public static Task<BadRuntime> BuildRuntime(IFileSystem fs)
@@ -67,9 +87,9 @@ public static class BadRuntimeBuilder
         // Build the runtime
         BadConsole.WriteLine("Building Runtime...");
         BadRuntime runtime = new BadRuntime()
+            .LoadConsoleSettings(fs)
             .UseLogMask(mask)
             .UseConsoleLogWriter()
-            .LoadConsoleSettings(fs)
             .UseCommonInterop()
             .UseCompressionApi()
             .UseFileSystemApi(fs)

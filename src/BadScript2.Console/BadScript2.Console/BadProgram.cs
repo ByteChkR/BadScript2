@@ -54,7 +54,7 @@ internal static class BadProgram
 	/// </summary>
 	/// <param name="args">Commandline Arguments</param>
 	/// <returns>Return Code</returns>
-	private static int Main(string[] args)
+	private static Task<int> Main(string[] args)
     {
         BadLogMask mask = BadLogMask.None;
 
@@ -96,8 +96,6 @@ internal static class BadProgram
         );
 
 
-        int r = runner.Run(args);
-
-        return r;
+        return runner.Run(args);
     }
 }

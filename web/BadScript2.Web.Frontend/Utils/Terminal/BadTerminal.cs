@@ -17,6 +17,8 @@ public class BadTerminal
         RegisterCommand(new BadChangeDirectoryTerminalCommand());
         RegisterCommand(new BadListDirectoryTerminalCommand());
         RegisterCommand(new BadOpenFileTerminalCommand());
+        RegisterCommand(new BadScriptConsoleTerminalCommand());
+        RegisterCommand(new BadClearConsoleTerminalCommand());
     }
     public void RegisterCommand(BadTerminalCommand cmd) => m_Commands.Add(cmd);
     public void Start()

@@ -6,6 +6,7 @@
 @using BadScript2.Web.Frontend.Components.Editor
 @using BadScript2.Web.Frontend.Components.Console
 @using BadScript2.Web.Frontend.Utils
+@inject HttpClient Http
 
 <PageTitle>REPL</PageTitle>
     <div style="display: flex; flex-direction: column; height: calc(100vh - 56px);">
@@ -44,31 +45,53 @@
     private FileViewer? _fileViewer;
     private ConsoleViewer? _console;
     private BadTerminal? _terminal;
+
+    private byte[]? _workspaceData;
     
     private bool IsLoaded { get; set; }
+    private bool IsInitialized { get; set; }
     private int _renderCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _workspaceData = await BadRuntimeBuilder.GetWorkspace(Workspace ?? "default", Http);
+        var console = _console!.GetConsoleWrapper();
+        BadConsole.SetConsole(console);
+        var fs = await BadRuntimeBuilder.BuildFileSystem(Workspace ?? "default", _workspaceData!);
+        BadFileSystem.SetFileSystem(fs);
+        Context.Load(
+            await BadRuntimeBuilder.BuildRuntime(fs),
+            console,
+            fs);
+        IsLoaded = true;
+        StateHasChanged();
+        BadConsole.WriteLine("Initialization Complete. Loading Terminal...");
+        _terminal = new BadTerminal(Context);
+        _terminal.Start();
+        await base.OnInitializedAsync();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        _renderCount++;
-        if (firstRender)
-        {
-            var console = _console!.GetConsoleWrapper();
-            BadConsole.SetConsole(console);
-            var fs = await BadRuntimeBuilder.BuildFileSystem(Workspace ?? "default");
-            Context.Load(
-                await BadRuntimeBuilder.BuildRuntime(fs),
-                console,
-                fs);
-            IsLoaded = true;
-            StateHasChanged();
-        }
-        if (_renderCount == 2)
-        {
-            BadConsole.WriteLine("Initialization Complete. Loading Terminal...");
-            _terminal = new BadTerminal(Context);
-            _terminal.Start();
-        }
+        // _renderCount++;
+        // if (!IsLoaded && _workspaceData != null)
+        // {
+        //     var console = _console!.GetConsoleWrapper();
+        //     BadConsole.SetConsole(console);
+        //     var fs = await BadRuntimeBuilder.BuildFileSystem(Workspace ?? "default", _workspaceData!);
+        //     Context.Load(
+        //         await BadRuntimeBuilder.BuildRuntime(fs),
+        //         console,
+        //         fs);
+        //     IsLoaded = true;
+        //     StateHasChanged();
+        // }
+        // if (IsLoaded && !IsInitialized)
+        // {
+        //     BadConsole.WriteLine("Initialization Complete. Loading Terminal...");
+        //     _terminal = new BadTerminal(Context);
+        //     _terminal.Start();
+        // }
         await base.OnAfterRenderAsync(firstRender);
     }
 
