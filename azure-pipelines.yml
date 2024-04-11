@@ -12,6 +12,7 @@ pool:
 
 steps:
 - task: CmdLine@2
+  displayName: Checkout Submodules
   inputs:
     script: 'git submodule update --init --recursive'
 - task: UseDotNet@2
