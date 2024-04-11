@@ -27,6 +27,6 @@
     <version xmlns="">24.2.22.0</version>
   </metadata>
   <files>
-    <file src="../res/Logo.png" target="Logo.png" />
+    <file src="../../res/Logo.png" target="Logo.png" />
   </files>
 </package>
