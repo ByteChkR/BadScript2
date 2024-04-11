@@ -76,6 +76,7 @@ steps:
     includesymbols: true
     includesource: true
     versioningScheme: 'off'
+    verbosityPack: 'Normal'
 - task: DotNetCoreCLI@2
   displayName: Publish Nuget Packages
   inputs:
