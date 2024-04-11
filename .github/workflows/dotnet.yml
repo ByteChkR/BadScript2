@@ -11,7 +11,7 @@ jobs:
       Version: ${{ steps.setcalver.outputs.package_version }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set Calver Version
       uses: Nelyx/action-calver@v1.0.0
       id: setcalver
@@ -19,7 +19,7 @@ jobs:
         default_branch: 'refs/heads/master'
         format: 'YYYY.MM.DD'
         version_prefix: ''
-        submodules: true
+        submodules: 'recursive'
     - name: Display Version outputs
       run: |
         echo "Version: ${{ steps.setcalver.outputs.package_version }}"
