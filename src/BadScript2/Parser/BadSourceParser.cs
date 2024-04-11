@@ -1272,8 +1272,11 @@ public class BadSourceParser
 
         if (args.Count == 0)
         {
+            var str = sb.ToString()
+                .Replace("{{", "{")
+                .Replace("}}", "}");
             return new BadStringExpression(
-                '"' + sb.ToString() + '"',
+                '"' + str + '"',
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
             );
         }
@@ -1387,8 +1390,11 @@ public class BadSourceParser
 
         if (args.Count == 0)
         {
+            var str = sb.ToString()
+                .Replace("{{", "{")
+                .Replace("}}", "}");
             return new BadStringExpression(
-                '"' + sb.ToString() + '"',
+                '"' + str + '"',
                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
             );
         }
