@@ -1,1 +1,90 @@
-import Assert from '<Assert>'; function CheckSignature(a!, b!) { Assert.IsFunction(a); Assert.IsFunction(b); if(a.Parameters.Length != b.Parameters.Length) { throw $"Parameters of {a} and {b} do not match"; } } export default class Event { const Array _CallList; const Function _CallPrototype; function Event(Function callProto!) { Assert.IsFunction(callProto); _CallList = []; _CallPrototype = callProto; } function Remove(func!) { _CallList.Remove(func); } function Add(func!) { CheckSignature(_CallPrototype, func); _CallList.Add(func); } function Invoke(args*) { foreach(func in _CallList) { func.Invoke(args); } } function any op_AddAssign(func!) => Add(func); function any op_SubtractAssign(func!) => Remove(func); function any op_Invoke(args*) => Invoke(args); }
+import Assert from '<Assert>';
+
+function CheckSignature(a!, b!)
+{
+	Assert.IsFunction(a);
+	Assert.IsFunction(b);
+	if(a.Parameters.Length != b.Parameters.Length)
+	{
+		throw $"Parameters of {a} and {b} do not match";
+	}
+}
+
+
+@|
+	An Event class that allows other code to hook into this event with the +=/-= operators.
+	Invocation can be done with the () operator.
+|@
+export default class Event
+{
+	const Array _CallList;
+	const Function _CallPrototype;
+	@|
+		Event Constructor
+		|PARAM callProto: The Function Signature of this event.
+	|@
+	function Event(Function callProto!)
+	{
+		Assert.IsFunction(callProto);
+		_CallList = [];
+		_CallPrototype = callProto;
+	}
+
+	@|
+		Removes a subscribed listener from the event
+		|PARAM func: The listener to unsubscribe.
+		|RET: void
+	|@
+	function Remove(func!)
+	{
+		_CallList.Remove(func);
+	}
+
+	@|
+		Adds a listener to event
+		|PARAM func: The listener to subscribe.
+		|RET: void
+	|@
+	function Add(func!)
+	{
+		CheckSignature(_CallPrototype, func);
+		_CallList.Add(func);
+	}
+
+	@|
+		Invokes the Event
+		|PARAM args: the parameters for the event
+		|RET: void
+	|@
+	function Invoke(args*)
+	{
+		foreach(func in _CallList)
+		{
+			func.Invoke(args);
+		}
+	}
+
+
+	@|
+		Operator Override for '+='
+		|PARAM func: The listener to subscribe.
+		|RET: void
+	|@
+	function any op_AddAssign(func!) => Add(func);
+
+	@|
+		Operator Override for '-='
+		|PARAM func: The listener to unsubscribe.
+		|RET: void
+	|@
+	function any op_SubtractAssign(func!) => Remove(func);
+
+	@|
+		Operator Override for '()'
+		|PARAM args: the parameters for the event
+		|RET: void
+	|@
+
+	function any op_Invoke(args*) => Invoke(args);
+
+}

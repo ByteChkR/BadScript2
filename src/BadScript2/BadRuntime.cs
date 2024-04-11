@@ -200,11 +200,12 @@ public class BadRuntime : IDisposable
     /// </summary>
     /// <param name="settingsFile">The path to the settings file</param>
     /// <returns>This Runtime</returns>
-    public BadRuntime LoadSettings(string settingsFile)
+    public BadRuntime LoadSettings(string settingsFile, IFileSystem? fileSystem = null)
     {
         BadLogger.Log("Loading Settings...", "Settings");
         BadSettingsReader settingsReader = new BadSettingsReader(
             BadSettingsProvider.RootSettings,
+            fileSystem ?? BadFileSystem.Instance,
             settingsFile
         );
 

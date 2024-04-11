@@ -32,7 +32,7 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
         Process.Start(pi);
     }
     /// <inheritdoc />
-    protected override int Run(BadSettingsSystemSettings settings)
+    protected override Task<int> Run(BadSettingsSystemSettings settings)
     {
         BadSettings? setting = string.IsNullOrEmpty(settings.Path) ? BadSettingsProvider.RootSettings : BadSettingsProvider.RootSettings.FindProperty(settings.Path);
 
@@ -43,29 +43,29 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
                 //Open the Settings folder
                 //Directory: $Console.DataDirectory/settings
                 OpenWithDefault(Path.GetFullPath(BadSettingsProvider.RootSettings.FindProperty<string>("Console.DataDirectory")! + "/settings"));
-                return 0;
+                return Task.FromResult(0);
             }
 
             if (setting == null)
             {
                 BadConsole.WriteLine($"Setting '{settings.Path}' not found.");
-                return 1;
+                return Task.FromResult(1);
             }
 
             if (!setting.HasSourcePath)
             {
                 BadConsole.WriteLine($"Setting '{settings.Path}' has no source path.");
-                return 1;
+                return Task.FromResult(1);
             }
             
             //Open the source file in the default editor
             string path = Path.GetFullPath(setting.SourcePath);
             OpenWithDefault(path);
             
-            return 0;
+            return Task.FromResult(0);
         }
         BadConsole.WriteLine(setting?.ToString() ?? "null");
 
-        return 0;
+        return Task.FromResult(0);
     }
 }

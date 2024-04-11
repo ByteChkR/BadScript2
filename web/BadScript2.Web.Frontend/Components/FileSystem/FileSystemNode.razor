@@ -1,0 +1,40 @@
+@using BadScript2.Web.Frontend.Utils
+
+@if (Context.FileSystem.IsDirectory(Path))
+{
+    <div @onclick="() => Expanded = !Expanded">@(Expanded ? "▼" : "▶") @Name</div>
+    @if (Expanded)
+    {
+        <div style="padding-left: 20px;">
+            @foreach (string file in Context.FileSystem.GetDirectories(Path, false).Concat(Context.FileSystem.GetFiles(Path, "", false)))
+            {
+                <FileSystemNode Context="@Context" Path="@file"/>
+            }
+        </div>
+    }
+}
+else
+{
+    <div @onclick="() => Context.OpenFile(Path)">@Name</div>
+}
+
+@code {
+    [Parameter]
+    public string Path { get; set; }
+    [Parameter]
+    public bool Expanded { get; set; } = false;
+    [Parameter]
+    public BadReplContext Context { get; set; }
+
+    private string Name => GetName();
+    private string GetName()
+    {
+        string path = Path;
+        if (path.EndsWith('/'))
+        {
+            path = path.Substring(0, Path.Length - 1);
+        }
+        string name = System.IO.Path.GetFileName(path);
+        return name == string.Empty ? "/" : name;
+    }
+}

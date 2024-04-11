@@ -1,1 +1,247 @@
-import Assert from '<Assert>'; export default class SourceReader { const string _src; let num _current; function SourceReader(src!) { Assert.IsString(src); _src = src; _current = 0; } compiled fast function bool Is(string str!) { for(let i = 0; i < str.Length; i++) { if(GetCurrent(i) != str[i]) { return false; } } return true; } compiled fast function string Eat(string str!) { if(!Is(str)) { throw $"Expected {str}"; } _current += str.Length; return str; } compiled fast function bool IsWhiteSpace() { return Is("\n") || Is("\r") || Is(" ") || Is("\t"); } compiled fast function SkipWhiteSpace() { while(!IsEOF() && IsWhiteSpace()) { MoveNext(); } } compiled fast function string ParseWord() { let r = ""; while(!IsWhiteSpace()) { r += GetCurrent(); MoveNext(); } return r; } compiled fast function bool IsEOF(num offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0; compiled fast function string GetCurrent(num offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)]; compiled fast function MoveNext() { _current++; } compiled fast function string ReadComment() { let r = ""; while(!IsEOF() && GetCurrent() != "\n") { r += GetCurrent(); MoveNext(); } return r; } compiled fast function string ReadMultilineComment() { let r = GetCurrent(); MoveNext(); r += GetCurrent(); MoveNext(); while(!IsEOF(1) && !Is("*/")) { r += GetCurrent(); MoveNext(); } r += GetCurrent(); MoveNext(); r += GetCurrent(); MoveNext(); return r; } compiled fast function string ReadMetaComment() { let r = GetCurrent(); MoveNext(); r += GetCurrent(); MoveNext(); while(!IsEOF(1) && !Is("|@")) { r += GetCurrent(); MoveNext(); } r += GetCurrent(); MoveNext(); r += GetCurrent(); MoveNext(); return r; } compiled fast function string ReadString() { const terminator = GetCurrent(); let r = terminator; MoveNext(); while(!IsEOF()) { let current = GetCurrent(); if(current == terminator) { break; } if(current == "\\") { const escaped = GetCurrent(1); r += "\\" + escaped; MoveNext(); MoveNext(); continue; } r += current; MoveNext(); } r += Eat(terminator); return r; } compiled fast function string StripComments() { let r = ""; while(!IsEOF()) { let c = GetCurrent(); if(c == "/" && GetCurrent(1) == "/") { ReadComment(); } else if(c == "/" && GetCurrent(1) == "*") { ReadMultilineComment(); } else if(c == "@" && GetCurrent(1) == "|") { ReadMetaComment(); } else if(c == "\"") { r += ReadString(); } else { r += c; MoveNext(); } } return r; } }
+import Assert from '<Assert>';
+
+@|
+	Supports rudimentary source code parsing.
+|@
+export default class SourceReader
+{
+	const string _src;
+	let num _current;
+	@|
+		Source Reader Constructor
+		|PARAM src string: The Source code
+	|@
+	function SourceReader(src!)
+	{
+		Assert.IsString(src);
+		_src = src;
+		_current = 0;
+	}
+
+	@|
+		Returns true if the next string sequence is equal to str
+		|PARAM str string: The string sequence to test against
+		|RET bool: True if the next string sequence is equal to str
+	|@
+	compiled fast function bool Is(string str!)
+	{
+		for(let i = 0; i < str.Length; i++)
+		{
+			if(GetCurrent(i) != str[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@|
+		Consumes the specified string from the source reader.
+		If the specified string does not match the string sequence in the reader, an error is thrown
+		|PARAM str string: The string sequence to test against
+		|RET: void
+	|@
+	compiled fast function string Eat(string str!)
+	{
+		if(!Is(str))
+		{
+			throw $"Expected {str}";
+		}
+
+		_current += str.Length;
+		return str;
+	}
+
+	@|
+		Returns true if the next character is a whitespace character
+		|RET bool: True if the next character is a whitespace character
+	|@
+	compiled fast function bool IsWhiteSpace()
+	{
+		return Is("\n") || Is("\r") || Is(" ") || Is("\t");
+	}
+
+
+	@|
+		Skips all whitespace characters
+		|RET: void
+	|@
+	compiled fast function SkipWhiteSpace()
+	{
+		while(!IsEOF() && IsWhiteSpace())
+		{
+			MoveNext();
+		}
+	}
+
+	@|
+		Parses a word
+		|RET string: Parsed Word String
+	|@
+	compiled fast function string ParseWord()
+	{
+		let r = "";
+		while(!IsWhiteSpace())
+		{
+			r += GetCurrent();
+			MoveNext();
+		}
+		return r;
+	}
+
+	@|
+		Returns True if the current reader position plus the offset is out of bounds
+		|RET bool:
+	|@
+	compiled fast function bool IsEOF(num offset?) => (_current + (offset ?? 0)) >= _src.Length || (_current + (offset ?? 0)) < 0;
+	@|
+		Returns a character at the specified offset(default=0) or '\0' if IsEOF(offset) is true.
+		|RET string:
+	|@
+	compiled fast function string GetCurrent(num offset?) => IsEOF(offset) ? "\0" : _src[_current + (offset ?? 0)];
+
+	@|
+		Moves the reader to the next position
+		|RET void:
+	|@
+	compiled fast function MoveNext()
+	{
+		_current++;
+	}
+
+	@|
+		Parses a single line comment
+		|RET string: Parsed Comment String
+	|@
+	compiled fast function string ReadComment()
+	{
+		let r = "";
+		while(!IsEOF() && GetCurrent() != "\n")
+		{
+
+			r += GetCurrent();
+			MoveNext();
+		}
+
+		return r;
+	}
+
+	@|
+		Parses a multi line comment
+		|RET string: Parsed Comment String
+	|@
+	compiled fast function string ReadMultilineComment()
+	{
+		let r = GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+		while(!IsEOF(1) && !Is("*/"))
+		{
+			r += GetCurrent();
+			MoveNext();
+		}
+		r += GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+
+		return r;
+	}
+
+
+	@|
+		Parses a meta comment
+		|RET string: Parsed Comment String
+	|@
+	compiled fast function string ReadMetaComment()
+	{
+		let r = GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+		while(!IsEOF(1) && !Is("|@"))
+		{
+			r += GetCurrent();
+			MoveNext();
+		}
+		r += GetCurrent();
+		MoveNext();
+		r += GetCurrent();
+		MoveNext();
+
+		return r;
+	}
+
+
+	@|
+		Parses a string expression
+		|RET string: Parsed String
+	|@
+	compiled fast function string ReadString()
+	{
+		const terminator = GetCurrent();
+		let r = terminator;
+		MoveNext();
+		
+		while(!IsEOF())
+		{
+			let current = GetCurrent();
+			if(current == terminator)
+			{
+				break;
+			}
+			if(current == "\\")
+			{
+				const escaped = GetCurrent(1);
+				r += "\\" + escaped;
+				MoveNext();
+				MoveNext();
+				continue;
+			}
+
+			r += current;
+			MoveNext();
+		}
+
+		r += Eat(terminator);
+
+		return r;
+	}
+
+	@|
+		Removes all comments from the source code and returns it.
+		|RET string: Stripped Source
+	|@
+	compiled fast function string StripComments()
+	{
+		let r = "";
+		while(!IsEOF())
+		{
+			let c = GetCurrent();
+			if(c == "/" && GetCurrent(1) == "/")
+			{
+				ReadComment();
+			}
+			else if(c == "/" && GetCurrent(1) == "*")
+			{
+				ReadMultilineComment();
+			}
+			else if(c == "@" && GetCurrent(1) == "|")
+			{
+				ReadMetaComment();
+			}
+			else if(c == "\"")
+			{
+				r += ReadString();
+			}
+			else
+			{
+				r += c;
+				MoveNext();
+			}
+		}
+
+		return r;
+	}
+}

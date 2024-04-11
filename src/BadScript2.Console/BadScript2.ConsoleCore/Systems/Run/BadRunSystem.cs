@@ -51,7 +51,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
 
     /// <inheritdoc />
-    protected override int Run(BadRunSystemSettings settings)
+    protected override async Task<int> Run(BadRunSystemSettings settings)
     {
         BadNetworkConsoleHost? host = null;
 
@@ -77,7 +77,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 BadLogger.Warn("Benchmarking is not supported in interactive mode");
             }
 
-            Runtime.RunInteractive(files);
+            await Runtime.RunInteractiveAsync(files);
 
             return 0;
         }

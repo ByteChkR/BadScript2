@@ -72,7 +72,7 @@ function DebugStepCommandline(any step!)
 	while(cmd != "")
 	{
 		Console.Write("DBG>");
-		cmd = Console.ReadLine();
+		cmd = await Console.ReadLineAsync();
 		if(cmd != "")
 		{
 			const command = FindCommand(cmd);
@@ -93,7 +93,7 @@ function DisplayLoadFileDialog(string file!)
 {
 	Console.WriteLine($"Loading File: {file}");
 	Console.Write("Do you want to load it into the debugger? [y/N]: ");
-	let cmd = Console.ReadLine().ToUpper();
+	let cmd = (await Console.ReadLineAsync()).ToUpper();
 	if(cmd == "Y")
 	{
 		files.Add(file);

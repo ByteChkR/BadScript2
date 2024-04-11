@@ -33,13 +33,13 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
     }
 
     /// <inheritdoc />
-    protected override int Run(BadRemoteConsoleSystemSettings settings)
+    protected override Task<int> Run(BadRemoteConsoleSystemSettings settings)
     {
         Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parser = settings.UseScriptCommands ? CreateScriptParser : BadNetworkConsoleClient.DefaultParserFactory;
         BadNetworkConsoleClient client = new BadNetworkConsoleClient(settings.Host, settings.Port, parser);
         client.Start();
 
-        return 0;
+        return Task.FromResult(0);
     }
 
     /// <summary>

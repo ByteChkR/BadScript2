@@ -34,7 +34,7 @@ public class BadConsoleRunner
 	/// </summary>
 	/// <param name="args">Commandline Arguments</param>
 	/// <returns>Return Code</returns>
-	public int Run(string[] args)
+	public Task<int> Run(string[] args)
     {
         while (args.Length == 0)
         {

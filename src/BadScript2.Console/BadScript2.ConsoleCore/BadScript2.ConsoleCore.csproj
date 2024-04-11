@@ -8,6 +8,7 @@
         <FileVersion>2023.10.8.0</FileVersion>
     </PropertyGroup>
     <ItemGroup>
+        <ProjectReference Include="..\..\..\deps\commandlineparser\src\CommandLine\CommandLine.csproj" />
         <ProjectReference Include="..\..\BadHtml\BadHtml.csproj"/>
         <ProjectReference Include="..\..\BadScript2.Common\BadScript2.Debugger\BadScript2.Debugger.csproj"/>
         <ProjectReference Include="..\..\BadScript2.Common\BadScript2.Interactive\BadScript2.Interactive.csproj"/>
@@ -15,7 +16,6 @@
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="CommandLineParser" Version="2.9.2-ci-210"/>
         <PackageReference Include="NUnitLite" Version="4.1.0" />
     </ItemGroup>
 </Project>

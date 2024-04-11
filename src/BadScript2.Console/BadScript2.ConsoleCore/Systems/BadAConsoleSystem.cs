@@ -33,7 +33,7 @@ public abstract class BadAConsoleSystem
     /// </summary>
     /// <param name="settings">The Settings Object</param>
     /// <returns>Return Code</returns>
-    public abstract int Run(object? settings);
+    public abstract Task<int> Run(object? settings);
 
     /// <summary>
     ///     Parses the given arguments into a settings object

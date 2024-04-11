@@ -1,5 +1,7 @@
 using BadScript2.ConsoleAbstraction;
 
+using CommandLine;
+
 namespace BadScript2.ConsoleCore.Systems;
 
 /// <summary>
@@ -15,7 +17,7 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
     protected BadConsoleSystem(BadRuntime runtime) : base(runtime) { }
 
     /// <inheritdoc />
-    public override int Run(object? settings)
+    public override Task<int> Run(object? settings)
     {
         if (settings is T t)
         {
@@ -24,13 +26,14 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
 
         BadConsole.WriteLine(settings is null ? "No settings provided." : "Invalid settings type");
 
-        return -1;
+        return Task.FromResult(-1);
     }
 
     /// <inheritdoc />
     public override object? Parse(string[] args)
     {
-        T t = CommandLine.Parser.Default.ParseArguments<T>(args).Value;
+        CommandLine.Parser parser = new CommandLine.Parser(() => ParserSettings.CreateDefault(ParserSettings.DefaultMaximumLength));
+        T t = parser.ParseArguments<T>(args).Value;
 
         if (t is null)
         {
@@ -45,5 +48,5 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
     /// </summary>
     /// <param name="settings">The Settings Object</param>
     /// <returns>Return Code</returns>
-    protected abstract int Run(T settings);
+    protected abstract Task<int> Run(T settings);
 }
