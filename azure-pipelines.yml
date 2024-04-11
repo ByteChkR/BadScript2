@@ -11,6 +11,9 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: CmdLine@2
+  inputs:
+    script: 'git submodule update --init --recursive'
 - task: UseDotNet@2
   displayName: Install .NET
   inputs:
