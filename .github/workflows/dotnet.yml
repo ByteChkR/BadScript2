@@ -63,7 +63,7 @@ jobs:
         dotnet pack ./src/BadScript2.Common/BadScript2.Interactive/BadScript2.Interactive.csproj -p:NuspecFile=./BadScript2.Interactive.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Common/BadScript2.Debugger/BadScript2.Debugger.csproj -p:NuspecFile=./BadScript2.Debugger.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
-        dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=../BadScript2.Full.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Full/BadScript2.Full.csproj -p:NuspecFile=./BadScript2.Full.nuspec --output ./out --include-symbols --include-source
     - name: Publish Nuget Artifacts
       uses: actions/upload-artifact@v2
       with:
