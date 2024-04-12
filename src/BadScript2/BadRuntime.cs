@@ -334,10 +334,12 @@ public class BadRuntime : IDisposable
     ///     Executes the specified script file
     /// </summary>
     /// <param name="file">The File Path of the Script</param>
+    /// <param name="fileSystem">The (optional) Filesystem Instance to use</param>
     /// <returns>The Result of the Execution</returns>
-    public BadRuntimeExecutionResult ExecuteFile(string file)
+    public BadRuntimeExecutionResult ExecuteFile(string file, IFileSystem? fileSystem = null)
     {
-        return Execute(ParseFile(file), Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ?? BadFileSystem.Instance.GetCurrentDirectory());
+        var fs = fileSystem ?? BadFileSystem.Instance;
+        return Execute(ParseFile(file, fs), fs.GetFullPath(Path.GetDirectoryName(fs.GetFullPath(file)) ?? fs.GetCurrentDirectory()));
     }
 
     /// <summary>
@@ -379,10 +381,12 @@ public class BadRuntime : IDisposable
     ///     Parses the specified script file
     /// </summary>
     /// <param name="file">The File Path of the Script</param>
+    /// <param name="fileSystem">The (optional) Filesystem Instance to use</param>
     /// <returns>The Parsed Expressions</returns>
-    public static IEnumerable<BadExpression> ParseFile(string file)
+    public static IEnumerable<BadExpression> ParseFile(string file, IFileSystem? fileSystem = null)
     {
-        return Parse(BadFileSystem.ReadAllText(file), file);
+        var fs = fileSystem ?? BadFileSystem.Instance;
+        return Parse(fs.ReadAllText(file), file);
     }
 
 
