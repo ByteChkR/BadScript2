@@ -1,13 +1,132 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime;
+public class BadMemberInfo : BadObject
+    {
+        private readonly string m_Name;
+        private readonly BadScope m_Scope;
+        private static readonly BadNativeClassPrototype<BadMemberInfo> s_Prototype =
+            new BadNativeClassPrototype<BadMemberInfo>(
+                "MemberInfo",
+                (c, a) => throw BadRuntimeException.Create(c.Scope, "MemberInfo is a read only object")
+            );
+        
+        public static BadClassPrototype Prototype => s_Prototype;
 
+        private readonly BadObjectReference m_NameReference;
+        private readonly BadObjectReference m_GetAttributesReference;
+        private readonly BadObjectReference m_GetValueReference;
+        private readonly BadObjectReference m_SetValueReference;
+        private readonly BadObjectReference m_IsReadonlyReference;
+        private readonly BadObjectReference m_MemberTypeReference;
+        
+        public BadMemberInfo(string name, BadScope scope)
+        {
+            m_Name = name;
+            m_Scope = scope;
+            m_NameReference = BadObjectReference.Make("MemberInfo.Name", () => m_Name);
+            m_GetAttributesReference = BadObjectReference.Make("MemberInfo.GetAttributes",
+                () => new BadInteropFunction("GetAttributes", GetAttributes, false, BadArray.Prototype));
+            m_GetValueReference = BadObjectReference.Make("MemberInfo.GetValue",
+                () => new BadInteropFunction("GetValue", GetValue, false, BadAnyPrototype.Instance));
+            m_SetValueReference = BadObjectReference.Make("MemberInfo.SetValue",
+                () => new BadInteropFunction("SetValue", SetValue, false, BadAnyPrototype.Instance,
+                    new BadFunctionParameter("value", false, false, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter("noChangeEvent", true, true, false, null, BadNativeClassBuilder.GetNative("bool"))));
+            m_IsReadonlyReference =
+                BadObjectReference.Make("MemberInfo.IsReadonly", () => m_Scope.GetVariableInfo(m_Name).IsReadOnly);
+            m_MemberTypeReference = BadObjectReference.Make("MemberInfo.MemberType",
+                () => m_Scope.GetVariableInfo(m_Name).Type ?? BadAnyPrototype.Instance);
+        }
+
+        private BadObject GetAttributes(BadExecutionContext ctx, BadObject[] args)
+        {
+            if(m_Scope.Attributes.TryGetValue(m_Name, out var attributes))
+            {
+                return new BadArray(attributes.ToList());
+            }
+
+            return new BadArray();
+        }
+        
+        private BadObject GetValue(BadExecutionContext ctx, BadObject[] args)
+        {
+            return m_Scope.GetVariable(m_Name).Dereference();
+        }
+        
+        private BadObject SetValue(BadExecutionContext ctx, BadObject[] args)
+        {
+            if(args.Length == 1)
+            {
+                m_Scope.GetVariable(m_Name, ctx.Scope).Set(args[0]);
+            }
+            else if(args.Length == 2)
+            {
+                if (args[1] is not IBadBoolean noEvents)
+                {
+                    throw new BadRuntimeException("Second Argument must be a boolean");
+                }
+                
+                m_Scope.GetVariable(m_Name, ctx.Scope).Set(args[0], null, noEvents.Value);
+            }
+            return Null;
+        }
+        
+        public override bool HasProperty(string propName, BadScope? caller = null)
+        {
+            switch (propName)
+            {
+                case "Name":
+                case "GetAttributes":
+                case "GetValue":
+                case "SetValue":
+                case "IsReadonly":
+                case "MemberType":
+                    return true;
+                default:
+                    return base.HasProperty(propName, caller);
+            }
+        }
+
+        public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
+        {
+            switch (propName)
+            {
+                case "Name":
+                    return m_NameReference;
+                case "GetAttributes":
+                    return m_GetAttributesReference;
+                case "GetValue":
+                    return m_GetValueReference;
+                case "SetValue":
+                    return m_SetValueReference;
+                case "IsReadonly":
+                    return m_IsReadonlyReference;
+                case "MemberType":
+                    return m_MemberTypeReference;
+                default:
+                    return base.GetProperty(propName, caller);
+            }
+        }
+
+
+        public override BadClassPrototype GetPrototype()
+        {
+            return s_Prototype;
+        }
+
+        public override string ToSafeString(List<BadObject> done)
+        {
+            return "MemberInfo: " + m_Name;
+        }
+    }
 /// <summary>
 ///     Implements the Scope for the Script Engine
 /// </summary>
@@ -32,6 +151,16 @@ public class BadScope : BadObject, IDisposable
     ///     The Scope Variables
     /// </summary>
     private readonly BadTable m_ScopeVariables = new BadTable();
+
+    private readonly Dictionary<string, BadObject[]> m_Attributes = new Dictionary<string, BadObject[]>();
+
+    public IReadOnlyDictionary<string, BadObject[]> Attributes => m_Attributes;
+    
+    public BadArray GetMemberInfos()
+    {
+        return new BadArray(
+            m_ScopeVariables.InnerTable.Keys.Select(x => (BadObject)new BadMemberInfo(x, this)).ToList());
+    }
 
     /// <summary>
     ///     The Singleton Cache
@@ -72,6 +201,7 @@ public class BadScope : BadObject, IDisposable
         Flags = flags;
         m_Caller = caller;
         m_Provider = provider;
+        m_ScopeVariables.OnSetProperty += OnChange;
     }
 
     /// <summary>
@@ -94,6 +224,7 @@ public class BadScope : BadObject, IDisposable
         m_Caller = caller;
         m_ScopeVariables = locals;
         m_Provider = provider;
+        m_ScopeVariables.OnSetProperty += OnChange;
     }
 
     /// <summary>
@@ -567,7 +698,53 @@ public class BadScope : BadObject, IDisposable
         return sc;
     }
 
-    public void DefineProperty(string name, BadClassPrototype type, BadExpression getAccessor, BadExpression? setAccessor, BadExecutionContext caller)
+    internal void OnChange(string name)
+    {
+        if (ClassObject == null)
+        {
+            return;
+        }
+        if (m_Attributes.TryGetValue(name, out var attributes))
+        {
+            var member = new BadMemberInfo(name, this);
+            foreach (BadClass attribute in attributes.OfType<BadClass>())
+            {
+                if (attribute.InheritsFrom(BadNativeClassBuilder.ChangeAttribute))
+                {
+                    var invoke = (BadFunction)attribute.GetProperty("OnChange").Dereference();
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { ClassObject!, member }, new BadExecutionContext(this)))
+                    {
+                        //Execute
+                    }
+                }
+            }
+        }
+    }
+    internal IEnumerable<BadObject> InitializeAttributes()
+    {
+        if (ClassObject == null)
+        {
+            throw new BadRuntimeException("Scope is not a class scope");
+        }
+        foreach (var kvp in m_Attributes)
+        {
+            var member = new BadMemberInfo(kvp.Key, this);
+            foreach (BadClass attribute in kvp.Value.OfType<BadClass>())
+            {
+                if (attribute.InheritsFrom(BadNativeClassBuilder.InitializeAttribute))
+                {
+                    var invoke = (BadFunction)attribute.GetProperty("Initialize").Dereference();
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { ClassObject!, member }, new BadExecutionContext(this)))
+                    {
+                        //Execute
+                        yield return o;
+                    }
+                }
+            }
+        }
+    }
+    
+    public void DefineProperty(string name, BadClassPrototype type, BadExpression getAccessor, BadExpression? setAccessor, BadExecutionContext caller, BadObject[] attributes)
     {
         if (HasLocal(name, caller.Scope, false))
         {
@@ -599,6 +776,8 @@ public class BadScope : BadObject, IDisposable
                 return get.Dereference();
             },
             setter));
+        
+        m_Attributes[name] = attributes;
     }
 
     /// <summary>
@@ -609,14 +788,15 @@ public class BadScope : BadObject, IDisposable
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="info">Variable Info</param>
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
-    public void DefineVariable(string name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null)
+    public void DefineVariable(string name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null, BadObject[]? attributes = null)
     {
         if (HasLocal(name, caller ?? this, false))
         {
             throw new BadRuntimeException($"Variable {name} is already defined");
         }
 
-        m_ScopeVariables.GetProperty(name, false, caller ?? this).Set(value, info);
+        m_Attributes[name] = attributes ?? [];
+        m_ScopeVariables.GetProperty(name, false, caller ?? this).Set(value, info, true);
     }
 
     /// <summary>
@@ -731,30 +911,6 @@ public class BadScope : BadObject, IDisposable
     public BadObjectReference GetVariable(string name)
     {
         return GetVariable(name, this);
-    }
-
-    /// <summary>
-    ///     Sets a variable with the specified name to the specified value
-    /// </summary>
-    /// <param name="name">The Name</param>
-    /// <param name="value">The Value</param>
-    /// <param name="caller">The Calling Scope</param>
-    /// <exception cref="BadRuntimeException">Gets raised if the variable can not be found</exception>
-    public void SetVariable(string name, BadObject value, BadScope? caller = null)
-    {
-        if (HasLocal(name, caller ?? this))
-        {
-            m_ScopeVariables.GetProperty(name, caller).Set(value);
-        }
-        else
-        {
-            if (Parent == null)
-            {
-                throw new BadRuntimeException($"Variable '{name}' is not defined");
-            }
-
-            Parent!.SetVariable(name, value);
-        }
     }
 
     /// <summary>

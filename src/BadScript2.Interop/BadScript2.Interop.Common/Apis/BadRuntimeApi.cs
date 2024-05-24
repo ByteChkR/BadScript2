@@ -215,7 +215,7 @@ internal partial class BadRuntimeApi
         {
             return BadObjectReference.Make(refText,
                 () => GetReferenceValue(ctx, get), 
-                null,
+                (Action<BadObject, BadPropertyInfo?>?)null,
                 () => SetReferenceValue(ctx, delete, BadObject.Null));
         }
         
@@ -546,6 +546,19 @@ internal partial class BadRuntimeApi
     private static BadArray GetArguments()
     {
         return StartupArguments == null ? new BadArray() : new BadArray(StartupArguments.Select(x => (BadObject)x).ToList());
+    }
+
+
+    [BadMethod(description: "Gets the Attributes of the given objects members")]
+    [return: BadReturn("A Table containing the Attributes of the given objects members.")]
+    private static BadArray GetMembers(BadObject obj)
+    {
+        if (obj is BadClass cls)
+        {
+            return cls.Scope.GetMemberInfos();
+        }
+
+        return new BadArray();
     }
 
     /// <summary>

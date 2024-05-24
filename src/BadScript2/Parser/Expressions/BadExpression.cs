@@ -24,6 +24,27 @@ public abstract class BadExpression
     {
         IsConstant = isConstant;
         Position = position;
+        Attributes = [];
+    }
+    
+    public IEnumerable<BadExpression> Attributes { get; private set; }
+    
+    public void SetAttributes(IEnumerable<BadExpression> attributes)
+    {
+        Attributes = attributes;
+    }
+    protected IEnumerable<BadObject> ComputeAttributes(BadExecutionContext ctx, List<BadObject> attributes)
+    {
+        foreach (var attribute in Attributes)
+        {
+            var obj = BadObject.Null;
+            foreach (var o in attribute.Execute(ctx))
+            {
+                yield return o;
+                obj = o;
+            }
+            attributes.Add(obj.Dereference());
+        }
     }
 
     /// <summary>

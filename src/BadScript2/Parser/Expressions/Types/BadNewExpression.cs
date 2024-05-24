@@ -106,6 +106,11 @@ public class BadNewExpression : BadExpression
                 yield return o;
             }
         }
+        
+        foreach(BadObject o in cls.Scope.InitializeAttributes())
+        {
+            yield return o;
+        }
 
         yield return cls;
     }

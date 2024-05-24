@@ -1,0 +1,31 @@
+
+class DefaultValueAttribute : IInitializeAttribute
+{
+	const any __value;
+	const bool __noChangeEvent;
+	function DefaultValueAttribute(any value, bool noChangeEvent!)
+	{
+		__value = value;
+		__noChangeEvent = noChangeEvent;
+	}
+
+	function Initialize(any instance, MemberInfo member!)
+	{
+		if(member.GetValue() == null)
+		{
+			member.SetValue(__value, __noChangeEvent);
+		}
+	}
+}
+
+class DebugChangeAttribute : IChangeAttribute
+{
+	function OnChange(any instance, MemberInfo member!)
+	{
+		const t = typeof instance;
+		Console.WriteLine($"{t.Name}.{member.Name} Changed to {member.GetValue()}");
+	}
+}
+
+export function DefaultValueAttribute DefaultValue(any value, bool noChangeEvent?) => new DefaultValueAttribute(value, noChangeEvent ?? false);
+export const DebugChange = new DebugChangeAttribute();

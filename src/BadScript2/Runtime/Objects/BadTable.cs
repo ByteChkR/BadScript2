@@ -12,6 +12,9 @@ namespace BadScript2.Runtime.Objects;
 /// </summary>
 public class BadTable : BadObject, IBadEnumerable
 {
+    
+    public event Action<string> OnSetProperty = delegate { };
+    
     /// <summary>
     ///     The Prototype for the BadScript Table
     /// </summary>
@@ -150,7 +153,7 @@ public class BadTable : BadObject, IBadEnumerable
         BadObjectReference r = BadObjectReference.Make(
             $"BadTable.{propName}",
             () => InnerTable[propName],
-            (o, t) =>
+            (o, t, noChange) =>
             {
                 if (InnerTable.TryGetValue(propName, out BadObject? propValue))
                 {
@@ -170,6 +173,8 @@ public class BadTable : BadObject, IBadEnumerable
                     if (propValue is BadObjectReference propRef)
                     {
                         propRef.Set(o, t);
+                        if(!noChange)
+                            OnSetProperty(propName);
                         return;
                     }
                 }
@@ -186,6 +191,8 @@ public class BadTable : BadObject, IBadEnumerable
                 }
 
                 InnerTable[propName] = o;
+                if(!noChange)
+                    OnSetProperty(propName);
             },
             () => { InnerTable.Remove(propName); }
         );
@@ -205,6 +212,7 @@ public class BadTable : BadObject, IBadEnumerable
 
         return GetLocalReference(propName);
     }
+    
 
 
     /// <inheritdoc />

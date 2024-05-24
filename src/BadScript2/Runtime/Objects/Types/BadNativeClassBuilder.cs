@@ -20,6 +20,39 @@ public static class BadNativeClassBuilder
     public static readonly BadInterfacePrototype Disposable =
         new BadInterfacePrototype("IDisposable", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints, Array.Empty<string>());
 
+    public static readonly BadInterfacePrototype InitializeAttribute =
+        new BadInterfacePrototype("IInitializeAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null,
+            InitializeAttributeConstraints, Array.Empty<string>());
+    
+    public static readonly BadInterfacePrototype ChangeAttribute =
+        new BadInterfacePrototype("IChangeAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null,
+            ChangeAttributeConstraints, Array.Empty<string>());
+
+    private static BadInterfaceConstraint[] InitializeAttributeConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("Initialize", null, BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("instance", false, false, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype)
+                })
+        };
+    }
+    private static BadInterfaceConstraint[] ChangeAttributeConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("OnChange", null, BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("instance", false, false, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype)
+                })
+        };
+    }
+
     /// <summary>
     ///     The IEnumerable Interface Prototype
     /// </summary>
@@ -144,11 +177,14 @@ public static class BadNativeClassBuilder
         BadScope.Prototype,
         BadClassPrototype.Prototype,
         BadRuntimeError.Prototype,
+        BadMemberInfo.Prototype,
         Enumerable,
         Enumerator,
         Disposable,
         ArrayLike,
         ImportHandler,
+        InitializeAttribute,
+        ChangeAttribute
     };
 
     /// <summary>

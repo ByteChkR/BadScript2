@@ -1967,6 +1967,8 @@ public class BadSourceParser
             Reader.Eat('{');
             Reader.SkipNonToken();
 
+            List<BadExpression> attributeExpressions = new List<BadExpression>();
+            
             while (!Reader.Is('}'))
             {
                 Reader.SkipNonToken();
@@ -1995,7 +1997,21 @@ public class BadSourceParser
                 }
                 else
                 {
-                    members.Add(expr);
+                    if (expr is BadArrayExpression attributeList)
+                    {
+                        attributeExpressions.AddRange(attributeList.InitExpressions);
+                        Reader.SkipNonToken();
+                        continue;
+                    }
+                    else
+                    {
+                        if (attributeExpressions.Count > 0)
+                        {
+                            expr.SetAttributes(attributeExpressions.ToArray());
+                            attributeExpressions.Clear();
+                        }
+                        members.Add(expr);
+                    }
                 }
 
                 if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)
@@ -2014,6 +2030,14 @@ public class BadSourceParser
                 }
 
                 Reader.SkipNonToken();
+            }
+
+            if (attributeExpressions.Count != 0)
+            {
+                throw new BadParserException(
+                    "Attributes without target",
+                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                );
             }
 
             Reader.Eat('}');
