@@ -184,6 +184,7 @@ public class BadClass : BadObject
                     else
                     {
                         Scope.GetTable().InnerTable[propName] = o;
+                        Scope.OnChange(propName);
                     }
                 }
             );

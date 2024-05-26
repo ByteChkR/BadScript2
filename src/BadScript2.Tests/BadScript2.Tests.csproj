@@ -642,6 +642,9 @@
         <None Update="tests\basic\classes\generic\property.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tests\basic\classes\reflection.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
       <Folder Include="tests\basic\module\" />

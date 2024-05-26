@@ -1972,8 +1972,20 @@ public class BadSourceParser
             while (!Reader.Is('}'))
             {
                 Reader.SkipNonToken();
-                
+
+                bool isAttribute = false;
+                if (Reader.Is('@'))
+                {
+                    Reader.Eat('@');
+                    isAttribute = true;
+                }
                 BadExpression expr = ParseExpression();
+                if (isAttribute)
+                {
+                    attributeExpressions.Add(expr);
+                    Reader.SkipNonToken();
+                    continue;
+                }
 
                 if (expr is BadFunctionExpression
                     {
@@ -1997,21 +2009,12 @@ public class BadSourceParser
                 }
                 else
                 {
-                    if (expr is BadArrayExpression attributeList)
-                    {
-                        attributeExpressions.AddRange(attributeList.InitExpressions);
-                        Reader.SkipNonToken();
-                        continue;
-                    }
-                    else
-                    {
-                        if (attributeExpressions.Count > 0)
-                        {
-                            expr.SetAttributes(attributeExpressions.ToArray());
-                            attributeExpressions.Clear();
-                        }
-                        members.Add(expr);
-                    }
+                    members.Add(expr);
+                }
+                if (attributeExpressions.Count > 0)
+                {
+                    expr.SetAttributes(attributeExpressions.ToArray());
+                    attributeExpressions.Clear();
                 }
 
                 if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)

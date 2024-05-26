@@ -823,6 +823,9 @@
         <None Update="data\subsystems\test\classes\property.bs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="data\subsystems\test\classes\reflection.bs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Content Include="data\subsystems\new\templates\app\project.bsproj">

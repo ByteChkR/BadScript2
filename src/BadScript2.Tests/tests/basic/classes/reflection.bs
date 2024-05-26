@@ -1,0 +1,197 @@
+let Assert = NUnit.Assert;
+
+function TestGetMembers()
+{
+	class C
+	{
+		let Field;
+		let Property { get => Field; set => Field = value; }
+		function Func(){}
+	}
+
+	const c = new C();
+	const members = Runtime.GetMembers(c);
+
+	const field = members.FirstOrDefault(x=>x.Name == "Field");
+	const property = members.FirstOrDefault(x=>x.Name == "Property");
+	const func = members.FirstOrDefault(x=>x.Name == "Func");
+
+	Assert.IsNotNull(field, "'Field' member not found");
+	Assert.IsNotNull(property, "'Property' member not found");
+	Assert.IsNotNull(func, "'Func' member not found");
+}
+NUnit.AddTest(TestGetMembers, "Reflection Get Members");
+
+function TestGetSetValue()
+{
+	class C
+	{
+		let num Field;
+		let num Property { get => Field; set => Field = value; }
+	}
+	const c = new C();
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const property = members.First(x=>x.Name == "Property");
+	Assert.AreEqual(num, field.MemberType, "Field Type does not match");
+	Assert.AreEqual(num, property.MemberType, "Property Type does not match");
+	field.SetValue(10);
+	Assert.AreEqual(10, c.Field, "Field value was not set.");
+	Assert.AreEqual(10, field.GetValue(), "Field value was was not correctly returned by GetValue()");
+	property.SetValue(11);
+	Assert.AreEqual(11, c.Property, "Property value was not set.");
+	Assert.AreEqual(11, property.GetValue(), "Property value was was not correctly returned by GetValue()");
+}
+
+NUnit.AddTest(TestGetSetValue, "Reflection Get/Set Member Value");
+
+
+function TestSimpleAttributeFullName()
+{
+	class SimpleAttribute : IAttribute {}
+	class C
+	{
+		@SimpleAttribute
+		let num Field;
+	}
+	const c = new C();
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof SimpleAttribute, "Attribute has wrong type");
+}
+
+NUnit.AddTest(TestSimpleAttributeFullName, "Reflection Simple Attribute(fullname)");
+
+function TestSimpleAttributePartialName()
+{
+	class SimpleAttribute : IAttribute {}
+	class C
+	{
+		@Simple
+		let num Field;
+	}
+	const c = new C();
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof SimpleAttribute, "Attribute has wrong type");
+}
+
+NUnit.AddTest(TestSimpleAttributePartialName, "Reflection Simple Attribute(partialname)");
+
+
+function TestInitAttributeFullName()
+{
+	let wasInitialized = false;
+	class InitAttribute : IInitializeAttribute
+	{
+		function Initialize(any instance!, MemberInfo member!)
+		{
+			wasInitialized = true;
+		}
+	}
+	class C
+	{
+		@InitAttribute
+		let num Field;
+	}
+	const c = new C();
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof InitAttribute, "Attribute has wrong type");
+	Assert.IsTrue(wasInitialized, "Init Attribute does not get Initialized.");
+}
+
+NUnit.AddTest(TestInitAttributeFullName, "Reflection Init Attribute(fullname)");
+
+function TestInitAttributePartialName()
+{
+	let wasInitialized = false;
+	class InitAttribute : IInitializeAttribute
+	{
+		function Initialize(any instance!, MemberInfo member!)
+		{
+			wasInitialized = true;
+		}
+	}
+	class C
+	{
+		@Init
+		let num Field;
+	}
+	const c = new C();
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof InitAttribute, "Attribute has wrong type");
+	Assert.IsTrue(wasInitialized, "Init Attribute does not get Initialized.");
+}
+
+NUnit.AddTest(TestInitAttributePartialName, "Reflection Init Attribute(partialname)");
+
+function TestChangeAttributeFullName()
+{
+	let wasChanged = false;
+	class ChangeAttribute : IChangeAttribute
+	{
+		function OnChange(any instance!, MemberInfo member!)
+		{
+			wasChanged = true;
+		}
+	}
+	class C
+	{
+		@ChangeAttribute
+		let num Field;
+	}
+	const c = new C();
+	c.Field = 10;
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof ChangeAttribute, "Attribute has wrong type");
+	Assert.IsTrue(wasChanged, "Change Attribute does not get Called.");
+}
+
+NUnit.AddTest(TestChangeAttributeFullName, "Reflection Change Attribute(fullname)");
+
+function TestChangeAttributePartialName()
+{
+	let wasChanged = false;
+	class ChangeAttribute : IChangeAttribute
+	{
+		function OnChange(any instance!, MemberInfo member!)
+		{
+			wasChanged = true;
+		}
+	}
+	class C
+	{
+		@Change
+		let num Field;
+	}
+	const c = new C();
+	c.Field = 10;
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof ChangeAttribute, "Attribute has wrong type");
+	Assert.IsTrue(wasChanged, "Change Attribute does not get Called.");
+}
+
+NUnit.AddTest(TestChangeAttributePartialName, "Reflection Change Attribute(partialname)");

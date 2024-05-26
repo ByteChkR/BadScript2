@@ -20,12 +20,14 @@ public static class BadNativeClassBuilder
     public static readonly BadInterfacePrototype Disposable =
         new BadInterfacePrototype("IDisposable", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints, Array.Empty<string>());
 
+    public static readonly BadInterfacePrototype Attribute =
+        new BadInterfacePrototype("IAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, objects => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
     public static readonly BadInterfacePrototype InitializeAttribute =
-        new BadInterfacePrototype("IInitializeAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null,
+        new BadInterfacePrototype("IInitializeAttribute", (typeArgs) => new []{Attribute}, null,
             InitializeAttributeConstraints, Array.Empty<string>());
     
     public static readonly BadInterfacePrototype ChangeAttribute =
-        new BadInterfacePrototype("IChangeAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null,
+        new BadInterfacePrototype("IChangeAttribute", (typeArgs) => new []{Attribute}, null,
             ChangeAttributeConstraints, Array.Empty<string>());
 
     private static BadInterfaceConstraint[] InitializeAttributeConstraints(BadObject[] arg)
@@ -35,7 +37,7 @@ public static class BadNativeClassBuilder
             new BadInterfaceFunctionConstraint("Initialize", null, BadAnyPrototype.Instance,
                 new[]
                 {
-                    new BadFunctionParameter("instance", false, false, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter("instance", false, true, false, null, BadAnyPrototype.Instance),
                     new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype)
                 })
         };
@@ -47,7 +49,7 @@ public static class BadNativeClassBuilder
             new BadInterfaceFunctionConstraint("OnChange", null, BadAnyPrototype.Instance,
                 new[]
                 {
-                    new BadFunctionParameter("instance", false, false, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter("instance", false, true, false, null, BadAnyPrototype.Instance),
                     new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype)
                 })
         };
@@ -183,6 +185,7 @@ public static class BadNativeClassBuilder
         Disposable,
         ArrayLike,
         ImportHandler,
+        Attribute,
         InitializeAttribute,
         ChangeAttribute
     };

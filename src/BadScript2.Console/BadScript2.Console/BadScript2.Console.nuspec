@@ -135,6 +135,8 @@
               target="tools/net8.0/any/data/subsystems/run/startup/PackageHandler.bs"/>
         <file src="./bin/Release/net8.0/publish/data/subsystems/test/classes/default.bs"
               target="tools/net8.0/any/data/subsystems/test/classes/default.bs"/>
+        <file src="./bin/Release/net8.0/publish/data/subsystems/test/classes/reflection.bs"
+              target="tools/net8.0/any/data/subsystems/test/classes/reflection.bs"/>
         <file src="./bin/Release/net8.0/publish/data/subsystems/test/classes/inherit.bs"
               target="tools/net8.0/any/data/subsystems/test/classes/inherit.bs"/>
         <file src="./bin/Release/net8.0/publish/data/subsystems/test/classes/selfreferencing.bs"
