@@ -81,7 +81,7 @@ function Build-Projects {
         if ($updateSource -eq $true)
         {
             Remove-Item "src/BadScript2.Console/BadScript2.Console/data" -Force -Recurse
-            Copy-Item -Force -Recurse build/data src/BadScript2.Console/BadScript2.Console/data
+            Copy-Item -Force -Recurse build/data src/BadScript2.Console/BadScript2.Console
         }
     }
 }
