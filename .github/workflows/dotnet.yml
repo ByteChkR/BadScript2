@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set Calver Version
-      uses: Nelyx/action-calver@v1.0.0
+      uses: ByteChkR/action-calver@v1.0.0
       id: setcalver
       with:
-        default_branch: 'refs/heads/master'
+        default_branch: 'refs/heads/master|refs/heads/dev'
         format: 'YYYY.MM.DD'
         version_prefix: ''
     - name: Checkout submodules
