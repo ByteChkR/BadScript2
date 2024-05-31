@@ -104,11 +104,20 @@ function ChangeDependencies(string file!, Table versionTable!)
 
 function Main(Array args!)
 {
-	const versionFormat = args.Length > 0 ? args[0] : "(~){yy}.(~){MM}.(~){dd}.+";
+	let versionFormat = args.Length > 0 ? args[0] : "(~){yy}.(~){MM}.(~){dd}.+";
+	if(args.Length > 0)
+	{
+		//Strip any possible version suffix from the version format.
+		versionFormat = versionFormat.Split("-", true)[0];
+	}
 	const sourceDir = args.Length > 1 ? args[1] : "./src";
 	const postfix = args.Length > 2 ? args[2] : "";
 	const specFiles = IO.Directory.GetFiles(sourceDir, ".nuspec", true);
-	Console.WriteLine("Updating Nuget Versions");
+	Console.WriteLine("Updating Nuget Versions...");
+	Console.WriteLine("\tVersion Format: " + versionFormat);
+	Console.WriteLine("\tSource Directory: " + sourceDir);
+	Console.WriteLine("\tPostfix: " + postfix);
+
 
 	const versionTable = {};
 
