@@ -1974,7 +1974,7 @@ public class BadSourceParser
                 Reader.SkipNonToken();
 
                 bool isAttribute = false;
-                if (Reader.Is('@'))
+                if (Reader.Is('@') && !Reader.Is('|', 1))
                 {
                     Reader.Eat('@');
                     isAttribute = true;
