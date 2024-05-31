@@ -19,16 +19,46 @@ public static class BadNativeClassBuilder
     /// </summary>
     public static readonly BadInterfacePrototype Disposable =
         new BadInterfacePrototype("IDisposable", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints, Array.Empty<string>());
-
     public static readonly BadInterfacePrototype Attribute =
         new BadInterfacePrototype("IAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, objects => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
     public static readonly BadInterfacePrototype InitializeAttribute =
         new BadInterfacePrototype("IInitializeAttribute", (typeArgs) => new []{Attribute}, null,
             InitializeAttributeConstraints, Array.Empty<string>());
+
+    public static readonly BadInterfacePrototype MemberChangeEventArgs = new BadInterfacePrototype("IMemberChangeEventArgs",
+        (_) => Array.Empty<BadInterfacePrototype>(), null, MemberChangeEventArgsConstraints, Array.Empty<string>());
     
+    public static readonly BadInterfacePrototype MemberChangedEventArgs = new BadInterfacePrototype("IMemberChangedEventArgs",
+        (_) => new []{MemberChangedEventArgs}, null, (_) => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
+    
+    public static readonly BadInterfacePrototype MemberChangingEventArgs = new BadInterfacePrototype("IMemberChangingEventArgs",
+        (_) => new []{MemberChangedEventArgs}, null, MemberChangingEventArgsConstraints, Array.Empty<string>());
+
+    private static BadInterfaceConstraint[] MemberChangingEventArgsConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("Cancel", null, BadAnyPrototype.Instance, Array.Empty<BadFunctionParameter>())
+        };
+    }
+
+    private static BadInterfaceConstraint[] MemberChangeEventArgsConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfacePropertyConstraint("Instance", null, BadAnyPrototype.Instance),
+            new BadInterfacePropertyConstraint("OldValue", null, BadAnyPrototype.Instance),
+            new BadInterfacePropertyConstraint("NewValue", null, BadAnyPrototype.Instance),
+            new BadInterfacePropertyConstraint("Member", null, BadMemberInfo.Prototype)
+        };
+    }
+
     public static readonly BadInterfacePrototype ChangeAttribute =
         new BadInterfacePrototype("IChangeAttribute", (typeArgs) => new []{Attribute}, null,
             ChangeAttributeConstraints, Array.Empty<string>());
+    public static readonly BadInterfacePrototype ChangedAttribute =
+        new BadInterfacePrototype("IChangedAttribute", (typeArgs) => new []{Attribute}, null,
+            ChangedAttributeConstraints, Array.Empty<string>());
 
     private static BadInterfaceConstraint[] InitializeAttributeConstraints(BadObject[] arg)
     {
@@ -49,8 +79,18 @@ public static class BadNativeClassBuilder
             new BadInterfaceFunctionConstraint("OnChange", null, BadAnyPrototype.Instance,
                 new[]
                 {
-                    new BadFunctionParameter("instance", false, true, false, null, BadAnyPrototype.Instance),
-                    new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype)
+                    new BadFunctionParameter("eventArgs", false, true, false, null, MemberChangingEventArgs),
+                })
+        };
+    }
+    private static BadInterfaceConstraint[] ChangedAttributeConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("OnChanged", null, BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("eventArgs", false, true, false, null, MemberChangedEventArgs),
                 })
         };
     }
@@ -187,7 +227,11 @@ public static class BadNativeClassBuilder
         ImportHandler,
         Attribute,
         InitializeAttribute,
-        ChangeAttribute
+        ChangeAttribute,
+        ChangedAttribute,
+        MemberChangeEventArgs,
+        MemberChangingEventArgs,
+        MemberChangedEventArgs
     };
 
     /// <summary>

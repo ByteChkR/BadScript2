@@ -145,9 +145,16 @@ function TestChangeAttributeFullName()
 	let wasChanged = false;
 	class ChangeAttribute : IChangeAttribute
 	{
-		function OnChange(any instance!, MemberInfo member!)
+		function OnChange(IMemberChangingEventArgs eventArgs!)
 		{
-			wasChanged = true;
+			if(!wasChanged) //Allow First Change
+			{
+				wasChanged = true;
+			}
+			else
+			{
+				eventArgs.Cancel(); //Cancel Change
+			}
 		}
 	}
 	class C
@@ -162,8 +169,11 @@ function TestChangeAttributeFullName()
 	const field = members.First(x=>x.Name == "Field");
 	const attributes = field.GetAttributes();
 	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.AreEqual(10, c.Field, "Field was not Changed");
 	Assert.IsTrue(attributes[0] instanceof ChangeAttribute, "Attribute has wrong type");
 	Assert.IsTrue(wasChanged, "Change Attribute does not get Called.");
+	c.Field = 20;
+	Assert.AreEqual(10, c.Field, "Field was Changed after call to IMemberChangingEventArgs.Cancel()");
 }
 
 NUnit.AddTest(TestChangeAttributeFullName, "Reflection Change Attribute(fullname)");
@@ -173,9 +183,16 @@ function TestChangeAttributePartialName()
 	let wasChanged = false;
 	class ChangeAttribute : IChangeAttribute
 	{
-		function OnChange(any instance!, MemberInfo member!)
+		function OnChange(IMemberChangingEventArgs eventArgs!)
 		{
-			wasChanged = true;
+			if(!wasChanged) //Allow First Change
+			{
+				wasChanged = true;
+			}
+			else
+			{
+				eventArgs.Cancel(); //Cancel Change
+			}
 		}
 	}
 	class C
@@ -190,8 +207,67 @@ function TestChangeAttributePartialName()
 	const field = members.First(x=>x.Name == "Field");
 	const attributes = field.GetAttributes();
 	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.AreEqual(10, c.Field, "Field was not Changed");
 	Assert.IsTrue(attributes[0] instanceof ChangeAttribute, "Attribute has wrong type");
 	Assert.IsTrue(wasChanged, "Change Attribute does not get Called.");
+	c.Field = 20;
+	Assert.AreEqual(10, c.Field, "Field was Changed after call to IMemberChangingEventArgs.Cancel()");
 }
 
 NUnit.AddTest(TestChangeAttributePartialName, "Reflection Change Attribute(partialname)");
+
+function TestChangedAttributeFullName()
+{
+	let wasChanged = false;
+	class ChangedAttribute : IChangedAttribute
+	{
+		function OnChanged(IMemberChangedEventArgs eventArgs!)
+		{
+			wasChanged = true;
+		}
+	}
+	class C
+	{
+		@ChangedAttribute
+		let num Field;
+	}
+	const c = new C();
+	c.Field = 10;
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof ChangedAttribute, "Attribute has wrong type");
+	Assert.IsTrue(wasChanged, "Change Attribute does not get Called.");
+}
+
+NUnit.AddTest(TestChangedAttributeFullName, "Reflection Changed Attribute(fullname)");
+
+function TestChangedAttributePartialName()
+{
+	let wasChanged = false;
+	class ChangedAttribute : IChangedAttribute
+	{
+		function OnChanged(IMemberChangedEventArgs eventArgs!)
+		{
+			wasChanged = true;
+		}
+	}
+	class C
+	{
+		@Changed
+		let num Field;
+	}
+	const c = new C();
+	c.Field = 10;
+	const members = Runtime.GetMembers(c);
+
+	const field = members.First(x=>x.Name == "Field");
+	const attributes = field.GetAttributes();
+	Assert.AreEqual(1, attributes.Length, "No Attribute Found");
+	Assert.IsTrue(attributes[0] instanceof ChangedAttribute, "Attribute has wrong type");
+	Assert.IsTrue(wasChanged, "Change Attribute does not get Called.");
+}
+
+NUnit.AddTest(TestChangedAttributePartialName, "Reflection Changed Attribute(partialname)");

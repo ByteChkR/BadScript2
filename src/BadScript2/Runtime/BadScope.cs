@@ -8,6 +8,110 @@ using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Runtime;
+
+public abstract class BadMemberChangeEvent : BadObject
+{
+    private readonly BadObject m_Instance;
+    private readonly BadMemberInfo m_Member;
+    private readonly BadObject m_OldValue;
+    private readonly BadObject m_NewValue;
+
+    protected BadMemberChangeEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue)
+    {
+        m_Instance = mInstance;
+        m_Member = mMember;
+        m_OldValue = mOldValue;
+        m_NewValue = mNewValue;
+    }
+
+    public override bool HasProperty(string propName, BadScope? caller = null)
+    {
+        switch (propName)
+        {
+            case "Instance":
+            case "Member":
+            case "OldValue":
+            case "NewValue":
+                return true;
+            default:
+                return base.HasProperty(propName, caller);
+        }
+    }
+
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
+    {
+        switch (propName)
+        {
+            case "Instance":
+                return BadObjectReference.Make("MemberChangeEvent.Instance", () => m_Instance);
+            case "Member":
+                return BadObjectReference.Make("MemberChangeEvent.Member", () => m_Member);
+            case "OldValue":
+                return BadObjectReference.Make("MemberChangeEvent.OldValue", () => m_OldValue);
+            case "NewValue":
+                return BadObjectReference.Make("MemberChangeEvent.NewValue", () => m_NewValue);
+            default:
+                return base.GetProperty(propName, caller);
+        }
+    }
+    public override string ToSafeString(List<BadObject> done)
+    {
+        return $"{GetType().Name}: " + m_Member.ToSafeString(done);
+    }
+}
+
+public class BadMemberChangingEvent : BadMemberChangeEvent
+{
+    public bool Cancel { get; private set; }
+    private readonly BadObjectReference m_CancelReference;
+
+
+    public override BadClassPrototype GetPrototype()
+    {
+        return BadNativeClassBuilder.MemberChangingEventArgs;
+    }
+
+    public override bool HasProperty(string propName, BadScope? caller = null)
+    {
+        if(propName == "Cancel")
+        {
+            return true;
+        }
+        return base.HasProperty(propName, caller);
+    }
+
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
+    {
+        if (propName == "Cancel")
+        {
+            return m_CancelReference;
+        }
+
+        return base.GetProperty(propName, caller);
+    }
+
+    public BadMemberChangingEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue) : base(mInstance, mMember, mOldValue, mNewValue)
+    {
+        m_CancelReference = BadObjectReference.Make("MemberChangingEvent.Cancel", () => new BadInteropFunction("Cancel", (ctx, args) =>
+        {
+            Cancel = true;
+            return Null;
+        }, false, BadAnyPrototype.Instance));
+    }
+}
+
+public class BadMemberChangedEvent : BadMemberChangeEvent
+{
+    public override BadClassPrototype GetPrototype()
+    {
+        return BadNativeClassBuilder.MemberChangedEventArgs;
+    }
+
+    public BadMemberChangedEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue) : base(mInstance, mMember, mOldValue, mNewValue)
+    {
+    }
+}
+
 public class BadMemberInfo : BadObject
     {
         private readonly string m_Name;
@@ -201,7 +305,8 @@ public class BadScope : BadObject, IDisposable
         Flags = flags;
         m_Caller = caller;
         m_Provider = provider;
-        m_ScopeVariables.OnSetProperty += OnChange;
+        m_ScopeVariables.SetChangeInterceptor(OnChange);
+        m_ScopeVariables.OnChangedProperty += OnChanged;
     }
 
     /// <summary>
@@ -224,7 +329,8 @@ public class BadScope : BadObject, IDisposable
         m_Caller = caller;
         m_ScopeVariables = locals;
         m_Provider = provider;
-        m_ScopeVariables.OnSetProperty += OnChange;
+        m_ScopeVariables.SetChangeInterceptor(OnChange);
+        m_ScopeVariables.OnChangedProperty += OnChanged;
     }
 
     /// <summary>
@@ -697,8 +803,7 @@ public class BadScope : BadObject, IDisposable
 
         return sc;
     }
-
-    internal void OnChange(string name)
+    internal void OnChanged(string name, BadObject oldValue, BadObject newValue)
     {
         if (ClassObject == null)
         {
@@ -709,16 +814,49 @@ public class BadScope : BadObject, IDisposable
             var member = new BadMemberInfo(name, this);
             foreach (BadClass attribute in attributes.OfType<BadClass>())
             {
-                if (attribute.InheritsFrom(BadNativeClassBuilder.ChangeAttribute))
+                if (attribute.InheritsFrom(BadNativeClassBuilder.ChangedAttribute))
                 {
-                    var invoke = (BadFunction)attribute.GetProperty("OnChange").Dereference();
-                    foreach (BadObject o in invoke.Invoke(new BadObject[] { ClassObject!, member }, new BadExecutionContext(this)))
+                    var invoke = (BadFunction)attribute.GetProperty("OnChanged").Dereference();
+                    var eventObj = new BadMemberChangedEvent(ClassObject!, member, oldValue, newValue);
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { eventObj }, new BadExecutionContext(this)))
                     {
                         //Execute
                     }
                 }
             }
         }
+    }
+    internal bool OnChange(string name, BadObject oldValue, BadObject newValue)
+    {
+        if (ClassObject == null)
+        {
+            return false;
+        }
+        if (m_Attributes.TryGetValue(name, out var attributes))
+        {
+            var member = new BadMemberInfo(name, this);
+            foreach (BadClass attribute in attributes.OfType<BadClass>())
+            {
+                if (attribute.InheritsFrom(BadNativeClassBuilder.ChangeAttribute))
+                {
+                    var invoke = (BadFunction)attribute.GetProperty("OnChange").Dereference();
+                    var eventObj = new BadMemberChangingEvent(ClassObject!, member, oldValue, newValue);
+                    var obj = BadObject.Null;
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { eventObj }, new BadExecutionContext(this)))
+                    {
+                        //Execute
+                        obj = o;
+                    }
+
+                    if (eventObj.Cancel)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
     internal IEnumerable<BadObject> InitializeAttributes()
     {

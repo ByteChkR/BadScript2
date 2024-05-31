@@ -183,8 +183,10 @@ public class BadClass : BadObject
                     }
                     else
                     {
+                        if (existing != Null && Scope.OnChange(propName, existing, o))
+                            return;
                         Scope.GetTable().InnerTable[propName] = o;
-                        Scope.OnChange(propName);
+                        Scope.OnChanged(propName, existing ?? Null, o);
                     }
                 }
             );
