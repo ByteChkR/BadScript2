@@ -395,7 +395,7 @@ class BuildTarget
 	|@
 	function Run(BuildSystem system!, context)
 	{
-		Logger.Log(CreateDebugString($" START TARGET '{Info.Name}' "));
+		Logger.Log(CreateDebugString($" START TARGET '{context.Project.Info.Name}::{Info.Name}' "));
 
 		RunPreScript(context);
 
@@ -406,7 +406,7 @@ class BuildTarget
 
 		RunScript(context);
 
-		Logger.Log(CreateDebugString($" END TARGET '{Info.Name}' "));
+		Logger.Log(CreateDebugString($" END TARGET '{context.Project.Info.Name}::{Info.Name}' "));
 	}
 }
 

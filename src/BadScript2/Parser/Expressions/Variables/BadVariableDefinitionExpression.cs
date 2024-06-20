@@ -72,8 +72,15 @@ public class BadPropertyDefinitionExpression : BadExpression
             type = proto;
         }
 
-        context.Scope.DefineProperty(Name.Text, type, GetExpression, SetExpression, context);
+        List<BadObject> attributes = new List<BadObject>();
+        foreach (var o in ComputeAttributes(context, attributes))
+        {
+            yield return o;
+        }
+        
+        context.Scope.DefineProperty(Name.Text, type, GetExpression, SetExpression, context, attributes.ToArray());
     }
+
 }
 /// <summary>
 ///     Implements the Variable Definition Expression
@@ -155,8 +162,12 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         {
             throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is already defined", Position);
         }
-
-        context.Scope.DefineVariable(Name, BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly));
+        List<BadObject> attributes = new List<BadObject>();
+        foreach (var o in ComputeAttributes(context, attributes))
+        {
+            yield return o;
+        }
+        context.Scope.DefineVariable(Name, BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly), attributes.ToArray());
 
         foreach (BadObject o in base.InnerExecute(context))
         {

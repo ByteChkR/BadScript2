@@ -2,10 +2,16 @@ using System.Runtime.ExceptionServices;
 
 using BadScript2.Common;
 using BadScript2.Debugging;
+using BadScript2.Parser.Expressions.Access;
+using BadScript2.Parser.Expressions.Constant;
+using BadScript2.Parser.Expressions.Function;
+using BadScript2.Parser.Expressions.Types;
+using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Parser.Expressions;
@@ -24,6 +30,128 @@ public abstract class BadExpression
     {
         IsConstant = isConstant;
         Position = position;
+        Attributes = [];
+    }
+    
+    public IEnumerable<BadExpression> Attributes { get; private set; }
+    
+    public void SetAttributes(IEnumerable<BadExpression> attributes)
+    {
+        Attributes = attributes;
+    }
+    protected IEnumerable<BadObject> ComputeAttributes(BadExecutionContext ctx, List<BadObject> attributes)
+    {
+        foreach (var attribute in Attributes)
+        {
+            var obj = BadObject.Null;
+            BadExpression? attrib = null;
+            BadExpression access;
+            IEnumerable<BadExpression> args;
+
+            if (attribute is BadInvocationExpression invoc)
+            {
+                access = invoc.Left;
+                args = invoc.Arguments;
+            }
+            else if (attribute is BadMemberAccessExpression || attribute is BadVariableExpression)
+            {
+                access = attribute;
+                args = Array.Empty<BadExpression>();
+            }
+            else
+            {
+                throw BadRuntimeException.Create(ctx.Scope, "Attribute Expression not Supported.", attribute.Position);
+            }
+
+            BadClassPrototype? attribClass = null;
+            if (access is BadVariableExpression varExpr)
+            {
+                //Check if the variable exists and is a class.
+                if (ctx.Scope.HasVariable(varExpr.Name, ctx.Scope)) // Try to get the variable
+                {
+                    var attribObj = ctx.Scope.GetVariable(varExpr.Name, ctx.Scope).Dereference();
+                    
+                    //Check if the variable is a class and inherits from IAttribute
+                    if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
+                    {
+                        attribClass = cls;
+                    }
+                }
+                
+                //If the variable does not exist, check if the variable name + "Attribute" exists and is a class.
+                if(attribClass == null && !varExpr.Name.EndsWith("Attribute") && ctx.Scope.HasVariable(varExpr.Name + "Attribute", ctx.Scope))
+                {
+                    var attribObj = ctx.Scope.GetVariable(varExpr.Name + "Attribute", ctx.Scope).Dereference();
+
+                    
+                    //Check if the variable is a class and inherits from IAttribute
+                    if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
+                    { 
+                        attribClass = cls;
+                    }
+                }
+            }
+            else if (access is BadMemberAccessExpression mac)
+            {
+                //evaluate left side of the member access
+                foreach (var o in mac.Left.Execute(ctx))
+                {
+                    obj = o;
+                }
+                var parent = obj.Dereference();
+                //Check if parent has property
+                if (parent.HasProperty(mac.Right.Text, ctx.Scope))
+                {
+                    var attribObj = parent.GetProperty(mac.Right.Text, ctx.Scope).Dereference();
+                    //Check if the property is a class and inherits from IAttribute
+                    if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
+                    {
+                        attribClass = cls;
+                    }
+                }
+                if(parent.HasProperty(mac.Right.Text + "Attribute", ctx.Scope))
+                {
+                    var attribObj = parent.GetProperty(mac.Right.Text + "Attribute", ctx.Scope).Dereference();
+                    //Check if the property is a class and inherits from IAttribute
+                    if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
+                    {
+                        attribClass = cls;
+                    }
+                }
+            }
+
+            if(attribClass == null)
+            {
+                throw BadRuntimeException.Create(ctx.Scope, "Attribute must be a class", attribute.Position);
+            }
+            
+            attrib = new BadNewExpression(
+                new BadInvocationExpression(
+                    new BadConstantExpression(attribute.Position, attribClass),
+                    args,
+                    attribute.Position
+                ),
+                attribute.Position
+            );
+            
+            foreach (var o in attrib.Execute(ctx))
+            {
+                yield return o;
+                obj = o;
+            }
+
+            var a = obj.Dereference();
+            if (a is not BadClass c)
+            {
+                throw BadRuntimeException.Create(ctx.Scope, "Attribute must be a class", attrib.Position);
+            }
+
+            if (!c.InheritsFrom(BadNativeClassBuilder.Attribute))
+            {
+                throw BadRuntimeException.Create(ctx.Scope, "Attribute must inherit from IAttribute", attrib.Position);
+            }
+            attributes.Add(a);
+        }
     }
 
     /// <summary>

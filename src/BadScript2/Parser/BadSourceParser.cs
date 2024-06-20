@@ -1967,11 +1967,25 @@ public class BadSourceParser
             Reader.Eat('{');
             Reader.SkipNonToken();
 
+            List<BadExpression> attributeExpressions = new List<BadExpression>();
+            
             while (!Reader.Is('}'))
             {
                 Reader.SkipNonToken();
-                
+
+                bool isAttribute = false;
+                if (Reader.Is('@') && !Reader.Is('|', 1))
+                {
+                    Reader.Eat('@');
+                    isAttribute = true;
+                }
                 BadExpression expr = ParseExpression();
+                if (isAttribute)
+                {
+                    attributeExpressions.Add(expr);
+                    Reader.SkipNonToken();
+                    continue;
+                }
 
                 if (expr is BadFunctionExpression
                     {
@@ -1997,6 +2011,11 @@ public class BadSourceParser
                 {
                     members.Add(expr);
                 }
+                if (attributeExpressions.Count > 0)
+                {
+                    expr.SetAttributes(attributeExpressions.ToArray());
+                    attributeExpressions.Clear();
+                }
 
                 if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)
                 {
@@ -2014,6 +2033,14 @@ public class BadSourceParser
                 }
 
                 Reader.SkipNonToken();
+            }
+
+            if (attributeExpressions.Count != 0)
+            {
+                throw new BadParserException(
+                    "Attributes without target",
+                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                );
             }
 
             Reader.Eat('}');

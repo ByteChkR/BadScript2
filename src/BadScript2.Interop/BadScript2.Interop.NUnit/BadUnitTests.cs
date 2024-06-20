@@ -2,6 +2,7 @@ using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common;
 using BadScript2.Interop.IO;
 using BadScript2.Interop.Json;
+using BadScript2.Interop.Linq;
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
@@ -84,6 +85,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -120,6 +122,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -156,6 +159,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -192,6 +196,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -228,6 +233,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -264,6 +270,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -301,6 +308,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
@@ -338,6 +346,7 @@ public class BadUnitTests
             BadRuntime runtime = new BadRuntime()
                 .UseCommonInterop()
                 .UseFileSystemApi()
+                .UseLinqApi()
                 .UseJsonApi();
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);

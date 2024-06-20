@@ -12,6 +12,7 @@ using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Parser.Expressions.Function;
 
+
 /// <summary>
 ///     Implements the Function Expression
 /// </summary>
@@ -265,12 +266,28 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
         if (Name != null)
         {
+            var attributes = new List<BadObject>();
+            foreach (var o in ComputeAttributes(context, attributes))
+            {
+                yield return o;
+            }
             context.Scope.DefineVariable(
                 Name.Text,
                 fFinal,
                 null,
-                new BadPropertyInfo(fFinal.GetPrototype())
+                new BadPropertyInfo(fFinal.GetPrototype()),
+                attributes.ToArray()
             );
+        }
+        else
+        {
+            if (Attributes.Any())
+            {
+                throw new BadRuntimeException(
+                    "Anonymous functions cannot have attributes",
+                    Position
+                );
+            }
         }
 
         yield return fFinal;

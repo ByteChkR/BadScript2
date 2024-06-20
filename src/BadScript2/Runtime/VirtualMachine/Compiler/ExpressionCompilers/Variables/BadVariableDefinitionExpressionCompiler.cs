@@ -10,6 +10,10 @@ public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<Bad
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadVariableDefinitionExpression expression)
     {
+        if (expression.Attributes.Any())
+        {
+            throw new BadCompilerException("Attributes are not supported yet.");
+        }
         if (expression.TypeExpression == null)
         {
             context.Emit(BadOpCode.DefVar, expression.Position, expression.Name, expression.IsReadOnly);

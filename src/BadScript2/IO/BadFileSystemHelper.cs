@@ -1,5 +1,5 @@
 using System.IO.Compression;
-
+using System.Text;
 using BadScript2.Common.Logging;
 using BadScript2.IO.Virtual;
 
@@ -52,7 +52,7 @@ public static class BadFileSystemHelper
     /// <param name="root">The directory that the zip file will be imported to</param>
     /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
     /// <exception cref="Exception">Gets thrown when the Zip File is invalid</exception>
-    public static void ImportZip(this IFileSystem fs, Stream str, string root = "/")
+    public static void ImportZip(this IFileSystem fs, Stream str, string root = "/", Encoding? encoding = null)
     {
         BadLogger.Log("Importing zip file..", "BFS");
 
@@ -61,7 +61,7 @@ public static class BadFileSystemHelper
             throw new NotSupportedException("Only virtual file systems are supported");
         }
 
-        ZipArchive? arch = new ZipArchive(str, ZipArchiveMode.Read);
+        ZipArchive? arch = new ZipArchive(str, ZipArchiveMode.Read, false, encoding ?? Encoding.UTF8);
 
         if (arch == null)
         {
