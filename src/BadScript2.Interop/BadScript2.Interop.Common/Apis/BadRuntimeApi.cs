@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -349,6 +350,20 @@ internal partial class BadRuntimeApi
         table.SetProperty("Minute", time.Minute);
         table.SetProperty("Second", time.Second);
         table.SetProperty("Millisecond", time.Millisecond);
+        table.SetProperty("WeekOfYear", new BadInteropFunction("WeekOfYear", (_, args) =>
+            {
+                var c = CultureInfo.InvariantCulture;
+                if (args.Length == 1 && args[0] is IBadString str)
+                {
+                    c = new CultureInfo(str.Value);
+                }
+
+                return c.Calendar.GetWeekOfYear(time.DateTime, c.DateTimeFormat.CalendarWeekRule,
+                    c.DateTimeFormat.FirstDayOfWeek);
+            }, 
+            false, 
+            BadNativeClassBuilder.GetNative("num"),
+            new BadFunctionParameter("culture", true, false, false, null, BadNativeClassBuilder.GetNative("string"))));
         table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds());
         table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds());
         table.SetProperty("Offset", time.Offset.ToString());
@@ -437,27 +452,48 @@ internal partial class BadRuntimeApi
                 )
             )
         );
+        
         table.SetProperty(
             "Format",
             new BadInteropFunction(
                 "Format",
-                args => CreateDate(
-                        table,
-                        args.Length < 2 ? null : ((IBadString)args[1]).Value
-                    )
-                    .ToString(((IBadString)args[0]).Value),
+                args =>
+                {
+                    string format = ((IBadString)args[0]).Value;
+                    var c = CultureInfo.InvariantCulture;
+                    if (args.Length == 3 && args[2] is IBadString str)
+                    {
+                        c = new CultureInfo(str.Value);
+                    }
+
+                    string? timeZone = args.Length < 2 ? null : (args[1] as IBadString)?.Value;
+
+                    return CreateDate(
+                            table,
+                            timeZone
+                        )
+                        .ToString(format, c);
+                },
                 false,
                 BadNativeClassBuilder.GetNative("string"),
                 new BadFunctionParameter(
                     "format",
                     false,
-                    false,
+                    true,
                     false,
                     null,
                     BadNativeClassBuilder.GetNative("string")
                 ),
                 new BadFunctionParameter(
                     "timeZone",
+                    true,
+                    false,
+                    false,
+                    null,
+                    BadNativeClassBuilder.GetNative("string")
+                ),
+                new BadFunctionParameter(
+                    "culture",
                     true,
                     false,
                     false,
