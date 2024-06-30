@@ -503,6 +503,15 @@ internal partial class BadRuntimeApi
             )
         );
 
+        table.SetFunction<decimal>("AddYears", d => GetDateTime(time.AddYears((int)d)));
+        table.SetFunction<decimal>("AddMonths", d => GetDateTime(time.AddMonths((int)d)));
+        table.SetFunction<decimal>("AddDays", d => GetDateTime(time.AddDays((double)d)));
+        table.SetFunction<decimal>("AddHours", d => GetDateTime(time.AddHours((double)d)));
+        table.SetFunction<decimal>("AddMinutes", d => GetDateTime(time.AddMinutes((double)d)));
+        table.SetFunction<decimal>("AddSeconds", d => GetDateTime(time.AddSeconds((double)d)));
+        table.SetFunction<decimal>("AddMilliseconds", d => GetDateTime(time.AddMilliseconds((double)d)));
+        table.SetFunction<decimal>("AddTicks", d => GetDateTime(time.AddTicks((long)d)));
+
         return table;
     }
 
