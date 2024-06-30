@@ -18,7 +18,7 @@ public abstract class BadFunction : BadObject
     /// <summary>
     ///     The Prototype for the Function Object
     /// </summary>
-    private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("Function");
+    public static readonly BadClassPrototype Prototype = BadNativeClassBuilder.GetNative("Function");
 
     /// <summary>
     ///     The Result Cache
@@ -93,7 +93,7 @@ public abstract class BadFunction : BadObject
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
     {
-        return s_Prototype;
+        return Prototype;
     }
 
     /// <summary>

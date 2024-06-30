@@ -343,30 +343,32 @@ internal partial class BadRuntimeApi
     private static BadTable GetDateTime(DateTimeOffset time)
     {
         BadTable table = new BadTable();
-        table.SetProperty("Year", time.Year);
-        table.SetProperty("Month", time.Month);
-        table.SetProperty("Day", time.Day);
-        table.SetProperty("Hour", time.Hour);
-        table.SetProperty("Minute", time.Minute);
-        table.SetProperty("Second", time.Second);
-        table.SetProperty("Millisecond", time.Millisecond);
+        table.SetProperty("Year", time.Year, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Month", time.Month, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Day", time.Day, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Hour", time.Hour, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Minute", time.Minute, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Second", time.Second, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Millisecond", time.Millisecond, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("WeekOfYear", new BadInteropFunction("WeekOfYear", (_, args) =>
-            {
-                var c = CultureInfo.InvariantCulture;
-                if (args.Length == 1 && args[0] is IBadString str)
                 {
-                    c = new CultureInfo(str.Value);
-                }
+                    var c = CultureInfo.InvariantCulture;
+                    if (args.Length == 1 && args[0] is IBadString str)
+                    {
+                        c = new CultureInfo(str.Value);
+                    }
 
-                return c.Calendar.GetWeekOfYear(time.DateTime, c.DateTimeFormat.CalendarWeekRule,
-                    c.DateTimeFormat.FirstDayOfWeek);
-            }, 
-            false, 
-            BadNativeClassBuilder.GetNative("num"),
-            new BadFunctionParameter("culture", true, false, false, null, BadNativeClassBuilder.GetNative("string"))));
-        table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds());
-        table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds());
-        table.SetProperty("Offset", time.Offset.ToString());
+                    return c.Calendar.GetWeekOfYear(time.DateTime, c.DateTimeFormat.CalendarWeekRule,
+                        c.DateTimeFormat.FirstDayOfWeek);
+                },
+                false,
+                BadNativeClassBuilder.GetNative("num"),
+                new BadFunctionParameter("culture", true, false, false, null,
+                    BadNativeClassBuilder.GetNative("string"))),
+            new BadPropertyInfo(BadFunction.Prototype, true));
+        table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
+        table.SetProperty("Offset", time.Offset.ToString(), new BadPropertyInfo(BadFunction.Prototype, true));
 
         table.SetProperty(
             "ToShortTimeString",
@@ -387,7 +389,8 @@ internal partial class BadRuntimeApi
                     null,
                     BadNativeClassBuilder.GetNative("string")
                 )
-            )
+            ),
+            new BadPropertyInfo(BadFunction.Prototype, true)
         );
         table.SetProperty(
             "ToShortDateString",
@@ -408,7 +411,8 @@ internal partial class BadRuntimeApi
                     null,
                     BadNativeClassBuilder.GetNative("string")
                 )
-            )
+            ),
+            new BadPropertyInfo(BadFunction.Prototype, true)
         );
         table.SetProperty(
             "ToLongTimeString",
@@ -429,7 +433,8 @@ internal partial class BadRuntimeApi
                     null,
                     BadNativeClassBuilder.GetNative("string")
                 )
-            )
+            ),
+            new BadPropertyInfo(BadFunction.Prototype, true)
         );
         table.SetProperty(
             "ToLongDateString",
@@ -450,7 +455,8 @@ internal partial class BadRuntimeApi
                     null,
                     BadNativeClassBuilder.GetNative("string")
                 )
-            )
+            ),
+            new BadPropertyInfo(BadFunction.Prototype, true)
         );
         
         table.SetProperty(
@@ -500,7 +506,8 @@ internal partial class BadRuntimeApi
                     null,
                     BadNativeClassBuilder.GetNative("string")
                 )
-            )
+            ),
+            new BadPropertyInfo(BadFunction.Prototype, true)
         );
 
         table.SetFunction<decimal>("AddYears", d => GetDateTime(time.AddYears((int)d)));
