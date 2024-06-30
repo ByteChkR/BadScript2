@@ -220,6 +220,9 @@ public static class BadNativeClassBuilder
         BadClassPrototype.Prototype,
         BadRuntimeError.Prototype,
         BadMemberInfo.Prototype,
+        //TODO: Make Native Class Builder non static
+        //(adding this prototype will cause a type initializer exception because of a circular reference due to a tightly packed static initializer list)
+        //BadFunction.Prototype, 
         Enumerable,
         Enumerator,
         Disposable,

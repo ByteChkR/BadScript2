@@ -89,7 +89,7 @@ public static partial class BadDynamicFunctionExtensions
         Func<BadExecutionContext, BadObject> func,
         BadClassPrototype returnType)
     {
-        elem.SetProperty(propName, new BadDynamicInteropFunction(propName, func, returnType));
+        elem.SetProperty(propName, new BadDynamicInteropFunction(propName, func, returnType), new BadPropertyInfo(BadFunction.Prototype, true));
     }
 
     /// <summary>
@@ -108,7 +108,8 @@ public static partial class BadDynamicFunctionExtensions
     {
         elem.SetProperty(
             propName,
-            new BadDynamicInteropFunction<T>(propName, func, returnType, GetParameters(typeof(T)))
+            new BadDynamicInteropFunction<T>(propName, func, returnType, GetParameters(typeof(T))),
+            new BadPropertyInfo(BadFunction.Prototype, true)
         );
     }
 
