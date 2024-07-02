@@ -1,5 +1,6 @@
 using System.Globalization;
 
+using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -27,7 +28,7 @@ public class BadNumberExtension : BadInteropExtension
     /// <param name="args">The arguments</param>
     /// <returns>The formatted string</returns>
     /// <exception cref="BadRuntimeException">If the number of arguments is invalid</exception>
-    private static BadObject NumberToString(decimal d, IReadOnlyList<BadObject> args)
+    private static BadObject NumberToString(BadExecutionContext ctx, decimal d, IReadOnlyList<BadObject> args)
     {
         if (args.Count == 0)
         {
@@ -38,7 +39,8 @@ public class BadNumberExtension : BadInteropExtension
 
         if (args.Count == 1)
         {
-            return d.ToString(format.Value);
+            var defaultCulture = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
+            return d.ToString(format.Value, defaultCulture);
         }
 
         if (args.Count != 2)
@@ -69,7 +71,7 @@ public class BadNumberExtension : BadInteropExtension
             "ToString",
             d => new BadInteropFunction(
                 "ToString",
-                a => NumberToString(d, a),
+                (c,a) => NumberToString(c, d, a),
                 false,
                 BadNativeClassBuilder.GetNative("string"),
                 new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),
