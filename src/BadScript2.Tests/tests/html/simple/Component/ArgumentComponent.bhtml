@@ -1,0 +1,6 @@
+<bs:function name="Test" param:name param:greeting>
+    <h1>{greeting} {name}!</h1>
+</bs:function>
+
+
+<Test greeting="'Hallo'" name="'Tim'"/>
