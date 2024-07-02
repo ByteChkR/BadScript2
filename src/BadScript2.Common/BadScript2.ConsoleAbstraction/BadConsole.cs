@@ -10,6 +10,37 @@ namespace BadScript2.ConsoleAbstraction;
 /// </summary>
 public static class BadConsole
 {
+	public static readonly IBadConsole DummyConsole = new BadDummyConsole();
+	private class BadDummyConsole : IBadConsole
+	{
+		public ConsoleColor ForegroundColor { get; set; }
+		public ConsoleColor BackgroundColor { get; set; }
+		public void Write(string str)
+		{
+			
+		}
+
+		public void WriteLine(string str)
+		{
+			
+		}
+
+		public string ReadLine()
+		{
+			throw new NotSupportedException();
+		}
+
+		public Task<string> ReadLineAsync()
+		{
+			throw new NotSupportedException();
+		}
+
+		public void Clear()
+		{
+			
+		}
+	}
+	
 	/// <summary>
 	///     The Console Implementation that is used.
 	/// </summary>
