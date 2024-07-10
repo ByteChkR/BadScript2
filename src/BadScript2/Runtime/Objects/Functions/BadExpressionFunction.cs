@@ -22,7 +22,7 @@ public class BadExpressionFunction : BadFunction
     /// <summary>
     ///     The Function String
     /// </summary>
-    private readonly string m_FuncString;
+    private string? m_FuncString;
 
     /// <summary>
     ///     The Scope the function is defined in
@@ -63,7 +63,6 @@ public class BadExpressionFunction : BadFunction
         Position = position;
         ParentScope = parentScope;
         MetaData = metaData ?? BadMetaData.Empty;
-        m_FuncString = base.ToString() + " at " + Position.GetPositionInfo();
     }
 
     /// <summary>
@@ -134,6 +133,10 @@ public class BadExpressionFunction : BadFunction
     /// <inheritdoc />
     public override string ToString()
     {
+        if (m_FuncString == null)
+        {
+            m_FuncString = base.ToString() + " at " + Position.GetPositionInfo();
+        }
         return m_FuncString;
     }
 }

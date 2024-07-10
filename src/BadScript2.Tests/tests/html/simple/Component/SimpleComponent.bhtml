@@ -1,0 +1,6 @@
+<bs:function name="Test">
+    <h1>Hello World!</h1>
+</bs:function>
+
+
+<Test />

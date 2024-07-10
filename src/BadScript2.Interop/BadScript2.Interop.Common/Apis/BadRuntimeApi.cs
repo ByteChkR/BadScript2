@@ -350,9 +350,9 @@ internal partial class BadRuntimeApi
         table.SetProperty("Minute", time.Minute, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Second", time.Second, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Millisecond", time.Millisecond, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty("WeekOfYear", new BadInteropFunction("WeekOfYear", (_, args) =>
+        table.SetProperty("WeekOfYear", new BadInteropFunction("WeekOfYear", (ctx, args) =>
                 {
-                    var c = CultureInfo.InvariantCulture;
+                    var c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
                     if (args.Length == 1 && args[0] is IBadString str)
                     {
                         c = new CultureInfo(str.Value);
@@ -463,10 +463,10 @@ internal partial class BadRuntimeApi
             "Format",
             new BadInteropFunction(
                 "Format",
-                args =>
+                (ctx, args) =>
                 {
                     string format = ((IBadString)args[0]).Value;
-                    var c = CultureInfo.InvariantCulture;
+                    var c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
                     if (args.Length == 3 && args[2] is IBadString str)
                     {
                         c = new CultureInfo(str.Value);

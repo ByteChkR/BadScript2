@@ -29,6 +29,7 @@ public abstract class BadHtmlNodeTransformer
         new BadIfNodeTransformer(),
         new BadCopyStyleNodeTransformer(),
         new BadCopyScriptNodeTransformer(),
+        new BadComponentNodeTransformer(),
         new BadTextNodeTransformer(),
         new BadCopyNodeTransformer(),
     };

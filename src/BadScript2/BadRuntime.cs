@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
 using BadScript2.ConsoleAbstraction;
@@ -33,6 +35,7 @@ public class BadRuntime : IDisposable
 
     private readonly List<Action<BadExecutionContext, string, BadModuleImporter>> m_ConfigureModuleImporter = new List<Action<BadExecutionContext, string, BadModuleImporter>>();
 
+    public CultureInfo Culture { get; private set; } = CultureInfo.InvariantCulture;
     /// <summary>
     ///     Configuration Actions for the Options
     /// </summary>
@@ -570,5 +573,16 @@ public class BadRuntime : IDisposable
         m_ConfigureContext.AddRange(action);
 
         return this;
+    }
+
+    public BadRuntime UseCulture(CultureInfo culture)
+    {
+        Culture = culture;
+        return this;
+    }
+    
+    public BadRuntime UseCulture(string culture)
+    {
+        return UseCulture(new CultureInfo(culture));
     }
 }

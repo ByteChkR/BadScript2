@@ -29,10 +29,10 @@ public static class BadNativeClassBuilder
         (_) => Array.Empty<BadInterfacePrototype>(), null, MemberChangeEventArgsConstraints, Array.Empty<string>());
     
     public static readonly BadInterfacePrototype MemberChangedEventArgs = new BadInterfacePrototype("IMemberChangedEventArgs",
-        (_) => new []{MemberChangedEventArgs}, null, (_) => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
+        (_) => new []{MemberChangeEventArgs}, null, (_) => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
     
     public static readonly BadInterfacePrototype MemberChangingEventArgs = new BadInterfacePrototype("IMemberChangingEventArgs",
-        (_) => new []{MemberChangedEventArgs}, null, MemberChangingEventArgsConstraints, Array.Empty<string>());
+        (_) => new []{MemberChangeEventArgs}, null, MemberChangingEventArgsConstraints, Array.Empty<string>());
 
     private static BadInterfaceConstraint[] MemberChangingEventArgsConstraints(BadObject[] arg)
     {
