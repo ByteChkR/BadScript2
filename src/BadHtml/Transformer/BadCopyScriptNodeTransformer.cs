@@ -1,5 +1,4 @@
 using HtmlAgilityPack;
-
 namespace BadHtml.Transformer;
 
 /// <summary>

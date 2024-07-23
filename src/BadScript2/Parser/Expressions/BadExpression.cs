@@ -13,7 +13,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Parser.Expressions;
 
 /// <summary>
@@ -32,18 +31,28 @@ public abstract class BadExpression
         Position = position;
         Attributes = [];
     }
-    
+
     public IEnumerable<BadExpression> Attributes { get; private set; }
-    
+
+    /// <summary>
+    ///     Indicates if the expression stays constant at all times.
+    /// </summary>
+    public bool IsConstant { get; }
+
+    /// <summary>
+    ///     The source Position of the Expression
+    /// </summary>
+    public BadSourcePosition Position { get; private set; }
+
     public void SetAttributes(IEnumerable<BadExpression> attributes)
     {
         Attributes = attributes;
     }
     protected IEnumerable<BadObject> ComputeAttributes(BadExecutionContext ctx, List<BadObject> attributes)
     {
-        foreach (var attribute in Attributes)
+        foreach (BadExpression? attribute in Attributes)
         {
-            var obj = BadObject.Null;
+            BadObject? obj = BadObject.Null;
             BadExpression? attrib = null;
             BadExpression access;
             IEnumerable<BadExpression> args;
@@ -69,24 +78,24 @@ public abstract class BadExpression
                 //Check if the variable exists and is a class.
                 if (ctx.Scope.HasVariable(varExpr.Name, ctx.Scope)) // Try to get the variable
                 {
-                    var attribObj = ctx.Scope.GetVariable(varExpr.Name, ctx.Scope).Dereference();
-                    
+                    BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name, ctx.Scope).Dereference();
+
                     //Check if the variable is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
                     {
                         attribClass = cls;
                     }
                 }
-                
-                //If the variable does not exist, check if the variable name + "Attribute" exists and is a class.
-                if(attribClass == null && !varExpr.Name.EndsWith("Attribute") && ctx.Scope.HasVariable(varExpr.Name + "Attribute", ctx.Scope))
-                {
-                    var attribObj = ctx.Scope.GetVariable(varExpr.Name + "Attribute", ctx.Scope).Dereference();
 
-                    
+                //If the variable does not exist, check if the variable name + "Attribute" exists and is a class.
+                if (attribClass == null && !varExpr.Name.EndsWith("Attribute") && ctx.Scope.HasVariable(varExpr.Name + "Attribute", ctx.Scope))
+                {
+                    BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name + "Attribute", ctx.Scope).Dereference();
+
+
                     //Check if the variable is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
-                    { 
+                    {
                         attribClass = cls;
                     }
                 }
@@ -94,24 +103,24 @@ public abstract class BadExpression
             else if (access is BadMemberAccessExpression mac)
             {
                 //evaluate left side of the member access
-                foreach (var o in mac.Left.Execute(ctx))
+                foreach (BadObject? o in mac.Left.Execute(ctx))
                 {
                     obj = o;
                 }
-                var parent = obj.Dereference();
+                BadObject? parent = obj.Dereference();
                 //Check if parent has property
                 if (parent.HasProperty(mac.Right.Text, ctx.Scope))
                 {
-                    var attribObj = parent.GetProperty(mac.Right.Text, ctx.Scope).Dereference();
+                    BadObject? attribObj = parent.GetProperty(mac.Right.Text, ctx.Scope).Dereference();
                     //Check if the property is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
                     {
                         attribClass = cls;
                     }
                 }
-                if(parent.HasProperty(mac.Right.Text + "Attribute", ctx.Scope))
+                if (parent.HasProperty(mac.Right.Text + "Attribute", ctx.Scope))
                 {
-                    var attribObj = parent.GetProperty(mac.Right.Text + "Attribute", ctx.Scope).Dereference();
+                    BadObject? attribObj = parent.GetProperty(mac.Right.Text + "Attribute", ctx.Scope).Dereference();
                     //Check if the property is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
                     {
@@ -120,11 +129,11 @@ public abstract class BadExpression
                 }
             }
 
-            if(attribClass == null)
+            if (attribClass == null)
             {
                 throw BadRuntimeException.Create(ctx.Scope, "Attribute must be a class", attribute.Position);
             }
-            
+
             attrib = new BadNewExpression(
                 new BadInvocationExpression(
                     new BadConstantExpression(attribute.Position, attribClass),
@@ -133,14 +142,14 @@ public abstract class BadExpression
                 ),
                 attribute.Position
             );
-            
-            foreach (var o in attrib.Execute(ctx))
+
+            foreach (BadObject? o in attrib.Execute(ctx))
             {
                 yield return o;
                 obj = o;
             }
 
-            var a = obj.Dereference();
+            BadObject? a = obj.Dereference();
             if (a is not BadClass c)
             {
                 throw BadRuntimeException.Create(ctx.Scope, "Attribute must be a class", attrib.Position);
@@ -153,16 +162,6 @@ public abstract class BadExpression
             attributes.Add(a);
         }
     }
-
-    /// <summary>
-    ///     Indicates if the expression stays constant at all times.
-    /// </summary>
-    public bool IsConstant { get; }
-
-    /// <summary>
-    ///     The source Position of the Expression
-    /// </summary>
-    public BadSourcePosition Position { get; private set; }
 
     /// <summary>
     ///     Uses the Constant Folding Optimizer to optimize the expression

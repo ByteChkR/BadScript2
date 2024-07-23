@@ -2,7 +2,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Runtime.Interop;
 
 public class BadInteropExtensionProvider

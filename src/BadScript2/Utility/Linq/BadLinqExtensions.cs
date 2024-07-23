@@ -5,7 +5,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Utility.Linq;
 
 /// <summary>
@@ -58,7 +57,6 @@ public static class BadLinqExtensions
 
         foreach (BadObject o1 in query.Execute(ctx))
         {
-
             r = o1;
         }
 

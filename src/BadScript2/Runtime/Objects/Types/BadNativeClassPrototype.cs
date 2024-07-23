@@ -1,6 +1,4 @@
-using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -10,10 +8,10 @@ namespace BadScript2.Runtime.Objects.Types;
 public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     where T : BadObject
 {
-    
-    private readonly Dictionary<string, BadObjectReference> m_StaticMembers = new Dictionary<string, BadObjectReference>();
 
     private readonly Func<BadInterfacePrototype[]> m_InterfaceFunc;
+
+    private readonly Dictionary<string, BadObjectReference> m_StaticMembers = new Dictionary<string, BadObjectReference>();
     private BadInterfacePrototype[]? m_InterfacesCache;
     /// <summary>
     ///     Creates a new Native Class Prototype
@@ -39,7 +37,7 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     {
         m_InterfaceFunc = () => Array.Empty<BadInterfacePrototype>();
     }
-    
+
     /// <summary>
     ///     Creates a new Native Class Prototype
     /// </summary>
@@ -92,7 +90,7 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     {
         return m_StaticMembers.ContainsKey(propName) || base.HasProperty(propName, caller);
     }
-    
+
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         if (m_StaticMembers.TryGetValue(propName, out BadObjectReference? o))
@@ -102,5 +100,4 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
 
         return base.GetProperty(propName, caller);
     }
-
 }

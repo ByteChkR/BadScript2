@@ -2,7 +2,7 @@ using BadScript2.Parser.Expressions.Block;
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
-/// Checks if there are any expressions in the if branches block.
+///     Checks if there are any expressions in the if branches block.
 /// </summary>
 public class BadEmptySwitchStatementValidator : BadExpressionValidator<BadSwitchExpression>
 {

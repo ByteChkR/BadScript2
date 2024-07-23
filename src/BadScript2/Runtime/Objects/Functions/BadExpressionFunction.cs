@@ -20,11 +20,6 @@ public class BadExpressionFunction : BadFunction
     private readonly List<BadExpression> m_Body;
 
     /// <summary>
-    ///     The Function String
-    /// </summary>
-    private string? m_FuncString;
-
-    /// <summary>
     ///     The Scope the function is defined in
     /// </summary>
     public readonly BadScope ParentScope;
@@ -33,6 +28,11 @@ public class BadExpressionFunction : BadFunction
     ///     The Source Position of the Function
     /// </summary>
     public readonly BadSourcePosition Position;
+
+    /// <summary>
+    ///     The Function String
+    /// </summary>
+    private string? m_FuncString;
 
     /// <summary>
     ///     Creates a new Expression Function
@@ -127,7 +127,6 @@ public class BadExpressionFunction : BadFunction
         {
             yield return Null;
         }
-
     }
 
     /// <inheritdoc />

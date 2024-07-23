@@ -3,7 +3,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Interop.Common.Apis;
 
 [BadInteropApi("Native")]

@@ -8,35 +8,21 @@ using BadScript2.Runtime.Objects.Native;
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
-/// Implements the Switch Statement Expression
+///     Implements the Switch Statement Expression
 /// </summary>
 public class BadSwitchExpression : BadExpression
 {
-
-    /// <summary>
-    /// The Value to switch on
-    /// </summary>
-    public BadExpression Value { get; }
-    /// <summary>
-    /// The Cases
-    /// </summary>
-    private readonly Dictionary<BadExpression, BadExpression[]> m_Cases;
-    /// <summary>
-    /// The (optional) Default Case
-    /// </summary>
-    private List<BadExpression>? m_DefaultCase;
     /// <summary>
     ///     The Cases
     /// </summary>
-    public IDictionary<BadExpression, BadExpression[]> Cases => m_Cases;
-
+    private readonly Dictionary<BadExpression, BadExpression[]> m_Cases;
     /// <summary>
     ///     The (optional) Default Case
     /// </summary>
-    public IEnumerable<BadExpression>? DefaultCase => m_DefaultCase;
-    
+    private List<BadExpression>? m_DefaultCase;
+
     /// <summary>
-    /// Constructs a new BadSwitchExpression
+    ///     Constructs a new BadSwitchExpression
     /// </summary>
     /// <param name="position">The Source Position of the Expression</param>
     /// <param name="value">The Value to switch on</param>
@@ -48,6 +34,20 @@ public class BadSwitchExpression : BadExpression
         m_Cases = cases;
         m_DefaultCase = defaultCase;
     }
+
+    /// <summary>
+    ///     The Value to switch on
+    /// </summary>
+    public BadExpression Value { get; }
+    /// <summary>
+    ///     The Cases
+    /// </summary>
+    public IDictionary<BadExpression, BadExpression[]> Cases => m_Cases;
+
+    /// <summary>
+    ///     The (optional) Default Case
+    /// </summary>
+    public IEnumerable<BadExpression>? DefaultCase => m_DefaultCase;
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
@@ -93,7 +93,7 @@ public class BadSwitchExpression : BadExpression
             m_DefaultCase[i] = BadConstantFoldingOptimizer.Optimize(m_DefaultCase[i]);
         }
     }
-    
+
     /// <summary>
     ///     Sets the Default Case
     /// </summary>
@@ -126,7 +126,7 @@ public class BadSwitchExpression : BadExpression
 
         BadExecutionContext? switchContext = new BadExecutionContext(context.Scope.CreateChild("SwitchContext", context.Scope, null, BadScopeFlags.Breakable));
         bool executeNextBlock = false;
-        foreach (KeyValuePair<BadExpression,BadExpression[]> branch in m_Cases)
+        foreach (KeyValuePair<BadExpression, BadExpression[]> branch in m_Cases)
         {
             if (!executeNextBlock)
             {
@@ -135,16 +135,16 @@ public class BadSwitchExpression : BadExpression
                 {
                     keyResult = o;
                 }
-            
-            
+
+
                 keyResult = keyResult.Dereference();
                 BadObject? result = BadObject.Null;
                 foreach (BadObject o in BadEqualityExpression.EqualWithOverride(switchContext, valueResult, keyResult, Position))
                 {
                     result = o;
                 }
-            
-            
+
+
                 result = result.Dereference();
                 if (result is not IBadBoolean b)
                 {
@@ -157,12 +157,12 @@ public class BadSwitchExpression : BadExpression
                 foreach (BadObject o in switchContext.Execute(branch.Value))
                 {
                     yield return o;
-                    if(switchContext.Scope.IsBreak)
+                    if (switchContext.Scope.IsBreak)
                     {
                         yield break;
                     }
                 }
-                throw BadRuntimeException.Create(switchContext.Scope,"Switch Case must break", Position);
+                throw BadRuntimeException.Create(switchContext.Scope, "Switch Case must break", Position);
             }
         }
         if (m_DefaultCase != null)
@@ -170,12 +170,12 @@ public class BadSwitchExpression : BadExpression
             foreach (BadObject o in switchContext.Execute(m_DefaultCase))
             {
                 yield return o;
-                if(switchContext.Scope.IsBreak)
+                if (switchContext.Scope.IsBreak)
                 {
                     yield break;
                 }
             }
-            throw BadRuntimeException.Create(switchContext.Scope,"Switch Case must break", Position);
+            throw BadRuntimeException.Create(switchContext.Scope, "Switch Case must break", Position);
         }
     }
 }

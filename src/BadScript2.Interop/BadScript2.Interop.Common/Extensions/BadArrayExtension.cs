@@ -213,7 +213,7 @@ public class BadArrayExtension : BadInteropExtension
             enumerator = enumerator.Dereference();
         }
         (BadFunction moveNext, BadFunction getCurrent) = BadForEachExpression.FindEnumerator(enumerator, context, position);
-        
+
 
         BadObject cond = BadObject.Null;
 
@@ -244,19 +244,17 @@ public class BadArrayExtension : BadInteropExtension
             }
 
 
-
             if (current is not IBadNumber n)
             {
                 throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a number", position);
             }
-            
+
             result.InnerArray.Add(Get(array, n.Value));
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
             {
                 cond = o;
             }
-
 
 
             bRet = cond.Dereference() as IBadBoolean ??
@@ -266,7 +264,7 @@ public class BadArrayExtension : BadInteropExtension
                        position
                    );
         }
-        
+
         return result;
     }
 

@@ -4,7 +4,6 @@ using BadScript2.Parser.Expressions.Binary;
 using BadScript2.Parser.Expressions.Module;
 using BadScript2.Reader;
 using BadScript2.Runtime.Error;
-
 namespace BadScript2.Parser.Operators.Module;
 
 /// <summary>

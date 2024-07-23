@@ -6,7 +6,6 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
-
 namespace BadScript2.Interop.Json;
 
 /// <summary>
@@ -40,16 +39,14 @@ public class BadSettingsObject : BadObject
         Dictionary<string, BadObject> properties = new Dictionary<string, BadObject>
         {
             {
-                "HasValue",
-                new BadDynamicInteropFunction(
+                "HasValue", new BadDynamicInteropFunction(
                     "HasValue",
                     _ => m_Settings.HasValue(),
                     BadNativeClassBuilder.GetNative("bool")
                 )
             },
             {
-                "GetValue",
-                new BadDynamicInteropFunction(
+                "GetValue", new BadDynamicInteropFunction(
                     "GetValue",
                     _ => BadJson.ConvertNode(m_Settings.GetValue()),
                     BadAnyPrototype.Instance
@@ -68,8 +65,7 @@ public class BadSettingsObject : BadObject
                 )
             },
             {
-                "HasProperty",
-                new BadDynamicInteropFunction<string>(
+                "HasProperty", new BadDynamicInteropFunction<string>(
                     "HasProperty",
                     (_, name) => m_Settings.HasProperty(name),
                     BadNativeClassBuilder.GetNative("bool")

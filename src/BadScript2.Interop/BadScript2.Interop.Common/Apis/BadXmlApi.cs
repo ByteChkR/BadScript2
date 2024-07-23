@@ -2,7 +2,6 @@ using System.Xml;
 
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>

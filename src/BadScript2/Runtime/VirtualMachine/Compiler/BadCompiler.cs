@@ -353,7 +353,7 @@ public class BadCompiler
     {
         BadSourceParser parser = BadSourceParser.Create("<nofile>", src);
 
-        return Compile(parser.Parse());   
+        return Compile(parser.Parse());
     }
 
     public static IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions)
@@ -362,5 +362,4 @@ public class BadCompiler
         Instance.Compile(ctx, expressions);
         return ctx.GetInstructions();
     }
-    
 }

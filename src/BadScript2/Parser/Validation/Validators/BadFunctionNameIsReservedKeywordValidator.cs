@@ -1,6 +1,5 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions.Function;
-
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>

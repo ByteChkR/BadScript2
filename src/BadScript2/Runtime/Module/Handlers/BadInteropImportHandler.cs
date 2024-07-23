@@ -3,7 +3,6 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Runtime.Module.Handlers;
 
 public class BadInteropImportHandler : BadImportHandler
@@ -98,7 +97,13 @@ public class BadInteropImportHandler : BadImportHandler
     public override IEnumerable<BadObject> Get(string path)
     {
         BadObject? result = BadObject.Null;
-        foreach (BadObject o in m_GetFunction.Invoke(new BadObject[] { path }, BadExecutionContext.Create(new BadInteropExtensionProvider())))
+        foreach (BadObject o in m_GetFunction.Invoke(
+                     new BadObject[]
+                     {
+                         path,
+                     },
+                     BadExecutionContext.Create(new BadInteropExtensionProvider())
+                 ))
         {
             result = o;
 

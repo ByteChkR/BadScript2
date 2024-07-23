@@ -6,7 +6,6 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 
 using HtmlAgilityPack;
-
 namespace BadHtml.Transformer;
 
 /// <summary>

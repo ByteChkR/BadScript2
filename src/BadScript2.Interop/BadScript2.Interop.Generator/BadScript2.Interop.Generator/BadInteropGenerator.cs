@@ -6,7 +6,6 @@ using BadScript2.Interop.Generator.Model;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-
 namespace BadScript2.Interop.Generator;
 
 [Generator]

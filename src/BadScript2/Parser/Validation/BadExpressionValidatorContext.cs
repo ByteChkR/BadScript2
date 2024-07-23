@@ -1,10 +1,8 @@
 using System.Text;
 
 using BadScript2.Parser.Expressions;
-using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Validation.Validators;
 using BadScript2.Runtime.Error;
-
 namespace BadScript2.Parser.Validation;
 
 /// <summary>
@@ -56,6 +54,7 @@ public readonly struct BadExpressionValidatorContext
     ///     Indicates whether there are any messages of type Error.
     /// </summary>
     public bool IsError => m_Messages.Any(m => m.Type == BadExpressionValidatorMessageType.Error);
+
     public bool HasWarnings => m_Messages.Any(m => m.Type == BadExpressionValidatorMessageType.Warning);
 
     /// <summary>

@@ -1,7 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
@@ -44,6 +43,5 @@ public class BadUsingStatementExpression : BadExpression
         context.Scope.AddFinalizer(() => BadUsingExpression.Finalize(context, Name, Position));
         //Run expression
         return context.Execute(Expression);
-
     }
 }

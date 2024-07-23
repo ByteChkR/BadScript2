@@ -1,7 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 
 using NUnit.Framework;
-
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>

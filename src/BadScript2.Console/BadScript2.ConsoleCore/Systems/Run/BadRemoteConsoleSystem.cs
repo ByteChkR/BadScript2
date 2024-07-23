@@ -5,7 +5,6 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>

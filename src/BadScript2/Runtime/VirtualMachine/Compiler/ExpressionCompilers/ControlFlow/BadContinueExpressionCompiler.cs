@@ -1,5 +1,4 @@
 using BadScript2.Parser.Expressions.ControlFlow;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.ControlFlow;
 
 /// <summary>

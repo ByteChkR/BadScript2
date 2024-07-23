@@ -1,5 +1,4 @@
 using ewu.adam.openkm.rest;
-
 namespace BadScript2.IO.OpenKM;
 
 /// <summary>

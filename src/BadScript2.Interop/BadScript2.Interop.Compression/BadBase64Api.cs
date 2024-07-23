@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Interop.Compression;
 
 [BadInteropApi("Base64")]

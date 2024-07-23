@@ -5,7 +5,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Parser.Expressions.Types;
 
 /// <summary>
@@ -106,8 +105,8 @@ public class BadNewExpression : BadExpression
                 yield return o;
             }
         }
-        
-        foreach(BadObject o in cls.Scope.InitializeAttributes())
+
+        foreach (BadObject o in cls.Scope.InitializeAttributes())
         {
             yield return o;
         }

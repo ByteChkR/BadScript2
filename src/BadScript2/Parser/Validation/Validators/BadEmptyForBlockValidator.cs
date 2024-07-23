@@ -1,5 +1,4 @@
 using BadScript2.Parser.Expressions.Block.Loop;
-
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>

@@ -1,7 +1,6 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Runtime.Module;
 
 /// <summary>

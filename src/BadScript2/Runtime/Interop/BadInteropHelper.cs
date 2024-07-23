@@ -5,7 +5,6 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Runtime.Interop;
 
 /// <summary>

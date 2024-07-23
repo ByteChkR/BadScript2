@@ -1,5 +1,4 @@
 using System;
-
 namespace BadScript2.Interop.Generator.Model;
 
 public readonly struct MethodModel : IEquatable<MethodModel>

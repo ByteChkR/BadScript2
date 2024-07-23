@@ -2,7 +2,6 @@ using System;
 using System.IO;
 
 using BadScript2.Settings;
-
 namespace BadScript2.Debugger.Scriptable;
 
 /// <summary>

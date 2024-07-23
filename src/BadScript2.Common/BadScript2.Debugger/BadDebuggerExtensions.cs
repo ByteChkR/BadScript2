@@ -1,5 +1,4 @@
 using BadScript2.Debugger.Scriptable;
-
 namespace BadScript2.Debugger;
 
 /// <summary>

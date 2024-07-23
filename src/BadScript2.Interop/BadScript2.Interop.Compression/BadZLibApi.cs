@@ -4,7 +4,6 @@ using System.Text;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Interop.Compression;
 
 [BadInteropApi("ZLib")]

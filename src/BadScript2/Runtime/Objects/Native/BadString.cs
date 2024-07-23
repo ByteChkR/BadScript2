@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime.Objects.Native;
 
 /// <summary>
@@ -11,7 +10,7 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     ///     The Prototype for the Native String Object
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("string");
-    
+
     public static readonly BadString Empty = new BadString(string.Empty);
 
     /// <summary>

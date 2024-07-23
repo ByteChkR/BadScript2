@@ -1,6 +1,5 @@
 using BadScript2.Parser.Expressions.Module;
 using BadScript2.Parser.Operators.Module;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Module;
 
 /// <summary>
@@ -14,7 +13,7 @@ public class BadDefaultExportExpressionCompiler : BadExpressionCompiler<BadDefau
         context.Compile(expression.Expression);
         if (BadExportExpressionParser.IsNamed(expression.Expression, out string? name))
         {
-            if(name == null)
+            if (name == null)
             {
                 throw new BadCompilerException("Named export expression is null");
             }

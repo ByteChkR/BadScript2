@@ -5,7 +5,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
 using NUnit.Framework;
-
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>

@@ -3,7 +3,6 @@ using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>

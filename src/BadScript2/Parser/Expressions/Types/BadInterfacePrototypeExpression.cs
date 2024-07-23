@@ -5,10 +5,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Parser.Expressions.Types;
-
-
 
 /// <summary>
 ///     Implements an Interface Prototype Expression.
@@ -19,7 +16,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     ///     The Constraints for the Interface
     /// </summary>
     private readonly BadInterfaceConstraint[] m_Constraints;
-    
+
     private readonly BadWordToken[] m_GenericParameters;
 
     /// <summary>
@@ -76,10 +73,8 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        
-
         //Create the Interface Prototype
-        BadInterfacePrototype intf = new BadInterfacePrototype(Name, PrepareInterfaces, m_MetaData, GetConstraints, m_GenericParameters.Select(x=>x.Text).ToArray());
+        BadInterfacePrototype intf = new BadInterfacePrototype(Name, PrepareInterfaces, m_MetaData, GetConstraints, m_GenericParameters.Select(x => x.Text).ToArray());
         context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
 
         yield return intf;
@@ -88,12 +83,12 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
 
         BadExecutionContext MakeGenericContext(BadObject[] typeArgs)
         {
-            if(typeArgs.Length != m_GenericParameters.Length)
+            if (typeArgs.Length != m_GenericParameters.Length)
             {
                 throw new BadRuntimeException("Invalid Type Argument Count");
             }
             BadExecutionContext genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
-            for(int i = 0; i < m_GenericParameters.Length; i++)
+            for (int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
                 if (typeArgs[i] == BadVoidPrototype.Instance)
@@ -102,7 +97,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                 }
                 genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
             }
-            
+
             return genericContext;
         }
 
@@ -127,10 +122,10 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
 
                 interfaces.Add(cls);
             }
-            
+
             return interfaces.ToArray();
         }
-        
+
         BadInterfaceFunctionConstraint PrepareFunctionConstraint(BadExecutionContext genericContext, BadInterfaceFunctionConstraint c)
         {
             BadObject? returnObj = BadAnyPrototype.Instance;
@@ -163,7 +158,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             Console.WriteLine($"Get Constraints for : {Name} {Position}");
 
             BadExecutionContext genericContext = MakeGenericContext(typeArgs);
-            
+
             BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
 
             for (int i = 0; i < m_Constraints.Length; i++)
@@ -171,8 +166,8 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                 BadInterfaceConstraint c = m_Constraints[i];
                 constrainsts[i] = c switch
                 {
-                    BadInterfaceFunctionConstraint f => PrepareFunctionConstraint(genericContext,f),
-                    BadInterfacePropertyConstraint p => PreparePropertyConstraint(genericContext,p),
+                    BadInterfaceFunctionConstraint f => PrepareFunctionConstraint(genericContext, f),
+                    BadInterfacePropertyConstraint p => PreparePropertyConstraint(genericContext, p),
                     _ => throw new BadRuntimeException("Unknown Constraint Type: " + c.GetType().Name),
                 };
             }

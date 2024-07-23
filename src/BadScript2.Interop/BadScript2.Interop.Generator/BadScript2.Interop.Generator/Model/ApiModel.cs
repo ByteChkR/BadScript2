@@ -1,7 +1,6 @@
 using System;
 
 using Microsoft.CodeAnalysis;
-
 namespace BadScript2.Interop.Generator.Model;
 
 public readonly struct ApiModel : IEquatable<ApiModel>

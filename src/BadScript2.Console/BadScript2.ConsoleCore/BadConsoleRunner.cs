@@ -1,6 +1,5 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleCore.Systems;
-
 namespace BadScript2.ConsoleCore;
 
 /// <summary>

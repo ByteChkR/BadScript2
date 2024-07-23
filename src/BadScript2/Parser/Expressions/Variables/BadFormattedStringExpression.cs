@@ -70,7 +70,6 @@ public class BadFormattedStringExpression : BadStringExpression
 
             foreach (BadObject o in expr.Execute(context))
             {
-
                 obj = o;
 
                 yield return o;

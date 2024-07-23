@@ -5,8 +5,26 @@ namespace BadScript2.Runtime;
 
 public class BadMemberChangingEvent : BadMemberChangeEvent
 {
-    public bool Cancel { get; private set; }
     private readonly BadObjectReference m_CancelReference;
+
+    public BadMemberChangingEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue) : base(mInstance, mMember, mOldValue, mNewValue)
+    {
+        m_CancelReference = BadObjectReference.Make(
+            "MemberChangingEvent.Cancel",
+            () => new BadInteropFunction(
+                "Cancel",
+                (ctx, args) =>
+                {
+                    Cancel = true;
+                    return Null;
+                },
+                false,
+                BadAnyPrototype.Instance
+            )
+        );
+    }
+
+    public bool Cancel { get; private set; }
 
 
     public override BadClassPrototype GetPrototype()
@@ -16,7 +34,7 @@ public class BadMemberChangingEvent : BadMemberChangeEvent
 
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        if(propName == "Cancel")
+        if (propName == "Cancel")
         {
             return true;
         }
@@ -31,14 +49,5 @@ public class BadMemberChangingEvent : BadMemberChangeEvent
         }
 
         return base.GetProperty(propName, caller);
-    }
-
-    public BadMemberChangingEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue) : base(mInstance, mMember, mOldValue, mNewValue)
-    {
-        m_CancelReference = BadObjectReference.Make("MemberChangingEvent.Cancel", () => new BadInteropFunction("Cancel", (ctx, args) =>
-        {
-            Cancel = true;
-            return Null;
-        }, false, BadAnyPrototype.Instance));
     }
 }

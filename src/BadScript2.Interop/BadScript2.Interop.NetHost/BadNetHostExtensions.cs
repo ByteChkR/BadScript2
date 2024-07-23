@@ -14,7 +14,6 @@ using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Interop.NetHost;
 
 /// <summary>

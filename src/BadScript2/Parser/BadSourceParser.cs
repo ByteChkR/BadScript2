@@ -22,7 +22,6 @@ using BadScript2.Reader.Token.Primitive;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Parser;
 
 /// <summary>
@@ -156,7 +155,7 @@ public class BadSourceParser
             Reader.Eat(':');
             Reader.SkipNonToken();
             List<BadExpression> caseBody = new List<BadExpression>();
-            if(Reader.Is('{'))
+            if (Reader.Is('{'))
             {
                 caseBody = ParseBlock(out bool _);
             }
@@ -164,10 +163,10 @@ public class BadSourceParser
             cases[caseValue] = caseBody.ToArray();
         }
         Reader.Eat('}');
-        
+
         return new BadSwitchExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), value, cases, defaultCase);
     }
-    
+
     /// <summary>
     ///     Parses an If Expression. Moves the Reader to the Next Token
     /// </summary>
@@ -619,7 +618,7 @@ public class BadSourceParser
         {
             return ParseIf();
         }
-        
+
         if (Reader.IsKey(BadStaticKeys.SWITCH_KEY))
         {
             return ParseSwitch();
@@ -926,11 +925,11 @@ public class BadSourceParser
                     Reader.SkipNonToken();
                     Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
                 }
-                
+
                 Reader.SkipNonToken();
                 Reader.Eat('}');
 
-                return new BadPropertyDefinitionExpression(name.Text, word.SourcePosition,  getExpr, type, setExpr, isReadOnly);
+                return new BadPropertyDefinitionExpression(name.Text, word.SourcePosition, getExpr, type, setExpr, isReadOnly);
             }
 
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
@@ -1023,9 +1022,9 @@ public class BadSourceParser
                     Reader.Eat(',');
                     Reader.SkipNonToken();
                 }
-                
+
                 Reader.Eat('>');
-                
+
                 Reader.SkipNonToken();
             }
             catch (Exception)
@@ -1034,7 +1033,7 @@ public class BadSourceParser
                 typeArgs.Clear();
             }
         }
-        
+
         return typeArgs;
     }
 
@@ -1272,7 +1271,7 @@ public class BadSourceParser
 
         if (args.Count == 0)
         {
-            var str = sb.ToString()
+            string str = sb.ToString()
                 .Replace("{{", "{")
                 .Replace("}}", "}");
             return new BadStringExpression(
@@ -1390,7 +1389,7 @@ public class BadSourceParser
 
         if (args.Count == 0)
         {
-            var str = sb.ToString()
+            string str = sb.ToString()
                 .Replace("{{", "{")
                 .Replace("}}", "}");
             return new BadStringExpression(
@@ -1826,7 +1825,7 @@ public class BadSourceParser
             Reader.Eat('>');
             Reader.SkipNonToken();
         }
-        
+
         return genericParameters;
     }
 
@@ -1968,7 +1967,7 @@ public class BadSourceParser
             Reader.SkipNonToken();
 
             List<BadExpression> attributeExpressions = new List<BadExpression>();
-            
+
             while (!Reader.Is('}'))
             {
                 Reader.SkipNonToken();

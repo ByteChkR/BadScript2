@@ -12,7 +12,6 @@ using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
 
 using NUnit.Framework;
-
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>

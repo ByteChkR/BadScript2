@@ -42,7 +42,13 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
     /// <inheritdoc />
     public void ExecuteCommand(string command)
     {
-        string[] parts = command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] parts = command.Split(
+            new[]
+            {
+                ' ',
+            },
+            StringSplitOptions.RemoveEmptyEntries
+        );
 
         if (parts.Length == 0)
         {

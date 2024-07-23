@@ -8,7 +8,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
@@ -39,7 +38,7 @@ public class BadNumberExtension : BadInteropExtension
 
         if (args.Count == 1)
         {
-            var defaultCulture = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
+            CultureInfo? defaultCulture = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
             return d.ToString(format.Value, defaultCulture);
         }
 
@@ -71,7 +70,7 @@ public class BadNumberExtension : BadInteropExtension
             "ToString",
             d => new BadInteropFunction(
                 "ToString",
-                (c,a) => NumberToString(c, d, a),
+                (c, a) => NumberToString(c, d, a),
                 false,
                 BadNativeClassBuilder.GetNative("string"),
                 new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),

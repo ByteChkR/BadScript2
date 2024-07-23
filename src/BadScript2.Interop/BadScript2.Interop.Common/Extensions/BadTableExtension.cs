@@ -8,7 +8,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
@@ -87,7 +86,7 @@ public class BadTableExtension : BadInteropExtension
             )
         );
     }
-    
+
     private static BadObject ArrayAccess(BadExecutionContext context, BadTable table, BadObject enumerator)
     {
         BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);
@@ -137,12 +136,12 @@ public class BadTableExtension : BadInteropExtension
             {
                 current = o;
             }
-            
+
             if (current is not IBadString key)
             {
                 throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a string", position);
             }
-            
+
             result.SetProperty(key.Value, table.GetProperty(key.Value, context.Scope).Dereference());
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
@@ -157,7 +156,7 @@ public class BadTableExtension : BadInteropExtension
                        position
                    );
         }
-        
+
         return result;
     }
 

@@ -4,16 +4,14 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime;
 
 public class BadMemberInfo : BadObject
 {
-    private static readonly BadNativeClassPrototype<BadMemberInfo> s_Prototype =
-        new(
-            "MemberInfo",
-            (c, a) => throw BadRuntimeException.Create(c.Scope, "MemberInfo is a read only object")
-        );
+    private static readonly BadNativeClassPrototype<BadMemberInfo> s_Prototype = new BadNativeClassPrototype<BadMemberInfo>(
+        "MemberInfo",
+        (c, a) => throw BadRuntimeException.Create(c.Scope, "MemberInfo is a read only object")
+    );
 
     private readonly Lazy<BadObjectReference> m_GetAttributesReference;
     private readonly Lazy<BadObjectReference> m_GetValueReference;
@@ -30,28 +28,59 @@ public class BadMemberInfo : BadObject
         m_Name = name;
         m_Scope = scope;
         m_NameReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.Name", () => m_Name));
-        m_GetAttributesReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make(
-            "MemberInfo.GetAttributes",
-            () => new BadInteropFunction("GetAttributes", GetAttributes, false, BadArray.Prototype)));
-        m_GetValueReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.GetValue",
-            () => new BadInteropFunction("GetValue", GetValue, false, BadAnyPrototype.Instance)));
-        m_SetValueReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.SetValue",
-            () => new BadInteropFunction("SetValue", SetValue, false, BadAnyPrototype.Instance,
-                new BadFunctionParameter("value", false, false, false, null, BadAnyPrototype.Instance),
-                new BadFunctionParameter("noChangeEvent", true, true, false, null,
-                    BadNativeClassBuilder.GetNative("bool")))));
+        m_GetAttributesReference = new Lazy<BadObjectReference>(
+            () => BadObjectReference.Make(
+                "MemberInfo.GetAttributes",
+                () => new BadInteropFunction("GetAttributes", GetAttributes, false, BadArray.Prototype)
+            )
+        );
+        m_GetValueReference = new Lazy<BadObjectReference>(
+            () => BadObjectReference.Make(
+                "MemberInfo.GetValue",
+                () => new BadInteropFunction("GetValue", GetValue, false, BadAnyPrototype.Instance)
+            )
+        );
+        m_SetValueReference = new Lazy<BadObjectReference>(
+            () => BadObjectReference.Make(
+                "MemberInfo.SetValue",
+                () => new BadInteropFunction(
+                    "SetValue",
+                    SetValue,
+                    false,
+                    BadAnyPrototype.Instance,
+                    new BadFunctionParameter("value", false, false, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter(
+                        "noChangeEvent",
+                        true,
+                        true,
+                        false,
+                        null,
+                        BadNativeClassBuilder.GetNative("bool")
+                    )
+                )
+            )
+        );
         m_IsReadonlyReference =
-            new Lazy<BadObjectReference>(() =>
-                BadObjectReference.Make("MemberInfo.IsReadonly", () => m_Scope.GetVariableInfo(m_Name).IsReadOnly));
-        m_MemberTypeReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.MemberType",
-            () => m_Scope.GetVariableInfo(m_Name).Type ?? BadAnyPrototype.Instance));
+            new Lazy<BadObjectReference>(
+                () =>
+                    BadObjectReference.Make("MemberInfo.IsReadonly", () => m_Scope.GetVariableInfo(m_Name).IsReadOnly)
+            );
+        m_MemberTypeReference = new Lazy<BadObjectReference>(
+            () => BadObjectReference.Make(
+                "MemberInfo.MemberType",
+                () => m_Scope.GetVariableInfo(m_Name).Type ?? BadAnyPrototype.Instance
+            )
+        );
     }
 
     public static BadClassPrototype Prototype => s_Prototype;
 
     private BadObject GetAttributes(BadExecutionContext ctx, BadObject[] args)
     {
-        if (m_Scope.Attributes.TryGetValue(m_Name, out var attributes)) return new BadArray(attributes.ToList());
+        if (m_Scope.Attributes.TryGetValue(m_Name, out BadObject[]? attributes))
+        {
+            return new BadArray(attributes.ToList());
+        }
 
         return new BadArray();
     }
@@ -69,7 +98,10 @@ public class BadMemberInfo : BadObject
         }
         else if (args.Length == 2)
         {
-            if (args[1] is not IBadBoolean noEvents) throw new BadRuntimeException("Second Argument must be a boolean");
+            if (args[1] is not IBadBoolean noEvents)
+            {
+                throw new BadRuntimeException("Second Argument must be a boolean");
+            }
 
             m_Scope.GetVariable(m_Name, ctx.Scope).Set(args[0], null, noEvents.Value);
         }

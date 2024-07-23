@@ -34,8 +34,6 @@ public class BadRuntime : IDisposable
     private readonly List<Action<BadExecutionContext>> m_ConfigureContext = new List<Action<BadExecutionContext>>();
 
     private readonly List<Action<BadExecutionContext, string, BadModuleImporter>> m_ConfigureModuleImporter = new List<Action<BadExecutionContext, string, BadModuleImporter>>();
-
-    public CultureInfo Culture { get; private set; } = CultureInfo.InvariantCulture;
     /// <summary>
     ///     Configuration Actions for the Options
     /// </summary>
@@ -76,7 +74,10 @@ public class BadRuntime : IDisposable
     /// </summary>
     public BadRuntime() : this(new BadExecutionContextOptions()) { }
 
+    public CultureInfo Culture { get; private set; } = CultureInfo.InvariantCulture;
+
     private BadModuleStore ModuleStore { get; } = new BadModuleStore();
+
     private BadModuleImporter? Importer { get; set; }
 
     //private BadModuleImporter? Importer { get; set; }
@@ -341,7 +342,7 @@ public class BadRuntime : IDisposable
     /// <returns>The Result of the Execution</returns>
     public BadRuntimeExecutionResult ExecuteFile(string file, IFileSystem? fileSystem = null)
     {
-        var fs = fileSystem ?? BadFileSystem.Instance;
+        IFileSystem? fs = fileSystem ?? BadFileSystem.Instance;
         return Execute(ParseFile(file, fs), fs.GetFullPath(Path.GetDirectoryName(fs.GetFullPath(file)) ?? fs.GetCurrentDirectory()));
     }
 
@@ -388,7 +389,7 @@ public class BadRuntime : IDisposable
     /// <returns>The Parsed Expressions</returns>
     public static IEnumerable<BadExpression> ParseFile(string file, IFileSystem? fileSystem = null)
     {
-        var fs = fileSystem ?? BadFileSystem.Instance;
+        IFileSystem? fs = fileSystem ?? BadFileSystem.Instance;
         return Parse(fs.ReadAllText(file), file);
     }
 
@@ -580,7 +581,7 @@ public class BadRuntime : IDisposable
         Culture = culture;
         return this;
     }
-    
+
     public BadRuntime UseCulture(string culture)
     {
         return UseCulture(new CultureInfo(culture));

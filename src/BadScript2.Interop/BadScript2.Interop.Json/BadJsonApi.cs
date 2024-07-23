@@ -5,7 +5,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Settings;
-
 namespace BadScript2.Interop.Json;
 
 /// <summary>

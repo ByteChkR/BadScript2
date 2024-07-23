@@ -3,7 +3,6 @@ using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler;
 
 /// <summary>

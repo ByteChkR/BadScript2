@@ -3,7 +3,6 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
-
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>

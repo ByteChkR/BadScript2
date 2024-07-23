@@ -33,7 +33,8 @@ public class BadDynamicInteropFunction : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -55,7 +56,8 @@ public class BadDynamicInteropFunction : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -82,7 +84,8 @@ public class BadDynamicInteropFunction : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -143,7 +146,8 @@ public class BadDynamicInteropFunction<T> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -201,7 +205,8 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -265,7 +270,8 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -333,7 +339,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -404,7 +411,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -478,7 +486,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -555,7 +564,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -635,7 +645,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -718,7 +729,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -804,7 +816,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -893,7 +906,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -985,7 +999,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -1081,7 +1096,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -1180,7 +1196,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {
@@ -1283,7 +1300,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
         name,
         false,
         false,
-        returnType, false,
+        returnType,
+        false,
         parameters
     )
     {

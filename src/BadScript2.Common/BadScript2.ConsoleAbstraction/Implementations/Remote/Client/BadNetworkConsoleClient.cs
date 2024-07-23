@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
-
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 
 /// <summary>

@@ -27,7 +27,7 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
         ProcessStartInfo pi = new ProcessStartInfo
         {
             FileName = path,
-            UseShellExecute = true
+            UseShellExecute = true,
         };
         Process.Start(pi);
     }
@@ -36,7 +36,7 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
     {
         BadSettings? setting = string.IsNullOrEmpty(settings.Path) ? BadSettingsProvider.RootSettings : BadSettingsProvider.RootSettings.FindProperty(settings.Path);
 
-        if(settings.Edit)
+        if (settings.Edit)
         {
             if (BadSettingsProvider.RootSettings == setting)
             {
@@ -57,11 +57,11 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
                 BadConsole.WriteLine($"Setting '{settings.Path}' has no source path.");
                 return Task.FromResult(1);
             }
-            
+
             //Open the source file in the default editor
             string path = Path.GetFullPath(setting.SourcePath);
             OpenWithDefault(path);
-            
+
             return Task.FromResult(0);
         }
         BadConsole.WriteLine(setting?.ToString() ?? "null");

@@ -1,7 +1,6 @@
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Interop.IO;
 
 [BadInteropApi("File", true)]
