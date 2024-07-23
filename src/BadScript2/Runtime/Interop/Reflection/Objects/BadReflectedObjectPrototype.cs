@@ -1,7 +1,6 @@
 ﻿using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Interop.Reflection.Objects;
 
 /// <summary>

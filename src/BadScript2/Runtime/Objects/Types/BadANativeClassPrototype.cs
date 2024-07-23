@@ -1,6 +1,4 @@
 using BadScript2.Parser;
-using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -28,15 +26,15 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
         m_Func = func;
     }
 
-	protected override BadClassPrototype? BaseClass { get; } = BadAnyPrototype.Instance;
+    protected override BadClassPrototype? BaseClass { get; } = BadAnyPrototype.Instance;
 
-	/// <summary>
-	///     Creates an instance of the Class
-	/// </summary>
-	/// <param name="caller">Caller Context</param>
-	/// <param name="args">Constructor Arguments</param>
-	/// <returns>Enumeration of BadObjects that were created by the exeuction of the constructor</returns>
-	public IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, BadObject[] args)
+    /// <summary>
+    ///     Creates an instance of the Class
+    /// </summary>
+    /// <param name="caller">Caller Context</param>
+    /// <param name="args">Constructor Arguments</param>
+    /// <returns>Enumeration of BadObjects that were created by the exeuction of the constructor</returns>
+    public IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, BadObject[] args)
     {
         yield return m_Func(caller, args);
     }

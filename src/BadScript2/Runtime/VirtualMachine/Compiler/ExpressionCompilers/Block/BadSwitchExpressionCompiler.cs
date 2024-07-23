@@ -3,7 +3,7 @@ using BadScript2.Parser.Expressions.Block;
 using BadScript2.Runtime.Objects;
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
-public class BadSwitchExpressionCompiler: BadExpressionCompiler<BadSwitchExpression>
+public class BadSwitchExpressionCompiler : BadExpressionCompiler<BadSwitchExpression>
 {
     public override void Compile(BadExpressionCompileContext context, BadSwitchExpression expression)
     {
@@ -29,7 +29,7 @@ public class BadSwitchExpressionCompiler: BadExpressionCompiler<BadSwitchExpress
             if (@case.Value.Length > 0)
             {
                 int endJump = context.EmitEmpty(); //Jump to the next case if the case value is not equal to the switch value
-                
+
                 //We have a case body,
                 //Resolve all caseBodyJumps to the start of the case body
                 foreach (int caseBodyJump in caseBodyJumps)
@@ -38,7 +38,7 @@ public class BadSwitchExpressionCompiler: BadExpressionCompiler<BadSwitchExpress
                 }
                 caseBodyJumps.Clear();
                 context.Compile(@case.Value, false);
-                
+
                 //Resolve the endJump to the end of the case body
                 context.ResolveEmpty(endJump, BadOpCode.JumpRelativeIfFalse, expression.Position, context.InstructionCount - endJump);
                 caseEndJumps.Add(context.EmitEmpty());

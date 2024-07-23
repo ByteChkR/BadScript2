@@ -1,7 +1,6 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -16,11 +15,6 @@ public abstract class BadClassPrototype : BadObject
         "Type",
         (_, _) => throw new BadRuntimeException("Classes cannot be extended")
     );
-
-    /// <summary>
-    ///     The Base Class of the Prototype
-    /// </summary>
-    protected abstract BadClassPrototype? BaseClass { get; }
 
 
     /// <summary>
@@ -41,6 +35,11 @@ public abstract class BadClassPrototype : BadObject
         Name = name;
         MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    /// <summary>
+    ///     The Base Class of the Prototype
+    /// </summary>
+    protected abstract BadClassPrototype? BaseClass { get; }
 
     /// <summary>
     ///     Indicates if the Class is Abstract(e.g. can not be instantiated)

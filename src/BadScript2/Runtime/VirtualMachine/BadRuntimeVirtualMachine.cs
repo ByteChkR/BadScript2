@@ -17,8 +17,6 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.VirtualMachine;
 
 /// <summary>
@@ -37,14 +35,14 @@ public class BadRuntimeVirtualMachine
     private readonly Stack<BadRuntimeVirtualStackFrame> m_ContextStack = new Stack<BadRuntimeVirtualStackFrame>();
 
     /// <summary>
+    ///     The Function that is executed by this Virtual Machine
+    /// </summary>
+    private readonly BadCompiledFunction m_Function;
+
+    /// <summary>
     ///     The Instructions
     /// </summary>
     private readonly BadInstruction[] m_Instructions;
-    
-    /// <summary>
-    /// The Function that is executed by this Virtual Machine
-    /// </summary>
-    private readonly BadCompiledFunction m_Function;
 
     /// <summary>
     ///     Indicates if the Virtual Machine should use Operator Overrides.
@@ -184,7 +182,7 @@ public class BadRuntimeVirtualMachine
                     m_ContextStack.Push(
                         new BadRuntimeVirtualStackFrame(m_Function.CreateExecutionContext(ctx, args))
                         {
-                            ReturnPointer = m_InstructionPointer
+                            ReturnPointer = m_InstructionPointer,
                         }
                     );
                     m_InstructionPointer = 0;
@@ -1414,7 +1412,7 @@ public class BadRuntimeVirtualMachine
                     }
                 }
 
-                if (ctx.Scope.FunctionObject != null && 
+                if (ctx.Scope.FunctionObject != null &&
                     ctx.Scope.FunctionObject.ReturnType == BadVoidPrototype.Instance)
                 {
                     if (!ctx.Scope.FunctionObject.IsSingleLine)
@@ -1424,7 +1422,9 @@ public class BadRuntimeVirtualMachine
                     ctx.Scope.SetReturnValue(BadVoidPrototype.Object);
                 }
                 else
+                {
                     ctx.Scope.SetReturnValue(ret);
+                }
 
                 break;
             }
@@ -1597,25 +1597,31 @@ public class BadRuntimeVirtualMachine
                 catch (Exception e)
                 {
                     BadRuntimeError error;
-                    if (e is BadRuntimeErrorException err) error = err.Error;
-                    else error = BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace());
+                    if (e is BadRuntimeErrorException err)
+                    {
+                        error = err.Error;
+                    }
+                    else
+                    {
+                        error = BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace());
+                    }
                     m_ArgumentStack.Push(error);
-                    
+
                     //Pop scopes until we find a scope that captures throw
                     while ((ctx.Scope.Flags & BadScopeFlags.CaptureThrow) == 0)
                     {
                         m_ContextStack.Pop();
-                    
+
                         if (m_ContextStack.Count == 0)
                         {
                             yield break; //We exited the virtual machine. Quit the Execute method.
                         }
                     }
-                    
+
                     BadRuntimeVirtualStackFrame sframe = m_ContextStack.Peek();
                     m_InstructionPointer = sframe.CreatePointer + sframe.ThrowPointer;
                     m_ContextStack.Pop();
-                    if(m_ContextStack.Count == 0)
+                    if (m_ContextStack.Count == 0)
                     {
                         yield break;
                     }

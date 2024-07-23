@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-
 namespace BadScript2.Utility;
 
 /// <summary>

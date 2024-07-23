@@ -21,7 +21,6 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>
@@ -191,61 +190,73 @@ internal partial class BadRuntimeApi
         return ctx.Scope.RegisteredApis.Contains(api);
     }
 
-    [BadMethod(description:"Creates a new Reference Object")]
+    [BadMethod(description: "Creates a new Reference Object")]
     [return: BadReturn("The Reference Object")]
     private BadObject MakeReference(
         BadExecutionContext ctx,
-        [BadParameter(description: "The Text for the Reference")] string refText,
-        [BadParameter(description: "The getter Function")]BadFunction get, 
-        [BadParameter(description: "The setter Function")]BadFunction? set = null, 
-        [BadParameter(description: "The delete Function")]BadFunction? delete = null)
+        [BadParameter(description: "The Text for the Reference")]
+        string refText,
+        [BadParameter(description: "The getter Function")]
+        BadFunction get,
+        [BadParameter(description: "The setter Function")]
+        BadFunction? set = null,
+        [BadParameter(description: "The delete Function")]
+        BadFunction? delete = null)
     {
-        if(set == null && delete == null)
+        if (set == null && delete == null)
         {
             return BadObjectReference.Make(refText, () => GetReferenceValue(ctx, get));
         }
 
         if (delete == null && set != null)
         {
-            return BadObjectReference.Make(refText,
-                () => GetReferenceValue(ctx, get), 
-                (value, _) => SetReferenceValue(ctx, set, value));
+            return BadObjectReference.Make(
+                refText,
+                () => GetReferenceValue(ctx, get),
+                (value, _) => SetReferenceValue(ctx, set, value)
+            );
         }
-        
+
         if (delete != null && set == null)
         {
-            return BadObjectReference.Make(refText,
-                () => GetReferenceValue(ctx, get), 
+            return BadObjectReference.Make(
+                refText,
+                () => GetReferenceValue(ctx, get),
                 (Action<BadObject, BadPropertyInfo?>?)null,
-                () => SetReferenceValue(ctx, delete, BadObject.Null));
+                () => SetReferenceValue(ctx, delete, BadObject.Null)
+            );
         }
-        
-        return BadObjectReference.Make(refText,
-            () => GetReferenceValue(ctx, get), 
+
+        return BadObjectReference.Make(
+            refText,
+            () => GetReferenceValue(ctx, get),
             (value, _) => SetReferenceValue(ctx, set!, value),
-            () => DeleteReference(ctx, delete!));
+            () => DeleteReference(ctx, delete!)
+        );
     }
 
     private void DeleteReference(BadExecutionContext ctx, BadFunction func)
     {
-        foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx))
-        {         
-        }
+        foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx)) { }
     }
     private BadObject GetReferenceValue(BadExecutionContext ctx, BadFunction func)
     {
         BadObject? result = BadObject.Null;
         foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx))
         {
-            result = o;            
+            result = o;
         }
         return result.Dereference();
     }
     private void SetReferenceValue(BadExecutionContext ctx, BadFunction func, BadObject value)
     {
-        foreach (BadObject? o in func.Invoke(new []{value}, ctx))
-        {         
-        }
+        foreach (BadObject? o in func.Invoke(
+                     new[]
+                     {
+                         value,
+                     },
+                     ctx
+                 )) { }
     }
 
     [BadMethod(description: "Returns all registered apis")]
@@ -350,22 +361,37 @@ internal partial class BadRuntimeApi
         table.SetProperty("Minute", time.Minute, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Second", time.Second, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Millisecond", time.Millisecond, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty("WeekOfYear", new BadInteropFunction("WeekOfYear", (ctx, args) =>
+        table.SetProperty(
+            "WeekOfYear",
+            new BadInteropFunction(
+                "WeekOfYear",
+                (ctx, args) =>
                 {
-                    var c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
+                    CultureInfo? c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
                     if (args.Length == 1 && args[0] is IBadString str)
                     {
                         c = new CultureInfo(str.Value);
                     }
 
-                    return c.Calendar.GetWeekOfYear(time.DateTime, c.DateTimeFormat.CalendarWeekRule,
-                        c.DateTimeFormat.FirstDayOfWeek);
+                    return c.Calendar.GetWeekOfYear(
+                        time.DateTime,
+                        c.DateTimeFormat.CalendarWeekRule,
+                        c.DateTimeFormat.FirstDayOfWeek
+                    );
                 },
                 false,
                 BadNativeClassBuilder.GetNative("num"),
-                new BadFunctionParameter("culture", true, false, false, null,
-                    BadNativeClassBuilder.GetNative("string"))),
-            new BadPropertyInfo(BadFunction.Prototype, true));
+                new BadFunctionParameter(
+                    "culture",
+                    true,
+                    false,
+                    false,
+                    null,
+                    BadNativeClassBuilder.GetNative("string")
+                )
+            ),
+            new BadPropertyInfo(BadFunction.Prototype, true)
+        );
         table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Offset", time.Offset.ToString(), new BadPropertyInfo(BadFunction.Prototype, true));
@@ -458,7 +484,7 @@ internal partial class BadRuntimeApi
             ),
             new BadPropertyInfo(BadFunction.Prototype, true)
         );
-        
+
         table.SetProperty(
             "Format",
             new BadInteropFunction(
@@ -466,7 +492,7 @@ internal partial class BadRuntimeApi
                 (ctx, args) =>
                 {
                     string format = ((IBadString)args[0]).Value;
-                    var c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
+                    CultureInfo? c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
                     if (args.Length == 3 && args[2] is IBadString str)
                     {
                         c = new CultureInfo(str.Value);

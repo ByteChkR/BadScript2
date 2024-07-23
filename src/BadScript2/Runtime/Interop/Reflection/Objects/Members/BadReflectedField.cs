@@ -3,7 +3,6 @@ using System.Reflection;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 /// <summary>

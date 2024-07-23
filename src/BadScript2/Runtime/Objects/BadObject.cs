@@ -4,7 +4,6 @@ using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>

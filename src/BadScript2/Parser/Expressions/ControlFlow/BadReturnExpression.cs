@@ -4,7 +4,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Parser.Expressions.ControlFlow;
 
 /// <summary>
@@ -102,7 +101,7 @@ public class BadReturnExpression : BadExpression
             value = value.Dereference();
         }
 
-        if (context.Scope.FunctionObject != null && 
+        if (context.Scope.FunctionObject != null &&
             context.Scope.FunctionObject.ReturnType == BadVoidPrototype.Instance)
         {
             if (!context.Scope.FunctionObject.IsSingleLine)
@@ -112,7 +111,7 @@ public class BadReturnExpression : BadExpression
             context.Scope.SetReturnValue(BadVoidPrototype.Object);
             yield break;
         }
-        
+
         context.Scope.SetReturnValue(value);
 
         yield return value;

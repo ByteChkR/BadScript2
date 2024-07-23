@@ -6,7 +6,6 @@ using BadScript2.Parser.Operators.Binary.Math;
 using BadScript2.Parser.Operators.Binary.Math.Assign;
 using BadScript2.Parser.Operators.Binary.Math.Atomic;
 using BadScript2.Parser.Operators.Module;
-
 namespace BadScript2.Parser.Operators;
 
 /// <summary>

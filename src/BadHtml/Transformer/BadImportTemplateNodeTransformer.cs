@@ -4,7 +4,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
 using HtmlAgilityPack;
-
 namespace BadHtml.Transformer;
 
 /// <summary>

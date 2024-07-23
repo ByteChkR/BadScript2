@@ -4,7 +4,6 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>

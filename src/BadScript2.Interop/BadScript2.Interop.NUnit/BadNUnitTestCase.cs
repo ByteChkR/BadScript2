@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Objects.Functions;
-
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>

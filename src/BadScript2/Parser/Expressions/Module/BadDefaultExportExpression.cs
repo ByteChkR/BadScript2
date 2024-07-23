@@ -2,7 +2,6 @@ using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>

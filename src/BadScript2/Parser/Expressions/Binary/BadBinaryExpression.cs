@@ -1,6 +1,5 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
-
 namespace BadScript2.Parser.Expressions.Binary;
 
 /// <summary>

@@ -4,7 +4,6 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
 using BadScript2.Utility;
-
 namespace BadScript2.Parser.Expressions.Types;
 
 /// <summary>

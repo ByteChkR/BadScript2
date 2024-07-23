@@ -6,7 +6,6 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>

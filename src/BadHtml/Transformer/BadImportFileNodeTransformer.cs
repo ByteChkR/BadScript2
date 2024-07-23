@@ -2,7 +2,6 @@ using BadScript2.IO;
 using BadScript2.Runtime.Error;
 
 using HtmlAgilityPack;
-
 namespace BadHtml.Transformer;
 
 /// <summary>

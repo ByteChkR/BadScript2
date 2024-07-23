@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using BadScript2.Common;
 using BadScript2.Reader.Token;
 using BadScript2.Reader.Token.Primitive;
-
 namespace BadScript2.Reader;
 
 /// <summary>

@@ -3,8 +3,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Parser.Expressions.Variables;
 
 /// <summary>
@@ -63,7 +61,9 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
         if (GenericParameters.Count != 0)
         {
             if (obj.Dereference() is not IBadGenericObject genType)
+            {
                 throw BadRuntimeException.Create(context.Scope, "Type is not generic", Position);
+            }
 
             BadObject[] genParams = new BadObject[GenericParameters.Count];
             for (int i = 0; i < GenericParameters.Count; i++)

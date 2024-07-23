@@ -1,5 +1,4 @@
 using System.Collections;
-
 namespace BadScript2.Utility.Linq.Queries.Commands;
 
 /// <summary>

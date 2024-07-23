@@ -11,7 +11,6 @@ using BadScript2.IO;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;
-
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>

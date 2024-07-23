@@ -5,8 +5,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
@@ -15,7 +13,6 @@ namespace BadScript2.Parser.Expressions.Access;
 /// </summary>
 public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 {
-	public IReadOnlyList<BadExpression> GenericArguments { get; }
 	/// <summary>
 	///     Constructor for the Member Access Expression.
 	/// </summary>
@@ -42,20 +39,22 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
         NullChecked = nullChecked;
     }
 
-	/// <summary>
-	///     Left side of the expression
-	/// </summary>
-	public BadExpression Left { get; private set; }
+    public IReadOnlyList<BadExpression> GenericArguments { get; }
 
-	/// <summary>
-	///     Right Side of the expression
-	/// </summary>
-	public BadWordToken Right { get; }
+    /// <summary>
+    ///     Left side of the expression
+    /// </summary>
+    public BadExpression Left { get; private set; }
 
-	/// <summary>
-	///     Property that indicates if the result of the left side of the expression should be null-checked.
-	/// </summary>
-	public bool NullChecked { get; }
+    /// <summary>
+    ///     Right Side of the expression
+    /// </summary>
+    public BadWordToken Right { get; }
+
+    /// <summary>
+    ///     Property that indicates if the result of the left side of the expression should be null-checked.
+    /// </summary>
+    public bool NullChecked { get; }
 
     public override IEnumerable<BadExpression> GetDescendants()
     {
@@ -90,31 +89,32 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 
             if (GenericArguments.Count != 0)
             {
-	            ret = ret.Dereference();
-	            if (ret is not IBadGenericObject genType)
-	            {
-		            throw BadRuntimeException.Create(
-			            context.Scope,
-			            $"Object {ret} does not support generic arguments",
-			            Position
-		            );
-	            }
-	            BadObject[] genParams = new BadObject[GenericArguments.Count];
-	            for (int i = 0; i < GenericArguments.Count; i++)
-	            {
-		            foreach (BadObject? o in GenericArguments[i].Execute(context))
-		            {
-			            genParams[i] = o;
-		            }
+                ret = ret.Dereference();
+                if (ret is not IBadGenericObject genType)
+                {
+                    throw BadRuntimeException.Create(
+                        context.Scope,
+                        $"Object {ret} does not support generic arguments",
+                        Position
+                    );
+                }
+                BadObject[] genParams = new BadObject[GenericArguments.Count];
+                for (int i = 0; i < GenericArguments.Count; i++)
+                {
+                    foreach (BadObject? o in GenericArguments[i].Execute(context))
+                    {
+                        genParams[i] = o;
+                    }
 
-		            genParams[i] = genParams[i].Dereference();
-	            }
+                    genParams[i] = genParams[i].Dereference();
+                }
 
-	            yield return genType.CreateGeneric(genParams);
+                yield return genType.CreateGeneric(genParams);
             }
-			else{
-				yield return ret;
-			}	
+            else
+            {
+                yield return ret;
+            }
         }
     }
 

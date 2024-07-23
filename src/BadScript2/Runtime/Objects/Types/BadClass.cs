@@ -1,7 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -161,7 +160,7 @@ public class BadClass : BadObject
                 (o, t) =>
                 {
                     BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);
-                    
+
                     BadObject? existing = Scope.GetTable().InnerTable[propName];
 
                     if (existing != Null && info.IsReadOnly)
@@ -184,7 +183,9 @@ public class BadClass : BadObject
                     else
                     {
                         if (existing != Null && Scope.OnChange(propName, existing, o))
+                        {
                             return;
+                        }
                         Scope.GetTable().InnerTable[propName] = o;
                         Scope.OnChanged(propName, existing ?? Null, o);
                     }

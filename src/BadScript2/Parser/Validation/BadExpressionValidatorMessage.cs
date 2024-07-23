@@ -2,7 +2,6 @@ using System.Text;
 
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Function;
-
 namespace BadScript2.Parser.Validation;
 
 /// <summary>
@@ -56,7 +55,7 @@ public readonly struct BadExpressionValidatorMessage
         Type = type;
         ParentExpression = parentExpression;
     }
-    
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
@@ -70,7 +69,7 @@ public readonly struct BadExpressionValidatorMessage
         {
             sb.AppendLine($"{Expression.Position.GetPositionInfo()}");
         }
-        
+
         return sb.ToString();
     }
 }

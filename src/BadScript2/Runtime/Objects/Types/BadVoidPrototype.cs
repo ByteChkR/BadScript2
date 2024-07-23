@@ -1,53 +1,24 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
-/// The Void Prototype, can be assigned to nothing, can not be inherited from, can not be instantiated.
-/// Denotes an absence of a return value.
+///     The Void Prototype, can be assigned to nothing, can not be inherited from, can not be instantiated.
+///     Denotes an absence of a return value.
 /// </summary>
 public class BadVoidPrototype : BadClassPrototype
 {
     /// <summary>
-    /// The Instance of the BadVoidPrototype
+    ///     Creates a new BadVoidPrototype
+    /// </summary>
+    private BadVoidPrototype() : base("void", BadMetaData.Empty) { }
+    /// <summary>
+    ///     The Instance of the BadVoidPrototype
     /// </summary>
     public static BadVoidPrototype Instance { get; } = new BadVoidPrototype();
+
     public static BadObject Object { get; } = new BadVoidObject();
-    private class BadVoidObject : BadObject
-    {
-        public override BadClassPrototype GetPrototype()
-        {
-            return Instance;
-        }
-
-        public override string ToSafeString(List<BadObject> done)
-        {
-            return "<void>";
-        }
-        
-        public override string ToString()
-        {
-            return "<void>";
-        }
-
-        public override bool HasProperty(string propName, BadScope? caller = null)
-        {
-            return false;
-        }
-
-        public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
-        {
-            throw BadRuntimeException.Create(caller, $"Property '{propName}' does not exist on void");
-        }
-    }
-    /// <summary>
-    /// Creates a new BadVoidPrototype
-    /// </summary>
-    private BadVoidPrototype() : base("void", BadMetaData.Empty)
-    {
-    }
 
     /// <inheritdoc />
     protected override BadClassPrototype? BaseClass { get; } = null;
@@ -71,5 +42,33 @@ public class BadVoidPrototype : BadClassPrototype
     public override bool IsSuperClassOf(BadClassPrototype proto)
     {
         return proto == Instance;
+    }
+
+    private class BadVoidObject : BadObject
+    {
+        public override BadClassPrototype GetPrototype()
+        {
+            return Instance;
+        }
+
+        public override string ToSafeString(List<BadObject> done)
+        {
+            return "<void>";
+        }
+
+        public override string ToString()
+        {
+            return "<void>";
+        }
+
+        public override bool HasProperty(string propName, BadScope? caller = null)
+        {
+            return false;
+        }
+
+        public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
+        {
+            throw BadRuntimeException.Create(caller, $"Property '{propName}' does not exist on void");
+        }
     }
 }

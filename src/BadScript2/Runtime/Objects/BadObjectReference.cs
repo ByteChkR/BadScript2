@@ -1,6 +1,5 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>
@@ -35,20 +34,25 @@ public abstract class BadObjectReference : BadObject
 	/// <param name="delete">The Delete Function of the Reference</param>
 	/// <returns>Reference Instance</returns>
 	public static BadObjectReference Make(
-		string refText,
-		Func<BadObject> getter,
-		Action<BadObject, BadPropertyInfo?>? setter = null,
-		Action? delete = null)
-	{
-		return new BadObjectReferenceImpl(refText, getter, (o, i, _) =>
-		{
-			if (setter == null)
-			{
-				throw new BadRuntimeException("Cannot set reference " + refText + " because it is read-only");
-			}
-			setter(o, i);
-		}, delete);
-	}
+        string refText,
+        Func<BadObject> getter,
+        Action<BadObject, BadPropertyInfo?>? setter = null,
+        Action? delete = null)
+    {
+        return new BadObjectReferenceImpl(
+            refText,
+            getter,
+            (o, i, _) =>
+            {
+                if (setter == null)
+                {
+                    throw new BadRuntimeException("Cannot set reference " + refText + " because it is read-only");
+                }
+                setter(o, i);
+            },
+            delete
+        );
+    }
 	/// <summary>
 	///     Creates a new Reference Object
 	/// </summary>
@@ -58,13 +62,13 @@ public abstract class BadObjectReference : BadObject
 	/// <param name="delete">The Delete Function of the Reference</param>
 	/// <returns>Reference Instance</returns>
 	public static BadObjectReference Make(
-		string refText,
-		Func<BadObject> getter,
-		Action<BadObject, BadPropertyInfo?, bool>? setter,
-		Action? delete = null)
-	{
-		return new BadObjectReferenceImpl(refText, getter, setter, delete);
-	}
+        string refText,
+        Func<BadObject> getter,
+        Action<BadObject, BadPropertyInfo?, bool>? setter,
+        Action? delete = null)
+    {
+        return new BadObjectReferenceImpl(refText, getter, setter, delete);
+    }
 
 	/// <summary>
 	///     Implements a Reference Object

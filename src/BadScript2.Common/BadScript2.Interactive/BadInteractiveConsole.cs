@@ -112,7 +112,7 @@ public class BadInteractiveConsole
             throw new BadRuntimeException("Context is not initialized");
         }
 
-		Reset();
+        Reset();
         BadExecutionContext current = m_Context;
         BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
         Run(parser.Parse());
@@ -171,7 +171,6 @@ public class BadInteractiveConsole
 
             yield return null;
         }
-
     }
 
 	/// <summary>
@@ -222,7 +221,6 @@ public class BadInteractiveConsole
                 m_Runner.RunStep();
             }
         }
-
     }
 
 	/// <summary>

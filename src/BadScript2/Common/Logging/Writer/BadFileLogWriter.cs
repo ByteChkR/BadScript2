@@ -1,5 +1,4 @@
 using BadScript2.IO;
-
 namespace BadScript2.Common.Logging.Writer;
 
 /// <summary>

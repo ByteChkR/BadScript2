@@ -16,7 +16,7 @@
         <ProjectReference Include="..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.61"/>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
     </ItemGroup>
     <ItemGroup>

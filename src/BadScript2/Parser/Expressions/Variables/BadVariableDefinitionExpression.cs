@@ -4,18 +4,11 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Parser.Expressions.Variables;
 
 public class BadPropertyDefinitionExpression : BadExpression
 {
 
-    public BadWordToken Name { get; }
-    public bool IsReadOnly { get; }
-    public BadExpression? TypeExpression { get; }
-    public BadExpression GetExpression { get; }
-    public BadExpression? SetExpression { get; }
-    
     public BadPropertyDefinitionExpression(
         BadWordToken name,
         BadSourcePosition position,
@@ -30,7 +23,17 @@ public class BadPropertyDefinitionExpression : BadExpression
         GetExpression = getExpression;
         SetExpression = setExpression;
     }
-    
+
+    public BadWordToken Name { get; }
+
+    public bool IsReadOnly { get; }
+
+    public BadExpression? TypeExpression { get; }
+
+    public BadExpression GetExpression { get; }
+
+    public BadExpression? SetExpression { get; }
+
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield return GetExpression;
@@ -73,15 +76,15 @@ public class BadPropertyDefinitionExpression : BadExpression
         }
 
         List<BadObject> attributes = new List<BadObject>();
-        foreach (var o in ComputeAttributes(context, attributes))
+        foreach (BadObject? o in ComputeAttributes(context, attributes))
         {
             yield return o;
         }
-        
+
         context.Scope.DefineProperty(Name.Text, type, GetExpression, SetExpression, context, attributes.ToArray());
     }
-
 }
+
 /// <summary>
 ///     Implements the Variable Definition Expression
 /// </summary>
@@ -147,7 +150,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
 
             if (obj is not BadClassPrototype proto)
             {
-                throw BadRuntimeException.Create(context.Scope,"Type expression must be a class prototype", Position);
+                throw BadRuntimeException.Create(context.Scope, "Type expression must be a class prototype", Position);
             }
 
             type = proto;
@@ -157,13 +160,13 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         {
             throw BadRuntimeException.Create(context.Scope, "Cannot declare a variable of type 'void'", Position);
         }
-        
+
         if (context.Scope.HasLocal(Name, context.Scope, false))
         {
             throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is already defined", Position);
         }
         List<BadObject> attributes = new List<BadObject>();
-        foreach (var o in ComputeAttributes(context, attributes))
+        foreach (BadObject? o in ComputeAttributes(context, attributes))
         {
             yield return o;
         }

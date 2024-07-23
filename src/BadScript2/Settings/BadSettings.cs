@@ -1,7 +1,6 @@
 using System.Text;
 
 using Newtonsoft.Json.Linq;
-
 namespace BadScript2.Settings;
 
 /// <summary>
@@ -14,14 +13,6 @@ public class BadSettings
     /// </summary>
     private readonly Dictionary<string, BadSettings> m_Properties;
 
-    /// <summary>
-    /// The Source Path of the Settings Object
-    /// </summary>
-    private readonly string m_SourcePath;
-
-    public bool HasSourcePath => !string.IsNullOrEmpty(m_SourcePath);
-    public string SourcePath => m_SourcePath;
-    
     /// <summary>
     ///     Cache for the Serialized Value of the Settings
     /// </summary>
@@ -43,7 +34,7 @@ public class BadSettings
     /// <param name="sourcePath">The Source Path of the Settings Object</param>
     public BadSettings(string sourcePath)
     {
-        m_SourcePath = sourcePath;
+        SourcePath = sourcePath;
         m_Value = null;
         m_IsDirty = true;
         m_Properties = new Dictionary<string, BadSettings>();
@@ -57,7 +48,7 @@ public class BadSettings
     public BadSettings(JToken? value, string sourcePath)
     {
         m_Value = value;
-        m_SourcePath = sourcePath;
+        SourcePath = sourcePath;
         m_IsDirty = true;
         m_Properties = new Dictionary<string, BadSettings>();
     }
@@ -72,12 +63,19 @@ public class BadSettings
         m_Value = null;
         m_IsDirty = true;
         m_Properties = properties;
-        m_SourcePath = sourcePath;
+        SourcePath = sourcePath;
         foreach (KeyValuePair<string, BadSettings> kvp in m_Properties)
         {
             kvp.Value.OnValueChanged += PropertyValueChanged;
         }
     }
+
+    public bool HasSourcePath => !string.IsNullOrEmpty(SourcePath);
+
+    /// <summary>
+    ///     The Source Path of the Settings Object
+    /// </summary>
+    public string SourcePath { get; }
 
     /// <summary>
     ///     The Property Names of the Settings Object

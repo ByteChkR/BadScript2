@@ -1,7 +1,6 @@
 ﻿using BadScript2.Interactive;
 using BadScript2.Interop;
 using BadScript2.Interop.Common;
-
 namespace BadScript2.Generator.Test;
 
 [BadInteropApi("TestApi")]

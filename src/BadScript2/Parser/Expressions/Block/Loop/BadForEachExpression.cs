@@ -125,7 +125,7 @@ public class BadForEachExpression : BadExpression
 
         throw new BadRuntimeException("Invalid enumerator", position);
     }
-public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadObject target, BadSourcePosition position, Func<Action, BadExecutionContext, BadObject, IEnumerable<BadObject>> action)
+    public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadObject target, BadSourcePosition position, Func<Action, BadExecutionContext, BadObject, IEnumerable<BadObject>> action)
     {
         if (target.HasProperty("GetEnumerator", context.Scope))
         {
@@ -189,13 +189,12 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
             }
 
 
-
             bool bBreak = false;
             foreach (BadObject? o in action(() => bBreak = true, loopContext, current.Dereference()))
             {
                 yield return o;
             }
-            
+
             if (bBreak)
             {
                 break;
@@ -207,7 +206,6 @@ public static IEnumerable<BadObject> Enumerate(BadExecutionContext context, BadO
 
                 yield return o;
             }
-
 
 
             bRet = cond.Dereference() as IBadBoolean ??

@@ -1,6 +1,5 @@
 using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>

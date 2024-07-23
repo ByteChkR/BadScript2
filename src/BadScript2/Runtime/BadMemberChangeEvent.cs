@@ -5,8 +5,8 @@ public abstract class BadMemberChangeEvent : BadObject
 {
     private readonly BadObject m_Instance;
     private readonly BadMemberInfo m_Member;
-    private readonly BadObject m_OldValue;
     private readonly BadObject m_NewValue;
+    private readonly BadObject m_OldValue;
 
     protected BadMemberChangeEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue)
     {

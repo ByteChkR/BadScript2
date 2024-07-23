@@ -3,7 +3,6 @@ using System.Linq;
 
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadHtml.Transformer;
 
 /// <summary>

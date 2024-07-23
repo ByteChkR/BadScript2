@@ -1,12 +1,10 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions.Types;
-using BadScript2.Reader.Token;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -18,103 +16,124 @@ public static class BadNativeClassBuilder
     ///     The IDisposible Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype Disposable =
-        new BadInterfacePrototype("IDisposable", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints, Array.Empty<string>());
+        new BadInterfacePrototype("IDisposable", typeArgs => Array.Empty<BadInterfacePrototype>(), null, DisposableConstraints, Array.Empty<string>());
     public static readonly BadInterfacePrototype Attribute =
-        new BadInterfacePrototype("IAttribute", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, objects => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
+        new BadInterfacePrototype("IAttribute", typeArgs => Array.Empty<BadInterfacePrototype>(), null, objects => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
     public static readonly BadInterfacePrototype InitializeAttribute =
-        new BadInterfacePrototype("IInitializeAttribute", (typeArgs) => new []{Attribute}, null,
-            InitializeAttributeConstraints, Array.Empty<string>());
+        new BadInterfacePrototype(
+            "IInitializeAttribute",
+            typeArgs => new[]
+            {
+                Attribute,
+            },
+            null,
+            InitializeAttributeConstraints,
+            Array.Empty<string>()
+        );
 
-    public static readonly BadInterfacePrototype MemberChangeEventArgs = new BadInterfacePrototype("IMemberChangeEventArgs",
-        (_) => Array.Empty<BadInterfacePrototype>(), null, MemberChangeEventArgsConstraints, Array.Empty<string>());
-    
-    public static readonly BadInterfacePrototype MemberChangedEventArgs = new BadInterfacePrototype("IMemberChangedEventArgs",
-        (_) => new []{MemberChangeEventArgs}, null, (_) => Array.Empty<BadInterfaceConstraint>(), Array.Empty<string>());
-    
-    public static readonly BadInterfacePrototype MemberChangingEventArgs = new BadInterfacePrototype("IMemberChangingEventArgs",
-        (_) => new []{MemberChangeEventArgs}, null, MemberChangingEventArgsConstraints, Array.Empty<string>());
+    public static readonly BadInterfacePrototype MemberChangeEventArgs = new BadInterfacePrototype(
+        "IMemberChangeEventArgs",
+        _ => Array.Empty<BadInterfacePrototype>(),
+        null,
+        MemberChangeEventArgsConstraints,
+        Array.Empty<string>()
+    );
 
-    private static BadInterfaceConstraint[] MemberChangingEventArgsConstraints(BadObject[] arg)
-    {
-        return new BadInterfaceConstraint[]
+    public static readonly BadInterfacePrototype MemberChangedEventArgs = new BadInterfacePrototype(
+        "IMemberChangedEventArgs",
+        _ => new[]
         {
-            new BadInterfaceFunctionConstraint("Cancel", null, BadAnyPrototype.Instance, Array.Empty<BadFunctionParameter>())
-        };
-    }
+            MemberChangeEventArgs,
+        },
+        null,
+        _ => Array.Empty<BadInterfaceConstraint>(),
+        Array.Empty<string>()
+    );
 
-    private static BadInterfaceConstraint[] MemberChangeEventArgsConstraints(BadObject[] arg)
-    {
-        return new BadInterfaceConstraint[]
+    public static readonly BadInterfacePrototype MemberChangingEventArgs = new BadInterfacePrototype(
+        "IMemberChangingEventArgs",
+        _ => new[]
         {
-            new BadInterfacePropertyConstraint("Instance", null, BadAnyPrototype.Instance),
-            new BadInterfacePropertyConstraint("OldValue", null, BadAnyPrototype.Instance),
-            new BadInterfacePropertyConstraint("NewValue", null, BadAnyPrototype.Instance),
-            new BadInterfacePropertyConstraint("Member", null, BadMemberInfo.Prototype)
-        };
-    }
+            MemberChangeEventArgs,
+        },
+        null,
+        MemberChangingEventArgsConstraints,
+        Array.Empty<string>()
+    );
 
     public static readonly BadInterfacePrototype ChangeAttribute =
-        new BadInterfacePrototype("IChangeAttribute", (typeArgs) => new []{Attribute}, null,
-            ChangeAttributeConstraints, Array.Empty<string>());
+        new BadInterfacePrototype(
+            "IChangeAttribute",
+            typeArgs => new[]
+            {
+                Attribute,
+            },
+            null,
+            ChangeAttributeConstraints,
+            Array.Empty<string>()
+        );
     public static readonly BadInterfacePrototype ChangedAttribute =
-        new BadInterfacePrototype("IChangedAttribute", (typeArgs) => new []{Attribute}, null,
-            ChangedAttributeConstraints, Array.Empty<string>());
-
-    private static BadInterfaceConstraint[] InitializeAttributeConstraints(BadObject[] arg)
-    {
-        return new BadInterfaceConstraint[]
-        {
-            new BadInterfaceFunctionConstraint("Initialize", null, BadAnyPrototype.Instance,
-                new[]
-                {
-                    new BadFunctionParameter("instance", false, true, false, null, BadAnyPrototype.Instance),
-                    new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype)
-                })
-        };
-    }
-    private static BadInterfaceConstraint[] ChangeAttributeConstraints(BadObject[] arg)
-    {
-        return new BadInterfaceConstraint[]
-        {
-            new BadInterfaceFunctionConstraint("OnChange", null, BadAnyPrototype.Instance,
-                new[]
-                {
-                    new BadFunctionParameter("eventArgs", false, true, false, null, MemberChangingEventArgs),
-                })
-        };
-    }
-    private static BadInterfaceConstraint[] ChangedAttributeConstraints(BadObject[] arg)
-    {
-        return new BadInterfaceConstraint[]
-        {
-            new BadInterfaceFunctionConstraint("OnChanged", null, BadAnyPrototype.Instance,
-                new[]
-                {
-                    new BadFunctionParameter("eventArgs", false, true, false, null, MemberChangedEventArgs),
-                })
-        };
-    }
+        new BadInterfacePrototype(
+            "IChangedAttribute",
+            typeArgs => new[]
+            {
+                Attribute,
+            },
+            null,
+            ChangedAttributeConstraints,
+            Array.Empty<string>()
+        );
 
     /// <summary>
     ///     The IEnumerable Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype Enumerable =
-        new BadInterfacePrototype("IEnumerable", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, EnumerableConstraints, new []{"T"});
+        new BadInterfacePrototype(
+            "IEnumerable",
+            typeArgs => Array.Empty<BadInterfacePrototype>(),
+            null,
+            EnumerableConstraints,
+            new[]
+            {
+                "T",
+            }
+        );
 
     /// <summary>
     ///     The IEnumerator Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype Enumerator =
-        new BadInterfacePrototype("IEnumerator", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, EnumeratorConstraints, new []{"T"});
+        new BadInterfacePrototype(
+            "IEnumerator",
+            typeArgs => Array.Empty<BadInterfacePrototype>(),
+            null,
+            EnumeratorConstraints,
+            new[]
+            {
+                "T",
+            }
+        );
 
     /// <summary>
     ///     The IArray Interface Prototype
     /// </summary>
     public static readonly BadInterfacePrototype ArrayLike =
-        new BadInterfacePrototype("IArray", (typeArgs) => new[] { (BadInterfacePrototype)Enumerable.CreateGeneric(typeArgs) }, null, ArrayConstraints, new []{"T"});
+        new BadInterfacePrototype(
+            "IArray",
+            typeArgs => new[]
+            {
+                (BadInterfacePrototype)Enumerable.CreateGeneric(typeArgs),
+            },
+            null,
+            ArrayConstraints,
+            new[]
+            {
+                "T",
+            }
+        );
 
     public static readonly BadInterfacePrototype ImportHandler =
-        new BadInterfacePrototype("IImportHandler", (typeArgs) => Array.Empty<BadInterfacePrototype>(), null, ImportHandlerConstraints, Array.Empty<string>());
+        new BadInterfacePrototype("IImportHandler", typeArgs => Array.Empty<BadInterfacePrototype>(), null, ImportHandlerConstraints, Array.Empty<string>());
 
     private static readonly Dictionary<string, BadObjectReference> s_NumberStaticMembers = new Dictionary<string, BadObjectReference>
     {
@@ -129,9 +148,9 @@ public static class BadNativeClassBuilder
                     new BadFunctionParameter("str", false, true, false, null, GetNative("string"))
                 )
             )
-        }
+        },
     };
-    
+
     private static readonly Dictionary<string, BadObjectReference> s_BooleanStaticMembers = new Dictionary<string, BadObjectReference>
     {
         {
@@ -145,25 +164,156 @@ public static class BadNativeClassBuilder
                     new BadFunctionParameter("str", false, true, false, null, GetNative("string"))
                 )
             )
-        }
-    };
-    
-    private static readonly Dictionary<string, BadObjectReference> s_StringStaticMembers = new Dictionary<string, BadObjectReference>
-    {
-        { "Empty", BadObjectReference.Make("string.Empty", () => BadString.Empty) },
-        { "IsNullOrEmpty" ,BadObjectReference.Make(
-            "string.IsNullOrEmpty",
-            () => new BadInteropFunction(
-                "IsNullOrEmpty",
-                StringIsNullOrEmpty,
-                true,
-                GetNative("bool"),
-                new BadFunctionParameter("str", false, false, false, null, GetNative("string"))
-            )
-        )}
+        },
     };
 
-    
+    private static readonly Dictionary<string, BadObjectReference> s_StringStaticMembers = new Dictionary<string, BadObjectReference>
+    {
+        {
+            "Empty", BadObjectReference.Make("string.Empty", () => BadString.Empty)
+        },
+        {
+            "IsNullOrEmpty", BadObjectReference.Make(
+                "string.IsNullOrEmpty",
+                () => new BadInteropFunction(
+                    "IsNullOrEmpty",
+                    StringIsNullOrEmpty,
+                    true,
+                    GetNative("bool"),
+                    new BadFunctionParameter("str", false, false, false, null, GetNative("string"))
+                )
+            )
+        },
+    };
+
+    /// <summary>
+    ///     Collection of all Native Class Prototypes
+    /// </summary>
+    private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
+    {
+        BadVoidPrototype.Instance,
+        BadAnyPrototype.Instance,
+        CreateNativeType<BadString>("string", s_StringStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
+        CreateNativeType<BadBoolean>("bool", s_BooleanStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
+        CreateNativeType<BadNumber>("num", s_NumberStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
+        CreateNativeType<BadFunction>("Function", () => Array.Empty<BadInterfacePrototype>()),
+        CreateNativeType<BadArray>(
+            "Array",
+            () => new[]
+            {
+                (BadInterfacePrototype)ArrayLike.CreateGeneric(
+                    new[]
+                    {
+                        BadAnyPrototype.Instance,
+                    }
+                ),
+            }
+        ),
+        CreateNativeType<BadTable>(
+            "Table",
+            () => new[]
+            {
+                (BadInterfacePrototype)Enumerable.CreateGeneric(
+                    new[]
+                    {
+                        BadAnyPrototype.Instance,
+                    }
+                ),
+            }
+        ),
+        BadScope.Prototype,
+        BadClassPrototype.Prototype,
+        BadRuntimeError.Prototype,
+        BadMemberInfo.Prototype,
+        //TODO: Make Native Class Builder non static
+        //(adding this prototype will cause a type initializer exception because of a circular reference due to a tightly packed static initializer list)
+        //BadFunction.Prototype, 
+        Enumerable,
+        Enumerator,
+        Disposable,
+        ArrayLike,
+        ImportHandler,
+        Attribute,
+        InitializeAttribute,
+        ChangeAttribute,
+        ChangedAttribute,
+        MemberChangeEventArgs,
+        MemberChangingEventArgs,
+        MemberChangedEventArgs,
+    };
+
+    /// <summary>
+    ///     Enumeration of all Native Class Prototypes
+    /// </summary>
+    public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
+
+    private static BadInterfaceConstraint[] MemberChangingEventArgsConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint("Cancel", null, BadAnyPrototype.Instance, Array.Empty<BadFunctionParameter>()),
+        };
+    }
+
+    private static BadInterfaceConstraint[] MemberChangeEventArgsConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfacePropertyConstraint("Instance", null, BadAnyPrototype.Instance),
+            new BadInterfacePropertyConstraint("OldValue", null, BadAnyPrototype.Instance),
+            new BadInterfacePropertyConstraint("NewValue", null, BadAnyPrototype.Instance),
+            new BadInterfacePropertyConstraint("Member", null, BadMemberInfo.Prototype),
+        };
+    }
+
+    private static BadInterfaceConstraint[] InitializeAttributeConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint(
+                "Initialize",
+                null,
+                BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("instance", false, true, false, null, BadAnyPrototype.Instance),
+                    new BadFunctionParameter("member", false, true, false, null, BadMemberInfo.Prototype),
+                }
+            ),
+        };
+    }
+    private static BadInterfaceConstraint[] ChangeAttributeConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint(
+                "OnChange",
+                null,
+                BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("eventArgs", false, true, false, null, MemberChangingEventArgs),
+                }
+            ),
+        };
+    }
+    private static BadInterfaceConstraint[] ChangedAttributeConstraints(BadObject[] arg)
+    {
+        return new BadInterfaceConstraint[]
+        {
+            new BadInterfaceFunctionConstraint(
+                "OnChanged",
+                null,
+                BadAnyPrototype.Instance,
+                new[]
+                {
+                    new BadFunctionParameter("eventArgs", false, true, false, null, MemberChangedEventArgs),
+                }
+            ),
+        };
+    }
+
+
     private static BadObject StringIsNullOrEmpty(BadExecutionContext ctx, BadObject[] arg)
     {
         if (arg[0] is not IBadString str)
@@ -187,7 +337,7 @@ public static class BadNativeClassBuilder
 
         throw BadRuntimeException.Create(ctx.Scope, $"The Supplied String '{str.Value}' is not a valid number");
     }
-    
+
     private static BadObject ParseBoolean(BadExecutionContext ctx, BadObject[] arg)
     {
         if (arg[0] is not IBadString str)
@@ -202,45 +352,6 @@ public static class BadNativeClassBuilder
 
         throw BadRuntimeException.Create(ctx.Scope, $"The Supplied String '{str.Value}' is not a valid boolean");
     }
-        
-    /// <summary>
-    ///     Collection of all Native Class Prototypes
-    /// </summary>
-    private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
-    {
-        BadVoidPrototype.Instance,
-        BadAnyPrototype.Instance,
-        CreateNativeType<BadString>("string", s_StringStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadBoolean>("bool", s_BooleanStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadNumber>("num", s_NumberStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadFunction>("Function", () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadArray>("Array", () => new []{(BadInterfacePrototype)ArrayLike.CreateGeneric(new []{BadAnyPrototype.Instance})}),
-        CreateNativeType<BadTable>("Table", () => new []{(BadInterfacePrototype)Enumerable.CreateGeneric(new []{BadAnyPrototype.Instance})}),
-        BadScope.Prototype,
-        BadClassPrototype.Prototype,
-        BadRuntimeError.Prototype,
-        BadMemberInfo.Prototype,
-        //TODO: Make Native Class Builder non static
-        //(adding this prototype will cause a type initializer exception because of a circular reference due to a tightly packed static initializer list)
-        //BadFunction.Prototype, 
-        Enumerable,
-        Enumerator,
-        Disposable,
-        ArrayLike,
-        ImportHandler,
-        Attribute,
-        InitializeAttribute,
-        ChangeAttribute,
-        ChangedAttribute,
-        MemberChangeEventArgs,
-        MemberChangingEventArgs,
-        MemberChangedEventArgs
-    };
-
-    /// <summary>
-    ///     Enumeration of all Native Class Prototypes
-    /// </summary>
-    public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
 
     /// <summary>
     ///     The IDisposible Interface Constraints
@@ -317,10 +428,24 @@ public static class BadNativeClassBuilder
         return new BadInterfaceConstraint[]
         {
             //Add(any elem);
-            new BadInterfaceFunctionConstraint("Add", null, new[] { new BadFunctionParameter("elem", false, false, false, null, listType) }),
+            new BadInterfaceFunctionConstraint(
+                "Add",
+                null,
+                new[]
+                {
+                    new BadFunctionParameter("elem", false, false, false, null, listType),
+                }
+            ),
 
             //AddRange(IEnumerable elems);
-            new BadInterfaceFunctionConstraint("AddRange", null, new[] { new BadFunctionParameter("elems", false, false, false, null, (BadClassPrototype)Enumerable.CreateGeneric(typeParams)) }),
+            new BadInterfaceFunctionConstraint(
+                "AddRange",
+                null,
+                new[]
+                {
+                    new BadFunctionParameter("elems", false, false, false, null, (BadClassPrototype)Enumerable.CreateGeneric(typeParams)),
+                }
+            ),
 
             //Clear();
             new BadInterfaceFunctionConstraint("Clear", null, Array.Empty<BadFunctionParameter>()),
@@ -348,16 +473,47 @@ public static class BadNativeClassBuilder
             ),
 
             //bool Remove(any elem);
-            new BadInterfaceFunctionConstraint("Remove", null, GetNative("bool"), new[] { new BadFunctionParameter("elem", false, false, false, null, listType) }),
+            new BadInterfaceFunctionConstraint(
+                "Remove",
+                null,
+                GetNative("bool"),
+                new[]
+                {
+                    new BadFunctionParameter("elem", false, false, false, null, listType),
+                }
+            ),
 
             //RemoveAt(num index);
-            new BadInterfaceFunctionConstraint("RemoveAt", null, new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }),
+            new BadInterfaceFunctionConstraint(
+                "RemoveAt",
+                null,
+                new[]
+                {
+                    new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+                }
+            ),
 
             //bool Contains(any elem);
-            new BadInterfaceFunctionConstraint("Contains", null, GetNative("bool"), new[] { new BadFunctionParameter("elem", false, false, false, null, listType) }),
+            new BadInterfaceFunctionConstraint(
+                "Contains",
+                null,
+                GetNative("bool"),
+                new[]
+                {
+                    new BadFunctionParameter("elem", false, false, false, null, listType),
+                }
+            ),
 
             //Get(num index);
-            new BadInterfaceFunctionConstraint("Get", null, listType, new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }),
+            new BadInterfaceFunctionConstraint(
+                "Get",
+                null,
+                listType,
+                new[]
+                {
+                    new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+                }
+            ),
 
             //Set(num index, any elem);
             new BadInterfaceFunctionConstraint(
@@ -375,7 +531,10 @@ public static class BadNativeClassBuilder
                 BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                 null,
                 BadAnyPrototype.Instance,
-                new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }
+                new[]
+                {
+                    new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+                }
             ),
 
             //op_ArrayAccessReverse(num index);
@@ -383,7 +542,10 @@ public static class BadNativeClassBuilder
                 BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
                 null,
                 BadAnyPrototype.Instance,
-                new[] { new BadFunctionParameter("index", false, false, false, null, GetNative("num")) }
+                new[]
+                {
+                    new BadFunctionParameter("index", false, false, false, null, GetNative("num")),
+                }
             ),
             new BadInterfacePropertyConstraint("Length", null, GetNative("num")),
         };
@@ -450,7 +612,7 @@ public static class BadNativeClassBuilder
             interfaces
         );
     }
-    
+
     /// <summary>
     ///     Creates a Native Class Prototype
     /// </summary>
@@ -485,7 +647,7 @@ public static class BadNativeClassBuilder
     {
         return CreateNativeType<T>(name, BadNativeClassHelper.GetConstructor(name), interfaces);
     }
-    
+
 
     /// <summary>
     ///     Creates a Native Class Prototype
@@ -516,7 +678,7 @@ public static class BadNativeClassBuilder
     {
         return Create<T>(name, constructor, interfaces);
     }
-    
+
     /// <summary>
     ///     Creates a Native Class Prototype
     /// </summary>

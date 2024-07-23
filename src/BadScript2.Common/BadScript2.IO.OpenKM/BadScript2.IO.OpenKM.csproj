@@ -11,6 +11,6 @@
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="ewu.adam.openkm.rest" Version="24.4.3.1" />
+        <PackageReference Include="ewu.adam.openkm.rest" Version="24.4.3.1"/>
     </ItemGroup>
 </Project>

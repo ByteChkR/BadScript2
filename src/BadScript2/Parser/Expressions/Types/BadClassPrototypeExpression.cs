@@ -6,7 +6,6 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
-using BadScript2.Utility.Linq;
 
 /// <summary>
 /// Contains the Type Expressions for the BadScript2 Language
@@ -23,12 +22,12 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// </summary>
     private readonly BadExpression[] m_BaseClasses;
 
-    private readonly BadWordToken[] m_GenericParameters;
-    
     /// <summary>
     ///     The Class Body
     /// </summary>
     private readonly List<BadExpression> m_Body;
+
+    private readonly BadWordToken[] m_GenericParameters;
 
     /// <summary>
     ///     The Meta data of the Class
@@ -202,22 +201,21 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         }
 
         interfaces = interfacesList.ToArray();
-        
+
         return baseClass;
     }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-
         BadExecutionContext MakeGenericContext(BadObject[] typeArgs)
         {
-            if(typeArgs.Length != m_GenericParameters.Length)
+            if (typeArgs.Length != m_GenericParameters.Length)
             {
                 throw new BadRuntimeException("Invalid Type Argument Count");
             }
             BadExecutionContext genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
-            for(int i = 0; i < m_GenericParameters.Length; i++)
+            for (int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
                 if (typeArgs[i] == BadVoidPrototype.Instance)
@@ -226,35 +224,34 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
                 }
                 genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
             }
-            
+
             return genericContext;
         }
+
         BadClassPrototype GetBaseClass(BadObject[] typeArgs)
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
             return GetPrototype(ctx, out _);
         }
-        
+
         BadScope GetStaticScope(BadObject[] typeArgs)
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
             BadExecutionContext staticContext = new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
             if (m_StaticBody.Count != 0)
             {
-                foreach (BadObject _ in staticContext.Execute(m_StaticBody))
-                {
-                }
+                foreach (BadObject _ in staticContext.Execute(m_StaticBody)) { }
             }
             return staticContext.Scope;
         }
-        
+
         BadInterfacePrototype[] GetInterfaces(BadObject[] typeArgs)
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
             GetPrototype(ctx, out BadInterfacePrototype[] interfaces);
             return interfaces;
         }
-        
+
         BadClassPrototype p = new BadExpressionClassPrototype(
             Name,
             context.Scope,
@@ -263,10 +260,10 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             GetInterfaces,
             m_MetaData,
             GetStaticScope,
-            m_GenericParameters.Select(x=>x.Text).ToArray()
+            m_GenericParameters.Select(x => x.Text).ToArray()
         );
         context.Scope.DefineVariable(Name, p);
-        
+
         yield return p;
     }
 }

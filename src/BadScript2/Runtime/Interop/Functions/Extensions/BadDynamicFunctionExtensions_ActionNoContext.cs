@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Runtime.Interop.Functions.Extensions;
 
 public static partial class BadDynamicFunctionExtensions

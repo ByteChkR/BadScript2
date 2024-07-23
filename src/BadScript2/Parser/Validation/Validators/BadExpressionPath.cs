@@ -1,5 +1,4 @@
 using BadScript2.Parser.Expressions;
-
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>

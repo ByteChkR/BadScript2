@@ -4,7 +4,6 @@ using System.Text;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>
@@ -12,21 +11,14 @@ namespace BadScript2.Runtime.Objects;
 /// </summary>
 public class BadTable : BadObject, IBadEnumerable
 {
-    
-    public event Action<string, BadObject, BadObject> OnChangedProperty = delegate { };
-    private Func<string, BadObject, BadObject, bool>? m_OnChangeProperty;
 
-    public void SetChangeInterceptor(Func<string, BadObject, BadObject, bool>? interceptor)
-    {
-        m_OnChangeProperty = interceptor;
-    }
-    
     /// <summary>
     ///     The Prototype for the BadScript Table
     /// </summary>
     private static BadClassPrototype? s_Prototype;
 
     private readonly Dictionary<string, BadObjectReference> m_ReferenceCache = new Dictionary<string, BadObjectReference>();
+    private Func<string, BadObject, BadObject, bool>? m_OnChangeProperty;
 
     /// <summary>
     ///     Creates a new Table Object
@@ -96,6 +88,13 @@ public class BadTable : BadObject, IBadEnumerable
         return GetEnumerator();
     }
 
+    public event Action<string, BadObject, BadObject> OnChangedProperty = delegate { };
+
+    public void SetChangeInterceptor(Func<string, BadObject, BadObject, bool>? interceptor)
+    {
+        m_OnChangeProperty = interceptor;
+    }
+
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
@@ -143,7 +142,7 @@ public class BadTable : BadObject, IBadEnumerable
     {
         return !useExtensions ? GetLocalReference(propName) : GetProperty(propName, caller);
     }
-    
+
     private bool OnChangePropertyInternal(string propName, BadObject oldValue, BadObject newValue)
     {
         if (m_OnChangeProperty != null)
@@ -188,12 +187,16 @@ public class BadTable : BadObject, IBadEnumerable
                     }
                     if (propValue is BadObjectReference propRef)
                     {
-                        var oldValueRef = propRef.Dereference();
+                        BadObject? oldValueRef = propRef.Dereference();
                         if (OnChangePropertyInternal(propName, oldValueRef, o))
+                        {
                             return;
+                        }
                         propRef.Set(o, t);
-                        if(!noChange)
+                        if (!noChange)
+                        {
                             OnChangedProperty(propName, oldValueRef, o);
+                        }
                         return;
                     }
                 }
@@ -210,10 +213,14 @@ public class BadTable : BadObject, IBadEnumerable
                 }
 
                 if (OnChangePropertyInternal(propName, propValue ?? Null, o))
+                {
                     return;
+                }
                 InnerTable[propName] = o;
-                if(!noChange)
+                if (!noChange)
+                {
                     OnChangedProperty(propName, propValue ?? Null, o);
+                }
             },
             () => { InnerTable.Remove(propName); }
         );
@@ -233,7 +240,6 @@ public class BadTable : BadObject, IBadEnumerable
 
         return GetLocalReference(propName);
     }
-    
 
 
     /// <inheritdoc />

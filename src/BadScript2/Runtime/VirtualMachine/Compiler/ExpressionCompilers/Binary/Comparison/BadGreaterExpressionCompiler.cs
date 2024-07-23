@@ -1,5 +1,4 @@
 using BadScript2.Parser.Expressions.Binary.Comparison;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Comparison;
 
 /// <summary>

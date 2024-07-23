@@ -10,7 +10,6 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Utility;
-
 namespace BadScript2.Interop.Linq;
 
 /// <summary>

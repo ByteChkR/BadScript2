@@ -3,7 +3,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Module;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>

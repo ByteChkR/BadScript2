@@ -2,7 +2,6 @@ using BadScript2.Common.Logging;
 using BadScript2.IO;
 
 using Newtonsoft.Json.Linq;
-
 namespace BadScript2.Settings;
 
 /// <summary>
@@ -10,6 +9,8 @@ namespace BadScript2.Settings;
 /// </summary>
 public class BadSettingsReader
 {
+
+    private readonly IFileSystem m_FileSystem;
     /// <summary>
     ///     The Root Settings Object that all other Settings are added into
     /// </summary>
@@ -19,8 +20,6 @@ public class BadSettingsReader
     ///     The Source Files that are used to read the Settings
     /// </summary>
     private readonly string[] m_SourceFiles;
-    
-    private readonly IFileSystem m_FileSystem;
 
     /// <summary>
     ///     Constructs a new BadSettingsReader

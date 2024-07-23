@@ -141,7 +141,6 @@ public class BadIfExpression : BadExpression
             conditionResult = conditionResult.Dereference();
 
 
-
             if (conditionResult is not IBadBoolean cBool)
             {
                 throw new BadRuntimeException("Condition must be a boolean", Position);

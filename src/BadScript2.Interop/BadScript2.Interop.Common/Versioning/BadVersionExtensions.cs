@@ -1,5 +1,4 @@
 using System.Globalization;
-
 namespace BadScript2.Interop.Common.Versioning;
 
 /// <summary>

@@ -1,5 +1,4 @@
 using System.CodeDom.Compiler;
-
 namespace BadScript2.Runtime.Objects.Types.Interface;
 
 /// <summary>

@@ -1,5 +1,4 @@
 using BadScript2.Parser.Expressions.Binary.Logic;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic;
 
 /// <summary>
@@ -22,5 +21,4 @@ public class BadLogicOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogic
         context.Compile(expression.Right);
         context.ResolveEmpty(jumpPos, BadOpCode.JumpRelativeIfTrue, expression.Position, context.InstructionCount - jumpPos - 1);
     }
-
 }

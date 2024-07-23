@@ -5,7 +5,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime;
 
 /// <summary>
@@ -13,6 +12,8 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject, IDisposable
 {
+
+    private readonly Dictionary<string, BadObject[]> m_Attributes = new Dictionary<string, BadObject[]>();
     /// <summary>
     ///     The Finalizer List of the Scope
     /// </summary>
@@ -32,16 +33,6 @@ public class BadScope : BadObject, IDisposable
     ///     The Scope Variables
     /// </summary>
     private readonly BadTable m_ScopeVariables = new BadTable();
-
-    private readonly Dictionary<string, BadObject[]> m_Attributes = new Dictionary<string, BadObject[]>();
-
-    public IReadOnlyDictionary<string, BadObject[]> Attributes => m_Attributes;
-    
-    public BadArray GetMemberInfos()
-    {
-        return new BadArray(
-            m_ScopeVariables.InnerTable.Keys.Select(x => (BadObject)new BadMemberInfo(x, this)).ToList());
-    }
 
     /// <summary>
     ///     The Singleton Cache
@@ -133,6 +124,8 @@ public class BadScope : BadObject, IDisposable
         m_UseVisibility = useVisibility;
         Parent = parent;
     }
+
+    public IReadOnlyDictionary<string, BadObject[]> Attributes => m_Attributes;
 
     /// <summary>
     ///     A List of Registered APIs
@@ -246,6 +239,13 @@ public class BadScope : BadObject, IDisposable
         }
 
         m_Finalizers.Clear();
+    }
+
+    public BadArray GetMemberInfos()
+    {
+        return new BadArray(
+            m_ScopeVariables.InnerTable.Keys.Select(x => (BadObject)new BadMemberInfo(x, this)).ToList()
+        );
     }
 
     /// <summary>
@@ -586,16 +586,22 @@ public class BadScope : BadObject, IDisposable
         {
             return;
         }
-        if (m_Attributes.TryGetValue(name, out var attributes))
+        if (m_Attributes.TryGetValue(name, out BadObject[]? attributes))
         {
-            var member = new BadMemberInfo(name, this);
+            BadMemberInfo? member = new BadMemberInfo(name, this);
             foreach (BadClass attribute in attributes.OfType<BadClass>())
             {
                 if (attribute.InheritsFrom(BadNativeClassBuilder.ChangedAttribute))
                 {
-                    var invoke = (BadFunction)attribute.GetProperty("OnChanged").Dereference();
-                    var eventObj = new BadMemberChangedEvent(ClassObject!, member, oldValue, newValue);
-                    foreach (BadObject o in invoke.Invoke(new BadObject[] { eventObj }, new BadExecutionContext(this)))
+                    BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChanged").Dereference();
+                    BadMemberChangedEvent? eventObj = new BadMemberChangedEvent(ClassObject!, member, oldValue, newValue);
+                    foreach (BadObject o in invoke.Invoke(
+                                 new BadObject[]
+                                 {
+                                     eventObj,
+                                 },
+                                 new BadExecutionContext(this)
+                             ))
                     {
                         //Execute
                     }
@@ -609,17 +615,23 @@ public class BadScope : BadObject, IDisposable
         {
             return false;
         }
-        if (m_Attributes.TryGetValue(name, out var attributes))
+        if (m_Attributes.TryGetValue(name, out BadObject[]? attributes))
         {
-            var member = new BadMemberInfo(name, this);
+            BadMemberInfo? member = new BadMemberInfo(name, this);
             foreach (BadClass attribute in attributes.OfType<BadClass>())
             {
                 if (attribute.InheritsFrom(BadNativeClassBuilder.ChangeAttribute))
                 {
-                    var invoke = (BadFunction)attribute.GetProperty("OnChange").Dereference();
-                    var eventObj = new BadMemberChangingEvent(ClassObject!, member, oldValue, newValue);
-                    var obj = BadObject.Null;
-                    foreach (BadObject o in invoke.Invoke(new BadObject[] { eventObj }, new BadExecutionContext(this)))
+                    BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChange").Dereference();
+                    BadMemberChangingEvent? eventObj = new BadMemberChangingEvent(ClassObject!, member, oldValue, newValue);
+                    BadObject? obj = Null;
+                    foreach (BadObject o in invoke.Invoke(
+                                 new BadObject[]
+                                 {
+                                     eventObj,
+                                 },
+                                 new BadExecutionContext(this)
+                             ))
                     {
                         //Execute
                         obj = o;
@@ -641,15 +653,22 @@ public class BadScope : BadObject, IDisposable
         {
             throw new BadRuntimeException("Scope is not a class scope");
         }
-        foreach (var kvp in m_Attributes)
+        foreach (KeyValuePair<string, BadObject[]> kvp in m_Attributes)
         {
-            var member = new BadMemberInfo(kvp.Key, this);
+            BadMemberInfo? member = new BadMemberInfo(kvp.Key, this);
             foreach (BadClass attribute in kvp.Value.OfType<BadClass>())
             {
                 if (attribute.InheritsFrom(BadNativeClassBuilder.InitializeAttribute))
                 {
-                    var invoke = (BadFunction)attribute.GetProperty("Initialize").Dereference();
-                    foreach (BadObject o in invoke.Invoke(new BadObject[] { ClassObject!, member }, new BadExecutionContext(this)))
+                    BadFunction? invoke = (BadFunction)attribute.GetProperty("Initialize").Dereference();
+                    foreach (BadObject o in invoke.Invoke(
+                                 new BadObject[]
+                                 {
+                                     ClassObject!,
+                                     member,
+                                 },
+                                 new BadExecutionContext(this)
+                             ))
                     {
                         //Execute
                         yield return o;
@@ -658,7 +677,7 @@ public class BadScope : BadObject, IDisposable
             }
         }
     }
-    
+
     public void DefineProperty(string name, BadClassPrototype type, BadExpression getAccessor, BadExpression? setAccessor, BadExecutionContext caller, BadObject[] attributes)
     {
         if (HasLocal(name, caller.Scope, false))
@@ -679,19 +698,24 @@ public class BadScope : BadObject, IDisposable
             };
         }
         m_ScopeVariables.PropertyInfos.Add(name, new BadPropertyInfo(type, setter == null));
-        m_ScopeVariables.InnerTable.Add(name, BadObjectReference.Make($"property {name}",
-            () =>
-            {
-                BadExecutionContext? getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
-                BadObject? get = Null;
-                foreach (BadObject o in getCtx.Execute(getAccessor))
+        m_ScopeVariables.InnerTable.Add(
+            name,
+            BadObjectReference.Make(
+                $"property {name}",
+                () =>
                 {
-                    get = o;
-                }
-                return get.Dereference();
-            },
-            setter));
-        
+                    BadExecutionContext? getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
+                    BadObject? get = Null;
+                    foreach (BadObject o in getCtx.Execute(getAccessor))
+                    {
+                        get = o;
+                    }
+                    return get.Dereference();
+                },
+                setter
+            )
+        );
+
         m_Attributes[name] = attributes;
     }
 

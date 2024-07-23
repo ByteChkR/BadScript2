@@ -2,7 +2,6 @@ using BadScript2.IO;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Runtime.Module.Handlers;
 
 /// <summary>

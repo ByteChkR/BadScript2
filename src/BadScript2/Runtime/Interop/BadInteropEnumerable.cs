@@ -6,7 +6,6 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Interop;
 
 /// <summary>
@@ -20,7 +19,15 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
         "Enumerable",
         (_, _) => throw new BadRuntimeException("Cannot call method"),
-        () => new []{(BadInterfacePrototype)BadNativeClassBuilder.Enumerable.CreateGeneric(new []{BadAnyPrototype.Instance})}
+        () => new[]
+        {
+            (BadInterfacePrototype)BadNativeClassBuilder.Enumerable.CreateGeneric(
+                new[]
+                {
+                    BadAnyPrototype.Instance,
+                }
+            ),
+        }
     );
 
     /// <summary>
@@ -44,7 +51,12 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
         m_Func = new BadDynamicInteropFunction(
             "GetEnumerator",
             _ => new BadInteropEnumerator(m_Enumerable.GetEnumerator()),
-            (BadClassPrototype)BadNativeClassBuilder.Enumerator.CreateGeneric(new []{BadAnyPrototype.Instance})
+            (BadClassPrototype)BadNativeClassBuilder.Enumerator.CreateGeneric(
+                new[]
+                {
+                    BadAnyPrototype.Instance,
+                }
+            )
         );
     }
 

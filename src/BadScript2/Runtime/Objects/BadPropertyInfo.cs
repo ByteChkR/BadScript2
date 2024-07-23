@@ -1,5 +1,4 @@
 using BadScript2.Runtime.Objects.Types;
-
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>

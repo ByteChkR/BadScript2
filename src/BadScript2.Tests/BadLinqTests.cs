@@ -2,7 +2,6 @@ using System.Collections;
 
 using BadScript2.Runtime.Objects;
 using BadScript2.Utility.Linq;
-
 namespace BadScript2.Tests;
 
 public class BadLinqTests

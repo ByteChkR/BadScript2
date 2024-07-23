@@ -1,6 +1,5 @@
 using BadScript2.Parser.Expressions.Block;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
@@ -33,12 +32,11 @@ public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchEx
         }
         context.ResolveEmpty(setThrowInstruction, BadOpCode.SetThrowPointer, expression.Position, catchStart - 1);
         context.ResolveEmpty(jumpToEnd, BadOpCode.JumpRelative, expression.Position, context.InstructionCount - catchStart);
-        if(expression.FinallyExpressions.Any()) // If there are finally expressions, compile them
+        if (expression.FinallyExpressions.Any()) // If there are finally expressions, compile them
         {
             context.Emit(BadOpCode.CreateScope, expression.Position, "FinallyScope", BadObject.Null);
             context.Compile(expression.FinallyExpressions);
             context.Emit(BadOpCode.DestroyScope, expression.Position);
         }
-        
     }
 }

@@ -4,7 +4,6 @@ using System.Net;
 
 using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Interop.NetHost;
 
 /// <summary>

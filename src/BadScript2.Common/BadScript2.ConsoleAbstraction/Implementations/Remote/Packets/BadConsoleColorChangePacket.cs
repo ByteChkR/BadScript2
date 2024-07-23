@@ -1,5 +1,4 @@
 using System;
-
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>

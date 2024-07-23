@@ -1,5 +1,4 @@
 using BadScript2;
-
 namespace BadHtml;
 
 /// <summary>

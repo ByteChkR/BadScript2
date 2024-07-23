@@ -11,12 +11,13 @@ using HtmlAgilityPack;
 namespace BadHtml.Transformer;
 
 /// <summary>
-/// A transformer that allows the user to invoke a function by specifying the function namd and its arguments as a valid html node.
-/// Example: Function Test(a, b) exists; Execute with <Test a="1" b="2" />
+///     A transformer that allows the user to invoke a function by specifying the function namd and its arguments as a
+///     valid html node.
+///     Example: Function Test(a, b) exists; Execute with <Test a="1" b="2" />
 /// </summary>
 public class BadComponentNodeTransformer : BadHtmlNodeTransformer
 {
-    
+
     /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
@@ -31,7 +32,7 @@ public class BadComponentNodeTransformer : BadHtmlNodeTransformer
         }
         return false;
     }
-    
+
     /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
     protected override void TransformNode(BadHtmlContext context)
     {

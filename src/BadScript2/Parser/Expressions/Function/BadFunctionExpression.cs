@@ -9,9 +9,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.VirtualMachine.Compiler;
-
 namespace BadScript2.Parser.Expressions.Function;
-
 
 /// <summary>
 ///     Implements the Function Expression
@@ -266,8 +264,8 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
         if (Name != null)
         {
-            var attributes = new List<BadObject>();
-            foreach (var o in ComputeAttributes(context, attributes))
+            List<BadObject>? attributes = new List<BadObject>();
+            foreach (BadObject? o in ComputeAttributes(context, attributes))
             {
                 yield return o;
             }

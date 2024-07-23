@@ -98,7 +98,7 @@ public class BadCompiledFunction : BadFunction
         ApplyParameters(ctx, args, m_Position);
         return ctx;
     }
-    
+
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
@@ -126,7 +126,6 @@ public class BadCompiledFunction : BadFunction
         {
             yield return Null;
         }
-
     }
 
     /// <summary>

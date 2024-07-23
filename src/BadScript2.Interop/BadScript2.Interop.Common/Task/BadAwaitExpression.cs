@@ -80,9 +80,6 @@ public class BadAwaitExpression : BadExpression
         {
             throw new BadRuntimeErrorException(task.Runnable.Error);
         }
-        else
-        {
-            yield return task.Runnable.GetReturn();
-        }
+        yield return task.Runnable.GetReturn();
     }
 }

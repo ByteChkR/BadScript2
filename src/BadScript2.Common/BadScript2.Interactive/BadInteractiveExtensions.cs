@@ -1,6 +1,5 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
-
 namespace BadScript2.Interactive;
 
 /// <summary>
@@ -30,7 +29,7 @@ public static class BadInteractiveExtensions
             console.Run(cmd);
         }
     }
-    
+
     public static async Task RunInteractiveAsync(this BadRuntime runtime, IEnumerable<string> files)
     {
         BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);

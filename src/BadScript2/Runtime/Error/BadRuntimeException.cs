@@ -1,6 +1,5 @@
 using BadScript2.Common;
 using BadScript2.Runtime.Settings;
-
 namespace BadScript2.Runtime.Error;
 
 /// <summary>

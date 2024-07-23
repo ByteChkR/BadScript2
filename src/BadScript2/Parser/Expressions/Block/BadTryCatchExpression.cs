@@ -3,7 +3,6 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
@@ -127,24 +126,33 @@ public class BadTryCatchExpression : BadExpression
                 while (true)
                 {
                     BadObject o;
-                    
-                    try {
+
+                    try
+                    {
                         if (!enumerator.MoveNext())
+                        {
                             break;
+                        }
                         o = enumerator.Current ?? BadObject.Null;
                     }
                     catch (Exception e)
                     {
-                        if(m_CatchExpressions.Length != 0)
+                        if (m_CatchExpressions.Length != 0)
                         {
                             using BadExecutionContext catchContext = new BadExecutionContext(
                                 context.Scope.CreateChild("CatchBlock", context.Scope, null)
                             );
-                            
-                            
+
+
                             BadRuntimeError error;
-                            if (e is BadRuntimeErrorException bre) error = bre.Error;
-                            else error = BadRuntimeError.FromException(e, context.Scope.GetStackTrace());
+                            if (e is BadRuntimeErrorException bre)
+                            {
+                                error = bre.Error;
+                            }
+                            else
+                            {
+                                error = BadRuntimeError.FromException(e, context.Scope.GetStackTrace());
+                            }
                             catchContext.Scope.DefineVariable(ErrorName, error);
 
                             catchEnumerable = catchContext.Execute(m_CatchExpressions);

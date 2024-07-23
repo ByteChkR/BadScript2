@@ -15,7 +15,6 @@ using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
 
 using HtmlAgilityPack;
-
 namespace BadScript2.Tests;
 
 public class BadUnitTests

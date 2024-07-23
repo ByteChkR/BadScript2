@@ -2,7 +2,6 @@ using System.Collections;
 
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
-
 namespace BadScript2.Interop.Common.Apis;
 
 [BadInteropApi("Environment")]

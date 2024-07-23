@@ -1,6 +1,5 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Objects.Types.Interface;
-
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -28,6 +27,7 @@ public class BadAnyPrototype : BadClassPrototype
 
     /// <inheritdoc />
     public override bool IsAbstract => true;
+
     protected override BadClassPrototype? BaseClass { get; }
 
     public override IReadOnlyCollection<BadInterfacePrototype> Interfaces { get; } = Array.Empty<BadInterfacePrototype>();

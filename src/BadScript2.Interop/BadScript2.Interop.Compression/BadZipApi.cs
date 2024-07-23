@@ -1,7 +1,6 @@
 using System.IO.Compression;
 
 using BadScript2.IO;
-
 namespace BadScript2.Interop.Compression;
 
 [BadInteropApi("Zip", true)]

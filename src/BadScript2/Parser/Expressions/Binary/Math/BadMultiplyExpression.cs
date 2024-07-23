@@ -3,7 +3,6 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
-
 namespace BadScript2.Parser.Expressions.Binary.Math;
 
 /// <summary>
