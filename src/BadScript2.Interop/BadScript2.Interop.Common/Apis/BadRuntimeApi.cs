@@ -394,7 +394,7 @@ internal partial class BadRuntimeApi
         );
         table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty("Offset", time.Offset.ToString(), new BadPropertyInfo(BadFunction.Prototype, true));
+        table.SetProperty("Offset", time.Offset.ToString(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
 
         table.SetProperty(
             "ToShortTimeString",
