@@ -1,5 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
+
 namespace BadScript2.Interactive;
 
 /// <summary>

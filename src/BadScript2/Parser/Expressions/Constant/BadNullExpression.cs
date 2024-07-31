@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Constant;
 
 /// <summary>
@@ -14,10 +15,14 @@ public class BadNullExpression : BadExpression, IBadNativeExpression
 	/// <param name="position">Source Position of the Expression</param>
 	public BadNullExpression(BadSourcePosition position) : base(true, position) { }
 
+#region IBadNativeExpression Members
+
 	/// <summary>
 	///     The Raw Value of the Expression
 	/// </summary>
 	public object Value => null!;
+
+#endregion
 
 	/// <summary>
 	///     String Representation of the Expression

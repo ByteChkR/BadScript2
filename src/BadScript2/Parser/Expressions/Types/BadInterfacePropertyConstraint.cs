@@ -3,6 +3,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
 using BadScript2.Utility;
+
 namespace BadScript2.Parser.Expressions.Types;
 
 public class BadInterfacePropertyConstraint : BadInterfaceConstraint
@@ -64,13 +65,18 @@ public class BadInterfacePropertyConstraint : BadInterfaceConstraint
         BadPropertyInfo info = obj.Scope.GetVariableInfo(Name);
         BadClassPrototype actual = info.Type ?? BadAnyPrototype.Instance;
         BadClassPrototype expected = m_Prototype ?? BadAnyPrototype.Instance;
+
         if (expected == BadVoidPrototype.Instance)
         {
             errors.Add(new BadInterfaceValidatorError("Interface Properties can not be of type 'void'", this));
         }
+
         if (!expected.IsSuperClassOf(actual))
         {
-            errors.Add(new BadInterfaceValidatorError($"Property Type Mismatch. Expected {expected} but got {actual}", this));
+            errors.Add(new BadInterfaceValidatorError($"Property Type Mismatch. Expected {expected} but got {actual}",
+                                                      this
+                                                     )
+                      );
         }
     }
 

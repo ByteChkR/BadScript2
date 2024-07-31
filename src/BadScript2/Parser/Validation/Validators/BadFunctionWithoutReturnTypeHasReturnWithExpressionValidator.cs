@@ -1,6 +1,7 @@
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Variables;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -19,12 +20,11 @@ public class
 
         if (expr.IsSingleLine)
         {
-            context.AddInfo(
-                "The Function is declared as a single line function, but has no return type. The Runtime will implicitly wrap the expression body of the function into a return expression. This can lead to unexpected behaviour when the expression returns a value.",
-                expr,
-                expr.Body.First(),
-                this
-            );
+            context.AddInfo("The Function is declared as a single line function, but has no return type. The Runtime will implicitly wrap the expression body of the function into a return expression. This can lead to unexpected behaviour when the expression returns a value.",
+                            expr,
+                            expr.Body.First(),
+                            this
+                           );
         }
         else
         {
@@ -32,12 +32,11 @@ public class
             {
                 if (e.Right != null)
                 {
-                    context.AddWarning(
-                        $"The Return statement '{e}' can not return a value.",
-                        expr,
-                        e,
-                        this
-                    );
+                    context.AddWarning($"The Return statement '{e}' can not return a value.",
+                                       expr,
+                                       e,
+                                       this
+                                      );
                 }
             }
         }

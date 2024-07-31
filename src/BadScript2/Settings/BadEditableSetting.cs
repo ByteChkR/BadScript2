@@ -59,7 +59,9 @@ public class BadEditableSetting<T, TValue> where T : BadSettingsProvider<T>, new
         else
         {
             m_SettingsObj =
-                new BadSettings(m_DefaultValue == null ? JValue.CreateNull() : JToken.FromObject(m_DefaultValue), string.Empty);
+                new BadSettings(m_DefaultValue == null ? JValue.CreateNull() : JToken.FromObject(m_DefaultValue),
+                                string.Empty
+                               );
             BadSettingsProvider<T>.Instance.Settings.SetProperty(m_Name, m_SettingsObj);
         }
 

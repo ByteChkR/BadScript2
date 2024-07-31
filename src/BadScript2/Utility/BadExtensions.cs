@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Utility;
 
 /// <summary>
@@ -77,6 +78,7 @@ public static class BadExtensions
     {
         BadObjectReference reference = obj.GetProperty(propName);
 
-        return reference.Dereference().Unwrap<T>();
+        return reference.Dereference()
+                        .Unwrap<T>();
     }
 }

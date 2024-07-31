@@ -60,14 +60,17 @@ public static class BadLinqQuery
         while (!string.IsNullOrEmpty(linqQuery))
         {
             linqQuery = linqQuery.Trim();
-            string command = linqQuery.Split(' ').First();
+
+            string command = linqQuery.Split(' ')
+                                      .First();
             linqQuery = linqQuery.Remove(0, command.Length);
-            BadLinqQueryCommand cmd = s_Commands.First(
-                x => x.Names.Any(
-                    y =>
-                        y.ToLower(CultureInfo.InvariantCulture) == command.ToLower(CultureInfo.InvariantCulture)
-                )
-            );
+
+            BadLinqQueryCommand cmd = s_Commands.First(x => x.Names.Any(y =>
+                                                                            y.ToLower(CultureInfo.InvariantCulture) ==
+                                                                            command.ToLower(CultureInfo.InvariantCulture
+                                                                                )
+                                                                       )
+                                                      );
 
             if (cmd.HasArgument)
             {
@@ -80,7 +83,8 @@ public static class BadLinqQuery
                     linqQuery = linqQuery.Substring(1);
                 }
 
-                string arg = sb.ToString().Trim();
+                string arg = sb.ToString()
+                               .Trim();
 
                 if (string.IsNullOrWhiteSpace(arg) && !cmd.IsArgumentOptional)
                 {

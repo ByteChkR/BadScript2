@@ -1,6 +1,7 @@
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Interop.IO;
 
 [BadInteropApi("File", true)]
@@ -17,7 +18,8 @@ internal partial class BadFileApi
     }
 
     [BadMethod(description: "Writes the specified string to a file, overwriting the file if it already exists.")]
-    private void WriteAllText([BadParameter(description: "The Path of the file to write")] string path, [BadParameter(description: "The Content")] string content)
+    private void WriteAllText([BadParameter(description: "The Path of the file to write")] string path,
+                              [BadParameter(description: "The Content")] string content)
     {
         m_FileSystem.WriteAllText(path, content);
     }
@@ -30,7 +32,9 @@ internal partial class BadFileApi
     }
 
     [BadMethod(description: "Determines whether the specified file exists.")]
-    [return: BadReturn("True if the caller has the required permissions and path contains the name of an existing file; otherwise, false.")]
+    [return:
+        BadReturn("True if the caller has the required permissions and path contains the name of an existing file; otherwise, false."
+                 )]
     private bool Exists([BadParameter(description: "The Path to check")] string path)
     {
         return m_FileSystem.Exists(path) && m_FileSystem.IsFile(path);
@@ -40,17 +44,22 @@ internal partial class BadFileApi
     [return: BadReturn("The content of the file")]
     private BadArray ReadAllLines([BadParameter(description: "The Path of the file to read")] string path)
     {
-        return new BadArray(m_FileSystem.ReadAllLines(path).Select(x => (BadObject)x).ToList());
+        return new BadArray(m_FileSystem.ReadAllLines(path)
+                                        .Select(x => (BadObject)x)
+                                        .ToList()
+                           );
     }
 
     [BadMethod(description: "Opens a file, writes all lines to the file, and then closes the file.")]
-    private void WriteAllLines([BadParameter(description: "The Path of the file to write")] string path, [BadParameter(description: "The Content")] string[] content)
+    private void WriteAllLines([BadParameter(description: "The Path of the file to write")] string path,
+                               [BadParameter(description: "The Content")] string[] content)
     {
         m_FileSystem.WriteAllLines(path, content);
     }
 
     [BadMethod(description: "Opens a file, writes all bytes to the file, and then closes the file.")]
-    private void WriteAllBytes([BadParameter(description: "The Path of the file to write")] string path, [BadParameter(description: "The Content")] byte[] content)
+    private void WriteAllBytes([BadParameter(description: "The Path of the file to write")] string path,
+                               [BadParameter(description: "The Content")] byte[] content)
     {
         using Stream stream = m_FileSystem.OpenWrite(path, BadWriteMode.CreateNew);
         stream.Write(content, 0, content.Length);
@@ -69,7 +78,9 @@ internal partial class BadFileApi
             throw new BadRuntimeException("IO.File.ReadAllBytes: Could not read all bytes");
         }
 
-        return new BadArray(bytes.Select(x => (BadObject)x).ToList());
+        return new BadArray(bytes.Select(x => (BadObject)x)
+                                 .ToList()
+                           );
     }
 
     [BadMethod(description: "Deletes the specified file.")]
@@ -78,26 +89,27 @@ internal partial class BadFileApi
         m_FileSystem.DeleteFile(path);
     }
 
-    [BadMethod(description: "Moves a specified file to a new location, providing the option to specify a new file name.")]
-    private void Move(
-        [BadParameter(description: "The Path of the file to move")]
-        string source,
-        [BadParameter(description: "The Destination Path")]
-        string destination,
-        [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")]
-        bool overwrite = false)
+    [BadMethod(description: "Moves a specified file to a new location, providing the option to specify a new file name."
+              )]
+    private void Move([BadParameter(description: "The Path of the file to move")] string source,
+                      [BadParameter(description: "The Destination Path")]
+                      string destination,
+                      [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false."
+                                   )]
+                      bool overwrite = false)
     {
         m_FileSystem.Move(source, destination, overwrite);
     }
 
-    [BadMethod(description: "Copies a specified file to a new location, providing the option to specify a new file name.")]
-    private void Copy(
-        [BadParameter(description: "The Path of the file to copy")]
-        string source,
-        [BadParameter(description: "The Destination Path")]
-        string destination,
-        [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false.")]
-        bool overwrite = false)
+    [BadMethod(description:
+                  "Copies a specified file to a new location, providing the option to specify a new file name."
+              )]
+    private void Copy([BadParameter(description: "The Path of the file to copy")] string source,
+                      [BadParameter(description: "The Destination Path")]
+                      string destination,
+                      [BadParameter(description: "If true, allows an existing file to be overwritten; otherwise, false."
+                                   )]
+                      bool overwrite = false)
     {
         m_FileSystem.Copy(source, destination, overwrite);
     }

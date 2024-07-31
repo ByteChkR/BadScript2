@@ -5,6 +5,8 @@ namespace BadScript2.IO;
 /// </summary>
 public class BadSystemFileSystem : IFileSystem
 {
+#region IFileSystem Members
+
     public string GetStartupDirectory()
     {
         return AppDomain.CurrentDomain.BaseDirectory;
@@ -27,20 +29,18 @@ public class BadSystemFileSystem : IFileSystem
 
     public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
     {
-        return Directory.GetFiles(
-            path,
-            $"*{extension}",
-            recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
-        );
+        return Directory.GetFiles(path,
+                                  $"*{extension}",
+                                  recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
+                                 );
     }
 
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
-        return Directory.GetDirectories(
-            path,
-            "*",
-            recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
-        );
+        return Directory.GetDirectories(path,
+                                        "*",
+                                        recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly
+                                       );
     }
 
     public void CreateDirectory(string path, bool recursive = false)
@@ -89,8 +89,8 @@ public class BadSystemFileSystem : IFileSystem
         FileMode fileMode = mode switch
         {
             BadWriteMode.CreateNew => FileMode.Create,
-            BadWriteMode.Append => FileMode.Append,
-            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null),
+            BadWriteMode.Append    => FileMode.Append,
+            _                      => throw new ArgumentOutOfRangeException(nameof(mode), mode, null),
         };
 
         return File.Open(path, fileMode);
@@ -157,4 +157,6 @@ public class BadSystemFileSystem : IFileSystem
             Directory.Move(src, dst);
         }
     }
+
+#endregion
 }

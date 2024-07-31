@@ -37,9 +37,6 @@ public class BadConsoleClearPacket : BadConsolePacket
     /// <inheritdoc />
     public override byte[] Serialize()
     {
-        return new[]
-        {
-            (byte)BadConsolePacketType.Clear,
-        };
+        return new[] { (byte)BadConsolePacketType.Clear };
     }
 }

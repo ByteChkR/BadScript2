@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Objects.Native;
 
 /// <summary>
@@ -11,18 +12,17 @@ public class BadNative<T> : BadObject, IBadNative
     /// <summary>
     ///     The Prototype for the Native Type
     /// </summary>
-    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNative<T>>(
-        typeof(T).Name,
-        (_, args) =>
-        {
-            if (args.Length != 1 || args[0] is not BadNative<T> t)
-            {
-                throw new BadRuntimeException("BadNative<T> constructor takes one argument of type BadNative<T>");
-            }
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadNative<T>>(typeof(T).Name,
+                                                                                                      (_, args) =>
+                                                                                                      {
+                                                                                                          if (args.Length != 1 || args[0] is not BadNative<T> t)
+                                                                                                          {
+                                                                                                              throw new BadRuntimeException("BadNative<T> constructor takes one argument of type BadNative<T>");
+                                                                                                          }
 
-            return t;
-        }
-    );
+                                                                                                          return t;
+                                                                                                      }
+                                                                                                     );
 
     /// <summary>
     ///     The Value of the Native Type
@@ -49,6 +49,8 @@ public class BadNative<T> : BadObject, IBadNative
     ///     The Value of the Native Type
     /// </summary>
     public T Value => m_Value;
+
+#region IBadNative Members
 
     /// <summary>
     ///     The Value of the Native Type
@@ -77,6 +79,8 @@ public class BadNative<T> : BadObject, IBadNative
 
         return thisN.Value.Equals(other.Value);
     }
+
+#endregion
 
     /// <inheritdoc />
     public override int GetHashCode()
@@ -138,11 +142,12 @@ public class BadNative<T> : BadObject, IBadNative
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        return BadObjectReference.Make(
-            $"BadNative<{typeof(T).Name}>.{propName}",
-            () => caller != null
-                ? caller.Provider.GetObject<T>(propName, this, caller)
-                : throw BadRuntimeException.Create(caller, $"No property named {propName} for type {GetType().Name}")
-        );
+        return BadObjectReference.Make($"BadNative<{typeof(T).Name}>.{propName}",
+                                       () => caller != null
+                                                 ? caller.Provider.GetObject<T>(propName, this, caller)
+                                                 : throw BadRuntimeException.Create(caller,
+                                                        $"No property named {propName} for type {GetType().Name}"
+                                                       )
+                                      );
     }
 }

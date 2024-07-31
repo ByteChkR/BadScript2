@@ -7,6 +7,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
@@ -17,28 +18,27 @@ public class BadTask : BadObject
     /// <summary>
     ///     The BadTask Prototype
     /// </summary>
-    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadTask>(
-        "Task",
-        (ctx, args) =>
-        {
-            if (args.Length != 2)
-            {
-                throw new BadRuntimeException("Task constructor takes 2 arguments");
-            }
+    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadTask>("Task",
+                                                                                              (ctx, args) =>
+                                                                                              {
+                                                                                                  if (args.Length != 2)
+                                                                                                  {
+                                                                                                      throw new BadRuntimeException("Task constructor takes 2 arguments");
+                                                                                                  }
 
-            if (args[0] is not IBadString name)
-            {
-                throw new BadRuntimeException("Task constructor takes a string as first argument");
-            }
+                                                                                                  if (args[0] is not IBadString name)
+                                                                                                  {
+                                                                                                      throw new BadRuntimeException("Task constructor takes a string as first argument");
+                                                                                                  }
 
-            if (args[1] is not BadFunction f)
-            {
-                throw new BadRuntimeException("Task constructor takes a function as second argument");
-            }
+                                                                                                  if (args[1] is not BadFunction f)
+                                                                                                  {
+                                                                                                      throw new BadRuntimeException("Task constructor takes a function as second argument");
+                                                                                                  }
 
-            return new BadTask(BadRunnable.Create(f, ctx), name.Value);
-        }
-    );
+                                                                                                  return new BadTask(BadRunnable.Create(f, ctx), name.Value);
+                                                                                              }
+                                                                                             );
 
     /// <summary>
     ///     The List of Continuation Tasks
@@ -60,10 +60,13 @@ public class BadTask : BadObject
     {
         Name = name;
         Runnable = runnable;
-        m_Properties.Add(
-            "Name",
-            BadObjectReference.Make("Task.Name", () => Name, (o, _) => Name = o is IBadString s ? s.Value : Name)
-        );
+
+        m_Properties.Add("Name",
+                         BadObjectReference.Make("Task.Name",
+                                                 () => Name,
+                                                 (o, _) => Name = o is IBadString s ? s.Value : Name
+                                                )
+                        );
         m_Properties.Add("IsCompleted", BadObjectReference.Make("Task.IsCompleted", () => IsFinished));
         m_Properties.Add("IsInactive", BadObjectReference.Make("Task.IsInactive", () => IsInactive));
         m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", () => IsPaused));
@@ -78,20 +81,25 @@ public class BadTask : BadObject
         m_Properties.Add("Pause", BadObjectReference.Make("Task.Pause", () => pauseFunc));
         m_Properties.Add("Resume", BadObjectReference.Make("Task.Resume", () => resumeFunc));
         m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
-        m_Properties.Add(
-            "RunSynchronously",
-            BadObjectReference.Make(
-                "Task.RunSynchronously",
-                () => new BadEnumerableInteropFunction("RunSynchronously", (_, _) => Enumerate(runnable), false, BadAnyPrototype.Instance)
-            )
-        );
-        m_Properties.Add(
-            "Run",
-            BadObjectReference.Make(
-                "Task.Run",
-                () => new BadDynamicInteropFunction("Run", Run, BadAnyPrototype.Instance)
-            )
-        );
+
+        m_Properties.Add("RunSynchronously",
+                         BadObjectReference.Make("Task.RunSynchronously",
+                                                 () => new BadEnumerableInteropFunction("RunSynchronously",
+                                                      (_, _) => Enumerate(runnable),
+                                                      false,
+                                                      BadAnyPrototype.Instance
+                                                     )
+                                                )
+                        );
+
+        m_Properties.Add("Run",
+                         BadObjectReference.Make("Task.Run",
+                                                 () => new BadDynamicInteropFunction("Run",
+                                                      Run,
+                                                      BadAnyPrototype.Instance
+                                                     )
+                                                )
+                        );
     }
 
 
@@ -147,7 +155,9 @@ public class BadTask : BadObject
             throw BadRuntimeException.Create(context.Scope, "Task is already running");
         }
 
-        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ?? throw BadRuntimeException.Create(context.Scope, "Task Runner not found");
+        BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ??
+                               throw BadRuntimeException.Create(context.Scope, "Task Runner not found");
+
         if (IsPaused)
         {
             IsPaused = false;
@@ -162,6 +172,7 @@ public class BadTask : BadObject
     private IEnumerable<BadObject> Enumerate(BadRunnable runnable)
     {
         IEnumerator<BadObject> e = runnable.Enumerator;
+
         while (e.MoveNext())
         {
             yield return e.Current ?? Null;
@@ -294,7 +305,9 @@ public class BadTask : BadObject
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        return m_Properties.TryGetValue(propName, out BadObjectReference? property) ? property : base.GetProperty(propName, caller);
+        return m_Properties.TryGetValue(propName, out BadObjectReference? property)
+                   ? property
+                   : base.GetProperty(propName, caller);
     }
 
     /// <inheritdoc />

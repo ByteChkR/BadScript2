@@ -44,6 +44,8 @@ public class BadArray : BadObject, IBadEnumerable
     /// </summary>
     public List<BadObject> InnerArray { get; }
 
+#region IBadEnumerable Members
+
     /// <summary>
     ///     Returns the Enumerator for this Array
     /// </summary>
@@ -61,6 +63,8 @@ public class BadArray : BadObject, IBadEnumerable
     {
         return GetEnumerator();
     }
+
+#endregion
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
@@ -83,7 +87,8 @@ public class BadArray : BadObject, IBadEnumerable
 
             if (!done.Contains(element))
             {
-                str = element.ToSafeString(done).Trim();
+                str = element.ToSafeString(done)
+                             .Trim();
             }
 
             if (str.Contains("\n"))
@@ -115,7 +120,8 @@ public class BadArray : BadObject, IBadEnumerable
                 continue;
             }
 
-            string str = element.ToString().Trim();
+            string str = element.ToString()
+                                .Trim();
 
             if (str.Contains("\n"))
             {

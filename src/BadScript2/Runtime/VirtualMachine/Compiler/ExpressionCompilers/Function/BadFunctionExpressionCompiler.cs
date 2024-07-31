@@ -14,11 +14,10 @@ public class BadFunctionExpressionCompiler : BadExpressionCompiler<BadFunctionEx
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadFunctionExpression expression)
     {
-        BadLogger.Warn(
-            $"Can not compile '{expression.GetHeader()}'",
-            BadLogMask.GetMask("Compiler", "EVAL"),
-            expression.Position
-        );
+        BadLogger.Warn($"Can not compile '{expression.GetHeader()}'",
+                       BadLogMask.GetMask("Compiler", "EVAL"),
+                       expression.Position
+                      );
 
         context.Emit(BadOpCode.Eval, expression.Position, expression);
     }

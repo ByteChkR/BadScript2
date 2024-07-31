@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
 /// <summary>
@@ -24,12 +25,11 @@ public class BadForExpression : BadExpression
     /// <param name="varIncrement">The Variable Modifier Expression of the For Loop</param>
     /// <param name="body">The Loop Body</param>
     /// <param name="position">The source position of the Expression</param>
-    public BadForExpression(
-        BadExpression varDef,
-        BadExpression condition,
-        BadExpression varIncrement,
-        IEnumerable<BadExpression> body,
-        BadSourcePosition position) : base(false, position)
+    public BadForExpression(BadExpression varDef,
+                            BadExpression condition,
+                            BadExpression varIncrement,
+                            IEnumerable<BadExpression> body,
+                            BadSourcePosition position) : base(false, position)
     {
         VarDef = varDef;
         Condition = condition;
@@ -115,7 +115,6 @@ public class BadForExpression : BadExpression
             yield return o;
         }
 
-
         BadObject cond = BadObject.Null;
 
         foreach (BadObject o in Condition.Execute(loopCtx))
@@ -125,20 +124,18 @@ public class BadForExpression : BadExpression
             yield return o;
         }
 
-
         IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", Position);
 
         while (bRet.Value)
         {
-            using BadExecutionContext loopContext = new BadExecutionContext(
-                loopCtx.Scope.CreateChild(
-                    "InnerForLoop",
-                    loopCtx.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
+            using BadExecutionContext loopContext = new BadExecutionContext(loopCtx.Scope.CreateChild("InnerForLoop",
+                                                                                 loopCtx.Scope,
+                                                                                 null,
+                                                                                 BadScopeFlags.Breakable |
+                                                                                 BadScopeFlags.Continuable
+                                                                                )
+                                                                           );
 
             if (m_Body.Count != 0)
             {
@@ -164,7 +161,6 @@ public class BadForExpression : BadExpression
 
                 yield return o;
             }
-
 
             bRet = cond.Dereference() as IBadBoolean ??
                    throw new BadRuntimeException("While Condition is not a boolean", Position);

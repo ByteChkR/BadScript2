@@ -3,6 +3,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interactive;
 
 /// <summary>

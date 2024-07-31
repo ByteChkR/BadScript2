@@ -4,18 +4,17 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Parser.Expressions.Variables;
 
 public class BadPropertyDefinitionExpression : BadExpression
 {
-
-    public BadPropertyDefinitionExpression(
-        BadWordToken name,
-        BadSourcePosition position,
-        BadExpression getExpression,
-        BadExpression? typeExpression = null,
-        BadExpression? setExpression = null,
-        bool isReadOnly = false) : base(false, position)
+    public BadPropertyDefinitionExpression(BadWordToken name,
+                                           BadSourcePosition position,
+                                           BadExpression getExpression,
+                                           BadExpression? typeExpression = null,
+                                           BadExpression? setExpression = null,
+                                           bool isReadOnly = false) : base(false, position)
     {
         Name = name;
         IsReadOnly = isReadOnly;
@@ -37,21 +36,25 @@ public class BadPropertyDefinitionExpression : BadExpression
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield return GetExpression;
+
         if (TypeExpression != null)
         {
             yield return TypeExpression;
         }
+
         if (SetExpression != null)
         {
             yield return SetExpression;
         }
     }
+
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         if (context.Scope.ClassObject == null)
         {
             throw BadRuntimeException.Create(context.Scope, "Can only define properties in class scope", Position);
         }
+
         BadClassPrototype type = BadAnyPrototype.Instance;
 
         if (TypeExpression != null)
@@ -76,6 +79,7 @@ public class BadPropertyDefinitionExpression : BadExpression
         }
 
         List<BadObject> attributes = new List<BadObject>();
+
         foreach (BadObject? o in ComputeAttributes(context, attributes))
         {
             yield return o;
@@ -97,15 +101,13 @@ public class BadVariableDefinitionExpression : BadVariableExpression
     /// <param name="position">The Source Position of the Expression</param>
     /// <param name="typeExpression">The (optional) Type of the Variable</param>
     /// <param name="isReadOnly">Indicates if the Variable will be declared as Read-Only</param>
-    public BadVariableDefinitionExpression(
-        string name,
-        BadSourcePosition position,
-        BadExpression? typeExpression = null,
-        bool isReadOnly = false) : base(
-        name,
-        position,
-        Array.Empty<BadExpression>()
-    )
+    public BadVariableDefinitionExpression(string name,
+                                           BadSourcePosition position,
+                                           BadExpression? typeExpression = null,
+                                           bool isReadOnly = false) : base(name,
+                                                                           position,
+                                                                           Array.Empty<BadExpression>()
+                                                                          )
     {
         IsReadOnly = isReadOnly;
         TypeExpression = typeExpression;
@@ -127,7 +129,9 @@ public class BadVariableDefinitionExpression : BadVariableExpression
     /// <returns>String Representation</returns>
     public override string ToString()
     {
-        return IsReadOnly ? $"{BadStaticKeys.CONSTANT_DEFINITION_KEY} {Name}" : $"{BadStaticKeys.VARIABLE_DEFINITION_KEY} {Name}";
+        return IsReadOnly
+                   ? $"{BadStaticKeys.CONSTANT_DEFINITION_KEY} {Name}"
+                   : $"{BadStaticKeys.VARIABLE_DEFINITION_KEY} {Name}";
     }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
@@ -165,12 +169,20 @@ public class BadVariableDefinitionExpression : BadVariableExpression
         {
             throw BadRuntimeException.Create(context.Scope, $"Variable '{Name}' is already defined", Position);
         }
+
         List<BadObject> attributes = new List<BadObject>();
+
         foreach (BadObject? o in ComputeAttributes(context, attributes))
         {
             yield return o;
         }
-        context.Scope.DefineVariable(Name, BadObject.Null, null, new BadPropertyInfo(type, IsReadOnly), attributes.ToArray());
+
+        context.Scope.DefineVariable(Name,
+                                     BadObject.Null,
+                                     null,
+                                     new BadPropertyInfo(type, IsReadOnly),
+                                     attributes.ToArray()
+                                    );
 
         foreach (BadObject o in base.InnerExecute(context))
         {

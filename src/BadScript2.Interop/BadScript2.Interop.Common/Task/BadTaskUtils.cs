@@ -1,6 +1,7 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Utility;
+
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
@@ -26,10 +27,7 @@ public static class BadTaskUtils
 
         IEnumerator<BadObject> InnerWaitForTask()
         {
-            while (t is
-                   {
-                       IsCanceled: false, IsCompleted: false, IsFaulted: false,
-                   })
+            while (t is { IsCanceled: false, IsCompleted: false, IsFaulted: false })
             {
                 yield return BadObject.Null;
             }
@@ -60,10 +58,7 @@ public static class BadTaskUtils
 
         IEnumerator<BadObject> InnerWaitForTask()
         {
-            while (t is
-                   {
-                       IsCanceled: false, IsCompleted: false, IsFaulted: false,
-                   })
+            while (t is { IsCanceled: false, IsCompleted: false, IsFaulted: false })
             {
                 yield return BadObject.Null;
             }
@@ -97,10 +92,7 @@ public static class BadTaskUtils
 
         IEnumerator<BadObject> InnerWaitForTask()
         {
-            while (t is
-                   {
-                       IsCanceled: false, IsCompleted: false, IsFaulted: false,
-                   })
+            while (t is { IsCanceled: false, IsCompleted: false, IsFaulted: false })
             {
                 yield return BadObject.Null;
             }

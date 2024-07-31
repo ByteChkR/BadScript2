@@ -31,44 +31,47 @@ public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpr
         context.Emit(BadOpCode.Swap, expression.Position);
         context.Emit(BadOpCode.Assign, expression.Position);
         List<BadExpression>? body = expression.Body.ToList();
-        body.Insert(
-            0,
-            new BadAssignExpression(
-                new BadVariableDefinitionExpression(
-                    expression.LoopVariable.Text,
-                    expression.LoopVariable.SourcePosition,
-                    null,
-                    true
-                ),
-                new BadInvocationExpression(
-                    new BadMemberAccessExpression(
-                        new BadVariableExpression("~ENUMERATOR~", expression.Position),
-                        "GetCurrent",
-                        expression.Position,
-                        new List<BadExpression>()
-                    ),
-                    Array.Empty<BadExpression>(),
-                    expression.Position
-                ),
-                expression.Position
-            )
-        );
-        context.Compile(
-            new BadWhileExpression(
-                new BadInvocationExpression(
-                    new BadMemberAccessExpression(
-                        new BadVariableExpression("~ENUMERATOR~", expression.LoopVariable.SourcePosition),
-                        "MoveNext",
-                        expression.LoopVariable.SourcePosition,
-                        new List<BadExpression>()
-                    ),
-                    Array.Empty<BadExpression>(),
-                    expression.Position
-                ),
-                body,
-                expression.Position
-            )
-        );
+
+        body.Insert(0,
+                    new BadAssignExpression(new BadVariableDefinitionExpression(expression.LoopVariable.Text,
+                                                                                expression.LoopVariable.SourcePosition,
+                                                                                null,
+                                                                                true
+                                                                               ),
+                                            new BadInvocationExpression(new
+                                                                            BadMemberAccessExpression(new
+                                                                                     BadVariableExpression("~ENUMERATOR~",
+                                                                                          expression.Position
+                                                                                         ),
+                                                                                 "GetCurrent",
+                                                                                 expression.Position,
+                                                                                 new List<BadExpression>()
+                                                                                ),
+                                                                        Array.Empty<BadExpression>(),
+                                                                        expression.Position
+                                                                       ),
+                                            expression.Position
+                                           )
+                   );
+
+        context.Compile(new BadWhileExpression(new BadInvocationExpression(new
+                                                                               BadMemberAccessExpression(new
+                                                                                        BadVariableExpression("~ENUMERATOR~",
+                                                                                             expression.LoopVariable
+                                                                                                 .SourcePosition
+                                                                                            ),
+                                                                                    "MoveNext",
+                                                                                    expression.LoopVariable
+                                                                                        .SourcePosition,
+                                                                                    new List<BadExpression>()
+                                                                                   ),
+                                                                           Array.Empty<BadExpression>(),
+                                                                           expression.Position
+                                                                          ),
+                                               body,
+                                               expression.Position
+                                              )
+                       );
         context.Emit(BadOpCode.DestroyScope, expression.Position);
     }
 }

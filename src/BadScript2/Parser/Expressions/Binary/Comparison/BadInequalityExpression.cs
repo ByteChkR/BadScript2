@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Binary.Comparison;
 
 /// <summary>
@@ -14,11 +15,10 @@ public class BadInequalityExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadInequalityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadInequalityExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                               right,
+                                                                                                               position
+                                                                                                              ) { }
 
     /// <summary>
     ///     Returns True if the two Objects are not equal
@@ -39,34 +39,31 @@ public class BadInequalityExpression : BadBinaryExpression
     /// <param name="right">The right.</param>
     /// <param name="position">The position.</param>
     /// <returns>Result of the operator override.(last item)</returns>
-    public static IEnumerable<BadObject> NotEqualWithOverride(
-        BadExecutionContext? caller,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> NotEqualWithOverride(BadExecutionContext? caller,
+                                                              BadObject left,
+                                                              BadObject right,
+                                                              BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.NOT_EQUAL_OPERATOR_NAME, caller?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         caller!,
-                         BadStaticKeys.NOT_EQUAL_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            caller!,
+                                                            BadStaticKeys.NOT_EQUAL_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }
         }
         else if (right.HasProperty(BadStaticKeys.NOT_EQUAL_OPERATOR_NAME, caller?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         right,
-                         left,
-                         caller!,
-                         BadStaticKeys.NOT_EQUAL_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(right,
+                                                            left,
+                                                            caller!,
+                                                            BadStaticKeys.NOT_EQUAL_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

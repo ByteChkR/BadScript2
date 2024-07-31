@@ -1,5 +1,6 @@
 using BadScript2.Settings;
 using BadScript2.Utility;
+
 namespace BadScript2.Common.Logging;
 
 /// <summary>

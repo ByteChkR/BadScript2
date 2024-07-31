@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Logic.Assign;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadLogicAssignOrExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadLogicAssignOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadLogicAssignOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                  right,
+                                                                                                                  position
+                                                                                                                 ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

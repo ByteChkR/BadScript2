@@ -8,6 +8,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
@@ -38,7 +39,10 @@ public class BadNumberExtension : BadInteropExtension
 
         if (args.Count == 1)
         {
-            CultureInfo? defaultCulture = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
+            CultureInfo? defaultCulture = ctx.Scope.GetSingleton<BadRuntime>()
+                                             ?.Culture ??
+                                          CultureInfo.InvariantCulture;
+
             return d.ToString(format.Value, defaultCulture);
         }
 
@@ -49,10 +53,9 @@ public class BadNumberExtension : BadInteropExtension
 
         IBadString culture = (IBadString)args[1]; //Type is checked in the function builder
 
-        if (s_Cultures.TryGetValue(
-                culture.Value,
-                out CultureInfo? cultureInfo
-            )) //Cache Culture info to avoid creating it every time
+        if (s_Cultures.TryGetValue(culture.Value,
+                                   out CultureInfo? cultureInfo
+                                  )) //Cache Culture info to avoid creating it every time
         {
             return d.ToString(format.Value, cultureInfo);
         }
@@ -66,23 +69,26 @@ public class BadNumberExtension : BadInteropExtension
     /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        provider.RegisterObject<decimal>(
-            "ToString",
-            d => new BadInteropFunction(
-                "ToString",
-                (c, a) => NumberToString(c, d, a),
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter("format", true, true, false, null, BadNativeClassBuilder.GetNative("string")),
-                new BadFunctionParameter(
-                    "culture",
-                    true,
-                    true,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            )
-        );
+        provider.RegisterObject<decimal>("ToString",
+                                         d => new BadInteropFunction("ToString",
+                                                                     (c, a) => NumberToString(c, d, a),
+                                                                     false,
+                                                                     BadNativeClassBuilder.GetNative("string"),
+                                                                     new BadFunctionParameter("format",
+                                                                          true,
+                                                                          true,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         ),
+                                                                     new BadFunctionParameter("culture",
+                                                                          true,
+                                                                          true,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                                    )
+                                        );
     }
 }

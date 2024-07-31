@@ -1,4 +1,5 @@
 using BadScript2.Debugger.Scriptable;
+
 namespace BadScript2.Debugger;
 
 /// <summary>
@@ -14,8 +15,8 @@ public static class BadDebuggerExtensions
     public static BadRuntime UseConsoleDebugger(this BadRuntime runtime)
     {
         return runtime
-            .UseDebuggerExtensions()
-            .UseDebugger(new BadConsoleDebugger());
+               .UseDebuggerExtensions()
+               .UseDebugger(new BadConsoleDebugger());
     }
 
     /// <summary>
@@ -37,6 +38,9 @@ public static class BadDebuggerExtensions
     public static BadRuntime UseScriptDebugger(this BadRuntime runtime, string? debuggerPath = null)
     {
         return runtime.UseDebuggerExtensions()
-            .UseDebugger(debuggerPath == null ? new BadScriptDebugger(runtime) : new BadScriptDebugger(runtime, debuggerPath));
+                      .UseDebugger(debuggerPath == null
+                                       ? new BadScriptDebugger(runtime)
+                                       : new BadScriptDebugger(runtime, debuggerPath)
+                                  );
     }
 }

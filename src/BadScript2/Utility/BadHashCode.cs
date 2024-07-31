@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+
 namespace BadScript2.Utility;
 
 /// <summary>
@@ -28,7 +29,7 @@ public static class BadHashCode
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static uint RotateLeft(uint value, int offset)
     {
-        return value << offset | value >> 32 - offset;
+        return (value << offset) | (value >> (32 - offset));
     }
 
     /// <summary>
@@ -44,7 +45,7 @@ public static class BadHashCode
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ulong RotateLeft(ulong value, int offset)
     {
-        return value << offset | value >> 64 - offset;
+        return (value << offset) | (value >> (64 - offset));
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public static class BadHashCode
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static uint RotateRight(uint value, int offset)
     {
-        return value >> offset | value << 32 - offset;
+        return (value >> offset) | (value << (32 - offset));
     }
 
     /// <summary>
@@ -76,7 +77,7 @@ public static class BadHashCode
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ulong RotateRight(ulong value, int offset)
     {
-        return value >> offset | value << 64 - offset;
+        return (value >> offset) | (value << (64 - offset));
     }
 
     private static uint GenerateGlobalSeed()
@@ -186,13 +187,12 @@ public static class BadHashCode
         return (int)hash;
     }
 
-    public static int Combine<T1, T2, T3, T4, T5, T6>(
-        T1 value1,
-        T2 value2,
-        T3 value3,
-        T4 value4,
-        T5 value5,
-        T6 value6)
+    public static int Combine<T1, T2, T3, T4, T5, T6>(T1 value1,
+                                                      T2 value2,
+                                                      T3 value3,
+                                                      T4 value4,
+                                                      T5 value5,
+                                                      T6 value6)
     {
         uint hc1 = (uint)(value1?.GetHashCode() ?? 0);
         uint hc2 = (uint)(value2?.GetHashCode() ?? 0);
@@ -219,14 +219,13 @@ public static class BadHashCode
         return (int)hash;
     }
 
-    public static int Combine<T1, T2, T3, T4, T5, T6, T7>(
-        T1 value1,
-        T2 value2,
-        T3 value3,
-        T4 value4,
-        T5 value5,
-        T6 value6,
-        T7 value7)
+    public static int Combine<T1, T2, T3, T4, T5, T6, T7>(T1 value1,
+                                                          T2 value2,
+                                                          T3 value3,
+                                                          T4 value4,
+                                                          T5 value5,
+                                                          T6 value6,
+                                                          T7 value7)
     {
         uint hc1 = (uint)(value1?.GetHashCode() ?? 0);
         uint hc2 = (uint)(value2?.GetHashCode() ?? 0);
@@ -255,15 +254,14 @@ public static class BadHashCode
         return (int)hash;
     }
 
-    public static int Combine<T1, T2, T3, T4, T5, T6, T7, T8>(
-        T1 value1,
-        T2 value2,
-        T3 value3,
-        T4 value4,
-        T5 value5,
-        T6 value6,
-        T7 value7,
-        T8 value8)
+    public static int Combine<T1, T2, T3, T4, T5, T6, T7, T8>(T1 value1,
+                                                              T2 value2,
+                                                              T3 value3,
+                                                              T4 value4,
+                                                              T5 value5,
+                                                              T6 value6,
+                                                              T7 value7,
+                                                              T8 value8)
     {
         uint hc1 = (uint)(value1?.GetHashCode() ?? 0);
         uint hc2 = (uint)(value2?.GetHashCode() ?? 0);

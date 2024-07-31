@@ -5,6 +5,7 @@ using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Variables;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -103,7 +104,6 @@ public class
         BadExpressionPath ifParent = new BadExpressionPath(expr);
         parent.AddChildPath(ifParent);
 
-
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.ConditionalBranches)
         {
             BadExpressionPath path = new BadExpressionPath(expr);
@@ -136,7 +136,6 @@ public class
     {
         BadExpressionPath switchParent = new BadExpressionPath(expr);
         parent.AddChildPath(switchParent);
-
 
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in expr.Cases)
         {
@@ -207,12 +206,11 @@ public class
         //find all invalid paths
         foreach (BadExpressionPath invalidPath in path.GetInvalidPaths())
         {
-            context.AddError(
-                "The function has a return type but not all paths have a return statement.",
-                expr,
-                invalidPath.Parent,
-                this
-            );
+            context.AddError("The function has a return type but not all paths have a return statement.",
+                             expr,
+                             invalidPath.Parent,
+                             this
+                            );
         }
     }
 }

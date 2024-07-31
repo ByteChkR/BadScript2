@@ -1,4 +1,5 @@
 using BadScript2.Settings;
+
 namespace BadScript2.Common.Logging.Writer;
 
 /// <summary>
@@ -13,7 +14,9 @@ public class BadLogWriterSettings : BadSettingsProvider<BadLogWriterSettings>
 
     public BadLogMask Mask
     {
-        get => BadLogMask.GetMask(m_Mask.GetValue()!.Select(x => (BadLogMask)x).ToArray());
+        get => BadLogMask.GetMask(m_Mask.GetValue()!.Select(x => (BadLogMask)x)
+                                        .ToArray()
+                                 );
         set => m_Mask.Set(value.GetNames());
     }
 }

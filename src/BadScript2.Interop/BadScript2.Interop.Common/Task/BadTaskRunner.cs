@@ -1,4 +1,5 @@
 using BadScript2.Parser.Operators;
+
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>

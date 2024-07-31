@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Math.Assign;
 
 /// <summary>
@@ -29,12 +30,11 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
 	/// <param name="symbol">The Expression Symbol</param>
 	/// <returns>The Result of the Operation</returns>
 	/// <exception cref="BadRuntimeException">Gets raised if the given values are not of type IBadNumber</exception>
-	public static BadObject Exp(
-        BadObjectReference leftRef,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
+	public static BadObject Exp(BadObjectReference leftRef,
+	                            BadObject left,
+	                            BadObject right,
+	                            BadSourcePosition position,
+	                            string symbol)
     {
         if (left is not IBadNumber lNum || right is not IBadNumber rNum)
         {
@@ -56,24 +56,22 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
 	/// <param name="position">The Source Position</param>
 	/// <param name="symbol">The Expression Symbol</param>
 	/// <returns>Enumerable of which the last element is the result of the operation</returns>
-	public static IEnumerable<BadObject> ExpWithOverride(
-        BadExecutionContext? context,
-        BadObjectReference leftRef,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
+	public static IEnumerable<BadObject> ExpWithOverride(BadExecutionContext? context,
+	                                                     BadObjectReference leftRef,
+	                                                     BadObject right,
+	                                                     BadSourcePosition position,
+	                                                     string symbol)
     {
         BadObject left = leftRef.Dereference();
 
         if (left.HasProperty(BadStaticKeys.EXPONENTIATION_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.MULTIPLY_ASSIGN_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            context!,
+                                                            BadStaticKeys.MULTIPLY_ASSIGN_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

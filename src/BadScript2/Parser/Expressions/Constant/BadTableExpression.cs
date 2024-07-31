@@ -3,6 +3,7 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Constant;
 
 /// <summary>
@@ -20,10 +21,9 @@ public class BadTableExpression : BadExpression
     /// </summary>
     /// <param name="table">The Initializer List</param>
     /// <param name="position">The Source Position of the Expression</param>
-    public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public BadTableExpression(Dictionary<BadWordToken, BadExpression> table, BadSourcePosition position) : base(false,
+                                                                                                                position
+                                                                                                               )
     {
         m_Table = table;
     }

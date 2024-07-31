@@ -37,11 +37,10 @@ public struct BadLog : IEquatable<BadLog>
 	/// <param name="mask">The mask of the message</param>
 	/// <param name="position">The source position of the message</param>
 	/// <param name="type">The Log Type</param>
-	public BadLog(
-        string message,
-        BadLogMask? mask = null,
-        BadSourcePosition? position = null,
-        BadLogType type = BadLogType.Log)
+	public BadLog(string message,
+	              BadLogMask? mask = null,
+	              BadSourcePosition? position = null,
+	              BadLogType type = BadLogType.Log)
     {
         Message = message;
         Type = type;
@@ -65,7 +64,9 @@ public struct BadLog : IEquatable<BadLog>
 	/// <returns>String representation of the log</returns>
 	public override string ToString()
     {
-        return Position != null ? $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}" : $"[{Type}][{Mask}] {Message}";
+        return Position != null
+                   ? $"[{Type}][{Mask}] {Message} at {Position.GetPositionInfo()}"
+                   : $"[{Type}][{Mask}] {Message}";
     }
 
 	/// <summary>

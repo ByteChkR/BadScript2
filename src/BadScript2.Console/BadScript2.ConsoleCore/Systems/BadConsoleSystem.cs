@@ -1,6 +1,7 @@
 using BadScript2.ConsoleAbstraction;
 
 using CommandLine;
+
 namespace BadScript2.ConsoleCore.Systems;
 
 /// <summary>
@@ -31,8 +32,11 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
     /// <inheritdoc />
     public override object? Parse(string[] args)
     {
-        CommandLine.Parser parser = new CommandLine.Parser(() => ParserSettings.CreateDefault(ParserSettings.DefaultMaximumLength));
-        T t = parser.ParseArguments<T>(args).Value;
+        CommandLine.Parser parser =
+            new CommandLine.Parser(() => ParserSettings.CreateDefault(ParserSettings.DefaultMaximumLength));
+
+        T t = parser.ParseArguments<T>(args)
+                    .Value;
 
         if (t is null)
         {

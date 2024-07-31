@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Variables;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
 /// <summary>
@@ -13,6 +14,7 @@ public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<Bad
         {
             throw new BadCompilerException("Attributes are not supported yet.");
         }
+
         if (expression.TypeExpression == null)
         {
             context.Emit(BadOpCode.DefVar, expression.Position, expression.Name, expression.IsReadOnly);

@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Block;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -14,12 +15,11 @@ public class BadConstantIfBranchValidator : BadExpressionValidator<BadIfExpressi
         {
             if (branch.Key.IsConstant)
             {
-                context.AddError(
-                    "If branch condition is constant",
-                    expr,
-                    branch.Key,
-                    this
-                );
+                context.AddError("If branch condition is constant",
+                                 expr,
+                                 branch.Key,
+                                 this
+                                );
             }
         }
     }

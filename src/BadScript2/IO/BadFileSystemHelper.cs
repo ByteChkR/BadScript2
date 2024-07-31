@@ -3,6 +3,7 @@ using System.Text;
 
 using BadScript2.Common.Logging;
 using BadScript2.IO.Virtual;
+
 namespace BadScript2.IO;
 
 /// <summary>

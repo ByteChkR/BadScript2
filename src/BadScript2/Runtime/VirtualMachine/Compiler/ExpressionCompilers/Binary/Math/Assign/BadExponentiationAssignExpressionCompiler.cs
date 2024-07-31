@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Binary.Math.Assign;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Math.Assign;
 
 /// <summary>
@@ -7,7 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.
 public class BadExponentiationAssignExpressionCompiler : BadBinaryExpressionCompiler<BadExponentiationAssignExpression>
 {
     /// <inheritdoc />
-    public override void CompileBinary(BadExpressionCompileContext context, BadExponentiationAssignExpression expression)
+    public override void CompileBinary(BadExpressionCompileContext context,
+                                       BadExponentiationAssignExpression expression)
     {
         context.Emit(BadOpCode.ExpAssign, expression.Position);
     }

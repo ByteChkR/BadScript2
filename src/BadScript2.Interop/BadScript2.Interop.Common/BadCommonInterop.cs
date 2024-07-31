@@ -58,15 +58,15 @@ public static class BadCommonInterop
     /// <returns>The Result of the Execution</returns>
     private static BadObject ExecuteTask(BadExecutionContext ctx, IEnumerable<BadExpression> exprs)
     {
-        BadTask task = new BadTask(
-            new BadInteropRunnable(ctx.Execute(exprs.ToArray()).GetEnumerator()),
-            "Main"
-        );
-        BadTaskRunner.Instance.AddTask(
-            task,
-            true
-        );
+        BadTask task = new BadTask(new BadInteropRunnable(ctx.Execute(exprs.ToArray())
+                                                             .GetEnumerator()
+                                                         ),
+                                   "Main"
+                                  );
 
+        BadTaskRunner.Instance.AddTask(task,
+                                       true
+                                      );
 
         while (!BadTaskRunner.Instance.IsIdle)
         {
@@ -103,7 +103,7 @@ public static class BadCommonInterop
         }
 
         return runtime.UseCommonExtensions(useAsync)
-            .UseApis(Apis, true);
+                      .UseApis(Apis, true);
     }
 
     /// <summary>
@@ -130,13 +130,13 @@ public static class BadCommonInterop
         }
 
         return runtime
-            .UseExtension<BadObjectExtension>()
-            .UseExtension<BadStringExtension>()
-            .UseExtension<BadNumberExtension>()
-            .UseExtension<BadTableExtension>()
-            .UseExtension<BadScopeExtension>()
-            .UseExtension<BadArrayExtension>()
-            .UseExtension<BadFunctionExtension>()
-            .UseExtension<BadTypeSystemExtension>();
+               .UseExtension<BadObjectExtension>()
+               .UseExtension<BadStringExtension>()
+               .UseExtension<BadNumberExtension>()
+               .UseExtension<BadTableExtension>()
+               .UseExtension<BadScopeExtension>()
+               .UseExtension<BadArrayExtension>()
+               .UseExtension<BadFunctionExtension>()
+               .UseExtension<BadTypeSystemExtension>();
     }
 }

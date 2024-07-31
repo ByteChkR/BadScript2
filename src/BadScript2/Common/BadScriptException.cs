@@ -26,11 +26,10 @@ public abstract class BadScriptException : Exception
         Position = position;
     }
 
-    protected BadScriptException(
-        string message,
-        string originalMessage,
-        BadSourcePosition position,
-        Exception inner) : base(message, inner)
+    protected BadScriptException(string message,
+                                 string originalMessage,
+                                 BadSourcePosition position,
+                                 Exception inner) : base(message, inner)
     {
         OriginalMessage = originalMessage;
         Position = position;

@@ -3,6 +3,7 @@ using System.Text;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Validation.Validators;
 using BadScript2.Runtime.Error;
+
 namespace BadScript2.Parser.Validation;
 
 /// <summary>
@@ -35,7 +36,6 @@ public readonly struct BadExpressionValidatorContext
         {
             sb.AppendLine(message.ToString());
         }
-
 
         return sb.ToString();
     }
@@ -84,21 +84,18 @@ public readonly struct BadExpressionValidatorContext
     /// <param name="parentExpression">The parent expression of the expression that caused the error.</param>
     /// <param name="expression">The expression that caused the error.</param>
     /// <param name="validator">The validator that caused the error.</param>
-    public void AddError(
-        string message,
-        BadExpression parentExpression,
-        BadExpression expression,
-        BadExpressionValidator validator)
+    public void AddError(string message,
+                         BadExpression parentExpression,
+                         BadExpression expression,
+                         BadExpressionValidator validator)
     {
-        m_Messages.Add(
-            new BadExpressionValidatorMessage(
-                message,
-                expression,
-                validator,
-                BadExpressionValidatorMessageType.Error,
-                parentExpression
-            )
-        );
+        m_Messages.Add(new BadExpressionValidatorMessage(message,
+                                                         expression,
+                                                         validator,
+                                                         BadExpressionValidatorMessageType.Error,
+                                                         parentExpression
+                                                        )
+                      );
     }
 
     /// <summary>
@@ -108,21 +105,18 @@ public readonly struct BadExpressionValidatorContext
     /// <param name="parentExpression">The parent expression of the expression that caused the warning.</param>
     /// <param name="expression">The expression that caused the warning.</param>
     /// <param name="validator">The validator that caused the warning.</param>
-    public void AddWarning(
-        string message,
-        BadExpression parentExpression,
-        BadExpression expression,
-        BadExpressionValidator validator)
+    public void AddWarning(string message,
+                           BadExpression parentExpression,
+                           BadExpression expression,
+                           BadExpressionValidator validator)
     {
-        m_Messages.Add(
-            new BadExpressionValidatorMessage(
-                message,
-                expression,
-                validator,
-                BadExpressionValidatorMessageType.Warning,
-                parentExpression
-            )
-        );
+        m_Messages.Add(new BadExpressionValidatorMessage(message,
+                                                         expression,
+                                                         validator,
+                                                         BadExpressionValidatorMessageType.Warning,
+                                                         parentExpression
+                                                        )
+                      );
     }
 
     /// <summary>
@@ -132,21 +126,18 @@ public readonly struct BadExpressionValidatorContext
     /// <param name="parentExpression">The parent expression of the expression that caused the info.</param>
     /// <param name="expression">The expression that caused the info.</param>
     /// <param name="validator">The validator that caused the info.</param>
-    public void AddInfo(
-        string message,
-        BadExpression parentExpression,
-        BadExpression expression,
-        BadExpressionValidator validator)
+    public void AddInfo(string message,
+                        BadExpression parentExpression,
+                        BadExpression expression,
+                        BadExpressionValidator validator)
     {
-        m_Messages.Add(
-            new BadExpressionValidatorMessage(
-                message,
-                expression,
-                validator,
-                BadExpressionValidatorMessageType.Info,
-                parentExpression
-            )
-        );
+        m_Messages.Add(new BadExpressionValidatorMessage(message,
+                                                         expression,
+                                                         validator,
+                                                         BadExpressionValidatorMessageType.Info,
+                                                         parentExpression
+                                                        )
+                      );
     }
 
     /// <summary>

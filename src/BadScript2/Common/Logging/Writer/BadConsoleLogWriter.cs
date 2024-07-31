@@ -1,4 +1,5 @@
 using BadScript2.ConsoleAbstraction;
+
 namespace BadScript2.Common.Logging.Writer;
 
 /// <summary>

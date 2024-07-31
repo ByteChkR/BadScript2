@@ -15,6 +15,7 @@ using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
 
 using HtmlAgilityPack;
+
 namespace BadScript2.Tests;
 
 public class BadUnitTests
@@ -88,26 +89,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, false, files);
 
@@ -130,26 +129,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, false, files);
 
@@ -172,26 +169,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, true, files);
 
@@ -214,26 +209,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, true, files);
 
@@ -256,26 +249,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, false, files);
 
@@ -298,26 +289,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(true, false, files);
 
@@ -341,26 +330,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, true, files);
 
@@ -384,26 +371,24 @@ public class BadUnitTests
             }
 
             BadRuntime runtime = new BadRuntime()
-                .UseCommonInterop()
-                .UseLinqApi()
-                .UseFileSystemApi()
-                .UseJsonApi();
+                                 .UseCommonInterop()
+                                 .UseLinqApi()
+                                 .UseFileSystemApi()
+                                 .UseJsonApi();
 
             BadSettingsProvider.RootSettings
-                .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
-                .SetValue(true);
-
+                               .FindOrCreateProperty("Runtime.NativeOptimizations.UseConstantFunctionCaching")
+                               .SetValue(true);
 
             BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
             BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(
-                    ScriptTestDirectory,
-                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                    true
-                )
-                .ToArray();
+            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+                                                             $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                             true
+                                                            )
+                                          .ToArray();
             BadConsole.WriteLine($"Loading Files...({files.Length})");
             builder.Register(false, true, files);
 
@@ -488,19 +473,17 @@ public class BadUnitTests
             throw new BadRuntimeException("CompiledContext is null");
         }
 
-
         return CompiledContext.GetTestCases()
-            .Where(x => x.AllowCompile)
-            .Select(
-                x =>
-                {
-                    BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
+                              .Where(x => x.AllowCompile)
+                              .Select(x =>
+                                      {
+                                          BadExpressionFunction func = (BadExpressionFunction)x.Function!;
+                                          BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
 
-                    return new BadNUnitTestCase(compiled, x.TestName, true);
-                }
-            )
-            .ToArray();
+                                          return new BadNUnitTestCase(compiled, x.TestName, true);
+                                      }
+                                     )
+                              .ToArray();
     }
 
     /// <summary>
@@ -510,7 +493,8 @@ public class BadUnitTests
     /// <exception cref="BadRuntimeException">Gets raised if the Context is null</exception>
     private static string[] GetHtmlTemplateFiles()
     {
-        return BadFileSystem.Instance.GetFiles(HtmlTestDirectory, ".bhtml", true).ToArray();
+        return BadFileSystem.Instance.GetFiles(HtmlTestDirectory, ".bhtml", true)
+                            .ToArray();
     }
 
 
@@ -526,19 +510,20 @@ public class BadUnitTests
             throw new BadRuntimeException("CompiledOptimizedFoldingContext is null");
         }
 
-
         return CompiledOptimizedFoldingContext.GetTestCases()
-            .Where(x => x.AllowCompile)
-            .Select(
-                x =>
-                {
-                    BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
+                                              .Where(x => x.AllowCompile)
+                                              .Select(x =>
+                                                      {
+                                                          BadExpressionFunction func =
+                                                              (BadExpressionFunction)x.Function!;
 
-                    return new BadNUnitTestCase(compiled, x.TestName, true);
-                }
-            )
-            .ToArray();
+                                                          BadCompiledFunction compiled =
+                                                              BadCompilerApi.CompileFunction(func, true);
+
+                                                          return new BadNUnitTestCase(compiled, x.TestName, true);
+                                                      }
+                                                     )
+                                              .ToArray();
     }
 
 
@@ -554,19 +539,20 @@ public class BadUnitTests
             throw new BadRuntimeException("CompiledOptimizedSubstitutionContext is null");
         }
 
-
         return CompiledOptimizedSubstitutionContext.GetTestCases()
-            .Where(x => x.AllowCompile)
-            .Select(
-                x =>
-                {
-                    BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
+                                                   .Where(x => x.AllowCompile)
+                                                   .Select(x =>
+                                                           {
+                                                               BadExpressionFunction func =
+                                                                   (BadExpressionFunction)x.Function!;
 
-                    return new BadNUnitTestCase(compiled, x.TestName, true);
-                }
-            )
-            .ToArray();
+                                                               BadCompiledFunction compiled =
+                                                                   BadCompilerApi.CompileFunction(func, true);
+
+                                                               return new BadNUnitTestCase(compiled, x.TestName, true);
+                                                           }
+                                                          )
+                                                   .ToArray();
     }
 
 
@@ -582,19 +568,19 @@ public class BadUnitTests
             throw new BadRuntimeException("CompiledOptimizedContext is null");
         }
 
-
         return CompiledOptimizedContext.GetTestCases()
-            .Where(x => x.AllowCompile)
-            .Select(
-                x =>
-                {
-                    BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                    BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
+                                       .Where(x => x.AllowCompile)
+                                       .Select(x =>
+                                               {
+                                                   BadExpressionFunction func = (BadExpressionFunction)x.Function!;
 
-                    return new BadNUnitTestCase(compiled, x.TestName, true);
-                }
-            )
-            .ToArray();
+                                                   BadCompiledFunction compiled =
+                                                       BadCompilerApi.CompileFunction(func, true);
+
+                                                   return new BadNUnitTestCase(compiled, x.TestName, true);
+                                               }
+                                              )
+                                       .ToArray();
     }
 
 
@@ -701,12 +687,17 @@ public class BadUnitTests
     {
         BadHtmlTemplateOptions options = new BadHtmlTemplateOptions();
         string referenceFile = Path.ChangeExtension(file, $".{(options.SkipEmptyTextNodes ? "skip" : "default")}.html");
-        HtmlDocument result = BadHtmlTemplate.Create(file).RunTemplate(null, options);
+
+        HtmlDocument result = BadHtmlTemplate.Create(file)
+                                             .RunTemplate(null, options);
 
         if (BadFileSystem.Instance.Exists(referenceFile))
         {
             HtmlDocument reference = LoadReference(referenceFile);
-            Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r\n", Environment.NewLine)));
+
+            Assert.That(result.DocumentNode.OuterHtml,
+                        Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r\n", Environment.NewLine))
+                       );
         }
         else
         {
@@ -724,17 +715,19 @@ public class BadUnitTests
     [TestCaseSource(nameof(GetHtmlTemplateFiles))]
     public void TestHtmlTemplateSkipEmpty(string file)
     {
-        BadHtmlTemplateOptions options = new BadHtmlTemplateOptions
-        {
-            SkipEmptyTextNodes = true,
-        };
+        BadHtmlTemplateOptions options = new BadHtmlTemplateOptions { SkipEmptyTextNodes = true };
         string referenceFile = Path.ChangeExtension(file, $".{(options.SkipEmptyTextNodes ? "skip" : "default")}.html");
-        HtmlDocument result = BadHtmlTemplate.Create(file).RunTemplate(null, options);
+
+        HtmlDocument result = BadHtmlTemplate.Create(file)
+                                             .RunTemplate(null, options);
 
         if (BadFileSystem.Instance.Exists(referenceFile))
         {
             HtmlDocument reference = LoadReference(referenceFile);
-            Assert.That(result.DocumentNode.OuterHtml, Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r\n", Environment.NewLine)));
+
+            Assert.That(result.DocumentNode.OuterHtml,
+                        Is.EqualTo(reference.DocumentNode.OuterHtml.Replace("\r\n", Environment.NewLine))
+                       );
         }
         else
         {

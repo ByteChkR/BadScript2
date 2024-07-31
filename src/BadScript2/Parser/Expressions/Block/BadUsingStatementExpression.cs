@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
@@ -19,7 +20,8 @@ public class BadUsingStatementExpression : BadExpression
     /// <param name="name">Name of the variable that holds the object</param>
     /// <param name="expression">The Expression defining the object</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadUsingStatementExpression(BadSourcePosition position, string name, BadExpression expression) : base(false, position)
+    public BadUsingStatementExpression(BadSourcePosition position, string name, BadExpression expression) :
+        base(false, position)
     {
         Name = name;
         Expression = expression;
@@ -41,6 +43,7 @@ public class BadUsingStatementExpression : BadExpression
     {
         //Register finalizer in scope
         context.Scope.AddFinalizer(() => BadUsingExpression.Finalize(context, Name, Position));
+
         //Run expression
         return context.Execute(Expression);
     }

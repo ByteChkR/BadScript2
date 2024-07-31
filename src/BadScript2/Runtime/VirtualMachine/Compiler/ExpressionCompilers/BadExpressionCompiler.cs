@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 /// <summary>
@@ -8,6 +9,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 public abstract class BadExpressionCompiler<T> : IBadExpressionCompiler
     where T : BadExpression
 {
+#region IBadExpressionCompiler Members
+
 	/// <summary>
 	///     Compiles an Expression
 	/// </summary>
@@ -24,6 +27,8 @@ public abstract class BadExpressionCompiler<T> : IBadExpressionCompiler
 
         Compile(context, (T)expression);
     }
+
+#endregion
 
 	/// <summary>
 	///     Compiles an Expression

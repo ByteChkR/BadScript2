@@ -5,6 +5,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+
 namespace BadScript2.Debugger.Scriptable;
 
 /// <summary>
@@ -42,13 +43,9 @@ public class BadScriptDebuggerApi : BadInteropApi
     {
         m_Debugger.OnStep += s =>
         {
-            foreach (BadObject _ in func.Invoke(
-                         new[]
-                         {
-                             BadObject.Wrap(s),
-                         },
-                         context
-                     ))
+            foreach (BadObject _ in func.Invoke(new[] { BadObject.Wrap(s) },
+                                                context
+                                               ))
             {
                 //Execute
             }
@@ -64,13 +61,9 @@ public class BadScriptDebuggerApi : BadInteropApi
     {
         m_Debugger.OnFileLoaded += s =>
         {
-            foreach (BadObject _ in func.Invoke(
-                         new BadObject[]
-                         {
-                             s,
-                         },
-                         context
-                     ))
+            foreach (BadObject _ in func.Invoke(new BadObject[] { s },
+                                                context
+                                               ))
             {
                 //Execute
             }

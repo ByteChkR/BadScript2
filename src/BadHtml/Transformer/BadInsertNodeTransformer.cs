@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 
 using HtmlAgilityPack;
+
 namespace BadHtml.Transformer;
 
 /// <summary>
@@ -50,24 +51,21 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 
         if (pathAttribute == null)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'into' attribute in 'bs:insert' node",
-                context.CreateOuterPosition()
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Missing 'into' attribute in 'bs:insert' node",
+                                             context.CreateOuterPosition()
+                                            );
         }
 
         string? path = pathAttribute.Value;
 
         if (string.IsNullOrEmpty(path))
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'into' attribute in 'bs:insert' node",
-                context.CreateAttributePosition(pathAttribute)
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Empty 'into' attribute in 'bs:insert' node",
+                                             context.CreateAttributePosition(pathAttribute)
+                                            );
         }
-
 
         foreach (HtmlNode outputNode in GetNodes(context, path, isGlobal))
         {
@@ -78,12 +76,17 @@ public class BadInsertNodeTransformer : BadHtmlNodeTransformer
 
             foreach (HtmlNode node in context.InputNode.ChildNodes)
             {
-                using BadExecutionContext exCtx = new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:insert", context.ExecutionContext.Scope, null));
-                BadHtmlContext ctx = context.CreateChild(
-                    node,
-                    outputNode,
-                    exCtx
-                );
+                using BadExecutionContext exCtx =
+                    new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:insert",
+                                                 context.ExecutionContext.Scope,
+                                                 null
+                                                )
+                                           );
+
+                BadHtmlContext ctx = context.CreateChild(node,
+                                                         outputNode,
+                                                         exCtx
+                                                        );
                 Transform(ctx);
             }
         }

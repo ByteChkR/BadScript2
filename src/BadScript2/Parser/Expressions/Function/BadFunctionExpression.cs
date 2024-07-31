@@ -9,6 +9,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.VirtualMachine.Compiler;
+
 namespace BadScript2.Parser.Expressions.Function;
 
 /// <summary>
@@ -45,17 +46,16 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     /// <param name="typeExpr">The (optional) Type Expression that is used to type-check the return value</param>
     /// <param name="metaData">The Meta data of the Function</param>
     /// <param name="isSingleLine">Is the function a single line function(e.g. a lambda expression)?</param>
-    public BadFunctionExpression(
-        BadWordToken? name,
-        List<BadFunctionParameter> parameter,
-        List<BadExpression> block,
-        BadSourcePosition position,
-        bool isConstant,
-        BadMetaData? metaData,
-        bool isSingleLine,
-        bool isStatic,
-        BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
-        BadExpression? typeExpr = null) :
+    public BadFunctionExpression(BadWordToken? name,
+                                 List<BadFunctionParameter> parameter,
+                                 List<BadExpression> block,
+                                 BadSourcePosition position,
+                                 bool isConstant,
+                                 BadMetaData? metaData,
+                                 bool isSingleLine,
+                                 bool isStatic,
+                                 BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
+                                 BadExpression? typeExpr = null) :
         base(false, position)
     {
         Name = name;
@@ -109,12 +109,15 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     /// </summary>
     public BadFunctionCompileLevel CompileLevel { get; private set; }
 
+#region IBadNamedExpression Members
 
     /// <inheritdoc cref="IBadNamedExpression.GetName" />
     public string? GetName()
     {
         return Name?.Text;
     }
+
+#endregion
 
     public void SetName(string name)
     {
@@ -157,9 +160,9 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
     {
         string level = CompileLevel switch
         {
-            BadFunctionCompileLevel.Compiled => "compiled ",
+            BadFunctionCompileLevel.Compiled     => "compiled ",
             BadFunctionCompileLevel.CompiledFast => "compiled fast",
-            _ => "",
+            _                                    => "",
         };
 
         return
@@ -226,6 +229,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
             foreach (BadObject o in TypeExpression.Execute(context))
             {
                 obj = o;
+
                 yield return o;
             }
 
@@ -233,58 +237,57 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
             if (obj is not BadClassPrototype proto)
             {
-                throw new BadRuntimeException(
-                    $"Expected class prototype, but got {obj.GetType().Name}",
-                    Position
-                );
+                throw new BadRuntimeException($"Expected class prototype, but got {obj.GetType().Name}",
+                                              Position
+                                             );
             }
 
             type = proto;
         }
 
-        BadExpressionFunction f = new BadExpressionFunction(
-            context.Scope,
-            Name,
-            m_Body,
-            m_Parameters.Select(x => x.Initialize(context)).ToArray(),
-            Position,
-            IsConstantFunction,
-            IsStatic,
-            m_MetaData,
-            type,
-            IsSingleLine
-        );
+        BadExpressionFunction f = new BadExpressionFunction(context.Scope,
+                                                            Name,
+                                                            m_Body,
+                                                            m_Parameters.Select(x => x.Initialize(context))
+                                                                        .ToArray(),
+                                                            Position,
+                                                            IsConstantFunction,
+                                                            IsStatic,
+                                                            m_MetaData,
+                                                            type,
+                                                            IsSingleLine
+                                                           );
 
         BadFunction fFinal = CompileLevel switch
         {
-            BadFunctionCompileLevel.Compiled => BadCompilerApi.CompileFunction(f, true),
+            BadFunctionCompileLevel.Compiled     => BadCompilerApi.CompileFunction(f, true),
             BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(f, false),
-            _ => f,
+            _                                    => f,
         };
 
         if (Name != null)
         {
             List<BadObject>? attributes = new List<BadObject>();
+
             foreach (BadObject? o in ComputeAttributes(context, attributes))
             {
                 yield return o;
             }
-            context.Scope.DefineVariable(
-                Name.Text,
-                fFinal,
-                null,
-                new BadPropertyInfo(fFinal.GetPrototype()),
-                attributes.ToArray()
-            );
+
+            context.Scope.DefineVariable(Name.Text,
+                                         fFinal,
+                                         null,
+                                         new BadPropertyInfo(fFinal.GetPrototype()),
+                                         attributes.ToArray()
+                                        );
         }
         else
         {
             if (Attributes.Any())
             {
-                throw new BadRuntimeException(
-                    "Anonymous functions cannot have attributes",
-                    Position
-                );
+                throw new BadRuntimeException("Anonymous functions cannot have attributes",
+                                              Position
+                                             );
             }
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 
 using BadScript2.ConsoleAbstraction.Implementations;
+
 namespace BadScript2.ConsoleAbstraction;
 
 /// <summary>
@@ -105,8 +106,12 @@ public static class BadConsole
         s_Console.Clear();
     }
 
+#region Nested type: BadDummyConsole
+
     private class BadDummyConsole : IBadConsole
     {
+#region IBadConsole Members
+
         public ConsoleColor ForegroundColor { get; set; }
 
         public ConsoleColor BackgroundColor { get; set; }
@@ -126,5 +131,9 @@ public static class BadConsole
         }
 
         public void Clear() { }
+
+#endregion
     }
+
+#endregion
 }

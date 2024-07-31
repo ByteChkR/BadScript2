@@ -1,6 +1,7 @@
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>
@@ -53,7 +54,9 @@ internal partial class BadTaskRunnerApi
     /// <returns>Task</returns>
     [BadMethod("Create", "Creates a new Task")]
     [return: BadReturn("The Created Task")]
-    private static BadTask CreateTask(BadExecutionContext caller, [BadParameter(description: "The Function that will be executed within the task.")] BadFunction func)
+    private static BadTask CreateTask(BadExecutionContext caller,
+                                      [BadParameter(description: "The Function that will be executed within the task.")]
+                                      BadFunction func)
     {
         return BadTask.Create(func, caller, null);
     }

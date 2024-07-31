@@ -5,6 +5,7 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
 using NUnit.Framework;
+
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
@@ -20,23 +21,21 @@ internal partial class BadNUnitAssertApi
     /// <param name="func">The Function to execute</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Throws", "Asserts that the given function throws a BadRuntimeException")]
-    private static void Assert_Throws(
-        BadExecutionContext ctx,
-        [BadParameter(description: "The Function that is expected to throw")]
-        BadFunction func,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_Throws(BadExecutionContext ctx,
+                                      [BadParameter(description: "The Function that is expected to throw")]
+                                      BadFunction func,
+                                      [BadParameter(description: "The Message")]
+                                      string message)
     {
-        Assert.Throws<BadRuntimeException>(
-            () =>
-            {
-                foreach (BadObject _ in func.Invoke(Array.Empty<BadObject>(), ctx))
-                {
-                    //Do Nothing
-                }
-            },
-            message
-        );
+        Assert.Throws<BadRuntimeException>(() =>
+                                           {
+                                               foreach (BadObject _ in func.Invoke(Array.Empty<BadObject>(), ctx))
+                                               {
+                                                   //Do Nothing
+                                               }
+                                           },
+                                           message
+                                          );
     }
 
     /// <summary>
@@ -46,13 +45,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="actual">The Actual Value</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("AreEqual", "Asserts that the given objects are equal")]
-    private static void Assert_AreEqual(
-        [BadParameter(description: "The Expected Value")]
-        BadObject? expected,
-        [BadParameter(description: "The Actual Value")]
-        BadObject? actual,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_AreEqual([BadParameter(description: "The Expected Value")] BadObject? expected,
+                                        [BadParameter(description: "The Actual Value")]
+                                        BadObject? actual,
+                                        [BadParameter(description: "The Message")]
+                                        string message)
     {
         Assert.That(actual, Is.EqualTo(expected), message);
     }
@@ -64,13 +61,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="actual">The Actual Value</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("AreNotEqual", "Asserts that the given objects are not equal")]
-    private static void Assert_AreNotEqual(
-        [BadParameter(description: "The Expected Value")]
-        BadObject? expected,
-        [BadParameter(description: "The Actual Value")]
-        BadObject? actual,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_AreNotEqual([BadParameter(description: "The Expected Value")] BadObject? expected,
+                                           [BadParameter(description: "The Actual Value")]
+                                           BadObject? actual,
+                                           [BadParameter(description: "The Message")]
+                                           string message)
     {
         Assert.That(actual, Is.Not.EqualTo(expected), message);
     }
@@ -82,13 +77,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="actual">The Actual Value</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("AreSame", "Asserts that the given objects are the same")]
-    private static void Assert_AreSame(
-        [BadParameter(description: "The Expected Value")]
-        BadObject? expected,
-        [BadParameter(description: "The Actual Value")]
-        BadObject? actual,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_AreSame([BadParameter(description: "The Expected Value")] BadObject? expected,
+                                       [BadParameter(description: "The Actual Value")]
+                                       BadObject? actual,
+                                       [BadParameter(description: "The Message")]
+                                       string message)
     {
         Assert.That(actual, Is.SameAs(expected), message);
     }
@@ -100,13 +93,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="actual">The Actual Value</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("AreNotSame", "Asserts that the given objects are not the same")]
-    private static void Assert_AreNotSame(
-        [BadParameter(description: "The Expected Value")]
-        BadObject? expected,
-        [BadParameter(description: "The Actual Value")]
-        BadObject? actual,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_AreNotSame([BadParameter(description: "The Expected Value")] BadObject? expected,
+                                          [BadParameter(description: "The Actual Value")]
+                                          BadObject? actual,
+                                          [BadParameter(description: "The Message")]
+                                          string message)
     {
         Assert.That(actual, Is.Not.SameAs(expected), message);
     }
@@ -117,16 +108,13 @@ internal partial class BadNUnitAssertApi
     /// <param name="condition">The Condition to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("IsTrue", "Asserts that the given condition is true")]
-    private static void Assert_IsTrue([BadParameter(description: "The Condition to check")] BadObject? condition, [BadParameter(description: "The Message")] string message)
+    private static void Assert_IsTrue([BadParameter(description: "The Condition to check")] BadObject? condition,
+                                      [BadParameter(description: "The Message")] string message)
     {
-        Assert.That(
-            condition is IBadBoolean
-            {
-                Value: true,
-            },
-            Is.True,
-            message
-        );
+        Assert.That(condition is IBadBoolean { Value: true },
+                    Is.True,
+                    message
+                   );
     }
 
     /// <summary>
@@ -135,7 +123,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="condition">The Condition to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("IsFalse", "Asserts that the given condition is false")]
-    private static void Assert_IsFalse([BadParameter(description: "The Condition to check")] BadObject? condition, [BadParameter(description: "The Message")] string message)
+    private static void Assert_IsFalse([BadParameter(description: "The Condition to check")] BadObject? condition,
+                                       [BadParameter(description: "The Message")] string message)
     {
         Assert.That(condition is not IBadBoolean b || b.Value, Is.False, message);
     }
@@ -178,7 +167,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="obj">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("IsNull", "Asserts that the given object is null")]
-    private static void Assert_IsNull([BadParameter(description: "The Object to check")] BadObject? obj, [BadParameter(description: "The Message")] string message)
+    private static void Assert_IsNull([BadParameter(description: "The Object to check")] BadObject? obj,
+                                      [BadParameter(description: "The Message")] string message)
     {
         Assert.That(obj, Is.Null, message);
     }
@@ -189,7 +179,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="obj">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("IsNotNull", "Asserts that the given object is not null")]
-    private static void Assert_IsNotNull([BadParameter(description: "The Object to check")] BadObject? obj, [BadParameter(description: "The Message")] string message)
+    private static void Assert_IsNotNull([BadParameter(description: "The Object to check")] BadObject? obj,
+                                         [BadParameter(description: "The Message")] string message)
     {
         Assert.That(obj, Is.Not.Null, message);
     }
@@ -201,12 +192,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="b">expected</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Greater", "Asserts that the given object is greater than the other object")]
-    private static void Assert_Greater(
-        [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")]
-        decimal b,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_Greater([BadParameter(description: "Actual")] decimal a,
+                                       [BadParameter(description: "Expected")]
+                                       decimal b,
+                                       [BadParameter(description: "The Message")]
+                                       string message)
     {
         Assert.That(a, Is.GreaterThan(b), message);
     }
@@ -218,12 +208,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="b">expected</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("GreaterOrEqual", "Asserts that the given object is greater or equal the other object")]
-    private static void Assert_GreaterOrEqual(
-        [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")]
-        decimal b,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_GreaterOrEqual([BadParameter(description: "Actual")] decimal a,
+                                              [BadParameter(description: "Expected")]
+                                              decimal b,
+                                              [BadParameter(description: "The Message")]
+                                              string message)
     {
         Assert.That(a, Is.GreaterThanOrEqualTo(b), message);
     }
@@ -235,12 +224,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="b">expected</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Less", "Asserts that the given object is less than the other object")]
-    private static void Assert_Less(
-        [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")]
-        decimal b,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_Less([BadParameter(description: "Actual")] decimal a,
+                                    [BadParameter(description: "Expected")]
+                                    decimal b,
+                                    [BadParameter(description: "The Message")]
+                                    string message)
     {
         Assert.That(a, Is.LessThan(b), message);
     }
@@ -252,12 +240,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="b">expected</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("LessOrEqual", "Asserts that the given object is less or equal the other object")]
-    private static void Assert_LessOrEqual(
-        [BadParameter(description: "Actual")] decimal a,
-        [BadParameter(description: "Expected")]
-        decimal b,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_LessOrEqual([BadParameter(description: "Actual")] decimal a,
+                                           [BadParameter(description: "Expected")]
+                                           decimal b,
+                                           [BadParameter(description: "The Message")]
+                                           string message)
     {
         Assert.That(a, Is.LessThanOrEqualTo(b), message);
     }
@@ -269,13 +256,11 @@ internal partial class BadNUnitAssertApi
     /// <param name="obj">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Contains", "Asserts that the given collection contains the given object")]
-    private static void Assert_Contains(
-        [BadParameter(description: "The Collection to Check")]
-        BadArray collection,
-        [BadParameter(description: "The Object to Check")]
-        BadObject? obj,
-        [BadParameter(description: "The Message")]
-        string message)
+    private static void Assert_Contains([BadParameter(description: "The Collection to Check")] BadArray collection,
+                                        [BadParameter(description: "The Object to Check")]
+                                        BadObject? obj,
+                                        [BadParameter(description: "The Message")]
+                                        string message)
     {
         Assert.That(collection.InnerArray, Contains.Value(obj!), message);
     }
@@ -287,7 +272,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="d">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Positive", "Asserts that the given object is positive")]
-    private static void Assert_Positive([BadParameter(description: "The Object to Check")] decimal d, [BadParameter(description: "The Message")] string message)
+    private static void Assert_Positive([BadParameter(description: "The Object to Check")] decimal d,
+                                        [BadParameter(description: "The Message")] string message)
     {
         Assert.That(d, Is.Positive);
     }
@@ -298,7 +284,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="d">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Negative", "Asserts that the given object is negative")]
-    private static void Assert_Negative([BadParameter(description: "The Object to Check")] decimal d, [BadParameter(description: "The Message")] string message)
+    private static void Assert_Negative([BadParameter(description: "The Object to Check")] decimal d,
+                                        [BadParameter(description: "The Message")] string message)
     {
         Assert.That(d, Is.Negative);
     }
@@ -309,7 +296,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="d">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("Zero", "Asserts that the given object is zero")]
-    private static void Assert_Zero([BadParameter(description: "The Object to Check")] decimal d, [BadParameter(description: "The Message")] string message)
+    private static void Assert_Zero([BadParameter(description: "The Object to Check")] decimal d,
+                                    [BadParameter(description: "The Message")] string message)
     {
         Assert.That(d, Is.Zero);
     }
@@ -320,7 +308,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="d">The Object to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("NotZero", "Asserts that the given object is not zero")]
-    private static void Assert_NotZero([BadParameter(description: "The Object to Check")] decimal d, [BadParameter(description: "The Message")] string message)
+    private static void Assert_NotZero([BadParameter(description: "The Object to Check")] decimal d,
+                                       [BadParameter(description: "The Message")] string message)
     {
         Assert.That(d, Is.Not.Zero);
     }
@@ -341,7 +330,8 @@ internal partial class BadNUnitAssertApi
     /// <param name="collection">The Collection to check</param>
     /// <param name="message">The Message to display</param>
     [BadMethod("IsEmpty", "Asserts that the given collection is empty")]
-    private static void Assert_IsEmpty([BadParameter(description: "The Collection to Check")] BadArray collection, [BadParameter(description: "The Message")] string message)
+    private static void Assert_IsEmpty([BadParameter(description: "The Collection to Check")] BadArray collection,
+                                       [BadParameter(description: "The Message")] string message)
     {
         Assert.That(collection.InnerArray, Is.Empty, message);
     }

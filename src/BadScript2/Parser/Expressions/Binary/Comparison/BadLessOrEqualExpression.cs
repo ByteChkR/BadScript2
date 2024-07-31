@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Comparison;
 
 /// <summary>
@@ -17,11 +18,10 @@ public class BadLessOrEqualExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadLessOrEqualExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadLessOrEqualExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                right,
+                                                                                                                position
+                                                                                                               ) { }
 
     /// <summary>
     ///     Returns true if the left side is less or equal to the right side
@@ -54,34 +54,31 @@ public class BadLessOrEqualExpression : BadBinaryExpression
     /// <param name="right">The right.</param>
     /// <param name="position">The position.</param>
     /// <returns>Result of the operator override.(last item)</returns>
-    public static IEnumerable<BadObject> LessOrEqualWithOverride(
-        BadExecutionContext? context,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> LessOrEqualWithOverride(BadExecutionContext? context,
+                                                                 BadObject left,
+                                                                 BadObject right,
+                                                                 BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.LESS_EQUAL_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.LESS_EQUAL_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            context!,
+                                                            BadStaticKeys.LESS_EQUAL_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }
         }
         else if (right.HasProperty(BadStaticKeys.LESS_EQUAL_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         right,
-                         left,
-                         context!,
-                         BadStaticKeys.LESS_EQUAL_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(right,
+                                                            left,
+                                                            context!,
+                                                            BadStaticKeys.LESS_EQUAL_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }
@@ -116,7 +113,6 @@ public class BadLessOrEqualExpression : BadBinaryExpression
         }
 
         right = right.Dereference();
-
 
         foreach (BadObject o in LessOrEqualWithOverride(context, left, right, Position))
         {

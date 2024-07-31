@@ -1,27 +1,28 @@
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime;
 
 public class BadMemberChangingEvent : BadMemberChangeEvent
 {
     private readonly BadObjectReference m_CancelReference;
 
-    public BadMemberChangingEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue) : base(mInstance, mMember, mOldValue, mNewValue)
+    public BadMemberChangingEvent(BadObject mInstance, BadMemberInfo mMember, BadObject mOldValue, BadObject mNewValue)
+        : base(mInstance, mMember, mOldValue, mNewValue)
     {
-        m_CancelReference = BadObjectReference.Make(
-            "MemberChangingEvent.Cancel",
-            () => new BadInteropFunction(
-                "Cancel",
-                (ctx, args) =>
-                {
-                    Cancel = true;
-                    return Null;
-                },
-                false,
-                BadAnyPrototype.Instance
-            )
-        );
+        m_CancelReference = BadObjectReference.Make("MemberChangingEvent.Cancel",
+                                                    () => new BadInteropFunction("Cancel",
+                                                         (ctx, args) =>
+                                                         {
+                                                             Cancel = true;
+
+                                                             return Null;
+                                                         },
+                                                         false,
+                                                         BadAnyPrototype.Instance
+                                                        )
+                                                   );
     }
 
     public bool Cancel { get; private set; }
@@ -38,6 +39,7 @@ public class BadMemberChangingEvent : BadMemberChangeEvent
         {
             return true;
         }
+
         return base.HasProperty(propName, caller);
     }
 

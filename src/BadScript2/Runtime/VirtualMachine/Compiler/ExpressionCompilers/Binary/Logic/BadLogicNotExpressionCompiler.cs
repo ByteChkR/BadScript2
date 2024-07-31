@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Binary.Logic;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic;
 
 /// <summary>

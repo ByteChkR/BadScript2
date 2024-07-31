@@ -28,7 +28,9 @@ public abstract class BadInteropApi
 	/// <summary>
 	///     The Version of the API
 	/// </summary>
-	public virtual Version Version => GetType().Assembly.GetName().Version;
+	public virtual Version Version => GetType()
+	                                  .Assembly.GetName()
+	                                  .Version;
 
 	/// <summary>
 	///     Loads the API into the given Table
@@ -53,8 +55,18 @@ public abstract class BadInteropApi
     {
         BadTable info = new BadTable();
         info.SetProperty("Name", Name, new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
-        info.SetProperty("Version", Version.ToString(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
-        info.SetProperty("AssemblyName", GetType().Assembly.GetName().Name, new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
+
+        info.SetProperty("Version",
+                         Version.ToString(),
+                         new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true)
+                        );
+
+        info.SetProperty("AssemblyName",
+                         GetType()
+                             .Assembly.GetName()
+                             .Name,
+                         new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true)
+                        );
 
         if (!table.HasProperty("Info"))
         {

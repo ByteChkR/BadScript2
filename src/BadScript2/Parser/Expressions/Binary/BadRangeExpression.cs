@@ -4,6 +4,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary;
 
 /// <summary>
@@ -18,11 +19,10 @@ public class BadRangeExpression : BadBinaryExpression
     /// <param name="left">Start of the Range</param>
     /// <param name="right">End of the Range</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadRangeExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                          right,
+                                                                                                          position
+                                                                                                         ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -62,7 +62,9 @@ public class BadRangeExpression : BadBinaryExpression
             throw new BadRuntimeException("Left side of range operator is greater than right side", Position);
         }
 
-        yield return new BadInteropEnumerator(Range(lNum.Value, rNum.Value).GetEnumerator());
+        yield return new BadInteropEnumerator(Range(lNum.Value, rNum.Value)
+                                                  .GetEnumerator()
+                                             );
     }
 
     /// <summary>

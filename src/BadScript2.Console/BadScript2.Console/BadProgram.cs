@@ -42,7 +42,10 @@ internal static class BadProgram
         rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
         consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
-        consoleSettings.SetProperty("DataDirectory", new BadSettings(BadConsoleDirectories.DataDirectory, string.Empty));
+
+        consoleSettings.SetProperty("DataDirectory",
+                                    new BadSettings(BadConsoleDirectories.DataDirectory, string.Empty)
+                                   );
         BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
 
         return runtime.LoadSettings(Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE));
@@ -65,36 +68,39 @@ internal static class BadProgram
             if (idx + 1 < args.Length)
             {
                 string maskStr = args[idx + 1];
-                mask = BadLogMask.GetMask(maskStr.Split(';').Select(x => (BadLogMask)x).ToArray());
-                args = args.Where((_, i) => i != idx && i != idx + 1).ToArray();
+
+                mask = BadLogMask.GetMask(maskStr.Split(';')
+                                                 .Select(x => (BadLogMask)x)
+                                                 .ToArray()
+                                         );
+
+                args = args.Where((_, i) => i != idx && i != idx + 1)
+                           .ToArray();
             }
         }
 
         using BadRuntime runtime = new BadRuntime()
-            .UseLogMask(mask)
-            .UseConsoleLogWriter()
-            .LoadConsoleSettings()
-            .UseCommonInterop()
-            .UseCompressionApi()
-            .UseFileSystemApi()
-            .UseHtmlApi()
-            .UseJsonApi()
-            .UseLinqApi()
-            .UseNetApi()
-            .UseNetHostApi()
-            .UseLocalModules();
+                                   .UseLogMask(mask)
+                                   .UseConsoleLogWriter()
+                                   .LoadConsoleSettings()
+                                   .UseCommonInterop()
+                                   .UseCompressionApi()
+                                   .UseFileSystemApi()
+                                   .UseHtmlApi()
+                                   .UseJsonApi()
+                                   .UseLinqApi()
+                                   .UseNetApi()
+                                   .UseNetHostApi()
+                                   .UseLocalModules();
 
-
-        BadConsoleRunner runner = new BadConsoleRunner(
-            new BadDefaultRunSystem(runtime),
-            new BadTestSystem(runtime),
-            new BadRunSystem(runtime),
-            new BadSettingsSystem(runtime),
-            new BadHtmlSystem(runtime),
-            new BadRemoteConsoleSystem(runtime),
-            new BadDocsSystem(runtime)
-        );
-
+        BadConsoleRunner runner = new BadConsoleRunner(new BadDefaultRunSystem(runtime),
+                                                       new BadTestSystem(runtime),
+                                                       new BadRunSystem(runtime),
+                                                       new BadSettingsSystem(runtime),
+                                                       new BadHtmlSystem(runtime),
+                                                       new BadRemoteConsoleSystem(runtime),
+                                                       new BadDocsSystem(runtime)
+                                                      );
 
         return runner.Run(args);
     }

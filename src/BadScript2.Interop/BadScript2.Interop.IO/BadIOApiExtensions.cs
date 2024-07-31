@@ -1,4 +1,5 @@
 using BadScript2.IO;
+
 namespace BadScript2.Interop.IO;
 
 /// <summary>

@@ -21,6 +21,7 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Interop.Common.Apis;
 
 /// <summary>
@@ -56,40 +57,43 @@ internal partial class BadRuntimeApi
     [return: BadReturn("The created scope")]
     private BadScope CreateDefaultScope(BadExecutionContext ctx)
     {
-        return ctx.Scope.GetRootScope().CreateChild("<customscope>", ctx.Scope, null);
+        return ctx.Scope.GetRootScope()
+                  .CreateChild("<customscope>", ctx.Scope, null);
     }
 
     [BadMethod(description: "Evaluates a BadScript Source String")]
     [return: BadReturn("An Awaitable Task")]
-    private BadTask EvaluateAsync(
-        BadExecutionContext caller,
-        [BadParameter(description: "The Source of the Script")]
-        string source,
-        [BadParameter(description: "An (optional but recommended) file path, it will be used to determine the working directory of the script.")]
-        string? file = null,
-        [BadParameter(description: "If true, any optimizations that are activated in the settings will be applied.")]
-        bool optimize = true,
-        [BadParameter(
-            description:
-            "An (optional) scope that the execution takes place in, if not specified, an Instance of BadRuntime will get searched and a scope will be created from it, if its not found, a scope will be created from the root scope of the caller."
-        )]
-        BadScope? scope = null,
-        [BadParameter(
-            description:
-            "If true, the last element that was returned from the enumeration will be the result of the task. Otherwise the result will be the exported objects of the script."
-        )]
-        bool setLastAsReturn = false)
+    private BadTask EvaluateAsync(BadExecutionContext caller,
+                                  [BadParameter(description: "The Source of the Script")]
+                                  string source,
+                                  [BadParameter(description:
+                                                   "An (optional but recommended) file path, it will be used to determine the working directory of the script."
+                                               )]
+                                  string? file = null,
+                                  [BadParameter(description:
+                                                   "If true, any optimizations that are activated in the settings will be applied."
+                                               )]
+                                  bool optimize = true,
+                                  [BadParameter(description:
+                                                   "An (optional) scope that the execution takes place in, if not specified, an Instance of BadRuntime will get searched and a scope will be created from it, if its not found, a scope will be created from the root scope of the caller."
+                                               )]
+                                  BadScope? scope = null,
+                                  [BadParameter(description:
+                                                   "If true, the last element that was returned from the enumeration will be the result of the task. Otherwise the result will be the exported objects of the script."
+                                               )]
+                                  bool setLastAsReturn = false)
     {
         file = BadFileSystem.Instance.GetFullPath(file ?? "<eval>");
 
-
         bool optimizeConstantFolding =
             BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimize;
+
         bool optimizeConstantSubstitution =
             BadNativeOptimizationSettings.Instance.UseConstantSubstitutionOptimization && optimize;
 
         BadExecutionContext ctx;
         BadRuntime? runtime = caller.Scope.GetSingleton<BadRuntime>();
+
         if (runtime != null && scope == null)
         {
             // If the runtime is available, we can use the context builder to create a new context.
@@ -102,14 +106,18 @@ internal partial class BadRuntimeApi
             // even if we dont have a way to access the context builder.
             ctx =
                 scope == null
-                    ? new BadExecutionContext(
-                        caller.Scope.GetRootScope()
-                            .CreateChild("<EvaluateAsync>", caller.Scope, null, BadScopeFlags.CaptureThrow)
-                    )
+                    ? new BadExecutionContext(caller.Scope.GetRootScope()
+                                                    .CreateChild("<EvaluateAsync>",
+                                                                 caller.Scope,
+                                                                 null,
+                                                                 BadScopeFlags.CaptureThrow
+                                                                )
+                                             )
                     : new BadExecutionContext(scope);
         }
 
-        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, source).Parse();
+        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, source)
+                                                          .Parse();
 
         if (optimizeConstantFolding)
         {
@@ -124,6 +132,7 @@ internal partial class BadRuntimeApi
         BadTask task = null!;
 
         IEnumerable<BadObject> executor;
+
         if (setLastAsReturn) //If we want the last object as the return value, we just execute
         {
             executor = ctx.Execute(exprs);
@@ -133,14 +142,14 @@ internal partial class BadRuntimeApi
             executor = ExecuteScriptWithExports(ctx, exprs);
         }
 
-        task = new BadTask(
-            new BadInteropRunnable(
-                // ReSharper disable once AccessToModifiedClosure
-                SafeExecute(executor, ctx, () => task).GetEnumerator(),
-                true
-            ),
-            "EvaluateAsync"
-        );
+        task = new BadTask(new BadInteropRunnable(
+                                                  // ReSharper disable once AccessToModifiedClosure
+                                                  SafeExecute(executor, ctx, () => task)
+                                                      .GetEnumerator(),
+                                                  true
+                                                 ),
+                           "EvaluateAsync"
+                          );
 
         return task;
     }
@@ -164,14 +173,18 @@ internal partial class BadRuntimeApi
     [return: BadReturn("An Array containing all Native Types")]
     private BadArray GetNativeTypes()
     {
-        return new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>().ToList());
+        return new BadArray(BadNativeClassBuilder.NativeTypes.Cast<BadObject>()
+                                                 .ToList()
+                           );
     }
 
     [BadMethod(description: "Returns the Assembly Path of the current Runtime")]
     [return: BadReturn("The Assembly Path")]
     private string GetRuntimeAssemblyPath()
     {
-        string path = Path.ChangeExtension(Assembly.GetEntryAssembly()!.Location, RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "exe" : "");
+        string path = Path.ChangeExtension(Assembly.GetEntryAssembly()!.Location,
+                                           RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "exe" : ""
+                                          );
 
         return path;
     }
@@ -180,7 +193,8 @@ internal partial class BadRuntimeApi
     [return: BadReturn("A new Guid")]
     private string NewGuid()
     {
-        return Guid.NewGuid().ToString();
+        return Guid.NewGuid()
+                   .ToString();
     }
 
     [BadMethod(description: "Returns true if an api with that name is registered")]
@@ -192,16 +206,15 @@ internal partial class BadRuntimeApi
 
     [BadMethod(description: "Creates a new Reference Object")]
     [return: BadReturn("The Reference Object")]
-    private BadObject MakeReference(
-        BadExecutionContext ctx,
-        [BadParameter(description: "The Text for the Reference")]
-        string refText,
-        [BadParameter(description: "The getter Function")]
-        BadFunction get,
-        [BadParameter(description: "The setter Function")]
-        BadFunction? set = null,
-        [BadParameter(description: "The delete Function")]
-        BadFunction? delete = null)
+    private BadObject MakeReference(BadExecutionContext ctx,
+                                    [BadParameter(description: "The Text for the Reference")]
+                                    string refText,
+                                    [BadParameter(description: "The getter Function")]
+                                    BadFunction get,
+                                    [BadParameter(description: "The setter Function")]
+                                    BadFunction? set = null,
+                                    [BadParameter(description: "The delete Function")]
+                                    BadFunction? delete = null)
     {
         if (set == null && delete == null)
         {
@@ -210,60 +223,59 @@ internal partial class BadRuntimeApi
 
         if (delete == null && set != null)
         {
-            return BadObjectReference.Make(
-                refText,
-                () => GetReferenceValue(ctx, get),
-                (value, _) => SetReferenceValue(ctx, set, value)
-            );
+            return BadObjectReference.Make(refText,
+                                           () => GetReferenceValue(ctx, get),
+                                           (value, _) => SetReferenceValue(ctx, set, value)
+                                          );
         }
 
         if (delete != null && set == null)
         {
-            return BadObjectReference.Make(
-                refText,
-                () => GetReferenceValue(ctx, get),
-                (Action<BadObject, BadPropertyInfo?>?)null,
-                () => SetReferenceValue(ctx, delete, BadObject.Null)
-            );
+            return BadObjectReference.Make(refText,
+                                           () => GetReferenceValue(ctx, get),
+                                           (Action<BadObject, BadPropertyInfo?>?)null,
+                                           () => SetReferenceValue(ctx, delete, BadObject.Null)
+                                          );
         }
 
-        return BadObjectReference.Make(
-            refText,
-            () => GetReferenceValue(ctx, get),
-            (value, _) => SetReferenceValue(ctx, set!, value),
-            () => DeleteReference(ctx, delete!)
-        );
+        return BadObjectReference.Make(refText,
+                                       () => GetReferenceValue(ctx, get),
+                                       (value, _) => SetReferenceValue(ctx, set!, value),
+                                       () => DeleteReference(ctx, delete!)
+                                      );
     }
 
     private void DeleteReference(BadExecutionContext ctx, BadFunction func)
     {
         foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx)) { }
     }
+
     private BadObject GetReferenceValue(BadExecutionContext ctx, BadFunction func)
     {
         BadObject? result = BadObject.Null;
+
         foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx))
         {
             result = o;
         }
+
         return result.Dereference();
     }
+
     private void SetReferenceValue(BadExecutionContext ctx, BadFunction func, BadObject value)
     {
-        foreach (BadObject? o in func.Invoke(
-                     new[]
-                     {
-                         value,
-                     },
-                     ctx
-                 )) { }
+        foreach (BadObject? o in func.Invoke(new[] { value },
+                                             ctx
+                                            )) { }
     }
 
     [BadMethod(description: "Returns all registered apis")]
     [return: BadReturn("An Array containing all registered apis")]
     private BadArray GetRegisteredApis(BadExecutionContext ctx)
     {
-        return new BadArray(ctx.Scope.RegisteredApis.Select(x => (BadObject)x).ToList());
+        return new BadArray(ctx.Scope.RegisteredApis.Select(x => (BadObject)x)
+                               .ToList()
+                           );
     }
 
     /// <summary>
@@ -274,18 +286,22 @@ internal partial class BadRuntimeApi
     /// <returns>Null</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the Import Handler is invalid</exception>
     [BadMethod(description: "Registers an Import Handler")]
-    private static void RegisterImportHandler(
-        BadExecutionContext ctx,
-        [BadParameter(description: "An Import handler implementing the IImportHandler Interface", nativeType: "IImportHandler")]
-        BadClass cls)
+    private static void RegisterImportHandler(BadExecutionContext ctx,
+                                              [BadParameter(description:
+                                                               "An Import handler implementing the IImportHandler Interface",
+                                                               nativeType: "IImportHandler"
+                                                           )]
+                                              BadClass cls)
     {
         BadClassPrototype proto = cls.GetPrototype();
+
         if (!BadNativeClassBuilder.ImportHandler.IsSuperClassOf(proto))
         {
             throw BadRuntimeException.Create(ctx.Scope, "Invalid Import Handler");
         }
 
         BadModuleImporter? importer = ctx.Scope.GetSingleton<BadModuleImporter>();
+
         if (importer == null)
         {
             throw BadRuntimeException.Create(ctx.Scope, "Module Importer not found");
@@ -303,30 +319,32 @@ internal partial class BadRuntimeApi
     /// <returns>Validation Result</returns>
     [BadMethod("Validate", "Validates a source string")]
     [return: BadReturn("Validation Result")]
-    private static BadTable ValidateSource([BadParameter(description: "The Source to Validate")] string source, [BadParameter(description: "The File Name")] string file)
+    private static BadTable ValidateSource([BadParameter(description: "The Source to Validate")] string source,
+                                           [BadParameter(description: "The File Name")] string file)
     {
         BadExpressionValidatorContext result =
             BadExpressionValidatorContext.Validate(BadSourceParser.Parse(file, source));
         BadTable ret = new BadTable();
         ret.SetProperty("IsError", result.IsError);
-        ret.SetProperty(
-            "Messages",
-            new BadArray(
-                result.Messages.Select(
-                        x =>
-                        {
-                            BadTable msg = new BadTable();
-                            msg.SetProperty("Message", x.Message);
-                            msg.SetProperty("Validator", x.Validator.ToString());
-                            msg.SetProperty("Type", x.Type.ToString());
-                            msg.SetProperty("Position", x.Expression.Position.ToString());
 
-                            return (BadObject)msg;
-                        }
-                    )
-                    .ToList()
-            )
-        );
+        ret.SetProperty("Messages",
+                        new BadArray(result.Messages.Select(x =>
+                                                            {
+                                                                BadTable msg = new BadTable();
+                                                                msg.SetProperty("Message", x.Message);
+                                                                msg.SetProperty("Validator", x.Validator.ToString());
+                                                                msg.SetProperty("Type", x.Type.ToString());
+
+                                                                msg.SetProperty("Position",
+                                                                                x.Expression.Position.ToString()
+                                                                               );
+
+                                                                return (BadObject)msg;
+                                                            }
+                                                           )
+                                           .ToList()
+                                    )
+                       );
         ret.SetFunction("GetMessageString", () => result.ToString(), BadNativeClassBuilder.GetNative("string"));
 
         return ret;
@@ -360,181 +378,183 @@ internal partial class BadRuntimeApi
         table.SetProperty("Hour", time.Hour, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Minute", time.Minute, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
         table.SetProperty("Second", time.Second, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty("Millisecond", time.Millisecond, new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty(
-            "WeekOfYear",
-            new BadInteropFunction(
-                "WeekOfYear",
-                (ctx, args) =>
-                {
-                    CultureInfo? c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
-                    if (args.Length == 1 && args[0] is IBadString str)
-                    {
-                        c = new CultureInfo(str.Value);
-                    }
 
-                    return c.Calendar.GetWeekOfYear(
-                        time.DateTime,
-                        c.DateTimeFormat.CalendarWeekRule,
-                        c.DateTimeFormat.FirstDayOfWeek
-                    );
-                },
-                false,
-                BadNativeClassBuilder.GetNative("num"),
-                new BadFunctionParameter(
-                    "culture",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            ),
-            new BadPropertyInfo(BadFunction.Prototype, true)
-        );
-        table.SetProperty("UnixTimeMilliseconds", time.ToUnixTimeMilliseconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty("UnixTimeSeconds", time.ToUnixTimeSeconds(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true));
-        table.SetProperty("Offset", time.Offset.ToString(), new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true));
+        table.SetProperty("Millisecond",
+                          time.Millisecond,
+                          new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true)
+                         );
 
-        table.SetProperty(
-            "ToShortTimeString",
-            new BadInteropFunction(
-                "ToShortTimeString",
-                args => CreateDate(
-                        table,
-                        args.Length < 1 ? null : ((IBadString)args[0]).Value
-                    )
-                    .ToShortTimeString(),
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter(
-                    "timeZone",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            ),
-            new BadPropertyInfo(BadFunction.Prototype, true)
-        );
-        table.SetProperty(
-            "ToShortDateString",
-            new BadInteropFunction(
-                "ToShortDateString",
-                args => CreateDate(
-                        table,
-                        args.Length < 1 ? null : ((IBadString)args[0]).Value
-                    )
-                    .ToShortDateString(),
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter(
-                    "timeZone",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            ),
-            new BadPropertyInfo(BadFunction.Prototype, true)
-        );
-        table.SetProperty(
-            "ToLongTimeString",
-            new BadInteropFunction(
-                "ToLongTimeString",
-                args => CreateDate(
-                        table,
-                        args.Length < 1 ? null : ((IBadString)args[0]).Value
-                    )
-                    .ToLongTimeString(),
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter(
-                    "timeZone",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            ),
-            new BadPropertyInfo(BadFunction.Prototype, true)
-        );
-        table.SetProperty(
-            "ToLongDateString",
-            new BadInteropFunction(
-                "ToLongDateString",
-                args => CreateDate(
-                        table,
-                        args.Length < 1 ? null : ((IBadString)args[0]).Value
-                    )
-                    .ToLongDateString(),
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter(
-                    "timeZone",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            ),
-            new BadPropertyInfo(BadFunction.Prototype, true)
-        );
+        table.SetProperty("WeekOfYear",
+                          new BadInteropFunction("WeekOfYear",
+                                                 (ctx, args) =>
+                                                 {
+                                                     CultureInfo? c = ctx.Scope.GetSingleton<BadRuntime>()
+                                                                         ?.Culture ??
+                                                                      CultureInfo.InvariantCulture;
 
-        table.SetProperty(
-            "Format",
-            new BadInteropFunction(
-                "Format",
-                (ctx, args) =>
-                {
-                    string format = ((IBadString)args[0]).Value;
-                    CultureInfo? c = ctx.Scope.GetSingleton<BadRuntime>()?.Culture ?? CultureInfo.InvariantCulture;
-                    if (args.Length == 3 && args[2] is IBadString str)
-                    {
-                        c = new CultureInfo(str.Value);
-                    }
+                                                     if (args.Length == 1 && args[0] is IBadString str)
+                                                     {
+                                                         c = new CultureInfo(str.Value);
+                                                     }
 
-                    string? timeZone = args.Length < 2 ? null : (args[1] as IBadString)?.Value;
+                                                     return c.Calendar.GetWeekOfYear(time.DateTime,
+                                                          c.DateTimeFormat.CalendarWeekRule,
+                                                          c.DateTimeFormat.FirstDayOfWeek
+                                                         );
+                                                 },
+                                                 false,
+                                                 BadNativeClassBuilder.GetNative("num"),
+                                                 new BadFunctionParameter("culture",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                ),
+                          new BadPropertyInfo(BadFunction.Prototype, true)
+                         );
 
-                    return CreateDate(
-                            table,
-                            timeZone
-                        )
-                        .ToString(format, c);
-                },
-                false,
-                BadNativeClassBuilder.GetNative("string"),
-                new BadFunctionParameter(
-                    "format",
-                    false,
-                    true,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                ),
-                new BadFunctionParameter(
-                    "timeZone",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                ),
-                new BadFunctionParameter(
-                    "culture",
-                    true,
-                    false,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("string")
-                )
-            ),
-            new BadPropertyInfo(BadFunction.Prototype, true)
-        );
+        table.SetProperty("UnixTimeMilliseconds",
+                          time.ToUnixTimeMilliseconds(),
+                          new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true)
+                         );
+
+        table.SetProperty("UnixTimeSeconds",
+                          time.ToUnixTimeSeconds(),
+                          new BadPropertyInfo(BadNativeClassBuilder.GetNative("num"), true)
+                         );
+
+        table.SetProperty("Offset",
+                          time.Offset.ToString(),
+                          new BadPropertyInfo(BadNativeClassBuilder.GetNative("string"), true)
+                         );
+
+        table.SetProperty("ToShortTimeString",
+                          new BadInteropFunction("ToShortTimeString",
+                                                 args => CreateDate(table,
+                                                                    args.Length < 1 ? null : ((IBadString)args[0]).Value
+                                                                   )
+                                                     .ToShortTimeString(),
+                                                 false,
+                                                 BadNativeClassBuilder.GetNative("string"),
+                                                 new BadFunctionParameter("timeZone",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                ),
+                          new BadPropertyInfo(BadFunction.Prototype, true)
+                         );
+
+        table.SetProperty("ToShortDateString",
+                          new BadInteropFunction("ToShortDateString",
+                                                 args => CreateDate(table,
+                                                                    args.Length < 1 ? null : ((IBadString)args[0]).Value
+                                                                   )
+                                                     .ToShortDateString(),
+                                                 false,
+                                                 BadNativeClassBuilder.GetNative("string"),
+                                                 new BadFunctionParameter("timeZone",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                ),
+                          new BadPropertyInfo(BadFunction.Prototype, true)
+                         );
+
+        table.SetProperty("ToLongTimeString",
+                          new BadInteropFunction("ToLongTimeString",
+                                                 args => CreateDate(table,
+                                                                    args.Length < 1 ? null : ((IBadString)args[0]).Value
+                                                                   )
+                                                     .ToLongTimeString(),
+                                                 false,
+                                                 BadNativeClassBuilder.GetNative("string"),
+                                                 new BadFunctionParameter("timeZone",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                ),
+                          new BadPropertyInfo(BadFunction.Prototype, true)
+                         );
+
+        table.SetProperty("ToLongDateString",
+                          new BadInteropFunction("ToLongDateString",
+                                                 args => CreateDate(table,
+                                                                    args.Length < 1 ? null : ((IBadString)args[0]).Value
+                                                                   )
+                                                     .ToLongDateString(),
+                                                 false,
+                                                 BadNativeClassBuilder.GetNative("string"),
+                                                 new BadFunctionParameter("timeZone",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                ),
+                          new BadPropertyInfo(BadFunction.Prototype, true)
+                         );
+
+        table.SetProperty("Format",
+                          new BadInteropFunction("Format",
+                                                 (ctx, args) =>
+                                                 {
+                                                     string format = ((IBadString)args[0]).Value;
+
+                                                     CultureInfo? c = ctx.Scope.GetSingleton<BadRuntime>()
+                                                                         ?.Culture ??
+                                                                      CultureInfo.InvariantCulture;
+
+                                                     if (args.Length == 3 && args[2] is IBadString str)
+                                                     {
+                                                         c = new CultureInfo(str.Value);
+                                                     }
+
+                                                     string? timeZone =
+                                                         args.Length < 2 ? null : (args[1] as IBadString)?.Value;
+
+                                                     return CreateDate(table,
+                                                                       timeZone
+                                                                      )
+                                                         .ToString(format, c);
+                                                 },
+                                                 false,
+                                                 BadNativeClassBuilder.GetNative("string"),
+                                                 new BadFunctionParameter("format",
+                                                                          false,
+                                                                          true,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         ),
+                                                 new BadFunctionParameter("timeZone",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         ),
+                                                 new BadFunctionParameter("culture",
+                                                                          true,
+                                                                          false,
+                                                                          false,
+                                                                          null,
+                                                                          BadNativeClassBuilder.GetNative("string")
+                                                                         )
+                                                ),
+                          new BadPropertyInfo(BadFunction.Prototype, true)
+                         );
 
         table.SetFunction<decimal>("AddYears", d => GetDateTime(time.AddYears((int)d)));
         table.SetFunction<decimal>("AddMonths", d => GetDateTime(time.AddMonths((int)d)));
@@ -599,9 +619,12 @@ internal partial class BadRuntimeApi
     /// <returns>Array of Extension Names</returns>
     [BadMethod(description: "Lists all extension names of the given object")]
     [return: BadReturn("An Array containing all Extension Names")]
-    private static BadArray GetExtensionNames(BadExecutionContext ctx, [BadParameter(description: "Object")] BadObject o)
+    private static BadArray GetExtensionNames(BadExecutionContext ctx,
+                                              [BadParameter(description: "Object")] BadObject o)
     {
-        return new BadArray(ctx.Scope.Provider.GetExtensionNames(o).ToList());
+        return new BadArray(ctx.Scope.Provider.GetExtensionNames(o)
+                               .ToList()
+                           );
     }
 
     /// <summary>
@@ -612,7 +635,9 @@ internal partial class BadRuntimeApi
     [return: BadReturn("An Array containing all Extension Names")]
     private static BadObject GetGlobalExtensionNames(BadExecutionContext ctx)
     {
-        return new BadArray(ctx.Scope.Provider.GetExtensionNames().ToList());
+        return new BadArray(ctx.Scope.Provider.GetExtensionNames()
+                               .ToList()
+                           );
     }
 
     /// <summary>
@@ -623,7 +648,11 @@ internal partial class BadRuntimeApi
     [return: BadReturn("An Array containing all Commandline Arguments")]
     private static BadArray GetArguments()
     {
-        return StartupArguments == null ? new BadArray() : new BadArray(StartupArguments.Select(x => (BadObject)x).ToList());
+        return StartupArguments == null
+                   ? new BadArray()
+                   : new BadArray(StartupArguments.Select(x => (BadObject)x)
+                                                  .ToList()
+                                 );
     }
 
 
@@ -662,12 +691,12 @@ internal partial class BadRuntimeApi
     /// <param name="ctx">The Current Execution Context</param>
     /// <param name="getTask">The Task Getter</param>
     /// <returns></returns>
-    private static IEnumerable<BadObject> SafeExecute(
-        IEnumerable<BadObject> script,
-        BadExecutionContext ctx,
-        Func<BadTask> getTask)
+    private static IEnumerable<BadObject> SafeExecute(IEnumerable<BadObject> script,
+                                                      BadExecutionContext ctx,
+                                                      Func<BadTask> getTask)
     {
         using IEnumerator<BadObject>? enumerator = script.GetEnumerator();
+
         while (true)
         {
             try
@@ -679,14 +708,19 @@ internal partial class BadRuntimeApi
             }
             catch (BadRuntimeErrorException e)
             {
-                getTask().Runnable.SetError(e.Error);
+                getTask()
+                    .Runnable.SetError(e.Error);
+
                 break;
             }
             catch (Exception e)
             {
-                getTask().Runnable.SetError(BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace()));
+                getTask()
+                    .Runnable.SetError(BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace()));
+
                 break;
             }
+
             yield return enumerator.Current ?? BadObject.Null;
         }
     }

@@ -2,6 +2,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Runtime.Interop;
 
 public class BadInteropExtensionProvider
@@ -51,7 +52,8 @@ public class BadInteropExtensionProvider
     /// <returns>List of Extension Names</returns>
     public BadObject[] GetExtensionNames()
     {
-        return m_GlobalExtensions.Keys.Select(x => (BadObject)x).ToArray();
+        return m_GlobalExtensions.Keys.Select(x => (BadObject)x)
+                                 .ToArray();
     }
 
     /// <summary>
@@ -63,12 +65,13 @@ public class BadInteropExtensionProvider
     {
         Type t = obj.GetType();
 
-
         List<BadObject> objs = new List<BadObject>(GetExtensionNames());
 
         if (HasTypeExtensions(t))
         {
-            objs.AddRange(GetTypeExtensions(t).Keys.Select(x => (BadObject)x));
+            objs.AddRange(GetTypeExtensions(t)
+                          .Keys.Select(x => (BadObject)x)
+                         );
         }
 
         if (obj is not IBadNative native)
@@ -80,7 +83,9 @@ public class BadInteropExtensionProvider
 
         if (HasTypeExtensions(t))
         {
-            objs.AddRange(GetTypeExtensions(t).Keys.Select(x => (BadObject)x));
+            objs.AddRange(GetTypeExtensions(t)
+                          .Keys.Select(x => (BadObject)x)
+                         );
         }
 
         return objs.ToArray();
@@ -129,9 +134,8 @@ public class BadInteropExtensionProvider
         Dictionary<string, Func<BadObject, BadObject>>
             exts = new Dictionary<string, Func<BadObject, BadObject>>();
 
-        foreach (KeyValuePair<Type, Dictionary<string, Func<BadObject, BadObject>>> kvp in m_ObjectExtensions.Where(
-                     x => x.Key.IsAssignableFrom(type)
-                 ))
+        foreach (KeyValuePair<Type, Dictionary<string, Func<BadObject, BadObject>>> kvp in
+                 m_ObjectExtensions.Where(x => x.Key.IsAssignableFrom(type)))
         {
             foreach (KeyValuePair<string, Func<BadObject, BadObject>> keyValuePair in kvp.Value)
             {
@@ -176,19 +180,18 @@ public class BadInteropExtensionProvider
     /// <exception cref="BadRuntimeException">Gets raised if the provided object can not be cast to the type for the extension</exception>
     public void RegisterObject<T>(string propName, Func<T, BadObject> obj)
     {
-        RegisterObject(
-            typeof(T),
-            propName,
-            o =>
-            {
-                return o switch
-                {
-                    T t => obj(t),
-                    BadNative<T> nT => obj(nT.Value),
-                    _ => throw new BadRuntimeException("Cannot cast object to type " + typeof(T)),
-                };
-            }
-        );
+        RegisterObject(typeof(T),
+                       propName,
+                       o =>
+                       {
+                           return o switch
+                           {
+                               T t => obj(t),
+                               BadNative<T> nT => obj(nT.Value),
+                               _ => throw new BadRuntimeException("Cannot cast object to type " + typeof(T)),
+                           };
+                       }
+                      );
     }
 
     /// <summary>
@@ -218,12 +221,7 @@ public class BadInteropExtensionProvider
         }
         else
         {
-            m_ObjectExtensions[t] = new Dictionary<string, Func<BadObject, BadObject>>
-            {
-                {
-                    propName, obj
-                },
-            };
+            m_ObjectExtensions[t] = new Dictionary<string, Func<BadObject, BadObject>> { { propName, obj } };
         }
     }
 
@@ -236,7 +234,10 @@ public class BadInteropExtensionProvider
     /// <returns>True if the extension is available</returns>
     public bool HasObject(Type t, string propName)
     {
-        return HasGlobalExtensions(propName) || HasTypeExtensions(t) && GetTypeExtensions(t).ContainsKey(propName);
+        return HasGlobalExtensions(propName) ||
+               (HasTypeExtensions(t) &&
+                GetTypeExtensions(t)
+                    .ContainsKey(propName));
     }
 
     /// <summary>
@@ -258,16 +259,14 @@ public class BadInteropExtensionProvider
     /// <param name="instance">Object Instance</param>
     /// <param name="caller">The Caller Scope</param>
     /// <returns>Object Reference</returns>
-    public BadObjectReference GetObjectReference(
-        Type t,
-        string propName,
-        BadObject instance,
-        BadScope? caller)
+    public BadObjectReference GetObjectReference(Type t,
+                                                 string propName,
+                                                 BadObject instance,
+                                                 BadScope? caller)
     {
-        return BadObjectReference.Make(
-            $"{t.Name}.{propName}",
-            () => GetObject(t, propName, instance, caller)
-        );
+        return BadObjectReference.Make($"{t.Name}.{propName}",
+                                       () => GetObject(t, propName, instance, caller)
+                                      );
     }
 
     /// <summary>

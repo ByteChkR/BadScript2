@@ -1,6 +1,7 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Runtime.Module;
 
 /// <summary>
@@ -30,6 +31,7 @@ public class BadModuleImporter
     public BadModuleImporter Clone(bool onlyTransient = true)
     {
         BadModuleImporter importer = new BadModuleImporter(m_Store);
+
         if (onlyTransient)
         {
             importer.m_Handlers.AddRange(m_Handlers.Where(x => x.IsTransient()));
@@ -65,6 +67,7 @@ public class BadModuleImporter
         {
             BadImportHandler handler = m_Handlers[i];
             string hash = handler.GetHash(path);
+
             if (BadModuleSettings.Instance.UseModuleCaching && m_Store.IsCached(hash))
             {
                 yield return m_Store.Get(hash);
@@ -76,6 +79,7 @@ public class BadModuleImporter
             {
                 IEnumerable<BadObject> result = handler.Get(path);
                 BadObject r = BadObject.Null;
+
                 foreach (BadObject o in result)
                 {
                     r = o;

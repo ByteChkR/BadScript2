@@ -2,6 +2,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Interop.Functions;
 
 /// <summary>
@@ -22,12 +23,17 @@ public class BadEnumerableInteropFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="parameters">The Parameters of the Function</param>
-    public BadEnumerableInteropFunction(
-        BadWordToken? name,
-        Func<BadObject[], IEnumerable<BadObject>> func,
-        bool isStatic,
-        BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false, parameters)
+    public BadEnumerableInteropFunction(BadWordToken? name,
+                                        Func<BadObject[], IEnumerable<BadObject>> func,
+                                        bool isStatic,
+                                        BadClassPrototype returnType,
+                                        params BadFunctionParameter[] parameters) : base(name,
+                                                                                         false,
+                                                                                         isStatic,
+                                                                                         returnType,
+                                                                                         false,
+                                                                                         parameters
+                                                                                        )
     {
         m_Func = (_, args) => func(args);
     }
@@ -40,12 +46,17 @@ public class BadEnumerableInteropFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="parameters">The Parameters of the Function</param>
-    public BadEnumerableInteropFunction(
-        BadWordToken? name,
-        Func<BadExecutionContext, BadObject[], IEnumerable<BadObject>> func,
-        bool isStatic,
-        BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false, parameters)
+    public BadEnumerableInteropFunction(BadWordToken? name,
+                                        Func<BadExecutionContext, BadObject[], IEnumerable<BadObject>> func,
+                                        bool isStatic,
+                                        BadClassPrototype returnType,
+                                        params BadFunctionParameter[] parameters) : base(name,
+                                                                                         false,
+                                                                                         isStatic,
+                                                                                         returnType,
+                                                                                         false,
+                                                                                         parameters
+                                                                                        )
     {
         m_Func = func;
     }
@@ -58,19 +69,18 @@ public class BadEnumerableInteropFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="names">The Parameters of the Function</param>
-    public static BadEnumerableInteropFunction Create(
-        Func<BadObject[], IEnumerable<BadObject>> func,
-        bool isStatic,
-        BadClassPrototype returnType,
-        params string[] names)
+    public static BadEnumerableInteropFunction Create(Func<BadObject[], IEnumerable<BadObject>> func,
+                                                      bool isStatic,
+                                                      BadClassPrototype returnType,
+                                                      params string[] names)
     {
-        BadEnumerableInteropFunction function = new BadEnumerableInteropFunction(
-            null,
-            func,
-            isStatic,
-            returnType,
-            names.Select(x => (BadFunctionParameter)x).ToArray()
-        );
+        BadEnumerableInteropFunction function = new BadEnumerableInteropFunction(null,
+             func,
+             isStatic,
+             returnType,
+             names.Select(x => (BadFunctionParameter)x)
+                  .ToArray()
+            );
 
         return function;
     }

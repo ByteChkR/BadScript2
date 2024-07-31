@@ -1,4 +1,5 @@
 using CommandLine;
+
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>

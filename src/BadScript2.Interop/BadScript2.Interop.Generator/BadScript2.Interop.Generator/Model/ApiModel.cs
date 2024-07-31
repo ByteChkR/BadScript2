@@ -1,6 +1,7 @@
 using System;
 
 using Microsoft.CodeAnalysis;
+
 namespace BadScript2.Interop.Generator.Model;
 
 public readonly struct ApiModel : IEquatable<ApiModel>
@@ -12,7 +13,12 @@ public readonly struct ApiModel : IEquatable<ApiModel>
     public readonly bool ConstructorPrivate;
     public readonly Diagnostic[] Diagnostics;
 
-    public ApiModel(string ns, string className, MethodModel[] methods, string apiName, bool constructorPrivate, Diagnostic[] diagnostics)
+    public ApiModel(string ns,
+                    string className,
+                    MethodModel[] methods,
+                    string apiName,
+                    bool constructorPrivate,
+                    Diagnostic[] diagnostics)
     {
         Namespace = ns;
         ClassName = className;
@@ -42,11 +48,11 @@ public readonly struct ApiModel : IEquatable<ApiModel>
         unchecked
         {
             int hashCode = Namespace.GetHashCode();
-            hashCode = hashCode * 397 ^ ClassName.GetHashCode();
-            hashCode = hashCode * 397 ^ ApiName.GetHashCode();
-            hashCode = hashCode * 397 ^ Methods.GetHashCode();
-            hashCode = hashCode * 397 ^ ConstructorPrivate.GetHashCode();
-            hashCode = hashCode * 397 ^ Diagnostics.GetHashCode();
+            hashCode = (hashCode * 397) ^ ClassName.GetHashCode();
+            hashCode = (hashCode * 397) ^ ApiName.GetHashCode();
+            hashCode = (hashCode * 397) ^ Methods.GetHashCode();
+            hashCode = (hashCode * 397) ^ ConstructorPrivate.GetHashCode();
+            hashCode = (hashCode * 397) ^ Diagnostics.GetHashCode();
 
             return hashCode;
         }

@@ -18,10 +18,9 @@ public class BadHttpContext : BadObject
 	/// <summary>
 	///     Class Prototype Instance
 	/// </summary>
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>(
-        "HttpContext",
-        (_, _) => throw new BadRuntimeException("Cannot create new Http Contexts")
-    );
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>("HttpContext",
+	                                                                                                    (_, _) => throw new BadRuntimeException("Cannot create new Http Contexts")
+	                                                                                                   );
 
 	/// <summary>
 	///     Constructs a new BadHttpContext

@@ -20,12 +20,11 @@ public class BadDuplicateFunctionParameterNameValidator : BadExpressionValidator
         {
             if (!names.Add(parameter.Name))
             {
-                context.AddError(
-                    $"Duplicate parameter name '{parameter.Name}'",
-                    expr,
-                    expr,
-                    this
-                );
+                context.AddError($"Duplicate parameter name '{parameter.Name}'",
+                                 expr,
+                                 expr,
+                                 this
+                                );
             }
         }
     }

@@ -31,10 +31,9 @@ public class BadIfExpression : BadExpression
     /// <param name="branches">The Conditional Branches</param>
     /// <param name="elseBranch">The (optional) Else Branch</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadIfExpression(
-        Dictionary<BadExpression, BadExpression[]> branches,
-        IEnumerable<BadExpression>? elseBranch,
-        BadSourcePosition position) : base(false, position)
+    public BadIfExpression(Dictionary<BadExpression, BadExpression[]> branches,
+                           IEnumerable<BadExpression>? elseBranch,
+                           BadSourcePosition position) : base(false, position)
     {
         m_ConditionalBranches = branches;
         m_ElseBranch = elseBranch?.ToList();
@@ -80,7 +79,8 @@ public class BadIfExpression : BadExpression
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in branches)
         {
             m_ConditionalBranches[BadConstantFoldingOptimizer.Optimize(branch.Key)] =
-                BadConstantFoldingOptimizer.Optimize(branch.Value).ToArray();
+                BadConstantFoldingOptimizer.Optimize(branch.Value)
+                                           .ToArray();
         }
 
         if (m_ElseBranch == null)
@@ -140,7 +140,6 @@ public class BadIfExpression : BadExpression
 
             conditionResult = conditionResult.Dereference();
 
-
             if (conditionResult is not IBadBoolean cBool)
             {
                 throw new BadRuntimeException("Condition must be a boolean", Position);
@@ -156,13 +155,11 @@ public class BadIfExpression : BadExpression
                 yield break;
             }
 
-            using BadExecutionContext branchContext = new BadExecutionContext(
-                context.Scope.CreateChild(
-                    "IfBranch",
-                    context.Scope,
-                    null
-                )
-            );
+            using BadExecutionContext branchContext = new BadExecutionContext(context.Scope.CreateChild("IfBranch",
+                                                                                   context.Scope,
+                                                                                   null
+                                                                                  )
+                                                                             );
 
             foreach (BadObject o in branchContext.Execute(keyValuePair.Value))
             {
@@ -177,13 +174,11 @@ public class BadIfExpression : BadExpression
             yield break;
         }
 
-        using BadExecutionContext elseContext = new BadExecutionContext(
-            context.Scope.CreateChild(
-                "IfBranch",
-                context.Scope,
-                null
-            )
-        );
+        using BadExecutionContext elseContext = new BadExecutionContext(context.Scope.CreateChild("IfBranch",
+                                                                             context.Scope,
+                                                                             null
+                                                                            )
+                                                                       );
 
         foreach (BadObject o in elseContext.Execute(m_ElseBranch))
         {

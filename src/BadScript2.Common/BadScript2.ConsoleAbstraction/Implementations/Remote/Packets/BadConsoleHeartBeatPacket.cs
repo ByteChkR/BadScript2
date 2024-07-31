@@ -18,10 +18,7 @@ public class BadConsoleHeartBeatPacket : BadConsolePacket
     /// <inheritdoc />
     public override byte[] Serialize()
     {
-        return new[]
-        {
-            (byte)BadConsolePacketType.HeartBeat,
-        };
+        return new[] { (byte)BadConsolePacketType.HeartBeat };
     }
 
     /// <summary>

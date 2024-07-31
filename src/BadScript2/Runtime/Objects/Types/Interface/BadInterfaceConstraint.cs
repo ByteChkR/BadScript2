@@ -9,7 +9,11 @@ namespace BadScript2.Runtime.Objects.Types.Interface;
 /// </summary>
 public abstract class BadInterfaceConstraint : IEquatable<BadInterfaceConstraint>
 {
+#region IEquatable<BadInterfaceConstraint> Members
+
     public abstract bool Equals(BadInterfaceConstraint? other);
+
+#endregion
 
     /// <summary>
     ///     Validates the given Object against this Constraint

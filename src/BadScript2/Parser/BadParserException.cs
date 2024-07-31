@@ -1,4 +1,5 @@
 using BadScript2.Common;
+
 namespace BadScript2.Parser;
 
 /// <summary>
@@ -11,9 +12,8 @@ public class BadParserException : BadParseException
 	/// </summary>
 	/// <param name="message">The Exception Message</param>
 	/// <param name="position">The Source Position of the Exception</param>
-	public BadParserException(
-        string message,
-        BadSourcePosition position) : base(message, position) { }
+	public BadParserException(string message,
+	                          BadSourcePosition position) : base(message, position) { }
 
 	/// <summary>
 	///     Constructor
@@ -21,9 +21,8 @@ public class BadParserException : BadParseException
 	/// <param name="message">The Exception Message</param>
 	/// <param name="position">The Source Position of the Exception</param>
 	/// <param name="inner">The Inner Exception</param>
-	public BadParserException(
-        string message,
-        BadSourcePosition position,
-        Exception inner) :
+	public BadParserException(string message,
+	                          BadSourcePosition position,
+	                          Exception inner) :
         base(message, position, inner) { }
 }

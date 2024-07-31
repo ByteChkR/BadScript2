@@ -4,6 +4,7 @@ using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
@@ -32,7 +33,10 @@ public class BadUsingExpression : BadExpression
     /// <param name="name">Name of the variable that holds the object</param>
     /// <param name="expressions">Expressions inside the Using Block</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadUsingExpression(string name, BadExpression[] expressions, BadSourcePosition position, BadExpression definition) : base(false, position)
+    public BadUsingExpression(string name,
+                              BadExpression[] expressions,
+                              BadSourcePosition position,
+                              BadExpression definition) : base(false, position)
     {
         Name = name;
         m_Expressions = expressions;
@@ -53,6 +57,7 @@ public class BadUsingExpression : BadExpression
     public override void Optimize()
     {
         m_Definition = BadConstantFoldingOptimizer.Optimize(m_Definition);
+
         for (int i = 0; i < m_Expressions.Length; i++)
         {
             m_Expressions[i] = BadConstantFoldingOptimizer.Optimize(m_Expressions[i]);
@@ -68,10 +73,8 @@ public class BadUsingExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        using BadExecutionContext usingContext = new BadExecutionContext(
-            context.Scope.CreateChild("UsingBlock", context.Scope, null)
-        );
-
+        using BadExecutionContext usingContext =
+            new BadExecutionContext(context.Scope.CreateChild("UsingBlock", context.Scope, null));
 
         foreach (BadObject o in usingContext.Execute(m_Definition))
         {
@@ -101,15 +104,22 @@ public class BadUsingExpression : BadExpression
     /// <exception cref="BadRuntimeException">Gets thrown if the object does not implement IDisposable</exception>
     public static void Finalize(BadExecutionContext usingContext, string name, BadSourcePosition position)
     {
-        BadObject obj = usingContext.Scope.GetVariable(name).Dereference();
+        BadObject obj = usingContext.Scope.GetVariable(name)
+                                    .Dereference();
 
         if (!obj.HasProperty("Dispose"))
         {
             throw BadRuntimeException.Create(usingContext.Scope, "Object does not implement IDisposable", position);
         }
 
-        BadObject disposeFunc = obj.GetProperty("Dispose", usingContext.Scope).Dereference();
-        foreach (BadObject? o in BadInvocationExpression.Invoke(disposeFunc, Array.Empty<BadObject>(), position, usingContext))
+        BadObject disposeFunc = obj.GetProperty("Dispose", usingContext.Scope)
+                                   .Dereference();
+
+        foreach (BadObject? o in BadInvocationExpression.Invoke(disposeFunc,
+                                                                Array.Empty<BadObject>(),
+                                                                position,
+                                                                usingContext
+                                                               ))
         {
             //Do Nothing
         }

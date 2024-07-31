@@ -1,6 +1,7 @@
 using BadScript2.ConsoleAbstraction;
 
 using NUnit.Framework;
+
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
@@ -8,6 +9,8 @@ namespace BadScript2.Interop.NUnit;
 /// </summary>
 public class BadNUnitTestConsole : IBadConsole
 {
+#region IBadConsole Members
+
     /// <inheritdoc />
     public void Write(string str)
     {
@@ -43,4 +46,6 @@ public class BadNUnitTestConsole : IBadConsole
 
     /// <inheritdoc />
     public ConsoleColor BackgroundColor { get; set; }
+
+#endregion
 }

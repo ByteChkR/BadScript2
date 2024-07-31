@@ -6,6 +6,7 @@ using BadHtml.Transformer;
 using BadScript2.Runtime.Objects;
 
 using HtmlAgilityPack;
+
 namespace BadHtml;
 
 /// <summary>
@@ -59,7 +60,8 @@ public abstract class BadHtmlNodeTransformer
             string value = attribute.Value;
 
             //Replace all newlines with spaces
-            value = value.Replace("\n", " ").Replace("\r", " ");
+            value = value.Replace("\n", " ")
+                         .Replace("\r", " ");
 
             //Evaluate Attribute Value with BadScript
             BadObject result =

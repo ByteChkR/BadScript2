@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
+
 namespace BadScript2.Parser.Expressions.Binary;
 
 /// <summary>
@@ -13,10 +14,10 @@ public abstract class BadBinaryExpression : BadExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    protected BadBinaryExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left.IsConstant && right.IsConstant,
-        position
-    )
+    protected BadBinaryExpression(BadExpression left, BadExpression right, BadSourcePosition position) :
+        base(left.IsConstant && right.IsConstant,
+             position
+            )
     {
         Left = left;
         Right = right;

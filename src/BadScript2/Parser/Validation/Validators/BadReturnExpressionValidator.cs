@@ -4,6 +4,7 @@ using BadScript2.Parser.Expressions.Block.Lock;
 using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>

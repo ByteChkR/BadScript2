@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Client.Commands;
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Client;
 
 /// <summary>
@@ -49,7 +50,8 @@ public class BadNetworkConsoleClient
     /// </summary>
     /// <param name="client">The TCP CLient</param>
     /// <param name="parserFactory">The Parser Factory</param>
-    public BadNetworkConsoleClient(TcpClient client, Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parserFactory)
+    public BadNetworkConsoleClient(TcpClient client,
+                                   Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parserFactory)
     {
         m_Client = client;
         m_Address = "";
@@ -76,7 +78,9 @@ public class BadNetworkConsoleClient
     /// <param name="address">The Address of the Remote Console</param>
     /// <param name="port">The Port of the Remote Console</param>
     /// <param name="parserFactory">The Parser Factory</param>
-    public BadNetworkConsoleClient(string address, int port, Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parserFactory)
+    public BadNetworkConsoleClient(string address,
+                                   int port,
+                                   Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parserFactory)
     {
         m_Address = address;
         m_Port = port;
@@ -128,7 +132,6 @@ public class BadNetworkConsoleClient
         }
 
         BadConsole.WriteLine("[Console Client] Connected");
-
 
         m_ReadThread = new Thread(Write);
         m_ReadThread.Start();
@@ -248,7 +251,9 @@ public class BadNetworkConsoleClient
         List<byte> packet = new List<byte>();
         packet.AddRange(BitConverter.GetBytes(packetData.Length));
         packet.AddRange(packetData);
-        m_Client.GetStream().Write(packet.ToArray(), 0, packet.Count);
+
+        m_Client.GetStream()
+                .Write(packet.ToArray(), 0, packet.Count);
     }
 
     /// <summary>
@@ -293,7 +298,9 @@ public class BadNetworkConsoleClient
             List<byte> packet = new List<byte>();
             packet.AddRange(BitConverter.GetBytes(packetData.Length));
             packet.AddRange(packetData);
-            m_Client.GetStream().Write(packet.ToArray(), 0, packet.Count);
+
+            m_Client.GetStream()
+                    .Write(packet.ToArray(), 0, packet.Count);
         }
 
         m_ReadThread = null;

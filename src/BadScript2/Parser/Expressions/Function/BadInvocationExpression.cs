@@ -6,6 +6,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+
 namespace BadScript2.Parser.Expressions.Function;
 
 /// <summary>
@@ -24,10 +25,10 @@ public class BadInvocationExpression : BadExpression
     /// <param name="left">Left Side of the Invocation</param>
     /// <param name="args">The Invocation Arguments</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadInvocationExpression(BadExpression left, IEnumerable<BadExpression> args, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public BadInvocationExpression(BadExpression left, IEnumerable<BadExpression> args, BadSourcePosition position) :
+        base(false,
+             position
+            )
     {
         Left = left;
         m_Arguments = args.ToList();
@@ -97,7 +98,6 @@ public class BadInvocationExpression : BadExpression
             {
                 argObj = arg;
 
-
                 yield return arg;
             }
 
@@ -117,11 +117,10 @@ public class BadInvocationExpression : BadExpression
     ///     Gets raised if the object is not a function or the Invocation Override Function
     ///     is not of type BadFunction
     /// </exception>
-    public static IEnumerable<BadObject> Invoke(
-        BadObject left,
-        IEnumerable<BadObject> args,
-        BadSourcePosition position,
-        BadExecutionContext context)
+    public static IEnumerable<BadObject> Invoke(BadObject left,
+                                                IEnumerable<BadObject> args,
+                                                BadSourcePosition position,
+                                                BadExecutionContext context)
     {
         if (left is BadFunction func)
         {
@@ -132,7 +131,8 @@ public class BadInvocationExpression : BadExpression
         }
         else if (left.HasProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope))
         {
-            if (left.GetProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope).Dereference() is not BadFunction invocationOp)
+            if (left.GetProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope)
+                    .Dereference() is not BadFunction invocationOp)
             {
                 throw new BadRuntimeException("Function Invocation Operator is not a function", position);
             }
@@ -150,10 +150,9 @@ public class BadInvocationExpression : BadExpression
         }
         else
         {
-            throw new BadRuntimeException(
-                "Cannot invoke non-function object",
-                position
-            );
+            throw new BadRuntimeException("Cannot invoke non-function object",
+                                          position
+                                         );
         }
     }
 
@@ -169,7 +168,6 @@ public class BadInvocationExpression : BadExpression
             yield return o;
         }
 
-
         left = left.Dereference();
 
         if (Left is IBadAccessExpression { NullChecked: true } && left.Equals(BadObject.Null))
@@ -179,10 +177,13 @@ public class BadInvocationExpression : BadExpression
             yield break;
         }
 
-        if (Left is BadVariableExpression vExpr && vExpr.Name == BadStaticKeys.BASE_KEY && context.Scope.FunctionObject?.Name?.Text == BadStaticKeys.CONSTRUCTOR_NAME)
+        if (Left is BadVariableExpression vExpr &&
+            vExpr.Name == BadStaticKeys.BASE_KEY &&
+            context.Scope.FunctionObject?.Name?.Text == BadStaticKeys.CONSTRUCTOR_NAME)
         {
             //Invoke Base Constructor
-            left = left.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME).Dereference();
+            left = left.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME)
+                       .Dereference();
         }
 
         List<BadObject> args = new List<BadObject>();
@@ -191,7 +192,6 @@ public class BadInvocationExpression : BadExpression
         {
             yield return o;
         }
-
 
         foreach (BadObject? o in Invoke(left, args.ToArray(), Position, context))
         {

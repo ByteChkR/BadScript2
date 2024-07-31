@@ -8,6 +8,7 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 
 using HtmlAgilityPack;
+
 namespace BadHtml.Transformer;
 
 /// <summary>
@@ -17,19 +18,22 @@ namespace BadHtml.Transformer;
 /// </summary>
 public class BadComponentNodeTransformer : BadHtmlNodeTransformer
 {
-
     /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
     protected override bool CanTransform(BadHtmlContext context)
     {
         string? nodeName = context.InputNode.OriginalName;
+
         if (context.ExecutionContext.Scope.HasVariable(nodeName, context.ExecutionContext.Scope))
         {
-            BadObject componentDefinition = context.ExecutionContext.Scope.GetVariable(nodeName).Dereference();
+            BadObject componentDefinition = context.ExecutionContext.Scope.GetVariable(nodeName)
+                                                   .Dereference();
+
             if (componentDefinition is BadFunction function)
             {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -37,32 +41,39 @@ public class BadComponentNodeTransformer : BadHtmlNodeTransformer
     protected override void TransformNode(BadHtmlContext context)
     {
         string? nodeName = context.InputNode.OriginalName;
-        BadObject componentDefinition = context.ExecutionContext.Scope.GetVariable(nodeName).Dereference();
+
+        BadObject componentDefinition = context.ExecutionContext.Scope.GetVariable(nodeName)
+                                               .Dereference();
         BadFunction function = (BadFunction)componentDefinition;
 
         HtmlAttribute[] attributes = context.InputNode.Attributes.ToArray();
-        string[] indexMap = function.Parameters.Select(x => x.Name).ToArray();
+
+        string[] indexMap = function.Parameters.Select(x => x.Name)
+                                    .ToArray();
         Dictionary<string, BadObject> arguments = new Dictionary<string, BadObject>();
+
         foreach (HtmlAttribute attribute in attributes)
         {
             int index = Array.IndexOf(indexMap, attribute.OriginalName);
+
             if (index != -1)
             {
-                BadObject arg = context.ParseAndExecuteSingle(
-                    attribute.Value,
-                    context.CreateAttributePosition(attribute)
-                );
+                BadObject arg = context.ParseAndExecuteSingle(attribute.Value,
+                                                              context.CreateAttributePosition(attribute)
+                                                             );
                 arguments[attribute.OriginalName] = arg;
             }
         }
 
         List<BadObject> args = new List<BadObject>();
+
         foreach (string argName in indexMap)
         {
             args.Add(arguments.TryGetValue(argName, out BadObject? argument) ? argument : BadObject.Null);
         }
 
         BadObject result = BadObject.Null;
+
         foreach (BadObject o in function.Invoke(args.ToArray(), context.ExecutionContext))
         {
             result = o;
@@ -72,11 +83,10 @@ public class BadComponentNodeTransformer : BadHtmlNodeTransformer
 
         if (result is not IBadString str)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Component must return a string",
-                context.CreateOuterPosition()
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Component must return a string",
+                                             context.CreateOuterPosition()
+                                            );
         }
 
         context.OutputNode.AppendChild(HtmlNode.CreateNode(str.Value));

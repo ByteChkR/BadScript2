@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Math.Assign;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadSubtractAssignExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadSubtractAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadSubtractAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                   right,
+                                                                                                                   position
+                                                                                                                  ) { }
 
     /// <summary>
     ///     Executes the Operator
@@ -32,12 +32,11 @@ public class BadSubtractAssignExpression : BadBinaryExpression
     /// <param name="symbol">Symbol of the expression</param>
     /// <returns>Returns the result of the operation</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
-    public static BadObject Subtract(
-        BadObjectReference leftRef,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
+    public static BadObject Subtract(BadObjectReference leftRef,
+                                     BadObject left,
+                                     BadObject right,
+                                     BadSourcePosition position,
+                                     string symbol)
     {
         if (left is not IBadNumber lNum || right is not IBadNumber rNum)
         {
@@ -59,24 +58,22 @@ public class BadSubtractAssignExpression : BadBinaryExpression
     /// <param name="position">Position of the expression</param>
     /// <param name="symbol">Symbol of the expression</param>
     /// <returns>Returns the result of the operation.(Last Item)</returns>
-    public static IEnumerable<BadObject> SubtractWithOverride(
-        BadExecutionContext? context,
-        BadObjectReference leftRef,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
+    public static IEnumerable<BadObject> SubtractWithOverride(BadExecutionContext? context,
+                                                              BadObjectReference leftRef,
+                                                              BadObject right,
+                                                              BadSourcePosition position,
+                                                              string symbol)
     {
         BadObject left = leftRef.Dereference();
 
         if (left.HasProperty(BadStaticKeys.SUBTRACT_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.SUBTRACT_ASSIGN_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            context!,
+                                                            BadStaticKeys.SUBTRACT_ASSIGN_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }
@@ -103,7 +100,6 @@ public class BadSubtractAssignExpression : BadBinaryExpression
         {
             throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
         }
-
 
         BadObject right = BadObject.Null;
 

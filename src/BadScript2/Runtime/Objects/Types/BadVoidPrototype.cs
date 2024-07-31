@@ -1,6 +1,7 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -13,6 +14,7 @@ public class BadVoidPrototype : BadClassPrototype
     ///     Creates a new BadVoidPrototype
     /// </summary>
     private BadVoidPrototype() : base("void", BadMetaData.Empty) { }
+
     /// <summary>
     ///     The Instance of the BadVoidPrototype
     /// </summary>
@@ -22,10 +24,14 @@ public class BadVoidPrototype : BadClassPrototype
 
     /// <inheritdoc />
     protected override BadClassPrototype? BaseClass { get; } = null;
+
     /// <inheritdoc />
     public override bool IsAbstract { get; } = true;
+
     /// <inheritdoc />
-    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces { get; } = Array.Empty<BadInterfacePrototype>();
+    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces { get; } =
+        Array.Empty<BadInterfacePrototype>();
+
     /// <inheritdoc />
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
     {
@@ -43,6 +49,8 @@ public class BadVoidPrototype : BadClassPrototype
     {
         return proto == Instance;
     }
+
+#region Nested type: BadVoidObject
 
     private class BadVoidObject : BadObject
     {
@@ -71,4 +79,6 @@ public class BadVoidPrototype : BadClassPrototype
             throw BadRuntimeException.Create(caller, $"Property '{propName}' does not exist on void");
         }
     }
+
+#endregion
 }

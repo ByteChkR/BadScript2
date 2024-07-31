@@ -37,13 +37,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
     {
         if (args.Length == 1 && args[0] != "--help" && args[0] != "help")
         {
-            return new BadHtmlSystemSettings
-            {
-                Files = new[]
-                {
-                    args[0],
-                },
-            };
+            return new BadHtmlSystemSettings { Files = new[] { args[0] } };
         }
 
         return base.Parse(args);
@@ -54,7 +48,6 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
     {
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
-
 
         if (settings.Debug)
         {
@@ -72,8 +65,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
 
         BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
         {
-            Runtime = Runtime,
-            SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
+            Runtime = Runtime, SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
         };
 
         BadObject? model = null;
@@ -86,28 +78,28 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
         foreach (string file in settings.Files)
         {
             string outFile = Path.ChangeExtension(file, "html");
-            string htmlString = BadHtmlTemplate.Create(file).Run(model, opts);
+
+            string htmlString = BadHtmlTemplate.Create(file)
+                                               .Run(model, opts);
 
             int originalSize = htmlString.Length;
 
             if (settings.Minify)
             {
                 htmlString = htmlString.Replace("\n", " ")
-                    .Replace("\r", " ")
-                    .Replace("\t", " ");
+                                       .Replace("\r", " ")
+                                       .Replace("\t", " ");
 
                 while (htmlString.Contains("  "))
                 {
                     htmlString = htmlString.Replace("  ", " ");
                 }
 
-                BadConsole.WriteLine(
-                    string.Format(
-                        "Minified output to {1} characters({0}%)",
-                        Math.Round(htmlString.Length / (float)originalSize * 100, 2),
-                        htmlString.Length
-                    )
-                );
+                BadConsole.WriteLine(string.Format("Minified output to {1} characters({0}%)",
+                                                   Math.Round(htmlString.Length / (float)originalSize * 100, 2),
+                                                   htmlString.Length
+                                                  )
+                                    );
             }
             else
             {

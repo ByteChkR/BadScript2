@@ -1,4 +1,5 @@
 using System;
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>
@@ -35,7 +36,9 @@ public class BadConsoleHelloPacket : BadConsolePacket
     {
         byte[] data = new byte[5];
         data[0] = (byte)BadConsolePacketType.Hello;
-        BitConverter.GetBytes(HeartBeatInterval).CopyTo(data, 1);
+
+        BitConverter.GetBytes(HeartBeatInterval)
+                    .CopyTo(data, 1);
 
         return data;
     }

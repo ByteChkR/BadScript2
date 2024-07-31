@@ -11,6 +11,7 @@ using BadScript2.IO;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Settings;
 using BadScript2.Settings;
+
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>
@@ -62,12 +63,12 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         }
 
         Runtime.UseStartupArguments(settings.Args);
-        IEnumerable<string> files = BadFileSystem.Instance.GetFiles(
-                StartupDirectory,
-                $".{BadRuntimeSettings.Instance.FileExtension}",
-                true
-            )
-            .Concat(settings.Files);
+
+        IEnumerable<string> files = BadFileSystem.Instance.GetFiles(StartupDirectory,
+                                                                    $".{BadRuntimeSettings.Instance.FileExtension}",
+                                                                    true
+                                                                   )
+                                                 .Concat(settings.Files);
 
         if (settings.Interactive)
         {

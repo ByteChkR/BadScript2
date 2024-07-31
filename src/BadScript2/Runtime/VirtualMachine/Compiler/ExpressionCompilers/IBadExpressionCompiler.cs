@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers;
 
 public readonly struct BadExpressionCompileContext
@@ -11,6 +12,7 @@ public readonly struct BadExpressionCompileContext
     public int InstructionCount => m_Instructions.Count;
 
     private readonly List<int> m_EmptyInstructions = new List<int>();
+
     public BadInstruction[] GetInstructions()
     {
         if (m_EmptyInstructions.Count > 0)
@@ -20,6 +22,7 @@ public readonly struct BadExpressionCompileContext
 
         return m_Instructions.ToArray();
     }
+
     public BadExpressionCompileContext(BadCompiler compiler)
     {
         Compiler = compiler;
@@ -29,6 +32,7 @@ public readonly struct BadExpressionCompileContext
     {
         Compiler.Compile(this, expr);
     }
+
     public void Compile(IEnumerable<BadExpression> exprs, bool clearStack = true)
     {
         Compiler.Compile(this, exprs, clearStack);
@@ -38,11 +42,13 @@ public readonly struct BadExpressionCompileContext
     {
         m_Instructions.Add(instruction);
     }
+
     public int EmitEmpty()
     {
         int i = m_Instructions.Count;
         m_EmptyInstructions.Add(i);
         m_Instructions.Add(new BadInstruction());
+
         return i;
     }
 

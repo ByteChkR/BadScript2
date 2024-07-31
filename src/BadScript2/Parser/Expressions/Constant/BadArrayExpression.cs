@@ -23,10 +23,9 @@ public class BadArrayExpression : BadExpression
     /// </summary>
     /// <param name="initExpressions">The initializer list of the Array</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public BadArrayExpression(BadExpression[] initExpressions, BadSourcePosition position) : base(false,
+                                                                                                  position
+                                                                                                 )
     {
         m_InitExpressions = initExpressions;
     }

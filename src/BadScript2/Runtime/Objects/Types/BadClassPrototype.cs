@@ -1,6 +1,7 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -11,10 +12,9 @@ public abstract class BadClassPrototype : BadObject
     /// <summary>
     ///     The Prototype of the ClassPrototype(can not be used)
     /// </summary>
-    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>(
-        "Type",
-        (_, _) => throw new BadRuntimeException("Classes cannot be extended")
-    );
+    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>("Type",
+                                                                                                        (_, _) => throw new BadRuntimeException("Classes cannot be extended")
+                                                                                                       );
 
 
     /// <summary>
@@ -28,9 +28,8 @@ public abstract class BadClassPrototype : BadObject
     /// <param name="name">Class Name</param>
     /// <param name="baseClass">Base Class Prototype</param>
     /// <param name="metaData">The Metadata of the Class</param>
-    protected BadClassPrototype(
-        string name,
-        BadMetaData? metaData)
+    protected BadClassPrototype(string name,
+                                BadMetaData? metaData)
     {
         Name = name;
         MetaData = metaData ?? BadMetaData.Empty;

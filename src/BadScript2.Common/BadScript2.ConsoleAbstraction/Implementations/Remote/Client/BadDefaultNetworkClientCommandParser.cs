@@ -38,17 +38,14 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
     /// </summary>
     public IEnumerable<BadNetworkConsoleClientCommand> Commands => m_Commands;
 
+#region IBadNetworkConsoleClientCommandParser Members
 
     /// <inheritdoc />
     public void ExecuteCommand(string command)
     {
-        string[] parts = command.Split(
-            new[]
-            {
-                ' ',
-            },
-            StringSplitOptions.RemoveEmptyEntries
-        );
+        string[] parts = command.Split(new[] { ' ' },
+                                       StringSplitOptions.RemoveEmptyEntries
+                                      );
 
         if (parts.Length == 0)
         {
@@ -56,11 +53,14 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
         }
 
         string name = parts[0];
+
         foreach (BadNetworkConsoleClientCommand? cmd in m_Commands)
         {
             if (cmd.Name == name)
             {
-                cmd.Invoke(parts.Skip(1).ToArray());
+                cmd.Invoke(parts.Skip(1)
+                                .ToArray()
+                          );
 
                 return;
             }
@@ -68,6 +68,8 @@ public class BadDefaultNetworkClientCommandParser : IBadNetworkConsoleClientComm
 
         BadConsole.WriteLine("Unknown Command: " + name);
     }
+
+#endregion
 
     /// <summary>
     ///     Adds a Command to the Command List

@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Access;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
 /// <summary>
@@ -11,6 +12,7 @@ public class BadArrayAccessReverseExpressionCompiler : BadExpressionCompiler<Bad
     {
         context.Compile(expression.Arguments);
         context.Compile(expression.Left);
+
         if (expression.NullChecked)
         {
             context.Emit(BadOpCode.LoadArrayAccessReverseNullChecked, expression.Position, expression.ArgumentCount);

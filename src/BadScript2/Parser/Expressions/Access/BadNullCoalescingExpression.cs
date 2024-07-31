@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Parser.Expressions.Binary;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadNullCoalescingExpression : BadBinaryExpression
     /// <param name="left">Left side of the expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Position inside the source code</param>
-    public BadNullCoalescingExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadNullCoalescingExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                   right,
+                                                                                                                   position
+                                                                                                                  ) { }
 
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {

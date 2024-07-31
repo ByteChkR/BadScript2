@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
@@ -19,11 +20,10 @@ public class BadTernaryExpression : BadExpression
     /// <param name="trueRet">Expression that is executed if left evaluates to true</param>
     /// <param name="falseRet">Expression that is executed if left evaluates to false</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadTernaryExpression(
-        BadExpression left,
-        BadExpression trueRet,
-        BadExpression falseRet,
-        BadSourcePosition position) : base(left.IsConstant, position)
+    public BadTernaryExpression(BadExpression left,
+                                BadExpression trueRet,
+                                BadExpression falseRet,
+                                BadSourcePosition position) : base(left.IsConstant, position)
     {
         Left = left;
         TrueRet = trueRet;

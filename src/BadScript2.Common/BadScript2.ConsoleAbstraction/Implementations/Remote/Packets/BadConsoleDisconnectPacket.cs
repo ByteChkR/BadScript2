@@ -18,10 +18,7 @@ public class BadConsoleDisconnectPacket : BadConsolePacket
     /// <inheritdoc />
     public override byte[] Serialize()
     {
-        return new[]
-        {
-            (byte)BadConsolePacketType.Disconnect,
-        };
+        return new[] { (byte)BadConsolePacketType.Disconnect };
     }
 
     /// <summary>

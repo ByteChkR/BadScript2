@@ -8,6 +8,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
@@ -18,78 +19,76 @@ public class BadTableExtension : BadInteropExtension
     /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        provider.RegisterObject<BadTable>(
-            "RemoveKey",
-            o => new BadDynamicInteropFunction<BadObject>(
-                "RemoveKey",
-                (c, k) =>
-                {
-                    if (k is not IBadString s)
-                    {
-                        throw BadRuntimeException.Create(c.Scope, "Key is not a string");
-                    }
+        provider.RegisterObject<BadTable>("RemoveKey",
+                                          o => new BadDynamicInteropFunction<BadObject>("RemoveKey",
+                                               (c, k) =>
+                                               {
+                                                   if (k is not IBadString s)
+                                                   {
+                                                       throw BadRuntimeException.Create(c.Scope, "Key is not a string");
+                                                   }
 
-                    return RemoveKey(o, s.Value);
-                },
-                BadNativeClassBuilder.GetNative("bool"),
-                "key"
-            )
-        );
+                                                   return RemoveKey(o, s.Value);
+                                               },
+                                               BadNativeClassBuilder.GetNative("bool"),
+                                               "key"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadTable>(
-            "MakeReadOnly",
-            table => new BadDynamicInteropFunction(
-                "MakeReadOnly",
-                _ =>
-                {
-                    foreach (string key in table.InnerTable.Keys)
-                    {
-                        table.PropertyInfos[key].IsReadOnly = true;
-                    }
+        provider.RegisterObject<BadTable>("MakeReadOnly",
+                                          table => new BadDynamicInteropFunction("MakeReadOnly",
+                                               _ =>
+                                               {
+                                                   foreach (string key in table.InnerTable.Keys)
+                                                   {
+                                                       table.PropertyInfos[key].IsReadOnly = true;
+                                                   }
 
-                    return BadObject.Null;
-                },
-                BadAnyPrototype.Instance
-            )
-        );
+                                                   return BadObject.Null;
+                                               },
+                                               BadAnyPrototype.Instance
+                                              )
+                                         );
 
-        provider.RegisterObject<BadTable>(
-            BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-            t => new BadDynamicInteropFunction<BadObject>(
-                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-                (c, o) => ArrayAccess(c, t, o),
-                BadAnyPrototype.Instance,
-                "key"
-            )
-        );
+        provider.RegisterObject<BadTable>(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
+                                          t => new BadDynamicInteropFunction<BadObject>(BadStaticKeys
+                                                   .ARRAY_ACCESS_OPERATOR_NAME,
+                                               (c, o) => ArrayAccess(c, t, o),
+                                               BadAnyPrototype.Instance,
+                                               "key"
+                                              )
+                                         );
 
         provider.RegisterObject<BadTable>("Keys", Keys);
         provider.RegisterObject<BadTable>("Values", Values);
         provider.RegisterObject<BadTable>("Length", a => BadObject.Wrap((decimal)a.InnerTable.Count));
 
-        provider.RegisterObject<BadTable>(
-            "Join",
-            t => new BadInteropFunction(
-                "Join",
-                (c, a) => JoinTable(c, t, a),
-                false,
-                BadNativeClassBuilder.GetNative("Table"),
-                new BadFunctionParameter(
-                    "overwrite",
-                    false,
-                    true,
-                    false,
-                    null,
-                    BadNativeClassBuilder.GetNative("bool")
-                ),
-                new BadFunctionParameter("others", false, true, true, null)
-            )
-        );
+        provider.RegisterObject<BadTable>("Join",
+                                          t => new BadInteropFunction("Join",
+                                                                      (c, a) => JoinTable(c, t, a),
+                                                                      false,
+                                                                      BadNativeClassBuilder.GetNative("Table"),
+                                                                      new BadFunctionParameter("overwrite",
+                                                                           false,
+                                                                           true,
+                                                                           false,
+                                                                           null,
+                                                                           BadNativeClassBuilder.GetNative("bool")
+                                                                          ),
+                                                                      new BadFunctionParameter("others",
+                                                                           false,
+                                                                           true,
+                                                                           true,
+                                                                           null
+                                                                          )
+                                                                     )
+                                         );
     }
 
     private static BadObject ArrayAccess(BadExecutionContext context, BadTable table, BadObject enumerator)
     {
         BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);
+
         if (enumerator is IBadString str)
         {
             return table.GetProperty(str.Value, context.Scope);
@@ -97,7 +96,9 @@ public class BadTableExtension : BadInteropExtension
 
         BadTable result = new BadTable();
 
-        if (enumerator.HasProperty("GetEnumerator", context.Scope) && enumerator.GetProperty("GetEnumerator", context.Scope).Dereference() is BadFunction getEnumerator)
+        if (enumerator.HasProperty("GetEnumerator", context.Scope) &&
+            enumerator.GetProperty("GetEnumerator", context.Scope)
+                      .Dereference() is BadFunction getEnumerator)
         {
             foreach (BadObject e in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
             {
@@ -106,7 +107,9 @@ public class BadTableExtension : BadInteropExtension
 
             enumerator = enumerator.Dereference();
         }
-        (BadFunction moveNext, BadFunction getCurrent) = BadForEachExpression.FindEnumerator(enumerator, context, position);
+
+        (BadFunction moveNext, BadFunction getCurrent) =
+            BadForEachExpression.FindEnumerator(enumerator, context, position);
 
         BadObject cond = BadObject.Null;
 
@@ -115,20 +118,18 @@ public class BadTableExtension : BadInteropExtension
             cond = o;
         }
 
-
         IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", position);
 
         while (bRet.Value)
         {
-            using BadExecutionContext loopContext = new BadExecutionContext(
-                context.Scope.CreateChild(
-                    "ForEachLoop",
-                    context.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
+            using BadExecutionContext loopContext = new BadExecutionContext(context.Scope.CreateChild("ForEachLoop",
+                                                                                 context.Scope,
+                                                                                 null,
+                                                                                 BadScopeFlags.Breakable |
+                                                                                 BadScopeFlags.Continuable
+                                                                                )
+                                                                           );
 
             BadObject current = BadObject.Null;
 
@@ -142,7 +143,10 @@ public class BadTableExtension : BadInteropExtension
                 throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a string", position);
             }
 
-            result.SetProperty(key.Value, table.GetProperty(key.Value, context.Scope).Dereference());
+            result.SetProperty(key.Value,
+                               table.GetProperty(key.Value, context.Scope)
+                                    .Dereference()
+                              );
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
             {
@@ -150,11 +154,10 @@ public class BadTableExtension : BadInteropExtension
             }
 
             bRet = cond.Dereference() as IBadBoolean ??
-                   throw BadRuntimeException.Create(
-                       context.Scope,
-                       "Enumerator MoveNext did not return a boolean",
-                       position
-                   );
+                   throw BadRuntimeException.Create(context.Scope,
+                                                    "Enumerator MoveNext did not return a boolean",
+                                                    position
+                                                   );
         }
 
         return result;
@@ -176,7 +179,9 @@ public class BadTableExtension : BadInteropExtension
         }
 
         BadObject overwrite = args[0];
-        BadObject[] others = args.Skip(1).ToArray();
+
+        BadObject[] others = args.Skip(1)
+                                 .ToArray();
 
         if (overwrite is not IBadBoolean ov)
         {
@@ -194,7 +199,8 @@ public class BadTableExtension : BadInteropExtension
             {
                 if (ov.Value || !self.InnerTable.ContainsKey(kvp.Key))
                 {
-                    self.GetProperty(kvp.Key, ctx.Scope).Set(kvp.Value);
+                    self.GetProperty(kvp.Key, ctx.Scope)
+                        .Set(kvp.Value);
                 }
             }
         }
@@ -220,7 +226,9 @@ public class BadTableExtension : BadInteropExtension
     /// <returns>Array of keys</returns>
     private static BadObject Keys(BadTable table)
     {
-        return new BadArray(table.InnerTable.Keys.Select(x => (BadObject)x).ToList());
+        return new BadArray(table.InnerTable.Keys.Select(x => (BadObject)x)
+                                 .ToList()
+                           );
     }
 
     /// <summary>

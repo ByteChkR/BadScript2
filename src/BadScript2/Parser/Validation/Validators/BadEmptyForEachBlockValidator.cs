@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Block.Loop;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -11,12 +12,11 @@ public class BadEmptyForEachBlockValidator : BadExpressionValidator<BadForEachEx
     {
         if (!expr.Body.Any())
         {
-            context.AddError(
-                "For-Each statement has no expressions",
-                expr,
-                expr,
-                this
-            );
+            context.AddError("For-Each statement has no expressions",
+                             expr,
+                             expr,
+                             this
+                            );
         }
     }
 }

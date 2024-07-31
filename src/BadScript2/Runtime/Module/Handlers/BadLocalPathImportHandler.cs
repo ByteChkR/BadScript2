@@ -2,6 +2,7 @@ using BadScript2.IO;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Runtime.Module.Handlers;
 
 /// <summary>
@@ -82,7 +83,6 @@ public class BadLocalPathImportHandler : BadImportHandler
         IEnumerable<BadExpression> parsed = BadRuntime.ParseFile(fullPath);
 
         BadExecutionContext ctx = m_Runtime.CreateContext(Path.GetDirectoryName(fullPath) ?? "/");
-
 
         foreach (BadObject o in ctx.Execute(parsed))
         {

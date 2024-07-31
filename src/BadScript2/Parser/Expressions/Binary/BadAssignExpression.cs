@@ -21,10 +21,9 @@ public class BadAssignExpression : BadExpression
     /// <param name="left">Left side that the right side will be assigned to</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public BadAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(false,
+                                                                                                           position
+                                                                                                          )
     {
         Left = left;
         Right = right;
@@ -87,7 +86,6 @@ public class BadAssignExpression : BadExpression
 
             yield return o;
         }
-
 
         right = right.Dereference();
 

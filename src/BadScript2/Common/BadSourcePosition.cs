@@ -1,4 +1,5 @@
 using BadScript2.IO;
+
 namespace BadScript2.Common;
 
 /// <summary>
@@ -32,12 +33,11 @@ public class BadSourcePosition
     /// <param name="fileName">The filename</param>
     /// <param name="index">The Start Index</param>
     /// <param name="length">The Length</param>
-    private BadSourcePosition(string fileName, int index, int length) : this(
-        fileName,
-        BadFileSystem.ReadAllText(fileName),
-        index,
-        length
-    ) { }
+    private BadSourcePosition(string fileName, int index, int length) : this(fileName,
+                                                                             BadFileSystem.ReadAllText(fileName),
+                                                                             index,
+                                                                             length
+                                                                            ) { }
 
     /// <summary>
     ///     The Filename of the Source Code.
@@ -168,7 +168,7 @@ public class BadSourcePosition
         }
 
         return Index < other.Index
-            ? new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index)
-            : new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
+                   ? new BadSourcePosition(FileName, Source, Index, other.Index + other.Length - Index)
+                   : new BadSourcePosition(FileName, Source, other.Index, Index + Length - other.Index);
     }
 }

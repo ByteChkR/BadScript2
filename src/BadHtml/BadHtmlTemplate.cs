@@ -7,6 +7,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 
 using HtmlAgilityPack;
+
 namespace BadHtml;
 
 /// <summary>
@@ -70,10 +71,9 @@ public class BadHtmlTemplate
 	/// <param name="options">The Template Options</param>
 	/// <param name="caller">Optional Caller (if executed from within badscript, is used to get a full stacktrace on errors)</param>
 	/// <returns>The Html Document that was generated</returns>
-	public HtmlDocument RunTemplate(
-        object? model = null,
-        BadHtmlTemplateOptions? options = null,
-        BadScope? caller = null)
+	public HtmlDocument RunTemplate(object? model = null,
+	                                BadHtmlTemplateOptions? options = null,
+	                                BadScope? caller = null)
     {
         options ??= new BadHtmlTemplateOptions();
         string src = GetSource();
@@ -87,18 +87,23 @@ public class BadHtmlTemplate
         HtmlDocument output = new HtmlDocument();
         output.OptionUseIdAttribute = true;
         output.LoadHtml("");
-        BadExecutionContext executionContext = (options.Runtime ?? new BadRuntime()).CreateContext(Path.GetDirectoryName(m_FileSystem.GetFullPath(FilePath)) ?? "/");
+
+        BadExecutionContext executionContext =
+            (options.Runtime ?? new BadRuntime()).CreateContext(Path.GetDirectoryName(m_FileSystem.GetFullPath(FilePath)
+                                                                    ) ??
+                                                                "/"
+                                                               );
         executionContext.Scope.SetCaller(caller);
 
         if (model != null)
         {
             BadObject mod = model as BadObject ?? BadObject.Wrap(model);
-            executionContext.Scope.DefineVariable(
-                "Model",
-                mod,
-                executionContext.Scope,
-                new BadPropertyInfo(BadAnyPrototype.Instance, true)
-            );
+
+            executionContext.Scope.DefineVariable("Model",
+                                                  mod,
+                                                  executionContext.Scope,
+                                                  new BadPropertyInfo(BadAnyPrototype.Instance, true)
+                                                 );
         }
 
         foreach (HtmlNode node in input.DocumentNode.ChildNodes)
@@ -120,7 +125,8 @@ public class BadHtmlTemplate
 	/// <returns>The Html Source of the Generated Document</returns>
 	public string Run(object? model = null, BadHtmlTemplateOptions? options = null, BadScope? caller = null)
     {
-        return RunTemplate(model, options, caller).DocumentNode.OuterHtml;
+        return RunTemplate(model, options, caller)
+               .DocumentNode.OuterHtml;
     }
 
 	/// <summary>

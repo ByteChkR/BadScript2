@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Runtime.Error;
 
 /// <summary>
@@ -19,11 +20,11 @@ public class BadRuntimeException : BadScriptException
     /// </summary>
     /// <param name="message">Exception Message</param>
     /// <param name="position">The Source Position</param>
-    public BadRuntimeException(string message, BadSourcePosition position) : base(
-        $"{message} at {position.GetPositionInfo()}",
-        message,
-        position
-    ) { }
+    public BadRuntimeException(string message, BadSourcePosition position) :
+        base($"{message} at {position.GetPositionInfo()}",
+             message,
+             position
+            ) { }
 
     /// <summary>
     ///     Creates a new BadScriptException

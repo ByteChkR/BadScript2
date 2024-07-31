@@ -1,4 +1,5 @@
 using System;
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>
@@ -18,14 +19,14 @@ public abstract class BadConsolePacket
 
         return type switch
         {
-            BadConsolePacketType.Write => BadConsoleWritePacket.Deserialize(data),
-            BadConsolePacketType.Read => BadConsoleReadPacket.Deserialize(data),
-            BadConsolePacketType.Color => BadConsoleColorChangePacket.Deserialize(data),
-            BadConsolePacketType.Clear => BadConsoleClearPacket.Deserialize(data),
+            BadConsolePacketType.Write      => BadConsoleWritePacket.Deserialize(data),
+            BadConsolePacketType.Read       => BadConsoleReadPacket.Deserialize(data),
+            BadConsolePacketType.Color      => BadConsoleColorChangePacket.Deserialize(data),
+            BadConsolePacketType.Clear      => BadConsoleClearPacket.Deserialize(data),
             BadConsolePacketType.Disconnect => BadConsoleDisconnectPacket.Deserialize(data),
-            BadConsolePacketType.HeartBeat => BadConsoleHeartBeatPacket.Deserialize(data),
-            BadConsolePacketType.Hello => BadConsoleHelloPacket.Deserialize(data),
-            _ => throw new ArgumentOutOfRangeException(),
+            BadConsolePacketType.HeartBeat  => BadConsoleHeartBeatPacket.Deserialize(data),
+            BadConsolePacketType.Hello      => BadConsoleHelloPacket.Deserialize(data),
+            _                               => throw new ArgumentOutOfRangeException(),
         };
     }
 

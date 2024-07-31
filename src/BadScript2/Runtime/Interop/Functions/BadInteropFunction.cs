@@ -3,6 +3,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Interop.Functions;
 
 /// <summary>
@@ -28,12 +29,17 @@ public class BadInteropFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="parameters">The Parameters of the Function</param>
-    public BadInteropFunction(
-        BadWordToken? name,
-        Func<BadObject[], BadObject> func,
-        bool isStatic,
-        BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false, parameters)
+    public BadInteropFunction(BadWordToken? name,
+                              Func<BadObject[], BadObject> func,
+                              bool isStatic,
+                              BadClassPrototype returnType,
+                              params BadFunctionParameter[] parameters) : base(name,
+                                                                               false,
+                                                                               isStatic,
+                                                                               returnType,
+                                                                               false,
+                                                                               parameters
+                                                                              )
     {
         m_Func = (_, args) => func(args);
     }
@@ -47,12 +53,17 @@ public class BadInteropFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="parameters">The Parameters of the Function</param>
-    public BadInteropFunction(
-        BadWordToken? name,
-        Func<BadExecutionContext, BadObject[], BadObject> func,
-        bool isStatic,
-        BadClassPrototype returnType,
-        params BadFunctionParameter[] parameters) : base(name, false, isStatic, returnType, false, parameters)
+    public BadInteropFunction(BadWordToken? name,
+                              Func<BadExecutionContext, BadObject[], BadObject> func,
+                              bool isStatic,
+                              BadClassPrototype returnType,
+                              params BadFunctionParameter[] parameters) : base(name,
+                                                                               false,
+                                                                               isStatic,
+                                                                               returnType,
+                                                                               false,
+                                                                               parameters
+                                                                              )
     {
         m_Func = func;
     }
@@ -80,19 +91,18 @@ public class BadInteropFunction : BadFunction
     /// <param name="isStatic">Indicates if the Function is Static</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="names">The Parameters of the Function</param>
-    public static BadInteropFunction Create(
-        Func<BadObject[], BadObject> func,
-        bool isStatic,
-        BadClassPrototype returnType,
-        params string[] names)
+    public static BadInteropFunction Create(Func<BadObject[], BadObject> func,
+                                            bool isStatic,
+                                            BadClassPrototype returnType,
+                                            params string[] names)
     {
-        BadInteropFunction function = new BadInteropFunction(
-            null,
-            func,
-            isStatic,
-            returnType,
-            names.Select(x => (BadFunctionParameter)x).ToArray()
-        );
+        BadInteropFunction function = new BadInteropFunction(null,
+                                                             func,
+                                                             isStatic,
+                                                             returnType,
+                                                             names.Select(x => (BadFunctionParameter)x)
+                                                                  .ToArray()
+                                                            );
 
         return function;
     }

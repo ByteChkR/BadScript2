@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Binary;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">The Source Position</param>
-    public BadBinaryUnpackExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadBinaryUnpackExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                 right,
+                                                                                                                 position
+                                                                                                                ) { }
 
 
     /// <summary>

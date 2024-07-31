@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Logic;
 
 /// <summary>
@@ -15,10 +16,9 @@ public class BadLogicNotExpression : BadExpression
     /// </summary>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(
-        right.IsConstant,
-        position
-    )
+    public BadLogicNotExpression(BadExpression right, BadSourcePosition position) : base(right.IsConstant,
+                                                                                         position
+                                                                                        )
     {
         Right = right;
     }
@@ -49,10 +49,9 @@ public class BadLogicNotExpression : BadExpression
             return rBool.Value ? BadObject.False : BadObject.True;
         }
 
-        throw new BadRuntimeException(
-            $"Cannot apply '!' to object '{left}'",
-            pos
-        );
+        throw new BadRuntimeException($"Cannot apply '!' to object '{left}'",
+                                      pos
+                                     );
     }
 
     /// <summary>
@@ -62,10 +61,9 @@ public class BadLogicNotExpression : BadExpression
     /// <param name="left">The left.</param>
     /// <param name="position">The position.</param>
     /// <returns>Result of the operator override.(last item)</returns>
-    public static IEnumerable<BadObject> NotWithOverride(
-        BadExecutionContext? context,
-        BadObject left,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> NotWithOverride(BadExecutionContext? context,
+                                                         BadObject left,
+                                                         BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.NOT_OPERATOR_NAME, context?.Scope))
         {
@@ -88,6 +86,7 @@ public class BadLogicNotExpression : BadExpression
         foreach (BadObject o in Right.Execute(context))
         {
             r = o;
+
             yield return o;
         }
 

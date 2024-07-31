@@ -6,6 +6,7 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
+
 namespace BadScript2.Interop.Json;
 
 /// <summary>
@@ -36,123 +37,128 @@ public class BadSettingsObject : BadObject
     public BadSettingsObject(BadSettings settings)
     {
         m_Settings = settings;
+
         Dictionary<string, BadObject> properties = new Dictionary<string, BadObject>
         {
             {
-                "HasValue", new BadDynamicInteropFunction(
-                    "HasValue",
-                    _ => m_Settings.HasValue(),
-                    BadNativeClassBuilder.GetNative("bool")
-                )
+                "HasValue", new BadDynamicInteropFunction("HasValue",
+                                                          _ => m_Settings.HasValue(),
+                                                          BadNativeClassBuilder.GetNative("bool")
+                                                         )
             },
             {
-                "GetValue", new BadDynamicInteropFunction(
-                    "GetValue",
-                    _ => BadJson.ConvertNode(m_Settings.GetValue()),
-                    BadAnyPrototype.Instance
-                )
+                "GetValue", new BadDynamicInteropFunction("GetValue",
+                                                          _ => BadJson.ConvertNode(m_Settings.GetValue()),
+                                                          BadAnyPrototype.Instance
+                                                         )
             },
             {
-                "SetValue", new BadDynamicInteropFunction<BadObject>(
-                    "SetValue",
-                    (_, obj) =>
-                    {
-                        m_Settings.SetValue(BadJson.ConvertNode(obj));
+                "SetValue", new BadDynamicInteropFunction<BadObject>("SetValue",
+                                                                     (_, obj) =>
+                                                                     {
+                                                                         m_Settings.SetValue(BadJson.ConvertNode(obj));
 
-                        return Null;
-                    },
-                    BadAnyPrototype.Instance
-                )
+                                                                         return Null;
+                                                                     },
+                                                                     BadAnyPrototype.Instance
+                                                                    )
             },
             {
-                "HasProperty", new BadDynamicInteropFunction<string>(
-                    "HasProperty",
-                    (_, name) => m_Settings.HasProperty(name),
-                    BadNativeClassBuilder.GetNative("bool")
-                )
+                "HasProperty", new BadDynamicInteropFunction<string>("HasProperty",
+                                                                     (_, name) => m_Settings.HasProperty(name),
+                                                                     BadNativeClassBuilder.GetNative("bool")
+                                                                    )
             },
             {
-                "GetProperty", new BadDynamicInteropFunction<string>(
-                    "GetProperty",
-                    (_, name) => new BadSettingsObject(m_Settings.GetProperty(name)),
-                    BadAnyPrototype.Instance
-                )
+                "GetProperty", new BadDynamicInteropFunction<string>("GetProperty",
+                                                                     (_, name) =>
+                                                                         new BadSettingsObject(m_Settings
+                                                                                 .GetProperty(name)
+                                                                             ),
+                                                                     BadAnyPrototype.Instance
+                                                                    )
             },
             {
-                "FindProperty", new BadDynamicInteropFunction<string>(
-                    "FindProperty",
-                    (_, name) =>
-                    {
-                        BadSettings? obj = m_Settings.FindProperty(name);
+                "FindProperty", new BadDynamicInteropFunction<string>("FindProperty",
+                                                                      (_, name) =>
+                                                                      {
+                                                                          BadSettings? obj =
+                                                                              m_Settings.FindProperty(name);
 
-                        return obj == null ? Null : new BadSettingsObject(obj);
-                    },
-                    BadAnyPrototype.Instance
-                )
+                                                                          return obj == null
+                                                                              ? Null
+                                                                              : new BadSettingsObject(obj);
+                                                                      },
+                                                                      BadAnyPrototype.Instance
+                                                                     )
             },
             {
-                "FindOrCreateProperty", new BadDynamicInteropFunction<string>(
-                    "FindOrCreateProperty",
-                    (_, name) =>
-                    {
-                        BadSettings obj = m_Settings.FindOrCreateProperty(name);
+                "FindOrCreateProperty", new BadDynamicInteropFunction<string>("FindOrCreateProperty",
+                                                                              (_, name) =>
+                                                                              {
+                                                                                  BadSettings obj =
+                                                                                      m_Settings
+                                                                                          .FindOrCreateProperty(name);
 
-                        return new BadSettingsObject(obj);
-                    },
-                    BadAnyPrototype.Instance
-                )
+                                                                                  return new BadSettingsObject(obj);
+                                                                              },
+                                                                              BadAnyPrototype.Instance
+                                                                             )
             },
             {
-                "SetProperty", new BadDynamicInteropFunction<string, BadSettingsObject>(
-                    "SetProperty",
-                    (_, name, prop) =>
-                    {
-                        m_Settings.SetProperty(name, prop.m_Settings);
+                "SetProperty", new BadDynamicInteropFunction<string, BadSettingsObject>("SetProperty",
+                     (_, name, prop) =>
+                     {
+                         m_Settings.SetProperty(name, prop.m_Settings);
 
-                        return Null;
-                    },
-                    BadAnyPrototype.Instance
-                )
+                         return Null;
+                     },
+                     BadAnyPrototype.Instance
+                    )
             },
             {
-                "RemoveProperty", new BadDynamicInteropFunction<string>(
-                    "RemoveProperty",
-                    (_, name) => m_Settings.RemoveProperty(name),
-                    BadNativeClassBuilder.GetNative("bool")
-                )
+                "RemoveProperty", new BadDynamicInteropFunction<string>("RemoveProperty",
+                                                                        (_, name) => m_Settings.RemoveProperty(name),
+                                                                        BadNativeClassBuilder.GetNative("bool")
+                                                                       )
             },
             {
-                "GetPropertyNames", new BadDynamicInteropFunction(
-                    "GetPropertyNames",
-                    _ => new BadArray(m_Settings.PropertyNames.Select(x => (BadObject)x).ToList()),
-                    BadNativeClassBuilder.GetNative("Array")
-                )
+                "GetPropertyNames", new BadDynamicInteropFunction("GetPropertyNames",
+                                                                  _ => new BadArray(m_Settings.PropertyNames
+                                                                          .Select(x => (BadObject)x)
+                                                                          .ToList()
+                                                                      ),
+                                                                  BadNativeClassBuilder.GetNative("Array")
+                                                                 )
             },
             {
-                "GetEnumerator", new BadDynamicInteropFunction(
-                    "GetEnumerator",
-                    _ => new BadInteropEnumerator(m_Settings.PropertyNames.Select(x => (BadObject)x).GetEnumerator()),
-                    BadAnyPrototype.Instance
-                )
+                "GetEnumerator", new BadDynamicInteropFunction("GetEnumerator",
+                                                               _ => new BadInteropEnumerator(m_Settings.PropertyNames
+                                                                       .Select(x => (BadObject)x)
+                                                                       .GetEnumerator()
+                                                                   ),
+                                                               BadAnyPrototype.Instance
+                                                              )
             },
             {
-                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, new BadDynamicInteropFunction<string>(
-                    BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-                    (_, name) => BadObjectReference.Make(
-                        $"BadSettings.{name}",
-                        () => new BadSettingsObject(m_Settings.GetProperty(name)),
-                        (o, _) =>
-                        {
-                            if (o is not BadSettingsObject obj)
-                            {
-                                throw new BadRuntimeException("BadSettingsObject expected");
-                            }
+                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
+                new BadDynamicInteropFunction<string>(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
+                                                      (_, name) => BadObjectReference.Make($"BadSettings.{name}",
+                                                           () => new BadSettingsObject(m_Settings.GetProperty(name)),
+                                                           (o, _) =>
+                                                           {
+                                                               if (o is not BadSettingsObject obj)
+                                                               {
+                                                                   throw new
+                                                                       BadRuntimeException("BadSettingsObject expected"
+                                                                           );
+                                                               }
 
-                            m_Settings.SetProperty(name, obj.m_Settings);
-                        }
-                    ),
-                    BadAnyPrototype.Instance
-                )
+                                                               m_Settings.SetProperty(name, obj.m_Settings);
+                                                           }
+                                                          ),
+                                                      BadAnyPrototype.Instance
+                                                     )
             },
         };
 
@@ -160,10 +166,11 @@ public class BadSettingsObject : BadObject
 
         foreach (KeyValuePair<string, BadObject> property in properties)
         {
-            m_PropertyReferences.Add(
-                property.Key,
-                BadObjectReference.Make($"BadSettings.{property.Key}", () => properties[property.Key])
-            );
+            m_PropertyReferences.Add(property.Key,
+                                     BadObjectReference.Make($"BadSettings.{property.Key}",
+                                                             () => properties[property.Key]
+                                                            )
+                                    );
         }
     }
 
@@ -218,10 +225,9 @@ public class BadSettingsObject : BadObject
 
         if (m_Settings.HasProperty(propName))
         {
-            return BadObjectReference.Make(
-                $"BadSettings.{propName}",
-                () => new BadSettingsObject(m_Settings.GetProperty(propName))
-            );
+            return BadObjectReference.Make($"BadSettings.{propName}",
+                                           () => new BadSettingsObject(m_Settings.GetProperty(propName))
+                                          );
         }
 
         return base.GetProperty(propName, caller);

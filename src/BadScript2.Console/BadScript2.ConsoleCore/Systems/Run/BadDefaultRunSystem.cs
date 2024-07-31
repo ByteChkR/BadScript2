@@ -20,15 +20,9 @@ public class BadDefaultRunSystem : BadRunSystem
     /// <inheritdoc />
     public override object Parse(string[] args)
     {
-        BadRunSystemSettings settings = new BadRunSystemSettings
-        {
-            Args = args.Skip(1),
-        };
+        BadRunSystemSettings settings = new BadRunSystemSettings { Args = args.Skip(1) };
         string file = args.First();
-        settings.Files = new[]
-        {
-            file,
-        };
+        settings.Files = new[] { file };
 
         if (BadFileSystem.Instance.IsFile(file))
         {
@@ -39,10 +33,7 @@ public class BadDefaultRunSystem : BadRunSystem
 
         if (BadFileSystem.Instance.IsFile(path))
         {
-            settings.Files = new[]
-            {
-                path,
-            };
+            settings.Files = new[] { path };
         }
 
         return settings;

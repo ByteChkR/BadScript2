@@ -22,173 +22,159 @@ public class BadArrayExtension : BadInteropExtension
     /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        provider.RegisterObject<BadArray>(
-            "Add",
-            a => new BadDynamicInteropFunction<BadObject>(
-                "Add",
-                (_, o) => Add(a, o),
-                BadAnyPrototype.Instance,
-                "elem"
-            )
-        );
+        provider.RegisterObject<BadArray>("Add",
+                                          a => new BadDynamicInteropFunction<BadObject>("Add",
+                                               (_, o) => Add(a, o),
+                                               BadAnyPrototype.Instance,
+                                               "elem"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "Clear",
-            a => new BadDynamicInteropFunction(
-                "Clear",
-                _ => Clear(a),
-                BadAnyPrototype.Instance
-            )
-        );
+        provider.RegisterObject<BadArray>("Clear",
+                                          a => new BadDynamicInteropFunction("Clear",
+                                                                             _ => Clear(a),
+                                                                             BadAnyPrototype.Instance
+                                                                            )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "AddRange",
-            a => new BadDynamicInteropFunction<BadObject>(
-                "AddRange",
-                (ctx, elems) =>
-                {
-                    if (elems is BadArray arr)
-                    {
-                        a.InnerArray.AddRange(arr.InnerArray);
-                    }
-                    else if (BadNativeClassBuilder.Enumerable.IsSuperClassOf(elems.GetPrototype()))
-                    {
-                        // Get the Enumerator
-                        BadObject[] enumerated = BadNativeClassHelper.ExecuteEnumerate(ctx, elems).ToArray();
-                        a.InnerArray.AddRange(enumerated);
-                    }
-                    else
-                    {
-                        throw BadRuntimeException.Create(ctx.Scope, "Argument is not of type IEnumerable");
-                    }
+        provider.RegisterObject<BadArray>("AddRange",
+                                          a => new BadDynamicInteropFunction<BadObject>("AddRange",
+                                               (ctx, elems) =>
+                                               {
+                                                   if (elems is BadArray arr)
+                                                   {
+                                                       a.InnerArray.AddRange(arr.InnerArray);
+                                                   }
+                                                   else if (BadNativeClassBuilder.Enumerable
+                                                            .IsSuperClassOf(elems.GetPrototype()))
+                                                   {
+                                                       // Get the Enumerator
+                                                       BadObject[] enumerated = BadNativeClassHelper
+                                                           .ExecuteEnumerate(ctx, elems)
+                                                           .ToArray();
+                                                       a.InnerArray.AddRange(enumerated);
+                                                   }
+                                                   else
+                                                   {
+                                                       throw BadRuntimeException.Create(ctx.Scope,
+                                                            "Argument is not of type IEnumerable"
+                                                           );
+                                                   }
 
-                    return BadObject.Null;
-                },
-                BadAnyPrototype.Instance,
-                "elems"
-            )
-        );
+                                                   return BadObject.Null;
+                                               },
+                                               BadAnyPrototype.Instance,
+                                               "elems"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "Insert",
-            a => new BadDynamicInteropFunction<decimal, BadObject>(
-                "Insert",
-                (_, i, o) => Insert(a, i, o),
-                BadAnyPrototype.Instance,
-                "elem"
-            )
-        );
+        provider.RegisterObject<BadArray>("Insert",
+                                          a => new BadDynamicInteropFunction<decimal, BadObject>("Insert",
+                                               (_, i, o) => Insert(a, i, o),
+                                               BadAnyPrototype.Instance,
+                                               "elem"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "InsertRange",
-            a => new BadDynamicInteropFunction<decimal, BadObject>(
-                "InsertRange",
-                (ctx, num, elems) =>
-                {
-                    if (elems is BadArray arr)
-                    {
-                        a.InnerArray.InsertRange((int)num, arr.InnerArray);
-                    }
-                    else if (BadNativeClassBuilder.Enumerable.IsSuperClassOf(elems.GetPrototype()))
-                    {
-                        // Get the Enumerator
-                        BadObject[] enumerated = BadNativeClassHelper.ExecuteEnumerate(ctx, elems).ToArray();
-                        a.InnerArray.InsertRange((int)num, enumerated);
-                    }
-                    else
-                    {
-                        throw BadRuntimeException.Create(ctx.Scope, "Argument is not of type IEnumerable");
-                    }
+        provider.RegisterObject<BadArray>("InsertRange",
+                                          a => new BadDynamicInteropFunction<decimal, BadObject>("InsertRange",
+                                               (ctx, num, elems) =>
+                                               {
+                                                   if (elems is BadArray arr)
+                                                   {
+                                                       a.InnerArray.InsertRange((int)num, arr.InnerArray);
+                                                   }
+                                                   else if (BadNativeClassBuilder.Enumerable
+                                                            .IsSuperClassOf(elems.GetPrototype()))
+                                                   {
+                                                       // Get the Enumerator
+                                                       BadObject[] enumerated = BadNativeClassHelper
+                                                           .ExecuteEnumerate(ctx, elems)
+                                                           .ToArray();
+                                                       a.InnerArray.InsertRange((int)num, enumerated);
+                                                   }
+                                                   else
+                                                   {
+                                                       throw BadRuntimeException.Create(ctx.Scope,
+                                                            "Argument is not of type IEnumerable"
+                                                           );
+                                                   }
 
-                    return BadObject.Null;
-                },
-                BadAnyPrototype.Instance,
-                "index",
-                "elems"
-            )
-        );
+                                                   return BadObject.Null;
+                                               },
+                                               BadAnyPrototype.Instance,
+                                               "index",
+                                               "elems"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "Remove",
-            a => new BadDynamicInteropFunction<BadObject>(
-                "Remove",
-                (_, o) => Remove(a, o),
-                BadNativeClassBuilder.GetNative("bool"),
-                "elem"
-            )
-        );
+        provider.RegisterObject<BadArray>("Remove",
+                                          a => new BadDynamicInteropFunction<BadObject>("Remove",
+                                               (_, o) => Remove(a, o),
+                                               BadNativeClassBuilder.GetNative("bool"),
+                                               "elem"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "Contains",
-            a => new BadDynamicInteropFunction<BadObject>(
-                "Contains",
-                (_, o) => Contains(a, o),
-                BadNativeClassBuilder.GetNative("bool"),
-                "elem"
-            )
-        );
+        provider.RegisterObject<BadArray>("Contains",
+                                          a => new BadDynamicInteropFunction<BadObject>("Contains",
+                                               (_, o) => Contains(a, o),
+                                               BadNativeClassBuilder.GetNative("bool"),
+                                               "elem"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "RemoveAt",
-            a => new BadDynamicInteropFunction<decimal>(
-                "RemoveAt",
-                (_, o) => RemoveAt(a, o),
-                BadAnyPrototype.Instance,
-                "index"
-            )
-        );
+        provider.RegisterObject<BadArray>("RemoveAt",
+                                          a => new BadDynamicInteropFunction<decimal>("RemoveAt",
+                                               (_, o) => RemoveAt(a, o),
+                                               BadAnyPrototype.Instance,
+                                               "index"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "Get",
-            a => new BadDynamicInteropFunction<decimal>(
-                "Get",
-                (_, o) => Get(a, o),
-                BadAnyPrototype.Instance,
-                "index"
-            )
-        );
+        provider.RegisterObject<BadArray>("Get",
+                                          a => new BadDynamicInteropFunction<decimal>("Get",
+                                               (_, o) => Get(a, o),
+                                               BadAnyPrototype.Instance,
+                                               "index"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "Set",
-            a => new BadDynamicInteropFunction<decimal, BadObject>(
-                "Set",
-                (_, i, v) => Set(a, i, v),
-                BadAnyPrototype.Instance,
-                "index"
-            )
-        );
+        provider.RegisterObject<BadArray>("Set",
+                                          a => new BadDynamicInteropFunction<decimal, BadObject>("Set",
+                                               (_, i, v) => Set(a, i, v),
+                                               BadAnyPrototype.Instance,
+                                               "index"
+                                              )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            "GetEnumerator",
-            a => new BadDynamicInteropFunction(
-                "GetEnumerator",
-                _ => GetEnumerator(a),
-                BadNativeClassBuilder.Enumerator
-            )
-        );
+        provider.RegisterObject<BadArray>("GetEnumerator",
+                                          a => new BadDynamicInteropFunction("GetEnumerator",
+                                                                             _ => GetEnumerator(a),
+                                                                             BadNativeClassBuilder.Enumerator
+                                                                            )
+                                         );
 
-        provider.RegisterObject<BadArray>(
-            BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-            a => new BadDynamicInteropFunction<BadObject>(
-                BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
-                (c, i) => ArrayAccess(c, a, i),
-                BadAnyPrototype.Instance,
-                "index"
-            )
-        );
-        provider.RegisterObject<BadArray>(
-            BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
-            a => new BadDynamicInteropFunction<decimal>(
-                BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
-                (_, i) => BadObjectReference.Make(
-                    $"{a}[^{i}]",
-                    () => Get(a, a.InnerArray.Count - i),
-                    (v, _) => Set(a, a.InnerArray.Count - i, v)
-                ),
-                BadAnyPrototype.Instance,
-                "index"
-            )
-        );
+        provider.RegisterObject<BadArray>(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
+                                          a => new BadDynamicInteropFunction<BadObject>(BadStaticKeys
+                                                   .ARRAY_ACCESS_OPERATOR_NAME,
+                                               (c, i) => ArrayAccess(c, a, i),
+                                               BadAnyPrototype.Instance,
+                                               "index"
+                                              )
+                                         );
+
+        provider.RegisterObject<BadArray>(BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
+                                          a => new BadDynamicInteropFunction<decimal>(BadStaticKeys
+                                                   .ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
+                                               (_, i) => BadObjectReference.Make($"{a}[^{i}]",
+                                                    () => Get(a, a.InnerArray.Count - i),
+                                                    (v, _) => Set(a, a.InnerArray.Count - i, v)
+                                                   ),
+                                               BadAnyPrototype.Instance,
+                                               "index"
+                                              )
+                                         );
 
         provider.RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
     }
@@ -196,14 +182,20 @@ public class BadArrayExtension : BadInteropExtension
     private static BadObject ArrayAccess(BadExecutionContext context, BadArray array, BadObject enumerator)
     {
         BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);
+
         if (enumerator is IBadNumber num)
         {
-            return BadObjectReference.Make($"{array}[{num.Value}]", () => Get(array, num.Value), (v, _) => Set(array, num.Value, v));
+            return BadObjectReference.Make($"{array}[{num.Value}]",
+                                           () => Get(array, num.Value),
+                                           (v, _) => Set(array, num.Value, v)
+                                          );
         }
 
         BadArray result = new BadArray();
 
-        if (enumerator.HasProperty("GetEnumerator", context.Scope) && enumerator.GetProperty("GetEnumerator", context.Scope).Dereference() is BadFunction getEnumerator)
+        if (enumerator.HasProperty("GetEnumerator", context.Scope) &&
+            enumerator.GetProperty("GetEnumerator", context.Scope)
+                      .Dereference() is BadFunction getEnumerator)
         {
             foreach (BadObject e in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
             {
@@ -212,8 +204,9 @@ public class BadArrayExtension : BadInteropExtension
 
             enumerator = enumerator.Dereference();
         }
-        (BadFunction moveNext, BadFunction getCurrent) = BadForEachExpression.FindEnumerator(enumerator, context, position);
 
+        (BadFunction moveNext, BadFunction getCurrent) =
+            BadForEachExpression.FindEnumerator(enumerator, context, position);
 
         BadObject cond = BadObject.Null;
 
@@ -227,14 +220,13 @@ public class BadArrayExtension : BadInteropExtension
 
         while (bRet.Value)
         {
-            using BadExecutionContext loopContext = new BadExecutionContext(
-                context.Scope.CreateChild(
-                    "ForEachLoop",
-                    context.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
+            using BadExecutionContext loopContext = new BadExecutionContext(context.Scope.CreateChild("ForEachLoop",
+                                                                                 context.Scope,
+                                                                                 null,
+                                                                                 BadScopeFlags.Breakable |
+                                                                                 BadScopeFlags.Continuable
+                                                                                )
+                                                                           );
 
             BadObject current = BadObject.Null;
 
@@ -242,7 +234,6 @@ public class BadArrayExtension : BadInteropExtension
             {
                 current = o;
             }
-
 
             if (current is not IBadNumber n)
             {
@@ -256,13 +247,11 @@ public class BadArrayExtension : BadInteropExtension
                 cond = o;
             }
 
-
             bRet = cond.Dereference() as IBadBoolean ??
-                   throw BadRuntimeException.Create(
-                       context.Scope,
-                       "Enumerator MoveNext did not return a boolean",
-                       position
-                   );
+                   throw BadRuntimeException.Create(context.Scope,
+                                                    "Enumerator MoveNext did not return a boolean",
+                                                    position
+                                                   );
         }
 
         return result;

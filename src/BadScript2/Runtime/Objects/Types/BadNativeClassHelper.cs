@@ -3,6 +3,7 @@ using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -24,7 +25,9 @@ public static class BadNativeClassHelper
                         throw new BadRuntimeException("string constructor takes exactly one argument");
                     }
 
-                    return BadObject.Wrap(a[0].ToString());
+                    return BadObject.Wrap(a[0]
+                                              .ToString()
+                                         );
                 }
             },
             {
@@ -118,10 +121,14 @@ public static class BadNativeClassHelper
     /// <exception cref="BadRuntimeException">Thrown if the Enumerator is invalid</exception>
     public static IEnumerable<BadObject> ExecuteEnumerator(BadExecutionContext ctx, BadObject enumerator)
     {
-        BadObject moveNext = enumerator.GetProperty("MoveNext").Dereference();
-        BadObject getCurrent = enumerator.GetProperty("GetCurrent").Dereference();
+        BadObject moveNext = enumerator.GetProperty("MoveNext")
+                                       .Dereference();
+
+        BadObject getCurrent = enumerator.GetProperty("GetCurrent")
+                                         .Dereference();
         BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
         BadObject? result = BadObject.False;
+
         foreach (BadObject o in BadInvocationExpression.Invoke(moveNext, Array.Empty<BadObject>(), runtimePos, ctx))
         {
             result = o;
@@ -130,7 +137,12 @@ public static class BadNativeClassHelper
         while (result.Dereference() == BadObject.True)
         {
             BadObject? obj = null;
-            foreach (BadObject o in BadInvocationExpression.Invoke(getCurrent, Array.Empty<BadObject>(), runtimePos, ctx))
+
+            foreach (BadObject o in BadInvocationExpression.Invoke(getCurrent,
+                                                                   Array.Empty<BadObject>(),
+                                                                   runtimePos,
+                                                                   ctx
+                                                                  ))
             {
                 obj = o;
             }
@@ -158,9 +170,11 @@ public static class BadNativeClassHelper
     /// <exception cref="BadRuntimeException">Thrown if the Enumerable is invalid</exception>
     public static IEnumerable<BadObject> ExecuteEnumerate(BadExecutionContext ctx, BadObject enumerable)
     {
-        BadObject enumerator = enumerable.GetProperty("GetEnumerator").Dereference();
+        BadObject enumerator = enumerable.GetProperty("GetEnumerator")
+                                         .Dereference();
         BadObject result = BadObject.Null;
         BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
+
         foreach (BadObject o in BadInvocationExpression.Invoke(enumerator, Array.Empty<BadObject>(), runtimePos, ctx))
         {
             result = o;

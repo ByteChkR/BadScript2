@@ -30,10 +30,9 @@ public class BadLockExpression : BadExpression
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="lockExpression">The expression to lock on</param>
     /// <param name="block">The Block Body</param>
-    public BadLockExpression(
-        BadSourcePosition position,
-        BadExpression lockExpression,
-        BadExpression[] block) : base(false, position)
+    public BadLockExpression(BadSourcePosition position,
+                             BadExpression lockExpression,
+                             BadExpression[] block) : base(false, position)
     {
         LockExpression = lockExpression;
         m_Block = block;

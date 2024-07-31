@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadInExpression : BadBinaryExpression
     /// <param name="left">Left Side of the Expression</param>
     /// <param name="right">Right Side of the Expression</param>
     /// <param name="position">The Source Position</param>
-    public BadInExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadInExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                       right,
+                                                                                                       position
+                                                                                                      ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -77,21 +77,19 @@ public class BadInExpression : BadBinaryExpression
     /// <param name="right">Instance</param>
     /// <param name="position">The Source Position</param>
     /// <returns>Returns true if the left side is a property of the right side</returns>
-    public static IEnumerable<BadObject> InWithOverride(
-        BadExecutionContext context,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> InWithOverride(BadExecutionContext context,
+                                                        BadObject left,
+                                                        BadObject right,
+                                                        BadSourcePosition position)
     {
         if (right.HasProperty(BadStaticKeys.IN_OPERATOR_NAME, context.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         right,
-                         left,
-                         context,
-                         BadStaticKeys.IN_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(right,
+                                                            left,
+                                                            context,
+                                                            BadStaticKeys.IN_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

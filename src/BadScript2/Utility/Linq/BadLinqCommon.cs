@@ -31,15 +31,15 @@ internal static class BadLinqCommon
     /// <returns>(Variable Name, Query Expression)</returns>
     public static (string varName, string query) ParsePredicate(string query)
     {
-        string[] parts = query.Split(
-            new[]
-            {
-                "=>",
-            },
-            StringSplitOptions.RemoveEmptyEntries
-        );
-        string varName = parts[0].Trim();
-        string queryStr = parts[1].Trim();
+        string[] parts = query.Split(new[] { "=>" },
+                                     StringSplitOptions.RemoveEmptyEntries
+                                    );
+
+        string varName = parts[0]
+            .Trim();
+
+        string queryStr = parts[1]
+            .Trim();
 
         return (varName, queryStr);
     }

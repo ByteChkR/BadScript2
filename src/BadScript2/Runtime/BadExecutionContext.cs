@@ -28,6 +28,8 @@ public class BadExecutionContext : IDisposable
     /// </summary>
     public BadScope Scope { get; }
 
+#region IDisposable Members
+
     /// <summary>
     ///     Disposes the context.
     /// </summary>
@@ -35,6 +37,8 @@ public class BadExecutionContext : IDisposable
     {
         Scope.Dispose();
     }
+
+#endregion
 
     /// <summary>
     ///     Creates a new Execution Context with an empty scope

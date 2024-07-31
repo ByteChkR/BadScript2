@@ -4,6 +4,7 @@ using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
 using BadScript2.Utility;
+
 namespace BadScript2.Parser.Expressions.Types;
 
 /// <summary>
@@ -53,7 +54,10 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
     /// <param name="return">Return Type of the Function</param>
     /// <param name="returnProto">Return Type Prototype</param>
     /// <param name="parameters">The Function Parameters</param>
-    public BadInterfaceFunctionConstraint(string name, BadExpression? @return, BadClassPrototype returnProto, BadFunctionParameter[] parameters)
+    public BadInterfaceFunctionConstraint(string name,
+                                          BadExpression? @return,
+                                          BadClassPrototype returnProto,
+                                          BadFunctionParameter[] parameters)
     {
         Name = name;
         Return = @return;
@@ -83,7 +87,8 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
             return;
         }
 
-        BadObject o = obj.GetProperty(Name).Dereference();
+        BadObject o = obj.GetProperty(Name)
+                         .Dereference();
 
         if (o is not BadFunction f)
         {
@@ -94,26 +99,23 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 
         if (m_Prototype != null && !m_Prototype.IsSuperClassOf(f.ReturnType))
         {
-            errors.Add(
-                new BadInterfaceValidatorError(
-                    $"Return Type Mismatch. Expected {m_Prototype} but got {f.ReturnType} in {f}",
-                    this
-                )
-            );
+            errors.Add(new
+                           BadInterfaceValidatorError($"Return Type Mismatch. Expected {m_Prototype} but got {f.ReturnType} in {f}",
+                                                      this
+                                                     )
+                      );
         }
 
         if (f.Parameters.Length != Parameters.Length)
         {
-            errors.Add(
-                new BadInterfaceValidatorError(
-                    $"Parameter Count Mismatch. Expected {Parameters.Length} but got {f.Parameters.Length} in {f}",
-                    this
-                )
-            );
+            errors.Add(new
+                           BadInterfaceValidatorError($"Parameter Count Mismatch. Expected {Parameters.Length} but got {f.Parameters.Length} in {f}",
+                                                      this
+                                                     )
+                      );
 
             return;
         }
-
 
         for (int i = 0; i < Parameters.Length; i++)
         {
@@ -122,37 +124,33 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
 
             if (actual.IsOptional != expected.IsOptional)
             {
-                errors.Add(
-                    new BadInterfaceValidatorError(
-                        $"{f}: Parameter Optional Flags are not equal. Implementation: {actual}, Expectation: {expected}",
-                        this
-                    )
-                );
+                errors.Add(new
+                               BadInterfaceValidatorError($"{f}: Parameter Optional Flags are not equal. Implementation: {actual}, Expectation: {expected}",
+                                                          this
+                                                         )
+                          );
 
                 return;
             }
 
             if (actual.IsNullChecked != expected.IsNullChecked)
             {
-                errors.Add(
-                    new BadInterfaceValidatorError(
-                        $"{f}: Parameter Null Check Flags are not equal. Implementation: {actual}, Expectation: {expected}",
-                        this
-                    )
-                );
+                errors.Add(new
+                               BadInterfaceValidatorError($"{f}: Parameter Null Check Flags are not equal. Implementation: {actual}, Expectation: {expected}",
+                                                          this
+                                                         )
+                          );
 
                 return;
             }
 
             if (actual.IsRestArgs != expected.IsRestArgs)
             {
-                errors.Add(
-                    new BadInterfaceValidatorError(
-                        $"{f}: Parameter Rest Args Flags are not equal. Implementation: {actual}, Expectation: {expected}",
-                        this
-                    )
-                );
-
+                errors.Add(new
+                               BadInterfaceValidatorError($"{f}: Parameter Rest Args Flags are not equal. Implementation: {actual}, Expectation: {expected}",
+                                                          this
+                                                         )
+                          );
 
                 return;
             }
@@ -167,12 +165,11 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
                 continue;
             }
 
-            errors.Add(
-                new BadInterfaceValidatorError(
-                    $"{f}: Parameter Types not equal. Implementation: {actual}, Expectation: {expected}",
-                    this
-                )
-            );
+            errors.Add(new
+                           BadInterfaceValidatorError($"{f}: Parameter Types not equal. Implementation: {actual}, Expectation: {expected}",
+                                                      this
+                                                     )
+                      );
 
             return;
         }
@@ -184,7 +181,8 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
                c.Name == Name &&
                c.Return == Return &&
                c.Parameters.Length == Parameters.Length &&
-               c.Parameters.Zip(Parameters, (x, y) => (x, y)).All(z => z.x.Equals(z.y));
+               c.Parameters.Zip(Parameters, (x, y) => (x, y))
+                .All(z => z.x.Equals(z.y));
     }
 
     protected override int GetConstraintHash()

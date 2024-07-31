@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Interop.Compression;
 
 [BadInteropApi("Base64")]
@@ -27,6 +28,9 @@ internal partial class BadBase64Api
     [return: BadReturn("Bytes")]
     private static BadArray Decode([BadParameter(description: "String to Decode")] string str)
     {
-        return new BadArray(Convert.FromBase64String(str).Select(x => (BadObject)(decimal)x).ToList());
+        return new BadArray(Convert.FromBase64String(str)
+                                   .Select(x => (BadObject)(decimal)x)
+                                   .ToList()
+                           );
     }
 }

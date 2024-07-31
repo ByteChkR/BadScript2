@@ -4,6 +4,7 @@ using System.Text;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Interop.Compression;
 
 [BadInteropApi("ZLib")]
@@ -24,7 +25,10 @@ internal partial class BadZLibApi
         ms.CopyTo(ds);
         ds.Close();
 
-        return new BadArray(compressed.ToArray().Select(x => (BadObject)new BadNumber(x)).ToList());
+        return new BadArray(compressed.ToArray()
+                                      .Select(x => (BadObject)new BadNumber(x))
+                                      .ToList()
+                           );
     }
 
     /// <summary>
@@ -35,7 +39,8 @@ internal partial class BadZLibApi
     /// <returns>String</returns>
     [BadMethod(description: "Inflates the given array of bytes using the ZLib Algorithm")]
     [return: BadReturn("Decompressed String")]
-    private static BadObject Decompress(BadExecutionContext ctx, [BadParameter(description: "Bytes to Decompress")] byte[] obj)
+    private static BadObject Decompress(BadExecutionContext ctx,
+                                        [BadParameter(description: "Bytes to Decompress")] byte[] obj)
     {
         MemoryStream ms = new MemoryStream(obj);
         MemoryStream decompressed = new MemoryStream();

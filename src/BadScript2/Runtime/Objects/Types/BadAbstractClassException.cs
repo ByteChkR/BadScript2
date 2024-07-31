@@ -13,7 +13,6 @@ public class BadAbstractClassException : Exception
     ///     Creates a new Exception
     /// </summary>
     /// <param name="className">The Name of the Class</param>
-    public BadAbstractClassException(string className) : base(
-        $"Class {className} is abstract and cannot be instantiated."
-    ) { }
+    public BadAbstractClassException(string className) :
+        base($"Class {className} is abstract and cannot be instantiated.") { }
 }

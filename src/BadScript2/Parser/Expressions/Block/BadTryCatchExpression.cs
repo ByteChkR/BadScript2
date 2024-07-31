@@ -3,6 +3,7 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
@@ -37,12 +38,11 @@ public class BadTryCatchExpression : BadExpression
     /// <param name="expressions">The Try Block</param>
     /// <param name="catchExpressions">The Catch Block</param>
     /// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
-    public BadTryCatchExpression(
-        BadSourcePosition position,
-        BadExpression[] expressions,
-        BadExpression[] catchExpressions,
-        BadExpression[] finallyExpressions,
-        string errorName) : base(false, position)
+    public BadTryCatchExpression(BadSourcePosition position,
+                                 BadExpression[] expressions,
+                                 BadExpression[] catchExpressions,
+                                 BadExpression[] finallyExpressions,
+                                 string errorName) : base(false, position)
     {
         m_Expressions = expressions;
         m_CatchExpressions = catchExpressions;
@@ -115,14 +115,22 @@ public class BadTryCatchExpression : BadExpression
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        if (m_Expressions.Length != 0) //If the expressions are empty, then we cant possibly throw an error, nor do we need to catch one
+        if (m_Expressions.Length !=
+            0) //If the expressions are empty, then we cant possibly throw an error, nor do we need to catch one
         {
             IEnumerable<BadObject>? catchEnumerable = null;
-            using (BadExecutionContext tryContext = new BadExecutionContext(
-                       context.Scope.CreateChild("TryBlock", context.Scope, null, BadScopeFlags.CaptureThrow)
-                   ))
+
+            using (BadExecutionContext tryContext =
+                   new BadExecutionContext(context.Scope.CreateChild("TryBlock",
+                                                                     context.Scope,
+                                                                     null,
+                                                                     BadScopeFlags.CaptureThrow
+                                                                    )
+                                          ))
             {
-                using IEnumerator<BadObject>? enumerator = tryContext.Execute(m_Expressions).GetEnumerator();
+                using IEnumerator<BadObject>? enumerator = tryContext.Execute(m_Expressions)
+                                                                     .GetEnumerator();
+
                 while (true)
                 {
                     BadObject o;
@@ -133,18 +141,18 @@ public class BadTryCatchExpression : BadExpression
                         {
                             break;
                         }
+
                         o = enumerator.Current ?? BadObject.Null;
                     }
                     catch (Exception e)
                     {
                         if (m_CatchExpressions.Length != 0)
                         {
-                            using BadExecutionContext catchContext = new BadExecutionContext(
-                                context.Scope.CreateChild("CatchBlock", context.Scope, null)
-                            );
-
+                            using BadExecutionContext catchContext =
+                                new BadExecutionContext(context.Scope.CreateChild("CatchBlock", context.Scope, null));
 
                             BadRuntimeError error;
+
                             if (e is BadRuntimeErrorException bre)
                             {
                                 error = bre.Error;
@@ -153,12 +161,15 @@ public class BadTryCatchExpression : BadExpression
                             {
                                 error = BadRuntimeError.FromException(e, context.Scope.GetStackTrace());
                             }
+
                             catchContext.Scope.DefineVariable(ErrorName, error);
 
                             catchEnumerable = catchContext.Execute(m_CatchExpressions);
                         }
+
                         break;
                     }
+
                     yield return o;
                 }
             }
@@ -174,9 +185,8 @@ public class BadTryCatchExpression : BadExpression
 
         if (m_FinallyExpressions.Length != 0)
         {
-            using BadExecutionContext finallyContext = new BadExecutionContext(
-                context.Scope.CreateChild("FinallyBlock", context.Scope, null)
-            );
+            using BadExecutionContext finallyContext =
+                new BadExecutionContext(context.Scope.CreateChild("FinallyBlock", context.Scope, null));
 
             foreach (BadObject e in finallyContext.Execute(m_FinallyExpressions))
             {

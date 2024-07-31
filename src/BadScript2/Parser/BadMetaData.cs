@@ -47,11 +47,10 @@ public class BadMetaData : BadObject
     /// <param name="returnDescription">The Description of the Return Value</param>
     /// <param name="returnType">The Return Type of the Expression</param>
     /// <param name="parameterDescriptions">The Description of the Function Parameters</param>
-    public BadMetaData(
-        string description,
-        string returnDescription,
-        string returnType,
-        Dictionary<string, BadParameterMetaData> parameterDescriptions)
+    public BadMetaData(string description,
+                       string returnDescription,
+                       string returnType,
+                       Dictionary<string, BadParameterMetaData> parameterDescriptions)
     {
         Description = description;
         ReturnDescription = returnDescription;
@@ -80,40 +79,31 @@ public class BadMetaData : BadObject
             case "Description":
                 return BadObjectReference.Make("BadMetaData.Description", () => Description);
             case "Return":
-                return BadObjectReference.Make(
-                    "BadMetaData.Return",
-                    () => new BadTable(
-                        new Dictionary<string, BadObject>
-                        {
-                            {
-                                "Type", ReturnType
-                            },
-                            {
-                                "Description", ReturnDescription
-                            },
-                        }
-                    )
-                );
+                return BadObjectReference.Make("BadMetaData.Return",
+                                               () => new BadTable(new Dictionary<string, BadObject>
+                                                                  {
+                                                                      { "Type", ReturnType },
+                                                                      { "Description", ReturnDescription },
+                                                                  }
+                                                                 )
+                                              );
             case "Parameters":
-                return BadObjectReference.Make(
-                    "BadMetaData.Parameters",
-                    () => new BadTable(
-                        ParameterDescriptions.ToDictionary(
-                            x => x.Key,
-                            x => (BadObject)new BadTable(
-                                new Dictionary<string, BadObject>
-                                {
-                                    {
-                                        "Type", x.Value.Type
-                                    },
-                                    {
-                                        "Description", x.Value.Description
-                                    },
-                                }
-                            )
-                        )
-                    )
-                );
+                return BadObjectReference.Make("BadMetaData.Parameters",
+                                               () => new BadTable(ParameterDescriptions.ToDictionary(x => x.Key,
+                                                                       x => (BadObject)
+                                                                           new BadTable(new Dictionary<string,
+                                                                                       BadObject>
+                                                                                   {
+                                                                                       { "Type", x.Value.Type },
+                                                                                       {
+                                                                                           "Description",
+                                                                                           x.Value.Description
+                                                                                       },
+                                                                                   }
+                                                                               )
+                                                                      )
+                                                                 )
+                                              );
         }
 
         return base.GetProperty(propName, caller);

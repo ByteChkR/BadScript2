@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions;
 using BadScript2.Reader;
+
 namespace BadScript2.Parser.Operators;
 
 /// <summary>

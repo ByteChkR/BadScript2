@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Logic;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadLogicOrExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadLogicOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                            right,
+                                                                                                            position
+                                                                                                           ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -38,7 +38,9 @@ public class BadLogicOrExpression : BadBinaryExpression
 
         if (left is not IBadBoolean lBool)
         {
-            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean", Position);
+            throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left}. expected boolean",
+                                          Position
+                                         );
         }
 
         {
@@ -62,7 +64,9 @@ public class BadLogicOrExpression : BadBinaryExpression
 
             if (right is not IBadBoolean rBool)
             {
-                throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}", Position);
+                throw new BadRuntimeException($"Can not apply operator '{GetSymbol()}' to {left} and {right}",
+                                              Position
+                                             );
             }
 
             if (rBool.Value)

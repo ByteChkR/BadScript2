@@ -6,6 +6,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Block.Loop;
 
 /// <summary>
@@ -24,10 +25,10 @@ public class BadWhileExpression : BadExpression
     /// <param name="condition">The condition of the loop</param>
     /// <param name="block">The Loop Body</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public BadWhileExpression(BadExpression condition, List<BadExpression> block, BadSourcePosition position) :
+        base(false,
+             position
+            )
     {
         Condition = condition;
         m_Body = block;
@@ -116,14 +117,13 @@ public class BadWhileExpression : BadExpression
 
         while (bRet.Value)
         {
-            using BadExecutionContext loopContext = new BadExecutionContext(
-                context.Scope.CreateChild(
-                    "WhileLoop",
-                    context.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
+            using BadExecutionContext loopContext = new BadExecutionContext(context.Scope.CreateChild("WhileLoop",
+                                                                                 context.Scope,
+                                                                                 null,
+                                                                                 BadScopeFlags.Breakable |
+                                                                                 BadScopeFlags.Continuable
+                                                                                )
+                                                                           );
 
             if (m_Body.Count != 0)
             {

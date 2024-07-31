@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using BadScript2.Common;
 using BadScript2.Reader.Token;
 using BadScript2.Reader.Token.Primitive;
+
 namespace BadScript2.Reader;
 
 /// <summary>
@@ -130,7 +131,9 @@ public static class BadSourceReaderExtensions
     /// <param name="reader">The Reader Instance</param>
     public static void SkipWhiteSpaceAndNewLine(this BadSourceReader reader)
     {
-        reader.Skip(BadStaticKeys.Whitespace.Concat(BadStaticKeys.NewLine).ToArray());
+        reader.Skip(BadStaticKeys.Whitespace.Concat(BadStaticKeys.NewLine)
+                                 .ToArray()
+                   );
     }
 
     /// <summary>
@@ -184,10 +187,10 @@ public static class BadSourceReaderExtensions
     {
         if (!reader.IsWordStart())
         {
-            throw new BadSourceReaderException(
-                $"Expected word start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-                reader.MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected word start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+                                         reader.MakeSourcePosition(1)
+                                        );
         }
 
         int start = reader.CurrentIndex;
@@ -211,17 +214,17 @@ public static class BadSourceReaderExtensions
     {
         if (!reader.IsNumberStart())
         {
-            throw new BadSourceReaderException(
-                $"Expected number start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-                reader.MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected number start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+                                         reader.MakeSourcePosition(1)
+                                        );
         }
 
         int start = reader.CurrentIndex;
         reader.MoveNext();
         bool hasDecimal = false;
 
-        while (reader.IsDigit() || !hasDecimal && reader.Is(BadStaticKeys.DECIMAL_SEPARATOR))
+        while (reader.IsDigit() || (!hasDecimal && reader.Is(BadStaticKeys.DECIMAL_SEPARATOR)))
         {
             if (reader.Is(BadStaticKeys.DECIMAL_SEPARATOR))
             {
@@ -260,10 +263,10 @@ public static class BadSourceReaderExtensions
             return new BadBooleanToken(reader.Eat(BadStaticKeys.FALSE));
         }
 
-        throw new BadSourceReaderException(
-            $"Expected boolean but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-            reader.MakeSourcePosition(1)
-        );
+        throw new
+            BadSourceReaderException($"Expected boolean but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+                                     reader.MakeSourcePosition(1)
+                                    );
     }
 
     /// <summary>
@@ -314,10 +317,10 @@ public static class BadSourceReaderExtensions
     {
         if (!reader.IsStringQuote() && !reader.IsStringQuote(0, true))
         {
-            throw new BadSourceReaderException(
-                $"Expected string start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
-                reader.MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected string start character but got '{(reader.IsEof() ? "EOF" : reader.GetCurrentChar())}'",
+                                         reader.MakeSourcePosition(1)
+                                        );
         }
 
         bool singleQuote = reader.Is(BadStaticKeys.SINGLE_QUOTE);
@@ -330,10 +333,9 @@ public static class BadSourceReaderExtensions
         {
             if (reader.IsNewLine() || reader.IsEof())
             {
-                throw new BadSourceReaderException(
-                    "String not terminated",
-                    reader.MakeSourcePosition(start, reader.CurrentIndex - start)
-                );
+                throw new BadSourceReaderException("String not terminated",
+                                                   reader.MakeSourcePosition(start, reader.CurrentIndex - start)
+                                                  );
             }
 
             if (reader.Is(BadStaticKeys.ESCAPE_CHARACTER))
@@ -379,12 +381,10 @@ public static class BadSourceReaderExtensions
         {
             if (reader.IsEof())
             {
-                throw new BadSourceReaderException(
-                    "String not terminated",
-                    reader.MakeSourcePosition(start, reader.CurrentIndex - start)
-                );
+                throw new BadSourceReaderException("String not terminated",
+                                                   reader.MakeSourcePosition(start, reader.CurrentIndex - start)
+                                                  );
             }
-
 
             sb.Append(reader.GetCurrentChar());
 

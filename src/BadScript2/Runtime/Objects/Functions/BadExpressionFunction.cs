@@ -47,17 +47,22 @@ public class BadExpressionFunction : BadFunction
     /// <param name="metaData">The Metadata of the Function</param>
     /// <param name="returnType">The Return type of the Function</param>
     /// <param name="isSingleLine">Indicates if the function is a single line function</param>
-    public BadExpressionFunction(
-        BadScope parentScope,
-        BadWordToken? name,
-        List<BadExpression> expressions,
-        BadFunctionParameter[] parameters,
-        BadSourcePosition position,
-        bool isConstant,
-        bool isStatic,
-        BadMetaData? metaData,
-        BadClassPrototype returnType,
-        bool isSingleLine) : base(name, isConstant, isStatic, returnType, isSingleLine, parameters)
+    public BadExpressionFunction(BadScope parentScope,
+                                 BadWordToken? name,
+                                 List<BadExpression> expressions,
+                                 BadFunctionParameter[] parameters,
+                                 BadSourcePosition position,
+                                 bool isConstant,
+                                 bool isStatic,
+                                 BadMetaData? metaData,
+                                 BadClassPrototype returnType,
+                                 bool isSingleLine) : base(name,
+                                                           isConstant,
+                                                           isStatic,
+                                                           returnType,
+                                                           isSingleLine,
+                                                           parameters
+                                                          )
     {
         m_Body = expressions;
         Position = position;
@@ -77,31 +82,30 @@ public class BadExpressionFunction : BadFunction
     /// <inheritdoc />
     public override BadFunction BindParentScope(BadScope scope)
     {
-        return new BadExpressionFunction(
-            scope,
-            Name,
-            m_Body,
-            Parameters,
-            Position,
-            IsConstant,
-            IsStatic,
-            MetaData,
-            ReturnType,
-            IsSingleLine
-        );
+        return new BadExpressionFunction(scope,
+                                         Name,
+                                         m_Body,
+                                         Parameters,
+                                         Position,
+                                         IsConstant,
+                                         IsStatic,
+                                         MetaData,
+                                         ReturnType,
+                                         IsSingleLine
+                                        );
     }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
     {
-        using BadExecutionContext ctx = new BadExecutionContext(
-            ParentScope.CreateChild(
-                ToString(),
-                caller.Scope,
-                null,
-                BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
-            )
-        );
+        using BadExecutionContext ctx = new BadExecutionContext(ParentScope.CreateChild(ToString(),
+                                                                     caller.Scope,
+                                                                     null,
+                                                                     BadScopeFlags.Returnable |
+                                                                     BadScopeFlags.AllowThrow |
+                                                                     BadScopeFlags.CaptureThrow
+                                                                    )
+                                                               );
 
         ctx.Scope.FunctionObject = this;
 
@@ -136,6 +140,7 @@ public class BadExpressionFunction : BadFunction
         {
             m_FuncString = base.ToString() + " at " + Position.GetPositionInfo();
         }
+
         return m_FuncString;
     }
 }

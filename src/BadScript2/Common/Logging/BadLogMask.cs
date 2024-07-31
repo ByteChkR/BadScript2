@@ -10,12 +10,7 @@ public class BadLogMask
 	/// </summary>
 	private static readonly Dictionary<string, ulong> s_Masks = new Dictionary<string, ulong>
     {
-        {
-            "None", 0
-        },
-        {
-            "Default", 1
-        },
+        { "None", 0 }, { "Default", 1 },
     };
 
 	/// <summary>
@@ -56,7 +51,7 @@ public class BadLogMask
 	/// <returns>An instance of the log mask object</returns>
 	public static BadLogMask Register(string name)
     {
-        ulong value = (ulong)1 << s_Masks.Count - 1;
+        ulong value = (ulong)1 << (s_Masks.Count - 1);
         s_Masks.Add(name, value);
 
         return new BadLogMask(value);
@@ -152,18 +147,12 @@ public class BadLogMask
     {
         if (m_Mask == None.m_Mask)
         {
-            return new[]
-            {
-                "None",
-            };
+            return new[] { "None" };
         }
 
         if (m_Mask == All.m_Mask)
         {
-            return new[]
-            {
-                "All",
-            };
+            return new[] { "All" };
         }
 
         if (IsPowerOfTwo(m_Mask))
@@ -172,14 +161,16 @@ public class BadLogMask
             {
                 return new[]
                 {
-                    s_Masks.First(x => x.Value == m_Mask).Key,
+                    s_Masks.First(x => x.Value == m_Mask)
+                           .Key,
                 };
             }
 
             return Array.Empty<string>();
         }
 
-        List<string> names = (from kvp in s_Masks where kvp.Value != 0 && (kvp.Value & m_Mask) == kvp.Value select kvp.Key).ToList();
+        List<string> names =
+            (from kvp in s_Masks where kvp.Value != 0 && (kvp.Value & m_Mask) == kvp.Value select kvp.Key).ToList();
 
         return names.Count == 0 ? Array.Empty<string>() : names.ToArray();
     }

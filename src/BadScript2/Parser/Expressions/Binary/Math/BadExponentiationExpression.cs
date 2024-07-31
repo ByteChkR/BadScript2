@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Math;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadExponentiationExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">The Source Position</param>
-    public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadExponentiationExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                   right,
+                                                                                                                   position
+                                                                                                                  ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -60,21 +60,19 @@ public class BadExponentiationExpression : BadBinaryExpression
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">The Source Position</param>
     /// <returns>Enumerable of which the last element is the result of the operation</returns>
-    public static IEnumerable<BadObject> ExpWithOverride(
-        BadExecutionContext? context,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> ExpWithOverride(BadExecutionContext? context,
+                                                         BadObject left,
+                                                         BadObject right,
+                                                         BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.EXPONENTIATION_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.EXPONENTIATION_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            context!,
+                                                            BadStaticKeys.EXPONENTIATION_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

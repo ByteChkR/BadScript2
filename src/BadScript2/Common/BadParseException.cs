@@ -10,11 +10,10 @@ public abstract class BadParseException : BadScriptException
 	/// </summary>
 	/// <param name="message">The Exception Message</param>
 	/// <param name="position">The source position of where the error occurred</param>
-	protected BadParseException(string message, BadSourcePosition position) : base(
-        GetMessage(message, position),
-        message,
-        position
-    ) { }
+	protected BadParseException(string message, BadSourcePosition position) : base(GetMessage(message, position),
+	                                                                               message,
+	                                                                               position
+	                                                                              ) { }
 
 
 	/// <summary>
@@ -23,12 +22,12 @@ public abstract class BadParseException : BadScriptException
 	/// <param name="message">The Exception Message</param>
 	/// <param name="position">The source position of where the error occurred</param>
 	/// <param name="inner">The Inner Exception</param>
-	protected BadParseException(string message, BadSourcePosition position, Exception inner) : base(
-        GetMessage(message, position),
-        message,
-        position,
-        inner
-    ) { }
+	protected BadParseException(string message, BadSourcePosition position, Exception inner) :
+        base(GetMessage(message, position),
+             message,
+             position,
+             inner
+            ) { }
 
 
 	/// <summary>

@@ -3,6 +3,7 @@ using System.Text;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+
 namespace BadScript2.Interop.Generator;
 
 public static class BadInteropStaticCode
@@ -12,29 +13,37 @@ public static class BadInteropStaticCode
     public const string INTEROP_METHOD_PARAMETER_ATTRIBUTE = "BadScript2.Interop.BadParameterAttribute";
     public const string INTEROP_METHOD_RETURN_ATTRIBUTE = "BadScript2.Interop.BadReturnAttribute";
 
-    public static DiagnosticDescriptor CreateDescriptor(string id, string title, string messageFormat, string category, DiagnosticSeverity severity)
+    public static DiagnosticDescriptor CreateDescriptor(string id,
+                                                        string title,
+                                                        string messageFormat,
+                                                        string category,
+                                                        DiagnosticSeverity severity)
     {
         return new DiagnosticDescriptor(id, title, messageFormat, category, severity, true);
     }
 
-    public static Diagnostic CreateDiagnostic(
-        this ISymbol symbol,
-        string id,
-        string title,
-        string messageFormat,
-        string category,
-        DiagnosticSeverity severity,
-        params object?[]? args)
+    public static Diagnostic CreateDiagnostic(this ISymbol symbol,
+                                              string id,
+                                              string title,
+                                              string messageFormat,
+                                              string category,
+                                              DiagnosticSeverity severity,
+                                              params object?[]? args)
     {
-        return CreateDescriptor(id, title, messageFormat, category, severity).CreateDiagnostic(symbol, args);
+        return CreateDescriptor(id, title, messageFormat, category, severity)
+            .CreateDiagnostic(symbol, args);
     }
 
-    public static Diagnostic CreateDiagnostic(this DiagnosticDescriptor descriptor, ISymbol symbol, params object?[]? args)
+    public static Diagnostic CreateDiagnostic(this DiagnosticDescriptor descriptor,
+                                              ISymbol symbol,
+                                              params object?[]? args)
     {
         return Diagnostic.Create(descriptor, symbol.Locations.FirstOrDefault(), args);
     }
 
-    public static Diagnostic CreateDiagnostic(this ISymbol symbol, DiagnosticDescriptor descriptor, params object?[]? args)
+    public static Diagnostic CreateDiagnostic(this ISymbol symbol,
+                                              DiagnosticDescriptor descriptor,
+                                              params object?[]? args)
     {
         return Diagnostic.Create(descriptor, symbol.Locations.FirstOrDefault(), args);
     }
@@ -61,20 +70,20 @@ public static class BadInteropStaticCode
 
     public static AttributeData? GetAttribute(this ISymbol symbol, string name)
     {
-        return symbol.GetAttributes().FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == name);
+        return symbol.GetAttributes()
+                     .FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == name);
     }
 
     public static AttributeData? GetReturnTypeAttribute(this IMethodSymbol symbol, string name)
     {
-        return symbol.GetReturnTypeAttributes().FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == name);
+        return symbol.GetReturnTypeAttributes()
+                     .FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == name);
     }
 
     public static void RegisterAttributeSource(IncrementalGeneratorPostInitializationContext context)
     {
-        context.AddSource(
-            "BadInteropAttributes.cs",
-            SourceText.From(
-                @"using System;
+        context.AddSource("BadInteropAttributes.cs",
+                          SourceText.From(@"using System;
 namespace BadScript2.Interop
 {
     [AttributeUsage(AttributeTargets.Class)]
@@ -134,8 +143,8 @@ namespace BadScript2.Interop
         protected virtual void AdditionalData(BadScript2.Runtime.Objects.BadTable target) { }
     }
 }",
-                Encoding.UTF8
-            )
-        );
+                                          Encoding.UTF8
+                                         )
+                         );
     }
 }

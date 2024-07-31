@@ -6,6 +6,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 
 using HtmlAgilityPack;
+
 namespace BadHtml.Transformer;
 
 /// <summary>
@@ -27,14 +28,14 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
     /// <param name="obj">The Value of the current iteration</param>
     private static void RunIteration(BadHtmlContext context, string name, BadObject obj)
     {
-        using BadExecutionContext loopContext = new BadExecutionContext(
-            context.ExecutionContext.Scope.CreateChild(
-                "bs:while",
-                context.ExecutionContext.Scope,
-                null,
-                BadScopeFlags.Breakable | BadScopeFlags.Continuable
-            )
-        );
+        using BadExecutionContext loopContext =
+            new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:while",
+                                                                               context.ExecutionContext.Scope,
+                                                                               null,
+                                                                               BadScopeFlags.Breakable |
+                                                                               BadScopeFlags.Continuable
+                                                                              )
+                                   );
         loopContext.Scope.DefineVariable(name, obj, context.ExecutionContext.Scope);
 
         foreach (HtmlNode? child in context.InputNode.ChildNodes)
@@ -53,44 +54,39 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
 
         if (enumerationAttribute == null)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'on' attribute in 'bs:each' node",
-                context.CreateOuterPosition()
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Missing 'on' attribute in 'bs:each' node",
+                                             context.CreateOuterPosition()
+                                            );
         }
 
         if (itemAttribute == null)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'as' attribute in 'bs:each' node",
-                context.CreateOuterPosition()
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Missing 'as' attribute in 'bs:each' node",
+                                             context.CreateOuterPosition()
+                                            );
         }
 
         if (string.IsNullOrEmpty(enumerationAttribute.Value))
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'on' attribute in 'bs:each' node",
-                context.CreateAttributePosition(enumerationAttribute)
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Empty 'on' attribute in 'bs:each' node",
+                                             context.CreateAttributePosition(enumerationAttribute)
+                                            );
         }
 
         if (string.IsNullOrEmpty(itemAttribute.Value))
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'as' attribute in 'bs:each' node",
-                context.CreateAttributePosition(itemAttribute)
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Empty 'as' attribute in 'bs:each' node",
+                                             context.CreateAttributePosition(itemAttribute)
+                                            );
         }
 
-        BadObject enumeration = context.ParseAndExecuteSingle(
-            enumerationAttribute.Value,
-            context.CreateAttributePosition(enumerationAttribute)
-        );
+        BadObject enumeration = context.ParseAndExecuteSingle(enumerationAttribute.Value,
+                                                              context.CreateAttributePosition(enumerationAttribute)
+                                                             );
 
         switch (enumeration)
         {
@@ -107,16 +103,14 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
             {
                 while (badEnumerator.MoveNext())
                 {
-                    RunIteration(
-                        context,
-                        itemAttribute.Value,
-                        badEnumerator.Current ??
-                        throw BadRuntimeException.Create(
-                            context.ExecutionContext.Scope,
-                            "Enumerator returned null",
-                            context.CreateAttributePosition(enumerationAttribute)
-                        )
-                    );
+                    RunIteration(context,
+                                 itemAttribute.Value,
+                                 badEnumerator.Current ??
+                                 throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                                                  "Enumerator returned null",
+                                                                  context.CreateAttributePosition(enumerationAttribute)
+                                                                 )
+                                );
                 }
 
                 break;
@@ -134,21 +128,19 @@ public class BadForEachNodeTransformer : BadHtmlNodeTransformer
             {
                 while (enumerator.MoveNext())
                 {
-                    RunIteration(
-                        context,
-                        itemAttribute.Value,
-                        BadObject.Wrap(enumerator.Current)
-                    );
+                    RunIteration(context,
+                                 itemAttribute.Value,
+                                 BadObject.Wrap(enumerator.Current)
+                                );
                 }
 
                 break;
             }
             default:
-                throw BadRuntimeException.Create(
-                    context.ExecutionContext.Scope,
-                    "Result of 'on' attribute in 'bs:each' node is not enumerable",
-                    context.CreateAttributePosition(enumerationAttribute)
-                );
+                throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                                 "Result of 'on' attribute in 'bs:each' node is not enumerable",
+                                                 context.CreateAttributePosition(enumerationAttribute)
+                                                );
         }
     }
 }

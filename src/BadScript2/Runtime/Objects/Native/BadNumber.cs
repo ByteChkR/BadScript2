@@ -1,6 +1,7 @@
 using System.Globalization;
 
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Objects.Native;
 
 /// <summary>
@@ -19,9 +20,14 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
     /// <param name="value">The Number Value</param>
     public BadNumber(decimal value) : base(value) { }
 
+#region IBadNumber Members
 
     /// <inheritdoc />
     decimal IBadNumber.Value => Value;
+
+#endregion
+
+#region IComparable Members
 
     /// <summary>
     ///     Compares this Number to another Number
@@ -39,6 +45,10 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
         throw new Exception("Cannot compare number to non number");
     }
 
+#endregion
+
+#region IComparable<BadObject> Members
+
     /// <summary>
     ///     Compares this Number to another Number
     /// </summary>
@@ -55,6 +65,10 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
         throw new Exception("Cannot compare number to non number");
     }
 
+#endregion
+
+#region IComparable<IBadNumber> Members
+
     /// <summary>
     ///     Compares this Number to another Number
     /// </summary>
@@ -64,6 +78,8 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
     {
         return Value.CompareTo(other.Value);
     }
+
+#endregion
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()

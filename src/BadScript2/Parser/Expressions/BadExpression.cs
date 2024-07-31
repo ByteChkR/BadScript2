@@ -13,6 +13,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Parser.Expressions;
 
 /// <summary>
@@ -48,6 +49,7 @@ public abstract class BadExpression
     {
         Attributes = attributes;
     }
+
     protected IEnumerable<BadObject> ComputeAttributes(BadExecutionContext ctx, List<BadObject> attributes)
     {
         foreach (BadExpression? attribute in Attributes)
@@ -73,12 +75,14 @@ public abstract class BadExpression
             }
 
             BadClassPrototype? attribClass = null;
+
             if (access is BadVariableExpression varExpr)
             {
                 //Check if the variable exists and is a class.
                 if (ctx.Scope.HasVariable(varExpr.Name, ctx.Scope)) // Try to get the variable
                 {
-                    BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name, ctx.Scope).Dereference();
+                    BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name, ctx.Scope)
+                                              .Dereference();
 
                     //Check if the variable is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
@@ -88,10 +92,12 @@ public abstract class BadExpression
                 }
 
                 //If the variable does not exist, check if the variable name + "Attribute" exists and is a class.
-                if (attribClass == null && !varExpr.Name.EndsWith("Attribute") && ctx.Scope.HasVariable(varExpr.Name + "Attribute", ctx.Scope))
+                if (attribClass == null &&
+                    !varExpr.Name.EndsWith("Attribute") &&
+                    ctx.Scope.HasVariable(varExpr.Name + "Attribute", ctx.Scope))
                 {
-                    BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name + "Attribute", ctx.Scope).Dereference();
-
+                    BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name + "Attribute", ctx.Scope)
+                                              .Dereference();
 
                     //Check if the variable is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
@@ -107,20 +113,27 @@ public abstract class BadExpression
                 {
                     obj = o;
                 }
+
                 BadObject? parent = obj.Dereference();
+
                 //Check if parent has property
                 if (parent.HasProperty(mac.Right.Text, ctx.Scope))
                 {
-                    BadObject? attribObj = parent.GetProperty(mac.Right.Text, ctx.Scope).Dereference();
+                    BadObject? attribObj = parent.GetProperty(mac.Right.Text, ctx.Scope)
+                                                 .Dereference();
+
                     //Check if the property is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
                     {
                         attribClass = cls;
                     }
                 }
+
                 if (parent.HasProperty(mac.Right.Text + "Attribute", ctx.Scope))
                 {
-                    BadObject? attribObj = parent.GetProperty(mac.Right.Text + "Attribute", ctx.Scope).Dereference();
+                    BadObject? attribObj = parent.GetProperty(mac.Right.Text + "Attribute", ctx.Scope)
+                                                 .Dereference();
+
                     //Check if the property is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
                     {
@@ -134,14 +147,15 @@ public abstract class BadExpression
                 throw BadRuntimeException.Create(ctx.Scope, "Attribute must be a class", attribute.Position);
             }
 
-            attrib = new BadNewExpression(
-                new BadInvocationExpression(
-                    new BadConstantExpression(attribute.Position, attribClass),
-                    args,
-                    attribute.Position
-                ),
-                attribute.Position
-            );
+            attrib =
+                new BadNewExpression(new BadInvocationExpression(new BadConstantExpression(attribute.Position,
+                                                                      attribClass
+                                                                     ),
+                                                                 args,
+                                                                 attribute.Position
+                                                                ),
+                                     attribute.Position
+                                    );
 
             foreach (BadObject? o in attrib.Execute(ctx))
             {
@@ -150,6 +164,7 @@ public abstract class BadExpression
             }
 
             BadObject? a = obj.Dereference();
+
             if (a is not BadClass c)
             {
                 throw BadRuntimeException.Create(ctx.Scope, "Attribute must be a class", attrib.Position);
@@ -159,6 +174,7 @@ public abstract class BadExpression
             {
                 throw BadRuntimeException.Create(ctx.Scope, "Attribute must inherit from IAttribute", attrib.Position);
             }
+
             attributes.Add(a);
         }
     }
@@ -206,7 +222,8 @@ public abstract class BadExpression
 
     private IEnumerable<BadObject> ExecuteWithCatch(BadExecutionContext context)
     {
-        using IEnumerator<BadObject> e = InnerExecute(context).GetEnumerator();
+        using IEnumerator<BadObject> e = InnerExecute(context)
+            .GetEnumerator();
 
         while (true)
         {
@@ -219,16 +236,21 @@ public abstract class BadExpression
             }
             catch (BadRuntimeErrorException err)
             {
-                ExceptionDispatchInfo.Capture(err).Throw();
+                ExceptionDispatchInfo.Capture(err)
+                                     .Throw();
             }
             catch (Exception exception)
             {
-                throw new BadRuntimeErrorException(BadRuntimeError.FromException(exception, context.Scope.GetStackTrace()));
+                throw new BadRuntimeErrorException(BadRuntimeError.FromException(exception,
+                                                        context.Scope.GetStackTrace()
+                                                       )
+                                                  );
             }
 
             yield return e.Current ?? BadObject.Null;
         }
     }
+
     /// <summary>
     ///     Evaluates the Expression within the current Execution Context.
     /// </summary>
@@ -245,6 +267,7 @@ public abstract class BadExpression
         {
             return ExecuteWithCatch(context);
         }
+
         return InnerExecute(context);
     }
 
@@ -258,28 +281,23 @@ public abstract class BadExpression
     /// <param name="position">The Source Position used when throwing an error</param>
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the override function does not exist or is not of type BadFunction</exception>
-    protected static IEnumerable<BadObject> ExecuteOperatorOverride(
-        BadObject left,
-        BadObject right,
-        BadExecutionContext context,
-        string name,
-        BadSourcePosition position)
+    protected static IEnumerable<BadObject> ExecuteOperatorOverride(BadObject left,
+                                                                    BadObject right,
+                                                                    BadExecutionContext context,
+                                                                    string name,
+                                                                    BadSourcePosition position)
     {
-        if (left.GetProperty(name, context.Scope).Dereference() is not BadFunction func)
+        if (left.GetProperty(name, context.Scope)
+                .Dereference() is not BadFunction func)
         {
-            throw new BadRuntimeException(
-                $"{left.GetType().Name} has no {name} property",
-                position
-            );
+            throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
+                                          position
+                                         );
         }
 
-        foreach (BadObject o in func.Invoke(
-                     new[]
-                     {
-                         right,
-                     },
-                     context
-                 ))
+        foreach (BadObject o in func.Invoke(new[] { right },
+                                            context
+                                           ))
         {
             yield return o;
         }
@@ -294,18 +312,17 @@ public abstract class BadExpression
     /// <param name="position">The Source Position used when throwing an error</param>
     /// <returns>Result of the operator override function</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the override function does not exist or is not of type BadFunction</exception>
-    protected static IEnumerable<BadObject> ExecuteOperatorOverride(
-        BadObject left,
-        BadExecutionContext context,
-        string name,
-        BadSourcePosition position)
+    protected static IEnumerable<BadObject> ExecuteOperatorOverride(BadObject left,
+                                                                    BadExecutionContext context,
+                                                                    string name,
+                                                                    BadSourcePosition position)
     {
-        if (left.GetProperty(name, context.Scope).Dereference() is not BadFunction func)
+        if (left.GetProperty(name, context.Scope)
+                .Dereference() is not BadFunction func)
         {
-            throw new BadRuntimeException(
-                $"{left.GetType().Name} has no {name} property",
-                position
-            );
+            throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
+                                          position
+                                         );
         }
 
         foreach (BadObject o in func.Invoke(Array.Empty<BadObject>(), context))

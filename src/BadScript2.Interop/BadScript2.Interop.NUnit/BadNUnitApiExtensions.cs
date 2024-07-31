@@ -27,8 +27,8 @@ public static class BadNUnitApiExtensions
         api.SetContext(console);
 
         return runtime
-            .UseApi(api, true)
-            .UseConsole(new BadNUnitTestConsole())
-            .UseConsoleLogWriter();
+               .UseApi(api, true)
+               .UseConsole(new BadNUnitTestConsole())
+               .UseConsoleLogWriter();
     }
 }

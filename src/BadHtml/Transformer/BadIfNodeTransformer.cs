@@ -6,6 +6,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
 using HtmlAgilityPack;
+
 namespace BadHtml.Transformer;
 
 /// <summary>
@@ -27,10 +28,9 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
     /// <param name="elseBranch">The Else branch(if any is found)</param>
     /// <returns>List of Branches</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the Html Node does not have a valid shape</exception>
-    private static List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(
-        BadHtmlContext context,
-        HtmlNode node,
-        out IEnumerable<HtmlNode>? elseBranch)
+    private static List<(HtmlAttribute, IEnumerable<HtmlNode>)> DissectContent(BadHtmlContext context,
+                                                                               HtmlNode node,
+                                                                               out IEnumerable<HtmlNode>? elseBranch)
     {
         List<(HtmlAttribute, IEnumerable<HtmlNode>)> branches = new List<(HtmlAttribute, IEnumerable<HtmlNode>)>();
         List<HtmlNode> currentBranch = new List<HtmlNode>();
@@ -38,20 +38,18 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 
         if (conditionAttribute == null)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'test' attribute in 'bs:if' node",
-                context.CreateOuterPosition()
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Missing 'test' attribute in 'bs:if' node",
+                                             context.CreateOuterPosition()
+                                            );
         }
 
         if (string.IsNullOrEmpty(conditionAttribute.Value))
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'test' attribute in 'bs:if' node",
-                context.CreateAttributePosition(conditionAttribute)
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Empty 'test' attribute in 'bs:if' node",
+                                             context.CreateAttributePosition(conditionAttribute)
+                                            );
         }
 
         foreach (HtmlNode child in node.ChildNodes)
@@ -67,18 +65,16 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
                 {
                     if (nextCondition != null)
                     {
-                        throw BadRuntimeException.Create(
-                            context.ExecutionContext.Scope,
-                            "Found bs:else node with attribute 'test' after bs:else node without 'test' attribute",
-                            context.CreateAttributePosition(nextCondition)
-                        );
+                        throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                                         "Found bs:else node with attribute 'test' after bs:else node without 'test' attribute",
+                                                         context.CreateAttributePosition(nextCondition)
+                                                        );
                     }
 
-                    throw BadRuntimeException.Create(
-                        context.ExecutionContext.Scope,
-                        "Found bs:else node after bs:else node without 'test' attribute",
-                        context.CreateInnerPosition()
-                    );
+                    throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                                     "Found bs:else node after bs:else node without 'test' attribute",
+                                                     context.CreateInnerPosition()
+                                                    );
                 }
 
                 conditionAttribute = child.Attributes["test"];
@@ -90,11 +86,10 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 
                 if (string.IsNullOrEmpty(conditionAttribute.Value))
                 {
-                    throw BadRuntimeException.Create(
-                        context.ExecutionContext.Scope,
-                        "Empty 'test' attribute in 'bs:else' node",
-                        context.CreateAttributePosition(conditionAttribute)
-                    );
+                    throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                                     "Empty 'test' attribute in 'bs:else' node",
+                                                     context.CreateAttributePosition(conditionAttribute)
+                                                    );
                 }
             }
             else
@@ -125,18 +120,16 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
     /// <exception cref="BadRuntimeException">Gets raised if the result is not of type 'bool'</exception>
     private static bool EvaluateCondition(BadHtmlContext context, HtmlAttribute conditionAttribute)
     {
-        BadObject resultObj = context.ParseAndExecuteSingle(
-            conditionAttribute.Value,
-            context.CreateAttributePosition(conditionAttribute)
-        );
+        BadObject resultObj = context.ParseAndExecuteSingle(conditionAttribute.Value,
+                                                            context.CreateAttributePosition(conditionAttribute)
+                                                           );
 
         if (resultObj is not IBadBoolean result)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Result of 'test' attribute in 'bs:if' node is not a boolean",
-                context.CreateAttributePosition(conditionAttribute)
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Result of 'test' attribute in 'bs:if' node is not a boolean",
+                                             context.CreateAttributePosition(conditionAttribute)
+                                            );
         }
 
         return result.Value;
@@ -158,13 +151,13 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
             }
 
             executedAny = true;
-            using BadExecutionContext branchContext = new BadExecutionContext(
-                context.ExecutionContext.Scope.CreateChild(
-                    "bs:if",
-                    context.ExecutionContext.Scope,
-                    null
-                )
-            );
+
+            using BadExecutionContext branchContext =
+                new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:if",
+                                             context.ExecutionContext.Scope,
+                                             null
+                                            )
+                                       );
 
             foreach (HtmlNode? child in branch.block)
             {
@@ -179,13 +172,12 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
             return;
         }
 
-        using BadExecutionContext elseContext = new BadExecutionContext(
-            context.ExecutionContext.Scope.CreateChild(
-                "bs:if",
-                context.ExecutionContext.Scope,
-                null
-            )
-        );
+        using BadExecutionContext elseContext =
+            new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:if",
+                                                                               context.ExecutionContext.Scope,
+                                                                               null
+                                                                              )
+                                   );
 
         foreach (HtmlNode? child in elseBranch)
         {

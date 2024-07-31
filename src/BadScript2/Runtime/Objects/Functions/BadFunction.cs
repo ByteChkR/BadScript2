@@ -7,6 +7,7 @@ using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 using BadScript2.Utility;
+
 namespace BadScript2.Runtime.Objects.Functions;
 
 /// <summary>
@@ -32,13 +33,12 @@ public abstract class BadFunction : BadObject
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="parameters">The function parameters</param>
     /// <param name="isStatic">Is the Function static</param>
-    protected BadFunction(
-        BadWordToken? name,
-        bool isConstant,
-        bool isStatic,
-        BadClassPrototype returnType,
-        bool isSingleLine,
-        params BadFunctionParameter[] parameters)
+    protected BadFunction(BadWordToken? name,
+                          bool isConstant,
+                          bool isStatic,
+                          BadClassPrototype returnType,
+                          bool isSingleLine,
+                          params BadFunctionParameter[] parameters)
     {
         Name = name;
         IsConstant = isConstant;
@@ -114,7 +114,10 @@ public abstract class BadFunction : BadObject
     /// <returns>The Function Parameter at the given index</returns>
     protected static BadObject GetParameter(BadObject[] args, int i)
     {
-        return args.Length > i ? args[i].Dereference() : Null;
+        return args.Length > i
+                   ? args[i]
+                       .Dereference()
+                   : Null;
     }
 
     /// <summary>
@@ -138,14 +141,20 @@ public abstract class BadFunction : BadObject
             {
                 if (!parameter.IsOptional)
                 {
-                    throw BadRuntimeException.Create(caller.Scope, $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'", position);
+                    throw BadRuntimeException.Create(caller.Scope,
+                                                     $"Wrong number of parameters for '{this}'. Expected Argument for '{parameter}'",
+                                                     position
+                                                    );
                 }
             }
             else
             {
                 if (parameter.IsNullChecked && args[i] == Null)
                 {
-                    throw BadRuntimeException.Create(caller.Scope, $"Null value not allowed for '{this}' parameter '{parameter}'", position);
+                    throw BadRuntimeException.Create(caller.Scope,
+                                                     $"Null value not allowed for '{this}' parameter '{parameter}'",
+                                                     position
+                                                    );
                 }
             }
         }
@@ -160,12 +169,11 @@ public abstract class BadFunction : BadObject
     /// <param name="args">The Function Arguments</param>
     /// <param name="position">The Source Position used for raising exceptions</param>
     /// <exception cref="BadRuntimeException">Gets raised if the arguments can not be set in the context.</exception>
-    public static void ApplyParameters(
-        string funcStr,
-        BadFunctionParameter[] parameters,
-        BadExecutionContext context,
-        BadObject[] args,
-        BadSourcePosition? position = null)
+    public static void ApplyParameters(string funcStr,
+                                       BadFunctionParameter[] parameters,
+                                       BadExecutionContext context,
+                                       BadObject[] args,
+                                       BadSourcePosition? position = null)
     {
         for (int i = 0; i < parameters.Length; i++)
         {
@@ -173,32 +181,47 @@ public abstract class BadFunction : BadObject
 
             if (parameter.IsRestArgs)
             {
-                context.Scope.DefineVariable(
-                    parameter.Name,
-                    new BadArray(args.Skip(i).ToList()),
-                    null,
-                    new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array"))
-                );
+                context.Scope.DefineVariable(parameter.Name,
+                                             new BadArray(args.Skip(i)
+                                                              .ToList()
+                                                         ),
+                                             null,
+                                             new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array"))
+                                            );
             }
             else if (args.Length <= i)
             {
                 if (parameter.IsOptional)
                 {
-                    context.Scope.DefineVariable(parameter.Name, Null, null, new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance));
+                    context.Scope.DefineVariable(parameter.Name,
+                                                 Null,
+                                                 null,
+                                                 new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance)
+                                                );
                 }
                 else
                 {
-                    throw BadRuntimeException.Create(context.Scope, $"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'", position);
+                    throw BadRuntimeException.Create(context.Scope,
+                                                     $"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'",
+                                                     position
+                                                    );
                 }
             }
             else
             {
                 if (parameter.IsNullChecked && args[i] == Null)
                 {
-                    throw BadRuntimeException.Create(context.Scope, $"Null value not allowed for '{funcStr}' parameter '{parameter}'", position);
+                    throw BadRuntimeException.Create(context.Scope,
+                                                     $"Null value not allowed for '{funcStr}' parameter '{parameter}'",
+                                                     position
+                                                    );
                 }
 
-                context.Scope.DefineVariable(parameter.Name, args[i], null, new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance));
+                context.Scope.DefineVariable(parameter.Name,
+                                             args[i],
+                                             null,
+                                             new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance)
+                                            );
             }
         }
     }
@@ -269,12 +292,11 @@ public abstract class BadFunction : BadObject
             yield return o;
         }
 
-
         if (ret != null && !ReturnType.IsAssignableFrom(ret))
         {
-            throw new BadRuntimeException(
-                $"Invalid return type for function '{GetHeader()}'. Expected '{ReturnType.Name}' got '{ret.GetPrototype().Name}'"
-            );
+            throw new
+                BadRuntimeException($"Invalid return type for function '{GetHeader()}'. Expected '{ReturnType.Name}' got '{ret.GetPrototype().Name}'"
+                                   );
         }
 
         if (!IsConstant ||
@@ -320,7 +342,9 @@ public abstract class BadFunction : BadObject
     /// <param name="returnType">The Return Type</param>
     /// <param name="parameters">The Function Parameters</param>
     /// <returns></returns>
-    public static string GetHeader(string name, BadClassPrototype returnType, IEnumerable<BadFunctionParameter> parameters)
+    public static string GetHeader(string name,
+                                   BadClassPrototype returnType,
+                                   IEnumerable<BadFunctionParameter> parameters)
     {
         return $"{BadStaticKeys.FUNCTION_KEY} {returnType.Name} {name}({string.Join(", ", parameters.Cast<object>())})";
     }

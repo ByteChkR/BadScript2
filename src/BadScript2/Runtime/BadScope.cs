@@ -5,6 +5,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime;
 
 /// <summary>
@@ -12,8 +13,8 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject, IDisposable
 {
-
     private readonly Dictionary<string, BadObject[]> m_Attributes = new Dictionary<string, BadObject[]>();
+
     /// <summary>
     ///     The Finalizer List of the Scope
     /// </summary>
@@ -63,11 +64,10 @@ public class BadScope : BadObject, IDisposable
     /// <param name="provider">The Extension Provider of the Runtime</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
-    public BadScope(
-        string name,
-        BadInteropExtensionProvider provider,
-        BadScope? caller = null,
-        BadScopeFlags flags = BadScopeFlags.RootScope)
+    public BadScope(string name,
+                    BadInteropExtensionProvider provider,
+                    BadScope? caller = null,
+                    BadScopeFlags flags = BadScopeFlags.RootScope)
     {
         Name = name;
         Flags = flags;
@@ -85,12 +85,11 @@ public class BadScope : BadObject, IDisposable
     /// <param name="locals">The Local Variables</param>
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
-    public BadScope(
-        string name,
-        BadInteropExtensionProvider provider,
-        BadTable locals,
-        BadScope? caller = null,
-        BadScopeFlags flags = BadScopeFlags.RootScope)
+    public BadScope(string name,
+                    BadInteropExtensionProvider provider,
+                    BadTable locals,
+                    BadScope? caller = null,
+                    BadScopeFlags flags = BadScopeFlags.RootScope)
     {
         Name = name;
         Flags = flags;
@@ -109,17 +108,15 @@ public class BadScope : BadObject, IDisposable
     /// <param name="name">The Name of the Scope</param>
     /// <param name="flags">The Flags of the Scope</param>
     /// <param name="useVisibility">Does the Scope use the Visibility Subsystem</param>
-    private BadScope(
-        BadScope parent,
-        BadScope? caller,
-        string name,
-        BadScopeFlags flags = BadScopeFlags.RootScope,
-        bool useVisibility = false) : this(
-        name,
-        parent.Provider,
-        caller,
-        ClearCaptures(parent.Flags) | flags
-    )
+    private BadScope(BadScope parent,
+                     BadScope? caller,
+                     string name,
+                     BadScopeFlags flags = BadScopeFlags.RootScope,
+                     bool useVisibility = false) : this(name,
+                                                        parent.Provider,
+                                                        caller,
+                                                        ClearCaptures(parent.Flags) | flags
+                                                       )
     {
         m_UseVisibility = useVisibility;
         Parent = parent;
@@ -187,40 +184,41 @@ public class BadScope : BadObject, IDisposable
     /// <summary>
     ///     A Class Prototype for the Scope
     /// </summary>
-    public static BadClassPrototype Prototype { get; } = new BadNativeClassPrototype<BadScope>(
-        "Scope",
-        (c, args) =>
-        {
-            switch (args.Length)
-            {
-                case 1:
-                {
-                    if (args[0] is not IBadString name)
-                    {
-                        throw new BadRuntimeException("Expected Name in Scope Constructor");
-                    }
+    public static BadClassPrototype Prototype { get; } = new BadNativeClassPrototype<BadScope>("Scope",
+                                                                                               (c, args) =>
+                                                                                               {
+                                                                                                   switch (args.Length)
+                                                                                                   {
+                                                                                                       case 1:
+                                                                                                       {
+                                                                                                           if (args[0] is not IBadString name)
+                                                                                                           {
+                                                                                                               throw new BadRuntimeException("Expected Name in Scope Constructor");
+                                                                                                           }
 
-                    return CreateScope(c, name.Value);
-                }
-                case 2:
-                {
-                    if (args[0] is not IBadString name)
-                    {
-                        throw new BadRuntimeException("Expected Name in Scope Constructor");
-                    }
+                                                                                                           return CreateScope(c, name.Value);
+                                                                                                       }
+                                                                                                       case 2:
+                                                                                                       {
+                                                                                                           if (args[0] is not IBadString name)
+                                                                                                           {
+                                                                                                               throw new BadRuntimeException("Expected Name in Scope Constructor");
+                                                                                                           }
 
-                    if (args[1] is not BadTable locals)
-                    {
-                        throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
-                    }
+                                                                                                           if (args[1] is not BadTable locals)
+                                                                                                           {
+                                                                                                               throw new BadRuntimeException("Expected Locals Table in Scope Constructor");
+                                                                                                           }
 
-                    return CreateScope(c, name.Value, locals);
-                }
-                default:
-                    throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
-            }
-        }
-    );
+                                                                                                           return CreateScope(c, name.Value, locals);
+                                                                                                       }
+                                                                                                       default:
+                                                                                                           throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
+                                                                                                   }
+                                                                                               }
+                                                                                              );
+
+#region IDisposable Members
 
     /// <summary>
     ///     Disposes the Scope and calls all finalizers
@@ -233,6 +231,7 @@ public class BadScope : BadObject, IDisposable
         }
 
         m_IsDisposed = true;
+
         foreach (Action finalizer in m_Finalizers)
         {
             finalizer();
@@ -241,11 +240,13 @@ public class BadScope : BadObject, IDisposable
         m_Finalizers.Clear();
     }
 
+#endregion
+
     public BadArray GetMemberInfos()
     {
-        return new BadArray(
-            m_ScopeVariables.InnerTable.Keys.Select(x => (BadObject)new BadMemberInfo(x, this)).ToList()
-        );
+        return new BadArray(m_ScopeVariables.InnerTable.Keys.Select(x => (BadObject)new BadMemberInfo(x, this))
+                                            .ToList()
+                           );
     }
 
     /// <summary>
@@ -384,9 +385,12 @@ public class BadScope : BadObject, IDisposable
     /// <returns>New Scope Instance</returns>
     private static BadScope CreateScope(BadExecutionContext ctx, string name, BadTable? locals = null)
     {
-        BadScope s = locals != null ? new BadScope(name, ctx.Scope.Provider, locals) : new BadScope(name, ctx.Scope.Provider);
+        BadScope s = locals != null
+                         ? new BadScope(name, ctx.Scope.Provider, locals)
+                         : new BadScope(name, ctx.Scope.Provider);
 
-        foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope().m_SingletonCache)
+        foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope()
+                                                      .m_SingletonCache)
         {
             s.m_SingletonCache.Add(kvp.Key, kvp.Value);
         }
@@ -566,42 +570,43 @@ public class BadScope : BadObject, IDisposable
     /// <param name="useVisibility">Specifies if the scope is part of a class structure(if visibility flags are used)</param>
     /// <param name="flags">Scope Flags</param>
     /// <returns>New BadScope Instance</returns>
-    public BadScope CreateChild(
-        string name,
-        BadScope? caller,
-        bool? useVisibility,
-        BadScopeFlags flags = BadScopeFlags.RootScope)
+    public BadScope CreateChild(string name,
+                                BadScope? caller,
+                                bool? useVisibility,
+                                BadScopeFlags flags = BadScopeFlags.RootScope)
     {
         BadScope sc = new BadScope(this, caller, name, flags, useVisibility ?? m_UseVisibility)
         {
-            ClassObject = ClassObject,
-            FunctionObject = FunctionObject,
+            ClassObject = ClassObject, FunctionObject = FunctionObject,
         };
 
         return sc;
     }
+
     internal void OnChanged(string name, BadObject oldValue, BadObject newValue)
     {
         if (ClassObject == null)
         {
             return;
         }
+
         if (m_Attributes.TryGetValue(name, out BadObject[]? attributes))
         {
             BadMemberInfo? member = new BadMemberInfo(name, this);
+
             foreach (BadClass attribute in attributes.OfType<BadClass>())
             {
                 if (attribute.InheritsFrom(BadNativeClassBuilder.ChangedAttribute))
                 {
-                    BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChanged").Dereference();
-                    BadMemberChangedEvent? eventObj = new BadMemberChangedEvent(ClassObject!, member, oldValue, newValue);
-                    foreach (BadObject o in invoke.Invoke(
-                                 new BadObject[]
-                                 {
-                                     eventObj,
-                                 },
-                                 new BadExecutionContext(this)
-                             ))
+                    BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChanged")
+                                                                .Dereference();
+
+                    BadMemberChangedEvent? eventObj =
+                        new BadMemberChangedEvent(ClassObject!, member, oldValue, newValue);
+
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { eventObj },
+                                                          new BadExecutionContext(this)
+                                                         ))
                     {
                         //Execute
                     }
@@ -609,29 +614,32 @@ public class BadScope : BadObject, IDisposable
             }
         }
     }
+
     internal bool OnChange(string name, BadObject oldValue, BadObject newValue)
     {
         if (ClassObject == null)
         {
             return false;
         }
+
         if (m_Attributes.TryGetValue(name, out BadObject[]? attributes))
         {
             BadMemberInfo? member = new BadMemberInfo(name, this);
+
             foreach (BadClass attribute in attributes.OfType<BadClass>())
             {
                 if (attribute.InheritsFrom(BadNativeClassBuilder.ChangeAttribute))
                 {
-                    BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChange").Dereference();
-                    BadMemberChangingEvent? eventObj = new BadMemberChangingEvent(ClassObject!, member, oldValue, newValue);
+                    BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChange")
+                                                                .Dereference();
+
+                    BadMemberChangingEvent? eventObj =
+                        new BadMemberChangingEvent(ClassObject!, member, oldValue, newValue);
                     BadObject? obj = Null;
-                    foreach (BadObject o in invoke.Invoke(
-                                 new BadObject[]
-                                 {
-                                     eventObj,
-                                 },
-                                 new BadExecutionContext(this)
-                             ))
+
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { eventObj },
+                                                          new BadExecutionContext(this)
+                                                         ))
                     {
                         //Execute
                         obj = o;
@@ -647,28 +655,28 @@ public class BadScope : BadObject, IDisposable
 
         return false;
     }
+
     internal IEnumerable<BadObject> InitializeAttributes()
     {
         if (ClassObject == null)
         {
             throw new BadRuntimeException("Scope is not a class scope");
         }
+
         foreach (KeyValuePair<string, BadObject[]> kvp in m_Attributes)
         {
             BadMemberInfo? member = new BadMemberInfo(kvp.Key, this);
+
             foreach (BadClass attribute in kvp.Value.OfType<BadClass>())
             {
                 if (attribute.InheritsFrom(BadNativeClassBuilder.InitializeAttribute))
                 {
-                    BadFunction? invoke = (BadFunction)attribute.GetProperty("Initialize").Dereference();
-                    foreach (BadObject o in invoke.Invoke(
-                                 new BadObject[]
-                                 {
-                                     ClassObject!,
-                                     member,
-                                 },
-                                 new BadExecutionContext(this)
-                             ))
+                    BadFunction? invoke = (BadFunction)attribute.GetProperty("Initialize")
+                                                                .Dereference();
+
+                    foreach (BadObject o in invoke.Invoke(new BadObject[] { ClassObject!, member },
+                                                          new BadExecutionContext(this)
+                                                         ))
                     {
                         //Execute
                         yield return o;
@@ -678,43 +686,65 @@ public class BadScope : BadObject, IDisposable
         }
     }
 
-    public void DefineProperty(string name, BadClassPrototype type, BadExpression getAccessor, BadExpression? setAccessor, BadExecutionContext caller, BadObject[] attributes)
+    public void DefineProperty(string name,
+                               BadClassPrototype type,
+                               BadExpression getAccessor,
+                               BadExpression? setAccessor,
+                               BadExecutionContext caller,
+                               BadObject[] attributes)
     {
         if (HasLocal(name, caller.Scope, false))
         {
             throw new BadRuntimeException($"Property {name} is already defined");
         }
+
         Action<BadObject, BadPropertyInfo?>? setter = null;
+
         if (setAccessor != null)
         {
             setter = (value, pi) =>
             {
-                BadExecutionContext? setCtx = new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
-                setCtx.Scope.DefineVariable("value", value, setCtx.Scope, new BadPropertyInfo(BadAnyPrototype.Instance, true));
+                BadExecutionContext? setCtx =
+                    new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
+
+                setCtx.Scope.DefineVariable("value",
+                                            value,
+                                            setCtx.Scope,
+                                            new BadPropertyInfo(BadAnyPrototype.Instance, true)
+                                           );
+
                 foreach (BadObject o in setCtx.Execute(setAccessor))
                 {
                     //Execute
                 }
             };
         }
+
         m_ScopeVariables.PropertyInfos.Add(name, new BadPropertyInfo(type, setter == null));
-        m_ScopeVariables.InnerTable.Add(
-            name,
-            BadObjectReference.Make(
-                $"property {name}",
-                () =>
-                {
-                    BadExecutionContext? getCtx = new BadExecutionContext(caller.Scope.CreateChild($"get {name}", caller.Scope, null));
-                    BadObject? get = Null;
-                    foreach (BadObject o in getCtx.Execute(getAccessor))
-                    {
-                        get = o;
-                    }
-                    return get.Dereference();
-                },
-                setter
-            )
-        );
+
+        m_ScopeVariables.InnerTable.Add(name,
+                                        BadObjectReference.Make($"property {name}",
+                                                                () =>
+                                                                {
+                                                                    BadExecutionContext? getCtx =
+                                                                        new BadExecutionContext(caller.Scope
+                                                                                .CreateChild($"get {name}",
+                                                                                     caller.Scope,
+                                                                                     null
+                                                                                    )
+                                                                            );
+                                                                    BadObject? get = Null;
+
+                                                                    foreach (BadObject o in getCtx.Execute(getAccessor))
+                                                                    {
+                                                                        get = o;
+                                                                    }
+
+                                                                    return get.Dereference();
+                                                                },
+                                                                setter
+                                                               )
+                                       );
 
         m_Attributes[name] = attributes;
     }
@@ -727,7 +757,11 @@ public class BadScope : BadObject, IDisposable
     /// <param name="caller">The Caller of the Scope</param>
     /// <param name="info">Variable Info</param>
     /// <exception cref="BadRuntimeException">Gets raised if the specified variable is already defined.</exception>
-    public void DefineVariable(string name, BadObject value, BadScope? caller = null, BadPropertyInfo? info = null, BadObject[]? attributes = null)
+    public void DefineVariable(string name,
+                               BadObject value,
+                               BadScope? caller = null,
+                               BadPropertyInfo? info = null,
+                               BadObject[]? attributes = null)
     {
         if (HasLocal(name, caller ?? this, false))
         {
@@ -735,7 +769,9 @@ public class BadScope : BadObject, IDisposable
         }
 
         m_Attributes[name] = attributes ?? [];
-        m_ScopeVariables.GetProperty(name, false, caller ?? this).Set(value, info, true);
+
+        m_ScopeVariables.GetProperty(name, false, caller ?? this)
+                        .Set(value, info, true);
     }
 
     /// <summary>
@@ -772,7 +808,7 @@ public class BadScope : BadObject, IDisposable
         return second switch
         {
             '_' => first == '_' ? BadPropertyVisibility.Private : BadPropertyVisibility.Public,
-            _ => first == '_' ? BadPropertyVisibility.Protected : BadPropertyVisibility.Public,
+            _   => first == '_' ? BadPropertyVisibility.Protected : BadPropertyVisibility.Public,
         };
     }
 
@@ -802,7 +838,6 @@ public class BadScope : BadObject, IDisposable
                 return true;
             }
 
-
             current = current.Parent;
         }
 
@@ -820,7 +855,9 @@ public class BadScope : BadObject, IDisposable
     {
         if (m_UseVisibility)
         {
-            BadPropertyVisibility vis = IsVisibleParentOf(caller) ? BadPropertyVisibility.All : BadPropertyVisibility.Public;
+            BadPropertyVisibility vis = IsVisibleParentOf(caller)
+                                            ? BadPropertyVisibility.All
+                                            : BadPropertyVisibility.Public;
 
             if ((GetPropertyVisibility(name) & vis) == 0)
             {
@@ -861,7 +898,9 @@ public class BadScope : BadObject, IDisposable
     /// <returns>true if the variable is defined</returns>
     public bool HasLocal(string name, BadScope caller, bool useExtensions = true)
     {
-        return !useExtensions ? m_ScopeVariables.InnerTable.ContainsKey(name) : m_ScopeVariables.HasProperty(name, caller);
+        return !useExtensions
+                   ? m_ScopeVariables.InnerTable.ContainsKey(name)
+                   : m_ScopeVariables.HasProperty(name, caller);
     }
 
     /// <summary>
@@ -872,14 +911,16 @@ public class BadScope : BadObject, IDisposable
     /// <returns>true if the variable is defined</returns>
     public bool HasVariable(string name, BadScope caller)
     {
-        return HasLocal(name, caller) || Parent != null && Parent.HasVariable(name, caller);
+        return HasLocal(name, caller) || (Parent != null && Parent.HasVariable(name, caller));
     }
 
 
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        return HasVariable(propName, caller ?? this) ? GetVariable(propName, caller ?? this) : base.GetProperty(propName, caller);
+        return HasVariable(propName, caller ?? this)
+                   ? GetVariable(propName, caller ?? this)
+                   : base.GetProperty(propName, caller);
     }
 
     /// <inheritdoc />

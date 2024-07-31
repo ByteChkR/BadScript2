@@ -70,7 +70,6 @@ public static class BadFileSystem
         using Stream s = fileSystem.OpenRead(path);
         using StreamReader sw = new StreamReader(s);
 
-
         while (!sw.EndOfStream)
         {
             yield return sw.ReadLine() ?? "";

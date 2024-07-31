@@ -24,17 +24,16 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 
     private void OpenWithDefault(string path)
     {
-        ProcessStartInfo pi = new ProcessStartInfo
-        {
-            FileName = path,
-            UseShellExecute = true,
-        };
+        ProcessStartInfo pi = new ProcessStartInfo { FileName = path, UseShellExecute = true };
         Process.Start(pi);
     }
+
     /// <inheritdoc />
     protected override Task<int> Run(BadSettingsSystemSettings settings)
     {
-        BadSettings? setting = string.IsNullOrEmpty(settings.Path) ? BadSettingsProvider.RootSettings : BadSettingsProvider.RootSettings.FindProperty(settings.Path);
+        BadSettings? setting = string.IsNullOrEmpty(settings.Path)
+                                   ? BadSettingsProvider.RootSettings
+                                   : BadSettingsProvider.RootSettings.FindProperty(settings.Path);
 
         if (settings.Edit)
         {
@@ -42,19 +41,26 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
             {
                 //Open the Settings folder
                 //Directory: $Console.DataDirectory/settings
-                OpenWithDefault(Path.GetFullPath(BadSettingsProvider.RootSettings.FindProperty<string>("Console.DataDirectory")! + "/settings"));
+                OpenWithDefault(Path.GetFullPath(BadSettingsProvider.RootSettings
+                                                                    .FindProperty<string>("Console.DataDirectory")! +
+                                                 "/settings"
+                                                )
+                               );
+
                 return Task.FromResult(0);
             }
 
             if (setting == null)
             {
                 BadConsole.WriteLine($"Setting '{settings.Path}' not found.");
+
                 return Task.FromResult(1);
             }
 
             if (!setting.HasSourcePath)
             {
                 BadConsole.WriteLine($"Setting '{settings.Path}' has no source path.");
+
                 return Task.FromResult(1);
             }
 
@@ -64,6 +70,7 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
 
             return Task.FromResult(0);
         }
+
         BadConsole.WriteLine(setting?.ToString() ?? "null");
 
         return Task.FromResult(0);

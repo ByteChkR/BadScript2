@@ -6,6 +6,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
@@ -40,9 +41,10 @@ public class BadUnitTestContextBuilder
     {
         BadNUnitConsoleApi api = new BadNUnitConsoleApi();
         api.SetContext(this);
+
         m_Runtime = runtime.Clone()
-            .UseApi(new BadNUnitApi())
-            .UseApi(api);
+                           .UseApi(new BadNUnitApi())
+                           .UseApi(api);
     }
 
 
@@ -128,7 +130,8 @@ public class BadUnitTestContextBuilder
     private void SetupStage(string file, bool optimizeFolding = false, bool optimizeSubstitution = false)
     {
         //Load expressions
-        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file)).Parse();
+        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file))
+                                                                .Parse();
 
         if (optimizeFolding)
         {

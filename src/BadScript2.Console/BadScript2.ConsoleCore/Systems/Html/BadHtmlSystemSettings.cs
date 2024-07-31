@@ -1,4 +1,5 @@
 using CommandLine;
+
 namespace BadScript2.ConsoleCore.Systems.Html;
 
 /// <summary>
@@ -27,12 +28,11 @@ public class BadHtmlSystemSettings
 	/// <summary>
 	///     If Specified the Remote Console will be started on the specified port
 	/// </summary>
-	[Option(
-        'r',
-        "remote",
-        Required = false,
-        HelpText = "Specifies the Remote Console Host port. If not specified the remote host will not be started"
-    )]
+	[Option('r',
+		       "remote",
+		       Required = false,
+		       HelpText = "Specifies the Remote Console Host port. If not specified the remote host will not be started"
+	       )]
     public int RemotePort { get; set; } = -1;
 
 	/// <summary>

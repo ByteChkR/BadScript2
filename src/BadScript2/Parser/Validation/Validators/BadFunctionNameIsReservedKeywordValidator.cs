@@ -1,5 +1,6 @@
 using BadScript2.Common;
 using BadScript2.Parser.Expressions.Function;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -12,12 +13,11 @@ public class BadFunctionNameIsReservedKeywordValidator : BadExpressionValidator<
     {
         if (BadStaticKeys.IsReservedKeyword(expr.Name?.ToString() ?? string.Empty))
         {
-            context.AddError(
-                $"Name {expr.Name} is a reserved keyword",
-                expr,
-                expr,
-                this
-            );
+            context.AddError($"Name {expr.Name} is a reserved keyword",
+                             expr,
+                             expr,
+                             this
+                            );
         }
     }
 }

@@ -3,6 +3,7 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>
@@ -16,7 +17,8 @@ public class BadNamedExportExpression : BadExpression
     /// <param name="name">Name of the Export</param>
     /// <param name="expression">The Expression to export</param>
     /// <param name="position">The Source Position of the Expression</param>
-    public BadNamedExportExpression(string? name, BadExpression expression, BadSourcePosition position) : base(false, position)
+    public BadNamedExportExpression(string? name, BadExpression expression, BadSourcePosition position) :
+        base(false, position)
     {
         Expression = expression;
         Name = name;
@@ -47,6 +49,7 @@ public class BadNamedExportExpression : BadExpression
         }
 
         BadObject? result = BadObject.Null;
+
         foreach (BadObject o in Expression.Execute(context))
         {
             result = o;

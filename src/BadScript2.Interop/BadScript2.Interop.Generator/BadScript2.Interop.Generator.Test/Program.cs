@@ -1,6 +1,7 @@
 ﻿using BadScript2.Interactive;
 using BadScript2.Interop;
 using BadScript2.Interop.Common;
+
 namespace BadScript2.Generator.Test;
 
 [BadInteropApi("TestApi")]
@@ -60,9 +61,8 @@ internal partial class Program
     private static void Main()
     {
         BadRuntime runtime = new BadRuntime()
-            .UseCommonInterop()
-            .UseApi(new Program());
-
+                             .UseCommonInterop()
+                             .UseApi(new Program());
 
         runtime.RunInteractive(Enumerable.Empty<string>());
     }

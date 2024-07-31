@@ -22,6 +22,7 @@ using BadScript2.Reader.Token.Primitive;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Parser;
 
 /// <summary>
@@ -88,7 +89,8 @@ public class BadSourceParser
     /// <returns>The Parsed Expression</returns>
     public static IEnumerable<BadExpression> Parse(string fileName, string source)
     {
-        return Create(fileName, source).Parse();
+        return Create(fileName, source)
+            .Parse();
     }
 
     /// <summary>
@@ -108,7 +110,6 @@ public class BadSourceParser
         }
 
         BadUnaryPrefixOperator? op = m_Operators.FindUnaryPrefixOperator(symbol.Text, precedence);
-
 
         if (op != null)
         {
@@ -135,9 +136,11 @@ public class BadSourceParser
         Reader.SkipNonToken();
         Dictionary<BadExpression, BadExpression[]> cases = new Dictionary<BadExpression, BadExpression[]>();
         List<BadExpression>? defaultCase = null;
+
         while (!Reader.IsEof() && !Reader.Is('}'))
         {
             Reader.SkipNonToken();
+
             if (Reader.Is(BadStaticKeys.DEFAULT_KEY))
             {
                 Reader.Eat(BadStaticKeys.DEFAULT_KEY);
@@ -146,8 +149,10 @@ public class BadSourceParser
                 Reader.SkipNonToken();
                 defaultCase = ParseBlock(out bool _);
                 Reader.SkipNonToken();
+
                 break;
             }
+
             Reader.Eat(BadStaticKeys.CASE_KEY);
             Reader.SkipNonToken();
             BadExpression caseValue = ParseExpression();
@@ -155,16 +160,23 @@ public class BadSourceParser
             Reader.Eat(':');
             Reader.SkipNonToken();
             List<BadExpression> caseBody = new List<BadExpression>();
+
             if (Reader.Is('{'))
             {
                 caseBody = ParseBlock(out bool _);
             }
+
             Reader.SkipNonToken();
             cases[caseValue] = caseBody.ToArray();
         }
+
         Reader.Eat('}');
 
-        return new BadSwitchExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), value, cases, defaultCase);
+        return new BadSwitchExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                       value,
+                                       cases,
+                                       defaultCase
+                                      );
     }
 
     /// <summary>
@@ -212,14 +224,14 @@ public class BadSourceParser
 
         if (isElse)
         {
-            elseBlock = ParseBlock(out bool _).ToArray();
+            elseBlock = ParseBlock(out bool _)
+                .ToArray();
         }
 
-        return new BadIfExpression(
-            conditionMap,
-            elseBlock,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-        );
+        return new BadIfExpression(conditionMap,
+                                   elseBlock,
+                                   Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                  );
     }
 
     /// <summary>
@@ -244,12 +256,11 @@ public class BadSourceParser
         List<BadExpression> block = ParseBlock(out bool _);
         Reader.SkipNonToken();
 
-        return new BadForEachExpression(
-            collection,
-            variableName,
-            block.ToArray(),
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-        );
+        return new BadForEachExpression(collection,
+                                        variableName,
+                                        block.ToArray(),
+                                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                       );
     }
 
 
@@ -271,11 +282,10 @@ public class BadSourceParser
         List<BadExpression> block = ParseBlock(out bool _);
         Reader.SkipNonToken();
 
-        return new BadLockExpression(
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            collection,
-            block.ToArray()
-        );
+        return new BadLockExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                     collection,
+                                     block.ToArray()
+                                    );
     }
 
     /// <summary>
@@ -304,13 +314,12 @@ public class BadSourceParser
         List<BadExpression> block = ParseBlock(out bool _);
         Reader.SkipNonToken();
 
-        return new BadForExpression(
-            vDef,
-            condition,
-            vInc,
-            block.ToArray(),
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-        );
+        return new BadForExpression(vDef,
+                                    condition,
+                                    vInc,
+                                    block.ToArray(),
+                                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                   );
     }
 
     /// <summary>
@@ -349,7 +358,9 @@ public class BadSourceParser
             {
                 Reader.Eat("|PARAM");
                 Reader.SkipNonToken();
-                string name = Reader.ParseWord().Text;
+
+                string name = Reader.ParseWord()
+                                    .Text;
                 Reader.SkipNonToken();
                 string type = "any";
 
@@ -359,7 +370,8 @@ public class BadSourceParser
 
                     while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
                     {
-                        type += Reader.ParseWord().Text;
+                        type += Reader.ParseWord()
+                                      .Text;
 
                         if (!Reader.Is('.'))
                         {
@@ -397,7 +409,8 @@ public class BadSourceParser
 
                     while (!Reader.IsEof() && (Reader.IsWordStart() || Reader.Is('.')))
                     {
-                        type += Reader.ParseWord().Text;
+                        type += Reader.ParseWord()
+                                      .Text;
 
                         if (!Reader.Is('.'))
                         {
@@ -450,18 +463,18 @@ public class BadSourceParser
         Reader.Eat("|@");
         Reader.SkipNonToken();
 
-        m_MetaData = new BadMetaData(
-            rootMeta.ToString().Trim(),
-            returnMeta.ToString().Trim(),
-            returnType,
-            meta.ToDictionary(
-                x => x.Key,
-                x => new BadParameterMetaData(
-                    x.Value.Item1,
-                    x.Value.Item2.ToString().Trim()
-                )
-            )
-        );
+        m_MetaData = new BadMetaData(rootMeta.ToString()
+                                             .Trim(),
+                                     returnMeta.ToString()
+                                               .Trim(),
+                                     returnType,
+                                     meta.ToDictionary(x => x.Key,
+                                                       x => new BadParameterMetaData(x.Value.Item1,
+                                                            x.Value.Item2.ToString()
+                                                             .Trim()
+                                                           )
+                                                      )
+                                    );
     }
 
     /// <summary>
@@ -553,10 +566,9 @@ public class BadSourceParser
             Reader.SkipNonToken();
             Reader.Eat(']');
 
-            return new BadArrayExpression(
-                initExpressions.ToArray(),
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            return new BadArrayExpression(initExpressions.ToArray(),
+                                          Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                         );
         }
 
         if (Reader.Is('{'))
@@ -593,10 +605,9 @@ public class BadSourceParser
 
             Reader.Eat('}');
 
-            return new BadTableExpression(
-                table,
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            return new BadTableExpression(table,
+                                          Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                         );
         }
 
         if (Reader.IsKey(BadStaticKeys.LOCK_KEY))
@@ -760,7 +771,6 @@ public class BadSourceParser
             Reader.SetPosition(compiledStart < constStart ? compiledStart : constStart);
         }
 
-
         if (Reader.IsKey(BadStaticKeys.CLASS_KEY))
         {
             return ParseClass();
@@ -817,12 +827,10 @@ public class BadSourceParser
             return ParseFormatString();
         }
 
-
         if (Reader.Is(BadStaticKeys.MULTI_LINE_FORMAT_STRING_KEY))
         {
             return ParseMultiLineFormatString();
         }
-
 
         if (Reader.Is(BadStaticKeys.MULTI_LINE_STRING_KEY))
         {
@@ -835,10 +843,9 @@ public class BadSourceParser
         {
             BadNumberToken token = Reader.ParseNumber();
 
-            return new BadNumberExpression(
-                decimal.Parse(token.Text, NumberFormatInfo.InvariantInfo),
-                token.SourcePosition
-            );
+            return new BadNumberExpression(decimal.Parse(token.Text, NumberFormatInfo.InvariantInfo),
+                                           token.SourcePosition
+                                          );
         }
 
         BadValueParser? valueParser = m_Operators.GetValueParser(this);
@@ -866,12 +873,12 @@ public class BadSourceParser
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
                 List<BadExpression>? genArgs = ParseGenericArguments();
-                nameExpr = new BadMemberAccessExpression(
-                    nameExpr,
-                    right,
-                    nameExpr.Position.Combine(right.SourcePosition),
-                    genArgs
-                );
+
+                nameExpr = new BadMemberAccessExpression(nameExpr,
+                                                         right,
+                                                         nameExpr.Position.Combine(right.SourcePosition),
+                                                         genArgs
+                                                        );
                 Reader.SkipNonToken();
             }
 
@@ -911,12 +918,18 @@ public class BadSourceParser
                 Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
                 Reader.SkipNonToken();
                 BadExpression? setExpr = null;
+
                 if (Reader.Is(BadStaticKeys.SET_ACCESSOR_KEY))
                 {
                     if (isReadOnly)
                     {
-                        throw new BadParserException("Cannot define a set accessor for a constant", Reader.MakeSourcePosition(wordStart, Reader.CurrentIndex - wordStart));
+                        throw new BadParserException("Cannot define a set accessor for a constant",
+                                                     Reader.MakeSourcePosition(wordStart,
+                                                                               Reader.CurrentIndex - wordStart
+                                                                              )
+                                                    );
                     }
+
                     Reader.Eat(BadStaticKeys.SET_ACCESSOR_KEY);
                     Reader.SkipNonToken();
                     Reader.Eat("=>");
@@ -929,7 +942,13 @@ public class BadSourceParser
                 Reader.SkipNonToken();
                 Reader.Eat('}');
 
-                return new BadPropertyDefinitionExpression(name.Text, word.SourcePosition, getExpr, type, setExpr, isReadOnly);
+                return new BadPropertyDefinitionExpression(name.Text,
+                                                           word.SourcePosition,
+                                                           getExpr,
+                                                           type,
+                                                           setExpr,
+                                                           isReadOnly
+                                                          );
             }
 
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
@@ -939,7 +958,7 @@ public class BadSourceParser
 
         List<BadExpression> typeArgs = ParseGenericArguments();
 
-        if (precedence <= 0 || !Reader.Is("=>") && !Reader.Is('*') && !Reader.Is('?') && !Reader.Is('!'))
+        if (precedence <= 0 || (!Reader.Is("=>") && !Reader.Is('*') && !Reader.Is('?') && !Reader.Is('!')))
         {
             return new BadVariableExpression(word.Text, word.SourcePosition, typeArgs.ToArray());
         }
@@ -981,18 +1000,14 @@ public class BadSourceParser
                 }
                 else
                 {
-                    return ParseFunction(
-                        start,
-                        null,
-                        null,
-                        false,
-                        isStatic,
-                        BadFunctionCompileLevel.None,
-                        new List<BadFunctionParameter>
-                        {
-                            p,
-                        }
-                    );
+                    return ParseFunction(start,
+                                         null,
+                                         null,
+                                         false,
+                                         isStatic,
+                                         BadFunctionCompileLevel.None,
+                                         new List<BadFunctionParameter> { p }
+                                        );
                 }
             }
         }
@@ -1003,22 +1018,27 @@ public class BadSourceParser
     public List<BadExpression> ParseGenericArguments()
     {
         List<BadExpression> typeArgs = new List<BadExpression>();
+
         if (Reader.Is('<'))
         {
             int genStart = Reader.CurrentIndex;
+
             try
             {
                 Reader.Eat('<');
                 Reader.SkipNonToken();
+
                 while (true)
                 {
                     BadExpression? expr = ParseExpression(null, 3);
                     typeArgs.Add(expr);
                     Reader.SkipNonToken();
+
                     if (!Reader.Is(','))
                     {
                         break;
                     }
+
                     Reader.Eat(',');
                     Reader.SkipNonToken();
                 }
@@ -1055,7 +1075,6 @@ public class BadSourceParser
             {
                 return left;
             }
-
 
             if (Reader.Is('[') || Reader.Is("?["))
             {
@@ -1109,21 +1128,19 @@ public class BadSourceParser
 
                 if (isReverse)
                 {
-                    left = new BadArrayAccessReverseExpression(
-                        left,
-                        indices.ToArray(),
-                        left.Position.Combine(end),
-                        isNullChecked
-                    );
+                    left = new BadArrayAccessReverseExpression(left,
+                                                               indices.ToArray(),
+                                                               left.Position.Combine(end),
+                                                               isNullChecked
+                                                              );
                 }
                 else
                 {
-                    left = new BadArrayAccessExpression(
-                        left,
-                        indices.ToArray(),
-                        left.Position.Combine(end),
-                        isNullChecked
-                    );
+                    left = new BadArrayAccessExpression(left,
+                                                        indices.ToArray(),
+                                                        left.Position.Combine(end),
+                                                        isNullChecked
+                                                       );
                 }
 
                 continue;
@@ -1176,7 +1193,6 @@ public class BadSourceParser
 
             BadBinaryOperator? op = m_Operators.FindBinaryOperator(symbol.Text, precedence);
 
-
             if (op == null)
             {
                 Reader.SetPosition(symbol.SourcePosition.Index);
@@ -1200,10 +1216,10 @@ public class BadSourceParser
     {
         if (!Reader.Is(BadStaticKeys.MULTI_LINE_FORMAT_STRING_KEY))
         {
-            throw new BadSourceReaderException(
-                $"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
-                Reader.MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
+                                         Reader.MakeSourcePosition(1)
+                                        );
         }
 
         int start = Reader.CurrentIndex;
@@ -1215,10 +1231,9 @@ public class BadSourceParser
         {
             if (Reader.IsEof())
             {
-                throw new BadSourceReaderException(
-                    "String not terminated",
-                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                );
+                throw new BadSourceReaderException("String not terminated",
+                                                   Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                                  );
             }
 
             if (Reader.Is('{'))
@@ -1250,10 +1265,9 @@ public class BadSourceParser
 
                 if (!Reader.Is('}'))
                 {
-                    throw new BadSourceReaderException(
-                        "Expected '}'",
-                        Reader.MakeSourcePosition(idx, 1)
-                    );
+                    throw new BadSourceReaderException("Expected '}'",
+                                                       Reader.MakeSourcePosition(idx, 1)
+                                                      );
                 }
 
                 Reader.Eat('}');
@@ -1272,19 +1286,18 @@ public class BadSourceParser
         if (args.Count == 0)
         {
             string str = sb.ToString()
-                .Replace("{{", "{")
-                .Replace("}}", "}");
-            return new BadStringExpression(
-                '"' + str + '"',
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+                           .Replace("{{", "{")
+                           .Replace("}}", "}");
+
+            return new BadStringExpression('"' + str + '"',
+                                           Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                          );
         }
 
-        return new BadFormattedStringExpression(
-            args.ToArray(),
-            sb.ToString(),
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-        );
+        return new BadFormattedStringExpression(args.ToArray(),
+                                                sb.ToString(),
+                                                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                               );
     }
 
     /// <summary>
@@ -1303,10 +1316,10 @@ public class BadSourceParser
     {
         if (!Reader.Is(BadStaticKeys.FORMAT_STRING_KEY))
         {
-            throw new BadSourceReaderException(
-                $"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
-                Reader.MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected string start character but got '{(Reader.IsEof() ? "EOF" : Reader.GetCurrentChar())}'",
+                                         Reader.MakeSourcePosition(1)
+                                        );
         }
 
         int start = Reader.CurrentIndex;
@@ -1319,10 +1332,9 @@ public class BadSourceParser
         {
             if (Reader.IsNewLine() || Reader.IsEof())
             {
-                throw new BadSourceReaderException(
-                    "String not terminated",
-                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                );
+                throw new BadSourceReaderException("String not terminated",
+                                                   Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                                  );
             }
 
             if (Reader.Is('{'))
@@ -1354,10 +1366,9 @@ public class BadSourceParser
 
                 if (!Reader.Is('}'))
                 {
-                    throw new BadParserException(
-                        "Expected '}'",
-                        Reader.MakeSourcePosition(idx, 1)
-                    );
+                    throw new BadParserException("Expected '}'",
+                                                 Reader.MakeSourcePosition(idx, 1)
+                                                );
                 }
 
                 Reader.Eat('}');
@@ -1390,19 +1401,18 @@ public class BadSourceParser
         if (args.Count == 0)
         {
             string str = sb.ToString()
-                .Replace("{{", "{")
-                .Replace("}}", "}");
-            return new BadStringExpression(
-                '"' + str + '"',
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+                           .Replace("{{", "{")
+                           .Replace("}}", "}");
+
+            return new BadStringExpression('"' + str + '"',
+                                           Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                          );
         }
 
-        return new BadFormattedStringExpression(
-            args.ToArray(),
-            sb.ToString(),
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-        );
+        return new BadFormattedStringExpression(args.ToArray(),
+                                                sb.ToString(),
+                                                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                               );
     }
 
     /// <summary>
@@ -1420,11 +1430,10 @@ public class BadSourceParser
 
         List<BadExpression> block = ParseBlock(out bool _);
 
-        return new BadWhileExpression(
-            condition,
-            block,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-        );
+        return new BadWhileExpression(condition,
+                                      block,
+                                      Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                     );
     }
 
     /// <summary>
@@ -1529,10 +1538,9 @@ public class BadSourceParser
         }
         else
         {
-            throw new BadParserException(
-                "Expected Expression Body",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Expression Body",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         Reader.SkipNonToken();
@@ -1549,38 +1557,39 @@ public class BadSourceParser
     private BadExpression ParseUsingStatement(int start)
     {
         Reader.SkipNonToken();
+
         if (!Reader.Is(BadStaticKeys.CONSTANT_DEFINITION_KEY))
         {
-            throw new BadParserException(
-                "Expected Constant Variable Definition",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Constant Variable Definition",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         //Parse single expression
         BadExpression expr = ParseExpression();
+
         if (expr is not BadAssignExpression assignExpr)
         {
-            throw new BadParserException(
-                "Expected Constant Variable Definition",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Constant Variable Definition",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         if (assignExpr.Left is not BadVariableDefinitionExpression varDef)
         {
-            throw new BadParserException(
-                "Expected Constant Variable Definition",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Constant Variable Definition",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         Reader.SkipNonToken();
 
         //Reader.Eat(BadStaticKeys.STATEMENT_END_KEY); //Not Needed, the parser will automatically eat the statement end key
 
-
-        return new BadUsingStatementExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), varDef.Name, expr);
+        return new BadUsingStatementExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                               varDef.Name,
+                                               expr
+                                              );
     }
 
     /// <summary>
@@ -1593,6 +1602,7 @@ public class BadSourceParser
         int start = Reader.CurrentIndex;
         Reader.Eat(BadStaticKeys.USING_KEY);
         Reader.SkipNonToken();
+
         if (!Reader.Is('('))
         {
             return ParseUsingStatement(start);
@@ -1600,30 +1610,29 @@ public class BadSourceParser
 
         Reader.Eat('(');
         Reader.SkipNonToken();
+
         if (!Reader.Is(BadStaticKeys.CONSTANT_DEFINITION_KEY))
         {
-            throw new BadParserException(
-                "Expected Constant Variable Definition",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Constant Variable Definition",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         //Parse single expression
         BadExpression expr = ParseExpression();
+
         if (expr is not BadAssignExpression assignExpr)
         {
-            throw new BadParserException(
-                "Expected Constant Variable Definition",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Constant Variable Definition",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         if (assignExpr.Left is not BadVariableDefinitionExpression varDef)
         {
-            throw new BadParserException(
-                "Expected Constant Variable Definition",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Constant Variable Definition",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         Reader.SkipNonToken();
@@ -1633,6 +1642,7 @@ public class BadSourceParser
         Reader.SkipNonToken();
         List<BadExpression> block = ParseBlock(out bool isSingleLine);
         Reader.SkipNonToken();
+
         if (isSingleLine)
         {
             Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
@@ -1640,7 +1650,11 @@ public class BadSourceParser
 
         Reader.SkipNonToken();
 
-        return new BadUsingExpression(varDef.Name, block.ToArray(), Reader.MakeSourcePosition(start, Reader.CurrentIndex - start), expr);
+        return new BadUsingExpression(varDef.Name,
+                                      block.ToArray(),
+                                      Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                      expr
+                                     );
     }
 
     /// <summary>
@@ -1680,12 +1694,14 @@ public class BadSourceParser
         Reader.SkipNonToken();
 
         BadExpression[] finallyBlock = Array.Empty<BadExpression>();
+
         if (Reader.Is(BadStaticKeys.FINALLY_KEY))
         {
             Reader.Eat(BadStaticKeys.FINALLY_KEY);
             Reader.SkipNonToken();
             List<BadExpression> finallyExprs = ParseBlock(out isSingleLine);
             Reader.SkipNonToken();
+
             if (isSingleLine)
             {
                 Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
@@ -1695,13 +1711,12 @@ public class BadSourceParser
             finallyBlock = finallyExprs.ToArray();
         }
 
-        return new BadTryCatchExpression(
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            block.ToArray(),
-            errorBlock.ToArray(),
-            finallyBlock,
-            errorName.Text
-        );
+        return new BadTryCatchExpression(Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                         block.ToArray(),
+                                         errorBlock.ToArray(),
+                                         finallyBlock,
+                                         errorName.Text
+                                        );
     }
 
 
@@ -1746,12 +1761,12 @@ public class BadSourceParser
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
                 List<BadExpression>? genArgs = ParseGenericArguments();
-                nameExpr = new BadMemberAccessExpression(
-                    nameExpr,
-                    right,
-                    nameExpr.Position.Combine(right.SourcePosition),
-                    genArgs
-                );
+
+                nameExpr = new BadMemberAccessExpression(nameExpr,
+                                                         right,
+                                                         nameExpr.Position.Combine(right.SourcePosition),
+                                                         genArgs
+                                                        );
                 Reader.SkipNonToken();
             }
 
@@ -1760,16 +1775,17 @@ public class BadSourceParser
             if (!Reader.Is('('))
             {
                 type = nameExpr;
-                name = Reader.ParseWord().Text;
+
+                name = Reader.ParseWord()
+                             .Text;
             }
             else
             {
                 if (nameExpr is not BadVariableExpression expr)
                 {
-                    throw new BadParserException(
-                        "Expected Variable Expression",
-                        nameExpr.Position
-                    );
+                    throw new BadParserException("Expected Variable Expression",
+                                                 nameExpr.Position
+                                                );
                 }
 
                 name = expr.Name;
@@ -1778,13 +1794,13 @@ public class BadSourceParser
 
         if (name == null)
         {
-            throw new BadParserException(
-                "Expected Name",
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-            );
+            throw new BadParserException("Expected Name",
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                        );
         }
 
         Reader.SkipNonToken();
+
         if (Reader.Is('('))
         {
             List<BadFunctionParameter> parameters = ParseParameters(start);
@@ -1793,10 +1809,8 @@ public class BadSourceParser
 
             Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
 
-
             return new BadInterfaceFunctionConstraint(name, type, parameters.ToArray());
         }
-
 
         Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
 
@@ -1807,21 +1821,26 @@ public class BadSourceParser
     {
         List<BadWordToken> genericParameters = new List<BadWordToken>();
         Reader.SkipNonToken();
+
         if (Reader.Is('<'))
         {
             Reader.Eat('<');
             Reader.SkipNonToken();
+
             while (!Reader.IsEof())
             {
                 genericParameters.Add(Reader.ParseWord());
                 Reader.SkipNonToken();
+
                 if (Reader.Is('>'))
                 {
                     break;
                 }
+
                 Reader.Eat(',');
                 Reader.SkipNonToken();
             }
+
             Reader.Eat('>');
             Reader.SkipNonToken();
         }
@@ -1882,14 +1901,13 @@ public class BadSourceParser
         Reader.Eat('}');
         Reader.SkipNonToken();
 
-        return new BadInterfacePrototypeExpression(
-            name.Text,
-            constraints.ToArray(),
-            interfaces.ToArray(),
-            meta,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            genericParameters.ToArray()
-        );
+        return new BadInterfacePrototypeExpression(name.Text,
+                                                   constraints.ToArray(),
+                                                   interfaces.ToArray(),
+                                                   meta,
+                                                   Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                                   genericParameters.ToArray()
+                                                  );
     }
 
     /// <summary>
@@ -1913,6 +1931,7 @@ public class BadSourceParser
         BadSourcePosition? baseInvocationParametersPosition = null;
         List<BadExpression> members = new List<BadExpression>();
         List<BadExpression> staticMembers = new List<BadExpression>();
+
         if (Reader.Is('('))
         {
             int ctorStart = Reader.CurrentIndex;
@@ -1931,6 +1950,7 @@ public class BadSourceParser
             {
                 Reader.SkipNonToken();
                 BadExpression baseExpr = ParseExpression();
+
                 if (baseClasses.Count == 0)
                 {
                     if (baseExpr is BadInvocationExpression baseInvoc)
@@ -1942,10 +1962,9 @@ public class BadSourceParser
                 }
                 else if (baseExpr is BadInvocationExpression)
                 {
-                    throw new BadParserException(
-                        "Base Class Invocation must be the first base class",
-                        baseExpr.Position
-                    );
+                    throw new BadParserException("Base Class Invocation must be the first base class",
+                                                 baseExpr.Position
+                                                );
                 }
 
                 baseClasses.Add(baseExpr);
@@ -1973,23 +1992,24 @@ public class BadSourceParser
                 Reader.SkipNonToken();
 
                 bool isAttribute = false;
+
                 if (Reader.Is('@') && !Reader.Is('|', 1))
                 {
                     Reader.Eat('@');
                     isAttribute = true;
                 }
+
                 BadExpression expr = ParseExpression();
+
                 if (isAttribute)
                 {
                     attributeExpressions.Add(expr);
                     Reader.SkipNonToken();
+
                     continue;
                 }
 
-                if (expr is BadFunctionExpression
-                    {
-                        IsStatic: true,
-                    })
+                if (expr is BadFunctionExpression { IsStatic: true })
                 {
                     staticMembers.Add(expr);
                 }
@@ -1997,10 +2017,9 @@ public class BadSourceParser
                 {
                     if (primaryConstructor != null)
                     {
-                        throw new BadParserException(
-                            "Primary Constructor already defined",
-                            expr.Position
-                        );
+                        throw new BadParserException("Primary Constructor already defined",
+                                                     expr.Position
+                                                    );
                     }
 
                     fExpr.SetName(BadStaticKeys.CONSTRUCTOR_NAME);
@@ -2010,6 +2029,7 @@ public class BadSourceParser
                 {
                     members.Add(expr);
                 }
+
                 if (attributeExpressions.Count > 0)
                 {
                     expr.SetAttributes(attributeExpressions.ToArray());
@@ -2018,10 +2038,9 @@ public class BadSourceParser
 
                 if (expr is IBadNamedExpression nExpr && nExpr.GetName() == name.Text)
                 {
-                    throw new BadParserException(
-                        "Class Member cannot have the same name as the class",
-                        expr.Position
-                    );
+                    throw new BadParserException("Class Member cannot have the same name as the class",
+                                                 expr.Position
+                                                );
                 }
 
                 Reader.SkipNonToken();
@@ -2036,10 +2055,9 @@ public class BadSourceParser
 
             if (attributeExpressions.Count != 0)
             {
-                throw new BadParserException(
-                    "Attributes without target",
-                    Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                );
+                throw new BadParserException("Attributes without target",
+                                             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                            );
             }
 
             Reader.Eat('}');
@@ -2050,54 +2068,74 @@ public class BadSourceParser
         }
 
         Reader.SkipNonToken();
+
         if (primaryConstructor != null)
         {
             List<BadExpression> block = new List<BadExpression>();
 
             //2. Add the primary constructor as a function to the class
-            BadFunctionExpression ctor = new BadFunctionExpression(BadStaticKeys.CONSTRUCTOR_NAME, primaryConstructor, block, primaryConstructorPosition!, false, null, false, false);
+            BadFunctionExpression ctor = new BadFunctionExpression(BadStaticKeys.CONSTRUCTOR_NAME,
+                                                                   primaryConstructor,
+                                                                   block,
+                                                                   primaryConstructorPosition!,
+                                                                   false,
+                                                                   null,
+                                                                   false,
+                                                                   false
+                                                                  );
             members.Add(ctor);
+
             if (baseInvocationParameters != null)
             {
                 //  2.1. (call base class constructor if baseInvocationParameters is not null)
-                BadInvocationExpression baseInvocation = new BadInvocationExpression(
-                    new BadVariableExpression("base", primaryConstructorPosition!),
-                    baseInvocationParameters,
-                    baseInvocationParametersPosition!
-                );
+                BadInvocationExpression baseInvocation =
+                    new BadInvocationExpression(new BadVariableExpression("base", primaryConstructorPosition!),
+                                                baseInvocationParameters,
+                                                baseInvocationParametersPosition!
+                                               );
                 block.Add(baseInvocation);
             }
             else
             {
-                BadVariableExpression thisExpr = new BadVariableExpression(BadStaticKeys.THIS_KEY, primaryConstructorPosition!);
+                BadVariableExpression thisExpr =
+                    new BadVariableExpression(BadStaticKeys.THIS_KEY, primaryConstructorPosition!);
+
                 foreach (BadFunctionParameter parameter in primaryConstructor)
                 {
                     //  2.2. (if baseInvocationParameters is null, assign the parameters to the class members)
                     // this.{parameter.Name} = {parameter.Name};
-                    block.Add(
-                        new BadAssignExpression(
-                            new BadMemberAccessExpression(thisExpr, parameter.Name, primaryConstructorPosition!, new List<BadExpression>()),
-                            new BadVariableExpression(parameter.Name, primaryConstructorPosition!),
-                            primaryConstructorPosition!
-                        )
-                    );
+                    block.Add(new BadAssignExpression(new BadMemberAccessExpression(thisExpr,
+                                                           parameter.Name,
+                                                           primaryConstructorPosition!,
+                                                           new List<BadExpression>()
+                                                          ),
+                                                      new BadVariableExpression(parameter.Name,
+                                                                                primaryConstructorPosition!
+                                                                               ),
+                                                      primaryConstructorPosition!
+                                                     )
+                             );
 
                     //3. (if baseInvocationParameters is null, define the properties for the parameters)
                     //let {type} {parameter.Name};
-                    members.Add(new BadVariableDefinitionExpression(parameter.Name, primaryConstructorPosition!, parameter.TypeExpr, true));
+                    members.Add(new BadVariableDefinitionExpression(parameter.Name,
+                                                                    primaryConstructorPosition!,
+                                                                    parameter.TypeExpr,
+                                                                    true
+                                                                   )
+                               );
                 }
             }
         }
 
-        return new BadClassPrototypeExpression(
-            name.Text,
-            members.ToArray(),
-            staticMembers.ToArray(),
-            baseClasses.ToArray(),
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            meta,
-            genericParameters.ToArray()
-        );
+        return new BadClassPrototypeExpression(name.Text,
+                                               members.ToArray(),
+                                               staticMembers.ToArray(),
+                                               baseClasses.ToArray(),
+                                               Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                               meta,
+                                               genericParameters.ToArray()
+                                              );
     }
 
     /// <summary>
@@ -2115,12 +2153,12 @@ public class BadSourceParser
             Reader.Eat(".");
             BadWordToken right = Reader.ParseWord();
             List<BadExpression>? genArgs = ParseGenericArguments();
-            nameExpr = new BadMemberAccessExpression(
-                nameExpr,
-                right,
-                nameExpr.Position.Combine(right.SourcePosition),
-                genArgs
-            );
+
+            nameExpr = new BadMemberAccessExpression(nameExpr,
+                                                     right,
+                                                     nameExpr.Position.Combine(right.SourcePosition),
+                                                     genArgs
+                                                    );
             Reader.SkipNonToken();
         }
 
@@ -2131,22 +2169,21 @@ public class BadSourceParser
 
         if (Reader.IsWordStart())
         {
-            name = Reader.ParseWord().Text;
+            name = Reader.ParseWord()
+                         .Text;
             typeExpr = nameExpr;
         }
         else
         {
             if (nameExpr is not BadVariableExpression expr)
             {
-                throw new BadParserException(
-                    "Expected Variable Expression",
-                    nameExpr.Position
-                );
+                throw new BadParserException("Expected Variable Expression",
+                                             nameExpr.Position
+                                            );
             }
 
             name = expr.Name;
         }
-
 
         bool isOptional = false;
         bool isNullChecked = false;
@@ -2216,10 +2253,9 @@ public class BadSourceParser
             {
                 if (hadRest)
                 {
-                    throw new BadParserException(
-                        "Rest parameter must be last parameter",
-                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                    );
+                    throw new BadParserException("Rest parameter must be last parameter",
+                                                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                                );
                 }
 
                 if (!first)
@@ -2230,30 +2266,26 @@ public class BadSourceParser
 
                 first = false;
 
-
                 BadFunctionParameter param = ParseParameter();
 
                 if (hadOptional && param is { IsOptional: false, IsRestArgs: false })
                 {
-                    throw new BadParserException(
-                        "Non-Optional parameters must be in front of optional parameters",
-                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                    );
+                    throw new BadParserException("Non-Optional parameters must be in front of optional parameters",
+                                                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                                );
                 }
 
                 Reader.SkipNonToken();
 
                 if (parameters.Any(p => p.Name == param.Name))
                 {
-                    throw new BadParserException(
-                        "Duplicate parameter name",
-                        Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
-                    );
+                    throw new BadParserException("Duplicate parameter name",
+                                                 Reader.MakeSourcePosition(start, Reader.CurrentIndex - start)
+                                                );
                 }
 
                 hadOptional |= param.IsOptional;
                 hadRest |= param.IsRestArgs;
-
 
                 parameters.Add(param);
             }
@@ -2276,14 +2308,13 @@ public class BadSourceParser
     /// <param name="compileLevel">The Compile level of the Function</param>
     /// <param name="parameters">The Parameters of the Function</param>
     /// <returns>Instance of BadFunctionExpression</returns>
-    private BadFunctionExpression ParseFunction(
-        int start,
-        string? functionName,
-        BadExpression? functionReturn,
-        bool isConstant,
-        bool isStatic,
-        BadFunctionCompileLevel compileLevel,
-        List<BadFunctionParameter> parameters)
+    private BadFunctionExpression ParseFunction(int start,
+                                                string? functionName,
+                                                BadExpression? functionReturn,
+                                                bool isConstant,
+                                                bool isStatic,
+                                                BadFunctionCompileLevel compileLevel,
+                                                List<BadFunctionParameter> parameters)
     {
         BadMetaData? meta = m_MetaData;
         m_MetaData = null;
@@ -2296,32 +2327,30 @@ public class BadSourceParser
 
         if (functionName == null)
         {
-            return new BadFunctionExpression(
-                null,
-                parameters,
-                block,
-                Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-                isConstant,
-                meta,
-                isSingleLine,
-                isStatic,
-                compileLevel,
-                functionReturn
-            );
+            return new BadFunctionExpression(null,
+                                             parameters,
+                                             block,
+                                             Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                             isConstant,
+                                             meta,
+                                             isSingleLine,
+                                             isStatic,
+                                             compileLevel,
+                                             functionReturn
+                                            );
         }
 
-        return new BadFunctionExpression(
-            functionName,
-            parameters,
-            block,
-            Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
-            isConstant,
-            meta,
-            isSingleLine,
-            isStatic,
-            compileLevel,
-            functionReturn
-        );
+        return new BadFunctionExpression(functionName,
+                                         parameters,
+                                         block,
+                                         Reader.MakeSourcePosition(start, Reader.CurrentIndex - start),
+                                         isConstant,
+                                         meta,
+                                         isSingleLine,
+                                         isStatic,
+                                         compileLevel,
+                                         functionReturn
+                                        );
     }
 
     /// <summary>
@@ -2354,12 +2383,13 @@ public class BadSourceParser
                 Reader.Eat(".");
                 BadWordToken right = Reader.ParseWord();
                 List<BadExpression>? genArgs = ParseGenericArguments();
-                functionNameExpr = new BadMemberAccessExpression(
-                    functionNameExpr,
-                    right,
-                    functionNameExpr.Position.Combine(right.SourcePosition),
-                    genArgs
-                );
+
+                functionNameExpr = new BadMemberAccessExpression(functionNameExpr,
+                                                                 right,
+                                                                 functionNameExpr.Position
+                                                                     .Combine(right.SourcePosition),
+                                                                 genArgs
+                                                                );
                 Reader.SkipNonToken();
             }
 
@@ -2368,16 +2398,17 @@ public class BadSourceParser
             if (!Reader.Is('('))
             {
                 functionReturn = functionNameExpr;
-                functionName = Reader.ParseWord().Text;
+
+                functionName = Reader.ParseWord()
+                                     .Text;
             }
             else
             {
                 if (functionNameExpr is not BadVariableExpression expr)
                 {
-                    throw new BadParserException(
-                        "Expected Variable Expression",
-                        functionNameExpr.Position
-                    );
+                    throw new BadParserException("Expected Variable Expression",
+                                                 functionNameExpr.Position
+                                                );
                 }
 
                 functionName = expr.Name;
@@ -2407,21 +2438,17 @@ public class BadSourceParser
         }
 
         return expr is not (
-            BadInterfacePrototypeExpression
-            or BadClassPrototypeExpression
-            or BadIfExpression
-            or BadForExpression
-            or BadWhileExpression
-            or BadForEachExpression
-            or BadTryCatchExpression
-            or BadLockExpression
-            or BadUsingExpression
-            or BadSwitchExpression
-            or BadPropertyDefinitionExpression
-            or BadFunctionExpression
-            {
-                IsSingleLine: false,
-            });
+                   BadInterfacePrototypeExpression or
+                   BadClassPrototypeExpression or
+                   BadIfExpression or
+                   BadForExpression or
+                   BadWhileExpression or
+                   BadForEachExpression or
+                   BadTryCatchExpression or
+                   BadLockExpression or
+                   BadUsingExpression or
+                   BadSwitchExpression or
+                   BadPropertyDefinitionExpression or BadFunctionExpression { IsSingleLine: false });
     }
 
     /// <summary>

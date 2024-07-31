@@ -5,6 +5,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
 using NUnit.Framework;
+
 namespace BadScript2.Interop.NUnit;
 
 /// <summary>
@@ -45,12 +46,11 @@ public class BadUnitTestContext
     /// <param name="setup">The Setup Functions</param>
     /// <param name="teardown">The Teardown Functions</param>
     /// <param name="runtime">The Runtime</param>
-    public BadUnitTestContext(
-        string workingDir,
-        List<BadNUnitTestCase> cases,
-        List<BadFunction> setup,
-        List<BadFunction> teardown,
-        BadRuntime runtime)
+    public BadUnitTestContext(string workingDir,
+                              List<BadNUnitTestCase> cases,
+                              List<BadFunction> setup,
+                              List<BadFunction> teardown,
+                              BadRuntime runtime)
     {
         m_Cases = cases;
         m_Setup = setup;
@@ -154,13 +154,14 @@ public class BadUnitTestContext
         TestContext.WriteLine($"Running test '{testCase.TestName}'");
         BadExecutionContext caller = m_Runtime.CreateContext(m_WorkingDir);
 
-        BadTaskRunner.Instance.AddTask(
-            new BadTask(
-                new BadInteropRunnable(testCase.Function!.Invoke(Array.Empty<BadObject>(), caller).GetEnumerator()),
-                testCase.TestName
-            ),
-            true
-        );
+        BadTaskRunner.Instance.AddTask(new BadTask(new BadInteropRunnable(testCase.Function!
+                                                                              .Invoke(Array.Empty<BadObject>(), caller)
+                                                                              .GetEnumerator()
+                                                                         ),
+                                                   testCase.TestName
+                                                  ),
+                                       true
+                                      );
 
         while (!BadTaskRunner.Instance.IsIdle)
         {

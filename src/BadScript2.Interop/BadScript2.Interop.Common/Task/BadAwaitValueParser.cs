@@ -3,6 +3,7 @@ using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Operators;
 using BadScript2.Reader;
+
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>

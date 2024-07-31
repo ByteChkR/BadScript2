@@ -5,6 +5,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Block;
 
 /// <summary>
@@ -16,6 +17,7 @@ public class BadSwitchExpression : BadExpression
     ///     The Cases
     /// </summary>
     private readonly Dictionary<BadExpression, BadExpression[]> m_Cases;
+
     /// <summary>
     ///     The (optional) Default Case
     /// </summary>
@@ -28,7 +30,10 @@ public class BadSwitchExpression : BadExpression
     /// <param name="value">The Value to switch on</param>
     /// <param name="cases">The Cases</param>
     /// <param name="defaultCase">The (optional) Default Case</param>
-    public BadSwitchExpression(BadSourcePosition position, BadExpression value, Dictionary<BadExpression, BadExpression[]> cases, List<BadExpression>? defaultCase) : base(false, position)
+    public BadSwitchExpression(BadSourcePosition position,
+                               BadExpression value,
+                               Dictionary<BadExpression, BadExpression[]> cases,
+                               List<BadExpression>? defaultCase) : base(false, position)
     {
         Value = value;
         m_Cases = cases;
@@ -39,6 +44,7 @@ public class BadSwitchExpression : BadExpression
     ///     The Value to switch on
     /// </summary>
     public BadExpression Value { get; }
+
     /// <summary>
     ///     The Cases
     /// </summary>
@@ -48,13 +54,16 @@ public class BadSwitchExpression : BadExpression
     ///     The (optional) Default Case
     /// </summary>
     public IEnumerable<BadExpression>? DefaultCase => m_DefaultCase;
+
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         yield return Value;
+
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in m_Cases)
         {
             yield return branch.Key;
+
             foreach (BadExpression valueExpr in branch.Value)
             {
                 yield return valueExpr;
@@ -80,7 +89,8 @@ public class BadSwitchExpression : BadExpression
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in branches)
         {
             m_Cases[BadConstantFoldingOptimizer.Optimize(branch.Key)] =
-                BadConstantFoldingOptimizer.Optimize(branch.Value).ToArray();
+                BadConstantFoldingOptimizer.Optimize(branch.Value)
+                                           .ToArray();
         }
 
         if (m_DefaultCase == null)
@@ -114,67 +124,89 @@ public class BadSwitchExpression : BadExpression
             m_DefaultCase = new List<BadExpression>(defaultCase);
         }
     }
+
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject valueResult = BadObject.Null;
+
         foreach (BadObject o in context.Execute(Value))
         {
             valueResult = o;
         }
+
         valueResult = valueResult.Dereference();
 
-        BadExecutionContext? switchContext = new BadExecutionContext(context.Scope.CreateChild("SwitchContext", context.Scope, null, BadScopeFlags.Breakable));
+        BadExecutionContext? switchContext =
+            new BadExecutionContext(context.Scope.CreateChild("SwitchContext",
+                                                              context.Scope,
+                                                              null,
+                                                              BadScopeFlags.Breakable
+                                                             )
+                                   );
         bool executeNextBlock = false;
+
         foreach (KeyValuePair<BadExpression, BadExpression[]> branch in m_Cases)
         {
             if (!executeNextBlock)
             {
                 BadObject keyResult = BadObject.Null;
+
                 foreach (BadObject o in switchContext.Execute(branch.Key))
                 {
                     keyResult = o;
                 }
 
-
                 keyResult = keyResult.Dereference();
                 BadObject? result = BadObject.Null;
-                foreach (BadObject o in BadEqualityExpression.EqualWithOverride(switchContext, valueResult, keyResult, Position))
+
+                foreach (BadObject o in BadEqualityExpression.EqualWithOverride(switchContext,
+                                                                                valueResult,
+                                                                                keyResult,
+                                                                                Position
+                                                                               ))
                 {
                     result = o;
                 }
 
-
                 result = result.Dereference();
+
                 if (result is not IBadBoolean b)
                 {
                     throw new BadRuntimeException("Switch case result must be a boolean", Position);
                 }
+
                 executeNextBlock = b.Value;
             }
+
             if (executeNextBlock && branch.Value.Length > 0)
             {
                 foreach (BadObject o in switchContext.Execute(branch.Value))
                 {
                     yield return o;
+
                     if (switchContext.Scope.IsBreak)
                     {
                         yield break;
                     }
                 }
+
                 throw BadRuntimeException.Create(switchContext.Scope, "Switch Case must break", Position);
             }
         }
+
         if (m_DefaultCase != null)
         {
             foreach (BadObject o in switchContext.Execute(m_DefaultCase))
             {
                 yield return o;
+
                 if (switchContext.Scope.IsBreak)
                 {
                     yield break;
                 }
             }
+
             throw BadRuntimeException.Create(switchContext.Scope, "Switch Case must break", Position);
         }
     }

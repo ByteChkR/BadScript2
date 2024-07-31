@@ -1,5 +1,6 @@
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>
@@ -33,26 +34,29 @@ public abstract class BadObjectReference : BadObject
 	/// <param name="setter">(optional) Setter of the Property</param>
 	/// <param name="delete">The Delete Function of the Reference</param>
 	/// <returns>Reference Instance</returns>
-	public static BadObjectReference Make(
-        string refText,
-        Func<BadObject> getter,
-        Action<BadObject, BadPropertyInfo?>? setter = null,
-        Action? delete = null)
+	public static BadObjectReference Make(string refText,
+	                                      Func<BadObject> getter,
+	                                      Action<BadObject, BadPropertyInfo?>? setter = null,
+	                                      Action? delete = null)
     {
-        return new BadObjectReferenceImpl(
-            refText,
-            getter,
-            (o, i, _) =>
-            {
-                if (setter == null)
-                {
-                    throw new BadRuntimeException("Cannot set reference " + refText + " because it is read-only");
-                }
-                setter(o, i);
-            },
-            delete
-        );
+        return new BadObjectReferenceImpl(refText,
+                                          getter,
+                                          (o, i, _) =>
+                                          {
+                                              if (setter == null)
+                                              {
+                                                  throw new BadRuntimeException("Cannot set reference " +
+                                                                                    refText +
+                                                                                    " because it is read-only"
+                                                                               );
+                                              }
+
+                                              setter(o, i);
+                                          },
+                                          delete
+                                         );
     }
+
 	/// <summary>
 	///     Creates a new Reference Object
 	/// </summary>
@@ -61,14 +65,15 @@ public abstract class BadObjectReference : BadObject
 	/// <param name="setter">(optional) Setter of the Property</param>
 	/// <param name="delete">The Delete Function of the Reference</param>
 	/// <returns>Reference Instance</returns>
-	public static BadObjectReference Make(
-        string refText,
-        Func<BadObject> getter,
-        Action<BadObject, BadPropertyInfo?, bool>? setter,
-        Action? delete = null)
+	public static BadObjectReference Make(string refText,
+	                                      Func<BadObject> getter,
+	                                      Action<BadObject, BadPropertyInfo?, bool>? setter,
+	                                      Action? delete = null)
     {
         return new BadObjectReferenceImpl(refText, getter, setter, delete);
     }
+
+#region Nested type: BadObjectReferenceImpl
 
 	/// <summary>
 	///     Implements a Reference Object
@@ -102,11 +107,10 @@ public abstract class BadObjectReference : BadObject
 	    /// <param name="getter">Getter of the Reference</param>
 	    /// <param name="setter">Setter of the Reference</param>
 	    /// <param name="delete">The Delete Function of the Reference</param>
-	    public BadObjectReferenceImpl(
-            string refText,
-            Func<BadObject> getter,
-            Action<BadObject, BadPropertyInfo?, bool>? setter,
-            Action? delete)
+	    public BadObjectReferenceImpl(string refText,
+	                                  Func<BadObject> getter,
+	                                  Action<BadObject, BadPropertyInfo?, bool>? setter,
+	                                  Action? delete)
         {
             m_Getter = getter;
             m_Setter = setter;
@@ -117,7 +121,8 @@ public abstract class BadObjectReference : BadObject
         /// <inheritdoc />
         public override BadClassPrototype GetPrototype()
         {
-            return m_Getter().GetPrototype();
+            return m_Getter()
+                .GetPrototype();
         }
 
         /// <inheritdoc />
@@ -154,4 +159,6 @@ public abstract class BadObjectReference : BadObject
             m_Delete.Invoke();
         }
     }
+
+#endregion
 }

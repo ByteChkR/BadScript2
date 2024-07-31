@@ -3,6 +3,7 @@ using System.Text;
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Utility;
+
 namespace BadScript2.Debugging;
 
 /// <summary>
@@ -133,7 +134,6 @@ public readonly struct BadDebuggerStep : IEquatable<BadDebuggerStep>
         topInSource = Math.Max(1, lineInSource - top);
 
         string[] lines = Position.Source.Split('\n');
-
 
         List<string> lns = new List<string>();
 

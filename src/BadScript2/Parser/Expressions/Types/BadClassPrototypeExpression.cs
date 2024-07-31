@@ -49,14 +49,13 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// <param name="position">The Source Position of the Expression</param>
     /// <param name="metaData">The metadata of the Class</param>
     /// <param name="genericParameters">The Generic Parameters of this Type</param>
-    public BadClassPrototypeExpression(
-        string name,
-        IEnumerable<BadExpression> body,
-        IEnumerable<BadExpression> staticBody,
-        BadExpression[] baseClasses,
-        BadSourcePosition position,
-        BadMetaData? metaData,
-        BadWordToken[] genericParameters) : base(false, position)
+    public BadClassPrototypeExpression(string name,
+                                       IEnumerable<BadExpression> body,
+                                       IEnumerable<BadExpression> staticBody,
+                                       BadExpression[] baseClasses,
+                                       BadSourcePosition position,
+                                       BadMetaData? metaData,
+                                       BadWordToken[] genericParameters) : base(false, position)
     {
         Name = name;
         m_Body = new List<BadExpression>(body);
@@ -81,12 +80,15 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// </summary>
     public string Name { get; }
 
+#region IBadNamedExpression Members
 
     /// <inheritdoc cref="IBadNamedExpression.GetName" />
     public string? GetName()
     {
         return Name;
     }
+
+#endregion
 
     /// <summary>
     ///     Sets the body of the class
@@ -151,9 +153,8 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// <param name="interfaces">The implemented interfaces</param>
     /// <returns>The Base Class Prototype</returns>
     /// <exception cref="BadRuntimeException">If the Base Class Expression returns an invalid Object</exception>
-    private BadClassPrototype GetPrototype(
-        BadExecutionContext context,
-        out BadInterfacePrototype[] interfaces)
+    private BadClassPrototype GetPrototype(BadExecutionContext context,
+                                           out BadInterfacePrototype[] interfaces)
     {
         BadClassPrototype baseClass = BadAnyPrototype.Instance;
 
@@ -162,17 +163,20 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         for (int i = 0; i < m_BaseClasses.Length; i++)
         {
             BadExpression baseClassExpr = m_BaseClasses[i];
-            BadObject[] baseClassObj = context.Execute(baseClassExpr).ToArray();
+
+            BadObject[] baseClassObj = context.Execute(baseClassExpr)
+                                              .ToArray();
 
             if (baseClassObj.Length != 1)
             {
-                throw new BadRuntimeException(
-                    $"Base Class Expression {baseClassExpr} returned {baseClassObj.Length} Objects. Expected 1.",
-                    baseClassExpr.Position
-                );
+                throw new
+                    BadRuntimeException($"Base Class Expression {baseClassExpr} returned {baseClassObj.Length} Objects. Expected 1.",
+                                        baseClassExpr.Position
+                                       );
             }
 
-            BadObject o = baseClassObj[0].Dereference();
+            BadObject o = baseClassObj[0]
+                .Dereference();
 
             switch (o)
             {
@@ -181,22 +185,24 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
 
                     break;
                 case BadClassPrototype when i != 0:
-                    throw new BadRuntimeException(
-                        $"Base Class Expression {baseClassExpr} returned a Class Prototype. Expected an Interface Prototype.",
-                        baseClassExpr.Position
-                    );
+                    throw new
+                        BadRuntimeException($"Base Class Expression {baseClassExpr} returned a Class Prototype. Expected an Interface Prototype.",
+                                            baseClassExpr.Position
+                                           );
                 case BadClassPrototype p:
                     baseClass = p;
+
                     if (baseClass == BadVoidPrototype.Instance)
                     {
                         throw BadRuntimeException.Create(context.Scope, "Base Class cannot be 'void'.", Position);
                     }
+
                     break;
                 default:
-                    throw new BadRuntimeException(
-                        $"Base Class Expression {baseClassExpr} returned an Object of Type {o}. Expected a Class Prototype or an Interface Prototype.",
-                        baseClassExpr.Position
-                    );
+                    throw new
+                        BadRuntimeException($"Base Class Expression {baseClassExpr} returned an Object of Type {o}. Expected a Class Prototype or an Interface Prototype.",
+                                            baseClassExpr.Position
+                                           );
             }
         }
 
@@ -214,15 +220,27 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             {
                 throw new BadRuntimeException("Invalid Type Argument Count");
             }
-            BadExecutionContext genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+
+            BadExecutionContext genericContext =
+                new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+
             for (int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
+
                 if (typeArgs[i] == BadVoidPrototype.Instance)
                 {
-                    throw BadRuntimeException.Create(context.Scope, "Cannot use 'void' as generic type parameter", Position);
+                    throw BadRuntimeException.Create(context.Scope,
+                                                     "Cannot use 'void' as generic type parameter",
+                                                     Position
+                                                    );
                 }
-                genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
+
+                genericContext.Scope.DefineVariable(genericParameter.Text,
+                                                    typeArgs[i],
+                                                    genericContext.Scope,
+                                                    new BadPropertyInfo(BadClassPrototype.Prototype, true)
+                                                   );
             }
 
             return genericContext;
@@ -231,17 +249,22 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         BadClassPrototype GetBaseClass(BadObject[] typeArgs)
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
+
             return GetPrototype(ctx, out _);
         }
 
         BadScope GetStaticScope(BadObject[] typeArgs)
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
-            BadExecutionContext staticContext = new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
+
+            BadExecutionContext staticContext =
+                new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
+
             if (m_StaticBody.Count != 0)
             {
                 foreach (BadObject _ in staticContext.Execute(m_StaticBody)) { }
             }
+
             return staticContext.Scope;
         }
 
@@ -249,19 +272,20 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
             GetPrototype(ctx, out BadInterfacePrototype[] interfaces);
+
             return interfaces;
         }
 
-        BadClassPrototype p = new BadExpressionClassPrototype(
-            Name,
-            context.Scope,
-            m_Body.ToArray(),
-            GetBaseClass,
-            GetInterfaces,
-            m_MetaData,
-            GetStaticScope,
-            m_GenericParameters.Select(x => x.Text).ToArray()
-        );
+        BadClassPrototype p = new BadExpressionClassPrototype(Name,
+                                                              context.Scope,
+                                                              m_Body.ToArray(),
+                                                              GetBaseClass,
+                                                              GetInterfaces,
+                                                              m_MetaData,
+                                                              GetStaticScope,
+                                                              m_GenericParameters.Select(x => x.Text)
+                                                                  .ToArray()
+                                                             );
         context.Scope.DefineVariable(Name, p);
 
         yield return p;

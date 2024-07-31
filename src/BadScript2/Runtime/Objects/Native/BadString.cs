@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Objects.Native;
 
 /// <summary>
@@ -19,10 +20,16 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     /// <param name="value">The String Value</param>
     public BadString(string value) : base(value) { }
 
+#region IBadString Members
+
     /// <summary>
     ///     The Value of the Native String
     /// </summary>
     string IBadString.Value => Value;
+
+#endregion
+
+#region IComparable Members
 
     /// <summary>
     ///     Compares this String to another String
@@ -40,6 +47,10 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
         throw new Exception("Cannot compare string to non string");
     }
 
+#endregion
+
+#region IComparable<BadObject> Members
+
     /// <summary>
     ///     Compares this String to another String
     /// </summary>
@@ -56,6 +67,10 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
         throw new Exception("Cannot compare string to non string");
     }
 
+#endregion
+
+#region IComparable<IBadString> Members
+
     /// <summary>
     ///     Compares this String to another String
     /// </summary>
@@ -65,6 +80,8 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     {
         return string.Compare(Value, other.Value, StringComparison.Ordinal);
     }
+
+#endregion
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()

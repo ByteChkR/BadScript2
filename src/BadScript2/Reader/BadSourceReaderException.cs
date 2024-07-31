@@ -1,4 +1,5 @@
 using BadScript2.Common;
+
 namespace BadScript2.Reader;
 
 /// <summary>
@@ -20,9 +21,8 @@ public class BadSourceReaderException : BadParseException
 	/// <param name="message">The Exception Message</param>
 	/// <param name="position">The Source Position of the Error</param>
 	/// <param name="inner">The Inner Exception</param>
-	public BadSourceReaderException(string message, BadSourcePosition position, Exception inner) : base(
-        message,
-        position,
-        inner
-    ) { }
+	public BadSourceReaderException(string message, BadSourcePosition position, Exception inner) : base(message,
+	                                                                                                    position,
+	                                                                                                    inner
+	                                                                                                   ) { }
 }

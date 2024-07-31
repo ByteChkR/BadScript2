@@ -5,6 +5,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Settings;
+
 namespace BadScript2.Interop.Json;
 
 /// <summary>
@@ -23,7 +24,8 @@ internal partial class BadJsonApi
         }
         catch (BadRuntimeErrorException e)
         {
-            ExceptionDispatchInfo.Capture(e).Throw();
+            ExceptionDispatchInfo.Capture(e)
+                                 .Throw();
         }
         catch (Exception e)
         {
@@ -42,10 +44,9 @@ internal partial class BadJsonApi
 
     protected override void AdditionalData(BadTable target)
     {
-        target.SetProperty(
-            "Settings",
-            new BadSettingsObject(BadSettingsProvider.RootSettings),
-            new BadPropertyInfo(BadSettingsObject.Prototype, true)
-        );
+        target.SetProperty("Settings",
+                           new BadSettingsObject(BadSettingsProvider.RootSettings),
+                           new BadPropertyInfo(BadSettingsObject.Prototype, true)
+                          );
     }
 }

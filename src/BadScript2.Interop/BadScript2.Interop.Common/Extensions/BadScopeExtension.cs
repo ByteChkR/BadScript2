@@ -3,6 +3,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.Common.Extensions;
 
 /// <summary>
@@ -13,22 +14,19 @@ public class BadScopeExtension : BadInteropExtension
     /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
-        provider.RegisterObject<BadScope>(
-            "GetLocals",
-            o => new BadDynamicInteropFunction(
-                "GetLocals",
-                _ => GetLocals(o),
-                BadNativeClassBuilder.GetNative("Table")
-            )
-        );
-        provider.RegisterObject<BadScope>(
-            "GetParent",
-            o => new BadDynamicInteropFunction(
-                "GetParent",
-                _ => GetParent(o),
-                BadScope.Prototype
-            )
-        );
+        provider.RegisterObject<BadScope>("GetLocals",
+                                          o => new BadDynamicInteropFunction("GetLocals",
+                                                                             _ => GetLocals(o),
+                                                                             BadNativeClassBuilder.GetNative("Table")
+                                                                            )
+                                         );
+
+        provider.RegisterObject<BadScope>("GetParent",
+                                          o => new BadDynamicInteropFunction("GetParent",
+                                                                             _ => GetParent(o),
+                                                                             BadScope.Prototype
+                                                                            )
+                                         );
     }
 
     /// <summary>

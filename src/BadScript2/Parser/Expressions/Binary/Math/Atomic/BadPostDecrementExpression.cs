@@ -24,10 +24,9 @@ public class BadPostDecrementExpression : BadExpression
     /// </summary>
     /// <param name="left">Left side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(
-        left.IsConstant,
-        position
-    )
+    public BadPostDecrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
+                                                                                             position
+                                                                                            )
     {
         Left = left;
     }
@@ -69,21 +68,19 @@ public class BadPostDecrementExpression : BadExpression
     /// <param name="position">Position of the expression</param>
     /// <returns>Returns the result of the operation</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
-    public static IEnumerable<BadObject> DecrementWithOverride(
-        BadExecutionContext? context,
-        BadObjectReference leftRef,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> DecrementWithOverride(BadExecutionContext? context,
+                                                               BadObjectReference leftRef,
+                                                               BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
         if (left.HasProperty(BadStaticKeys.POST_DECREMENT_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         context!,
-                         BadStaticKeys.POST_DECREMENT_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            context!,
+                                                            BadStaticKeys.POST_DECREMENT_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }
@@ -110,7 +107,6 @@ public class BadPostDecrementExpression : BadExpression
         {
             throw new BadRuntimeException("Left side of -- must be a reference", Position);
         }
-
 
         foreach (BadObject o in DecrementWithOverride(context, leftRef, Position))
         {

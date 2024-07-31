@@ -21,8 +21,12 @@ public class BadBoolean : BadNative<bool>, IBadBoolean
     /// <param name="value">The Boolean Value</param>
     public BadBoolean(bool value) : base(value) { }
 
+#region IBadBoolean Members
+
     /// <inheritdoc />
     bool IBadBoolean.Value => Value;
+
+#endregion
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()

@@ -3,6 +3,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.Net;
 
 /// <summary>
@@ -15,36 +16,37 @@ public class BadNetInteropExtensions : BadInteropExtension
     {
         provider.RegisterObject<HttpResponseMessage>("Status", resp => (decimal)resp.StatusCode);
         provider.RegisterObject<HttpResponseMessage>("Reason", resp => resp.ReasonPhrase ?? "");
-        provider.RegisterObject<HttpResponseMessage>(
-            "Headers",
-            resp =>
-            {
-                Dictionary<string, BadObject> v = resp.Headers.ToDictionary(
-                    x => x.Key,
-                    x => (BadObject)new BadArray(x.Value.Select(y => (BadObject)y).ToList())
-                );
 
-                return new BadTable(v);
-            }
-        );
+        provider.RegisterObject<HttpResponseMessage>("Headers",
+                                                     resp =>
+                                                     {
+                                                         Dictionary<string, BadObject> v =
+                                                             resp.Headers.ToDictionary(x => x.Key,
+                                                                  x => (BadObject)new BadArray(x.Value
+                                                                          .Select(y => (BadObject)y)
+                                                                          .ToList()
+                                                                      )
+                                                                 );
+
+                                                         return new BadTable(v);
+                                                     }
+                                                    );
         provider.RegisterObject<HttpResponseMessage>("Content", resp => BadObject.Wrap(resp.Content));
 
-        provider.RegisterObject<HttpContent>(
-            "ReadAsString",
-            c => new BadDynamicInteropFunction(
-                "ReadAsString",
-                _ => Content_ReadAsString(c),
-                BadNativeClassBuilder.GetNative("string")
-            )
-        );
-        provider.RegisterObject<HttpContent>(
-            "ReadAsArray",
-            c => new BadDynamicInteropFunction(
-                "ReadAsArray",
-                _ => Content_ReadAsArray(c),
-                BadNativeClassBuilder.GetNative("Array")
-            )
-        );
+        provider.RegisterObject<HttpContent>("ReadAsString",
+                                             c => new BadDynamicInteropFunction("ReadAsString",
+                                                                                _ => Content_ReadAsString(c),
+                                                                                BadNativeClassBuilder.GetNative("string"
+                                                                                    )
+                                                                               )
+                                            );
+
+        provider.RegisterObject<HttpContent>("ReadAsArray",
+                                             c => new BadDynamicInteropFunction("ReadAsArray",
+                                                                                _ => Content_ReadAsArray(c),
+                                                                                BadNativeClassBuilder.GetNative("Array")
+                                                                               )
+                                            );
     }
 
     /// <summary>
@@ -68,12 +70,12 @@ public class BadNetInteropExtensions : BadInteropExtension
     {
         Task<byte[]> task = content.ReadAsByteArrayAsync();
 
-        return new BadTask(
-            BadTaskUtils.WaitForTask(
-                task,
-                o => new BadArray(o.Select(x => (BadObject)(decimal)x).ToList())
-            ),
-            "HttpContent.ReadAsArray"
-        );
+        return new BadTask(BadTaskUtils.WaitForTask(task,
+                                                    o => new BadArray(o.Select(x => (BadObject)(decimal)x)
+                                                                       .ToList()
+                                                                     )
+                                                   ),
+                           "HttpContent.ReadAsArray"
+                          );
     }
 }

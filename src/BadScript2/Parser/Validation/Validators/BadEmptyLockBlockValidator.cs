@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Block.Lock;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -11,12 +12,11 @@ public class BadEmptyLockBlockValidator : BadExpressionValidator<BadLockExpressi
     {
         if (!expr.Block.Any())
         {
-            context.AddError(
-                "Lock statement has no expressions",
-                expr,
-                expr,
-                this
-            );
+            context.AddError("Lock statement has no expressions",
+                             expr,
+                             expr,
+                             this
+                            );
         }
     }
 }

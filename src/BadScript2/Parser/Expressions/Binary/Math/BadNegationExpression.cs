@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Math;
 
 /// <summary>
@@ -15,10 +16,9 @@ public class BadNegationExpression : BadExpression
     /// </summary>
     /// <param name="position">Position of the Expression</param>
     /// <param name="expression">The Expression to negate</param>
-    public BadNegationExpression(BadSourcePosition position, BadExpression expression) : base(
-        expression.IsConstant,
-        position
-    )
+    public BadNegationExpression(BadSourcePosition position, BadExpression expression) : base(expression.IsConstant,
+                                                                                              position
+                                                                                             )
     {
         Expression = expression;
     }
@@ -42,20 +42,18 @@ public class BadNegationExpression : BadExpression
     /// <param name="position">Position of the expression</param>
     /// <returns>Returns the result of the operation</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
-    public static IEnumerable<BadObject> NegateWithOverride(
-        BadExecutionContext? context,
-        BadObject left,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> NegateWithOverride(BadExecutionContext? context,
+                                                            BadObject left,
+                                                            BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.MULTIPLY_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         left,
-                         context!,
-                         BadStaticKeys.MULTIPLY_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            left,
+                                                            context!,
+                                                            BadStaticKeys.MULTIPLY_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

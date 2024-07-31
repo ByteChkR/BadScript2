@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Math.Atomic;
 
 /// <summary>
@@ -20,10 +21,9 @@ public class BadPostIncrementExpression : BadExpression
     /// </summary>
     /// <param name="left">Left side of the Expression</param>
     /// <param name="position">Source position of the Expression</param>
-    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(
-        left.IsConstant,
-        position
-    )
+    public BadPostIncrementExpression(BadExpression left, BadSourcePosition position) : base(left.IsConstant,
+                                                                                             position
+                                                                                            )
     {
         Left = left;
     }
@@ -86,21 +86,19 @@ public class BadPostIncrementExpression : BadExpression
     /// <param name="position">Position of the expression</param>
     /// <returns>Returns the result of the operation</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
-    public static IEnumerable<BadObject> IncrementWithOverride(
-        BadExecutionContext? context,
-        BadObjectReference leftRef,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> IncrementWithOverride(BadExecutionContext? context,
+                                                               BadObjectReference leftRef,
+                                                               BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
         if (left.HasProperty(BadStaticKeys.POST_INCREMENT_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         context!,
-                         BadStaticKeys.POST_INCREMENT_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            context!,
+                                                            BadStaticKeys.POST_INCREMENT_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

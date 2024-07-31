@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Block;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -14,12 +15,11 @@ public class BadEmptyIfBranchValidator : BadExpressionValidator<BadIfExpression>
         {
             if (branch.Value.Length == 0)
             {
-                context.AddError(
-                    "If branch has no expressions",
-                    expr,
-                    branch.Key,
-                    this
-                );
+                context.AddError("If branch has no expressions",
+                                 expr,
+                                 branch.Key,
+                                 this
+                                );
             }
         }
 
@@ -30,12 +30,11 @@ public class BadEmptyIfBranchValidator : BadExpressionValidator<BadIfExpression>
 
         if (!expr.ElseBranch.Any())
         {
-            context.AddError(
-                "Else statement has no expressions",
-                expr,
-                expr,
-                this
-            );
+            context.AddError("Else statement has no expressions",
+                             expr,
+                             expr,
+                             this
+                            );
         }
     }
 }

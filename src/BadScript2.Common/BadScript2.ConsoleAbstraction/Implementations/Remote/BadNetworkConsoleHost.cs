@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote;
 
 /// <summary>
@@ -108,6 +109,8 @@ public class BadNetworkConsoleHost : IBadConsole
     /// </summary>
     public static int AcceptSleepTimeout { get; set; } = 100;
 
+#region IBadConsole Members
+
     /// <inheritdoc />
     public void Write(string str)
     {
@@ -166,6 +169,8 @@ public class BadNetworkConsoleHost : IBadConsole
             m_OutgoingPackets.Enqueue(new BadConsoleColorChangePacket(true, value));
         }
     }
+
+#endregion
 
     /// <summary>
     ///     Starts the Host
@@ -226,14 +231,14 @@ public class BadNetworkConsoleHost : IBadConsole
                 m_Listener.Start();
                 BadConsole.WriteLine($"[Console Host] Waiting for Connection on {m_Listener.LocalEndpoint}");
                 bool accepted = false;
-                m_Listener.BeginAcceptTcpClient(
-                    ar =>
-                    {
-                        m_Client = m_Listener.EndAcceptTcpClient(ar);
-                        accepted = true;
-                    },
-                    null
-                );
+
+                m_Listener.BeginAcceptTcpClient(ar =>
+                                                {
+                                                    m_Client = m_Listener.EndAcceptTcpClient(ar);
+                                                    accepted = true;
+                                                },
+                                                null
+                                               );
 
                 while (!accepted && !m_ExitRequested)
                 {

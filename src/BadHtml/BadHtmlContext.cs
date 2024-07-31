@@ -63,14 +63,13 @@ public class BadHtmlContext
 	/// <param name="source">The Source of the Template</param>
 	/// <param name="options">The Html Template Options</param>
 	/// <param name="fileSystem">The Filesystem of the Current Template Context</param>
-	public BadHtmlContext(
-        HtmlNode inputNode,
-        HtmlNode outputNode,
-        BadExecutionContext executionContext,
-        string filePath,
-        string source,
-        BadHtmlTemplateOptions options,
-        IFileSystem fileSystem)
+	public BadHtmlContext(HtmlNode inputNode,
+	                      HtmlNode outputNode,
+	                      BadExecutionContext executionContext,
+	                      string filePath,
+	                      string source,
+	                      BadHtmlTemplateOptions options,
+	                      IFileSystem fileSystem)
     {
         InputNode = inputNode;
         OutputNode = outputNode;
@@ -106,20 +105,18 @@ public class BadHtmlContext
 	///     this instance
 	/// </param>
 	/// <returns>Child Context</returns>
-	public BadHtmlContext CreateChild(
-        HtmlNode inputNode,
-        HtmlNode outputNode,
-        BadExecutionContext? executionContext = null)
+	public BadHtmlContext CreateChild(HtmlNode inputNode,
+	                                  HtmlNode outputNode,
+	                                  BadExecutionContext? executionContext = null)
     {
-        return new BadHtmlContext(
-            inputNode,
-            outputNode,
-            executionContext ?? ExecutionContext,
-            FilePath,
-            Source,
-            Options,
-            FileSystem
-        );
+        return new BadHtmlContext(inputNode,
+                                  outputNode,
+                                  executionContext ?? ExecutionContext,
+                                  FilePath,
+                                  Source,
+                                  Options,
+                                  FileSystem
+                                 );
     }
 
 	/// <summary>
@@ -176,12 +173,11 @@ public class BadHtmlContext
 
             foreach (BadExpression expr in expression.GetDescendantsAndSelf())
             {
-                BadSourcePosition newPosition = BadSourcePosition.Create(
-                    FilePath,
-                    Source,
-                    pos.Index + expr.Position.Index,
-                    expr.Position.Length
-                );
+                BadSourcePosition newPosition = BadSourcePosition.Create(FilePath,
+                                                                         Source,
+                                                                         pos.Index + expr.Position.Index,
+                                                                         expr.Position.Length
+                                                                        );
                 expr.SetPosition(newPosition);
             }
 
@@ -194,10 +190,13 @@ public class BadHtmlContext
                 throw new BadSourceReaderException(e.OriginalMessage, pos);
             }
 
-            throw new BadSourceReaderException(
-                e.OriginalMessage,
-                BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length)
-            );
+            throw new BadSourceReaderException(e.OriginalMessage,
+                                               BadSourcePosition.Create(FilePath,
+                                                                        Source,
+                                                                        e.Position.Index + pos.Index,
+                                                                        e.Position.Length
+                                                                       )
+                                              );
         }
     }
 
@@ -212,16 +211,16 @@ public class BadHtmlContext
     {
         try
         {
-            BadExpression[] expressions = BadSourceParser.Parse(FilePath, code).ToArray();
+            BadExpression[] expressions = BadSourceParser.Parse(FilePath, code)
+                                                         .ToArray();
 
             foreach (BadExpression expression in VisitAll(expressions))
             {
-                BadSourcePosition newPosition = BadSourcePosition.Create(
-                    FilePath,
-                    Source,
-                    pos.Index + expression.Position.Index,
-                    expression.Position.Length
-                );
+                BadSourcePosition newPosition = BadSourcePosition.Create(FilePath,
+                                                                         Source,
+                                                                         pos.Index + expression.Position.Index,
+                                                                         expression.Position.Length
+                                                                        );
                 expression.SetPosition(newPosition);
             }
 
@@ -234,10 +233,13 @@ public class BadHtmlContext
                 throw new BadSourceReaderException(e.OriginalMessage, pos);
             }
 
-            throw new BadSourceReaderException(
-                e.OriginalMessage,
-                BadSourcePosition.Create(FilePath, Source, e.Position.Index + pos.Index, e.Position.Length)
-            );
+            throw new BadSourceReaderException(e.OriginalMessage,
+                                               BadSourcePosition.Create(FilePath,
+                                                                        Source,
+                                                                        e.Position.Index + pos.Index,
+                                                                        e.Position.Length
+                                                                       )
+                                              );
         }
     }
 

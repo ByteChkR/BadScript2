@@ -11,6 +11,8 @@ namespace BadScript2.ConsoleAbstraction.Implementations;
 /// </summary>
 public class BadSystemConsole : IBadConsole
 {
+#region IBadConsole Members
+
     /// <inheritdoc />
     public void Write(string str)
     {
@@ -54,4 +56,6 @@ public class BadSystemConsole : IBadConsole
         get => Console.BackgroundColor;
         set => Console.BackgroundColor = value;
     }
+
+#endregion
 }

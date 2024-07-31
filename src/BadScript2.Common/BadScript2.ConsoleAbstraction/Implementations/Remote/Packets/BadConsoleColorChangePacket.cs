@@ -1,4 +1,5 @@
 using System;
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>
@@ -43,11 +44,6 @@ public class BadConsoleColorChangePacket : BadConsolePacket
     /// <inheritdoc />
     public override byte[] Serialize()
     {
-        return new[]
-        {
-            (byte)BadConsolePacketType.Color,
-            (byte)(IsBackground ? 1 : 0),
-            (byte)Color,
-        };
+        return new[] { (byte)BadConsolePacketType.Color, (byte)(IsBackground ? 1 : 0), (byte)Color };
     }
 }

@@ -6,6 +6,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 
 using HtmlAgilityPack;
+
 namespace BadHtml.Transformer;
 
 /// <summary>
@@ -34,11 +35,10 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 
         if (resultObj is not IBadBoolean result)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Result of 'test' attribute in 'bs:if' node is not a boolean",
-                pos
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Result of 'test' attribute in 'bs:if' node is not a boolean",
+                                             pos
+                                            );
         }
 
         return result.Value;
@@ -51,20 +51,18 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 
         if (conditionAttribute == null)
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Missing 'test' attribute in 'bs:if' node",
-                context.CreateOuterPosition()
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Missing 'test' attribute in 'bs:if' node",
+                                             context.CreateOuterPosition()
+                                            );
         }
 
         if (string.IsNullOrEmpty(conditionAttribute.Value))
         {
-            throw BadRuntimeException.Create(
-                context.ExecutionContext.Scope,
-                "Empty 'test' attribute in 'bs:if' node",
-                context.CreateAttributePosition(conditionAttribute)
-            );
+            throw BadRuntimeException.Create(context.ExecutionContext.Scope,
+                                             "Empty 'test' attribute in 'bs:if' node",
+                                             context.CreateAttributePosition(conditionAttribute)
+                                            );
         }
 
         BadExpression[] expressions =
@@ -72,14 +70,13 @@ public class BadWhileNodeTransformer : BadHtmlNodeTransformer
 
         while (Evaluate(context, conditionAttribute, expressions))
         {
-            using BadExecutionContext loopContext = new BadExecutionContext(
-                context.ExecutionContext.Scope.CreateChild(
-                    "bs:while",
-                    context.ExecutionContext.Scope,
-                    null,
-                    BadScopeFlags.Breakable | BadScopeFlags.Continuable
-                )
-            );
+            using BadExecutionContext loopContext =
+                new BadExecutionContext(context.ExecutionContext.Scope.CreateChild("bs:while",
+                                             context.ExecutionContext.Scope,
+                                             null,
+                                             BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                                            )
+                                       );
 
             foreach (HtmlNode? child in context.InputNode.ChildNodes)
             {

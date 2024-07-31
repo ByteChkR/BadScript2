@@ -29,6 +29,8 @@ public class BadConsoleDebugger : IBadDebugger
     /// </summary>
     private string? m_LastSource;
 
+#region IBadDebugger Members
+
     /// <inheritdoc />
     public void Step(BadDebuggerStep stepInfo)
     {
@@ -58,7 +60,8 @@ public class BadConsoleDebugger : IBadDebugger
 
             if (cmd.StartsWith("ignore-file"))
             {
-                string file = cmd.Remove(0, "ignore-file".Length).Trim();
+                string file = cmd.Remove(0, "ignore-file".Length)
+                                 .Trim();
                 s_IgnoredFiles.Add(file);
 
                 continue;
@@ -75,4 +78,6 @@ public class BadConsoleDebugger : IBadDebugger
         }
         while (!exit);
     }
+
+#endregion
 }

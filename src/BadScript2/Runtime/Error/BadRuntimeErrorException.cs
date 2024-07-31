@@ -1,4 +1,5 @@
 using BadScript2.Common;
+
 namespace BadScript2.Runtime.Error;
 
 /// <summary>
@@ -6,15 +7,13 @@ namespace BadScript2.Runtime.Error;
 /// </summary>
 public class BadRuntimeErrorException : BadScriptException
 {
-
 	/// <summary>
 	///     Creates a new BadRuntimeErrorException
 	/// </summary>
 	/// <param name="error">The Runtime Error that was generated</param>
-	public BadRuntimeErrorException(BadRuntimeError error) : base(
-        error.ToString(),
-        error.ErrorObject.ToString()
-    )
+	public BadRuntimeErrorException(BadRuntimeError error) : base(error.ToString(),
+	                                                              error.ErrorObject.ToString()
+	                                                             )
     {
         Error = error;
     }

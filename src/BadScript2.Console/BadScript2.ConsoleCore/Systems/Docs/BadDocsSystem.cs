@@ -52,20 +52,17 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
         string outFile = Path.Combine(Path.GetTempPath(), Path.GetTempFileName() + ".html");
-        string htmlString = BadHtmlTemplate.Create(TemplatePath).Run(
-            null,
-            new BadHtmlTemplateOptions
-            {
-                Runtime = Runtime,
-                SkipEmptyTextNodes = true,
-            }
-        );
+
+        string htmlString = BadHtmlTemplate.Create(TemplatePath)
+                                           .Run(null,
+                                                new BadHtmlTemplateOptions
+                                                {
+                                                    Runtime = Runtime, SkipEmptyTextNodes = true,
+                                                }
+                                               );
         File.WriteAllText(outFile, htmlString);
         Process p = new Process();
-        p.StartInfo = new ProcessStartInfo(outFile)
-        {
-            UseShellExecute = true,
-        };
+        p.StartInfo = new ProcessStartInfo(outFile) { UseShellExecute = true };
         p.Start();
 
         return Task.FromResult(0);

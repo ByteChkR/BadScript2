@@ -60,231 +60,81 @@ public class BadCompiler
     /// </summary>
     private readonly Dictionary<Type, IBadExpressionCompiler> m_Compilers = new Dictionary<Type, IBadExpressionCompiler>
     {
-        {
-            typeof(BadVariableExpression), new BadVariableExpressionCompiler()
-        },
-        {
-            typeof(BadVariableDefinitionExpression), new BadVariableDefinitionExpressionCompiler()
-        },
-        {
-            typeof(BadMemberAccessExpression), new BadMemberAccessExpressionCompiler()
-        },
-        {
-            typeof(BadEqualityExpression), new BadEqualityExpressionCompiler()
-        },
-        {
-            typeof(BadInequalityExpression), new BadInequalityExpressionCompiler()
-        },
-        {
-            typeof(BadLessThanExpression), new BadLessExpressionCompiler()
-        },
-        {
-            typeof(BadLessOrEqualExpression), new BadLessOrEqualExpressionCompiler()
-        },
-        {
-            typeof(BadGreaterOrEqualExpression), new BadGreaterOrEqualExpressionCompiler()
-        },
-        {
-            typeof(BadGreaterThanExpression), new BadGreaterExpressionCompiler()
-        },
-        {
-            typeof(BadLogicAndExpression), new BadLogicAndExpressionCompiler()
-        },
-        {
-            typeof(BadLogicOrExpression), new BadLogicOrExpressionCompiler()
-        },
-        {
-            typeof(BadLogicXOrExpression), new BadLogicXOrExpressionCompiler()
-        },
-        {
-            typeof(BadLogicNotExpression), new BadLogicNotExpressionCompiler()
-        },
-        {
-            typeof(BadLogicAssignAndExpression), new BadLogicAssignAndExpressionCompiler()
-        },
-        {
-            typeof(BadLogicAssignOrExpression), new BadLogicAssignOrExpressionCompiler()
-        },
-        {
-            typeof(BadLogicAssignXOrExpression), new BadLogicAssignXOrExpressionCompiler()
-        },
-        {
-            typeof(BadAddExpression), new BadAddExpressionCompiler()
-        },
-        {
-            typeof(BadSubtractExpression), new BadSubtractExpressionCompiler()
-        },
-        {
-            typeof(BadMultiplyExpression), new BadMultiplyExpressionCompiler()
-        },
-        {
-            typeof(BadExponentiationExpression), new BadExponentiationExpressionCompiler()
-        },
-        {
-            typeof(BadNegationExpression), new BadNegateExpressionCompiler()
-        },
-        {
-            typeof(BadDeleteExpression), new BadDeleteExpressionCompiler()
-        },
-        {
-            typeof(BadInstanceOfExpression), new BadInstanceOfExpressionCompiler()
-        },
-        {
-            typeof(BadTypeOfExpression), new BadTypeOfExpressionCompiler()
-        },
-        {
-            typeof(BadDivideExpression), new BadDivideExpressionCompiler()
-        },
-        {
-            typeof(BadModulusExpression), new BadModulusExpressionCompiler()
-        },
-        {
-            typeof(BadAddAssignExpression), new BadAddAssignExpressionCompiler()
-        },
-        {
-            typeof(BadSubtractAssignExpression), new BadSubtractAssignExpressionCompiler()
-        },
-        {
-            typeof(BadExponentiationAssignExpression), new BadExponentiationAssignExpressionCompiler()
-        },
-        {
-            typeof(BadMultiplyAssignExpression), new BadMultiplyAssignExpressionCompiler()
-        },
-        {
-            typeof(BadDivideAssignExpression), new BadDivideAssignExpressionCompiler()
-        },
-        {
-            typeof(BadModulusAssignExpression), new BadModulusAssignExpressionCompiler()
-        },
-        {
-            typeof(BadPostDecrementExpression), new BadPostDecrementExpressionCompiler()
-        },
-        {
-            typeof(BadPostIncrementExpression), new BadPostIncrementExpressionCompiler()
-        },
-        {
-            typeof(BadPreDecrementExpression), new BadPreDecrementExpressionCompiler()
-        },
-        {
-            typeof(BadPreIncrementExpression), new BadPreIncrementExpressionCompiler()
-        },
-        {
-            typeof(BadAssignExpression), new BadAssignExpressionCompiler()
-        },
-        {
-            typeof(BadBinaryUnpackExpression), new BadBinaryUnpackExpressionCompiler()
-        },
-        {
-            typeof(BadUnaryUnpackExpression), new BadUnaryUnpackExpressionCompiler()
-        },
-        {
-            typeof(BadBooleanExpression), new BadBooleanExpressionCompiler()
-        },
-        {
-            typeof(BadNumberExpression), new BadNumberExpressionCompiler()
-        },
-        {
-            typeof(BadStringExpression), new BadStringExpressionCompiler()
-        },
-        {
-            typeof(BadNullExpression), new BadNullExpressionCompiler()
-        },
-        {
-            typeof(BadIfExpression), new BadIfExpressionCompiler()
-        },
-        {
-            typeof(BadSwitchExpression), new BadSwitchExpressionCompiler()
-        },
-        {
-            typeof(BadReturnExpression), new BadReturnExpressionCompiler()
-        },
-        {
-            typeof(BadContinueExpression), new BadContinueExpressionCompiler()
-        },
-        {
-            typeof(BadBreakExpression), new BadBreakExpressionCompiler()
-        },
-        {
-            typeof(BadThrowExpression), new BadThrowExpressionCompiler()
-        },
-        {
-            typeof(BadWhileExpression), new BadWhileExpressionCompiler()
-        },
-        {
-            typeof(BadForExpression), new BadForExpressionCompiler()
-        },
-        {
-            typeof(BadFormattedStringExpression), new BadFormattedStringExpressionCompiler()
-        },
-        {
-            typeof(BadConstantExpression), new BadConstantExpressionCompiler()
-        },
-        {
-            typeof(BadArrayAccessExpression), new BadArrayAccessExpressionCompiler()
-        },
-        {
-            typeof(BadArrayAccessReverseExpression), new BadArrayAccessReverseExpressionCompiler()
-        },
-        {
-            typeof(BadTernaryExpression), new BadTernaryExpressionCompiler()
-        },
-        {
-            typeof(BadNullCoalescingExpression), new BadNullCoalescingExpressionCompiler()
-        },
-        {
-            typeof(BadNullCoalescingAssignExpression), new BadNullCoalescingAssignExpressionCompiler()
-        },
-        {
-            typeof(BadLockExpression), new BadLockExpressionCompiler()
-        },
-        {
-            typeof(BadArrayExpression), new BadArrayExpressionCompiler()
-        },
-        {
-            typeof(BadTableExpression), new BadTableExpressionCompiler()
-        },
-        {
-            typeof(BadInvocationExpression), new BadInvocationExpressionCompiler()
-        },
-        {
-            typeof(BadForEachExpression), new BadForEachExpressionCompiler()
-        },
-        {
-            typeof(BadNewExpression), new BadNewExpressionCompiler()
-        },
-        {
-            typeof(BadRangeExpression), new BadRangeExpressionCompiler()
-        },
-        {
-            typeof(BadTryCatchExpression), new BadTryCatchExpressionCompiler()
-        },
-        {
-            typeof(BadInExpression), new BadInExpressionCompiler()
-        },
-        {
-            typeof(BadFunctionExpression), new BadFunctionExpressionCompiler()
-        },
-        {
-            typeof(BadClassPrototypeExpression), new BadClassPrototypeExpressionCompiler()
-        },
-        {
-            typeof(BadInterfacePrototypeExpression), new BadInterfacePrototypeExpressionCompiler()
-        },
-        {
-            typeof(BadUsingExpression), new BadUsingExpressionCompiler()
-        },
-        {
-            typeof(BadUsingStatementExpression), new BadUsingStatementExpressionCompiler()
-        },
-        {
-            typeof(BadNamedExportExpression), new BadNamedExportExpressionCompiler()
-        },
-        {
-            typeof(BadDefaultExportExpression), new BadDefaultExportExpressionCompiler()
-        },
-        {
-            typeof(BadImportExpression), new BadImportExpressionCompiler()
-        },
+        { typeof(BadVariableExpression), new BadVariableExpressionCompiler() },
+        { typeof(BadVariableDefinitionExpression), new BadVariableDefinitionExpressionCompiler() },
+        { typeof(BadMemberAccessExpression), new BadMemberAccessExpressionCompiler() },
+        { typeof(BadEqualityExpression), new BadEqualityExpressionCompiler() },
+        { typeof(BadInequalityExpression), new BadInequalityExpressionCompiler() },
+        { typeof(BadLessThanExpression), new BadLessExpressionCompiler() },
+        { typeof(BadLessOrEqualExpression), new BadLessOrEqualExpressionCompiler() },
+        { typeof(BadGreaterOrEqualExpression), new BadGreaterOrEqualExpressionCompiler() },
+        { typeof(BadGreaterThanExpression), new BadGreaterExpressionCompiler() },
+        { typeof(BadLogicAndExpression), new BadLogicAndExpressionCompiler() },
+        { typeof(BadLogicOrExpression), new BadLogicOrExpressionCompiler() },
+        { typeof(BadLogicXOrExpression), new BadLogicXOrExpressionCompiler() },
+        { typeof(BadLogicNotExpression), new BadLogicNotExpressionCompiler() },
+        { typeof(BadLogicAssignAndExpression), new BadLogicAssignAndExpressionCompiler() },
+        { typeof(BadLogicAssignOrExpression), new BadLogicAssignOrExpressionCompiler() },
+        { typeof(BadLogicAssignXOrExpression), new BadLogicAssignXOrExpressionCompiler() },
+        { typeof(BadAddExpression), new BadAddExpressionCompiler() },
+        { typeof(BadSubtractExpression), new BadSubtractExpressionCompiler() },
+        { typeof(BadMultiplyExpression), new BadMultiplyExpressionCompiler() },
+        { typeof(BadExponentiationExpression), new BadExponentiationExpressionCompiler() },
+        { typeof(BadNegationExpression), new BadNegateExpressionCompiler() },
+        { typeof(BadDeleteExpression), new BadDeleteExpressionCompiler() },
+        { typeof(BadInstanceOfExpression), new BadInstanceOfExpressionCompiler() },
+        { typeof(BadTypeOfExpression), new BadTypeOfExpressionCompiler() },
+        { typeof(BadDivideExpression), new BadDivideExpressionCompiler() },
+        { typeof(BadModulusExpression), new BadModulusExpressionCompiler() },
+        { typeof(BadAddAssignExpression), new BadAddAssignExpressionCompiler() },
+        { typeof(BadSubtractAssignExpression), new BadSubtractAssignExpressionCompiler() },
+        { typeof(BadExponentiationAssignExpression), new BadExponentiationAssignExpressionCompiler() },
+        { typeof(BadMultiplyAssignExpression), new BadMultiplyAssignExpressionCompiler() },
+        { typeof(BadDivideAssignExpression), new BadDivideAssignExpressionCompiler() },
+        { typeof(BadModulusAssignExpression), new BadModulusAssignExpressionCompiler() },
+        { typeof(BadPostDecrementExpression), new BadPostDecrementExpressionCompiler() },
+        { typeof(BadPostIncrementExpression), new BadPostIncrementExpressionCompiler() },
+        { typeof(BadPreDecrementExpression), new BadPreDecrementExpressionCompiler() },
+        { typeof(BadPreIncrementExpression), new BadPreIncrementExpressionCompiler() },
+        { typeof(BadAssignExpression), new BadAssignExpressionCompiler() },
+        { typeof(BadBinaryUnpackExpression), new BadBinaryUnpackExpressionCompiler() },
+        { typeof(BadUnaryUnpackExpression), new BadUnaryUnpackExpressionCompiler() },
+        { typeof(BadBooleanExpression), new BadBooleanExpressionCompiler() },
+        { typeof(BadNumberExpression), new BadNumberExpressionCompiler() },
+        { typeof(BadStringExpression), new BadStringExpressionCompiler() },
+        { typeof(BadNullExpression), new BadNullExpressionCompiler() },
+        { typeof(BadIfExpression), new BadIfExpressionCompiler() },
+        { typeof(BadSwitchExpression), new BadSwitchExpressionCompiler() },
+        { typeof(BadReturnExpression), new BadReturnExpressionCompiler() },
+        { typeof(BadContinueExpression), new BadContinueExpressionCompiler() },
+        { typeof(BadBreakExpression), new BadBreakExpressionCompiler() },
+        { typeof(BadThrowExpression), new BadThrowExpressionCompiler() },
+        { typeof(BadWhileExpression), new BadWhileExpressionCompiler() },
+        { typeof(BadForExpression), new BadForExpressionCompiler() },
+        { typeof(BadFormattedStringExpression), new BadFormattedStringExpressionCompiler() },
+        { typeof(BadConstantExpression), new BadConstantExpressionCompiler() },
+        { typeof(BadArrayAccessExpression), new BadArrayAccessExpressionCompiler() },
+        { typeof(BadArrayAccessReverseExpression), new BadArrayAccessReverseExpressionCompiler() },
+        { typeof(BadTernaryExpression), new BadTernaryExpressionCompiler() },
+        { typeof(BadNullCoalescingExpression), new BadNullCoalescingExpressionCompiler() },
+        { typeof(BadNullCoalescingAssignExpression), new BadNullCoalescingAssignExpressionCompiler() },
+        { typeof(BadLockExpression), new BadLockExpressionCompiler() },
+        { typeof(BadArrayExpression), new BadArrayExpressionCompiler() },
+        { typeof(BadTableExpression), new BadTableExpressionCompiler() },
+        { typeof(BadInvocationExpression), new BadInvocationExpressionCompiler() },
+        { typeof(BadForEachExpression), new BadForEachExpressionCompiler() },
+        { typeof(BadNewExpression), new BadNewExpressionCompiler() },
+        { typeof(BadRangeExpression), new BadRangeExpressionCompiler() },
+        { typeof(BadTryCatchExpression), new BadTryCatchExpressionCompiler() },
+        { typeof(BadInExpression), new BadInExpressionCompiler() },
+        { typeof(BadFunctionExpression), new BadFunctionExpressionCompiler() },
+        { typeof(BadClassPrototypeExpression), new BadClassPrototypeExpressionCompiler() },
+        { typeof(BadInterfacePrototypeExpression), new BadInterfacePrototypeExpressionCompiler() },
+        { typeof(BadUsingExpression), new BadUsingExpressionCompiler() },
+        { typeof(BadUsingStatementExpression), new BadUsingStatementExpressionCompiler() },
+        { typeof(BadNamedExportExpression), new BadNamedExportExpressionCompiler() },
+        { typeof(BadDefaultExportExpression), new BadDefaultExportExpressionCompiler() },
+        { typeof(BadImportExpression), new BadImportExpressionCompiler() },
     };
 
     /// <summary>
@@ -315,7 +165,10 @@ public class BadCompiler
         }
         else if (!AllowEval)
         {
-            throw new BadCompilerException("No Compiler for Expression Type " + expression.GetType().Name);
+            throw new BadCompilerException("No Compiler for Expression Type " +
+                                           expression.GetType()
+                                                     .Name
+                                          );
         }
         else
         {
@@ -329,7 +182,9 @@ public class BadCompiler
     /// <param name="expressions">The <see cref="BadExpression" />s to compile.</param>
     /// <param name="clearStack">Indicates whether or not the Stack should be cleared after each expression.</param>
     /// <returns>List of <see cref="BadInstruction" />s.</returns>
-    public void Compile(BadExpressionCompileContext context, IEnumerable<BadExpression> expressions, bool clearStack = true)
+    public void Compile(BadExpressionCompileContext context,
+                        IEnumerable<BadExpression> expressions,
+                        bool clearStack = true)
     {
         foreach (BadExpression expression in expressions)
         {
@@ -360,6 +215,7 @@ public class BadCompiler
     {
         BadExpressionCompileContext ctx = new BadExpressionCompileContext(Instance);
         Instance.Compile(ctx, expressions);
+
         return ctx.GetInstructions();
     }
 }

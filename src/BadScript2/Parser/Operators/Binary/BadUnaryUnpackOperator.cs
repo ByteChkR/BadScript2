@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Binary;
+
 namespace BadScript2.Parser.Operators.Binary;
 
 /// <summary>

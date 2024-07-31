@@ -4,6 +4,7 @@ using BadScript2.Runtime.Interop.Reflection;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
+
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>
@@ -49,7 +50,11 @@ public abstract class BadObject
     /// <returns>True if the given object cam be wrapped</returns>
     public static bool CanWrap(object? o)
     {
-        return o is string || o is decimal || o is null || o.GetType().IsNumericType();
+        return o is string ||
+               o is decimal ||
+               o is null ||
+               o.GetType()
+                .IsNumericType();
     }
 
     /// <summary>
@@ -74,7 +79,10 @@ public abstract class BadObject
                 return new BadNumber(d);
         }
 
-        if (typeof(T).IsNumericType() || obj != null && obj.GetType().IsNumericType())
+        if (typeof(T).IsNumericType() ||
+            (obj != null &&
+             obj.GetType()
+                .IsNumericType()))
         {
             return new BadNumber(Convert.ToDecimal(obj));
         }
@@ -98,7 +106,6 @@ public abstract class BadObject
         {
             return Null;
         }
-
 
         if (allowNative)
         {
@@ -211,11 +218,15 @@ public abstract class BadObject
         return ToSafeString(new List<BadObject>());
     }
 
+#region Nested type: BadNullObject
+
     /// <summary>
     ///     Implementation for the null-value
     /// </summary>
     private class BadNullObject : BadObject, IBadNative
     {
+#region IBadNative Members
+
         /// <inheritdoc cref="IBadNative.Value" />
         public object Value => null!;
 
@@ -231,6 +242,8 @@ public abstract class BadObject
         {
             return Equals((object?)other);
         }
+
+#endregion
 
 
         /// <inheritdoc />
@@ -258,4 +271,6 @@ public abstract class BadObject
             throw new NotSupportedException();
         }
     }
+
+#endregion
 }

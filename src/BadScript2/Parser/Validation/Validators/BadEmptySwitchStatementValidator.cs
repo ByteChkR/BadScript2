@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Block;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -11,12 +12,11 @@ public class BadEmptySwitchStatementValidator : BadExpressionValidator<BadSwitch
     {
         if (expr.Cases.Count == 0 || expr.Cases.All(x => x.Value.Length == 0))
         {
-            context.AddError(
-                "Switch statement has no cases",
-                expr,
-                expr,
-                this
-            );
+            context.AddError("Switch statement has no cases",
+                             expr,
+                             expr,
+                             this
+                            );
         }
     }
 }

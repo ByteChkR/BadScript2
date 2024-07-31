@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions.Constant;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Constant;
 
 /// <summary>
@@ -10,6 +11,9 @@ public class BadStringExpressionCompiler : BadExpressionCompiler<BadStringExpres
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadStringExpression expression)
     {
-        context.Emit(BadOpCode.Push, expression.Position, (BadObject)expression.Value.Substring(1, expression.Value.Length - 2));
+        context.Emit(BadOpCode.Push,
+                     expression.Position,
+                     (BadObject)expression.Value.Substring(1, expression.Value.Length - 2)
+                    );
     }
 }

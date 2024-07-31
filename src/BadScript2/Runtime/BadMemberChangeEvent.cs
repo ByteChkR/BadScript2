@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Runtime;
 
 public abstract class BadMemberChangeEvent : BadObject
@@ -46,6 +47,7 @@ public abstract class BadMemberChangeEvent : BadObject
                 return base.GetProperty(propName, caller);
         }
     }
+
     public override string ToSafeString(List<BadObject> done)
     {
         return $"{GetType().Name}: " + m_Member.ToSafeString(done);

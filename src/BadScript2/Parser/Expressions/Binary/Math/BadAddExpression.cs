@@ -20,11 +20,10 @@ public class BadAddExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadAddExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                        right,
+                                                                                                        position
+                                                                                                       ) { }
 
 
     /// <inheritdoc cref="BadBinaryExpression.GetSymbol" />
@@ -87,23 +86,21 @@ public class BadAddExpression : BadBinaryExpression
     /// <param name="position">Source position that is used to generate an Exception if the operator can not be computed</param>
     /// <returns>The result of the operator</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be executed</exception>
-    public static IEnumerable<BadObject> AddWithOverride(
-        BadExecutionContext? context,
-        BadObject leftRef,
-        BadObject right,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> AddWithOverride(BadExecutionContext? context,
+                                                         BadObject leftRef,
+                                                         BadObject right,
+                                                         BadSourcePosition position)
     {
         BadObject left = leftRef.Dereference();
 
         if (left.HasProperty(BadStaticKeys.ADD_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.ADD_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            context!,
+                                                            BadStaticKeys.ADD_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

@@ -14,6 +14,7 @@ using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.NetHost;
 
 /// <summary>
@@ -83,32 +84,34 @@ public class BadNetHostExtensions : BadInteropExtension
     private static BadTable CreateContentTable(Stream content, Encoding enc)
     {
         BadTable table = new BadTable();
-        table.SetFunction(
-            "AsString",
-            () =>
-            {
-                StreamReader sr = new StreamReader(content, enc);
 
-                return sr.ReadToEnd();
-            },
-            BadNativeClassBuilder.GetNative("string")
-        );
-        table.SetFunction(
-            "AsBytes",
-            () =>
-            {
-                byte[] data = new byte[content.Length];
-                int read = content.Read(data, 0, data.Length);
+        table.SetFunction("AsString",
+                          () =>
+                          {
+                              StreamReader sr = new StreamReader(content, enc);
 
-                if (read != data.Length)
-                {
-                    throw new BadNetworkConsoleException("Could not read all data from stream");
-                }
+                              return sr.ReadToEnd();
+                          },
+                          BadNativeClassBuilder.GetNative("string")
+                         );
 
-                return new BadArray(data.Select(x => (BadObject)x).ToList());
-            },
-            BadNativeClassBuilder.GetNative("Array")
-        );
+        table.SetFunction("AsBytes",
+                          () =>
+                          {
+                              byte[] data = new byte[content.Length];
+                              int read = content.Read(data, 0, data.Length);
+
+                              if (read != data.Length)
+                              {
+                                  throw new BadNetworkConsoleException("Could not read all data from stream");
+                              }
+
+                              return new BadArray(data.Select(x => (BadObject)x)
+                                                      .ToList()
+                                                 );
+                          },
+                          BadNativeClassBuilder.GetNative("Array")
+                         );
 
         return table;
     }
@@ -146,20 +149,28 @@ public class BadNetHostExtensions : BadInteropExtension
         provider.RegisterObject<BadHttpRequest>("HasEntityBody", r => r.Request.HasEntityBody);
         provider.RegisterObject<BadHttpRequest>("UserHostAddress", r => r.Request.UserHostAddress);
         provider.RegisterObject<BadHttpRequest>("UserHostName", r => r.Request.UserHostName);
-        provider.RegisterObject<BadHttpRequest>(
-            "UserLanguages",
-            r => new BadArray((r.Request.UserLanguages ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList())
-        );
-        provider.RegisterObject<BadHttpRequest>(
-            "AcceptTypes",
-            r => new BadArray((r.Request.AcceptTypes ?? Array.Empty<string>()).Select(x => (BadObject)x).ToList())
-        );
+
+        provider.RegisterObject<BadHttpRequest>("UserLanguages",
+                                                r => new BadArray((r.Request.UserLanguages ?? Array.Empty<string>())
+                                                                  .Select(x => (BadObject)x)
+                                                                  .ToList()
+                                                                 )
+                                               );
+
+        provider.RegisterObject<BadHttpRequest>("AcceptTypes",
+                                                r => new BadArray((r.Request.AcceptTypes ?? Array.Empty<string>())
+                                                                  .Select(x => (BadObject)x)
+                                                                  .ToList()
+                                                                 )
+                                               );
         provider.RegisterObject<BadHttpRequest>("ContentEncoding", r => r.Request.ContentEncoding.EncodingName);
         provider.RegisterObject<BadHttpRequest>("Cookies", r => CreateCookieTable(r.Request.Cookies));
-        provider.RegisterObject<BadHttpRequest>(
-            "Content",
-            r => CreateContentTable(r.Request.InputStream, r.Request.ContentEncoding)
-        );
+
+        provider.RegisterObject<BadHttpRequest>("Content",
+                                                r => CreateContentTable(r.Request.InputStream,
+                                                                        r.Request.ContentEncoding
+                                                                       )
+                                               );
     }
 
     /// <summary>
@@ -173,23 +184,23 @@ public class BadNetHostExtensions : BadInteropExtension
         table.SetFunction("SetHeader", (string key, string value) => resp.Headers[key] = value);
         table.SetFunction("SetHeaders", (BadTable headers) => CopyHeaderTable(resp.Headers, headers));
         table.SetFunction("SetCookie", (Cookie cookie) => resp.Cookies.Add(cookie));
-        table.SetFunction(
-            "SetCookies",
-            (BadArray cookies) =>
-            {
-                foreach (BadObject cookie in cookies.InnerArray)
-                {
-                    if (cookie is BadReflectedObject { Instance: Cookie c })
-                    {
-                        resp.Cookies.Add(c);
-                    }
-                    else
-                    {
-                        throw new BadRuntimeException("Cookies must be Cookie objects");
-                    }
-                }
-            }
-        );
+
+        table.SetFunction("SetCookies",
+                          (BadArray cookies) =>
+                          {
+                              foreach (BadObject cookie in cookies.InnerArray)
+                              {
+                                  if (cookie is BadReflectedObject { Instance: Cookie c })
+                                  {
+                                      resp.Cookies.Add(c);
+                                  }
+                                  else
+                                  {
+                                      throw new BadRuntimeException("Cookies must be Cookie objects");
+                                  }
+                              }
+                          }
+                         );
         table.SetFunction("SetStatusCode", (int code) => resp.StatusCode = code);
         table.SetFunction("SetStatusDescription", (string desc) => resp.StatusDescription = desc);
         table.SetFunction("SetContentType", (string type) => resp.ContentType = type);
@@ -199,14 +210,14 @@ public class BadNetHostExtensions : BadInteropExtension
         table.SetFunction("Redirect", (string location) => resp.Redirect(location));
         table.SetFunction("Abort", resp.Abort);
         table.SetFunction("Close", resp.Close);
-        table.SetFunction(
-            "SetContent",
-            (string content) =>
-            {
-                byte[] data = (resp.ContentEncoding ?? Encoding.UTF8).GetBytes(content);
-                resp.OutputStream.Write(data, 0, data.Length);
-            }
-        );
+
+        table.SetFunction("SetContent",
+                          (string content) =>
+                          {
+                              byte[] data = (resp.ContentEncoding ?? Encoding.UTF8).GetBytes(content);
+                              resp.OutputStream.Write(data, 0, data.Length);
+                          }
+                         );
 
         return table;
     }

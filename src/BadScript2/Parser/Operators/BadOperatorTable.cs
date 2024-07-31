@@ -6,6 +6,7 @@ using BadScript2.Parser.Operators.Binary.Math;
 using BadScript2.Parser.Operators.Binary.Math.Assign;
 using BadScript2.Parser.Operators.Binary.Math.Atomic;
 using BadScript2.Parser.Operators.Module;
+
 namespace BadScript2.Parser.Operators;
 
 /// <summary>
@@ -144,11 +145,10 @@ public class BadOperatorTable
 	/// <returns>The Operator that was found. Null if none were found.</returns>
 	public BadBinaryOperator? FindBinaryOperator(string symbol, int precedence)
     {
-        return m_Operators.FirstOrDefault(
-            op => op.Symbol == symbol &&
-                  (op.IsLeftAssociative && op.Precedence < precedence ||
-                   !op.IsLeftAssociative && op.Precedence <= precedence)
-        );
+        return m_Operators.FirstOrDefault(op => op.Symbol == symbol &&
+                                                ((op.IsLeftAssociative && op.Precedence < precedence) ||
+                                                 (!op.IsLeftAssociative && op.Precedence <= precedence))
+                                         );
     }
 
 	/// <summary>
@@ -159,10 +159,9 @@ public class BadOperatorTable
 	/// <returns>The Operator that was found. Null if none were found.</returns>
 	public BadUnaryPrefixOperator? FindUnaryPrefixOperator(string symbol, int precedence)
     {
-        return m_UnaryPrefixOperators.FirstOrDefault(
-            op => op.Symbol == symbol &&
-                  (op.IsLeftAssociative && op.Precedence < precedence ||
-                   !op.IsLeftAssociative && op.Precedence <= precedence)
-        );
+        return m_UnaryPrefixOperators.FirstOrDefault(op => op.Symbol == symbol &&
+                                                           ((op.IsLeftAssociative && op.Precedence < precedence) ||
+                                                            (!op.IsLeftAssociative && op.Precedence <= precedence))
+                                                    );
     }
 }

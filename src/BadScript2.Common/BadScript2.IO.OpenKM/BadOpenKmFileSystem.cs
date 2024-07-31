@@ -35,7 +35,9 @@ public class BadOpenKmFileSystem : IFileSystem
     public BadOpenKmFileSystem(IOkmWebservice webService)
     {
         m_Webservice = webService;
-        m_Current = m_Webservice.GetFolderProperties(GetStartupDirectory()).Result;
+
+        m_Current = m_Webservice.GetFolderProperties(GetStartupDirectory())
+                                .Result;
     }
 
     /// <summary>
@@ -44,33 +46,37 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <param name="url">The OpenKM URL</param>
     /// <param name="user">The OpenKM User</param>
     /// <param name="password">The OpenKM Password</param>
-    public BadOpenKmFileSystem(string url, string user, string password) : this(
-        OkmWebserviceFactory.NewInstance(url, user, password)
-    ) { }
+    public BadOpenKmFileSystem(string url, string user, string password) :
+        this(OkmWebserviceFactory.NewInstance(url, user, password)) { }
 
+#region IFileSystem Members
 
     /// <inheritdoc />
     public string GetStartupDirectory()
     {
-        return m_StartupDirectory ??= m_Webservice.GetPersonalFolder().Result.path;
+        return m_StartupDirectory ??= m_Webservice.GetPersonalFolder()
+                                                  .Result.path;
     }
 
     /// <inheritdoc />
     public bool Exists(string path)
     {
-        return m_Webservice.HasNode(MakeFullPath(path)).Result;
+        return m_Webservice.HasNode(MakeFullPath(path))
+                           .Result;
     }
 
     /// <inheritdoc />
     public bool IsFile(string path)
     {
-        return m_Webservice.IsValidDocument(MakeFullPath(path)).Result;
+        return m_Webservice.IsValidDocument(MakeFullPath(path))
+                           .Result;
     }
 
     /// <inheritdoc />
     public bool IsDirectory(string path)
     {
-        return m_Webservice.IsValidFolder(MakeFullPath(path)).Result;
+        return m_Webservice.IsValidFolder(MakeFullPath(path))
+                           .Result;
     }
 
     /// <inheritdoc />
@@ -119,7 +125,8 @@ public class BadOpenKmFileSystem : IFileSystem
             throw new Exception("Directory is not empty.");
         }
 
-        m_Webservice.DeleteFolder(path).Wait();
+        m_Webservice.DeleteFolder(path)
+                    .Wait();
     }
 
     /// <inheritdoc />
@@ -132,7 +139,8 @@ public class BadOpenKmFileSystem : IFileSystem
             throw new Exception("File does not exist.");
         }
 
-        m_Webservice.DeleteDocument(path).Wait();
+        m_Webservice.DeleteDocument(path)
+                    .Wait();
     }
 
     /// <inheritdoc />
@@ -144,7 +152,8 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <inheritdoc />
     public Stream OpenRead(string path)
     {
-        Stream result = m_Webservice.GetContent(MakeFullPath(path)).Result;
+        Stream result = m_Webservice.GetContent(MakeFullPath(path))
+                                    .Result;
 
         return result;
     }
@@ -164,7 +173,8 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <inheritdoc />
     public void SetCurrentDirectory(string path)
     {
-        m_Current = m_Webservice.GetFolderProperties(MakeFullPath(path)).Result;
+        m_Current = m_Webservice.GetFolderProperties(MakeFullPath(path))
+                                .Result;
     }
 
     /// <inheritdoc />
@@ -180,9 +190,9 @@ public class BadOpenKmFileSystem : IFileSystem
 
         if (IsDirectory(src))
         {
-            throw new NotSupportedException(
-                "At the moment, copying directories is not supported. (need to implement recursive move files)"
-            );
+            throw new
+                NotSupportedException("At the moment, copying directories is not supported. (need to implement recursive move files)"
+                                     );
         }
 
         if (!Exists(dst))
@@ -204,10 +214,12 @@ public class BadOpenKmFileSystem : IFileSystem
                 throw new Exception("Target already exists");
             }
 
-            m_Webservice.DeleteDocument(dstFile).Wait();
+            m_Webservice.DeleteDocument(dstFile)
+                        .Wait();
         }
 
-        m_Webservice.CopyDocument(src, dst).Wait();
+        m_Webservice.CopyDocument(src, dst)
+                    .Wait();
     }
 
     /// <inheritdoc />
@@ -223,9 +235,9 @@ public class BadOpenKmFileSystem : IFileSystem
 
         if (IsDirectory(src))
         {
-            throw new NotSupportedException(
-                "At the moment, moving directories is not supported. (need to implement recursive move files)"
-            );
+            throw new
+                NotSupportedException("At the moment, moving directories is not supported. (need to implement recursive move files)"
+                                     );
         }
 
         if (!Exists(dst))
@@ -247,11 +259,15 @@ public class BadOpenKmFileSystem : IFileSystem
                 throw new Exception("Target already exists");
             }
 
-            m_Webservice.DeleteDocument(dstFile).Wait();
+            m_Webservice.DeleteDocument(dstFile)
+                        .Wait();
         }
 
-        m_Webservice.MoveDocument(src, dst).Wait();
+        m_Webservice.MoveDocument(src, dst)
+                    .Wait();
     }
+
+#endregion
 
     /// <summary>
     ///     Makes the given path a full path
@@ -272,8 +288,12 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <returns>true if the given path has children</returns>
     private bool HasChildren(string path)
     {
-        return m_Webservice.GetFolderChildren(path).Result.folder.Count > 0 ||
-               m_Webservice.GetDocumentChildren(path).Result.document.Count > 0;
+        return m_Webservice.GetFolderChildren(path)
+                           .Result.folder.Count >
+               0 ||
+               m_Webservice.GetDocumentChildren(path)
+                           .Result.document.Count >
+               0;
     }
 
     /// <summary>
@@ -283,7 +303,8 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <returns>Enumeration of all directories in the given directory</returns>
     private IEnumerable<string> InnerGetDirectories(string path)
     {
-        FolderList? current = m_Webservice.GetFolderChildren(path).Result;
+        FolderList? current = m_Webservice.GetFolderChildren(path)
+                                          .Result;
 
         return current == null ? Enumerable.Empty<string>() : current.folder.Select(x => x.path);
     }
@@ -296,7 +317,8 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <returns>Enumeration of all files in the given directory that match the specified extension</returns>
     private IEnumerable<string> InnerGetFiles(string path, string extension)
     {
-        DocumentList? current = m_Webservice.GetDocumentChildren(path).Result;
+        DocumentList? current = m_Webservice.GetDocumentChildren(path)
+                                            .Result;
 
         if (current == null)
         {
@@ -382,6 +404,7 @@ public class BadOpenKmFileSystem : IFileSystem
     /// <param name="path">The path to the directory</param>
     private void InnerCreateDirectory(string path)
     {
-        m_Webservice.CreateFolderSimple(path).Wait();
+        m_Webservice.CreateFolderSimple(path)
+                    .Wait();
     }
 }

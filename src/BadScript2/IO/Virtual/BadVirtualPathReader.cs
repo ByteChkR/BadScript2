@@ -1,4 +1,5 @@
 using BadScript2.Utility;
+
 namespace BadScript2.IO.Virtual;
 
 /// <summary>
@@ -22,7 +23,8 @@ public static class BadVirtualPathReader
 
         if (IsAbsolutePath(path))
         {
-            parts = parts.Skip(1).ToArray();
+            parts = parts.Skip(1)
+                         .ToArray();
         }
 
         return parts;
@@ -55,7 +57,9 @@ public static class BadVirtualPathReader
         }
         else
         {
-            result = new List<string>(currentDir.Split('/', '\\').Skip(1));
+            result = new List<string>(currentDir.Split('/', '\\')
+                                                .Skip(1)
+                                     );
         }
 
         foreach (string t in parts)

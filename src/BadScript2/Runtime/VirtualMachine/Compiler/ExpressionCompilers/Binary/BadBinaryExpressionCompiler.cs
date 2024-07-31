@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Binary;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 /// <summary>
@@ -58,6 +59,7 @@ public abstract class BadBinaryExpressionCompiler<T> : BadExpressionCompiler<T>
                 context.Compile(expression.Left);
             }
         }
+
         CompileBinary(context, expression);
     }
 }

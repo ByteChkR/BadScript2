@@ -33,7 +33,9 @@ public class BadRuntime : IDisposable
     /// </summary>
     private readonly List<Action<BadExecutionContext>> m_ConfigureContext = new List<Action<BadExecutionContext>>();
 
-    private readonly List<Action<BadExecutionContext, string, BadModuleImporter>> m_ConfigureModuleImporter = new List<Action<BadExecutionContext, string, BadModuleImporter>>();
+    private readonly List<Action<BadExecutionContext, string, BadModuleImporter>> m_ConfigureModuleImporter =
+        new List<Action<BadExecutionContext, string, BadModuleImporter>>();
+
     /// <summary>
     ///     Configuration Actions for the Options
     /// </summary>
@@ -80,6 +82,8 @@ public class BadRuntime : IDisposable
 
     private BadModuleImporter? Importer { get; set; }
 
+#region IDisposable Members
+
     //private BadModuleImporter? Importer { get; set; }
 
     /// <summary>
@@ -92,6 +96,8 @@ public class BadRuntime : IDisposable
             disposable.Dispose();
         }
     }
+
+#endregion
 
     /// <summary>
     ///     Clone this Runtime
@@ -151,7 +157,9 @@ public class BadRuntime : IDisposable
     /// <returns>This Runtime</returns>
     public BadRuntime UseLogMask(params string[] mask)
     {
-        return UseLogMask(mask.Select(x => (BadLogMask)x).ToArray());
+        return UseLogMask(mask.Select(x => (BadLogMask)x)
+                              .ToArray()
+                         );
     }
 
     /// <summary>
@@ -207,11 +215,11 @@ public class BadRuntime : IDisposable
     public BadRuntime LoadSettings(string settingsFile, IFileSystem? fileSystem = null)
     {
         BadLogger.Log("Loading Settings...", "Settings");
-        BadSettingsReader settingsReader = new BadSettingsReader(
-            BadSettingsProvider.RootSettings,
-            fileSystem ?? BadFileSystem.Instance,
-            settingsFile
-        );
+
+        BadSettingsReader settingsReader = new BadSettingsReader(BadSettingsProvider.RootSettings,
+                                                                 fileSystem ?? BadFileSystem.Instance,
+                                                                 settingsFile
+                                                                );
 
         BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
         BadLogger.Log("Settings loaded!", "Settings");
@@ -269,7 +277,8 @@ public class BadRuntime : IDisposable
     /// <returns>The new Context</returns>
     public BadExecutionContext CreateContext(string workingDirectory)
     {
-        BadExecutionContext ctx = CreateOptions().Build();
+        BadExecutionContext ctx = CreateOptions()
+            .Build();
 
         foreach (Action<BadExecutionContext> config in m_ConfigureContext)
         {
@@ -278,6 +287,7 @@ public class BadRuntime : IDisposable
 
         ctx.Scope.AddSingleton(this);
         BadModuleImporter importer;
+
         if (Importer == null)
         {
             importer = Importer = new BadModuleImporter(ModuleStore);
@@ -331,7 +341,10 @@ public class BadRuntime : IDisposable
     /// <returns>The Result of the Execution</returns>
     public BadRuntimeExecutionResult Execute(string source, string file)
     {
-        return Execute(Parse(source, file), Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ?? BadFileSystem.Instance.GetCurrentDirectory());
+        return Execute(Parse(source, file),
+                       Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ??
+                       BadFileSystem.Instance.GetCurrentDirectory()
+                      );
     }
 
     /// <summary>
@@ -343,7 +356,10 @@ public class BadRuntime : IDisposable
     public BadRuntimeExecutionResult ExecuteFile(string file, IFileSystem? fileSystem = null)
     {
         IFileSystem? fs = fileSystem ?? BadFileSystem.Instance;
-        return Execute(ParseFile(file, fs), fs.GetFullPath(Path.GetDirectoryName(fs.GetFullPath(file)) ?? fs.GetCurrentDirectory()));
+
+        return Execute(ParseFile(file, fs),
+                       fs.GetFullPath(Path.GetDirectoryName(fs.GetFullPath(file)) ?? fs.GetCurrentDirectory())
+                      );
     }
 
     /// <summary>
@@ -390,6 +406,7 @@ public class BadRuntime : IDisposable
     public static IEnumerable<BadExpression> ParseFile(string file, IFileSystem? fileSystem = null)
     {
         IFileSystem? fs = fileSystem ?? BadFileSystem.Instance;
+
         return Parse(fs.ReadAllText(file), file);
     }
 
@@ -400,7 +417,9 @@ public class BadRuntime : IDisposable
     /// <returns>This Runtime</returns>
     public BadRuntime UseLocalModules(IFileSystem? fs = null)
     {
-        return UseImportHandler((workingDir, _) => new BadLocalPathImportHandler(this, workingDir, fs ?? BadFileSystem.Instance));
+        return UseImportHandler((workingDir, _) =>
+                                    new BadLocalPathImportHandler(this, workingDir, fs ?? BadFileSystem.Instance)
+                               );
     }
 
     /// <summary>
@@ -467,7 +486,8 @@ public class BadRuntime : IDisposable
     /// <returns>This Runtime</returns>
     public BadRuntime UseImportHandler(Func<BadExecutionContext, string, BadModuleImporter, BadImportHandler> f)
     {
-        return ConfigureModuleImporter((ctx, workingDir, importer) => importer.AddHandler(f(ctx, workingDir, importer)));
+        return ConfigureModuleImporter((ctx, workingDir, importer) => importer.AddHandler(f(ctx, workingDir, importer))
+                                      );
     }
 
     /// <summary>
@@ -579,6 +599,7 @@ public class BadRuntime : IDisposable
     public BadRuntime UseCulture(CultureInfo culture)
     {
         Culture = culture;
+
         return this;
     }
 

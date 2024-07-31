@@ -2,6 +2,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
 using BadScript2.Reader;
 using BadScript2.Reader.Token;
+
 namespace BadScript2.Parser.Operators.Binary;
 
 /// <summary>

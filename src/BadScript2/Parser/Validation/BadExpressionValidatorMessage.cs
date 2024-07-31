@@ -2,6 +2,7 @@ using System.Text;
 
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Function;
+
 namespace BadScript2.Parser.Validation;
 
 /// <summary>
@@ -42,12 +43,11 @@ public readonly struct BadExpressionValidatorMessage
     /// <param name="validator">The validator that generated the message.</param>
     /// <param name="type">The type of the message.</param>
     /// <param name="parentExpression">The parent expression of the expression that caused the message.</param>
-    public BadExpressionValidatorMessage(
-        string message,
-        BadExpression expression,
-        BadExpressionValidator validator,
-        BadExpressionValidatorMessageType type,
-        BadExpression parentExpression)
+    public BadExpressionValidatorMessage(string message,
+                                         BadExpression expression,
+                                         BadExpressionValidator validator,
+                                         BadExpressionValidatorMessageType type,
+                                         BadExpression parentExpression)
     {
         Message = message;
         Expression = expression;

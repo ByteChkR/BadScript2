@@ -162,7 +162,6 @@ public class BadInteractiveConsole
             throw new BadRuntimeException("Context is not initialized");
         }
 
-
         m_Runner.AddTask(new BadTask(BadRunnable.Create(m_Context.Execute(exprs)), "Main"), true);
 
         while (!m_Runner.IsIdle)
@@ -196,7 +195,6 @@ public class BadInteractiveConsole
         {
             throw new BadRuntimeException("Context is not initialized");
         }
-
 
         m_Runner.AddTask(new BadTask(BadRunnable.Create(m_Context.Execute(exprs)), "Main"), true);
 

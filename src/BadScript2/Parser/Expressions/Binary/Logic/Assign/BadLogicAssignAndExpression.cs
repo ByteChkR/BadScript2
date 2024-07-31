@@ -20,11 +20,10 @@ public class BadLogicAssignAndExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadLogicAssignAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadLogicAssignAndExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                                   right,
+                                                                                                                   position
+                                                                                                                  ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)

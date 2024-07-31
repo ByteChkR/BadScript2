@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Variables;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
 
 /// <summary>
@@ -14,6 +15,7 @@ public class BadVariableExpressionCompiler : BadExpressionCompiler<BadVariableEx
         {
             context.Compile(parameter);
         }
+
         context.Emit(BadOpCode.LoadVar, expression.Position, expression.Name, expression.GenericParameters.Count);
     }
 }

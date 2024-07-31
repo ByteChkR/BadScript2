@@ -3,6 +3,7 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.ControlFlow;
 
 /// <summary>
@@ -15,10 +16,9 @@ public class BadThrowExpression : BadExpression
     /// </summary>
     /// <param name="right">The Error Object that is thrown</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(
-        false,
-        position
-    )
+    public BadThrowExpression(BadExpression right, BadSourcePosition position) : base(false,
+                                                                                      position
+                                                                                     )
     {
         Right = right;
     }

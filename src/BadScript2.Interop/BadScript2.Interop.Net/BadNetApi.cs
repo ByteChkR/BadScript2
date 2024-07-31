@@ -34,18 +34,15 @@ internal partial class BadNetApi
     /// <returns>Awaitable Task</returns>
     [BadMethod(description: "Performs a POST request to the given url with the given content")]
     [return: BadReturn("The Awaitable Task")]
-    private static BadTask Post(
-        [BadParameter(description: "The URL of the POST request")]
-        string url,
-        [BadParameter(description: "The String content of the post request")]
-        string content)
+    private static BadTask Post([BadParameter(description: "The URL of the POST request")] string url,
+                                [BadParameter(description: "The String content of the post request")]
+                                string content)
     {
         HttpClient cl = new HttpClient();
 
-        return new BadTask(
-            BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))),
-            $"Net.Post(\"{url}\")"
-        );
+        return new BadTask(BadTaskUtils.WaitForTask(cl.PostAsync(url, new StringContent(content))),
+                           $"Net.Post(\"{url}\")"
+                          );
     }
 
     /// <summary>

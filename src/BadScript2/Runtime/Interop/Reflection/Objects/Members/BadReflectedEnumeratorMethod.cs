@@ -39,11 +39,12 @@ public class BadReflectedEnumeratorMethod : BadReflectedMethod
     /// <inheritdoc />
     public override BadObject Get(object? instance)
     {
-        return new BadInteropFunction(
-            "GetEnumerator",
-            _ => new BadInteropEnumerator(GetEnumerable(instance!).GetEnumerator()),
-            false,
-            BadAnyPrototype.Instance
-        );
+        return new BadInteropFunction("GetEnumerator",
+                                      _ => new BadInteropEnumerator(GetEnumerable(instance!)
+                                                                        .GetEnumerator()
+                                                                   ),
+                                      false,
+                                      BadAnyPrototype.Instance
+                                     );
     }
 }

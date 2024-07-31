@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Binary.Logic;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary.Logic;
 
 /// <summary>
@@ -11,6 +12,7 @@ public class BadLogicOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogic
 
     /// <inheritdoc />
     protected override bool EmitRight => false;
+
     /// <inheritdoc />
     public override void CompileBinary(BadExpressionCompileContext context, BadLogicOrExpression expression)
     {
@@ -19,6 +21,11 @@ public class BadLogicOrExpressionCompiler : BadBinaryExpressionCompiler<BadLogic
         int jumpPos = context.EmitEmpty();
         context.Emit(BadOpCode.Pop, expression.Position);
         context.Compile(expression.Right);
-        context.ResolveEmpty(jumpPos, BadOpCode.JumpRelativeIfTrue, expression.Position, context.InstructionCount - jumpPos - 1);
+
+        context.ResolveEmpty(jumpPos,
+                             BadOpCode.JumpRelativeIfTrue,
+                             expression.Position,
+                             context.InstructionCount - jumpPos - 1
+                            );
     }
 }

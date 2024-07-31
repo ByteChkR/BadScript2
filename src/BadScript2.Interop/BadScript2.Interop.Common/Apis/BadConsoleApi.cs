@@ -62,7 +62,8 @@ internal partial class BadConsoleApi
 	/// <summary>
 	///     Event Handler for the "ReadLineAsync" Function
 	/// </summary>
-	public Func<Task<string>> OnReadLineAsync { get; set; } = () => System.Threading.Tasks.Task.FromResult(string.Empty);
+	public Func<Task<string>> OnReadLineAsync { get; set; } =
+        () => System.Threading.Tasks.Task.FromResult(string.Empty);
 
 	/// <summary>
 	///     If Set to false, the Console will throw an error if console input is requested.
@@ -108,10 +109,11 @@ internal partial class BadConsoleApi
     [return: BadReturn("The Console Input")]
     private BadTask InvokeReadLineAsync()
     {
-        return new BadTask(
-            new BadReadLineAsyncRunnable(ReadLineAsyncBlocking().GetEnumerator()),
-            "Console.ReadLineAsync"
-        );
+        return new BadTask(new BadReadLineAsyncRunnable(ReadLineAsyncBlocking()
+                                                            .GetEnumerator()
+                                                       ),
+                           "Console.ReadLineAsync"
+                          );
     }
 
     /// <summary>
@@ -185,10 +187,12 @@ internal partial class BadConsoleApi
         return Console.ReadLine();
     }
 
-    /// <summary>
-    ///     Awaitable Enumeration that wraps the ReadLineAsync Task
-    /// </summary>
-    private class BadReadLineAsyncRunnable : BadRunnable
+#region Nested type: BadReadLineAsyncRunnable
+
+	/// <summary>
+	///     Awaitable Enumeration that wraps the ReadLineAsync Task
+	/// </summary>
+	private class BadReadLineAsyncRunnable : BadRunnable
     {
 	    /// <summary>
 	    ///     The Wrapped Task
@@ -234,4 +238,6 @@ internal partial class BadConsoleApi
             return m_Return;
         }
     }
+
+#endregion
 }

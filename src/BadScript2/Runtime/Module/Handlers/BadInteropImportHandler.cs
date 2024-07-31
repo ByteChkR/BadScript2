@@ -3,6 +3,7 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Runtime.Module.Handlers;
 
 public class BadInteropImportHandler : BadImportHandler
@@ -16,21 +17,30 @@ public class BadInteropImportHandler : BadImportHandler
     public BadInteropImportHandler(BadExecutionContext ctx, BadObject scriptHandler)
     {
         m_HandlerContext = ctx;
-        BadObject has = scriptHandler.GetProperty("Has").Dereference();
+
+        BadObject has = scriptHandler.GetProperty("Has")
+                                     .Dereference();
+
         if (has is not BadFunction hasF)
         {
             throw new BadRuntimeException("Has function not found");
         }
 
         m_HasFunction = hasF;
-        BadObject get = scriptHandler.GetProperty("Get").Dereference();
+
+        BadObject get = scriptHandler.GetProperty("Get")
+                                     .Dereference();
+
         if (get is not BadFunction getF)
         {
             throw new BadRuntimeException("Get function not found");
         }
 
         m_GetFunction = getF;
-        BadObject getHash = scriptHandler.GetProperty("GetHash").Dereference();
+
+        BadObject getHash = scriptHandler.GetProperty("GetHash")
+                                         .Dereference();
+
         if (getHash is not BadFunction getHashF)
         {
             throw new BadRuntimeException("GetHash function not found");
@@ -38,7 +48,8 @@ public class BadInteropImportHandler : BadImportHandler
 
         m_GetHashFunction = getHashF;
 
-        BadObject isTransient = scriptHandler.GetProperty("IsTransient").Dereference();
+        BadObject isTransient = scriptHandler.GetProperty("IsTransient")
+                                             .Dereference();
 
         if (isTransient is not BadFunction isTransientF)
         {
@@ -52,11 +63,11 @@ public class BadInteropImportHandler : BadImportHandler
     {
         IEnumerable<BadObject> e = func.Invoke(args, m_HandlerContext);
         BadObject? result = BadObject.Null;
+
         foreach (BadObject o in e)
         {
             result = o;
         }
-
 
         return result.Dereference();
     }
@@ -64,6 +75,7 @@ public class BadInteropImportHandler : BadImportHandler
     public override bool IsTransient()
     {
         BadObject result = RunFunction(m_IsTransientFunction);
+
         if (result is not IBadBoolean b)
         {
             throw new BadRuntimeException("IsTransient function did not return a boolean");
@@ -75,6 +87,7 @@ public class BadInteropImportHandler : BadImportHandler
     public override bool Has(string path)
     {
         BadObject result = RunFunction(m_HasFunction, path);
+
         if (result is not IBadBoolean b)
         {
             throw new BadRuntimeException("Has function did not return a boolean");
@@ -86,6 +99,7 @@ public class BadInteropImportHandler : BadImportHandler
     public override string GetHash(string path)
     {
         BadObject result = RunFunction(m_GetHashFunction, path);
+
         if (result is not IBadString s)
         {
             throw new BadRuntimeException("GetHash function did not return a string");
@@ -97,19 +111,15 @@ public class BadInteropImportHandler : BadImportHandler
     public override IEnumerable<BadObject> Get(string path)
     {
         BadObject? result = BadObject.Null;
-        foreach (BadObject o in m_GetFunction.Invoke(
-                     new BadObject[]
-                     {
-                         path,
-                     },
-                     BadExecutionContext.Create(new BadInteropExtensionProvider())
-                 ))
+
+        foreach (BadObject o in m_GetFunction.Invoke(new BadObject[] { path },
+                                                     BadExecutionContext.Create(new BadInteropExtensionProvider())
+                                                    ))
         {
             result = o;
 
             yield return o;
         }
-
 
         yield return result.Dereference();
     }

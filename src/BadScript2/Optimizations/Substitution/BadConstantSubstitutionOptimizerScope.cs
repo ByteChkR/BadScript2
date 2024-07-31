@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions;
+
 namespace BadScript2.Optimizations.Substitution;
 
 /// <summary>
@@ -61,7 +62,7 @@ public class BadConstantSubstitutionOptimizerScope
     /// <returns>True if the constant is defined in this scope or a parent scope</returns>
     public bool IsConstant(string name)
     {
-        return m_Constants.ContainsKey(name) || m_Parent != null && m_Parent.IsConstant(name);
+        return m_Constants.ContainsKey(name) || (m_Parent != null && m_Parent.IsConstant(name));
     }
 
     /// <summary>

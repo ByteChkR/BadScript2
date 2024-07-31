@@ -1,6 +1,7 @@
 using BadScript2.Parser.Expressions.ControlFlow;
 using BadScript2.Parser.Expressions.Function;
 using BadScript2.Parser.Expressions.Variables;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -20,12 +21,11 @@ public class
         {
             if (retExpr.Right == null)
             {
-                context.AddError(
-                    "The function has a return type but the return statement does not have an expression.",
-                    expr,
-                    retExpr,
-                    this
-                );
+                context.AddError("The function has a return type but the return statement does not have an expression.",
+                                 expr,
+                                 retExpr,
+                                 this
+                                );
             }
         }
     }

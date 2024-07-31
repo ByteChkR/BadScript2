@@ -4,6 +4,7 @@ using System.Net;
 
 using BadScript2.Interop.Common.Task;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Interop.NetHost;
 
 /// <summary>
@@ -37,23 +38,23 @@ public class BadNetHost
 	private static IEnumerator<BadObject> AcceptClient(HttpListener listener, Action<BadObject> callback)
     {
         bool accepted = false;
-        listener.BeginGetContext(
-            r =>
-            {
-                try
-                {
-                    HttpListenerContext ctx = listener.EndGetContext(r);
-                    callback(new BadHttpContext(ctx));
-                }
-                catch (Exception)
-                {
-                    //Do Nothing
-                }
 
-                accepted = true;
-            },
-            null
-        );
+        listener.BeginGetContext(r =>
+                                 {
+                                     try
+                                     {
+                                         HttpListenerContext ctx = listener.EndGetContext(r);
+                                         callback(new BadHttpContext(ctx));
+                                     }
+                                     catch (Exception)
+                                     {
+                                         //Do Nothing
+                                     }
+
+                                     accepted = true;
+                                 },
+                                 null
+                                );
 
         while (!accepted)
         {

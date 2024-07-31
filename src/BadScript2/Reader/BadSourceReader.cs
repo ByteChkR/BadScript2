@@ -235,10 +235,9 @@ public class BadSourceReader
     {
         if (!Is(c))
         {
-            throw new BadSourceReaderException(
-                $"Expected '{c}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                MakeSourcePosition(1)
-            );
+            throw new BadSourceReaderException($"Expected '{c}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+                                               MakeSourcePosition(1)
+                                              );
         }
 
         MoveNext();
@@ -256,10 +255,10 @@ public class BadSourceReader
     {
         if (!c.Any(x => Is(x)))
         {
-            throw new BadSourceReaderException(
-                $"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected '{string.Join("' or '", c)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+                                         MakeSourcePosition(1)
+                                        );
         }
 
         MoveNext();
@@ -281,10 +280,9 @@ public class BadSourceReader
         {
             if (!Is(s[i]))
             {
-                throw new BadSourceReaderException(
-                    $"Expected '{s}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                    MakeSourcePosition(start, i)
-                );
+                throw new BadSourceReaderException($"Expected '{s}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+                                                   MakeSourcePosition(start, i)
+                                                  );
             }
 
             MoveNext();
@@ -305,10 +303,10 @@ public class BadSourceReader
 
         if (str == null)
         {
-            throw new BadSourceReaderException(
-                $"Expected '{string.Join("' or '", s)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
-                MakeSourcePosition(1)
-            );
+            throw new
+                BadSourceReaderException($"Expected '{string.Join("' or '", s)}' but got '{(IsEof() ? "EOF" : GetCurrentChar())}'",
+                                         MakeSourcePosition(1)
+                                        );
         }
 
         return Eat(str);

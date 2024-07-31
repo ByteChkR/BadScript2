@@ -11,10 +11,9 @@ namespace BadScript2.Runtime.Error;
 /// </summary>
 public class BadRuntimeError : BadObject
 {
-    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadRuntimeError>(
-        "Error",
-        (_, _) => throw new BadRuntimeException("Error")
-    );
+    public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadRuntimeError>("Error",
+         (_, _) => throw new BadRuntimeException("Error")
+        );
 
     /// <summary>
     ///     Creates a new Error Object

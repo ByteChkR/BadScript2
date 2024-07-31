@@ -2,6 +2,7 @@ using BadScript2.Common;
 using BadScript2.Optimizations.Folding;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>
@@ -40,6 +41,7 @@ public class BadDefaultExportExpression : BadExpression
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject? result = BadObject.Null;
+
         foreach (BadObject o in Expression.Execute(context))
         {
             result = o;

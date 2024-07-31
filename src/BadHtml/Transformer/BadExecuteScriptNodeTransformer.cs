@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Objects;
+
 namespace BadHtml.Transformer;
 
 /// <summary>

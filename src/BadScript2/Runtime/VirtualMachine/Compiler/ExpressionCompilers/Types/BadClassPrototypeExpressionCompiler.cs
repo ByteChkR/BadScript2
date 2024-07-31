@@ -14,11 +14,10 @@ public class BadClassPrototypeExpressionCompiler : BadExpressionCompiler<BadClas
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadClassPrototypeExpression expression)
     {
-        BadLogger.Warn(
-            "Can not compile class prototypes, emitting eval instruction",
-            BadLogMask.GetMask("Compiler", "EVAL"),
-            expression.Position
-        );
+        BadLogger.Warn("Can not compile class prototypes, emitting eval instruction",
+                       BadLogMask.GetMask("Compiler", "EVAL"),
+                       expression.Position
+                      );
 
         context.Emit(BadOpCode.Eval, expression.Position, expression);
     }

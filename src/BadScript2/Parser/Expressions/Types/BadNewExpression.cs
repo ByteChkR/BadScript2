@@ -5,6 +5,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Parser.Expressions.Types;
 
 /// <summary>
@@ -51,11 +52,10 @@ public class BadNewExpression : BadExpression
     ///     Gets Raised if the return of the class prototype is not an Instance of BadClass
     ///     or the Constructor of the class is not a BadFunction
     /// </exception>
-    public static IEnumerable<BadObject> CreateObject(
-        BadClassPrototype proto,
-        BadExecutionContext context,
-        BadObject[] args,
-        BadSourcePosition pos)
+    public static IEnumerable<BadObject> CreateObject(BadClassPrototype proto,
+                                                      BadExecutionContext context,
+                                                      BadObject[] args,
+                                                      BadSourcePosition pos)
     {
         BadObject obj = BadObject.Null;
 
@@ -73,7 +73,6 @@ public class BadNewExpression : BadExpression
 
             yield break;
         }
-
 
         foreach (BadObject o in proto.CreateInstance(context))
         {
@@ -93,7 +92,8 @@ public class BadNewExpression : BadExpression
 
         if (cls.HasProperty(BadStaticKeys.CONSTRUCTOR_NAME, cls.Scope))
         {
-            BadObject ctor = cls.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME, context.Scope).Dereference();
+            BadObject ctor = cls.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME, context.Scope)
+                                .Dereference();
 
             if (ctor is not BadFunction func)
             {

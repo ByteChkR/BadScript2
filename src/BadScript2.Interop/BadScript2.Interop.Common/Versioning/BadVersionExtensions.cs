@@ -1,4 +1,5 @@
 using System.Globalization;
+
 namespace BadScript2.Interop.Common.Versioning;
 
 /// <summary>
@@ -15,27 +16,9 @@ public static class BadVersionExtensions
     public static Version ChangeVersion(this Version version, string changeStr)
     {
         string[] subVersions = changeStr.Split('.');
-        int[] wrapValues =
-        {
-            ushort.MaxValue,
-            ushort.MaxValue,
-            ushort.MaxValue,
-            ushort.MaxValue,
-        };
-        int[] original =
-        {
-            version.Major,
-            version.Minor,
-            version.Build,
-            version.Revision,
-        };
-        int[] versions =
-        {
-            version.Major,
-            version.Minor,
-            version.Build,
-            version.Revision,
-        };
+        int[] wrapValues = { ushort.MaxValue, ushort.MaxValue, ushort.MaxValue, ushort.MaxValue };
+        int[] original = { version.Major, version.Minor, version.Build, version.Revision };
+        int[] versions = { version.Major, version.Minor, version.Build, version.Revision };
         bool[] changeReset = new bool[4];
 
         for (int i = 4 - 1; i >= 0; i--)
@@ -105,7 +88,8 @@ public static class BadVersionExtensions
                     }
                     else if (current.StartsWith("{") && current.EndsWith("}"))
                     {
-                        string format = current.Remove(current.Length - 1, 1).Remove(0, 1);
+                        string format = current.Remove(current.Length - 1, 1)
+                                               .Remove(0, 1);
 
                         string value = DateTime.Now.ToString(format);
 
@@ -126,12 +110,11 @@ public static class BadVersionExtensions
 
         ApplyChangeReset(changeReset, original, versions);
 
-        return new Version(
-            versions[0],
-            versions[1] < 0 ? 0 : versions[1],
-            versions[2] < 0 ? 0 : versions[2],
-            versions[3] < 0 ? 0 : versions[3]
-        );
+        return new Version(versions[0],
+                           versions[1] < 0 ? 0 : versions[1],
+                           versions[2] < 0 ? 0 : versions[2],
+                           versions[3] < 0 ? 0 : versions[3]
+                          );
     }
 
 
@@ -141,7 +124,9 @@ public static class BadVersionExtensions
     /// <param name="changeReset">Version Reset Array</param>
     /// <param name="original">The Original Version Components</param>
     /// <param name="versions">The Version Components</param>
-    private static void ApplyChangeReset(IReadOnlyList<bool> changeReset, IReadOnlyList<int> original, IList<int> versions)
+    private static void ApplyChangeReset(IReadOnlyList<bool> changeReset,
+                                         IReadOnlyList<int> original,
+                                         IList<int> versions)
     {
         for (int j = 0; j < changeReset.Count; j++)
         {

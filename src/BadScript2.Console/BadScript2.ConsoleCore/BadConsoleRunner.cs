@@ -1,5 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleCore.Systems;
+
 namespace BadScript2.ConsoleCore;
 
 /// <summary>
@@ -48,12 +49,17 @@ public class BadConsoleRunner
 
             BadConsole.Write("Input start arguments: ");
 
-            args = BadConsole.ReadLine().Split(' ');
+            args = BadConsole.ReadLine()
+                             .Split(' ');
         }
 
         string name = args[0];
         BadAConsoleSystem? system = m_Systems.FirstOrDefault(x => x.Name == name);
 
-        return system?.Run(system.Parse(args.Skip(1).ToArray())) ?? m_Default.Run(m_Default.Parse(args));
+        return system?.Run(system.Parse(args.Skip(1)
+                                            .ToArray()
+                                       )
+                          ) ??
+               m_Default.Run(m_Default.Parse(args));
     }
 }

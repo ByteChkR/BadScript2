@@ -4,6 +4,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -12,6 +13,7 @@ namespace BadScript2.Runtime.Objects.Types;
 public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
 {
     private readonly Func<BadObject[], BadClassPrototype?> m_BaseClassFunc;
+
     /// <summary>
     ///     The Class Body(Members & Functions)
     /// </summary>
@@ -25,8 +27,12 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     ///     The Parent scope this class prototype was created in.
     /// </summary>
     private readonly BadScope m_ParentScope;
+
     private readonly Func<BadObject[], BadScope> m_StaticScope;
-    private readonly Dictionary<int, BadExpressionClassPrototype> s_GenericCache = new Dictionary<int, BadExpressionClassPrototype>();
+
+    private readonly Dictionary<int, BadExpressionClassPrototype> s_GenericCache =
+        new Dictionary<int, BadExpressionClassPrototype>();
+
     private BadClassPrototype? m_BaseClassCache;
     private BadInterfacePrototype[]? m_InterfacesCache;
     private BadScope? m_StaticScopeCache;
@@ -41,15 +47,14 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// <param name="interfaces">The Implemented Interfaces</param>
     /// <param name="meta">The Metadata of the Class</param>
     /// <param name="staticScope">The Static Scope of the Class</param>
-    public BadExpressionClassPrototype(
-        string name,
-        BadScope parentScope,
-        BadExpression[] body,
-        Func<BadObject[], BadClassPrototype?> baseClass,
-        Func<BadObject[], BadInterfacePrototype[]> interfaces,
-        BadMetaData? meta,
-        Func<BadObject[], BadScope> staticScope,
-        IReadOnlyList<string> genericParameters) : base(name, meta)
+    public BadExpressionClassPrototype(string name,
+                                       BadScope parentScope,
+                                       BadExpression[] body,
+                                       Func<BadObject[], BadClassPrototype?> baseClass,
+                                       Func<BadObject[], BadInterfacePrototype[]> interfaces,
+                                       BadMetaData? meta,
+                                       Func<BadObject[], BadScope> staticScope,
+                                       IReadOnlyList<string> genericParameters) : base(name, meta)
     {
         m_ParentScope = parentScope;
         m_Body = body;
@@ -57,6 +62,7 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         m_InterfacesFunc = interfaces;
         GenericParameters = genericParameters;
         m_BaseClassFunc = baseClass;
+
         if (IsGeneric)
         {
             GenericName = $"{name}<{string.Join(", ", genericParameters)}>";
@@ -77,17 +83,16 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// <param name="interfaces">The Implemented Interfaces</param>
     /// <param name="meta">The Metadata of the Class</param>
     /// <param name="staticScope">The Static Scope of the Class</param>
-    private BadExpressionClassPrototype(
-        string name,
-        BadScope parentScope,
-        BadExpression[] body,
-        Func<BadObject[], BadClassPrototype?> baseClass,
-        Func<BadObject[], BadInterfacePrototype[]> interfaces,
-        BadMetaData? meta,
-        Func<BadObject[], BadScope> staticScope,
-        IReadOnlyList<string> genericParameters,
-        BadExpressionClassPrototype genericDefinition,
-        string genericName) : base(name, meta)
+    private BadExpressionClassPrototype(string name,
+                                        BadScope parentScope,
+                                        BadExpression[] body,
+                                        Func<BadObject[], BadClassPrototype?> baseClass,
+                                        Func<BadObject[], BadInterfacePrototype[]> interfaces,
+                                        BadMetaData? meta,
+                                        Func<BadObject[], BadScope> staticScope,
+                                        IReadOnlyList<string> genericParameters,
+                                        BadExpressionClassPrototype genericDefinition,
+                                        string genericName) : base(name, meta)
     {
         GenericName = genericName;
         m_ParentScope = parentScope;
@@ -99,14 +104,18 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         m_BaseClassFunc = baseClass;
     }
 
-    protected override BadClassPrototype? BaseClass => m_BaseClassCache ??= m_BaseClassFunc.Invoke(Array.Empty<BadObject>());
+    protected override BadClassPrototype? BaseClass =>
+        m_BaseClassCache ??= m_BaseClassFunc.Invoke(Array.Empty<BadObject>());
 
     /// <inheritdoc />
     public override bool IsAbstract => false;
 
-    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_InterfacesCache ??= m_InterfacesFunc.Invoke(Array.Empty<BadObject>());
+    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces =>
+        m_InterfacesCache ??= m_InterfacesFunc.Invoke(Array.Empty<BadObject>());
 
     private BadScope StaticScope => m_StaticScopeCache ??= m_StaticScope(Array.Empty<BadObject>());
+
+#region IBadGenericObject Members
 
     public bool IsResolved => m_GenericDefinition != null;
 
@@ -122,37 +131,48 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         {
             throw new BadRuntimeException("Invalid Generic Argument Count");
         }
+
         if (IsResolved)
         {
             throw new BadRuntimeException("Interface is already resolved");
         }
-        int hash = args[0].GetHashCode();
+
+        int hash = args[0]
+            .GetHashCode();
+
         //Add the other arguments to the hash
         for (int i = 1; i < args.Length; i++)
         {
-            hash = hash * 397 ^ args[i].GetHashCode();
+            hash = (hash * 397) ^
+                   args[i]
+                       .GetHashCode();
         }
 
         if (s_GenericCache.TryGetValue(hash, out BadExpressionClassPrototype? cached))
         {
             return cached;
         }
-        BadClassPrototype[] types = args.Cast<BadClassPrototype>().ToArray();
-        BadExpressionClassPrototype result = new BadExpressionClassPrototype(
-            Name,
-            m_ParentScope,
-            m_Body,
-            _ => m_BaseClassFunc(args),
-            _ => m_InterfacesFunc(args),
-            MetaData,
-            _ => m_StaticScope(args),
-            GenericParameters.ToArray(),
-            this,
-            $"{Name}<{string.Join(", ", types.Select(x => x is IBadGenericObject g ? g.GenericName : x.Name))}>"
-        );
+
+        BadClassPrototype[] types = args.Cast<BadClassPrototype>()
+                                        .ToArray();
+
+        BadExpressionClassPrototype result = new BadExpressionClassPrototype(Name,
+                                                                             m_ParentScope,
+                                                                             m_Body,
+                                                                             _ => m_BaseClassFunc(args),
+                                                                             _ => m_InterfacesFunc(args),
+                                                                             MetaData,
+                                                                             _ => m_StaticScope(args),
+                                                                             GenericParameters.ToArray(),
+                                                                             this,
+                                                                             $"{Name}<{string.Join(", ", types.Select(x => x is IBadGenericObject g ? g.GenericName : x.Name))}>"
+                                                                            );
         s_GenericCache[hash] = result;
+
         return result;
     }
+
+#endregion
 
     public override string ToSafeString(List<BadObject> done)
     {
@@ -160,6 +180,7 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         {
             return $"class {Name}<{string.Join(", ", GenericParameters)}>";
         }
+
         return $"class {Name}";
     }
 
@@ -168,9 +189,9 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
     {
         BadClass? baseInstance = null;
-        BadExecutionContext ctx = new BadExecutionContext(
-            StaticScope.CreateChild($"class instance {Name}", caller.Scope, true)
-        );
+
+        BadExecutionContext ctx =
+            new BadExecutionContext(StaticScope.CreateChild($"class instance {Name}", caller.Scope, true));
         ctx.Scope.SetFlags(BadScopeFlags.None);
 
         if (BaseClass is { IsAbstract: false })
@@ -188,8 +209,11 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
             }
 
             baseInstance = cls;
-            ctx.Scope.GetTable().SetProperty(BadStaticKeys.BASE_KEY, baseInstance, new BadPropertyInfo(BaseClass, true));
+
+            ctx.Scope.GetTable()
+               .SetProperty(BadStaticKeys.BASE_KEY, baseInstance, new BadPropertyInfo(BaseClass, true));
         }
+
         BadClass thisInstance = new BadClass(Name, ctx, baseInstance, this);
         ctx.Scope.ClassObject = thisInstance;
 
@@ -201,7 +225,6 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
             }
         }
 
-
         if (setThis)
         {
             thisInstance.SetThis();
@@ -212,21 +235,23 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
 
                 if (!result.IsValid)
                 {
-                    throw new BadRuntimeException(
-                        $"Class '{Name}' does not implement all required interfaces.\n{result}"
-                    );
+                    throw new
+                        BadRuntimeException($"Class '{Name}' does not implement all required interfaces.\n{result}");
                 }
             }
         }
-
 
         yield return thisInstance;
     }
 
     public override bool IsSuperClassOf(BadClassPrototype proto)
     {
-        return GenericParameters.Count != 0 && proto is BadExpressionClassPrototype gProto && gProto.m_GenericDefinition == this || base.IsSuperClassOf(proto);
+        return (GenericParameters.Count != 0 &&
+                proto is BadExpressionClassPrototype gProto &&
+                gProto.m_GenericDefinition == this) ||
+               base.IsSuperClassOf(proto);
     }
+
     /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
@@ -236,6 +261,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        return StaticScope.HasLocal(propName, caller ?? StaticScope) ? StaticScope.GetVariable(propName, caller ?? m_ParentScope) : base.GetProperty(propName, caller);
+        return StaticScope.HasLocal(propName, caller ?? StaticScope)
+                   ? StaticScope.GetVariable(propName, caller ?? m_ParentScope)
+                   : base.GetProperty(propName, caller);
     }
 }

@@ -15,6 +15,7 @@ public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAc
     {
         context.Compile(expression.Arguments);
         context.Compile(expression.Left);
+
         if (expression.NullChecked)
         {
             context.Emit(BadOpCode.LoadArrayAccessNullChecked, expression.Position, expression.ArgumentCount);

@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions.Block.Loop;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
@@ -16,13 +17,13 @@ public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
         context.Compile(expression.Condition);
         int endJump = context.EmitEmpty();
         int loopScopeStart = context.InstructionCount;
-        context.Emit(
-            BadOpCode.CreateScope,
-            expression.Position,
-            "ForLoopBody",
-            BadObject.Null,
-            BadScopeFlags.Breakable | BadScopeFlags.Continuable
-        );
+
+        context.Emit(BadOpCode.CreateScope,
+                     expression.Position,
+                     "ForLoopBody",
+                     BadObject.Null,
+                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                    );
         int setBreakInstruction = context.EmitEmpty();
         int setContinueInstruction = context.EmitEmpty();
         context.Compile(expression.Body);
@@ -33,7 +34,17 @@ public class BadForExpressionCompiler : BadExpressionCompiler<BadForExpression>
         int endJumpPos = context.InstructionCount - endJump - 1;
         context.ResolveEmpty(endJump, BadOpCode.JumpRelativeIfFalse, expression.Position, endJumpPos);
         context.Emit(BadOpCode.DestroyScope, expression.Position);
-        context.ResolveEmpty(setBreakInstruction, BadOpCode.SetBreakPointer, expression.Position, context.InstructionCount - loopScopeStart);
-        context.ResolveEmpty(setContinueInstruction, BadOpCode.SetContinuePointer, expression.Position, continueJump - loopScopeStart - 1);
+
+        context.ResolveEmpty(setBreakInstruction,
+                             BadOpCode.SetBreakPointer,
+                             expression.Position,
+                             context.InstructionCount - loopScopeStart
+                            );
+
+        context.ResolveEmpty(setContinueInstruction,
+                             BadOpCode.SetContinuePointer,
+                             expression.Position,
+                             continueJump - loopScopeStart - 1
+                            );
     }
 }

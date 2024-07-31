@@ -96,17 +96,9 @@ public static class BadStaticKeys
     public const string PRE_DECREMENT_OPERATOR_NAME = "op_PreDecrement";
     public const string PRE_INCREMENT_OPERATOR_NAME = "op_PreIncrement";
 
-    public static readonly char[] Whitespace =
-    {
-        ' ',
-        '\t',
-    };
+    public static readonly char[] Whitespace = { ' ', '\t' };
 
-    public static readonly char[] NewLine =
-    {
-        '\r',
-        '\n',
-    };
+    public static readonly char[] NewLine = { '\r', '\n' };
 
     public static IEnumerable<string> ReservedKeywords { get; set; } = new[]
     {

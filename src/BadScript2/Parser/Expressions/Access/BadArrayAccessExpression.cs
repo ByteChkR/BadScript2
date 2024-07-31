@@ -28,14 +28,12 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     /// <param name="args">Right side of the expression</param>
     /// <param name="position">Position inside the source code</param>
     /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
-    public BadArrayAccessExpression(
-        BadExpression left,
-        BadExpression[] args,
-        BadSourcePosition position,
-        bool nullChecked = false) : base(
-        false,
-        position
-    )
+    public BadArrayAccessExpression(BadExpression left,
+                                    BadExpression[] args,
+                                    BadSourcePosition position,
+                                    bool nullChecked = false) : base(false,
+                                                                     position
+                                                                    )
     {
         Left = left;
         m_Arguments = args;
@@ -57,10 +55,14 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     /// </summary>
     public BadExpression Left { get; private set; }
 
+#region IBadAccessExpression Members
+
     /// <summary>
     ///     Indicates if the expression will be null-checked by the runtime
     /// </summary>
     public bool NullChecked { get; }
+
+#endregion
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
@@ -99,15 +101,15 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     /// <param name="position">Position inside the source code.</param>
     /// <returns>The result of the array access(last item of the enumeration).</returns>
     /// <exception cref="BadRuntimeException">If the array access operator is not defined.</exception>
-    public static IEnumerable<BadObject> Access(
-        BadExecutionContext? context,
-        BadObject left,
-        IEnumerable<BadObject> args,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> Access(BadExecutionContext? context,
+                                                BadObject left,
+                                                IEnumerable<BadObject> args,
+                                                BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope))
         {
-            if (left.GetProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope).Dereference() is not BadFunction func)
+            if (left.GetProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope)
+                    .Dereference() is not BadFunction func)
             {
                 throw new BadRuntimeException("Array access operator is not a function", position);
             }

@@ -5,6 +5,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Utility.Linq;
 
 /// <summary>
@@ -60,7 +61,8 @@ public static class BadLinqExtensions
             r = o1;
         }
 
-        return r.Dereference().Unpack();
+        return r.Dereference()
+                .Unpack();
     }
 
     /// <summary>
@@ -83,9 +85,12 @@ public static class BadLinqExtensions
     public static object? FirstOrDefault(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        return enumerable.Cast<object>().FirstOrDefault(o => BadLinqCommon.InnerWhere(varName, query, o));
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
+
+        return enumerable.Cast<object>()
+                         .FirstOrDefault(o => BadLinqCommon.InnerWhere(varName, query, o));
     }
 
     /// <summary>
@@ -98,7 +103,9 @@ public static class BadLinqExtensions
     public static object First(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         foreach (object o in enumerable)
         {
@@ -120,7 +127,9 @@ public static class BadLinqExtensions
     public static object? LastOrDefault(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
         object? last = null;
 
         foreach (object o in enumerable)
@@ -143,7 +152,9 @@ public static class BadLinqExtensions
     public static object Last(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         object? last = null;
 
@@ -210,7 +221,8 @@ public static class BadLinqExtensions
     /// <returns>The last count elements from the given IEnumerable.</returns>
     public static IEnumerable TakeLast(this IEnumerable enumerable, int count)
     {
-        List<object> l = enumerable.Cast<object>().ToList();
+        List<object> l = enumerable.Cast<object>()
+                                   .ToList();
 
         for (int i = l.Count - count; i < l.Count; i++)
         {
@@ -226,7 +238,8 @@ public static class BadLinqExtensions
     /// <returns>The IEnumerable with the last count elements skipped.</returns>
     public static IEnumerable SkipLast(this IEnumerable enumerable, int count)
     {
-        List<object> l = enumerable.Cast<object>().ToList();
+        List<object> l = enumerable.Cast<object>()
+                                   .ToList();
 
         for (int i = 0; i < l.Count - count; i++)
         {
@@ -244,7 +257,9 @@ public static class BadLinqExtensions
     public static IEnumerable SelectMany(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         foreach (object o in enumerable)
         {
@@ -271,7 +286,9 @@ public static class BadLinqExtensions
     public static IEnumerable Select(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         foreach (object o in enumerable)
         {
@@ -288,7 +305,9 @@ public static class BadLinqExtensions
     public static IEnumerable OrderBy(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         IEnumerable<object> e = enumerable.Cast<object>();
 
@@ -304,7 +323,9 @@ public static class BadLinqExtensions
     public static IEnumerable OrderByDescending(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         IEnumerable<object> e = enumerable.Cast<object>();
 
@@ -321,7 +342,9 @@ public static class BadLinqExtensions
     public static IEnumerable SkipWhile(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
         bool skip = true;
 
         foreach (object o in enumerable)
@@ -346,7 +369,9 @@ public static class BadLinqExtensions
     public static IEnumerable TakeWhile(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         foreach (object o in enumerable)
         {
@@ -370,7 +395,9 @@ public static class BadLinqExtensions
     public static bool All(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         foreach (object o in enumerable)
         {
@@ -403,9 +430,12 @@ public static class BadLinqExtensions
     public static bool Any(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
 
-        return enumerable.Cast<object>().Any(o => BadLinqCommon.InnerWhere(varName, query, o));
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
+
+        return enumerable.Cast<object>()
+                         .Any(o => BadLinqCommon.InnerWhere(varName, query, o));
     }
 
     /// <summary>
@@ -417,7 +447,9 @@ public static class BadLinqExtensions
     public static IEnumerable Where(this IEnumerable enumerable, string predicate)
     {
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
-        BadExpression query = BadLinqCommon.Parse(queryStr).First();
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+                                           .First();
 
         foreach (object o in enumerable)
         {

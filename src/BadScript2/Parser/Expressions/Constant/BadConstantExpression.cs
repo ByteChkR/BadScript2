@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Constant;
 
 /// <summary>
@@ -23,10 +24,14 @@ public class BadConstantExpression : BadExpression, IBadNativeExpression
 	/// </summary>
 	public BadObject Value { get; }
 
+#region IBadNativeExpression Members
+
 	/// <summary>
 	///     Private Implementation of IBadNativeExpression.Value
 	/// </summary>
 	object IBadNativeExpression.Value => Value;
+
+#endregion
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -72,10 +77,14 @@ public abstract class BadConstantExpression<T> : BadExpression, IBadNativeExpres
 	/// </summary>
 	public T Value { get; }
 
+#region IBadNativeExpression Members
+
 	/// <summary>
 	///     Private implementation of IBadNativeExpression.Value
 	/// </summary>
 	object IBadNativeExpression.Value => Value!;
+
+#endregion
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()

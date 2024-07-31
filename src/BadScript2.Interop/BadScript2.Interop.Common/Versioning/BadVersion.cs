@@ -48,15 +48,16 @@ public class BadVersion : BadObject, IBadNative
     public BadVersion(Version version)
     {
         m_Version = version;
-        m_ChangeVersion = BadObjectReference.Make(
-            "Version.ChangeVersion",
-            () => new BadDynamicInteropFunction<string>(
-                "ChangeVersion",
-                (_, s) => new BadVersion(m_Version.ChangeVersion(s)),
-                s_Prototype
-            )
-        );
+
+        m_ChangeVersion = BadObjectReference.Make("Version.ChangeVersion",
+                                                  () => new BadDynamicInteropFunction<string>("ChangeVersion",
+                                                       (_, s) => new BadVersion(m_Version.ChangeVersion(s)),
+                                                       s_Prototype
+                                                      )
+                                                 );
     }
+
+#region IBadNative Members
 
     /// <summary>
     ///     Checks if the Version is equal to another Version
@@ -74,6 +75,8 @@ public class BadVersion : BadObject, IBadNative
     /// <inheritdoc />
     public Type Type => typeof(Version);
 
+#endregion
+
 
     /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
@@ -87,12 +90,12 @@ public class BadVersion : BadObject, IBadNative
     {
         return propName switch
         {
-            "Major" => BadObjectReference.Make("Version.Major", () => m_Version.Major),
-            "Minor" => BadObjectReference.Make("Version.Minor", () => m_Version.Minor),
-            "Build" => BadObjectReference.Make("Version.Build", () => m_Version.Build),
-            "Revision" => BadObjectReference.Make("Version.Revision", () => m_Version.Revision),
+            "Major"         => BadObjectReference.Make("Version.Major", () => m_Version.Major),
+            "Minor"         => BadObjectReference.Make("Version.Minor", () => m_Version.Minor),
+            "Build"         => BadObjectReference.Make("Version.Build", () => m_Version.Build),
+            "Revision"      => BadObjectReference.Make("Version.Revision", () => m_Version.Revision),
             "ChangeVersion" => m_ChangeVersion,
-            _ => base.GetProperty(propName, caller),
+            _               => base.GetProperty(propName, caller),
         };
     }
 
@@ -117,8 +120,10 @@ public class BadVersion : BadObject, IBadNative
                 return new BadVersion(new Version());
             case 1:
                 return args[0] is IBadString str
-                    ? new BadVersion(new Version(str.Value))
-                    : throw BadRuntimeException.Create(ctx.Scope, "Version Constructor expects string as argument");
+                           ? new BadVersion(new Version(str.Value))
+                           : throw BadRuntimeException.Create(ctx.Scope,
+                                                              "Version Constructor expects string as argument"
+                                                             );
             case >= 2:
             {
                 if (args[0] is not IBadNumber major)
@@ -153,14 +158,12 @@ public class BadVersion : BadObject, IBadNative
 
                 if (args.Length == 4)
                 {
-                    return new BadVersion(
-                        new Version(
-                            (int)major.Value,
-                            (int)minor.Value,
-                            (int)build.Value,
-                            (int)revision.Value
-                        )
-                    );
+                    return new BadVersion(new Version((int)major.Value,
+                                                      (int)minor.Value,
+                                                      (int)build.Value,
+                                                      (int)revision.Value
+                                                     )
+                                         );
                 }
 
                 break;

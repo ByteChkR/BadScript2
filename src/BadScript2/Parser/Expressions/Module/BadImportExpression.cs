@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Module;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Parser.Expressions.Module;
 
 /// <summary>
@@ -48,6 +49,7 @@ public class BadImportExpression : BadExpression
     public static IEnumerable<BadObject> Import(BadExecutionContext ctx, string name, string path)
     {
         BadModuleImporter? importer = ctx.Scope.GetSingleton<BadModuleImporter>();
+
         if (importer == null)
         {
             throw BadRuntimeException.Create(ctx.Scope, "Module Importer not found");
@@ -55,6 +57,7 @@ public class BadImportExpression : BadExpression
 
         IEnumerable<BadObject> result = importer.Get(path);
         BadObject r = BadObject.Null;
+
         foreach (BadObject o in result)
         {
             r = o;
@@ -65,6 +68,7 @@ public class BadImportExpression : BadExpression
         r = r.Dereference();
 
         yield return r;
+
         if (ctx.Scope.HasLocal(name, ctx.Scope, false))
         {
             throw BadRuntimeException.Create(ctx.Scope, $"Variable '{name}' already defined in current scope.");

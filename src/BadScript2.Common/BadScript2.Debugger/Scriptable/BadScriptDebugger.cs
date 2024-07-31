@@ -36,8 +36,8 @@ public class BadScriptDebugger : IBadDebugger
 	public BadScriptDebugger(BadRuntime runtime, string debuggerPath)
     {
         m_Runtime = runtime
-            .Clone()
-            .UseApi(new BadScriptDebuggerApi(this, debuggerPath));
+                    .Clone()
+                    .UseApi(new BadScriptDebuggerApi(this, debuggerPath));
         LoadDebugger(debuggerPath);
     }
 
@@ -48,12 +48,13 @@ public class BadScriptDebugger : IBadDebugger
 	public BadScriptDebugger(BadRuntime runtime)
     {
         m_Runtime = runtime
-            .Clone()
-            .UseApi(new BadScriptDebuggerApi(this));
-
+                    .Clone()
+                    .UseApi(new BadScriptDebuggerApi(this));
 
         LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
     }
+
+#region IBadDebugger Members
 
     /// <inheritdoc />
     public void Step(BadDebuggerStep stepInfo)
@@ -77,22 +78,24 @@ public class BadScriptDebugger : IBadDebugger
         OnStep?.Invoke(stepInfo);
     }
 
-    /// <summary>
-    ///     Loads the Debugger from the given File Path
-    /// </summary>
-    /// <param name="path">The File Path</param>
-    private void LoadDebugger(string path)
+#endregion
+
+	/// <summary>
+	///     Loads the Debugger from the given File Path
+	/// </summary>
+	/// <param name="path">The File Path</param>
+	private void LoadDebugger(string path)
     {
         m_Runtime.ExecuteFile(path);
     }
 
-    /// <summary>
-    ///     Event that gets called on every debugger step
-    /// </summary>
-    public event Action<BadDebuggerStep>? OnStep;
+	/// <summary>
+	///     Event that gets called on every debugger step
+	/// </summary>
+	public event Action<BadDebuggerStep>? OnStep;
 
-    /// <summary>
-    ///     Event that gets called when a new file is loaded.
-    /// </summary>
-    public event Action<string>? OnFileLoaded;
+	/// <summary>
+	///     Event that gets called when a new file is loaded.
+	/// </summary>
+	public event Action<string>? OnFileLoaded;
 }

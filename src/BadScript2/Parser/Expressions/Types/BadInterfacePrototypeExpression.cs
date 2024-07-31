@@ -5,6 +5,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Parser.Expressions.Types;
 
 /// <summary>
@@ -38,13 +39,12 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     /// <param name="metaData">Meta Data for the Interface</param>
     /// <param name="position">Source Position</param>
     /// <param name="genericParameters">The Generic Parameters of this Interface</param>
-    public BadInterfacePrototypeExpression(
-        string name,
-        BadInterfaceConstraint[] constraints,
-        BadExpression[] interfaces,
-        BadMetaData? metaData,
-        BadSourcePosition position,
-        BadWordToken[] genericParameters) : base(false, position)
+    public BadInterfacePrototypeExpression(string name,
+                                           BadInterfaceConstraint[] constraints,
+                                           BadExpression[] interfaces,
+                                           BadMetaData? metaData,
+                                           BadSourcePosition position,
+                                           BadWordToken[] genericParameters) : base(false, position)
     {
         m_Interfaces = interfaces;
         m_MetaData = metaData;
@@ -58,11 +58,15 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     /// </summary>
     public string Name { get; }
 
+#region IBadNamedExpression Members
+
     /// <inheritdoc cref="IBadNamedExpression.GetName" />
     public string? GetName()
     {
         return Name;
     }
+
+#endregion
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />
     public override IEnumerable<BadExpression> GetDescendants()
@@ -74,7 +78,13 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         //Create the Interface Prototype
-        BadInterfacePrototype intf = new BadInterfacePrototype(Name, PrepareInterfaces, m_MetaData, GetConstraints, m_GenericParameters.Select(x => x.Text).ToArray());
+        BadInterfacePrototype intf = new BadInterfacePrototype(Name,
+                                                               PrepareInterfaces,
+                                                               m_MetaData,
+                                                               GetConstraints,
+                                                               m_GenericParameters.Select(x => x.Text)
+                                                                   .ToArray()
+                                                              );
         context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
 
         yield return intf;
@@ -87,15 +97,27 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             {
                 throw new BadRuntimeException("Invalid Type Argument Count");
             }
-            BadExecutionContext genericContext = new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+
+            BadExecutionContext genericContext =
+                new BadExecutionContext(context.Scope.CreateChild("GenericContext", context.Scope, null));
+
             for (int i = 0; i < m_GenericParameters.Length; i++)
             {
                 BadWordToken genericParameter = m_GenericParameters[i];
+
                 if (typeArgs[i] == BadVoidPrototype.Instance)
                 {
-                    throw BadRuntimeException.Create(context.Scope, "Cannot use 'void' as generic type parameter", Position);
+                    throw BadRuntimeException.Create(context.Scope,
+                                                     "Cannot use 'void' as generic type parameter",
+                                                     Position
+                                                    );
                 }
-                genericContext.Scope.DefineVariable(genericParameter.Text, typeArgs[i], genericContext.Scope, new BadPropertyInfo(BadClassPrototype.Prototype, true));
+
+                genericContext.Scope.DefineVariable(genericParameter.Text,
+                                                    typeArgs[i],
+                                                    genericContext.Scope,
+                                                    new BadPropertyInfo(BadClassPrototype.Prototype, true)
+                                                   );
             }
 
             return genericContext;
@@ -126,7 +148,8 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             return interfaces.ToArray();
         }
 
-        BadInterfaceFunctionConstraint PrepareFunctionConstraint(BadExecutionContext genericContext, BadInterfaceFunctionConstraint c)
+        BadInterfaceFunctionConstraint PrepareFunctionConstraint(BadExecutionContext genericContext,
+                                                                 BadInterfaceFunctionConstraint c)
         {
             BadObject? returnObj = BadAnyPrototype.Instance;
 
@@ -145,12 +168,12 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                 throw new BadRuntimeException("Return Type is not of type 'class'.");
             }
 
-            return new BadInterfaceFunctionConstraint(
-                c.Name,
-                c.Return,
-                returnProto,
-                c.Parameters.Select(x => x.Initialize(genericContext)).ToArray()
-            );
+            return new BadInterfaceFunctionConstraint(c.Name,
+                                                      c.Return,
+                                                      returnProto,
+                                                      c.Parameters.Select(x => x.Initialize(genericContext))
+                                                       .ToArray()
+                                                     );
         }
 
         BadInterfaceConstraint[] GetConstraints(BadObject[] typeArgs)
@@ -164,18 +187,23 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
             for (int i = 0; i < m_Constraints.Length; i++)
             {
                 BadInterfaceConstraint c = m_Constraints[i];
+
                 constrainsts[i] = c switch
                 {
                     BadInterfaceFunctionConstraint f => PrepareFunctionConstraint(genericContext, f),
                     BadInterfacePropertyConstraint p => PreparePropertyConstraint(genericContext, p),
-                    _ => throw new BadRuntimeException("Unknown Constraint Type: " + c.GetType().Name),
+                    _ => throw new BadRuntimeException("Unknown Constraint Type: " +
+                                                       c.GetType()
+                                                        .Name
+                                                      ),
                 };
             }
 
             return constrainsts;
         }
 
-        BadInterfacePropertyConstraint PreparePropertyConstraint(BadExecutionContext genericContext, BadInterfacePropertyConstraint p)
+        BadInterfacePropertyConstraint PreparePropertyConstraint(BadExecutionContext genericContext,
+                                                                 BadInterfacePropertyConstraint p)
         {
             BadObject? propType = BadAnyPrototype.Instance;
 
@@ -194,11 +222,10 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                 throw new BadRuntimeException("Property Type is not of type 'class'.");
             }
 
-            return new BadInterfacePropertyConstraint(
-                p.Name,
-                p.Type,
-                propProto
-            );
+            return new BadInterfacePropertyConstraint(p.Name,
+                                                      p.Type,
+                                                      propProto
+                                                     );
         }
     }
 }

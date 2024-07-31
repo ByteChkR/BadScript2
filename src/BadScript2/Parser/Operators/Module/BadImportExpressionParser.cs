@@ -3,6 +3,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Module;
 using BadScript2.Reader;
 using BadScript2.Reader.Token.Primitive;
+
 namespace BadScript2.Parser.Operators.Module;
 
 /// <summary>
@@ -21,7 +22,9 @@ public class BadImportExpressionParser : BadValueParser
     {
         BadSourcePosition pos = parser.Reader.Eat(BadStaticKeys.IMPORT_KEY);
         parser.Reader.SkipNonToken();
-        string name = parser.Reader.ParseWord().Text;
+
+        string name = parser.Reader.ParseWord()
+                            .Text;
         parser.Reader.SkipNonToken();
         parser.Reader.Eat(BadStaticKeys.FROM_KEY);
         parser.Reader.SkipNonToken();

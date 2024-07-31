@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Parser.Expressions.ControlFlow;
 
 /// <summary>
@@ -17,10 +18,9 @@ public class BadReturnExpression : BadExpression
     /// <param name="right">The (optional) return value</param>
     /// <param name="position">Source Position of the Expression</param>
     /// <param name="isRefReturn">Indicates if the return value is meant to be a reference</param>
-    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(
-        false,
-        position
-    )
+    public BadReturnExpression(BadExpression? right, BadSourcePosition position, bool isRefReturn) : base(false,
+                                                                                                          position
+                                                                                                         )
     {
         Right = right;
         IsRefReturn = isRefReturn;
@@ -86,6 +86,7 @@ public class BadReturnExpression : BadExpression
             }
 
             yield return value;
+
             yield break;
         }
 
@@ -108,7 +109,9 @@ public class BadReturnExpression : BadExpression
             {
                 throw BadRuntimeException.Create(context.Scope, "Cannot return a value from a void function", Position);
             }
+
             context.Scope.SetReturnValue(BadVoidPrototype.Object);
+
             yield break;
         }
 

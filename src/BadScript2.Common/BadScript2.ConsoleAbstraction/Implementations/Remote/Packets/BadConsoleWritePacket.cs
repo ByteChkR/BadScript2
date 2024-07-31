@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 namespace BadScript2.ConsoleAbstraction.Implementations.Remote.Packets;
 
 /// <summary>
@@ -47,11 +48,7 @@ public class BadConsoleWritePacket : BadConsolePacket
     /// <inheritdoc />
     public override byte[] Serialize()
     {
-        List<byte> data = new List<byte>
-        {
-            (byte)BadConsolePacketType.Write,
-            (byte)(IsWriteLine ? 1 : 0),
-        };
+        List<byte> data = new List<byte> { (byte)BadConsolePacketType.Write, (byte)(IsWriteLine ? 1 : 0) };
         byte[] message = Encoding.UTF8.GetBytes(Message);
         data.AddRange(BitConverter.GetBytes(message.Length));
         data.AddRange(message);

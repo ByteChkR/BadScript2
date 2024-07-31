@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Block;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -11,12 +12,11 @@ public class BadEmptyUsingBlockValidator : BadExpressionValidator<BadUsingExpres
     {
         if (!expr.Expressions.Any())
         {
-            context.AddError(
-                "Using statement has no expressions",
-                expr,
-                expr,
-                this
-            );
+            context.AddError("Using statement has no expressions",
+                             expr,
+                             expr,
+                             this
+                            );
         }
     }
 }

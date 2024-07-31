@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Block.Lock;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
@@ -11,6 +12,7 @@ public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression
     {
         context.Compile(expression.LockExpression);
         context.Emit(BadOpCode.Dup, expression.Position);
+
         if (expression.Block.Any()) // Dont aquire lock if there are no expressions in the block
         {
             context.Emit(BadOpCode.AquireLock, expression.Position);

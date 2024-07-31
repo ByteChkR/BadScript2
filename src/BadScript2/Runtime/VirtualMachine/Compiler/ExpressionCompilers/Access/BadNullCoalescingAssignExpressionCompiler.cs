@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Access;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
 /// <summary>
@@ -14,6 +15,11 @@ public class BadNullCoalescingAssignExpressionCompiler : BadExpressionCompiler<B
         int jend = context.EmitEmpty();
         context.Compile(expression.Right);
         context.Emit(BadOpCode.Assign, expression.Position);
-        context.ResolveEmpty(jend, BadOpCode.JumpRelativeIfNotNull, expression.Position, context.InstructionCount - jend - 1);
+
+        context.ResolveEmpty(jend,
+                             BadOpCode.JumpRelativeIfNotNull,
+                             expression.Position,
+                             context.InstructionCount - jend - 1
+                            );
     }
 }

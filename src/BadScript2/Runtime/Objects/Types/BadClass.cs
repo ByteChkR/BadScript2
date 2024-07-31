@@ -1,6 +1,7 @@
 using BadScript2.Common;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
+
 namespace BadScript2.Runtime.Objects.Types;
 
 /// <summary>
@@ -77,7 +78,10 @@ public class BadClass : BadObject
     private void SetThis(BadClass thisInstance)
     {
         SuperClass = thisInstance;
-        Scope.GetTable().GetProperty(BadStaticKeys.THIS_KEY).Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
+
+        Scope.GetTable()
+             .GetProperty(BadStaticKeys.THIS_KEY)
+             .Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
         m_BaseClass?.SetThis(thisInstance);
     }
 
@@ -90,7 +94,8 @@ public class BadClass : BadObject
     /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        if (Scope.GetTable().InnerTable.ContainsKey(propName))
+        if (Scope.GetTable()
+                 .InnerTable.ContainsKey(propName))
         {
             return true;
         }
@@ -138,68 +143,71 @@ public class BadClass : BadObject
 
         if (!HasProperty(propName, Scope))
         {
-            throw BadRuntimeException.Create(
-                caller,
-                $"Property {propName} not found in class {Name} or any of its base classes"
-            );
+            throw BadRuntimeException.Create(caller,
+                                             $"Property {propName} not found in class {Name} or any of its base classes"
+                                            );
         }
 
         if ((vis & visibility) == 0)
         {
-            throw BadRuntimeException.Create(
-                caller,
-                $"Property {Name}.{propName} is not visible from {caller?.Name ?? "global"}"
-            );
+            throw BadRuntimeException.Create(caller,
+                                             $"Property {Name}.{propName} is not visible from {caller?.Name ?? "global"}"
+                                            );
         }
 
-        if (Scope.GetTable().InnerTable.ContainsKey(propName))
+        if (Scope.GetTable()
+                 .InnerTable.ContainsKey(propName))
         {
-            return BadObjectReference.Make(
-                $"{Name}.{propName}",
-                () => Scope.GetTable().InnerTable[propName],
-                (o, t) =>
-                {
-                    BadPropertyInfo info = Scope.GetTable().GetPropertyInfo(propName);
+            return BadObjectReference.Make($"{Name}.{propName}",
+                                           () => Scope.GetTable()
+                                                      .InnerTable[propName],
+                                           (o, t) =>
+                                           {
+                                               BadPropertyInfo info = Scope.GetTable()
+                                                                           .GetPropertyInfo(propName);
 
-                    BadObject? existing = Scope.GetTable().InnerTable[propName];
+                                               BadObject? existing = Scope.GetTable()
+                                                                          .InnerTable[propName];
 
-                    if (existing != Null && info.IsReadOnly)
-                    {
-                        throw BadRuntimeException.Create(caller, $"{Name}.{propName} is read-only");
-                    }
+                                               if (existing != Null && info.IsReadOnly)
+                                               {
+                                                   throw BadRuntimeException.Create(caller,
+                                                        $"{Name}.{propName} is read-only"
+                                                       );
+                                               }
 
-                    if (info.Type != null && !info.Type.IsAssignableFrom(o))
-                    {
-                        throw BadRuntimeException.Create(
-                            caller,
-                            $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
-                        );
-                    }
+                                               if (info.Type != null && !info.Type.IsAssignableFrom(o))
+                                               {
+                                                   throw BadRuntimeException.Create(caller,
+                                                        $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
+                                                       );
+                                               }
 
-                    if (existing is BadObjectReference reference)
-                    {
-                        reference.Set(o, t);
-                    }
-                    else
-                    {
-                        if (existing != Null && Scope.OnChange(propName, existing, o))
-                        {
-                            return;
-                        }
-                        Scope.GetTable().InnerTable[propName] = o;
-                        Scope.OnChanged(propName, existing ?? Null, o);
-                    }
-                }
-            );
+                                               if (existing is BadObjectReference reference)
+                                               {
+                                                   reference.Set(o, t);
+                                               }
+                                               else
+                                               {
+                                                   if (existing != Null && Scope.OnChange(propName, existing, o))
+                                                   {
+                                                       return;
+                                                   }
+
+                                                   Scope.GetTable()
+                                                        .InnerTable[propName] = o;
+                                                   Scope.OnChanged(propName, existing ?? Null, o);
+                                               }
+                                           }
+                                          );
         }
 
         if (m_BaseClass != null)
         {
-            return m_BaseClass.GetProperty(
-                propName,
-                visibility & ~BadPropertyVisibility.Private & BadPropertyVisibility.All,
-                caller
-            ); //Allow public, protected
+            return m_BaseClass.GetProperty(propName,
+                                           visibility & ~BadPropertyVisibility.Private & BadPropertyVisibility.All,
+                                           caller
+                                          ); //Allow public, protected
         }
 
         if (caller == null)
@@ -222,9 +230,12 @@ public class BadClass : BadObject
     {
         done.Add(this);
 
-        if (Scope.HasLocal("ToString", Scope, false) && Scope.GetProperty("ToString", Scope).Dereference() is BadFunction toString)
+        if (Scope.HasLocal("ToString", Scope, false) &&
+            Scope.GetProperty("ToString", Scope)
+                 .Dereference() is BadFunction toString)
         {
             BadObject? result = Null;
+
             foreach (BadObject? o in toString.Invoke(Array.Empty<BadObject>(), Context))
             {
                 result = o;

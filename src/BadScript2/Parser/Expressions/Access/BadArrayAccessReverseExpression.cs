@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
+
 namespace BadScript2.Parser.Expressions.Access;
 
 /// <summary>
@@ -24,14 +25,12 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     /// <param name="args">Right side of the expression</param>
     /// <param name="position">Position inside the source code</param>
     /// <param name="nullChecked">Indicates if the expression will be null-checked by the runtime</param>
-    public BadArrayAccessReverseExpression(
-        BadExpression left,
-        BadExpression[] args,
-        BadSourcePosition position,
-        bool nullChecked = false) : base(
-        false,
-        position
-    )
+    public BadArrayAccessReverseExpression(BadExpression left,
+                                           BadExpression[] args,
+                                           BadSourcePosition position,
+                                           bool nullChecked = false) : base(false,
+                                                                            position
+                                                                           )
     {
         Left = left;
         m_Arguments = args;
@@ -53,10 +52,14 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     /// </summary>
     public BadExpression Left { get; set; }
 
+#region IBadAccessExpression Members
+
     /// <summary>
     ///     Indicates if the expression will be null-checked by the runtime
     /// </summary>
     public bool NullChecked { get; }
+
+#endregion
 
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />
@@ -97,11 +100,10 @@ public class BadArrayAccessReverseExpression : BadExpression, IBadAccessExpressi
     /// <param name="position">Position inside the source code.</param>
     /// <returns>The result of the array access(last item of the enumeration).</returns>
     /// <exception cref="BadRuntimeException">If the array access operator is not defined.</exception>
-    public static IEnumerable<BadObject> Access(
-        BadExecutionContext context,
-        BadObject left,
-        IEnumerable<BadObject> args,
-        BadSourcePosition position)
+    public static IEnumerable<BadObject> Access(BadExecutionContext context,
+                                                BadObject left,
+                                                IEnumerable<BadObject> args,
+                                                BadSourcePosition position)
     {
         //Can be null when evaluated as an optimization step
         // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract

@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions;
+
 namespace BadScript2.Parser.Validation.Validators;
 
 /// <summary>
@@ -33,7 +34,7 @@ public class BadExpressionPath
     /// <summary>
     ///     Indicates whether this Path is valid(e.g. all paths have a return statement)
     /// </summary>
-    public bool IsValid => m_HasReturnStatement || m_ChildPaths.Count > 0 && m_ChildPaths.All(p => p.IsValid);
+    public bool IsValid => m_HasReturnStatement || (m_ChildPaths.Count > 0 && m_ChildPaths.All(p => p.IsValid));
 
     /// <summary>
     ///     Returns all invalid paths in this Path

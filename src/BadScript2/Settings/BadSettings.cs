@@ -1,6 +1,7 @@
 using System.Text;
 
 using Newtonsoft.Json.Linq;
+
 namespace BadScript2.Settings;
 
 /// <summary>
@@ -64,6 +65,7 @@ public class BadSettings
         m_IsDirty = true;
         m_Properties = properties;
         SourcePath = sourcePath;
+
         foreach (KeyValuePair<string, BadSettings> kvp in m_Properties)
         {
             kvp.Value.OnValueChanged += PropertyValueChanged;
@@ -161,6 +163,7 @@ public class BadSettings
     public void SetValue(JToken? value, bool invokeOnChange = true)
     {
         m_Value = value;
+
         if (invokeOnChange)
         {
             PropertyValueChanged();
@@ -214,6 +217,7 @@ public class BadSettings
         }
 
         m_Properties[propertyName] = value;
+
         if (invokeOnChange)
         {
             PropertyValueChanged();
@@ -287,7 +291,8 @@ public class BadSettings
             {
                 if (HasProperty(propertyName))
                 {
-                    GetProperty(propertyName).Populate(false, setting.GetProperty(propertyName));
+                    GetProperty(propertyName)
+                        .Populate(false, setting.GetProperty(propertyName));
                 }
                 else
                 {
@@ -377,7 +382,9 @@ public class BadSettings
     {
         if (HasValue())
         {
-            return GetValue()?.ToString() ?? "NULL";
+            return GetValue()
+                       ?.ToString() ??
+                   "NULL";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -387,7 +394,9 @@ public class BadSettings
         foreach (string propertyName in PropertyNames)
         {
             BadSettings s = GetProperty(propertyName);
-            string str = s.ToString().Replace("\n", "\n\t");
+
+            string str = s.ToString()
+                          .Replace("\n", "\n\t");
             sb.AppendLine($"  {propertyName}: {str}");
         }
 

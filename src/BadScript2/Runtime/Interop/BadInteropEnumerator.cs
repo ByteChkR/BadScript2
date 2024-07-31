@@ -5,6 +5,7 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+
 namespace BadScript2.Runtime.Interop;
 
 /// <summary>
@@ -15,19 +16,22 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     /// <summary>
     ///     The Prototype for the Interop Enumerator Object
     /// </summary>
-    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadInteropEnumerator>(
-        "Enumerator",
-        (_, _) => throw new BadRuntimeException("Cannot call method on enumerator"),
-        () => new[]
-        {
-            (BadInterfacePrototype)BadNativeClassBuilder.Enumerator.CreateGeneric(
-                new[]
-                {
-                    BadAnyPrototype.Instance,
-                }
-            ),
-        }
-    );
+    private static readonly BadClassPrototype s_Prototype =
+        new BadNativeClassPrototype<BadInteropEnumerator>("Enumerator",
+                                                          (_, _) =>
+                                                              throw new
+                                                                  BadRuntimeException("Cannot call method on enumerator"
+                                                                      ),
+                                                          () => new[]
+                                                          {
+                                                              (BadInterfacePrototype)BadNativeClassBuilder
+                                                                  .Enumerator.CreateGeneric(new[]
+                                                                          {
+                                                                              BadAnyPrototype.Instance,
+                                                                          }
+                                                                      ),
+                                                          }
+                                                         );
 
     /// <summary>
     ///     Current Function Reference
@@ -51,21 +55,22 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     public BadInteropEnumerator(IEnumerator<BadObject> enumerator)
     {
         m_Enumerator = enumerator;
-        BadDynamicInteropFunction next = new BadDynamicInteropFunction(
-            "MoveNext",
-            _ => m_Enumerator.MoveNext(),
-            BadNativeClassBuilder.GetNative("bool")
-        );
 
-        BadDynamicInteropFunction current = new BadDynamicInteropFunction(
-            "GetCurrent",
-            _ => m_Enumerator.Current,
-            BadAnyPrototype.Instance
-        );
+        BadDynamicInteropFunction next = new BadDynamicInteropFunction("MoveNext",
+                                                                       _ => m_Enumerator.MoveNext(),
+                                                                       BadNativeClassBuilder.GetNative("bool")
+                                                                      );
+
+        BadDynamicInteropFunction current = new BadDynamicInteropFunction("GetCurrent",
+                                                                          _ => m_Enumerator.Current,
+                                                                          BadAnyPrototype.Instance
+                                                                         );
 
         m_Next = BadObjectReference.Make("BadArrayEnumerator.MoveNext", () => next);
         m_Current = BadObjectReference.Make("BadArrayEnumerator.GetCurrent", () => current);
     }
+
+#region IBadEnumerator Members
 
     /// <summary>
     ///     Moves the Enumerator to the next element
@@ -101,6 +106,8 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
     {
         m_Enumerator.Dispose();
     }
+
+#endregion
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()

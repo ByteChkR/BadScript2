@@ -6,27 +6,26 @@ using System.Linq;
 using BadScript2.Interop.Generator.Model;
 
 using Microsoft.CodeAnalysis;
+
 namespace BadScript2.Interop.Generator.Interop;
 
 public class BadInteropApiModelBuilder
 {
-    private static readonly DiagnosticDescriptor s_CanNotConvertTypeDiagnostic = new DiagnosticDescriptor(
-        "BAS0001",
-        "Can not convert type",
-        "Can not convert type {0}",
-        "BadScript2.Interop.Generator",
-        DiagnosticSeverity.Error,
-        true
-    );
+    private static readonly DiagnosticDescriptor s_CanNotConvertTypeDiagnostic = new DiagnosticDescriptor("BAS0001",
+         "Can not convert type",
+         "Can not convert type {0}",
+         "BadScript2.Interop.Generator",
+         DiagnosticSeverity.Error,
+         true
+        );
 
-    private static readonly DiagnosticDescriptor s_CanNotStringifyDefaultValue = new DiagnosticDescriptor(
-        "BAS0002",
-        "Can not stringify default value",
-        "Can not stringify default value {0}",
-        "BadScript2.Interop.Generator",
-        DiagnosticSeverity.Error,
-        true
-    );
+    private static readonly DiagnosticDescriptor s_CanNotStringifyDefaultValue = new DiagnosticDescriptor("BAS0002",
+         "Can not stringify default value",
+         "Can not stringify default value {0}",
+         "BadScript2.Interop.Generator",
+         DiagnosticSeverity.Error,
+         true
+        );
 
     private readonly List<Diagnostic> m_Diagnostics = new List<Diagnostic>();
 
@@ -37,10 +36,14 @@ public class BadInteropApiModelBuilder
 
     private IEnumerable<IMethodSymbol> FindMethods(INamedTypeSymbol api)
     {
-        IEnumerable<IMethodSymbol> methods = api.GetMembers().Where(x => x is IMethodSymbol).Cast<IMethodSymbol>();
+        IEnumerable<IMethodSymbol> methods = api.GetMembers()
+                                                .Where(x => x is IMethodSymbol)
+                                                .Cast<IMethodSymbol>();
+
         foreach (IMethodSymbol method in methods)
         {
             AttributeData? attribute = method.GetInteropMethodAttribute();
+
             if (attribute != null)
             {
                 yield return method;
@@ -52,6 +55,7 @@ public class BadInteropApiModelBuilder
     {
         IEnumerable<IMethodSymbol> methods = FindMethods(api);
         AttributeData? apiAttribute = api.GetInteropApiAttribute();
+
         if (apiAttribute == null)
         {
             throw new Exception("BadInteropApiAttribute not found");
@@ -59,39 +63,50 @@ public class BadInteropApiModelBuilder
 
         string apiName = api.Name;
         bool constructorPrivate = false;
+
         if (apiAttribute.ConstructorArguments.Length > 0)
         {
-            apiName = apiAttribute.ConstructorArguments[0].Value?.ToString() ?? apiName;
+            apiName = apiAttribute.ConstructorArguments[0]
+                                  .Value?.ToString() ??
+                      apiName;
             bool? priv = apiAttribute.ConstructorArguments[1].Value as bool?;
             constructorPrivate = apiAttribute.ConstructorArguments.Length > 1 && priv != null && priv.Value;
         }
 
-        MethodModel[] methodModels = GenerateMethodModels(methods).ToArray();
+        MethodModel[] methodModels = GenerateMethodModels(methods)
+            .ToArray();
         Diagnostic[] diagnostics = Array.Empty<Diagnostic>();
+
         if (m_Diagnostics.Count != 0)
         {
             diagnostics = m_Diagnostics.ToArray();
             m_Diagnostics.Clear();
         }
 
-        return new ApiModel(
-            api.ContainingNamespace?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted))!,
-            api.Name,
-            methodModels,
-            apiName,
-            constructorPrivate,
-            diagnostics
-        );
+        return new ApiModel(api.ContainingNamespace?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat
+                                                                         .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle
+                                                                                 .Omitted
+                                                                             )
+                                                                    )!,
+                            api.Name,
+                            methodModels,
+                            apiName,
+                            constructorPrivate,
+                            diagnostics
+                           );
     }
 
     private string EscapeDescription(string str)
     {
-        return str.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n");
+        return str.Replace("\\", "\\\\")
+                  .Replace("\"", "\\\"")
+                  .Replace("\n", "\\n");
     }
 
     private IEnumerable<ParameterModel> GenerateParameterModel(IMethodSymbol method)
     {
-        foreach (IParameterSymbol symbol in method.Parameters.Where(x => x.Ordinal >= 0).OrderBy(x => x.Ordinal))
+        foreach (IParameterSymbol symbol in method.Parameters.Where(x => x.Ordinal >= 0)
+                                                  .OrderBy(x => x.Ordinal))
         {
             //if parameter is first parameter and its of type BadScript2.Runtime.BadExecutionContext
             if (symbol.Ordinal == 0 && symbol.Type.ToDisplayString() == "BadScript2.Runtime.BadExecutionContext")
@@ -109,18 +124,33 @@ public class BadInteropApiModelBuilder
                 if (attribute != null)
                 {
                     ImmutableArray<TypedConstant> cargs = attribute.ConstructorArguments;
-                    name = cargs.Length > 0 ? cargs[0].Value?.ToString() ?? name : name;
-                    description = cargs.Length > 1 ? cargs[1].Value?.ToString() : null;
+
+                    name = cargs.Length > 0
+                               ? cargs[0]
+                                 .Value?.ToString() ??
+                                 name
+                               : name;
+
+                    description = cargs.Length > 1
+                                      ? cargs[1]
+                                        .Value?.ToString()
+                                      : null;
+
                     if (description != null)
                     {
                         description = EscapeDescription(description);
                     }
 
-                    type = cargs.Length > 2 ? cargs[2].Value?.ToString() ?? type : type;
+                    type = cargs.Length > 2
+                               ? cargs[2]
+                                 .Value?.ToString() ??
+                                 type
+                               : type;
                 }
 
                 bool hasDefaultValue = symbol.HasExplicitDefaultValue;
                 string? defaultValue = null;
+
                 if (hasDefaultValue)
                 {
                     defaultValue = StringifyDefaultValue(symbol.ExplicitDefaultValue, symbol);
@@ -128,7 +158,16 @@ public class BadInteropApiModelBuilder
 
                 bool isRestArgs = symbol.IsParams;
 
-                yield return new ParameterModel(false, hasDefaultValue, defaultValue, name, description, type, symbol.Type.ToDisplayString(), isNullable, isRestArgs);
+                yield return new ParameterModel(false,
+                                                hasDefaultValue,
+                                                defaultValue,
+                                                name,
+                                                description,
+                                                type,
+                                                symbol.Type.ToDisplayString(),
+                                                isNullable,
+                                                isRestArgs
+                                               );
             }
         }
     }
@@ -142,7 +181,8 @@ public class BadInteropApiModelBuilder
             case char c:
                 return $"'{c}'";
             case bool b:
-                return b.ToString().ToLower();
+                return b.ToString()
+                        .ToLower();
             case float f:
                 return $"{f}f";
             case double d:
@@ -194,21 +234,34 @@ public class BadInteropApiModelBuilder
             ImmutableArray<TypedConstant> cargs = attribute.ConstructorArguments;
 
             //The api name, if its not provided, use the method name
-            string name = cargs.Length > 0 ? cargs[0].Value?.ToString() ?? symbol.Name : symbol.Name;
+            string name = cargs.Length > 0
+                              ? cargs[0]
+                                .Value?.ToString() ??
+                                symbol.Name
+                              : symbol.Name;
 
             //The description, if its not provided, use null
-            string description = EscapeDescription(cargs.Length > 1 ? cargs[1].Value?.ToString() ?? string.Empty : string.Empty);
+            string description = EscapeDescription(cargs.Length > 1
+                                                       ? cargs[1]
+                                                         .Value?.ToString() ??
+                                                         string.Empty
+                                                       : string.Empty
+                                                  );
 
             //Check if the symbol is a void return
             bool isVoidReturn = symbol.ReturnsVoid;
             AttributeData? returnAttribute = symbol.GetReturnTypeAttribute();
             string returnDescription = string.Empty;
             bool allowNativeReturn = false;
+
             if (returnAttribute != null)
             {
                 if (returnAttribute.ConstructorArguments.Length > 0)
                 {
-                    returnDescription = EscapeDescription(returnAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty);
+                    returnDescription = EscapeDescription(returnAttribute.ConstructorArguments[0]
+                                                                         .Value?.ToString() ??
+                                                          string.Empty
+                                                         );
                 }
 
                 if (returnAttribute.ConstructorArguments.Length > 1)
@@ -217,21 +270,19 @@ public class BadInteropApiModelBuilder
                 }
             }
 
-
             //The return type, if its not provided, use the symbol's return type
             string returnType = isVoidReturn ? "any" : ConvertType(symbol.ReturnType, allowNativeReturn, symbol);
 
-
-            MethodModel model = new MethodModel(
-                symbol.Name,
-                name,
-                returnType,
-                description,
-                GenerateParameterModel(symbol).ToArray(),
-                isVoidReturn,
-                returnDescription,
-                allowNativeReturn
-            );
+            MethodModel model = new MethodModel(symbol.Name,
+                                                name,
+                                                returnType,
+                                                description,
+                                                GenerateParameterModel(symbol)
+                                                    .ToArray(),
+                                                isVoidReturn,
+                                                returnDescription,
+                                                allowNativeReturn
+                                               );
 
             yield return model;
         }
@@ -321,19 +372,22 @@ public class BadInteropApiModelBuilder
         }
 
         //If Type is IBadBoolean or BadBoolean return "bool"
-        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.IBadBoolean" || type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.BadBoolean")
+        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.IBadBoolean" ||
+            type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.BadBoolean")
         {
             return "bool";
         }
 
         //If Type is IBadNumber or BadNumber return "num"
-        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.IBadNumber" || type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.BadNumber")
+        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.IBadNumber" ||
+            type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.BadNumber")
         {
             return "num";
         }
 
         //If Type is IBadString or BadString return "string"
-        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.IBadString" || type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.BadString")
+        if (type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.IBadString" ||
+            type.ToDisplayString() == "BadScript2.Runtime.Objects.Native.BadString")
         {
             return "string";
         }

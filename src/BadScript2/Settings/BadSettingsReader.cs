@@ -2,6 +2,7 @@ using BadScript2.Common.Logging;
 using BadScript2.IO;
 
 using Newtonsoft.Json.Linq;
+
 namespace BadScript2.Settings;
 
 /// <summary>
@@ -9,8 +10,8 @@ namespace BadScript2.Settings;
 /// </summary>
 public class BadSettingsReader
 {
-
     private readonly IFileSystem m_FileSystem;
+
     /// <summary>
     ///     The Root Settings Object that all other Settings are added into
     /// </summary>
@@ -39,10 +40,7 @@ public class BadSettingsReader
     /// <returns>BadSettings Instance</returns>
     public BadSettings ReadSettings()
     {
-        List<BadSettings> settings = new List<BadSettings>
-        {
-            m_RootSettings,
-        };
+        List<BadSettings> settings = new List<BadSettings> { m_RootSettings };
 
         Queue<string> files = new Queue<string>(m_SourceFiles);
 
@@ -85,10 +83,7 @@ public class BadSettingsReader
     private static BadSettings CreateSettings(JToken? token, string path)
     {
         if (token is
-            not
-            {
-                Type: JTokenType.Object,
-            })
+            not { Type: JTokenType.Object })
         {
             return new BadSettings(token, path);
         }
@@ -131,30 +126,28 @@ public class BadSettingsReader
                 if (include.Contains('*'))
                 {
                     bool allDirs = include.Contains("**");
-                    string[] parts = include.Split(
-                        new[]
-                        {
-                            '*',
-                        },
-                        StringSplitOptions.RemoveEmptyEntries
-                    );
+
+                    string[] parts = include.Split(new[] { '*' },
+                                                   StringSplitOptions.RemoveEmptyEntries
+                                                  );
                     string path = parts[0];
                     string extension = parts[1];
-                    IEnumerable<string> files = m_FileSystem.GetFiles(
-                        path,
-                        extension,
-                        allDirs
-                    );
-                    setting.AddRange(
-                        files.Select(
-                            f =>
-                            {
-                                BadLogger.Log("Reading settings from file: " + f, "SettingsReader");
 
-                                return CreateSettings(ReadJsonFile(f), f);
-                            }
-                        )
-                    );
+                    IEnumerable<string> files = m_FileSystem.GetFiles(path,
+                                                                      extension,
+                                                                      allDirs
+                                                                     );
+
+                    setting.AddRange(files.Select(f =>
+                                                  {
+                                                      BadLogger.Log("Reading settings from file: " + f,
+                                                                    "SettingsReader"
+                                                                   );
+
+                                                      return CreateSettings(ReadJsonFile(f), f);
+                                                  }
+                                                 )
+                                    );
                 }
                 else
                 {
@@ -164,7 +157,6 @@ public class BadSettingsReader
             }
 
             settings.Populate(true, setting.ToArray());
-
 
             BadLogger.Log("Resolving environment variables", "SettingsReader");
             BadSettings.ResolveEnvironmentVariables(settings);

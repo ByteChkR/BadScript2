@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions.Block;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
 /// <summary>
@@ -10,12 +11,18 @@ public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchEx
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadTryCatchExpression expression)
     {
-        context.Emit(BadOpCode.CreateScope, expression.Position, "TryScope", BadObject.Null, BadScopeFlags.CaptureThrow);
+        context.Emit(BadOpCode.CreateScope,
+                     expression.Position,
+                     "TryScope",
+                     BadObject.Null,
+                     BadScopeFlags.CaptureThrow
+                    );
         int setThrowInstruction = context.EmitEmpty();
         context.Compile(expression.TryExpressions);
         context.Emit(BadOpCode.DestroyScope, expression.Position);
         int jumpToEnd = context.EmitEmpty();
         int catchStart = context.InstructionCount;
+
         if (expression.CatchExpressions.Any()) // If there are catch expressions, compile them
         {
             context.Emit(BadOpCode.CreateScope, expression.Position, "CatchScope", BadObject.Null);
@@ -30,8 +37,15 @@ public class BadTryCatchExpressionCompiler : BadExpressionCompiler<BadTryCatchEx
             // If there are no catch expressions, we need to clean up the exception from the stack
             context.Emit(BadOpCode.Pop, expression.Position);
         }
+
         context.ResolveEmpty(setThrowInstruction, BadOpCode.SetThrowPointer, expression.Position, catchStart - 1);
-        context.ResolveEmpty(jumpToEnd, BadOpCode.JumpRelative, expression.Position, context.InstructionCount - catchStart);
+
+        context.ResolveEmpty(jumpToEnd,
+                             BadOpCode.JumpRelative,
+                             expression.Position,
+                             context.InstructionCount - catchStart
+                            );
+
         if (expression.FinallyExpressions.Any()) // If there are finally expressions, compile them
         {
             context.Emit(BadOpCode.CreateScope, expression.Position, "FinallyScope", BadObject.Null);

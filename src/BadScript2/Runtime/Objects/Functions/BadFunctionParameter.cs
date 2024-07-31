@@ -1,6 +1,7 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Objects.Functions;
 
 /// <summary>
@@ -15,11 +16,10 @@ public class BadFunctionParameter
     /// <param name="isOptional">Indicates if this parameter is optional</param>
     /// <param name="isNullChecked">Indicates if this parameter is null checked by the runtime</param>
     /// <param name="isRestArgs">Indicates if this parameter is the rest parameter of the function</param>
-    public BadFunctionParameter(
-        string name,
-        bool isOptional,
-        bool isNullChecked,
-        bool isRestArgs)
+    public BadFunctionParameter(string name,
+                                bool isOptional,
+                                bool isNullChecked,
+                                bool isRestArgs)
     {
         Name = name;
         IsOptional = isOptional;
@@ -38,13 +38,12 @@ public class BadFunctionParameter
     /// <param name="isRestArgs">Indicates if this parameter is the rest parameter of the function</param>
     /// <param name="typeExpr">The Expression that returns the type of the parameter if evaluated</param>
     /// <param name="type">The Class Prototype of the Parameter</param>
-    public BadFunctionParameter(
-        string name,
-        bool isOptional,
-        bool isNullChecked,
-        bool isRestArgs,
-        BadExpression? typeExpr,
-        BadClassPrototype? type = null)
+    public BadFunctionParameter(string name,
+                                bool isOptional,
+                                bool isNullChecked,
+                                bool isRestArgs,
+                                BadExpression? typeExpr,
+                                BadClassPrototype? type = null)
     {
         Name = name;
         IsOptional = isOptional;
@@ -149,7 +148,7 @@ public class BadFunctionParameter
     public override string ToString()
     {
         return Type == null
-            ? $"{Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}"
-            : $"{Type.Name} {Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}";
+                   ? $"{Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}"
+                   : $"{Type.Name} {Name}{(IsOptional ? "?" : "")}{(IsNullChecked ? "!" : "")}{(IsRestArgs ? "*" : "")}";
     }
 }

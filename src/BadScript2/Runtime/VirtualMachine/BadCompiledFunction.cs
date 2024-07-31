@@ -54,25 +54,23 @@ public class BadCompiledFunction : BadFunction
     /// <param name="returnType">The Function's Return Type.</param>
     /// <param name="isSingleLine">Indicates if the function is a single line function</param>
     /// <param name="parameters">The Function's Parameters.</param>
-    public BadCompiledFunction(
-        BadInstruction[] instructions,
-        bool useOverrides,
-        BadScope parentScope,
-        BadSourcePosition position,
-        BadWordToken? name,
-        bool isConstant,
-        bool isStatic,
-        BadMetaData? metaData,
-        BadClassPrototype returnType,
-        bool isSingleLine,
-        params BadFunctionParameter[] parameters) : base(
-        name,
-        isConstant,
-        isStatic,
-        returnType,
-        isSingleLine,
-        parameters
-    )
+    public BadCompiledFunction(BadInstruction[] instructions,
+                               bool useOverrides,
+                               BadScope parentScope,
+                               BadSourcePosition position,
+                               BadWordToken? name,
+                               bool isConstant,
+                               bool isStatic,
+                               BadMetaData? metaData,
+                               BadClassPrototype returnType,
+                               bool isSingleLine,
+                               params BadFunctionParameter[] parameters) : base(name,
+                                                                                isConstant,
+                                                                                isStatic,
+                                                                                returnType,
+                                                                                isSingleLine,
+                                                                                parameters
+                                                                               )
     {
         m_Instructions = instructions;
         m_UseOverrides = useOverrides;
@@ -87,15 +85,16 @@ public class BadCompiledFunction : BadFunction
 
     public BadExecutionContext CreateExecutionContext(BadExecutionContext caller, BadObject[] args)
     {
-        BadExecutionContext ctx = new BadExecutionContext(
-            m_ParentScope.CreateChild(
-                "Compiled Function",
-                caller.Scope,
-                null,
-                BadScopeFlags.Returnable | BadScopeFlags.AllowThrow | BadScopeFlags.CaptureThrow
-            )
-        );
+        BadExecutionContext ctx = new BadExecutionContext(m_ParentScope.CreateChild("Compiled Function",
+                                                               caller.Scope,
+                                                               null,
+                                                               BadScopeFlags.Returnable |
+                                                               BadScopeFlags.AllowThrow |
+                                                               BadScopeFlags.CaptureThrow
+                                                              )
+                                                         );
         ApplyParameters(ctx, args, m_Position);
+
         return ctx;
     }
 

@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Binary;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Binary;
 
 /// <summary>
@@ -8,6 +9,7 @@ public class BadInExpressionCompiler : BadBinaryExpressionCompiler<BadInExpressi
 {
     /// <inheritdoc />
     protected override bool IsLeftAssociative => false;
+
     /// <inheritdoc />
     public override void CompileBinary(BadExpressionCompileContext context, BadInExpression expression)
     {

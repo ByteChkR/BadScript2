@@ -25,10 +25,9 @@ public class BadFormattedStringExpression : BadStringExpression
     /// <param name="exprs">The Expressions that will be evaluated during the creation of the formatted string</param>
     /// <param name="str">The Format String</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(
-        str,
-        position
-    )
+    public BadFormattedStringExpression(BadExpression[] exprs, string str, BadSourcePosition position) : base(str,
+                                                                                                              position
+                                                                                                             )
     {
         m_Expressions = exprs;
     }
@@ -78,7 +77,10 @@ public class BadFormattedStringExpression : BadStringExpression
             objs.Add(obj.Dereference());
         }
 
-        yield return string.Format(Value, objs.Cast<object?>().ToArray());
+        yield return string.Format(Value,
+                                   objs.Cast<object?>()
+                                       .ToArray()
+                                  );
     }
 
     /// <inheritdoc cref="BadExpression.GetDescendants" />

@@ -5,6 +5,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
+
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>
@@ -34,12 +35,15 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
     /// <inheritdoc />
     protected override Task<int> Run(BadRemoteConsoleSystemSettings settings)
     {
-        Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parser = settings.UseScriptCommands ? CreateScriptParser : BadNetworkConsoleClient.DefaultParserFactory;
+        Func<BadNetworkConsoleClient, IBadNetworkConsoleClientCommandParser> parser =
+            settings.UseScriptCommands ? CreateScriptParser : BadNetworkConsoleClient.DefaultParserFactory;
         BadNetworkConsoleClient client = new BadNetworkConsoleClient(settings.Host, settings.Port, parser);
         client.Start();
 
         return Task.FromResult(0);
     }
+
+#region Nested type: BadScriptCommandParser
 
     /// <summary>
     ///     Script Command Parser
@@ -72,6 +76,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
             m_Client = client;
         }
 
+#region IBadNetworkConsoleClientCommandParser Members
 
         /// <inheritdoc />
         public void ExecuteCommand(string command)
@@ -80,6 +85,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
             {
                 BadExecutionContext ctx = GetContext();
                 IEnumerable<BadExpression> parsed = BadRuntime.Parse(command);
+
                 foreach (BadObject _ in ctx.Execute(parsed))
                 {
                     //Do nothing
@@ -90,6 +96,8 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
                 BadConsole.WriteLine(e.ToString());
             }
         }
+
+#endregion
 
         /// <summary>
         ///     Returns the Current Context
@@ -118,4 +126,6 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
             return ctx;
         }
     }
+
+#endregion
 }

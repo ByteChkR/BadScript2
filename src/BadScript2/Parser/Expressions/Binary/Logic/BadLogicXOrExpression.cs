@@ -3,6 +3,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
+
 namespace BadScript2.Parser.Expressions.Binary.Logic;
 
 /// <summary>
@@ -16,11 +17,10 @@ public class BadLogicXOrExpression : BadBinaryExpression
 	/// <param name="left">Left side of the Expression</param>
 	/// <param name="right">Right side of the Expression</param>
 	/// <param name="position">Source Position of the Expression</param>
-	public BadLogicXOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+	public BadLogicXOrExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+	                                                                                                         right,
+	                                                                                                         position
+	                                                                                                        ) { }
 
 	/// <summary>
 	///     Returns true if left or right are true. False if both are true

@@ -1,4 +1,5 @@
 using BadScript2.Runtime.Error;
+
 namespace BadScript2.Settings;
 
 /// <summary>
@@ -20,9 +21,10 @@ public static class BadSettingsProvider
 	///     Returns the Root Settings Object
 	/// </summary>
 	/// <exception cref="BadRuntimeException">Gets raised if the Root Settings Object has not been set.</exception>
-	public static BadSettings RootSettings =>
-        s_RootSettings ??
-        throw new BadRuntimeException("BadSettingsProvider.RootSettings is not initialized");
+	public static BadSettings RootSettings => s_RootSettings ??
+	                                          throw new
+		                                          BadRuntimeException("BadSettingsProvider.RootSettings is not initialized"
+		                                                             );
 
 	/// <summary>
 	///     Sets the Root Settings Object
@@ -61,8 +63,9 @@ public abstract class BadSettingsProvider<T> where T : BadSettingsProvider<T>, n
 	/// <summary>
 	///     Returns the Instance of the Settings Provider
 	/// </summary>
-	public BadSettings? Settings =>
-        BadSettingsProvider.HasRootSettings ? BadSettingsProvider.RootSettings.FindOrCreateProperty(m_Path) : null;
+	public BadSettings? Settings => BadSettingsProvider.HasRootSettings
+		                                ? BadSettingsProvider.RootSettings.FindOrCreateProperty(m_Path)
+		                                : null;
 
 	/// <summary>
 	///     Returns the Instance of the Settings Provider

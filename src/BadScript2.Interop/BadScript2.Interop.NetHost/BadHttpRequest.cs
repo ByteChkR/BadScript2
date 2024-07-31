@@ -4,6 +4,7 @@ using System.Net;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Interop.NetHost;
 
 /// <summary>
@@ -14,10 +15,9 @@ public class BadHttpRequest : BadObject
 	/// <summary>
 	///     Class Prototype Instance
 	/// </summary>
-	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>(
-        "HttpRequest",
-        (_, _) => throw new BadRuntimeException("Cannot create new Http Request")
-    );
+	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>("HttpRequest",
+	                                                                                                    (_, _) => throw new BadRuntimeException("Cannot create new Http Request")
+	                                                                                                   );
 
 	/// <summary>
 	///     Constructs a new BadHttpRequest

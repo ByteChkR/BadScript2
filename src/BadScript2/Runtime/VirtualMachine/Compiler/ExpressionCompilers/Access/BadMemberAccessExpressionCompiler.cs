@@ -1,5 +1,6 @@
 using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Access;
+
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Access;
 
 /// <summary>
@@ -14,14 +15,24 @@ public class BadMemberAccessExpressionCompiler : BadExpressionCompiler<BadMember
         {
             context.Compile(parameter);
         }
+
         context.Compile(expression.Left);
+
         if (expression.NullChecked)
         {
-            context.Emit(BadOpCode.LoadMemberNullChecked, expression.Position, expression.Right.Text, expression.GenericArguments.Count);
+            context.Emit(BadOpCode.LoadMemberNullChecked,
+                         expression.Position,
+                         expression.Right.Text,
+                         expression.GenericArguments.Count
+                        );
         }
         else
         {
-            context.Emit(BadOpCode.LoadMember, expression.Position, expression.Right.Text, expression.GenericArguments.Count);
+            context.Emit(BadOpCode.LoadMember,
+                         expression.Position,
+                         expression.Right.Text,
+                         expression.GenericArguments.Count
+                        );
         }
     }
 }

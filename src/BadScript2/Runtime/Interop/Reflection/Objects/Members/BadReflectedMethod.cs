@@ -5,6 +5,7 @@ using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime.Interop.Reflection.Objects.Members;
 
 /// <summary>
@@ -48,13 +49,12 @@ public class BadReflectedMethod : BadReflectedMember
     {
         bool isStatic = instance == null;
 
-        return new BadInteropFunction(
-            Name,
-            args => Invoke(instance, args),
-            isStatic,
-            BadAnyPrototype.Instance,
-            new BadFunctionParameter("args", false, false, true)
-        );
+        return new BadInteropFunction(Name,
+                                      args => Invoke(instance, args),
+                                      isStatic,
+                                      BadAnyPrototype.Instance,
+                                      new BadFunctionParameter("args", false, false, true)
+                                     );
     }
 
     /// <summary>
@@ -75,7 +75,10 @@ public class BadReflectedMethod : BadReflectedMember
                 return !t.IsValueType;
             }
 
-            return t.IsInstanceOfType(obj) || t.IsNumericType() && obj.GetType().IsNumericType();
+            return t.IsInstanceOfType(obj) ||
+                   (t.IsNumericType() &&
+                    obj.GetType()
+                       .IsNumericType());
         }
 
         if (o is not BadReflectedObject ro)
@@ -145,7 +148,7 @@ public class BadReflectedMethod : BadReflectedMember
     {
         foreach (MethodInfo method in m_Methods)
         {
-            if (instance == null && !method.IsStatic || instance != null && method.IsStatic)
+            if ((instance == null && !method.IsStatic) || (instance != null && method.IsStatic))
             {
                 continue;
             }

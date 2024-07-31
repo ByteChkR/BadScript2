@@ -1,4 +1,5 @@
 using ewu.adam.openkm.rest;
+
 namespace BadScript2.IO.OpenKM;
 
 /// <summary>
@@ -49,7 +50,8 @@ public class BadOpenKmWritableStream : Stream
             return;
         }
 
-        Stream content = m_Webservice.GetContent(path).Result;
+        Stream content = m_Webservice.GetContent(path)
+                                     .Result;
         content.CopyTo(m_Stream);
     }
 
@@ -83,26 +85,34 @@ public class BadOpenKmWritableStream : Stream
             if (m_Mode == BadWriteMode.Append)
             {
                 //Lock file
-                m_Webservice.Checkout(m_Path).Wait();
+                m_Webservice.Checkout(m_Path)
+                            .Wait();
 
                 //Upload content
-                m_Webservice.Checkin(m_Path, "", m_Stream).Wait();
+                m_Webservice.Checkin(m_Path, "", m_Stream)
+                            .Wait();
             }
             else
             {
-                bool hasNode = m_Webservice.HasNode(m_Path).Result;
+                bool hasNode = m_Webservice.HasNode(m_Path)
+                                           .Result;
 
-                if (hasNode && m_Webservice.IsValidDocument(m_Path).Result)
+                if (hasNode &&
+                    m_Webservice.IsValidDocument(m_Path)
+                                .Result)
                 {
                     //Lock file
-                    m_Webservice.Checkout(m_Path).Wait();
+                    m_Webservice.Checkout(m_Path)
+                                .Wait();
 
                     //Upload content
-                    m_Webservice.Checkin(m_Path, "", m_Stream).Wait();
+                    m_Webservice.Checkin(m_Path, "", m_Stream)
+                                .Wait();
                 }
                 else
                 {
-                    m_Webservice.CreateDocumentSimple(m_Path, m_Stream).Wait();
+                    m_Webservice.CreateDocumentSimple(m_Path, m_Stream)
+                                .Wait();
                 }
             }
         }

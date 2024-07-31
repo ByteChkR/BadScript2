@@ -64,8 +64,8 @@ public class BadReflectedMemberTable
         if (m_Members.TryGetValue(name, out BadReflectedMember member))
         {
             return member.IsReadOnly
-                ? BadObjectReference.Make(name, () => member.Get(instance))
-                : BadObjectReference.Make(name, () => member.Get(instance), (o, _) => member.Set(instance, o));
+                       ? BadObjectReference.Make(name, () => member.Get(instance))
+                       : BadObjectReference.Make(name, () => member.Get(instance), (o, _) => member.Set(instance, o));
         }
 
         throw new BadRuntimeException("Member " + name + " not found");
@@ -122,11 +122,16 @@ public class BadReflectedMemberTable
             }
             else if (info is PropertyInfo property)
             {
-                if (property.Name == "Item" && property.GetIndexParameters().Length > 0)
+                if (property.Name == "Item" &&
+                    property.GetIndexParameters()
+                            .Length >
+                    0)
                 {
                     if (!members.ContainsKey(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME))
                     {
-                        members.Add(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, new BadReflectedMethod(property.GetMethod));
+                        members.Add(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
+                                    new BadReflectedMethod(property.GetMethod)
+                                   );
                     }
                 }
                 else if (!members.ContainsKey(property.Name))

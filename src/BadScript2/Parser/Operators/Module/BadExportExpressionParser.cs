@@ -4,6 +4,7 @@ using BadScript2.Parser.Expressions.Binary;
 using BadScript2.Parser.Expressions.Module;
 using BadScript2.Reader;
 using BadScript2.Runtime.Error;
+
 namespace BadScript2.Parser.Operators.Module;
 
 /// <summary>
@@ -53,6 +54,7 @@ public class BadExportExpressionParser : BadValueParser
         BadSourcePosition pos = parser.Reader.Eat(BadStaticKeys.EXPORT_KEY);
         parser.Reader.SkipNonToken();
         bool isDefault = parser.Reader.IsKey(BadStaticKeys.DEFAULT_KEY);
+
         if (isDefault)
         {
             parser.Reader.Eat(BadStaticKeys.DEFAULT_KEY);

@@ -1,6 +1,7 @@
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Runtime;
 
 /// <summary>
@@ -38,9 +39,8 @@ public class BadExecutionContextOptions
     /// </summary>
     /// <param name="apis">Apis that should be added.</param>
     /// <param name="extensions">Extensions that should be added.</param>
-    public BadExecutionContextOptions(
-        IEnumerable<BadInteropApi> apis,
-        IEnumerable<BadInteropExtension> extensions) : this(apis)
+    public BadExecutionContextOptions(IEnumerable<BadInteropApi> apis,
+                                      IEnumerable<BadInteropExtension> extensions) : this(apis)
     {
         m_Extensions.AddRange(extensions);
     }
@@ -146,7 +146,9 @@ public class BadExecutionContextOptions
         {
             BadTable table;
 
-            if (ctx.Scope.HasLocal(api.Name, ctx.Scope) && ctx.Scope.GetVariable(api.Name).Dereference() is BadTable t)
+            if (ctx.Scope.HasLocal(api.Name, ctx.Scope) &&
+                ctx.Scope.GetVariable(api.Name)
+                   .Dereference() is BadTable t)
             {
                 table = t;
             }
@@ -163,7 +165,6 @@ public class BadExecutionContextOptions
         {
             ctx.Scope.DefineVariable(type.Name, type);
         }
-
 
         return ctx;
     }

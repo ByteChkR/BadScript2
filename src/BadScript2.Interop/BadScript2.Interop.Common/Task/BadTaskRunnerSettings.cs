@@ -1,4 +1,5 @@
 using BadScript2.Settings;
+
 namespace BadScript2.Interop.Common.Task;
 
 /// <summary>

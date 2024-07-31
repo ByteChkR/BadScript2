@@ -1,5 +1,6 @@
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
+
 namespace BadScript2.Runtime.Objects.Types.Interface;
 
 /// <summary>
@@ -10,23 +11,27 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// <summary>
     ///     The Prototype for the Interface Prototype
     /// </summary>
-    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>(
-        "Interface",
-        (_, _) => throw new BadRuntimeException("Interfaces cannot be extended")
-    );
+    private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>("Interface",
+                                                                                                           (_, _) => throw new BadRuntimeException("Interfaces cannot be extended")
+                                                                                                          );
+
     /// <summary>
     ///     Backing Function of the Constraints Property
     /// </summary>
     private readonly Func<BadObject[], BadInterfaceConstraint[]> m_ConstraintsFunc;
+
     private readonly BadInterfacePrototype? m_GenericDefinition;
 
     private readonly Func<BadObject[], BadInterfacePrototype[]> m_InterfacesFunc;
-    private readonly Dictionary<int, BadInterfacePrototype> s_GenericCache = new Dictionary<int, BadInterfacePrototype>();
+
+    private readonly Dictionary<int, BadInterfacePrototype> s_GenericCache =
+        new Dictionary<int, BadInterfacePrototype>();
 
     /// <summary>
     ///     The Constraints of this Interface
     /// </summary>
     private BadInterfaceConstraint[]? m_Constraints;
+
     private BadInterfacePrototype[]? m_Interfaces;
 
     /// <summary>
@@ -36,19 +41,18 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// <param name="interfaces">The Interfaces this Interface extends</param>
     /// <param name="metaData">The Meta Data of the Interface</param>
     /// <param name="constraints">The Constraints of the Interface</param>
-    public BadInterfacePrototype(
-        string name,
-        Func<BadObject[], BadInterfacePrototype[]> interfaces,
-        BadMetaData? metaData,
-        Func<BadObject[], BadInterfaceConstraint[]> constraints,
-        string[] genericParameters) : base(
-        name,
-        metaData
-    )
+    public BadInterfacePrototype(string name,
+                                 Func<BadObject[], BadInterfacePrototype[]> interfaces,
+                                 BadMetaData? metaData,
+                                 Func<BadObject[], BadInterfaceConstraint[]> constraints,
+                                 string[] genericParameters) : base(name,
+                                                                    metaData
+                                                                   )
     {
         m_ConstraintsFunc = constraints;
         GenericParameters = genericParameters;
         m_InterfacesFunc = interfaces;
+
         if (IsGeneric)
         {
             GenericName = $"{name}<{string.Join(", ", genericParameters)}>";
@@ -66,17 +70,15 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// <param name="interfaces">The Interfaces this Interface extends</param>
     /// <param name="metaData">The Meta Data of the Interface</param>
     /// <param name="constraints">The Constraints of the Interface</param>
-    private BadInterfacePrototype(
-        string name,
-        Func<BadObject[], BadInterfacePrototype[]> interfaces,
-        BadMetaData? metaData,
-        Func<BadObject[], BadInterfaceConstraint[]> constraints,
-        string[] genericParameters,
-        BadInterfacePrototype genericDefinition,
-        string genericName) : base(
-        name,
-        metaData
-    )
+    private BadInterfacePrototype(string name,
+                                  Func<BadObject[], BadInterfacePrototype[]> interfaces,
+                                  BadMetaData? metaData,
+                                  Func<BadObject[], BadInterfaceConstraint[]> constraints,
+                                  string[] genericParameters,
+                                  BadInterfacePrototype genericDefinition,
+                                  string genericName) : base(name,
+                                                             metaData
+                                                            )
     {
         GenericName = genericName;
         m_ConstraintsFunc = constraints;
@@ -92,12 +94,16 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// <inheritdoc />
     public override bool IsAbstract => true;
 
-    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_Interfaces ??= m_InterfacesFunc(Array.Empty<BadObject>());
+    public override IReadOnlyCollection<BadInterfacePrototype> Interfaces =>
+        m_Interfaces ??= m_InterfacesFunc(Array.Empty<BadObject>());
 
     /// <summary>
     ///     The Constraints of this Interface
     /// </summary>
-    public IEnumerable<BadInterfaceConstraint> Constraints => m_Constraints ??= m_ConstraintsFunc(Array.Empty<BadObject>());
+    public IEnumerable<BadInterfaceConstraint> Constraints =>
+        m_Constraints ??= m_ConstraintsFunc(Array.Empty<BadObject>());
+
+#region IBadGenericObject Members
 
     public bool IsGeneric => GenericParameters.Count != 0;
 
@@ -113,16 +119,21 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
         {
             throw new BadRuntimeException("Invalid Generic Argument Count");
         }
+
         if (IsResolved)
         {
             throw new BadRuntimeException("Interface is already resolved");
         }
 
-        int hash = args[0].GetHashCode();
+        int hash = args[0]
+            .GetHashCode();
+
         //Add the other arguments to the hash
         for (int i = 1; i < args.Length; i++)
         {
-            hash = hash * 397 ^ args[i].GetHashCode();
+            hash = (hash * 397) ^
+                   args[i]
+                       .GetHashCode();
         }
 
         if (s_GenericCache.TryGetValue(hash, out BadInterfacePrototype? cached))
@@ -130,19 +141,23 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
             return cached;
         }
 
-        BadClassPrototype[] types = args.Cast<BadClassPrototype>().ToArray();
-        BadInterfacePrototype result = new BadInterfacePrototype(
-            Name,
-            _ => m_InterfacesFunc(args),
-            MetaData,
-            _ => m_ConstraintsFunc(args),
-            GenericParameters.ToArray(),
-            this,
-            $"{Name}<{string.Join(", ", types.Select(x => x is IBadGenericObject g ? g.GenericName : x.Name))}>"
-        );
+        BadClassPrototype[] types = args.Cast<BadClassPrototype>()
+                                        .ToArray();
+
+        BadInterfacePrototype result = new BadInterfacePrototype(Name,
+                                                                 _ => m_InterfacesFunc(args),
+                                                                 MetaData,
+                                                                 _ => m_ConstraintsFunc(args),
+                                                                 GenericParameters.ToArray(),
+                                                                 this,
+                                                                 $"{Name}<{string.Join(", ", types.Select(x => x is IBadGenericObject g ? g.GenericName : x.Name))}>"
+                                                                );
         s_GenericCache[hash] = result;
+
         return result;
     }
+
+#endregion
 
     /// <inheritdoc />
     public override BadClassPrototype GetPrototype()
@@ -159,7 +174,9 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// <inheritdoc />
     public override bool IsSuperClassOf(BadClassPrototype proto)
     {
-        return GenericParameters.Count != 0 && proto is BadInterfacePrototype iProto && iProto.m_GenericDefinition == this ||
+        return (GenericParameters.Count != 0 &&
+                proto is BadInterfacePrototype iProto &&
+                iProto.m_GenericDefinition == this) ||
                base.IsSuperClassOf(proto) ||
                proto.Interfaces.Any(IsSuperClassOf);
     }
@@ -170,8 +187,11 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     {
         if (IsGeneric)
         {
-            return IsResolved ? $"interface {GenericName}" : $"interface {Name}<{string.Join(", ", GenericParameters)}>";
+            return IsResolved
+                       ? $"interface {GenericName}"
+                       : $"interface {Name}<{string.Join(", ", GenericParameters)}>";
         }
+
         return $"interface {Name}";
     }
 }

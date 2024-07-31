@@ -1,4 +1,5 @@
 using CommandLine;
+
 namespace BadScript2.ConsoleCore.Systems.Run;
 
 /// <summary>
@@ -39,11 +40,10 @@ public class BadRunSystemSettings
 	/// <summary>
 	///     If specified, the Run System will try to host a remote shell on the specified port
 	/// </summary>
-	[Option(
-        'r',
-        "remote",
-        Required = false,
-        HelpText = "Specifies the Remote Console Host port. If not specified the remote host will not be started"
-    )]
+	[Option('r',
+		       "remote",
+		       Required = false,
+		       HelpText = "Specifies the Remote Console Host port. If not specified the remote host will not be started"
+	       )]
     public int RemotePort { get; set; } = -1;
 }

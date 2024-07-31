@@ -20,11 +20,10 @@ public class BadAddAssignExpression : BadBinaryExpression
     /// <param name="left">Left side of the Expression</param>
     /// <param name="right">Right side of the Expression</param>
     /// <param name="position">Source Position of the Expression</param>
-    public BadAddAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadAddAssignExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                              right,
+                                                                                                              position
+                                                                                                             ) { }
 
 
     /// <summary>
@@ -37,12 +36,11 @@ public class BadAddAssignExpression : BadBinaryExpression
     /// <param name="symbol">Symbol of the expression</param>
     /// <returns>Returns the result of the operation</returns>
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
-    public static BadObject Add(
-        BadObjectReference leftRef,
-        BadObject left,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
+    public static BadObject Add(BadObjectReference leftRef,
+                                BadObject left,
+                                BadObject right,
+                                BadSourcePosition position,
+                                string symbol)
     {
         switch (left)
         {
@@ -93,24 +91,22 @@ public class BadAddAssignExpression : BadBinaryExpression
     /// <param name="position">Position of the expression</param>
     /// <param name="symbol">Symbol of the expression</param>
     /// <returns>Returns the result of the operation.(Last Item)</returns>
-    public static IEnumerable<BadObject> AddWithOverride(
-        BadExecutionContext? context,
-        BadObjectReference leftRef,
-        BadObject right,
-        BadSourcePosition position,
-        string symbol)
+    public static IEnumerable<BadObject> AddWithOverride(BadExecutionContext? context,
+                                                         BadObjectReference leftRef,
+                                                         BadObject right,
+                                                         BadSourcePosition position,
+                                                         string symbol)
     {
         BadObject left = leftRef.Dereference();
 
         if (left.HasProperty(BadStaticKeys.ADD_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
-            foreach (BadObject o in ExecuteOperatorOverride(
-                         left,
-                         right,
-                         context!,
-                         BadStaticKeys.ADD_ASSIGN_OPERATOR_NAME,
-                         position
-                     ))
+            foreach (BadObject o in ExecuteOperatorOverride(left,
+                                                            right,
+                                                            context!,
+                                                            BadStaticKeys.ADD_ASSIGN_OPERATOR_NAME,
+                                                            position
+                                                           ))
             {
                 yield return o;
             }

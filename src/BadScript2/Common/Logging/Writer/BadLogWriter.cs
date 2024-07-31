@@ -11,6 +11,8 @@ public abstract class BadLogWriter : IDisposable
 {
     public bool IsActive { get; private set; }
 
+#region IDisposable Members
+
     /// <summary>
     ///     Implements the IDisposable interface
     /// </summary>
@@ -18,6 +20,8 @@ public abstract class BadLogWriter : IDisposable
     {
         Unregister();
     }
+
+#endregion
 
     /// <summary>
     ///     Writes a log message to the log writer

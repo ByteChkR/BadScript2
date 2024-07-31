@@ -4,6 +4,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+
 namespace BadScript2.Parser.Expressions;
 
 /// <summary>
@@ -17,11 +18,10 @@ public class BadInstanceOfExpression : BadBinaryExpression
     /// <param name="left">Left Side of the Expression</param>
     /// <param name="right">Right Side of the Expression</param>
     /// <param name="position">The Source Position</param>
-    public BadInstanceOfExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(
-        left,
-        right,
-        position
-    ) { }
+    public BadInstanceOfExpression(BadExpression left, BadExpression right, BadSourcePosition position) : base(left,
+                                                                                                               right,
+                                                                                                               position
+                                                                                                              ) { }
 
     /// <inheritdoc cref="BadExpression.InnerExecute" />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
@@ -47,12 +47,13 @@ public class BadInstanceOfExpression : BadBinaryExpression
 
         right = right.Dereference();
 
-
         if (right is not BadClassPrototype type)
         {
-            throw BadRuntimeException.Create(context.Scope, $"Right side of {BadStaticKeys.INSTANCE_OF} must be a class", Position);
+            throw BadRuntimeException.Create(context.Scope,
+                                             $"Right side of {BadStaticKeys.INSTANCE_OF} must be a class",
+                                             Position
+                                            );
         }
-
 
         yield return type.IsSuperClassOf(left.GetPrototype());
     }
