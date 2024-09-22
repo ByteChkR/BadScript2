@@ -27,6 +27,12 @@ public class BadModuleImporter
         m_Store = store;
     }
 
+    public BadModuleImporter Clear()
+    {
+        m_Handlers.Clear();
+        return this;
+    }
+
     public BadModuleImporter Clone(bool onlyTransient = true)
     {
         BadModuleImporter importer = new BadModuleImporter(m_Store);
