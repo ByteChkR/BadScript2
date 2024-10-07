@@ -6,8 +6,8 @@ namespace BadScript2.Container
 {
     public class BadFileSystemStackConfig
     {
-        public string Type { get; set; }
-        public string Source { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public string Source { get; set; } = string.Empty;
         public string? Target { get; set; }
 
         public static BadFileSystemStackConfig[] FromFile(string path)
