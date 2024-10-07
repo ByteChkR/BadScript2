@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "..\deps\comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Full", "BadScript2.Full\BadScript2.Full.csproj", "{8282483D-2174-45DF-B5C6-1EBD22234DB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadScript2.Container", "BadScript2.Container\BadScript2.Container.csproj", "{DD91A550-D367-4891-AC54-2D27FF6ACBF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +150,10 @@ Global
 		{8282483D-2174-45DF-B5C6-1EBD22234DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8282483D-2174-45DF-B5C6-1EBD22234DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8282483D-2174-45DF-B5C6-1EBD22234DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD91A550-D367-4891-AC54-2D27FF6ACBF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD91A550-D367-4891-AC54-2D27FF6ACBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD91A550-D367-4891-AC54-2D27FF6ACBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD91A550-D367-4891-AC54-2D27FF6ACBF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4EB6C75-A26C-4E1B-89F9-B630AAA9A848} = {A73351E3-752B-4A73-8EEC-7C3364A18F95}

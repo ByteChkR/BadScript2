@@ -80,7 +80,7 @@ public class BadLocalPathImportHandler : BadImportHandler
     {
         string fullPath = GetPath(path);
 
-        IEnumerable<BadExpression> parsed = BadRuntime.ParseFile(fullPath);
+        IEnumerable<BadExpression> parsed = BadRuntime.ParseFile(fullPath, m_FileSystem);
 
         BadExecutionContext ctx = m_Runtime.CreateContext(Path.GetDirectoryName(fullPath) ?? "/");
 
