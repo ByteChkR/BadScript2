@@ -16,6 +16,6 @@
         <ProjectReference Include="..\..\BadScript2\BadScript2.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="NUnitLite" Version="4.1.0"/>
+        <PackageReference Include="NUnitLite" Version="4.2.2" />
     </ItemGroup>
 </Project>
