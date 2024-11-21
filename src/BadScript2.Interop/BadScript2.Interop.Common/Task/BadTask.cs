@@ -63,28 +63,28 @@ public class BadTask : BadObject
 
         m_Properties.Add("Name",
                          BadObjectReference.Make("Task.Name",
-                                                 () => Name,
-                                                 (o, _) => Name = o is IBadString s ? s.Value : Name
+                                                 (p) => Name,
+                                                 (o, _, _) => Name = o is IBadString s ? s.Value : Name
                                                 )
                         );
-        m_Properties.Add("IsCompleted", BadObjectReference.Make("Task.IsCompleted", () => IsFinished));
-        m_Properties.Add("IsInactive", BadObjectReference.Make("Task.IsInactive", () => IsInactive));
-        m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", () => IsPaused));
-        m_Properties.Add("IsRunning", BadObjectReference.Make("Task.IsRunning", () => IsRunning));
+        m_Properties.Add("IsCompleted", BadObjectReference.Make("Task.IsCompleted", (p) => IsFinished));
+        m_Properties.Add("IsInactive", BadObjectReference.Make("Task.IsInactive", (p) => IsInactive));
+        m_Properties.Add("IsPaused", BadObjectReference.Make("Task.IsPaused", (p) => IsPaused));
+        m_Properties.Add("IsRunning", BadObjectReference.Make("Task.IsRunning", (p) => IsRunning));
 
         BadFunction continueFunc =
             new BadDynamicInteropFunction<BadTask>("ContinueWith", (_, t) => ContinueWith(t), BadAnyPrototype.Instance);
         BadFunction pauseFunc = new BadDynamicInteropFunction("Pause", Pause, BadAnyPrototype.Instance);
         BadFunction resumeFunc = new BadDynamicInteropFunction("Resume", Resume, BadAnyPrototype.Instance);
         BadFunction cancelFunc = new BadDynamicInteropFunction("Cancel", Cancel, BadAnyPrototype.Instance);
-        m_Properties.Add("ContinueWith", BadObjectReference.Make("Task.ContinueWith", () => continueFunc));
-        m_Properties.Add("Pause", BadObjectReference.Make("Task.Pause", () => pauseFunc));
-        m_Properties.Add("Resume", BadObjectReference.Make("Task.Resume", () => resumeFunc));
-        m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", () => cancelFunc));
+        m_Properties.Add("ContinueWith", BadObjectReference.Make("Task.ContinueWith", (p) => continueFunc));
+        m_Properties.Add("Pause", BadObjectReference.Make("Task.Pause", (p) => pauseFunc));
+        m_Properties.Add("Resume", BadObjectReference.Make("Task.Resume", (p) => resumeFunc));
+        m_Properties.Add("Cancel", BadObjectReference.Make("Task.Cancel", (p) => cancelFunc));
 
         m_Properties.Add("RunSynchronously",
                          BadObjectReference.Make("Task.RunSynchronously",
-                                                 () => new BadEnumerableInteropFunction("RunSynchronously",
+                                                 (p) => new BadEnumerableInteropFunction("RunSynchronously",
                                                       (_, _) => Enumerate(runnable),
                                                       false,
                                                       BadAnyPrototype.Instance
@@ -94,7 +94,7 @@ public class BadTask : BadObject
 
         m_Properties.Add("Run",
                          BadObjectReference.Make("Task.Run",
-                                                 () => new BadDynamicInteropFunction("Run",
+                                                 (p) => new BadDynamicInteropFunction("Run",
                                                       Run,
                                                       BadAnyPrototype.Instance
                                                      )
@@ -318,7 +318,7 @@ public class BadTask : BadObject
 
         foreach (KeyValuePair<string, BadObjectReference> props in m_Properties)
         {
-            sb.AppendLine($"\t{props.Key}: {props.Value.Dereference()}");
+            sb.AppendLine($"\t{props.Key}: {props.Value.Dereference(null)}");
         }
 
         sb.AppendLine("}");

@@ -93,7 +93,7 @@ public class BadModuleImporter
                     yield return r;
                 }
 
-                r = r.Dereference();
+                r = r.Dereference(null);
 
                 if (!BadModuleSettings.Instance.AllowImportHandlerNullReturn && r == BadObject.Null)
                 {

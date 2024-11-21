@@ -109,7 +109,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
         if (left.HasProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope))
         {
             if (left.GetProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope)
-                    .Dereference() is not BadFunction func)
+                    .Dereference(position) is not BadFunction func)
             {
                 throw new BadRuntimeException("Array access operator is not a function", position);
             }
@@ -144,7 +144,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (NullChecked && left == BadObject.Null)
         {
@@ -166,7 +166,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
                 yield return arg;
             }
 
-            args.Add(argObj.Dereference());
+            args.Add(argObj.Dereference(Position));
         }
 
         foreach (BadObject o in Access(context, left, args.ToArray(), Position))

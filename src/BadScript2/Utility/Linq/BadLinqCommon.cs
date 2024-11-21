@@ -72,7 +72,7 @@ internal static class BadLinqCommon
             r = o1;
         }
 
-        r = r.Dereference();
+        r = r.Dereference(query.Position);
 
         if (r is not IBadBoolean b)
         {

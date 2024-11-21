@@ -77,10 +77,10 @@ public class BadMetaData : BadObject
         switch (propName)
         {
             case "Description":
-                return BadObjectReference.Make("BadMetaData.Description", () => Description);
+                return BadObjectReference.Make("BadMetaData.Description", (p) => Description);
             case "Return":
                 return BadObjectReference.Make("BadMetaData.Return",
-                                               () => new BadTable(new Dictionary<string, BadObject>
+                                               (p) => new BadTable(new Dictionary<string, BadObject>
                                                                   {
                                                                       { "Type", ReturnType },
                                                                       { "Description", ReturnDescription },
@@ -89,7 +89,7 @@ public class BadMetaData : BadObject
                                               );
             case "Parameters":
                 return BadObjectReference.Make("BadMetaData.Parameters",
-                                               () => new BadTable(ParameterDescriptions.ToDictionary(x => x.Key,
+                                               (p) => new BadTable(ParameterDescriptions.ToDictionary(x => x.Key,
                                                                        x => (BadObject)
                                                                            new BadTable(new Dictionary<string,
                                                                                        BadObject>

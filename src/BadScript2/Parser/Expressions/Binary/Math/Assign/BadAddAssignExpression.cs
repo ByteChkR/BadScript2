@@ -52,28 +52,28 @@ public class BadAddAssignExpression : BadBinaryExpression
                 }
 
                 BadObject r = BadObject.Wrap(lStr.Value + rNative.Value);
-                leftRef.Set(r);
+                leftRef.Set(r, position);
 
                 return r;
             }
             case IBadNumber lNum when right is IBadString rStr:
             {
                 BadObject r = BadObject.Wrap(lNum.Value + rStr.Value);
-                leftRef.Set(r);
+                leftRef.Set(r, position);
 
                 return r;
             }
             case IBadNumber lNum when right is IBadNumber rNum:
             {
                 BadObject r = BadObject.Wrap(lNum.Value + rNum.Value);
-                leftRef.Set(r);
+                leftRef.Set(r, position);
 
                 return r;
             }
             case IBadBoolean lBool when right is IBadString rStr:
             {
                 BadObject r = BadObject.Wrap(lBool.Value + rStr.Value);
-                leftRef.Set(r);
+                leftRef.Set(r, position);
 
                 return r;
             }
@@ -97,7 +97,7 @@ public class BadAddAssignExpression : BadBinaryExpression
                                                          BadSourcePosition position,
                                                          string symbol)
     {
-        BadObject left = leftRef.Dereference();
+        BadObject left = leftRef.Dereference(position);
 
         if (left.HasProperty(BadStaticKeys.ADD_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
@@ -143,7 +143,7 @@ public class BadAddAssignExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         foreach (BadObject o in AddWithOverride(context, leftRef, right, Position, GetSymbol()))
         {

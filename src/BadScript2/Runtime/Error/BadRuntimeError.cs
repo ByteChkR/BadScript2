@@ -93,11 +93,11 @@ public class BadRuntimeError : BadObject
         switch (propName)
         {
             case "StackTrace":
-                return BadObjectReference.Make("Error.StackTrace", () => StackTrace);
+                return BadObjectReference.Make("Error.StackTrace", (p) => StackTrace);
             case "InnerError":
-                return BadObjectReference.Make("Error.InnerError", () => InnerError ?? Null);
+                return BadObjectReference.Make("Error.InnerError", (p) => InnerError ?? Null);
             case "ErrorObject":
-                return BadObjectReference.Make("Error.ErrorObject", () => ErrorObject);
+                return BadObjectReference.Make("Error.ErrorObject", (p) => ErrorObject);
         }
 
         return base.GetProperty(propName, caller);

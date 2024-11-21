@@ -81,7 +81,7 @@ public class BadClass : BadObject
 
         Scope.GetTable()
              .GetProperty(BadStaticKeys.THIS_KEY)
-             .Set(thisInstance, new BadPropertyInfo(thisInstance.Prototype, true));
+             .Set(thisInstance, null, new BadPropertyInfo(thisInstance.Prototype, true));
         m_BaseClass?.SetThis(thisInstance);
     }
 
@@ -159,9 +159,9 @@ public class BadClass : BadObject
                  .InnerTable.ContainsKey(propName))
         {
             return BadObjectReference.Make($"{Name}.{propName}",
-                                           () => Scope.GetTable()
+                                           (p) => Scope.GetTable()
                                                       .InnerTable[propName],
-                                           (o, t) =>
+                                           (o, p, t) =>
                                            {
                                                BadPropertyInfo info = Scope.GetTable()
                                                                            .GetPropertyInfo(propName);
@@ -172,20 +172,20 @@ public class BadClass : BadObject
                                                if (existing != Null && info.IsReadOnly)
                                                {
                                                    throw BadRuntimeException.Create(caller,
-                                                        $"{Name}.{propName} is read-only"
+                                                        $"{Name}.{propName} is read-only",p
                                                        );
                                                }
 
                                                if (info.Type != null && !info.Type.IsAssignableFrom(o))
                                                {
                                                    throw BadRuntimeException.Create(caller,
-                                                        $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
+                                                        $"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'",p
                                                        );
                                                }
 
                                                if (existing is BadObjectReference reference)
                                                {
-                                                   reference.Set(o, t);
+                                                   reference.Set(o, p, t);
                                                }
                                                else
                                                {
@@ -232,7 +232,7 @@ public class BadClass : BadObject
 
         if (Scope.HasLocal("ToString", Scope, false) &&
             Scope.GetProperty("ToString", Scope)
-                 .Dereference() is BadFunction toString)
+                 .Dereference(null) is BadFunction toString)
         {
             BadObject? result = Null;
 
@@ -241,7 +241,7 @@ public class BadClass : BadObject
                 result = o;
             }
 
-            result = result.Dereference();
+            result = result.Dereference(null);
 
             return result.ToSafeString(done);
         }

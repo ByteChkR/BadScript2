@@ -139,7 +139,7 @@ public abstract class BadRunnable
                 yield return o;
             }
 
-            m_ReturnValue = obj.Dereference();
+            m_ReturnValue = obj.Dereference(null);
         }
 
         /// <inheritdoc />

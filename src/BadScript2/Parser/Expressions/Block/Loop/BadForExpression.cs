@@ -124,7 +124,7 @@ public class BadForExpression : BadExpression
             yield return o;
         }
 
-        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+        IBadBoolean bRet = cond.Dereference(Position) as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", Position);
 
         while (bRet.Value)
@@ -162,7 +162,7 @@ public class BadForExpression : BadExpression
                 yield return o;
             }
 
-            bRet = cond.Dereference() as IBadBoolean ??
+            bRet = cond.Dereference(Position) as IBadBoolean ??
                    throw new BadRuntimeException("While Condition is not a boolean", Position);
         }
 

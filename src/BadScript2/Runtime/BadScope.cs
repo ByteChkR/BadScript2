@@ -1,3 +1,4 @@
+using BadScript2.Common;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
@@ -599,7 +600,7 @@ public class BadScope : BadObject, IDisposable
                 if (attribute.InheritsFrom(BadNativeClassBuilder.ChangedAttribute))
                 {
                     BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChanged")
-                                                                .Dereference();
+                                                                .Dereference(null);
 
                     BadMemberChangedEvent? eventObj =
                         new BadMemberChangedEvent(ClassObject!, member, oldValue, newValue);
@@ -631,7 +632,7 @@ public class BadScope : BadObject, IDisposable
                 if (attribute.InheritsFrom(BadNativeClassBuilder.ChangeAttribute))
                 {
                     BadFunction? invoke = (BadFunction)attribute.GetProperty("OnChange")
-                                                                .Dereference();
+                                                                .Dereference(null);
 
                     BadMemberChangingEvent? eventObj =
                         new BadMemberChangingEvent(ClassObject!, member, oldValue, newValue);
@@ -672,7 +673,7 @@ public class BadScope : BadObject, IDisposable
                 if (attribute.InheritsFrom(BadNativeClassBuilder.InitializeAttribute))
                 {
                     BadFunction? invoke = (BadFunction)attribute.GetProperty("Initialize")
-                                                                .Dereference();
+                                                                .Dereference(null);
 
                     foreach (BadObject o in invoke.Invoke(new BadObject[] { ClassObject!, member },
                                                           new BadExecutionContext(this)
@@ -698,11 +699,11 @@ public class BadScope : BadObject, IDisposable
             throw new BadRuntimeException($"Property {name} is already defined");
         }
 
-        Action<BadObject, BadPropertyInfo?>? setter = null;
+        Action<BadObject, BadSourcePosition?, BadPropertyInfo?>? setter = null;
 
         if (setAccessor != null)
         {
-            setter = (value, pi) =>
+            setter = (value, p, pi) =>
             {
                 BadExecutionContext? setCtx =
                     new BadExecutionContext(caller.Scope.CreateChild($"set {name}", caller.Scope, null));
@@ -724,7 +725,7 @@ public class BadScope : BadObject, IDisposable
 
         m_ScopeVariables.InnerTable.Add(name,
                                         BadObjectReference.Make($"property {name}",
-                                                                () =>
+                                                                (p) =>
                                                                 {
                                                                     BadExecutionContext? getCtx =
                                                                         new BadExecutionContext(caller.Scope
@@ -740,7 +741,7 @@ public class BadScope : BadObject, IDisposable
                                                                         get = o;
                                                                     }
 
-                                                                    return get.Dereference();
+                                                                    return get.Dereference(p);
                                                                 },
                                                                 setter
                                                                )
@@ -771,7 +772,7 @@ public class BadScope : BadObject, IDisposable
         m_Attributes[name] = attributes ?? [];
 
         m_ScopeVariables.GetProperty(name, false, caller ?? this)
-                        .Set(value, info, true);
+                        .Set(value, null, info, true);
     }
 
     /// <summary>

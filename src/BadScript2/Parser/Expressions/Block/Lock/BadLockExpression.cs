@@ -73,7 +73,7 @@ public class BadLockExpression : BadExpression
             yield return o;
         }
 
-        lockObj = lockObj.Dereference();
+        lockObj = lockObj.Dereference(Position);
 
         if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
         {

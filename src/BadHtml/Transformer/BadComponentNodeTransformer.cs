@@ -26,7 +26,7 @@ public class BadComponentNodeTransformer : BadHtmlNodeTransformer
         if (context.ExecutionContext.Scope.HasVariable(nodeName, context.ExecutionContext.Scope))
         {
             BadObject componentDefinition = context.ExecutionContext.Scope.GetVariable(nodeName)
-                                                   .Dereference();
+                                                   .Dereference(context.CreateOuterPosition());
 
             if (componentDefinition is BadFunction function)
             {
@@ -43,7 +43,7 @@ public class BadComponentNodeTransformer : BadHtmlNodeTransformer
         string? nodeName = context.InputNode.OriginalName;
 
         BadObject componentDefinition = context.ExecutionContext.Scope.GetVariable(nodeName)
-                                               .Dereference();
+                                               .Dereference(context.CreateOuterPosition());
         BadFunction function = (BadFunction)componentDefinition;
 
         HtmlAttribute[] attributes = context.InputNode.Attributes.ToArray();
@@ -79,7 +79,7 @@ public class BadComponentNodeTransformer : BadHtmlNodeTransformer
             result = o;
         }
 
-        result = result.Dereference();
+        result = result.Dereference(context.CreateOuterPosition());
 
         if (result is not IBadString str)
         {

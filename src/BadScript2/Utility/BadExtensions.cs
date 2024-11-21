@@ -78,7 +78,7 @@ public static class BadExtensions
     {
         BadObjectReference reference = obj.GetProperty(propName);
 
-        return reference.Dereference()
+        return reference.Dereference(null)
                         .Unwrap<T>();
     }
 }

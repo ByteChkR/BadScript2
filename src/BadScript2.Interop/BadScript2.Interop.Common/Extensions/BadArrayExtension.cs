@@ -168,8 +168,8 @@ public class BadArrayExtension : BadInteropExtension
                                           a => new BadDynamicInteropFunction<decimal>(BadStaticKeys
                                                    .ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
                                                (_, i) => BadObjectReference.Make($"{a}[^{i}]",
-                                                    () => Get(a, a.InnerArray.Count - i),
-                                                    (v, _) => Set(a, a.InnerArray.Count - i, v)
+                                                    (p) => Get(a, a.InnerArray.Count - i),
+                                                    (v,_, _) => Set(a, a.InnerArray.Count - i, v)
                                                    ),
                                                BadAnyPrototype.Instance,
                                                "index"
@@ -186,8 +186,8 @@ public class BadArrayExtension : BadInteropExtension
         if (enumerator is IBadNumber num)
         {
             return BadObjectReference.Make($"{array}[{num.Value}]",
-                                           () => Get(array, num.Value),
-                                           (v, _) => Set(array, num.Value, v)
+                                           (p) => Get(array, num.Value),
+                                           (v, _, _) => Set(array, num.Value, v)
                                           );
         }
 
@@ -195,14 +195,14 @@ public class BadArrayExtension : BadInteropExtension
 
         if (enumerator.HasProperty("GetEnumerator", context.Scope) &&
             enumerator.GetProperty("GetEnumerator", context.Scope)
-                      .Dereference() is BadFunction getEnumerator)
+                      .Dereference(null) is BadFunction getEnumerator)
         {
             foreach (BadObject e in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
             {
                 enumerator = e;
             }
 
-            enumerator = enumerator.Dereference();
+            enumerator = enumerator.Dereference(null);
         }
 
         (BadFunction moveNext, BadFunction getCurrent) =
@@ -215,7 +215,7 @@ public class BadArrayExtension : BadInteropExtension
             cond = o;
         }
 
-        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+        IBadBoolean bRet = cond.Dereference(null) as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", position);
 
         while (bRet.Value)
@@ -247,7 +247,7 @@ public class BadArrayExtension : BadInteropExtension
                 cond = o;
             }
 
-            bRet = cond.Dereference() as IBadBoolean ??
+            bRet = cond.Dereference(null) as IBadBoolean ??
                    throw BadRuntimeException.Create(context.Scope,
                                                     "Enumerator MoveNext did not return a boolean",
                                                     position

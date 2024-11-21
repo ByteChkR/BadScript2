@@ -57,7 +57,7 @@ public class BadNamedExportExpression : BadExpression
             yield return o;
         }
 
-        result = result.Dereference();
+        result = result.Dereference(Position);
 
         context.Scope.AddExport(Name!, result);
 

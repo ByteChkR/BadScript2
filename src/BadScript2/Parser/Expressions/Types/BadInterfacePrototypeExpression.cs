@@ -137,7 +137,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                     obj = o;
                 }
 
-                if (obj.Dereference() is not BadInterfacePrototype cls)
+                if (obj.Dereference(Position) is not BadInterfacePrototype cls)
                 {
                     throw new BadRuntimeException("Base Class is not a class");
                 }
@@ -160,7 +160,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                     returnObj = o;
                 }
 
-                returnObj = returnObj?.Dereference();
+                returnObj = returnObj?.Dereference(Position);
             }
 
             if (returnObj is not BadClassPrototype returnProto)
@@ -214,7 +214,7 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                     propType = o;
                 }
 
-                propType = propType?.Dereference();
+                propType = propType?.Dereference(Position);
             }
 
             if (propType is not BadClassPrototype propProto)

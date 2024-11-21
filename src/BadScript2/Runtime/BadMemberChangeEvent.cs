@@ -36,13 +36,13 @@ public abstract class BadMemberChangeEvent : BadObject
         switch (propName)
         {
             case "Instance":
-                return BadObjectReference.Make("MemberChangeEvent.Instance", () => m_Instance);
+                return BadObjectReference.Make("MemberChangeEvent.Instance", (p) => m_Instance);
             case "Member":
-                return BadObjectReference.Make("MemberChangeEvent.Member", () => m_Member);
+                return BadObjectReference.Make("MemberChangeEvent.Member", (p) => m_Member);
             case "OldValue":
-                return BadObjectReference.Make("MemberChangeEvent.OldValue", () => m_OldValue);
+                return BadObjectReference.Make("MemberChangeEvent.OldValue", (p) => m_OldValue);
             case "NewValue":
-                return BadObjectReference.Make("MemberChangeEvent.NewValue", () => m_NewValue);
+                return BadObjectReference.Make("MemberChangeEvent.NewValue", (p) => m_NewValue);
             default:
                 return base.GetProperty(propName, caller);
         }

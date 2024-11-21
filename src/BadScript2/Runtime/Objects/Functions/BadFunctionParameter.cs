@@ -113,7 +113,7 @@ public class BadFunctionParameter
             obj = o;
         }
 
-        obj = obj.Dereference();
+        obj = obj.Dereference(TypeExpr.Position);
 
         if (obj is not BadClassPrototype proto)
         {

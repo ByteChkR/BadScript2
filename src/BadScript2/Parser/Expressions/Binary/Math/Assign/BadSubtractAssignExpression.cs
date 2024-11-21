@@ -44,7 +44,7 @@ public class BadSubtractAssignExpression : BadBinaryExpression
         }
 
         BadObject r = BadObject.Wrap(lNum.Value - rNum.Value);
-        leftRef.Set(r);
+        leftRef.Set(r, position);
 
         return r;
     }
@@ -64,7 +64,7 @@ public class BadSubtractAssignExpression : BadBinaryExpression
                                                               BadSourcePosition position,
                                                               string symbol)
     {
-        BadObject left = leftRef.Dereference();
+        BadObject left = leftRef.Dereference(position);
 
         if (left.HasProperty(BadStaticKeys.SUBTRACT_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
@@ -110,7 +110,7 @@ public class BadSubtractAssignExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         foreach (BadObject o in SubtractWithOverride(context, leftRef, right, Position, GetSymbol()))
         {

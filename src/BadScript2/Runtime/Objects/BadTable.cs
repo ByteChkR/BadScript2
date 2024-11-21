@@ -166,8 +166,15 @@ public class BadTable : BadObject, IBadEnumerable
         }
 
         BadObjectReference r = BadObjectReference.Make($"BadTable.{propName}",
-                                                       () => InnerTable[propName],
-                                                       (o, t, noChange) =>
+            (p) =>
+            {
+                if (InnerTable.TryGetValue(propName, out var result))
+                {
+                    return result;
+                }
+                throw BadRuntimeException.Create(null, $"Property '{propName}' not found", p);
+            },
+                                                       (o, p, t, noChange) =>
                                                        {
                                                            if (InnerTable.TryGetValue(propName,
                                                                     out BadObject? propValue
@@ -177,20 +184,18 @@ public class BadTable : BadObject, IBadEnumerable
 
                                                                if (propValue != Null && info.IsReadOnly)
                                                                {
-                                                                   throw new
-                                                                       BadRuntimeException($"{propName} is read-only");
+                                                                   throw
+                                                                       BadRuntimeException.Create(null,$"{propName} is read-only", p);
                                                                }
 
                                                                if (info.Type != null && !info.Type.IsAssignableFrom(o))
                                                                {
-                                                                   throw new
-                                                                       BadRuntimeException($"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'"
-                                                                           );
+                                                                   throw BadRuntimeException.Create(null,$"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{info.Type.Name}'", p);
                                                                }
 
                                                                if (propValue is BadObjectReference propRef)
                                                                {
-                                                                   BadObject? oldValueRef = propRef.Dereference();
+                                                                   BadObject? oldValueRef = propRef.Dereference(p);
 
                                                                    if (OnChangePropertyInternal(propName,
                                                                             oldValueRef,
@@ -200,7 +205,7 @@ public class BadTable : BadObject, IBadEnumerable
                                                                        return;
                                                                    }
 
-                                                                   propRef.Set(o, t);
+                                                                   propRef.Set(o, p, t);
 
                                                                    if (!noChange)
                                                                    {
@@ -217,9 +222,7 @@ public class BadTable : BadObject, IBadEnumerable
 
                                                                if (t?.Type != null && !t.Type.IsAssignableFrom(o))
                                                                {
-                                                                   throw new
-                                                                       BadRuntimeException($"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{t.Type.Name}'"
-                                                                           );
+                                                                   throw BadRuntimeException.Create(null,$"Cannot assign object {o.GetType().Name} to property '{propName}' of type '{t.Type.Name}'", p);
                                                                }
                                                            }
 
@@ -235,7 +238,7 @@ public class BadTable : BadObject, IBadEnumerable
                                                                OnChangedProperty(propName, propValue ?? Null, o);
                                                            }
                                                        },
-                                                       () => { InnerTable.Remove(propName); }
+                                                       (p) => { InnerTable.Remove(propName); }
                                                       );
 
         m_ReferenceCache[propName] = r;

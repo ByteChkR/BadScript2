@@ -35,7 +35,7 @@ public class BadInExpression : BadBinaryExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         foreach (BadObject o in Right.Execute(context))
         {
@@ -44,7 +44,7 @@ public class BadInExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         foreach (BadObject? o in InWithOverride(context, left, right, Position))
         {

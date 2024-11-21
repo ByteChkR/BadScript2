@@ -233,7 +233,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
                 yield return o;
             }
 
-            obj = obj.Dereference();
+            obj = obj.Dereference(Position);
 
             if (obj is not BadClassPrototype proto)
             {

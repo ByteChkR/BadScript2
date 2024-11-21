@@ -30,11 +30,11 @@ public class BadMemberInfo : BadObject
     {
         m_Name = name;
         m_Scope = scope;
-        m_NameReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.Name", () => m_Name));
+        m_NameReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.Name", (p) => m_Name));
 
         m_GetAttributesReference =
             new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.GetAttributes",
-                                                                       () => new BadInteropFunction("GetAttributes",
+                                                                       (p) => new BadInteropFunction("GetAttributes",
                                                                             GetAttributes,
                                                                             false,
                                                                             BadArray.Prototype
@@ -43,7 +43,7 @@ public class BadMemberInfo : BadObject
                                         );
 
         m_GetValueReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.GetValue",
-                                                                () => new BadInteropFunction("GetValue",
+                                                                (p) => new BadInteropFunction("GetValue",
                                                                      GetValue,
                                                                      false,
                                                                      BadAnyPrototype.Instance
@@ -52,7 +52,7 @@ public class BadMemberInfo : BadObject
                                                           );
 
         m_SetValueReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.SetValue",
-                                                                () => new BadInteropFunction("SetValue",
+                                                                (p) => new BadInteropFunction("SetValue",
                                                                      SetValue,
                                                                      false,
                                                                      BadAnyPrototype.Instance,
@@ -77,15 +77,15 @@ public class BadMemberInfo : BadObject
         m_IsReadonlyReference =
             new Lazy<BadObjectReference>(() =>
                                              BadObjectReference.Make("MemberInfo.IsReadonly",
-                                                                     () => m_Scope.GetVariableInfo(m_Name)
+                                                                     (p) => m_Scope.GetVariableInfo(m_Name)
                                                                          .IsReadOnly
                                                                     )
                                         );
 
         m_MemberTypeReference = new Lazy<BadObjectReference>(() => BadObjectReference.Make("MemberInfo.MemberType",
-                                                                  () => m_Scope.GetVariableInfo(m_Name)
-                                                                               .Type ??
-                                                                        BadAnyPrototype.Instance
+                                                                  (p) => m_Scope.GetVariableInfo(m_Name)
+                                                                             .Type ??
+                                                                         BadAnyPrototype.Instance
                                                                  )
                                                             );
     }
@@ -105,7 +105,7 @@ public class BadMemberInfo : BadObject
     private BadObject GetValue(BadExecutionContext ctx, BadObject[] args)
     {
         return m_Scope.GetVariable(m_Name)
-                      .Dereference();
+                      .Dereference(null);
     }
 
     private BadObject SetValue(BadExecutionContext ctx, BadObject[] args)
@@ -113,7 +113,7 @@ public class BadMemberInfo : BadObject
         if (args.Length == 1)
         {
             m_Scope.GetVariable(m_Name, ctx.Scope)
-                   .Set(args[0]);
+                   .Set(args[0], null);
         }
         else if (args.Length == 2)
         {
@@ -123,7 +123,7 @@ public class BadMemberInfo : BadObject
             }
 
             m_Scope.GetVariable(m_Name, ctx.Scope)
-                   .Set(args[0], null, noEvents.Value);
+                   .Set(args[0], null, null, noEvents.Value);
         }
 
         return Null;

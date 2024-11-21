@@ -68,7 +68,7 @@ public class BadPropertyDefinitionExpression : BadExpression
                 yield return o;
             }
 
-            obj = obj.Dereference();
+            obj = obj.Dereference(Position);
 
             if (obj is not BadClassPrototype proto)
             {
@@ -150,7 +150,7 @@ public class BadVariableDefinitionExpression : BadVariableExpression
                 yield return o;
             }
 
-            obj = obj.Dereference();
+            obj = obj.Dereference(Position);
 
             if (obj is not BadClassPrototype proto)
             {

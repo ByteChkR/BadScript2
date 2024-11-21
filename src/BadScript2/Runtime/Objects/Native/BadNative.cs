@@ -143,8 +143,8 @@ public class BadNative<T> : BadObject, IBadNative
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return BadObjectReference.Make($"BadNative<{typeof(T).Name}>.{propName}",
-                                       () => caller != null
-                                                 ? caller.Provider.GetObject<T>(propName, this, caller)
+                                       (p) => caller != null
+                                                 ? caller.Provider.GetObject<T>(propName, this, caller, p)
                                                  : throw BadRuntimeException.Create(caller,
                                                         $"No property named {propName} for type {GetType().Name}"
                                                        )

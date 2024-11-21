@@ -52,7 +52,7 @@ public class BadThrowExpression : BadExpression
             yield return obj;
         }
 
-        value = value.Dereference();
+        value = value.Dereference(Position);
 
         BadRuntimeError? error = new BadRuntimeError(null, value, context.Scope.GetStackTrace());
 

@@ -40,7 +40,7 @@ public class BadLogicAssignOrExpression : BadBinaryExpression
             throw new BadRuntimeException($"Left side of {GetSymbol()} must be a reference", Position);
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         BadObject right = BadObject.Null;
 
@@ -51,14 +51,14 @@ public class BadLogicAssignOrExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         if (left is IBadBoolean lBool && right is IBadBoolean rBool)
         {
             hasReturn = true;
 
             BadObject r = BadObject.Wrap(lBool.Value || rBool.Value);
-            leftRef.Set(r);
+            leftRef.Set(r, Position);
 
             yield return r;
         }

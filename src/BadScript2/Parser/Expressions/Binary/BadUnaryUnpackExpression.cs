@@ -65,7 +65,7 @@ public class BadUnaryUnpackExpression : BadExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         Unpack(result, right, Position);
 

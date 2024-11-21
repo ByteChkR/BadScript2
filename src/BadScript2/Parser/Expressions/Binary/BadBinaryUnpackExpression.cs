@@ -75,8 +75,8 @@ public class BadBinaryUnpackExpression : BadBinaryExpression
             yield return o;
         }
 
-        left = left.Dereference();
-        right = right.Dereference();
+        left = left.Dereference(Position);
+        right = right.Dereference(Position);
 
         yield return Unpack(left, right, Position);
     }

@@ -98,14 +98,14 @@ public class BadTableExtension : BadInteropExtension
 
         if (enumerator.HasProperty("GetEnumerator", context.Scope) &&
             enumerator.GetProperty("GetEnumerator", context.Scope)
-                      .Dereference() is BadFunction getEnumerator)
+                      .Dereference(null) is BadFunction getEnumerator)
         {
             foreach (BadObject e in getEnumerator.Invoke(Array.Empty<BadObject>(), context))
             {
                 enumerator = e;
             }
 
-            enumerator = enumerator.Dereference();
+            enumerator = enumerator.Dereference(null);
         }
 
         (BadFunction moveNext, BadFunction getCurrent) =
@@ -118,7 +118,7 @@ public class BadTableExtension : BadInteropExtension
             cond = o;
         }
 
-        IBadBoolean bRet = cond.Dereference() as IBadBoolean ??
+        IBadBoolean bRet = cond.Dereference(null) as IBadBoolean ??
                            throw new BadRuntimeException("While Condition is not a boolean", position);
 
         while (bRet.Value)
@@ -145,7 +145,7 @@ public class BadTableExtension : BadInteropExtension
 
             result.SetProperty(key.Value,
                                table.GetProperty(key.Value, context.Scope)
-                                    .Dereference()
+                                    .Dereference(null)
                               );
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
@@ -153,7 +153,7 @@ public class BadTableExtension : BadInteropExtension
                 cond = o;
             }
 
-            bRet = cond.Dereference() as IBadBoolean ??
+            bRet = cond.Dereference(null) as IBadBoolean ??
                    throw BadRuntimeException.Create(context.Scope,
                                                     "Enumerator MoveNext did not return a boolean",
                                                     position
@@ -200,7 +200,7 @@ public class BadTableExtension : BadInteropExtension
                 if (ov.Value || !self.InnerTable.ContainsKey(kvp.Key))
                 {
                     self.GetProperty(kvp.Key, ctx.Scope)
-                        .Set(kvp.Value);
+                        .Set(kvp.Value, null);
                 }
             }
         }

@@ -105,7 +105,7 @@ public class BadUsingExpression : BadExpression
     public static void Finalize(BadExecutionContext usingContext, string name, BadSourcePosition position)
     {
         BadObject obj = usingContext.Scope.GetVariable(name)
-                                    .Dereference();
+                                    .Dereference(position);
 
         if (!obj.HasProperty("Dispose"))
         {
@@ -113,7 +113,7 @@ public class BadUsingExpression : BadExpression
         }
 
         BadObject disposeFunc = obj.GetProperty("Dispose", usingContext.Scope)
-                                   .Dereference();
+                                   .Dereference(position);
 
         foreach (BadObject? o in BadInvocationExpression.Invoke(disposeFunc,
                                                                 Array.Empty<BadObject>(),

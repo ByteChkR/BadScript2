@@ -116,7 +116,7 @@ public abstract class BadFunction : BadObject
     {
         return args.Length > i
                    ? args[i]
-                       .Dereference()
+                       .Dereference(null)
                    : Null;
     }
 

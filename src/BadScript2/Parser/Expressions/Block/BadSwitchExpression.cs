@@ -135,7 +135,7 @@ public class BadSwitchExpression : BadExpression
             valueResult = o;
         }
 
-        valueResult = valueResult.Dereference();
+        valueResult = valueResult.Dereference(Position);
 
         BadExecutionContext? switchContext =
             new BadExecutionContext(context.Scope.CreateChild("SwitchContext",
@@ -157,7 +157,7 @@ public class BadSwitchExpression : BadExpression
                     keyResult = o;
                 }
 
-                keyResult = keyResult.Dereference();
+                keyResult = keyResult.Dereference(Position);
                 BadObject? result = BadObject.Null;
 
                 foreach (BadObject o in BadEqualityExpression.EqualWithOverride(switchContext,
@@ -169,7 +169,7 @@ public class BadSwitchExpression : BadExpression
                     result = o;
                 }
 
-                result = result.Dereference();
+                result = result.Dereference(Position);
 
                 if (result is not IBadBoolean b)
                 {

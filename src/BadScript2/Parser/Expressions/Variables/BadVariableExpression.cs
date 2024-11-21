@@ -67,7 +67,7 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
 
         if (GenericParameters.Count != 0)
         {
-            if (obj.Dereference() is not IBadGenericObject genType)
+            if (obj.Dereference(Position) is not IBadGenericObject genType)
             {
                 throw BadRuntimeException.Create(context.Scope, "Type is not generic", Position);
             }
@@ -83,7 +83,7 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
                 }
 
                 genParams[i] = genParams[i]
-                    .Dereference();
+                    .Dereference(Position);
             }
 
             yield return genType.CreateGeneric(genParams);

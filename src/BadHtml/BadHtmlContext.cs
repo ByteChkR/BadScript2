@@ -256,7 +256,7 @@ public class BadHtmlContext
         {
             BadObject result = ExecutionContext.ExecuteScript(expressions);
 
-            return result.Dereference();
+            return result.Dereference(null);
         }
         catch (BadRuntimeException e)
         {
@@ -283,7 +283,7 @@ public class BadHtmlContext
             //     throw new BadRuntimeErrorException(ExecutionContext.Scope.Error);
             // }
 
-            return result.Dereference();
+            return result.Dereference(null);
         }
         catch (BadRuntimeException e)
         {

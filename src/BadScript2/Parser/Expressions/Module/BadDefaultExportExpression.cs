@@ -49,7 +49,7 @@ public class BadDefaultExportExpression : BadExpression
             yield return o;
         }
 
-        result = result.Dereference();
+        result = result.Dereference(Position);
 
         context.Scope.SetExports(context, result);
 

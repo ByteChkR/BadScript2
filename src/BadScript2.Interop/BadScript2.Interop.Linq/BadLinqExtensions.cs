@@ -35,7 +35,7 @@ public class BadLinqExtensions : BadInteropExtension
             o = obj;
         }
 
-        return o.Dereference()
+        return o.Dereference(null)
                 .Unwrap<T>();
     }
 
@@ -55,7 +55,7 @@ public class BadLinqExtensions : BadInteropExtension
             o = obj;
         }
 
-        return o.Dereference();
+        return o.Dereference(null);
     }
 
 	/// <summary>
@@ -498,7 +498,7 @@ public class BadLinqExtensions : BadInteropExtension
                                                           r = o1;
                                                       }
 
-                                                      return r.Dereference();
+                                                      return r.Dereference(null);
                                                   }
                                                  )
                                        );

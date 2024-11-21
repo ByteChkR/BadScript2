@@ -19,7 +19,7 @@ public class BadInteropImportHandler : BadImportHandler
         m_HandlerContext = ctx;
 
         BadObject has = scriptHandler.GetProperty("Has")
-                                     .Dereference();
+                                     .Dereference(null);
 
         if (has is not BadFunction hasF)
         {
@@ -29,7 +29,7 @@ public class BadInteropImportHandler : BadImportHandler
         m_HasFunction = hasF;
 
         BadObject get = scriptHandler.GetProperty("Get")
-                                     .Dereference();
+                                     .Dereference(null);
 
         if (get is not BadFunction getF)
         {
@@ -39,7 +39,7 @@ public class BadInteropImportHandler : BadImportHandler
         m_GetFunction = getF;
 
         BadObject getHash = scriptHandler.GetProperty("GetHash")
-                                         .Dereference();
+                                         .Dereference(null);
 
         if (getHash is not BadFunction getHashF)
         {
@@ -49,7 +49,7 @@ public class BadInteropImportHandler : BadImportHandler
         m_GetHashFunction = getHashF;
 
         BadObject isTransient = scriptHandler.GetProperty("IsTransient")
-                                             .Dereference();
+                                             .Dereference(null);
 
         if (isTransient is not BadFunction isTransientF)
         {
@@ -69,7 +69,7 @@ public class BadInteropImportHandler : BadImportHandler
             result = o;
         }
 
-        return result.Dereference();
+        return result.Dereference(null);
     }
 
     public override bool IsTransient()
@@ -121,6 +121,6 @@ public class BadInteropImportHandler : BadImportHandler
             yield return o;
         }
 
-        yield return result.Dereference();
+        yield return result.Dereference(null);
     }
 }

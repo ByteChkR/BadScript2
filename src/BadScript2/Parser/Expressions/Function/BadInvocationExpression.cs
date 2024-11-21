@@ -101,7 +101,7 @@ public class BadInvocationExpression : BadExpression
                 yield return arg;
             }
 
-            args.Add(argObj.Dereference());
+            args.Add(argObj.Dereference(argExpr.Position));
         }
     }
 
@@ -132,7 +132,7 @@ public class BadInvocationExpression : BadExpression
         else if (left.HasProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope))
         {
             if (left.GetProperty(BadStaticKeys.INVOCATION_OPERATOR_NAME, context.Scope)
-                    .Dereference() is not BadFunction invocationOp)
+                    .Dereference(position) is not BadFunction invocationOp)
             {
                 throw new BadRuntimeException("Function Invocation Operator is not a function", position);
             }
@@ -146,7 +146,7 @@ public class BadInvocationExpression : BadExpression
                 r = o;
             }
 
-            yield return r.Dereference();
+            yield return r.Dereference(position);
         }
         else
         {
@@ -168,7 +168,7 @@ public class BadInvocationExpression : BadExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (Left is IBadAccessExpression { NullChecked: true } && left.Equals(BadObject.Null))
         {
@@ -183,7 +183,7 @@ public class BadInvocationExpression : BadExpression
         {
             //Invoke Base Constructor
             left = left.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME)
-                       .Dereference();
+                       .Dereference(Position);
         }
 
         List<BadObject> args = new List<BadObject>();

@@ -66,8 +66,8 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
                                                                           BadAnyPrototype.Instance
                                                                          );
 
-        m_Next = BadObjectReference.Make("BadArrayEnumerator.MoveNext", () => next);
-        m_Current = BadObjectReference.Make("BadArrayEnumerator.GetCurrent", () => current);
+        m_Next = BadObjectReference.Make("BadArrayEnumerator.MoveNext", (p) => next);
+        m_Current = BadObjectReference.Make("BadArrayEnumerator.GetCurrent", (p) => current);
     }
 
 #region IBadEnumerator Members

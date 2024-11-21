@@ -61,7 +61,7 @@ public static class BadLinqExtensions
             r = o1;
         }
 
-        return r.Dereference()
+        return r.Dereference(query.Position)
                 .Unpack();
     }
 

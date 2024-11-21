@@ -45,7 +45,7 @@ public class BadDivideAssignExpression : BadBinaryExpression
         }
 
         BadObject r = BadObject.Wrap(lNum.Value / rNum.Value);
-        leftRef.Set(r);
+        leftRef.Set(r, position);
 
         return r;
     }
@@ -65,7 +65,7 @@ public class BadDivideAssignExpression : BadBinaryExpression
                                                             BadSourcePosition position,
                                                             string symbol)
     {
-        BadObject left = leftRef.Dereference();
+        BadObject left = leftRef.Dereference(position);
 
         if (left.HasProperty(BadStaticKeys.DIVIDE_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
@@ -111,7 +111,7 @@ public class BadDivideAssignExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         foreach (BadObject o in DivideWithOverride(context, leftRef, right, Position, GetSymbol()))
         {

@@ -138,7 +138,7 @@ public class BadIfExpression : BadExpression
                 yield return o;
             }
 
-            conditionResult = conditionResult.Dereference();
+            conditionResult = conditionResult.Dereference(Position);
 
             if (conditionResult is not IBadBoolean cBool)
             {

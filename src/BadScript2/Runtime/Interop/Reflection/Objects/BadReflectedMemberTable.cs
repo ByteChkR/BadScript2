@@ -64,8 +64,8 @@ public class BadReflectedMemberTable
         if (m_Members.TryGetValue(name, out BadReflectedMember member))
         {
             return member.IsReadOnly
-                       ? BadObjectReference.Make(name, () => member.Get(instance))
-                       : BadObjectReference.Make(name, () => member.Get(instance), (o, _) => member.Set(instance, o));
+                       ? BadObjectReference.Make(name, (p) => member.Get(instance))
+                       : BadObjectReference.Make(name, (p) => member.Get(instance), (o,_, _) => member.Set(instance, o));
         }
 
         throw new BadRuntimeException("Member " + name + " not found");

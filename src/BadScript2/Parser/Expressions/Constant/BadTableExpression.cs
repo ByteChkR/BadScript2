@@ -72,7 +72,7 @@ public class BadTableExpression : BadExpression
                 yield return o;
             }
 
-            value = value.Dereference();
+            value = value.Dereference(Position);
 
             table[entry.Key.Text] = value;
         }

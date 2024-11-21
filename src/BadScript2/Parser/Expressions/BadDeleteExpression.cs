@@ -51,7 +51,7 @@ public class BadDeleteExpression : BadExpression
             throw BadRuntimeException.Create(context.Scope, $"Cannot delete {Expression}", Position);
         }
 
-        r.Delete();
+        r.Delete(Position);
 
         yield return BadObject.Null;
     }

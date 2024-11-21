@@ -1,3 +1,5 @@
+using BadScript2.Common;
+
 namespace BadScript2.Runtime.Objects;
 
 /// <summary>
@@ -23,11 +25,11 @@ public static class BadObjectExtensions
 	///     The Dereferenced Value. Returns value of <paramref name="obj" /> if obj is not of type
 	///     <see cref="BadObjectReference" />
 	/// </returns>
-	public static BadObject Dereference(this BadObject obj)
+	public static BadObject Dereference(this BadObject obj, BadSourcePosition? position)
     {
         while (obj is BadObjectReference r)
         {
-            obj = r.Resolve();
+            obj = r.Resolve(position);
         }
 
         return obj;

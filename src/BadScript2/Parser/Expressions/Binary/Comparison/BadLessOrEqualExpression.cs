@@ -102,7 +102,7 @@ public class BadLessOrEqualExpression : BadBinaryExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
         BadObject right = BadObject.Null;
 
         foreach (BadObject o in Right.Execute(context))
@@ -112,7 +112,7 @@ public class BadLessOrEqualExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         foreach (BadObject o in LessOrEqualWithOverride(context, left, right, Position))
         {

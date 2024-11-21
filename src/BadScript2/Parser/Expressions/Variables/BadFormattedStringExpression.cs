@@ -74,7 +74,7 @@ public class BadFormattedStringExpression : BadStringExpression
                 yield return o;
             }
 
-            objs.Add(obj.Dereference());
+            objs.Add(obj.Dereference(Position));
         }
 
         yield return string.Format(Value,

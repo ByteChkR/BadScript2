@@ -31,7 +31,7 @@ public class BadNullCoalescingExpression : BadBinaryExpression
             left = o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (left == BadObject.Null)
         {

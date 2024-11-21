@@ -126,7 +126,7 @@ public static class BadNativeClassBuilder
         {
             {
                 "Parse", BadObjectReference.Make("num.Parse",
-                                                 () => new BadInteropFunction("Parse",
+                                                 (p) => new BadInteropFunction("Parse",
                                                                               ParseNumber,
                                                                               true,
                                                                               GetNative("num"),
@@ -147,7 +147,7 @@ public static class BadNativeClassBuilder
         {
             {
                 "Parse", BadObjectReference.Make("bool.Parse",
-                                                 () => new BadInteropFunction("Parse",
+                                                 (p) => new BadInteropFunction("Parse",
                                                                               ParseBoolean,
                                                                               true,
                                                                               GetNative("bool"),
@@ -166,10 +166,10 @@ public static class BadNativeClassBuilder
     private static readonly Dictionary<string, BadObjectReference> s_StringStaticMembers =
         new Dictionary<string, BadObjectReference>
         {
-            { "Empty", BadObjectReference.Make("string.Empty", () => BadString.Empty) },
+            { "Empty", BadObjectReference.Make("string.Empty", (p) => BadString.Empty) },
             {
                 "IsNullOrEmpty", BadObjectReference.Make("string.IsNullOrEmpty",
-                                                         () => new BadInteropFunction("IsNullOrEmpty",
+                                                         (p) => new BadInteropFunction("IsNullOrEmpty",
                                                               StringIsNullOrEmpty,
                                                               true,
                                                               GetNative("bool"),

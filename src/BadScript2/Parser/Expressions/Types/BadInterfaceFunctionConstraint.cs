@@ -88,7 +88,7 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
         }
 
         BadObject o = obj.GetProperty(Name)
-                         .Dereference();
+                         .Dereference(null);
 
         if (o is not BadFunction f)
         {

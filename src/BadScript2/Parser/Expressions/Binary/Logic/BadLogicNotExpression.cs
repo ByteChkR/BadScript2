@@ -90,7 +90,7 @@ public class BadLogicNotExpression : BadExpression
             yield return o;
         }
 
-        r = r.Dereference();
+        r = r.Dereference(Position);
 
         foreach (BadObject? o in NotWithOverride(context!, r, Position))
         {

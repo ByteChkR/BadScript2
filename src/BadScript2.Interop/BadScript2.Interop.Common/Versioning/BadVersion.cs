@@ -50,7 +50,7 @@ public class BadVersion : BadObject, IBadNative
         m_Version = version;
 
         m_ChangeVersion = BadObjectReference.Make("Version.ChangeVersion",
-                                                  () => new BadDynamicInteropFunction<string>("ChangeVersion",
+                                                  (p) => new BadDynamicInteropFunction<string>("ChangeVersion",
                                                        (_, s) => new BadVersion(m_Version.ChangeVersion(s)),
                                                        s_Prototype
                                                       )
@@ -90,10 +90,10 @@ public class BadVersion : BadObject, IBadNative
     {
         return propName switch
         {
-            "Major"         => BadObjectReference.Make("Version.Major", () => m_Version.Major),
-            "Minor"         => BadObjectReference.Make("Version.Minor", () => m_Version.Minor),
-            "Build"         => BadObjectReference.Make("Version.Build", () => m_Version.Build),
-            "Revision"      => BadObjectReference.Make("Version.Revision", () => m_Version.Revision),
+            "Major"         => BadObjectReference.Make("Version.Major", (p) => m_Version.Major),
+            "Minor"         => BadObjectReference.Make("Version.Minor", (p) => m_Version.Minor),
+            "Build"         => BadObjectReference.Make("Version.Build", (p) => m_Version.Build),
+            "Revision"      => BadObjectReference.Make("Version.Revision", (p) => m_Version.Revision),
             "ChangeVersion" => m_ChangeVersion,
             _               => base.GetProperty(propName, caller),
         };

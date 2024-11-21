@@ -144,13 +144,12 @@ public class BadSettingsObject : BadObject
                 BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                 new BadDynamicInteropFunction<string>(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME,
                                                       (_, name) => BadObjectReference.Make($"BadSettings.{name}",
-                                                           () => new BadSettingsObject(m_Settings.GetProperty(name)),
-                                                           (o, _) =>
+                                                           (p) => new BadSettingsObject(m_Settings.GetProperty(name)),
+                                                           (o, p, _) =>
                                                            {
                                                                if (o is not BadSettingsObject obj)
                                                                {
-                                                                   throw new
-                                                                       BadRuntimeException("BadSettingsObject expected"
+                                                                   throw BadRuntimeException.Create(null, "BadSettingsObject expected", p
                                                                            );
                                                                }
 
@@ -168,7 +167,7 @@ public class BadSettingsObject : BadObject
         {
             m_PropertyReferences.Add(property.Key,
                                      BadObjectReference.Make($"BadSettings.{property.Key}",
-                                                             () => properties[property.Key]
+                                                             (p) => properties[property.Key]
                                                             )
                                     );
         }
@@ -226,7 +225,7 @@ public class BadSettingsObject : BadObject
         if (m_Settings.HasProperty(propName))
         {
             return BadObjectReference.Make($"BadSettings.{propName}",
-                                           () => new BadSettingsObject(m_Settings.GetProperty(propName))
+                                           (p) => new BadSettingsObject(m_Settings.GetProperty(propName))
                                           );
         }
 

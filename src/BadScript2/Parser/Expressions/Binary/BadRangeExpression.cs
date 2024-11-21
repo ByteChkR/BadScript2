@@ -44,8 +44,8 @@ public class BadRangeExpression : BadBinaryExpression
             yield return o;
         }
 
-        left = left.Dereference();
-        right = right.Dereference();
+        left = left.Dereference(Position);
+        right = right.Dereference(Position);
 
         if (left is not IBadNumber lNum)
         {

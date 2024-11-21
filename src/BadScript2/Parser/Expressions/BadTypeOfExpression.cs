@@ -42,7 +42,7 @@ public class BadTypeOfExpression : BadExpression
             yield return o;
         }
 
-        obj = obj.Dereference();
+        obj = obj.Dereference(Position);
 
         yield return obj.GetPrototype();
     }

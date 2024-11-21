@@ -96,7 +96,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.AquireLock:
             {
                 BadObject lockObj = m_ArgumentStack.Pop()
-                                                   .Dereference();
+                                                   .Dereference(instr.Position);
 
                 if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
                 {
@@ -121,7 +121,7 @@ public class BadRuntimeVirtualMachine
                 {
                     arr.Insert(0,
                                m_ArgumentStack.Pop()
-                                              .Dereference()
+                                              .Dereference(instr.Position)
                               );
                 }
 
@@ -137,10 +137,10 @@ public class BadRuntimeVirtualMachine
                 for (int i = 0; i < length; i++)
                 {
                     BadObject val = m_ArgumentStack.Pop()
-                                                   .Dereference();
+                                                   .Dereference(instr.Position);
 
                     BadObject key = m_ArgumentStack.Pop()
-                                                   .Dereference();
+                                                   .Dereference(instr.Position);
 
                     if (key is not IBadString s)
                     {
@@ -157,10 +157,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.HasProperty:
             {
                 BadObject key = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
 
                 BadObject obj = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
                 BadObject? result = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -182,14 +182,14 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Invoke:
             {
                 BadObject func = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 int argCount = (int)instr.Arguments[0];
                 BadObject[] args = new BadObject[argCount];
 
                 for (int i = argCount - 1; i >= 0; i--)
                 {
                     args[i] = m_ArgumentStack.Pop()
-                                             .Dereference();
+                                             .Dereference(instr.Position);
                 }
 
                 BadObject r = BadObject.Null;
@@ -220,7 +220,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.New:
             {
                 BadObject func = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
 
                 if (func is not BadClassPrototype ptype)
                 {
@@ -233,7 +233,7 @@ public class BadRuntimeVirtualMachine
                 for (int i = argCount - 1; i >= 0; i--)
                 {
                     args[i] = m_ArgumentStack.Pop()
-                                             .Dereference();
+                                             .Dereference(instr.Position);
                 }
 
                 BadObject r = BadObject.Null;
@@ -252,10 +252,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Range:
             {
                 BadObject start = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject end = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
 
                 if (start is not IBadNumber sn || end is not IBadNumber en)
                 {
@@ -272,7 +272,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.ReleaseLock:
             {
                 BadObject lockObj = m_ArgumentStack.Pop()
-                                                   .Dereference();
+                                                   .Dereference(instr.Position);
 
                 if (lockObj is not BadArray && lockObj is not BadTable && lockObj is BadClass)
                 {
@@ -309,7 +309,7 @@ public class BadRuntimeVirtualMachine
                                          BadObject.Null,
                                          ctx.Scope,
                                          new BadPropertyInfo((BadClassPrototype)m_ArgumentStack.Pop()
-                                                                 .Dereference(),
+                                                                 .Dereference(instr.Position),
                                                              isReadOnly
                                                             )
                                         );
@@ -322,7 +322,7 @@ public class BadRuntimeVirtualMachine
                 if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
                 {
                     BadObject item = ctx.Scope.GetVariable((string)instr.Arguments[0])
-                                        .Dereference();
+                                        .Dereference(instr.Position);
 
                     if (item is not IBadGenericObject genItem)
                     {
@@ -334,7 +334,7 @@ public class BadRuntimeVirtualMachine
                     for (int i = genericArgCount - 1; i >= 0; i--)
                     {
                         genericArgs[i] = m_ArgumentStack.Pop()
-                                                        .Dereference();
+                                                        .Dereference(instr.Position);
                     }
 
                     m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
@@ -352,9 +352,9 @@ public class BadRuntimeVirtualMachine
                 {
                     BadObject left =
                         m_ArgumentStack.Pop()
-                                       .Dereference()
+                                       .Dereference(instr.Position)
                                        .GetProperty((string)instr.Arguments[0], ctx.Scope)
-                                       .Dereference();
+                                       .Dereference(instr.Position);
 
                     if (left is not IBadGenericObject genItem)
                     {
@@ -366,7 +366,7 @@ public class BadRuntimeVirtualMachine
                     for (int i = genericArgCount - 1; i >= 0; i--)
                     {
                         genericArgs[i] = m_ArgumentStack.Pop()
-                                                        .Dereference();
+                                                        .Dereference(instr.Position);
                     }
 
                     m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
@@ -374,7 +374,7 @@ public class BadRuntimeVirtualMachine
                 else
                 {
                     m_ArgumentStack.Push(m_ArgumentStack.Pop()
-                                                        .Dereference()
+                                                        .Dereference(instr.Position)
                                                         .GetProperty((string)instr.Arguments[0], ctx.Scope)
                                         );
                 }
@@ -384,7 +384,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.LoadMemberNullChecked:
             {
                 BadObject obj = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
                 string name = (string)instr.Arguments[0];
 
                 if (obj.HasProperty(name, ctx.Scope))
@@ -393,7 +393,7 @@ public class BadRuntimeVirtualMachine
                     {
                         BadObject left = obj
                                          .GetProperty((string)instr.Arguments[0], ctx.Scope)
-                                         .Dereference();
+                                         .Dereference(instr.Position);
 
                         if (left is not IBadGenericObject genItem)
                         {
@@ -408,7 +408,7 @@ public class BadRuntimeVirtualMachine
                         for (int i = genericArgCount - 1; i >= 0; i--)
                         {
                             genericArgs[i] = m_ArgumentStack.Pop()
-                                                            .Dereference();
+                                                            .Dereference(instr.Position);
                         }
 
                         m_ArgumentStack.Push(genItem.CreateGeneric(genericArgs));
@@ -428,7 +428,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.LoadArrayAccess:
             {
                 BadObject obj = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
                 int argCount = (int)instr.Arguments[0];
 
                 BadObject[] args = new BadObject[argCount];
@@ -454,7 +454,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.LoadArrayAccessNullChecked:
             {
                 BadObject obj = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
                 int argCount = (int)instr.Arguments[0];
 
                 if (obj == BadObject.Null)
@@ -492,7 +492,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.LoadArrayAccessReverse:
             {
                 BadObject obj = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
                 int argCount = (int)instr.Arguments[0];
 
                 BadObject[] args = new BadObject[argCount];
@@ -518,7 +518,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.LoadArrayAccessReverseNullChecked:
             {
                 BadObject obj = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
 
                 if (obj == BadObject.Null)
                 {
@@ -562,9 +562,9 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Assign:
             {
                 BadObject val = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
-                left.Set(val);
+                left.Set(val, instr.Position);
 
                 break;
             }
@@ -581,7 +581,7 @@ public class BadRuntimeVirtualMachine
                 for (int i = argCount - 1; i >= 0; i--)
                 {
                     args[i] = m_ArgumentStack.Pop()
-                                             .Dereference();
+                                             .Dereference(instr.Position);
                 }
 
                 m_ArgumentStack.Push(string.Format(format,
@@ -595,10 +595,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.And:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 m_ArgumentStack.Push(BadLogicAndExpression.And(left, right, instr.Position));
 
                 break;
@@ -606,7 +606,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Not:
             {
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -630,10 +630,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.XOr:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 m_ArgumentStack.Push(BadLogicXOrExpression.XOr(left, right, instr.Position));
 
                 break;
@@ -641,28 +641,28 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.AndAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
-                left.Set(BadLogicAndExpression.And(left.Dereference(), right, instr.Position));
+                left.Set(BadLogicAndExpression.And(left.Dereference(instr.Position), right, instr.Position), instr.Position);
 
                 break;
             }
             case BadOpCode.XOrAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
-                left.Set(BadLogicXOrExpression.XOr(left.Dereference(), right, instr.Position));
+                left.Set(BadLogicXOrExpression.XOr(left.Dereference(instr.Position), right, instr.Position), instr.Position);
 
                 break;
             }
             case BadOpCode.Add:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -684,10 +684,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Sub:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -709,10 +709,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Mul:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -734,10 +734,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Exp:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -763,10 +763,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Div:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -788,10 +788,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Mod:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -813,7 +813,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.Neg:
             {
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
 
                 BadObject obj = BadObject.Null;
 
@@ -842,7 +842,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.JumpRelativeIfFalse:
             {
                 IBadBoolean val = (IBadBoolean)m_ArgumentStack.Pop()
-                                                              .Dereference();
+                                                              .Dereference(instr.Position);
 
                 if (!val.Value)
                 {
@@ -854,7 +854,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.JumpRelativeIfNull:
             {
                 BadObject val = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
 
                 if (val == BadObject.Null)
                 {
@@ -866,7 +866,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.JumpRelativeIfNotNull:
             {
                 BadObject val = m_ArgumentStack.Pop()
-                                               .Dereference();
+                                               .Dereference(instr.Position);
 
                 if (val != BadObject.Null)
                 {
@@ -878,7 +878,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.JumpRelativeIfTrue:
             {
                 IBadBoolean val = (IBadBoolean)m_ArgumentStack.Pop()
-                                                              .Dereference();
+                                                              .Dereference(instr.Position);
 
                 if (val.Value)
                 {
@@ -948,7 +948,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.TypeOf:
             {
                 m_ArgumentStack.Push(m_ArgumentStack.Pop()
-                                                    .Dereference()
+                                                    .Dereference(instr.Position)
                                                     .GetPrototype()
                                     );
 
@@ -957,10 +957,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.InstanceOf:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
 
                 if (right is not BadClassPrototype type)
                 {
@@ -979,7 +979,7 @@ public class BadRuntimeVirtualMachine
                 if (instr.Arguments.Length == 0)
                 {
                     BadObject? obj = m_ArgumentStack.Pop()
-                                                    .Dereference();
+                                                    .Dereference(instr.Position);
                     ctx.Scope.SetExports(ctx, obj);
                 }
                 else
@@ -987,7 +987,7 @@ public class BadRuntimeVirtualMachine
                     string name = (string)instr.Arguments[0];
 
                     BadObject obj = ctx.Scope.GetVariable(name)
-                                       .Dereference();
+                                       .Dereference(instr.Position);
                     ctx.Scope.AddExport(name, obj);
                 }
 
@@ -997,7 +997,9 @@ public class BadRuntimeVirtualMachine
             {
                 string name = (string)instr.Arguments[0];
                 string path = (string)instr.Arguments[1];
-                BadImportExpression.Import(ctx, name, path);
+                foreach (var o in BadImportExpression.Import(ctx, name, path, instr.Position))
+                {
+                }
 
                 break;
             }
@@ -1013,17 +1015,17 @@ public class BadRuntimeVirtualMachine
                                                     );
                 }
 
-                r.Delete();
+                r.Delete(instr.Position);
 
                 break;
             }
             case BadOpCode.Equals:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -1044,17 +1046,17 @@ public class BadRuntimeVirtualMachine
                     obj = BadEqualityExpression.Equal(left, right);
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.NotEquals:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -1075,17 +1077,17 @@ public class BadRuntimeVirtualMachine
                     obj = BadInequalityExpression.NotEqual(left, right);
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.Greater:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -1106,17 +1108,17 @@ public class BadRuntimeVirtualMachine
                     obj = BadGreaterThanExpression.GreaterThan(left, right, instr.Position);
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.GreaterEquals:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -1137,17 +1139,17 @@ public class BadRuntimeVirtualMachine
                     obj = BadGreaterOrEqualExpression.GreaterOrEqual(left, right, instr.Position);
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.Less:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -1168,17 +1170,17 @@ public class BadRuntimeVirtualMachine
                     obj = BadLessThanExpression.LessThan(left, right, instr.Position);
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.LessEquals:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 BadObject obj = BadObject.Null;
 
                 if (m_UseOverrides)
@@ -1199,14 +1201,14 @@ public class BadRuntimeVirtualMachine
                     obj = BadLessOrEqualExpression.LessOrEqual(left, right, instr.Position);
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.AddAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
                 BadObject obj = BadObject.Null;
 
@@ -1226,17 +1228,17 @@ public class BadRuntimeVirtualMachine
                 }
                 else
                 {
-                    obj = BadAddAssignExpression.Add(left, left.Dereference(), right, instr.Position, "+=");
+                    obj = BadAddAssignExpression.Add(left, left.Dereference(instr.Position), right, instr.Position, "+=");
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.SubAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
                 BadObject obj = BadObject.Null;
 
@@ -1257,21 +1259,21 @@ public class BadRuntimeVirtualMachine
                 else
                 {
                     obj = BadSubtractAssignExpression.Subtract(left,
-                                                               left.Dereference(),
+                                                               left.Dereference(instr.Position),
                                                                right,
                                                                instr.Position,
                                                                "-="
                                                               );
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.MulAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
                 BadObject obj = BadObject.Null;
 
@@ -1292,21 +1294,21 @@ public class BadRuntimeVirtualMachine
                 else
                 {
                     obj = BadMultiplyAssignExpression.Multiply(left,
-                                                               left.Dereference(),
+                                                               left.Dereference(instr.Position),
                                                                right,
                                                                instr.Position,
                                                                "*="
                                                               );
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.DivAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
                 BadObject obj = BadObject.Null;
 
@@ -1326,17 +1328,17 @@ public class BadRuntimeVirtualMachine
                 }
                 else
                 {
-                    obj = BadDivideAssignExpression.Divide(left, left.Dereference(), right, instr.Position, "/=");
+                    obj = BadDivideAssignExpression.Divide(left, left.Dereference(instr.Position), right, instr.Position, "/=");
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.ModAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
                 BadObject obj = BadObject.Null;
 
@@ -1356,17 +1358,17 @@ public class BadRuntimeVirtualMachine
                 }
                 else
                 {
-                    obj = BadModulusAssignExpression.Modulus(left, left.Dereference(), right, instr.Position, "%=");
+                    obj = BadModulusAssignExpression.Modulus(left, left.Dereference(instr.Position), right, instr.Position, "%=");
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
             case BadOpCode.ExpAssign:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadObjectReference left = (BadObjectReference)m_ArgumentStack.Pop();
                 BadObject obj = BadObject.Null;
 
@@ -1387,14 +1389,14 @@ public class BadRuntimeVirtualMachine
                 else
                 {
                     obj = BadExponentiationAssignExpression.Exp(left,
-                                                                left.Dereference(),
+                                                                left.Dereference(instr.Position),
                                                                 right,
                                                                 instr.Position,
                                                                 "**="
                                                                );
                 }
 
-                m_ArgumentStack.Push(obj.Dereference());
+                m_ArgumentStack.Push(obj.Dereference(instr.Position));
 
                 break;
             }
@@ -1505,7 +1507,7 @@ public class BadRuntimeVirtualMachine
 
                     if (!isRefReturn)
                     {
-                        ret = ret.Dereference();
+                        ret = ret.Dereference(instr.Position);
                     }
                 }
 
@@ -1562,10 +1564,10 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.BinaryUnpack:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
 
                 BadObject left = m_ArgumentStack.Pop()
-                                                .Dereference();
+                                                .Dereference(instr.Position);
                 m_ArgumentStack.Push(BadBinaryUnpackExpression.Unpack(left, right, instr.Position));
 
                 break;
@@ -1573,7 +1575,7 @@ public class BadRuntimeVirtualMachine
             case BadOpCode.UnaryUnpack:
             {
                 BadObject right = m_ArgumentStack.Pop()
-                                                 .Dereference();
+                                                 .Dereference(instr.Position);
                 BadTable table = ctx.Scope.GetTable();
                 BadUnaryUnpackExpression.Unpack(table, right, instr.Position);
                 m_ArgumentStack.Push(table);

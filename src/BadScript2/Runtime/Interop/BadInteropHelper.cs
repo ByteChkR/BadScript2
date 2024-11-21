@@ -26,7 +26,7 @@ public static class BadInteropHelper
                                    BadPropertyInfo? info = null)
     {
         elem.GetProperty(propName)
-            .Set(value, info);
+            .Set(value, null, info);
     }
 
     /// <summary>

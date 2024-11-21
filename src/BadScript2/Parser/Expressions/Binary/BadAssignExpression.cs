@@ -87,11 +87,11 @@ public class BadAssignExpression : BadExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         if (left is BadObjectReference reference)
         {
-            reference.Set(right);
+            reference.Set(right, Position);
         }
         else
         {

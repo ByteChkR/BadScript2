@@ -176,7 +176,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             }
 
             BadObject o = baseClassObj[0]
-                .Dereference();
+                .Dereference(Position);
 
             switch (o)
             {

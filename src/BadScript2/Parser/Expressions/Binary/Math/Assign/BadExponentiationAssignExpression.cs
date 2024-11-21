@@ -42,7 +42,7 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
         }
 
         BadObject r = BadObject.Wrap(System.Math.Pow((double)lNum.Value, (double)rNum.Value));
-        leftRef.Set(r);
+        leftRef.Set(r, position);
 
         return r;
     }
@@ -62,7 +62,7 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
 	                                                     BadSourcePosition position,
 	                                                     string symbol)
     {
-        BadObject left = leftRef.Dereference();
+        BadObject left = leftRef.Dereference(position);
 
         if (left.HasProperty(BadStaticKeys.EXPONENTIATION_ASSIGN_OPERATOR_NAME, context?.Scope))
         {
@@ -108,7 +108,7 @@ public class BadExponentiationAssignExpression : BadBinaryExpression
             yield return o;
         }
 
-        right = right.Dereference();
+        right = right.Dereference(Position);
 
         foreach (BadObject o in ExpWithOverride(context, leftRef, right, Position, GetSymbol()))
         {

@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
+using BadScript2.Common;
 using BadScript2.Interop.Common.Task;
 using BadScript2.IO;
 using BadScript2.Optimizations.Folding;
@@ -218,30 +218,30 @@ internal partial class BadRuntimeApi
     {
         if (set == null && delete == null)
         {
-            return BadObjectReference.Make(refText, () => GetReferenceValue(ctx, get));
+            return BadObjectReference.Make(refText, (p) => GetReferenceValue(ctx, get));
         }
 
         if (delete == null && set != null)
         {
             return BadObjectReference.Make(refText,
-                                           () => GetReferenceValue(ctx, get),
-                                           (value, _) => SetReferenceValue(ctx, set, value)
+                                           (p) => GetReferenceValue(ctx, get),
+                                           (value, _, _) => SetReferenceValue(ctx, set, value)
                                           );
         }
 
         if (delete != null && set == null)
         {
             return BadObjectReference.Make(refText,
-                                           () => GetReferenceValue(ctx, get),
-                                           (Action<BadObject, BadPropertyInfo?>?)null,
-                                           () => SetReferenceValue(ctx, delete, BadObject.Null)
+                                           (p) => GetReferenceValue(ctx, get),
+                                           (Action<BadObject, BadSourcePosition?, BadPropertyInfo?>?)null,
+                                           (p) => SetReferenceValue(ctx, delete, BadObject.Null)
                                           );
         }
 
         return BadObjectReference.Make(refText,
-                                       () => GetReferenceValue(ctx, get),
-                                       (value, _) => SetReferenceValue(ctx, set!, value),
-                                       () => DeleteReference(ctx, delete!)
+                                       (p) => GetReferenceValue(ctx, get),
+                                       (value, _, _) => SetReferenceValue(ctx, set!, value),
+                                       (p) => DeleteReference(ctx, delete!)
                                       );
     }
 
@@ -259,7 +259,7 @@ internal partial class BadRuntimeApi
             result = o;
         }
 
-        return result.Dereference();
+        return result.Dereference(null);
     }
 
     private void SetReferenceValue(BadExecutionContext ctx, BadFunction func, BadObject value)

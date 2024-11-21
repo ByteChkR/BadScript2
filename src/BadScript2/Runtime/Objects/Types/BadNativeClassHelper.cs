@@ -121,12 +121,12 @@ public static class BadNativeClassHelper
     /// <exception cref="BadRuntimeException">Thrown if the Enumerator is invalid</exception>
     public static IEnumerable<BadObject> ExecuteEnumerator(BadExecutionContext ctx, BadObject enumerator)
     {
+        BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
         BadObject moveNext = enumerator.GetProperty("MoveNext")
-                                       .Dereference();
+                                       .Dereference(runtimePos);
 
         BadObject getCurrent = enumerator.GetProperty("GetCurrent")
-                                         .Dereference();
-        BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
+                                         .Dereference(runtimePos);
         BadObject? result = BadObject.False;
 
         foreach (BadObject o in BadInvocationExpression.Invoke(moveNext, Array.Empty<BadObject>(), runtimePos, ctx))
@@ -134,7 +134,7 @@ public static class BadNativeClassHelper
             result = o;
         }
 
-        while (result.Dereference() == BadObject.True)
+        while (result.Dereference(runtimePos) == BadObject.True)
         {
             BadObject? obj = null;
 
@@ -152,7 +152,7 @@ public static class BadNativeClassHelper
                 throw new BadRuntimeException("Enumerator.GetCurrent() returned NULL");
             }
 
-            yield return obj.Dereference();
+            yield return obj.Dereference(runtimePos);
 
             foreach (BadObject o in BadInvocationExpression.Invoke(moveNext, Array.Empty<BadObject>(), runtimePos, ctx))
             {
@@ -170,10 +170,10 @@ public static class BadNativeClassHelper
     /// <exception cref="BadRuntimeException">Thrown if the Enumerable is invalid</exception>
     public static IEnumerable<BadObject> ExecuteEnumerate(BadExecutionContext ctx, BadObject enumerable)
     {
-        BadObject enumerator = enumerable.GetProperty("GetEnumerator")
-                                         .Dereference();
-        BadObject result = BadObject.Null;
         BadSourcePosition runtimePos = BadSourcePosition.Create("<runtime>", "", 0, 0);
+        BadObject enumerator = enumerable.GetProperty("GetEnumerator")
+                                         .Dereference(runtimePos);
+        BadObject result = BadObject.Null;
 
         foreach (BadObject o in BadInvocationExpression.Invoke(enumerator, Array.Empty<BadObject>(), runtimePos, ctx))
         {

@@ -82,7 +82,7 @@ public abstract class BadExpression
                 if (ctx.Scope.HasVariable(varExpr.Name, ctx.Scope)) // Try to get the variable
                 {
                     BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name, ctx.Scope)
-                                              .Dereference();
+                                              .Dereference(Position);
 
                     //Check if the variable is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
@@ -97,7 +97,7 @@ public abstract class BadExpression
                     ctx.Scope.HasVariable(varExpr.Name + "Attribute", ctx.Scope))
                 {
                     BadObject? attribObj = ctx.Scope.GetVariable(varExpr.Name + "Attribute", ctx.Scope)
-                                              .Dereference();
+                                              .Dereference(Position);
 
                     //Check if the variable is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
@@ -114,13 +114,13 @@ public abstract class BadExpression
                     obj = o;
                 }
 
-                BadObject? parent = obj.Dereference();
+                BadObject? parent = obj.Dereference(Position);
 
                 //Check if parent has property
                 if (parent.HasProperty(mac.Right.Text, ctx.Scope))
                 {
                     BadObject? attribObj = parent.GetProperty(mac.Right.Text, ctx.Scope)
-                                                 .Dereference();
+                                                 .Dereference(Position);
 
                     //Check if the property is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
@@ -132,7 +132,7 @@ public abstract class BadExpression
                 if (parent.HasProperty(mac.Right.Text + "Attribute", ctx.Scope))
                 {
                     BadObject? attribObj = parent.GetProperty(mac.Right.Text + "Attribute", ctx.Scope)
-                                                 .Dereference();
+                                                 .Dereference(access.Position);
 
                     //Check if the property is a class and inherits from IAttribute
                     if (attribObj is BadClassPrototype cls && BadNativeClassBuilder.Attribute.IsSuperClassOf(cls))
@@ -163,7 +163,7 @@ public abstract class BadExpression
                 obj = o;
             }
 
-            BadObject? a = obj.Dereference();
+            BadObject? a = obj.Dereference(Position);
 
             if (a is not BadClass c)
             {
@@ -288,7 +288,7 @@ public abstract class BadExpression
                                                                     BadSourcePosition position)
     {
         if (left.GetProperty(name, context.Scope)
-                .Dereference() is not BadFunction func)
+                .Dereference(position) is not BadFunction func)
         {
             throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
                                           position
@@ -318,7 +318,7 @@ public abstract class BadExpression
                                                                     BadSourcePosition position)
     {
         if (left.GetProperty(name, context.Scope)
-                .Dereference() is not BadFunction func)
+                .Dereference(position) is not BadFunction func)
         {
             throw new BadRuntimeException($"{left.GetType().Name} has no {name} property",
                                           position

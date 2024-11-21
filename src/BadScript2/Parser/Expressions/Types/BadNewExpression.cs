@@ -81,7 +81,7 @@ public class BadNewExpression : BadExpression
             yield return o;
         }
 
-        obj = obj.Dereference();
+        obj = obj.Dereference(pos);
 
         if (obj is not BadClass cls)
         {
@@ -93,7 +93,7 @@ public class BadNewExpression : BadExpression
         if (cls.HasProperty(BadStaticKeys.CONSTRUCTOR_NAME, cls.Scope))
         {
             BadObject ctor = cls.GetProperty(BadStaticKeys.CONSTRUCTOR_NAME, context.Scope)
-                                .Dereference();
+                                .Dereference(pos);
 
             if (ctor is not BadFunction func)
             {
@@ -127,7 +127,7 @@ public class BadNewExpression : BadExpression
             yield return o;
         }
 
-        obj = obj.Dereference();
+        obj = obj.Dereference(Position);
 
         if (obj is not BadClassPrototype ptype)
         {

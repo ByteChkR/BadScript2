@@ -79,7 +79,7 @@ public class BadTernaryExpression : BadExpression
             left = o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (left is not IBadBoolean lBool)
         {

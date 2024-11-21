@@ -99,7 +99,7 @@ public class BadReturnExpression : BadExpression
 
         if (!IsRefReturn)
         {
-            value = value.Dereference();
+            value = value.Dereference(Position);
         }
 
         if (context.Scope.FunctionObject != null &&

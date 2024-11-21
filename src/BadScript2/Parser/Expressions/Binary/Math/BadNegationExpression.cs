@@ -93,7 +93,7 @@ public class BadNegationExpression : BadExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         foreach (BadObject o in NegateWithOverride(context, left, Position))
         {

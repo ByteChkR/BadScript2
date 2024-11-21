@@ -148,7 +148,7 @@ public class BadExecutionContextOptions
 
             if (ctx.Scope.HasLocal(api.Name, ctx.Scope) &&
                 ctx.Scope.GetVariable(api.Name)
-                   .Dereference() is BadTable t)
+                   .Dereference(null) is BadTable t)
             {
                 table = t;
             }

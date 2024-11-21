@@ -99,7 +99,7 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         return propName == "GetEnumerator"
-                   ? BadObjectReference.Make("GetEnumerator", () => m_Func)
+                   ? BadObjectReference.Make("GetEnumerator", (p) => m_Func)
                    : base.GetProperty(propName, caller);
     }
 

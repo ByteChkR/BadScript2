@@ -43,7 +43,7 @@ public static class BadLinqGenericExtensions
             r = o1;
         }
 
-        r = r.Dereference();
+        r = r.Dereference(query.Position);
 
         if (r is TOut t)
         {

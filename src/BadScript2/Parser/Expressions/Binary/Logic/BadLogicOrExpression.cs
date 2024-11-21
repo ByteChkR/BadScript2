@@ -34,7 +34,7 @@ public class BadLogicOrExpression : BadBinaryExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (left is not IBadBoolean lBool)
         {
@@ -60,7 +60,7 @@ public class BadLogicOrExpression : BadBinaryExpression
                 yield return o;
             }
 
-            right = right.Dereference();
+            right = right.Dereference(Position);
 
             if (right is not IBadBoolean rBool)
             {

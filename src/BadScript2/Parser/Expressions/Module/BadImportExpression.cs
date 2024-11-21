@@ -46,7 +46,7 @@ public class BadImportExpression : BadExpression
     /// <param name="name">The Name of the Import</param>
     /// <param name="path">The Path to import</param>
     /// <exception cref="BadRuntimeException">If the Module Importer is not found</exception>
-    public static IEnumerable<BadObject> Import(BadExecutionContext ctx, string name, string path)
+    public static IEnumerable<BadObject> Import(BadExecutionContext ctx, string name, string path, BadSourcePosition? position)
     {
         BadModuleImporter? importer = ctx.Scope.GetSingleton<BadModuleImporter>();
 
@@ -65,7 +65,7 @@ public class BadImportExpression : BadExpression
             yield return o;
         }
 
-        r = r.Dereference();
+        r = r.Dereference(position);
 
         yield return r;
 
@@ -80,6 +80,6 @@ public class BadImportExpression : BadExpression
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
-        return Import(context, Name, Path);
+        return Import(context, Name, Path, Position);
     }
 }

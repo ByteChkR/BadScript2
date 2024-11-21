@@ -43,7 +43,7 @@ public class BadPreIncrementExpression : BadExpression
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static BadObject Increment(BadObjectReference reference, BadSourcePosition position)
     {
-        BadObject right = reference.Dereference();
+        BadObject right = reference.Dereference(position);
 
         if (right is not IBadNumber leftNumber)
         {
@@ -51,7 +51,7 @@ public class BadPreIncrementExpression : BadExpression
         }
 
         BadObject r = leftNumber.Value + 1;
-        reference.Set(r);
+        reference.Set(r, position);
 
         return r;
     }
@@ -91,7 +91,7 @@ public class BadPreIncrementExpression : BadExpression
                                                                BadObjectReference leftRef,
                                                                BadSourcePosition position)
     {
-        BadObject left = leftRef.Dereference();
+        BadObject left = leftRef.Dereference(position);
 
         if (left.HasProperty(BadStaticKeys.PRE_INCREMENT_OPERATOR_NAME, context?.Scope))
         {

@@ -12,7 +12,7 @@ public class BadMemberChangingEvent : BadMemberChangeEvent
         : base(mInstance, mMember, mOldValue, mNewValue)
     {
         m_CancelReference = BadObjectReference.Make("MemberChangingEvent.Cancel",
-                                                    () => new BadInteropFunction("Cancel",
+                                                    (p) => new BadInteropFunction("Cancel",
                                                          (ctx, args) =>
                                                          {
                                                              Cancel = true;

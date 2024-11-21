@@ -84,7 +84,7 @@ public class BadInteropTests
                        );
 
         BadObject getEnumerator = e.GetProperty("GetEnumerator")
-                                   .Dereference();
+                                   .Dereference(null);
         Assert.That(getEnumerator, Is.InstanceOf<BadDynamicInteropFunction>());
 
         BadObject enumerator = ((BadDynamicInteropFunction)getEnumerator)
@@ -110,14 +110,14 @@ public class BadInteropTests
                             Assert.That(obj.HasProperty("Major"), Is.True);
 
                             Assert.That(obj.GetProperty("Major")
-                                           .Dereference(),
+                                           .Dereference(null),
                                         Is.EqualTo((BadObject)0)
                                        );
                         }
                        );
 
         BadFunction toString = (BadFunction)obj.GetProperty("ToString")
-                                               .Dereference();
+                                               .Dereference(null);
 
         Assert.That(toString
                     .Invoke(Array.Empty<BadObject>(), BadExecutionContext.Create(new BadInteropExtensionProvider()))

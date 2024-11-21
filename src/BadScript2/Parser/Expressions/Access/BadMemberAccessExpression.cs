@@ -80,7 +80,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
             yield return o;
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (NullChecked && !left.HasProperty(Right.Text, context.Scope))
         {
@@ -92,7 +92,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 
             if (GenericArguments.Count != 0)
             {
-                ret = ret.Dereference();
+                ret = ret.Dereference(Position);
 
                 if (ret is not IBadGenericObject genType)
                 {
@@ -113,7 +113,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
                     }
 
                     genParams[i] = genParams[i]
-                        .Dereference();
+                        .Dereference(Position);
                 }
 
                 yield return genType.CreateGeneric(genParams);

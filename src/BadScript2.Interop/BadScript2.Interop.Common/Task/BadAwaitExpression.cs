@@ -47,7 +47,7 @@ public class BadAwaitExpression : BadExpression
             yield return o;
         }
 
-        obj = obj.Dereference();
+        obj = obj.Dereference(Position);
 
         if (obj is not BadTask task)
         {

@@ -1,3 +1,4 @@
+using BadScript2.Common;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Native;
@@ -265,7 +266,7 @@ public class BadInteropExtensionProvider
                                                  BadScope? caller)
     {
         return BadObjectReference.Make($"{t.Name}.{propName}",
-                                       () => GetObject(t, propName, instance, caller)
+                                       (p) => GetObject(t, propName, instance, caller, p)
                                       );
     }
 
@@ -277,7 +278,7 @@ public class BadInteropExtensionProvider
     /// <param name="instance">Object Instance</param>
     /// <param name="caller">The Caller Scope</param>
     /// <returns>Object Instance</returns>
-    public BadObject GetObject(Type t, string propName, BadObject instance, BadScope? caller)
+    public BadObject GetObject(Type t, string propName, BadObject instance, BadScope? caller, BadSourcePosition? pos)
     {
         Dictionary<string, Func<BadObject, BadObject>> ext = GetTypeExtensions(t);
 
@@ -291,7 +292,7 @@ public class BadInteropExtensionProvider
             return m_GlobalExtensions[propName](instance);
         }
 
-        throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}");
+        throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}", pos);
     }
 
 
@@ -303,9 +304,9 @@ public class BadInteropExtensionProvider
     /// <param name="caller">The Caller Scope</param>
     /// <typeparam name="T">Type</typeparam>
     /// <returns>Object Instance</returns>
-    public BadObject GetObject<T>(string propName, BadObject instance, BadScope? caller = null)
+    public BadObject GetObject<T>(string propName, BadObject instance, BadScope? caller = null, BadSourcePosition? pos = null)
     {
-        return GetObject(typeof(T), propName, instance, caller);
+        return GetObject(typeof(T), propName, instance, caller, pos);
     }
 
     /// <summary>

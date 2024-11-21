@@ -40,7 +40,7 @@ public class BadNullCoalescingAssignExpression : BadBinaryExpression
             throw new BadRuntimeException("Left side of null coalescing assignment must be a reference", Position);
         }
 
-        left = left.Dereference();
+        left = left.Dereference(Position);
 
         if (left == BadObject.Null)
         {
@@ -53,8 +53,8 @@ public class BadNullCoalescingAssignExpression : BadBinaryExpression
                 rVal = o;
             }
 
-            rVal = rVal.Dereference();
-            leftRef.Set(rVal);
+            rVal = rVal.Dereference(Position);
+            leftRef.Set(rVal, Position);
 
             yield return rVal;
         }

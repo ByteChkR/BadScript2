@@ -65,7 +65,7 @@ public class BadArrayExpression : BadExpression
                 yield return o;
             }
 
-            array.Add(o.Dereference());
+            array.Add(o.Dereference(Position));
         }
 
         yield return new BadArray(array);

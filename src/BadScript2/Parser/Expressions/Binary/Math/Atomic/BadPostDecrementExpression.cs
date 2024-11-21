@@ -48,14 +48,14 @@ public class BadPostDecrementExpression : BadExpression
     /// <exception cref="BadRuntimeException">Gets thrown if the operator can not be applied</exception>
     public static BadObject Decrement(BadObjectReference reference, BadSourcePosition position)
     {
-        BadObject value = reference.Dereference();
+        BadObject value = reference.Dereference(position);
 
         if (value is not IBadNumber leftNumber)
         {
             throw new BadRuntimeException("Left side of -- must be a number", position);
         }
 
-        reference.Set(leftNumber.Value - 1);
+        reference.Set(leftNumber.Value - 1, position);
 
         return value;
     }
@@ -72,7 +72,7 @@ public class BadPostDecrementExpression : BadExpression
                                                                BadObjectReference leftRef,
                                                                BadSourcePosition position)
     {
-        BadObject left = leftRef.Dereference();
+        BadObject left = leftRef.Dereference(position);
 
         if (left.HasProperty(BadStaticKeys.POST_DECREMENT_OPERATOR_NAME, context?.Scope))
         {
