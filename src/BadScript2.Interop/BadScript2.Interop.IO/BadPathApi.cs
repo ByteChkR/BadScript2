@@ -1,4 +1,8 @@
 using BadScript2.IO;
+using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Objects;
+using Microsoft.Extensions.FileSystemGlobbing;
 
 namespace BadScript2.Interop.IO;
 
@@ -78,5 +82,34 @@ internal partial class BadPathApi
     private string Combine([BadParameter(description: "The Path Parts")] params string[] parts)
     {
         return Path.Combine(parts);
+    }
+
+    [BadMethod(description: "Expands Patterns using the GlobFile Syntax.")]
+    [return: BadReturn("The expanded files.")]
+    private BadArray Expand(BadExecutionContext ctx, [BadParameter(description: "The Patterns")] string[] patterns, string? workingDirectory = null)
+    {
+        if(patterns.Length == 0)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Must specify at least one pattern");
+        }
+        
+        workingDirectory ??= m_FileSystem.GetCurrentDirectory();
+
+        Matcher m = new Matcher();
+        foreach (var pattern in patterns)
+        {
+            if (pattern.StartsWith("!"))
+            {
+                m.AddExclude(pattern.Substring(1));
+            }
+            else
+            {
+                m.AddInclude(pattern);
+            }
+        }
+
+        var result = m.Match(workingDirectory, m_FileSystem.GetFiles(workingDirectory, "*", true));
+        
+        return new BadArray(result.Files.Select(x => (BadObject)x.Path).ToList());
     }
 }
