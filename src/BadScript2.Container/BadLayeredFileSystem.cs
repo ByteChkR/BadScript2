@@ -76,7 +76,15 @@ namespace BadScript2.Container
 
         public Stream OpenWrite(string path, BadWriteMode mode)
         {
-            return GetWritable().OpenWrite(path, mode);
+            var writable = GetWritable();
+            //In order to properly work with Append mode, we need to copy the file to the writable file system if it does not exist
+            if (mode == BadWriteMode.Append && !writable.IsFile(path))
+            {
+                using var src = OpenRead(path);
+                using var dst = writable.OpenWrite(path, BadWriteMode.CreateNew);
+                src.CopyTo(dst);
+            }
+            return writable.OpenWrite(path, mode);
         }
 
         public string GetCurrentDirectory()
