@@ -132,8 +132,36 @@ public static class BadJson
                 {
                     return i;
                 }
+                if(value.Value is byte b)
+                {
+                    return b;
+                }
+                if(value.Value is sbyte sb)
+                {
+                    return sb;
+                }
+                if(value.Value is short s)
+                {
+                    return s;
+                }
+                if(value.Value is ushort us)
+                {
+                    return us;
+                }
+                if(value.Value is uint ui)
+                {
+                    return ui;
+                }
+                if(value.Value is long l)
+                {
+                    return l;
+                }
+                if(value.Value is ulong ul)
+                {
+                    return ul;
+                }
 
-                return (decimal)(long)value.Value!;
+                return (long)value.Value!;
             case JTokenType.Float:
                 return value.Value switch
                 {
