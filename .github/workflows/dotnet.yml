@@ -65,7 +65,7 @@ jobs:
         dotnet pack ./src/BadScript2.Common/BadScript2.ConsoleAbstraction/BadScript2.ConsoleAbstraction.csproj -p:NuspecFile=./BadScript2.ConsoleAbstraction.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Full/BadScript2.Full.csproj -p:NuspecFile=./BadScript2.Full.nuspec --output ./out --include-symbols --include-source
     - name: Publish Nuget Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nugetPackage
         path: ./out
@@ -100,7 +100,7 @@ jobs:
       run: /usr/bin/bash -c '(cd ./docs/reference && zip -r ../../out/docs.zip .)'
 
     - name: Publish Documentation Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: documentation
         path: ./out
@@ -113,7 +113,7 @@ jobs:
     steps:  
     #Push NuGet package to GitHub packages
     - name: Download Documentation Artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v4
       with:
         name: documentation
     - name: Copy Documentation to Webserver
@@ -141,7 +141,7 @@ jobs:
     steps:  
     #Push NuGet package to GitHub packages
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v4
       with:
         name: nugetPackage
     - name: Prep packages
@@ -168,7 +168,7 @@ jobs:
     steps:  
     #Push NuGet package to GitHub packages
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v4
       with:
         name: nugetPackage
     - name: Prep packages
