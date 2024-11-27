@@ -116,6 +116,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: documentation
+        path: documentation
     - name: Copy Documentation to Webserver
       uses: garygrossgarten/github-action-scp@release
       with:
@@ -144,6 +145,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: nugetPackage
+        path: nugetPackage
     - name: Prep packages
       run: dotnet nuget add source "https://nuget.pkg.github.com/ByteChkR/index.json" -n github --store-password-in-clear-text -u ByteChkR -p ${{ secrets.NUGET_API_KEY }}
     - name: Push package to GitHub packages 
@@ -171,6 +173,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: nugetPackage
+        path: nugetPackage
     - name: Prep packages
       run: dotnet nuget add source "https://nuget.pkg.github.com/ByteChkR/index.json" -n github --store-password-in-clear-text -u ByteChkR -p ${{ secrets.NUGET_API_KEY }}
     - name: Push package to GitHub packages 
