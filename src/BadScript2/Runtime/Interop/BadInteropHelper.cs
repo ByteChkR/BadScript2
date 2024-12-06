@@ -48,6 +48,22 @@ public static class BadInteropHelper
     /// <exception cref="BadRuntimeException">If the object can not be unwrapped</exception>
     public static object Unwrap(this BadObject obj, BadScope? caller = null)
     {
+        if(obj is IBadString str)
+        {
+            return str.Value;
+        }
+        if(obj is IBadBoolean boolean)
+        {
+            return boolean.Value;
+        }
+        if(obj is IBadNumber num)
+        {
+            return num.Value;
+        }
+        if(obj == BadObject.Null)
+        {
+            return null!;
+        }
         if (obj is IBadNative native)
         {
             return native.Value;

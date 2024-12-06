@@ -439,6 +439,8 @@ public class BadScope : BadObject, IDisposable
 
         return string.Join("\n", stack.Select(s => s.Name));
     }
+    
+    public BadScope GetFirstTracableOrRoot() => CountInStackTrace ? this : Parent?.GetFirstTracableOrRoot() ?? this;
 
     /// <summary>
     ///     Clears all Capture Flags from the given Flags
