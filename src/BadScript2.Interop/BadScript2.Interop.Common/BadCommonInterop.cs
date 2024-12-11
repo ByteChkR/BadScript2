@@ -133,6 +133,7 @@ public static class BadCommonInterop
                .UseExtension<BadObjectExtension>()
                .UseExtension<BadStringExtension>()
                .UseExtension<BadNumberExtension>()
+               .UseExtension<BadDateExtension>()
                .UseExtension<BadTableExtension>()
                .UseExtension<BadScopeExtension>()
                .UseExtension<BadArrayExtension>()

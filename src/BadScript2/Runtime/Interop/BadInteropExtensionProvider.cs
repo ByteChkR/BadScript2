@@ -54,7 +54,7 @@ public class BadInteropExtensionProvider
     public BadObject[] GetExtensionNames()
     {
         return m_GlobalExtensions.Keys.Select(x => (BadObject)x)
-                                 .ToArray();
+            .ToArray();
     }
 
     /// <summary>
@@ -71,8 +71,8 @@ public class BadInteropExtensionProvider
         if (HasTypeExtensions(t))
         {
             objs.AddRange(GetTypeExtensions(t)
-                          .Keys.Select(x => (BadObject)x)
-                         );
+                .Keys.Select(x => (BadObject)x)
+            );
         }
 
         if (obj is not IBadNative native)
@@ -85,11 +85,49 @@ public class BadInteropExtensionProvider
         if (HasTypeExtensions(t))
         {
             objs.AddRange(GetTypeExtensions(t)
-                          .Keys.Select(x => (BadObject)x)
-                         );
+                .Keys.Select(x => (BadObject)x)
+            );
         }
 
         return objs.ToArray();
+    }
+
+    
+    /// <summary>
+    ///     Returns all Extension Names for the specified object
+    /// </summary>
+    /// <param name="obj">The Object</param>
+    /// <returns>List of Extension Names</returns>
+    public BadTable GetExtensions(BadObject obj)
+    {
+        Type t = obj.GetType();
+
+        Dictionary<string, BadObject> objs = new Dictionary<string, BadObject>(m_GlobalExtensions.ToDictionary(x => x.Key, x => x.Value(obj)));
+
+        if (HasTypeExtensions(t))
+        {
+            foreach (KeyValuePair<string,Func<BadObject,BadObject>> kvp in GetTypeExtensions(t))
+            {
+                objs[kvp.Key] = kvp.Value(obj);
+            }
+        }
+
+        if (obj is not IBadNative native)
+        {
+            return new BadTable(objs.ToDictionary(x=>x.Key, x => x.Value));
+        }
+
+        t = native.Type;
+
+        if (HasTypeExtensions(t))
+        {
+            foreach (KeyValuePair<string,Func<BadObject,BadObject>> kvp in GetTypeExtensions(t))
+            {
+                objs[kvp.Key] = kvp.Value(obj);
+            }
+        }
+
+        return new BadTable(objs.ToDictionary(x=>x.Key, x => x.Value));
     }
 
     private bool InnerHasTypeExtensions(Type t)

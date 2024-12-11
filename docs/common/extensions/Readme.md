@@ -8,6 +8,8 @@
 - [String Extensions](./String.md)
 - [Table Extensions](./Table.md)
 - [TypeSystem Extensions](./TypeSystem.md)
+- [Date Extensions](./Date.md)
+- [Time Extensions](./Time.md)
 
 ___
 

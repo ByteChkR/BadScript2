@@ -51,6 +51,8 @@ public abstract class BadObject
     public static bool CanWrap(object? o)
     {
         return o is string ||
+               o is TimeSpan ||
+               o is DateTimeOffset ||
                o is decimal ||
                o is null ||
                o.GetType()
@@ -77,6 +79,10 @@ public abstract class BadObject
                 return False;
             case decimal d:
                 return new BadNumber(d);
+            case DateTimeOffset d:
+                return new BadDate(d);
+            case TimeSpan t:
+                return new BadTime(t);
         }
 
         if (typeof(T).IsNumericType() ||
@@ -161,6 +167,8 @@ public abstract class BadObject
     {
         return b.HasValue ? b.Value : Null;
     }
+    public static implicit operator BadObject(DateTimeOffset d) => new BadDate(d);
+    public static implicit operator BadObject(TimeSpan t) => new BadTime(t);
 
     /// <summary>
     ///     Implicit Converstion from Number to BadObject

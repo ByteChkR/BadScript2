@@ -216,6 +216,8 @@ public static class BadNativeClassBuilder
                                            ),
                                    }
                                   ),
+        BadDate.Prototype,
+        BadTime.Prototype,
         BadScope.Prototype,
         BadClassPrototype.Prototype,
         BadRuntimeError.Prototype,

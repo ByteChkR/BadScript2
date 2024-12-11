@@ -60,6 +60,14 @@ public static class BadInteropHelper
         {
             return num.Value;
         }
+        if(obj is IBadDate d)
+        {
+            return d.Value;
+        }
+        if(obj is IBadTime t)
+        {
+            return t.Value;
+        }
         if(obj == BadObject.Null)
         {
             return null!;
