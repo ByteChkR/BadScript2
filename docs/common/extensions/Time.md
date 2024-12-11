@@ -22,7 +22,7 @@ class Time
         public num TotalMinutes;
         public num TotalSeconds;
         public num TotalMilliseconds;
-        public Time Time.Negate();
+        public Time Negate();
 
         public Type GetType();
         public bool IsInstanceOf(any prototype!);
