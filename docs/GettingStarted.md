@@ -14,6 +14,7 @@
 - [Locking](./badlang/Locking.md)
 - [Using](./badlang/Using.md)
 - [Modules](./badlang/Modules.md)
+- [Extension Reference](./common/extensions/Readme.md)
 - [Functions](./badlang/Functions.md)
 	- [TypeSafety](./badlang/functions/TypeSafety.md)
 	- [Parameters](./badlang/functions/Parameters.md)
