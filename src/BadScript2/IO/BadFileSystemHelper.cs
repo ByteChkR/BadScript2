@@ -18,28 +18,23 @@ public static class BadFileSystemHelper
     /// <param name="str">The Stream to write the Zip File to</param>
     /// <param name="path">The Path to export</param>
     /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
-    public static void ExportZip(this IFileSystem fs, Stream str, string path = "/")
+    public static void ExportZip(this IVirtualFileSystem fs, Stream str, string path = "/")
     {
         BadLogger.Log("Exporting zip file..", "BFS");
 
-        if (fs is not BadVirtualFileSystem vfs)
-        {
-            throw new NotSupportedException("Only virtual file systems are supported");
-        }
-
         using ZipArchive zip = new ZipArchive(str, ZipArchiveMode.Update, true);
 
-        foreach (string file in vfs.GetFiles(path, "", true))
+        foreach (string file in fs.GetFiles(path, "", true))
         {
             BadLogger.Log("Exporting File: " + file, "BFS");
             ZipArchiveEntry e = zip.CreateEntry(file.Remove(0, path.Length));
             using Stream estr = e.Open();
-            using Stream fstr = vfs.OpenRead(file);
+            using Stream fstr = fs.OpenRead(file);
             fstr.CopyTo(estr);
         }
     }
 
-    public static void ImportZip(this IFileSystem fs, string path, string root = "/")
+    public static void ImportZip(this IVirtualFileSystem fs, string path, string root = "/")
     {
         using FileStream str = new FileStream(path, FileMode.Open, FileAccess.Read);
         fs.ImportZip(str, root);
@@ -53,14 +48,10 @@ public static class BadFileSystemHelper
     /// <param name="root">The directory that the zip file will be imported to</param>
     /// <exception cref="NotSupportedException">Gets thrown when the File System is not supported</exception>
     /// <exception cref="Exception">Gets thrown when the Zip File is invalid</exception>
-    public static void ImportZip(this IFileSystem fs, Stream str, string root = "/", Encoding? encoding = null)
+    public static void ImportZip(this IVirtualFileSystem fs, Stream str, string root = "/", Encoding? encoding = null)
     {
         BadLogger.Log("Importing zip file..", "BFS");
 
-        if (fs is not BadVirtualFileSystem vfs)
-        {
-            throw new NotSupportedException("Only virtual file systems are supported");
-        }
 
         ZipArchive? arch = new ZipArchive(str, ZipArchiveMode.Read, false, encoding ?? Encoding.UTF8);
 
@@ -82,11 +73,11 @@ public static class BadFileSystemHelper
 
             if (dir != null && !string.IsNullOrEmpty(dir))
             {
-                vfs.CreateDirectory(root + dir, true);
+                fs.CreateDirectory(root + dir, true);
             }
 
             using Stream s = entry.Open();
-            using Stream o = vfs.OpenWrite(root + entry.FullName, BadWriteMode.CreateNew);
+            using Stream o = fs.OpenWrite(root + entry.FullName, BadWriteMode.CreateNew);
             s.CopyTo(o);
         }
 

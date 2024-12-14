@@ -5,7 +5,7 @@ namespace BadScript2.IO.Virtual;
 /// <summary>
 ///     Virtual File System Implementation for the BadScript Engine
 /// </summary>
-public class BadVirtualFileSystem : IFileSystem
+public class BadVirtualFileSystem : IVirtualFileSystem
 {
     /// <summary>
     ///     The Root Directory

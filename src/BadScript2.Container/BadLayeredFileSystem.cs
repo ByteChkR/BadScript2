@@ -8,7 +8,7 @@ using BadScript2.IO.Virtual;
 namespace BadScript2.Container
 {
 
-    public class BadLayeredFileSystem : IFileSystem
+    public class BadLayeredFileSystem : IVirtualFileSystem
     {
         private readonly BadLayeredFileSystemLayer[] m_Layers;
 
