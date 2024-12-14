@@ -7,13 +7,40 @@ using BadScript2.IO.Virtual;
 
 namespace BadScript2.Container
 {
-    internal class BadLayeredFileSystem : IFileSystem
-    {
-        private readonly BadVirtualFileSystem[] m_FileSystems;
 
-        public BadLayeredFileSystem(params BadVirtualFileSystem[] fileSystems)
+    public class BadLayeredFileSystem : IFileSystem
+    {
+        private readonly BadLayeredFileSystemLayer[] m_Layers;
+
+        public BadLayeredFileSystemStackInfo GetInfo()
         {
-            m_FileSystems = fileSystems;
+            List<BadLayeredFileSystemInfo> fileSystems = new List<BadLayeredFileSystemInfo>();
+            Dictionary<string,BadLayeredFileSystemFileInfo> files = new Dictionary<string,BadLayeredFileSystemFileInfo>();
+            foreach (var layer in m_Layers)
+            {
+                var fs = layer.FileSystem;
+                fileSystems.Add(new BadLayeredFileSystemInfo() { Writable = fs == GetWritable(), Name = layer.Name, MetaData = layer.MetaData });
+                foreach (var file in fs.GetFiles("/", "", true))
+                {
+                    if (!files.TryGetValue(file, out var info))
+                    {
+                        info = new BadLayeredFileSystemFileInfo()
+                        {
+                            Path = file,
+                            PresentIn = new List<string>()
+                        };
+                        files[file] = info;
+                    }
+                    
+                    info.PresentIn.Add(layer.Name);
+                }
+            }
+            
+            return new BadLayeredFileSystemStackInfo() { FileSystems = fileSystems.ToArray(), Files = files.Values.ToArray() };
+        }
+        public BadLayeredFileSystem(params BadLayeredFileSystemLayer[] layers)
+        {
+            m_Layers = layers;
         }
 
         public string GetStartupDirectory()
@@ -23,27 +50,35 @@ namespace BadScript2.Container
 
         public bool Exists(string path)
         {
-            return m_FileSystems.Any(x => x.Exists(path));
+            return m_Layers.Any(x => x.FileSystem.Exists(path));
         }
 
         public bool IsFile(string path)
         {
-            return m_FileSystems.Any(x => x.IsFile(path));
+            return m_Layers.Any(x => x.FileSystem.IsFile(path));
         }
 
         public bool IsDirectory(string path)
         {
-            return m_FileSystems.Any(x => x.IsDirectory(path));
+            return m_Layers.Any(x => x.FileSystem.IsDirectory(path));
         }
 
         public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
         {
-            return m_FileSystems.SelectMany(x => x.GetFiles(path, extension, recursive));
+            return m_Layers.SelectMany(x => 
+                x.FileSystem.Exists(path) && 
+                x.FileSystem.IsDirectory(path) ? 
+                    x.FileSystem.GetFiles(path, extension, recursive) : 
+                    Enumerable.Empty<string>()).Distinct();
         }
 
         public IEnumerable<string> GetDirectories(string path, bool recursive)
         {
-            return m_FileSystems.SelectMany(x => x.GetDirectories(path, recursive));
+            return m_Layers.SelectMany(x => 
+                x.FileSystem.Exists(path) && 
+                x.FileSystem.IsDirectory(path) ? 
+                    x.FileSystem.GetDirectories(path, recursive) : 
+                    Enumerable.Empty<string>()).Distinct();
         }
 
         public void CreateDirectory(string path, bool recursive = false)
@@ -70,13 +105,19 @@ namespace BadScript2.Container
 
         public Stream OpenRead(string path)
         {
-            var fs = m_FileSystems.Last(x => x.IsFile(path)) ?? GetWritable();
+            var fs = m_Layers.Last(x => x.FileSystem.IsFile(path))?.FileSystem ?? GetWritable();
             return fs.OpenRead(path);
         }
 
         public Stream OpenWrite(string path, BadWriteMode mode)
         {
             var writable = GetWritable();
+            var dir = Path.GetDirectoryName(path);
+            if (dir != null && IsDirectory(dir) && !writable.IsDirectory(dir))
+            {
+                //Create the directory if it does not exist(it exists in some other layer, we need to create it in the writable layer)
+                writable.CreateDirectory(dir, true);
+            }
             //In order to properly work with Append mode, we need to copy the file to the writable file system if it does not exist
             if (mode == BadWriteMode.Append && !writable.IsFile(path))
             {
@@ -94,7 +135,7 @@ namespace BadScript2.Container
 
         public void SetCurrentDirectory(string path)
         {
-            foreach (var fs in m_FileSystems) fs.SetCurrentDirectory(path);
+            foreach (var fs in m_Layers) fs.FileSystem.SetCurrentDirectory(path);
         }
 
         public void Copy(string src, string dst, bool overwrite = true)
@@ -129,9 +170,9 @@ namespace BadScript2.Container
                 DeleteFile(src);
         }
 
-        private BadVirtualFileSystem GetWritable()
+        public BadVirtualFileSystem GetWritable()
         {
-            return m_FileSystems.Last();
+            return m_Layers.Last().FileSystem;
         }
 
         private bool IsSubfolderOf(string root, string sub)

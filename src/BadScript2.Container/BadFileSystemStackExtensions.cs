@@ -3,32 +3,41 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using BadScript2.IO;
 using BadScript2.IO.Virtual;
+using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Container
 {
     public static class BadFileSystemStackExtensions
     {
         
-        public static BadFileSystemStack FromZip(this BadFileSystemStack stack, string file, string root = "/")
+        public static BadFileSystemStack FromZip(this BadFileSystemStack stack, string file, string root = "/", string? name = null)
         {
             return stack.ConfigureLayer(() =>
             {
                 var fs = new BadVirtualFileSystem();
                 fs.ImportZip(file, root);
-                return fs;
+                return BadLayeredFileSystemLayer.Create(name ?? $"Zip({file})", fs, new JObject
+                {
+                    ["File"] = file,
+                    ["Root"] = root
+                });
             });
         }
-        public static BadFileSystemStack FromZip(this BadFileSystemStack stack, Stream stream, string root = "/")
+        public static BadFileSystemStack FromZip(this BadFileSystemStack stack, Stream stream, string root = "/", string? name = null)
         {
             return stack.ConfigureLayer(() =>
             {
                 var fs = new BadVirtualFileSystem();
                 fs.ImportZip(stream, root);
-                return fs;
+                return BadLayeredFileSystemLayer.Create(name ?? $"Zip(from Stream)", fs, new JObject
+                {
+                    ["File"] = null,
+                    ["Root"] = root
+                });
             });
         }
 
-        public static BadFileSystemStack FromDirectory(this BadFileSystemStack stack, string dir, string root = "/")
+        public static BadFileSystemStack FromDirectory(this BadFileSystemStack stack, string dir, string root = "/", string? name = null)
         {
             return stack.ConfigureLayer(() =>
             {
@@ -49,14 +58,18 @@ namespace BadScript2.Container
                     s.CopyTo(d);
                 }
 
-                return fs;
+                return BadLayeredFileSystemLayer.Create(name ?? $"Directory({fp})", fs, new JObject
+                {
+                    ["Directory"] = fp,
+                    ["Root"] = root
+                });
             });
         }
 
-        public static async Task<BadFileSystemStack> FromWebArchive(this BadFileSystemStack stack, string url, string root = "/")
+        public static async Task<BadFileSystemStack> FromWebArchive(this BadFileSystemStack stack, string url, string root = "/", string? name = null)
         {
             using var http = new HttpClient();
-            return stack.FromZip(await http.GetStreamAsync(url), root);
+            return stack.FromZip(await http.GetStreamAsync(url), root, name ?? $"WebArchive({url})");
         }
     }
 }

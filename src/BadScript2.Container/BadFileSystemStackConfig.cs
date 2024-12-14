@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Container
 {
     public class BadFileSystemStackConfig
     {
+        public string? Name { get; set; }
         public string Type { get; set; } = string.Empty;
         public string Source { get; set; } = string.Empty;
         public string? Target { get; set; }
