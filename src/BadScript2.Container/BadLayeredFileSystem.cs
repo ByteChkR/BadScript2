@@ -43,6 +43,23 @@ namespace BadScript2.Container
             m_Layers = layers;
         }
 
+        public bool Restore(string path)
+        {
+            var writable = GetWritable();
+            if (writable.Exists(path))
+            {
+                if (writable.IsFile(path))
+                {
+                    writable.DeleteFile(path);
+                }
+                else
+                {
+                    writable.DeleteDirectory(path, true);
+                }
+                return true;
+            }
+            return false;
+        }
         public string GetStartupDirectory()
         {
             return GetWritable().GetStartupDirectory();

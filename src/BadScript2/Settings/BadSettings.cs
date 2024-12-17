@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text;
 
 using Newtonsoft.Json.Linq;
@@ -12,7 +13,7 @@ public class BadSettings
     /// <summary>
     ///     The properties of the Current Settings Object
     /// </summary>
-    private readonly Dictionary<string, BadSettings> m_Properties;
+    private readonly ConcurrentDictionary<string, BadSettings> m_Properties;
 
     /// <summary>
     ///     Cache for the Serialized Value of the Settings
@@ -38,7 +39,7 @@ public class BadSettings
         SourcePath = sourcePath;
         m_Value = null;
         m_IsDirty = true;
-        m_Properties = new Dictionary<string, BadSettings>();
+        m_Properties = new ConcurrentDictionary<string, BadSettings>();
     }
 
     /// <summary>
@@ -51,7 +52,7 @@ public class BadSettings
         m_Value = value;
         SourcePath = sourcePath;
         m_IsDirty = true;
-        m_Properties = new Dictionary<string, BadSettings>();
+        m_Properties = new ConcurrentDictionary<string, BadSettings>();
     }
 
     /// <summary>
@@ -63,7 +64,7 @@ public class BadSettings
     {
         m_Value = null;
         m_IsDirty = true;
-        m_Properties = properties;
+        m_Properties = new ConcurrentDictionary<string, BadSettings>(properties);
         SourcePath = sourcePath;
 
         foreach (KeyValuePair<string, BadSettings> kvp in m_Properties)
@@ -240,7 +241,7 @@ public class BadSettings
             old.OnValueChanged -= PropertyValueChanged;
         }
 
-        bool r = m_Properties.Remove(propertyName);
+        bool r = m_Properties.TryRemove(propertyName, out _);
 
         if (invokeOnChange)
         {
