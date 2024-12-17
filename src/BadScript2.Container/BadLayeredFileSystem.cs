@@ -43,6 +43,43 @@ namespace BadScript2.Container
             m_Layers = layers;
         }
 
+        private bool ContentEquals(Stream s1, Stream s2)
+        {
+            if (s1.Length != s2.Length) return false;
+            int b1, b2;
+            do
+            {
+                b1 = s1.ReadByte();
+                b2 = s2.ReadByte();
+                if (b1 != b2) return false;
+            } while (b1 != -1);
+            return true;
+        }
+        public void Optimize()
+        {
+            //Ensure that the writable layer does not have a file that already exists in a read-only layer and has the same content
+            var writable = GetWritable();
+            foreach (var file in writable.GetFiles("/", "", true))
+            {
+                foreach (var layer in m_Layers.SkipLast(1))
+                {
+                    if (layer.FileSystem.Exists(file) && layer.FileSystem.IsFile(file))
+                    {
+                        bool equals;
+                        using (var wStream = writable.OpenRead(file))
+                        {
+                            using var rStream = layer.FileSystem.OpenRead(file);
+                            equals = ContentEquals(wStream, rStream);
+                        }
+                        if (equals)
+                        {
+                            writable.DeleteFile(file);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
         public bool Restore(string path)
         {
             var writable = GetWritable();
