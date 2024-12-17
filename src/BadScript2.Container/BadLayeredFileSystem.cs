@@ -59,7 +59,7 @@ namespace BadScript2.Container
         {
             //Ensure that the writable layer does not have a file that already exists in a read-only layer and has the same content
             var writable = GetWritable();
-            foreach (var file in writable.GetFiles("/", "", true))
+            foreach (var file in writable.GetFiles("/", "", true).ToArray())
             {
                 foreach (var layer in m_Layers.SkipLast(1))
                 {
