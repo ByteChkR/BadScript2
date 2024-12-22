@@ -42,10 +42,10 @@ internal static class BadProgram
         rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
         consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
-
-        consoleSettings.SetProperty("DataDirectory",
-                                    new BadSettings(BadConsoleDirectories.DataDirectory, string.Empty)
-                                   );
+        
+        BadSettingsProvider.RootSettings.SetProperty("DataDirectory",
+	        new BadSettings(BadConsoleDirectories.DataDirectory, string.Empty)
+        );
         BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
 
         return runtime.LoadSettings(Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE));

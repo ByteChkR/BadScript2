@@ -9,6 +9,31 @@ using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Interop;
 
+public class BadInteropGroup : BadInteropEnumerable
+{
+
+    private readonly IGrouping<BadObject, BadObject> m_Group;
+    public BadInteropGroup(IGrouping<BadObject,BadObject> enumerable) : base(enumerable)
+    {
+        m_Group = enumerable;
+    }
+
+    public override bool HasProperty(string propName, BadScope? caller = null)
+    {
+        return propName == "Key" || base.HasProperty(propName, caller);
+    }
+
+    public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
+    {
+        if(propName == "Key")
+        {
+            return BadObjectReference.Make("Key", (p) => m_Group.Key);
+        }
+        return base.GetProperty(propName, caller);
+    }
+    
+}
+
 /// <summary>
 ///     Implements an Interop Enumerable Object
 /// </summary>

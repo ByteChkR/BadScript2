@@ -69,6 +69,32 @@ public class BadLinqExtensions : BadInteropExtension
     {
         return new BadInteropEnumerable(e.Select(x => Invoke(selector, ctx, x)));
     }
+	
+	/// <summary>
+	/// Selects elements of the given enumerable with the given selector function
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="selector">The Filter Function</param>
+	/// <returns>Enumeration</returns>
+	private static BadObject SelectMany(BadExecutionContext ctx, IBadEnumerable e, BadFunction selector)
+	{
+		return new BadInteropEnumerable(e.SelectMany(x => Invoke<IBadEnumerable>(selector, ctx, x)));
+	}
+	
+	/// <summary>
+	/// Groups the elements of the given enumerable by the given key selector
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="keySelector">The Key Selector Function</param>
+	/// <returns>Grouped Enumeration</returns>
+	private static BadObject GroupBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction keySelector)
+	{
+		return new BadInteropEnumerable(e
+			.GroupBy(x => Invoke(keySelector, ctx, x))
+			.Select(x => new BadInteropGroup(x)));
+	}
 
 	/// <summary>
 	///     Filters the given enumerable with the given filter function
@@ -386,6 +412,18 @@ public class BadLinqExtensions : BadInteropExtension
         Register<decimal>(provider, "Take", Take, BadAnyPrototype.Instance);
         Register<BadFunction>(provider, "OrderBy", OrderBy, BadAnyPrototype.Instance);
 
+        provider.RegisterObject<IBadEnumerable>("SelectMany",
+												e => new BadDynamicInteropFunction<BadFunction>("SelectMany",
+													 (c, ks) => SelectMany(c, e, ks),
+													 BadAnyPrototype.Instance
+													)
+											   );
+        provider.RegisterObject<IBadEnumerable>("GroupBy",
+												e => new BadDynamicInteropFunction<BadFunction>("GroupBy",
+													 (c, ks) => GroupBy(c, e, ks),
+													 BadAnyPrototype.Instance
+													)
+											   );
         provider.RegisterObject<IBadEnumerable>("First",
                                                 e => new BadInteropFunction("First",
                                                                             (c, args) => First(c, e, args[0]),
@@ -458,7 +496,7 @@ public class BadLinqExtensions : BadInteropExtension
 
         provider.RegisterObject<IBadEnumerable>("Count",
                                                 e => new BadInteropFunction("Count",
-                                                                            (c, args) => Count(c, e, args[0]),
+                                                                            (c, args) => Count(c, e, args.Length == 0 ? BadObject.Null : args[0]),
                                                                             false,
                                                                             BadNativeClassBuilder.GetNative("num"),
                                                                             new BadFunctionParameter("predicate",
