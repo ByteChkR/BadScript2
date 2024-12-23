@@ -57,6 +57,15 @@ public class BadLinqExtensions : BadInteropExtension
 
         return o.Dereference(null);
     }
+	
+	private static BadObject Sum(BadExecutionContext ctx, IBadEnumerable e, BadObject selector)
+	{
+		if (selector is BadFunction f)
+		{
+			return e.Sum((x) => Invoke<decimal>(f, ctx, x));
+		}
+		return e.Sum(x => x.Unwrap<decimal>());
+	}
 
 	/// <summary>
 	///     Selects elements of the given enumerable with the given selector function
@@ -411,6 +420,19 @@ public class BadLinqExtensions : BadInteropExtension
         Register<decimal>(provider, "SkipLast", SkipLast, BadAnyPrototype.Instance);
         Register<decimal>(provider, "Take", Take, BadAnyPrototype.Instance);
         Register<BadFunction>(provider, "OrderBy", OrderBy, BadAnyPrototype.Instance);
+        provider.RegisterObject<IBadEnumerable>("Sum",
+												e => new BadInteropFunction("Sum",
+																			(c, args) => Sum(c, e, args.Length == 0 ? BadObject.Null : args[0]),
+																			false,
+																			BadNativeClassBuilder.GetNative("num"),
+																			new BadFunctionParameter("selector",
+																				 true,
+																				 false,
+																				 false,
+																				 null
+																				)
+																		   )
+											   );
 
         provider.RegisterObject<IBadEnumerable>("SelectMany",
 												e => new BadDynamicInteropFunction<BadFunction>("SelectMany",
