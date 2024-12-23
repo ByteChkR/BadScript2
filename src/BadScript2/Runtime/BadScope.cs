@@ -440,6 +440,23 @@ public class BadScope : BadObject, IDisposable
         return string.Join("\n", stack.Select(s => s.Name));
     }
     
+    private static IEnumerable<BadScope> GetStackTraceEnumerable(BadScope scope)
+    {
+        BadScope? current = scope;
+
+        while (current != null)
+        {
+            if (current.CountInStackTrace)
+            {
+                yield return current;
+            }
+
+            current = current.m_Caller ?? current.Parent;
+        }
+    }
+    
+    public IEnumerable<BadScope> GetStackTraceEnumerable() => GetStackTraceEnumerable(this);
+    
     public BadScope GetFirstTracableOrRoot() => CountInStackTrace ? this : Parent?.GetFirstTracableOrRoot() ?? this;
 
     /// <summary>
