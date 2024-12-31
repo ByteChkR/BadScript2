@@ -552,6 +552,7 @@ It is possible to inject content into other elements than the current one with `
 Injecting elements based on path only works if the destination element is in the same context as the `bs:insert` block.
 
 > This will not work because a `bs:function` is evaluated with its own output document.
+
 ```html
 <h1>TEST</h1>
 <div>
