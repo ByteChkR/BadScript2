@@ -202,6 +202,14 @@ Assuming the Data Table looks like:
 }
 ```
 
+The Loop block can also define the Index as a variable by using the `index` attribute.
+
+```html
+<bs:each on="Model.Data.MyArray" as="item" index="i">
+    <li><a href="{item.Url}">{i} {item.Name}</a></li>
+</bs:each>
+```
+
 #### While Loop
 
 The `bs:while` block can be used to iterate until a specified condition returns true.
