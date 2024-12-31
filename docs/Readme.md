@@ -1,4 +1,4 @@
-[![build](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml)
+﻿[![build](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml)
 
 # BadScript2 Landing Page
 
