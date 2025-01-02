@@ -1,15 +1,15 @@
 param ($version="(~){yy}.(~){MM}.(~){dd}.+", $sources="./src", $postfix="")
-$bs = "$pwd/build/"
+$bsDir = "$pwd/build/"
 
-if (-not(Test-Path $bs)) { #Only Build if the directory does not exist.
+if (-not(Test-Path $bsDir)) { #Only Build if the directory does not exist.
     . ./build.ps1 -noProjects -noTests -writeLog
 }
 
 if ($IsWindows -eq $true) {
-    $bsFile = $bs + 'bs.exe'
+    $bsFile = $bsDir + 'bs.exe'
 }
 else {
-    $bsFile = $bs + 'bs'
+    $bsFile = $bsDir + 'bs'
 }
 
 echo "BadScript Runtime Located at $bsFile"
