@@ -1,28 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-    <metadata>
-        <id>BadScript2.Interop.Generator</id>
-        <authors>BadScript2.Interop.Generator</authors>
-        <description>Source Generator that aids in the creation of Interop APIs</description>
-        <icon>Logo.png</icon>
-        <dependencies>
-            <group targetFramework=".NETStandard2.0">
-                <dependency id="BadScript2" version="24.2.22.0" exclude="Build,Analyzers"/>
-                <dependency id="Microsoft.CodeAnalysis.CSharp" version="4.9.2"/>
-                <dependency id="Microsoft.CodeAnalysis.Analyzers" version="3.11.0-beta1.24122.1"/>
-            </group>
-        </dependencies>
-        <version xmlns="">24.2.22.0</version>
-    </metadata>
-    <files>
-        <file src="./bin/Release/netstandard2.0/publish/BadScript2.Interop.Generator.dll"
-              target="analyzers/dotnet/cs/BadScript2.Interop.Generator.dll"/>
-        <file src="./bin/Release/netstandard2.0/publish/BadScript2.Interop.Generator.pdb"
-              target="analyzers/dotnet/cs/BadScript2.Interop.Generator.pdb"/>
-        <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.CSharp.dll"
-              target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.dll"/>
-        <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.dll"
-              target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.dll"/>
-        <file src="../../../../res/Logo.png" target="Logo.png"/>
-    </files>
+  <metadata>
+    <id>BadScript2.Interop.Generator</id>
+    <authors>BadScript2.Interop.Generator</authors>
+    <description>Source Generator that aids in the creation of Interop APIs</description>
+    <icon>Logo.png</icon>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.CodeAnalysis.CSharp" version="4.9.2" />
+        <dependency id="Microsoft.CodeAnalysis.Analyzers" version="3.11.0-beta1.24122.1" />
+      </group>
+    </dependencies>
+    <version xmlns="">25.1.2.1</version>
+  </metadata>
+  <files>
+    <file src="./bin/Release/netstandard2.0/publish/BadScript2.Interop.Generator.dll" target="analyzers/dotnet/cs/BadScript2.Interop.Generator.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/BadScript2.Interop.Generator.pdb" target="analyzers/dotnet/cs/BadScript2.Interop.Generator.pdb" />
+    <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.CSharp.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.dll" />
+    <file src="./bin/Release/netstandard2.0/publish/Microsoft.CodeAnalysis.dll" target="analyzers/dotnet/cs/Microsoft.CodeAnalysis.dll" />
+    <file src="../../../../res/Logo.png" target="Logo.png" />
+  </files>
 </package>

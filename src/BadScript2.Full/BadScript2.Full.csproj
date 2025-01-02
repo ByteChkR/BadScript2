@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>disable</Nullable>
-        <LangVersion>default</LangVersion>
-        <IncludeBuildOutput>false</IncludeBuildOutput>
-        <NoWarn>NU5128</NoWarn>
-    </PropertyGroup>
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>default</LangVersion>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoWarn>NU5128</NoWarn>
+    <AssemblyVersion>25.1.2.3</AssemblyVersion>
+    <FileVersion>25.1.2.3</FileVersion>
+  </PropertyGroup>
 </Project>

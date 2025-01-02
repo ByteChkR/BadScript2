@@ -1,0 +1,11 @@
+function Main(args)
+{
+	const apis = Runtime.GetRegisteredApis().Select(x=>Runtime.GetRootScope()[x]).ToArray();
+	const result = BadHtml.Run("./Reference.bhtml", {Name: "BadScript2 API Reference", Objects: apis, Depth: 1}, false);
+	Console.WriteLine(result);
+	IO.File.WriteAllText("./Reference.md", result);
+}
+
+
+Main(Runtime.GetArguments());
+

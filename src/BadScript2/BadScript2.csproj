@@ -1,29 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyVersion>2023.10.8.0</AssemblyVersion>
-        <FileVersion>2023.10.8.0</FileVersion>
-        <PackageIcon>Logo.png</PackageIcon>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="System.IO.Compression" Version="4.3.0"/>
-        <PackageReference Include="System.Net.Http" Version="4.3.4"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Runtime\Interop\Reflection"/>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\BadScript2.Common\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="..\..\res\Logo.png">
-            <Pack>True</Pack>
-            <PackagePath></PackagePath>
-            <Link>Logo.png</Link>
-        </None>
-    </ItemGroup>
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>25.1.2.3</AssemblyVersion>
+    <FileVersion>25.1.2.3</FileVersion>
+    <PackageIcon>Logo.png</PackageIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Runtime\Interop\Reflection" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BadScript2.Common\BadScript2.ConsoleAbstraction\BadScript2.ConsoleAbstraction.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\res\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+      <Link>Logo.png</Link>
+    </None>
+  </ItemGroup>
 </Project>

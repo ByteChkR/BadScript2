@@ -15,6 +15,20 @@ function StripPostfix(string version!)
 	return parts[0];
 }
 
+function UpdateCsProject(file, version)
+{
+	const f = IO.Path.ChangeExtension(file, ".csproj");
+	Console.WriteLine("Package: " + f);
+	const csProj = Xml.Load(IO.File.ReadAllText(f));
+	const content = FindNode(csProj, "Project");
+	const package = FindNode(content, "PropertyGroup");
+	const assemblyVersion = FindNode(package, "AssemblyVersion");
+	const fileVersion = FindNode(package, "FileVersion");
+	assemblyVersion.InnerText = version;
+	fileVersion.InnerText = version;
+	csProj.Save(f);
+}
+
 function ChangeVersion(string file!, string versionFormat!, string postfix!)
 {
 	const content = Xml.Load(IO.File.ReadAllText(file));
@@ -51,6 +65,8 @@ function ChangeVersion(string file!, string versionFormat!, string postfix!)
 
 	versionElement.InnerText = newVersionStr;
 	content.Save(file);
+
+	UpdateCsProject(file, newVersion.ToString());
 	return newVersionStr;
 }
 

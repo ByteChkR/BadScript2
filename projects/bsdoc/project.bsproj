@@ -1,0 +1,20 @@
+{
+  "Info": {
+    "Name": "bsdoc",
+    "Version": "2024.3.14.0",
+    "Author": "UNKNOWN"
+  },
+  "Build": {
+    "ModuleType": "app",
+    "OutputFile": "./bin/bsdoc.bs",
+    "VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+    "Sources": [
+      "./src/**.bs"
+    ]
+  },
+  "Targets": [
+    "default",
+    "Debug",
+    "Release"
+  ]
+}

@@ -1,0 +1,224 @@
+<script lang="bs2">
+	
+	const headingList = [];
+
+	function GetHeading(depth, name, exclude?)
+	{
+		let r = "";
+		for(let i = 0; i < depth; i++)
+		{
+			r += "#";
+		}
+
+		if(exclude != true)
+		{
+			headingList.Add({Name: name, Depth: depth});
+		}
+
+		return $"{r} {name}";
+	}
+
+	function GetTableOfContents()
+	{
+		let r = "";
+		foreach(heading in headingList)
+		{
+			let e = "";
+			for (let i = 0; i < heading.Depth - 1; i++)
+			{
+				e += "\t";
+			}
+			r += $"{e}- [{heading.Name}](#{heading.Name.Replace(".", "").Replace(" ", "-").ToLower()})\n";
+		}
+
+		return r;
+	}
+
+	const typeList = {};
+
+	foreach(nativeType in Runtime.GetNativeTypes())
+	{
+		typeList[nativeType.Name] = nativeType;
+	}
+
+	function GetTypeLink(type)
+	{
+		if(!(type.Name in typeList))
+		{
+			typeList[type.Name] = type;
+		}
+
+		return $"#{type.Name}";
+	}
+
+	function GetSectionKeys(object)
+	{
+		const keys = object.Keys.OrderBy(x=>x);
+		const items = keys.Where(x=> Runtime.Native.IsFunction(object[x]) || Runtime.Native.IsTable(object[x])).ToArray();
+		Console.WriteLine("Sections: " + items);
+		return items;
+	}
+
+	function GetPropertyKeys(object)
+	{
+		const keys = object.Keys.OrderBy(x=>x);
+		const items = keys.Where(x=> !Runtime.Native.IsFunction(object[x]) && !Runtime.Native.IsTable(object[x])).ToArray();
+		Console.WriteLine("Properties: " + items);
+		return items;
+	}
+
+	function TryGetInstance(type)
+	{
+		if(type.IsAbstract || type.IsInterface)
+		{
+			return null;
+		}
+		try
+		{
+			return type.CreateInstance();
+		}
+		catch(e)
+		{
+			return null;
+		}
+	}
+
+	function GetParameterDescription(meta, name)
+	{
+		if(name in meta.Parameters)
+		{
+			return meta.Parameters[name].Description.Replace("\n", "");
+		}
+		return "";
+	}
+
+
+
+</script>
+
+
+<bs:function Name="GenerateType" param:type>
+{GetHeading(3, type.Name)}
+
+{type.Meta.Description}
+
+<bs:if test="type.GetBaseClass() != null">
+Base Type: {WriteType(type.GetBaseClass())}
+</bs:if>
+
+	<script lang="bs2">
+		function CreateInterfaceList()
+		{
+			let r = "";
+			const interfaces = type.CreateGenericType([]).Interfaces;
+			if(interfaces.Length > 0)
+			{
+				r += "\n\n" + GetHeading(4, "Interfaces", true);
+				foreach(interf in interfaces)
+				{
+					r += "\n- " + WriteType(interf);
+				}
+			}
+			return r;
+		}
+
+		let instance = TryGetInstance(type.CreateGenericType([]));
+		let extensions = null;
+		if(instance != null)
+		{
+			extensions = Runtime.GetExtensions(instance);
+			Console.WriteLine(extensions);
+			extensions.RemoveKey('op_ArrayAccess');
+		}
+
+	</script>
+
+{CreateInterfaceList()}
+
+<bs:if test="extensions != null">
+{GenerateProperties(type.Name, extensions, 4)}
+
+<bs:each on="GetSectionKeys(extensions)" as="item">
+<bs:if test="Runtime.Native.IsFunction(extensions[item])">
+{GenerateFromFunction($"{type.Name}.{item}", extensions[item], 4)}
+
+<bs:else test="Runtime.Native.IsTable(extensions[item])"/>
+{GenerateFromObject($"{type.Name}.{item}", extensions[item], 4)}
+
+</bs:if>
+</bs:each>
+</bs:if>
+
+</bs:function>
+
+<bs:function Name="WriteType" param:type>[`{type.Name}`]({GetTypeLink(type)})</bs:function>
+
+
+<bs:function Name="GenerateFromFunction" param:name param:object param:depth>
+{GetHeading(depth, name)}
+
+{object.Meta.Description}
+
+Returns: {WriteType(object.ReturnType)}{object.Meta.Return.Description == "" ? "" : $" - {object.Meta.Return.Description}"}
+
+<bs:if test="object.Parameters.Length > 0">
+{GetHeading(depth + 1, $"Parameters", true)}
+
+| Name | Type | Null Checked | Optional | Rest Args | Description |
+| --- | --- | --- | --- | --- | --- |
+<bs:each on="object.Parameters" as="param">| {param.Name} | {WriteType(param.Type)} | {param.IsNullChecked} | {param.IsOptional} | {param.IsRestArgs} | {GetParameterDescription(object.Meta, param.Name)} |
+</bs:each>
+
+</bs:if>
+
+</bs:function>
+
+<bs:function Name="GeneratePropertyValue" param:value><bs:if test="!Runtime.Native.IsString(value) || value.Contains('\n')">`< multi line content >`<bs:else/>`{value}`</bs:if>
+</bs:function>
+
+<bs:function Name="GenerateProperties" param:name param:object param:depth>
+<bs:if test="GetPropertyKeys(object).Length > 0">
+{GetHeading(depth, $"Properties", true)}
+
+| Name | Value |
+| --- | --- |
+<bs:each on="GetPropertyKeys(object)" as="param">| {param} | {GeneratePropertyValue(object[param])} |
+</bs:each>
+</bs:if>
+
+</bs:function>
+
+<bs:function Name="GenerateFromObjectBody" param:name param:object param:depth>
+{GenerateProperties(name, object, depth + 1)}
+
+<bs:each on="GetSectionKeys(object)" as="item">
+<bs:if test="Runtime.Native.IsFunction(object[item])">
+{GenerateFromFunction($"{name}.{item}", object[item], depth + 1)}
+<bs:else test="Runtime.Native.IsTable(object[item])"/>
+{GenerateFromObject($"{name}.{item}", object[item], depth + 1)}
+</bs:if>
+</bs:each>
+
+</bs:function>
+
+<bs:function Name="GenerateFromObject" param:name param:object param:depth>
+{GetHeading(depth, name)}
+
+{GenerateFromObjectBody(name, object, depth)}
+</bs:function>
+
+
+{GetHeading(1, Model.Name)}
+
+<bs:each on="Model.Objects.OrderBy(x=>x.Info.Name)" as="obj">
+{GenerateFromObject(obj.Info.Name, obj, 2)}
+</bs:each>
+
+{GetHeading(2, "Types")}
+<bs:each on="typeList.Keys.OrderBy(x=>x)" as="obj">
+{GenerateType(typeList[obj])}
+</bs:each>
+
+{GetHeading(1, "Table of Contents")}
+
+{GetTableOfContents()}
