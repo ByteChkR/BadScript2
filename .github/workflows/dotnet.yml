@@ -137,7 +137,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@release
       with:
         local: documentation/docs.zip
-        remote: ./badscript2.docs.zip
+        remote: ./${{ needs.documentation.outputs.Version }}.zip
         host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
         username: ${{ secrets.DOCUMENTATION_SSH_USER }}
         privateKey: ${{ secrets.DOCUMENTATION_SSH_KEY }}
