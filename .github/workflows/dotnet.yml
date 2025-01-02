@@ -133,14 +133,16 @@ jobs:
       with:
         name: documentation
         path: documentation
+    - name: Create Upload Archive
+      run: "/usr/bin/bash mv documentation/docs.zip ${{ needs.documentation.outputs.Version }}.zip"
     - name: Copy Documentation to Webserver
-      uses: garygrossgarten/github-action-scp@release
+      uses: appleboy/scp-action@v0.1.7
       with:
-        local: documentation/docs.zip
-        remote: ${{ needs.documentation.outputs.Version }}.zip
         host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
         username: ${{ secrets.DOCUMENTATION_SSH_USER }}
-        privateKey: ${{ secrets.DOCUMENTATION_SSH_KEY }}
+        password: ${{ secrets.PASSWORD }}
+        source: "${{ needs.documentation.outputs.Version }}.zip"
+        target: ./
     - name: Deploying Documentation
       uses: appleboy/ssh-action@v1.0.3
       with:
