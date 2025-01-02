@@ -2,7 +2,7 @@ param ($version="(~){yy}.(~){MM}.(~){dd}.+", $sources="./src", $postfix="")
 $bsDir = "$pwd/build/"
 
 if (-not(Test-Path $bsDir)) { #Only Build if the directory does not exist.
-    . ./build.ps1 -noProjects -noTests -writeLog
+    . ./build.ps1 -noTests -writeLog
 }
 
 if ($IsWindows -eq $true) {
