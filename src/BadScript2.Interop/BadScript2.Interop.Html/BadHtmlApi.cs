@@ -26,7 +26,7 @@ internal partial class BadHtmlApi
     {
         BadHtmlTemplate template = BadHtmlTemplate.Create(file);
 
-        BadHtmlTemplateOptions options = new BadHtmlTemplateOptions();
+        BadHtmlTemplateOptions options = new BadHtmlTemplateOptions{Runtime = context.Scope.GetSingleton<BadRuntime>()};
         options.SkipEmptyTextNodes = skipEmptyTextNodes;
 
         return template.Run(model, options, context.Scope);
