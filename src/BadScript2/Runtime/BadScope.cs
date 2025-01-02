@@ -190,6 +190,10 @@ public class BadScope : BadObject, IDisposable
                                                                                                {
                                                                                                    switch (args.Length)
                                                                                                    {
+                                                                                                       case 0:
+                                                                                                       {
+                                                                                                           return CreateScope(c, "SCOPE");
+                                                                                                       }
                                                                                                        case 1:
                                                                                                        {
                                                                                                            if (args[0] is not IBadString name)

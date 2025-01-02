@@ -20,6 +20,7 @@ public static class BadNativeClassHelper
             {
                 "string", a =>
                 {
+                    if (a.Length == 0) return string.Empty;
                     if (a.Length != 1)
                     {
                         throw new BadRuntimeException("string constructor takes exactly one argument");
@@ -33,6 +34,7 @@ public static class BadNativeClassHelper
             {
                 "bool", a =>
                 {
+                    if (a.Length == 0) return BadObject.False;
                     if (a.Length != 1)
                     {
                         throw new BadRuntimeException("boolean constructor takes exactly one argument");
@@ -49,6 +51,7 @@ public static class BadNativeClassHelper
             {
                 "num", a =>
                 {
+                    if (a.Length == 0) return 0;
                     if (a.Length != 1)
                     {
                         throw new BadRuntimeException("number constructor takes exactly one argument");
@@ -81,6 +84,7 @@ public static class BadNativeClassHelper
             {
                 "Array", a =>
                 {
+                    if (a.Length == 0) return new BadArray();
                     if (a.Length != 1)
                     {
                         throw new BadRuntimeException("array constructor takes exactly one argument");
@@ -97,6 +101,7 @@ public static class BadNativeClassHelper
             {
                 "Table", a =>
                 {
+                    if (a.Length == 0) return new BadTable();
                     if (a.Length != 1)
                     {
                         throw new BadRuntimeException("table constructor takes exactly one argument");
