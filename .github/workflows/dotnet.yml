@@ -90,6 +90,11 @@ jobs:
       run: |
         echo "Version: ${{ steps.setcalver.outputs.package_version }}"
       
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    
     - name: Update Nuget Package Versions
       run: /usr/bin/pwsh ./newNugetVersion.ps1 -version ${{ steps.setcalver.outputs.package_version }} -postfix public
 
