@@ -19,11 +19,39 @@ if (Test-Path -Path "./BadScript2") {
 }
 else {
    Write-Host "Cloning Repository"
-   git clone https://EWUIT@dev.azure.com/EWUIT/BadScript2/_git/BadScript2
+   git clone https://github.com/ByteChkR/BadScript2.git
+   cd BadScript2
+   git submodule init
+   git pull --recurse-submodules
+   cd ..
 }
 
 Write-Host "Building Projects"
 cd BadScript2
 . ./build.ps1
 cd ..
-Write-Host "Building Complete. Run 'BSShell.ps1' located in the 'build' directory to add the 'bs' command to a shell session."
+
+Write-Host "Building Complete. Run '$pwd/BadScript2/build/BSShell.ps1' located in the 'build' directory to add the 'bs' command to a shell session."
+
+if ($IsWindows) {
+    $os = "win"
+    $bs = "$pwd/BadScript2/build/bs.exe"
+} 
+elseif ($IsLinux) {
+    $os = "linux"
+    $bs = "$pwd/BadScript2/build/bs"
+}
+elseif ($IsMacOS) {
+    $os = "osx"
+    $bs = "$pwd/BadScript2/build/bs"
+}
+else {
+    write-output "Could not determine OS Version."
+    write-output "BadScript2 Console Root Directory: $pwd/BadScript2/build"
+    exit
+}
+
+Write-Host "BadScript2 Console Executable for '$os': $bs"
+cd BadScript2/build
+. ./BSShell.ps1
+cd ../..
