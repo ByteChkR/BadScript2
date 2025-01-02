@@ -101,7 +101,7 @@ jobs:
       run: /usr/bin/pwsh ./newNugetVersion.ps1 -version ${{ steps.setcalver.outputs.package_version }} -postfix public
 
     - name: Rebuild with new Versions
-      run: /usr/bin/pwsh ./build.ps1 -noProjects -noTests -writeLog
+      run: /usr/bin/pwsh ./build.ps1 -noTests -writeLog
 
     - name: Generate Reference
       run: /usr/bin/pwsh ./generateReference.ps1
