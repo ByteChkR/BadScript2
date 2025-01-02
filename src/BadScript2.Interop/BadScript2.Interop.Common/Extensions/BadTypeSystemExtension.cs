@@ -83,7 +83,7 @@ public class BadTypeSystemExtension : BadInteropExtension
         provider.RegisterObject<BadClassPrototype>("Name",
             proto => proto.Name
         );
-        provider.RegisterObject<BadClassPrototype>("GetInterfaces",
+        provider.RegisterObject<BadClassPrototype>("Interfaces",
             proto => new BadArray(proto.Interfaces.Select(BadObject (x) => x).ToList())
         );
     }
