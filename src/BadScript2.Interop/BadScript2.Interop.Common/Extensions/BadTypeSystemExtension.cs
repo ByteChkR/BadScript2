@@ -1,9 +1,11 @@
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Interop.Common.Extensions;
 
@@ -31,21 +33,53 @@ public class BadTypeSystemExtension : BadInteropExtension
                                          );
 
         provider.RegisterObject<BadClassPrototype>("CreateInstance",
-                                                   p => new BadDynamicInteropFunction("CreateInstance",
-                                                        ctx =>
-                                                        {
-                                                            BadObject obj = BadObject.Null;
+            p => new BadDynamicInteropFunction("CreateInstance",
+                ctx =>
+                {
+                    BadObject obj = BadObject.Null;
 
-                                                            foreach (BadObject o in p.CreateInstance(ctx))
-                                                            {
-                                                                obj = o;
-                                                            }
+                    foreach (BadObject o in p.CreateInstance(ctx))
+                    {
+                        obj = o;
+                    }
 
-                                                            return obj;
-                                                        },
-                                                        p
-                                                       )
-                                                  );
+                    return obj;
+                },
+                p
+            )
+        );
+
+
+        provider.RegisterObject<BadClassPrototype>("GenericTypeCount",
+            p => p is BadExpressionClassPrototype ecp ? 
+                ecp.GenericParameters.Count : 
+                p is BadInterfacePrototype ip ? 
+                    ip.GenericParameters.Count : 0
+        );
+
+
+        provider.RegisterObject<BadClassPrototype>("CreateGenericType",
+            proto => new BadDynamicInteropFunction<BadArray>("CreateGenericType",
+                (ctx, o) =>
+                {
+                    var args = o.InnerArray.ToList();
+                    if (proto is not BadExpressionClassPrototype ecp)
+                    {
+                        throw BadRuntimeException.Create(ctx.Scope, "Invalid Prototype Type");
+                    }
+                    if (ecp.IsResolved) return ecp;
+                    if (args.Count < ecp.GenericParameters.Count)
+                    {
+                        args.AddRange(Enumerable.Repeat(BadAnyPrototype.Instance, ecp.GenericParameters.Count - args.Count));
+                    }
+                    if (args.Count != ecp.GenericParameters.Count)
+                    {
+                        throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
+                    }
+                    return ecp.CreateGeneric(args.ToArray());
+                },
+                BadNativeClassBuilder.GetNative("Type")
+            ));
 
         provider.RegisterObject<BadClassPrototype>("Meta", f => f.MetaData);
 
