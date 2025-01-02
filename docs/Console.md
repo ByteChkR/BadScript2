@@ -1,6 +1,5 @@
-﻿[![build](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml)
-
-# BadScript2 Console Documentation
+﻿# BadScript2 Console Documentation
+[![build](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ByteChkR/BadScript2/actions/workflows/dotnet.yml)
 
 <div style="display: flex; justify-content: center;">
     <img width="256" height="256" src="https://github.com/ByteChkR/BadScript2/blob/master/res/Logo.png?raw=true"/>
