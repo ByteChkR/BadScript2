@@ -120,6 +120,12 @@ public class BadTypeSystemExtension : BadInteropExtension
         provider.RegisterObject<BadClassPrototype>("Interfaces",
             proto => new BadArray(proto.Interfaces.Select(BadObject (x) => x).ToList())
         );
+        provider.RegisterObject<BadClassPrototype>("IsAbstract",
+            proto => proto.IsAbstract
+        );
+        provider.RegisterObject<BadClassPrototype>("IsInterface",
+            proto => proto is BadInterfacePrototype
+        );
     }
 
 
