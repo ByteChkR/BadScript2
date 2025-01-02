@@ -134,7 +134,7 @@ jobs:
         name: documentation
         path: documentation
     - name: Create Upload Archive
-      run: "/usr/bin/bash mv documentation/docs.zip ${{ needs.documentation.outputs.Version }}.zip"
+      run: "mv documentation/docs.zip ${{ needs.documentation.outputs.Version }}.zip"
     - name: Copy Documentation to Webserver
       uses: appleboy/scp-action@v0.1.7
       with:
