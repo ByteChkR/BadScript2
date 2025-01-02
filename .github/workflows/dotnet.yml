@@ -140,7 +140,7 @@ jobs:
       with:
         host: ${{ secrets.DOCUMENTATION_SSH_HOST }}
         username: ${{ secrets.DOCUMENTATION_SSH_USER }}
-        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.DOCUMENTATION_SSH_KEY }}
         source: "${{ needs.documentation.outputs.Version }}.zip"
         target: ./
     - name: Deploying Documentation
