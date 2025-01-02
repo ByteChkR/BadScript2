@@ -72,6 +72,17 @@ Requirements:
 `build.ps1` compiles the language project and builds all common libraries for the runtime.
 The Compiled output will be generated in `./build`.
 
+#### Building with Install Script
+
+For convenience use the InstallBadScript2.ps1 script in ./docs to install.
+It does the Cloning/Building from the Git Repo automatically.
+
+Either download the script file and start manually. Or directly execute the Script from a URL:
+```
+. { iwr -useb https://bytechkr.github.io/BadScript2/InstallBadScript2.ps1 } | iex; InstallBadScript2
+```
+
+
 
 ### Hello World
 Create a file `helloworld.bs` with the following content:
