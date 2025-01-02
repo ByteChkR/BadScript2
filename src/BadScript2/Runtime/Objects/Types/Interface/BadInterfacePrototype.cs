@@ -120,6 +120,11 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
             throw new BadRuntimeException("Invalid Generic Argument Count");
         }
 
+        if (GenericParameters.Count == 0)
+        {
+            return this;
+        }
+
         if (IsResolved)
         {
             throw new BadRuntimeException("Interface is already resolved");

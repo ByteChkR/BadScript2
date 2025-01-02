@@ -63,20 +63,34 @@ public class BadTypeSystemExtension : BadInteropExtension
                 (ctx, o) =>
                 {
                     var args = o.InnerArray.ToList();
-                    if (proto is not BadExpressionClassPrototype ecp)
+                    if (proto is BadExpressionClassPrototype ecp)
                     {
-                        throw BadRuntimeException.Create(ctx.Scope, "Invalid Prototype Type");
+                        if (ecp.IsResolved) return ecp;
+                        if (args.Count < ecp.GenericParameters.Count)
+                        {
+                            args.AddRange(Enumerable.Repeat(BadAnyPrototype.Instance, ecp.GenericParameters.Count - args.Count));
+                        }
+                        if (args.Count != ecp.GenericParameters.Count)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
+                        }
+                        return ecp.CreateGeneric(args.ToArray());
                     }
-                    if (ecp.IsResolved) return ecp;
-                    if (args.Count < ecp.GenericParameters.Count)
+                    if (proto is BadInterfacePrototype ip)
                     {
-                        args.AddRange(Enumerable.Repeat(BadAnyPrototype.Instance, ecp.GenericParameters.Count - args.Count));
+                        if (ip.IsResolved) return ip;
+                        if (args.Count < ip.GenericParameters.Count)
+                        {
+                            args.AddRange(Enumerable.Repeat(BadAnyPrototype.Instance, ip.GenericParameters.Count - args.Count));
+                        }
+                        if (args.Count != ip.GenericParameters.Count)
+                        {
+                            throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
+                        }
+                        return ip.CreateGeneric(args.ToArray());
                     }
-                    if (args.Count != ecp.GenericParameters.Count)
-                    {
-                        throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
-                    }
-                    return ecp.CreateGeneric(args.ToArray());
+                    return proto;
+
                 },
                 BadNativeClassBuilder.GetNative("Type")
             ));
