@@ -86,6 +86,8 @@ jobs:
         format: 'YYYY.MM.DD'
         version_prefix: ''
         submodules: true
+    - name: Checkout submodules
+      run: git submodule update --init --recursive
     - name: Display Version outputs
       run: |
         echo "Version: ${{ steps.setcalver.outputs.package_version }}"
