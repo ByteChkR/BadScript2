@@ -1,8 +1,40 @@
 ﻿using BadScript2.Interactive;
 using BadScript2.Interop;
 using BadScript2.Interop.Common;
+using BadScript2.Runtime;
+using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Interop.Functions;
+using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Generator.Test;
+
+
+[BadInteropObject("Test")]
+public class TestObject
+{
+    [BadProperty]
+    public string Name { get; set; }
+    [BadProperty(null, null, true)]
+    public string Prefix { get; set; } = "MESSSAGE: ";
+    [BadProperty]
+    public string Line => $"{Prefix}Hello {Name}";
+    
+    [BadMethod]
+    public void Run()
+    {
+        Console.WriteLine(Line);
+    }
+    [BadMethod]
+    public void SetPrefix(string prefix)
+    {
+        Prefix = prefix;
+    }
+    
+    
+}
+
 
 [BadInteropApi("TestApi")]
 internal partial class Program
@@ -63,6 +95,8 @@ internal partial class Program
         BadRuntime runtime = new BadRuntime()
                              .UseCommonInterop()
                              .UseApi(new Program());
+        
+        BadNativeClassBuilder.AddNative(TestObjectWrapper.Prototype);
 
         runtime.RunInteractive(Enumerable.Empty<string>());
     }

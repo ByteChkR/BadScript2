@@ -9,6 +9,8 @@ namespace BadScript2.Interop.Generator;
 public static class BadInteropStaticCode
 {
     public const string INTEROP_API_ATTRIBUTE = "BadScript2.Interop.BadInteropApiAttribute";
+    public const string INTEROP_OBJECT_ATTRIBUTE = "BadScript2.Interop.BadInteropObjectAttribute";
+    public const string INTEROP_PROPERTY_ATTRIBUTE = "BadScript2.Interop.BadPropertyAttribute";
     public const string INTEROP_METHOD_ATTRIBUTE = "BadScript2.Interop.BadMethodAttribute";
     public const string INTEROP_METHOD_PARAMETER_ATTRIBUTE = "BadScript2.Interop.BadParameterAttribute";
     public const string INTEROP_METHOD_RETURN_ATTRIBUTE = "BadScript2.Interop.BadReturnAttribute";
@@ -52,10 +54,18 @@ public static class BadInteropStaticCode
     {
         return symbol.GetAttribute(INTEROP_API_ATTRIBUTE);
     }
+    public static AttributeData? GetInteropObjectAttribute(this ITypeSymbol symbol)
+    {
+        return symbol.GetAttribute(INTEROP_OBJECT_ATTRIBUTE);
+    }
 
     public static AttributeData? GetInteropMethodAttribute(this IMethodSymbol symbol)
     {
         return symbol.GetAttribute(INTEROP_METHOD_ATTRIBUTE);
+    }
+    public static AttributeData? GetInteropPropertyAttribute(this IPropertySymbol symbol)
+    {
+        return symbol.GetAttribute(INTEROP_PROPERTY_ATTRIBUTE);
     }
 
     public static AttributeData? GetReturnTypeAttribute(this IMethodSymbol symbol)
@@ -97,6 +107,15 @@ namespace BadScript2.Interop
             ConstructorPrivate = constructorPrivate;
         }
     }
+    [AttributeUsage(AttributeTargets.Class)]
+    internal sealed class BadInteropObjectAttribute : Attribute
+    {
+        public string? TypeName { get; }
+        public BadInteropObjectAttribute(string? typeName = null)
+        {
+            TypeName = typeName;
+        }
+    }
     
     [AttributeUsage(AttributeTargets.Method)]
     internal sealed class BadMethodAttribute : Attribute
@@ -107,6 +126,22 @@ namespace BadScript2.Interop
         {
             Name = name;
             Description = description;
+        }
+    }
+    
+    [AttributeUsage(AttributeTargets.Property)]
+    internal sealed class BadPropertyAttribute : Attribute
+    {
+        public string? Name { get; }
+        public string? Description { get; }
+        public bool ReadOnly { get; }
+        public bool AllowNativeTypes { get; }
+        public BadPropertyAttribute(string? name = null, string? description = null, bool readOnly = false, bool allowNativeTypes = false)
+        {
+            Name = name;
+            Description = description;
+            ReadOnly = readOnly;
+            AllowNativeTypes = allowNativeTypes;
         }
     }
     
@@ -142,6 +177,7 @@ namespace BadScript2.Interop
 
         protected virtual void AdditionalData(BadScript2.Runtime.Objects.BadTable target) { }
     }
+
 }",
                                           Encoding.UTF8
                                          )

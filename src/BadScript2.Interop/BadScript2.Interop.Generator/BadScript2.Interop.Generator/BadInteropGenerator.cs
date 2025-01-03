@@ -18,46 +18,87 @@ public class BadInteropGenerator : IIncrementalGenerator
     {
         context.RegisterPostInitializationOutput(BadInteropStaticCode.RegisterAttributeSource);
 
-        IncrementalValuesProvider<ApiModel> pipeline =
+        IncrementalValuesProvider<ApiModel> apiPipeline =
             context.SyntaxProvider.ForAttributeWithMetadataName(BadInteropStaticCode.INTEROP_API_ATTRIBUTE,
-                                                                static (syntaxNode, _) =>
-                                                                    syntaxNode is ClassDeclarationSyntax,
-                                                                static (context, _) =>
-                                                                {
-                                                                    INamedTypeSymbol api =
-                                                                        (INamedTypeSymbol)context.TargetSymbol;
+                static (syntaxNode, _) =>
+                    syntaxNode is ClassDeclarationSyntax,
+                static (context, _) =>
+                {
+                    INamedTypeSymbol api =
+                        (INamedTypeSymbol)context.TargetSymbol;
 
-                                                                    BadInteropApiModelBuilder builder =
-                                                                        new BadInteropApiModelBuilder();
+                    BadInteropApiModelBuilder builder =
+                        new BadInteropApiModelBuilder();
 
-                                                                    return builder.GenerateModel(api);
-                                                                }
-                                                               );
+                    return builder.GenerateModel(api);
+                }
+            );
+        
+        IncrementalValuesProvider<ObjectModel> objectPipeline =
+            context.SyntaxProvider.ForAttributeWithMetadataName(BadInteropStaticCode.INTEROP_OBJECT_ATTRIBUTE,
+                static (syntaxNode, _) =>
+                    syntaxNode is ClassDeclarationSyntax,
+                static (context, _) =>
+                {
+                    INamedTypeSymbol api =
+                        (INamedTypeSymbol)context.TargetSymbol;
 
-        context.RegisterSourceOutput(pipeline,
-                                     static (context, model) =>
-                                     {
-                                         bool isError = false;
+                    BadInteropObjectModelBuilder builder =
+                        new BadInteropObjectModelBuilder();
 
-                                         if (model.Diagnostics.Length != 0)
-                                         {
-                                             foreach (Diagnostic diagnostic in model.Diagnostics)
-                                             {
-                                                 context.ReportDiagnostic(diagnostic);
-                                                 isError |= diagnostic.Severity == DiagnosticSeverity.Error;
-                                             }
-                                         }
+                    return builder.GenerateModel(api);
+                }
+            );
 
-                                         BadInteropApiSourceGenerator gen = new BadInteropApiSourceGenerator(context);
+        context.RegisterSourceOutput(apiPipeline,
+            static (context, model) =>
+            {
+                bool isError = false;
 
-                                         SourceText sourceText =
-                                             SourceText.From(gen.GenerateModelSource(context, model, isError),
-                                                             Encoding.UTF8
-                                                            );
+                if (model.Diagnostics.Length != 0)
+                {
+                    foreach (Diagnostic diagnostic in model.Diagnostics)
+                    {
+                        context.ReportDiagnostic(diagnostic);
+                        isError |= diagnostic.Severity == DiagnosticSeverity.Error;
+                    }
+                }
 
-                                         context.AddSource($"{model.ClassName}.g.cs", sourceText);
-                                     }
-                                    );
+                BadInteropApiSourceGenerator gen = new BadInteropApiSourceGenerator(context);
+
+                SourceText sourceText =
+                    SourceText.From(gen.GenerateModelSource(context, model, isError),
+                        Encoding.UTF8
+                    );
+
+                context.AddSource($"{model.ClassName}.Api.g.cs", sourceText);
+            }
+        );
+        
+        context.RegisterSourceOutput(objectPipeline,
+            static (context, model) =>
+            {
+                bool isError = false;
+
+                if (model.Diagnostics.Length != 0)
+                {
+                    foreach (Diagnostic diagnostic in model.Diagnostics)
+                    {
+                        context.ReportDiagnostic(diagnostic);
+                        isError |= diagnostic.Severity == DiagnosticSeverity.Error;
+                    }
+                }
+
+                BadInteropObjectSourceGenerator gen = new BadInteropObjectSourceGenerator(context);
+
+                SourceText sourceText =
+                    SourceText.From(gen.GenerateModelSource(context, model, isError),
+                        Encoding.UTF8
+                    );
+
+                context.AddSource($"{model.ClassName}.Object.g.cs", sourceText);
+            }
+        );
     }
 
 #endregion
