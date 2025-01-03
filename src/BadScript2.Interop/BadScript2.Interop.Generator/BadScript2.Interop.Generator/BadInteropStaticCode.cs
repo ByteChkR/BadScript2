@@ -111,9 +111,11 @@ namespace BadScript2.Interop
     internal sealed class BadInteropObjectAttribute : Attribute
     {
         public string? TypeName { get; }
-        public BadInteropObjectAttribute(string? typeName = null)
+        public Type? BaseType { get; }
+        public BadInteropObjectAttribute(string? typeName = null, Type? baseType = null)
         {
             TypeName = typeName;
+            BaseType = baseType;
         }
     }
     

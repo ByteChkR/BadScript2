@@ -30,7 +30,8 @@ public class BadInteropEnumerator : BadObject, IBadEnumerator
                                                                               BadAnyPrototype.Instance,
                                                                           }
                                                                       ),
-                                                          }
+                                                          },
+                                                          null
                                                          );
 
     /// <summary>

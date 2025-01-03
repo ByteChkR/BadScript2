@@ -13,7 +13,8 @@ public class BadMemberInfo : BadObject
         new BadNativeClassPrototype<BadMemberInfo>("MemberInfo",
                                                    (c, a) => throw BadRuntimeException.Create(c.Scope,
                                                                   "MemberInfo is a read only object"
-                                                                 )
+                                                                 ),
+                                                                 null
                                                   );
 
     private readonly Lazy<BadObjectReference> m_GetAttributesReference;

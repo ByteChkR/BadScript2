@@ -19,7 +19,8 @@ public class BadVersion : BadObject, IBadNative
     ///     The Version Class Prototype
     /// </summary>
     public static readonly BadClassPrototype
-        Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
+        Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor,
+            null);
 
     /// <summary>
     ///     The Version Class Prototype
@@ -38,7 +39,8 @@ public class BadVersion : BadObject, IBadNative
 
     static BadVersion()
     {
-        s_Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor);
+        s_Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor,
+            null);
     }
 
     /// <summary>

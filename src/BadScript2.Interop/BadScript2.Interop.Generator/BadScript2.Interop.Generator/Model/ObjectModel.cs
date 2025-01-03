@@ -8,6 +8,7 @@ public readonly struct ObjectModel : IEquatable<ObjectModel>
     public readonly string Namespace;
     public readonly string ClassName;
     public readonly string ObjectName;
+    public readonly string? BaseClassName;
     public readonly MethodModel Constructor;
     public readonly MethodModel[] Methods;
     public readonly PropertyModel[] Properties;
@@ -18,7 +19,7 @@ public readonly struct ObjectModel : IEquatable<ObjectModel>
         MethodModel[] methods,
         string objectName,
         Diagnostic[] diagnostics, 
-        PropertyModel[] properties, MethodModel constructor)
+        PropertyModel[] properties, MethodModel constructor, string? baseClassName)
     {
         Namespace = ns;
         ClassName = className;
@@ -27,6 +28,7 @@ public readonly struct ObjectModel : IEquatable<ObjectModel>
         Diagnostics = diagnostics;
         Properties = properties;
         Constructor = constructor;
+        BaseClassName = baseClassName;
     }
     public bool Equals(ObjectModel other)
     {

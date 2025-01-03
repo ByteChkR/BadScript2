@@ -10,29 +10,43 @@ using BadScript2.Runtime.Objects.Types;
 
 namespace BadScript2.Generator.Test;
 
-
-[BadInteropObject("Test")]
-public class TestObject
+[BadInteropObject("Person")]
+public class Person
 {
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
     [BadProperty]
     public string Name { get; set; }
-    [BadProperty(null, null, true)]
-    public string Prefix { get; set; } = "MESSSAGE: ";
     [BadProperty]
-    public string Line => $"{Prefix}Hello {Name}";
-    
+    public int Age { get; set; }
+
     [BadMethod]
-    public void Run()
+    public virtual string PrintInfo()
     {
-        Console.WriteLine(Line);
+        return $"{Name} is {Age} years old";
     }
-    [BadMethod]
-    public void SetPrefix(string prefix)
+}
+
+[BadInteropObject("Employee", typeof(PersonWrapper))]
+public class Employee : Person
+{
+    public Employee(string name, int age, string job, int employeeId) : base(name, age)
     {
-        Prefix = prefix;
+        Job = job;
+        EmployeeId = employeeId;
     }
-    
-    
+    [BadProperty]
+    public string Job { get; set; }
+    [BadProperty]
+    public int EmployeeId { get; set; }
+
+    public override string PrintInfo()
+    {
+        return base.PrintInfo() + " and works as " + Job + " with EmployeeId " + EmployeeId;
+    }
 }
 
 
@@ -96,8 +110,9 @@ internal partial class Program
                              .UseCommonInterop()
                              .UseApi(new Program());
         
-        BadNativeClassBuilder.AddNative(TestObjectWrapper.Prototype);
-
+        BadNativeClassBuilder.AddNative(PersonWrapper.Prototype);
+        BadNativeClassBuilder.AddNative(EmployeeWrapper.Prototype);
+        
         runtime.RunInteractive(Enumerable.Empty<string>());
     }
 }

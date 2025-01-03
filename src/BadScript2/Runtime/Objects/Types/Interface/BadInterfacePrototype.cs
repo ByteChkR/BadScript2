@@ -12,7 +12,8 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     ///     The Prototype for the Interface Prototype
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadClassPrototype>("Interface",
-                                                                                                           (_, _) => throw new BadRuntimeException("Interfaces cannot be extended")
+                                                                                                           (_, _) => throw new BadRuntimeException("Interfaces cannot be extended"),
+                                                                                                           null
                                                                                                           );
 
     /// <summary>

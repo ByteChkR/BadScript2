@@ -53,7 +53,8 @@ public class BadInteropEnumerable : BadObject, IBadEnumerable
                                                                               BadAnyPrototype.Instance,
                                                                           }
                                                                       ),
-                                                          }
+                                                          },
+                                                          null
                                                          );
 
     /// <summary>

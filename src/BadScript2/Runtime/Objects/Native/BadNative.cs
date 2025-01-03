@@ -21,7 +21,8 @@ public class BadNative<T> : BadObject, IBadNative
                                                                                                           }
 
                                                                                                           return t;
-                                                                                                      }
+                                                                                                      },
+                                                                                                      null
                                                                                                      );
 
     /// <summary>

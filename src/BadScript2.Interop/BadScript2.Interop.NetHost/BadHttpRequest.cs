@@ -16,7 +16,8 @@ public class BadHttpRequest : BadObject
 	///     Class Prototype Instance
 	/// </summary>
 	private static readonly BadClassPrototype s_Prototype = new BadNativeClassPrototype<BadHttpContext>("HttpRequest",
-	                                                                                                    (_, _) => throw new BadRuntimeException("Cannot create new Http Request")
+	                                                                                                    (_, _) => throw new BadRuntimeException("Cannot create new Http Request"),
+	                                                                                                    null
 	                                                                                                   );
 
 	/// <summary>

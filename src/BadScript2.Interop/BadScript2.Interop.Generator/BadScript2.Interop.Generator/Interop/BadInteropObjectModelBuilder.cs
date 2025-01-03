@@ -78,11 +78,17 @@ public class BadInteropObjectModelBuilder
         }
 
         string apiName = api.Name;
+        string? baseClassName = null;
         if (apiAttribute.ConstructorArguments.Length > 0)
         {
             apiName = apiAttribute.ConstructorArguments[0]
                           .Value?.ToString() ??
                       apiName;
+        }
+        if(apiAttribute.ConstructorArguments.Length > 1)
+        {
+            var t = apiAttribute.ConstructorArguments[1].Value;
+            baseClassName = $"{t}";
         }
 
         MethodModel[] methodModels = GenerateMethodModels(methods)
@@ -109,7 +115,8 @@ public class BadInteropObjectModelBuilder
             apiName,
             diagnostics,
             propertyModels,
-            ctorModel
+            ctorModel,
+            baseClassName
         );
     }
 

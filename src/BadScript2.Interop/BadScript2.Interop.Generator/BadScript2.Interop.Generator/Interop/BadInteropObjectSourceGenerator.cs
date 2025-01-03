@@ -66,7 +66,7 @@ public class BadInteropObjectSourceGenerator
         
         return sb.ToString();
     }
-    private string GenerateInvocation(MethodModel method)
+    private string GenerateInvocation(MethodModel method, string className)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -79,7 +79,7 @@ public class BadInteropObjectSourceGenerator
             sb.Append("BadObject.Wrap(");
         }
 
-        sb.Append($"Value.{method.MethodName}(");
+        sb.Append($"(({className})Value).{method.MethodName}(");
         bool hasCtx = method.Parameters.Any(x => x.IsContext);
         List<string> args = new List<string>();
 
@@ -140,37 +140,35 @@ public class BadInteropObjectSourceGenerator
             $"new BadFunctionParameter(\"{model.Name}\", {model.HasDefaultValue.ToString().ToLower()}, {(!model.IsNullable).ToString().ToLower()}, {model.IsRestArgs.ToString().ToLower()}, null, BadNativeClassBuilder.GetNative(\"{model.Type}\"))";
     }
 
-    private void GeneratePropertySource(IndentedTextWriter sb, PropertyModel model)
+    private void GeneratePropertySource(IndentedTextWriter sb, PropertyModel model, string className)
     {
         if(model.IsReadOnly)
         {
-            sb.WriteLine($"Properties.Add(\"{model.ApiParameterName}\", BadObjectReference.Make(\"{model.ApiParameterName}\", p => Wrap(Value.{model.ParameterName})));");
+            sb.WriteLine($"Properties[\"{model.ApiParameterName}\"] = BadObjectReference.Make(\"{model.ApiParameterName}\", p => Wrap((({className})Value).{model.ParameterName}));");
         }
         else
         {
-            sb.WriteLine($"Properties.Add(\"{model.ApiParameterName}\", ");
+            sb.WriteLine($"Properties[\"{model.ApiParameterName}\"] = ");
             sb.Indent++;
             sb.WriteLine($"BadObjectReference.Make(\"{model.ApiParameterName}\",");
             sb.Indent++;
-            sb.WriteLine($"p => Wrap(Value.{model.ParameterName}),");
-            sb.WriteLine($"(v, p, i) => Value.{model.ParameterName} = v.Unwrap<{model.ParameterType}>()");
-            sb.Indent--;
-            sb.WriteLine(")");
+            sb.WriteLine($"p => Wrap((({className})Value).{model.ParameterName}),");
+            sb.WriteLine($"(v, p, i) => (({className})Value).{model.ParameterName} = v.Unwrap<{model.ParameterType}>()");
             sb.Indent--;
             sb.WriteLine(");");
+            sb.Indent--;
         }
     }
-    private void GenerateMethodSource(IndentedTextWriter sb, MethodModel method)
+    private void GenerateMethodSource(IndentedTextWriter sb, MethodModel method, string className)
     {
-        sb.WriteLine("Properties.Add(");
+        sb.WriteLine($"Properties[\"{method.ApiMethodName}\"] = ");
         sb.Indent++;
-        sb.WriteLine($"\"{method.ApiMethodName}\",");
         sb.WriteLine($"BadObjectReference.Make(\"{method.ApiMethodName}\",");
         sb.Indent++;
         sb.WriteLine($"p => new BadInteropFunction(");
         sb.Indent++;
         sb.WriteLine($"\"{method.ApiMethodName}\",");
-        sb.WriteLine($"(ctx, args) => {GenerateInvocation(method)},");
+        sb.WriteLine($"(ctx, args) => {GenerateInvocation(method, className)},");
         sb.WriteLine("false,");
         sb.Write($"BadNativeClassBuilder.GetNative(\"{method.ReturnType}\")");
 
@@ -233,9 +231,8 @@ public class BadInteropObjectSourceGenerator
         sb.Indent--;
         sb.WriteLine(")");
         sb.Indent--;
-        sb.WriteLine(")");
-        sb.Indent--;
         sb.WriteLine(");");
+        sb.Indent--;
     }
 
     public string GenerateModelSource(SourceProductionContext context, ObjectModel apiModel, bool isError)
@@ -252,7 +249,7 @@ public class BadInteropObjectSourceGenerator
         tw.WriteLine("using BadScript2.Runtime.Interop;");
         tw.WriteLine();
         tw.WriteLine($"namespace {apiModel.Namespace};");
-        tw.WriteLine($"public partial class {apiModel.ClassName}Wrapper : BadScript2.Runtime.Objects.Native.BadNative<{apiModel.ClassName}>");
+        tw.WriteLine($"public partial class {apiModel.ClassName}Wrapper : {(string.IsNullOrEmpty(apiModel.BaseClassName) ? $"BadScript2.Runtime.Objects.Native.BadNative<{apiModel.ClassName}>": apiModel.BaseClassName)}");
         tw.WriteLine("{");
         tw.Indent++;
 
@@ -261,13 +258,16 @@ public class BadInteropObjectSourceGenerator
         tw.WriteLine("{");
         tw.Indent++;
         tw.WriteLine("T? GetParameter<T>(BadObject[] args, int i, T? defaultValue = default(T)) => args.Length>i?args[i].Unwrap<T>():defaultValue;");
-        tw.WriteLine($"return new BadNativeClassPrototype<{apiModel.ClassName}Wrapper>(\"{apiModel.ObjectName}\", (ctx, args) => {GenerateConstructor(apiModel)});");
+        tw.WriteLine($"return new BadNativeClassPrototype<{apiModel.ClassName}Wrapper>(\"{apiModel.ObjectName}\", (ctx, args) => {GenerateConstructor(apiModel)}, {(string.IsNullOrEmpty(apiModel.BaseClassName) ? "null" : $"{apiModel.BaseClassName}.Prototype")});");
         tw.Indent--;
         tw.WriteLine("}");
         tw.WriteLine("public static BadClassPrototype Prototype => s_Prototype ??= CreatePrototype();");
-        
-        tw.WriteLine("protected readonly Dictionary<string, BadObjectReference> Properties = new Dictionary<string, BadObjectReference>();");
-        tw.WriteLine();
+
+        if(string.IsNullOrEmpty(apiModel.BaseClassName))
+        {
+            tw.WriteLine("protected readonly Dictionary<string, BadObjectReference> Properties = new Dictionary<string, BadObjectReference>();");
+            tw.WriteLine();
+        }
         tw.WriteLine($"public {apiModel.ClassName}Wrapper({apiModel.ClassName} value) : base(value)");
         tw.WriteLine("{");
         tw.Indent++;
@@ -278,11 +278,11 @@ public class BadInteropObjectSourceGenerator
 
             foreach (PropertyModel method in apiModel.Properties)
             {
-                GeneratePropertySource(tw, method);
+                GeneratePropertySource(tw, method, apiModel.ClassName);
             }
             foreach (MethodModel method in apiModel.Methods)
             {
-                GenerateMethodSource(tw, method);
+                GenerateMethodSource(tw, method, apiModel.ClassName);
             }
         }
 
@@ -308,9 +308,11 @@ public class BadInteropObjectSourceGenerator
         tw.WriteLine("return base.GetProperty(propName, caller);");
         tw.Indent--;
         tw.WriteLine("}");
+        
 
-        tw.WriteLine("public static implicit operator TestObjectWrapper(TestObject obj) => new TestObjectWrapper(obj);");
-        tw.WriteLine("public static implicit operator TestObject(TestObjectWrapper obj) => obj.Value;");
+        tw.WriteLine("public override BadClassPrototype GetPrototype() => Prototype;");
+        tw.WriteLine($"public static implicit operator {apiModel.ClassName}Wrapper({apiModel.ClassName} obj) => new {apiModel.ClassName}Wrapper(obj);");
+        tw.WriteLine($"public static implicit operator {apiModel.ClassName}({apiModel.ClassName}Wrapper obj) => ({apiModel.ClassName})obj.Value;");
         
         tw.Indent--;
         tw.WriteLine("}");

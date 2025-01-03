@@ -86,7 +86,7 @@ public class BadDatePrototype : BadNativeClassPrototype<BadDate>
         
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
     }
-    public BadDatePrototype() : base("Date", DateConstructor, s_StaticMembers)
+    public BadDatePrototype() : base("Date", DateConstructor, s_StaticMembers, null)
     {
     }
 }

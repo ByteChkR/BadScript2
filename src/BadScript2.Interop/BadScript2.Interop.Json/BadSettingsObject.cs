@@ -18,7 +18,8 @@ public class BadSettingsObject : BadObject
     ///     The Class Prototype
     /// </summary>
     public static readonly BadClassPrototype Prototype =
-        new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args) => CreateObj(args));
+        new BadNativeClassPrototype<BadSettingsObject>("BadSettings", (_, args) => CreateObj(args),
+            null);
 
     /// <summary>
     ///     Property References

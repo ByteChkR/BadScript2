@@ -37,7 +37,8 @@ public class BadTask : BadObject
                                                                                                   }
 
                                                                                                   return new BadTask(BadRunnable.Create(f, ctx), name.Value);
-                                                                                              }
+                                                                                              },
+                                                                                              null
                                                                                              );
 
     /// <summary>

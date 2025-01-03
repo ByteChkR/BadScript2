@@ -732,7 +732,8 @@ public static class BadNativeClassBuilder
     {
         return new BadNativeClassPrototype<T>(name,
                                               (_, a) => constructor(a),
-                                              interfaces
+                                              interfaces,
+                                              null
                                              );
     }
 
@@ -753,7 +754,8 @@ public static class BadNativeClassBuilder
         return new BadNativeClassPrototype<T>(name,
                                               (_, a) => constructor(a),
                                               staticMembers,
-                                              interfaces
+                                              interfaces,
+                                              null
                                              );
     }
 

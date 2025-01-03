@@ -67,7 +67,7 @@ public class BadTimePrototype : BadNativeClassPrototype<BadTime>
         }
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
     }
-    public BadTimePrototype() : base("Time", TimeConstructor, s_StaticMembers)
+    public BadTimePrototype() : base("Time", TimeConstructor, s_StaticMembers, null)
     {
     }
 }

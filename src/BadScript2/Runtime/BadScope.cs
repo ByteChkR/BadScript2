@@ -220,7 +220,8 @@ public class BadScope : BadObject, IDisposable
                                                                                                        default:
                                                                                                            throw new BadRuntimeException("Expected 1 or 2 Arguments in Scope Constructor");
                                                                                                    }
-                                                                                               }
+                                                                                               },
+                                                                                               null
                                                                                               );
 
 #region IDisposable Members

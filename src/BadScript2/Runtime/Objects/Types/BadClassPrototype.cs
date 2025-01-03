@@ -13,8 +13,8 @@ public abstract class BadClassPrototype : BadObject
     ///     The Prototype of the ClassPrototype(can not be used)
     /// </summary>
     public static readonly BadClassPrototype Prototype = new BadNativeClassPrototype<BadClassPrototype>("Type",
-                                                                                                        (_, _) => throw new BadRuntimeException("Classes cannot be extended")
-                                                                                                       );
+                                                                                                        (_, _) => throw new BadRuntimeException("Classes cannot be extended"),
+                                                                                                        null);
 
 
     /// <summary>
