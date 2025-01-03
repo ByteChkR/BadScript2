@@ -55,7 +55,7 @@ internal partial class Program
 {
     private string m_Name = "World";
 
-    [BadMethod(description: "Says Hello")]
+    [BadMethod("Hello", "Says Hello")]
     private void SayHello()
     {
         Console.WriteLine("Hello");
@@ -109,6 +109,7 @@ internal partial class Program
         BadRuntime runtime = new BadRuntime()
                              .UseCommonInterop()
                              .UseApi(new Program());
+        BadObject obj = (PersonWrapper)new Person("John", 42);
         
         BadNativeClassBuilder.AddNative(PersonWrapper.Prototype);
         BadNativeClassBuilder.AddNative(EmployeeWrapper.Prototype);

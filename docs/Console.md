@@ -29,6 +29,12 @@ Bad Script is an Interpreted Scripting Language written in pure C#. It has a sim
   - [Extending](#extending)
     - [Adding Custom Extensions to Objects](#adding-custom-extensions-to-objects)
     - [Adding Custom APIs](#adding-custom-apis)
+    - [Using Source Generators to Implement Wrappers](#using-source-generators-to-implement-wrappers)
+        - [Implementing a Custom API](#implementing-a-custom-api)
+        - [Implementing an Object Wrapper](#implementing-an-object-wrapper)
+            - [Available Members for Type `Person`:](#available-members-for-type-person)
+            - [Available Members for Type `Employee`:](#available-members-for-type-employee)
+        - [Make Types Generally Available](#make-types-generally-available)
   - [Embedding](#embedding)
   - [Using BadLinq](#using-badlinq)
 
@@ -339,6 +345,185 @@ private static void Register(BadRuntime runtime)
 	runtime.ConfigureContextOptions(opts => opts.AddOrReplaceApi(new MyCustomApi()));
 }
 
+```
+
+### Using Source Generators to Implement Wrappers
+
+Writing Wrappers and APIs require lots of boilerplate code.
+
+A simple solution is to use the Source Generators to automatically generate Boilerplate-Code
+
+To use the Source Generators, add the Source Generator Reference to the Project `<ProjectReference Include="..\BadScript2.Interop.Generator\BadScript2.Interop.Generator\BadScript2.Interop.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />`.
+
+#### Implementing a Custom API
+
+
+This Class Implements an Api with the name `Test`
+
+```csharp
+
+[BadInteropApi("Test")]
+internal partial class TestApi
+{
+    private string m_Name = "World";
+
+    [BadMethod("Hello", "Says Hello")] //Optional Name(Function within BadScript is named "Hello"), Optional Method Description
+    private void SayHello()
+    {
+        Console.WriteLine("Hello");
+    }
+
+    [BadMethod(description: "Returns the Greeting String")] //Optional Method Description
+    [return: BadReturn("Hello {name}")] //Optional Return Value Description
+    private string GetGreeting()
+    {
+        return $"Hello {m_Name}";
+    }
+
+    [BadMethod(description: "Sets the Name")] //Optional Method Description
+    private void SetName([BadParameter(description: "The Name to be set.")] /*Optional Parameter Description*/
+                            string name = "World" /*Auto Detects Default Values*/)
+    {
+        m_Name = name;
+    }
+
+    [BadMethod(description: "Gets the Name")] //Optional Method Description
+    [return: BadReturn("The Name")] //Optional Return Value Description
+    private string GetName()
+    {
+        return m_Name;
+    }
+
+    [BadMethod(description: "Greets a list of users")] //Optional Method Description
+    private void ParamsTest(params string[] names) //Auto Detects Params Parameter
+    {
+        foreach (string name in names)
+        {
+            SetName(name);
+            Greet();
+        }
+    }
+
+    [BadMethod(description: "Greets a list of users and resets the name")] //Optional Method Description
+    private void ParamsTest2(string resetName, params string[] names) //Auto Detects Params Parameter
+    {
+        ParamsTest(names);
+        SetName(resetName);
+    }
+
+    [BadMethod(description: "Greets the User")] //Optional Method Description
+    private void Greet()
+    {
+        Console.WriteLine(GetGreeting());
+    }
+}
+```
+
+Following Properties will be available when used within BadScript (add api with `BadRuntime.UseApi(new TestApi())`)
+
+- `void Test.Hello()`
+- `string Test.GetGreeting()`
+- `void Test.SetName(string name?)`
+- `string Test.GetName()`
+- `void Test.ParamsTest(Array names*)`
+- `void Test.ParamsTest1(string resetName, Array names*)`
+- `void Test.Greet()`
+
+
+#### Implementing an Object Wrapper
+
+This Code Defines 2 Objects Person and Employee
+
+```csharp
+
+[BadInteropObject("Person")] //Wrapper "PersonWrapper" will be generated for class Person
+public class Person
+{
+    //Auto Detect Constructor(first public, non-static constructor will be used)
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    [BadProperty] //This Attribute makes the Property available in the wrapper.
+    public string Name { get; set; }
+
+    [BadProperty]
+    public int Age { get; set; }
+
+    [BadMethod] //Similar to the Interop Api Generator we can mark functions that need to be included in the wrapper.
+    public virtual string PrintInfo()
+    {
+        return $"{Name} is {Age} years old";
+    }
+}
+
+
+//To Properly handle inheritance we need to specify the Base Type Wrapper
+[BadInteropObject("Employee", typeof(PersonWrapper))]
+public class Employee : Person
+{
+    //Detects Constructor
+    public Employee(string name, int age, string job, int employeeId) : base(name, age)
+    {
+        Job = job;
+        EmployeeId = employeeId;
+    }
+
+    [BadProperty]
+    public string Job { get; set; }
+
+    [BadProperty]
+    public int EmployeeId { get; set; }
+
+    //This Method will be available in the Wrapper object because it was included in the PersonWrapper
+    //Adding a BadMethodAttribute here has no effect.
+    public override string PrintInfo()
+    {
+        return base.PrintInfo() + " and works as " + Job + " with EmployeeId " + EmployeeId;
+    }
+}
+```
+
+Objects of Type Person or Employee can now be wrapped. And used within BadScript
+```csharp
+  BadObject person = (PersonWrapper)new Person("John", 42);
+  BadObject employee = (EmployeeWrapper)new Employee("Jane", 69, "Teacher", 123);
+```
+
+#### Available Members for Type `Person`
+
+- `string Name { get; set; }`
+- `num Age { get; set; }`
+- `string PrintInfo()`
+
+#### Available Members for Type `Employee`
+
+- `string Name { get; set; }` (Inherited from Person)
+- `num Age { get; set; }` (Inherited from Person)
+- `string PrintInfo()` (Inherited from Person)
+- `string Job { get; set; }`
+- `num EmployeeId { get; set; }`
+
+### Make Types Generally Available
+To make the Types generally Available to all Runtimes we can add them to the `BadNativeClassBuilder`
+
+```csharp
+BadNativeClassBuilder.AddNative(PersonWrapper.Prototype);
+BadNativeClassBuilder.AddNative(EmployeeWrapper.Prototype);
+```
+
+If the Prototype is available, we can construct a new Employee within BadScript like this:
+```js
+const employee = new Employee("Jane", 69, "Teacher", 123);
+
+//Accessing a Method
+Console.WriteLine(employee.PrintInfo()); //Prints "Jane is 69 years old and works as Teacher with EmployeeId 123"
+
+//Proper Inheritance handling is also possible if the BadInteropObjectAttribute on the Employee Object specifies the typeof PersonWrapper in the constructor
+Console.WriteLine($"Is Person: {employee instanceof Person}"); //Prints: "Is Person: True"
+Console.WriteLine($"Is Employee: {employee instanceof Employee}"); //Prints: "Is Employee: True"
 ```
 
 ## Embedding
