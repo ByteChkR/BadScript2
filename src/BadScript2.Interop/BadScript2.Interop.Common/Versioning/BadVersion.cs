@@ -83,7 +83,7 @@ public class BadVersion : BadObject, IBadNative
     /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
-        return propName is "Major" or "Minor" or "Build" or "Revision" ||
+        return propName is "Major" or "Minor" or "Build" or "Revision" or "ChangeVersion" ||
                base.HasProperty(propName, caller);
     }
 
