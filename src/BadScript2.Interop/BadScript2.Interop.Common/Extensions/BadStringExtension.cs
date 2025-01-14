@@ -127,14 +127,16 @@ public class BadStringExtension : BadInteropExtension
         provider.RegisterObject<string>("IndexOf",
                                         s => new BadDynamicInteropFunction<string>("IndexOf",
                                              (_, str) => (decimal)s.IndexOf(str, StringComparison.Ordinal),
-                                             BadNativeClassBuilder.GetNative("num")
+                                             BadNativeClassBuilder.GetNative("num"),
+                                             new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                             )
                                        );
 
         provider.RegisterObject<string>("Contains",
                                         s => new BadDynamicInteropFunction<string>("Contains",
                                              (_, str) => s.Contains(str),
-                                             BadNativeClassBuilder.GetNative("bool")
+                                             BadNativeClassBuilder.GetNative("bool"),
+                                             new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                             )
                                        );
 
@@ -142,7 +144,8 @@ public class BadStringExtension : BadInteropExtension
         provider.RegisterObject<string>("LastIndexOf",
                                         s => new BadDynamicInteropFunction<string>("LastIndexOf",
                                              (_, str) => (decimal)s.LastIndexOf(str, StringComparison.Ordinal),
-                                             BadNativeClassBuilder.GetNative("num")
+                                             BadNativeClassBuilder.GetNative("num"),
+        new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                             )
                                        );
 
@@ -150,7 +153,9 @@ public class BadStringExtension : BadInteropExtension
         provider.RegisterObject<string>("Replace",
                                         s => new BadDynamicInteropFunction<string, string>("Replace",
                                              (_, oldStr, newStr) => s.Replace(oldStr, newStr),
-                                             BadNativeClassBuilder.GetNative("string")
+                                             BadNativeClassBuilder.GetNative("string"),
+                                             new BadFunctionParameter("oldStr", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+                                             new BadFunctionParameter("newStr", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                             )
                                        );
 
@@ -220,7 +225,8 @@ public class BadStringExtension : BadInteropExtension
         provider.RegisterObject<string>("EndsWith",
                                         s => new BadDynamicInteropFunction<string>("EndsWith",
                                              (_, str) => s.EndsWith(str, StringComparison.Ordinal),
-                                             BadNativeClassBuilder.GetNative("bool")
+                                             BadNativeClassBuilder.GetNative("bool"),
+                                             new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                             )
                                        );
 
@@ -228,7 +234,8 @@ public class BadStringExtension : BadInteropExtension
         provider.RegisterObject<string>("StartsWith",
                                         s => new BadDynamicInteropFunction<string>("StartsWith",
                                              (_, str) => s.StartsWith(str, StringComparison.Ordinal),
-                                             BadNativeClassBuilder.GetNative("bool")
+                                             BadNativeClassBuilder.GetNative("bool"),
+                                             new BadFunctionParameter("str", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                             )
                                        );
     }

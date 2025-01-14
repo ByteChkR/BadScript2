@@ -4,6 +4,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Settings;
 
@@ -61,13 +62,15 @@ public class BadSettingsObject : BadObject
 
                                                                          return Null;
                                                                      },
-                                                                     BadAnyPrototype.Instance
+                                                                     BadAnyPrototype.Instance,
+                                                                     new BadFunctionParameter("obj", false, true, false, null, BadAnyPrototype.Instance)
                                                                     )
             },
             {
                 "HasProperty", new BadDynamicInteropFunction<string>("HasProperty",
                                                                      (_, name) => m_Settings.HasProperty(name),
-                                                                     BadNativeClassBuilder.GetNative("bool")
+                                                                     BadNativeClassBuilder.GetNative("bool"),
+                                                                     new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                                     )
             },
             {
@@ -76,7 +79,8 @@ public class BadSettingsObject : BadObject
                                                                          new BadSettingsObject(m_Settings
                                                                                  .GetProperty(name)
                                                                              ),
-                                                                     BadAnyPrototype.Instance
+                                                                     BadAnyPrototype.Instance,
+                                                                     new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                                     )
             },
             {
@@ -90,7 +94,8 @@ public class BadSettingsObject : BadObject
                                                                               ? Null
                                                                               : new BadSettingsObject(obj);
                                                                       },
-                                                                      BadAnyPrototype.Instance
+                                                                      BadAnyPrototype.Instance,
+                                                                      new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                                      )
             },
             {
@@ -103,7 +108,8 @@ public class BadSettingsObject : BadObject
 
                                                                                   return new BadSettingsObject(obj);
                                                                               },
-                                                                              BadAnyPrototype.Instance
+                                                                              BadAnyPrototype.Instance,
+                new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                                              )
             },
             {
@@ -114,13 +120,16 @@ public class BadSettingsObject : BadObject
 
                          return Null;
                      },
-                     BadAnyPrototype.Instance
+                     BadAnyPrototype.Instance,
+                     new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+                     new BadFunctionParameter("obj", false, true, false, null, Prototype)
                     )
             },
             {
                 "RemoveProperty", new BadDynamicInteropFunction<string>("RemoveProperty",
                                                                         (_, name) => m_Settings.RemoveProperty(name),
-                                                                        BadNativeClassBuilder.GetNative("bool")
+                                                                        BadNativeClassBuilder.GetNative("bool"),
+                                                                        new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                                        )
             },
             {
@@ -157,7 +166,8 @@ public class BadSettingsObject : BadObject
                                                                m_Settings.SetProperty(name, obj.m_Settings);
                                                            }
                                                           ),
-                                                      BadAnyPrototype.Instance
+                                                      BadAnyPrototype.Instance,
+                                                      new BadFunctionParameter("name", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                      )
             },
         };

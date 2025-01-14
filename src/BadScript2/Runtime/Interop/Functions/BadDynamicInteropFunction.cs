@@ -24,16 +24,13 @@ public class BadDynamicInteropFunction : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, BadObject> func,
-                                     BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadClassPrototype returnType) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
-                                                                                      false,
-                                                                                      parameters
+                                                                                      false
                                                                                      )
     {
         m_Func = func;
@@ -45,16 +42,13 @@ public class BadDynamicInteropFunction : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Action<BadExecutionContext> func,
-                                     BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadClassPrototype returnType) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
-                                                                                      false,
-                                                                                      parameters
+                                                                                      false
                                                                                      )
     {
         m_Func = context =>
@@ -130,16 +124,16 @@ public class BadDynamicInteropFunction<T> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                      param1
                                                                                      )
     {
         m_Func = func;
@@ -189,16 +183,18 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                      param1, param2
                                                                                      )
     {
         m_Func = func;
@@ -252,16 +248,20 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>#
+    /// <param name="param3">The 3. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3
                                                                                      )
     {
         m_Func = func;
@@ -320,16 +320,22 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4
                                                                                      )
     {
         m_Func = func;
@@ -392,16 +398,24 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5
                                                                                      )
     {
         m_Func = func;
@@ -468,16 +482,26 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6
                                                                                      )
     {
         m_Func = func;
@@ -548,16 +572,28 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7
                                                                                      )
     {
         m_Func = func;
@@ -632,16 +668,30 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8
                                                                                      )
     {
         m_Func = func;
@@ -720,16 +770,32 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9
                                                                                      )
     {
         m_Func = func;
@@ -812,16 +878,34 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="param10">The 10. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9,
+                                     BadFunctionParameter param10) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9, param10
                                                                                      )
     {
         m_Func = func;
@@ -908,17 +992,37 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="param10">The 10. Parameter of the Function</param>
+    /// <param name="param11">The 11. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject>
                                          func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9,
+                                     BadFunctionParameter param10,
+                                         BadFunctionParameter param11) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11
                                                                                      )
     {
         m_Func = func;
@@ -1009,17 +1113,39 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="param10">The 10. Parameter of the Function</param>
+    /// <param name="param11">The 11. Parameter of the Function</param>
+    /// <param name="param12">The 12. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
                                          BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9,
+                                     BadFunctionParameter param10,
+                                     BadFunctionParameter param11,
+                                     BadFunctionParameter param12) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12
                                                                                      )
     {
         m_Func = func;
@@ -1115,17 +1241,41 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="param10">The 10. Parameter of the Function</param>
+    /// <param name="param11">The 11. Parameter of the Function</param>
+    /// <param name="param12">The 12. Parameter of the Function</param>
+    /// <param name="param13">The 13. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                                          BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9,
+                                     BadFunctionParameter param10,
+                                     BadFunctionParameter param11,
+                                     BadFunctionParameter param12,
+                                     BadFunctionParameter param13) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13
                                                                                      )
     {
         m_Func = func;
@@ -1225,17 +1375,43 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="param10">The 10. Parameter of the Function</param>
+    /// <param name="param11">The 11. Parameter of the Function</param>
+    /// <param name="param12">The 12. Parameter of the Function</param>
+    /// <param name="param13">The 13. Parameter of the Function</param>
+    /// <param name="param14">The 14. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                                          T14, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9,
+                                     BadFunctionParameter param10,
+                                     BadFunctionParameter param11,
+                                     BadFunctionParameter param12,
+                                     BadFunctionParameter param13,
+                                     BadFunctionParameter param14) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14
                                                                                      )
     {
         m_Func = func;
@@ -1340,17 +1516,45 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
-    /// <param name="parameters">The Parameters of the Function</param>
+    /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="param10">The 10. Parameter of the Function</param>
+    /// <param name="param11">The 11. Parameter of the Function</param>
+    /// <param name="param12">The 12. Parameter of the Function</param>
+    /// <param name="param13">The 13. Parameter of the Function</param>
+    /// <param name="param14">The 14. Parameter of the Function</param>
+    /// <param name="param15">The 15. Parameter of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                                          T14, T15, BadObject> func,
                                      BadClassPrototype returnType,
-                                     params BadFunctionParameter[] parameters) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadFunctionParameter param2,
+                                     BadFunctionParameter param3,
+                                     BadFunctionParameter param4,
+                                     BadFunctionParameter param5,
+                                     BadFunctionParameter param6,
+                                     BadFunctionParameter param7,
+                                     BadFunctionParameter param8,
+                                     BadFunctionParameter param9,
+                                     BadFunctionParameter param10,
+                                     BadFunctionParameter param11,
+                                     BadFunctionParameter param12,
+                                     BadFunctionParameter param13,
+                                     BadFunctionParameter param14,
+                                     BadFunctionParameter param15) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
                                                                                       false,
-                                                                                      parameters
+                                                                                        param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15
                                                                                      )
     {
         m_Func = func;

@@ -72,7 +72,8 @@ public class BadArrayExtension : BadInteropExtension
                                           a => new BadDynamicInteropFunction<decimal, BadObject>("Insert",
                                                (_, i, o) => Insert(a, i, o),
                                                BadAnyPrototype.Instance,
-                                               "elem"
+                                               new BadFunctionParameter("index", false, true, false, null, BadNativeClassBuilder.GetNative("num")),
+                                                  new BadFunctionParameter("elem", false, true, false, null, BadAnyPrototype.Instance)
                                               )
                                          );
 
@@ -144,7 +145,8 @@ public class BadArrayExtension : BadInteropExtension
                                           a => new BadDynamicInteropFunction<decimal, BadObject>("Set",
                                                (_, i, v) => Set(a, i, v),
                                                BadAnyPrototype.Instance,
-                                               "index"
+                                               new BadFunctionParameter("index", false, true, false, null, BadNativeClassBuilder.GetNative("num")),
+                                               new BadFunctionParameter("elem", false, true, false, null, BadAnyPrototype.Instance)
                                               )
                                          );
 

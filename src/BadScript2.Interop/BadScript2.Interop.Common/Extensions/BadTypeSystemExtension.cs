@@ -92,7 +92,8 @@ public class BadTypeSystemExtension : BadInteropExtension
                     return proto;
 
                 },
-                BadNativeClassBuilder.GetNative("Type")
+                BadNativeClassBuilder.GetNative("Type"),
+                new BadFunctionParameter("typeArgs", false, true, false, null, BadNativeClassBuilder.GetNative("Array"))
             ));
 
         provider.RegisterObject<BadClassPrototype>("Meta", f => f.MetaData);
@@ -100,7 +101,8 @@ public class BadTypeSystemExtension : BadInteropExtension
         provider.RegisterObject<BadClassPrototype>("IsAssignableFrom",
                                                    proto => new BadDynamicInteropFunction<BadObject>("IsAssignableFrom",
                                                         (_, o) => IsAssignableFrom(o, proto),
-                                                        BadNativeClassBuilder.GetNative("bool")
+                                                        BadNativeClassBuilder.GetNative("bool"),
+                                                        new BadFunctionParameter("object", false, true, false, null, BadAnyPrototype.Instance)
                                                        )
                                                   );
 
@@ -108,18 +110,20 @@ public class BadTypeSystemExtension : BadInteropExtension
                                                    proto =>
                                                        new BadDynamicInteropFunction<BadClassPrototype>("IsBaseClassOf",
                                                             (_, super) => IsBaseClassOf(proto, super),
-                                                            BadNativeClassBuilder.GetNative("bool")
+                                                            BadNativeClassBuilder.GetNative("bool"),
+                                                            new BadFunctionParameter("type", false, true, false, null, BadClassPrototype.Prototype)
                                                            )
                                                   );
 
         provider.RegisterObject<BadClassPrototype>("IsSuperClassOf",
-                                                   proto =>
-                                                       new BadDynamicInteropFunction<
-                                                           BadClassPrototype>("IsSuperClassOf",
-                                                                              (_, super) => IsBaseClassOf(super, proto),
-                                                                              BadNativeClassBuilder.GetNative("bool")
-                                                                             )
-                                                  );
+            proto =>
+                new BadDynamicInteropFunction<
+                    BadClassPrototype>("IsSuperClassOf",
+                    (_, super) => IsBaseClassOf(super, proto),
+                    BadNativeClassBuilder.GetNative("bool"),
+                    new BadFunctionParameter("type", false, true, false, null, BadClassPrototype.Prototype))
+
+        );
 
         provider.RegisterObject<BadClassPrototype>("GetBaseClass",
                                                    p => new BadDynamicInteropFunction("GetBaseClass",

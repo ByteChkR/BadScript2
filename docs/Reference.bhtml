@@ -48,7 +48,7 @@
 			typeList[type.Name] = type;
 		}
 
-		return $"#{type.Name}";
+		return $"#{type.Name.ToLower()}";
 	}
 
 	function GetSectionKeys(object)
@@ -151,7 +151,7 @@ Base Type: {WriteType(type.GetBaseClass())}
 
 </bs:function>
 
-<bs:function Name="WriteType" param:type>[`{type.Name}`]({GetTypeLink(type)})</bs:function>
+<bs:function Name="WriteType" param:type>[{type.Name}]({GetTypeLink(type)})</bs:function>
 
 
 <bs:function Name="GenerateFromFunction" param:name param:object param:depth>
@@ -173,8 +173,7 @@ Returns: {WriteType(object.ReturnType)}{object.Meta.Return.Description == "" ? "
 
 </bs:function>
 
-<bs:function Name="GeneratePropertyValue" param:value><bs:if test="!Runtime.Native.IsString(value) || value.Contains('\n')">`< multi line content >`<bs:else/>`{value}`</bs:if>
-</bs:function>
+<bs:function Name="GeneratePropertyValue" param:value><bs:if test="!Runtime.Native.IsString(value) || value.Contains('\n')"> < multi line content > <bs:else/> {value} </bs:if></bs:function>
 
 <bs:function Name="GenerateProperties" param:name param:object param:depth>
 <bs:if test="GetPropertyKeys(object).Length > 0">
@@ -215,6 +214,9 @@ Returns: {WriteType(object.ReturnType)}{object.Meta.Return.Description == "" ? "
 </bs:each>
 
 {GetHeading(2, "Types")}
+
+An exhaustive list of default types/interfaces available.
+
 <bs:each on="typeList.Keys.OrderBy(x=>x)" as="obj">
 {GenerateType(typeList[obj])}
 </bs:each>

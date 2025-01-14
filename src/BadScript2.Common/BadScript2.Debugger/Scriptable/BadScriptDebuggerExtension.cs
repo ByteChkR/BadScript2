@@ -72,7 +72,8 @@ public class BadScriptDebuggerExtension : BadInteropExtension
 
                                                           return obj;
                                                       },
-                                                      BadAnyPrototype.Instance
+                                                      BadAnyPrototype.Instance,
+                                                      new BadFunctionParameter("exprString", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                      )
                                                 );
 

@@ -2,6 +2,7 @@ using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 
@@ -54,7 +55,8 @@ public class BadVersion : BadObject, IBadNative
         m_ChangeVersion = BadObjectReference.Make("Version.ChangeVersion",
                                                   (p) => new BadDynamicInteropFunction<string>("ChangeVersion",
                                                        (_, s) => new BadVersion(m_Version.ChangeVersion(s)),
-                                                       s_Prototype
+                                                       s_Prototype,
+                                                       new BadFunctionParameter("changeFormat", false, true, false, null, BadNativeClassBuilder.GetNative("string"))
                                                       )
                                                  );
     }
