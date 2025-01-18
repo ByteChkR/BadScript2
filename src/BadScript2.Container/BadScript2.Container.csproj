@@ -4,6 +4,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <AssemblyVersion>25.1.2.3</AssemblyVersion>
+        <FileVersion>25.1.2.3</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
