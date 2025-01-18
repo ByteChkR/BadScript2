@@ -12,6 +12,7 @@ namespace BadScript2.Container
     public class BadLayeredFileSystem : IVirtualFileSystem
     {
         private readonly BadLayeredFileSystemLayer[] m_Layers;
+        public IReadOnlyList<IBadLayeredFileSystemLayer> Layers => m_Layers;
 
         public BadLayeredFileSystemStackInfo GetInfo()
         {
