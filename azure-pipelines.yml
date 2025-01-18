@@ -60,6 +60,15 @@ steps:
     zipAfterPublish: false
     modifyOutputPath: false
 - task: DotNetCoreCLI@2
+  displayName: Publish Container Extensions
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: './src/BadScript2.Container/BadScript2.Container.csproj'
+    arguments: '-c Release'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: DotNetCoreCLI@2
   displayName: Publish Source Generator
   inputs:
     command: 'publish'

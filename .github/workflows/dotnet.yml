@@ -43,6 +43,8 @@ jobs:
         
     - name: Publish Console
       run: dotnet publish ./src/BadScript2.Console/BadScript2.Console/BadScript2.Console.csproj -c Release
+    - name: Publish Container Extensions
+      run: dotnet publish ./src/BadScript2.Container/BadScript2.Container.csproj -c Release
     - name: Publish Source Generator
       run: dotnet publish ./src/BadScript2.Interop/BadScript2.Interop.Generator/BadScript2.Interop.Generator/BadScript2.Interop.Generator.csproj -c Release
     - name: Pack Nuget Packages
