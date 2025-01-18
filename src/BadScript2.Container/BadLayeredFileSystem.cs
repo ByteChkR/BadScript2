@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using BadScript2.IO;
 using BadScript2.IO.Virtual;
+using BadScript2.Utility;
 
 namespace BadScript2.Container
 {

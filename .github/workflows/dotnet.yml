@@ -48,6 +48,7 @@ jobs:
     - name: Pack Nuget Packages
       run: |
         dotnet pack ./src/BadHtml/BadHtml.csproj -p:NuspecFile=./BadHtml.nuspec --output ./out --include-symbols --include-source
+        dotnet pack ./src/BadScript2.Container/BadScript2.Container.csproj -p:NuspecFile=./BadScript2.Container.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2/BadScript2.csproj -p:NuspecFile=./BadScript2.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.NetHost/BadScript2.Interop.NetHost.csproj -p:NuspecFile=./BadScript2.Interop.NetHost.nuspec --output ./out --include-symbols --include-source
         dotnet pack ./src/BadScript2.Interop/BadScript2.Interop.Net/BadScript2.Interop.Net.csproj -p:NuspecFile=./BadScript2.Interop.Net.nuspec --output ./out --include-symbols --include-source

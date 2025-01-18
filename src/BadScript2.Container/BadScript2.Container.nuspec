@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>BadScript2.Container</id>
+        <authors>BadScript2</authors>
+        <icon>Logo.png</icon>
+        <description>BadScript2 Container Extensions and Utility</description>
+        <dependencies>
+            <group targetFramework=".NETStandard2.1">
+                <dependency id="BadScript2.Interop.IO" version="25.1.2.3" />
+                <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+        <version xmlns="">25.1.2.3</version>
+    </metadata>
+    <files>
+        <file src="./bin/Release/netstandard2.1/BadScript2.Container.dll" target="lib/netstandard2.1/BadScript2.Container.dll" />
+        <file src="./bin/Release/netstandard2.1/BadScript2.Container.pdb" target="lib/netstandard2.1/BadScript2.Container.pdb" />
+        <file src="../../res/Logo.png" target="Logo.png" />
+    </files>
+</package>

@@ -45,7 +45,7 @@ namespace BadScript2.Container
                 fs.SetCurrentDirectory(root);
 
                 var fp = Path.GetFullPath(dir);
-                if (!fp.EndsWith(Path.DirectorySeparatorChar))
+                if (!fp.EndsWith(Path.DirectorySeparatorChar.ToString()))
                 {
                     fp += Path.DirectorySeparatorChar;
                 }

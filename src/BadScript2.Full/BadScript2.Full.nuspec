@@ -9,6 +9,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Debugger" version="25.1.2.1" exclude="Build,Analyzers" />
+        <dependency id="BadScript2.Container" version="25.1.2.1" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Interactive" version="25.1.2.1" exclude="Build,Analyzers" />
         <dependency id="BadScript2.ConsoleAbstraction" version="25.1.2.1" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Interop.Common" version="25.1.2.1" exclude="Build,Analyzers" />
