@@ -278,6 +278,22 @@ internal partial class BadRuntimeApi
                            );
     }
 
+    [BadMethod("Import", "Imports a module at runtime.")]
+    private BadObject ImportModule(BadExecutionContext ctx, string path)
+    {
+        BadModuleImporter? importer = ctx.Scope.GetSingleton<BadModuleImporter>();
+        
+        if (importer == null)
+        {
+            throw BadRuntimeException.Create(ctx.Scope, "Module Importer not found");
+        }
+        
+        var result = importer.Get(path)
+                       .LastOrDefault() ?? BadObject.Null;
+        
+        return result;
+    }
+
     /// <summary>
     ///     Registers an Import Handler
     /// </summary>
