@@ -1,8 +1,10 @@
-﻿using BadScript2.Runtime.Interop.Reflection.Objects;
+﻿using System.Dynamic;
+using BadScript2.Runtime.Interop.Reflection.Objects;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 ///<summary>
@@ -225,6 +227,29 @@ public static class BadJson
         JToken o = JToken.Parse(s);
 
         return ConvertNode(o);
+    }
+
+    public static BadObject FromYaml(string s)
+    {
+        var deserializer = new YamlDotNet.Serialization.Deserializer();
+        var yamlObject = deserializer.Deserialize<ExpandoObject>(s);
+        var json = JsonConvert.SerializeObject(yamlObject);
+        var expConverter = new ExpandoObjectConverter();
+        dynamic deserializedObject = JsonConvert.DeserializeObject<ExpandoObject>(json, expConverter)!;
+
+        return ConvertNode(JToken.FromObject(deserializedObject));
+    }
+    
+    public static string ToYaml(BadObject o)
+    {
+        // convert string/file to YAML object
+        var json = ToJson(o);
+        var expConverter = new ExpandoObjectConverter();
+        dynamic deserializedObject = JsonConvert.DeserializeObject<ExpandoObject>(json, expConverter)!;
+
+        var serializer = new YamlDotNet.Serialization.Serializer();
+        var yaml = serializer.Serialize(deserializedObject);
+        return yaml;
     }
 
     /// <summary>
