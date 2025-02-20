@@ -167,15 +167,15 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             BadObject[] baseClassObj = context.Execute(baseClassExpr)
                                               .ToArray();
 
-            if (baseClassObj.Length != 1)
+            if (baseClassObj.Length == 0)
             {
                 throw new
-                    BadRuntimeException($"Base Class Expression {baseClassExpr} returned {baseClassObj.Length} Objects. Expected 1.",
+                    BadRuntimeException($"Base Class Expression {baseClassExpr} returned {baseClassObj.Length} Objects. Expected 1 or more.",
                                         baseClassExpr.Position
                                        );
             }
 
-            BadObject o = baseClassObj[0]
+            BadObject o = baseClassObj.Last()
                 .Dereference(Position);
 
             switch (o)
