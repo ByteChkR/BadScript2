@@ -1,3 +1,4 @@
+using BadScript2.Parser;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
@@ -24,9 +25,11 @@ public class BadDynamicInteropFunction : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, BadObject> func,
-                                     BadClassPrototype returnType) : base(name,
+                                     BadClassPrototype returnType,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -34,6 +37,7 @@ public class BadDynamicInteropFunction : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
 
     /// <summary>
@@ -42,9 +46,11 @@ public class BadDynamicInteropFunction : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Action<BadExecutionContext> func,
-                                     BadClassPrototype returnType) : base(name,
+                                     BadClassPrototype returnType,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -57,6 +63,7 @@ public class BadDynamicInteropFunction : BadFunction
 
             return Null;
         };
+        MetaData = metaData ?? BadMetaData.Empty;
     }
 
     /// <summary>
@@ -65,10 +72,12 @@ public class BadDynamicInteropFunction : BadFunction
     /// <param name="name">The Name of the Function</param>
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     /// <param name="parameters">The Parameters of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Action func,
                                      BadClassPrototype returnType,
+                                     BadMetaData? metaData = null,
                                      params BadFunctionParameter[] parameters) : base(name,
                                                                                       false,
                                                                                       false,
@@ -83,7 +92,11 @@ public class BadDynamicInteropFunction : BadFunction
 
             return Null;
         };
+        
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -125,10 +138,12 @@ public class BadDynamicInteropFunction<T> : BadFunction
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="param1">The 1. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T, BadObject> func,
                                      BadClassPrototype returnType,
-                                     BadFunctionParameter param1) : base(name,
+                                     BadFunctionParameter param1,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -137,7 +152,10 @@ public class BadDynamicInteropFunction<T> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -185,11 +203,13 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="param1">The 1. Parameter of the Function</param>
     /// <param name="param2">The 2. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, BadObject> func,
                                      BadClassPrototype returnType,
                                      BadFunctionParameter param1,
-                                     BadFunctionParameter param2) : base(name,
+                                     BadFunctionParameter param2,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -198,7 +218,10 @@ public class BadDynamicInteropFunction<T1, T2> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -249,14 +272,16 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
     /// <param name="func">The Function Lambda</param>
     /// <param name="returnType">The Return Type of the Function</param>
     /// <param name="param1">The 1. Parameter of the Function</param>
-    /// <param name="param2">The 2. Parameter of the Function</param>#
+    /// <param name="param2">The 2. Parameter of the Function</param>
     /// <param name="param3">The 3. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, BadObject> func,
                                      BadClassPrototype returnType,
                                      BadFunctionParameter param1,
                                      BadFunctionParameter param2,
-                                     BadFunctionParameter param3) : base(name,
+                                     BadFunctionParameter param3,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -265,7 +290,10 @@ public class BadDynamicInteropFunction<T1, T2, T3> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -324,13 +352,15 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
     /// <param name="param2">The 2. Parameter of the Function</param>
     /// <param name="param3">The 3. Parameter of the Function</param>
     /// <param name="param4">The 4. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, BadObject> func,
                                      BadClassPrototype returnType,
                                      BadFunctionParameter param1,
                                      BadFunctionParameter param2,
                                      BadFunctionParameter param3,
-                                     BadFunctionParameter param4) : base(name,
+                                     BadFunctionParameter param4,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -339,7 +369,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -403,6 +436,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
     /// <param name="param3">The 3. Parameter of the Function</param>
     /// <param name="param4">The 4. Parameter of the Function</param>
     /// <param name="param5">The 5. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, BadObject> func,
                                      BadClassPrototype returnType,
@@ -410,7 +444,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
                                      BadFunctionParameter param2,
                                      BadFunctionParameter param3,
                                      BadFunctionParameter param4,
-                                     BadFunctionParameter param5) : base(name,
+                                     BadFunctionParameter param5,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -419,7 +454,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -488,6 +526,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
     /// <param name="param4">The 4. Parameter of the Function</param>
     /// <param name="param5">The 5. Parameter of the Function</param>
     /// <param name="param6">The 6. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, BadObject> func,
                                      BadClassPrototype returnType,
@@ -496,7 +535,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
                                      BadFunctionParameter param3,
                                      BadFunctionParameter param4,
                                      BadFunctionParameter param5,
-                                     BadFunctionParameter param6) : base(name,
+                                     BadFunctionParameter param6,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -505,7 +545,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -579,6 +622,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
     /// <param name="param5">The 5. Parameter of the Function</param>
     /// <param name="param6">The 6. Parameter of the Function</param>
     /// <param name="param7">The 7. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, BadObject> func,
                                      BadClassPrototype returnType,
@@ -588,7 +632,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
                                      BadFunctionParameter param4,
                                      BadFunctionParameter param5,
                                      BadFunctionParameter param6,
-                                     BadFunctionParameter param7) : base(name,
+                                     BadFunctionParameter param7,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -597,7 +642,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7> : BadFunction
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -676,6 +724,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
     /// <param name="param6">The 6. Parameter of the Function</param>
     /// <param name="param7">The 7. Parameter of the Function</param>
     /// <param name="param8">The 8. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, BadObject> func,
                                      BadClassPrototype returnType,
@@ -686,7 +735,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
                                      BadFunctionParameter param5,
                                      BadFunctionParameter param6,
                                      BadFunctionParameter param7,
-                                     BadFunctionParameter param8) : base(name,
+                                     BadFunctionParameter param8,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -695,7 +745,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8> : BadFunc
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -779,6 +832,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
     /// <param name="param7">The 7. Parameter of the Function</param>
     /// <param name="param8">The 8. Parameter of the Function</param>
     /// <param name="param9">The 9. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, BadObject> func,
                                      BadClassPrototype returnType,
@@ -790,7 +844,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
                                      BadFunctionParameter param6,
                                      BadFunctionParameter param7,
                                      BadFunctionParameter param8,
-                                     BadFunctionParameter param9) : base(name,
+                                     BadFunctionParameter param9,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -799,7 +854,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : Bad
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -888,6 +946,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
     /// <param name="param8">The 8. Parameter of the Function</param>
     /// <param name="param9">The 9. Parameter of the Function</param>
     /// <param name="param10">The 10. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, BadObject> func,
                                      BadClassPrototype returnType,
@@ -900,7 +959,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
                                      BadFunctionParameter param7,
                                      BadFunctionParameter param8,
                                      BadFunctionParameter param9,
-                                     BadFunctionParameter param10) : base(name,
+                                     BadFunctionParameter param10,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -909,7 +969,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> 
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -1003,6 +1066,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="param9">The 9. Parameter of the Function</param>
     /// <param name="param10">The 10. Parameter of the Function</param>
     /// <param name="param11">The 11. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, BadObject>
                                          func,
@@ -1017,7 +1081,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                      BadFunctionParameter param8,
                                      BadFunctionParameter param9,
                                      BadFunctionParameter param10,
-                                         BadFunctionParameter param11) : base(name,
+                                     BadFunctionParameter param11,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -1026,7 +1091,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -1125,6 +1193,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="param10">The 10. Parameter of the Function</param>
     /// <param name="param11">The 11. Parameter of the Function</param>
     /// <param name="param12">The 12. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
                                          BadObject> func,
@@ -1140,7 +1209,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                      BadFunctionParameter param9,
                                      BadFunctionParameter param10,
                                      BadFunctionParameter param11,
-                                     BadFunctionParameter param12) : base(name,
+                                     BadFunctionParameter param12,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -1149,7 +1219,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -1254,6 +1327,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="param11">The 11. Parameter of the Function</param>
     /// <param name="param12">The 12. Parameter of the Function</param>
     /// <param name="param13">The 13. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                                          BadObject> func,
@@ -1270,7 +1344,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                      BadFunctionParameter param10,
                                      BadFunctionParameter param11,
                                      BadFunctionParameter param12,
-                                     BadFunctionParameter param13) : base(name,
+                                     BadFunctionParameter param13,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -1279,7 +1354,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -1389,6 +1467,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="param12">The 12. Parameter of the Function</param>
     /// <param name="param13">The 13. Parameter of the Function</param>
     /// <param name="param14">The 14. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                                          T14, BadObject> func,
@@ -1406,7 +1485,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                      BadFunctionParameter param11,
                                      BadFunctionParameter param12,
                                      BadFunctionParameter param13,
-                                     BadFunctionParameter param14) : base(name,
+                                     BadFunctionParameter param14,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -1415,7 +1495,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
@@ -1531,6 +1614,7 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
     /// <param name="param13">The 13. Parameter of the Function</param>
     /// <param name="param14">The 14. Parameter of the Function</param>
     /// <param name="param15">The 15. Parameter of the Function</param>
+    /// <param name="metaData">The (optional) MetaData of the Function</param>
     public BadDynamicInteropFunction(BadWordToken? name,
                                      Func<BadExecutionContext, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                                          T14, T15, BadObject> func,
@@ -1549,7 +1633,8 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                      BadFunctionParameter param12,
                                      BadFunctionParameter param13,
                                      BadFunctionParameter param14,
-                                     BadFunctionParameter param15) : base(name,
+                                     BadFunctionParameter param15,
+                                     BadMetaData? metaData = null) : base(name,
                                                                                       false,
                                                                                       false,
                                                                                       returnType,
@@ -1558,7 +1643,10 @@ public class BadDynamicInteropFunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, 
                                                                                      )
     {
         m_Func = func;
+        MetaData = metaData ?? BadMetaData.Empty;
     }
+
+    public override BadMetaData MetaData { get; }
 
     /// <inheritdoc />
     protected override IEnumerable<BadObject> InvokeBlock(BadObject[] args, BadExecutionContext caller)
