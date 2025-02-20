@@ -15,7 +15,7 @@ public static class BadInteractiveExtensions
     /// <param name="files">The Files to load before the Interactive Session begins</param>
     public static void RunInteractive(this BadRuntime runtime, IEnumerable<string> files)
     {
-        BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);
+        using BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);
 
         while (true)
         {
@@ -33,7 +33,7 @@ public static class BadInteractiveExtensions
 
     public static async Task RunInteractiveAsync(this BadRuntime runtime, IEnumerable<string> files)
     {
-        BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);
+        using BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);
 
         while (true)
         {
