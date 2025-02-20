@@ -9,6 +9,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
         <dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+        <dependency id="YamlDotNet" version="16.3.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
     <version xmlns="">25.1.2.1</version>
