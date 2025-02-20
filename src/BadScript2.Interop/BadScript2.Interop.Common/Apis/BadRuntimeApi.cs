@@ -278,8 +278,8 @@ internal partial class BadRuntimeApi
                            );
     }
 
-    [BadMethod("Import", "Imports a module at runtime.")]
-    private BadObject ImportModule(BadExecutionContext ctx, string path)
+    [BadMethod("ImportAsync", "Imports a module at runtime.")]
+    private BadTask ImportModuleAsync(BadExecutionContext ctx, string path)
     {
         BadModuleImporter? importer = ctx.Scope.GetSingleton<BadModuleImporter>();
         
@@ -288,10 +288,22 @@ internal partial class BadRuntimeApi
             throw BadRuntimeException.Create(ctx.Scope, "Module Importer not found");
         }
         
-        var result = importer.Get(path)
-                       .LastOrDefault() ?? BadObject.Null;
         
-        return result;
+        BadTask task = null!;
+
+        IEnumerable<BadObject> executor = importer.Get(path);
+
+        task = new BadTask(new BadInteropRunnable(
+                // ReSharper disable once AccessToModifiedClosure
+                SafeExecute(executor, ctx, () => task)
+                    .GetEnumerator(),
+                true
+            ),
+            "EvaluateAsync"
+        );
+
+        return task;
+        
     }
 
     /// <summary>
