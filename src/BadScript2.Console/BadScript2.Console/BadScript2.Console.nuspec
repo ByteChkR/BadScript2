@@ -254,6 +254,7 @@
     <file src="./bin/Release/net8.0/publish/HtmlAgilityPack.dll" target="tools/net8.0/any/HtmlAgilityPack.dll" />
     <file src="./bin/Release/net8.0/publish/Newtonsoft.Json.dll" target="tools/net8.0/any/Newtonsoft.Json.dll" />
     <file src="./bin/Release/net8.0/publish/nunit.framework.dll" target="tools/net8.0/any/nunit.framework.dll" />
+    <file src="./bin/Release/net8.0/publish/Microsoft.Extensions.FileSystemGlobbing.dll" target="tools/net8.0/any/Microsoft.Extensions.FileSystemGlobbing.dll" />
     <file src="./bin/Release/net8.0/publish/nunit.framework.legacy.dll" target="tools/net8.0/any/nunit.framework.legacy.dll" />
     <file src="./bin/Release/net8.0/publish/nunitlite.dll" target="tools/net8.0/any/nunitlite.dll" />
     <file src="./bin/Release/net8.0/publish/BadHtml.dll" target="tools/net8.0/any/BadHtml.dll" />
