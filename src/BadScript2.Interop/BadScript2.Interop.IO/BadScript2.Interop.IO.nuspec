@@ -9,6 +9,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="BadScript2.Interop.Common" version="25.1.2.1" exclude="Build,Analyzers" />
         <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.FileSystemGlobbing" version="9.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
     <version xmlns="">25.1.2.1</version>
