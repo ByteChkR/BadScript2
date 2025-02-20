@@ -19,7 +19,7 @@ namespace BadScript2.Interactive;
 /// <summary>
 ///     Implements an Interactive Console for the BadScript Language
 /// </summary>
-public class BadInteractiveConsole
+public class BadInteractiveConsole : IDisposable
 {
 	/// <summary>
 	///     The Interactive API
@@ -96,6 +96,7 @@ public class BadInteractiveConsole
 	/// </summary>
 	public void Reset()
     {
+	    m_Context?.Dispose();
         m_Context = CreateContext();
     }
 
@@ -278,4 +279,9 @@ public class BadInteractiveConsole
         BadSourceParser parser = BadSourceParser.Create("<stdin>", code);
         Run(parser.Parse());
     }
+
+	public void Dispose()
+	{
+		m_Context?.Dispose();
+	}
 }

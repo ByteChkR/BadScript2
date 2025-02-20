@@ -1,4 +1,5 @@
 using BadScript2.Common;
+using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
@@ -188,16 +189,48 @@ public class BadStringExtension : BadInteropExtension
                                         s => new BadDynamicInteropFunction<decimal>("PadLeft",
                                              (_, padding) => s.PadLeft((int)padding),
                                              BadNativeClassBuilder.GetNative("string"),
-                                             "padding"
+                                             "padding",
+                                             new BadMetaData(
+                                                 "Returns a new string that right-aligns the characters in this instance by padding them with spaces on the left, for a specified total length.", 
+                                                 "A new string that is equivalent to this instance, but right-aligned and padded on the left with as many spaces as needed to create a length of totalWidth. However, if totalWidth is less than the length of this instance, the method returns a reference to the existing instance. If totalWidth is equal to the length of this instance, the method returns a new string that is identical to this instance.", 
+                                                 "string", 
+                                                 new Dictionary<string, BadParameterMetaData>
+                                                 {
+                                                     {
+                                                         "padding", new BadParameterMetaData("string", "The number of characters in the resulting string, equal to the number of original characters plus any additional padding characters.")
+                                                     }
+                                                 })
                                             )
                                        );
 
         //PadRight
         provider.RegisterObject<string>("PadRight",
-                                        s => new BadDynamicInteropFunction<decimal>("PadRight",
-                                             (_, padding) => s.PadRight((int)padding),
-                                             BadNativeClassBuilder.GetNative("string"),
-                                             "padding"
+            s => new BadDynamicInteropFunction<decimal>("PadRight",
+                (_, padding) => s.PadRight((int)padding),
+                BadNativeClassBuilder.GetNative("string"),
+                "padding",
+
+                new BadMetaData(
+                    "Returns a new string that left-aligns the characters in this string by padding them with spaces on the right, for a specified total length.",
+                    "A new string that is equivalent to this instance, but left-aligned and padded on the right with as many spaces as needed to create a length of totalWidth. However, if totalWidth is less than the length of this instance, the method returns a reference to the existing instance. If totalWidth is equal to the length of this instance, the method returns a new string that is identical to this instance.",
+                    "string",
+                    new Dictionary<string, BadParameterMetaData>
+                    {
+                        {
+                            "padding",
+                            new BadParameterMetaData("string",
+                                "The number of characters in the resulting string, equal to the number of original characters plus any additional padding characters.")
+                        }
+                    })
+            )
+        );
+        
+        //CharCodeAt
+        provider.RegisterObject<string>("CharCodeAt",
+                                        s => new BadDynamicInteropFunction<decimal>("CharCodeAt",
+                                             (_, index) => (decimal)s[(int)index],
+                                             BadNativeClassBuilder.GetNative("num"),
+                                             "index"
                                             )
                                        );
 
