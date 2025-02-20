@@ -41,6 +41,34 @@ internal partial class BadJsonApi
     {
         return BadJson.ToJson(o);
     }
+    
+    [BadMethod(description: "Converts a BadObject to a YAML String")]
+    [return: BadReturn("The YAML String")]
+    private string ToYaml([BadParameter(description: "The Object to be converted.")] BadObject o)
+    {
+        return BadJson.ToYaml(o);
+    }
+    
+    [BadMethod(description: "Converts a YAML String to a BadObject")]
+    [return: BadReturn("The Parsed Object")]
+    private BadObject FromYaml(BadExecutionContext ctx, [BadParameter(description: "The YAML String")] string str)
+    {
+        try
+        {
+            return BadJson.FromYaml(str);
+        }
+        catch (BadRuntimeErrorException e)
+        {
+            ExceptionDispatchInfo.Capture(e)
+                                 .Throw();
+        }
+        catch (Exception e)
+        {
+            throw new BadRuntimeErrorException(BadRuntimeError.FromException(e, ctx.Scope.GetStackTrace()));
+        }
+
+        return BadObject.Null;
+    }
 
     protected override void AdditionalData(BadTable target)
     {
