@@ -6,6 +6,7 @@ using BadScript2.Runtime.Objects.Native;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using YamlDotNet.Serialization;
 
 ///<summary>
 ///	Contains JSON Extensions and APIs for the BadScript2 Runtime
@@ -247,7 +248,10 @@ public static class BadJson
         var expConverter = new ExpandoObjectConverter();
         dynamic deserializedObject = JsonConvert.DeserializeObject<ExpandoObject>(json, expConverter)!;
 
-        var serializer = new YamlDotNet.Serialization.Serializer();
+        var serializer = new YamlDotNet.Serialization.SerializerBuilder()
+            .JsonCompatible()
+            .WithQuotingNecessaryStrings(true)
+            .Build();
         var yaml = serializer.Serialize(deserializedObject);
         return yaml;
     }
