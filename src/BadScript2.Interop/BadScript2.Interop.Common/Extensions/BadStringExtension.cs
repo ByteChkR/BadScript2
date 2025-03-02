@@ -84,6 +84,24 @@ public class BadStringExtension : BadInteropExtension
                                              "index"
                                             )
                                        );
+        
+        provider.RegisterObject<string>("GetEnumerator",
+            a => new BadDynamicInteropFunction("GetEnumerator",
+                _ => new BadInteropEnumerator(a.Select(x => (BadObject)x.ToString()).ToList().GetEnumerator()),
+                BadNativeClassBuilder.Enumerator
+            )
+        );
+        provider.RegisterObject<string>(BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
+            a => new BadDynamicInteropFunction<decimal>(BadStaticKeys
+                    .ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
+                (ctx, i) => BadObjectReference.Make($"{a}[^{i}]",
+                    (p) => a[a.Length - (int)i].ToString(),
+                    (v,_, _) => throw BadRuntimeException.Create(ctx.Scope, $"{BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME}: Strings are not mutable")
+                ),
+                BadAnyPrototype.Instance,
+                "index"
+            )
+        );
         provider.RegisterObject<string>("Length", a => BadObject.Wrap((decimal)a.Length));
 
         provider.RegisterObject<string>("Format",
