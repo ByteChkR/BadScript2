@@ -232,7 +232,9 @@ public static class BadJson
 
     public static BadObject FromYaml(string s)
     {
-        var deserializer = new YamlDotNet.Serialization.Deserializer();
+        var deserializer = new YamlDotNet.Serialization.DeserializerBuilder()
+            .WithAttemptingUnquotedStringTypeDeserialization()
+            .Build();
         var yamlObject = deserializer.Deserialize<ExpandoObject>(s);
         var json = JsonConvert.SerializeObject(yamlObject);
         var expConverter = new ExpandoObjectConverter();
@@ -249,6 +251,7 @@ public static class BadJson
         dynamic deserializedObject = JsonConvert.DeserializeObject<ExpandoObject>(json, expConverter)!;
 
         var serializer = new YamlDotNet.Serialization.SerializerBuilder()
+            .WithQuotingNecessaryStrings(true)
             .Build();
         var yaml = serializer.Serialize(deserializedObject);
         return yaml;
