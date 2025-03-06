@@ -3,6 +3,7 @@ using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Interop.Functions;
+using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
@@ -83,6 +84,24 @@ public class BadStringExtension : BadInteropExtension
                                              "index"
                                             )
                                        );
+        
+        provider.RegisterObject<string>("GetEnumerator",
+            a => new BadDynamicInteropFunction("GetEnumerator",
+                _ => new BadInteropEnumerator(a.Select(x => (BadObject)x.ToString()).ToList().GetEnumerator()),
+                BadNativeClassBuilder.Enumerator
+            )
+        );
+        provider.RegisterObject<string>(BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
+            a => new BadDynamicInteropFunction<decimal>(BadStaticKeys
+                    .ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
+                (ctx, i) => BadObjectReference.Make($"{a}[^{i}]",
+                    (p) => a[a.Length - (int)i].ToString(),
+                    (v,_, _) => throw BadRuntimeException.Create(ctx.Scope, $"{BadStaticKeys.ARRAY_ACCESS_REVERSE_OPERATOR_NAME}: Strings are not mutable")
+                ),
+                BadAnyPrototype.Instance,
+                "index"
+            )
+        );
         provider.RegisterObject<string>("Length", a => BadObject.Wrap((decimal)a.Length));
 
         provider.RegisterObject<string>("Format",
@@ -186,30 +205,56 @@ public class BadStringExtension : BadInteropExtension
 
         //PadLeft
         provider.RegisterObject<string>("PadLeft",
-                                        s => new BadDynamicInteropFunction<decimal>("PadLeft",
-                                             (_, padding) => s.PadLeft((int)padding),
-                                             BadNativeClassBuilder.GetNative("string"),
-                                             "padding",
-                                             new BadMetaData(
-                                                 "Returns a new string that right-aligns the characters in this instance by padding them with spaces on the left, for a specified total length.", 
-                                                 "A new string that is equivalent to this instance, but right-aligned and padded on the left with as many spaces as needed to create a length of totalWidth. However, if totalWidth is less than the length of this instance, the method returns a reference to the existing instance. If totalWidth is equal to the length of this instance, the method returns a new string that is identical to this instance.", 
-                                                 "string", 
-                                                 new Dictionary<string, BadParameterMetaData>
-                                                 {
-                                                     {
-                                                         "padding", new BadParameterMetaData("string", "The number of characters in the resulting string, equal to the number of original characters plus any additional padding characters.")
-                                                     }
-                                                 })
-                                            )
-                                       );
+            s => new BadDynamicInteropFunction<decimal, BadNullable<string>>("PadLeft",
+                (ctx, padding, character) =>
+                {
+                    if (padding is < 0 or > int.MaxValue)
+                        throw BadRuntimeException.Create(ctx.Scope, "Pad Left: Padding must be a positive integer");
+                    if (!character.HasValue) return s.PadLeft((int)padding);
+                    string c = character!;
+                    if (c.Length != 1)
+                        throw BadRuntimeException.Create(ctx.Scope, "Pad Left: Character must be a single character");
+                    return s.PadLeft((int)padding, c[0]);
+                },
+                BadNativeClassBuilder.GetNative("string"),
+                new BadFunctionParameter("padding", false, true, false, null, BadNativeClassBuilder.GetNative("num")),
+                new BadFunctionParameter("character", true, false, false, null,
+                    BadNativeClassBuilder.GetNative("string")),
+                new BadMetaData(
+                    "Returns a new string that right-aligns the characters in this instance by padding them with spaces on the left, for a specified total length.",
+                    "A new string that is equivalent to this instance, but right-aligned and padded on the left with as many spaces as needed to create a length of totalWidth. However, if totalWidth is less than the length of this instance, the method returns a reference to the existing instance. If totalWidth is equal to the length of this instance, the method returns a new string that is identical to this instance.",
+                    "string",
+                    new Dictionary<string, BadParameterMetaData>
+                    {
+                        {
+                            "padding",
+                            new BadParameterMetaData("num",
+                                "The number of characters in the resulting string, equal to the number of original characters plus any additional padding characters.")
+                        },
+                        {
+                            "character", new BadParameterMetaData("string", "A character to use as padding.")
+                        }
+                    })
+            )
+        );
 
         //PadRight
         provider.RegisterObject<string>("PadRight",
-            s => new BadDynamicInteropFunction<decimal>("PadRight",
-                (_, padding) => s.PadRight((int)padding),
+            s => new BadDynamicInteropFunction<decimal, BadNullable<string>>("PadRight",
+                (ctx, padding, character) =>
+                {
+                    if (padding is < 0 or > int.MaxValue)
+                        throw BadRuntimeException.Create(ctx.Scope, "Pad Right: Padding must be a positive integer");
+                    if (!character.HasValue) return s.PadRight((int)padding);
+                    string c = character!;
+                    if (c.Length != 1)
+                        throw BadRuntimeException.Create(ctx.Scope, "Pad Right: Character must be a single character");
+                    return s.PadRight((int)padding, c[0]);
+                },
                 BadNativeClassBuilder.GetNative("string"),
-                "padding",
-
+                new BadFunctionParameter("padding", false, true, false, null, BadNativeClassBuilder.GetNative("num")),
+                new BadFunctionParameter("character", true, false, false, null,
+                    BadNativeClassBuilder.GetNative("string")),
                 new BadMetaData(
                     "Returns a new string that left-aligns the characters in this string by padding them with spaces on the right, for a specified total length.",
                     "A new string that is equivalent to this instance, but left-aligned and padded on the right with as many spaces as needed to create a length of totalWidth. However, if totalWidth is less than the length of this instance, the method returns a reference to the existing instance. If totalWidth is equal to the length of this instance, the method returns a new string that is identical to this instance.",

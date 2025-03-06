@@ -1,11 +1,14 @@
+using System.Collections;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Utility.Linq;
 
 namespace BadScript2.Runtime.Objects.Native;
 
 /// <summary>
 ///     Implements a Native String
 /// </summary>
-public class BadString : BadNative<string>, IBadString, IComparable, IComparable<BadObject>, IComparable<IBadString>
+public class BadString : BadNative<string>, IBadString, IComparable, IComparable<BadObject>, IComparable<IBadString>, IBadEnumerable
 {
     /// <summary>
     ///     The Prototype for the Native String Object
@@ -87,5 +90,15 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
     public override BadClassPrototype GetPrototype()
     {
         return s_Prototype;
+    }
+
+    public IEnumerator<BadObject> GetEnumerator()
+    {
+        return Value.Select(x=>(BadObject)x).GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
