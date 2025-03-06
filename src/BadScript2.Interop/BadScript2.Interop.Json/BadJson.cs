@@ -249,8 +249,6 @@ public static class BadJson
         dynamic deserializedObject = JsonConvert.DeserializeObject<ExpandoObject>(json, expConverter)!;
 
         var serializer = new YamlDotNet.Serialization.SerializerBuilder()
-            .JsonCompatible()
-            .WithQuotingNecessaryStrings(true)
             .Build();
         var yaml = serializer.Serialize(deserializedObject);
         return yaml;
