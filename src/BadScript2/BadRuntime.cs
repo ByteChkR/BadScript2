@@ -596,6 +596,11 @@ public class BadRuntime : IDisposable
         return this;
     }
 
+    /// <summary>
+    /// Uses the specified Culture
+    /// </summary>
+    /// <param name="culture">The Culture to use</param>
+    /// <returns>This Runtime</returns>
     public BadRuntime UseCulture(CultureInfo culture)
     {
         Culture = culture;
@@ -603,6 +608,11 @@ public class BadRuntime : IDisposable
         return this;
     }
 
+    /// <summary>
+    /// Uses the specified Culture
+    /// </summary>
+    /// <param name="culture">The Culture to use</param>
+    /// <returns>This Runtime</returns>
     public BadRuntime UseCulture(string culture)
     {
         return UseCulture(new CultureInfo(culture));
