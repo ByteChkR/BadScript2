@@ -3,7 +3,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyVersion>25.1.2.3</AssemblyVersion>
     <FileVersion>25.1.2.3</FileVersion>
     <PackageIcon>Logo.png</PackageIcon>

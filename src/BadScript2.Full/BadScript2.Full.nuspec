@@ -6,7 +6,7 @@
     <icon>Logo.png</icon>
     <description>BadScript2 Meta Package</description>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group targetFramework=".NETStandard2.1">
         <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Debugger" version="25.1.2.1" exclude="Build,Analyzers" />
         <dependency id="BadScript2.Container" version="25.1.2.1" exclude="Build,Analyzers" />

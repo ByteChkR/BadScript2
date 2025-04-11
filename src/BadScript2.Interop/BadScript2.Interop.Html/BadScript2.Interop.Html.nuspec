@@ -6,7 +6,7 @@
     <description>Html Read/Write Api</description>
     <icon>Logo.png</icon>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group targetFramework=".NETStandard2.1">
         <dependency id="BadHtml" version="25.1.2.13" exclude="Build,Analyzers" />
         <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
       </group>
@@ -14,8 +14,8 @@
     <version xmlns="">25.1.2.1</version>
   </metadata>
   <files>
-    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Html.dll" target="lib/netstandard2.0/BadScript2.Interop.Html.dll" />
-    <file src="./bin/Release/netstandard2.0/BadScript2.Interop.Html.pdb" target="lib/netstandard2.0/BadScript2.Interop.Html.pdb" />
+    <file src="./bin/Release/netstandard2.1/BadScript2.Interop.Html.dll" target="lib/netstandard2.1/BadScript2.Interop.Html.dll" />
+    <file src="./bin/Release/netstandard2.1/BadScript2.Interop.Html.pdb" target="lib/netstandard2.1/BadScript2.Interop.Html.pdb" />
     <file src="../../../res/Logo.png" target="Logo.png" />
   </files>
 </package>

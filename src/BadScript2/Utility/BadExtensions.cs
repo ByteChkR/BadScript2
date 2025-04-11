@@ -41,6 +41,26 @@ public static class BadExtensions
     }
 
 	/// <summary>
+	///     Returns a Property, unwrapped to the specified type, from the given object
+	/// </summary>
+	/// <param name="obj">The Object</param>
+	/// <param name="propName">The Property Name</param>
+	/// <typeparam name="T">The Property Type</typeparam>
+	/// <returns>The Property Value</returns>
+	public static T GetProperty<T>(this BadObject obj, string propName)
+    {
+        BadObjectReference reference = obj.GetProperty(propName);
+
+        return reference.Dereference(null)
+                        .Unwrap<T>();
+    }
+	
+	
+
+	//Only Actually compile this when we are on .Net Standard <= 2.0
+#if NETSTANDARD2_0
+	
+	/// <summary>
 	///     Skips the last n elements of an IEnumerable
 	/// </summary>
 	/// <param name="e">The Enumerable</param>
@@ -67,18 +87,5 @@ public static class BadExtensions
         }
     }
 
-	/// <summary>
-	///     Returns a Property, unwrapped to the specified type, from the given object
-	/// </summary>
-	/// <param name="obj">The Object</param>
-	/// <param name="propName">The Property Name</param>
-	/// <typeparam name="T">The Property Type</typeparam>
-	/// <returns>The Property Value</returns>
-	public static T GetProperty<T>(this BadObject obj, string propName)
-    {
-        BadObjectReference reference = obj.GetProperty(propName);
-
-        return reference.Dereference(null)
-                        .Unwrap<T>();
-    }
+#endif
 }
