@@ -9,21 +9,6 @@ namespace BadScript2.Interop.Generator.Interop;
 
 public class BadInteropObjectModelBuilder
 {
-    private static readonly DiagnosticDescriptor s_CanNotConvertTypeDiagnostic = new DiagnosticDescriptor("BAS0001",
-        "Can not convert type",
-        "Can not convert type {0}",
-        "BadScript2.Interop.Generator",
-        DiagnosticSeverity.Error,
-        true
-    );
-
-    private static readonly DiagnosticDescriptor s_CanNotStringifyDefaultValue = new DiagnosticDescriptor("BAS0002",
-        "Can not stringify default value",
-        "Can not stringify default value {0}",
-        "BadScript2.Interop.Generator",
-        DiagnosticSeverity.Error,
-        true
-    );
 
     private readonly List<Diagnostic> m_Diagnostics = new List<Diagnostic>();
 
@@ -237,7 +222,7 @@ public class BadInteropObjectModelBuilder
                 return "null";
             default:
             {
-                AddDiagnostic(symbol.CreateDiagnostic(s_CanNotStringifyDefaultValue, obj));
+                AddDiagnostic(symbol.CreateDiagnostic(BadDiagnostic.CanNotStringifyDefaultValue, obj));
 
                 return "null";
             }
@@ -477,7 +462,7 @@ public class BadInteropObjectModelBuilder
             return "any";
         }
 
-        AddDiagnostic(sourceSymbol.CreateDiagnostic(s_CanNotConvertTypeDiagnostic, type.ToDisplayString()));
+        AddDiagnostic(sourceSymbol.CreateDiagnostic(BadDiagnostic.CanNotConvertType, type.ToDisplayString()));
 
         return "any";
     }
