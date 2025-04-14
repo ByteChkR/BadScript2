@@ -10,15 +10,30 @@ using Microsoft.CodeAnalysis;
 
 namespace BadScript2.Interop.Generator.Interop;
 
+/// <summary>
+/// The BadInteropApiSourceGenerator generates the source code for the BadScript2.Interop API.
+/// </summary>
 public class BadInteropApiSourceGenerator
 {
+    /// <summary>
+    /// The context of the generator.
+    /// </summary>
     private readonly SourceProductionContext m_Context;
 
+    /// <summary>
+    /// Constructs a new BadInteropApiSourceGenerator instance.
+    /// </summary>
+    /// <param name="context"></param>
     public BadInteropApiSourceGenerator(SourceProductionContext context)
     {
         m_Context = context;
     }
 
+    /// <summary>
+    /// Generates an Invocation for the given MethodModel.
+    /// </summary>
+    /// <param name="method">The MethodModel to generate the invocation for.</param>
+    /// <returns>The generated invocation as a string.</returns>
     private string GenerateInvocation(MethodModel method)
     {
         StringBuilder sb = new StringBuilder();
@@ -87,12 +102,22 @@ public class BadInteropApiSourceGenerator
         return sb.ToString();
     }
 
+    /// <summary>
+    /// Generates a parameter source for the given ParameterModel.
+    /// </summary>
+    /// <param name="model">The ParameterModel to generate the source for.</param>
+    /// <returns>The generated parameter source as a string.</returns>
     private string GenerateParameterSource(ParameterModel model)
     {
         return
             $"new BadFunctionParameter(\"{model.Name}\", {model.HasDefaultValue.ToString().ToLower()}, {(!model.IsNullable).ToString().ToLower()}, {model.IsRestArgs.ToString().ToLower()}, null, BadNativeClassBuilder.GetNative(\"{model.Type}\"))";
     }
 
+    /// <summary>
+    /// Generates the source code for a method.
+    /// </summary>
+    /// <param name="sb">The IndentedTextWriter to write the source code to.</param>
+    /// <param name="method">The MethodModel to generate the source code for.</param>
     private void GenerateMethodSource(IndentedTextWriter sb, MethodModel method)
     {
         sb.WriteLine("target.SetProperty(");
@@ -167,6 +192,13 @@ public class BadInteropApiSourceGenerator
         sb.WriteLine(");");
     }
 
+    /// <summary>
+    /// Generates the source code for the given ApiModel.
+    /// </summary>
+    /// <param name="context">The SourceProductionContext to write the source code to.</param>
+    /// <param name="apiModel">The ApiModel to generate the source code for.</param>
+    /// <param name="isError">Whether the API is an error API.</param>
+    /// <returns>The generated source code as a string.</returns>
     public string GenerateModelSource(SourceProductionContext context, ApiModel apiModel, bool isError)
     {
         IndentedTextWriter tw = new IndentedTextWriter(new StringWriter());

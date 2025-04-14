@@ -81,6 +81,7 @@ public class BadSwitchExpression : BadExpression
         }
     }
 
+    /// <inheritdoc />
     public override void Optimize()
     {
         KeyValuePair<BadExpression, BadExpression[]>[] branches = m_Cases.ToArray();

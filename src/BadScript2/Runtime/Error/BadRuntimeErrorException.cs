@@ -18,5 +18,8 @@ public class BadRuntimeErrorException : BadScriptException
         Error = error;
     }
 
+	/// <summary>
+	/// The Runtime Error that was generated
+	/// </summary>
     public BadRuntimeError Error { get; }
 }

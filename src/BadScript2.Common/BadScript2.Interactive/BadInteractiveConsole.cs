@@ -280,6 +280,7 @@ public class BadInteractiveConsole : IDisposable
         Run(parser.Parse());
     }
 
+	/// <inheritdoc />
 	public void Dispose()
 	{
 		m_Context?.Dispose();

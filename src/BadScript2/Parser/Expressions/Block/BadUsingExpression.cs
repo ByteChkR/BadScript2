@@ -33,6 +33,7 @@ public class BadUsingExpression : BadExpression
     /// <param name="name">Name of the variable that holds the object</param>
     /// <param name="expressions">Expressions inside the Using Block</param>
     /// <param name="position">Source Position of the Expression</param>
+    /// <param name="definition">The definition of the object</param>
     public BadUsingExpression(string name,
                               BadExpression[] expressions,
                               BadSourcePosition position,

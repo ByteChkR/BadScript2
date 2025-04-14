@@ -7,7 +7,9 @@ namespace BadScript2.Runtime.Objects.Types;
 
 public class BadDatePrototype : BadNativeClassPrototype<BadDate>
 {
-
+    /// <summary>
+    /// List of Static Members
+    /// </summary>
     private static Dictionary<string, BadObjectReference> s_StaticMembers = new Dictionary<string, BadObjectReference>
     {
         {
@@ -20,6 +22,14 @@ public class BadDatePrototype : BadNativeClassPrototype<BadDate>
             "Parse", BadObjectReference.Make("Date.Parse", p => new BadInteropFunction("Parse", Parse, true, BadDate.Prototype))
         }
     };
+    
+    /// <summary>
+    /// Implementation of the Date Parse Function
+    /// </summary>
+    /// <param name="ctx">The Calling Context</param>
+    /// <param name="args">The Arguments</param>
+    /// <returns>The Parsed Object</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the arguments are invalid</exception>
     private static BadObject Parse(BadExecutionContext ctx, BadObject[] args)
     {
         if (args.Length == 1 || (args.Length == 2 && args[1] == Null))
@@ -35,6 +45,13 @@ public class BadDatePrototype : BadNativeClassPrototype<BadDate>
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
     }
 
+    /// <summary>
+    /// Constructor Implementation for the Date Prototype
+    /// </summary>
+    /// <param name="ctx">The Calling Context</param>
+    /// <param name="args">The Arguments</param>
+    /// <returns>The Date Object</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the arguments are invalid</exception>
     private static BadObject DateConstructor(BadExecutionContext ctx, BadObject[] args)
     {
         if (args.Length == 0)
@@ -86,6 +103,9 @@ public class BadDatePrototype : BadNativeClassPrototype<BadDate>
         
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
     }
+    /// <summary>
+    /// Creates a new Date Prototype
+    /// </summary>
     public BadDatePrototype() : base("Date", DateConstructor, s_StaticMembers, null)
     {
     }

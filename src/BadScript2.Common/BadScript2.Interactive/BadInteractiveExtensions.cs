@@ -31,6 +31,11 @@ public static class BadInteractiveExtensions
         }
     }
 
+    /// <summary>
+    /// Runs the Interactive Console Asynchronously
+    /// </summary>
+    /// <param name="runtime">The Runtime to use</param>
+    /// <param name="files">The Files to load before the Interactive Session begins</param>
     public static async Task RunInteractiveAsync(this BadRuntime runtime, IEnumerable<string> files)
     {
         using BadInteractiveConsole console = new BadInteractiveConsole(runtime, BadTaskRunner.Instance, files);

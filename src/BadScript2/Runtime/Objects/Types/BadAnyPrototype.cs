@@ -28,7 +28,8 @@ public class BadAnyPrototype : BadClassPrototype
     /// <inheritdoc />
     public override bool IsAbstract => true;
 
-    protected override BadClassPrototype? BaseClass { get; }
+    /// <inheritdoc />
+    protected override BadClassPrototype? BaseClass { get; } = null;
 
     public override IReadOnlyCollection<BadInterfacePrototype> Interfaces { get; } =
         Array.Empty<BadInterfacePrototype>();

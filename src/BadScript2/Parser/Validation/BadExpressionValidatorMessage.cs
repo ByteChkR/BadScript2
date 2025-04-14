@@ -56,6 +56,7 @@ public readonly struct BadExpressionValidatorMessage
         ParentExpression = parentExpression;
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

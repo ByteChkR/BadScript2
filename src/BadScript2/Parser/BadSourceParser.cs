@@ -121,6 +121,10 @@ public class BadSourceParser
         return null;
     }
 
+    /// <summary>
+    /// Parses a Switch Expression. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>BadSwitchExpression Instance</returns>
     private BadExpression ParseSwitch()
     {
         int start = Reader.CurrentIndex;
@@ -1015,6 +1019,10 @@ public class BadSourceParser
         return new BadVariableExpression(word.Text, word.SourcePosition, typeArgs.ToArray());
     }
 
+    /// <summary>
+    /// Parses a List of Generic Arguments. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>List of Generic Arguments</returns>
     public List<BadExpression> ParseGenericArguments()
     {
         List<BadExpression> typeArgs = new List<BadExpression>();
@@ -1817,6 +1825,11 @@ public class BadSourceParser
         return new BadInterfacePropertyConstraint(name, type);
     }
 
+    
+    /// <summary>
+    /// Parses a list of Generic Parameters. Moves the Reader to the Next Token
+    /// </summary>
+    /// <returns>List of Generic Parameters</returns>
     private List<BadWordToken> ParseGenericParameters()
     {
         List<BadWordToken> genericParameters = new List<BadWordToken>();

@@ -26,6 +26,7 @@ public class BadNullCoalescingAssignExpression : BadBinaryExpression
                                                                                ) { }
 
 
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -65,6 +66,7 @@ public class BadNullCoalescingAssignExpression : BadBinaryExpression
     }
 
 
+    /// <inheritdoc />
     protected override string GetSymbol()
     {
         return "??=";

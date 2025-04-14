@@ -55,6 +55,9 @@ public readonly struct BadExpressionValidatorContext
     /// </summary>
     public bool IsError => m_Messages.Any(m => m.Type == BadExpressionValidatorMessageType.Error);
 
+    /// <summary>
+    /// Indicates whether there are any messages of type Warning.
+    /// </summary>
     public bool HasWarnings => m_Messages.Any(m => m.Type == BadExpressionValidatorMessageType.Warning);
 
     /// <summary>

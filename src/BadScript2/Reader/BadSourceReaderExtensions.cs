@@ -36,11 +36,25 @@ public static class BadSourceReaderExtensions
                reader.GetCurrentChar(offset) == '_';
     }
 
+    /// <summary>
+    /// Returns true if the Current Character the specified character and the next character is not a word character.
+    /// </summary>
+    /// <param name="reader">The Reader Instance</param>
+    /// <param name="c">The Character to be matched</param>
+    /// <param name="offset">The Offset from the Current Reader Position</param>
+    /// <returns>True if the Current Character is the specified character and the next character is not a word character.</returns>
     public static bool IsKey(this BadSourceReader reader, char c, int offset = 0)
     {
         return reader.Is(c, offset) && !reader.IsWordChar(offset + 1);
     }
 
+    /// <summary>
+    /// Returns true if the Current Position continues with the specified string and the next character is not a word character.
+    /// </summary>
+    /// <param name="reader">The Reader Instance</param>
+    /// <param name="s">The String to be matched</param>
+    /// <param name="offset">The Offset from the Current Reader Position</param>
+    /// <returns>True if the Current Position continues with the specified string and the next character is not a word character.</returns>
     public static bool IsKey(this BadSourceReader reader, string s, int offset = 0)
     {
         return reader.Is(s, offset) && !reader.IsWordChar(offset + s.Length);

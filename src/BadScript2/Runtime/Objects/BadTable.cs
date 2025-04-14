@@ -17,9 +17,15 @@ public class BadTable : BadObject, IBadEnumerable
     /// </summary>
     private static BadClassPrototype? s_Prototype;
 
+    /// <summary>
+    /// The Cache for Object References
+    /// </summary>
     private readonly Dictionary<string, BadObjectReference> m_ReferenceCache =
         new Dictionary<string, BadObjectReference>();
 
+    /// <summary>
+    /// The Interceptor for Property Changes
+    /// </summary>
     private Func<string, BadObject, BadObject, bool>? m_OnChangeProperty;
 
     /// <summary>
@@ -46,6 +52,9 @@ public class BadTable : BadObject, IBadEnumerable
         }
     }
 
+    /// <summary>
+    /// The Prototype for the BadScript Table
+    /// </summary>
     public static BadClassPrototype Prototype => s_Prototype ??= BadNativeClassBuilder.GetNative("Table");
 
     /// <summary>
@@ -88,8 +97,15 @@ public class BadTable : BadObject, IBadEnumerable
 
 #endregion
 
+    /// <summary>
+    /// The Event that is triggered when a Property is changed
+    /// </summary>
     public event Action<string, BadObject, BadObject> OnChangedProperty = delegate { };
 
+    /// <summary>
+    /// Sets the Interceptor for Property Changes
+    /// </summary>
+    /// <param name="interceptor">The Interceptor</param>
     public void SetChangeInterceptor(Func<string, BadObject, BadObject, bool>? interceptor)
     {
         m_OnChangeProperty = interceptor;
@@ -143,6 +159,13 @@ public class BadTable : BadObject, IBadEnumerable
         return !useExtensions ? GetLocalReference(propName) : GetProperty(propName, caller);
     }
 
+    /// <summary>
+    /// Gets called when a Property is changed
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="oldValue">The Old Value</param>
+    /// <param name="newValue">The New Value</param>
+    /// <returns>True if the change was handled by the interceptor</returns>
     private bool OnChangePropertyInternal(string propName, BadObject oldValue, BadObject newValue)
     {
         if (m_OnChangeProperty != null)

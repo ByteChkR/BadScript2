@@ -22,6 +22,7 @@ public abstract class BadInterfaceConstraint : IEquatable<BadInterfaceConstraint
     /// <param name="errors">The Error List to add errors to</param>
     public abstract void Validate(BadClass obj, List<BadInterfaceValidatorError> errors);
 
+    /// <inheritdoc />
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj))
@@ -42,18 +43,37 @@ public abstract class BadInterfaceConstraint : IEquatable<BadInterfaceConstraint
         return Equals((BadInterfaceConstraint)obj);
     }
 
+    /// <summary>
+    /// Calculates the HashCode for this Constraint
+    /// </summary>
+    /// <returns>The HashCode</returns>
     protected abstract int GetConstraintHash();
 
+    
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return GetConstraintHash();
     }
 
+    /// <summary>
+    /// Implements the == operator for this Constraint
+    /// </summary>
+    /// <param name="left">Left Constraint</param>
+    /// <param name="right">Right Constraint</param>
+    /// <returns>True if the Constraints are equal</returns>
     public static bool operator ==(BadInterfaceConstraint? left, BadInterfaceConstraint? right)
     {
         return Equals(left, right);
     }
 
+
+    /// <summary>
+    /// Implements the != operator for this Constraint
+    /// </summary>
+    /// <param name="left">Left Constraint</param>
+    /// <param name="right">Right Constraint</param>
+    /// <returns>True if the Constraints are not equal</returns>
     public static bool operator !=(BadInterfaceConstraint? left, BadInterfaceConstraint? right)
     {
         return !Equals(left, right);

@@ -130,6 +130,11 @@ public class BadInteropExtensionProvider
         return new BadTable(objs.ToDictionary(x=>x.Key, x => x.Value));
     }
 
+    /// <summary>
+    /// Returns true if any extensions are available for the specified object(excluding global extensions)
+    /// </summary>
+    /// <param name="t">Type</param>
+    /// <returns>True if any extensions are available</returns>
     private bool InnerHasTypeExtensions(Type t)
     {
         bool r = m_ObjectExtensions.Any(x => x.Key.IsAssignableFrom(t));

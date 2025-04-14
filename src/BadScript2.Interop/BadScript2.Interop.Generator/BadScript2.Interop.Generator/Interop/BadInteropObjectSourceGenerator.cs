@@ -8,15 +8,30 @@ using Microsoft.CodeAnalysis;
 
 namespace BadScript2.Interop.Generator.Interop;
 
+/// <summary>
+/// Generator that generates BadScript2.Interop code for objects
+/// </summary>
 public class BadInteropObjectSourceGenerator
 {
+    /// <summary>
+    /// The context of the generator
+    /// </summary>
     private readonly SourceProductionContext m_Context;
 
+    /// <summary>
+    /// Constructs a new BadInteropObjectSourceGenerator instance
+    /// </summary>
+    /// <param name="context">The context of the generator</param>
     public BadInteropObjectSourceGenerator(SourceProductionContext context)
     {
         m_Context = context;
     }
 
+    /// <summary>
+    /// Generates the wrapper code for the constructor of the given ObjectModel
+    /// </summary>
+    /// <param name="model">The ObjectModel to generate the wrapper code for</param>
+    /// <returns>The generated wrapper code as a string</returns>
     private string GenerateConstructor(ObjectModel model)
     {
         StringBuilder sb = new StringBuilder();
@@ -66,6 +81,13 @@ public class BadInteropObjectSourceGenerator
         
         return sb.ToString();
     }
+    
+    /// <summary>
+    /// Generates the invocation code for the given MethodModel
+    /// </summary>
+    /// <param name="method">The MethodModel to generate the invocation code for</param>
+    /// <param name="className">The name of the class to generate the invocation code for</param>
+    /// <returns>The generated invocation code as a string</returns>
     private string GenerateInvocation(MethodModel method, string className)
     {
         StringBuilder sb = new StringBuilder();
@@ -134,12 +156,23 @@ public class BadInteropObjectSourceGenerator
         return sb.ToString();
     }
 
+    /// <summary>
+    /// Generates the parameter source code for the given ParameterModel
+    /// </summary>
+    /// <param name="model">The ParameterModel to generate the parameter source code for</param>
+    /// <returns>The generated parameter source code as a string</returns>
     private string GenerateParameterSource(ParameterModel model)
     {
         return
             $"new BadFunctionParameter(\"{model.Name}\", {model.HasDefaultValue.ToString().ToLower()}, {(!model.IsNullable).ToString().ToLower()}, {model.IsRestArgs.ToString().ToLower()}, null, BadNativeClassBuilder.GetNative(\"{model.Type}\"))";
     }
 
+    /// <summary>
+    /// Generates the property source code for the given PropertyModel
+    /// </summary>
+    /// <param name="sb">The IndentedTextWriter to write the source code to</param>
+    /// <param name="model">The PropertyModel to generate the property source code for</param>
+    /// <param name="className">The name of the class to generate the property source code for</param>
     private void GeneratePropertySource(IndentedTextWriter sb, PropertyModel model, string className)
     {
         if(model.IsReadOnly)
@@ -159,6 +192,12 @@ public class BadInteropObjectSourceGenerator
             sb.Indent--;
         }
     }
+    /// <summary>
+    /// Generates the source code for a method.
+    /// </summary>
+    /// <param name="sb">The IndentedTextWriter to write the source code to.</param>
+    /// <param name="method">The MethodModel to generate the source code for.</param>
+    /// <param name="className">The name of the class to generate the source code for.</param>
     private void GenerateMethodSource(IndentedTextWriter sb, MethodModel method, string className)
     {
         sb.WriteLine($"Properties[\"{method.ApiMethodName}\"] = ");
@@ -235,6 +274,13 @@ public class BadInteropObjectSourceGenerator
         sb.Indent--;
     }
 
+    /// <summary>
+    /// Generates the source code for the given ObjectModel.
+    /// </summary>
+    /// <param name="context">The SourceProductionContext to write the source code to.</param>
+    /// <param name="apiModel">The ObjectModel to generate the source code for.</param>
+    /// <param name="isError">Whether the model is an error model.</param>
+    /// <returns>The generated source code as a string.</returns>
     public string GenerateModelSource(SourceProductionContext context, ObjectModel apiModel, bool isError)
     {
         IndentedTextWriter tw = new IndentedTextWriter(new StringWriter());

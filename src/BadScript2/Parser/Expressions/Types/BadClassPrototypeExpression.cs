@@ -27,6 +27,9 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
     /// </summary>
     private readonly List<BadExpression> m_Body;
 
+    /// <summary>
+    /// List of Generic Parameters
+    /// </summary>
     private readonly BadWordToken[] m_GenericParameters;
 
     /// <summary>

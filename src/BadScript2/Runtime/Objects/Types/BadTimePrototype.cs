@@ -5,8 +5,14 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Runtime.Objects.Types;
 
+/// <summary>
+/// Implements the BadScript Time Prototype
+/// </summary>
 public class BadTimePrototype : BadNativeClassPrototype<BadTime>
 {
+    /// <summary>
+    /// List of Static Members
+    /// </summary>
     private static Dictionary<string, BadObjectReference> s_StaticMembers = new Dictionary<string, BadObjectReference>
     {
         {
@@ -16,6 +22,14 @@ public class BadTimePrototype : BadNativeClassPrototype<BadTime>
             "Parse", BadObjectReference.Make("Time.Parse", p => new BadInteropFunction("Parse", Parse, true, BadDate.Prototype))
         }
     };
+    
+    /// <summary>
+    /// Parses a TimeSpan from a string
+    /// </summary>
+    /// <param name="ctx">The Calling Context</param>
+    /// <param name="args">The Arguments</param>
+    /// <returns>The Parsed TimeSpan</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the arguments are invalid</exception>
     private static BadObject Parse(BadExecutionContext ctx, BadObject[] args)
     {
         if (args.Length == 1 || (args.Length == 2 && args[1] == Null))
@@ -31,6 +45,13 @@ public class BadTimePrototype : BadNativeClassPrototype<BadTime>
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
     }
 
+    /// <summary>
+    /// Constructor Implementation for the Time Prototype
+    /// </summary>
+    /// <param name="ctx">The Calling Context</param>
+    /// <param name="args">The Arguments</param>
+    /// <returns>The Created Time Object</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the arguments are invalid</exception>
     private static BadObject TimeConstructor(BadExecutionContext ctx, BadObject[] args)
     {
         if (args.Length == 0)
@@ -67,6 +88,10 @@ public class BadTimePrototype : BadNativeClassPrototype<BadTime>
         }
         throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Count");
     }
+    
+    /// <summary>
+    /// Constructor for the Time Prototype
+    /// </summary>
     public BadTimePrototype() : base("Time", TimeConstructor, s_StaticMembers, null)
     {
     }

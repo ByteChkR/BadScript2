@@ -9,12 +9,22 @@ namespace BadScript2.Runtime.Objects.Types;
 public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     where T : BadObject
 {
+    /// <summary>
+    /// Factory for the Implemented Interfaces of the Class
+    /// </summary>
     private readonly Func<BadInterfacePrototype[]> m_InterfaceFunc;
 
+    /// <summary>
+    /// List of Static Members
+    /// </summary>
     private readonly Dictionary<string, BadObjectReference> m_StaticMembers =
         new Dictionary<string, BadObjectReference>();
 
+    /// <summary>
+    /// Cached Interfaces returned by the Factory
+    /// </summary>
     private BadInterfacePrototype[]? m_InterfacesCache;
+    /// <inheritdoc />
     protected override BadClassPrototype? BaseClass { get; } = BadAnyPrototype.Instance;
 
     /// <summary>
@@ -83,6 +93,7 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
     /// <inheritdoc />
     public override bool IsAbstract => false;
 
+    /// <inheritdoc />
     public override IReadOnlyCollection<BadInterfacePrototype> Interfaces => m_InterfacesCache ??= m_InterfaceFunc();
 
     /// <inheritdoc />
@@ -96,11 +107,13 @@ public class BadNativeClassPrototype<T> : BadANativeClassPrototype
         return obj is T;
     }
 
+    /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return m_StaticMembers.ContainsKey(propName) || base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         if (m_StaticMembers.TryGetValue(propName, out BadObjectReference? o))

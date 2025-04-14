@@ -14,6 +14,9 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject, IDisposable
 {
+    /// <summary>
+    /// The Attributes of the Scope(Used for Classes)
+    /// </summary>
     private readonly Dictionary<string, BadObject[]> m_Attributes = new Dictionary<string, BadObject[]>();
 
     /// <summary>
@@ -56,6 +59,9 @@ public class BadScope : BadObject, IDisposable
     /// </summary>
     private BadObject? m_Exports;
 
+    /// <summary>
+    /// Indicates if the scope is disposed
+    /// </summary>
     private bool m_IsDisposed;
 
     /// <summary>
@@ -123,6 +129,9 @@ public class BadScope : BadObject, IDisposable
         Parent = parent;
     }
 
+    /// <summary>
+    /// The Attributes of the Scope(Used for Classes)
+    /// </summary>
     public IReadOnlyDictionary<string, BadObject[]> Attributes => m_Attributes;
 
     /// <summary>
@@ -248,6 +257,10 @@ public class BadScope : BadObject, IDisposable
 
 #endregion
 
+    /// <summary>
+    /// Returns a List of MemberInfos of the Scope
+    /// </summary>
+    /// <returns>List of MemberInfos</returns>
     public BadArray GetMemberInfos()
     {
         return new BadArray(m_ScopeVariables.InnerTable.Keys.Select(x => (BadObject)new BadMemberInfo(x, this))
@@ -445,6 +458,11 @@ public class BadScope : BadObject, IDisposable
         return string.Join("\n", stack.Select(s => s.Name));
     }
     
+    /// <summary>
+    /// Creates the Stack Trace Enumeration.
+    /// </summary>
+    /// <param name="scope">Starting Scope</param>
+    /// <returns>Stack Trace Enumeration</returns>
     private static IEnumerable<BadScope> GetStackTraceEnumerable(BadScope scope)
     {
         BadScope? current = scope;
@@ -460,8 +478,16 @@ public class BadScope : BadObject, IDisposable
         }
     }
     
+    /// <summary>
+    /// Creates the Stack Trace Enumeration.
+    /// </summary>
+    /// <returns>Stack Trace Enumeration</returns>
     public IEnumerable<BadScope> GetStackTraceEnumerable() => GetStackTraceEnumerable(this);
     
+    /// <summary>
+    /// Returns the first Tracable Scope or the Root Scope
+    /// </summary>
+    /// <returns>First Tracable Scope or the Root Scope</returns>
     public BadScope GetFirstTracableOrRoot() => CountInStackTrace ? this : Parent?.GetFirstTracableOrRoot() ?? this;
 
     /// <summary>
@@ -525,6 +551,12 @@ public class BadScope : BadObject, IDisposable
         return m_Exports ?? Null;
     }
 
+    /// <summary>
+    /// Sets the exports of the scope
+    /// </summary>
+    /// <param name="ctx">The Calling Context(used to create exception)</param>
+    /// <param name="exports">The Exports</param>
+    /// <exception cref="BadRuntimeException">Gets raised if the exports are already set</exception>
     public void SetExports(BadExecutionContext ctx, BadObject exports)
     {
         if (m_Exports != null)
@@ -608,6 +640,12 @@ public class BadScope : BadObject, IDisposable
         return sc;
     }
 
+    /// <summary>
+    /// Gets called when a variable is changed
+    /// </summary>
+    /// <param name="name">Name of the variable</param>
+    /// <param name="oldValue">The previous value</param>
+    /// <param name="newValue">The new value</param>
     internal void OnChanged(string name, BadObject oldValue, BadObject newValue)
     {
         if (ClassObject == null)
@@ -640,6 +678,13 @@ public class BadScope : BadObject, IDisposable
         }
     }
 
+    /// <summary>
+    /// Gets called when a variable is about to be changed.
+    /// </summary>
+    /// <param name="name">Name of the variable</param>
+    /// <param name="oldValue">The previous value</param>
+    /// <param name="newValue">The new value</param>
+    /// <returns>True if the change should be canceled</returns>
     internal bool OnChange(string name, BadObject oldValue, BadObject newValue)
     {
         if (ClassObject == null)
@@ -681,6 +726,11 @@ public class BadScope : BadObject, IDisposable
         return false;
     }
 
+    /// <summary>
+    /// Initializes the attributes of the scope
+    /// </summary>
+    /// <returns>Enumeration that represents the Execution(enumerate to actually execute)</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the scope is not a class scope</exception>
     internal IEnumerable<BadObject> InitializeAttributes()
     {
         if (ClassObject == null)
@@ -711,6 +761,16 @@ public class BadScope : BadObject, IDisposable
         }
     }
 
+    /// <summary>
+    /// Defines a new Property in the current scope
+    /// </summary>
+    /// <param name="name">Name of the Property</param>
+    /// <param name="type">Type of the Property(use 'any' for no typechecking)</param>
+    /// <param name="getAccessor">The Get Accessor</param>
+    /// <param name="setAccessor">The Set Accessor</param>
+    /// <param name="caller">The Caller of the Scope</param>
+    /// <param name="attributes">The Attributes of the Property</param>
+    /// <exception cref="BadRuntimeException">Gets raised if the specified property is already defined.</exception>
     public void DefineProperty(string name,
                                BadClassPrototype type,
                                BadExpression getAccessor,

@@ -19,8 +19,14 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// </summary>
     private readonly BadExpression[] m_Body;
 
+    /// <summary>
+    /// The Generic Definition of this Class Prototype if it is a Generic Type
+    /// </summary>
     private readonly BadExpressionClassPrototype? m_GenericDefinition;
 
+    /// <summary>
+    /// The Factory for the Implemented Interfaces of the Class
+    /// </summary>
     private readonly Func<BadObject[], BadInterfacePrototype[]> m_InterfacesFunc;
 
     /// <summary>
@@ -28,13 +34,29 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// </summary>
     private readonly BadScope m_ParentScope;
 
+    /// <summary>
+    /// The Factory for the Static Scope of the Class
+    /// </summary>
     private readonly Func<BadObject[], BadScope> m_StaticScope;
 
+    /// <summary>
+    /// Cache for Generic Instances
+    /// </summary>
     private readonly Dictionary<int, BadExpressionClassPrototype> s_GenericCache =
         new Dictionary<int, BadExpressionClassPrototype>();
 
+    /// <summary>
+    /// Cache for the Base Class of the Class Prototype
+    /// </summary>
     private BadClassPrototype? m_BaseClassCache;
+    /// <summary>
+    /// Cache for the Implemented Interfaces of the Class Prototype
+    /// </summary>
     private BadInterfacePrototype[]? m_InterfacesCache;
+    
+    /// <summary>
+    /// Cache for the Static Scope of the Class Prototype
+    /// </summary>
     private BadScope? m_StaticScopeCache;
 
     /// <summary>
@@ -104,27 +126,37 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         m_BaseClassFunc = baseClass;
     }
 
+    /// <inheritdoc />
     protected override BadClassPrototype? BaseClass =>
         m_BaseClassCache ??= m_BaseClassFunc.Invoke(Array.Empty<BadObject>());
 
     /// <inheritdoc />
     public override bool IsAbstract => false;
 
+    /// <inheritdoc />
     public override IReadOnlyCollection<BadInterfacePrototype> Interfaces =>
         m_InterfacesCache ??= m_InterfacesFunc.Invoke(Array.Empty<BadObject>());
 
+    /// <summary>
+    /// The Static Scope of the Class Prototype
+    /// </summary>
     private BadScope StaticScope => m_StaticScopeCache ??= m_StaticScope(Array.Empty<BadObject>());
 
 #region IBadGenericObject Members
 
+/// <inheritdoc />
     public bool IsResolved => m_GenericDefinition != null;
 
+    /// <inheritdoc />
     public bool IsGeneric => GenericParameters.Count != 0;
 
+    /// <inheritdoc />
     public string GenericName { get; }
 
+    /// <inheritdoc />
     public IReadOnlyCollection<string> GenericParameters { get; }
 
+    /// <inheritdoc />
     public BadObject CreateGeneric(BadObject[] args)
     {
         if (GenericParameters.Count != args.Length)
@@ -174,6 +206,7 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
 
 #endregion
 
+/// <inheritdoc />
     public override string ToSafeString(List<BadObject> done)
     {
         if (IsGeneric)
@@ -244,6 +277,7 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         yield return thisInstance;
     }
 
+    /// <inheritdoc />
     public override bool IsSuperClassOf(BadClassPrototype proto)
     {
         return (GenericParameters.Count != 0 &&

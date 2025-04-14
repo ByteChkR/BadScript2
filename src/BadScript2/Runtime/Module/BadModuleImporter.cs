@@ -28,12 +28,21 @@ public class BadModuleImporter
         m_Store = store;
     }
 
+    /// <summary>
+    /// Clears all Import Handlers
+    /// </summary>
+    /// <returns>Self</returns>
     public BadModuleImporter Clear()
     {
         m_Handlers.Clear();
         return this;
     }
 
+    /// <summary>
+    /// Clones the Importer
+    /// </summary>
+    /// <param name="onlyTransient">If true, only transient handlers are cloned</param>
+    /// <returns>The Cloned Importer</returns>
     public BadModuleImporter Clone(bool onlyTransient = true)
     {
         BadModuleImporter importer = new BadModuleImporter(m_Store);

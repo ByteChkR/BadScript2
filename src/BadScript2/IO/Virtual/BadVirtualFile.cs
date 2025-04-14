@@ -27,8 +27,10 @@ public class BadVirtualFile : BadVirtualNode
 	/// </summary>
 	public string AbsolutePath => Parent?.AbsolutePath + Name;
 
+	/// <inheritdoc />
     public override bool HasChildren => false;
 
+	/// <inheritdoc />
     public override IEnumerable<BadVirtualNode> Children => Enumerable.Empty<BadVirtualNode>();
 
     /// <summary>

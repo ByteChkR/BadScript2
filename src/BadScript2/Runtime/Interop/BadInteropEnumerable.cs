@@ -9,20 +9,33 @@ using BadScript2.Runtime.Objects.Types.Interface;
 
 namespace BadScript2.Runtime.Interop;
 
+/// <summary>
+/// Represents a BadScript Interop Grouping
+/// </summary>
 public class BadInteropGroup : BadInteropEnumerable
 {
 
+    /// <summary>
+    /// The Underlying Grouping
+    /// </summary>
     private readonly IGrouping<BadObject, BadObject> m_Group;
+    
+    /// <summary>
+    /// Constructs a new Interop Grouping
+    /// </summary>
+    /// <param name="enumerable">The Grouping to wrap</param>
     public BadInteropGroup(IGrouping<BadObject,BadObject> enumerable) : base(enumerable)
     {
         m_Group = enumerable;
     }
 
+    /// <inheritdoc />
     public override bool HasProperty(string propName, BadScope? caller = null)
     {
         return propName == "Key" || base.HasProperty(propName, caller);
     }
 
+    /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
         if(propName == "Key")

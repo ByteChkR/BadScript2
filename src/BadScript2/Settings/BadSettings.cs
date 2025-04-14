@@ -73,6 +73,9 @@ public class BadSettings
         }
     }
 
+    /// <summary>
+    /// Indicates if the Settings Object has a Source Path
+    /// </summary>
     public bool HasSourcePath => !string.IsNullOrEmpty(SourcePath);
 
     /// <summary>
@@ -85,14 +88,23 @@ public class BadSettings
     /// </summary>
     public IEnumerable<string> PropertyNames => m_Properties.Keys;
 
+    /// <summary>
+    /// Event that gets raised when the Settings Object changes
+    /// </summary>
     public event Action OnValueChanged = delegate { };
 
+    /// <summary>
+    /// Internal method that gets called when the Settings Object changes
+    /// </summary>
     private void PropertyValueChanged()
     {
         m_IsDirty = true;
         InvokeValueChanged();
     }
 
+    /// <summary>
+    /// Internal method that gets called when the Settings Object changes
+    /// </summary>
     private void InvokeValueChanged()
     {
         OnValueChanged();

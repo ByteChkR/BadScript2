@@ -22,6 +22,10 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
     /// <inheritdoc />
     public override string Name => "settings";
 
+    /// <summary>
+    /// Opens a file with the default application
+    /// </summary>
+    /// <param name="path"></param>
     private void OpenWithDefault(string path)
     {
         ProcessStartInfo pi = new ProcessStartInfo { FileName = path, UseShellExecute = true };

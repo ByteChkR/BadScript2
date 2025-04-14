@@ -92,11 +92,20 @@ public class BadString : BadNative<string>, IBadString, IComparable, IComparable
         return s_Prototype;
     }
 
+    /// <summary>
+    /// Returns the String Value character by character
+    /// </summary>
+    /// <returns>Enumerator for the String</returns>
     public IEnumerator<BadObject> GetEnumerator()
     {
         return Value.Select(x=>(BadObject)x).GetEnumerator();
     }
 
+    
+    /// <summary>
+    /// Returns the String Value character by character
+    /// </summary>
+    /// <returns>Enumerator for the String</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();

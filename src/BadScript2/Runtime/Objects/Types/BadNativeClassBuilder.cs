@@ -24,6 +24,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IAttribute Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype Attribute =
         new BadInterfacePrototype("IAttribute",
                                   typeArgs => Array.Empty<BadInterfacePrototype>(),
@@ -32,6 +35,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IInitializeAttribute Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype InitializeAttribute =
         new BadInterfacePrototype("IInitializeAttribute",
                                   typeArgs => new[] { Attribute },
@@ -40,6 +46,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IMemberChangeEventArgs Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype MemberChangeEventArgs =
         new BadInterfacePrototype("IMemberChangeEventArgs",
                                   _ => Array.Empty<BadInterfacePrototype>(),
@@ -48,6 +57,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IMemberChangingEventArgs Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype MemberChangedEventArgs =
         new BadInterfacePrototype("IMemberChangedEventArgs",
                                   _ => new[] { MemberChangeEventArgs },
@@ -56,6 +68,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IMemberChangingEventArgs Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype MemberChangingEventArgs =
         new BadInterfacePrototype("IMemberChangingEventArgs",
                                   _ => new[] { MemberChangeEventArgs },
@@ -64,6 +79,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IChangeAttribute Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype ChangeAttribute =
         new BadInterfacePrototype("IChangeAttribute",
                                   typeArgs => new[] { Attribute },
@@ -72,6 +90,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// The IChangedAttribute Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype ChangedAttribute =
         new BadInterfacePrototype("IChangedAttribute",
                                   typeArgs => new[] { Attribute },
@@ -113,6 +134,9 @@ public static class BadNativeClassBuilder
                                   new[] { "T" }
                                  );
 
+    /// <summary>
+    /// The IImportHandler Interface Prototype
+    /// </summary>
     public static readonly BadInterfacePrototype ImportHandler =
         new BadInterfacePrototype("IImportHandler",
                                   typeArgs => Array.Empty<BadInterfacePrototype>(),
@@ -121,6 +145,9 @@ public static class BadNativeClassBuilder
                                   Array.Empty<string>()
                                  );
 
+    /// <summary>
+    /// Static Members for the Number Type
+    /// </summary>
     private static readonly Dictionary<string, BadObjectReference> s_NumberStaticMembers =
         new Dictionary<string, BadObjectReference>
         {
@@ -142,6 +169,9 @@ public static class BadNativeClassBuilder
             },
         };
 
+    /// <summary>
+    /// Static Members for the Boolean Type
+    /// </summary>
     private static readonly Dictionary<string, BadObjectReference> s_BooleanStaticMembers =
         new Dictionary<string, BadObjectReference>
         {
@@ -163,6 +193,9 @@ public static class BadNativeClassBuilder
             },
         };
 
+    /// <summary>
+    /// Static Members for the String Type
+    /// </summary>
     private static readonly Dictionary<string, BadObjectReference> s_StringStaticMembers =
         new Dictionary<string, BadObjectReference>
         {
@@ -244,6 +277,11 @@ public static class BadNativeClassBuilder
     /// </summary>
     public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
 
+    /// <summary>
+    /// Factory for the IMemberChangeEventArgs Interface Constraints
+    /// </summary>
+    /// <param name="arg">The Arguments</param>
+    /// <returns>List of Constraints</returns>
     private static BadInterfaceConstraint[] MemberChangingEventArgsConstraints(BadObject[] arg)
     {
         return new BadInterfaceConstraint[]
@@ -256,6 +294,11 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// Factory for the IMemberChangeEventArgs Interface Constraints
+    /// </summary>
+    /// <param name="arg">The Arguments</param>
+    /// <returns>List of Constraints</returns>
     private static BadInterfaceConstraint[] MemberChangeEventArgsConstraints(BadObject[] arg)
     {
         return new BadInterfaceConstraint[]
@@ -267,6 +310,11 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// Factory for the IInitializeAttribute Interface Constraints
+    /// </summary>
+    /// <param name="arg">The Arguments</param>
+    /// <returns>List of Constraints</returns>
     private static BadInterfaceConstraint[] InitializeAttributeConstraints(BadObject[] arg)
     {
         return new BadInterfaceConstraint[]
@@ -295,6 +343,11 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// Factory for the IChangeAttribute Interface Constraints
+    /// </summary>
+    /// <param name="arg">The Arguments</param>
+    /// <returns>List of Constraints</returns>
     private static BadInterfaceConstraint[] ChangeAttributeConstraints(BadObject[] arg)
     {
         return new BadInterfaceConstraint[]
@@ -316,6 +369,11 @@ public static class BadNativeClassBuilder
         };
     }
 
+    /// <summary>
+    /// Factory for the IChangedAttribute Interface Constraints
+    /// </summary>
+    /// <param name="arg">The Arguments</param>
+    /// <returns>List of Constraints</returns>
     private static BadInterfaceConstraint[] ChangedAttributeConstraints(BadObject[] arg)
     {
         return new BadInterfaceConstraint[]
@@ -338,6 +396,13 @@ public static class BadNativeClassBuilder
     }
 
 
+    /// <summary>
+    /// Implementation of the string.IsNullOrEmpty function
+    /// </summary>
+    /// <param name="ctx">Calling Context</param>
+    /// <param name="arg">Arguments</param>
+    /// <returns>True if the string is null or empty</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the argument is invalid</exception>
     private static BadObject StringIsNullOrEmpty(BadExecutionContext ctx, BadObject[] arg)
     {
         if (arg[0] is not IBadString str)
@@ -348,6 +413,13 @@ public static class BadNativeClassBuilder
         return string.IsNullOrEmpty(str.Value);
     }
 
+    /// <summary>
+    /// Implementation of the num.Parse function
+    /// </summary>
+    /// <param name="ctx">Calling Context</param>
+    /// <param name="arg">Arguments</param>
+    /// <returns>The parsed number</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the argument is invalid</exception>
     private static BadObject ParseNumber(BadExecutionContext ctx, BadObject[] arg)
     {
         if (arg[0] is not IBadString str)
@@ -363,6 +435,13 @@ public static class BadNativeClassBuilder
         throw BadRuntimeException.Create(ctx.Scope, $"The Supplied String '{str.Value}' is not a valid number");
     }
 
+    /// <summary>
+    /// Implementation of the bool.Parse function
+    /// </summary>
+    /// <param name="ctx">Calling Context</param>
+    /// <param name="arg">Arguments</param>
+    /// <returns>The parsed boolean</returns>
+    /// <exception cref="BadRuntimeException">Gets raised if the argument is invalid</exception>
     private static BadObject ParseBoolean(BadExecutionContext ctx, BadObject[] arg)
     {
         if (arg[0] is not IBadString str)
@@ -407,6 +486,11 @@ public static class BadNativeClassBuilder
     }
 
 
+    /// <summary>
+    /// Factory for the IImportHandler Interface Constraints
+    /// </summary>
+    /// <param name="typeParams">The Type Parameters of the Interface</param>
+    /// <returns>List of Constraints</returns>
     private static BadInterfaceConstraint[] ImportHandlerConstraints(BadObject[] typeParams)
     {
         return new BadInterfaceConstraint[]
