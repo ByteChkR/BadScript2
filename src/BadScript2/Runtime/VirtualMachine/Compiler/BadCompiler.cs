@@ -211,6 +211,11 @@ public class BadCompiler
         return Compile(parser.Parse());
     }
 
+    /// <summary>
+    /// Compiles the given <see cref="BadExpression" />s into a set of <see cref="BadInstruction" />s.
+    /// </summary>
+    /// <param name="expressions">The <see cref="BadExpression" />s to compile.</param>
+    /// <returns>The list of <see cref="BadInstruction" />s.</returns>
     public static IEnumerable<BadInstruction> Compile(IEnumerable<BadExpression> expressions)
     {
         BadExpressionCompileContext ctx = new BadExpressionCompileContext(Instance);

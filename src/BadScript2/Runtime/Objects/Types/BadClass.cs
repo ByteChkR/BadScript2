@@ -34,6 +34,9 @@ public class BadClass : BadObject
     /// </summary>
     public BadScope Scope => Context.Scope;
 
+    /// <summary>
+    /// The Execution Context of this Class
+    /// </summary>
     public BadExecutionContext Context { get; }
 
     /// <summary>

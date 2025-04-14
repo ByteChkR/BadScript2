@@ -28,6 +28,9 @@ public class BadVariableExpression : BadExpression, IBadNamedExpression
     /// </summary>
     public string Name { get; }
 
+    /// <summary>
+    /// List of Generic Parameters
+    /// </summary>
     public IReadOnlyList<BadExpression> GenericParameters { get; }
 
 #region IBadNamedExpression Members

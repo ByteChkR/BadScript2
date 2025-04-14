@@ -9,11 +9,15 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace BadScript2.Interop.Generator;
 
+/// <summary>
+/// Generator that generates BadScript2.Interop code
+/// </summary>
 [Generator]
 public class BadInteropGenerator : IIncrementalGenerator
 {
 #region IIncrementalGenerator Members
 
+    /// <inheritdoc />
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(BadInteropStaticCode.RegisterAttributeSource);

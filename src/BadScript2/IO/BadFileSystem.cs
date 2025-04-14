@@ -40,6 +40,12 @@ public static class BadFileSystem
         Instance.WriteAllText(path, contents);
     }
 
+    /// <summary>
+    /// Writes all text to a file
+    /// </summary>
+    /// <param name="fileSystem">The FileSystem implementation</param>
+    /// <param name="path">Path of the file</param>
+    /// <param name="contents">Contents to be written</param>
     public static void WriteAllText(this IFileSystem fileSystem, string path, string contents)
     {
         using Stream s = fileSystem.OpenWrite(path, BadWriteMode.CreateNew);
@@ -47,6 +53,12 @@ public static class BadFileSystem
         sw.Write(contents);
     }
 
+    /// <summary>
+    /// Reads all text from a file
+    /// </summary>
+    /// <param name="fileSystem">The FileSystem implementation</param>
+    /// <param name="path">Path of the file</param>
+    /// <returns>The contents of the file</returns>
     public static string ReadAllText(this IFileSystem fileSystem, string path)
     {
         using Stream s = fileSystem.OpenRead(path);
@@ -65,6 +77,12 @@ public static class BadFileSystem
     }
 
 
+    /// <summary>
+    /// Reads all lines from a file
+    /// </summary>
+    /// <param name="fileSystem">The FileSystem implementation</param>
+    /// <param name="path">Path of the file</param>
+    /// <returns>The contents of the file</returns>
     public static IEnumerable<string> ReadAllLines(this IFileSystem fileSystem, string path)
     {
         using Stream s = fileSystem.OpenRead(path);
@@ -85,6 +103,12 @@ public static class BadFileSystem
         return Instance.ReadAllLines(path);
     }
 
+    /// <summary>
+    /// Writes all lines to a file
+    /// </summary>
+    /// <param name="fileSystem">The FileSystem implementation</param>
+    /// <param name="path">Path of the file</param>
+    /// <param name="lines">Contents to be written</param>
     public static void WriteAllLines(this IFileSystem fileSystem, string path, IEnumerable<string> lines)
     {
         using Stream s = fileSystem.OpenWrite(path, BadWriteMode.CreateNew);

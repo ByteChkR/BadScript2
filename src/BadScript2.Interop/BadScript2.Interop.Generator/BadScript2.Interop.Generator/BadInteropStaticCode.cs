@@ -6,36 +6,43 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace BadScript2.Interop.Generator;
 
+/// <summary>
+/// Static Code for the BadScript2.Interop Generator
+/// </summary>
 public static class BadInteropStaticCode
 {
+    /// <summary>
+    /// Full Name of the Interop API Attribute
+    /// </summary>
     public const string INTEROP_API_ATTRIBUTE = "BadScript2.Interop.BadInteropApiAttribute";
+    /// <summary>
+    /// Full Name of the Interop Object Attribute
+    /// </summary>
     public const string INTEROP_OBJECT_ATTRIBUTE = "BadScript2.Interop.BadInteropObjectAttribute";
+    /// <summary>
+    /// Full Name of the Interop Property Attribute
+    /// </summary>
     public const string INTEROP_PROPERTY_ATTRIBUTE = "BadScript2.Interop.BadPropertyAttribute";
+    /// <summary>
+    /// Full Name of the Interop Method Attribute
+    /// </summary>
     public const string INTEROP_METHOD_ATTRIBUTE = "BadScript2.Interop.BadMethodAttribute";
+    /// <summary>
+    /// Full Name of the Interop Method Parameter Attribute
+    /// </summary>
     public const string INTEROP_METHOD_PARAMETER_ATTRIBUTE = "BadScript2.Interop.BadParameterAttribute";
+    /// <summary>
+    /// Full Name of the Interop Method Return Attribute
+    /// </summary>
     public const string INTEROP_METHOD_RETURN_ATTRIBUTE = "BadScript2.Interop.BadReturnAttribute";
 
-    public static DiagnosticDescriptor CreateDescriptor(string id,
-                                                        string title,
-                                                        string messageFormat,
-                                                        string category,
-                                                        DiagnosticSeverity severity)
-    {
-        return new DiagnosticDescriptor(id, title, messageFormat, category, severity, true);
-    }
-
-    public static Diagnostic CreateDiagnostic(this ISymbol symbol,
-                                              string id,
-                                              string title,
-                                              string messageFormat,
-                                              string category,
-                                              DiagnosticSeverity severity,
-                                              params object?[]? args)
-    {
-        return CreateDescriptor(id, title, messageFormat, category, severity)
-            .CreateDiagnostic(symbol, args);
-    }
-
+    /// <summary>
+    /// Creates a Diagnostic for the given Symbol
+    /// </summary>
+    /// <param name="descriptor">The Diagnostic Descriptor</param>
+    /// <param name="symbol">The Symbol to create the Diagnostic for</param>
+    /// <param name="args">The Arguments to format the Diagnostic with</param>
+    /// <returns></returns>
     public static Diagnostic CreateDiagnostic(this DiagnosticDescriptor descriptor,
                                               ISymbol symbol,
                                               params object?[]? args)
@@ -43,6 +50,13 @@ public static class BadInteropStaticCode
         return Diagnostic.Create(descriptor, symbol.Locations.FirstOrDefault(), args);
     }
 
+    /// <summary>
+    /// Creates a Diagnostic for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to create the Diagnostic for</param>
+    /// <param name="descriptor">The Diagnostic Descriptor</param>
+    /// <param name="args">The Arguments to format the Diagnostic with</param>
+    /// <returns></returns>
     public static Diagnostic CreateDiagnostic(this ISymbol symbol,
                                               DiagnosticDescriptor descriptor,
                                               params object?[]? args)
@@ -50,46 +64,92 @@ public static class BadInteropStaticCode
         return Diagnostic.Create(descriptor, symbol.Locations.FirstOrDefault(), args);
     }
 
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetInteropApiAttribute(this ITypeSymbol symbol)
     {
         return symbol.GetAttribute(INTEROP_API_ATTRIBUTE);
     }
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetInteropObjectAttribute(this ITypeSymbol symbol)
     {
         return symbol.GetAttribute(INTEROP_OBJECT_ATTRIBUTE);
     }
 
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetInteropMethodAttribute(this IMethodSymbol symbol)
     {
         return symbol.GetAttribute(INTEROP_METHOD_ATTRIBUTE);
     }
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetInteropPropertyAttribute(this IPropertySymbol symbol)
     {
         return symbol.GetAttribute(INTEROP_PROPERTY_ATTRIBUTE);
     }
 
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetReturnTypeAttribute(this IMethodSymbol symbol)
     {
         return symbol.GetReturnTypeAttribute(INTEROP_METHOD_RETURN_ATTRIBUTE);
     }
 
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetParameterAttribute(this IParameterSymbol symbol)
     {
         return symbol.GetAttribute(INTEROP_METHOD_PARAMETER_ATTRIBUTE);
     }
 
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <param name="name">The Name of the Attribute</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetAttribute(this ISymbol symbol, string name)
     {
         return symbol.GetAttributes()
                      .FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == name);
     }
 
+    /// <summary>
+    /// Returns the API AttributeData for the given Symbol
+    /// </summary>
+    /// <param name="symbol">The Symbol to get the Attribute for</param>
+    /// <param name="name">The Name of the Attribute</param>
+    /// <returns>The AttributeData or null if it does not exist</returns>
     public static AttributeData? GetReturnTypeAttribute(this IMethodSymbol symbol, string name)
     {
         return symbol.GetReturnTypeAttributes()
                      .FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == name);
     }
 
+    /// <summary>
+    /// Registers the Attribute Source for the Generator
+    /// </summary>
+    /// <param name="context">The Context to register the Source in</param>
     public static void RegisterAttributeSource(IncrementalGeneratorPostInitializationContext context)
     {
         context.AddSource("BadInteropAttributes.cs",

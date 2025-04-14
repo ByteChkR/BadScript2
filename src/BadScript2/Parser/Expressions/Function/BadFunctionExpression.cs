@@ -119,6 +119,10 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
 
 #endregion
 
+    /// <summary>
+    /// Sets the Name of the Function
+    /// </summary>
+    /// <param name="name">The Name of the Function</param>
     public void SetName(string name)
     {
         Name = name;

@@ -9,15 +9,30 @@ using Microsoft.CodeAnalysis;
 
 namespace BadScript2.Interop.Generator.Interop;
 
+/// <summary>
+/// The Model Builder for the Interop API
+/// </summary>
 public class BadInteropApiModelBuilder
 {
+    /// <summary>
+    /// List of Diagnostics
+    /// </summary>
     private readonly List<Diagnostic> m_Diagnostics = new List<Diagnostic>();
 
+    /// <summary>
+    /// Adds a Diagnostic to the list of Diagnostics
+    /// </summary>
+    /// <param name="diagnostic">The Diagnostic to add</param>
     private void AddDiagnostic(Diagnostic diagnostic)
     {
         m_Diagnostics.Add(diagnostic);
     }
 
+    /// <summary>
+    /// Finds all methods in the given INamedTypeSymbol
+    /// </summary>
+    /// <param name="api">The INamedTypeSymbol to search in</param>
+    /// <returns>List of methods</returns>
     private IEnumerable<IMethodSymbol> FindMethods(INamedTypeSymbol api)
     {
         IEnumerable<IMethodSymbol> methods = api.GetMembers()
@@ -35,6 +50,12 @@ public class BadInteropApiModelBuilder
         }
     }
 
+    /// <summary>
+    /// Generates an ApiModel from the given INamedTypeSymbol
+    /// </summary>
+    /// <param name="api">The INamedTypeSymbol to generate the model from</param>
+    /// <returns>The generated ApiModel</returns>
+    /// <exception cref="Exception">Gets thrown if the ApiModel could not be generated</exception>
     public ApiModel GenerateModel(INamedTypeSymbol api)
     {
         IEnumerable<IMethodSymbol> methods = FindMethods(api);
@@ -80,6 +101,11 @@ public class BadInteropApiModelBuilder
                            );
     }
 
+    /// <summary>
+    /// Escapes the description for the generated code
+    /// </summary>
+    /// <param name="str">The description to escape</param>
+    /// <returns>The escaped description</returns>
     private string EscapeDescription(string str)
     {
         return str.Replace("\\", "\\\\")
@@ -87,6 +113,11 @@ public class BadInteropApiModelBuilder
                   .Replace("\n", "\\n");
     }
 
+    /// <summary>
+    /// Generates the ParameterModel for the given IMethodSymbol
+    /// </summary>
+    /// <param name="method">The IMethodSymbol to generate the ParameterModel for</param>
+    /// <returns>The generated ParameterModel</returns>
     private IEnumerable<ParameterModel> GenerateParameterModel(IMethodSymbol method)
     {
         foreach (IParameterSymbol symbol in method.Parameters.Where(x => x.Ordinal >= 0)
@@ -156,6 +187,12 @@ public class BadInteropApiModelBuilder
         }
     }
 
+    /// <summary>
+    /// Stringifies the default value of the given object
+    /// </summary>
+    /// <param name="obj">The object to stringify</param>
+    /// <param name="symbol">The symbol to use for the diagnostic</param>
+    /// <returns>The stringified default value</returns>
     private string StringifyDefaultValue(object? obj, ISymbol symbol)
     {
         switch (obj)
@@ -204,6 +241,11 @@ public class BadInteropApiModelBuilder
         }
     }
 
+    /// <summary>
+    /// Generates the MethodModels for the given IEnumerable of IMethodSymbols
+    /// </summary>
+    /// <param name="symbols">The IEnumerable of IMethodSymbols to generate the MethodModels for</param>
+    /// <returns>The generated MethodModels</returns>
     private IEnumerable<MethodModel> GenerateMethodModels(IEnumerable<IMethodSymbol> symbols)
     {
         foreach (IMethodSymbol symbol in symbols)
@@ -272,6 +314,13 @@ public class BadInteropApiModelBuilder
         }
     }
 
+    /// <summary>
+    /// Converts the given ITypeSymbol to a BadScript2 Type Name
+    /// </summary>
+    /// <param name="type">The ITypeSymbol to convert</param>
+    /// <param name="allowAny">If any is allowed</param>
+    /// <param name="sourceSymbol">The symbol to use for the diagnostic</param>
+    /// <returns>The converted type name</returns>
     private string ConvertType(ITypeSymbol type, bool allowAny, ISymbol sourceSymbol)
     {
         if (type.NullableAnnotation == NullableAnnotation.Annotated)

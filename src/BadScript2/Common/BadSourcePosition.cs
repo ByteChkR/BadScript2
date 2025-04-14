@@ -7,8 +7,14 @@ namespace BadScript2.Common;
 /// </summary>
 public class BadSourcePosition
 {
+    /// <summary>
+    /// The position info
+    /// </summary>
     private string? m_PositionInfo;
 
+    /// <summary>
+    /// The text of the source position
+    /// </summary>
     private string? m_Text;
 
     /// <summary>
@@ -127,6 +133,10 @@ public class BadSourcePosition
         return Source.Substring(start, end - start);
     }
 
+    /// <summary>
+    /// Returns the line of the source position
+    /// </summary>
+    /// <returns>Line Number</returns>
     public int GetLine()
     {
         int line = 1;

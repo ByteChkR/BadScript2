@@ -7,16 +7,31 @@ using Microsoft.CodeAnalysis;
 
 namespace BadScript2.Interop.Generator.Interop;
 
+/// <summary>
+/// Generates the ObjectModel for the BadScript2.Interop API.
+/// </summary>
 public class BadInteropObjectModelBuilder
 {
 
+    /// <summary>
+    /// List of Diagnostics that were created during the generation process.
+    /// </summary>
     private readonly List<Diagnostic> m_Diagnostics = new List<Diagnostic>();
 
+    /// <summary>
+    /// Adds a Diagnostic to the list of Diagnostics.
+    /// </summary>
+    /// <param name="diagnostic">The Diagnostic to add.</param>
     private void AddDiagnostic(Diagnostic diagnostic)
     {
         m_Diagnostics.Add(diagnostic);
     }
 
+    /// <summary>
+    /// Finds all methods in the given INamedTypeSymbol that have the InteropMethodAttribute.
+    /// </summary>
+    /// <param name="api">The INamedTypeSymbol to search.</param>
+    /// <returns>An IEnumerable of IMethodSymbol that have the InteropMethodAttribute.</returns>
     private IEnumerable<IMethodSymbol> FindMethods(INamedTypeSymbol api)
     {
         IEnumerable<IMethodSymbol> methods = api.GetMembers()
@@ -34,6 +49,11 @@ public class BadInteropObjectModelBuilder
         }
     }
 
+    /// <summary>
+    /// Finds all properties in the given INamedTypeSymbol that have the InteropPropertyAttribute.
+    /// </summary>
+    /// <param name="api">The INamedTypeSymbol to search.</param>
+    /// <returns>An IEnumerable of IPropertySymbol that have the InteropPropertyAttribute.</returns>
     private IEnumerable<IPropertySymbol> FindProperties(INamedTypeSymbol api)
     {
         IEnumerable<IPropertySymbol> methods = api.GetMembers()
@@ -51,6 +71,12 @@ public class BadInteropObjectModelBuilder
         }
     }
 
+    /// <summary>
+    /// Generates the ObjectModel for the given INamedTypeSymbol.
+    /// </summary>
+    /// <param name="api">The INamedTypeSymbol to generate the ObjectModel for.</param>
+    /// <returns>The generated ObjectModel.</returns>
+    /// <exception cref="Exception">Gets thrown if the InteropObjectAttribute is not found.</exception>
     public ObjectModel GenerateModel(INamedTypeSymbol api)
     {
         IEnumerable<IMethodSymbol> methods = FindMethods(api);
@@ -105,6 +131,11 @@ public class BadInteropObjectModelBuilder
         );
     }
 
+    /// <summary>
+    /// Escapes the description string for use in the generated code.
+    /// </summary>
+    /// <param name="str">The description string to escape.</param>
+    /// <returns>The escaped description string.</returns>
     private string EscapeDescription(string str)
     {
         return str.Replace("\\", "\\\\")
@@ -112,6 +143,11 @@ public class BadInteropObjectModelBuilder
             .Replace("\n", "\\n");
     }
 
+    /// <summary>
+    /// Generates the parameter models for the given method.
+    /// </summary>
+    /// <param name="method">The method to generate the parameter model for.</param>
+    /// <returns>An IEnumerable of ParameterModel.</returns>
     private IEnumerable<ParameterModel> GenerateParameterModel(IMethodSymbol method)
     {
         foreach (IParameterSymbol symbol in method.Parameters.Where(x => x.Ordinal >= 0)
@@ -181,6 +217,12 @@ public class BadInteropObjectModelBuilder
         }
     }
 
+    /// <summary>
+    /// Stringifies the default value of the given object.
+    /// </summary>
+    /// <param name="obj">The object to stringify.</param>
+    /// <param name="symbol">The symbol to use for diagnostics.</param>
+    /// <returns>>The stringified default value.</returns>
     private string StringifyDefaultValue(object? obj, ISymbol symbol)
     {
         switch (obj)
@@ -229,6 +271,11 @@ public class BadInteropObjectModelBuilder
         }
     }
 
+    /// <summary>
+    /// Generates the property models for the given properties.
+    /// </summary>
+    /// <param name="symbols">The properties to generate the property model for.</param>
+    /// <returns>An IEnumerable of PropertyModel.</returns>
     private IEnumerable<PropertyModel> GeneratePropertyModels(IEnumerable<IPropertySymbol> symbols)
     {
         foreach (IPropertySymbol symbol in symbols)
@@ -269,6 +316,11 @@ public class BadInteropObjectModelBuilder
         }
     }
 
+    /// <summary>
+    /// Generates the constructor model for the given method symbol.
+    /// </summary>
+    /// <param name="symbol">The method symbol to generate the constructor model for.</param>
+    /// <returns>>The generated constructor model.</returns>
     private MethodModel GenerateConstructorModel(IMethodSymbol? symbol)
     {
         if (symbol == null)
@@ -279,6 +331,11 @@ public class BadInteropObjectModelBuilder
         return new MethodModel(".ctor", ".ctor", "", "", GenerateParameterModel(symbol).ToArray(), false, "", false);
     }
     
+    /// <summary>
+    /// Generates the method models for the given method symbols.
+    /// </summary>
+    /// <param name="symbols">The method symbols to generate the method model for.</param>
+    /// <returns>>An IEnumerable of MethodModel.</returns>
     private IEnumerable<MethodModel> GenerateMethodModels(IEnumerable<IMethodSymbol> symbols)
     {
         foreach (IMethodSymbol symbol in symbols)
@@ -347,6 +404,13 @@ public class BadInteropObjectModelBuilder
         }
     }
 
+    /// <summary>
+    /// Converts the given type symbol to a BadScript2 Type Name
+    /// </summary>
+    /// <param name="type">The type symbol to convert.</param>
+    /// <param name="allowAny">If any type is allowed.</param>
+    /// <param name="sourceSymbol">The symbol to use for diagnostics.</param>
+    /// <returns>>The converted type name.</returns>
     private string ConvertType(ITypeSymbol type, bool allowAny, ISymbol sourceSymbol)
     {
         if (type.NullableAnnotation == NullableAnnotation.Annotated)

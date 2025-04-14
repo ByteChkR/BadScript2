@@ -28,6 +28,7 @@ public abstract class BadStreamLogWriter : BadLogWriter
         m_Stream.Dispose();
     }
 
+	/// <inheritdoc />
     protected override void Write(BadLog log)
     {
         m_Stream.WriteLine(log);

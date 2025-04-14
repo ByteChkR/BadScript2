@@ -100,6 +100,9 @@ public static class BadStaticKeys
 
     public static readonly char[] NewLine = { '\r', '\n' };
 
+    /// <summary>
+    /// List of all reserved keywords in BadScript
+    /// </summary>
     public static IEnumerable<string> ReservedKeywords { get; set; } = new[]
     {
         VARIABLE_DEFINITION_KEY,
@@ -127,6 +130,12 @@ public static class BadStaticKeys
         REF_KEY,
     };
 
+    
+    /// <summary>
+    /// Returns true if the given keyword is a reserved keyword
+    /// </summary>
+    /// <param name="keyword">The keyword to check</param>
+    /// <returns>True if the given keyword is a reserved keyword</returns>
     public static bool IsReservedKeyword(string keyword)
     {
         return ReservedKeywords.Contains(keyword);

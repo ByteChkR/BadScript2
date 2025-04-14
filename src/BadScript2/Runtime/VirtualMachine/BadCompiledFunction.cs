@@ -83,6 +83,12 @@ public class BadCompiledFunction : BadFunction
     /// <inheritdoc />
     public override BadMetaData MetaData { get; }
 
+    /// <summary>
+    /// Creates a new Execution Context for this Function.
+    /// </summary>
+    /// <param name="caller">The Calling Context.</param>
+    /// <param name="args">The Arguments.</param>
+    /// <returns>Returns the new Execution Context.</returns>
     public BadExecutionContext CreateExecutionContext(BadExecutionContext caller, BadObject[] args)
     {
         BadExecutionContext ctx = new BadExecutionContext(m_ParentScope.CreateChild("Compiled Function",

@@ -9,6 +9,9 @@ namespace BadScript2.Common.Logging.Writer;
 /// </summary>
 public abstract class BadLogWriter : IDisposable
 {
+    /// <summary>
+    /// Indicates if the log writer is active
+    /// </summary>
     public bool IsActive { get; private set; }
 
 #region IDisposable Members

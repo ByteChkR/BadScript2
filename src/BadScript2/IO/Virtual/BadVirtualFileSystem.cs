@@ -19,16 +19,19 @@ public class BadVirtualFileSystem : IVirtualFileSystem
 
 #region IFileSystem Members
 
+    /// <inheritdoc />
     public string GetStartupDirectory()
     {
         return "/";
     }
 
+    /// <inheritdoc />
     public bool Exists(string path)
     {
         return IsFile(path) || IsDirectory(path);
     }
 
+    /// <inheritdoc />
     public bool IsFile(string path)
     {
         string[] parts = BadVirtualPathReader.SplitPath(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory));
@@ -47,6 +50,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
         return current.FileExists(parts[parts.Length - 1]);
     }
 
+    /// <inheritdoc />
     public bool IsDirectory(string path)
     {
         string[] parts = BadVirtualPathReader.SplitPath(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory));
@@ -71,6 +75,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
         return true;
     }
 
+    /// <inheritdoc />
     public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
     {
         if (recursive)
@@ -83,6 +88,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
         return GetFiles(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)), extension);
     }
 
+    /// <inheritdoc />
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
         return recursive
@@ -90,6 +96,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
                    : GetDirectories(GetDirectory(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory)));
     }
 
+    /// <inheritdoc />
     public void CreateDirectory(string path, bool recursive = false)
     {
         string[] parts = BadVirtualPathReader.SplitPath(BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory));
@@ -115,23 +122,27 @@ public class BadVirtualFileSystem : IVirtualFileSystem
         current.CreateDirectory(parts[parts.Length - 1]);
     }
 
+    /// <inheritdoc />
     public void DeleteDirectory(string path, bool recursive)
     {
         BadVirtualDirectory parent = GetParentDirectory(path);
         parent.DeleteDirectory(Path.GetFileName(path), recursive);
     }
 
+    /// <inheritdoc />
     public void DeleteFile(string path)
     {
         BadVirtualDirectory parent = GetParentDirectory(path);
         parent.DeleteFile(Path.GetFileName(path));
     }
 
+    /// <inheritdoc />
     public string GetFullPath(string path)
     {
         return BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory);
     }
 
+    /// <inheritdoc />
     public Stream OpenRead(string path)
     {
         string fullPath = BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory);
@@ -149,6 +160,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
                   .OpenRead();
     }
 
+    /// <inheritdoc />
     public Stream OpenWrite(string path, BadWriteMode mode)
     {
         string fullPath = BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory);
@@ -165,11 +177,13 @@ public class BadVirtualFileSystem : IVirtualFileSystem
                   .OpenWrite(mode);
     }
 
+    /// <inheritdoc />
     public string GetCurrentDirectory()
     {
         return m_CurrentDirectory;
     }
 
+    /// <inheritdoc />
     public void SetCurrentDirectory(string path)
     {
         if (!Exists(path) || !IsDirectory(path))
@@ -180,6 +194,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
         m_CurrentDirectory = BadVirtualPathReader.ResolvePath(path, m_CurrentDirectory);
     }
 
+    /// <inheritdoc />
     public void Copy(string src, string dst, bool overwrite = true)
     {
         if (IsDirectory(src))
@@ -211,6 +226,7 @@ public class BadVirtualFileSystem : IVirtualFileSystem
         }
     }
 
+    /// <inheritdoc />
     public void Move(string src, string dst, bool overwrite = true)
     {
         Copy(src, dst, overwrite);

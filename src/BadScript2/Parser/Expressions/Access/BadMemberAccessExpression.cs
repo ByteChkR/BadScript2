@@ -59,16 +59,19 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
 
 #endregion
 
+/// <inheritdoc />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         return Left.GetDescendantsAndSelf();
     }
 
+    /// <inheritdoc />
     public override void Optimize()
     {
         Left = BadConstantFoldingOptimizer.Optimize(Left);
     }
 
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -126,6 +129,7 @@ public class BadMemberAccessExpression : BadExpression, IBadAccessExpression
     }
 
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return $"({Left}{(NullChecked ? "?" : "")}.{Right})";

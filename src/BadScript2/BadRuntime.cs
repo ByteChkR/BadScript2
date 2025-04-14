@@ -76,10 +76,19 @@ public class BadRuntime : IDisposable
     /// </summary>
     public BadRuntime() : this(new BadExecutionContextOptions()) { }
 
+    /// <summary>
+    /// The Culture to use
+    /// </summary>
     public CultureInfo Culture { get; private set; } = CultureInfo.InvariantCulture;
 
+    /// <summary>
+    /// Module Store to use
+    /// </summary>
     private BadModuleStore ModuleStore { get; } = new BadModuleStore();
 
+    /// <summary>
+    /// Module Importer to use
+    /// </summary>
     private BadModuleImporter? Importer { get; set; }
 
 #region IDisposable Members

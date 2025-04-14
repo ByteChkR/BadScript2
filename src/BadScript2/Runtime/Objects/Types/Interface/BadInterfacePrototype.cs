@@ -21,10 +21,19 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// </summary>
     private readonly Func<BadObject[], BadInterfaceConstraint[]> m_ConstraintsFunc;
 
+    /// <summary>
+    /// Cache for the Generic Definition
+    /// </summary>
     private readonly BadInterfacePrototype? m_GenericDefinition;
 
+    /// <summary>
+    /// Factory for the Inherited Interfaces
+    /// </summary>
     private readonly Func<BadObject[], BadInterfacePrototype[]> m_InterfacesFunc;
 
+    /// <summary>
+    /// Generic Cache for the Generic Definition
+    /// </summary>
     private readonly Dictionary<int, BadInterfacePrototype> s_GenericCache =
         new Dictionary<int, BadInterfacePrototype>();
 
@@ -33,6 +42,9 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// </summary>
     private BadInterfaceConstraint[]? m_Constraints;
 
+    /// <summary>
+    /// The Implemented Interfaces
+    /// </summary>
     private BadInterfacePrototype[]? m_Interfaces;
 
     /// <summary>
@@ -90,11 +102,13 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     }
 
 
+    /// <inheritdoc />
     protected override BadClassPrototype? BaseClass { get; }
 
     /// <inheritdoc />
     public override bool IsAbstract => true;
 
+    /// <inheritdoc />
     public override IReadOnlyCollection<BadInterfacePrototype> Interfaces =>
         m_Interfaces ??= m_InterfacesFunc(Array.Empty<BadObject>());
 

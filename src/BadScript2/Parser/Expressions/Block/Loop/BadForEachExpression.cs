@@ -129,6 +129,15 @@ public class BadForEachExpression : BadExpression
         throw new BadRuntimeException("Invalid enumerator", position);
     }
 
+    /// <summary>
+    /// Enumerates the Specified Target using the specified action.
+    /// </summary>
+    /// <param name="context">The Calling Context</param>
+    /// <param name="target">The Target to enumerate</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    /// <param name="action">The Action to perform on each item</param>
+    /// <returns>The Execution Enumeration</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the target is not an enumerable object.</exception>
     public static IEnumerable<BadObject> Enumerate(BadExecutionContext context,
                                                    BadObject target,
                                                    BadSourcePosition position,
@@ -219,6 +228,8 @@ public class BadForEachExpression : BadExpression
         }
     }
 
+    
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject target = BadObject.Null;
@@ -238,6 +249,14 @@ public class BadForEachExpression : BadExpression
         }
     }
 
+    /// <summary>
+    /// The Body of the Loop
+    /// </summary>
+    /// <param name="breakLoop">Action that breaks the loop</param>
+    /// <param name="loopContext">The Loop Context</param>
+    /// <param name="current">The Current Object</param>
+    /// <param name="position">The Source Position of the Expression</param>
+    /// <returns>Execution Enumeration</returns>
     private IEnumerable<BadObject> LoopBody(Action breakLoop, BadExecutionContext loopContext, BadObject current, BadSourcePosition position)
     {
         if (m_Body.Count != 0)

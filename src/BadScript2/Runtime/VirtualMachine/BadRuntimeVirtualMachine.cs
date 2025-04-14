@@ -69,6 +69,14 @@ public class BadRuntimeVirtualMachine
         m_UseOverrides = useOverrides;
     }
 
+    /// <summary>
+    /// Executes a step in the Virtual Machine.
+    /// </summary>
+    /// <param name="ctx">The Scope to execute in.</param>
+    /// <returns>Execution Enumeration</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if an error occurs during execution.</exception>
+    /// <exception cref="BadRuntimeErrorException">>Gets thrown if an error occurs during execution.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">>Gets thrown if the instruction pointer is out of range.</exception>
     private IEnumerable<BadObject> ExecuteStep(BadExecutionContext ctx)
     {
         BadInstruction instr = m_Instructions[m_InstructionPointer];
@@ -978,7 +986,7 @@ public class BadRuntimeVirtualMachine
             {
                 if (instr.Arguments.Length == 0)
                 {
-                    BadObject? obj = m_ArgumentStack.Pop()
+                    BadObject obj = m_ArgumentStack.Pop()
                                                     .Dereference(instr.Position);
                     ctx.Scope.SetExports(ctx, obj);
                 }

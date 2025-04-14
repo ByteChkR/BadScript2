@@ -26,6 +26,7 @@ public abstract class BadANativeClassPrototype : BadClassPrototype
         m_Func = func;
     }
 
+	/// <inheritdoc />
     protected override BadClassPrototype? BaseClass { get; } = BadAnyPrototype.Instance;
 
     /// <summary>

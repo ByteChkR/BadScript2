@@ -11,6 +11,9 @@ namespace BadScript2.Reader;
 /// </summary>
 public class BadSourceReader
 {
+    /// <summary>
+    /// The End Index of the Source Code
+    /// </summary>
     private readonly int m_EndIndex;
 
     /// <summary>

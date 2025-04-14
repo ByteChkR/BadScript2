@@ -45,11 +45,22 @@ public abstract class BadExpression
     /// </summary>
     public BadSourcePosition Position { get; private set; }
 
+    /// <summary>
+    /// Sets the attributes of the expression.
+    /// </summary>
+    /// <param name="attributes">The attributes to set.</param>
     public void SetAttributes(IEnumerable<BadExpression> attributes)
     {
         Attributes = attributes;
     }
 
+    /// <summary>
+    /// Computes the attributes of the expression.
+    /// </summary>
+    /// <param name="ctx">The Calling Context</param>
+    /// <param name="attributes">The list of attributes to add to.</param>
+    /// <returns>Execution Enumeration.</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the attribute is not a class or does not inherit from IAttribute</exception>
     protected IEnumerable<BadObject> ComputeAttributes(BadExecutionContext ctx, List<BadObject> attributes)
     {
         foreach (BadExpression? attribute in Attributes)
@@ -220,6 +231,12 @@ public abstract class BadExpression
     /// <returns>Enumerable of BadObject. The Last element returned is the result of the current expression.</returns>
     protected abstract IEnumerable<BadObject> InnerExecute(BadExecutionContext context);
 
+    /// <summary>
+    /// Executes the expression and catches any runtime errors that occur.
+    /// </summary>
+    /// <param name="context">The current Execution context the expression is evaluated in</param>
+    /// <returns>Execution Enumeration.</returns>
+    /// <exception cref="BadRuntimeErrorException">Gets thrown if a runtime error occurs</exception>
     private IEnumerable<BadObject> ExecuteWithCatch(BadExecutionContext context)
     {
         using IEnumerator<BadObject> e = InnerExecute(context)

@@ -18,6 +18,9 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
     /// </summary>
     private readonly BadInterfaceConstraint[] m_Constraints;
 
+    /// <summary>
+    /// The Generic Parameters of the Interface
+    /// </summary>
     private readonly BadWordToken[] m_GenericParameters;
 
     /// <summary>

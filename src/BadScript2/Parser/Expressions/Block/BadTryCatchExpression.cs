@@ -37,6 +37,7 @@ public class BadTryCatchExpression : BadExpression
     /// <param name="position">Source position of the Expression</param>
     /// <param name="expressions">The Try Block</param>
     /// <param name="catchExpressions">The Catch Block</param>
+    /// <param name="finallyExpressions">The Finally Block</param>
     /// <param name="errorName">The Variable name of the Exception inside the Catch block</param>
     public BadTryCatchExpression(BadSourcePosition position,
                                  BadExpression[] expressions,

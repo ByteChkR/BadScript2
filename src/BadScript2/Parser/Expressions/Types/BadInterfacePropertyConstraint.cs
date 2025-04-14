@@ -80,11 +80,13 @@ public class BadInterfacePropertyConstraint : BadInterfaceConstraint
         }
     }
 
+    /// <inheritdoc />
     public override bool Equals(BadInterfaceConstraint? other)
     {
         return other is BadInterfacePropertyConstraint c && c.Name == Name && c.Type == Type;
     }
 
+    /// <inheritdoc />
     protected override int GetConstraintHash()
     {
         return BadHashCode.Combine(Name, Type, typeof(BadInterfacePropertyConstraint));

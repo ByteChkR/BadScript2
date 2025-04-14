@@ -34,6 +34,12 @@ public static class BadFileSystemHelper
         }
     }
 
+    /// <summary>
+    /// Imports a Zip File to a Virtual File System
+    /// </summary>
+    /// <param name="fs">The Virtual File System to Import to</param>
+    /// <param name="path">The Path to the Zip File</param>
+    /// <param name="root">The directory that the zip file will be imported to</param>
     public static void ImportZip(this IVirtualFileSystem fs, string path, string root = "/")
     {
         using FileStream str = new FileStream(path, FileMode.Open, FileAccess.Read);

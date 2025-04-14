@@ -56,6 +56,7 @@ public class BadDefaultExportExpression : BadExpression
         yield return result;
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return "export default " + Expression;

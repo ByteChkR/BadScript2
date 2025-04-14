@@ -10,6 +10,9 @@ namespace BadScript2.ConsoleAbstraction;
 /// </summary>
 public static class BadConsole
 {
+    /// <summary>
+    /// Dummy Console Implementation that does nothing.
+    /// </summary>
     public static readonly IBadConsole DummyConsole = new BadDummyConsole();
 
     /// <summary>
@@ -108,28 +111,39 @@ public static class BadConsole
 
 #region Nested type: BadDummyConsole
 
+    /// <summary>
+    /// Implements a dummy console that does nothing.
+    /// </summary>
     private class BadDummyConsole : IBadConsole
     {
 #region IBadConsole Members
 
+        
+        /// <inheritdoc />
         public ConsoleColor ForegroundColor { get; set; }
 
+        /// <inheritdoc />
         public ConsoleColor BackgroundColor { get; set; }
 
+        /// <inheritdoc />
         public void Write(string str) { }
 
+        /// <inheritdoc />
         public void WriteLine(string str) { }
 
+        /// <inheritdoc />
         public string ReadLine()
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public Task<string> ReadLineAsync()
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void Clear() { }
 
 #endregion

@@ -5,6 +5,12 @@ namespace BadScript2.IO;
 /// </summary>
 public enum BadWriteMode
 {
+    /// <summary>
+    /// Creates a new file or overwrites an existing file
+    /// </summary>
     CreateNew,
+    /// <summary>
+    /// Creates a new file or appends to an existing file
+    /// </summary>
     Append,
 }

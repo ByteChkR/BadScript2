@@ -18,6 +18,9 @@ public class BadLockList
     /// </summary>
     private readonly List<BadObject> m_LockList = new List<BadObject>();
 
+    /// <summary>
+    /// Constructor of the Lock List
+    /// </summary>
     private BadLockList() { }
 
     /// <summary>

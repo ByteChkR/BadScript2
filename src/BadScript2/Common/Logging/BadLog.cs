@@ -99,11 +99,23 @@ public struct BadLog : IEquatable<BadLog>
         return BadHashCode.Combine(Message, Mask, (int)Type);
     }
 
+	/// <summary>
+	/// Implements the == operator for the BadLog
+	/// </summary>
+	/// <param name="left">Left Log</param>
+	/// <param name="right">Right Log</param>
+	/// <returns>True if the logs are equal</returns>
     public static bool operator ==(BadLog left, BadLog right)
     {
         return left.Equals(right);
     }
 
+	/// <summary>
+	/// Implements the != operator for the BadLog
+	/// </summary>
+	/// <param name="left">Left Log</param>
+	/// <param name="right">Right Log</param>
+	/// <returns>True if the logs are not equal</returns>
     public static bool operator !=(BadLog left, BadLog right)
     {
         return !left.Equals(right);

@@ -7,26 +7,31 @@ public class BadSystemFileSystem : IFileSystem
 {
 #region IFileSystem Members
 
+/// <inheritdoc />
     public string GetStartupDirectory()
     {
         return AppDomain.CurrentDomain.BaseDirectory;
     }
 
+    /// <inheritdoc />
     public bool Exists(string path)
     {
         return Directory.Exists(path) || File.Exists(path);
     }
 
+    /// <inheritdoc />
     public bool IsFile(string path)
     {
         return File.Exists(path);
     }
 
+    /// <inheritdoc />
     public bool IsDirectory(string path)
     {
         return Directory.Exists(path);
     }
 
+    /// <inheritdoc />
     public IEnumerable<string> GetFiles(string path, string extension, bool recursive)
     {
         return Directory.GetFiles(path,
@@ -35,6 +40,7 @@ public class BadSystemFileSystem : IFileSystem
                                  );
     }
 
+    /// <inheritdoc />
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
         return Directory.GetDirectories(path,
@@ -43,6 +49,7 @@ public class BadSystemFileSystem : IFileSystem
                                        );
     }
 
+    /// <inheritdoc />
     public void CreateDirectory(string path, bool recursive = false)
     {
         List<string> directories = new List<string>();
@@ -64,26 +71,31 @@ public class BadSystemFileSystem : IFileSystem
         }
     }
 
+    /// <inheritdoc />
     public void DeleteDirectory(string path, bool recursive)
     {
         Directory.Delete(path, recursive);
     }
 
+    /// <inheritdoc />
     public void DeleteFile(string path)
     {
         File.Delete(path);
     }
 
+    /// <inheritdoc />
     public string GetFullPath(string path)
     {
         return Path.GetFullPath(path);
     }
 
+    /// <inheritdoc />
     public Stream OpenRead(string path)
     {
         return File.OpenRead(path);
     }
 
+    /// <inheritdoc />
     public Stream OpenWrite(string path, BadWriteMode mode)
     {
         FileMode fileMode = mode switch
@@ -96,16 +108,19 @@ public class BadSystemFileSystem : IFileSystem
         return File.Open(path, fileMode);
     }
 
+    /// <inheritdoc />
     public string GetCurrentDirectory()
     {
         return Directory.GetCurrentDirectory();
     }
 
+    /// <inheritdoc />
     public void SetCurrentDirectory(string path)
     {
         Directory.SetCurrentDirectory(path);
     }
 
+    /// <inheritdoc />
     public void Copy(string src, string dst, bool overwrite = true)
     {
         if (File.Exists(src))
@@ -136,6 +151,7 @@ public class BadSystemFileSystem : IFileSystem
         }
     }
 
+    /// <inheritdoc />
     public void Move(string src, string dst, bool overwrite = true)
     {
         if (File.Exists(src))

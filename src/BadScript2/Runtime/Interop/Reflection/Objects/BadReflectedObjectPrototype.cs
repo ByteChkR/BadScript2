@@ -19,11 +19,13 @@ internal class BadReflectedObjectPrototype : BadANativeClassPrototype
                                                                              )
                                                  ) { }
 
+    /// <inheritdoc />
     protected override BadClassPrototype? BaseClass { get; }
 
     /// <inheritdoc />
     public override bool IsAbstract => true;
 
+    /// <inheritdoc />
     public override IReadOnlyCollection<BadInterfacePrototype> Interfaces { get; } =
         Array.Empty<BadInterfacePrototype>();
 }

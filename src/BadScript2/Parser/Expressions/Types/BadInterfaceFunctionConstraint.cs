@@ -175,6 +175,7 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
         }
     }
 
+    /// <inheritdoc />
     public override bool Equals(BadInterfaceConstraint? other)
     {
         return other is BadInterfaceFunctionConstraint c &&
@@ -185,6 +186,7 @@ public class BadInterfaceFunctionConstraint : BadInterfaceConstraint
                 .All(z => z.x.Equals(z.y));
     }
 
+    /// <inheritdoc />
     protected override int GetConstraintHash()
     {
         return BadHashCode.Combine(Name, Return, Parameters, typeof(BadInterfaceFunctionConstraint));

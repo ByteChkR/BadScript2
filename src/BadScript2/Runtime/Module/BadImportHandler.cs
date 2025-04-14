@@ -7,6 +7,10 @@ namespace BadScript2.Runtime.Module;
 /// </summary>
 public abstract class BadImportHandler
 {
+    /// <summary>
+    /// Indicates if the import handler is transient(i.e. if it has a state that should be preserved between imports(cached modules and such))
+    /// </summary>
+    /// <returns>True if the import handler is transient</returns>
     public abstract bool IsTransient();
 
     /// <summary>

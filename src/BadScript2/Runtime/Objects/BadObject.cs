@@ -167,7 +167,18 @@ public abstract class BadObject
     {
         return b.HasValue ? b.Value : Null;
     }
+    
+    /// <summary>
+    /// Converts the given object to a BadObject Instance
+    /// </summary>
+    /// <param name="d">The Object</param>
+    /// <returns>The BadObject Instance</returns>
     public static implicit operator BadObject(DateTimeOffset d) => new BadDate(d);
+    /// <summary>
+    /// Converts the given object to a BadObject Instance
+    /// </summary>
+    /// <param name="t">The Object</param>
+    /// <returns>The BadObject Instance</returns>
     public static implicit operator BadObject(TimeSpan t) => new BadTime(t);
 
     /// <summary>

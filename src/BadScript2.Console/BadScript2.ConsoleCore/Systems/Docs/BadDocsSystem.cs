@@ -27,6 +27,10 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
     /// <inheritdoc />
     public override string Name => "docs";
 
+    /// <summary>
+    /// The Path to the Docs Directory
+    /// </summary>
+    /// <exception cref="BadRuntimeException">Gets thrown if the directory is not set</exception>
     private static string DocsPath
     {
         get
@@ -44,6 +48,9 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
         }
     }
 
+    /// <summary>
+    /// The Template Path
+    /// </summary>
     private static string TemplatePath => Path.Combine(DocsPath, "docs.bhtml");
 
     /// <inheritdoc />

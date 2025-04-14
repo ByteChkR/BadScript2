@@ -45,6 +45,7 @@ public class BadTernaryExpression : BadExpression
     /// </summary>
     public BadExpression TrueRet { get; private set; }
 
+    /// <inheritdoc />
     public override IEnumerable<BadExpression> GetDescendants()
     {
         foreach (BadExpression expression in Left.GetDescendantsAndSelf())
@@ -63,6 +64,7 @@ public class BadTernaryExpression : BadExpression
         }
     }
 
+    /// <inheritdoc />
     public override void Optimize()
     {
         FalseRet = BadConstantFoldingOptimizer.Optimize(FalseRet);
@@ -70,6 +72,7 @@ public class BadTernaryExpression : BadExpression
         TrueRet = BadConstantFoldingOptimizer.Optimize(TrueRet);
     }
 
+    /// <inheritdoc />
     protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
     {
         BadObject left = BadObject.Null;
@@ -102,6 +105,7 @@ public class BadTernaryExpression : BadExpression
         }
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return $"({Left} ? {TrueRet} : {FalseRet})";
