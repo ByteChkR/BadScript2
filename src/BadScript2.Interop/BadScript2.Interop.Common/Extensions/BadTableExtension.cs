@@ -85,6 +85,14 @@ public class BadTableExtension : BadInteropExtension
                                          );
     }
 
+    /// <summary>
+    /// Implements an Extension for the Array Access Operator
+    /// </summary>
+    /// <param name="context">Current Context</param>
+    /// <param name="table">The Table</param>
+    /// <param name="enumerator">The Enumerator or string</param>
+    /// <returns>an object of any type if the enumerator is a string. Otherwise a table</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the enumerator is not a string or an enumerable</exception>
     private static BadObject ArrayAccess(BadExecutionContext context, BadTable table, BadObject enumerator)
     {
         BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);

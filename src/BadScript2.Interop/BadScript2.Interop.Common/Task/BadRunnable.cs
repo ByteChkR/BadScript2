@@ -83,6 +83,7 @@ public abstract class BadRunnable
         public override IEnumerator<BadObject> Enumerator => Enumerable.Empty<BadObject>()
                                                                        .GetEnumerator();
 
+        /// <inheritdoc />
         public override BadObject GetReturn()
         {
             return BadObject.Null;

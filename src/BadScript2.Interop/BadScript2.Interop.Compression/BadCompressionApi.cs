@@ -29,6 +29,7 @@ internal partial class BadCompressionApi
     }
 
 
+    /// <inheritdoc/>
     protected override void AdditionalData(BadTable target)
     {
         BadTable zip = new BadTable();

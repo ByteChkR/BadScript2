@@ -13,8 +13,17 @@ namespace BadScript2.Interop.IO;
 [BadInteropApi("IO", true)]
 internal partial class BadIOApi
 {
+    /// <summary>
+    /// Directory Api Implementation
+    /// </summary>
     private readonly BadDirectoryApi m_DirectoryApi = new BadDirectoryApi(BadFileSystem.Instance);
+    /// <summary>
+    /// File Api Implementation
+    /// </summary>
     private readonly BadFileApi m_FileApi = new BadFileApi(BadFileSystem.Instance);
+    /// <summary>
+    /// Path Api Implementation
+    /// </summary>
     private readonly BadPathApi m_PathApi = new BadPathApi(BadFileSystem.Instance);
 
 
@@ -29,6 +38,7 @@ internal partial class BadIOApi
         m_DirectoryApi = new BadDirectoryApi(fileSystem);
     }
 
+    /// <inheritdoc />
     protected override void AdditionalData(BadTable target)
     {
         BadTable file = new BadTable();

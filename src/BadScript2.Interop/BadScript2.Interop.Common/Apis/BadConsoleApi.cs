@@ -80,24 +80,39 @@ internal partial class BadConsoleApi
     }
 
 
+	/// <summary>
+	/// Wrapper function for "Console.WriteLine" in the BadScript2 Runtime
+	/// </summary>
+	/// <param name="obj">The Object to write</param>
     [BadMethod("WriteLine", "Writes a line to the Console")]
     private void InvokeWriteLine([BadParameter(description: "The Object to Write")] BadObject obj)
     {
         OnWriteLine(obj);
     }
 
+	/// <summary>
+	/// Wrapper function for "Console.Write" in the BadScript2 Runtime
+	/// </summary>
+	/// <param name="obj">The Object to write</param>
     [BadMethod("Write", "Writes to the Console")]
     private void InvokeWrite([BadParameter(description: "The Object to Write")] BadObject obj)
     {
         OnWrite(obj);
     }
 
+	/// <summary>
+	/// Wrapper function for "Console.Clear" in the BadScript2 Runtime
+	/// </summary>
     [BadMethod("Clear", "Clears the Console")]
     private void InvokeClear()
     {
         OnClear();
     }
 
+	/// <summary>
+	/// Wrapper function for "Console.ReadLine" in the BadScript2 Runtime
+	/// </summary>
+	/// <returns>string</returns>
     [BadMethod("ReadLine", "Reads a line from the Console")]
     [return: BadReturn("The Console Input")]
     private string InvokeReadLine()
@@ -105,6 +120,10 @@ internal partial class BadConsoleApi
         return OnReadLine();
     }
 
+	/// <summary>
+	/// Wrapper function for "Console.ReadLineAsync" in the BadScript2 Runtime
+	/// </summary>
+	/// <returns>BadTask&lt;string&gt;</returns>
     [BadMethod("ReadLineAsync", "Reads a line from the Console asynchronously")]
     [return: BadReturn("The Console Input")]
     private BadTask InvokeReadLineAsync()

@@ -122,6 +122,12 @@ public static class BadCommonInterop
         return runtime.UseApi(new BadConsoleApi(BadConsole.GetConsole()), true);
     }
 
+    /// <summary>
+    /// Configures the Runtime to use the Common Interop Extensions
+    /// </summary>
+    /// <param name="runtime">The Runtime</param>
+    /// <param name="useAsync">Whether to use the Async Extensions</param>
+    /// <returns>The Runtime</returns>
     public static BadRuntime UseCommonExtensions(this BadRuntime runtime, bool useAsync = true)
     {
         if (useAsync)

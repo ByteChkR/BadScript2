@@ -7,6 +7,9 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.Compression;
 
+/// <summary>
+/// Implements the "Compression.GZip" API
+/// </summary>
 [BadInteropApi("GZip")]
 internal partial class BadGZipApi
 {

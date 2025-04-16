@@ -230,6 +230,11 @@ public static class BadJson
         return ConvertNode(o);
     }
 
+    /// <summary>
+    /// Parses a YAML string to a BadObject
+    /// </summary>
+    /// <param name="s">YAML String</param>
+    /// <returns>BadObject</returns>
     public static BadObject FromYaml(string s)
     {
         var deserializer = new YamlDotNet.Serialization.DeserializerBuilder()
@@ -243,6 +248,11 @@ public static class BadJson
         return ConvertNode(JToken.FromObject(deserializedObject));
     }
     
+    /// <summary>
+    /// Converts a BadObject to a YAML string
+    /// </summary>
+    /// <param name="o">Object</param>
+    /// <returns>YAML String</returns>
     public static string ToYaml(BadObject o)
     {
         // convert string/file to YAML object

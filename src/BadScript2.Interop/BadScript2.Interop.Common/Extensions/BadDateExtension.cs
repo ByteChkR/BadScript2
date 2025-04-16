@@ -17,6 +17,14 @@ public class BadDateExtension : BadInteropExtension
     ///     Culture Info Cache
     /// </summary>
     private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
+    /// <summary>
+    /// Wrapper for DateTimeOffset.ToString
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="d">The DateTimeOffset to convert</param>
+    /// <param name="args">The arguments to the function</param>
+    /// <returns>The string representation of the DateTimeOffset</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the arguments are invalid</exception>
     private static BadObject DateToString(BadExecutionContext ctx, DateTimeOffset d, IReadOnlyList<BadObject> args)
     {
         if (args.Count == 0)
@@ -55,6 +63,14 @@ public class BadDateExtension : BadInteropExtension
         return d.ToString(format.Value, cultureInfo);
     }
     
+    /// <summary>
+    /// Wrapper for TimeSpan.ToString
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="d">The TimeSpan to convert</param>
+    /// <param name="args">The arguments to the function</param>
+    /// <returns>The string representation of the TimeSpan</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the arguments are invalid</exception>
     private static BadObject TimeToString(BadExecutionContext ctx, TimeSpan d, IReadOnlyList<BadObject> args)
     {
         if (args.Count == 0)
@@ -92,6 +108,7 @@ public class BadDateExtension : BadInteropExtension
 
         return d.ToString(format.Value, cultureInfo);
     }
+    /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         #region Date

@@ -4,6 +4,9 @@ using BadScript2.IO;
 
 namespace BadScript2.Interop.Compression;
 
+/// <summary>
+/// Implements the "Compression.Zip" API
+/// </summary>
 [BadInteropApi("Zip", true)]
 internal partial class BadZipApi
 {
