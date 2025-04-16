@@ -10,6 +10,11 @@ namespace BadScript2.Interop.NetHost;
 [BadInteropApi("NetHost")]
 internal partial class BadNetHostApi
 {
+    /// <summary>
+    /// Creates a new NetHost Instance
+    /// </summary>
+    /// <param name="prefixes">Array of string prefixes</param>
+    /// <returns>The NetHost Instance</returns>
     [BadMethod(description: "Creates a new NetHost Instance")]
     [return: BadReturn("The NetHost Instance")]
     private BadTable Create([BadParameter(description: "Array of string prefixes")] string[] prefixes)

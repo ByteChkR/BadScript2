@@ -7,6 +7,9 @@ namespace BadScript2.Interop.Common.Task;
 /// </summary>
 public class BadTaskRunnerSettings : BadSettingsProvider<BadTaskRunnerSettings>
 {
+    /// <summary>
+    /// Backing field for TaskIterationTime
+    /// </summary>
     private readonly BadEditableSetting<BadTaskRunnerSettings, int> m_TaskIterationTime =
         new BadEditableSetting<BadTaskRunnerSettings, int>(nameof(TaskIterationTime), 1);
 

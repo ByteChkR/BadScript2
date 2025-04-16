@@ -35,6 +35,7 @@ internal partial class BadRuntimeApi
     /// </summary>
     public static IEnumerable<string>? StartupArguments { get; set; }
 
+    /// <inheritdoc/>
     protected override void AdditionalData(BadTable target)
     {
         target.SetProperty("Native", MakeNative());
@@ -53,6 +54,11 @@ internal partial class BadRuntimeApi
         return table;
     }
 
+    /// <summary>
+    /// Creates a default scope based off of the root scope of the caller
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <returns>The created scope</returns>
     [BadMethod(description: "Creates a default scope based off of the root scope of the caller")]
     [return: BadReturn("The created scope")]
     private BadScope CreateDefaultScope(BadExecutionContext ctx)
@@ -61,6 +67,16 @@ internal partial class BadRuntimeApi
                   .CreateChild("<customscope>", ctx.Scope, null);
     }
 
+    /// <summary>
+    /// Evaluates a BadScript Source String
+    /// </summary>
+    /// <param name="caller">The Caller Context</param>
+    /// <param name="source">The Source of the Script</param>
+    /// <param name="file">An (optional but recommended) file path, it will be used to determine the working directory of the script.</param>
+    /// <param name="optimize">If true, any optimizations that are activated in the settings will be applied.</param>
+    /// <param name="scope">An (optional) scope that the execution takes place in, if not specified, an Instance of BadRuntime will get searched and a scope will be created from it, if its not found, a scope will be created from the root scope of the caller.</param>
+    /// <param name="setLastAsReturn">If true, the last element that was returned from the enumeration will be the result of the task. Otherwise the result will be the exported objects of the script.</param>
+    /// <returns>An Awaitable Task</returns>
     [BadMethod(description: "Evaluates a BadScript Source String")]
     [return: BadReturn("An Awaitable Task")]
     private BadTask EvaluateAsync(BadExecutionContext caller,
@@ -154,6 +170,11 @@ internal partial class BadRuntimeApi
         return task;
     }
 
+    /// <summary>
+    /// Returns the Stack Trace of the current Execution Context
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <returns>The Stack Trace</returns>
     [BadMethod(description: "Returns the Stack Trace of the current Execution Context")]
     [return: BadReturn("The Stack Trace")]
     private string GetStackTrace(BadExecutionContext ctx)
@@ -162,6 +183,11 @@ internal partial class BadRuntimeApi
     }
 
 
+    /// <summary>
+    /// Will return the Root Scope of the given Execution Context
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <returns>The Root Scope</returns>
     [BadMethod]
     private BadScope GetRootScope(BadExecutionContext ctx)
     {
@@ -169,6 +195,10 @@ internal partial class BadRuntimeApi
     }
 
 
+    /// <summary>
+    /// Will return the Root Scope of the given Execution Context
+    /// </summary>
+    /// <returns>The Root Scope</returns>
     [BadMethod(description: "Returns all Native Types")]
     [return: BadReturn("An Array containing all Native Types")]
     private BadArray GetNativeTypes()
@@ -178,6 +208,10 @@ internal partial class BadRuntimeApi
                            );
     }
 
+    /// <summary>
+    /// Will return the Assembly Path of the current Runtime
+    /// </summary>
+    /// <returns>The Assembly Path</returns>
     [BadMethod(description: "Returns the Assembly Path of the current Runtime")]
     [return: BadReturn("The Assembly Path")]
     private string GetRuntimeAssemblyPath()
@@ -189,6 +223,10 @@ internal partial class BadRuntimeApi
         return path;
     }
 
+    /// <summary>
+    /// Returns a new Guid
+    /// </summary>
+    /// <returns>A new Guid</returns>
     [BadMethod(description: "Returns a new Guid")]
     [return: BadReturn("A new Guid")]
     private string NewGuid()
@@ -197,6 +235,12 @@ internal partial class BadRuntimeApi
                    .ToString();
     }
 
+    /// <summary>
+    /// Returns true if an api with that name is registered
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="api">The Api Name</param>
+    /// <returns>True if the api is registered</returns>
     [BadMethod(description: "Returns true if an api with that name is registered")]
     [return: BadReturn("True if the api is registered")]
     private BadObject IsApiRegistered(BadExecutionContext ctx, [BadParameter(description: "The Api Name")] string api)
@@ -204,6 +248,15 @@ internal partial class BadRuntimeApi
         return ctx.Scope.RegisteredApis.Contains(api);
     }
 
+    /// <summary>
+    /// Creates a new Reference Object
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="refText">The Text for the Reference</param>
+    /// <param name="get">The Getter Function</param>
+    /// <param name="set">The Setter Function</param>
+    /// <param name="delete">The Delete Function</param>
+    /// <returns>The Reference Object</returns>
     [BadMethod(description: "Creates a new Reference Object")]
     [return: BadReturn("The Reference Object")]
     private BadObject MakeReference(BadExecutionContext ctx,
@@ -245,11 +298,22 @@ internal partial class BadRuntimeApi
                                       );
     }
 
+    /// <summary>
+    /// Calls the Delete Function of the Reference
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="func">The Delete Function</param>
     private void DeleteReference(BadExecutionContext ctx, BadFunction func)
     {
         foreach (BadObject? o in func.Invoke(Array.Empty<BadObject>(), ctx)) { }
     }
 
+    /// <summary>
+    /// Calls the Getter Function of the Reference
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="func">The Getter Function</param>
+    /// <returns>The Value of the Reference</returns>
     private BadObject GetReferenceValue(BadExecutionContext ctx, BadFunction func)
     {
         BadObject? result = BadObject.Null;
@@ -262,6 +326,12 @@ internal partial class BadRuntimeApi
         return result.Dereference(null);
     }
 
+    /// <summary>
+    /// Calls the Setter Function of the Reference
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="func">The Setter Function</param>
+    /// <param name="value">The Value to set</param>
     private void SetReferenceValue(BadExecutionContext ctx, BadFunction func, BadObject value)
     {
         foreach (BadObject? o in func.Invoke(new[] { value },
@@ -269,6 +339,11 @@ internal partial class BadRuntimeApi
                                             )) { }
     }
 
+    /// <summary>
+    /// Returns all registered apis
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <returns>An Array containing all registered apis</returns>
     [BadMethod(description: "Returns all registered apis")]
     [return: BadReturn("An Array containing all registered apis")]
     private BadArray GetRegisteredApis(BadExecutionContext ctx)
@@ -278,6 +353,13 @@ internal partial class BadRuntimeApi
                            );
     }
 
+    /// <summary>
+    /// Imports a module at runtime
+    /// </summary>
+    /// <param name="ctx">The Current Execution Context</param>
+    /// <param name="path">The Path to the Module</param>
+    /// <returns>An Awaitable Task</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the Module Importer is not found</exception>
     [BadMethod("ImportAsync", "Imports a module at runtime.")]
     private BadTask ImportModuleAsync(BadExecutionContext ctx, string path)
     {
@@ -461,6 +543,11 @@ internal partial class BadRuntimeApi
     }
 
 
+    /// <summary>
+    /// Gets the Attributes of the given objects members
+    /// </summary>
+    /// <param name="obj">The Object to get the members from</param>
+    /// <returns>A Table containing the Attributes of the given objects members</returns>
     [BadMethod(description: "Gets the Attributes of the given objects members")]
     [return: BadReturn("A Table containing the Attributes of the given objects members.")]
     private static BadArray GetMembers(BadObject obj)

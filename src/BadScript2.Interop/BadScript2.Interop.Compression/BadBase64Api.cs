@@ -2,6 +2,9 @@ using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Interop.Compression;
 
+/// <summary>
+/// Implements the Compression.Base64 API
+/// </summary>
 [BadInteropApi("Base64")]
 internal partial class BadBase64Api
 {
@@ -11,7 +14,6 @@ internal partial class BadBase64Api
     /// <param name="ctx">The Current Calling Execution Context</param>
     /// <param name="obj">Object</param>
     /// <returns>Base64 String</returns>
-    /// <exception cref="BadRuntimeException">Gets raised if the argument is not of type IEnumerable</exception>
     [BadMethod(description: "Encodes the given string to a base64 string")]
     [return: BadReturn("Base64 String")]
     private static string Encode([BadParameter(description: "Bytes to Encode")] byte[] obj)

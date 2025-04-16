@@ -38,6 +38,9 @@ public class BadVersion : BadObject, IBadNative
     /// </summary>
     private readonly Version m_Version;
 
+    /// <summary>
+    /// Static Constructor
+    /// </summary>
     static BadVersion()
     {
         s_Prototype = new BadNativeClassPrototype<BadVersion>("Version", VersionCtor,

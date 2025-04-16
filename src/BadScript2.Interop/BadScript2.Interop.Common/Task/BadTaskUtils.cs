@@ -45,6 +45,9 @@ public static class BadTaskUtils
     }
 
 
+    /// <summary>
+    /// Creates a BadInteropRunnable that waits for a C# Task to complete
+    /// </summary>
     /// <param name="t">Task</param>
     /// <returns>Awaitable Runnable</returns>
     /// <exception cref="BadRuntimeException">Gets raised if the task fails</exception>

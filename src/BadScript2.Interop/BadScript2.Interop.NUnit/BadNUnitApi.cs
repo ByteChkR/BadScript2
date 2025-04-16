@@ -6,9 +6,13 @@ using BadScript2.Runtime.Objects;
 /// </summary>
 namespace BadScript2.Interop.NUnit;
 
+/// <summary>
+/// Implements the NUnit API for BadScript2
+/// </summary>
 [BadInteropApi("NUnit")]
 internal partial class BadNUnitApi
 {
+    /// <inheritdoc/> 
     protected override void AdditionalData(BadTable target)
     {
         BadTable assert = new BadTable();

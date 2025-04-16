@@ -144,6 +144,11 @@ public class BadTask : BadObject
     /// </summary>
     public bool IsPaused { get; private set; }
 
+    /// <summary>
+    /// Runs the Task
+    /// </summary>
+    /// <param name="context">Execution Context</param>
+    /// <exception cref="BadRuntimeException">Gets raised if the task is already finished or running</exception>
     private void Run(BadExecutionContext context)
     {
         if (IsFinished)
@@ -170,6 +175,11 @@ public class BadTask : BadObject
         }
     }
 
+    /// <summary>
+    /// Enumerates the Task
+    /// </summary>
+    /// <param name="runnable">Runnable</param>
+    /// <returns>Enumeration of Bad Objects</returns>
     private IEnumerable<BadObject> Enumerate(BadRunnable runnable)
     {
         IEnumerator<BadObject> e = runnable.Enumerator;
@@ -183,7 +193,7 @@ public class BadTask : BadObject
     /// <summary>
     ///     Adds a Continuation Task
     /// </summary>
-    /// <param name="task"></param>
+    /// <param name="task">Task to add</param>
     public void AddContinuation(BadTask task)
     {
         m_ContinuationTasks.Add(task);

@@ -181,6 +181,14 @@ public class BadArrayExtension : BadInteropExtension
         provider.RegisterObject<BadArray>("Length", a => BadObject.Wrap((decimal)a.InnerArray.Count));
     }
 
+    /// <summary>
+    /// Implements an Extension for the Array Access Operator
+    /// </summary>
+    /// <param name="context">Current Context</param>
+    /// <param name="array">The Array</param>
+    /// <param name="enumerator">The Enumerator or Number</param>
+    /// <returns>an object of any type if the enumerator is a number. Otherwise an array</returns>
+    /// <exception cref="BadRuntimeException">Gets thrown if the enumerator is not a number or an enumerable</exception>
     private static BadObject ArrayAccess(BadExecutionContext context, BadArray array, BadObject enumerator)
     {
         BadSourcePosition position = BadSourcePosition.FromSource("ArrayAccess", 0, 1);

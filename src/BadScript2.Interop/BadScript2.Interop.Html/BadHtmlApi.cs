@@ -14,6 +14,14 @@ namespace BadScript2.Interop.Html;
 [BadInteropApi("BadHtml")]
 internal partial class BadHtmlApi
 {
+    /// <summary>
+    /// Runs a BadHtml Template
+    /// </summary>
+    /// <param name="context">The Current Execution Context</param>
+    /// <param name="file">The Template File</param>
+    /// <param name="model">The Model</param>
+    /// <param name="skipEmptyTextNodes">If True, empty text nodes are omitted from the output html</param>
+    /// <returns>>The string result of the html transformation</returns>
     [BadMethod(description: "Runs a BadHtml Template")]
     [return: BadReturn("The string result of the html transformation")]
     private string Run(BadExecutionContext context,

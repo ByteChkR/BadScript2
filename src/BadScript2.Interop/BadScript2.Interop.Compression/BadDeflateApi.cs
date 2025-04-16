@@ -7,6 +7,9 @@ using BadScript2.Runtime.Objects.Native;
 
 namespace BadScript2.Interop.Compression;
 
+/// <summary>
+/// Implements the "Compression.Deflate" API
+/// </summary>
 [BadInteropApi("Deflate")]
 internal partial class BadDeflateApi
 {

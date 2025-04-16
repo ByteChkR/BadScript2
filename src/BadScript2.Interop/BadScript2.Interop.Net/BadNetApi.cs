@@ -11,6 +11,11 @@ namespace BadScript2.Interop.Net;
 [BadInteropApi("Net")]
 internal partial class BadNetApi
 {
+    /// <summary>
+    /// Encodes a URI Component
+    /// </summary>
+    /// <param name="s">The component to encode</param>
+    /// <returns>The encoded URI Component</returns>
     [BadMethod(description: "Encodes a URI Component")]
     [return: BadReturn("The encoded URI Component")]
     private string EncodeUriComponent([BadParameter(description: "The component to encode")] string s)
@@ -18,6 +23,11 @@ internal partial class BadNetApi
         return Uri.EscapeDataString(s);
     }
 
+    /// <summary>
+    /// Decodes a URI Component
+    /// </summary>
+    /// <param name="s">The component to decode</param>
+    /// <returns>The decoded URI Component</returns>
     [BadMethod(description: "Decodes a URI Component")]
     [return: BadReturn("The decoded URI Component")]
     private string DecodeUriComponent([BadParameter(description: "The component to decode")] string s)

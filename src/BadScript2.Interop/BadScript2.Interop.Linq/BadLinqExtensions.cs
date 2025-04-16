@@ -58,6 +58,13 @@ public class BadLinqExtensions : BadInteropExtension
         return o.Dereference(null);
     }
 	
+	/// <summary>
+	/// Computes the sum of the sequence of Decimal values.
+	/// </summary>
+	/// <param name="ctx">The Execution Context</param>
+	/// <param name="e">The Enumerable</param>
+	/// <param name="selector">The Selector Function or null</param>
+	/// <returns>The Sum of the Elements</returns>
 	private static BadObject Sum(BadExecutionContext ctx, IBadEnumerable e, BadObject selector)
 	{
 		if (selector is BadFunction f)
