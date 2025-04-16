@@ -7,9 +7,20 @@ using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Container
 {
+    /// <summary>
+    /// Extensions for the BadFileSystemStack
+    /// </summary>
     public static class BadFileSystemStackExtensions
     {
         
+        /// <summary>
+        /// Creates a Zip Layer from a file
+        /// </summary>
+        /// <param name="stack">The File System Stack</param>
+        /// <param name="file">The Zip File</param>
+        /// <param name="root">The Mount Point</param>
+        /// <param name="name">The Optional Name of the Layer</param>
+        /// <returns>The File System Stack</returns>
         public static BadFileSystemStack FromZip(this BadFileSystemStack stack, string file, string root = "/", string? name = null)
         {
             return stack.ConfigureLayer(() =>
@@ -23,6 +34,14 @@ namespace BadScript2.Container
                 });
             });
         }
+        /// <summary>
+        /// Creates a Zip Layer from a stream
+        /// </summary>
+        /// <param name="stack">The File System Stack</param>
+        /// <param name="stream">The Zip Stream</param>
+        /// <param name="root">The Mount Point</param>
+        /// <param name="name">The Optional Name of the Layer</param>
+        /// <returns>The File System Stack</returns>
         public static BadFileSystemStack FromZip(this BadFileSystemStack stack, Stream stream, string root = "/", string? name = null)
         {
             return stack.ConfigureLayer(() =>
@@ -37,6 +56,14 @@ namespace BadScript2.Container
             });
         }
 
+        /// <summary>
+        /// Creates a Layer from a directory
+        /// </summary>
+        /// <param name="stack">The File System Stack</param>
+        /// <param name="dir">The Directory</param>
+        /// <param name="root">The Mount Point</param>
+        /// <param name="name">The Optional Name of the Layer</param>
+        /// <returns>The File System Stack</returns>
         public static BadFileSystemStack FromDirectory(this BadFileSystemStack stack, string dir, string root = "/", string? name = null)
         {
             return stack.ConfigureLayer(() =>
@@ -66,6 +93,14 @@ namespace BadScript2.Container
             });
         }
 
+        /// <summary>
+        /// Creates a Layer from a web archive
+        /// </summary>
+        /// <param name="stack">The File System Stack</param>
+        /// <param name="url">The URL of the web archive</param>
+        /// <param name="root">The Mount Point</param>
+        /// <param name="name">The Optional Name of the Layer</param>
+        /// <returns>The File System Stack</returns>
         public static async Task<BadFileSystemStack> FromWebArchive(this BadFileSystemStack stack, string url, string root = "/", string? name = null)
         {
             using var http = new HttpClient();
