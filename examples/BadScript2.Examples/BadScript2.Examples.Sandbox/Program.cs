@@ -37,7 +37,7 @@ internal static class Program
         unsafeRuntime.Execute(source);
 
         // Now lets create a virtual file system
-        IFileSystem fileSystem = new BadVirtualFileSystem();
+        IVirtualFileSystem fileSystem = new BadVirtualFileSystem();
 
         //Write the secret file to the virtual file system(just so the script does not crash when trying to access it)
         fileSystem.WriteAllText("./MySecretFile.txt", "YIKES YOU ARE IN A SANDBOX");
