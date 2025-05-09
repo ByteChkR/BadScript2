@@ -438,6 +438,10 @@ public class BadLinqExtensions : BadInteropExtension
 	        new BadFunctionParameter("count", false, true, false, null, BadNativeClassBuilder.GetNative("num")));
         Register<BadFunction>(provider, "OrderBy", OrderBy, BadNativeClassBuilder.Enumerable,
 	        new BadFunctionParameter("selector", false, true, false, null, BadNativeClassBuilder.Enumerable));
+        Register<BadFunction>(provider, "ThenBy", ThenBy, BadNativeClassBuilder.Enumerable,
+	        new BadFunctionParameter("selector", false, true, false, null, BadNativeClassBuilder.Enumerable));
+        Register<BadFunction>(provider, "ThenByDescending", ThenByDescending, BadNativeClassBuilder.Enumerable,
+	        new BadFunctionParameter("selector", false, true, false, null, BadNativeClassBuilder.Enumerable));
         provider.RegisterObject<IBadEnumerable>("Sum",
 												e => new BadInteropFunction("Sum",
 																			(c, args) => Sum(c, e, args.Length == 0 ? BadObject.Null : args[0]),
@@ -569,21 +573,77 @@ public class BadLinqExtensions : BadInteropExtension
     /// <returns>Enumeration</returns>
     private static BadObject OrderBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
     {
-        return new BadInteropEnumerable(e.OrderBy(o =>
-                                                  {
-                                                      BadObject? r = BadObject.Null;
+	    return new BadInteropEnumerable(e.OrderBy(o =>
+			    {
+				    BadObject? r = BadObject.Null;
 
-                                                      foreach (BadObject o1 in function.Invoke(new[] { o },
-                                                                    ctx
-                                                                   ))
-                                                      {
-                                                          r = o1;
-                                                      }
+				    foreach (BadObject o1 in function.Invoke(new[] { o },
+					             ctx
+				             ))
+				    {
+					    r = o1;
+				    }
 
-                                                      return r.Dereference(null);
-                                                  }
-                                                 )
-                                       );
+				    return r.Dereference(null);
+			    }
+		    )
+	    );
+    }
+    
+    /// <summary>
+    ///     Implementation for 'OrderBy' function.
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="e">The Enumerable</param>
+    /// <param name="function">The Selector Function</param>
+    /// <returns>Enumeration</returns>
+    private static BadObject ThenBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
+    {
+	    if(e is not BadInteropEnumerable ie || ie.InnerEnumerable is not IOrderedEnumerable<BadObject> ordered) 
+		    throw new BadRuntimeException("ThenBy can only be used after OrderBy");
+	    return new BadInteropEnumerable(ordered.ThenBy(o =>
+			    {
+				    BadObject? r = BadObject.Null;
+
+				    foreach (BadObject o1 in function.Invoke([o],
+					             ctx
+				             ))
+				    {
+					    r = o1;
+				    }
+
+				    return r.Dereference(null);
+			    }
+		    )
+	    );
+    }
+    
+    /// <summary>
+    ///     Implementation for 'OrderBy' function.
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="e">The Enumerable</param>
+    /// <param name="function">The Selector Function</param>
+    /// <returns>Enumeration</returns>
+    private static BadObject ThenByDescending(BadExecutionContext ctx, IBadEnumerable e, BadFunction function)
+    {
+	    if(e is not BadInteropEnumerable ie || ie.InnerEnumerable is not IOrderedEnumerable<BadObject> ordered) 
+		    throw new BadRuntimeException("ThenBy can only be used after OrderBy");
+	    return new BadInteropEnumerable(ordered.ThenByDescending(o =>
+			    {
+				    BadObject? r = BadObject.Null;
+
+				    foreach (BadObject o1 in function.Invoke([o],
+					             ctx
+				             ))
+				    {
+					    r = o1;
+				    }
+
+				    return r.Dereference(null);
+			    }
+		    )
+	    );
     }
 
     /// <summary>

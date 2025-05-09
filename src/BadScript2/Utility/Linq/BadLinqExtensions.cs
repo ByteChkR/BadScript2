@@ -307,11 +307,45 @@ public static class BadLinqExtensions
         (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
 
         BadExpression query = BadLinqCommon.Parse(queryStr)
-                                           .First();
+            .First();
 
         IEnumerable<object> e = enumerable.Cast<object>();
 
         return e.OrderBy(o => InnerSelect(varName, query, o));
+    }
+
+    /// <summary>
+    ///     Orders the given IEnumerable by the given predicate.
+    /// </summary>
+    /// <param name="enumerable">The IEnumerable to order.</param>
+    /// <param name="predicate">The predicate to apply to the elements.</param>
+    /// <returns>The ordered IEnumerable.</returns>
+    public static IEnumerable ThenBy(this IOrderedEnumerable<object> enumerable, string predicate)
+    {
+        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+            .First();
+
+
+        return enumerable.ThenBy(o => InnerSelect(varName, query, o));
+    }
+    
+    /// <summary>
+    ///     Orders the given IEnumerable by the given predicate.
+    /// </summary>
+    /// <param name="enumerable">The IEnumerable to order.</param>
+    /// <param name="predicate">The predicate to apply to the elements.</param>
+    /// <returns>The ordered IEnumerable.</returns>
+    public static IEnumerable ThenByDescending(this IOrderedEnumerable<object> enumerable, string predicate)
+    {
+        (string varName, string queryStr) = BadLinqCommon.ParsePredicate(predicate);
+
+        BadExpression query = BadLinqCommon.Parse(queryStr)
+            .First();
+
+
+        return enumerable.ThenByDescending(o => InnerSelect(varName, query, o));
     }
 
     /// <summary>

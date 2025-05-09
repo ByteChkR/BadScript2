@@ -52,6 +52,7 @@ public class BadInteropGroup : BadInteropEnumerable
 /// </summary>
 public class BadInteropEnumerable : BadObject, IBadEnumerable
 {
+    public IEnumerable<BadObject> InnerEnumerable => m_Enumerable;
     /// <summary>
     ///     The Prototype for the Interop Enumerable Object
     /// </summary>

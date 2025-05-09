@@ -35,6 +35,8 @@ public static class BadLinqQuery
         RegisterCommand(new BadLinqQueryTakeWhileCommand());
         RegisterCommand(new BadLinqQueryOrderByCommand());
         RegisterCommand(new BadLinqQueryOrderByDescendingCommand());
+        RegisterCommand(new BadLinqQueryThenByCommand());
+        RegisterCommand(new BadLinqQueryThenByDescendingCommand());
     }
 
     /// <summary>
