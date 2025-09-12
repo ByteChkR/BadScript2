@@ -1,3 +1,4 @@
+using BadScript2.Parser.Expressions.Function;
 using BadScript2.Settings;
 
 /// <summary>
@@ -40,6 +41,23 @@ public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimi
     private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseStringCaching =
         new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseStringCaching");
 
+    /// <summary>
+    /// Editable Setting for the Setting UseLambdaDefaultCompilation
+    /// </summary>
+    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseLambdaDefaultCompilation =
+        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseLambdaDefaultCompilation", false);
+    
+    /// <summary>
+    /// E
+    /// </summary>
+    private readonly BadEditableSetting<BadNativeOptimizationSettings, bool> m_UseDefaultCompilation =
+        new BadEditableSetting<BadNativeOptimizationSettings, bool>("UseDefaultCompilation", false);
+
+    public BadFunctionCompileLevel DefaultCompileLevel =>
+        UseDefaultCompilation ? BadFunctionCompileLevel.Compiled : BadFunctionCompileLevel.None;
+    public BadFunctionCompileLevel DefaultLambdaCompileLevel =>
+        UseLambdaDefaultCompilation ? BadFunctionCompileLevel.Compiled : BadFunctionCompileLevel.None;
+    
     /// <summary>
     ///     Creates a new instance of the BadNativeOptimizationSettings class
     /// </summary>
@@ -106,5 +124,26 @@ public class BadNativeOptimizationSettings : BadSettingsProvider<BadNativeOptimi
     {
         get => m_UseConstantFunctionCaching.GetValue();
         set => m_UseConstantFunctionCaching.Set(value);
+    }
+    
+    /// <summary>
+    ///     Allow the runtime to Compile Lambda Expression by default.
+    ///     If a lambda is used a lot of times, it might benefit from being compiled.
+    /// </summary>
+    public bool UseLambdaDefaultCompilation
+    {
+        get => m_UseLambdaDefaultCompilation.GetValue();
+        set => m_UseLambdaDefaultCompilation.Set(value);
+    }
+    
+    /// <summary>
+    ///     Allows the runtime to Compile ALL Function expressions by default(except Lambdas).
+    ///     This is an experimental feature that might improve performance in some cases.
+    ///    If enabled, the runtime will compile all function expressions by default.
+    /// </summary>
+    public bool UseDefaultCompilation
+    {
+        get => m_UseDefaultCompilation.GetValue();
+        set => m_UseDefaultCompilation.Set(value);
     }
 }

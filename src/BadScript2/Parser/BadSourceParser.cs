@@ -22,6 +22,7 @@ using BadScript2.Reader.Token.Primitive;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types.Interface;
+using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Parser;
 
@@ -519,7 +520,7 @@ public class BadSourceParser
                 }
                 else
                 {
-                    return ParseFunction(start, null, null, false, false, BadFunctionCompileLevel.None, p);
+                    return ParseFunction(start, null, null, false, false, BadNativeOptimizationSettings.Instance.DefaultLambdaCompileLevel, p);
                 }
             }
             catch (Exception)
@@ -733,7 +734,7 @@ public class BadSourceParser
 
         bool isConstant = false;
         bool isStatic = false;
-        BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None;
+        BadFunctionCompileLevel compileLevel = BadNativeOptimizationSettings.Instance.DefaultCompileLevel;
         int constStart = Reader.CurrentIndex;
 
         if (Reader.IsKey(BadStaticKeys.CONSTANT_DEFINITION_KEY))
@@ -750,7 +751,7 @@ public class BadSourceParser
         }
 
         int compiledStart = Reader.CurrentIndex;
-
+        
         if (Reader.IsKey(BadStaticKeys.COMPILED_DEFINITION_KEY))
         {
             compileLevel = BadFunctionCompileLevel.Compiled;
@@ -763,6 +764,12 @@ public class BadSourceParser
                 Reader.Eat(BadStaticKeys.COMPILED_FAST_DEFINITION_KEY);
                 Reader.SkipNonToken();
             }
+        }
+        else if (Reader.IsKey(BadStaticKeys.LEGACY_DEFINITION_KEY))
+        {
+            compileLevel = BadFunctionCompileLevel.None;
+            Reader.Eat(BadStaticKeys.LEGACY_DEFINITION_KEY);
+            Reader.SkipNonToken();
         }
 
         if (Reader.IsKey(BadStaticKeys.FUNCTION_KEY))
@@ -1009,7 +1016,7 @@ public class BadSourceParser
                                          null,
                                          false,
                                          isStatic,
-                                         BadFunctionCompileLevel.None,
+                                         BadNativeOptimizationSettings.Instance.DefaultCompileLevel,
                                          new List<BadFunctionParameter> { p }
                                         );
                 }
@@ -2094,7 +2101,8 @@ public class BadSourceParser
                                                                    false,
                                                                    null,
                                                                    false,
-                                                                   false
+                                                                   false,
+                                                                   BadNativeOptimizationSettings.Instance.DefaultCompileLevel
                                                                   );
             members.Add(ctor);
 

@@ -54,7 +54,7 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
                                  BadMetaData? metaData,
                                  bool isSingleLine,
                                  bool isStatic,
-                                 BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None,
+                                 BadFunctionCompileLevel compileLevel,
                                  BadExpression? typeExpr = null) :
         base(false, position)
     {

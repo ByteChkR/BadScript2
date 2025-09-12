@@ -54,6 +54,16 @@ public class BadCompiler
     ///     Indicates whether or not the Compiler should allow Eval Instructions.
     /// </summary>
     public readonly bool AllowEval;
+    
+    public void AddCompiler(Type t, IBadExpressionCompiler compiler) =>
+        m_Compilers[t] = compiler;
+    public void AddCompiler<T>(BadExpressionCompiler<T> compiler) where T : BadExpression =>
+        m_Compilers[typeof(T)] = compiler;
+    public void AddCompiler<T, TE>() where T : BadExpressionCompiler<TE>, new()
+        where TE : BadExpression
+    {
+        AddCompiler(new T());
+    }
 
     /// <summary>
     ///     The Dictionary of Compilers for the different <see cref="BadExpression" /> types.

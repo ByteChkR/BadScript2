@@ -63,7 +63,6 @@ public class BadAwaitExpression : BadExpression
 
         BadTaskRunner runner = context.Scope.GetSingleton<BadTaskRunner>() ??
                                throw BadRuntimeException.Create(context.Scope, "Task Runner not found", Position);
-
         //Run Task
         //Add current to continuation
         task.AddContinuation(runner.Current ?? throw new BadRuntimeException("Current task is null", Position));

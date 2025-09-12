@@ -1,4 +1,5 @@
 using BadScript2.Parser.Operators;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Interop.Common.Task;
 
@@ -23,6 +24,7 @@ public class BadTaskRunner
 	static BadTaskRunner()
     {
         BadOperatorTable.Instance.AddValueParser(new BadAwaitValueParser());
+        BadCompiler.Instance.AddCompiler<BadAwaitExpressionCompiler, BadAwaitExpression>();
     }
 
 
