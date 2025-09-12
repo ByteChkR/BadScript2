@@ -11,7 +11,7 @@
     <ProjectReference Include="..\..\..\BadScript2\BadScript2.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="5.0.0-1.25277.114">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
