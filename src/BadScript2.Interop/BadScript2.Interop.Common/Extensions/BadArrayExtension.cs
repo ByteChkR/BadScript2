@@ -135,7 +135,7 @@ public class BadArrayExtension : BadInteropExtension
 
         provider.RegisterObject<BadArray>("Get",
                                           a => new BadDynamicInteropFunction<decimal>("Get",
-                                               (_, o) => Get(a, o),
+                                               (c, o) => Get(a, o, () => BadRuntimeException.Create(c.Scope, "Index out of bounds")),
                                                BadAnyPrototype.Instance,
                                                "index"
                                               )
@@ -143,7 +143,7 @@ public class BadArrayExtension : BadInteropExtension
 
         provider.RegisterObject<BadArray>("Set",
                                           a => new BadDynamicInteropFunction<decimal, BadObject>("Set",
-                                               (_, i, v) => Set(a, i, v),
+                                               (c, i, v) => Set(a, i, v, () => BadRuntimeException.Create(c.Scope, "Index out of bounds")),
                                                BadAnyPrototype.Instance,
                                                new BadFunctionParameter("index", false, true, false, null, BadNativeClassBuilder.GetNative("num")),
                                                new BadFunctionParameter("elem", false, true, false, null, BadAnyPrototype.Instance)
@@ -170,8 +170,8 @@ public class BadArrayExtension : BadInteropExtension
                                           a => new BadDynamicInteropFunction<decimal>(BadStaticKeys
                                                    .ARRAY_ACCESS_REVERSE_OPERATOR_NAME,
                                                (_, i) => BadObjectReference.Make($"{a}[^{i}]",
-                                                    (p) => Get(a, a.InnerArray.Count - i),
-                                                    (v,_, _) => Set(a, a.InnerArray.Count - i, v)
+                                                    (p) => Get(a, a.InnerArray.Count - i,() => BadRuntimeException.Create(null, "Index out of bounds", p)),
+                                                    (v,p, _) => Set(a, a.InnerArray.Count - i, v, () => BadRuntimeException.Create(null, "Index out of bounds", p))
                                                    ),
                                                BadAnyPrototype.Instance,
                                                "index"
@@ -196,8 +196,8 @@ public class BadArrayExtension : BadInteropExtension
         if (enumerator is IBadNumber num)
         {
             return BadObjectReference.Make($"{array}[{num.Value}]",
-                                           (p) => Get(array, num.Value),
-                                           (v, _, _) => Set(array, num.Value, v)
+                                           (p) => Get(array, num.Value, () => BadRuntimeException.Create(null, "Index out of bounds", p ?? position)),
+                                           (v, p, _) => Set(array, num.Value, v, () => BadRuntimeException.Create(null, "Index out of bounds", p ?? position))
                                           );
         }
 
@@ -250,7 +250,8 @@ public class BadArrayExtension : BadInteropExtension
                 throw BadRuntimeException.Create(context.Scope, "Enumerator Current did not return a number", position);
             }
 
-            result.InnerArray.Add(Get(array, n.Value));
+            result.InnerArray.Add(Get(array, n.Value,
+                () => BadRuntimeException.Create(context.Scope, "Index out of bounds")));
 
             foreach (BadObject o in moveNext.Invoke(Array.Empty<BadObject>(), loopContext))
             {
@@ -357,10 +358,15 @@ public class BadArrayExtension : BadInteropExtension
     /// </summary>
     /// <param name="arg">Array</param>
     /// <param name="obj">Index</param>
+    /// <param name="position">Source Position</param>
     /// <returns>Element at Index</returns>
-    private static BadObject Get(BadArray arg, decimal obj)
+    private static BadObject Get(BadArray arg, decimal obj, Func<Exception> factory)
     {
         int index = (int)obj;
+        if (index < 0 || index >= arg.InnerArray.Count)
+        {
+            throw factory();
+        }
 
         return arg.InnerArray[index];
     }
@@ -371,10 +377,15 @@ public class BadArrayExtension : BadInteropExtension
     /// <param name="arg">The Array</param>
     /// <param name="obj">The Index</param>
     /// <param name="value">The value</param>
+    /// <param name="position">Source Position</param>
     /// <returns>NULL</returns>
-    private static BadObject Set(BadArray arg, decimal obj, BadObject value)
+    private static BadObject Set(BadArray arg, decimal obj, BadObject value, Func<Exception> factory)
     {
         int index = (int)obj;
+        if (index < 0 || index >= arg.InnerArray.Count)
+        {
+            throw factory();
+        }
         arg.InnerArray[index] = value;
 
         return BadObject.Null;
