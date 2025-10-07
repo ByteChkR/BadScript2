@@ -1,6 +1,7 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Apis;
 using BadScript2.Interop.Common.Extensions;
+using BadScript2.Interop.Common.Regex;
 using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.Common.Versioning;
 using BadScript2.Parser.Expressions;
@@ -97,6 +98,26 @@ public static class BadCommonInterop
                 .UseSingleton(BadTaskRunner.Instance);
         }
 
+        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadRegex.Prototype.Name))
+        {
+            BadNativeClassBuilder.AddNative(BadRegex.Prototype);
+        }
+        
+        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadMatch.Prototype.Name))
+        {
+            BadNativeClassBuilder.AddNative(BadMatch.Prototype);
+        }
+        
+        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadGroup.Prototype.Name))
+        {
+            BadNativeClassBuilder.AddNative(BadGroup.Prototype);
+        }
+        
+        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadCapture.Prototype.Name))
+        {
+            BadNativeClassBuilder.AddNative(BadCapture.Prototype);
+        }
+        
         if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))
         {
             BadNativeClassBuilder.AddNative(BadVersion.Prototype);
