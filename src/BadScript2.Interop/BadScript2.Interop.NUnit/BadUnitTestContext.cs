@@ -154,7 +154,9 @@ public class BadUnitTestContext
         TestContext.WriteLine($"Running test '{testCase.TestName}'");
         BadExecutionContext caller = m_Runtime.CreateContext(m_WorkingDir);
 
-        BadTaskRunner.Instance.AddTask(new BadTask(new BadInteropRunnable(testCase.Function!
+        var runner = caller.Scope.GetSingleton<BadTaskRunner>();
+        if(runner == null)throw BadRuntimeException.Create(caller.Scope, "No TaskRunner Found");
+        runner.AddTask(new BadTask(new BadInteropRunnable(testCase.Function!
                                                                               .Invoke(Array.Empty<BadObject>(), caller)
                                                                               .GetEnumerator()
                                                                          ),
@@ -163,9 +165,9 @@ public class BadUnitTestContext
                                        true
                                       );
 
-        while (!BadTaskRunner.Instance.IsIdle)
+        while (!runner.IsIdle)
         {
-            BadTaskRunner.Instance.RunStep();
+            runner.RunStep();
 
             yield return BadObject.Null;
         }

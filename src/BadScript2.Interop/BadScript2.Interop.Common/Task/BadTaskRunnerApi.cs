@@ -13,7 +13,7 @@ internal partial class BadTaskRunnerApi
     /// <summary>
     ///     The Runner Instance
     /// </summary>
-    private readonly BadTaskRunner m_Runner = BadTaskRunner.Instance;
+    private readonly BadTaskRunner m_Runner;
 
     /// <summary>
     ///     Creates a new API Instance

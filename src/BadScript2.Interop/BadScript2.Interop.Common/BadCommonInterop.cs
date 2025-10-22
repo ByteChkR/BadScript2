@@ -6,6 +6,7 @@ using BadScript2.Interop.Common.Task;
 using BadScript2.Interop.Common.Versioning;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
@@ -65,13 +66,16 @@ public static class BadCommonInterop
                                    "Main"
                                   );
 
-        BadTaskRunner.Instance.AddTask(task,
+        var runner = ctx.Scope.GetSingleton<BadTaskRunner>();
+        if(runner == null)throw BadRuntimeException.Create(ctx.Scope, "No Task Runner found");
+
+        runner.AddTask(task,
                                        true
                                       );
 
-        while (!BadTaskRunner.Instance.IsIdle)
+        while (!runner.IsIdle)
         {
-            BadTaskRunner.Instance.RunStep();
+            runner.RunStep();
         }
 
         return task.Runnable.GetReturn();
@@ -82,8 +86,9 @@ public static class BadCommonInterop
     /// </summary>
     /// <param name="runtime">The Runtime</param>
     /// <param name="useAsync">Whether to use the Async Extensions</param>
+    /// <param name="runner">The Task Runner Instance</param>
     /// <returns>The Runtime</returns>
-    public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true)
+    public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true, BadTaskRunner? runner = null)
     {
         if (useAsync)
         {
@@ -92,10 +97,11 @@ public static class BadCommonInterop
                 BadNativeClassBuilder.AddNative(BadTask.Prototype);
             }
 
+            runner ??= new BadTaskRunner();
             runtime
-                .UseApi(new BadTaskRunnerApi(BadTaskRunner.Instance), true)
+                .UseApi(new BadTaskRunnerApi(runner), true)
                 .UseExecutor(ExecuteTask)
-                .UseSingleton(BadTaskRunner.Instance);
+                .UseSingleton(runner);
         }
 
         if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadRegex.Prototype.Name))

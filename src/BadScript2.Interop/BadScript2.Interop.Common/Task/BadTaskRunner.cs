@@ -11,7 +11,7 @@ public class BadTaskRunner
 	/// <summary>
 	///     The Task Runner Instance
 	/// </summary>
-	public static readonly BadTaskRunner Instance = new BadTaskRunner();
+	//public static readonly BadTaskRunner Instance = new BadTaskRunner();
 
 	/// <summary>
 	///     The Task List
