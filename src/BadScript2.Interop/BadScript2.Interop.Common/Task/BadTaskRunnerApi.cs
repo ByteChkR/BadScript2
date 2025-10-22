@@ -1,4 +1,5 @@
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
@@ -7,43 +8,40 @@ namespace BadScript2.Interop.Common.Task;
 /// <summary>
 ///     Implements the 'Concurrent' API
 /// </summary>
-[BadInteropApi("Concurrent", true)]
+[BadInteropApi("Concurrent")]
 internal partial class BadTaskRunnerApi
 {
-    /// <summary>
-    ///     The Runner Instance
-    /// </summary>
-    private readonly BadTaskRunner m_Runner;
-
-    /// <summary>
-    ///     Creates a new API Instance
-    /// </summary>
-    /// <param name="runner">Task Runner Instance</param>
-    public BadTaskRunnerApi(BadTaskRunner runner) : this()
-    {
-        m_Runner = runner;
-    }
-
-
     /// <summary>
     ///     Returns the Current Task
     /// </summary>
     /// <returns>Task</returns>
     [BadMethod("GetCurrent", "Returns the Current Task")]
     [return: BadReturn("The Current Task")]
-    private BadObject GetCurrentTask()
+    private BadObject GetCurrentTask(BadExecutionContext context)
     {
-        return m_Runner.Current ?? BadObject.Null;
+        var runner = context.Scope.GetSingleton<BadTaskRunner>();
+        if (runner == null)
+        {
+            throw BadRuntimeException.Create(context.Scope, "No Task Runner found");
+        }
+        return runner.Current ?? BadObject.Null;
     }
 
     /// <summary>
     ///     Adds a Task to the Runner
     /// </summary>
+    /// <param name="context">The Execution Context</param>
     /// <param name="task">Task</param>
     [BadMethod("Run", "Runs a Task")]
-    private void AddTask([BadParameter(description: "The Task that will be executed")] BadTask task)
+    private void AddTask(BadExecutionContext context, [BadParameter(description: "The Task that will be executed")] BadTask task)
     {
-        m_Runner.AddTask(task, true);
+        
+        var runner = context.Scope.GetSingleton<BadTaskRunner>();
+        if (runner == null)
+        {
+            throw BadRuntimeException.Create(context.Scope, "No Task Runner found");
+        }
+        runner.AddTask(task, true);
     }
 
     /// <summary>

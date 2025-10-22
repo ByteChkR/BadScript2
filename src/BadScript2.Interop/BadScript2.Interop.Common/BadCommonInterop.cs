@@ -99,7 +99,8 @@ public static class BadCommonInterop
 
             runner ??= new BadTaskRunner();
             runtime
-                .UseApi(new BadTaskRunnerApi(runner), true)
+                .ConfigureContext(c => c.Scope.AddSingleton(runner))
+                .UseApi(new BadTaskRunnerApi(), true)
                 .UseExecutor(ExecuteTask)
                 .UseSingleton(runner);
         }
