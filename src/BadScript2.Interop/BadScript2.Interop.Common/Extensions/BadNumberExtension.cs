@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Globalization;
 
 using BadScript2.Runtime;
@@ -19,7 +20,7 @@ public class BadNumberExtension : BadInteropExtension
     /// <summary>
     ///     Culture Info Cache
     /// </summary>
-    private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
+    private static readonly ConcurrentDictionary<string, CultureInfo> s_Cultures = new ConcurrentDictionary<string, CultureInfo>();
 
     /// <summary>
     ///     Formats a number to a string
@@ -61,7 +62,7 @@ public class BadNumberExtension : BadInteropExtension
         }
 
         cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
-        s_Cultures.Add(culture.Value, cultureInfo);
+        s_Cultures[culture.Value] = cultureInfo;
 
         return d.ToString(format.Value, cultureInfo);
     }

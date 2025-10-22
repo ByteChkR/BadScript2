@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using BadScript2.Parser;
 using BadScript2.Runtime.Error;
 
@@ -34,8 +35,8 @@ public class BadInterfacePrototype : BadClassPrototype, IBadGenericObject
     /// <summary>
     /// Generic Cache for the Generic Definition
     /// </summary>
-    private readonly Dictionary<int, BadInterfacePrototype> s_GenericCache =
-        new Dictionary<int, BadInterfacePrototype>();
+    private readonly ConcurrentDictionary<int, BadInterfacePrototype> s_GenericCache =
+        new ConcurrentDictionary<int, BadInterfacePrototype>();
 
     /// <summary>
     ///     The Constraints of this Interface

@@ -12,15 +12,15 @@ public abstract class BadAConsoleSystem
     /// <summary>
     ///     The Runtime to use
     /// </summary>
-    protected readonly BadRuntime Runtime;
+    protected readonly Func<BadRuntime> RuntimeFactory;
 
     /// <summary>
     ///     Creates a new BadAConsoleSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    protected BadAConsoleSystem(BadRuntime runtime)
+    protected BadAConsoleSystem(Func<BadRuntime> runtime)
     {
-        Runtime = runtime;
+        RuntimeFactory = runtime;
     }
 
     /// <summary>

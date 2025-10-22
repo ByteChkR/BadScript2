@@ -1,4 +1,5 @@
 ﻿using BadScript2.Common.Logging;
+using BadScript2.ConsoleAbstraction.Implementations;
 using BadScript2.ConsoleCore;
 using BadScript2.ConsoleCore.Systems.Docs;
 using BadScript2.ConsoleCore.Systems.Html;
@@ -35,10 +36,14 @@ internal static class BadProgram
 	/// <summary>
 	///     Loads the Settings
 	/// </summary>
-	private static BadRuntime LoadConsoleSettings(this BadRuntime runtime)
+	private static void LoadConsoleSettings(IFileSystem fileSystem)
     {
+	    if (!BadSettingsProvider.HasRootSettings)
+	    {
+		    BadSettingsProvider.SetRootSettings(new BadSettings(string.Empty));
+	    }
         BadSettings consoleSettings = new BadSettings(string.Empty);
-        string rootDir = BadFileSystem.Instance.GetStartupDirectory();
+        string rootDir = fileSystem.GetStartupDirectory();
         rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
         consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
@@ -48,7 +53,7 @@ internal static class BadProgram
         );
         BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
 
-        return runtime.LoadSettings(Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), SETTINGS_FILE));
+        BadSettingsProvider.LoadSettings(Path.Combine(fileSystem.GetStartupDirectory(), SETTINGS_FILE));
     }
 
 
@@ -79,27 +84,32 @@ internal static class BadProgram
             }
         }
 
-        using BadRuntime runtime = new BadRuntime()
-                                   .UseLogMask(mask)
-                                   .UseConsoleLogWriter()
-                                   .LoadConsoleSettings()
-                                   .UseCommonInterop()
-                                   .UseCompressionApi()
-                                   .UseFileSystemApi()
-                                   .UseHtmlApi()
-                                   .UseJsonApi()
-                                   .UseLinqApi()
-                                   .UseNetApi()
-                                   .UseNetHostApi()
-                                   .UseLocalModules();
+        LoadConsoleSettings(new BadSystemFileSystem());
 
-        BadConsoleRunner runner = new BadConsoleRunner(new BadDefaultRunSystem(runtime),
-                                                       new BadTestSystem(runtime),
-                                                       new BadRunSystem(runtime),
-                                                       new BadSettingsSystem(runtime),
-                                                       new BadHtmlSystem(runtime),
-                                                       new BadRemoteConsoleSystem(runtime),
-                                                       new BadDocsSystem(runtime)
+        Func<BadRuntime> factory = () =>
+        {
+	        var fs = new BadSystemFileSystem();
+	        return new BadRuntime()
+		        .UseLogMask(mask)
+		        .UseConsoleLogWriter()
+		        .UseCommonInterop()
+		        .UseCompressionApi(fs)
+		        .UseFileSystemApi(fs)
+		        .UseHtmlApi()
+		        .UseJsonApi()
+		        .UseLinqApi()
+		        .UseNetApi()
+		        .UseNetHostApi()
+		        .UseLocalModules(fs);
+        };
+
+        BadConsoleRunner runner = new BadConsoleRunner(new BadDefaultRunSystem(factory),
+                                                       new BadTestSystem(factory),
+                                                       new BadRunSystem(factory),
+                                                       new BadSettingsSystem(factory),
+                                                       new BadHtmlSystem(factory),
+                                                       new BadRemoteConsoleSystem(factory),
+                                                       new BadDocsSystem(factory)
                                                       );
 
         return runner.Run(args);

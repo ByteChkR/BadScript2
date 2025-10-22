@@ -17,7 +17,7 @@ public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
     ///     Creates a new BadTestSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadTestSystem(BadRuntime runtime) : base(runtime) { }
+    public BadTestSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
     /// <inheritdoc />
     public override string Name => "test";

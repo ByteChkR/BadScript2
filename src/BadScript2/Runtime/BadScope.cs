@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using BadScript2.Common;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
@@ -42,7 +43,7 @@ public class BadScope : BadObject, IDisposable
     /// <summary>
     ///     The Singleton Cache
     /// </summary>
-    private readonly Dictionary<Type, object> m_SingletonCache = new Dictionary<Type, object>();
+    private readonly ConcurrentDictionary<Type, object> m_SingletonCache = new ConcurrentDictionary<Type, object>();
 
     /// <summary>
     ///     Indicates if the Scope uses the visibility subsystem
@@ -333,7 +334,7 @@ public class BadScope : BadObject, IDisposable
             throw new BadRuntimeException("Cannot add null as singleton");
         }
 
-        m_SingletonCache.Add(typeof(T), instance);
+        m_SingletonCache.AddOrUpdate(typeof(T), instance, (t, o) => instance);
     }
 
     /// <summary>
@@ -411,7 +412,7 @@ public class BadScope : BadObject, IDisposable
         foreach (KeyValuePair<Type, object> kvp in ctx.Scope.GetRootScope()
                                                       .m_SingletonCache)
         {
-            s.m_SingletonCache.Add(kvp.Key, kvp.Value);
+            s.m_SingletonCache.AddOrUpdate(kvp.Key, kvp.Value, (t, o) => kvp.Value);
         }
 
         return s;

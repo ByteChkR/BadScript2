@@ -1,3 +1,5 @@
+using BadScript2.Common.Logging;
+using BadScript2.IO;
 using BadScript2.Runtime.Error;
 
 namespace BadScript2.Settings;
@@ -34,6 +36,23 @@ public static class BadSettingsProvider
     {
         s_RootSettings = settings;
     }
+	/// <summary>
+	///     Loads the specified settings file
+	/// </summary>
+	/// <param name="settingsFile">The path to the settings file</param>
+	/// <returns>This Runtime</returns>
+	public static void LoadSettings(string settingsFile, IFileSystem? fileSystem = null)
+	{
+		BadLogger.Log("Loading Settings...", "Settings");
+
+		BadSettingsReader settingsReader = new BadSettingsReader(BadSettingsProvider.RootSettings,
+			fileSystem ?? BadFileSystem.Instance,
+			settingsFile
+		);
+
+		SetRootSettings(settingsReader.ReadSettings());
+		BadLogger.Log("Settings loaded!", "Settings");
+	}
 }
 
 /// <summary>

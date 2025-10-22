@@ -23,7 +23,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     ///     Creates a new BadRunSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadRunSystem(BadRuntime runtime) : base(runtime) { }
+    public BadRunSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
     /// <summary>
     ///     The Startup Directory where all containing scripts will be loaded at every execution
@@ -50,25 +50,25 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     public override string Name => "run";
 
 
-    /// <inheritdoc />
-    protected override async Task<int> Run(BadRunSystemSettings settings)
+    private async Task RunParallel(BadRunSystemSettings settings)
     {
         BadNetworkConsoleHost? host = null;
 
+        using var runtime = RuntimeFactory();
         if (settings.RemotePort != -1)
         {
             host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
             host.Start();
-            Runtime.UseConsole(host);
+            runtime.UseConsole(host);
         }
 
-        Runtime.UseStartupArguments(settings.Args);
+        runtime.UseStartupArguments(settings.Args);
 
         IEnumerable<string> files = BadFileSystem.Instance.GetFiles(StartupDirectory,
-                                                                    $".{BadRuntimeSettings.Instance.FileExtension}",
-                                                                    true
-                                                                   )
-                                                 .Concat(settings.Files);
+                $".{BadRuntimeSettings.Instance.FileExtension}",
+                true
+            )
+            .Concat(settings.Files);
 
         if (settings.Interactive)
         {
@@ -77,9 +77,9 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 BadLogger.Warn("Benchmarking is not supported in interactive mode");
             }
 
-            await Runtime.RunInteractiveAsync(files);
+            await runtime.RunInteractiveAsync(files);
 
-            return 0;
+            return;
         }
 
         Stopwatch? sw = null;
@@ -91,12 +91,12 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         if (settings.Debug)
         {
-            Runtime.UseScriptDebugger();
+            runtime.UseScriptDebugger();
         }
 
         foreach (string file in files)
         {
-            Runtime.ExecuteFile(file);
+            runtime.ExecuteFile(file);
         }
 
         if (settings.Benchmark)
@@ -106,7 +106,37 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         }
 
         host?.Stop();
+    }
+    /// <inheritdoc />
+    protected override async Task<int> Run(BadRunSystemSettings settings)
+    {
+        if (settings.Parallelization <= 1)
+        {
+            await RunParallel(settings);
+            return 0;
+        }
 
+        Console.WriteLine("Waiting 1 second before starting parallel execution...");
+        await Task.Delay(1000);
+        BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
+        BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
+        List<Task> tasks = new List<Task>();
+        for (int i = 0; i < settings.Parallelization; i++)
+        {
+            tasks.Add(Task.Run(async () =>
+            {
+                try
+                {
+                    await RunParallel(settings);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }));
+        }
+        await Task.WhenAll(tasks);
         return 0;
     }
 }

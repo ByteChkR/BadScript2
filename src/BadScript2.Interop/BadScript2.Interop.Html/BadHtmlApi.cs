@@ -1,6 +1,8 @@
-﻿using BadHtml;
+﻿using System;
+using BadHtml;
 
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
 ///<summary>
@@ -37,6 +39,7 @@ internal partial class BadHtmlApi
         BadHtmlTemplateOptions options = new BadHtmlTemplateOptions{Runtime = context.Scope.GetSingleton<BadRuntime>()};
         options.SkipEmptyTextNodes = skipEmptyTextNodes;
 
-        return template.Run(model, options, context.Scope);
+        var result = template.Run(model, options, context.Scope);
+        return result;
     }
 }

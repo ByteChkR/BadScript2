@@ -17,7 +17,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
     ///     Creates a new BadRemoteConsoleSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadRemoteConsoleSystem(BadRuntime runtime) : base(runtime) { }
+    public BadRemoteConsoleSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
     /// <inheritdoc />
     public override string Name => "remote";
@@ -29,7 +29,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
     /// <returns>The new Parser</returns>
     private IBadNetworkConsoleClientCommandParser CreateScriptParser(BadNetworkConsoleClient client)
     {
-        return new BadScriptCommandParser(Runtime, client);
+        return new BadScriptCommandParser(RuntimeFactory(), client);
     }
 
     /// <inheritdoc />

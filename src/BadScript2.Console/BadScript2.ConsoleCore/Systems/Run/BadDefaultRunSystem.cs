@@ -15,7 +15,7 @@ public class BadDefaultRunSystem : BadRunSystem
     ///     Creates a new BadDefaultRunSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadDefaultRunSystem(BadRuntime runtime) : base(runtime) { }
+    public BadDefaultRunSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
     /// <inheritdoc />
     public override object Parse(string[] args)
@@ -23,6 +23,7 @@ public class BadDefaultRunSystem : BadRunSystem
         BadRunSystemSettings settings = new BadRunSystemSettings { Args = args.Skip(1) };
         string file = args.First();
         settings.Files = new[] { file };
+        settings.Parallelization = 2;
 
         if (BadFileSystem.Instance.IsFile(file))
         {

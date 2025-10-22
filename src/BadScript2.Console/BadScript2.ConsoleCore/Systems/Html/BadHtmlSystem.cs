@@ -25,7 +25,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
     ///     Creates a new BadHtmlSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadHtmlSystem(BadRuntime runtime) : base(runtime) { }
+    public BadHtmlSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
 
     /// <inheritdoc />
@@ -48,10 +48,11 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
     {
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
+        using var runtime = RuntimeFactory();
 
         if (settings.Debug)
         {
-            Runtime.UseScriptDebugger();
+            runtime.UseScriptDebugger();
         }
 
         BadNetworkConsoleHost? host = null;
@@ -60,12 +61,12 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
         {
             host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
             host.Start();
-            Runtime.UseConsole(host);
+            runtime.UseConsole(host);
         }
 
         BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
         {
-            Runtime = Runtime, SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
+            Runtime = runtime, SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
         };
 
         BadObject? model = null;

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Concurrent;
+using System.Globalization;
 using BadScript2.Common;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
@@ -16,7 +17,7 @@ public class BadDateExtension : BadInteropExtension
     /// <summary>
     ///     Culture Info Cache
     /// </summary>
-    private static readonly Dictionary<string, CultureInfo> s_Cultures = new Dictionary<string, CultureInfo>();
+    private static readonly ConcurrentDictionary<string, CultureInfo> s_Cultures = new ConcurrentDictionary<string, CultureInfo>();
     /// <summary>
     /// Wrapper for DateTimeOffset.ToString
     /// </summary>
@@ -58,7 +59,7 @@ public class BadDateExtension : BadInteropExtension
         }
 
         cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
-        s_Cultures.Add(culture.Value, cultureInfo);
+        s_Cultures[culture.Value] = cultureInfo;
 
         return d.ToString(format.Value, cultureInfo);
     }
@@ -104,7 +105,7 @@ public class BadDateExtension : BadInteropExtension
         }
 
         cultureInfo = CultureInfo.CreateSpecificCulture(culture.Value);
-        s_Cultures.Add(culture.Value, cultureInfo);
+        s_Cultures[culture.Value] = cultureInfo;
 
         return d.ToString(format.Value, cultureInfo);
     }

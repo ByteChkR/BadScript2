@@ -53,6 +53,7 @@ public class BadLogMask
     {
         lock (s_Masks)
         {
+            if(s_Masks.TryGetValue(name, out var mask))return mask;
             var value = (ulong)1 << (s_Masks.Count - 1);
             s_Masks.Add(name, value);
 

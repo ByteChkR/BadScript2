@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using BadScript2.Common;
 using BadScript2.Parser.Expressions.Types;
 using BadScript2.Runtime.Error;
@@ -221,61 +222,60 @@ public static class BadNativeClassBuilder
     /// <summary>
     ///     Collection of all Native Class Prototypes
     /// </summary>
-    private static readonly List<BadClassPrototype> s_NativeTypes = new List<BadClassPrototype>
-    {
-        BadVoidPrototype.Instance,
-        BadAnyPrototype.Instance,
-        CreateNativeType<BadString>("string", s_StringStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadBoolean>("bool", s_BooleanStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadNumber>("num", s_NumberStaticMembers, () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadFunction>("Function", () => Array.Empty<BadInterfacePrototype>()),
-        CreateNativeType<BadArray>("Array",
-                                   () => new[]
-                                   {
-                                       (BadInterfacePrototype)ArrayLike.CreateGeneric(new[]
-                                               {
-                                                   BadAnyPrototype.Instance,
-                                               }
-                                           ),
-                                   }
-                                  ),
-        CreateNativeType<BadTable>("Table",
-                                   () => new[]
-                                   {
-                                       (BadInterfacePrototype)Enumerable.CreateGeneric(new[]
-                                               {
-                                                   BadAnyPrototype.Instance,
-                                               }
-                                           ),
-                                   }
-                                  ),
-        BadDate.Prototype,
-        BadTime.Prototype,
-        BadScope.Prototype,
-        BadClassPrototype.Prototype,
-        BadRuntimeError.Prototype,
-        BadMemberInfo.Prototype,
-        //TODO: Make Native Class Builder non static
-        //(adding this prototype will cause a type initializer exception because of a circular reference due to a tightly packed static initializer list)
-        //BadFunction.Prototype, 
-        Enumerable,
-        Enumerator,
-        Disposable,
-        ArrayLike,
-        ImportHandler,
-        Attribute,
-        InitializeAttribute,
-        ChangeAttribute,
-        ChangedAttribute,
-        MemberChangeEventArgs,
-        MemberChangingEventArgs,
-        MemberChangedEventArgs,
-    };
+    private static readonly ConcurrentDictionary<string, BadClassPrototype> s_NativeTypes = new ConcurrentDictionary<string, BadClassPrototype>(
+        new Dictionary<string, BadClassPrototype>
+        {
+        {"void", BadVoidPrototype.Instance},
+        {"any", BadAnyPrototype.Instance},
+        {"string", CreateNativeType<BadString>("string", s_StringStaticMembers, () => Array.Empty<BadInterfacePrototype>())},
+        {"bool", CreateNativeType<BadBoolean>("bool", s_BooleanStaticMembers, () => Array.Empty<BadInterfacePrototype>())},
+        {"num", CreateNativeType<BadNumber>("num", s_NumberStaticMembers, () => Array.Empty<BadInterfacePrototype>())},
+        {"Function", CreateNativeType<BadFunction>("Function", () => Array.Empty<BadInterfacePrototype>())},
+        {"Array", CreateNativeType<BadArray>("Array",
+            () => new[]
+            {
+                (BadInterfacePrototype)ArrayLike.CreateGeneric(new[]
+                    {
+                        BadAnyPrototype.Instance,
+                    }
+                ),
+            }
+        )},
+        {"Table", CreateNativeType<BadTable>("Table",
+            () => new[]
+            {
+                (BadInterfacePrototype)Enumerable.CreateGeneric(new[]
+                    {
+                        BadAnyPrototype.Instance,
+                    }
+                ),
+            }
+        )},
+        {"Date", BadDate.Prototype},
+        {"Time", BadTime.Prototype},
+        {"Scope", BadScope.Prototype},
+        {"Type", BadClassPrototype.Prototype},
+        {"Error", BadRuntimeError.Prototype},
+        {"MemberInfo", BadMemberInfo.Prototype},
+        {"IEnumerable", Enumerable},
+        {"IEnumerator", Enumerator},
+        {"IDisposable", Disposable},
+        {"IArray", ArrayLike},
+        {"IImportHandler", ImportHandler},
+        {"IAttribute", Attribute},
+        {"IInitializeAttribute", InitializeAttribute},
+        {"IChangeAttribute", ChangeAttribute},
+        {"IChangedAttribute", ChangedAttribute},
+        {"IMemberChangeEventArgs", MemberChangeEventArgs},
+        {"IMemberChangingEventArgs", MemberChangingEventArgs},
+        {"IMemberChangedEventArgs", MemberChangedEventArgs},
+    }
+        );
 
     /// <summary>
     ///     Enumeration of all Native Class Prototypes
     /// </summary>
-    public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes;
+    public static IEnumerable<BadClassPrototype> NativeTypes => s_NativeTypes.Values.ToArray();
 
     /// <summary>
     /// Factory for the IMemberChangeEventArgs Interface Constraints
@@ -783,7 +783,7 @@ public static class BadNativeClassBuilder
     /// <exception cref="BadRuntimeException">Gets raised if the prototype does not exist.</exception>
     public static BadClassPrototype GetNative(string name)
     {
-        return s_NativeTypes.FirstOrDefault(x => x.Name == name) ??
+        return s_NativeTypes.GetValueOrDefault(name) ??
                throw new BadRuntimeException("Native class not found");
     }
 
@@ -793,12 +793,12 @@ public static class BadNativeClassBuilder
     /// <param name="native">The native type</param>
     public static void AddNative(BadClassPrototype native)
     {
-        if (s_NativeTypes.Any(x => x.Name == native.Name))
+        if (s_NativeTypes.ContainsKey(native.Name))
         {
             return;
         }
 
-        s_NativeTypes.Add(native);
+        s_NativeTypes.AddOrUpdate(native.Name, (k) => native, (k, v) => native);
     }
 
 

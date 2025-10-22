@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop.Functions.Extensions;
 using BadScript2.Runtime.Interop.Reflection;
@@ -20,7 +21,7 @@ public abstract class BadObject
     /// <summary>
     ///     The String Cache for the BadScript Language
     /// </summary>
-    private static readonly Dictionary<string, BadString> s_StringCache = new Dictionary<string, BadString>();
+    private static readonly ConcurrentDictionary<string, BadString> s_StringCache = new ConcurrentDictionary<string, BadString>();
 
     /// <summary>
     ///     The Null Value for the BadScript Language

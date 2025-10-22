@@ -38,6 +38,11 @@ public class BadRunSystemSettings
     public bool Debug { get; set; }
 
 	/// <summary>
+	///     If enabled, the debugger will be attached to the process
+	/// </summary>
+	[Option('p', "parallel", Required = false, HelpText = "Set Amount of parallel executions.", Default = 1)]
+	public int Parallelization { get; set; } = 1;
+	/// <summary>
 	///     If specified, the Run System will try to host a remote shell on the specified port
 	/// </summary>
 	[Option('r',

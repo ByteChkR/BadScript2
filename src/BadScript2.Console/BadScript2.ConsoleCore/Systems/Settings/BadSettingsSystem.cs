@@ -17,7 +17,7 @@ public class BadSettingsSystem : BadConsoleSystem<BadSettingsSystemSettings>
     ///     Creates a new BadSettingsSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadSettingsSystem(BadRuntime runtime) : base(runtime) { }
+    public BadSettingsSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
     /// <inheritdoc />
     public override string Name => "settings";

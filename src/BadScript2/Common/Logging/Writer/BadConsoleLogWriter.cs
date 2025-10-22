@@ -7,6 +7,13 @@ namespace BadScript2.Common.Logging.Writer;
 /// </summary>
 public class BadConsoleLogWriter : BadLogWriter
 {
+    private readonly IBadConsole _console;
+    
+    public BadConsoleLogWriter(IBadConsole console)
+    {
+        _console = console;
+    }
+
     /// <summary>
     ///     Writes a log message to the log writer
     /// </summary>
@@ -38,7 +45,7 @@ public class BadConsoleLogWriter : BadLogWriter
                 throw new ArgumentOutOfRangeException();
         }
 
-        BadConsole.WriteLine(log.ToString());
+        _console.WriteLine(log.ToString());
         BadConsole.ForegroundColor = fg;
         BadConsole.BackgroundColor = bg;
     }

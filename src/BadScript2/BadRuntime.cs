@@ -10,10 +10,12 @@ using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
 using BadScript2.Runtime;
+using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Module;
 using BadScript2.Runtime.Module.Handlers;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 using BadScript2.Runtime.VirtualMachine.Compiler;
 using BadScript2.Settings;
@@ -22,6 +24,7 @@ using BadScript2.Settings;
 /// The main namespace for the BadScript2 Language
 /// </summary>
 namespace BadScript2;
+
 
 /// <summary>
 ///     Exposes the BadScript Runtime Functionality to Consumers
@@ -64,11 +67,6 @@ public class BadRuntime : IDisposable
     public BadRuntime(BadExecutionContextOptions options)
     {
         m_Options = options;
-
-        if (!BadSettingsProvider.HasRootSettings)
-        {
-            BadSettingsProvider.SetRootSettings(new BadSettings(string.Empty));
-        }
     }
 
     /// <summary>
@@ -201,9 +199,9 @@ public class BadRuntime : IDisposable
     ///     Configures the Runtime to use the default log writer implementation(log to console)
     /// </summary>
     /// <returns>This Runtime</returns>
-    public BadRuntime UseConsoleLogWriter()
+    public BadRuntime UseConsoleLogWriter(IBadConsole? console = null)
     {
-        return UseLogWriter(new BadConsoleLogWriter());
+        return UseLogWriter(new BadConsoleLogWriter(console ?? BadConsole.GetConsole()));
     }
 
     /// <summary>
@@ -214,26 +212,6 @@ public class BadRuntime : IDisposable
     public BadRuntime UseFileLogWriter(string path)
     {
         return UseLogWriter(new BadFileLogWriter(path));
-    }
-
-    /// <summary>
-    ///     Loads the specified settings file
-    /// </summary>
-    /// <param name="settingsFile">The path to the settings file</param>
-    /// <returns>This Runtime</returns>
-    public BadRuntime LoadSettings(string settingsFile, IFileSystem? fileSystem = null)
-    {
-        BadLogger.Log("Loading Settings...", "Settings");
-
-        BadSettingsReader settingsReader = new BadSettingsReader(BadSettingsProvider.RootSettings,
-                                                                 fileSystem ?? BadFileSystem.Instance,
-                                                                 settingsFile
-                                                                );
-
-        BadSettingsProvider.SetRootSettings(settingsReader.ReadSettings());
-        BadLogger.Log("Settings loaded!", "Settings");
-
-        return this;
     }
 
     /// <summary>

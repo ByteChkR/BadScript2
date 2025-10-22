@@ -21,7 +21,7 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
     ///     Creates a new BadHtmlSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    public BadDocsSystem(BadRuntime runtime) : base(runtime) { }
+    public BadDocsSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
 
     /// <inheritdoc />
@@ -60,11 +60,12 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
         string outFile = Path.Combine(Path.GetTempPath(), Path.GetTempFileName() + ".html");
 
+        using var runtime = RuntimeFactory();
         string htmlString = BadHtmlTemplate.Create(TemplatePath)
                                            .Run(null,
                                                 new BadHtmlTemplateOptions
                                                 {
-                                                    Runtime = Runtime, SkipEmptyTextNodes = true,
+                                                    Runtime = runtime, SkipEmptyTextNodes = true,
                                                 }
                                                );
         File.WriteAllText(outFile, htmlString);

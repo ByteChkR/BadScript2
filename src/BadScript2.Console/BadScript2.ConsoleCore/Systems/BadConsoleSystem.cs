@@ -14,7 +14,7 @@ public abstract class BadConsoleSystem<T> : BadAConsoleSystem
     ///     Creates a new BadConsoleSystem instance
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
-    protected BadConsoleSystem(BadRuntime runtime) : base(runtime) { }
+    protected BadConsoleSystem(Func<BadRuntime> runtime) : base(runtime) { }
 
     /// <inheritdoc />
     public override Task<int> Run(object? settings)
