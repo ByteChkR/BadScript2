@@ -92,10 +92,7 @@ public static class BadCommonInterop
     {
         if (useAsync)
         {
-            if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadTask.Prototype.Name))
-            {
-                BadNativeClassBuilder.AddNative(BadTask.Prototype);
-            }
+            BadNativeClassBuilder.AddNative(BadTask.Prototype);
 
             runner ??= new BadTaskRunner();
             runtime
@@ -105,31 +102,12 @@ public static class BadCommonInterop
                 .UseSingleton(runner);
         }
 
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadRegex.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadRegex.Prototype);
-        }
+        BadNativeClassBuilder.AddNative(BadRegex.Prototype);
+        BadNativeClassBuilder.AddNative(BadMatch.Prototype);
+        BadNativeClassBuilder.AddNative(BadGroup.Prototype);
+        BadNativeClassBuilder.AddNative(BadCapture.Prototype);
+        BadNativeClassBuilder.AddNative(BadVersion.Prototype);
         
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadMatch.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadMatch.Prototype);
-        }
-        
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadGroup.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadGroup.Prototype);
-        }
-        
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadCapture.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadCapture.Prototype);
-        }
-        
-        if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-        }
-
         return runtime.UseCommonExtensions(useAsync)
                       .UseApis(Apis, true);
     }
