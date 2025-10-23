@@ -21,22 +21,6 @@ namespace BadScript2.Interop.Common;
 /// </summary>
 public static class BadCommonInterop
 {
-    /// <summary>
-    ///     All Common Interop Apis
-    /// </summary>
-    private static readonly BadInteropApi[] s_CommonApis =
-    {
-        new BadConsoleApi(BadConsole.GetConsole()),
-        new BadRuntimeApi(),
-        new BadMathApi(),
-        new BadOperatingSystemApi(),
-        new BadXmlApi(),
-    };
-
-    /// <summary>
-    ///     All Common Interop Apis
-    /// </summary>
-    public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
 
 
     /// <summary>
@@ -107,9 +91,15 @@ public static class BadCommonInterop
         BadNativeClassBuilder.AddNative(BadGroup.Prototype);
         BadNativeClassBuilder.AddNative(BadCapture.Prototype);
         BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-        
-        return runtime.UseCommonExtensions(useAsync)
-                      .UseApis(Apis, true);
+        return runtime
+            .UseCommonExtensions(useAsync)
+            .UseApis([
+                new BadConsoleApi(BadConsole.GetConsole()),
+                new BadRuntimeApi(),
+                new BadMathApi(),
+                new BadOperatingSystemApi(),
+                new BadXmlApi()
+            ], true);
     }
 
     /// <summary>
