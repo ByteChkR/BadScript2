@@ -21,22 +21,6 @@ namespace BadScript2.Interop.Common;
 /// </summary>
 public static class BadCommonInterop
 {
-    /// <summary>
-    ///     All Common Interop Apis
-    /// </summary>
-    private static readonly BadInteropApi[] s_CommonApis =
-    {
-        new BadConsoleApi(BadConsole.GetConsole()),
-        new BadRuntimeApi(),
-        new BadMathApi(),
-        new BadOperatingSystemApi(),
-        new BadXmlApi(),
-    };
-
-    /// <summary>
-    ///     All Common Interop Apis
-    /// </summary>
-    public static IEnumerable<BadInteropApi> Apis => s_CommonApis;
 
 
     /// <summary>
@@ -105,33 +89,20 @@ public static class BadCommonInterop
                 .UseSingleton(runner);
         }
 
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadRegex.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadRegex.Prototype);
-        }
-        
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadMatch.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadMatch.Prototype);
-        }
-        
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadGroup.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadGroup.Prototype);
-        }
-        
-        if(BadNativeClassBuilder.NativeTypes.All(x=> x.Name != BadCapture.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadCapture.Prototype);
-        }
-        
-        if (BadNativeClassBuilder.NativeTypes.All(x => x.Name != BadVersion.Prototype.Name))
-        {
-            BadNativeClassBuilder.AddNative(BadVersion.Prototype);
-        }
-
-        return runtime.UseCommonExtensions(useAsync)
-                      .UseApis(Apis, true);
+        BadNativeClassBuilder.AddNative(BadRegex.Prototype);
+        BadNativeClassBuilder.AddNative(BadMatch.Prototype);
+        BadNativeClassBuilder.AddNative(BadGroup.Prototype);
+        BadNativeClassBuilder.AddNative(BadCapture.Prototype);
+        BadNativeClassBuilder.AddNative(BadVersion.Prototype);
+        return runtime
+            .UseCommonExtensions(useAsync)
+            .UseApis([
+                new BadConsoleApi(BadConsole.GetConsole()),
+                new BadRuntimeApi(),
+                new BadMathApi(),
+                new BadOperatingSystemApi(),
+                new BadXmlApi()
+            ], true);
     }
 
     /// <summary>

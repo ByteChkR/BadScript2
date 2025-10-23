@@ -54,7 +54,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     {
         BadNetworkConsoleHost? host = null;
 
-        using var runtime = RuntimeFactory();
+        using var runtime = RuntimeFactory().Clone();
         if (settings.RemotePort != -1)
         {
             host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));
@@ -120,23 +120,18 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
         await Task.Delay(1000);
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
-        List<Task> tasks = new List<Task>();
-        for (int i = 0; i < settings.Parallelization; i++)
+        await Parallel.ForAsync(0, 100000, new ParallelOptions{MaxDegreeOfParallelism = settings.Parallelization}, async (i, _) =>
         {
-            tasks.Add(Task.Run(async () =>
+            try
             {
-                try
-                {
-                    await RunParallel(settings);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
-            }));
-        }
-        await Task.WhenAll(tasks);
+                await RunParallel(settings);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        });
         return 0;
     }
 }

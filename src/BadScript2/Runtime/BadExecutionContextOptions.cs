@@ -175,6 +175,6 @@ public class BadExecutionContextOptions
     /// <returns>The cloned instance.</returns>
     public BadExecutionContextOptions Clone()
     {
-        return new BadExecutionContextOptions(m_Apis, m_Extensions);
+        return new BadExecutionContextOptions(m_Apis.ToArray(), m_Extensions.ToArray());
     }
 }
