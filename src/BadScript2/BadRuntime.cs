@@ -334,6 +334,17 @@ public class BadRuntime : IDisposable
         return new BadRuntimeExecutionResult(result, exports);
     }
 
+    public static BadRuntimeExecutionResult Execute(string file, string source, BadExecutionContext ctx)
+    {
+        var rt = ctx.Scope.GetSingleton<BadRuntime>();
+        var expressions = Parse(source, file);
+        if(rt == null)throw BadRuntimeException.Create(ctx.Scope, "BadRuntime singleton not found in context");
+        BadObject? result = rt.m_Executor(ctx, expressions);
+        BadObject exports = ctx.Scope.GetExports();
+
+        return new BadRuntimeExecutionResult(result, exports);
+    }
+
     /// <summary>
     ///     Executes the specified script
     /// </summary>

@@ -207,7 +207,7 @@ namespace BadScript2.Container
         /// <inheritdoc />
         public Stream OpenRead(string path)
         {
-            var fs = m_Layers.Last(x => x.FileSystem.IsFile(path))?.FileSystem ?? GetWritable();
+            var fs = m_Layers.LastOrDefault(x => x.FileSystem.IsFile(path))?.FileSystem ?? GetWritable();
             return fs.OpenRead(path);
         }
 
