@@ -112,10 +112,11 @@ public class BadRuntime : IDisposable
     /// <returns>Cloned Runtime</returns>
     public BadRuntime Clone()
     {
-        BadRuntime r = new BadRuntime(CreateOptions())
+        BadRuntime r = new BadRuntime(m_Options.Clone())
             .UseExecutor(m_Executor);
 
-        //Copy the configurators that are not part of the options
+        //Copy the configurators
+        r.m_ConfigureOptions.AddRange(m_ConfigureOptions);
         r.m_ConfigureModuleImporter.AddRange(m_ConfigureModuleImporter);
         r.m_ConfigureContext.AddRange(m_ConfigureContext);
 
