@@ -47,7 +47,7 @@ public class BadUnitTestContextBuilder
         api.SetContext(this);
 
         m_Runtime = runtime
-                           .UseApi(api);
+                           .UseApi(() => api);
     }
 
 

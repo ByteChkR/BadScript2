@@ -81,7 +81,7 @@ public static class BadCommonInterop
             var taskRunner = runner ?? new BadTaskRunner();
             runtime
                 .ConfigureContext(c => c.Scope.AddSingleton(taskRunner))
-                .UseApi(new BadTaskRunnerApi(), true)
+                .UseApi(() => new BadTaskRunnerApi(), true)
                 .UseExecutor(ExecuteTask);
         }
 
@@ -92,7 +92,7 @@ public static class BadCommonInterop
         BadNativeClassBuilder.AddNative(BadVersion.Prototype);
         return runtime
             .UseCommonExtensions(useAsync)
-            .UseApis([
+            .UseApis(() => [
                 new BadConsoleApi(BadConsole.GetConsole()),
                 new BadRuntimeApi(),
                 new BadMathApi(),
@@ -111,10 +111,10 @@ public static class BadCommonInterop
     {
         if (console != null)
         {
-            return runtime.UseApi(new BadConsoleApi(console), true);
+            return runtime.UseApi(() => new BadConsoleApi(console), true);
         }
 
-        return runtime.UseApi(new BadConsoleApi(BadConsole.GetConsole()), true);
+        return runtime.UseApi(() => new BadConsoleApi(BadConsole.GetConsole()), true);
     }
 
     /// <summary>

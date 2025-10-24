@@ -25,7 +25,7 @@ public static class BadJson
     /// <returns>The Runtime</returns>
     public static BadRuntime UseJsonApi(this BadRuntime runtime)
     {
-        return runtime.UseApi(new BadJsonApi(), true);
+        return runtime.UseApi(() => new BadJsonApi(), true);
     }
 
     /// <summary>

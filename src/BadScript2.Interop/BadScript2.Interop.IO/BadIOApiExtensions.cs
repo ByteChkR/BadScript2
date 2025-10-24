@@ -15,7 +15,7 @@ public static class BadIOApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseFileSystemApi(this BadRuntime runtime, IFileSystem fileSystem)
     {
-            return runtime.UseApi(new BadIOApi(fileSystem), true);
+            return runtime.UseApi(() => new BadIOApi(fileSystem), true);
 
     }
 }

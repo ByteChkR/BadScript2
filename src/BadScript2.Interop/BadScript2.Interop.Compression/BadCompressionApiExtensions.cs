@@ -15,6 +15,6 @@ public static class BadCompressionApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseCompressionApi(this BadRuntime runtime, IFileSystem fileSystem)
     {
-        return runtime.UseApi(new BadCompressionApi(fileSystem), true);
+        return runtime.UseApi(() => new BadCompressionApi(fileSystem), true);
     }
 }

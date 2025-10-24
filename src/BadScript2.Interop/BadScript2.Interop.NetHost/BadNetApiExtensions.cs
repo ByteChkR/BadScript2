@@ -14,6 +14,6 @@ public static class BadNetApiExtensions
     {
         return runtime
                .UseExtension<BadNetHostExtensions>()
-               .UseApi(new BadNetHostApi(), true);
+               .UseApi(() => new BadNetHostApi(), true);
     }
 }

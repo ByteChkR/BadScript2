@@ -12,6 +12,6 @@ public static class BadHtmlApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseHtmlApi(this BadRuntime runtime)
     {
-        return runtime.UseApi(new BadHtmlApi(), true);
+        return runtime.UseApi(() => new BadHtmlApi(), true);
     }
 }

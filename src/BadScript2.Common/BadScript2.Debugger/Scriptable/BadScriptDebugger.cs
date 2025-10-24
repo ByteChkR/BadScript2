@@ -38,7 +38,7 @@ public class BadScriptDebugger : IBadDebugger
 	public BadScriptDebugger(BadRuntime runtime, string path, string source)
     {
         m_Runtime = runtime
-                    .UseApi(new BadScriptDebuggerApi(this, path));
+                    .UseApi(() => new BadScriptDebuggerApi(this, path));
 
         LoadDebugger(path, source);
     }

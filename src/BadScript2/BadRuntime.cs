@@ -107,11 +107,6 @@ public class BadRuntime : IDisposable
     /// </summary>
     private BadModuleStore ModuleStore { get; } = new BadModuleStore();
 
-    /// <summary>
-    /// Module Importer to use
-    /// </summary>
-    private BadModuleImporter? Importer { get; set; }
-
 #region IDisposable Members
 
     //private BadModuleImporter? Importer { get; set; }
@@ -300,15 +295,7 @@ public class BadRuntime : IDisposable
         ctx.Scope.AddSingleton(this);
         BadModuleImporter importer;
 
-        if (Importer == null)
-        {
-            importer = Importer = new BadModuleImporter(ModuleStore);
-        }
-        else
-        {
-            importer = Importer = Importer.Clone();
-        }
-
+        importer = new BadModuleImporter(ModuleStore);
         foreach (Action<BadExecutionContext, string, BadModuleImporter> action in m_ConfigureModuleImporter)
         {
             action(ctx, workingDirectory, importer);
@@ -451,14 +438,14 @@ public class BadRuntime : IDisposable
     /// <param name="api">The API to add or replace</param>
     /// <param name="replace">If the API should be replaced if it already exists</param>
     /// <returns>This Runtime</returns>
-    public BadRuntime UseApi(BadInteropApi api, bool replace = false)
+    public BadRuntime UseApi(Func<BadInteropApi> api, bool replace = false)
     {
         if (replace)
         {
-            return ConfigureContextOptions(opt => opt.AddOrReplaceApi(api));
+            return ConfigureContextOptions(opt => opt.AddOrReplaceApi(api()));
         }
 
-        return ConfigureContextOptions(opt => opt.AddApi(api));
+        return ConfigureContextOptions(opt => opt.AddApi(api()));
     }
 
 
@@ -468,14 +455,14 @@ public class BadRuntime : IDisposable
     /// <param name="api">The APIs to add or replace</param>
     /// <param name="replace">If the APIs should be replaced if they already exist</param>
     /// <returns>This Runtime</returns>
-    public BadRuntime UseApis(IEnumerable<BadInteropApi> apis, bool replace = false)
+    public BadRuntime UseApis(Func<IEnumerable<BadInteropApi>> apis, bool replace = false)
     {
         if (replace)
         {
-            return ConfigureContextOptions(opt => opt.AddOrReplaceApis(apis));
+            return ConfigureContextOptions(opt => opt.AddOrReplaceApis(apis()));
         }
 
-        return ConfigureContextOptions(opt => opt.AddApis(apis));
+        return ConfigureContextOptions(opt => opt.AddApis(apis()));
     }
 
 

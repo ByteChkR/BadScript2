@@ -12,7 +12,7 @@ public static class BadNUnitApiExtensions
     /// <returns>The Runtime</returns>
     public static BadRuntime UseNUnitApi(this BadRuntime runtime)
     {
-        return runtime.UseApi(new BadNUnitApi(), true);
+        return runtime.UseApi(() => new BadNUnitApi(), true);
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public static class BadNUnitApiExtensions
         api.SetContext(console);
 
         return runtime
-               .UseApi(api, true)
+               .UseApi(() => api, true)
                .UseConsole(new BadNUnitTestConsole())
                .UseConsoleLogWriter();
     }
