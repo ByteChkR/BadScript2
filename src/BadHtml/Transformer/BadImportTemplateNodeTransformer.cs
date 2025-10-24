@@ -1,5 +1,5 @@
 using System;
-
+using BadScript2;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 
@@ -24,11 +24,12 @@ public class BadImportTemplateNodeTransformer : BadHtmlNodeTransformer
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["path"];
         HtmlAttribute? modelAttribute = context.InputNode.Attributes["model"];
 
+        var pos = context.CreateOuterPosition();
         if (pathAttribute == null)
         {
             throw BadRuntimeException.Create(context.ExecutionContext.Scope,
                                              "Missing 'path' attribute in 'bs:template' node",
-                                             context.CreateOuterPosition()
+                                             pos
                                             );
         }
 
@@ -55,7 +56,7 @@ public class BadImportTemplateNodeTransformer : BadHtmlNodeTransformer
                                                                  context.CreateAttributePosition(modelAttribute!)
                                                                 );
 
-        BadHtmlTemplate template = BadHtmlTemplate.Create(path, context.FileSystem);
+        BadHtmlTemplate template = BadHtmlTemplate.Create(path, context.ExecutionContext.ReadAllText(path, pos));
         HtmlDocument res = template.RunTemplate(modelObj, context.Options);
 
         context.InputNode.AppendChildren(res.DocumentNode.ChildNodes);

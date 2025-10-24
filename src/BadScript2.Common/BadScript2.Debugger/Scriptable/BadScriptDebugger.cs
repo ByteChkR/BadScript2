@@ -28,28 +28,19 @@ public class BadScriptDebugger : IBadDebugger
 	/// </summary>
 	private readonly List<string> m_SeenFiles = new List<string>();
 
-	/// <summary>
-	///     Constructs a new BadScriptDebugger instance
-	/// </summary>
-	/// <param name="runtime">The Runtime that the debugger will be loaded into.</param>
-	/// <param name="debuggerPath">The File Path to the Debugger</param>
-	public BadScriptDebugger(BadRuntime runtime, string debuggerPath)
-    {
-        m_Runtime = runtime
-                    .UseApi(new BadScriptDebuggerApi(this, debuggerPath));
-        LoadDebugger(debuggerPath);
-    }
 
 	/// <summary>
 	///     Constructs a new BadScriptDebugger instance
 	/// </summary>
 	/// <param name="runtime">The Runtime that the debugger will be loaded into.</param>
-	public BadScriptDebugger(BadRuntime runtime)
+	/// <param name="path">The File Path to the Debugger</param>
+	/// <param name="source">The Source Code of the Debugger</param>
+	public BadScriptDebugger(BadRuntime runtime, string path, string source)
     {
         m_Runtime = runtime
-                    .UseApi(new BadScriptDebuggerApi(this));
+                    .UseApi(new BadScriptDebuggerApi(this, path));
 
-        LoadDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath);
+        LoadDebugger(path, source);
     }
 
 #region IBadDebugger Members
@@ -82,10 +73,10 @@ public class BadScriptDebugger : IBadDebugger
 	///     Loads the Debugger from the given File Path
 	/// </summary>
 	/// <param name="path">The File Path</param>
-	private void LoadDebugger(string path)
-    {
-        m_Runtime.ExecuteFile(path);
-    }
+	private void LoadDebugger(string path, string source)
+	{
+		m_Runtime.Execute(source, path);
+	}
 
 	/// <summary>
 	///     Event that gets called on every debugger step

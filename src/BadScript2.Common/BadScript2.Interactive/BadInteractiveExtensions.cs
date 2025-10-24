@@ -1,5 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.Common.Task;
+using BadScript2.IO;
 
 namespace BadScript2.Interactive;
 
@@ -12,10 +13,11 @@ public static class BadInteractiveExtensions
     ///     Runs the Interactive Console
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
+    /// <param name="fs">The File System to use</param>
     /// <param name="files">The Files to load before the Interactive Session begins</param>
-    public static void RunInteractive(this BadRuntime runtime, IEnumerable<string> files)
+    public static void RunInteractive(this BadRuntime runtime, IFileSystem fs, IEnumerable<string> files)
     {
-        using BadInteractiveConsole console = new BadInteractiveConsole(runtime, new BadTaskRunner(), files);
+        using BadInteractiveConsole console = new BadInteractiveConsole(runtime, fs, new BadTaskRunner(), files);
 
         while (true)
         {
@@ -35,10 +37,11 @@ public static class BadInteractiveExtensions
     /// Runs the Interactive Console Asynchronously
     /// </summary>
     /// <param name="runtime">The Runtime to use</param>
+    /// <param name="fs">The File System to use</param>
     /// <param name="files">The Files to load before the Interactive Session begins</param>
-    public static async Task RunInteractiveAsync(this BadRuntime runtime, IEnumerable<string> files)
+    public static async Task RunInteractiveAsync(this BadRuntime runtime, IFileSystem fs, IEnumerable<string> files)
     {
-        using BadInteractiveConsole console = new BadInteractiveConsole(runtime, new BadTaskRunner(), files);
+        using BadInteractiveConsole console = new BadInteractiveConsole(runtime, fs, new BadTaskRunner(), files);
 
         while (true)
         {

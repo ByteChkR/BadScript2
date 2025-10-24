@@ -13,7 +13,7 @@ internal partial class BadZipApi
     /// <summary>
     ///     The FileSystem Instance
     /// </summary>
-    private readonly IFileSystem m_FileSystem = BadFileSystem.Instance;
+    private readonly IFileSystem m_FileSystem;
 
 
     /// <summary>

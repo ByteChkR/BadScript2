@@ -16,15 +16,15 @@ internal partial class BadIOApi
     /// <summary>
     /// Directory Api Implementation
     /// </summary>
-    private readonly BadDirectoryApi m_DirectoryApi = new BadDirectoryApi(BadFileSystem.Instance);
+    private readonly BadDirectoryApi m_DirectoryApi;
     /// <summary>
     /// File Api Implementation
     /// </summary>
-    private readonly BadFileApi m_FileApi = new BadFileApi(BadFileSystem.Instance);
+    private readonly BadFileApi m_FileApi;
     /// <summary>
     /// Path Api Implementation
     /// </summary>
-    private readonly BadPathApi m_PathApi = new BadPathApi(BadFileSystem.Instance);
+    private readonly BadPathApi m_PathApi;
 
 
     /// <summary>

@@ -1,6 +1,10 @@
+using System.Linq;
+using BadScript2;
 using BadScript2.IO;
 using BadScript2.Runtime.Error;
-
+using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Native;
 using HtmlAgilityPack;
 
 namespace BadHtml.Transformer;
@@ -21,14 +25,14 @@ public class BadImportFileNodeTransformer : BadHtmlNodeTransformer
     {
         HtmlAttribute? pathAttribute = context.InputNode.Attributes["path"];
 
+        var pos = context.CreateOuterPosition();
         if (pathAttribute == null)
         {
             throw BadRuntimeException.Create(context.ExecutionContext.Scope,
                                              "Missing 'path' attribute in 'bs:import' node",
-                                             context.CreateOuterPosition()
+                                             pos
                                             );
         }
-
         string? path = pathAttribute.Value;
 
         if (string.IsNullOrEmpty(path))
@@ -39,7 +43,8 @@ public class BadImportFileNodeTransformer : BadHtmlNodeTransformer
                                             );
         }
 
-        string data = BadFileSystem.ReadAllText(path);
+        path = context.ExecutionContext.GetFullPath(path, pos);
+        var data = context.ExecutionContext.ReadAllText(path, pos);
 
         context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(data));
     }

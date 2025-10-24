@@ -34,13 +34,11 @@ public static class BadDebuggerExtensions
     /// </summary>
     /// <param name="runtime">The Runtime to configure</param>
     /// <param name="debuggerPath">The File Path to the Debugger</param>
+    /// <param name="debuggerSource">The Source Code of the Debugger</param>
     /// <returns>The configured Runtime</returns>
-    public static BadRuntime UseScriptDebugger(this BadRuntime runtime, string? debuggerPath = null)
+    public static BadRuntime UseScriptDebugger(this BadRuntime runtime, string debuggerPath, string debuggerSource)
     {
         return runtime.UseDebuggerExtensions()
-                      .UseDebugger(debuggerPath == null
-                                       ? new BadScriptDebugger(runtime)
-                                       : new BadScriptDebugger(runtime, debuggerPath)
-                                  );
+                      .UseDebugger(new BadScriptDebugger(runtime, debuggerPath, debuggerSource));
     }
 }

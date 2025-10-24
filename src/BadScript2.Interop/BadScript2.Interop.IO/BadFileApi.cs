@@ -13,7 +13,7 @@ internal partial class BadFileApi
     /// <summary>
     ///     The FileSystem Instance
     /// </summary>
-    private readonly IFileSystem m_FileSystem = BadFileSystem.Instance;
+    private readonly IFileSystem m_FileSystem;
 
     /// <summary>
     /// Creates a new API Instance

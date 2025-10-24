@@ -99,7 +99,6 @@ internal partial class BadRuntimeApi
                                                )]
                                   bool setLastAsReturn = false)
     {
-        file = BadFileSystem.Instance.GetFullPath(file ?? "<eval>");
 
         bool optimizeConstantFolding =
             BadNativeOptimizationSettings.Instance.UseConstantFoldingOptimization && optimize;
@@ -132,7 +131,7 @@ internal partial class BadRuntimeApi
                     : new BadExecutionContext(scope);
         }
 
-        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file, source)
+        IEnumerable<BadExpression> exprs = BadSourceParser.Create(file ?? "<unknown-file>", source)
                                                           .Parse();
 
         if (optimizeConstantFolding)

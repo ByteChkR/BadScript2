@@ -42,13 +42,20 @@ public class BadInteractiveConsole : IDisposable
 	private BadExecutionContext? m_Context;
 
 	/// <summary>
+	///		The File System to use
+	/// </summary>
+	private readonly IFileSystem m_FileSystem;
+	
+	/// <summary>
 	///     Constructs a new BadInteractiveConsole instance
 	/// </summary>
 	/// <param name="runtime">The Runtime that the Interactive Console will be started from.</param>
+	/// <param name="fileSystem">The File System to use</param>
 	/// <param name="runner">The Task runner</param>
 	/// <param name="files">The Files that are loaded before the interactive session begins</param>
-	public BadInteractiveConsole(BadRuntime runtime, BadTaskRunner runner, IEnumerable<string> files)
+	public BadInteractiveConsole(BadRuntime runtime, IFileSystem fileSystem, BadTaskRunner runner, IEnumerable<string> files)
     {
+	    m_FileSystem = fileSystem;
         m_Runner = runner;
         m_Api = new BadInteractiveConsoleApi(this);
         m_Runtime = runtime;
@@ -81,7 +88,7 @@ public class BadInteractiveConsole : IDisposable
 	/// <returns>Execution Context</returns>
 	private BadExecutionContext CreateContext()
     {
-        BadExecutionContext ctx = m_Runtime.CreateContext(BadFileSystem.Instance.GetCurrentDirectory());
+        BadExecutionContext ctx = m_Runtime.CreateContext(m_FileSystem.GetCurrentDirectory());
         BadTable apiTable = new BadTable();
         m_Api.Load(ctx, apiTable);
 
@@ -115,7 +122,7 @@ public class BadInteractiveConsole : IDisposable
 
         Reset();
         BadExecutionContext current = m_Context;
-        BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
+        BadSourceParser parser = BadSourceParser.Create(file, m_FileSystem.ReadAllText(file));
         Run(parser.Parse());
 
         Reset();
@@ -129,7 +136,7 @@ public class BadInteractiveConsole : IDisposable
 	/// <param name="file">The File to be Loaded</param>
 	public void Load(string file)
     {
-        BadSourceParser parser = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file));
+        BadSourceParser parser = BadSourceParser.Create(file, m_FileSystem.ReadAllText(file));
         Run(parser.Parse());
     }
 

@@ -185,8 +185,7 @@ public class BadFunctionNodeTransformer : BadHtmlNodeTransformer
                                                              ctx,
                                                              context.FilePath,
                                                              context.Source,
-                                                             context.Options,
-                                                             context.FileSystem
+                                                             context.Options
                                                             );
             Transform(childContext);
         }

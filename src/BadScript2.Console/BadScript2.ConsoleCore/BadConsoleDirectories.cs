@@ -13,20 +13,17 @@ public static class BadConsoleDirectories
 	/// <summary>
 	///     The Data Directory
 	/// </summary>
-	public static string DataDirectory
+	public static string GetDataDirectory(IFileSystem fs)
     {
-        get
-        {
-            string s = Path.Combine(BadFileSystem.Instance.GetStartupDirectory(), "data");
+            string s = Path.Combine(fs.GetStartupDirectory(), "data");
 
-            BadFileSystem.Instance.CreateDirectory(s);
+            fs.CreateDirectory(s);
 
             return s;
-        }
     }
 
 	/// <summary>
 	///     The Log File
 	/// </summary>
-	public static string LogFile => Path.Combine(DataDirectory, "logs.log");
+	public static string GetLogFile(IFileSystem fs) => Path.Combine(GetDataDirectory(fs), "logs.log");
 }

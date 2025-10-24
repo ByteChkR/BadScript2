@@ -97,16 +97,6 @@ public class BadSourceReader
     }
 
     /// <summary>
-    ///     Creates a new Source Code Reader from a File
-    /// </summary>
-    /// <param name="fileName">The File Name</param>
-    /// <returns>BadSourceReader instance with the contents of the specified file.</returns>
-    public static BadSourceReader FromFile(string fileName)
-    {
-        return new BadSourceReader(fileName, BadFileSystem.ReadAllText(fileName));
-    }
-
-    /// <summary>
     ///     Returns true if the reader is at the end of the source code
     /// </summary>
     /// <param name="offset">The Offset from the Current Reader Position</param>

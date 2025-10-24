@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using BadScript2.Common.Logging;
 using BadScript2.ConsoleAbstraction.Implementations.Remote;
 using BadScript2.Debugger;
+using BadScript2.Debugger.Scriptable;
 using BadScript2.Interactive;
 using BadScript2.Interop.Common;
 using BadScript2.IO;
@@ -29,21 +30,18 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     ///     The Startup Directory where all containing scripts will be loaded at every execution
     /// </summary>
     /// <exception cref="BadRuntimeException">Gets raised if the startup directory is not set</exception>
-    private static string StartupDirectory
+    private static string GetStartupDirectory(IFileSystem fs)
     {
-        get
-        {
-            string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Run.StartupDirectory");
+        string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Run.StartupDirectory");
+     
+                 if (s == null)
+                 {
+                     throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
+                 }
+     
+                 fs.CreateDirectory(s);
 
-            if (s == null)
-            {
-                throw new BadRuntimeException("Subsystems.Run.StartupDirectory not set");
-            }
-
-            BadFileSystem.Instance.CreateDirectory(s);
-
-            return s;
-        }
+                 return s;
     }
 
     /// <inheritdoc />
@@ -53,6 +51,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     private async Task RunParallel(BadRunSystemSettings settings)
     {
         BadNetworkConsoleHost? host = null;
+        var fs = new BadSystemFileSystem();
 
         using var runtime = RuntimeFactory();
         if (settings.RemotePort != -1)
@@ -64,7 +63,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         runtime.UseStartupArguments(settings.Args);
 
-        IEnumerable<string> files = BadFileSystem.Instance.GetFiles(StartupDirectory,
+        IEnumerable<string> files = fs.GetFiles(GetStartupDirectory(fs),
                 $".{BadRuntimeSettings.Instance.FileExtension}",
                 true
             )
@@ -77,7 +76,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
                 BadLogger.Warn("Benchmarking is not supported in interactive mode");
             }
 
-            await runtime.RunInteractiveAsync(files);
+            await runtime.RunInteractiveAsync(fs, files);
 
             return;
         }
@@ -91,12 +90,12 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
 
         if (settings.Debug)
         {
-            runtime.UseScriptDebugger();
+            runtime.UseScriptDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath, fs.ReadAllText(BadScriptDebuggerSettings.Instance.DebuggerPath));
         }
 
         foreach (string file in files)
         {
-            runtime.ExecuteFile(file);
+            runtime.ExecuteFile(file, fs);
         }
 
         if (settings.Benchmark)

@@ -33,17 +33,17 @@ public class BadSourcePosition
     }
 
 
-    /// <summary>
-    ///     Constructor for a Source Position
-    /// </summary>
-    /// <param name="fileName">The filename</param>
-    /// <param name="index">The Start Index</param>
-    /// <param name="length">The Length</param>
-    private BadSourcePosition(string fileName, int index, int length) : this(fileName,
-                                                                             BadFileSystem.ReadAllText(fileName),
-                                                                             index,
-                                                                             length
-                                                                            ) { }
+    // /// <summary>
+    // ///     Constructor for a Source Position
+    // /// </summary>
+    // /// <param name="fileName">The filename</param>
+    // /// <param name="index">The Start Index</param>
+    // /// <param name="length">The Length</param>
+    // private BadSourcePosition(string fileName, int index, int length) : this(fileName,
+    //                                                                          BadFileSystem.ReadAllText(fileName),
+    //                                                                          index,
+    //                                                                          length
+    //                                                                         ) { }
 
     /// <summary>
     ///     The Filename of the Source Code.
@@ -81,18 +81,6 @@ public class BadSourcePosition
     public static BadSourcePosition Create(string fileName, string source, int index, int length)
     {
         return new BadSourcePosition(fileName, source, index, length);
-    }
-
-    /// <summary>
-    ///     Creates a new Source Position
-    /// </summary>
-    /// <param name="fileName">The filename</param>
-    /// <param name="index">The Start Index</param>
-    /// <param name="length">The Length</param>
-    /// <returns>Created SourcePosition</returns>
-    public static BadSourcePosition FromFile(string fileName, int index, int length)
-    {
-        return new BadSourcePosition(fileName, index, length);
     }
 
     /// <summary>

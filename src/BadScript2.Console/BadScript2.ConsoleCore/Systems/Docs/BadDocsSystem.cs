@@ -31,37 +31,36 @@ public class BadDocsSystem : BadConsoleSystem<BadDocsSystemSettings>
     /// The Path to the Docs Directory
     /// </summary>
     /// <exception cref="BadRuntimeException">Gets thrown if the directory is not set</exception>
-    private static string DocsPath
+    private static string GetDocsPath(IFileSystem fs)
     {
-        get
+        string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Docs.RootDirectory");
+
+        if (s == null)
         {
-            string? s = BadSettingsProvider.RootSettings.FindProperty<string>("Subsystems.Docs.RootDirectory");
-
-            if (s == null)
-            {
-                throw new BadRuntimeException("Subsystems.Docs.RootDirectory not set");
-            }
-
-            BadFileSystem.Instance.CreateDirectory(s);
-
-            return s;
+            throw new BadRuntimeException("Subsystems.Docs.RootDirectory not set");
         }
+
+        fs.CreateDirectory(s);
+
+        return s;
     }
 
     /// <summary>
     /// The Template Path
     /// </summary>
-    private static string TemplatePath => Path.Combine(DocsPath, "docs.bhtml");
+    private static string GetTemplatePath(IFileSystem fs) => Path.Combine(GetDocsPath(fs), "docs.bhtml");
 
     /// <inheritdoc />
     protected override Task<int> Run(BadDocsSystemSettings settings)
     {
         BadRuntimeSettings.Instance.CatchRuntimeExceptions = false;
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
+        var fs = new BadSystemFileSystem();
         string outFile = Path.Combine(Path.GetTempPath(), Path.GetTempFileName() + ".html");
 
         using var runtime = RuntimeFactory();
-        string htmlString = BadHtmlTemplate.Create(TemplatePath)
+        var templatePath = GetTemplatePath(fs);
+        string htmlString = BadHtmlTemplate.Create(templatePath, fs.ReadAllText(templatePath))
                                            .Run(null,
                                                 new BadHtmlTemplateOptions
                                                 {

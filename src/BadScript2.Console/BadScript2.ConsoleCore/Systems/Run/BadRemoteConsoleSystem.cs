@@ -114,7 +114,7 @@ public class BadRemoteConsoleSystem : BadConsoleSystem<BadRemoteConsoleSystemSet
         /// <returns>The new Context</returns>
         private BadExecutionContext CreateContext()
         {
-            BadExecutionContext context = m_Runtime.CreateContext(BadFileSystem.Instance.GetCurrentDirectory());
+            BadExecutionContext context = m_Runtime.CreateContext(new BadSystemFileSystem().GetCurrentDirectory());
             BadExecutionContext ctx = new BadExecutionContext(context.Scope.CreateChild("ClientCommands", null, null));
             BadTable table = ctx.Scope.GetTable();
             table.SetFunction("disconnect", m_Client.Stop);

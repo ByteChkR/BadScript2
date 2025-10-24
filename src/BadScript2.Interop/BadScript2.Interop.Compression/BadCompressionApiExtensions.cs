@@ -13,13 +13,8 @@ public static class BadCompressionApiExtensions
     /// <param name="runtime">The Runtime</param>
     /// <param name="fileSystem">The File System to use</param>
     /// <returns>The Runtime</returns>
-    public static BadRuntime UseCompressionApi(this BadRuntime runtime, IFileSystem? fileSystem = null)
+    public static BadRuntime UseCompressionApi(this BadRuntime runtime, IFileSystem fileSystem)
     {
-        if (fileSystem != null)
-        {
-            return runtime.UseApi(new BadCompressionApi(fileSystem), true);
-        }
-
-        return runtime.UseApi(new BadCompressionApi(BadFileSystem.Instance), true);
+        return runtime.UseApi(new BadCompressionApi(fileSystem), true);
     }
 }

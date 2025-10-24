@@ -40,13 +40,14 @@ public static class BadSettingsProvider
 	///     Loads the specified settings file
 	/// </summary>
 	/// <param name="settingsFile">The path to the settings file</param>
+	/// <param name="fileSystem">The File System to use</param>
 	/// <returns>This Runtime</returns>
-	public static void LoadSettings(string settingsFile, IFileSystem? fileSystem = null)
+	public static void LoadSettings(string settingsFile, IFileSystem fileSystem)
 	{
 		BadLogger.Log("Loading Settings...", "Settings");
 
 		BadSettingsReader settingsReader = new BadSettingsReader(BadSettingsProvider.RootSettings,
-			fileSystem ?? BadFileSystem.Instance,
+			fileSystem,
 			settingsFile
 		);
 

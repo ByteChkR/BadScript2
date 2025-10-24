@@ -6,10 +6,12 @@ using BadHtml;
 using BadScript2.ConsoleAbstraction;
 using BadScript2.ConsoleAbstraction.Implementations.Remote;
 using BadScript2.Debugger;
+using BadScript2.Debugger.Scriptable;
 using BadScript2.Interop.Json;
 using BadScript2.IO;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Settings;
+using BadScript2.Settings;
 
 /// <summary>
 /// Contains the 'html' console command implementation
@@ -50,9 +52,10 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
         BadRuntimeSettings.Instance.WriteStackTraceInRuntimeErrors = true;
         using var runtime = RuntimeFactory();
 
+        var fs = new BadSystemFileSystem();
         if (settings.Debug)
         {
-            runtime.UseScriptDebugger();
+            runtime.UseScriptDebugger(BadScriptDebuggerSettings.Instance.DebuggerPath, fs.ReadAllText(BadScriptDebuggerSettings.Instance.DebuggerPath));
         }
 
         BadNetworkConsoleHost? host = null;
@@ -80,7 +83,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
         {
             string outFile = Path.ChangeExtension(file, "html");
 
-            string htmlString = BadHtmlTemplate.Create(file)
+            string htmlString = BadHtmlTemplate.Create(file, fs.ReadAllText(file))
                                                .Run(model, opts);
 
             int originalSize = htmlString.Length;
@@ -107,7 +110,7 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
                 BadConsole.WriteLine($"Generated output {htmlString.Length} characters");
             }
 
-            BadFileSystem.WriteAllText(outFile, htmlString);
+            fs.WriteAllText(outFile, htmlString);
         }
 
         host?.Stop();

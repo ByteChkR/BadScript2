@@ -16,7 +16,7 @@ internal partial class BadCompressionApi
     /// <summary>
     ///     The FileSystem Instance
     /// </summary>
-    private readonly IFileSystem? m_FileSystem;
+    private readonly IFileSystem m_FileSystem;
 
 
     /// <summary>
@@ -42,7 +42,7 @@ internal partial class BadCompressionApi
         target.SetProperty("Deflate", deflate);
         target.SetProperty("ZLib", zlib);
         target.SetProperty("Base64", base64);
-        new BadZipApi(m_FileSystem ?? BadFileSystem.Instance).LoadRawApi(zip);
+        new BadZipApi(m_FileSystem).LoadRawApi(zip);
         new BadGZipApi().LoadRawApi(gzip);
         new BadDeflateApi().LoadRawApi(deflate);
         new BadZLibApi().LoadRawApi(zlib);

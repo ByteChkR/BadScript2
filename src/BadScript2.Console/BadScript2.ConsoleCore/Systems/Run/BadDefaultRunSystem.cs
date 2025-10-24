@@ -21,18 +21,19 @@ public class BadDefaultRunSystem : BadRunSystem
     public override object Parse(string[] args)
     {
         BadRunSystemSettings settings = new BadRunSystemSettings { Args = args.Skip(1) };
+        var fs = new BadSystemFileSystem();
         string file = args.First();
         settings.Files = new[] { file };
         settings.Parallelization = 2;
 
-        if (BadFileSystem.Instance.IsFile(file))
+        if (fs.IsFile(file))
         {
             return settings;
         }
 
-        string path = Path.Combine(BadConsoleDirectories.DataDirectory, "subsystems", "run", "apps", file + ".bs");
+        string path = Path.Combine(BadConsoleDirectories.GetDataDirectory(fs), "subsystems", "run", "apps", file + ".bs");
 
-        if (BadFileSystem.Instance.IsFile(path))
+        if (fs.IsFile(path))
         {
             settings.Files = new[] { path };
         }

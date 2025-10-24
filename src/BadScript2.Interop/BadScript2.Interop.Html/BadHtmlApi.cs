@@ -34,7 +34,7 @@ internal partial class BadHtmlApi
                        [BadParameter(description: "If True, empty text nodes are omitted from the output html")]
                        bool skipEmptyTextNodes = false)
     {
-        BadHtmlTemplate template = BadHtmlTemplate.Create(file);
+        BadHtmlTemplate template = BadHtmlTemplate.Create(context.GetFullPath(file, null), context.ReadAllText(file, null));
 
         BadHtmlTemplateOptions options = new BadHtmlTemplateOptions{Runtime = context.Scope.GetSingleton<BadRuntime>()};
         options.SkipEmptyTextNodes = skipEmptyTextNodes;

@@ -15,25 +15,21 @@ namespace BadHtml;
 /// </summary>
 public class BadHtmlTemplate
 {
-	/// <summary>
-	///     The Filesystem used to load the template
-	/// </summary>
-	private readonly IFileSystem m_FileSystem;
 
 	/// <summary>
 	///     The Source code of the Template(gets loaded on first template run)
 	/// </summary>
-	private string? m_Source;
+	private readonly string m_Source;
 
 	/// <summary>
 	///     Constructs a new Template
 	/// </summary>
 	/// <param name="filePath">File path of the template</param>
 	/// <param name="fileSystem">The Filesystem that is used to Load the Template</param>
-	private BadHtmlTemplate(string filePath, IFileSystem fileSystem)
+	private BadHtmlTemplate(string filePath, string source)
     {
         FilePath = filePath;
-        m_FileSystem = fileSystem;
+        m_Source = source;
     }
 
 
@@ -41,28 +37,6 @@ public class BadHtmlTemplate
 	///     The Filepath of the Template
 	/// </summary>
 	public string FilePath { get; }
-
-	/// <summary>
-	///     Returns the source code of the template. Loads the source code if it is not loaded yet.
-	/// </summary>
-	/// <returns>Template Source</returns>
-	private string GetSource()
-    {
-        if (m_Source == null)
-        {
-            Reload();
-        }
-
-        return m_Source!;
-    }
-
-	/// <summary>
-	///     Reloads the Template Source
-	/// </summary>
-	public void Reload()
-    {
-        m_Source = m_FileSystem.ReadAllText(FilePath);
-    }
 
 	/// <summary>
 	///     Runs the Template with the specified arguments
@@ -76,12 +50,11 @@ public class BadHtmlTemplate
 	                                BadScope? caller = null)
     {
         options ??= new BadHtmlTemplateOptions();
-        string src = GetSource();
 
         // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument input = new HtmlDocument();
         input.OptionUseIdAttribute = true;
-        input.LoadHtml(src);
+        input.LoadHtml(m_Source);
 
         // ReSharper disable once UseObjectOrCollectionInitializer
         HtmlDocument output = new HtmlDocument();
@@ -89,10 +62,10 @@ public class BadHtmlTemplate
         output.LoadHtml("");
 
         BadExecutionContext executionContext =
-            (options.Runtime ?? new BadRuntime()).CreateContext(Path.GetDirectoryName(m_FileSystem.GetFullPath(FilePath)
-                                                                    ) ??
-                                                                "/"
-                                                               );
+	        (options.Runtime ?? new BadRuntime()).CreateContext(Path.GetDirectoryName(FilePath
+	                                                            ) ??
+	                                                            "/"
+	        );
         executionContext.Scope.SetCaller(caller);
 
         if (model != null)
@@ -109,7 +82,7 @@ public class BadHtmlTemplate
         foreach (HtmlNode node in input.DocumentNode.ChildNodes)
         {
             BadHtmlContext ctx =
-                new BadHtmlContext(node, output.DocumentNode, executionContext, FilePath, src, options, m_FileSystem);
+                new BadHtmlContext(node, output.DocumentNode, executionContext, FilePath, m_Source, options);
             BadHtmlNodeTransformer.Transform(ctx);
         }
 
@@ -133,10 +106,10 @@ public class BadHtmlTemplate
 	///     Creates a new Template
 	/// </summary>
 	/// <param name="file">Template File Path</param>
-	/// <param name="fileSystem">The Filesystem that the Template is loaded from</param>
+	/// <param name="source">The Source that the Template is loaded from</param>
 	/// <returns>A Html Template Instance</returns>
-	public static BadHtmlTemplate Create(string file, IFileSystem? fileSystem = null)
+	public static BadHtmlTemplate Create(string file, string source)
     {
-        return new BadHtmlTemplate(file, fileSystem ?? BadFileSystem.Instance);
+        return new BadHtmlTemplate(file, source);
     }
 }

@@ -49,11 +49,11 @@ internal static class BadProgram
         consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
         
         BadSettingsProvider.RootSettings.SetProperty("DataDirectory",
-	        new BadSettings(BadConsoleDirectories.DataDirectory, string.Empty)
+	        new BadSettings(BadConsoleDirectories.GetDataDirectory(fileSystem), string.Empty)
         );
         BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
 
-        BadSettingsProvider.LoadSettings(Path.Combine(fileSystem.GetStartupDirectory(), SETTINGS_FILE));
+        BadSettingsProvider.LoadSettings(Path.Combine(fileSystem.GetStartupDirectory(), SETTINGS_FILE), fileSystem);
     }
 
 
@@ -85,7 +85,6 @@ internal static class BadProgram
         }
 
         var fs = new BadSystemFileSystem();
-        BadFileSystem.SetFileSystem(fs);
         LoadConsoleSettings(fs);
 
         Func<BadRuntime> factory = () =>

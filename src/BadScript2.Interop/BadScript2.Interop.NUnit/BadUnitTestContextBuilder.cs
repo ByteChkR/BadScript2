@@ -34,11 +34,13 @@ public class BadUnitTestContextBuilder
     /// </summary>
     private readonly List<BadFunction> m_Teardown = new List<BadFunction>();
 
+    private readonly IFileSystem m_FileSystem;
     /// <summary>
     ///     Constructs a new BadUnitTestContextBuilder
     /// </summary>
-    public BadUnitTestContextBuilder(BadRuntime runtime)
+    public BadUnitTestContextBuilder(BadRuntime runtime, IFileSystem mFileSystem)
     {
+        m_FileSystem = mFileSystem;
         BadNUnitConsoleApi api = new BadNUnitConsoleApi();
         api.SetContext(this);
 
@@ -129,7 +131,7 @@ public class BadUnitTestContextBuilder
     private void SetupStage(string file, bool optimizeFolding = false, bool optimizeSubstitution = false)
     {
         //Load expressions
-        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, BadFileSystem.ReadAllText(file))
+        IEnumerable<BadExpression> expressions = BadSourceParser.Create(file, m_FileSystem.ReadAllText(file))
                                                                 .Parse();
 
         if (optimizeFolding)
@@ -142,6 +144,6 @@ public class BadUnitTestContextBuilder
             expressions = BadConstantSubstitutionOptimizer.Optimize(expressions);
         }
 
-        m_Runtime.Execute(expressions, Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ?? "/");
+        m_Runtime.Execute(expressions, Path.GetDirectoryName(m_FileSystem.GetFullPath(file)) ?? "/");
     }
 }

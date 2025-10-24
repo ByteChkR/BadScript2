@@ -68,8 +68,7 @@ public class BadHtmlContext
 	                      BadExecutionContext executionContext,
 	                      string filePath,
 	                      string source,
-	                      BadHtmlTemplateOptions options,
-	                      IFileSystem fileSystem)
+	                      BadHtmlTemplateOptions options)
     {
         InputNode = inputNode;
         OutputNode = outputNode;
@@ -77,13 +76,7 @@ public class BadHtmlContext
         FilePath = filePath;
         Source = source;
         Options = options;
-        FileSystem = fileSystem;
     }
-
-	/// <summary>
-	///     The Filesystem of the Current Template Context
-	/// </summary>
-	public IFileSystem FileSystem { get; }
 
 	/// <summary>
 	///     The Input Document
@@ -114,8 +107,7 @@ public class BadHtmlContext
                                   executionContext ?? ExecutionContext,
                                   FilePath,
                                   Source,
-                                  Options,
-                                  FileSystem
+                                  Options
                                  );
     }
 

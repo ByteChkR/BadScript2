@@ -82,17 +82,19 @@ public class BadUnitTests
                 return s_Context;
             }
 
+            var fs = new BadSystemFileSystem();
+
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -118,17 +120,18 @@ public class BadUnitTests
                 return s_OptimizedFoldingContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -154,17 +157,18 @@ public class BadUnitTests
                 return s_OptimizedSubstitutionContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -190,17 +194,18 @@ public class BadUnitTests
                 return s_OptimizedContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -226,17 +231,18 @@ public class BadUnitTests
                 return s_CompiledContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -262,17 +268,18 @@ public class BadUnitTests
                 return s_CompiledOptimizedFoldingContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -299,17 +306,18 @@ public class BadUnitTests
                 return s_CompiledOptimizedSubstitutionContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )
@@ -336,17 +344,18 @@ public class BadUnitTests
                 return s_CompiledOptimizedContext;
             }
 
+            var fs = new BadSystemFileSystem();
             BadRuntime runtime = new BadRuntime()
                                  .UseCommonInterop()
-                                 .UseFileSystemApi()
+                                 .UseFileSystemApi(fs)
                                  .UseLinqApi()
                                  .UseJsonApi();
 
-            BadFileSystem.Instance.CreateDirectory(ScriptTestDirectory);
-            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime);
+            fs.CreateDirectory(ScriptTestDirectory);
+            BadUnitTestContextBuilder builder = new BadUnitTestContextBuilder(runtime, fs);
             runtime.UseNUnitConsole(builder);
 
-            string[] files = BadFileSystem.Instance.GetFiles(ScriptTestDirectory,
+            string[] files = fs.GetFiles(ScriptTestDirectory,
                                                              $".{BadRuntimeSettings.Instance.FileExtension}",
                                                              true
                                                             )

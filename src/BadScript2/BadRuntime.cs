@@ -1,5 +1,5 @@
 using System.Globalization;
-
+using BadScript2.Common;
 using BadScript2.Common.Logging;
 using BadScript2.Common.Logging.Writer;
 using BadScript2.ConsoleAbstraction;
@@ -15,6 +15,8 @@ using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Module;
 using BadScript2.Runtime.Module.Handlers;
 using BadScript2.Runtime.Objects;
+using BadScript2.Runtime.Objects.Functions;
+using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Settings;
 using BadScript2.Runtime.VirtualMachine.Compiler;
@@ -25,7 +27,40 @@ using BadScript2.Settings;
 /// </summary>
 namespace BadScript2;
 
+public static class BadHelperExtensions
+{
+    /// <summary>
+    /// Tries to get the full path of the specified path using the IO Api from the Context
+    /// </summary>
+    public static string GetFullPath(this BadExecutionContext ctx, string path, BadSourcePosition? pos)
+    {
+        var fullPath = (BadFunction)ctx.Scope.GetVariable("IO")
+            .Dereference(pos)
+            .GetProperty("Path")
+            .Dereference(pos)
+            .GetProperty("GetFullPath")
+            .Dereference(pos);
+        var fpr = fullPath.Invoke([new BadString(path)], ctx).Last();
+        if (fpr is not IBadString fpstr) 
+            throw BadRuntimeException.Create(ctx.Scope, "'IO.File.GetFullPath' did not return a string", pos);
+        return fpstr.Value;
+    }
 
+    public static string ReadAllText(this BadExecutionContext ctx, string path, BadSourcePosition? pos)
+    {
+        var func = (BadFunction)ctx.Scope
+            .GetVariable("IO")
+            .Dereference(pos)
+            .GetProperty("File")
+            .Dereference(pos)
+            .GetProperty("ReadAllText")
+            .Dereference(pos);
+        var r = func.Invoke([path], ctx).Last();
+        if(r is not IBadString s) 
+            throw BadRuntimeException.Create(ctx.Scope, "'IO.File.ReadAllText' did not return a string", pos);
+        return s.Value;
+    }
+}
 /// <summary>
 ///     Exposes the BadScript Runtime Functionality to Consumers
 /// </summary>
@@ -196,11 +231,12 @@ public class BadRuntime : IDisposable
     /// <summary>
     ///     Configures the Runtime to use the file log writer implementation
     /// </summary>
+    /// <param name="fs">The File System to use</param>
     /// <param name="path">The path to the log file</param>
     /// <returns>This Runtime</returns>
-    public BadRuntime UseFileLogWriter(string path)
+    public BadRuntime UseFileLogWriter(IFileSystem fs, string path)
     {
-        return UseLogWriter(new BadFileLogWriter(path));
+        return UseLogWriter(new BadFileLogWriter(fs, path));
     }
 
     /// <summary>
@@ -298,17 +334,6 @@ public class BadRuntime : IDisposable
         return new BadRuntimeExecutionResult(result, exports);
     }
 
-
-    /// <summary>
-    ///     Executes the specified script
-    /// </summary>
-    /// <param name="source">The Script Source to execute</param>
-    /// <returns>The Result of the Execution</returns>
-    public BadRuntimeExecutionResult Execute(string source)
-    {
-        return Execute(Parse(source), BadFileSystem.Instance.GetCurrentDirectory());
-    }
-
     /// <summary>
     ///     Executes the specified script
     /// </summary>
@@ -318,8 +343,8 @@ public class BadRuntime : IDisposable
     public BadRuntimeExecutionResult Execute(string source, string file)
     {
         return Execute(Parse(source, file),
-                       Path.GetDirectoryName(BadFileSystem.Instance.GetFullPath(file)) ??
-                       BadFileSystem.Instance.GetCurrentDirectory()
+                       Path.GetDirectoryName(file) ??
+                       "./"
                       );
     }
 
@@ -329,12 +354,11 @@ public class BadRuntime : IDisposable
     /// <param name="file">The File Path of the Script</param>
     /// <param name="fileSystem">The (optional) Filesystem Instance to use</param>
     /// <returns>The Result of the Execution</returns>
-    public BadRuntimeExecutionResult ExecuteFile(string file, IFileSystem? fileSystem = null)
+    public BadRuntimeExecutionResult ExecuteFile(string file, IFileSystem fileSystem)
     {
-        IFileSystem? fs = fileSystem ?? BadFileSystem.Instance;
 
-        return Execute(ParseFile(file, fs),
-                       fs.GetFullPath(Path.GetDirectoryName(fs.GetFullPath(file)) ?? fs.GetCurrentDirectory())
+        return Execute(ParseFile(file, fileSystem),
+            fileSystem.GetFullPath(Path.GetDirectoryName(fileSystem.GetFullPath(file)) ?? fileSystem.GetCurrentDirectory())
                       );
     }
 
@@ -379,9 +403,9 @@ public class BadRuntime : IDisposable
     /// <param name="file">The File Path of the Script</param>
     /// <param name="fileSystem">The (optional) Filesystem Instance to use</param>
     /// <returns>The Parsed Expressions</returns>
-    public static IEnumerable<BadExpression> ParseFile(string file, IFileSystem? fileSystem = null)
+    public static IEnumerable<BadExpression> ParseFile(string file, IFileSystem fileSystem)
     {
-        IFileSystem? fs = fileSystem ?? BadFileSystem.Instance;
+        IFileSystem? fs = fileSystem;
 
         return Parse(fs.ReadAllText(file), file);
     }
@@ -391,10 +415,10 @@ public class BadRuntime : IDisposable
     ///     Registers the Local Path Handler to the Module Importer
     /// </summary>
     /// <returns>This Runtime</returns>
-    public BadRuntime UseLocalModules(IFileSystem? fs = null)
+    public BadRuntime UseLocalModules(IFileSystem fs)
     {
         return UseImportHandler((workingDir, _) =>
-                                    new BadLocalPathImportHandler(this, workingDir, fs ?? BadFileSystem.Instance)
+                                    new BadLocalPathImportHandler(this, workingDir, fs)
                                );
     }
 

@@ -5,40 +5,10 @@
 namespace BadScript2.IO;
 
 /// <summary>
-///     Public interface for the filesystem abstraction of the BadScript Engine
+///     Extensions for the filesystem abstraction of the BadScript Engine
 /// </summary>
-public static class BadFileSystem
+public static class BadFileSystemExtensions
 {
-    /// <summary>
-    ///     File System implementation
-    /// </summary>
-    private static IFileSystem? s_FileSystem;
-
-    /// <summary>
-    ///     File System implementation
-    /// </summary>
-    /// <exception cref="InvalidOperationException">Gets thrown if the FileSystem is not set</exception>
-    public static IFileSystem Instance =>
-        s_FileSystem ?? throw new InvalidOperationException("FileSystem is not initialized");
-
-    /// <summary>
-    ///     Sets the FileSystem implementation
-    /// </summary>
-    /// <param name="fileSystem">The FileSystem implementation</param>
-    public static void SetFileSystem(IFileSystem fileSystem)
-    {
-        s_FileSystem = fileSystem;
-    }
-
-    /// <summary>
-    ///     Wrapper for <see cref="IFileSystem.OpenWrite" /> that creates the file if it does not exist
-    /// </summary>
-    /// <param name="path">Path of the file</param>
-    /// <param name="contents">Contents to be written</param>
-    public static void WriteAllText(string path, string contents)
-    {
-        Instance.WriteAllText(path, contents);
-    }
 
     /// <summary>
     /// Writes all text to a file
@@ -68,16 +38,6 @@ public static class BadFileSystem
     }
 
     /// <summary>
-    ///     Wrapper for <see cref="IFileSystem.OpenRead" />
-    /// </summary>
-    /// <param name="path">Path of the file</param>
-    public static string ReadAllText(string path)
-    {
-        return Instance.ReadAllText(path);
-    }
-
-
-    /// <summary>
     /// Reads all lines from a file
     /// </summary>
     /// <param name="fileSystem">The FileSystem implementation</param>
@@ -93,16 +53,7 @@ public static class BadFileSystem
             yield return sw.ReadLine() ?? "";
         }
     }
-
-    /// <summary>
-    ///     Wrapper for <see cref="IFileSystem.OpenRead" />
-    /// </summary>
-    /// <param name="path">Path of the file</param>
-    public static IEnumerable<string> ReadAllLines(string path)
-    {
-        return Instance.ReadAllLines(path);
-    }
-
+    
     /// <summary>
     /// Writes all lines to a file
     /// </summary>
@@ -118,15 +69,5 @@ public static class BadFileSystem
         {
             sw.WriteLine(line);
         }
-    }
-
-    /// <summary>
-    ///     Wrapper for <see cref="IFileSystem.OpenWrite" /> that creates the file if it does not exist
-    /// </summary>
-    /// <param name="path">Path of the file</param>
-    /// <param name="lines">lines to be written</param>
-    public static void WriteAllLines(string path, IEnumerable<string> lines)
-    {
-        Instance.WriteAllLines(path, lines);
     }
 }
