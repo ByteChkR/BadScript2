@@ -241,8 +241,6 @@ public class BadRuntime : IDisposable
     public BadRuntime UseCompilerApi()
     {
         return ConfigureContextOptions(o => o.AddApi(new BadCompilerApi()));
-
-        return this;
     }
 
     /// <summary>
