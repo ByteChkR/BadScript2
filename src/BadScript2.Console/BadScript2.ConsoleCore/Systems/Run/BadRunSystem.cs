@@ -54,7 +54,7 @@ public class BadRunSystem : BadConsoleSystem<BadRunSystemSettings>
     {
         BadNetworkConsoleHost? host = null;
 
-        using var runtime = RuntimeFactory().Clone();
+        using var runtime = RuntimeFactory();
         if (settings.RemotePort != -1)
         {
             host = new BadNetworkConsoleHost(new TcpListener(IPAddress.Any, settings.RemotePort));

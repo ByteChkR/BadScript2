@@ -12,7 +12,7 @@ public static class BadFileSystem
     /// <summary>
     ///     File System implementation
     /// </summary>
-    private static IFileSystem? s_FileSystem = new BadSystemFileSystem();
+    private static IFileSystem? s_FileSystem;
 
     /// <summary>
     ///     File System implementation

@@ -78,12 +78,11 @@ public static class BadCommonInterop
         {
             BadNativeClassBuilder.AddNative(BadTask.Prototype);
 
-            runner ??= new BadTaskRunner();
+            var taskRunner = runner ?? new BadTaskRunner();
             runtime
-                .ConfigureContext(c => c.Scope.AddSingleton(runner))
+                .ConfigureContext(c => c.Scope.AddSingleton(taskRunner))
                 .UseApi(new BadTaskRunnerApi(), true)
-                .UseExecutor(ExecuteTask)
-                .UseSingleton(runner);
+                .UseExecutor(ExecuteTask);
         }
 
         BadNativeClassBuilder.AddNative(BadRegex.Prototype);

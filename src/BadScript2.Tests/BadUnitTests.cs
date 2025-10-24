@@ -76,6 +76,12 @@ public class BadUnitTests
     /// </summary>
     private static string HtmlTestDirectory => Path.Combine(TestDirectory, "html");
 
+    static BadUnitTests()
+    {
+        BadSettingsProvider.SetRootSettings(new BadSettings(string.Empty));
+        var fs = new BadSystemFileSystem();
+        BadFileSystem.SetFileSystem(fs);
+    }
     /// <summary>
     ///     The Test Context
     /// </summary>
@@ -651,7 +657,7 @@ public class BadUnitTests
     [TestCaseSource(nameof(GetCompiledOptimizedSubstitutionTestCases))]
     public void TestCompiledOptimizedSubstitution(BadNUnitTestCase testCase)
     {
-        CompiledOptimizedFoldingContext.Run(testCase);
+        CompiledOptimizedSubstitutionContext.Run(testCase);
     }
 
     /// <summary>

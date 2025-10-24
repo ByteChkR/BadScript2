@@ -169,12 +169,12 @@ public class BadExecutionContextOptions
         return ctx;
     }
 
-    /// <summary>
-    ///     Clones this <see cref="BadExecutionContextOptions" /> instance.
-    /// </summary>
-    /// <returns>The cloned instance.</returns>
-    public BadExecutionContextOptions Clone()
-    {
-        return new BadExecutionContextOptions(m_Apis.ToArray(), m_Extensions.ToArray());
-    }
+    // /// <summary>
+    // ///     Clones this <see cref="BadExecutionContextOptions" /> instance.
+    // /// </summary>
+    // /// <returns>The cloned instance.</returns>
+    // public BadExecutionContextOptions Clone()
+    // {
+    //     return new BadExecutionContextOptions(m_Apis.ToArray(), m_Extensions.ToArray());
+    // }
 }

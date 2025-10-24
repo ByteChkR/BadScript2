@@ -27,6 +27,10 @@ public class BadTaskRunner
         BadCompiler.Instance.AddCompiler<BadAwaitExpressionCompiler, BadAwaitExpression>();
     }
 
+	public BadTaskRunner()
+	{
+		
+	}
 
 	/// <summary>
 	///     the Current task

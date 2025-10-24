@@ -50,29 +50,17 @@ public class BadRuntime : IDisposable
     /// </summary>
     private readonly List<IDisposable> m_Disposables = new List<IDisposable>();
 
-    /// <summary>
-    ///     The Options for the Context
-    /// </summary>
-    private readonly BadExecutionContextOptions m_Options;
 
     /// <summary>
     ///     The Executor Function used to Execute a list of Expressions
     /// </summary>
     private Func<BadExecutionContext, IEnumerable<BadExpression>, BadObject> m_Executor = Executor;
 
-    /// <summary>
-    ///     Creates a new BadScript Runtime with the specified options
-    /// </summary>
-    /// <param name="options">The Options to use</param>
-    public BadRuntime(BadExecutionContextOptions options)
-    {
-        m_Options = options;
-    }
 
     /// <summary>
     ///     Creates a new BadScript Runtime with the default options
     /// </summary>
-    public BadRuntime() : this(new BadExecutionContextOptions()) { }
+    public BadRuntime(){ }
 
     /// <summary>
     /// The Culture to use
@@ -106,22 +94,22 @@ public class BadRuntime : IDisposable
 
 #endregion
 
-    /// <summary>
-    ///     Clone this Runtime
-    /// </summary>
-    /// <returns>Cloned Runtime</returns>
-    public BadRuntime Clone()
-    {
-        BadRuntime r = new BadRuntime(m_Options.Clone())
-            .UseExecutor(m_Executor);
-
-        //Copy the configurators
-        r.m_ConfigureOptions.AddRange(m_ConfigureOptions);
-        r.m_ConfigureModuleImporter.AddRange(m_ConfigureModuleImporter);
-        r.m_ConfigureContext.AddRange(m_ConfigureContext);
-
-        return r;
-    }
+    // /// <summary>
+    // ///     Clone this Runtime
+    // /// </summary>
+    // /// <returns>Cloned Runtime</returns>
+    // public BadRuntime Clone()
+    // {
+    //     BadRuntime r = new BadRuntime(m_Options.Clone())
+    //         .UseExecutor(m_Executor);
+    //
+    //     //Copy the configurators
+    //     r.m_ConfigureOptions.AddRange(m_ConfigureOptions);
+    //     r.m_ConfigureModuleImporter.AddRange(m_ConfigureModuleImporter);
+    //     r.m_ConfigureContext.AddRange(m_ConfigureContext);
+    //
+    //     return r;
+    // }
 
     /// <summary>
     ///     Configures the Runtime to use the specified Executor
@@ -221,7 +209,7 @@ public class BadRuntime : IDisposable
     /// <returns>This Runtime</returns>
     public BadRuntime UseCompilerApi()
     {
-        m_Options.AddApi(new BadCompilerApi());
+        return ConfigureContextOptions(o => o.AddApi(new BadCompilerApi()));
 
         return this;
     }
@@ -249,7 +237,7 @@ public class BadRuntime : IDisposable
     /// <returns>The Options for the Context</returns>
     private BadExecutionContextOptions CreateOptions()
     {
-        BadExecutionContextOptions opts = m_Options.Clone();
+        BadExecutionContextOptions opts = new BadExecutionContextOptions();
 
         foreach (Action<BadExecutionContextOptions> config in m_ConfigureOptions)
         {

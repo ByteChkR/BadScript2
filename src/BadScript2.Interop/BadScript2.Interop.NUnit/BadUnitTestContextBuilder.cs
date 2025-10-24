@@ -42,8 +42,7 @@ public class BadUnitTestContextBuilder
         BadNUnitConsoleApi api = new BadNUnitConsoleApi();
         api.SetContext(this);
 
-        m_Runtime = runtime.Clone()
-                           .UseApi(new BadNUnitApi())
+        m_Runtime = runtime
                            .UseApi(api);
     }
 

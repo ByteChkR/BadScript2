@@ -17,7 +17,6 @@ namespace BadScript2.Container
         {
             var fs = stack.Create();
             var rt = runtime
-                .Clone()
                 .ConfigureModuleImporter(i => i.Clear())
                 .UseLocalModules(fs)
                 .UseFileSystemApi(fs);

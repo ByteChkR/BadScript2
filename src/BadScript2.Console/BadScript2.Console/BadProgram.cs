@@ -84,11 +84,12 @@ internal static class BadProgram
             }
         }
 
-        LoadConsoleSettings(new BadSystemFileSystem());
+        var fs = new BadSystemFileSystem();
+        BadFileSystem.SetFileSystem(fs);
+        LoadConsoleSettings(fs);
 
         Func<BadRuntime> factory = () =>
         {
-	        var fs = new BadSystemFileSystem();
 	        return new BadRuntime()
 		        .UseLogMask(mask)
 		        .UseConsoleLogWriter()

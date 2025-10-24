@@ -1,4 +1,6 @@
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop;
+using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 
 namespace BadScript2.Interop.NUnit;
@@ -14,6 +16,12 @@ internal partial class BadNUnitConsoleApi
     /// </summary>
     private BadUnitTestContextBuilder? m_Console;
 
+    protected override void AdditionalData(BadTable target)
+    {
+        BadTable assert = new BadTable();
+        new BadNUnitAssertApi().LoadRawApi(assert);
+        target.SetProperty("Assert", assert, new BadPropertyInfo(BadTable.Prototype, true));
+    }
     /// <summary>
     /// The Console Context
     /// </summary>
