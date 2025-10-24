@@ -1,6 +1,6 @@
 using BadScript2.ConsoleAbstraction;
 using BadScript2.Interop.NUnit;
-
+using BadScript2.Runtime.Settings;
 using NUnitLite;
 
 /// <summary>
@@ -27,6 +27,9 @@ public class BadTestSystem : BadConsoleSystem<BadTestSystemSettings>
     {
         try
         {
+            
+            BadNativeOptimizationSettings.Instance.UseDefaultCompilation = false;
+            BadNativeOptimizationSettings.Instance.UseLambdaDefaultCompilation = false;
             new AutoRun(typeof(BadUnitTests).Assembly).Execute(Array.Empty<string>());
 
             return Task.FromResult(0);

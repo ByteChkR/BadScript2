@@ -3,9 +3,11 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Optimizations.Substitution;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
+using BadScript2.Parser.Expressions.Function;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
+using BadScript2.Runtime.Settings;
 
 namespace BadScript2.Interop.NUnit;
 

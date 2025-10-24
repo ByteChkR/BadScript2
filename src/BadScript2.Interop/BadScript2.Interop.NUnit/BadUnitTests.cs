@@ -607,7 +607,7 @@ public class BadUnitTests
     [TestCaseSource(nameof(GetCompiledOptimizedSubstitutionTestCases))]
     public void TestCompiledOptimizedSubstitution(BadNUnitTestCase testCase)
     {
-        CompiledOptimizedFoldingContext.Run(testCase);
+        CompiledOptimizedSubstitutionContext.Run(testCase);
     }
 
     /// <summary>
