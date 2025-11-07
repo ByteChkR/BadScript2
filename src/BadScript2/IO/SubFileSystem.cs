@@ -5,12 +5,12 @@ public class SubFileSystem : IFileSystem
     //This class wraps another filesystem and adds a subpath to all operations. Ensuring that the user only accesses files within that subpath.
     private readonly IFileSystem _inner;
     private readonly string _subPath;
-
+    private string _currentDirectory;
     public SubFileSystem(IFileSystem inner, string subPath)
     {
         _inner = inner;
         _subPath = subPath;
-        _inner.SetCurrentDirectory(_subPath);
+        _currentDirectory = subPath;
     }
 
     public string GetStartupDirectory()
@@ -78,6 +78,15 @@ public class SubFileSystem : IFileSystem
     public string GetFullPath(string path)
     {
         //Ensure that the path is within the subpath by removing any leading slashes and combining it with the subpath
+        if (path.StartsWith('/') || path.StartsWith('\\'))
+        {
+            //Make relative
+            path = Path.Combine(_currentDirectory, path.Substring(1)).Replace('\\', '/');
+        }
+        else
+        {
+            path = Path.Combine(_currentDirectory, path).Replace('\\', '/');
+        }
         var fp = _inner.GetFullPath(path);
         if(!fp.StartsWith(_subPath))
         {
@@ -104,19 +113,15 @@ public class SubFileSystem : IFileSystem
 
     public string GetCurrentDirectory()
     {
-        var dir= _inner.GetCurrentDirectory();
-        if(!dir.StartsWith(_subPath))
-        {
-            throw new Exception("Accessing files outside of the subpath is not allowed");
-        }
-        return dir.Remove(0, _subPath.Length).Replace("\\", "/");
+        var p = _currentDirectory.Substring(_subPath.Length);
+        return p;
     }
 
     public void SetCurrentDirectory(string path)
     {
-        var p = GetFullPath(path);
-        var fp = Path.Combine(_subPath, p.TrimStart('/', '\\')).Replace('\\', '/');
-        _inner.SetCurrentDirectory(fp);
+        var current = Path.Combine(_currentDirectory, path).Replace('\\', '/');
+        var p = GetFullPath(current);
+        _currentDirectory = p;
     }
 
     public void Copy(string src, string dst, bool overwrite = true)
