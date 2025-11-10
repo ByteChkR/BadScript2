@@ -11,7 +11,7 @@ namespace BadScript2.IO.OpenKM;
 /// <summary>
 ///     Implements a FileSystem for OpenKM
 /// </summary>
-public class BadOpenKmFileSystem : IFileSystem
+public class BadOpenKmFileSystem : IVirtualFileSystem
 {
     /// <summary>
     ///     The OpenKM Webservice

@@ -1,6 +1,6 @@
 namespace BadScript2.IO;
 
-public class SubFileSystem : IFileSystem
+public class SubFileSystem : IVirtualFileSystem
 {
     //This class wraps another filesystem and adds a subpath to all operations. Ensuring that the user only accesses files within that subpath.
     private readonly IFileSystem _inner;
@@ -44,14 +44,24 @@ public class SubFileSystem : IFileSystem
     {
         var p = GetFullPath(path);
         var fp = Path.Combine(_subPath, p.TrimStart('/', '\\')).Replace('\\', '/');
-        return _inner.GetFiles(fp, extension, recursive);
+        return _inner.GetFiles(fp, extension, recursive).Select(f =>
+        {
+            //Remove subpath from the result
+            var relativePath = f.Remove(0, _subPath.Length).Replace("\\", "/");
+            return relativePath;
+        });
     }
 
     public IEnumerable<string> GetDirectories(string path, bool recursive)
     {
         var p = GetFullPath(path);
         var fp = Path.Combine(_subPath, p.TrimStart('/', '\\')).Replace('\\', '/');
-        return _inner.GetDirectories(fp, recursive);
+        return _inner.GetDirectories(fp, recursive).Select(d =>
+        {
+            //Remove subpath from the result
+            var relativePath = d.Remove(0, _subPath.Length).Replace("\\", "/");
+            return relativePath;
+        });
     }
 
     public void CreateDirectory(string path, bool recursive = false)
