@@ -57,6 +57,14 @@ public class BadStringExtension : BadInteropExtension
     /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
+        provider.RegisterObject<BadNativeClassPrototype<BadString>>("Join",
+            _ => new BadDynamicInteropFunction<string, BadArray>("Join",
+                (context, s, array) => string.Join(s, array.InnerArray),
+                BadNativeClassBuilder.GetNative("string"),
+                new BadFunctionParameter("s", false, true, false, null, BadNativeClassBuilder.GetNative("string")),
+                new BadFunctionParameter("array", false, true, false, null, BadNativeClassBuilder.GetNative("Array"))
+            )
+        );
         provider.RegisterObject<string>("ToLower",
                                         o => new BadDynamicInteropFunction("ToLower",
                                                                            _ => o.ToLower(),
