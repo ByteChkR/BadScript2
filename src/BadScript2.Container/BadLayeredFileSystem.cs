@@ -86,10 +86,13 @@ namespace BadScript2.Container
         /// <summary>
         /// Optimizes the file system by removing files that are present in the writable layer and have the same content as files in the read-only layers.
         /// </summary>
-        public void Optimize()
+        /// <param name="onlyReport">if true, no changes are made</param>
+        /// <returns>List of files that were deleted due to optimization</returns>
+        public List<string> Optimize(bool onlyReport = false)
         {
             //Ensure that the writable layer does not have a file that already exists in a read-only layer and has the same content
             var writable = GetWritable();
+            var deletedFiles = new List<string>();
             foreach (var file in writable.GetFiles("/", "", true).ToArray())
             {
                 foreach (var layer in m_Layers.SkipLast(1))
@@ -104,12 +107,18 @@ namespace BadScript2.Container
                         }
                         if (equals)
                         {
-                            writable.DeleteFile(file);
+                            deletedFiles.Add(file);
+                            if (!onlyReport)
+                            {
+                                writable.DeleteFile(file);
+                            }
                             break;
                         }
                     }
                 }
             }
+            
+            return deletedFiles;
         }
         
         /// <summary>
