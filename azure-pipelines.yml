@@ -48,7 +48,7 @@ steps:
   displayName: Update Nuspec Version
   inputs:
     filePath: './newNugetVersion.ps1'
-    arguments: '-version $(Build.BuildNumber)'
+    arguments: '-version $(Build.BuildNumber) -postfix net10'
 
 - task: DotNetCoreCLI@2
   displayName: Publish Console Tool
