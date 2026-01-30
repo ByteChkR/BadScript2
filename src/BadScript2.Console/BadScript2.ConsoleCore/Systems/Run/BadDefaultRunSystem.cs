@@ -24,7 +24,7 @@ public class BadDefaultRunSystem : BadRunSystem
         var fs = new BadSystemFileSystem();
         string file = args.First();
         settings.Files = new[] { file };
-        settings.Parallelization = 2;
+        settings.Parallelization = 1;
 
         if (fs.IsFile(file))
         {

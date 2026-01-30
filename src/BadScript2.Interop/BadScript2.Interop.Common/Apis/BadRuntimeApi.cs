@@ -418,6 +418,9 @@ internal partial class BadRuntimeApi
 
         BadInteropImportHandler handler = new BadInteropImportHandler(ctx, cls);
         importer.AddHandler(handler);
+        var runtime = ctx.Scope.GetSingleton<BadRuntime>();
+        if (runtime != null)
+            runtime.ConfigureModuleImporter(i => i.AddHandler(handler));
     }
 
     /// <summary>
