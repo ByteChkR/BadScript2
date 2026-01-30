@@ -1,0 +1,25 @@
+
+function ValidateOutput()
+{
+	const info = Context.Project?.Info;
+	if(info == null)
+	{
+		Console.WriteLine("Info Not Found");
+		return;
+	}
+	try
+	{
+		Console.WriteLine("Validate Build Output");
+		const src = Context.Project.Build.SourceCode;
+		const result = Runtime.Validate(src, $"{info.Name}@{info.Version}");
+		Console.WriteLine(result.GetMessageString());
+	}
+	catch (e)
+	{
+		Console.WriteLine("ERROR IN VALIDATOR:");
+		Console.WriteLine(e);
+	}
+}
+
+
+ValidateOutput();

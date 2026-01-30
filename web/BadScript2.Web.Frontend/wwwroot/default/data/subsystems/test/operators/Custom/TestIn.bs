@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+let a = {
+	op_In: function(key) => key == "AAA"
+};
+
+function Test_CustomIn()
+{
+	Assert.IsTrue("AAA" in a, "\"AAA\" in a == true");
+}
+
+NUnit.AddTest(Test_CustomIn, "Custom Operator 'in' tests");

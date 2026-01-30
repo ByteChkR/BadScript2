@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_NullCheckedMemberAccess()
+{
+	let a = null;
+	Assert.AreEqual(null, a?.Test, "a?.Test == null");
+}
+
+NUnit.AddTest(Test_NullCheckedMemberAccess, "NullChecked Operator '?.' tests");

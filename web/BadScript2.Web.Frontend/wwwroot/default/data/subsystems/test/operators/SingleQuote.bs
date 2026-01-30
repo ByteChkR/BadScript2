@@ -1,0 +1,28 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	let name = "Tim";
+	
+	Assert.AreEqual("Hello Tim!", 'Hello Tim!', "Single Quote String is invalid");
+}
+NUnit.AddTest(Test, "Single Quote String test");
+
+function TestEscaped()
+{
+	let name = "Tim";
+	
+	Assert.AreEqual("Hello 'Tim!'", 'Hello \'Tim!\'', "Single Quote String is invalid");
+}
+NUnit.AddTest(TestEscaped, "Escaped Single Quote String test");
+
+
+function TestDoubleEscaped()
+{
+	let name = "Tim";
+	
+	Assert.AreEqual("Hello \"Tim\"!", 'Hello "Tim"!', "Single Quote String is invalid");
+}
+NUnit.AddTest(TestDoubleEscaped, "Double Escaped Single Quote String test");

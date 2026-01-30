@@ -1,0 +1,69 @@
+
+import SourceReader from '<SourceReader>';
+
+compiled fast function GetElement(root, path)
+{
+	let current = root;
+	foreach(part in path)
+	{
+		if(!Runtime.Native.IsTable(current) || !current.Keys.Contains(part))
+		{
+			throw $"Can not find Property {part} in {current}";
+		}
+		current = current[part];
+	}
+	return current;
+}
+
+compiled fast function ProcessEvals()
+{
+	Console.WriteLine("Processing eval statements");
+	let reader = new SourceReader(Context.Project.Build.SourceCode);
+	let newSrc = "";
+	//Start key can not be put into a single string.
+	//Because the Project Builds itself and will fail because it has no closing bracket
+	let startKey = "$" + "(";
+	while(!reader.IsEOF())
+	{
+		if(reader.Is(startKey))
+		{
+			reader.Eat(startKey);
+			reader.SkipWhiteSpace();
+			let parts = [];
+			let current = "";
+			while(!reader.IsEOF() && !reader.Is(")"))
+			{
+				if(reader.Is("."))
+				{
+					parts.Add(current);
+					current = "";
+				}
+				else
+				{
+					current += reader.GetCurrent();
+				}
+				
+				reader.MoveNext();
+			}
+			parts.Add(current);
+			reader.Eat(")");
+
+			let elem = GetElement(Context, parts);
+			Console.WriteLine($"Evaluated to: {elem}");
+			newSrc += elem;
+		}
+		else
+		{
+			if(reader.IsEOF())
+			{
+				continue;
+			}
+			newSrc += reader.GetCurrent();
+			reader.MoveNext();
+		}
+	}
+	Context.Project.Build.SourceCode = newSrc;
+}
+
+
+ProcessEvals();

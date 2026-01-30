@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_NullCoalescing()
+{
+	let a = null;
+	a ??= "Test";
+	Assert.AreEqual("Test", a, "a ?? \"Test\"");
+
+	a = "Test";
+	a ??= "FAIL";
+	Assert.AreEqual("Test", a, "a ?? \"Test\"");
+}
+
+NUnit.AddTest(Test_NullCoalescing, "Operator '??=' tests");

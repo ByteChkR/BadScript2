@@ -1,0 +1,46 @@
+let Assert = NUnit.Assert;
+
+function Test()
+{
+	class C<T>
+	{
+		let bool Pass = false;
+		const T __Value;
+		function C(T value)
+		{
+			__Value = value;
+		}
+		const T Value { get => __PassAndReturn(); }
+		function __PassAndReturn()
+		{
+			Pass = true;
+			return __Value;
+		}
+	}
+	let c = new C<num>(0);
+	let value = c.Value;
+	Assert.AreEqual(value, 0, "Value first Invocation is not 0");
+	Assert.IsTrue(c.Pass, "Getter was not properly called");
+}
+
+NUnit.AddTest(Test, "Generic Constant Field Backed Property");
+function Test_WithSet()
+{
+	
+	class C<T>
+	{
+		let T __Value;
+		function C(T value)
+		{
+			__Value = value;
+		}
+		let T Value { get => __Value; set => __Value = value; }
+	}
+	let c = new C<num>(0);
+	let value = c.Value;
+	Assert.AreEqual(value, 0, "Value first Invocation is not 0");
+	c.Value = 10;
+	Assert.AreEqual(c.Value, 10, "Value after set is not 10");
+}
+
+NUnit.AddTest(Test_WithSet, "Generic Field Backed Property");

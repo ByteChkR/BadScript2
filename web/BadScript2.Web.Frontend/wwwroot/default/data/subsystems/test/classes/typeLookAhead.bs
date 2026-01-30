@@ -1,0 +1,19 @@
+let Assert = NUnit.Assert;
+
+function Test_TypeLookahead()
+{
+	class C 
+	{
+		function D F() => new D();
+	}
+
+	class D
+	{
+
+	}
+
+	let c = new C();
+	Assert.IsTrue(c.F().IsInstanceOf(D), "Type Lookahead failed");
+}
+
+NUnit.AddTest(Test_TypeLookahead, "Test Type Lookahead");

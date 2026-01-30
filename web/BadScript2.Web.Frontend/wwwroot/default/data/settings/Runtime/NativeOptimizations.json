@@ -1,0 +1,13 @@
+{
+  "Runtime": {
+    "NativeOptimizations": {
+      "UseStringCaching": true,
+      "UseConstantFoldingOptimization": true,
+      "UseConstantSubstitutionOptimization": true,
+      "UseStaticExtensionCaching": true,
+      "UseConstantFunctionCaching": true,
+      "UseDefaultCompilation": true,
+      "UseLambdaDefaultCompilation": false
+    }
+  }
+}

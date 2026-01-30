@@ -1,0 +1,5 @@
+{
+  "Name": "Clean",
+  "Description": "Cleans the Project Directory Structure",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/Clean.bs"
+}

@@ -1,0 +1,28 @@
+
+let Assert = NUnit.Assert;
+
+const o = {
+	A: null,
+	B: true
+};
+
+function Test_InOperatorConstant()
+{
+	Assert.AreEqual(true, "A" in o, "A in o");
+	Assert.AreEqual(true, "B" in o, "B in o");
+	Assert.AreEqual(false, "C" in o, "C in o");
+}
+
+function Test_InOperatorVariable()
+{
+	const a = "A";
+	const b = "B";
+	const c = "C";
+
+	Assert.AreEqual(true, a in o, "a in o");
+	Assert.AreEqual(true, b in o, "b in o");
+	Assert.AreEqual(false, c in o, "c in o");
+}
+
+NUnit.AddTest(Test_InOperatorConstant, "Constant Operator 'in' tests");
+NUnit.AddTest(Test_InOperatorVariable, "Variable Operator 'in' tests");

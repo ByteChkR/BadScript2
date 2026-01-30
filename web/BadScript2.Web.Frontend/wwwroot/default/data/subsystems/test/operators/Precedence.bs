@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test()
+{
+	let a = 8 / 2 * (2 + 2);
+	
+	Assert.AreEqual(a, 16, $"Operator Precedence Invalid");
+}
+
+NUnit.AddTest(Test, "Operator Precedence");

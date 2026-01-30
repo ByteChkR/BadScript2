@@ -1,0 +1,14 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayGet()
+{
+	let self = ["Hello", true];
+
+	Assert.IsTrue(self.Get(0) == "Hello", "Array.Get Failed");
+	Assert.IsTrue(self.Get(1), "Array.Get Failed");
+
+}
+
+NUnit.AddTest(Test_ArrayGet, "Array.Get tests");

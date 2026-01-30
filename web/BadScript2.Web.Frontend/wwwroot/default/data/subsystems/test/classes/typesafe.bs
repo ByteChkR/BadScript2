@@ -1,0 +1,34 @@
+let Assert = NUnit.Assert;
+
+
+function TestCtorTypesafe()
+{
+	class C 
+	{
+		let bool Pass;
+		function C(bool pass)
+		{
+			Pass = pass;
+		}
+	}
+	let c = new C(true);
+	Assert.IsTrue(c.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestCtorTypesafe, "Class Definition + Create + Constructor: typesafe");
+
+function TestCtorTypesafeConstMember()
+{
+	class C 
+	{
+		const bool Pass;
+		function C(bool pass)
+		{
+			Pass = pass;
+		}
+	}
+	let c = new C(true);
+	Assert.IsTrue(c.Pass, "Constructor has not been called");
+}
+
+NUnit.AddTest(TestCtorTypesafeConstMember, "Class Definition + Create + Constructor + Const Member: typesafe");

@@ -1,0 +1,8 @@
+{
+  "Subsystems": {
+    "New": {
+      "RootDirectory": "$(Console.SubsystemDirectory)/new",
+      "TemplateDirectory": "$(RootDirectory)/templates"
+    }
+  }
+}

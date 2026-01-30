@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+function True() => true;
+let a = {
+	op_Invoke: function(args*) => True.Invoke(args)
+};
+
+function Test_CustomInvocation()
+{
+	
+
+	Assert.IsTrue(a(), "a() == true");
+}
+
+NUnit.AddTest(Test_CustomInvocation, "Custom Operator '()' tests");

@@ -1,0 +1,26 @@
+
+let Assert = NUnit.Assert;
+
+function MakeEnumerator()
+{
+	let e = {
+		index: -1,
+		length: 3,
+		MoveNext: function() => e.index++ < e.length,
+		GetCurrent: function() => e.index
+	};
+	return e;
+}
+
+function Test_CustomEnumerator()
+{
+	let s = 0;
+	foreach(e in MakeEnumerator())
+	{
+		s += e;
+	}
+
+	Assert.AreEqual(s, 6, "s == 6");
+}
+
+NUnit.AddTest(Test_CustomEnumerator, "Custom Enumerator tests");

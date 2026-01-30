@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringSplit()
+{
+	const s = "Hello World".Split(" ");
+	Assert.IsTrue(s[0] == "Hello", "String.Split Failed");
+	Assert.IsTrue(s[1] == "World", "String.Split Failed");
+}
+
+NUnit.AddTest(Test_StringSplit, "String.Split tests");

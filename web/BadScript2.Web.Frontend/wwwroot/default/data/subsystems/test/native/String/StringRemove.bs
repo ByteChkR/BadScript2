@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringRemove()
+{
+	const s = "Hello Planet";
+	Assert.IsTrue(s.Remove(0, 5) == " Planet", "String.Remove Failed");
+}
+
+NUnit.AddTest(Test_StringRemove, "String.Remove tests");

@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_MathModulo()
+{
+	Assert.AreEqual(2 % 2, 0, "2 % 2 == 0");
+	Assert.AreEqual(11 % 5, 1, "11 % 5 == 1");
+	Assert.AreEqual(15 % 7, 1, "15 % 7 == 1");
+}
+
+NUnit.AddTest(Test_MathModulo, "Operator '%' tests");

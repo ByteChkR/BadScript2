@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_LessThan()
+{
+	Assert.IsTrue(1 < 2, "1 < 2");
+	Assert.IsFalse(2 < 1, "2 < 1");
+}
+
+NUnit.AddTest(Test_LessThan, "Operator '<' tests");

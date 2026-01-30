@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_PreIncrement()
+{
+	let a = 1;
+	Assert.AreEqual(++a, 2, "++1 == 2");
+}
+
+NUnit.AddTest(Test_PreIncrement, "Operator 'pre_++' tests");

@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+let array = [1, 2, 3];
+let a = {
+	op_ArrayAccessReverse: function(index) => array[^index]
+};
+function Test_CustomReverseArrayAccess()
+{
+	
+
+	Assert.AreEqual(3, a[^1], "3 == a[^1]");
+}
+
+NUnit.AddTest(Test_CustomReverseArrayAccess, "Custom Operator '[^]' tests");

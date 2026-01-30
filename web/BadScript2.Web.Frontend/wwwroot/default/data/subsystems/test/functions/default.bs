@@ -1,0 +1,85 @@
+let Assert = NUnit.Assert;
+function Func1()
+{
+	Assert.Pass("Function Called!");
+}
+
+function Test()
+{
+	Func1();
+}
+
+NUnit.AddTest(Test, "Function Definition + Call: default");
+
+function Func2() => Assert.Pass("Function Called!");
+
+function TestSingleLine()
+{	
+	Func2();
+}
+
+NUnit.AddTest(TestSingleLine, "Single Line Function Definition + Call: default");
+
+function Func3(x)
+{
+	if(!x)
+	{
+		Assert.Fail("Parameter does not have the correct value");
+	}
+}
+
+
+function TestArg()
+{
+	Func3(true);
+}
+
+NUnit.AddTest(TestArg, "Function Definition + Call: argument");
+
+
+function Func4(x) => x;
+function TestArgSingleLine()
+{
+	Assert.IsTrue(Func4(true), "Function did not return the correct value");
+}
+
+NUnit.AddTest(TestArg, "Single Line Function Definition + Call: argument");
+function Func5()
+{
+	return;
+	Assert.Fail("Function did not return!");
+}
+function TestReturn()
+{
+	Func5();
+}
+NUnit.AddTest(TestReturn, "Test Return null");
+
+const f1 = () => Assert.Pass("Function Called!");
+
+function TestLambda()
+{
+	f1();
+}
+
+NUnit.AddTest(TestLambda, "Lambda Function Definition + Call: default");
+
+
+const f2 = (x) => x;
+
+function TestArgListLambda()
+{
+
+	Assert.IsTrue(f2(true), "Function did not return the correct value");
+}
+
+NUnit.AddTest(TestArgListLambda, "Lambda Function Definition + Call: argument list");
+
+const f3 = x => x;
+function TestArgLambda()
+{
+
+	Assert.IsTrue(f3(true), "Function did not return the correct value");
+}
+
+NUnit.AddTest(TestArgLambda, "Lambda Function Definition + Call: argument");

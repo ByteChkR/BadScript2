@@ -1,0 +1,247 @@
+
+const Array files = [];
+let bool stepMode = true;
+const Table commands = {};
+const Array breakPoints = [];
+
+class DebuggerCommand
+{
+	const _func;
+	const _helpText;
+	function DebuggerCommand(Function func!, string helpText!)
+	{
+		_func = func;
+		_helpText = helpText;
+	}
+
+	function any Invoke(any step!, string cmd!)
+	{
+		return _func(step, cmd);
+	}
+
+	function string GetHelp()
+	{
+		return _helpText;
+	}
+}
+
+class BreakPoint
+{
+	let string File;
+	let num Line;
+	let string Condition;
+	function bool IsBreakPoint(any step!)
+	{
+		return step.Position.FileName == File &&
+				step.Line.ToString() == Line &&
+				step.Evaluate(Condition);
+	}
+
+	function BreakPoint(string file!, num line!, string condition?)
+	{
+		File = file;
+		Line = line;
+		Condition = condition ?? "true";
+	}
+}
+
+function ExecuteCommand(any step!, string name!, string cmd!)
+{
+	commands[name].Invoke(step, cmd);
+}
+
+function string FindCommand(string cmd!)
+{
+	if(cmd == null)
+	{
+		return null;
+	}
+	foreach(key in commands.Keys)
+	{
+		if(cmd.StartsWith(key))
+		{
+			return key;
+		}
+	}
+	return null;
+}
+
+function DebugStepCommandline(any step!)
+{
+	let string cmd;
+	while(cmd != "")
+	{
+		Console.Write("DBG>");
+		cmd = await Console.ReadLineAsync();
+		if(cmd != "")
+		{
+			const command = FindCommand(cmd);
+			if(command == null)
+			{
+				Console.WriteLine($"Can not find command '{cmd}'");
+				Help(step, cmd);
+			}
+			else
+			{
+				ExecuteCommand(step, command, cmd);
+			}
+		}
+	}
+}
+
+function DisplayLoadFileDialog(string file!)
+{
+	Console.WriteLine($"Loading File: {file}");
+	Console.Write("Do you want to load it into the debugger? [y/N]: ");
+	let cmd = (await Console.ReadLineAsync()).ToUpper();
+	if(cmd == "Y")
+	{
+		files.Add(file);
+	}
+}
+
+
+function bool IsBreakPoint(string step!)
+{
+	for (let i = 0; i < breakPoints.Length; i++) 
+	{
+		const bp = breakPoints[i];
+		if(bp.IsBreakPoint(step))
+		{
+			return true;
+		}	
+	}
+	return false;
+}
+
+
+function ToggleStep(any step!, string cmd!)
+{
+	stepMode = !stepMode;
+	Console.WriteLine($"Step Mode: {stepMode}");
+}
+
+function UnsetBreakPoint(any step!, string cmd!)
+{
+	const parts = cmd.Remove(0, "sbp".Length).Split(" ", true);
+	if(parts.Length != 2)
+	{
+		Console.WriteLine($"Invalid Arguments '{cmd}'");
+		return;
+	}
+	let file = parts[0];
+	let line = parts[1];
+
+	for(let i = breakPoints.Length - 1; i >= 0; i--)
+	{
+		if(breakPoints[i].File == file &&
+			breakPoints[i].Line == line)
+		{
+			breakPoints.RemoveAt(i);
+			Console.WriteLine("Removing Breakpoint");
+		}
+	}
+}
+
+function SetBreakPoint(any step!, string cmd!)
+{
+	const parts = cmd.Remove(0, "sbp".Length).Split(" ", true);
+	
+	let file;
+	let line;
+	let condition;
+	if(parts.Length == 0)
+	{
+		file = step.Position.FileName;
+		line = step.Line.ToString();
+		condition = null;
+	}
+	else if(parts.Length == 1)
+	{
+		file = step.Position.FileName;
+		line = parts[0];
+		condition = null;
+	}
+	else if(parts.Length == 2)
+	{
+		file = parts[0];
+		line = parts[1];
+		condition = null;
+	}
+	else
+	{
+		file = parts[0];
+		line = parts[1];
+		condition = parts[2];
+		for(let i = 3; i < parts.Length; i++)
+		{
+			condition += " " + parts[i];
+		}
+	}
+
+	Console.WriteLine($"Adding Breakpoint {file} : {line} with condition '{condition}'");
+	breakPoints.Add(new BreakPoint(file, line, condition));
+}
+
+function Help(any step!, string cmd!)
+{
+	let s = "Help:\n";
+	foreach(key in commands.Keys)
+	{
+		s += $"\t{key}: {commands[key].GetHelp()}\n";
+	}
+
+	Console.WriteLine(s);
+}
+
+function ViewSource(any step!, string cmd!)
+{
+	Console.WriteLine(step.SourceView);
+}
+
+function ListBreakPoints(any step!, string cmd!)
+{
+	foreach(bp in breakPoints)
+	{
+		Console.WriteLine($"{bp.File} : {bp.Line} with condition '{bp.Condition}'");
+	}
+}
+
+function EvaluateInStep(any step!, string cmd!)
+{
+	let src = cmd.Remove(0, "eval".Length);
+	Console.WriteLine($"Return: {step.Evaluate(src)}");
+}
+
+commands["help"] = new DebuggerCommand(Help, "Displays this help text.");
+commands["step"] = new DebuggerCommand(ToggleStep, "Toggles the Step Mode");
+commands["sbp"] = new DebuggerCommand(SetBreakPoint, "Sets a breakpoint. Usage: sbp [<line> | <file> <line> | <file> <line> <condition>]");
+commands["ubp"] = new DebuggerCommand(UnsetBreakPoint, "Unsets a breakpoint. Usage: ubp <file> <line>");
+commands["lbp"] = new DebuggerCommand(ListBreakPoints, "Lists all Breakpoints.");
+commands["view"] = new DebuggerCommand(ViewSource, "Displays the Source Code with the current position of execution.");
+commands["eval"] = new DebuggerCommand(EvaluateInStep, "Evaluates the specified expression. Usage: eval <expr>");
+
+function OnLoadFile(string file!)
+{
+	if(!files.Contains(file) && file != Debugger.DebuggerPath.Replace("\\", "/"))
+	{
+		DisplayLoadFileDialog(file);
+	}	
+}
+
+
+function OnStep(any step!)
+{
+	if(files.Contains(step.Position.FileName))
+	{
+		if(stepMode || IsBreakPoint(step))
+		{
+			Console.WriteLine(step.SourceView);
+			DebugStepCommandline(step);
+		}
+	}
+}
+
+Debugger.RegisterStep(OnStep);
+Debugger.RegisterOnFileLoaded(OnLoadFile);
+

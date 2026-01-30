@@ -1,0 +1,7 @@
+{
+  "Runtime": {
+    "Debugger": {
+      "Path": "$(Subsystems.Run.RootDirectory)/Debugger.bs"
+    }
+  }
+}

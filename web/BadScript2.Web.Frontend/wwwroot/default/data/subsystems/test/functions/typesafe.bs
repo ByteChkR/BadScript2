@@ -1,0 +1,33 @@
+let Assert = NUnit.Assert;
+
+function Func1(bool x)
+{
+	if(!x)
+	{
+		Assert.Fail("Parameter does not have the correct value");
+	}
+}
+function TestArg()
+{
+	Func1(true);
+}
+
+NUnit.AddTest(TestArg, "Function Definition + Call: typesafe argument");
+
+
+function bool Func2(bool x) => x;
+function TestArgSingleLine()
+{
+	Assert.IsTrue(Func2(true), "Function did not return the correct value");
+}
+
+NUnit.AddTest(TestArg, "Single Line Function Definition + Call: typesafe argument");
+
+
+const f = (bool x) => x;
+function TestArgLambda()
+{
+	Assert.IsTrue(f(true), "Function did not return the correct value");
+}
+
+NUnit.AddTest(TestArgLambda, "Lambda Function Definition + Call: typesafe argument");

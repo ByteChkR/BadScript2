@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+const t = {
+	op_Less: other => other > 10
+};
+function Test_LessThan()
+{
+
+	Assert.IsTrue(t < 11, "t >= 10");
+}
+
+NUnit.AddTest(Test_LessThan, "Custom Operator '<' tests");

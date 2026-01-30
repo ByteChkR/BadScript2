@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_PostIncrement()
+{
+	let a = 1;
+	Assert.AreEqual(a++, 1, "1++ == 1");
+}
+
+NUnit.AddTest(Test_PostIncrement, "Operator 'post_++' tests");

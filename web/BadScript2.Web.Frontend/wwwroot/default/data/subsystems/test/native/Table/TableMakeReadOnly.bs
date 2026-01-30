@@ -1,0 +1,17 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TableMakeReadonly()
+{
+	let self = {
+		A: true
+	};
+
+	self.MakeReadOnly();
+
+	Assert.Throws(() => self.A = false, "Write to readonly table successful");
+	Assert.IsTrue(self.A, "Write to readonly table successful");
+}
+
+NUnit.AddTest(Test_TableMakeReadonly, "Table.MakeReadOnly tests");

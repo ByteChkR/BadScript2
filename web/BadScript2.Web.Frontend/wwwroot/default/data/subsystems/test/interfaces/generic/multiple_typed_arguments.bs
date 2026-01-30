@@ -1,0 +1,35 @@
+let Assert = NUnit.Assert;
+
+function Test_Interface_MultipleTyped()
+{
+	interface IA<B, N>
+	{
+		B F(N n!, B compute?);
+	}
+	interface IB<B, N>
+	{
+		B G(N n!, B compute?);
+	}
+	class C : IA<bool, num>, IB<bool, num>
+	{
+		function bool F(num n!, bool compute?)
+		{
+			if(compute == false) return true;
+			return n == 10;
+		}
+
+		function bool G(num n!, bool compute?)
+		{
+			return F(n, compute);
+		}
+	}
+
+	const C i = new C();
+	const f = i.F(10) && i.F(1, false);
+	const g = i.G(10) && i.G(1, false);
+	Assert.IsTrue(f && g, "Interface Function did not return true");
+}
+
+NUnit.AddTest(Test_Interface_MultipleTyped, "Generic Interface Multiple Typed Arguments");
+
+

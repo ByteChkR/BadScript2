@@ -1,0 +1,36 @@
+
+let Assert = NUnit.Assert;
+
+const table = {};
+const array = [];
+
+function Test_UnpackOperator()
+{
+	const t1 = {A: true, B: false};
+	const t2 = {A: false, C: true};
+
+	const aTrue = t2 ... t1;
+	Assert.IsTrue(aTrue.A, "A is not True");
+	Assert.IsFalse(aTrue.B, "B is not False");
+	Assert.IsTrue(aTrue.C, "C is not True");
+
+
+	const aFalse = t1 ... t2;
+	Assert.IsFalse(aFalse.A, "A is not False");
+	Assert.IsFalse(aFalse.B, "B is not False");
+	Assert.IsTrue(aFalse.C, "C is not True");
+}
+
+NUnit.AddTest(Test_UnpackOperator, "Custom Operator '...(Binary)' tests");
+
+
+function Test_UnaryUnpackOperator()
+{
+	const t1 = {A: true, B: false};
+	...t1;
+	
+	Assert.IsTrue(A, "A is not True");
+	Assert.IsFalse(B, "B is not False");
+}
+
+NUnit.AddTest(Test_UnaryUnpackOperator, "Custom Operator '...(Unary)' tests");

@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TableRemoveKey()
+{
+	let self = {
+		A: true
+	};
+
+	self.RemoveKey("A");
+
+	Assert.Zero(self.Length, "Key was not removed from the table");
+}
+
+NUnit.AddTest(Test_TableRemoveKey, "Table.RemoveKey tests");

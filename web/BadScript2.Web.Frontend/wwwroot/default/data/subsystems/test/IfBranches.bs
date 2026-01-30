@@ -1,0 +1,44 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_IfBranch()
+{
+	let b = false;
+	if(!b)
+	{
+		b = true;
+	}
+
+	Assert.IsTrue(b, "b == true 1");
+
+	b = false;
+	if(b)
+	{
+		//Failed
+	}
+	else
+	{
+		b = true;
+	}
+
+	Assert.IsTrue(b, "b == true 2");
+
+	b = false;
+	if(false)
+	{
+		b = false;
+	}
+	else if(true)
+	{
+		b = true;
+	}
+	else
+	{
+		b = false;
+	}
+
+	Assert.IsTrue(b, "b == true 3");
+}
+
+NUnit.AddTest(Test_IfBranch, "if branch tests");

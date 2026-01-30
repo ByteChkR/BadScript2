@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringIsDigits()
+{
+	const s = "1234";
+	const n = "Hell0";
+	Assert.IsTrue(s.IsDigits, "String.IsDigits Failed");
+	Assert.IsFalse(n.IsDigits, "String.IsDigits Failed");
+}
+
+NUnit.AddTest(Test_StringIsDigits, "String.IsDigits tests");

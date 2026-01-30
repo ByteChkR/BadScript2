@@ -1,0 +1,18 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_InEqual()
+{
+	Assert.IsTrue(true != false, "true != false");
+	Assert.IsTrue(1 != 2, "1 != 2");
+	Assert.IsTrue("B" != "A", "\"B\" != \"A\"");
+	Assert.IsTrue(1 != 0.9999, "1 != 0.9999");
+	Assert.IsTrue({} != {}, "{} != {}");
+	Assert.IsTrue([] != [], "[] != []");
+	Assert.IsTrue(1 != true, "1 != true");
+	Assert.IsTrue(null != false, "null != false");
+	Assert.IsTrue(true != null, "true != null");
+}
+
+NUnit.AddTest(Test_InEqual, "Operator '!=' tests");

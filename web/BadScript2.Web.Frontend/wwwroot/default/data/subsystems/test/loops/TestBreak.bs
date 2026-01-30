@@ -1,0 +1,19 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Break()
+{
+	let i = 0;
+	let s = 0;
+	while(true)
+	{
+		s += i;
+		i++;
+		if(i >= 5) break;
+	}
+
+	return s;
+}
+
+NUnit.AddTest(function() => Assert.AreEqual(Test_Break(), 10, "Test_Break() == 10"), "break inside loop tests");

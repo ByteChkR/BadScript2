@@ -1,0 +1,10 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Ternary()
+{
+	Assert.AreEqual("Test", true ? "Test" : "FAIL", "true ? \"Test\" : \"FAIL\"");
+}
+
+NUnit.AddTest(Test_Ternary, "Operator '?:' tests");

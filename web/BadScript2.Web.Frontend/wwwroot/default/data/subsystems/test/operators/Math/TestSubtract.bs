@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_MathSubtract()
+{
+	Assert.AreEqual(1 - 2, -1, "1 - 2 == -1");
+	Assert.AreEqual(1 - 0.2, 0.8, "1 - 0.2 == 0.8");
+	Assert.AreEqual(-2 - 5, -7, "-2 - 5 = -7");
+}
+
+NUnit.AddTest(Test_MathSubtract, "Operator '-' tests");

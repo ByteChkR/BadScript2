@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringPadLeft()
+{
+	const s = "Hello World";
+	Assert.AreEqual(s.PadLeft(s.Length+1), " Hello World", "String.PadLeft Failed");
+}
+
+NUnit.AddTest(Test_StringPadLeft, "String.PadLeft tests");

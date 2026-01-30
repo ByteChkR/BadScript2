@@ -1,0 +1,137 @@
+
+import SourceReader from '<SourceReader>';
+
+compiled fast function ReadBlock(reader)
+{
+	let level = 1;
+	reader.Eat("{");
+	let src = "";
+	while(level > 0 && !reader.IsEOF())
+	{
+		if(reader.Is("\""))
+		{
+			src += reader.ReadString();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "/")
+		{
+			src += reader.ReadComment();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "*")
+		{
+			src += reader.ReadMultilineComment();
+		}
+		else if(reader.Is("{"))
+		{
+			level++;
+			src += reader.GetCurrent();
+			reader.MoveNext();
+		}
+		else if(reader.Is("}"))
+		{
+			level--;
+			if(level > 0)
+			{
+				src += reader.GetCurrent();
+			}
+			reader.MoveNext();
+		}
+		else
+		{
+			if(reader.IsEOF())
+			{
+				continue;
+			}
+			src += reader.GetCurrent();
+			reader.MoveNext();
+		}
+	}
+	return src;
+}
+
+compiled fast function ReadUntil(reader, char)
+{
+	let str = "";
+	while(!reader.IsEOF() && !reader.Is(char))
+	{
+		if(reader.Is("\""))
+		{
+			str += reader.ReadString();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "/")
+		{
+			str += reader.ReadComment();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "*")
+		{
+			str += reader.ReadMultilineComment();
+		}
+		else
+		{
+			if(reader.IsEOF())
+			{
+				continue;
+			}
+			str += reader.GetCurrent();
+			reader.MoveNext();
+		}
+	}
+	return str;
+}
+
+function Evaluate(expr)
+{
+	const scope = new Scope("#if eval", Context);
+	return await Runtime.EvaluateAsync(expr+";", "<#if eval>", true, scope, true);
+}
+
+function ProcessDirectives()
+{
+	Console.WriteLine("Processing #if directives");
+	let reader = new SourceReader(Context.Project.Build.SourceCode);
+	let newSrc = "";
+	while(!reader.IsEOF())
+	{
+		if(reader.Is("\""))
+		{
+			newSrc += reader.ReadString();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "/")
+		{
+			newSrc += reader.ReadComment();
+		}
+		else if(reader.Is("/") && reader.GetCurrent(1) == "*")
+		{
+			newSrc += reader.ReadMultilineComment();
+		}
+		else if(reader.Is("#if"))
+		{
+			reader.Eat("#if");
+			reader.SkipWhiteSpace();
+			const expr = ReadUntil(reader, "{");
+			const body = ReadBlock(reader);
+			if(Evaluate(expr))
+			{
+				newSrc += body;
+			}
+		}
+		else if(reader.Is("#define"))
+		{
+			reader.Eat("#define");
+			reader.SkipWhiteSpace();
+			const name = reader.ParseWord();
+			reader.SkipWhiteSpace();
+			const valueStr = ReadUntil(reader, "\n");
+			const value = Evaluate(valueStr);
+			Console.WriteLine($"#define {name} = {value}");
+			Context[name] = value;
+		}
+		else
+		{
+			newSrc += reader.GetCurrent();
+			reader.MoveNext();
+		}
+	}
+	Context.Project.Build.SourceCode = newSrc;
+}
+
+ProcessDirectives();
