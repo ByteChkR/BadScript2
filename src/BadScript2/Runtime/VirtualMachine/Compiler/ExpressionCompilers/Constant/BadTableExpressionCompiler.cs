@@ -13,8 +13,8 @@ public class BadTableExpressionCompiler : BadExpressionCompiler<BadTableExpressi
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadTableExpression expression)
     {
-        foreach (KeyValuePair<BadWordToken, BadExpression> kvp in expression.Table.ToArray()
-                                                                            .Reverse())
+        IEnumerable<KeyValuePair<BadWordToken, BadExpression>> unreversed = expression.Table.ToArray();
+        foreach (KeyValuePair<BadWordToken, BadExpression> kvp in unreversed.Reverse())
         {
             context.Emit(BadOpCode.Push, kvp.Key.SourcePosition, (BadObject)kvp.Key.Text);
             context.Compile(kvp.Value);
