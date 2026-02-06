@@ -72,7 +72,7 @@ function DebugStepCommandline(any step!)
 	while(cmd != "")
 	{
 		Console.Write("DBG>");
-		cmd = await Console.ReadLineAsync();
+		cmd = Console.ReadLine();
 		if(cmd != "")
 		{
 			const command = FindCommand(cmd);
@@ -93,7 +93,7 @@ function DisplayLoadFileDialog(string file!)
 {
 	Console.WriteLine($"Loading File: {file}");
 	Console.Write("Do you want to load it into the debugger? [y/N]: ");
-	let cmd = (await Console.ReadLineAsync()).ToUpper();
+	let cmd = Console.ReadLine().ToUpper();
 	if(cmd == "Y")
 	{
 		files.Add(file);
@@ -226,12 +226,13 @@ function OnLoadFile(string file!)
 	if(!files.Contains(file) && file != Debugger.DebuggerPath.Replace("\\", "/"))
 	{
 		DisplayLoadFileDialog(file);
-	}	
+	}
 }
 
 
 function OnStep(any step!)
 {
+    
 	if(files.Contains(step.Position.FileName))
 	{
 		if(stepMode || IsBreakPoint(step))

@@ -63,43 +63,53 @@ public static class BadRuntimeBuilder
     /// <summary>
     ///     Loads the Settings
     /// </summary>
-    private static BadRuntime LoadConsoleSettings(this BadRuntime runtime, IFileSystem fs)
+    private static void LoadConsoleSettings(IFileSystem fs)
     {
-        BadSettings consoleSettings = new BadSettings(string.Empty);
         string rootDir = fs.GetStartupDirectory();
         rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
-        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
-        consoleSettings.SetProperty("DataDirectory", new BadSettings(Path.Combine(fs.GetStartupDirectory(), "data"), string.Empty));
-        BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
-
+        if (rootDir == "") rootDir = "/";
+        
+        if (!BadSettingsProvider.HasRootSettings)
+        {
+            BadSettingsProvider.SetRootSettings(new BadSettings(string.Empty));
+        }
         string settingsFile = Path.Combine(fs.GetStartupDirectory(), SETTINGS_FILE);
         if (!fs.Exists(settingsFile))
         {
-            return runtime;
+            return;
         }
-        return runtime.LoadSettings(settingsFile, fs);
+        BadSettings consoleSettings = new BadSettings(string.Empty);
+        consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
+        consoleSettings.SetProperty("DataDirectory", new BadSettings(Path.Combine(fs.GetStartupDirectory(), "data"), string.Empty));
+        BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
+        BadSettingsProvider.LoadSettings(settingsFile, fs);
     }
 
     public static Task<BadRuntime> BuildRuntime(IFileSystem fs)
     {
         BadLogMask mask = BadLogMask.None;
+        
+        Func<BadRuntime> factory = () =>
+        {
+            return new BadRuntime()
+                .UseLogMask(mask)
+                .UseConsoleLogWriter()
+                .UseCommonInterop()
+                .UseCompressionApi(fs)
+                .UseFileSystemApi(fs)
+                .UseHtmlApi()
+                .UseJsonApi()
+                .UseLinqApi()
+                .UseNetApi()
+                .UseNetHostApi()
+                .UseLocalModules(fs);
+        };
+        BadConsole.WriteLine("Creating Bootstrap Settings..."); 
+        LoadConsoleSettings(fs);
         // Build the runtime
         BadConsole.WriteLine("Building Runtime...");
-        BadRuntime runtime = new BadRuntime()
-            .LoadConsoleSettings(fs)
-            .UseLogMask(mask)
-            .UseConsoleLogWriter()
-            .UseCommonInterop()
-            .UseCompressionApi()
-            .UseFileSystemApi(fs)
-            .UseHtmlApi()
-            .UseJsonApi()
-            .UseLinqApi()
-            .UseNetApi()
-            .UseNetHostApi()
-            .UseLocalModules();
-
+        var runtime = factory();
         return Task.FromResult(runtime);
     }
 }

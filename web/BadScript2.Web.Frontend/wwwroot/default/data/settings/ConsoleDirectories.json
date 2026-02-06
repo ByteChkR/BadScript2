@@ -1,0 +1,6 @@
+{
+  "Console": {
+    "SubsystemDirectory": "$(Console.DataDirectory)/subsystems",
+    "SettingsDirectory": "$(Console.DataDirectory)/settings"
+  }
+}

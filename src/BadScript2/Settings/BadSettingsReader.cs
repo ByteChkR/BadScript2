@@ -1,6 +1,6 @@
 using BadScript2.Common.Logging;
 using BadScript2.IO;
-
+using BadScript2.Runtime.Error;
 using Newtonsoft.Json.Linq;
 
 namespace BadScript2.Settings;
@@ -54,10 +54,24 @@ public class BadSettingsReader
         BadSettings s = new BadSettings(string.Empty);
         s.Populate(true, settings.ToArray());
 
-        BadLogger.Log("Resolving environment variables", "SettingsReader");
-        BadSettings.ResolveEnvironmentVariables(s);
-
-        ReadDynamicSettings(s);
+        try
+        {
+            BadLogger.Log("Resolving environment variables", "SettingsReader");
+            BadSettings.ResolveEnvironmentVariables(s);
+        }
+        catch (Exception e)
+        {
+            throw new BadRuntimeException($"Failed to resolve environment variables: {e.Message} with Settings Tree {s}", e);
+        }
+        try
+        {
+            BadLogger.Log("Reading Dynamic Settings", "SettingsReader");
+            ReadDynamicSettings(s);
+        }
+        catch (Exception e)
+        {
+            throw new BadRuntimeException($"Failed to read settings: {e.Message} with Settings Tree {s}", e);
+        }
 
         return s;
     }

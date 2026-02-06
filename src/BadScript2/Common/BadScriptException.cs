@@ -23,6 +23,18 @@ public abstract class BadScriptException : Exception
     {
         OriginalMessage = originalMessage;
     }
+    
+    
+    /// <summary>
+    /// Creates a new BadScriptException
+    /// </summary>
+    /// <param name="message">The Error Message</param>
+    /// <param name="originalMessage">The Original Error Message</param>
+    /// <param name="inner">The Inner Exception</param>
+    public BadScriptException(string message, Exception inner) : base(message, inner)
+    {
+        OriginalMessage = inner.Message;
+    }
 
     /// <summary>
     /// Creates a new BadScriptException
