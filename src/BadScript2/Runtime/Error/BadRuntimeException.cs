@@ -13,6 +13,8 @@ public class BadRuntimeException : BadScriptException
     /// </summary>
     /// <param name="message">Exception Message</param>
     public BadRuntimeException(string message) : base(message) { }
+    
+    public BadRuntimeException(string message , Exception innerException) : base(message, innerException) { }
 
 
     /// <summary>
@@ -22,9 +24,22 @@ public class BadRuntimeException : BadScriptException
     /// <param name="position">The Source Position</param>
     public BadRuntimeException(string message, BadSourcePosition position) :
         base($"{message} at {position.GetPositionInfo()}",
-             message,
-             position
-            ) { }
+            message,
+            position
+        ) { }
+
+    /// <summary>
+    ///     Creates a new BadScriptException
+    /// </summary>
+    /// <param name="message">Exception Message</param>
+    /// <param name="position">The Source Position</param>
+    /// <param name="innerException">The Inner Exception</param>
+    public BadRuntimeException(string message, BadSourcePosition position, Exception innerException) :
+        base($"{message} at {position.GetPositionInfo()}",
+            message,
+            position, 
+            innerException
+        ) { }
 
     /// <summary>
     ///     Creates a new BadScriptException

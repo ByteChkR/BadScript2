@@ -68,6 +68,7 @@ public static class BadRuntimeBuilder
         string rootDir = fs.GetStartupDirectory();
         rootDir = rootDir.Remove(rootDir.Length - 1, 1);
 
+        if (rootDir == "") rootDir = "/";
         
         if (!BadSettingsProvider.HasRootSettings)
         {
@@ -78,33 +79,37 @@ public static class BadRuntimeBuilder
         {
             return;
         }
-        BadSettingsProvider.LoadSettings(settingsFile, fs);
         BadSettings consoleSettings = new BadSettings(string.Empty);
         consoleSettings.SetProperty("RootDirectory", new BadSettings(rootDir, string.Empty));
         consoleSettings.SetProperty("DataDirectory", new BadSettings(Path.Combine(fs.GetStartupDirectory(), "data"), string.Empty));
         BadSettingsProvider.RootSettings.SetProperty("Console", consoleSettings);
+        BadSettingsProvider.LoadSettings(settingsFile, fs);
     }
 
     public static Task<BadRuntime> BuildRuntime(IFileSystem fs)
     {
         BadLogMask mask = BadLogMask.None;
         
+        Func<BadRuntime> factory = () =>
+        {
+            return new BadRuntime()
+                .UseLogMask(mask)
+                .UseConsoleLogWriter()
+                .UseCommonInterop()
+                .UseCompressionApi(fs)
+                .UseFileSystemApi(fs)
+                .UseHtmlApi()
+                .UseJsonApi()
+                .UseLinqApi()
+                .UseNetApi()
+                .UseNetHostApi()
+                .UseLocalModules(fs);
+        };
+        BadConsole.WriteLine("Creating Bootstrap Settings..."); 
         LoadConsoleSettings(fs);
         // Build the runtime
         BadConsole.WriteLine("Building Runtime...");
-        BadRuntime runtime = new BadRuntime()
-            .UseLogMask(mask)
-            .UseConsoleLogWriter()
-            .UseCommonInterop()
-            .UseCompressionApi(fs)
-            .UseFileSystemApi(fs)
-            .UseHtmlApi()
-            .UseJsonApi()
-            .UseLinqApi()
-            .UseNetApi()
-            .UseNetHostApi()
-            .UseLocalModules(fs);
-
+        var runtime = factory();
         return Task.FromResult(runtime);
     }
 }
