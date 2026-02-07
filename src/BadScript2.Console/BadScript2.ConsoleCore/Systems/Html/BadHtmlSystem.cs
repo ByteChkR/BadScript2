@@ -67,9 +67,16 @@ public class BadHtmlSystem : BadConsoleSystem<BadHtmlSystemSettings>
             runtime.UseConsole(host);
         }
 
+        if (!Enum.TryParse(settings.CommentMode, true, out BadHtmlCommentNodeHandling commentHandling))
+        {
+            throw new ArgumentException($"Invalid Comment Mode: {settings.CommentMode}");
+        }
+
         BadHtmlTemplateOptions opts = new BadHtmlTemplateOptions
         {
-            Runtime = runtime, SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
+            Runtime = runtime, 
+            SkipEmptyTextNodes = settings.SkipEmptyTextNodes,
+            CommentNodeHandling = commentHandling
         };
 
         BadObject? model = null;

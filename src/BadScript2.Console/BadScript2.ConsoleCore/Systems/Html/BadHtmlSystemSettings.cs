@@ -46,4 +46,10 @@ public class BadHtmlSystemSettings
 	/// </summary>
 	[Option('m', "minify", Required = false, HelpText = "If enabled, the output will be minified.")]
     public bool Minify { get; set; } = false;
+	
+	/// <summary>
+	///     Sets the handling of Html Comment Nodes, if set to Skip, comment nodes will be treated as normal nodes but will not be included in the output, if set to Execute, comment nodes will be treated as code and will be executed by the template engine, their output will be included in the output·
+	/// </summary>
+	[Option("comments", Required = false, HelpText = "Sets the handling of Html Comment Nodes, if set to Skip, comment nodes will be treated as normal nodes but will not be included in the output, if set to Execute, comment nodes will be treated as code and will be executed by the template engine, their output will be included in the output")]
+	public string CommentMode { get; set; } = "include";
 }
