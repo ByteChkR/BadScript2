@@ -49,3 +49,50 @@ public class BadTextNodeTransformer : BadHtmlNodeTransformer
         context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(resultStr.Value));
     }
 }
+
+public class BadCommentNodeTransformer : BadHtmlNodeTransformer
+{
+    /// <inheritdoc cref="BadHtmlNodeTransformer.CanTransform" />
+    protected override bool CanTransform(BadHtmlContext context)
+    {
+        if(context.Options.CommentNodeHandling == BadHtmlCommentNodeHandling.Skip ||  //We need this transformer to handle the comment node
+           context.Options.CommentNodeHandling == BadHtmlCommentNodeHandling.Execute) //if we want anything other than just copying(including) it to the output.
+            return context.InputNode.Name == "#comment";
+        return false;
+    }
+
+    /// <inheritdoc cref="BadHtmlNodeTransformer.TransformNode" />
+    protected override void TransformNode(BadHtmlContext context)
+    {
+        if (context.Options.CommentNodeHandling == BadHtmlCommentNodeHandling.Skip)
+            return;
+        //We dont want to skip and we dont want to include.
+        //So we want to execute the comment node as code and include the output in the output document.
+        if (context.InputNode.InnerHtml.All(x => char.IsWhiteSpace(x) || x == '\n' || x == '\r' || x == '\t'))
+        {
+            if (!context.Options.SkipEmptyTextNodes)
+            {
+                context.OutputNode.AppendChild(context.OutputDocument.CreateTextNode(context.InputNode.InnerHtml));
+            }
+
+            return;
+        }
+
+        //Get Text and Replace all newlines with spaces
+        string text = "$@\"" + context.InputNode.InnerHtml + "\";";
+
+        //Evaluate Text with BadScript
+        BadObject result = context.ParseAndExecute(text, context.CreateInnerPosition());
+
+        if (result is not IBadString resultStr)
+        {
+            Console.WriteLine("Warning: Text node is not a string");
+            context.OutputNode.AppendChild(context.OutputDocument.CreateComment(result.ToString()));
+
+            return;
+        }
+
+        //Append Text to output
+        context.OutputNode.AppendChild(context.OutputDocument.CreateComment(resultStr.Value));
+    }
+}
