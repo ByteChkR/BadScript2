@@ -1,0 +1,7 @@
+{
+  "Name": "default",
+  "Description": "The Default Build Target",
+  "Dependencies": [
+    "Build"
+  ]
+}

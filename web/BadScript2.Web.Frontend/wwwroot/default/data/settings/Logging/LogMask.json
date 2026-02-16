@@ -1,0 +1,14 @@
+{
+  "Logging": {
+    "Writer": {
+      "Mask": [
+        "Settings",
+        "Runtime",
+        "Benchmark",
+        "Debugger",
+        "Compiler",
+        "Optimize"
+      ]
+    }
+  }
+}

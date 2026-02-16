@@ -1,0 +1,32 @@
+
+function Test_ExportNamed()
+{
+	//For this test its fine to do this inside of functions, normally you'd do this in the root scope
+
+	export const Test = "AYY LMAO";
+	export const Test1 = true;
+}
+function Test_ExportDefault()
+{
+	//For this test its fine to do this inside of functions, normally you'd do this in the root scope
+
+	export {
+		Test: "AYY LMAO",
+		Test1: true
+	};
+}
+
+function Test_ExportExplicitDefault()
+{
+	//For this test its fine to do this inside of functions, normally you'd do this in the root scope
+
+	export default const myValue = {
+		Test: "AYY LMAO",
+		Test1: true
+	};
+}
+
+
+NUnit.AddTest(Test_ExportNamed, "export named tests");
+NUnit.AddTest(Test_ExportDefault, "export default tests");
+NUnit.AddTest(Test_ExportExplicitDefault, "export explicit default tests");

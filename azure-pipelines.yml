@@ -19,7 +19,7 @@ steps:
   displayName: Install .NET
   inputs:
     packageType: 'sdk'
-    version: '8.0.x'
+    version: '10.0.x'
 - task: DotNetCoreCLI@2
   displayName: Restore Projects
   inputs:
@@ -48,7 +48,7 @@ steps:
   displayName: Update Nuspec Version
   inputs:
     filePath: './newNugetVersion.ps1'
-    arguments: '-version $(Build.BuildNumber)'
+    arguments: '-version $(Build.BuildNumber) -postfix net10'
 
 - task: DotNetCoreCLI@2
   displayName: Publish Console Tool

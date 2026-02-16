@@ -1,0 +1,17 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ForEach()
+{
+	let s = 0;
+	foreach(e in 1..5)
+	{
+		s += e;
+	}
+
+	Assert.AreEqual(s, 10, "s == 10");
+
+}
+
+NUnit.AddTest(Test_ForEach, "Operator 'foreach range' tests");

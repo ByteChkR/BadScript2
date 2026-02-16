@@ -1,0 +1,27 @@
+
+let Assert = NUnit.Assert;
+
+
+let invocationCount = 0;
+const function F(x)
+{
+	invocationCount++;
+	return x;
+}
+
+function Test_Const_Functions()
+{
+	Assert.AreEqual(10, F(10), "10 == F(10)");
+	Assert.AreEqual(1, invocationCount, "1 == invocationCount");
+
+	Assert.AreEqual(10, F(10), "10 == F(10)");
+	Assert.AreEqual(1, invocationCount, "1 == invocationCount");
+
+	Assert.AreEqual(11, F(11), "10 == F(11)");
+	Assert.AreEqual(2, invocationCount, "2 == invocationCount");
+
+	Assert.AreEqual(11, F(11), "10 == F(11)");
+	Assert.AreEqual(2, invocationCount, "2 == invocationCount");
+}
+
+NUnit.AddTest(Test_Const_Functions, "Const Function Tests");

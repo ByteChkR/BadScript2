@@ -1,0 +1,136 @@
+import Model from "./Model.bs";
+
+...Model;
+
+export default class ModelBuilder
+{
+
+	function ApiInfo __MakeApiInfo(Table info!)
+	{
+		return new ApiInfo(info.Name, info.Version, info.AssemblyName);
+	}
+
+	function bool __IsApi(api)
+	{
+		return __IsTable(api) && 'Info' in api;
+	}
+	function bool __IsTable(api)
+	{
+		return Runtime.Native.IsTable(api);
+	}
+
+	function ParameterModel __BuildParameterModel(Function func!, any parameter!)
+	{
+		const string name = parameter.Name;
+		if(!(name in func.Meta.Parameters))
+		{
+			throw $"Invalid Parameter Info for {func}";
+		}
+		const string description = func.Meta.Parameters[name].Description;
+
+		const Type type = parameter.Type ?? any;
+
+		return new ParameterModel(name, parameter.IsNullChecked, parameter.IsOptional, parameter.IsRestArgs, type, description);
+	}
+
+	function ReturnModel __BuildReturnModel(Function func!)
+	{
+		const Type returnType = func.ReturnType;
+		const string description = func.Meta.Return.Description;
+
+		return new ReturnModel(returnType, description);
+	}
+
+	function FunctionModel __BuildFunctionModel(string key!, Function value!)
+	{
+		const string funcName = value.Name;
+		if(funcName != key)
+		{
+			throw $"Inconsistent Naming for {value}!";
+		}
+
+
+		const ReturnModel returnModel = __BuildReturnModel(value);
+
+		const Array parameters = [];
+		foreach(parameter in value.Parameters)
+		{
+			const ParameterModel param = __BuildParameterModel(value, parameter);
+			parameters.Add(param);
+		}
+		return new FunctionModel(key, returnModel, parameters, value.Meta.Description);
+	}
+
+	function AbstractModel __BuildPropertyModel(string key!, any value)
+	{
+		if(Runtime.Native.IsFunction(value))
+		{
+			return __BuildFunctionModel(key, value);
+		}
+
+		if(__IsTable(value))
+		{
+			if(__IsApi(value))
+			{
+				return BuildApiModel(value);
+			}
+
+			return __BuildTableModel(key, value);
+		}
+
+		return new PropertyModel(key, value);
+	}
+
+	function TableModel __BuildTableModel(string name!, Table table)
+	{
+		return new TableModel(name, __BuildTableProperties(table));
+	}
+
+	function Array __BuildTableProperties(Table table)
+	{
+		const Array keys = table.Keys.Where(x => x != "Info").ToArray();
+
+		const Array properties = [];
+		foreach(key in keys)
+		{
+			const any value = table[key];
+			const AbstractModel prop = __BuildPropertyModel(key, value);
+			properties.Add(prop);
+		}
+
+		return properties;
+	}
+
+	function ApiModel BuildApiModel(Table api!)
+	{
+		if(!__IsApi(api))
+		{
+			throw "Input is not an API";
+		}
+
+		const ApiInfo info = __MakeApiInfo(api.Info);
+
+		const Array properties = __BuildTableProperties(api);
+
+		return new ApiModel(info, properties);
+	}
+
+	static function Array GenerateApiModels()
+	{
+
+		const ModelBuilder modelBuilder = new ModelBuilder();
+
+
+		const Array models = [];
+		const Table root = Runtime.GetRootScope().GetLocals();
+		foreach(api in Runtime.GetRegisteredApis())
+		{
+			const ApiModel model = modelBuilder.BuildApiModel(root[api]);
+			models.Add(model);
+		}
+
+		return models;
+	}
+}
+
+

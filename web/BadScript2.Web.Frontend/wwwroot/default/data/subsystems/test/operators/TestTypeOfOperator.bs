@@ -1,0 +1,15 @@
+
+let Assert = NUnit.Assert;
+
+const table = {};
+const array = [];
+
+function Test_TypeOfOperator()
+{
+	const tType = typeof table;
+	Assert.AreEqual(tType, table.GetType(), "typeof table == table.GetType()");
+	const aType = typeof array;
+	Assert.AreEqual(aType, array.GetType(), "typeof array == array.GetType()");
+}
+
+NUnit.AddTest(Test_TypeOfOperator, "Custom Operator 'typeof' tests");

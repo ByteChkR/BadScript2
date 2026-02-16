@@ -1,0 +1,24 @@
+let Assert = NUnit.Assert;
+
+function Test_InterfaceTyped()
+{
+	interface I
+	{
+		bool F();
+	}
+	class C : I
+	{
+		function bool F()
+		{
+			return true;
+		}
+	}
+
+	const I i = new C();
+	const c = i.F();
+	Assert.IsTrue(c, "Interface Function did not return true");
+}
+
+NUnit.AddTest(Test_InterfaceTyped, "Interface Default Typed");
+
+

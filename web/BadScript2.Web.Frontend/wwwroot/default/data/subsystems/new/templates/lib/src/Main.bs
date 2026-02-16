@@ -1,0 +1,6 @@
+
+
+export {
+	Hello: () => Console.WriteLine("Hello World!")
+};
+

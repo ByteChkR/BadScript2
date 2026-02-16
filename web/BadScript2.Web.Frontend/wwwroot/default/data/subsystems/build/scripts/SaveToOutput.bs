@@ -1,0 +1,6 @@
+
+const outFile = Context.Project.Build?.ActualOutputFile ?? Context.Project.Build.OutputFile;
+Console.WriteLine("Saving Project Output to: " + outFile);
+IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(IO.Path.GetFullPath(outFile)));
+IO.File.WriteAllText(outFile, Context.Project.Build.SourceCode);
+

@@ -1,0 +1,10 @@
+{
+  "Logging": {
+    "LogForegroundColor": "Blue",
+    "LogBackgroundColor": "Black",
+    "WarnForegroundColor": "DarkYellow",
+    "WarnBackgroundColor": "Black",
+    "ErrorForegroundColor": "Red",
+    "ErrorBackgroundColor": "Black"
+  }
+}

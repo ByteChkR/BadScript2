@@ -1,0 +1,16 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArraySet()
+{
+	let self = ["Hello", true];
+
+	self.Set(0, "World");
+	self.Set(1, false);
+	Assert.IsTrue(self[0] == "World", "Array.Set Failed");
+	Assert.IsFalse(self[1], "Array.Set Failed");
+
+}
+
+NUnit.AddTest(Test_ArraySet, "Array.Set tests");

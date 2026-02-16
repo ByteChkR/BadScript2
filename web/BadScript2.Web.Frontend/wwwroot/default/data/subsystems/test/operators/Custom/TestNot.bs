@@ -1,0 +1,13 @@
+
+let Assert = NUnit.Assert;
+
+let a = {
+	op_Not: function() => false
+};
+
+function Test_CustomNot()
+{
+	Assert.IsFalse(!a, "!a == false");
+}
+
+NUnit.AddTest(Test_CustomNot, "Custom Operator '!' tests");

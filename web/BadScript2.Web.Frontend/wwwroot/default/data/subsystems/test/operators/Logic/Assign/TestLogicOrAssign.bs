@@ -1,0 +1,21 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_LogicOr()
+{
+	let b = true;
+	b |= true;
+	Assert.IsTrue(b, "true || true");
+	b = false;
+	b |= true;
+	Assert.IsTrue(b, "false || true");
+	b = true;
+	b |= false;
+	Assert.IsTrue(b, "true || false");
+	b = false;
+	b |= false;
+	Assert.IsFalse(b, "false || false");
+}
+
+NUnit.AddTest(Test_LogicOr, "Operator '|=' tests");

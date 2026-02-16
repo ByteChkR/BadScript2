@@ -1,0 +1,5 @@
+{
+  "Name": "Minify",
+  "Description": "Minifies the Source Output",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/Minify.bs"
+}

@@ -1,0 +1,148 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_Using()
+{
+	let disposedNum = 0;
+	let num = 0;
+	using(const t = {
+						Dispose: () => disposedNum = num
+					})
+	{
+		num += 10;
+	}
+
+
+	Assert.AreEqual(disposedNum, 10, "disposedNum == 10");
+}
+
+
+function Test_UsingClass()
+{
+	class Disposable
+	{
+		let num counter;
+		let bool disposed;
+		function Disposable()
+		{
+			counter = 0;
+			disposed = false;
+		}
+
+		function Increment()
+		{
+			if(!disposed)
+			{
+				counter++;
+			}
+		}
+
+		function Dispose()
+		{
+			disposed = true;
+		}
+
+		function num GetCounter()
+		{
+			return counter;
+		}
+	}
+
+	const disposable = new Disposable();
+	using(const d = disposable)
+	{
+		disposable.Increment(); //1
+		disposable.Increment(); //2
+	}
+
+	const num a = disposable.GetCounter(); //2
+
+	disposable.Increment(); //Should have no effect
+
+	const num b = disposable.GetCounter(); //2
+
+
+	Assert.AreEqual(a, b, "a == b");
+}
+
+
+function Test_UsingStatement()
+{
+	let disposedNum = 0;
+	let num = 0;
+
+	//Inner function to test the using statement
+	function F()
+	{
+		using const t = { Dispose: () => disposedNum = num };
+		num += 10;
+	}
+
+	//Call the function
+	F();
+	//Add to the number, should not change the disposedNum value
+	num += 10;
+
+
+	Assert.AreEqual(disposedNum, 10, "disposedNum == 10");
+}
+
+
+function Test_UsingStatementClass()
+{
+	class Disposable
+	{
+		let num counter;
+		let bool disposed;
+		function Disposable()
+		{
+			counter = 0;
+			disposed = false;
+		}
+
+		function Increment()
+		{
+			if(!disposed)
+			{
+				counter++;
+			}
+		}
+
+		function Dispose()
+		{
+			disposed = true;
+		}
+
+		function num GetCounter()
+		{
+			return counter;
+		}
+	}
+
+	function F()
+	{
+		using const d = new Disposable();
+
+		d.Increment(); //1
+		d.Increment(); //2
+
+		return d;
+	}
+
+	const disposable = F();
+
+	const num a = disposable.GetCounter(); //2
+
+	disposable.Increment(); //Should have no effect
+
+	const num b = disposable.GetCounter(); //2
+
+
+	Assert.AreEqual(a, b, "a == b");
+}
+
+NUnit.AddTest(Test_Using, "using tests (simple)");
+NUnit.AddTest(Test_UsingClass, "using tests (class)");
+NUnit.AddTest(Test_UsingStatement, "using statement tests (simple)");
+NUnit.AddTest(Test_UsingStatementClass, "using statement tests (class)");

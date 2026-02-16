@@ -1,0 +1,37 @@
+
+let Assert = NUnit.Assert;
+
+function F(x?) {}
+function G(x, y?) {}
+function H(x?, y?) {}
+
+function Test_OptionalArguments()
+{
+	F();
+	F(true);
+	G(true);
+	G(true, true);
+	H();
+	H(true);
+	H(true, true);
+}
+
+NUnit.AddTest(Test_OptionalArguments, "Optional Function Argument Tests");
+
+const f1 = arg? => arg;
+function Test_LambdaOptionalArg()
+{
+	f1(true);
+	f1();
+}
+
+NUnit.AddTest(Test_LambdaOptionalArg, "Optional Lambda Function Argument Tests");
+
+const f2 = (arg?) => arg;
+function Test_LambdaOptionalArgList()
+{
+	f2(true);
+	f2();
+}
+
+NUnit.AddTest(Test_LambdaOptionalArgList, "Optional Lambda Function Argument List Tests");

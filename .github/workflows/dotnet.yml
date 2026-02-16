@@ -30,7 +30,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10.0.x
     
     - name: Run Unit Tests
       run: dotnet test ./src/BadScript2.Tests/BadScript2.Tests.csproj
@@ -98,7 +98,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10.0.x
     
     - name: Update Nuget Package Versions
       run: /usr/bin/pwsh ./newNugetVersion.ps1 -version ${{ steps.setcalver.outputs.package_version }} -postfix public

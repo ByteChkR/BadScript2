@@ -1,0 +1,7 @@
+{
+  "SettingsBuilder": {
+    "Include": [
+      "$(Console.DataDirectory)/settings**.json"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+function Main(args)
+{
+	Console.WriteLine("Hello From App");
+}
+
+Main(Runtime.GetArguments());

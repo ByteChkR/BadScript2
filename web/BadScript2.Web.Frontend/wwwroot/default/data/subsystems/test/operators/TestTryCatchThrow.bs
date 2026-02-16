@@ -1,0 +1,72 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_TryCatchThrow()
+{
+	let pass;
+	try
+	{
+		pass = true;
+	}
+	catch(e)
+	{
+		pass = false;
+	}
+
+	Assert.IsTrue(pass, "Empty Try Catch");
+
+	try
+	{
+		throw "Test";
+		pass = false;
+	}
+	catch(e)
+	{
+		pass = e.ErrorObject == "Test";
+	}
+	Assert.IsTrue(pass, "Try Catch");
+
+}
+
+function Test_TryCatchThrowFinally()
+{
+	let pass;
+	let finally = false;
+	try
+	{
+		pass = true;
+	}
+	catch(e)
+	{
+		pass = false;
+	}
+	finally
+	{
+		finally = true;
+	}
+
+	Assert.IsTrue(pass, "Empty Try Catch");
+	Assert.IsTrue(finally, "Finally block not invoked");
+
+	finally = false;
+	try
+	{
+		throw "Test";
+		pass = false;
+	}
+	catch(e)
+	{
+		pass = e.ErrorObject == "Test";
+	}
+	finally
+	{
+		finally = true;
+	}
+	Assert.IsTrue(pass, "Try Catch");
+	Assert.IsTrue(finally, "Finally block not invoked");
+
+}
+
+NUnit.AddTest(Test_TryCatchThrow, "try/catch/throw tests");
+NUnit.AddTest(Test_TryCatchThrowFinally, "try/catch/throw/finally tests");

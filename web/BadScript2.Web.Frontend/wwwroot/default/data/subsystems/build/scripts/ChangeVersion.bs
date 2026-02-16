@@ -1,0 +1,61 @@
+function LoadProjectConfig()
+{
+	return Json.FromJson(IO.File.ReadAllText("project.bsproj"));
+}
+
+function SaveProjectConfig(config)
+{
+	IO.File.WriteAllText("project.bsproj", Json.ToJson(config));
+}
+
+function ChangeVersion()
+{
+	if(!IO.File.Exists("project.bsproj"))
+	{
+		Console.WriteLine("Project Config not found.");
+		return;
+	}
+	
+	const config = LoadProjectConfig();
+
+	if(!("Build" in config))
+	{
+		Console.WriteLine("ProjectConfig.Build not found.");
+		return;
+	}
+	if(!("Info" in config))
+	{
+		Console.WriteLine("ProjectConfig.Info not found.");
+		return;
+	}
+
+	if(!("VersionChange" in config.Build))
+	{
+		Console.WriteLine("VersionChange Property not found in Build Settings");
+		return;
+	}
+	if(!("Version" in config.Info))
+	{
+		Console.WriteLine("Version Property not found in AppInfo");
+		return;
+	}
+
+	const curVer = new Version(config.Info.Version);
+	const verChange = config.Build.VersionChange;
+
+	const newVer = curVer.ChangeVersion(verChange);
+	Console.WriteLine($"New Version: {newVer}");
+
+	config.Info.Version = newVer.ToString();
+	if(Context?.Project?.Info != null)
+	{
+		Context.Project.Info.Version = config.Info.Version;
+	}
+
+	Console.WriteLine($"Saving Project Config");
+	SaveProjectConfig(config);
+}
+
+
+
+ChangeVersion();

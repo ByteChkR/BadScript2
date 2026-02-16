@@ -1,0 +1,16 @@
+{
+	"Info": {
+	  "Name": "MyDebugger",
+	  "Version": "1.0.0.0",
+	  "Author": "UNKNOWN"
+	},
+	"Build": {
+		"ModuleType": "debugger",
+		"OutputFile": "./bin/MyDebugger.bs",
+		"VersionChange": "(~){yyyy}.(~){MM}.(~){dd}.+",
+		"Sources": [
+			"./src/**"
+		]
+	},
+	"Targets": ["default", "Debug", "Release"]
+}

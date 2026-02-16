@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_StringEndsWith()
+{
+	const s = "Hello Planet";
+	Assert.IsTrue(s.EndsWith("Planet"), "String.EndsWith Failed");
+}
+
+NUnit.AddTest(Test_StringEndsWith, "String.EndsWith tests");

@@ -1,0 +1,12 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_MathMultiply()
+{
+	Assert.AreEqual(2 * 2, 4, "2 * 2 == 4");
+	Assert.AreEqual(1 * 0.2, 0.2, "1 * 0.2 == 0.2");
+	Assert.AreEqual(-2 * 5, -10, "-2 * 5 = -10");
+}
+
+NUnit.AddTest(Test_MathMultiply, "Operator '*' tests");

@@ -1,0 +1,15 @@
+let Assert = NUnit.Assert;
+
+
+function Test_SelfReferencing()
+{
+	class C<T>
+	{
+		function C<T> GetThis() => this;
+	}
+	let c = new C<bool>();
+	Assert.AreEqual(c, c.GetThis(), "Instances are not equal");
+}
+
+NUnit.AddTest(Test_SelfReferencing, "Generic Class Definition + Create + Function GetThis(): selfreferencing");
+

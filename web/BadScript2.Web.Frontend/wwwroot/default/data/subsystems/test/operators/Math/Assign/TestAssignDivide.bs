@@ -1,0 +1,20 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_MathDivide()
+{
+	let a = 2;
+	a /= 2;
+	Assert.AreEqual(a, 1, "2 / 2 == 1");
+
+	a = 1;
+	a /= 0.2;
+	Assert.AreEqual(a, 5, "1 / 0.2 == 5");
+
+	a = -10;
+	a /= 5;
+	Assert.AreEqual(a, -2, "-10 / 5 = -2");
+}
+
+NUnit.AddTest(Test_MathDivide, "Operator '/=' tests");

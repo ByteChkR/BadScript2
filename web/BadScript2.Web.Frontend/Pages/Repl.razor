@@ -58,7 +58,7 @@
         var console = _console!.GetConsoleWrapper();
         BadConsole.SetConsole(console);
         var fs = await BadRuntimeBuilder.BuildFileSystem(Workspace ?? "default", _workspaceData!);
-        BadFileSystem.SetFileSystem(fs);
+        
         Context.Load(
             await BadRuntimeBuilder.BuildRuntime(fs),
             console,

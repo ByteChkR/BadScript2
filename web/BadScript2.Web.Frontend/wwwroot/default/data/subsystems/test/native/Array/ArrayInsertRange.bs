@@ -1,0 +1,17 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_ArrayInsertRange()
+{
+	let self = [true];
+	
+	self.InsertRange(0, ["Hello", "World"]);
+
+	Assert.IsTrue(self.Length == 3, "Array.InsertRange Failed");
+	Assert.IsTrue(self[0] == "Hello", "Array.InsertRange Failed");
+	Assert.IsTrue(self[1] == "World", "Array.InsertRange Failed");
+
+}
+
+NUnit.AddTest(Test_ArrayInsertRange, "Array.InsertRange tests");

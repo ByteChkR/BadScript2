@@ -6,15 +6,15 @@
     <icon>Logo.png</icon>
     <description>Compression API</description>
     <dependencies>
-      <group targetFramework="net8.0">
+      <group targetFramework="net10.0">
         <dependency id="BadScript2" version="25.1.2.3" exclude="Build,Analyzers" />
       </group>
     </dependencies>
     <version xmlns="">25.1.2.1</version>
   </metadata>
   <files>
-    <file src="./bin/Release/net8.0/BadScript2.Interop.Compression.dll" target="lib/net8.0/BadScript2.Interop.Compression.dll" />
-    <file src="./bin/Release/net8.0/BadScript2.Interop.Compression.pdb" target="lib/net8.0/BadScript2.Interop.Compression.pdb" />
+    <file src="./bin/Release/net10.0/BadScript2.Interop.Compression.dll" target="lib/net10.0/BadScript2.Interop.Compression.dll" />
+    <file src="./bin/Release/net10.0/BadScript2.Interop.Compression.pdb" target="lib/net10.0/BadScript2.Interop.Compression.pdb" />
     <file src="../../../res/Logo.png" target="Logo.png" />
   </files>
 </package>

@@ -1,0 +1,30 @@
+let Assert = NUnit.Assert;
+
+function Test()
+{
+	let num v;
+	Assert.AreEqual(v, null, "Uninitialized Variable is not null");
+}
+
+NUnit.AddTest(Test, "Variable Definition: TypeSafe");
+
+function ConstTest()
+{
+	const num v;
+	Assert.AreEqual(v, null, "Uninitialized Constant is not null");	
+}
+NUnit.AddTest(ConstTest, "Constant Definition: TypeSafe");
+
+function TestAssign()
+{
+	let num v = 10;
+	Assert.AreEqual(v, 10, "Initialized Variable is not equal to the initialized value");
+}
+NUnit.AddTest(TestAssign, "Variable Definition + Assignment: TypeSafe");
+
+function ConstTestAssign()
+{
+	const num v = 10;
+	Assert.AreEqual(v, 10, "Uninitialized Constant is not equal to the initialized value");	
+}
+NUnit.AddTest(ConstTestAssign, "Constant Definition + Assignment: TypeSafe");

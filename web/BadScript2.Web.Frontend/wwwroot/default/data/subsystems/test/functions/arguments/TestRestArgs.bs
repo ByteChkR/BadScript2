@@ -1,0 +1,31 @@
+
+let Assert = NUnit.Assert;
+
+function F(args*)
+{
+	Assert.AreEqual(args.Length, 4, "args.Length == 4");	
+}
+
+function Test_RestArgs()
+{
+	F(true, 1, "2", null);
+}
+
+NUnit.AddTest(Test_RestArgs, "Rest Function Argument Tests");
+
+
+const f1 = args* => Assert.AreEqual(args.Length, 4, "args.Length == 4");
+function Test_LambdaRestArgs()
+{
+	f1(true, 1, "2", null);
+}
+
+NUnit.AddTest(Test_LambdaRestArgs, "Rest Lambda Function Argument Tests");
+
+const f2 = (args*) => Assert.AreEqual(args.Length, 4, "args.Length == 4");
+function Test_LambdaRestArgList()
+{
+	f2(true, 1, "2", null);
+}
+
+NUnit.AddTest(Test_LambdaRestArgList, "Rest Lambda Function Argument List Tests");

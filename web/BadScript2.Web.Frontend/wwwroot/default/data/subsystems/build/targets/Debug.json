@@ -1,0 +1,8 @@
+{
+  "Name": "Debug",
+  "Description": "Builds the Project in a debugging configuration",
+  "Dependencies": [
+    "Build",
+    "Install"
+  ]
+}

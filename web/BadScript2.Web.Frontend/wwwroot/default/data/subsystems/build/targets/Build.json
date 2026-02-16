@@ -1,0 +1,12 @@
+{
+  "Name": "Build",
+  "Description": "Builds the Project",
+  "Dependencies": [
+    "ExpandSources",
+    "CombineSources",
+    "ProcessDirectives",
+    "ProcessEvals",
+    "ValidateOutput",
+    "SaveToOutput"
+  ]
+}

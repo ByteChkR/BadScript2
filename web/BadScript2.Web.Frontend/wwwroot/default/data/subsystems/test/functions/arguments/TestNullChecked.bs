@@ -1,0 +1,31 @@
+
+let Assert = NUnit.Assert;
+
+function F(x!) {}
+function G(x, y!) {}
+function H(x!, y!) {}
+
+function Test_NullCheckedArguments()
+{
+	F(true);
+	G(true, true);
+	H(true, true);
+}
+
+NUnit.AddTest(Test_NullCheckedArguments, "NullChecked Function Argument Tests");
+
+const f1 = arg! => Assert.IsNotNull(arg, "Arg is null");
+function Test_LambdaNullCheckedArg()
+{
+	f1(true);
+}
+
+NUnit.AddTest(Test_LambdaNullCheckedArg, "NullChecked Lambda Function Argument Tests");
+
+const f2 = (arg!) => Assert.IsNotNull(arg, "Arg is null");
+function Test_LambdaNullCheckedArgList()
+{
+	f2(true);
+}
+
+NUnit.AddTest(Test_LambdaNullCheckedArgList, "NullChecked Lambda Function Argument List Tests");

@@ -1,0 +1,11 @@
+
+let Assert = NUnit.Assert;
+
+
+function Test_NullCheckedArrayAccess()
+{
+	let a = null;
+	Assert.AreEqual(null, a?[0], "a?[0] == null");
+}
+
+NUnit.AddTest(Test_NullCheckedArrayAccess, "Operator '?[]' tests");

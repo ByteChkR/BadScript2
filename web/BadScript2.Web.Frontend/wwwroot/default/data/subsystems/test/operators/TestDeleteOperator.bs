@@ -1,0 +1,17 @@
+
+let Assert = NUnit.Assert;
+
+const table = {
+	a: true,
+	b: true
+};
+
+function Test_DeleteOperator()
+{
+	delete table.a;
+	Assert.AreEqual(table.Keys.Length, 1, "table.Length == 1");
+	delete table["b"];
+	Assert.AreEqual(table.Keys.Length, 0, "table.Length == 0");
+}
+
+NUnit.AddTest(Test_DeleteOperator, "Custom Operator 'delete' tests");

@@ -1,0 +1,5 @@
+{
+  "Name": "ProcessDirectives",
+  "Description": "Processes Preprocessor Directives in the Source Output",
+  "Script": "$(DEFAULT_TARGETSCRIPT_PATH)/ProcessDirectives.bs"
+}

@@ -1,0 +1,21 @@
+
+let Assert = NUnit.Assert;
+
+let array = [1, 2, 3];
+let a = {
+	GetEnumerator: function() => array.GetEnumerator()
+};
+function Test_CustomEnumerable()
+{
+	
+
+	let s = 0;
+	foreach(e in a)
+	{
+		s += e;
+	}
+
+	Assert.AreEqual(s, 6, "s == 6");
+}
+
+NUnit.AddTest(Test_CustomEnumerable, "Custom Enumerable tests");
