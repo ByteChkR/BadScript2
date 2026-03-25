@@ -423,6 +423,7 @@ public class BadDateExtension : BadInteropExtension
                     BadTime.Prototype
                 )
             );
+        
         provider.RegisterObject(BadStaticKeys.ADD_OPERATOR_NAME, addFunc);
         provider.RegisterObject("Add", addFunc);
 
@@ -440,7 +441,20 @@ public class BadDateExtension : BadInteropExtension
                     BadTime.Prototype
                 )
             );
-        provider.RegisterObject(BadStaticKeys.SUBTRACT_OPERATOR_NAME, subtractFunc);
+        Func<DateTimeOffset, BadObject> subtractFunc2 = d =>
+            new BadDynamicInteropFunction<DateTimeOffset>(
+                BadStaticKeys.SUBTRACT_OPERATOR_NAME, (_, y) => d - y,
+                BadTime.Prototype,
+                new BadFunctionParameter(
+                    "other",
+                    false,
+                    true,
+                    false,
+                    null,
+                    BadDate.Prototype
+                )
+            );
+        provider.RegisterObject(BadStaticKeys.SUBTRACT_OPERATOR_NAME, subtractFunc2);
         provider.RegisterObject("Subtract", subtractFunc);
         
         provider.RegisterObject<DateTimeOffset>(
