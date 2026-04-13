@@ -165,6 +165,8 @@ public class BadIfNodeTransformer : BadHtmlNodeTransformer
 
                 Transform(childContext);
             }
+
+            return;
         }
 
         if (executedAny || elseBranch == null)
