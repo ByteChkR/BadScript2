@@ -72,7 +72,7 @@ public static class BadCommonInterop
     /// <param name="useAsync">Whether to use the Async Extensions</param>
     /// <param name="runner">The Task Runner Instance</param>
     /// <returns>The Runtime</returns>
-    public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true, BadTaskRunner? runner = null)
+    public static BadRuntime UseCommonInterop(this BadRuntime runtime, bool useAsync = true, BadTaskRunner? runner = null, Func<BadInteropApi, bool>? apiFilter = null)
     {
         if (useAsync)
         {
@@ -92,13 +92,19 @@ public static class BadCommonInterop
         BadNativeClassBuilder.AddNative(BadVersion.Prototype);
         return runtime
             .UseCommonExtensions(useAsync)
-            .UseApis(() => [
-                new BadConsoleApi(BadConsole.GetConsole()),
-                new BadRuntimeApi(),
-                new BadMathApi(),
-                new BadOperatingSystemApi(),
-                new BadXmlApi()
-            ], true);
+            .UseApis(() =>
+            {
+                List<BadInteropApi> apis =
+                [
+                    new BadConsoleApi(BadConsole.GetConsole()),
+                    new BadRuntimeApi(),
+                    new BadMathApi(),
+                    new BadOperatingSystemApi(),
+                    new BadXmlApi()
+                ];
+                if (apiFilter == null) return apis;
+                return apis.Where(apiFilter).ToList();
+            }, true);
     }
 
     /// <summary>
