@@ -488,12 +488,39 @@ public class BadLinqExtensions : BadInteropExtension
         return new BadInteropEnumerable(e.Reverse());
     }
 
+    /// <summary>
+    ///     Implementation for 'Distinct' function.
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="e">The Enumerable</param>
+    /// <returns>Enumeration</returns>
+    private static BadObject Distinct(BadExecutionContext ctx, IBadEnumerable e)
+    {
+        return new BadInteropEnumerable(e.Distinct());
+    }
+
+    /// <summary>
+    ///     Implementation for 'DistinctBy' function.
+    /// </summary>
+    /// <param name="ctx">The Execution Context</param>
+    /// <param name="e">The Enumerable</param>
+    /// <param name="selector">The Selector Function</param>
+    /// <returns>Enumeration</returns>
+    private static BadObject DistinctBy(BadExecutionContext ctx, IBadEnumerable e, BadFunction selector)
+    {
+        return new BadInteropEnumerable(e.GroupBy(x => Invoke(selector, ctx, x))
+                                         .Select(x => x.First()));
+    }
+
     /// <inheritdoc />
     protected override void AddExtensions(BadInteropExtensionProvider provider)
     {
         Register(provider, "ToArray", (_, e) => ToArray(e), BadNativeClassBuilder.GetNative("Array"));
         Register(provider, "Reverse", (_, e) => Reverse(e), BadAnyPrototype.Instance);
+        Register(provider, "Distinct", Distinct, BadNativeClassBuilder.Enumerable);
         Register<BadFunction>(provider, "Select", Select, BadNativeClassBuilder.Enumerable,
+            new BadFunctionParameter("selector", false, true, false, null, BadFunction.Prototype));
+        Register<BadFunction>(provider, "DistinctBy", DistinctBy, BadNativeClassBuilder.Enumerable,
             new BadFunctionParameter("selector", false, true, false, null, BadFunction.Prototype));
         Register<BadFunction>(provider, "Where", Where, BadNativeClassBuilder.Enumerable,
             new BadFunctionParameter("selector", false, true, false, null, BadFunction.Prototype));

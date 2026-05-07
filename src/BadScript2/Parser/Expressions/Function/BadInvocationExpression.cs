@@ -86,10 +86,14 @@ public class BadInvocationExpression : BadExpression
     ///     Returns the argument objects
     /// </summary>
     /// <param name="context">The Current Execution Context</param>
+    /// <param name="args">The Array to store the arguments in</param>
     /// <returns>Array of evaluated arguments</returns>
-    public BadObject[] GetArgsArray(BadExecutionContext context)
+    public IEnumerable<BadObject> GetArgs(BadExecutionContext context, BadObject[] args)
     {
-        BadObject[] args = new BadObject[m_Arguments.Count];
+        if(args.Length != m_Arguments.Count)
+        {
+            throw new ArgumentException("Argument array length does not match the number of arguments in the expression");
+        }
         int index = 0;
 
         foreach (BadExpression argExpr in m_Arguments)
@@ -99,12 +103,11 @@ public class BadInvocationExpression : BadExpression
             foreach (BadObject arg in argExpr.Execute(context))
             {
                 argObj = arg;
+                yield return arg;
             }
 
             args[index++] = argObj.Dereference(Position);
         }
-
-        return args;
     }
 
     

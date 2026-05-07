@@ -134,14 +134,14 @@ public class BadNewExpression : BadExpression
             throw new BadRuntimeException("Cannot create object from non-class type", Position);
         }
 
-        List<BadObject> args = new List<BadObject>();
+        var args = new BadObject[Right.ArgumentCount];
 
         foreach (BadObject o in Right.GetArgs(context, args))
         {
             yield return o;
         }
 
-        foreach (BadObject o in CreateObject(ptype, context, args.ToArray(), Position))
+        foreach (BadObject o in CreateObject(ptype, context, args, Position))
         {
             yield return o;
         }

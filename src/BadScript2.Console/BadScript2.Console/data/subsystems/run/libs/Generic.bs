@@ -29,6 +29,10 @@ class GenericEnumerable<T> : IEnumerable<T>
 
 	function IEnumerable<T> Reverse() => new GenericEnumerable<T>(__nativeEnumerable.Reverse());
 
+	function IEnumerable<T> Distinct() => new GenericEnumerable<T>(__nativeEnumerable.Distinct());
+
+	function IEnumerable<T> DistinctBy(Function selector!) => new GenericEnumerable<T>(__nativeEnumerable.DistinctBy(selector));
+
 	function bool All(Function selector!) => __nativeEnumerable.All(selector);
 
 	function bool Any(Function selector?) => __nativeEnumerable.All(selector);
