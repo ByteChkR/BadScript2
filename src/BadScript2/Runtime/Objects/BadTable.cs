@@ -146,6 +146,27 @@ public class BadTable : BadObject, IBadEnumerable
         return InnerTable.ContainsKey(propName) || (caller != null && caller.Provider.HasObject<BadTable>(propName));
     }
 
+    /// <inheritdoc />
+    public override bool TryGetProperty(string propName, out BadObjectReference? reference, BadScope? caller = null)
+    {
+        if (InnerTable.ContainsKey(propName))
+        {
+            reference = GetLocalReference(propName);
+
+            return true;
+        }
+
+        if (caller != null &&
+            caller.Provider.TryGetObjectReference(GetType(), propName, this, caller, out reference))
+        {
+            return true;
+        }
+
+        reference = null;
+
+        return false;
+    }
+
 
     /// <summary>
     ///     Returns a Reference to the Property with the given Name
@@ -272,9 +293,9 @@ public class BadTable : BadObject, IBadEnumerable
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        if (!InnerTable.ContainsKey(propName) && caller != null && caller.Provider.HasObject<BadTable>(propName))
+        if (TryGetProperty(propName, out BadObjectReference? reference, caller))
         {
-            return caller.Provider.GetObjectReference(GetType(), propName, this, caller);
+            return reference!;
         }
 
         return GetLocalReference(propName);

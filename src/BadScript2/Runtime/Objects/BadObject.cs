@@ -134,6 +134,26 @@ public abstract class BadObject
     }
 
     /// <summary>
+    ///     Tries to return a Reference to the Property with the given Name
+    /// </summary>
+    /// <param name="propName">The Property Name</param>
+    /// <param name="reference">The Property Reference</param>
+    /// <param name="caller">The caller Scope</param>
+    /// <returns>True if the property exists</returns>
+    public virtual bool TryGetProperty(string propName, out BadObjectReference? reference, BadScope? caller = null)
+    {
+        if (caller != null &&
+            caller.Provider.TryGetObjectReference(GetType(), propName, this, caller, out reference))
+        {
+            return true;
+        }
+
+        reference = null;
+
+        return false;
+    }
+
+    /// <summary>
     ///     Returns a Reference to the Property with the given Name
     /// </summary>
     /// <param name="propName">The Property Name</param>
@@ -141,12 +161,17 @@ public abstract class BadObject
     /// <returns>The Property Reference</returns>
     public virtual BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
+        if (TryGetProperty(propName, out BadObjectReference? reference, caller))
+        {
+            return reference!;
+        }
+
         if (caller == null)
         {
             throw BadRuntimeException.Create(caller, $"No property named {propName} for type {GetType().Name}");
         }
 
-        return caller.Provider.GetObjectReference(GetType(), propName, this, caller);
+        throw BadRuntimeException.Create(caller, $"No property named {propName} for type {GetType().Name}");
     }
 
     /// <summary>

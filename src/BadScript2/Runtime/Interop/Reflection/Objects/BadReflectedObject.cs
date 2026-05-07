@@ -55,12 +55,25 @@ public class BadReflectedObject : BadObject
     /// <inheritdoc />
     public override BadObjectReference GetProperty(string propName, BadScope? caller = null)
     {
-        if (Members.Contains(propName))
+        if (TryGetProperty(propName, out BadObjectReference? reference, caller))
         {
-            return Members.GetMember(Instance, propName);
+            return reference!;
         }
 
         return base.GetProperty(propName, caller);
+    }
+
+    /// <inheritdoc />
+    public override bool TryGetProperty(string propName, out BadObjectReference? reference, BadScope? caller = null)
+    {
+        if (Members.Contains(propName))
+        {
+            reference = Members.GetMember(Instance, propName);
+
+            return true;
+        }
+
+        return base.TryGetProperty(propName, out reference, caller);
     }
 
     /// <inheritdoc />

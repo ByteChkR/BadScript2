@@ -395,12 +395,11 @@ public class BadRuntimeVirtualMachine
                                                .Dereference(instr.Position);
                 string name = (string)instr.Arguments[0];
 
-                if (obj.HasProperty(name, ctx.Scope))
+                if (obj.TryGetProperty(name, out BadObjectReference? property, ctx.Scope))
                 {
                     if (instr.Arguments.Length > 1 && instr.Arguments[1] is int genericArgCount && genericArgCount != 0)
                     {
-                        BadObject left = obj
-                                         .GetProperty((string)instr.Arguments[0], ctx.Scope)
+                        BadObject left = property!
                                          .Dereference(instr.Position);
 
                         if (left is not IBadGenericObject genItem)
@@ -423,7 +422,7 @@ public class BadRuntimeVirtualMachine
                     }
                     else
                     {
-                        m_ArgumentStack.Push(obj.GetProperty(name, ctx.Scope));
+                        m_ArgumentStack.Push(property!);
                     }
                 }
                 else

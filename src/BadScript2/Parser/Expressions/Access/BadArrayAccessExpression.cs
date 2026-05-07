@@ -97,13 +97,13 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
     /// </summary>
     /// <param name="context">The execution context.</param>
     /// <param name="left">Left side of the expression.</param>
-    /// <param name="args">Right side of the expression.</param>
+    /// <param name="args">The evaluated arguments.</param>
     /// <param name="position">Position inside the source code.</param>
     /// <returns>The result of the array access(last item of the enumeration).</returns>
     /// <exception cref="BadRuntimeException">If the array access operator is not defined.</exception>
     public static IEnumerable<BadObject> Access(BadExecutionContext? context,
                                                 BadObject left,
-                                                IEnumerable<BadObject> args,
+                                                BadObject[] args,
                                                 BadSourcePosition position)
     {
         if (left.HasProperty(BadStaticKeys.ARRAY_ACCESS_OPERATOR_NAME, context?.Scope))
@@ -116,7 +116,7 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
 
             BadObject r = BadObject.Null;
 
-            foreach (BadObject o in func.Invoke(args.ToArray(), context!))
+            foreach (BadObject o in func.Invoke(args, context!))
             {
                 yield return o;
 
@@ -153,23 +153,23 @@ public class BadArrayAccessExpression : BadExpression, IBadAccessExpression
             yield break;
         }
 
-        List<BadObject> args = new List<BadObject>();
+        BadObject[] args = new BadObject[m_Arguments.Length];
 
-        foreach (BadExpression argExpr in m_Arguments)
+        for (int i = 0; i < m_Arguments.Length; i++)
         {
             BadObject argObj = BadObject.Null;
 
-            foreach (BadObject arg in argExpr.Execute(context))
+            foreach (BadObject arg in m_Arguments[i].Execute(context))
             {
                 argObj = arg;
 
                 yield return arg;
             }
 
-            args.Add(argObj.Dereference(Position));
+            args[i] = argObj.Dereference(Position);
         }
 
-        foreach (BadObject o in Access(context, left, args.ToArray(), Position))
+        foreach (BadObject o in Access(context, left, args, Position))
         {
             yield return o;
         }

@@ -86,10 +86,12 @@ public class BadInvocationExpression : BadExpression
     ///     Returns the argument objects
     /// </summary>
     /// <param name="context">The Current Execution Context</param>
-    /// <param name="args">The Arguments that will be evaluated</param>
-    /// <returns>List of evaluates arguments</returns>
-    public IEnumerable<BadObject> GetArgs(BadExecutionContext context, List<BadObject> args)
+    /// <returns>Array of evaluated arguments</returns>
+    public BadObject[] GetArgsArray(BadExecutionContext context)
     {
+        BadObject[] args = new BadObject[m_Arguments.Count];
+        int index = 0;
+
         foreach (BadExpression argExpr in m_Arguments)
         {
             BadObject argObj = BadObject.Null;
@@ -97,13 +99,15 @@ public class BadInvocationExpression : BadExpression
             foreach (BadObject arg in argExpr.Execute(context))
             {
                 argObj = arg;
-
-                yield return arg;
             }
 
-            args.Add(argObj.Dereference(argExpr.Position));
+            args[index++] = argObj.Dereference(Position);
         }
+
+        return args;
     }
+
+    
 
     /// <summary>
     ///     Invokes a function
@@ -118,13 +122,13 @@ public class BadInvocationExpression : BadExpression
     ///     is not of type BadFunction
     /// </exception>
     public static IEnumerable<BadObject> Invoke(BadObject left,
-                                                IEnumerable<BadObject> args,
+                                                BadObject[] args,
                                                 BadSourcePosition position,
                                                 BadExecutionContext context)
     {
         if (left is BadFunction func)
         {
-            foreach (BadObject o in func.Invoke(args.ToArray(), context))
+            foreach (BadObject o in func.Invoke(args, context))
             {
                 yield return o;
             }
@@ -139,7 +143,7 @@ public class BadInvocationExpression : BadExpression
 
             BadObject r = BadObject.Null;
 
-            foreach (BadObject o in invocationOp.Invoke(args.ToArray(), context))
+            foreach (BadObject o in invocationOp.Invoke(args, context))
             {
                 yield return o;
 
@@ -186,14 +190,24 @@ public class BadInvocationExpression : BadExpression
                        .Dereference(Position);
         }
 
-        List<BadObject> args = new List<BadObject>();
+        BadObject[] args = new BadObject[m_Arguments.Count];
+        int argIndex = 0;
 
-        foreach (BadObject o in GetArgs(context, args))
+        foreach (BadExpression argExpr in m_Arguments)
         {
-            yield return o;
+            BadObject argObj = BadObject.Null;
+
+            foreach (BadObject arg in argExpr.Execute(context))
+            {
+                argObj = arg;
+
+                yield return arg;
+            }
+
+            args[argIndex++] = argObj.Dereference(Position);
         }
 
-        foreach (BadObject? o in Invoke(left, args.ToArray(), Position, context))
+        foreach (BadObject? o in Invoke(left, args, Position, context))
         {
             yield return o;
         }

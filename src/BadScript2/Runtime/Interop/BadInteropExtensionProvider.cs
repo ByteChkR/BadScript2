@@ -296,6 +296,30 @@ public class BadInteropExtensionProvider
     }
 
     /// <summary>
+    ///     Tries to return a reference to the specified extension
+    /// </summary>
+    public bool TryGetObjectReference(Type t,
+                                      string propName,
+                                      BadObject instance,
+                                      BadScope? caller,
+                                      out BadObjectReference? reference)
+    {
+        if (!HasGlobalExtensions(propName) &&
+            (!HasTypeExtensions(t) || !GetTypeExtensions(t).ContainsKey(propName)))
+        {
+            reference = null;
+
+            return false;
+        }
+
+        reference = BadObjectReference.Make($"{t.Name}.{propName}",
+                                            (p) => GetObject(t, propName, instance, caller, p)
+                                           );
+
+        return true;
+    }
+
+    /// <summary>
     ///     Returns a reference to the specified extension
     /// </summary>
     /// <param name="t">Type</param>
@@ -308,9 +332,12 @@ public class BadInteropExtensionProvider
                                                  BadObject instance,
                                                  BadScope? caller)
     {
-        return BadObjectReference.Make($"{t.Name}.{propName}",
-                                       (p) => GetObject(t, propName, instance, caller, p)
-                                      );
+        if (TryGetObjectReference(t, propName, instance, caller, out BadObjectReference? reference))
+        {
+            return reference!;
+        }
+
+        throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}");
     }
 
     /// <summary>
