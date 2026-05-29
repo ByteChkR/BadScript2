@@ -1,9 +1,5 @@
-using BadScript2.Parser.Expressions;
-using BadScript2.Parser.Expressions.Access;
-using BadScript2.Parser.Expressions.Binary;
+using BadScript2.Runtime;
 using BadScript2.Parser.Expressions.Block.Loop;
-using BadScript2.Parser.Expressions.Function;
-using BadScript2.Parser.Expressions.Variables;
 using BadScript2.Runtime.Objects;
 
 /// <summary>
@@ -20,58 +16,66 @@ public class BadForEachExpressionCompiler : BadExpressionCompiler<BadForEachExpr
     public override void Compile(BadExpressionCompileContext context, BadForEachExpression expression)
     {
         context.Compile(expression.Target);
-        context.Emit(BadOpCode.Dup, expression.Position);
-        context.Emit(BadOpCode.Push, expression.Position, (BadObject)"GetEnumerator");
-        context.Emit(BadOpCode.HasProperty, expression.Position);
-        context.Emit(BadOpCode.JumpRelativeIfFalse, expression.Position, 2);
-        context.Emit(BadOpCode.LoadMember, expression.Position, "GetEnumerator");
-        context.Emit(BadOpCode.Invoke, expression.Position, 0);
-        context.Emit(BadOpCode.CreateScope, expression.Position, "FOREACH_ENUMERATOR_SCOPE", BadObject.Null);
+        context.Emit(BadOpCode.GetEnumerator, expression.Position);
+
+        context.Emit(BadOpCode.CreateScope,
+                     expression.Position,
+                     "FOREACH_ENUMERATOR_SCOPE",
+                     BadObject.Null
+                    );
         context.Emit(BadOpCode.DefVar, expression.Position, "~ENUMERATOR~", true);
         context.Emit(BadOpCode.Swap, expression.Position);
         context.Emit(BadOpCode.Assign, expression.Position);
-        List<BadExpression>? body = expression.Body.ToList();
 
-        body.Insert(0,
-                    new BadAssignExpression(new BadVariableDefinitionExpression(expression.LoopVariable.Text,
-                                                                                expression.LoopVariable.SourcePosition,
-                                                                                null,
-                                                                                true
-                                                                               ),
-                                            new BadInvocationExpression(new
-                                                                            BadMemberAccessExpression(new
-                                                                                     BadVariableExpression("~ENUMERATOR~",
-                                                                                          expression.Position
-                                                                                         ),
-                                                                                 "GetCurrent",
-                                                                                 expression.Position,
-                                                                                 new List<BadExpression>()
-                                                                                ),
-                                                                        Array.Empty<BadExpression>(),
-                                                                        expression.Position
-                                                                       ),
-                                            expression.Position
-                                           )
-                   );
+        int loopConditionStart = context.InstructionCount;
+        context.Emit(BadOpCode.BeginLoop, expression.Position);
+        context.Emit(BadOpCode.LoadVar, expression.Position, "~ENUMERATOR~", 0);
+        context.Emit(BadOpCode.MoveNext, expression.Position);
+        int endJump = context.EmitEmpty();
 
-        context.Compile(new BadWhileExpression(new BadInvocationExpression(new
-                                                                               BadMemberAccessExpression(new
-                                                                                        BadVariableExpression("~ENUMERATOR~",
-                                                                                             expression.LoopVariable
-                                                                                                 .SourcePosition
-                                                                                            ),
-                                                                                    "MoveNext",
-                                                                                    expression.LoopVariable
-                                                                                        .SourcePosition,
-                                                                                    new List<BadExpression>()
-                                                                                   ),
-                                                                           Array.Empty<BadExpression>(),
-                                                                           expression.Position
-                                                                          ),
-                                               body,
-                                               expression.Position
-                                              )
-                       );
+        context.Emit(BadOpCode.CreateScope,
+                     expression.Position,
+                     "FOREACH_BODY_SCOPE",
+                     BadObject.Null,
+                     BadScopeFlags.Breakable | BadScopeFlags.Continuable
+                    );
+        int bodyScopeStart = context.InstructionCount - 1;
+        int setBreakInstruction = context.EmitEmpty();
+        int setContinueInstruction = context.EmitEmpty();
+
+        context.Emit(BadOpCode.DefVar, expression.Position, expression.LoopVariable.Text, true);
+        context.Emit(BadOpCode.LoadVar, expression.Position, "~ENUMERATOR~", 0);
+        context.Emit(BadOpCode.GetCurrent, expression.Position);
+        context.Emit(BadOpCode.Assign, expression.Position);
+
+        context.Compile(expression.Body);
         context.Emit(BadOpCode.DestroyScope, expression.Position);
+
+        int continueJump = context.InstructionCount;
+        context.Emit(BadOpCode.JumpRelative,
+                     expression.Position,
+                     loopConditionStart - context.InstructionCount - 1
+                    );
+        int destroyEnumeratorScope = context.InstructionCount;
+        context.Emit(BadOpCode.DestroyScope, expression.Position);
+        context.Emit(BadOpCode.EndLoop, expression.Position);
+
+        context.ResolveEmpty(endJump,
+                             BadOpCode.JumpRelativeIfFalse,
+                             expression.Position,
+                             context.InstructionCount - endJump - 1
+                            );
+
+        context.ResolveEmpty(setBreakInstruction,
+                             BadOpCode.SetBreakPointer,
+                             expression.Position,
+                             destroyEnumeratorScope - bodyScopeStart - 1
+                            );
+
+        context.ResolveEmpty(setContinueInstruction,
+                             BadOpCode.SetContinuePointer,
+                             expression.Position,
+                             continueJump - bodyScopeStart - 1
+                            );
     }
 }

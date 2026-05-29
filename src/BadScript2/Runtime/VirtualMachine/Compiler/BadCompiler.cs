@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using BadScript2.Common;
 using BadScript2.Parser;
 using BadScript2.Parser.Expressions;
@@ -72,6 +74,7 @@ public class BadCompiler
     {
         { typeof(BadVariableExpression), new BadVariableExpressionCompiler() },
         { typeof(BadVariableDefinitionExpression), new BadVariableDefinitionExpressionCompiler() },
+        { typeof(BadPropertyDefinitionExpression), new BadPropertyDefinitionExpressionCompiler() },
         { typeof(BadMemberAccessExpression), new BadMemberAccessExpressionCompiler() },
         { typeof(BadEqualityExpression), new BadEqualityExpressionCompiler() },
         { typeof(BadInequalityExpression), new BadInequalityExpressionCompiler() },
@@ -198,11 +201,11 @@ public class BadCompiler
     {
         foreach (BadExpression expression in expressions)
         {
-            BadSourcePosition? position = null;
+            BadSourcePosition position = expression.Position;
 
             Compile(context, expression);
 
-            if (clearStack && position != null)
+            if (clearStack)
             {
                 context.Emit(BadOpCode.ClearStack, position);
             }
@@ -230,7 +233,121 @@ public class BadCompiler
     {
         BadExpressionCompileContext ctx = new BadExpressionCompileContext(Instance);
         Instance.Compile(ctx, expressions);
+        BadInstruction[] instructions = ctx.GetInstructions().ToArray();
+        RunEscapeAnalysis(instructions);
 
-        return ctx.GetInstructions();
+        return instructions;
+    }
+
+    // -------------------------------------------------------------------------
+    // Phase C2 – Escape Analysis pass
+    // -------------------------------------------------------------------------
+
+    /// <summary>
+    ///     Opcodes that produce a single numeric/boolean value on the stack
+    ///     by consuming two operands (binary arithmetic / comparison).
+    /// </summary>
+    private static readonly HashSet<BadOpCode> s_ArithmeticOpcodes = new()
+    {
+        BadOpCode.Add,
+        BadOpCode.Sub,
+        BadOpCode.Mul,
+        BadOpCode.Div,
+        BadOpCode.Mod,
+        BadOpCode.Exp,
+        BadOpCode.Neg,
+    };
+
+    /// <summary>
+    ///     Opcodes that CONSUME a value from the stack and produce a boolean
+    ///     (comparisons). A transient arithmetic result flowing into these is safe.
+    /// </summary>
+    private static readonly HashSet<BadOpCode> s_ConsumerOpcodes = new()
+    {
+        BadOpCode.Add,
+        BadOpCode.Sub,
+        BadOpCode.Mul,
+        BadOpCode.Div,
+        BadOpCode.Mod,
+        BadOpCode.Exp,
+        BadOpCode.Neg,
+        BadOpCode.Equals,
+        BadOpCode.NotEquals,
+        BadOpCode.Greater,
+        BadOpCode.GreaterEquals,
+        BadOpCode.Less,
+        BadOpCode.LessEquals,
+        BadOpCode.Not,
+    };
+
+    /// <summary>
+    ///     Scans <paramref name="instructions"/> and marks arithmetic instructions
+    ///     whose result is immediately consumed by the next instruction (no branch
+    ///     can jump into the consumer from elsewhere) with
+    ///     <see cref="BadInstructionFlags.TransientResult"/>.
+    ///     The VM can then use a pre-allocated scratch <c>BadNumber</c> instead of
+    ///     heap-allocating a new one.
+    /// </summary>
+    private static void RunEscapeAnalysis(BadInstruction[] instructions)
+    {
+        if (instructions.Length < 2)
+        {
+            return;
+        }
+
+        // Step 1: collect all branch-target indices so we know which instructions
+        //         are reachable via a jump from another location.
+        HashSet<int> jumpTargets = new HashSet<int>();
+
+        for (int i = 0; i < instructions.Length; i++)
+        {
+            BadOpCode op = instructions[i].OpCode;
+
+            if (op is BadOpCode.JumpRelative
+                    or BadOpCode.JumpRelativeIfFalse
+                    or BadOpCode.JumpRelativeIfTrue
+                    or BadOpCode.JumpRelativeIfNotNull
+                    or BadOpCode.JumpRelativeIfNull
+                    or BadOpCode.SetBreakPointer
+                    or BadOpCode.SetContinuePointer
+                    or BadOpCode.SetThrowPointer)
+            {
+                if (instructions[i].Arguments.Length > 0 &&
+                    instructions[i].Arguments[0] is int relativeOffset)
+                {
+                    int target = i + relativeOffset;
+
+                    if (target >= 0 && target < instructions.Length)
+                    {
+                        jumpTargets.Add(target);
+                    }
+                }
+            }
+        }
+
+        // Step 2: for each arithmetic instruction, check whether the NEXT
+        //         instruction immediately consumes the result without any branch
+        //         being able to enter the consumer from a different path.
+        for (int i = 0; i < instructions.Length - 1; i++)
+        {
+            if (!s_ArithmeticOpcodes.Contains(instructions[i].OpCode))
+            {
+                continue;
+            }
+
+            int nextIdx = i + 1;
+
+            // The consumer must not be a jump target (i.e. no other code path
+            // can reach it with a different stack state).
+            if (jumpTargets.Contains(nextIdx))
+            {
+                continue;
+            }
+
+            if (s_ConsumerOpcodes.Contains(instructions[nextIdx].OpCode))
+            {
+                instructions[i].Flags |= BadInstructionFlags.TransientResult;
+            }
+        }
     }
 }

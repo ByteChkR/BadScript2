@@ -489,8 +489,12 @@ public class BadUnitTests
                               .Where(x => x.AllowCompile)
                               .Select(x =>
                                       {
-                                          BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-                                          BadCompiledFunction compiled = BadCompilerApi.CompileFunction(func, true);
+                                          BadCompiledFunction compiled = x.Function switch
+                                          {
+                                              BadCompiledFunction alreadyCompiled => alreadyCompiled,
+                                              BadExpressionFunction func => BadCompilerApi.CompileFunction(func, true),
+                                              _ => throw new BadRuntimeException("Test function is not compilable")
+                                          };
 
                                           return new BadNUnitTestCase(compiled, x.TestName, true);
                                       }
@@ -527,11 +531,12 @@ public class BadUnitTests
                                               .Where(x => x.AllowCompile)
                                               .Select(x =>
                                                       {
-                                                          BadExpressionFunction func =
-                                                              (BadExpressionFunction)x.Function!;
-
-                                                          BadCompiledFunction compiled =
-                                                              BadCompilerApi.CompileFunction(func, true);
+                                                          BadCompiledFunction compiled = x.Function switch
+                                                          {
+                                                              BadCompiledFunction alreadyCompiled => alreadyCompiled,
+                                                              BadExpressionFunction func => BadCompilerApi.CompileFunction(func, true),
+                                                              _ => throw new BadRuntimeException("Test function is not compilable")
+                                                          };
 
                                                           return new BadNUnitTestCase(compiled, x.TestName, true);
                                                       }
@@ -556,11 +561,12 @@ public class BadUnitTests
                                                    .Where(x => x.AllowCompile)
                                                    .Select(x =>
                                                            {
-                                                               BadExpressionFunction func =
-                                                                   (BadExpressionFunction)x.Function!;
-
-                                                               BadCompiledFunction compiled =
-                                                                   BadCompilerApi.CompileFunction(func, true);
+                                                               BadCompiledFunction compiled = x.Function switch
+                                                               {
+                                                                   BadCompiledFunction alreadyCompiled => alreadyCompiled,
+                                                                   BadExpressionFunction func => BadCompilerApi.CompileFunction(func, true),
+                                                                   _ => throw new BadRuntimeException("Test function is not compilable")
+                                                               };
 
                                                                return new BadNUnitTestCase(compiled, x.TestName, true);
                                                            }
@@ -585,10 +591,12 @@ public class BadUnitTests
                                        .Where(x => x.AllowCompile)
                                        .Select(x =>
                                                {
-                                                   BadExpressionFunction func = (BadExpressionFunction)x.Function!;
-
-                                                   BadCompiledFunction compiled =
-                                                       BadCompilerApi.CompileFunction(func, true);
+                                                   BadCompiledFunction compiled = x.Function switch
+                                                   {
+                                                       BadCompiledFunction alreadyCompiled => alreadyCompiled,
+                                                       BadExpressionFunction func => BadCompilerApi.CompileFunction(func, true),
+                                                       _ => throw new BadRuntimeException("Test function is not compilable")
+                                                   };
 
                                                    return new BadNUnitTestCase(compiled, x.TestName, true);
                                                }

@@ -920,6 +920,7 @@ public class BadSourceParser
                 // => { get => <expr> [set => <expr>] }
                 Reader.Eat('{');
                 Reader.SkipNonToken();
+                BadFunctionCompileLevel getCompileLevel = ParseAccessorCompileLevel();
                 Reader.Eat(BadStaticKeys.GET_ACCESSOR_KEY);
                 Reader.SkipNonToken();
                 Reader.Eat("=>");
@@ -949,6 +950,45 @@ public class BadSourceParser
                     Reader.SkipNonToken();
                     Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
                 }
+                else
+                {
+                    Reader.SkipNonToken();
+                }
+
+                BadFunctionCompileLevel setCompileLevel = BadFunctionCompileLevel.None;
+
+                if (Reader.IsKey(BadStaticKeys.COMPILED_DEFINITION_KEY) || Reader.IsKey(BadStaticKeys.LEGACY_DEFINITION_KEY))
+                {
+                    setCompileLevel = ParseAccessorCompileLevel();
+
+                    if (Reader.Is(BadStaticKeys.SET_ACCESSOR_KEY))
+                    {
+                        if (isReadOnly)
+                        {
+                            throw new BadParserException("Cannot define a set accessor for a constant",
+                                                         Reader.MakeSourcePosition(wordStart,
+                                                                                   Reader.CurrentIndex - wordStart
+                                                                                  )
+                                                        );
+                        }
+
+                        Reader.Eat(BadStaticKeys.SET_ACCESSOR_KEY);
+                        Reader.SkipNonToken();
+                        Reader.Eat("=>");
+                        Reader.SkipNonToken();
+                        setExpr = ParseExpression();
+                        Reader.SkipNonToken();
+                        Reader.Eat(BadStaticKeys.STATEMENT_END_KEY);
+                    }
+                    else
+                    {
+                        throw new BadParserException("Expected set accessor after compile modifiers",
+                                                     Reader.MakeSourcePosition(wordStart,
+                                                                               Reader.CurrentIndex - wordStart
+                                                                              )
+                                                    );
+                    }
+                }
 
                 Reader.SkipNonToken();
                 Reader.Eat('}');
@@ -958,11 +998,42 @@ public class BadSourceParser
                                                            getExpr,
                                                            type,
                                                            setExpr,
-                                                           isReadOnly
+                                                           isReadOnly,
+                                                           getCompileLevel,
+                                                           setCompileLevel
                                                           );
             }
 
             return new BadVariableDefinitionExpression(name.Text, word.SourcePosition, type, isReadOnly);
+        }
+
+        BadFunctionCompileLevel ParseAccessorCompileLevel()
+        {
+            BadFunctionCompileLevel compileLevel = BadFunctionCompileLevel.None;
+
+            if (Reader.IsKey(BadStaticKeys.COMPILED_DEFINITION_KEY))
+            {
+                compileLevel = BadFunctionCompileLevel.Compiled;
+                Reader.Eat(BadStaticKeys.COMPILED_DEFINITION_KEY);
+                Reader.SkipNonToken();
+
+                if (Reader.IsKey(BadStaticKeys.COMPILED_FAST_DEFINITION_KEY))
+                {
+                    compileLevel = BadFunctionCompileLevel.CompiledFast;
+                    Reader.Eat(BadStaticKeys.COMPILED_FAST_DEFINITION_KEY);
+                    Reader.SkipNonToken();
+                }
+
+                return compileLevel;
+            }
+
+            if (Reader.IsKey(BadStaticKeys.LEGACY_DEFINITION_KEY))
+            {
+                Reader.Eat(BadStaticKeys.LEGACY_DEFINITION_KEY);
+                Reader.SkipNonToken();
+            }
+
+            return compileLevel;
         }
 
         Reader.SkipNonToken();

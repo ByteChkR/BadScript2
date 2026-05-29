@@ -1,5 +1,6 @@
-using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions.Function;
+using BadScript2.Runtime.Settings;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 /// <summary>
 /// Contains Function Expression Compilers
@@ -14,11 +15,40 @@ public class BadFunctionExpressionCompiler : BadExpressionCompiler<BadFunctionEx
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadFunctionExpression expression)
     {
-        BadLogger.Warn($"Can not compile '{expression.GetHeader()}'",
-                       BadLogMask.GetMask("Compiler", "EVAL"),
-                       expression.Position
-                      );
+        BadInstruction[]? compiledInstructions = null;
+        bool? useOverrides = null;
+        BadSymbolTable? symbolTable = null;
+        bool requiresClosureScopeMaterialization = false;
 
-        context.Emit(BadOpCode.Eval, expression.Position, expression);
+        if (expression.CompileLevel == BadFunctionCompileLevel.Compiled)
+        {
+            if (BadNativeOptimizationSettings.Instance.UseSlotLocalFastPath)
+            {
+                symbolTable = BadFunctionSymbolTableBuilder.Build(expression);
+                requiresClosureScopeMaterialization =
+                    symbolTable != null && BadFunctionSymbolTableBuilder.HasNestedFunctionLikeConstruct(expression);
+            }
+            compiledInstructions = BadCompiler.Compile(expression.Body).ToArray();
+            useOverrides = true;
+        }
+        else if (expression.CompileLevel == BadFunctionCompileLevel.CompiledFast)
+        {
+            if (BadNativeOptimizationSettings.Instance.UseSlotLocalFastPath)
+            {
+                symbolTable = BadFunctionSymbolTableBuilder.Build(expression);
+                requiresClosureScopeMaterialization =
+                    symbolTable != null && BadFunctionSymbolTableBuilder.HasNestedFunctionLikeConstruct(expression);
+            }
+            compiledInstructions = BadCompiler.Compile(expression.Body).ToArray();
+            useOverrides = false;
+        }
+
+        BadCompiledFunctionTemplate template = new BadCompiledFunctionTemplate(expression,
+                                                                               compiledInstructions,
+                                                                               useOverrides,
+                                                                               symbolTable,
+                                                                               requiresClosureScopeMaterialization
+                                                                              );
+        context.Emit(BadOpCode.CreateFunction, expression.Position, template);
     }
 }

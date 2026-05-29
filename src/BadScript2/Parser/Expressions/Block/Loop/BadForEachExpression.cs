@@ -3,6 +3,7 @@ using BadScript2.Optimizations.Folding;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
+using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
@@ -143,7 +144,10 @@ public class BadForEachExpression : BadExpression
                                                    BadSourcePosition position,
                                                    Func<Action, BadExecutionContext, BadObject, BadSourcePosition, IEnumerable<BadObject>> action)
     {
-        if (target.HasProperty("GetEnumerator", context.Scope))
+        bool hasDirectEnumerator = target.HasProperty("MoveNext", context.Scope) &&
+                                   target.HasProperty("GetCurrent", context.Scope);
+
+        if (!hasDirectEnumerator && target.HasProperty("GetEnumerator", context.Scope))
         {
             if (target.GetProperty("GetEnumerator", context.Scope)
                       .Dereference(position) is not BadFunction getEnumerator)
@@ -166,6 +170,10 @@ public class BadForEachExpression : BadExpression
             }
 
             target = newTarget.Dereference(position);
+        }
+        else if (!hasDirectEnumerator && target is IBadEnumerable enumerable)
+        {
+            target = new BadInteropEnumerator(enumerable.GetEnumerator());
         }
 
         (BadFunction moveNext, BadFunction getCurrent) = FindEnumerator(target, context, position);

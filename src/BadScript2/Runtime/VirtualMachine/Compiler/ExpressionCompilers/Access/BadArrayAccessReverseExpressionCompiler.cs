@@ -10,7 +10,7 @@ public class BadArrayAccessReverseExpressionCompiler : BadExpressionCompiler<Bad
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadArrayAccessReverseExpression expression)
     {
-        context.Compile(expression.Arguments);
+        context.Compile(expression.Arguments, clearStack: false);
         context.Compile(expression.Left);
 
         if (expression.NullChecked)

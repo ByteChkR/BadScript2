@@ -83,9 +83,9 @@ public class BadModuleImporter
             BadImportHandler handler = m_Handlers[i];
             string hash = handler.GetHash(path);
 
-            if (BadModuleSettings.Instance.UseModuleCaching && m_Store.IsCached(hash))
+            if (BadModuleSettings.Instance.UseModuleCaching && m_Store.TryGet(hash, out BadObject? cachedModule))
             {
-                yield return m_Store.Get(hash);
+                yield return cachedModule!;
 
                 yield break;
             }

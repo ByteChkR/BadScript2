@@ -73,12 +73,22 @@ public class BadOperatorTable
 	///     List of Value Parsers
 	/// </summary>
 	private readonly List<BadValueParser> m_ValueParsers = new List<BadValueParser>
-    {
-        new BadDeleteExpressionParser(),
-        new BadTypeOfExpressionParser(),
-        new BadExportExpressionParser(),
-        new BadImportExpressionParser(),
-    };
+	{
+		new BadDeleteExpressionParser(),
+		new BadTypeOfExpressionParser(),
+		new BadExportExpressionParser(),
+		new BadImportExpressionParser(),
+	};
+
+	/// <summary>
+	///     Cache for binary operator symbols
+	/// </summary>
+	private string[]? m_BinarySymbolsCache;
+
+	/// <summary>
+	///     Cache for unary prefix operator symbols
+	/// </summary>
+	private string[]? m_UnaryPrefixSymbolsCache;
 
 	/// <summary>
 	///     Private Constructor
@@ -93,12 +103,34 @@ public class BadOperatorTable
 	/// <summary>
 	///     Enumeration of all Binary Operator Symbols
 	/// </summary>
-	public IEnumerable<string> BinarySymbols => m_Operators.Select(x => x.Symbol);
+	public IEnumerable<string> BinarySymbols
+	{
+		get
+		{
+			if (m_BinarySymbolsCache == null)
+			{
+				m_BinarySymbolsCache = m_Operators.Select(x => x.Symbol).ToArray();
+			}
+
+			return m_BinarySymbolsCache;
+		}
+	}
 
 	/// <summary>
 	///     Enumeration of all Unary Prefix Operator Symbols
 	/// </summary>
-	public IEnumerable<string> UnaryPrefixSymbols => m_UnaryPrefixOperators.Select(x => x.Symbol);
+	public IEnumerable<string> UnaryPrefixSymbols
+	{
+		get
+		{
+			if (m_UnaryPrefixSymbolsCache == null)
+			{
+				m_UnaryPrefixSymbolsCache = m_UnaryPrefixOperators.Select(x => x.Symbol).ToArray();
+			}
+
+			return m_UnaryPrefixSymbolsCache;
+		}
+	}
 
 	/// <summary>
 	///     Returns a Value Parser that is able to parse the given Token
@@ -124,18 +156,20 @@ public class BadOperatorTable
 	/// </summary>
 	/// <param name="op">The Operator to be Added</param>
 	public void AddOperator(BadBinaryOperator op)
-    {
-        m_Operators.Add(op);
-    }
+	{
+		m_Operators.Add(op);
+		m_BinarySymbolsCache = null;
+	}
 
 	/// <summary>
 	///     Adds a Unary Prefix Operator Parser to the List of Unary Prefix Operators
 	/// </summary>
 	/// <param name="op">The Operator to be Added</param>
 	public void AddUnaryPrefixOperator(BadUnaryPrefixOperator op)
-    {
-        m_UnaryPrefixOperators.Add(op);
-    }
+	{
+		m_UnaryPrefixOperators.Add(op);
+		m_UnaryPrefixSymbolsCache = null;
+	}
 
 	/// <summary>
 	///     Finds a Binary Operator by its Symbol

@@ -352,14 +352,14 @@ public class BadInteropExtensionProvider
     {
         Dictionary<string, Func<BadObject, BadObject>> ext = GetTypeExtensions(t);
 
-        if (ext.ContainsKey(propName))
+        if (ext.TryGetValue(propName, out Func<BadObject, BadObject>? extFunc))
         {
-            return ext[propName](instance);
+            return extFunc(instance);
         }
 
-        if (HasGlobalExtensions(propName))
+        if (m_GlobalExtensions.TryGetValue(propName, out Func<BadObject, BadObject>? globalFunc))
         {
-            return m_GlobalExtensions[propName](instance);
+            return globalFunc(instance);
         }
 
         throw BadRuntimeException.Create(caller, $"No property named {propName} for type {t.Name}", pos);

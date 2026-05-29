@@ -23,6 +23,11 @@ public class BadExpressionPath
     private bool m_HasReturnStatement;
 
     /// <summary>
+    ///     Cached result of IsValid calculation
+    /// </summary>
+    private bool? m_IsValidCache;
+
+    /// <summary>
     ///     Creates a new Path for the given Parent
     /// </summary>
     /// <param name="parent">The Parent of this Path</param>
@@ -34,7 +39,18 @@ public class BadExpressionPath
     /// <summary>
     ///     Indicates whether this Path is valid(e.g. all paths have a return statement)
     /// </summary>
-    public bool IsValid => m_HasReturnStatement || (m_ChildPaths.Count > 0 && m_ChildPaths.All(p => p.IsValid));
+    public bool IsValid
+    {
+        get
+        {
+            if (m_IsValidCache == null)
+            {
+                m_IsValidCache = m_HasReturnStatement || (m_ChildPaths.Count > 0 && m_ChildPaths.All(p => p.IsValid));
+            }
+
+            return m_IsValidCache.Value;
+        }
+    }
 
     /// <summary>
     ///     Returns all invalid paths in this Path
@@ -62,6 +78,7 @@ public class BadExpressionPath
     public void AddChildPath(BadExpressionPath path)
     {
         m_ChildPaths.Add(path);
+        m_IsValidCache = null; // Invalidate cache
     }
 
     /// <summary>
@@ -71,5 +88,6 @@ public class BadExpressionPath
     {
         m_HasReturnStatement = true;
         m_ChildPaths.Clear();
+        m_IsValidCache = null; // Invalidate cache
     }
 }

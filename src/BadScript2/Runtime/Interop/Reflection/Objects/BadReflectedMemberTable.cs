@@ -145,7 +145,7 @@ public class BadReflectedMemberTable
                 {
                     members["GetEnumerator"] = new BadReflectedEnumeratorMethod(method);
                 }
-                else if (members.ContainsKey(method.Name) && members[method.Name] is BadReflectedMethod m)
+                else if (members.TryGetValue(method.Name, out var existingMember) && existingMember is BadReflectedMethod m)
                 {
                     m.AddMethod(method);
                 }

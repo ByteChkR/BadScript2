@@ -7,6 +7,7 @@ using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Native;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Runtime;
 
@@ -15,6 +16,9 @@ namespace BadScript2.Runtime;
 /// </summary>
 public class BadScope : BadObject, IDisposable
 {
+    
+    public int Depth => Parent != null ? Parent.Depth + 1 : 0;
+    
     /// <summary>
     /// The Attributes of the Scope(Used for Classes)
     /// </summary>
@@ -371,9 +375,9 @@ public class BadScope : BadObject, IDisposable
             return Parent.GetSingleton<T>(createNew);
         }
 
-        if (m_SingletonCache.ContainsKey(typeof(T)))
+        if (m_SingletonCache.TryGetValue(typeof(T), out object? existingValue))
         {
-            return (T)m_SingletonCache[typeof(T)];
+            return (T)existingValue;
         }
 
         if (!createNew)
@@ -779,6 +783,25 @@ public class BadScope : BadObject, IDisposable
                                BadExecutionContext caller,
                                BadObject[] attributes)
     {
+        DefineProperty(name,
+                       type,
+                       new BadCompiledPropertyAccessorTemplate(getAccessor),
+                       setAccessor != null ? new BadCompiledPropertyAccessorTemplate(setAccessor) : null,
+                       caller,
+                       attributes
+                      );
+    }
+
+    /// <summary>
+    /// Defines a new Property in the current scope using structured accessor templates.
+    /// </summary>
+    public void DefineProperty(string name,
+                               BadClassPrototype type,
+                               BadCompiledPropertyAccessorTemplate getAccessor,
+                               BadCompiledPropertyAccessorTemplate? setAccessor,
+                               BadExecutionContext caller,
+                               BadObject[] attributes)
+    {
         if (HasLocal(name, caller.Scope, false))
         {
             throw new BadRuntimeException($"Property {name} is already defined");
@@ -799,7 +822,7 @@ public class BadScope : BadObject, IDisposable
                                             new BadPropertyInfo(BadAnyPrototype.Instance, true)
                                            );
 
-                foreach (BadObject o in setCtx.Execute(setAccessor))
+                foreach (BadObject o in setAccessor.Execute(setCtx))
                 {
                     //Execute
                 }
@@ -821,7 +844,7 @@ public class BadScope : BadObject, IDisposable
                                                                             );
                                                                     BadObject? get = Null;
 
-                                                                    foreach (BadObject o in getCtx.Execute(getAccessor))
+                                                                    foreach (BadObject o in getAccessor.Execute(getCtx))
                                                                     {
                                                                         get = o;
                                                                     }

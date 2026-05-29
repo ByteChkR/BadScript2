@@ -46,6 +46,8 @@ public class BadCompilerApi : BadInteropApi
                                        func.MetaData,
                                        func.ReturnType,
                                        func.IsSingleLine,
+                                       null,
+                                       false,
                                        func.Parameters
                                       );
     }

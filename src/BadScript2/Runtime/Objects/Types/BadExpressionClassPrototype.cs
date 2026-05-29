@@ -4,6 +4,7 @@ using BadScript2.Parser.Expressions;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Interop;
 using BadScript2.Runtime.Objects.Types.Interface;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Runtime.Objects.Types;
 
@@ -12,12 +13,27 @@ namespace BadScript2.Runtime.Objects.Types;
 /// </summary>
 public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
 {
+    /// <summary>
+    /// Raised when an instance member is about to be materialized.
+    /// </summary>
+    public static event Action<BadCompiledClassMemberTemplate>? OnMaterializeInstanceMember;
+
+    /// <summary>
+    /// Raised when a static member is about to be materialized.
+    /// </summary>
+    public static event Action<BadCompiledClassMemberTemplate>? OnMaterializeStaticMember;
+
     private readonly Func<BadObject[], BadClassPrototype?> m_BaseClassFunc;
 
     /// <summary>
-    ///     The Class Body(Members & Functions)
+    ///     Structured templates for the class body members.
     /// </summary>
-    private readonly BadExpression[] m_Body;
+    private readonly BadCompiledClassMemberTemplate[] m_Members;
+
+    /// <summary>
+    ///     Structured templates for the static class body members.
+    /// </summary>
+    private readonly BadCompiledClassMemberTemplate[] m_StaticMembers;
 
     /// <summary>
     /// The Generic Definition of this Class Prototype if it is a Generic Type
@@ -60,6 +76,12 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     private BadScope? m_StaticScopeCache;
 
     /// <summary>
+    /// Slot map for instance methods: methodName → slotIndex.
+    /// Built lazily on first instance creation.
+    /// </summary>
+    private Dictionary<string, int>? m_MethodSlotMap;
+
+    /// <summary>
     ///     Creates a new BadExpressionClassPrototype
     /// </summary>
     /// <param name="name">Name of the Type</param>
@@ -71,7 +93,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// <param name="staticScope">The Static Scope of the Class</param>
     public BadExpressionClassPrototype(string name,
                                        BadScope parentScope,
-                                       BadExpression[] body,
+                                       BadCompiledClassMemberTemplate[] members,
+                                       BadCompiledClassMemberTemplate[] staticMembers,
                                        Func<BadObject[], BadClassPrototype?> baseClass,
                                        Func<BadObject[], BadInterfacePrototype[]> interfaces,
                                        BadMetaData? meta,
@@ -79,7 +102,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
                                        IReadOnlyList<string> genericParameters) : base(name, meta)
     {
         m_ParentScope = parentScope;
-        m_Body = body;
+        m_Members = members;
+        m_StaticMembers = staticMembers;
         m_StaticScope = staticScope;
         m_InterfacesFunc = interfaces;
         GenericParameters = genericParameters;
@@ -107,7 +131,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// <param name="staticScope">The Static Scope of the Class</param>
     private BadExpressionClassPrototype(string name,
                                         BadScope parentScope,
-                                        BadExpression[] body,
+                                        BadCompiledClassMemberTemplate[] members,
+                                        BadCompiledClassMemberTemplate[] staticMembers,
                                         Func<BadObject[], BadClassPrototype?> baseClass,
                                         Func<BadObject[], BadInterfacePrototype[]> interfaces,
                                         BadMetaData? meta,
@@ -118,7 +143,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     {
         GenericName = genericName;
         m_ParentScope = parentScope;
-        m_Body = body;
+        m_Members = members;
+        m_StaticMembers = staticMembers;
         m_StaticScope = staticScope;
         m_InterfacesFunc = interfaces;
         GenericParameters = genericParameters;
@@ -140,7 +166,7 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
     /// <summary>
     /// The Static Scope of the Class Prototype
     /// </summary>
-    private BadScope StaticScope => m_StaticScopeCache ??= m_StaticScope(Array.Empty<BadObject>());
+    private BadScope StaticScope => m_StaticScopeCache ??= InitializeStaticScope(m_StaticScope(Array.Empty<BadObject>()));
 
 #region IBadGenericObject Members
 
@@ -190,7 +216,8 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
 
         BadExpressionClassPrototype result = new BadExpressionClassPrototype(Name,
                                                                              m_ParentScope,
-                                                                             m_Body,
+                                                                             m_Members,
+                                                                              m_StaticMembers,
                                                                              _ => m_BaseClassFunc(args),
                                                                              _ => m_InterfacesFunc(args),
                                                                              MetaData,
@@ -217,15 +244,20 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
         return $"class {Name}";
     }
 
+    private BadExecutionContext CreateInstanceContext(BadExecutionContext caller)
+    {
+        BadExecutionContext context =
+            new BadExecutionContext(StaticScope.CreateChild($"class instance {Name}", caller.Scope, true));
+        context.Scope.SetFlags(BadScopeFlags.None);
 
-    /// <inheritdoc />
-    public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
+        return context;
+    }
+
+    private IEnumerable<BadObject> CreateBaseInstance(BadExecutionContext caller,
+                                                      BadExecutionContext instanceContext,
+                                                      Action<BadClass?> setBaseInstance)
     {
         BadClass? baseInstance = null;
-
-        BadExecutionContext ctx =
-            new BadExecutionContext(StaticScope.CreateChild($"class instance {Name}", caller.Scope, true));
-        ctx.Scope.SetFlags(BadScopeFlags.None);
 
         if (BaseClass is { IsAbstract: false })
         {
@@ -234,6 +266,7 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
             foreach (BadObject o in BaseClass.CreateInstance(caller, false))
             {
                 obj = o;
+                yield return o;
             }
 
             if (obj is not BadClass cls)
@@ -243,36 +276,306 @@ public class BadExpressionClassPrototype : BadClassPrototype, IBadGenericObject
 
             baseInstance = cls;
 
-            ctx.Scope.GetTable()
-               .SetProperty(BadStaticKeys.BASE_KEY, baseInstance, new BadPropertyInfo(BaseClass, true));
+            instanceContext.Scope.GetTable()
+                          .SetProperty(BadStaticKeys.BASE_KEY, baseInstance, new BadPropertyInfo(BaseClass, true));
         }
 
-        BadClass thisInstance = new BadClass(Name, ctx, baseInstance, this);
-        ctx.Scope.ClassObject = thisInstance;
+        setBaseInstance(baseInstance);
+    }
 
-        if (m_Body.Length != 0)
+    private BadClass CreateClassInstance(BadExecutionContext instanceContext, BadClass? baseInstance)
+    {
+        BadClass instance = new BadClass(Name, instanceContext, baseInstance, this);
+        instanceContext.Scope.ClassObject = instance;
+
+        return instance;
+    }
+
+    private IEnumerable<BadObject> MaterializeInstanceMembers(BadExecutionContext instanceContext)
+    {
+        foreach (BadObject o in MaterializeInstanceFields(instanceContext))
         {
-            foreach (BadObject o in ctx.Execute(m_Body))
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeInstanceUnknownMembers(instanceContext))
+        {
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeInstanceMethods(instanceContext))
+        {
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeInstanceProperties(instanceContext))
+        {
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeInstanceConstructors(instanceContext))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeInstanceFields(BadExecutionContext instanceContext)
+    {
+        foreach (BadObject o in ExecuteMemberPhase(instanceContext, BadCompiledClassMemberKind.Field))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeInstanceUnknownMembers(BadExecutionContext instanceContext)
+    {
+        foreach (BadObject o in ExecuteMemberPhase(instanceContext, BadCompiledClassMemberKind.Unknown))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeInstanceMethods(BadExecutionContext instanceContext)
+    {
+        foreach (BadObject o in ExecuteMemberPhase(instanceContext, BadCompiledClassMemberKind.Method))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeInstanceProperties(BadExecutionContext instanceContext)
+    {
+        foreach (BadObject o in ExecuteMemberPhase(instanceContext, BadCompiledClassMemberKind.Property))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeInstanceConstructors(BadExecutionContext instanceContext)
+    {
+        foreach (BadObject o in ExecuteMemberPhase(instanceContext, BadCompiledClassMemberKind.Constructor))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> ExecuteMemberPhase(BadExecutionContext instanceContext,
+                                                      BadCompiledClassMemberKind kind)
+    {
+        if (m_Members.Length == 0)
+        {
+            yield break;
+        }
+
+        foreach (BadCompiledClassMemberTemplate member in m_Members)
+        {
+            if (member.Kind != kind)
+            {
+                continue;
+            }
+
+            OnMaterializeInstanceMember?.Invoke(member);
+
+            foreach (BadObject o in member.Execute(instanceContext))
             {
                 yield return o;
             }
         }
+    }
 
-        if (setThis)
+    private BadScope InitializeStaticScope(BadScope staticScope)
+    {
+        BadExecutionContext staticContext = new BadExecutionContext(staticScope);
+
+        foreach (BadObject _ in MaterializeStaticMembers(staticContext))
         {
-            thisInstance.SetThis();
+        }
 
-            if (Interfaces.Count != 0)
+        return staticScope;
+    }
+
+    private IEnumerable<BadObject> MaterializeStaticMembers(BadExecutionContext staticContext)
+    {
+        foreach (BadObject o in MaterializeStaticFields(staticContext))
+        {
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeStaticUnknownMembers(staticContext))
+        {
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeStaticMethods(staticContext))
+        {
+            yield return o;
+        }
+
+        foreach (BadObject o in MaterializeStaticProperties(staticContext))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeStaticFields(BadExecutionContext staticContext)
+    {
+        foreach (BadObject o in ExecuteStaticMemberPhase(staticContext, BadCompiledClassMemberKind.Field))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeStaticUnknownMembers(BadExecutionContext staticContext)
+    {
+        foreach (BadObject o in ExecuteStaticMemberPhase(staticContext, BadCompiledClassMemberKind.Unknown))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeStaticMethods(BadExecutionContext staticContext)
+    {
+        foreach (BadObject o in ExecuteStaticMemberPhase(staticContext, BadCompiledClassMemberKind.Method))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> MaterializeStaticProperties(BadExecutionContext staticContext)
+    {
+        foreach (BadObject o in ExecuteStaticMemberPhase(staticContext, BadCompiledClassMemberKind.Property))
+        {
+            yield return o;
+        }
+    }
+
+    private IEnumerable<BadObject> ExecuteStaticMemberPhase(BadExecutionContext staticContext,
+                                                           BadCompiledClassMemberKind kind)
+    {
+        if (m_StaticMembers.Length == 0)
+        {
+            yield break;
+        }
+
+        foreach (BadCompiledClassMemberTemplate member in m_StaticMembers)
+        {
+            if (member.Kind != kind)
             {
-                BadInterfaceValidatorResult result = thisInstance.Validate(Interfaces);
+                continue;
+            }
 
-                if (!result.IsValid)
+            OnMaterializeStaticMember?.Invoke(member);
+
+            if (member.Property != null)
+            {
+                foreach (BadObject o in member.Property.Define(staticContext, false))
                 {
-                    throw new
-                        BadRuntimeException($"Class '{Name}' does not implement all required interfaces.\n{result}");
+                    yield return o;
+                }
+            }
+            else
+            {
+                foreach (BadObject o in member.Execute(staticContext))
+                {
+                    yield return o;
                 }
             }
         }
+    }
+
+    private void BindThis(BadClass instance, bool setThis)
+    {
+        if (!setThis)
+        {
+            return;
+        }
+
+        instance.SetThis();
+    }
+
+    private void ValidateInterfaces(BadClass instance, bool setThis)
+    {
+        if (!setThis || Interfaces.Count == 0)
+        {
+            return;
+        }
+
+        BadInterfaceValidatorResult result = instance.Validate(Interfaces);
+
+        if (!result.IsValid)
+        {
+            throw new BadRuntimeException($"Class '{Name}' does not implement all required interfaces.\n{result}");
+        }
+    }
+
+    private void EnsureMethodSlotMap()
+    {
+        if (m_MethodSlotMap != null)
+        {
+            return;
+        }
+
+        var map = new Dictionary<string, int>(StringComparer.Ordinal);
+
+        foreach (BadCompiledClassMemberTemplate member in m_Members)
+        {
+            if (member.Kind == BadCompiledClassMemberKind.Method &&
+                member.Name != null &&
+                member.Name != BadStaticKeys.CONSTRUCTOR_NAME &&
+                !map.ContainsKey(member.Name))
+            {
+                map[member.Name] = map.Count;
+            }
+        }
+
+        m_MethodSlotMap = map;
+    }
+
+    /// <summary>
+    /// Tries to get the slot index for a method by name.
+    /// Returns false if the method is not in the slot map (e.g. constructor, property, field, or inherited method).
+    /// </summary>
+    internal bool TryGetMethodSlotIndex(string name, out int index)
+    {
+        EnsureMethodSlotMap();
+        return m_MethodSlotMap!.TryGetValue(name, out index);
+    }
+
+    /// <summary>
+    /// Returns the method slot map (name → index). Used by BadClass.InitializeMethodSlots.
+    /// </summary>
+    internal Dictionary<string, int> MethodSlotMap
+    {
+        get
+        {
+            EnsureMethodSlotMap();
+            return m_MethodSlotMap!;
+        }
+    }
+
+
+    /// <inheritdoc />
+    public override IEnumerable<BadObject> CreateInstance(BadExecutionContext caller, bool setThis = true)
+    {
+        BadExecutionContext instanceContext = CreateInstanceContext(caller);
+        BadClass? baseInstance = null;
+
+        foreach (BadObject o in CreateBaseInstance(caller, instanceContext, instance => baseInstance = instance))
+        {
+            yield return o;
+        }
+
+        BadClass thisInstance = CreateClassInstance(instanceContext, baseInstance);
+
+        foreach (BadObject o in MaterializeInstanceMembers(instanceContext))
+        {
+            yield return o;
+        }
+
+        thisInstance.InitializeMethodSlots(MethodSlotMap);
+
+        BindThis(thisInstance, setThis);
+        ValidateInterfaces(thisInstance, setThis);
 
         yield return thisInstance;
     }

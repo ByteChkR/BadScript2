@@ -6,6 +6,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
 using BadScript2.Runtime.Objects.Types.Interface;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 /// <summary>
 /// Contains the Type Expressions for the BadScript2 Language
@@ -214,9 +215,20 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         return baseClass;
     }
 
-    /// <inheritdoc cref="BadExpression.InnerExecute" />
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    /// <summary>
+    /// Executes this class definition in the current context and returns the created prototype.
+    /// </summary>
+    public IEnumerable<BadObject> ExecuteAsClassDefinition(BadExecutionContext context,
+                                                           IReadOnlyList<BadCompiledClassMemberTemplate>? members = null,
+                                                           IReadOnlyList<BadCompiledClassMemberTemplate>? staticMembers = null)
     {
+        BadCompiledClassMemberTemplate[] instanceMemberTemplates = members?.ToArray() ??
+                                                                   m_Body.Select(x => new BadCompiledClassMemberTemplate(x, false))
+                                                                         .ToArray();
+        BadCompiledClassMemberTemplate[] staticMemberTemplates = staticMembers?.ToArray() ??
+                                                                 m_StaticBody.Select(x => new BadCompiledClassMemberTemplate(x, true))
+                                                                             .ToArray();
+
         BadExecutionContext MakeGenericContext(BadObject[] typeArgs)
         {
             if (typeArgs.Length != m_GenericParameters.Length)
@@ -260,15 +272,7 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
         {
             BadExecutionContext ctx = MakeGenericContext(typeArgs);
 
-            BadExecutionContext staticContext =
-                new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true));
-
-            if (m_StaticBody.Count != 0)
-            {
-                foreach (BadObject _ in staticContext.Execute(m_StaticBody)) { }
-            }
-
-            return staticContext.Scope;
+            return new BadExecutionContext(ctx.Scope.CreateChild($"static:{Name}", ctx.Scope, true)).Scope;
         }
 
         BadInterfacePrototype[] GetInterfaces(BadObject[] typeArgs)
@@ -279,18 +283,28 @@ public class BadClassPrototypeExpression : BadExpression, IBadNamedExpression
             return interfaces;
         }
 
-        BadClassPrototype p = new BadExpressionClassPrototype(Name,
-                                                              context.Scope,
-                                                              m_Body.ToArray(),
-                                                              GetBaseClass,
-                                                              GetInterfaces,
-                                                              m_MetaData,
-                                                              GetStaticScope,
-                                                              m_GenericParameters.Select(x => x.Text)
-                                                                  .ToArray()
-                                                             );
-        context.Scope.DefineVariable(Name, p);
+        BadClassPrototype prototype = new BadExpressionClassPrototype(Name,
+                                                                      context.Scope,
+                                                                      instanceMemberTemplates,
+                                                                      staticMemberTemplates,
+                                                                      GetBaseClass,
+                                                                      GetInterfaces,
+                                                                      m_MetaData,
+                                                                      GetStaticScope,
+                                                                      m_GenericParameters.Select(x => x.Text)
+                                                                          .ToArray()
+                                                                     );
+        context.Scope.DefineVariable(Name, prototype);
 
-        yield return p;
+        yield return prototype;
+    }
+
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        foreach (BadObject o in ExecuteAsClassDefinition(context))
+        {
+            yield return o;
+        }
     }
 }

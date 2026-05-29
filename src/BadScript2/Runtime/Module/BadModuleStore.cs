@@ -13,6 +13,17 @@ public class BadModuleStore
     private readonly Dictionary<string, BadObject> m_Modules = new Dictionary<string, BadObject>();
 
     /// <summary>
+    ///     Tries to get the module with the specified hash from the cache
+    /// </summary>
+    /// <param name="hash">The Unique Hash for the module</param>
+    /// <param name="module">The Module if found</param>
+    /// <returns>True if the module is cached</returns>
+    public bool TryGet(string hash, out BadObject? module)
+    {
+        return m_Modules.TryGetValue(hash, out module);
+    }
+
+    /// <summary>
     ///     Returns true if the module is cached
     /// </summary>
     /// <param name="hash">The Unique Hash for the module</param>

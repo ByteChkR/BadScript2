@@ -1,0 +1,20 @@
+// Benchmark: Property Getter (Eigenschafts-Getter)
+// Tests the performance of reading object properties
+
+class Employee {
+    function GetName() => "Employee";
+}
+
+function Main()
+{
+    let emp = new Employee();
+    let sum = 0;
+    for(let i = 0; i < 100000; i = i + 1) {
+        let value = emp.GetName();
+        sum = sum + 1;
+    }
+    
+    return sum;
+}
+
+Main();

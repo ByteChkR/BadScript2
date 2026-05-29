@@ -1,3 +1,4 @@
+using BadScript2.Parser.Expressions;
 using BadScript2.Parser.Expressions.Variables;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Variables;
@@ -10,19 +11,21 @@ public class BadVariableDefinitionExpressionCompiler : BadExpressionCompiler<Bad
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadVariableDefinitionExpression expression)
     {
-        if (expression.Attributes.Any())
-        {
-            throw new BadCompilerException("Attributes are not supported yet.");
-        }
+        BadExpression[] attributes = expression.Attributes.ToArray();
 
         if (expression.TypeExpression == null)
         {
-            context.Emit(BadOpCode.DefVar, expression.Position, expression.Name, expression.IsReadOnly);
+            context.Emit(BadOpCode.DefVar, expression.Position, expression.Name, expression.IsReadOnly, attributes);
         }
         else
         {
             context.Compile(expression.TypeExpression);
-            context.Emit(BadOpCode.DefVarTyped, expression.Position, expression.Name, expression.IsReadOnly);
+            context.Emit(BadOpCode.DefVarTyped,
+                         expression.Position,
+                         expression.Name,
+                         expression.IsReadOnly,
+                         attributes
+                        );
         }
     }
 }

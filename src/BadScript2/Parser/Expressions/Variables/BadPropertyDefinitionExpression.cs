@@ -1,9 +1,11 @@
 using BadScript2.Common;
+using BadScript2.Parser.Expressions.Function;
 using BadScript2.Reader.Token;
 using BadScript2.Runtime;
 using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Parser.Expressions.Variables;
 
@@ -21,18 +23,24 @@ public class BadPropertyDefinitionExpression : BadExpression
     /// <param name="typeExpression">The (optional) Type of the Property</param>
     /// <param name="setExpression">The optional Set Expression</param>
     /// <param name="isReadOnly">Indicates if the Property will be declared as Read-Only</param>
+    /// <param name="getCompileLevel">Compile level hint for the getter accessor</param>
+    /// <param name="setCompileLevel">Compile level hint for the setter accessor</param>
     public BadPropertyDefinitionExpression(BadWordToken name,
         BadSourcePosition position,
         BadExpression getExpression,
         BadExpression? typeExpression = null,
         BadExpression? setExpression = null,
-        bool isReadOnly = false) : base(false, position)
+        bool isReadOnly = false,
+        BadFunctionCompileLevel getCompileLevel = BadFunctionCompileLevel.None,
+        BadFunctionCompileLevel setCompileLevel = BadFunctionCompileLevel.None) : base(false, position)
     {
         Name = name;
         IsReadOnly = isReadOnly;
         TypeExpression = typeExpression;
         GetExpression = getExpression;
         SetExpression = setExpression;
+        GetCompileLevel = getCompileLevel;
+        SetCompileLevel = setCompileLevel;
     }
 
     /// <summary>
@@ -56,9 +64,19 @@ public class BadPropertyDefinitionExpression : BadExpression
     public BadExpression GetExpression { get; }
 
     /// <summary>
+    /// Compile level hint for the getter accessor.
+    /// </summary>
+    public BadFunctionCompileLevel GetCompileLevel { get; }
+
+    /// <summary>
     /// The optional Set Expression
     /// </summary>
     public BadExpression? SetExpression { get; }
+
+    /// <summary>
+    /// Compile level hint for the setter accessor.
+    /// </summary>
+    public BadFunctionCompileLevel SetCompileLevel { get; }
 
     /// <inheritdoc />
     public override IEnumerable<BadExpression> GetDescendants()
@@ -76,44 +94,26 @@ public class BadPropertyDefinitionExpression : BadExpression
         }
     }
 
-    /// <inheritdoc />
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    /// <summary>
+    /// Executes this property definition in the current context and returns the resulting execution stream.
+    /// </summary>
+    public IEnumerable<BadObject> ExecuteAsPropertyDefinition(BadExecutionContext context,
+                                                              BadCompiledPropertyTemplate? template = null)
     {
-        if (context.Scope.ClassObject == null)
-        {
-            throw BadRuntimeException.Create(context.Scope, "Can only define properties in class scope", Position);
-        }
+        BadCompiledPropertyTemplate effectiveTemplate = template ?? new BadCompiledPropertyTemplate(this);
 
-        BadClassPrototype type = BadAnyPrototype.Instance;
-
-        if (TypeExpression != null)
-        {
-            BadObject obj = BadObject.Null;
-
-            foreach (BadObject o in TypeExpression.Execute(context))
-            {
-                obj = o;
-
-                yield return o;
-            }
-
-            obj = obj.Dereference(Position);
-
-            if (obj is not BadClassPrototype proto)
-            {
-                throw new BadRuntimeException("Type expression must be a class prototype", Position);
-            }
-
-            type = proto;
-        }
-
-        List<BadObject> attributes = new List<BadObject>();
-
-        foreach (BadObject? o in ComputeAttributes(context, attributes))
+        foreach (BadObject o in effectiveTemplate.Define(context))
         {
             yield return o;
         }
+    }
 
-        context.Scope.DefineProperty(Name.Text, type, GetExpression, SetExpression, context, attributes.ToArray());
+    /// <inheritdoc />
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        foreach (BadObject o in ExecuteAsPropertyDefinition(context))
+        {
+            yield return o;
+        }
     }
 }

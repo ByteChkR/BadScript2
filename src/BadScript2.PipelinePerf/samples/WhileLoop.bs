@@ -1,0 +1,17 @@
+// Benchmark: While Loop
+// Tests the performance of while loops
+
+
+function Main()
+{
+    let sum = 0;
+    let i = 0;
+    while(i < 100000) {
+        sum = sum + i;
+        i = i + 1;
+    }
+    
+    return sum;
+}
+
+Main();

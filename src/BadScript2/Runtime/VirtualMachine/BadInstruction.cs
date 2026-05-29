@@ -3,6 +3,26 @@
 namespace BadScript2.Runtime.VirtualMachine;
 
 /// <summary>
+///     Bit-flags that can be attached to a <see cref="BadInstruction"/> by the
+///     compiler's post-processing passes.
+/// </summary>
+[Flags]
+public enum BadInstructionFlags : byte
+{
+    None = 0,
+
+    /// <summary>
+    ///     Phase C2 – Escape Analysis: the numeric result produced by this
+    ///     arithmetic instruction is immediately consumed by the next instruction
+    ///     (another arithmetic / comparison op) and does NOT escape to a variable,
+    ///     return value, or external function.  The VM may reuse a per-VM scratch
+    ///     <see cref="BadScript2.Runtime.Objects.Native.BadNumber"/> instead of
+    ///     allocating a new one.
+    /// </summary>
+    TransientResult = 1,
+}
+
+/// <summary>
 ///     Implements a single instruction for the BadVirtualMachine.
 /// </summary>
 public struct BadInstruction
@@ -23,6 +43,11 @@ public struct BadInstruction
     public readonly BadSourcePosition Position;
 
     /// <summary>
+    ///     Compiler-set flags (escape analysis annotations, etc.).
+    /// </summary>
+    public BadInstructionFlags Flags;
+
+    /// <summary>
     ///     Creates a new <see cref="BadInstruction" /> instance.
     /// </summary>
     /// <param name="opCode">The OpCode of this Instruction.</param>
@@ -33,6 +58,7 @@ public struct BadInstruction
         OpCode = opCode;
         Position = position;
         Arguments = arguments;
+        Flags = BadInstructionFlags.None;
     }
 
     /// <inheritdoc />

@@ -1,0 +1,13 @@
+// Benchmark: For Loop
+// Tests the performance of traditional for loops
+
+function Main()
+{
+    let sum = 0;
+    for(let i = 0; i < 100000; i = i + 1) {
+        sum = sum + i;
+    }
+    return sum;
+}
+
+Main();
