@@ -131,6 +131,26 @@ public enum BadOpCode
     Import = 0x0018,
 
     /// <summary>
+    ///     Defines a property in the current class scope.
+    /// </summary>
+    DefineProperty = 0x0019,
+
+    /// <summary>
+    ///     Creates a function object from a compiled template.
+    /// </summary>
+    CreateFunction = 0x001A,
+
+    /// <summary>
+    ///     Creates a class prototype from a compiled template.
+    /// </summary>
+    CreateClass = 0x001B,
+
+    /// <summary>
+    ///     Creates an interface prototype from a compiled template.
+    /// </summary>
+    CreateInterface = 0x001C,
+
+    /// <summary>
     ///     Compare two Objects.
     /// </summary>
     Equals = 0x1000,
@@ -386,4 +406,64 @@ public enum BadOpCode
     ///     Unpack the right side of a Unary Operation into the current scope
     /// </summary>
     UnaryUnpack = 0x9001,
+
+    /// <summary>
+    ///     Load a local variable from a slot (Phase 5 optimization).
+    /// </summary>
+    LoadLocal = 0x9002,
+
+    /// <summary>
+    ///     Store a value into a local variable slot (Phase 5 optimization).
+    /// </summary>
+    StoreLocal = 0x9003,
+
+    /// <summary>
+    ///     Load a captured variable from parent frame (Phase 5 optimization).
+    /// </summary>
+    LoadCaptured = 0x9004,
+
+    /// <summary>
+    ///     Store a value into a captured variable slot (Phase 5 optimization).
+    /// </summary>
+    StoreCaptured = 0x9005,
+
+    /// <summary>
+    ///     Initialize local slots for a function (Phase 5 optimization).
+    /// </summary>
+    InitLocals = 0x9006,
+
+    /// <summary>
+    ///     Get the enumerator for a collection (Phase 5 loop optimization).
+    /// </summary>
+    GetEnumerator = 0x9007,
+
+    /// <summary>
+    ///     Call MoveNext on an enumerator (Phase 5 loop optimization).
+    /// </summary>
+    MoveNext = 0x9008,
+
+    /// <summary>
+    ///     Get current value from an enumerator (Phase 5 loop optimization).
+    /// </summary>
+    GetCurrent = 0x9009,
+
+    /// <summary>
+    ///     Begin a loop block (Phase 5 loop optimization).
+    /// </summary>
+    BeginLoop = 0x900A,
+
+    /// <summary>
+    ///     End a loop block (Phase 5 loop optimization).
+    /// </summary>
+    EndLoop = 0x900B,
+
+    /// <summary>
+    ///     Invoke a compiled function directly (Phase 5.2 call optimization).
+    /// </summary>
+    InvokeCompiled = 0x900C,
+
+    /// <summary>
+    ///     Invoke an object member directly without emitting a separate LoadMember instruction (Phase 5.3 method fast-path).
+    /// </summary>
+    InvokeMember = 0x900D,
 }

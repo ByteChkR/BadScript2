@@ -175,55 +175,93 @@ public abstract class BadFunction : BadObject
                                        BadObject[] args,
                                        BadSourcePosition? position = null)
     {
+        BadObject[] boundValues = BindParameterValues(funcStr, parameters, context, args, position);
+
         for (int i = 0; i < parameters.Length; i++)
         {
             BadFunctionParameter parameter = parameters[i];
+            context.Scope.DefineVariable(parameter.Name,
+                                         boundValues[i],
+                                         null,
+                                         new BadPropertyInfo(GetParameterType(parameter), false)
+                                        );
+        }
+    }
+
+    /// <summary>
+    ///     Binds the argument array to the declared parameter layout without materializing scope variables.
+    /// </summary>
+    public static BadObject[] BindParameterValues(string funcStr,
+                                                  BadFunctionParameter[] parameters,
+                                                  BadExecutionContext context,
+                                                  BadObject[] args,
+                                                  BadSourcePosition? position = null)
+    {
+        BadObject[] boundValues = new BadObject[parameters.Length];
+
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            BadFunctionParameter parameter = parameters[i];
+            BadObject value;
 
             if (parameter.IsRestArgs)
             {
-                context.Scope.DefineVariable(parameter.Name,
-                                             new BadArray(args.Skip(i)
-                                                              .ToList()
-                                                         ),
-                                             null,
-                                             new BadPropertyInfo(BadNativeClassBuilder.GetNative("Array"))
-                                            );
+                var restList = new List<BadObject>(args.Length - i);
+                for (int j = i; j < args.Length; j++) restList.Add(args[j]);
+                value = new BadArray(restList);
             }
             else if (args.Length <= i)
             {
-                if (parameter.IsOptional)
-                {
-                    context.Scope.DefineVariable(parameter.Name,
-                                                 Null,
-                                                 null,
-                                                 new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance)
-                                                );
-                }
-                else
+                if (!parameter.IsOptional)
                 {
                     throw BadRuntimeException.Create(context.Scope,
                                                      $"Wrong number of parameters for '{funcStr}'. Expected Argument for '{parameter}'",
                                                      position
                                                     );
                 }
+
+                value = Null;
             }
             else
             {
-                if (parameter.IsNullChecked && args[i] == Null)
+                value = args[i];
+
+                if (parameter.IsNullChecked && value == Null)
                 {
                     throw BadRuntimeException.Create(context.Scope,
                                                      $"Null value not allowed for '{funcStr}' parameter '{parameter}'",
                                                      position
                                                     );
                 }
-
-                context.Scope.DefineVariable(parameter.Name,
-                                             args[i],
-                                             null,
-                                             new BadPropertyInfo(parameter.Type ?? BadAnyPrototype.Instance)
-                                            );
             }
+
+            BadClassPrototype parameterType = GetParameterType(parameter);
+
+            if (!parameterType.IsAssignableFrom(value))
+            {
+                throw BadRuntimeException.Create(context.Scope,
+                                                 $"Cannot assign object {value.GetType().Name} to parameter '{parameter.Name}' of type '{parameterType.Name}'",
+                                                 position
+                                                );
+            }
+
+            boundValues[i] = value;
         }
+
+        return boundValues;
+    }
+
+    /// <summary>
+    ///     Returns the effective runtime type of a parameter.
+    /// </summary>
+    public static BadClassPrototype GetParameterType(BadFunctionParameter parameter)
+    {
+        if (parameter.IsRestArgs)
+        {
+            return BadNativeClassBuilder.GetNative("Array");
+        }
+
+        return parameter.Type ?? BadAnyPrototype.Instance;
     }
 
     /// <summary>

@@ -1,0 +1,18 @@
+// Benchmark: Foreach Loop
+// Tests the performance of foreach loops over arrays
+
+function Main()
+{
+    let arr = [];
+    for(let i = 0; i < 100000; i = i + 1) {
+        arr = [arr, i];
+    }
+    
+    let sum = 0;
+    foreach(x in arr) {
+        sum = sum + 1;
+    }
+    return sum;
+}
+
+Main();

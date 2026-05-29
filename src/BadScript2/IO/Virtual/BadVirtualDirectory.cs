@@ -21,6 +21,16 @@ public class BadVirtualDirectory : BadVirtualNode
 	private readonly List<BadVirtualFile> m_Files = new List<BadVirtualFile>();
 
 	/// <summary>
+	///     Cached result of IsEmpty calculation
+	/// </summary>
+	private bool? m_IsEmptyCache;
+
+	/// <summary>
+	///     Cached result of Children enumeration
+	/// </summary>
+	private BadVirtualNode[]? m_ChildrenCache;
+
+	/// <summary>
 	///     Creates a new Virtual Directory
 	/// </summary>
 	/// <param name="name">Name of the Directory</param>
@@ -30,7 +40,18 @@ public class BadVirtualDirectory : BadVirtualNode
 	/// <summary>
 	///     Returns true if the Directory contains no files and no files in the subdirectories
 	/// </summary>
-	public bool IsEmpty => m_Files.Count == 0 && m_Directories.All(x => x.IsEmpty);
+	public bool IsEmpty
+	{
+		get
+		{
+			if (m_IsEmptyCache == null)
+			{
+				m_IsEmptyCache = m_Files.Count == 0 && m_Directories.All(x => x.IsEmpty);
+			}
+
+			return m_IsEmptyCache.Value;
+		}
+	}
 
 
 	/// <summary>
@@ -54,9 +75,33 @@ public class BadVirtualDirectory : BadVirtualNode
 	public override bool HasChildren => m_Directories.Count != 0 || m_Files.Count != 0;
 
 	/// <summary>
+	///     Invalidates the IsEmpty cache for this directory and parent directories
+	/// </summary>
+	private void InvalidateEmptyCache()
+	{
+		m_IsEmptyCache = null;
+		m_ChildrenCache = null;
+		if (Parent is BadVirtualDirectory parent)
+		{
+			parent.InvalidateEmptyCache();
+		}
+	}
+
+	/// <summary>
 	///     Returns a list of all children of this Directory
 	/// </summary>
-	public override IEnumerable<BadVirtualNode> Children => m_Directories.Concat(m_Files.Cast<BadVirtualNode>());
+	public override IEnumerable<BadVirtualNode> Children
+	{
+		get
+		{
+			if (m_ChildrenCache == null)
+			{
+				m_ChildrenCache = m_Directories.Concat(m_Files.Cast<BadVirtualNode>()).ToArray();
+			}
+
+			return m_ChildrenCache;
+		}
+	}
 
 	/// <summary>
 	///     Returns true if the file with the specified name exist in this directory
@@ -85,32 +130,34 @@ public class BadVirtualDirectory : BadVirtualNode
 	/// <param name="recursive">If true, Delete all child entries</param>
 	/// <exception cref="IOException">Gets Thrown if the directory is not empty and recursive is set to false.</exception>
 	public void DeleteDirectory(string name, bool recursive = true)
-    {
-        BadLogger.Log($"Deleting Directory {AbsolutePath}{name}", "BFS");
-        BadVirtualDirectory? dir = m_Directories.FirstOrDefault(x => x.Name == name);
+	{
+		BadLogger.Log($"Deleting Directory {AbsolutePath}{name}", "BFS");
+		BadVirtualDirectory? dir = m_Directories.FirstOrDefault(x => x.Name == name);
 
-        if (dir == null)
-        {
-            return;
-        }
+		if (dir == null)
+		{
+			return;
+		}
 
-        if (!dir.IsEmpty && !recursive)
-        {
-            throw new IOException("Directory is not empty");
-        }
+		if (!dir.IsEmpty && !recursive)
+		{
+			throw new IOException("Directory is not empty");
+		}
 
-        m_Directories.Remove(dir);
-    }
+		m_Directories.Remove(dir);
+		InvalidateEmptyCache();
+	}
 
 	/// <summary>
 	///     Deletes a file from the current directory
 	/// </summary>
 	/// <param name="name">File Name</param>
 	public void DeleteFile(string name)
-    {
-        BadLogger.Log($"Deleting File {AbsolutePath}{name}", "BFS");
-        m_Files.RemoveAll(x => x.Name == name);
-    }
+	{
+		BadLogger.Log($"Deleting File {AbsolutePath}{name}", "BFS");
+		m_Files.RemoveAll(x => x.Name == name);
+		InvalidateEmptyCache();
+	}
 
 	/// <summary>
 	///     Returns the existing directory or Creates a new directory with the specified name
@@ -118,22 +165,23 @@ public class BadVirtualDirectory : BadVirtualNode
 	/// <param name="name">Directory Name</param>
 	/// <returns>The Directory Object that was created</returns>
 	public BadVirtualDirectory CreateDirectory(string name)
-    {
-        BadLogger.Log($"Create Directory {AbsolutePath}{name}", "BFS");
-        BadVirtualDirectory dir;
+	{
+		BadLogger.Log($"Create Directory {AbsolutePath}{name}", "BFS");
+		BadVirtualDirectory dir;
 
-        if (!DirectoryExists(name))
-        {
-            dir = new BadVirtualDirectory(name, this);
-            m_Directories.Add(dir);
-        }
-        else
-        {
-            dir = GetDirectory(name);
-        }
+		if (!DirectoryExists(name))
+		{
+			dir = new BadVirtualDirectory(name, this);
+			m_Directories.Add(dir);
+			InvalidateEmptyCache();
+		}
+		else
+		{
+			dir = GetDirectory(name);
+		}
 
-        return dir;
-    }
+		return dir;
+	}
 
 	/// <summary>
 	///     Returns an existing directory
@@ -153,19 +201,20 @@ public class BadVirtualDirectory : BadVirtualNode
 	/// <param name="name">file Name</param>
 	/// <returns>The File Object that was created</returns>
 	public BadVirtualFile CreateFile(string name)
-    {
-        BadLogger.Log($"Creating File {AbsolutePath}{name}", "BFS");
+	{
+		BadLogger.Log($"Creating File {AbsolutePath}{name}", "BFS");
 
-        if (FileExists(name))
-        {
-            throw new Exception($"File {name} already exists in {this}");
-        }
+		if (FileExists(name))
+		{
+			throw new Exception($"File {name} already exists in {this}");
+		}
 
-        BadVirtualFile file = new BadVirtualFile(name, this);
-        m_Files.Add(file);
+		BadVirtualFile file = new BadVirtualFile(name, this);
+		m_Files.Add(file);
+		InvalidateEmptyCache();
 
-        return file;
-    }
+		return file;
+	}
 
 	/// <summary>
 	///     Returns an existing file or creates a new file with the specified name

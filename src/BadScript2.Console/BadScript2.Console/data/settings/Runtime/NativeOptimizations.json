@@ -6,8 +6,13 @@
       "UseConstantSubstitutionOptimization": true,
       "UseStaticExtensionCaching": true,
       "UseConstantFunctionCaching": true,
+      "UseLambdaDefaultCompilation": true,
       "UseDefaultCompilation": true,
-      "UseLambdaDefaultCompilation": false
+      "UseStaticMethodSpecialization": true,
+      "UseMethodSlotFastPath": true,
+      "UsePropertyReferenceCache": true,
+      "UseLoopFastPath": true,
+      "UseSlotLocalFastPath": true
     }
   }
 }

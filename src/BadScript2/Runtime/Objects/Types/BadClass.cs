@@ -15,6 +15,18 @@ public class BadClass : BadObject
     private readonly BadClass? m_BaseClass;
 
     /// <summary>
+    /// Slot array for compiled instance methods. Indexed by the prototype's MethodSlotMap.
+    /// Null for non-compiled classes or classes without methods.
+    /// </summary>
+    private BadObject[]? m_MethodSlots;
+
+    /// <summary>
+    /// Cache for BadObjectReference instances per public property name.
+    /// Avoids creating new closure objects on repeated LoadMember accesses.
+    /// </summary>
+    private Dictionary<string, BadObjectReference>? m_PropertyRefCache;
+
+    /// <summary>
     ///     Creates a new BadScript Class Instance
     /// </summary>
     /// <param name="name">The Type Name</param>
@@ -92,6 +104,51 @@ public class BadClass : BadObject
     public override BadClassPrototype GetPrototype()
     {
         return Prototype;
+    }
+
+    /// <summary>
+    /// Fills the method slot array from the instance scope.
+    /// Called by BadExpressionClassPrototype after member materialization.
+    /// </summary>
+    internal void InitializeMethodSlots(Dictionary<string, int> slotMap)
+    {
+        if (slotMap.Count == 0)
+        {
+            return;
+        }
+
+        m_MethodSlots = new BadObject[slotMap.Count];
+        System.Collections.Generic.Dictionary<string, BadObject> innerTable = Scope.GetTable().InnerTable;
+
+        foreach (KeyValuePair<string, int> entry in slotMap)
+        {
+            if (innerTable.TryGetValue(entry.Key, out BadObject? raw) && raw != null)
+            {
+                m_MethodSlots[entry.Value] = raw;
+            }
+            else
+            {
+                m_MethodSlots[entry.Value] = Null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Tries to retrieve a compiled instance method by slot index.
+    /// Returns false if this class has no slot map or the name is not a direct method.
+    /// </summary>
+    public bool TryGetMethodSlot(string name, out BadObject? method)
+    {
+        if (m_MethodSlots != null &&
+            Prototype is BadExpressionClassPrototype exprProto &&
+            exprProto.TryGetMethodSlotIndex(name, out int index))
+        {
+            method = m_MethodSlots[index];
+            return method != null && !ReferenceEquals(method, Null);
+        }
+
+        method = null;
+        return false;
     }
 
     /// <inheritdoc />
@@ -219,6 +276,28 @@ public class BadClass : BadObject
         }
 
         return caller.Provider.GetObjectReference(GetType(), propName, SuperClass ?? this, caller);
+    }
+
+    /// <summary>
+    /// Returns a cached <see cref="BadObjectReference"/> for public members in the own scope.
+    /// Avoids repeated closure allocation on hot paths (e.g. loops with field reads).
+    /// Falls back to <see cref="GetProperty(string,BadScope?)"/> for private/protected and base-class members.
+    /// </summary>
+    internal BadObjectReference GetCachedProperty(string propName, BadScope? caller)
+    {
+        // Only cache public members (no leading underscore) that live directly in own scope.
+        if (propName.Length > 0 && propName[0] != '_' &&
+            Scope.GetTable().InnerTable.ContainsKey(propName))
+        {
+            m_PropertyRefCache ??= new Dictionary<string, BadObjectReference>(StringComparer.Ordinal);
+            if (!m_PropertyRefCache.TryGetValue(propName, out BadObjectReference? cached))
+            {
+                cached = GetProperty(propName, caller);
+                m_PropertyRefCache[propName] = cached;
+            }
+            return cached;
+        }
+        return GetProperty(propName, caller);
     }
 
     /// <inheritdoc />

@@ -1,0 +1,24 @@
+// Benchmark: Instance Method (Instanzmethode)
+// Tests the performance of calling instance methods
+
+class Logger {
+    function Log(message) {
+        return message;
+    }
+    
+    function GetTimestamp() => "2026-05-29";
+}
+
+function Main()
+{
+    let logger = new Logger();
+    let sum = 0;
+    for(let i = 0; i < 100000; i = i + 1) {
+        let result = logger.Log("Message " + i);
+        sum = sum + 1;
+    }
+    return sum;
+}
+
+Main();
+

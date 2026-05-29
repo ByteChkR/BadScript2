@@ -1,4 +1,5 @@
 using BadScript2.Parser.Expressions.Block.Lock;
+using BadScript2.Runtime.Objects;
 
 namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 
@@ -7,6 +8,8 @@ namespace BadScript2.Runtime.VirtualMachine.Compiler.ExpressionCompilers.Block;
 /// </summary>
 public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression>
 {
+    private const string LockVariableName = "~LOCK~";
+
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadLockExpression expression)
     {
@@ -15,9 +18,15 @@ public class BadLockExpressionCompiler : BadExpressionCompiler<BadLockExpression
 
         if (expression.Block.Any()) // Dont aquire lock if there are no expressions in the block
         {
+            context.Emit(BadOpCode.CreateScope, expression.Position, "LOCK_SCOPE", BadObject.Null);
+            context.Emit(BadOpCode.DefVar, expression.Position, LockVariableName, true);
+            context.Emit(BadOpCode.Swap, expression.Position);
+            context.Emit(BadOpCode.Assign, expression.Position);
             context.Emit(BadOpCode.AquireLock, expression.Position);
             context.Compile(expression.Block);
+            context.Emit(BadOpCode.LoadVar, expression.Position, LockVariableName, 0);
             context.Emit(BadOpCode.ReleaseLock, expression.Position);
+            context.Emit(BadOpCode.DestroyScope, expression.Position);
         }
     }
 }

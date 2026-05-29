@@ -4,6 +4,7 @@ using BadScript2.Reader.Token;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.Settings;
 
 /// <summary>
 /// Contains the Virtual Machine Implementation.
@@ -33,12 +34,22 @@ public class BadCompiledFunction : BadFunction
     /// <summary>
     ///     The Signature
     /// </summary>
-    private readonly string m_StringSignature;
+    private string m_StringSignature;
 
     /// <summary>
     ///     Indicates if the Function should use Operator Overrides.
     /// </summary>
     private readonly bool m_UseOverrides;
+
+    /// <summary>
+    ///     Optional symbol table for slot-backed locals/parameters.
+    /// </summary>
+    private readonly BadSymbolTable? m_SymbolTable;
+
+    /// <summary>
+    ///     Indicates that slot-backed state must still be mirrored into scope for closures.
+    /// </summary>
+    private readonly bool m_RequiresClosureScopeMaterialization;
 
     /// <summary>
     ///     Creates a new <see cref="BadCompiledFunction" /> instance.
@@ -64,6 +75,8 @@ public class BadCompiledFunction : BadFunction
                                BadMetaData? metaData,
                                BadClassPrototype returnType,
                                bool isSingleLine,
+                               BadSymbolTable? symbolTable = null,
+                               bool requiresClosureScopeMaterialization = false,
                                params BadFunctionParameter[] parameters) : base(name,
                                                                                 isConstant,
                                                                                 isStatic,
@@ -76,12 +89,28 @@ public class BadCompiledFunction : BadFunction
         m_UseOverrides = useOverrides;
         m_ParentScope = parentScope;
         m_Position = position;
+        m_RequiresClosureScopeMaterialization = requiresClosureScopeMaterialization;
+        m_SymbolTable = symbolTable;
         MetaData = metaData ?? BadMetaData.Empty;
-        m_StringSignature = MakeSignature();
     }
 
     /// <inheritdoc />
     public override BadMetaData MetaData { get; }
+
+    /// <summary>
+    ///     Exposes the compiled instruction array for VM-level inlining.
+    /// </summary>
+    public BadInstruction[] Instructions => m_Instructions;
+
+    /// <summary>
+    ///     Exposes the function-local symbol table for slot-backed variable access.
+    /// </summary>
+    public BadSymbolTable? SymbolTable => m_SymbolTable;
+
+    /// <summary>
+    ///     Indicates that closures require scope materialization for slot-backed state.
+    /// </summary>
+    public bool RequiresClosureScopeMaterialization => m_RequiresClosureScopeMaterialization;
 
     /// <summary>
     /// Creates a new Execution Context for this Function.
@@ -99,7 +128,37 @@ public class BadCompiledFunction : BadFunction
                                                                BadScopeFlags.CaptureThrow
                                                               )
                                                          );
-        ApplyParameters(ctx, args, m_Position);
+
+        if (m_SymbolTable == null ||
+            !BadNativeOptimizationSettings.Instance.UseSlotLocalFastPath ||
+            m_RequiresClosureScopeMaterialization)
+        {
+            ApplyParameters(ctx, args, m_Position);
+        }
+
+        return ctx;
+    }
+
+    /// <summary>
+    ///     Creates a lightweight Execution Context for inline (static fast-path) calls.
+    ///     Does NOT set CaptureThrow so exceptions propagate naturally to the caller's handler.
+    /// </summary>
+    public BadExecutionContext CreateInlineExecutionContext(BadExecutionContext caller, BadObject[] args)
+    {
+        BadExecutionContext ctx = new BadExecutionContext(m_ParentScope.CreateChild("Static Inline",
+                                                               caller.Scope,
+                                                               null,
+                                                               BadScopeFlags.Returnable |
+                                                               BadScopeFlags.AllowThrow
+                                                              )
+                                                         );
+
+        if (m_SymbolTable == null ||
+            !BadNativeOptimizationSettings.Instance.UseSlotLocalFastPath ||
+            m_RequiresClosureScopeMaterialization)
+        {
+            ApplyParameters(ctx, args, m_Position);
+        }
 
         return ctx;
     }
@@ -118,7 +177,7 @@ public class BadCompiledFunction : BadFunction
 
         BadRuntimeVirtualMachine vm = new BadRuntimeVirtualMachine(this, m_Instructions, m_UseOverrides);
 
-        foreach (BadObject o in vm.Execute(ctx))
+        foreach (BadObject o in vm.Execute(ctx, args))
         {
             yield return o;
         }
@@ -152,6 +211,6 @@ public class BadCompiledFunction : BadFunction
     /// <inheritdoc />
     public override string ToString()
     {
-        return m_StringSignature;
+        return m_StringSignature ??= MakeSignature();
     }
 }

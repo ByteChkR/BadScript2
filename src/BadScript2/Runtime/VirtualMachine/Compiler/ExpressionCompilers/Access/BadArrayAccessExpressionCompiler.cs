@@ -13,7 +13,7 @@ public class BadArrayAccessExpressionCompiler : BadExpressionCompiler<BadArrayAc
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadArrayAccessExpression expression)
     {
-        context.Compile(expression.Arguments);
+        context.Compile(expression.Arguments, clearStack: false);
         context.Compile(expression.Left);
 
         if (expression.NullChecked)

@@ -191,6 +191,17 @@ public abstract class BadExpression
     }
 
     /// <summary>
+    /// Computes the attributes of this expression.
+    /// </summary>
+    /// <param name="ctx">The Calling Context</param>
+    /// <param name="attributes">The list of attributes to add to.</param>
+    /// <returns>Execution Enumeration.</returns>
+    public IEnumerable<BadObject> EvaluateAttributes(BadExecutionContext ctx, List<BadObject> attributes)
+    {
+        return ComputeAttributes(ctx, attributes);
+    }
+
+    /// <summary>
     ///     Uses the Constant Folding Optimizer to optimize the expression
     /// </summary>
     public virtual void Optimize() { }

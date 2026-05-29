@@ -1,0 +1,21 @@
+// Benchmark: Class Instantiation (Klasseninstanzierung)
+// Tests the performance of creating new class instances
+
+class Person {
+    function Person(name, age) {
+        // Constructor body
+    }
+}
+
+function Main()
+{
+    let instances = 0;
+    for(let i = 0; i < 100000; i = i + 1) {
+        let p = new Person("Person", 20 + i);
+        instances = instances + 1;
+    }
+    return instances;
+}
+
+Main();
+

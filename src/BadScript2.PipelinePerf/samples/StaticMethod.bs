@@ -1,0 +1,20 @@
+// Benchmark: Static Method (Statische Methode)
+// Tests the performance of calling static class methods
+
+class Math {
+    static function Abs(value) => value < 0 ? -value : value;
+    static function Max(a, b) => a > b ? a : b;
+}
+
+function Main()
+{
+    let sum = 0;
+    for(let i = 0; i < 100000; i = i + 1) {
+        let result = Math.Abs(-i);
+        sum = sum + result;
+    }
+    return sum;
+}
+
+Main();
+

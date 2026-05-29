@@ -241,7 +241,7 @@ public static class BadNativeClassBuilder
                 ),
             }
         )},
-        {"Table", CreateNativeType<BadTable>("Table",
+        {"Table", CreateNativeType<BadTable>("Table", 
             () => new[]
             {
                 (BadInterfacePrototype)Enumerable.CreateGeneric(new[]

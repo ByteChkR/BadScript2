@@ -14,6 +14,53 @@ public class BadNumber : BadNative<decimal>, IBadNumber, IComparable, IComparabl
     /// </summary>
     private static readonly BadClassPrototype s_Prototype = BadNativeClassBuilder.GetNative("num");
 
+    // -------------------------------------------------------------------------
+    // Phase C1 – Integer Cache (escape analysis: avoid allocation for common
+    //            integer values that do not need unique identity)
+    // -------------------------------------------------------------------------
+
+    /// <summary>Smallest cached integer value.</summary>
+    private const int IntCacheMin = -128;
+
+    /// <summary>Largest cached integer value.</summary>
+    private const int IntCacheMax = 1024;
+
+    private static readonly BadNumber[] s_IntCache;
+
+    static BadNumber()
+    {
+        s_IntCache = new BadNumber[IntCacheMax - IntCacheMin + 1];
+
+        for (int i = 0; i < s_IntCache.Length; i++)
+        {
+            s_IntCache[i] = new BadNumber(IntCacheMin + i);
+        }
+    }
+
+    /// <summary>
+    ///     Returns a cached <see cref="BadNumber"/> for integer values in
+    ///     [<see cref="IntCacheMin"/>, <see cref="IntCacheMax"/>], otherwise
+    ///     allocates a new instance.  Always use this instead of <c>new BadNumber(d)</c>
+    ///     or the implicit <c>decimal → BadObject</c> operator in hot paths.
+    /// </summary>
+    public static BadNumber Get(decimal d)
+    {
+        if (d >= IntCacheMin && d <= IntCacheMax)
+        {
+            // Cheap integer check: no remainder means it is a whole number
+            decimal floor = Math.Truncate(d);
+
+            if (floor == d)
+            {
+                return s_IntCache[(int)d - IntCacheMin];
+            }
+        }
+
+        return new BadNumber(d);
+    }
+
+    // -------------------------------------------------------------------------
+
     /// <summary>
     ///     Creates a new Native Number
     /// </summary>

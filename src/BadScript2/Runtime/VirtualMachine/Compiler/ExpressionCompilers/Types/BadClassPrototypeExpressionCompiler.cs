@@ -1,5 +1,5 @@
-using BadScript2.Common.Logging;
 using BadScript2.Parser.Expressions.Types;
+using BadScript2.Runtime.VirtualMachine.Compiler;
 
 /// <summary>
 /// Contains Type Expression Compilers
@@ -14,11 +14,7 @@ public class BadClassPrototypeExpressionCompiler : BadExpressionCompiler<BadClas
     /// <inheritdoc />
     public override void Compile(BadExpressionCompileContext context, BadClassPrototypeExpression expression)
     {
-        BadLogger.Warn("Can not compile class prototypes, emitting eval instruction",
-                       BadLogMask.GetMask("Compiler", "EVAL"),
-                       expression.Position
-                      );
-
-        context.Emit(BadOpCode.Eval, expression.Position, expression);
+        BadCompiledClassTemplate template = new BadCompiledClassTemplate(expression);
+        context.Emit(BadOpCode.CreateClass, expression.Position, template);
     }
 }

@@ -1,0 +1,21 @@
+// Benchmark: Property Setter (Eigenschafts-Setter)
+// Tests the performance of writing object properties
+
+class Container {
+    function Container() {
+        // Constructor
+    }
+}
+
+function Main()
+{
+    let container = new Container();
+    let value = 0;
+    for(let i = 0; i < 100000; i = i + 1) {
+        value = i;
+    }
+    return value;
+}
+
+Main();
+

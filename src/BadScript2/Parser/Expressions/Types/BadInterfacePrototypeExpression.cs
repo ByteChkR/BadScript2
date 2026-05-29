@@ -77,23 +77,11 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
         yield break;
     }
 
-    /// <inheritdoc cref="BadExpression.InnerExecute" />
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    /// <summary>
+    /// Executes this interface definition in the current context and returns the created prototype.
+    /// </summary>
+    public IEnumerable<BadObject> ExecuteAsInterfaceDefinition(BadExecutionContext context)
     {
-        //Create the Interface Prototype
-        BadInterfacePrototype intf = new BadInterfacePrototype(Name,
-                                                               PrepareInterfaces,
-                                                               m_MetaData,
-                                                               GetConstraints,
-                                                               m_GenericParameters.Select(x => x.Text)
-                                                                   .ToArray()
-                                                              );
-        context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
-
-        yield return intf;
-
-        yield break;
-
         BadExecutionContext MakeGenericContext(BadObject[] typeArgs)
         {
             if (typeArgs.Length != m_GenericParameters.Length)
@@ -179,32 +167,6 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                                                      );
         }
 
-        BadInterfaceConstraint[] GetConstraints(BadObject[] typeArgs)
-        {
-            Console.WriteLine($"Get Constraints for : {Name} {Position}");
-
-            BadExecutionContext genericContext = MakeGenericContext(typeArgs);
-
-            BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
-
-            for (int i = 0; i < m_Constraints.Length; i++)
-            {
-                BadInterfaceConstraint c = m_Constraints[i];
-
-                constrainsts[i] = c switch
-                {
-                    BadInterfaceFunctionConstraint f => PrepareFunctionConstraint(genericContext, f),
-                    BadInterfacePropertyConstraint p => PreparePropertyConstraint(genericContext, p),
-                    _ => throw new BadRuntimeException("Unknown Constraint Type: " +
-                                                       c.GetType()
-                                                        .Name
-                                                      ),
-                };
-            }
-
-            return constrainsts;
-        }
-
         BadInterfacePropertyConstraint PreparePropertyConstraint(BadExecutionContext genericContext,
                                                                  BadInterfacePropertyConstraint p)
         {
@@ -229,6 +191,46 @@ public class BadInterfacePrototypeExpression : BadExpression, IBadNamedExpressio
                                                       p.Type,
                                                       propProto
                                                      );
+        }
+
+        BadInterfaceConstraint[] GetConstraints(BadObject[] typeArgs)
+        {
+            BadExecutionContext genericContext = MakeGenericContext(typeArgs);
+            BadInterfaceConstraint[] constrainsts = new BadInterfaceConstraint[m_Constraints.Length];
+
+            for (int i = 0; i < m_Constraints.Length; i++)
+            {
+                BadInterfaceConstraint c = m_Constraints[i];
+
+                constrainsts[i] = c switch
+                {
+                    BadInterfaceFunctionConstraint f => PrepareFunctionConstraint(genericContext, f),
+                    BadInterfacePropertyConstraint p => PreparePropertyConstraint(genericContext, p),
+                    _ => throw new BadRuntimeException("Unknown Constraint Type: " + c.GetType().Name),
+                };
+            }
+
+            return constrainsts;
+        }
+
+        BadInterfacePrototype intf = new BadInterfacePrototype(Name,
+                                                               PrepareInterfaces,
+                                                               m_MetaData,
+                                                               GetConstraints,
+                                                               m_GenericParameters.Select(x => x.Text)
+                                                                   .ToArray()
+                                                              );
+        context.Scope.DefineVariable(Name, intf, context.Scope, new BadPropertyInfo(intf.GetPrototype(), true));
+
+        yield return intf;
+    }
+
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        foreach (BadObject o in ExecuteAsInterfaceDefinition(context))
+        {
+            yield return o;
         }
     }
 }

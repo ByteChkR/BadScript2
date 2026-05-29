@@ -8,6 +8,7 @@ using BadScript2.Runtime.Error;
 using BadScript2.Runtime.Objects;
 using BadScript2.Runtime.Objects.Functions;
 using BadScript2.Runtime.Objects.Types;
+using BadScript2.Runtime.VirtualMachine;
 using BadScript2.Runtime.VirtualMachine.Compiler;
 
 namespace BadScript2.Parser.Expressions.Function;
@@ -221,8 +222,18 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
         }
     }
 
-    /// <inheritdoc cref="BadExpression.InnerExecute" />
-    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    /// <summary>
+    /// Executes this function definition in the current context and returns the created function object.
+    /// </summary>
+    /// <param name="context">Execution context.</param>
+    /// <param name="compiledInstructions">Optional precompiled function body instructions.</param>
+    /// <param name="useOverrides">Optional override mode for precompiled instructions.</param>
+    /// <param name="symbolTable">Optional function-local symbol table for slot-backed locals/parameters.</param>
+    public IEnumerable<BadObject> ExecuteAsFunctionDefinition(BadExecutionContext context,
+                                                              BadInstruction[]? compiledInstructions,
+                                                              bool? useOverrides,
+                                                              BadSymbolTable? symbolTable = null,
+                                                              bool requiresClosureScopeMaterialization = false)
     {
         BadClassPrototype type = BadAnyPrototype.Instance;
 
@@ -249,52 +260,80 @@ public class BadFunctionExpression : BadExpression, IBadNamedExpression
             type = proto;
         }
 
-        BadExpressionFunction f = new BadExpressionFunction(context.Scope,
-                                                            Name,
-                                                            m_Body,
-                                                            m_Parameters.Select(x => x.Initialize(context))
-                                                                        .ToArray(),
-                                                            Position,
-                                                            IsConstantFunction,
-                                                            IsStatic,
-                                                            m_MetaData,
-                                                            type,
-                                                            IsSingleLine
-                                                           );
+        BadFunctionParameter[] parameters = m_Parameters.Select(x => x.Initialize(context)).ToArray();
+        BadExpressionFunction expressionFunction = new BadExpressionFunction(context.Scope,
+                                                                             Name,
+                                                                             m_Body,
+                                                                             parameters,
+                                                                             Position,
+                                                                             IsConstantFunction,
+                                                                             IsStatic,
+                                                                             m_MetaData,
+                                                                             type,
+                                                                             IsSingleLine
+                                                                            );
+        BadFunction function;
 
-        BadFunction fFinal = CompileLevel switch
+        if (compiledInstructions != null && CompileLevel != BadFunctionCompileLevel.None)
         {
-            BadFunctionCompileLevel.Compiled     => BadCompilerApi.CompileFunction(f, true),
-            BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(f, false),
-            _                                    => f,
-        };
+            bool useOverrideFlag = useOverrides ?? CompileLevel != BadFunctionCompileLevel.CompiledFast;
+            function = new BadCompiledFunction(compiledInstructions,
+                                               useOverrideFlag,
+                                               context.Scope,
+                                               Position,
+                                               Name,
+                                               IsConstantFunction,
+                                               IsStatic,
+                                               m_MetaData,
+                                               type,
+                                               IsSingleLine,
+                                               symbolTable,
+                                               requiresClosureScopeMaterialization,
+                                               parameters
+                                              );
+        }
+        else
+        {
+            function = CompileLevel switch
+            {
+                BadFunctionCompileLevel.Compiled     => BadCompilerApi.CompileFunction(expressionFunction, true),
+                BadFunctionCompileLevel.CompiledFast => BadCompilerApi.CompileFunction(expressionFunction, false),
+                _                                    => expressionFunction,
+            };
+        }
 
         if (Name != null)
         {
-            List<BadObject>? attributes = new List<BadObject>();
+            List<BadObject> attributes = new List<BadObject>();
 
-            foreach (BadObject? o in ComputeAttributes(context, attributes))
+            foreach (BadObject o in ComputeAttributes(context, attributes))
             {
                 yield return o;
             }
 
             context.Scope.DefineVariable(Name.Text,
-                                         fFinal,
+                                         function,
                                          null,
-                                         new BadPropertyInfo(fFinal.GetPrototype()),
+                                         new BadPropertyInfo(function.GetPrototype()),
                                          attributes.ToArray()
                                         );
         }
-        else
+        else if (Attributes.Any())
         {
-            if (Attributes.Any())
-            {
-                throw new BadRuntimeException("Anonymous functions cannot have attributes",
-                                              Position
-                                             );
-            }
+            throw new BadRuntimeException("Anonymous functions cannot have attributes",
+                                          Position
+                                         );
         }
 
-        yield return fFinal;
+        yield return function;
+    }
+
+    /// <inheritdoc cref="BadExpression.InnerExecute" />
+    protected override IEnumerable<BadObject> InnerExecute(BadExecutionContext context)
+    {
+        foreach (BadObject o in ExecuteAsFunctionDefinition(context, null, null))
+        {
+            yield return o;
+        }
     }
 }

@@ -1,0 +1,23 @@
+// Benchmark: Compound Arithmetic  
+// Demonstrates Phase C2 (escape analysis / transient scratch).
+//
+// Pattern:  sum = sum + (i * 3) + (i * 2)
+// The inner (i * 3) + (i * 2) is:
+//   LoadLocal i / Push 3 / Mul  ← NOT transient (next is LoadLocal)
+//   LoadLocal i / Push 2 / Mul  ← TransientResult! (next is Add)
+//   Add                         ← consumes scratch BadNumber, no allocation
+//
+// 100 000 iterations → 100 000 scratch reuses for the second Mul.
+
+function Main()
+{
+    let sum = 0;
+    let i = 0;
+    while(i < 100000) {
+        sum = sum + (i * 3) + (i * 2);
+        i = i + 1;
+    }
+    return sum;
+}
+
+Main();

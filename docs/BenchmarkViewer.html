@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benchmark Viewer</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --bad: #f87171;
+      --good: #34d399;
+      --border: #374151;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+    header { padding: 20px 24px; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, #0f172a, #111827); }
+    h1 { margin: 0 0 6px; font-size: 26px; }
+    p { margin: 0; color: var(--muted); }
+    main { display: grid; grid-template-columns: 360px 1fr; gap: 14px; padding: 14px; }
+    aside, section { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 14px; }
+    .controls { display: grid; gap: 12px; }
+    label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    select, input, button { width: 100%; border-radius: 10px; border: 1px solid var(--border); background: var(--panel-2); color: var(--text); padding: 9px; font-size: 14px; }
+    button { cursor: pointer; font-weight: 600; }
+    .secondary { background: #0b1220; }
+    .list { display: grid; gap: 8px; max-height: 240px; overflow: auto; }
+    .item { background: #0b1220; border: 1px solid var(--border); border-radius: 10px; padding: 9px; }
+    .item .top { font-weight: 600; word-break: break-all; }
+    .item .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .subgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .card { background: #0b1220; border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
+    .card .k { color: var(--muted); font-size: 12px; }
+    .card .v { font-size: 21px; font-weight: 700; margin-top: 4px; }
+    .stat { background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
+    .stat .k { color: var(--muted); font-size: 12px; }
+    .stat .v { font-size: 21px; font-weight: 700; margin-top: 4px; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .tab { width: auto; padding: 8px 12px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); }
+    .tab.active { background: #2563eb; border-color: #2563eb; }
+    #chart { height: 460px; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 12px; background: #0b1220; }
+    .panel-title { margin: 0 0 10px; font-size: 15px; }
+    .table-wrap { overflow: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { border-bottom: 1px solid var(--border); padding: 8px; text-align: right; }
+    th:first-child, td:first-child, th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) { text-align: left; }
+    .good { color: var(--good); }
+    .bad { color: var(--bad); }
+    .muted { color: var(--muted); }
+    @media (max-width: 980px) { main { grid-template-columns: 1fr; } .grid, .subgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Benchmark Viewer</h1>
+    <p>Laedt <code>pipeline-perf</code>- und <code>microbench</code>-JSON, normalisiert die Daten und vergleicht Runs, Summary, Delta und Optimization Counter.</p>
+  </header>
+  <main>
+    <aside>
+      <div class="controls">
+        <div>
+          <label>JSON-Dateien</label>
+          <input id="fileInput" type="file" accept=".json,application/json" multiple />
+        </div>
+
+        <div>
+          <label>Stage</label>
+          <select id="stageSelect"></select>
+        </div>
+
+        <div>
+          <label>Szenario</label>
+          <select id="scenarioSelect"></select>
+        </div>
+
+        <div>
+          <label>Baseline-Serie</label>
+          <select id="baselineSelect"></select>
+        </div>
+
+        <div>
+          <label>Metrik</label>
+          <select id="metricSelect">
+            <option value="MedianMs" selected>Median</option>
+            <option value="MeanMs">Mean</option>
+            <option value="MinMs">Min</option>
+            <option value="MaxMs">Max</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Ansicht</label>
+          <select id="viewSelect">
+            <option value="runs" selected>Measured Runs</option>
+            <option value="summary">Summary (Bar)</option>
+            <option value="delta">Delta zur Baseline</option>
+            <option value="box">Verteilung (Boxplot)</option>
+            <option value="counters">Optimization Counter</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Optimization Counter</label>
+          <select id="counterSelect"></select>
+        </div>
+
+        <div>
+          <label>Counter-Modus</label>
+          <select id="counterModeSelect">
+            <option value="absolute" selected>Absolute Werte</option>
+            <option value="deltaAbs">Delta zur Baseline</option>
+            <option value="deltaPct">Delta % zur Baseline</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Counter-Sortierung</label>
+          <select id="counterSortSelect">
+            <option value="delta" selected>Groesste Abweichung</option>
+            <option value="value">Hoechster Wert</option>
+            <option value="name">Name</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Top Counter</label>
+          <input id="counterLimitInput" type="number" min="5" max="100" step="1" value="20" />
+        </div>
+
+        <button id="csvBtn" class="secondary">CSV exportieren</button>
+
+        <div>
+          <label>Geladene Reports</label>
+          <div id="reportList" class="list"></div>
+        </div>
+      </div>
+    </aside>
+
+    <section>
+      <div class="tabs" id="stageTabs"></div>
+
+      <div class="grid">
+        <div class="card"><div class="k">Reports</div><div class="v" id="mReports">0</div></div>
+        <div class="card"><div class="k">Rows</div><div class="v" id="mRows">0</div></div>
+        <div class="card"><div class="k">Stage</div><div class="v" id="mStage">-</div></div>
+        <div class="card"><div class="k">Szenario</div><div class="v" id="mScenario">-</div></div>
+      </div>
+
+      <div id="chart"></div>
+
+      <div class="card">
+        <h2 class="panel-title">Summary</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Serie</th>
+                <th>Target</th>
+                <th>Szenario</th>
+                <th>Min</th>
+                <th>Median</th>
+                <th>Mean</th>
+                <th>Max</th>
+                <th>Delta</th>
+                <th>Instr.</th>
+                <th>Fallbacks</th>
+                <th>Counter</th>
+                <th>Counter-Delta</th>
+                <th>Error</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 12px;">
+        <h2 class="panel-title">Counter-Analyse</h2>
+        <div class="subgrid">
+          <div class="stat"><div class="k">Selektierter Counter</div><div class="v" id="mCounter">-</div></div>
+          <div class="stat"><div class="k">Baseline</div><div class="v" id="mCounterBase">-</div></div>
+          <div class="stat"><div class="k">Groesste Abweichung</div><div class="v" id="mCounterDelta">-</div></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Counter</th>
+                <th>Baseline</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Spread</th>
+                <th>Spread %</th>
+                <th>Serie max</th>
+              </tr>
+            </thead>
+            <tbody id="counterTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STAGE_MAP = {
+      0: 'Parse',
+      1: 'Compile',
+      2: 'Execute'
+    };
+
+    const state = {
+      reports: [],
+      rows: [],
+      stage: null,
+      scenario: '__all__',
+      baselineSeries: null,
+      metric: 'MedianMs',
+      view: 'runs',
+      counterKey: null,
+      counterMode: 'absolute',
+      counterSort: 'delta',
+      counterLimit: 20
+    };
+
+    const byId = id => document.getElementById(id);
+
+    function fMs(v) {
+      if (v == null || Number.isNaN(v)) return '-';
+      if (Math.abs(v) >= 100) return v.toFixed(1) + ' ms';
+      if (Math.abs(v) >= 10) return v.toFixed(2) + ' ms';
+      return v.toFixed(4) + ' ms';
+    }
+
+    function fPct(v) {
+      if (v == null || Number.isNaN(v)) return '-';
+      return `${v > 0 ? '+' : ''}${v.toFixed(2)}%`;
+    }
+
+    function fCount(v) {
+      if (v == null || Number.isNaN(v)) return '-';
+      return Number(v).toLocaleString('de-DE');
+    }
+
+    function baseName(path) {
+      if (!path) return '-';
+      const p = path.replaceAll('\\', '/');
+      return p.split('/').pop() || p;
+    }
+
+    function detectFormat(data) {
+      if (Array.isArray(data.Results)) return 'pipeline-perf';
+      if (Array.isArray(data.Stages)) return 'microbench';
+      return 'unknown';
+    }
+
+    function normalizeMicro(reportName, data) {
+      const target = data?.Options?.Target || 'default';
+      return (data.Stages || []).map((s, i) => {
+        const stage = String(s.Stage ?? `Stage-${i}`);
+        const scenario = s.SourceName || 'default';
+        const seriesLabel = `${reportName} | ${target} | ${scenario}`;
+        return {
+          reportName,
+          format: 'microbench',
+          createdAtUtc: data.CreatedAtUtc || null,
+          dotnetVersion: data.DotNetVersion || null,
+          stage,
+          scenario,
+          target,
+          seriesLabel,
+          measuredRunsMs: Array.isArray(s.MeasuredRunsMs) ? s.MeasuredRunsMs : [],
+          summary: s.Summary || {},
+          instructionCount: s.InstructionCount ?? null,
+          evalFallbackCount: s.EvalFallbackCount ?? null,
+          optimizationCounters: s.OptimizationCounters || {},
+          error: s.Error ?? null
+        };
+      });
+    }
+
+    function normalizePipeline(reportName, data) {
+      return (data.Results || []).map((r, i) => {
+        const stage = typeof r.Stage === 'number' ? (STAGE_MAP[r.Stage] || `Stage-${r.Stage}`) : String(r.Stage ?? `Stage-${i}`);
+        const scenario = baseName(r.FilePath);
+        const target = r.TargetName || 'default';
+        const seriesLabel = `${reportName} | ${target} | ${scenario}`;
+        return {
+          reportName,
+          format: 'pipeline-perf',
+          createdAtUtc: data.CreatedAtUtc || null,
+          dotnetVersion: data.DotNetVersion || null,
+          stage,
+          scenario,
+          target,
+          seriesLabel,
+          measuredRunsMs: Array.isArray(r.MeasuredRunsMs) ? r.MeasuredRunsMs : [],
+          summary: r.Summary || {},
+          instructionCount: r.InstructionCount ?? null,
+          evalFallbackCount: r.EvalFallbackCount ?? null,
+          optimizationCounters: r.OptimizationCounters || {},
+          error: r.Error ?? null
+        };
+      });
+    }
+
+    function normalizeReport(reportName, data) {
+      const format = detectFormat(data);
+      if (format === 'microbench') return normalizeMicro(reportName, data);
+      if (format === 'pipeline-perf') return normalizePipeline(reportName, data);
+      throw new Error('Unbekanntes JSON-Format (erwartet: microbench oder pipeline-perf)');
+    }
+
+    function stageValues() {
+      return [...new Set(state.rows.map(r => r.stage))].sort((a, b) => a.localeCompare(b));
+    }
+
+    function scenarioValues() {
+      return [...new Set(state.rows.map(r => r.scenario))].sort((a, b) => a.localeCompare(b));
+    }
+
+    function counterValues(rows) {
+      const keys = new Set();
+      for (const r of rows) {
+        for (const k of Object.keys(r.optimizationCounters || {})) {
+          keys.add(k);
+        }
+      }
+      return [...keys].sort((a, b) => a.localeCompare(b));
+    }
+
+    function filteredRows() {
+      return state.rows.filter(r => r.stage === state.stage && (state.scenario === '__all__' || r.scenario === state.scenario));
+    }
+
+    function baselineRow(rows) {
+      return rows.find(r => r.seriesLabel === state.baselineSeries) || null;
+    }
+
+    function renderStageTabs(stages) {
+      byId('stageTabs').innerHTML = stages.map(s =>
+        `<button class="tab ${s === state.stage ? 'active' : ''}" data-stage="${s}">${s}</button>`
+      ).join('');
+      for (const btn of document.querySelectorAll('.tab')) {
+        btn.addEventListener('click', () => {
+          state.stage = btn.dataset.stage;
+          byId('stageSelect').value = state.stage;
+          renderAll();
+        });
+      }
+    }
+
+    function renderSelectors() {
+      const stages = stageValues();
+      if (!state.stage || !stages.includes(state.stage)) state.stage = stages[0] || null;
+
+      const stageSelect = byId('stageSelect');
+      stageSelect.innerHTML = stages.map(s => `<option value="${s}">${s}</option>`).join('');
+      stageSelect.value = state.stage || '';
+
+      renderStageTabs(stages);
+
+      const scenarios = scenarioValues();
+      const scenarioSelect = byId('scenarioSelect');
+      scenarioSelect.innerHTML = [`<option value="__all__">Alle</option>`]
+        .concat(scenarios.map(s => `<option value="${s}">${s}</option>`))
+        .join('');
+      if (state.scenario !== '__all__' && !scenarios.includes(state.scenario)) state.scenario = '__all__';
+      scenarioSelect.value = state.scenario;
+
+      const rows = filteredRows();
+      const labels = [...new Set(rows.map(r => r.seriesLabel))].sort((a, b) => a.localeCompare(b));
+      if (!state.baselineSeries || !labels.includes(state.baselineSeries)) state.baselineSeries = labels[0] || null;
+
+      const baselineSelect = byId('baselineSelect');
+      baselineSelect.innerHTML = labels.map(l => `<option value="${l}">${l}</option>`).join('');
+      baselineSelect.value = state.baselineSeries || '';
+
+      const counters = counterValues(rows);
+      const counterSelect = byId('counterSelect');
+      byId('counterModeSelect').value = state.counterMode;
+      byId('counterSortSelect').value = state.counterSort;
+      byId('counterLimitInput').value = String(state.counterLimit);
+      counterSelect.innerHTML = counters.length === 0
+        ? '<option value="">(keine)</option>'
+        : counters.map(c => `<option value="${c}">${c}</option>`).join('');
+
+      if (counters.length === 0) {
+        state.counterKey = null;
+        counterSelect.value = '';
+      } else {
+        if (!state.counterKey || !counters.includes(state.counterKey)) {
+          state.counterKey = counters[0];
+        }
+        counterSelect.value = state.counterKey;
+      }
+    }
+
+    function renderReportList() {
+      byId('reportList').innerHTML = state.reports.map(r => {
+        const created = r.createdAtUtc ? new Date(r.createdAtUtc).toLocaleString() : '-';
+        return `
+          <div class="item">
+            <div class="top">${r.name}</div>
+            <div class="meta">${r.format} · ${created} · rows=${r.rowCount}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMetrics() {
+      byId('mReports').textContent = String(state.reports.length);
+      byId('mRows').textContent = String(filteredRows().length);
+      byId('mStage').textContent = state.stage || '-';
+      byId('mScenario').textContent = state.scenario === '__all__' ? 'Alle' : state.scenario;
+    }
+
+    function layout(title, yTitle = 'ms') {
+      return {
+        title: { text: title, font: { color: '#e5e7eb' } },
+        paper_bgcolor: '#0b1220',
+        plot_bgcolor: '#0b1220',
+        font: { color: '#e5e7eb' },
+        xaxis: { gridcolor: '#1f2937' },
+        yaxis: { title: yTitle, gridcolor: '#1f2937' },
+        margin: { t: 55, r: 18, b: 100, l: 70 },
+        legend: { orientation: 'h' }
+      };
+    }
+
+    function counterSeries(rows, key) {
+      const base = baselineRow(rows);
+      const baselineValue = Number(base?.optimizationCounters?.[key] ?? 0);
+      return rows.map(r => {
+        const value = Number(r.optimizationCounters?.[key] ?? 0);
+        const deltaAbs = value - baselineValue;
+        const deltaPct = baselineValue === 0
+          ? (value === 0 ? 0 : null)
+          : (deltaAbs / baselineValue) * 100;
+        return { row: r, value, deltaAbs, deltaPct };
+      });
+    }
+
+    function allCounterStats(rows) {
+      const keys = counterValues(rows);
+      return keys.map(key => {
+        const series = counterSeries(rows, key);
+        const values = series.map(s => s.value);
+        const baselineValue = series[0] ? series.find(s => s.row.seriesLabel === state.baselineSeries)?.value ?? 0 : 0;
+        const maxEntry = series.reduce((best, item) => item.value > best.value ? item : best, series[0]);
+        const minValue = values.length ? Math.min(...values) : 0;
+        const maxValue = values.length ? Math.max(...values) : 0;
+        const spread = maxValue - minValue;
+        const spreadPct = baselineValue === 0
+          ? (spread === 0 ? 0 : null)
+          : (spread / baselineValue) * 100;
+        const maxAbsDeltaPct = series.reduce((best, item) => {
+          const score = item.deltaPct == null ? -1 : Math.abs(item.deltaPct);
+          return score > best ? score : best;
+        }, -1);
+        return {
+          key,
+          baselineValue,
+          minValue,
+          maxValue,
+          spread,
+          spreadPct,
+          maxSeriesLabel: maxEntry?.row.seriesLabel || '-',
+          sortDelta: maxAbsDeltaPct,
+          sortValue: maxValue
+        };
+      });
+    }
+
+    function renderChart() {
+      const rows = filteredRows();
+      if (!rows.length) {
+        Plotly.newPlot('chart', [], layout('Keine Daten')); return;
+      }
+
+      if (state.view === 'runs') {
+        const traces = rows.map(r => ({
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: r.seriesLabel,
+          x: r.measuredRunsMs.map((_, i) => i + 1),
+          y: r.measuredRunsMs
+        }));
+        Plotly.newPlot('chart', traces, layout(`${state.stage}: Measured Runs`, 'ms pro Run'), { responsive: true });
+        return;
+      }
+
+      if (state.view === 'summary') {
+        const m = state.metric;
+        const trace = {
+          type: 'bar',
+          x: rows.map(r => r.seriesLabel),
+          y: rows.map(r => r.summary?.[m] ?? null),
+          text: rows.map(r => fMs(r.summary?.[m] ?? null)),
+          textposition: 'auto'
+        };
+        Plotly.newPlot('chart', [trace], layout(`${state.stage}: ${m}`), { responsive: true });
+        return;
+      }
+
+      if (state.view === 'delta') {
+        const m = state.metric;
+        const base = baselineRow(rows);
+        const bVal = base?.summary?.[m] ?? null;
+        const trace = {
+          type: 'bar',
+          x: rows.map(r => r.seriesLabel),
+          y: rows.map(r => {
+            const v = r.summary?.[m];
+            return bVal ? ((v - bVal) / bVal) * 100 : null;
+          }),
+          text: rows.map(r => {
+            const v = r.summary?.[m];
+            return bVal ? fPct(((v - bVal) / bVal) * 100) : '-';
+          }),
+          textposition: 'auto'
+        };
+        Plotly.newPlot('chart', [trace], layout(`${state.stage}: Delta zu Baseline (${m})`, '%'), { responsive: true });
+        return;
+      }
+
+      if (state.view === 'counters') {
+        const key = state.counterKey;
+        const series = counterSeries(rows, key);
+        const mode = state.counterMode;
+        const sorted = [...series].sort((a, b) => {
+          if (state.counterSort === 'name') return a.row.seriesLabel.localeCompare(b.row.seriesLabel);
+          if (state.counterSort === 'value') return b.value - a.value;
+          const aScore = mode === 'deltaPct' ? Math.abs(a.deltaPct ?? -Infinity) : Math.abs(a.deltaAbs);
+          const bScore = mode === 'deltaPct' ? Math.abs(b.deltaPct ?? -Infinity) : Math.abs(b.deltaAbs);
+          return bScore - aScore;
+        }).slice(0, state.counterLimit);
+        const y = sorted.map(s => s.row.seriesLabel);
+        const vals = sorted.map(s => mode === 'absolute' ? s.value : (mode === 'deltaAbs' ? s.deltaAbs : s.deltaPct));
+        const trace = {
+          type: 'bar',
+          orientation: 'h',
+          y,
+          x: vals,
+          text: sorted.map(s => (
+            mode === 'absolute' ? fCount(s.value) :
+            mode === 'deltaAbs' ? `${s.deltaAbs > 0 ? '+' : ''}${fCount(s.deltaAbs)}` :
+            fPct(s.deltaPct)
+          )),
+          textposition: 'auto'
+        };
+        const suffix = key ? ` (${key})` : '';
+        const yTitle = mode === 'deltaPct' ? '%' : 'count';
+        const modeTitle = mode === 'absolute' ? 'Werte' : mode === 'deltaAbs' ? 'Delta' : 'Delta %';
+        const base = baselineRow(rows);
+        const bVal = Number(base?.optimizationCounters?.[key] ?? 0);
+        const baseText = state.baselineSeries ? `, Baseline=${fCount(bVal)}` : '';
+        Plotly.newPlot('chart', [trace], layout(`${state.stage}: Optimization Counter${suffix} - ${modeTitle}${baseText}`, yTitle), { responsive: true });
+        return;
+      }
+
+      // box
+      const traces = rows.map(r => ({
+        type: 'box',
+        name: r.seriesLabel,
+        y: r.measuredRunsMs,
+        boxpoints: 'all',
+        jitter: 0.35,
+        pointpos: 0
+      }));
+      Plotly.newPlot('chart', traces, layout(`${state.stage}: Verteilung`), { responsive: true });
+    }
+
+    function renderTable() {
+      const rows = filteredRows();
+      const m = state.metric;
+      const base = baselineRow(rows);
+      const bVal = base?.summary?.[m] ?? null;
+      const counterKey = state.counterKey;
+      const baseCounter = Number(base?.optimizationCounters?.[counterKey] ?? 0);
+
+      byId('tableBody').innerHTML = rows.map(r => {
+        const delta = bVal ? (((r.summary?.[m] ?? NaN) - bVal) / bVal) * 100 : null;
+        const cls = delta == null ? '' : delta <= 0 ? 'good' : 'bad';
+        const counterValue = Number(r.optimizationCounters?.[counterKey] ?? 0);
+        const counterDelta = baseCounter === 0
+          ? (counterValue === 0 ? 0 : null)
+          : ((counterValue - baseCounter) / baseCounter) * 100;
+        const counterCls = counterDelta == null ? '' : counterDelta <= 0 ? 'good' : 'bad';
+        return `
+          <tr>
+            <td>${r.seriesLabel}</td>
+            <td>${r.target}</td>
+            <td>${r.scenario}</td>
+            <td>${fMs(r.summary?.MinMs)}</td>
+            <td>${fMs(r.summary?.MedianMs)}</td>
+            <td>${fMs(r.summary?.MeanMs)}</td>
+            <td>${fMs(r.summary?.MaxMs)}</td>
+            <td class="${cls}">${fPct(delta)}</td>
+            <td>${r.instructionCount ?? '-'}</td>
+            <td>${r.evalFallbackCount ?? '-'}</td>
+            <td>${counterKey ? counterValue : '-'}</td>
+            <td class="${counterCls}">${counterKey ? fPct(counterDelta) : '-'}</td>
+            <td>${r.error ?? '-'}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCounterInsights() {
+      const rows = filteredRows();
+      const stats = allCounterStats(rows);
+      const selectedSeries = state.counterKey ? counterSeries(rows, state.counterKey) : [];
+      const baseValue = selectedSeries.find(s => s.row.seriesLabel === state.baselineSeries)?.value ?? null;
+      const maxDelta = selectedSeries.reduce((best, item) => {
+        if (item.deltaPct == null) return best;
+        return Math.abs(item.deltaPct) > Math.abs(best) ? item.deltaPct : best;
+      }, 0);
+
+      byId('mCounter').textContent = state.counterKey || '-';
+      byId('mCounterBase').textContent = state.counterKey ? fCount(baseValue) : '-';
+      byId('mCounterDelta').textContent = state.counterKey ? fPct(maxDelta) : '-';
+
+      const sorted = [...stats].sort((a, b) => {
+        if (state.counterSort === 'name') return a.key.localeCompare(b.key);
+        if (state.counterSort === 'value') return b.sortValue - a.sortValue;
+        return (b.sortDelta ?? -1) - (a.sortDelta ?? -1);
+      }).slice(0, state.counterLimit);
+
+      byId('counterTableBody').innerHTML = sorted.length === 0
+        ? '<tr><td colspan="7" class="muted">Keine Counter in der aktuellen Auswahl.</td></tr>'
+        : sorted.map(s => `
+          <tr>
+            <td>${s.key}</td>
+            <td>${fCount(s.baselineValue)}</td>
+            <td>${fCount(s.minValue)}</td>
+            <td>${fCount(s.maxValue)}</td>
+            <td>${fCount(s.spread)}</td>
+            <td class="${s.spreadPct != null && s.spreadPct > 0 ? 'bad' : ''}">${fPct(s.spreadPct)}</td>
+            <td>${s.maxSeriesLabel}</td>
+          </tr>
+        `).join('');
+    }
+
+    function toCsv() {
+      const rows = filteredRows();
+      const m = state.metric;
+      const base = baselineRow(rows);
+      const bVal = base?.summary?.[m] ?? null;
+      const counterKey = state.counterKey;
+      const baseCounter = Number(base?.optimizationCounters?.[counterKey] ?? 0);
+      const lines = [[
+        'report_name','format','created_at_utc','dotnet_version','series','stage','scenario','target',
+        'run_index','run_ms','min_ms','median_ms','mean_ms','max_ms','baseline_series','delta_percent',
+        'instruction_count','eval_fallback_count','counter_key','counter_value','counter_delta_percent','error'
+      ]];
+
+      for (const r of rows) {
+        const delta = bVal ? (((r.summary?.[m] ?? NaN) - bVal) / bVal) * 100 : '';
+        const counterValue = counterKey ? Number(r.optimizationCounters?.[counterKey] ?? 0) : '';
+        const counterDelta = !counterKey
+          ? ''
+          : (baseCounter === 0
+              ? (counterValue === 0 ? 0 : '')
+              : ((counterValue - baseCounter) / baseCounter) * 100);
+        const runs = r.measuredRunsMs.length ? r.measuredRunsMs : [null];
+        for (let i = 0; i < runs.length; i++) {
+          lines.push([
+            r.reportName,
+            r.format,
+            r.createdAtUtc || '',
+            r.dotnetVersion || '',
+            r.seriesLabel,
+            r.stage,
+            r.scenario,
+            r.target,
+            runs[i] == null ? '' : i + 1,
+            runs[i] == null ? '' : runs[i],
+            r.summary?.MinMs ?? '',
+            r.summary?.MedianMs ?? '',
+            r.summary?.MeanMs ?? '',
+            r.summary?.MaxMs ?? '',
+            state.baselineSeries || '',
+            delta,
+            r.instructionCount ?? '',
+            r.evalFallbackCount ?? '',
+            counterKey ?? '',
+            counterValue,
+            counterDelta,
+            r.error ?? ''
+          ]);
+        }
+      }
+
+      return lines
+        .map(line => line.map(v => `"${String(v).replaceAll('"', '""')}"`).join(','))
+        .join('\n');
+    }
+
+    function exportCsv() {
+      const blob = new Blob([toCsv()], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'benchmark-unified.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function onFilesSelected(files) {
+      const reports = [];
+      const rows = [];
+
+      for (const f of files) {
+        try {
+          const txt = await f.text();
+          const data = JSON.parse(txt);
+          const format = detectFormat(data);
+          const normalized = normalizeReport(f.name, data);
+          reports.push({
+            name: f.name,
+            format,
+            createdAtUtc: data.CreatedAtUtc || null,
+            rowCount: normalized.length
+          });
+          rows.push(...normalized);
+        } catch (e) {
+          alert(`Fehler beim Laden von ${f.name}: ${e.message}`);
+        }
+      }
+
+      state.reports = reports.sort((a, b) => a.name.localeCompare(b.name));
+      state.rows = rows;
+      state.stage = null;
+      state.scenario = '__all__';
+      state.baselineSeries = null;
+      renderAll();
+    }
+
+    function renderAll() {
+      renderSelectors();
+      renderReportList();
+      renderMetrics();
+      renderChart();
+      renderTable();
+      renderCounterInsights();
+    }
+
+    byId('fileInput').addEventListener('change', e => onFilesSelected(e.target.files));
+    byId('stageSelect').addEventListener('change', e => { state.stage = e.target.value; renderAll(); });
+    byId('scenarioSelect').addEventListener('change', e => { state.scenario = e.target.value; renderAll(); });
+    byId('baselineSelect').addEventListener('change', e => { state.baselineSeries = e.target.value; renderAll(); });
+    byId('metricSelect').addEventListener('change', e => { state.metric = e.target.value; renderAll(); });
+    byId('viewSelect').addEventListener('change', e => { state.view = e.target.value; renderAll(); });
+    byId('counterSelect').addEventListener('change', e => { state.counterKey = e.target.value || null; renderAll(); });
+    byId('counterModeSelect').addEventListener('change', e => { state.counterMode = e.target.value; renderAll(); });
+    byId('counterSortSelect').addEventListener('change', e => { state.counterSort = e.target.value; renderAll(); });
+    byId('counterLimitInput').addEventListener('change', e => {
+      const parsed = Number(e.target.value);
+      state.counterLimit = Number.isFinite(parsed) ? Math.max(5, Math.min(100, Math.round(parsed))) : 20;
+      e.target.value = String(state.counterLimit);
+      renderAll();
+    });
+    byId('csvBtn').addEventListener('click', exportCsv);
+
+    renderAll();
+  </script>
+</body>
+</html>
