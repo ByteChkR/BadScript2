@@ -3389,6 +3389,49 @@ public class BadRuntimeVirtualMachine
                                BadLogMask.GetMask("Compiler", "EVAL"),
                                expr.Position
                               );
+
+                // Materialize slot-backed locals into scope so the tree-walking interpreter can find them.
+                // When UseSlotLocalFastPath is active and RequiresClosureScopeMaterialization is false,
+                // local variables (e.g. declared with 'const' or 'let') are stored only in VM slots and
+                // are invisible to the tree-walker used by Eval (e.g. for 'await').
+                BadRuntimeVirtualStackFrame evalFrame = m_ContextStack.Peek();
+                List<BadSlotInfo>? materializedSlots = null;
+
+                if (evalFrame.SymbolTable != null &&
+                    evalFrame.LocalSlots != null &&
+                    BadNativeOptimizationSettings.Instance.UseSlotLocalFastPath)
+                {
+                    foreach (BadSlotInfo slotInfo in evalFrame.SymbolTable.AllSymbols)
+                    {
+                        if (slotInfo.IsCapture)
+                        {
+                            continue; // captures are already handled via scope
+                        }
+
+                        int slotIdx = slotInfo.SlotIndex;
+
+                        if (slotIdx >= evalFrame.LocalSlots.Length)
+                        {
+                            continue;
+                        }
+
+                        if (!ctx.Scope.HasLocal(slotInfo.Name, ctx.Scope, false))
+                        {
+                            BadPropertyInfo propInfo = evalFrame.SlotPropertyInfos?[slotIdx]
+                                                       ?? new BadPropertyInfo(BadAnyPrototype.Instance, false);
+                            BadObject[] attrs = evalFrame.SlotAttributes?[slotIdx] ?? Array.Empty<BadObject>();
+                            ctx.Scope.DefineVariable(slotInfo.Name,
+                                                     evalFrame.LocalSlots[slotIdx],
+                                                     ctx.Scope,
+                                                     propInfo,
+                                                     attrs
+                                                    );
+                            materializedSlots ??= new List<BadSlotInfo>();
+                            materializedSlots.Add(slotInfo);
+                        }
+                    }
+                }
+
                 BadObject ret = BadObject.Null;
 
                 foreach (BadObject o in ctx.Execute(expr))
@@ -3396,6 +3439,28 @@ public class BadRuntimeVirtualMachine
                     ret = o;
 
                     yield return o;
+                }
+
+                // Sync back any mutable slot-backed variables that may have been modified
+                // by the tree-walking interpreter during Eval execution.
+                if (materializedSlots != null)
+                {
+                    foreach (BadSlotInfo slotInfo in materializedSlots)
+                    {
+                        int slotIdx = slotInfo.SlotIndex;
+                        BadPropertyInfo? propInfo = evalFrame.SlotPropertyInfos?[slotIdx];
+
+                        if (propInfo?.IsReadOnly == true)
+                        {
+                            continue; // const variables cannot have been changed
+                        }
+
+                        if (ctx.Scope.HasLocal(slotInfo.Name, ctx.Scope, false))
+                        {
+                            evalFrame.LocalSlots![slotIdx] =
+                                ctx.Scope.GetVariable(slotInfo.Name).Dereference(instr.Position);
+                        }
+                    }
                 }
 
                 m_ArgumentStack.Push(ret);
