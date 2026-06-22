@@ -11,3 +11,11 @@ function Test_LogicAnd()
 }
 
 NUnit.AddTest(Test_LogicAnd, "Operator '&&' tests");
+
+function Test_LogicAndShortCircuit()
+{
+	const value = null;
+	Assert.IsFalse(value != null && value.SomeProperty == 10, "Short-circuit evaluation should prevent null reference");
+}
+
+NUnit.AddTest(Test_LogicAndShortCircuit, "Operator '&&' short-circuit evaluation tests");
