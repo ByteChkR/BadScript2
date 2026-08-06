@@ -405,6 +405,10 @@ public static class BadNativeClassBuilder
     /// <exception cref="BadRuntimeException">Gets raised if the argument is invalid</exception>
     private static BadObject StringIsNullOrEmpty(BadExecutionContext ctx, BadObject[] arg)
     {
+        if(arg[0] == BadObject.Null)
+        {
+            return true;
+        }
         if (arg[0] is not IBadString str)
         {
             throw BadRuntimeException.Create(ctx.Scope, "Invalid Argument Type");
